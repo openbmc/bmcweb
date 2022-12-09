@@ -32,6 +32,8 @@
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 
+#include <vector>
+
 namespace redfish
 {
 
@@ -678,10 +680,20 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
     BMCWEB_LOG_DEBUG << "Get available system processor resources.";
 
     // GetSubTree on all interfaces which provide info about a Processor
-    crow::connections::systemBus->async_method_call(
+    const std::vector<std::string> interfaces = {
+        "xyz.openbmc_project.Common.UUID",
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "xyz.openbmc_project.Inventory.Decorator.Revision",
+        "xyz.openbmc_project.Inventory.Item.Cpu",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+        "xyz.openbmc_project.Inventory.Item.Accelerator",
+        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"};
+
+    auto respHandler =
         [resp, processorId, handler = std::forward<Handler>(handler)](
-            boost::system::error_code ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
@@ -726,20 +738,9 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
             return;
         }
         messages::resourceNotFound(resp->res, "Processor", processorId);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 8>{
-            "xyz.openbmc_project.Common.UUID",
-            "xyz.openbmc_project.Inventory.Decorator.Asset",
-            "xyz.openbmc_project.Inventory.Decorator.Revision",
-            "xyz.openbmc_project.Inventory.Item.Cpu",
-            "xyz.openbmc_project.Inventory.Decorator.LocationCode",
-            "xyz.openbmc_project.Inventory.Item.Accelerator",
-            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-            "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"});
+    };
+    dbus::utility::getSubTree("/xyz/openbmc_project/inventory", interfaces,
+                              std::move(respHandler));
 }
 
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -1134,9 +1135,9 @@ inline void requestRoutesOperatingConfig(App& app)
         }
         // Ask for all objects implementing OperatingConfig so we can search
         // for one with a matching name
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [asyncResp, cpuName, configName, reqUrl{req.url}](
-                boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
@@ -1169,13 +1170,12 @@ inline void requestRoutesOperatingConfig(App& app)
             }
             messages::resourceNotFound(asyncResp->res, "OperatingConfig",
                                        configName);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"});
+        };
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory",
+            std::vector<std::string>{
+                "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"},
+            std::move(respHandler));
         });
 }
 

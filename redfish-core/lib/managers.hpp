@@ -35,6 +35,7 @@
 #include <memory>
 #include <sstream>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -1191,9 +1192,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         std::shared_ptr<GetPIDValues> self = shared_from_this();
 
         // get all configurations
-        crow::connections::systemBus->async_method_call(
+        auto respAllConfigsHandler =
             [self](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
             if (ec)
             {
@@ -1202,18 +1203,18 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 return;
             }
             self->complete.subtree = subtreeLocal;
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
-            std::array<const char*, 4>{
+        };
+        dbus::utility::getSubTree(
+            "/",
+            std::vector<std::string>{
                 pidConfigurationIface, pidZoneConfigurationIface,
-                objectManagerIface, stepwiseConfigurationIface});
+                objectManagerIface, stepwiseConfigurationIface},
+            std::move(respAllConfigsHandler));
 
         // at the same time get the selected profile
-        crow::connections::systemBus->async_method_call(
+        auto respThermalModeHandler =
             [self](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
             if (ec || subtreeLocal.empty())
             {
@@ -1266,11 +1267,10 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 self->complete.currentProfile = *current;
                 self->complete.supportedProfiles = *supported;
                 });
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
-            std::array<const char*, 1>{thermalModeIface});
+        };
+        dbus::utility::getSubTree("/",
+                                  std::vector<std::string>{thermalModeIface},
+                                  std::move(respThermalModeHandler));
     }
 
     static void
@@ -1428,8 +1428,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             "GetManagedObjects");
 
         // at the same time get the profile information
-        crow::connections::systemBus->async_method_call(
-            [self](const boost::system::error_code ec,
+        auto respHandler =
+            [self](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec || subtree.empty())
             {
@@ -1481,11 +1481,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 self->profileConnection = owner;
                 self->profilePath = path;
                 });
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
-            std::array<const char*, 1>{thermalModeIface});
+        };
+        dbus::utility::getSubTree("/",
+                                  std::vector<std::string>{thermalModeIface},
+                                  std::move(respHandler));
     }
     void pidSetDone()
     {
@@ -2106,9 +2105,9 @@ inline void requestRoutesManager(App& app)
                 });
         }
 
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [asyncResp](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
@@ -2211,13 +2210,11 @@ inline void requestRoutesManager(App& app)
                     getLocation(asyncResp, connectionName, path);
                 }
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Bmc"});
+        };
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory",
+            std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Bmc"},
+            std::move(respHandler));
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")

@@ -352,13 +352,11 @@ void getObjectsWithConnection(
 {
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection enter";
     const std::string path = "/xyz/openbmc_project/sensors";
-    const std::array<std::string, 1> interfaces = {
-        "xyz.openbmc_project.Sensor.Value"};
 
     // Response handler for parsing objects subtree
     auto respHandler =
         [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
-         sensorNames](const boost::system::error_code ec,
+         sensorNames](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler enter";
         if (ec)
@@ -404,10 +402,9 @@ void getObjectsWithConnection(
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler exit";
     };
     // Make call to ObjectMapper to find all sensors objects
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2, interfaces);
+    dbus::utility::getSubTree(
+        path, std::vector<std::string>{"xyz.openbmc_project.Sensor.Value"},
+        std::move(respHandler), 2);
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection exit";
 }
 
@@ -973,9 +970,9 @@ inline void objectInterfacesToJson(
 inline void populateFanRedundancy(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [sensorsAsyncResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& resp) {
         if (ec)
         {
@@ -1142,13 +1139,11 @@ inline void populateFanRedundancy(
                     });
                 });
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/control", 2,
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Control.FanRedundancy"});
+    };
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/control",
+        std::vector<std::string>{"xyz.openbmc_project.Control.FanRedundancy"},
+        std::move(respHandler));
 }
 
 inline void
@@ -1518,7 +1513,7 @@ static void getInventoryItemsConnections(
     BMCWEB_LOG_DEBUG << "getInventoryItemsConnections enter";
 
     const std::string path = "/xyz/openbmc_project/inventory";
-    const std::array<std::string, 4> interfaces = {
+    const std::vector<std::string> interfaces = {
         "xyz.openbmc_project.Inventory.Item",
         "xyz.openbmc_project.Inventory.Item.PowerSupply",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
@@ -1528,7 +1523,7 @@ static void getInventoryItemsConnections(
     auto respHandler =
         [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
          inventoryItems](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler enter";
         if (ec)
@@ -1568,10 +1563,7 @@ static void getInventoryItemsConnections(
     };
 
     // Make call to ObjectMapper to find all inventory items
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+    dbus::utility::getSubTree(path, interfaces, std::move(respHandler));
     BMCWEB_LOG_DEBUG << "getInventoryItemsConnections exit";
 }
 
@@ -1864,14 +1856,14 @@ void getInventoryLeds(
     BMCWEB_LOG_DEBUG << "getInventoryLeds enter";
 
     const std::string path = "/xyz/openbmc_project";
-    const std::array<std::string, 1> interfaces = {
+    const std::vector<std::string> interfaces = {
         "xyz.openbmc_project.Led.Physical"};
 
     // Response handler for parsing output from GetSubTree
     auto respHandler =
         [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
          inventoryItems](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
         if (ec)
@@ -1910,10 +1902,7 @@ void getInventoryLeds(
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler exit";
     };
     // Make call to ObjectMapper to find all inventory items
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+    dbus::utility::getSubTree(path, interfaces, std::move(respHandler));
     BMCWEB_LOG_DEBUG << "getInventoryLeds exit";
 }
 
@@ -2041,14 +2030,14 @@ void getPowerSupplyAttributes(
         return;
     }
 
-    const std::array<std::string, 1> interfaces = {
+    const std::vector<std::string> interfaces = {
         "xyz.openbmc_project.Control.PowerSupplyAttributes"};
 
     // Response handler for parsing output from GetSubTree
     auto respHandler =
         [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
          inventoryItems](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
         if (ec)
@@ -2097,11 +2086,8 @@ void getPowerSupplyAttributes(
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler exit";
     };
     // Make call to ObjectMapper to find the PowerSupplyAttributes service
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project", 0, interfaces);
+    dbus::utility::getSubTree("/xyz/openbmc_project", interfaces,
+                              std::move(respHandler));
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes exit";
 }
 
