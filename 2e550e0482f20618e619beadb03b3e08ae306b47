@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0793f085_f69e6895",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T19:26:36Z",
+      "side": 1,
+      "message": "Overall this is shaping up to be a productive change.  I haven\u0027t reviewed the full patchset, because there are some systemic patterns we need to go through and fix, but overall, I\u0027m in support.",
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2590502c_634e7e72",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T19:26:36Z",
+      "side": 1,
+      "message": "Please don\u0027t use a default parameter here.  Fill in the parameter where it\u0027s needed.",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 21
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c3ed25_c115cd57",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T19:26:36Z",
+      "side": 1,
+      "message": "Please don\u0027t use inline lambdas like this, and especially don\u0027t convert an existing call to using inline lambdas.  Either leave it the way it is as an rvalue, or move it over to the new pattern of a normal method.",
+      "range": {
+        "startLine": 1645,
+        "startChar": 9,
+        "endLine": 1645,
+        "endChar": 20
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113b12d8_f2e7983b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T19:26:36Z",
+      "side": 1,
+      "message": "The old one was better.  Why did this change?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e77432f_71f7b799",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T19:26:36Z",
+      "side": 1,
+      "message": "If we\u0027re changing this, we should be moving to std::span\u003cconst std::string_view\u003e.",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89006d3_ed1efd2f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T19:26:36Z",
+      "side": 1,
+      "message": "Same as above.  Please don\u0027t move to lvalue lambdas.",
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
