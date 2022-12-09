@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4776da1_20a0f05a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001504
+      },
+      "writtenOn": "2022-12-09T23:56:57Z",
+      "side": 1,
+      "message": "Can we do the `ec` check inside the `callback` to align with the surrounding codes?",
+      "range": {
+        "startLine": 192,
+        "startChar": 12,
+        "endLine": 192,
+        "endChar": 14
+      },
+      "revId": "94a34ab0fd33ceb6ecb29c19015bcc8ab0d4e971",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb5cc27_e476191a",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001504
+      },
+      "writtenOn": "2022-12-09T23:56:57Z",
+      "side": 1,
+      "message": "Is it possible to just return and don\u0027t set the internal error if the `dbus::utility::MapperEndPoints` container is empty?",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "94a34ab0fd33ceb6ecb29c19015bcc8ab0d4e971",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
