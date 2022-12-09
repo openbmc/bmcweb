@@ -36,6 +36,7 @@
 #include "power.hpp"
 #include "power_subsystem.hpp"
 #include "processor.hpp"
+#include "redfish_app.hpp"
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
 #include "roles.hpp"
@@ -68,6 +69,7 @@ class RedfishService
      */
     explicit RedfishService(App& app)
     {
+        RedfishApp redfishApp(std::ref(app));
         requestAccountServiceRoutes(app);
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
@@ -89,7 +91,7 @@ class RedfishService
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
-        requestRoutesManagerDiagnosticData(app);
+        requestRoutesManagerDiagnosticData(redfishApp);
         requestRoutesChassisCollection(app);
         requestRoutesChassis(app);
         requestRoutesChassisResetAction(app);
