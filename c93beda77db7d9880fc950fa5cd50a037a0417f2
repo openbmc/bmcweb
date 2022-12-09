@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e9fa01e_f985f717",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-12-09T14:09:28Z",
+      "side": 1,
+      "message": "Hi Ed, \nPatch is working fine with this change but my concern is while patching the sensor Id, user has to remove the prefix of SensorType from \"Id\". Then only able to patch. \n\nExample: \nURL: PATCH: https://\u003cbmc-ip\u003e/redfish/v1/Chassis/\u003cBaseboard\u003e/Sensors/fantach_Fan_1\nBody while patching sensor value:\n{\n    \"Id\": \"fantach_Fan_1\",\n    \"Reading\": 13466.0\n}\nResponse:\n{\n    \"@odata.id\": \"/redfish/v1/Chassis/\u003cBaseboard\u003e/Sensors\",\n    \"@odata.type\": \"#SensorCollection.SensorCollection\",\n    \"Description\": \"Collection of Sensors for this Chassis\",\n    \"Members\": [],\n    \"Members@odata.count\": 0,\n    \"Name\": \"Sensors\",\n    \"error\": {\n        \"@Message.ExtendedInfo\": [\n            {\n                \"@odata.type\": \"#Message.v1_1_1.Message\",\n                \"Message\": \"The requested resource of type Reading named \u0027fantach_Fan_1\u0027 was not found.\",\n                \"MessageArgs\": [\n                    \"Reading\",\n                    \"fantach_Fan_1\"\n                ],\n                \"MessageId\": \"Base.1.13.0.ResourceNotFound\",\n                \"MessageSeverity\": \"Critical\",\n                \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n            }\n        ],\n        \"code\": \"Base.1.13.0.ResourceNotFound\",\n        \"message\": \"The requested resource of type Reading named \u0027fantach_Fan_1\u0027 was not found.\"\n    }\n}\n\n\nIf Sensortype removed from \"Id\", then only user is able to patch the sensor value.\n\nPATCH: https://\u003cbmc-ip\u003e/redfish/v1/Chassis/\u003cBaseboard\u003e/Sensors/fantach_Fan_1\nBody:\n{\n    \"Id\": \"Fan_1\",\n    \"Reading\": 13466.0\n}\n\nResponse:\n{\n    \"@odata.id\": \"/redfish/v1/Chassis/\u003cBaseboard\u003e/Sensors\",\n    \"@odata.type\": \"#SensorCollection.SensorCollection\",\n    \"Description\": \"Collection of Sensors for this Chassis\",\n    \"Members\": [],\n    \"Members@odata.count\": 0,\n    \"Name\": \"Sensors\"\n}\n\nSo should we need this prepending SensorType while using GET method? So User can directly use \"Id\" from GET method response to patch.",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
