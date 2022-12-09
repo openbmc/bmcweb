@@ -38,9 +38,19 @@ EDM = "{http://docs.oasis-open.org/odata/ns/edm}"
 
 seen_paths = set()
 
-
-def parse_node(target_entitytype, path, top_collections, found_top, xml_file):
+def parse_node(
+    target_entitytype, path, top_collections, found_top, xml_file, depth
+):
     filepath = os.path.join(REDFISH_SCHEMA_DIR, xml_file)
+
+    # Bail if we are attempting to open a schema we haven't pulled in.  This
+    # catches Swordfish schema files
+    if not os.path.exists(filepath):
+        return
+
+    print("\nxml file is: ", xml_file)
+    print("Path is: ", path)
+
     tree = ET.parse(filepath)
     root = tree.getroot()
 
@@ -58,7 +68,13 @@ def parse_node(target_entitytype, path, top_collections, found_top, xml_file):
             xml_map[namespace] = file
 
     parse_root(
-        root, target_entitytype, path, top_collections, found_top, xml_map
+        root,
+        target_entitytype,
+        path,
+        top_collections,
+        found_top,
+        xml_map,
+        depth,
     )
 
 
@@ -66,7 +82,7 @@ def parse_node(target_entitytype, path, top_collections, found_top, xml_file):
 # specific EntityType.  This is a separate routine so that we can rewalk the
 # current tree when a NavigationProperty Type links to the current file.
 def parse_root(
-    root, target_entitytype, path, top_collections, found_top, xml_map
+    root, target_entitytype, path, top_collections, found_top, xml_map, depth
 ):
     ds = root.find(EDMX + "DataServices")
     for schema in ds.findall(EDM + "Schema"):
@@ -83,6 +99,7 @@ def parse_root(
                     top_collections,
                     found_top,
                     xml_map,
+                    depth,
                 )
 
         # These ComplexType objects contain links to actual resources or
@@ -100,13 +117,21 @@ def parse_root(
                     top_collections,
                     found_top,
                     xml_map,
+                    depth,
                 )
 
 
 # Helper function which expects a NavigationProperty to be passed in.  We need
 # this because NavigationProperty appears under both EntityType and ComplexType
 def parse_navigation_property(
-    root, curr_entitytype, element, path, top_collections, found_top, xml_map
+    root,
+    curr_entitytype,
+    element,
+    path,
+    top_collections,
+    found_top,
+    xml_map,
+    depth,
 ):
     if element.tag != (EDM + "NavigationProperty"):
         return
@@ -121,7 +146,7 @@ def parse_navigation_property(
     # AccountService or SessionService
     nav_name = element.get("Name")
     if nav_name in ["JsonSchemas", "AccountService", "SessionService"]:
-        return
+        found_top = True
 
     nav_type = element.get("Type")
     if "Collection" in nav_type:
@@ -143,7 +168,9 @@ def parse_navigation_property(
                 path += "/" + nav_name
                 if path in seen_paths:
                     return
+                print("Path is: ", path)
                 seen_paths.add(path)
+                depth += 1
 
                 # Did we find the top level collection in the current path or
                 # did we previously find it?
@@ -193,11 +220,81 @@ def parse_navigation_property(
 
     # We need to specially handle certain URIs since the Name attribute from the
     # schema is not used as part of the path
-    # TODO: Expand this section to add special handling across the entirety of
-    # the Redfish tree
-    new_path2 = ""
+    seg_len = 0 - (len(new_path) - len(path) - 1)
+    new_seg = new_path[seg_len:]
+    print("new_seg is: ", new_seg)
+
     if new_path == "/redfish/v1/Tasks":
-        new_path2 = "/redfish/v1/TaskService"
+        new_path = "/redfish/v1/TaskService"
+
+    # These are "Property" instead of "NavigationProperty", but should still
+    # appear in the path
+    if new_seg == "AccountService":
+        parse_node(
+            "ExternalAccountProvider",
+            new_path + "/ActiveDirectory",
+            top_collections,
+            found_top,
+            xml_map[file_key],
+            depth + 2,
+        )
+        parse_node(
+            "ExternalAccountProvider",
+            new_path + "/LDAP",
+            top_collections,
+            found_top,
+            xml_map[file_key],
+            depth + 2,
+        )
+    elif new_seg == "RemoteAccountService":
+        parse_node(
+            "ExternalAccountProvider",
+            new_path + "/ActiveDirectory",
+            top_collections,
+            found_top,
+            xml_map[file_key],
+            depth + 2,
+        )
+        parse_node(
+            "ExternalAccountProvider",
+            new_path + "/LDAP",
+            top_collections,
+            found_top,
+            xml_map[file_key],
+            depth + 2,
+        )
+    elif new_seg == "{NetworkDeviceFunctionId}":
+        parse_node(
+            "Ethernet",
+            new_path + "/Ethernet",
+            top_collections,
+            found_top,
+            xml_map[file_key],
+            depth + 2,
+        )
+
+    # Other Properties treated this way are:
+    new_path2 = ""
+    if "ComputerSystems" in new_path:
+        new_path2 = new_path.replace("ComputerSystems", "Systems")
+
+    # For Metrics sometimes the TypeName from the Type attribute is used
+    # instead of the Name attribute
+    if new_seg == "Metrics":
+        if curr_entitytype in ["Processor", "Memory", "Switch"]:
+            new_path2 = path + "/" + nav_type_split[1]
+
+    elif new_seg == "RequestorVCAT":
+        new_path2 = path + "/" + "REQ-VCAT"
+
+    elif new_seg == "ResponderVCAT":
+        new_path2 = path + "/" + "RSP-VCAT"
+
+    elif new_seg == "AdditionalExternalAccountProviders":
+        new_path2 = path + "/" + "ExternalAccountProviders"
+
+    elif (new_seg == "Log") and (curr_entitytype == "Memory"):
+        new_path = path + "/" + "DeviceLog"
 
     # If we had to apply special handling then we need to remove the inital
     # version of the URI if it was previously added
@@ -211,20 +308,26 @@ def parse_navigation_property(
         return
     seen_paths.add(new_path)
 
-    # We can stop parsing if we've found a top level collection
-    # TODO: Don't return here when we want to walk the entire tree instead
-    if found_top:
-        return
-
     # If the namespace of the NavigationProperty's Type is not in our xml map
     # then that means it inherits from elsewhere in the current file
     if file_key in xml_map:
         parse_node(
-            typename, new_path, top_collections, found_top, xml_map[file_key]
+            typename,
+            new_path,
+            top_collections,
+            found_top,
+            xml_map[file_key],
+            depth + 1,
         )
     else:
         parse_root(
-            root, typename, new_path, top_collections, found_top, xml_map
+            root,
+            typename,
+            new_path,
+            top_collections,
+            found_top,
+            xml_map,
+            depth,
         )
 
 
@@ -249,11 +352,22 @@ def generate_top_collections():
     # Begin parsing from the Service Root
     curr_path = "/redfish/v1"
     seen_paths.add(curr_path)
+
+    # ServiceRoot_v1.xml also shows "/redfish/v1/" as an example
+    seen_paths.add(curr_path + "/")
     parse_node(
-        "ServiceRoot", curr_path, top_collections, False, "ServiceRoot_v1.xml"
+        "ServiceRoot",
+        curr_path,
+        top_collections,
+        False,
+        "ServiceRoot_v1.xml",
+        2,
     )
 
     print("Finished traversal!")
+    print("Printing all generated URIs:")
+    for path in sorted(seen_paths):
+        print("Generated path is: ", path)
 
     TOTAL = len(top_collections)
     with open(CPP_OUTFILE, "w") as hpp_file:

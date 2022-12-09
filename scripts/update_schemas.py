@@ -406,6 +406,6 @@ if os.path.exists(schema_path):
         filenamesplit = filename.split("/")
         name = filenamesplit.pop()
         namesplit = name.split("_")
-        if namesplit[0] not in include_list:
-            print("excluding schema: " + filename)
-            os.remove(filename)
+#        if namesplit[0] not in include_list:
+#            print("excluding schema: " + filename)
+#            os.remove(filename)
