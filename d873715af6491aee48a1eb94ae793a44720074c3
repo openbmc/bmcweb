@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da50332d_4ebc2b88",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-09T00:16:32Z",
+      "side": 1,
+      "message": "Partial review.  Every place we\u0027re using iter() we\u0027re iterating the entire XML tree, which can lead to problems where the CSDL schema isn\u0027t obeyed, but we still parse things appropriately.  Considering that we\u0027ll likely be parsing OEM schemas, I think we need to be explit when we iterate keys at each level, and make sure they\u0027re in the right thing.  These could use xpath, but that seems like overkill.  Just a simple for loop ladder seems fine.",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 33
+      },
+      "revId": "d873715af6491aee48a1eb94ae793a44720074c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
