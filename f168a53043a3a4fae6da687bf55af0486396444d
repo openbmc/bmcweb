@@ -18,6 +18,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e0c725_312c24ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-12-09T04:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d02809a2_731751e3",
+      "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4297f33f_a370fae8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-12-09T04:45:00Z",
+      "side": 1,
+      "message": "Hi Andrew,\nThank you for your review. I updated it. Please help review.",
+      "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c5ca73d_a01b5789",
@@ -31,6 +66,24 @@
       "writtenOn": "2022-11-30T20:59:40Z",
       "side": 1,
       "message": "Can only run this code (and fill in OemLastState) if LastState is OEM so should have a check here to read LastState.",
+      "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59890a1e_a9dcd232",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-12-09T04:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c5ca73d_a01b5789",
       "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a98a24f7_dfd1b16a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-12-09T04:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c47b479c_9661011a",
+      "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "670f53df_0006df7c",
@@ -65,6 +136,24 @@
       "writtenOn": "2022-11-30T20:59:40Z",
       "side": 1,
       "message": "Isn\u0027t there already a Redfish API to get the raw boot progress codes? Why not just use that instead of filling it into OemLastState? I think a bit more of a \"why\" in the commit message is needed here.",
+      "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "029de764_edc7026a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-12-09T04:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "670f53df_0006df7c",
       "revId": "f168a53043a3a4fae6da687bf55af0486396444d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
