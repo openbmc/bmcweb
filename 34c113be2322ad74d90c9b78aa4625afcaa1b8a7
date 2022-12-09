@@ -22,6 +22,30 @@
       },
       "revId": "34c113be2322ad74d90c9b78aa4625afcaa1b8a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6831e951_3eb4ffea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 69
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-12-09T19:51:42Z",
+      "side": 1,
+      "message": "We have a Google internal daemon which sets up associations between CPU\u003c-\u003eCORE which is what I used. I am not sure I understand the relation of this patch with CPUSensors, but I don\u0027t think there is another patch for CPUSensor association setup",
+      "parentUuid": "4fe983bd_d9cbe0c4",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "34c113be2322ad74d90c9b78aa4625afcaa1b8a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
