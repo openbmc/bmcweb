@@ -160,8 +160,6 @@ PRIVILEGE_HEADER = (
 
 #include <array>
 
-// clang-format off
-
 namespace redfish::privileges
 {
 """
@@ -210,9 +208,8 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
-        registry.write(
-            "} // namespace redfish::privileges\n// clang-format on\n"
-        )
+        registry.write("} // namespace redfish::privileges\n")
+    os.system("clang-format -i --style=file {}".format(path))
 
 
 def main():
