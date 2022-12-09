@@ -1486,7 +1486,7 @@ static void getInventoryItemsData(
         // Get all object paths and their interfaces for current connection
         crow::connections::systemBus->async_method_call(
             std::move(respHandler), invConnection,
-            "/xyz/openbmc_project/sensors",
+            "/xyz/openbmc_project/inventory",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
