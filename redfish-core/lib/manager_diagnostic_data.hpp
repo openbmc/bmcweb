@@ -5,6 +5,7 @@
 #include <http_request.hpp>
 #include <nlohmann/json.hpp>
 #include <privileges.hpp>
+#include <redfish_app.hpp>
 #include <routing.hpp>
 
 #include <string>
@@ -33,12 +34,13 @@ inline void handleManagerDiagnosticDataGet(
     asyncResp->res.jsonValue["Name"] = "Manager Diagnostic Data";
 }
 
-inline void requestRoutesManagerDiagnosticData(App& app)
+inline void requestRoutesManagerDiagnosticData(RedfishApp& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData")
+        .entityTag(redfish::privileges::EntityTag::tagManagerDiagnosticData)
         .privileges(redfish::privileges::getManagerDiagnosticData)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleManagerDiagnosticDataGet, std::ref(app.getBaseApp())));
 }
 
 } // namespace redfish
