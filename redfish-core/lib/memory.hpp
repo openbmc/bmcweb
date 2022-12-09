@@ -25,6 +25,7 @@
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -706,9 +707,13 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 2> dimmInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, dimmInterfaces,
         [dimmId, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -758,14 +763,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         aResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory/" + dimmId;
         return;
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 2>{
-            "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
+        });
 }
 
 inline void requestRoutesMemoryCollection(App& app)
