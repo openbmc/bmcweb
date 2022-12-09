@@ -8,6 +8,7 @@
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
@@ -98,22 +99,17 @@ inline void resolveRoT(const std::string& command,
                        const std::string& rotId,
                        ResolvedEntityHandler&& entityHandler)
 {
-
     constexpr std::array<std::string_view, 1> hothIfaces = {
         "xyz.openbmc_project.Control.Hoth"};
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project", 0, hothIfaces,
         [command, asyncResp, rotId,
          entityHandler{std::forward<ResolvedEntityHandler>(entityHandler)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         hothGetSubtreeCallback(command, asyncResp, rotId, entityHandler, ec,
                                subtree);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project",
-        /*depth=*/0, hothIfaces);
+        });
 }
 
 inline void populateRootOfTrustEntity(

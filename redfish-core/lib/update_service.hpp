@@ -24,6 +24,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -750,9 +751,17 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
             "/redfish/v1/UpdateService/FirmwareInventory";
         asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
 
-        crow::connections::systemBus->async_method_call(
+        // Note that only firmware levels associated with a device
+        // are stored under /xyz/openbmc_project/software therefore
+        // to ensure only real FirmwareInventory items are returned,
+        // this full object path must be used here as input to
+        // mapper
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Software.Version"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/software", 0, interfaces,
             [asyncResp](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
@@ -781,17 +790,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     members.size();
             }
-            },
-            // Note that only firmware levels associated with a device
-            // are stored under /xyz/openbmc_project/software therefore
-            // to ensure only real FirmwareInventory items are returned,
-            // this full object path must be used here as input to
-            // mapper
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
+            });
         });
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
@@ -911,9 +910,12 @@ inline void requestRoutesSoftwareInventory(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory/" + *swId;
 
-        crow::connections::systemBus->async_method_call(
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Software.Version"};
+        dbus::utility::getSubTree(
+            "/", 0, interfaces,
             [asyncResp,
-             swId](const boost::system::error_code ec,
+             swId](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
             BMCWEB_LOG_DEBUG << "doGet callback...";
             if (ec)
@@ -960,12 +962,7 @@ inline void requestRoutesSoftwareInventory(App& app)
 
             asyncResp->res.jsonValue["Updateable"] = false;
             sw_util::getSwUpdatableStatus(asyncResp, swId);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
-            static_cast<int32_t>(0),
-            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
+            });
         });
 }
 

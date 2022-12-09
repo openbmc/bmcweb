@@ -25,9 +25,12 @@
 #include "utils/json_utils.hpp"
 #include "utils/stl_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 
+#include <array>
 #include <optional>
+#include <string_view>
 #include <variant>
 
 namespace redfish
@@ -320,7 +323,10 @@ inline void
     // Any remaining array elements should be removed
     currentNtpServers.erase(currentNtpServer, currentNtpServers.end());
 
-    auto respHandler =
+    constexpr std::array<std::string_view, 1> ethInterfaces = {
+        "xyz.openbmc_project.Network.EthernetInterface"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project", 0, ethInterfaces,
         [asyncResp, currentNtpServers](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -357,12 +363,7 @@ inline void
                 }
             }
         }
-    };
-
-    std::vector<std::string> interfaces = {
-        "xyz.openbmc_project.Network.EthernetInterface"};
-    dbus::utility::getSubTree("/xyz/openbmc_project", interfaces,
-                              std::move(respHandler));
+        });
 }
 
 inline void
@@ -370,7 +371,10 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& netBasePath)
 {
-    auto respHandler =
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Service.Attributes"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/control/service", 0, interfaces,
         [protocolEnabled, asyncResp,
          netBasePath](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -411,12 +415,7 @@ inline void
                     dbus::utility::DbusVariantType{protocolEnabled});
             }
         }
-    };
-
-    std::vector<std::string> interfaces = {
-        "xyz.openbmc_project.Control.Service.Attributes"};
-    dbus::utility::getSubTree("/xyz/openbmc_project/control/service",
-                              interfaces, std::move(respHandler));
+        });
 }
 
 inline std::string getHostName()

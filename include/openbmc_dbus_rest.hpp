@@ -34,6 +34,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -1660,9 +1661,10 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["status"] = "ok";
     asyncResp->res.jsonValue["data"] = nlohmann::json::object();
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTree(
+        objectPath, 0, {},
         [objectPath, asyncResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& objectNames) {
         auto transaction =
             std::make_shared<InProgressEnumerateData>(objectPath, asyncResp);
@@ -1684,11 +1686,7 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Add the data for the path passed in to the results
         // as if GetSubTree returned it, and continue on enumerating
         getObjectAndEnumerate(transaction);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", objectPath, 0,
-        std::array<const char*, 0>());
+        });
 }
 
 inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

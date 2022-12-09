@@ -5,11 +5,14 @@
 #include "generated/enums/resource.hpp"
 #include "utils/dbus_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
+#include <array>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish
@@ -85,10 +88,13 @@ inline void
             functionalSwIds.push_back(leaf);
         }
 
-        crow::connections::systemBus->async_method_call(
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Software.Version"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/software", 0, interfaces,
             [aResp, swVersionPurpose, activeVersionPropName,
              populateLinkToImages, functionalSwIds](
-                const boost::system::error_code ec2,
+                const boost::system::error_code& ec2,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec2)
             {
@@ -219,12 +225,7 @@ inline void
                     }
                     });
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
+            });
         });
 }
 
