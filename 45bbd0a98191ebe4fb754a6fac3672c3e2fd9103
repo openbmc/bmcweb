@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "077ea213_75f5ccea",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-09T02:31:11Z",
+      "side": 1,
+      "message": "Actually I can\u0027t completely remove this because then I get clang failures due to defining but not using \"std::array topCollections\".",
+      "parentUuid": "dfcf8953_06ef103d",
+      "revId": "45bbd0a98191ebe4fb754a6fac3672c3e2fd9103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "283c7d1b_2c583f33",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 28
