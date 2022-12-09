@@ -157,6 +157,7 @@ add_project_arguments(
     '-Wno-used-but-marked-unused',
     '-Wno-weak-vtables',
     '-Wno-switch-enum',
+    '-fconstexpr-steps=2000000',
   ]),
   language:'cpp')
 endif
@@ -361,6 +362,7 @@ srcfiles_unittest = files(
   'test/http/utility_test.cpp',
   'test/http/verb_test.cpp',
   'test/include/dbus_utility_test.cpp',
+  'test/include/entity_type_uris_registry_test.cpp',
   'test/include/google/google_service_root_test.cpp',
   'test/include/http_utility_test.cpp',
   'test/include/human_sort_test.cpp',
