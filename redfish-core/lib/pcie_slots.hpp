@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_slot.hpp"
 #include "pcie.hpp"
@@ -9,8 +10,12 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+
+#include <array>
+#include <string_view>
 
 namespace redfish
 {
@@ -259,18 +264,15 @@ inline void handlePCIeSlotCollectionGet(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp,
-         chassisID](const boost::system::error_code ec,
+         chassisID](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         onMapperSubtreeDone(asyncResp, chassisID, ec, subtree);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Inventory.Item.PCIeSlot"});
+        });
 }
 
 inline void requestRoutesPCIeSlots(App& app)

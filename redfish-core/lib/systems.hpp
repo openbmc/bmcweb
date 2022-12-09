@@ -30,6 +30,7 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -241,10 +242,17 @@ inline void
                       const std::shared_ptr<HealthPopulate>& systemHealth)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
-
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 5> interfaces = {
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "xyz.openbmc_project.Inventory.Item.Cpu",
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.System",
+        "xyz.openbmc_project.Common.UUID",
+    };
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [aResp,
-         systemHealth](const boost::system::error_code ec,
+         systemHealth](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -524,17 +532,6 @@ inline void
                 break;
             }
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char*, 5>{
-            "xyz.openbmc_project.Inventory.Decorator.Asset",
-            "xyz.openbmc_project.Inventory.Item.Cpu",
-            "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.System",
-            "xyz.openbmc_project.Common.UUID",
         });
 }
 
@@ -1271,9 +1268,11 @@ inline void getTrustedModuleRequiredToBoot(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get TPM required to boot.";
-
-    crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec,
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.TPM.Policy"};
+    dbus::utility::getSubTree(
+        "/", 0, interfaces,
+        [aResp](const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -1337,11 +1336,7 @@ inline void getTrustedModuleRequiredToBoot(
                     "Disabled";
             }
             });
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        std::array<const char*, 1>{"xyz.openbmc_project.Control.TPM.Policy"});
+        });
 }
 
 /**
@@ -1357,10 +1352,13 @@ inline void setTrustedModuleRequiredToBoot(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp, const bool tpmRequired)
 {
     BMCWEB_LOG_DEBUG << "Set TrustedModuleRequiredToBoot.";
-
-    crow::connections::systemBus->async_method_call(
-        [aResp, tpmRequired](const boost::system::error_code ec,
-                             dbus::utility::MapperGetSubTreeResponse& subtree) {
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.TPM.Policy"};
+    dbus::utility::getSubTree(
+        "/", 0, interfaces,
+        [aResp,
+         tpmRequired](const boost::system::error_code& ec,
+                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error on TPM.Policy GetSubTree"
@@ -1421,11 +1419,7 @@ inline void setTrustedModuleRequiredToBoot(
             serv, path, "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
             dbus::utility::DbusVariantType(tpmRequired));
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        std::array<const char*, 1>{"xyz.openbmc_project.Control.TPM.Policy"});
+        });
 }
 
 /**
@@ -1685,9 +1679,12 @@ inline void setBootProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                         const std::string& assetTag)
 {
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.System"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [aResp,
-         assetTag](const boost::system::error_code ec,
+         assetTag](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -1739,13 +1736,7 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             service, path, "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
             dbus::utility::DbusVariantType(assetTag));
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Inventory.Item.System"});
+        });
 }
 
 /**
@@ -1965,8 +1956,11 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
     BMCWEB_LOG_DEBUG << "Get power mode.";
 
     // Get Power Mode object path:
-    crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec,
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.Mode"};
+    dbus::utility::getSubTree(
+        "/", 0, interfaces,
+        [aResp](const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -2026,11 +2020,7 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
             BMCWEB_LOG_DEBUG << "Current power mode: " << pmode;
             translatePowerMode(aResp, pmode);
             });
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        std::array<const char*, 1>{"xyz.openbmc_project.Control.Power.Mode"});
+        });
 }
 
 /**
@@ -2088,9 +2078,12 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 
     // Get Power Mode object path:
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.Mode"};
+    dbus::utility::getSubTree(
+        "/", 0, interfaces,
         [aResp,
-         powerMode](const boost::system::error_code ec,
+         powerMode](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -2147,11 +2140,7 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             service, path, "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
             dbus::utility::DbusVariantType(powerMode));
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        std::array<const char*, 1>{"xyz.openbmc_project.Control.Power.Mode"});
+        });
 }
 
 /**
@@ -2419,8 +2408,11 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
     BMCWEB_LOG_DEBUG << "Get idle power saver parameters";
 
     // Get IdlePowerSaver object path:
-    crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec,
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.IdlePowerSaver"};
+    dbus::utility::getSubTree(
+        "/", 0, interfaces,
+        [aResp](const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -2482,12 +2474,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 return;
             }
             });
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Control.Power.IdlePowerSaver"});
+        });
 
     BMCWEB_LOG_DEBUG << "EXIT: Get idle power saver parameters";
 }
@@ -2517,9 +2504,12 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Set idle power saver properties";
 
     // Get IdlePowerSaver object path:
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.IdlePowerSaver"};
+    dbus::utility::getSubTree(
+        "/", 0, interfaces,
         [aResp, ipsEnable, ipsEnterUtil, ipsEnterTime, ipsExitUtil,
-         ipsExitTime](const boost::system::error_code ec,
+         ipsExitTime](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -2647,12 +2637,7 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 "ExitDwellTime",
                 dbus::utility::DbusVariantType(timeMilliseconds));
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Control.Power.IdlePowerSaver"});
+        });
 
     BMCWEB_LOG_DEBUG << "EXIT: Set idle power saver parameters";
 }

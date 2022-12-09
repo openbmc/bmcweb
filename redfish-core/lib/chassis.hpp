@@ -25,6 +25,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -109,9 +110,12 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
  */
 inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Chassis.Intrusion"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/Intrusion", 1, interfaces,
         [aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -129,12 +133,7 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
                 return;
             }
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/Intrusion", 1,
-        std::array<const char*, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
+        });
 }
 
 inline void handleChassisCollectionGet(
@@ -219,13 +218,14 @@ inline void
     {
         return;
     }
-    const std::array<const char*, 2> interfaces = {
+    constexpr std::array<std::string_view, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, chassisId(std::string(chassisId))](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -454,11 +454,7 @@ inline void
 
         // Couldn't find an object with that name.  return an error
         messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0, interfaces);
+        });
 
     getPhysicalSecurityData(asyncResp);
 }
@@ -499,13 +495,14 @@ inline void
             "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
     }
 
-    const std::array<const char*, 2> interfaces = {
+    constexpr std::array<std::string_view, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     const std::string& chassisId = param;
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, chassisId, locationIndicatorActive,
          indicatorLed](const boost::system::error_code ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -581,11 +578,7 @@ inline void
         }
 
         messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0, interfaces);
+        });
 }
 
 /**
