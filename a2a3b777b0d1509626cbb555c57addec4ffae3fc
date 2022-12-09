@@ -70,6 +70,24 @@
       "parentUuid": "e7d55791_52d35886",
       "revId": "a2a3b777b0d1509626cbb555c57addec4ffae3fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78052e4b_44be47ce",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-12-09T00:03:44Z",
+      "side": 1,
+      "message": "Isn\u0027t parent path one level? I\u0027m basically asking for implementing `path_namespace\u003d/xyz/openbmc_project/network/eth1` so that anything under the adapter works even if it\u0027s 2 levels.",
+      "parentUuid": "0a4c431c_2b3ac1f5",
+      "revId": "a2a3b777b0d1509626cbb555c57addec4ffae3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
