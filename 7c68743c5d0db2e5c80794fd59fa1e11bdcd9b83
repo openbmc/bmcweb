@@ -368,6 +368,24 @@
       "parentUuid": "06fe6abe_9ec43153",
       "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4540d07b_3107186e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-09T02:01:22Z",
+      "side": 1,
+      "message": "From this discord, since this is a separate interface, we are good here",
+      "parentUuid": "8e632a59_c7130f56",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
