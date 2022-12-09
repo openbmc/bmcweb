@@ -1,10 +1,14 @@
 #pragma once
-#include <dbus_utility.hpp>
+
+#include "dbus_utility.hpp"
+
 #include <query.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+
+#include <array>
 
 namespace redfish
 {
@@ -113,9 +117,12 @@ inline void requestRoutesCable(App& app)
             return;
         }
         BMCWEB_LOG_DEBUG << "Cable Id: " << cableId;
-        auto respHandler =
+        std::array<const char*, 1> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Cable"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory", 0, interfaces,
             [asyncResp,
-             cableId](const boost::system::error_code ec,
+             cableId](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec.value() == EBADR)
             {
@@ -148,15 +155,7 @@ inline void requestRoutesCable(App& app)
                 return;
             }
             messages::resourceNotFound(asyncResp->res, "Cable", cableId);
-        };
-
-        crow::connections::systemBus->async_method_call(
-            respHandler, "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Cable"});
+            });
         });
 }
 
