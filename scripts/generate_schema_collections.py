@@ -35,9 +35,29 @@ CPP_OUTFILE = os.path.realpath(
 EDMX = "{http://docs.oasis-open.org/odata/ns/edmx}"
 EDM = "{http://docs.oasis-open.org/odata/ns/edm}"
 
+seen_paths = set()
 
-def parse_node(path, top_collections, xml_file):
+def parse_node(path, top_collections, found_top, xml_file, depth):
     filepath = os.path.join(REDFISH_SCHEMA_DIR, xml_file)
+
+    # Bail if we are attempting to open a schema we haven't pulled in
+    if (not os.path.exists(filepath)):
+        return
+
+    # No need to parse this node again
+    if (path in seen_paths):
+        return
+
+    print("\nxml file is: ", xml_file)
+    print("Path is: ", path)
+    is_not_collection = not "Collection" in xml_file
+
+    # We need to specially handle certain URIs since the Name attribute from the
+    # schema is not used as part of the path
+    if (path == "/redfish/v1/Tasks"):
+        path = "/redfish/v1/TaskService"
+
+    seen_paths.add(path)
     tree = ET.parse(filepath)
     root = tree.getroot()
 
@@ -54,23 +74,45 @@ def parse_node(path, top_collections, xml_file):
                 continue
             xml_map[namespace] = file
 
+    # I can't just parse all EntityTypes!  I need to find the ones corresponding
+    # to what I'm currently looking at and then search their navigation
+    # properties.  Make sure Name of each EntityType is a match.
+    #
+    # When I parse to a Type=Collection() I need to determine if it's locally
+    # defined or defined in a separate file
+
     ds = root.find(EDMX + "DataServices")
     for schema in ds.findall(EDM + "Schema"):
         for entity_type in schema.findall(EDM + "EntityType"):
             for nav_prop in entity_type.findall(EDM + "NavigationProperty"):
                 parse_navigation_property(nav_prop, path, top_collections,
-                                          xml_map)
+                                          found_top, xml_map, depth,
+                                          is_not_collection)
+
+        # These ComplexType objects contain links to actual collections
         for complex_type in schema.findall(EDM + "ComplexType"):
+            name = complex_type.get("Name")
+            if ((name != "GenZ") and (name != "Boot") and (name != "Ethernet")):
+                continue
             for nav_prop in complex_type.findall(EDM + "NavigationProperty"):
                 parse_navigation_property(nav_prop, path, top_collections,
-                                          xml_map)
+                                          found_top, xml_map, depth,
+                                          is_not_collection)
 
 
 # Helper function which expects a NavigationProperty to be passed in.  We need
 # this because NavigationProperty appears under both EntityType and ComplexType
-def parse_navigation_property(element, path, top_collections, xml_map):
+def parse_navigation_property(element, path, top_collections, found_top,
+                              xml_map, depth, not_in_collection):
     if (element.tag != (EDM + "NavigationProperty")):
         return
+
+    # We don't want to actually parse this property if it's just an excerpt
+    for annotation in element.findall(EDM + "Annotation"):
+        term = annotation.get("Term")
+        if ((term == "Redfish.ExcerptCopy")):
+            print("Not so fast my friend")
+            return
 
     # We don't want to aggregate JsonSchemas as well as anything under
     # AccountService or SessionService
@@ -78,24 +120,96 @@ def parse_navigation_property(element, path, top_collections, xml_map):
     if ((nav_name == "JsonSchemas") or
             (nav_name == "AccountService") or
             (nav_name == "SessionService")):
-        return
+        found_top = True
 
     # ServiceRoot links to Sessions which we aren't going to aggregate
-    if (nav_name == "Sessions"):
-        return
+#    if (nav_name == "Sessions"):
+#        found_top = True
 
     nav_type_split = element.get("Type").split(".")
     if (nav_type_split[0].endswith("Collection") or
             nav_type_split[0].startswith("Collection")):
-        new_path = path + "/" + nav_name
-        top_collections.add(new_path)
-        print("Added top level collection: " + new_path)
+
+        # We contain a collection array instead of link to a collection
+        if (nav_type_split[0].startswith("Collection")):
+
+            # If we contain a collection array then we don't want to keep
+            # parsing unless we're actually a resource collection
+            if (not_in_collection):
+                #return
+                # TODO: Instead we should add the array name to the path and then
+                # proceed normally
+                path += "/" + nav_name
+                seen_paths.add(path)
+                print("Intermediate path is: " + path)
+
+            # nav_type should be of the form "Collection(<resource>.<resource>)"
+            file_key = nav_type_split[0].split("(")[1]
+            if (file_key != nav_type_split[1].split(")")[0]):
+                return
+
+            prev_count = path.count(file_key + "Id")
+            if (prev_count):
+                new_path = (path + "/{" + file_key + "Id" + str(prev_count+1)
+                            + "}")
+            else:
+                new_path = path + "/{" + file_key + "Id}"
+        else:
+            # Escape if we've found a circular dependency like SubProcessors
+            if (path.count(nav_name) >= 2):
+                return
+
+            file_key = nav_type_split[0]
+            new_path = path + "/" + nav_name
+
+        # Did we find the top level collection in the current path or did we
+        # previously find it?
+        if (not found_top):
+            top_collections.add(new_path)
+            found_top = True
+#            print("Added top level collection: " + new_path)
     else:
         # Traverse the children until we hit top level collection or
         # run out of nodes in the path
-        new_path = path + "/" + nav_type_split[0]
-        parse_node(new_path, top_collections,
-                   xml_map[nav_type_split[0]])
+
+        # Bail if we've found a circular dependency like MetricReport
+        #if (path.count(nav_type_split[0])):
+        if (path.count(nav_name)):
+            return
+
+        #new_path = path + "/" + nav_type_split[0]
+        new_path = path + "/" + nav_name
+        file_key = nav_type_split[0]
+
+    # Stop walking the tree if we've hit a circular dependency
+    if (file_key == "Resource"):
+        return
+    if ((file_key == "Resource") and path.endswith("Resource")):
+        print("Don't go in circles!!!!!!!!")
+        return
+
+    # A sensor will only appear under a Sensors collection
+    if ((file_key == "Sensor") and (not path.endswith("Sensors"))):
+        print("Skip this sensor!")
+        return
+
+    # A control will only appear under a Controls collection
+    if ((file_key == "Control") and (not path.endswith("Controls"))):
+        print("Skip this control!")
+        return
+
+    # We need to specially handle certain URIs since the Name attribute from the
+    # schema is not used as part of the path
+    if (new_path == "/redfish/v1/Tasks"):
+        new_path = "/redfish/v1/TaskService"
+
+    seg_len = 0 - (len(new_path) - len(path) - 1)
+    new_seg = new_path[seg_len:]
+    print("new_seg is: ", new_seg)
+
+    # Keep walking the Redfish tree
+    parse_node(new_path, top_collections, found_top, xml_map[file_key],
+               depth+1)
 
 
 def main():
@@ -118,7 +232,7 @@ def main():
 
     # Begin parsing from the Service Root
     curr_path = "/redfish/v1"
-    parse_node(curr_path, top_collections, "ServiceRoot_v1.xml")
+    parse_node(curr_path, top_collections, False, "ServiceRoot_v1.xml", 2)
 
     print("Finished traversal!")
 
