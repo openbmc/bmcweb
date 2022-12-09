@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2d7a4d_ec856320",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-12-09T19:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ec0258_7c6ee922",
+      "range": {
+        "startLine": 94,
+        "startChar": 28,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac590881_945ff2c5",
@@ -87,6 +111,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bd7be67_cfca0c14",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-12-09T19:51:02Z",
+      "side": 1,
+      "message": "Apologies for the confusion. This is a callback function to be passed to dbus::utility::getSubTreePaths() and it does set a response. Updated the API name",
+      "parentUuid": "aa952a3c_5b3c37c2",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 43
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e172123_395cfeba",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-12-09T19:51:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ac590881_945ff2c5",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 43
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c55010e_9e11c384",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-12-08T00:15:55Z",
       "side": 1,
       "message": "prefer const string reference over pointer.",
+      "range": {
+        "startLine": 171,
+        "startChar": 42,
+        "endLine": 171,
+        "endChar": 53
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8d8814_e480cf02",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-12-09T19:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c55010e_9e11c384",
       "range": {
         "startLine": 171,
         "startChar": 42,
