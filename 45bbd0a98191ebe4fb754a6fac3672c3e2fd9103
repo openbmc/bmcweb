@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba567ab4_eaeb72a5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-09T17:21:52Z",
+      "side": 1,
+      "message": "Marking resolved after changing this section to iterate over the entire array.  Please refer to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215/comments/8e897546_ccdc8906 if you have concerns about that approach.",
+      "parentUuid": "077ea213_75f5ccea",
+      "revId": "45bbd0a98191ebe4fb754a6fac3672c3e2fd9103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "283c7d1b_2c583f33",
@@ -91,6 +109,30 @@
       "side": 1,
       "message": "Then should we keep all of the xml files as well as generate the equivalent json files?",
       "parentUuid": "283c7d1b_2c583f33",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 54
+      },
+      "revId": "45bbd0a98191ebe4fb754a6fac3672c3e2fd9103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52911e21_fc043b4f",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 28
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-09T17:21:52Z",
+      "side": 1,
+      "message": "The question of filtering out schemas in general has been posed to the community at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59517.\n\nFor aggregation purposes I think we need to pull in all schemas since we are not aggregating schemas and it\u0027s possible that a satellite BMC will support a resource that isn\u0027t supported by the aggregating BMC.",
+      "parentUuid": "d782145b_5d6d83f5",
       "range": {
         "startLine": 403,
         "startChar": 0,

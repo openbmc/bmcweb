@@ -144,6 +144,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb8314d_3d31f515",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-09T17:21:52Z",
+      "side": 1,
+      "message": "I went ahead and made the change to iterating over the entire array so that it doesn\u0027t get optimized out.  This will be removed later anyway and I have to use the std::array in some way to prevent clang errors.  Please reopen this thread if you\u0027d prefer I don\u0027t iterate over the array.",
+      "parentUuid": "8c8fce24_081f6a46",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5700d76_8adeb5f7",
