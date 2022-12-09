@@ -156,6 +156,11 @@ class App
         return router.getRoutes(parent);
     }
 
+    Router& getRouter()
+    {
+        return router;
+    }
+
 #ifdef BMCWEB_ENABLE_SSL
     App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
     {

@@ -1117,6 +1117,11 @@ class Router
         return *ptr;
     }
 
+    void addNewRule(std::unique_ptr<BaseRule> rulePtr)
+    {
+        allRules.emplace_back(std::move(rulePtr));
+    }
+
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
         if (ruleObject == nullptr)
