@@ -1,8 +1,9 @@
 #pragma once
 
+#include "dbus_utility.hpp"
+
 #include <app.hpp>
 #include <async_resp.hpp>
-#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <nlohmann/json.hpp>
 #include <utils/collection.hpp>
@@ -93,22 +94,18 @@ inline void resolveRoT(const std::string& command,
                        const std::string& rotId,
                        ResolvedEntityHandler&& entityHandler)
 {
-
-    std::array<std::string, 1> hothIfaces = {
-        "xyz.openbmc_project.Control.Hoth"};
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [command, asyncResp, rotId,
          entityHandler{std::forward<ResolvedEntityHandler>(entityHandler)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         hothGetSubtreeCallback(command, asyncResp, rotId, entityHandler, ec,
                                subtree);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+    };
+    dbus::utility::getSubTree(
         "/xyz/openbmc_project",
-        /*depth=*/0, hothIfaces);
+        std::vector<std::string>{"xyz.openbmc_project.Control.Hoth"},
+        std::move(respHandler));
 }
 
 inline void populateRootOfTrustEntity(

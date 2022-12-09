@@ -1672,9 +1672,9 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["status"] = "ok";
     asyncResp->res.jsonValue["data"] = nlohmann::json::object();
 
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [objectPath, asyncResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& objectNames) {
         auto transaction =
             std::make_shared<InProgressEnumerateData>(objectPath, asyncResp);
@@ -1696,11 +1696,9 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Add the data for the path passed in to the results
         // as if GetSubTree returned it, and continue on enumerating
         getObjectAndEnumerate(transaction);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", objectPath, 0,
-        std::array<const char*, 0>());
+    };
+    dbus::utility::getSubTree(objectPath, std::vector<std::string>{},
+                              std::move(respHandler));
 }
 
 inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

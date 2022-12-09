@@ -16,10 +16,12 @@
 #pragma once
 #ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 
-#include <dbus_utility.hpp>
+#include "dbus_utility.hpp"
+
 #include <sdbusplus/asio/property.hpp>
 
 #include <charconv>
+#include <vector>
 
 namespace redfish
 {
@@ -57,9 +59,9 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
 {
     // Find managed chassis
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [callback,
-         asyncResp](const boost::system::error_code ec,
+         asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -83,14 +85,12 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         std::string chassisId = subtree[0].first.substr(idPos + 1);
         BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
         callback(chassisId, asyncResp);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 2>{
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis"});
+    };
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory",
+        std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Board",
+                                 "xyz.openbmc_project.Inventory.Item.Chassis"},
+        std::move(respHandler));
 }
 
 template <typename CallbackFunc>

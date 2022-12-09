@@ -1,5 +1,6 @@
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_slot.hpp"
 #include "utility.hpp"
@@ -259,18 +260,16 @@ inline void handlePCIeSlotCollectionGet(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp,
-         chassisID](const boost::system::error_code ec,
+         chassisID](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         onMapperSubtreeDone(asyncResp, chassisID, ec, subtree);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Inventory.Item.PCIeSlot"});
+    };
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory",
+        std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.PCIeSlot"},
+        std::move(respHandler));
 }
 
 inline void requestRoutesPCIeSlots(App& app)

@@ -26,6 +26,8 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 
+#include <vector>
+
 namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
@@ -111,9 +113,9 @@ inline void
     getStorageControllers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::shared_ptr<HealthPopulate>& health)
 {
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp,
-         health](const boost::system::error_code ec,
+         health](const boost::system::error_code& ec,
                  const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec || subtree.empty())
         {
@@ -245,13 +247,12 @@ inline void
             health->children.emplace_back(subHealth);
             count++;
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Inventory.Item.StorageController"});
+    };
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory",
+        std::vector<std::string>{
+            "xyz.openbmc_project.Inventory.Item.StorageController"},
+        std::move(respHandler));
 }
 
 inline void requestRoutesStorage(App& app)
@@ -570,9 +571,9 @@ inline void requestRoutesDrive(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [asyncResp,
-             driveId](const boost::system::error_code ec,
+             driveId](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
@@ -630,13 +631,12 @@ inline void requestRoutesDrive(App& app)
 
             addAllDriveInfo(asyncResp, connectionNames[0].first, path,
                             connectionNames[0].second);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Drive"});
+        };
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory",
+            std::vector<std::string>{
+                "xyz.openbmc_project.Inventory.Item.Drive"},
+            std::move(respHandler));
         });
 }
 
@@ -655,9 +655,9 @@ inline void chassisDriveCollectionGet(
     }
 
     // mapper call lambda
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp,
-         chassisId](const boost::system::error_code ec,
+         chassisId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -731,14 +731,12 @@ inline void chassisDriveCollectionGet(
                 }); // end association lambda
 
         } // end Iterate over all retrieved ObjectPaths
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 2>{
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis"});
+    };
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory",
+        std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Board",
+                                 "xyz.openbmc_project.Inventory.Item.Chassis"},
+        std::move(respHandler));
 }
 
 inline void requestRoutesChassisDrive(App& app)
@@ -813,19 +811,16 @@ inline void
             continue;
         }
         //  mapper call drive
-        const std::array<const char*, 1> driveInterface = {
+        const std::vector<std::string> driveInterface = {
             "xyz.openbmc_project.Inventory.Item.Drive"};
-
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [asyncResp, chassisId, driveName](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             buildDrive(asyncResp, chassisId, driveName, ec, subtree);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", 0, driveInterface);
+        };
+        dbus::utility::getSubTree("/xyz/openbmc_project/inventory",
+                                  driveInterface, std::move(respHandler));
     }
 }
 
@@ -839,14 +834,14 @@ inline void
     {
         return;
     }
-    const std::array<const char*, 2> interfaces = {
+    const std::vector<std::string> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     // mapper call chassis
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp, chassisId,
-         driveName](const boost::system::error_code ec,
+         driveName](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -884,11 +879,9 @@ inline void
                 });
             break;
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", 0, interfaces);
+    };
+    dbus::utility::getSubTree("/xyz/openbmc_project/inventory", interfaces,
+                              std::move(respHandler));
 }
 
 /**

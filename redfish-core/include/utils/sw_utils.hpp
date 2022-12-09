@@ -1,6 +1,7 @@
 #pragma once
+#include "dbus_utility.hpp"
+
 #include <async_resp.hpp>
-#include <dbus_utility.hpp>
 #include <generated/enums/resource.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -83,10 +84,10 @@ inline void
             functionalSwIds.push_back(leaf);
         }
 
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [aResp, swVersionPurpose, activeVersionPropName,
              populateLinkToImages, functionalSwIds](
-                const boost::system::error_code ec2,
+                const boost::system::error_code& ec2,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec2)
             {
@@ -217,12 +218,11 @@ inline void
                     }
                     });
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
+        };
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/software",
+            std::vector<std::string>{"xyz.openbmc_project.Software.Version"},
+            std::move(respHandler));
         });
 }
 

@@ -143,9 +143,10 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
 }
 
 inline void
-    getSubTree(const std::string& path, std::span<std::string> interfaces,
+    getSubTree(const std::string& path, std::span<const std::string> interfaces,
                std::function<void(const boost::system::error_code&,
-                                  const MapperGetSubTreeResponse&)>&& callback)
+                                  const MapperGetSubTreeResponse&)>&& callback,
+               int32_t depth = 0)
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
@@ -153,7 +154,8 @@ inline void
             const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, depth,
+        interfaces);
 }
 
 inline void getSubTreePaths(
