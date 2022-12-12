@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38c35e80_0181c732",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2022-12-12T07:32:49Z",
+      "side": 1,
+      "message": "James Feist has done the changes before, but he seems to have left the organization.",
+      "parentUuid": "a8628b6a_41db4117",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "7616de3fc2ed95e68eef7855c0659dcc97807c65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e576542_49c0e04d",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae9edab8_a7108ef9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2022-12-12T07:32:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e576542_49c0e04d",
+      "revId": "7616de3fc2ed95e68eef7855c0659dcc97807c65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d650d9f_80983912",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-11-17T17:13:46Z",
       "side": 1,
       "message": "please clean up",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 6
+      },
+      "revId": "7616de3fc2ed95e68eef7855c0659dcc97807c65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44eb3b3b_7e7478d4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2022-12-12T07:32:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d650d9f_80983912",
       "range": {
         "startLine": 208,
         "startChar": 0,
