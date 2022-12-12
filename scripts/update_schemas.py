@@ -6,8 +6,8 @@ import zipfile
 from collections import OrderedDict, defaultdict
 from io import BytesIO
 
-import requests
 import generate_schema_enums
+import requests
 
 VERSION = "DSP8010_2022.2"
 
@@ -165,12 +165,12 @@ zip_ref = zipfile.ZipFile(zipBytesIO)
 
 
 class SchemaVersion:
-    '''
+    """
     A Python class for sorting Redfish schema versions.  Allows sorting Redfish
     versions in the way humans expect, by comparing version strings as lists
     (ie 0_2_0 comes before 0_10_0) in the way humans expect.  It does case
     insensitive schema name comparisons
-    '''
+    """
 
     def __init__(self, key):
         key = str.casefold(key)
@@ -184,8 +184,7 @@ class SchemaVersion:
         if version.startswith("v"):
             version = version[1:]
         if any(char.isdigit() for char in version):
-            self.version_pieces.extend([int(x)
-                                       for x in version.split("_")])
+            self.version_pieces.extend([int(x) for x in version.split("_")])
 
     def __lt__(self, other):
         return self.version_pieces < other.version_pieces

@@ -1,24 +1,19 @@
 #!/usr/bin/python3
 import os
+import re
+import shutil
 import xml.etree.ElementTree as ET
 from collections import defaultdict
-import shutil
-import re
-
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 REDFISH_SCHEMA_DIR = os.path.realpath(
     os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
 )
 
-OUTFOLDER = os.path.realpath(os.path.join(
-    SCRIPT_DIR,
-    "..",
-    "redfish-core",
-    "include",
-    "generated",
-    "enums"
-  )
+OUTFOLDER = os.path.realpath(
+    os.path.join(
+        SCRIPT_DIR, "..", "redfish-core", "include", "generated", "enums"
+    )
 )
 
 # Odata string types
@@ -101,9 +96,7 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
         # the C arrays are in their code not bmcwebs, so we have to explicitly
         # ignore the error.
         redfish_defs_file.write(
-            "NLOHMANN_JSON_SERIALIZE_ENUM({}, {{\n".format(
-                element.name
-            )
+            "NLOHMANN_JSON_SERIALIZE_ENUM({}, {{\n".format(element.name)
         )
         for value in values:
             redfish_defs_file.write(
@@ -114,7 +107,7 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
 
         print(element.name)
 
-    redfish_defs_file.write("}\n" "// clang-format on\n")
+    redfish_defs_file.write("}\n// clang-format on\n")
 
 
 def generate_enums(flat_list):
