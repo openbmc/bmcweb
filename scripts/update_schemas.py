@@ -7,7 +7,6 @@ from collections import OrderedDict, defaultdict
 from io import BytesIO
 
 import requests
-from packaging.version import parse
 import generate_schema_enums
 
 VERSION = "DSP8010_2022.2"
@@ -164,34 +163,26 @@ metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
 zipBytesIO = BytesIO(r.content)
 zip_ref = zipfile.ZipFile(zipBytesIO)
 
-
-def version_sort_key(key):
-    """
-    Method that computes a sort key that zero pads all numbers, such that
-    version sorting like
-    0_2_0
-    0_10_0
-    sorts in the way humans expect.
-    it also does case insensitive comparisons.
-    """
+class SchemaVersion:
+  ''' A Python class for sorting Redfish schema versions.'''
+  def __init__(self, key):
     key = str.casefold(key)
 
-    # Decription of this class calls it "Version numbering for anarchists and
-    # software realists.".  That seems like exactly what we need here.
+    split_tup = key.split(".")
+    self.schema_name = split_tup[0]
+    if not any(char.isdigit() for char in key) or len(split_tup) <= 2:
+        self.version_pieces = [0]
+    else:
+        version = split_tup[1]
 
-    if not any(char.isdigit() for char in key):
-        split_tup = os.path.splitext(key)
-        key = split_tup[0] + ".v0_0_0" + split_tup[1]
+        if version.startswith("v"):
+            version = version[1:]
+        self.version_pieces = [int(x) for x in version.split("_")]
 
-    # special case some files that don't seem to follow the naming convention,
-    # and cause sort problems.  These need brought up with DMTF TODO(Ed)
-    if key == "odata.4.0.0.json":
-        key = "odata.v4_0_0.json"
-    if key == "redfish-schema.1.0.0.json":
-        key = "redfish-schema.v1_0_0.json"
-
-    return parse(key)
-
+  def __lt__(self, other):
+    if self.schema_name == other.schema_name:
+      return self.version_pieces < other.version_pieces
+    return self.schema_name < other.schema_name
 
 # Remove the old files
 
@@ -228,31 +219,33 @@ if not os.path.exists(json_schema_path):
 csdl_filenames = []
 json_schema_files = defaultdict(list)
 
-for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith("csdl/") and (zip_filepath != "csdl/"):
-        csdl_filenames.append(os.path.basename(zip_filepath))
-    elif zip_filepath.startswith("json-schema/"):
-        filename = os.path.basename(zip_filepath)
+for zip_file in zip_ref.infolist():
+    if zip_file.is_dir():
+      continue
+    if zip_file.filename.startswith("csdl/"):
+        csdl_filenames.append(os.path.basename(zip_file.filename))
+    elif zip_file.filename.startswith("json-schema/"):
+        filename = os.path.basename(zip_file.filename)
         filenamesplit = filename.split(".")
         # exclude schemas again to save flash space
         if filenamesplit[0] not in include_list:
             continue
         json_schema_files[filenamesplit[0]].append(filename)
-    elif zip_filepath.startswith("openapi/"):
+    elif zip_file.filename.startswith("openapi/"):
         pass
-    elif zip_filepath.startswith("dictionaries/"):
+    elif zip_file.filename.startswith("dictionaries/"):
         pass
 
 # sort the json files by version
 for key, value in json_schema_files.items():
-    value.sort(key=version_sort_key, reverse=True)
+    value.sort(key=SchemaVersion, reverse=True)
 
 # Create a dictionary ordered by schema name
 json_schema_files = OrderedDict(
-    sorted(json_schema_files.items(), key=lambda x: version_sort_key(x[0]))
+    sorted(json_schema_files.items(), key=lambda x: SchemaVersion(x[0]))
 )
 
-csdl_filenames.sort(key=version_sort_key)
+csdl_filenames.sort(key=SchemaVersion)
 with open(metadata_index_path, "w") as metadata_index:
     metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     metadata_index.write(
