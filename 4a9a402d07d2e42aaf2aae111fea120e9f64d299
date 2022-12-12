@@ -16,6 +16,24 @@
       "message": "IMO, This is better ordering :)",
       "revId": "4a9a402d07d2e42aaf2aae111fea120e9f64d299",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98f1072d_6ff9d17d",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-12T18:44:31Z",
+      "side": 1,
+      "message": "In theory we should be matching whatever ordering std::less uses here, because then we could look these up with std::binary_search instead of std:::find.  But alas, problem for another day.",
+      "parentUuid": "3cb7d885_f25b78a9",
+      "revId": "4a9a402d07d2e42aaf2aae111fea120e9f64d299",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

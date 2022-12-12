@@ -22,6 +22,30 @@
       },
       "revId": "f8bb0ff336e0f41b3b24119286def88d41d3d010",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d39d651_f307e639",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-12T18:44:31Z",
+      "side": 0,
+      "message": "I originally removed this because it\u0027s no longer accurate;  The new algorithm no longer zero pads, and doesn\u0027t sort those two examples.  With that said, I\u0027ve written new text.",
+      "parentUuid": "d9736417_96451767",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 46
+      },
+      "revId": "f8bb0ff336e0f41b3b24119286def88d41d3d010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
