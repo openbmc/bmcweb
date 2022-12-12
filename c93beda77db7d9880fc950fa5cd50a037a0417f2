@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3689433_4e5b0df5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-12T20:47:05Z",
+      "side": 1,
+      "message": "\u003e So should we need this prepending SensorType while using GET method?\n\nThis part is already done I believe.",
+      "parentUuid": "85fc33f0_7f77f90e",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
