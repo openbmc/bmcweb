@@ -6,9 +6,9 @@ import zipfile
 from collections import OrderedDict, defaultdict
 from io import BytesIO
 
+import generate_schema_enums
 import requests
 from packaging.version import parse
-import generate_schema_enums
 
 VERSION = "DSP8010_2022.2"
 
