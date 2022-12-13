@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c7bbef21_a56f498f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001522
+      },
+      "writtenOn": "2022-12-13T12:32:05Z",
+      "side": 1,
+      "message": "Yes, Redfish Validator Passed. \n\n*** /redfish/v1/Systems\nINFO -   Type (ComputerSystemCollection.ComputerSystemCollection), GET SUCCESS (time: 0:00:00.136029)\nINFO - Attempt 1 of /redfish/v1/Systems/system\nINFO - Response Time for GET to /redfish/v1/Systems/system: 0.3027663929387927 seconds.\nINFO -   PASS\nINFO -",
+      "parentUuid": "120a40b8_9513269b",
+      "revId": "246e722c5eac24da7537d9a42f39380ff6688308",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45936368_aa1285c9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -70,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e7d60b8_0d1c3958",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001522
+      },
+      "writtenOn": "2022-12-13T12:32:05Z",
+      "side": 1,
+      "message": "Yes. added my id to CLA. Thanks",
+      "parentUuid": "fbf805d6_e9c32b11",
+      "revId": "246e722c5eac24da7537d9a42f39380ff6688308",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df663860_5b30971d",
@@ -83,6 +119,30 @@
       "writtenOn": "2022-12-07T21:49:35Z",
       "side": 1,
       "message": "Why Family and not Model?",
+      "range": {
+        "startLine": 140,
+        "startChar": 55,
+        "endLine": 140,
+        "endChar": 61
+      },
+      "revId": "246e722c5eac24da7537d9a42f39380ff6688308",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "945c6f9a_a5535e12",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001522
+      },
+      "writtenOn": "2022-12-13T12:32:05Z",
+      "side": 1,
+      "message": "Absolutely, Dbus has a property called Family and has used it (Processor Family). \n\nInterface xyz.openbmc_project.Inventory.Item.Cpu has .Family property to store processor model family (string)",
+      "parentUuid": "df663860_5b30971d",
       "range": {
         "startLine": 140,
         "startChar": 55,
