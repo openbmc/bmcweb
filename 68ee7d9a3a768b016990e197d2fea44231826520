@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e37f9c6f_393d3af4",
+        "filename": "redfish-core/include/redfish_app.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-13T19:38:25Z",
+      "side": 1,
+      "message": "You need to at least store the reference of these RedfishRules, right? Otherwise in the global router, you don\u0027t know which ones are RedfishRules or just normal tagged rules.",
+      "range": {
+        "startLine": 19,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "68ee7d9a3a768b016990e197d2fea44231826520",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
