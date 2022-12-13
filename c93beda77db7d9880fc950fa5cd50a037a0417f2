@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfa2d24c_654b7059",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-12-13T18:55:03Z",
+      "side": 1,
+      "message": "Patching of sensor value is working as expected. \n** The intent is that we strip the sensor type from the ID on line 2771;\nMy point is here: if SensorType is not added in GET method, user can use that \"Id\" directly without striping the SensorType from Id to patch sensor value. So no confusion to patch Sensor value. \n\nAs a developer we know the functionality to patch by striping this sensorType, but tester will blindly copy the Id from Get method response.\n\nExample: \nGET method response:\n\n    \"Id\": \"power_CPU2_South_VR_Input_Power\",\n    \"Name\": \"CPU2 South VR Input Power\",\n    \"Reading\": -0.122876,\n    \n But while patching sensor Id \"Power\" need to stripe from Id.\n \n So patch body:\n {\n    \"Id\": \"CPU2_South_VR_Input_Power\",\n    \"Reading\": -0.122876\n }\n \n if you do not agree this, we can proceed with same as with current implementation.",
+      "parentUuid": "b3689433_4e5b0df5",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
