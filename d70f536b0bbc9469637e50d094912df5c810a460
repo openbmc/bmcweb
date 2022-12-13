@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e272d5_7e4718cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-13T16:57:03Z",
+      "side": 1,
+      "message": "Please test with redfish service validator and redfish protocol validator.",
+      "revId": "d70f536b0bbc9469637e50d094912df5c810a460",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
