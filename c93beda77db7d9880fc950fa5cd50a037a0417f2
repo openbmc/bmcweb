@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d221b246_32321334",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-13T21:07:16Z",
+      "side": 1,
+      "message": "I\u0027m very sorry, but I\u0027m still not understanding.\n\n\u003e if SensorType is not added in GET method\n\nSensorType is added to the ID to significantly increase the performance.  If we don\u0027t add it, we need to look up ALL sensors to find any one sensor.  In terms of tradeoffs, this seems like we should avoid really expensive lookups.\n\nI would\u0027ve expected the PATCH body to be:\n{\n    \"Id\": \"power_CPU2_South_VR_Input_Power\",\n    \"Reading\": -0.122876\n}\n\nCan you try that and see if it works?  Based on inspection of this patch, it should work, but I can\u0027t really test it.",
+      "parentUuid": "cfa2d24c_654b7059",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
