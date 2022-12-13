@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ae40eb00_b9c703aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-12-13T18:23:44Z",
+      "side": 1,
+      "message": "Yes, the redfish validator passed.",
+      "parentUuid": "fd897af7_7b72b1ec",
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "86f33b1a_93c6b431",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
