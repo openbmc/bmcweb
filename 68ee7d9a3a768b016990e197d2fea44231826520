@@ -22,6 +22,30 @@
       },
       "revId": "68ee7d9a3a768b016990e197d2fea44231826520",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10f5d846_603adaa1",
+        "filename": "redfish-core/include/redfish_app.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-13T23:48:38Z",
+      "side": 1,
+      "message": "Yes, that is true. When I use and reference them in the future I plan on having a data structure to store them. This will come in future commits",
+      "parentUuid": "e37f9c6f_393d3af4",
+      "range": {
+        "startLine": 19,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "68ee7d9a3a768b016990e197d2fea44231826520",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
