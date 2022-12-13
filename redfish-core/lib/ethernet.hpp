@@ -360,7 +360,7 @@ inline bool extractEthernetInterfaceData(
                 }
             }
 
-            if (objpath.first == "/xyz/openbmc_project/network/config/dhcp")
+            if (objpath.first == "/xyz/openbmc_project/network/dhcp")
             {
                 if (ifacePair.first ==
                     "xyz.openbmc_project.Network.DHCPConfiguration")
@@ -1121,8 +1121,7 @@ inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
             return;
         }
         },
-        "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/config/dhcp",
+        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/dhcp",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.DHCPConfiguration", propertyName,
         dbus::utility::DbusVariantType{value});
