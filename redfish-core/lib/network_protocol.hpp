@@ -67,7 +67,8 @@ inline void extractNTPServersAndDomainNamesData(
                             &propertyPair.second);
                     if (ntpServers != nullptr)
                     {
-                        ntpData = *ntpServers;
+                        ntpData.insert(ntpData.end(), ntpServers->begin(),
+                                       ntpServers->end());
                     }
                 }
                 else if (propertyPair.first == "DomainName")
@@ -77,13 +78,15 @@ inline void extractNTPServersAndDomainNamesData(
                             &propertyPair.second);
                     if (domainNames != nullptr)
                     {
-                        dnData = *domainNames;
+                        dnData.insert(dnData.end(), domainNames->begin(),
+                                      domainNames->end());
                     }
                 }
             }
         }
     }
     stl_utils::removeDuplicate(ntpData);
+    stl_utils::removeDuplicate(dnData);
 }
 
 template <typename CallbackFunc>
