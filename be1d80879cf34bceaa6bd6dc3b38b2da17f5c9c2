@@ -166,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e2f5919_788a0e8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-13T19:46:16Z",
+      "side": 1,
+      "message": "service validator is ran to verify no additional errors were not introduced\nand individual computer system routes were verified by using curl commands\n\ncurl -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems\ncurl -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems/systemN\n host power control events and computer system info was also verified for discovered host routes.",
+      "parentUuid": "d72e5f73_335a4f62",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dbaece37_82324a13",
@@ -349,6 +373,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f805a010_ccc27f75",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-13T19:46:16Z",
+      "side": 1,
+      "message": "added additional checks to verify if the substring has a valid number otherwise returns an error.",
+      "parentUuid": "6b5e184b_c9729a4f",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 53
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43f90a05_18faed87",
@@ -410,6 +458,30 @@
       "side": 1,
       "message": "I\u0027d like to understand what test cases we\u0027re missing that allowed this to make it into a code review.  This code looks like we didn\u0027t test 404 handling very well?",
       "parentUuid": "8b6f1acf_4a48cfe4",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f88a34f_3e1bf449",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-13T19:46:16Z",
+      "side": 1,
+      "message": "This change was added to have a default system route entry(V1/Systems/system) in case of error in host string matching for multihost systems. Now the logic is changed if host name is not matched then empty string will be returned. then resource not found error will be returned in the calling function.",
+      "parentUuid": "b4d8297d_9c728cff",
       "range": {
         "startLine": 89,
         "startChar": 20,
@@ -867,6 +939,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c20c691_20cb6a05",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 2784,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-13T19:46:16Z",
+      "side": 1,
+      "message": "for loop starts right after this. so it needs to be declared here.",
+      "parentUuid": "73756d90_41d64a9a",
+      "range": {
+        "startLine": 2784,
+        "startChar": 28,
+        "endLine": 2784,
+        "endChar": 35
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "100e396e_bd072f6d",
@@ -975,6 +1071,30 @@
       "side": 1,
       "message": "Ack. This was tested but the issue was not observed. This change is added for keeping at least one system route as the currently hard coded system route \n\"/redfish/v1/Systems/system\", as webui code will be expecting this route.\nsince this default route is already added in line 2765, this issue was missed.\nwill fix the logic for this issue.",
       "parentUuid": "09ffca84_66d97dc5",
+      "range": {
+        "startLine": 2801,
+        "startChar": 29,
+        "endLine": 2801,
+        "endChar": 33
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c9a303e_be590ef2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 2801,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-13T19:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ffbced8_d1791539",
       "range": {
         "startLine": 2801,
         "startChar": 29,
