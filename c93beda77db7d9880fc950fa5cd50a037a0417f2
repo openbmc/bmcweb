@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4912cfb_080d26d8",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-12-14T04:24:39Z",
+      "side": 1,
+      "message": "I agree with Ed.\n\nGET on sensors are prefixing with \"\u003ctype\u003e_\" in both URI \u0026 ID fields(This is done for performance improvement). \nExample:\nURI: /redfish/v1/Chassis/AVC_Baseboard/Sensors/temperature_PSU1_Temperature\nID: \"Sensors_PSU1_Temperature\"\n\nPatch on sensors, users can use same ID \u0026 URI as is. Stripping of prefix (\u003ctype\u003e_\" can be handled inside code wile patching for D-BUS object formation. The API  \"splitSensorNameAndType()\" is doing same and that should solve the issue with sensor override.\n\nWhile doing patch user uses same ID which is there in GET.\n{\n   \"Id\": \"Sensors_PSU1_Temperature\",\n   \"Reading\": 20\n}\n\nThanks Ed for details, We will discuss internally and get back on this.",
+      "parentUuid": "dea32647_5281928a",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
