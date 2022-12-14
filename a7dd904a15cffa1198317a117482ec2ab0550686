@@ -16,6 +16,24 @@
       "message": "This is ran as part of CI https://github.com/openbmc/bmcweb/blob/master/run-ci#L8",
       "revId": "a7dd904a15cffa1198317a117482ec2ab0550686",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cce91e5a_4a156bac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-14T22:33:28Z",
+      "side": 1,
+      "message": "Good note. CI passing is also proof of testing",
+      "parentUuid": "60298a1b_c3fab37c",
+      "revId": "a7dd904a15cffa1198317a117482ec2ab0550686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
