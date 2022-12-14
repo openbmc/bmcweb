@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60298a1b_c3fab37c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-14T20:32:25Z",
+      "side": 1,
+      "message": "This is ran as part of CI https://github.com/openbmc/bmcweb/blob/master/run-ci#L8",
+      "revId": "a7dd904a15cffa1198317a117482ec2ab0550686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
