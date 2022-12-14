@@ -151,6 +151,30 @@
       },
       "revId": "246e722c5eac24da7537d9a42f39380ff6688308",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac79469_91993a37",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-14T17:09:21Z",
+      "side": 1,
+      "message": "From Redfish https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_19_0.json \n\n\"Model\": {\n                    \"description\": \"The processor model for the primary or majority of processors in this system.\",\n                    \"longDescription\": \"This property shall contain the processor model for the central processors in the system, per the description in the Processor Information - Processor Family section of the SMBIOS Specification DSP0134 2.8 or later.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ]\n                },\n\nSo then I go look at the SMBOIS spec, https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.5.0.pdf (Processor Information - Processor Family, page 49 on my version linked) and see \n\n1056 7.5.2 Processor Information — Processor Family\n1057 Table 23 details the values for the Processor Information — Processor Family field.\n1058 NOTE See 6.3 for the CIM properties associated with this enumerated value. ® and ™ in this table are equivalent\n1059 to (R) and (TM) in the MOF file.\n1060 Table 23 – Processor Information: Processor Family field\nHex Value Decimal Value Meaning\n01h 1 Other\n02h 2 Unknown\n03h 3 8086\n04h 4 80286\n05h 5 Intel386™ processor\n06h 6 Intel486™ processor\n07h 7 8087\n08h 8 80287\n09h 9 80387\n0Ah 10 80487\n0Bh 11 Intel® Pentium® processor\n0Ch 12 Pentium® Pro processor\n\nI don\u0027t see how https://github.com/openbmc/phosphor-dbus-interfaces/blob/a1347418307d31a94bd21f22897aa508df938dcf/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml#L9 or https://github.com/openbmc/phosphor-dbus-interfaces/blob/a1347418307d31a94bd21f22897aa508df938dcf/yaml/xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L22 matches this Redfish property",
+      "parentUuid": "945c6f9a_a5535e12",
+      "range": {
+        "startLine": 140,
+        "startChar": 55,
+        "endLine": 140,
+        "endChar": 61
+      },
+      "revId": "246e722c5eac24da7537d9a42f39380ff6688308",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
