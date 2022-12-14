@@ -34,6 +34,24 @@
       "parentUuid": "a21096f2_4a613c5a",
       "revId": "58c8fbd5e71350486876b7ca6292046ae5736715",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e09b91_acbd9110",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-14T17:18:20Z",
+      "side": 1,
+      "message": "Ack. Sounds a bit like a corner case but this commit seems reasonable.",
+      "parentUuid": "86becbcb_81af5d50",
+      "revId": "58c8fbd5e71350486876b7ca6292046ae5736715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
