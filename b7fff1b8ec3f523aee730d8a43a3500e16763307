@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a760454_215d7504",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-14T17:34:34Z",
+      "side": 1,
+      "message": "This should be Log instead of LogService",
+      "revId": "b7fff1b8ec3f523aee730d8a43a3500e16763307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
