@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "114fe561_0b070863",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-14T19:43:59Z",
+      "side": 1,
+      "message": "I would feel better with some sanity testing but not required.",
+      "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5cef7ee9_646ce80b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -32,6 +49,41 @@
       "side": 1,
       "message": "In discord I was saying we should just move to boost 1.81.0 beta 1, just to get ahead of this stuff and get it tested before boost 1.81 lands.  That depends on whether our review process is shorter or longer than the boost dev cycle though.  I\u0027d really like to get this done while I have spare time, but we\u0027ll see.",
       "parentUuid": "5cef7ee9_646ce80b",
+      "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2248a020_297fa89c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-14T19:43:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "97056ab0_032ae290",
+      "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d45d8854_70dc5138",
+        "filename": "subprojects/boost.wrap",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-14T19:43:59Z",
+      "side": 1,
+      "message": "As mentioned in discord, my concern with beta is bugs but hoping this is short lived. This gets us where we need to go, OpenBMC is and should be on the cutting edge so using a beta isn\u0027t something crazy for the project.",
       "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
