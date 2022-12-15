@@ -86,6 +86,24 @@
       "message": "As mentioned in discord, my concern with beta is bugs but hoping this is short lived. This gets us where we need to go, OpenBMC is and should be on the cutting edge so using a beta isn\u0027t something crazy for the project.",
       "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "674d4984_2611470a",
+        "filename": "subprojects/boost.wrap",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-15T00:26:21Z",
+      "side": 1,
+      "message": "Boost non-beta got released today.  Lets go with that.",
+      "parentUuid": "d45d8854_70dc5138",
+      "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
