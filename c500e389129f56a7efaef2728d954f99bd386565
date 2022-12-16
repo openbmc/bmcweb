@@ -223,6 +223,64 @@
       },
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b1b0bd_3bfbe96c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:39:43Z",
+      "side": 1,
+      "message": "Talked with patrick.  It sounds like all the power control daemons have been updated to support this new name?  Could you call that out in the commit message, that this should be fine.",
+      "parentUuid": "67229591_e9bbc88a",
+      "range": {
+        "startLine": 1152,
+        "startChar": 0,
+        "endLine": 1152,
+        "endChar": 68
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed93a51c_7ee7e4c6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:39:43Z",
+      "side": 1,
+      "message": "Please don\u0027t take existing functions and turn them into large inline lambdas.  It makes the code difficult to read, and debug locations much more difficult to find.",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07ba670f_175ddf3f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:39:43Z",
+      "side": 1,
+      "message": "Please don\u0027t inline large non-trivial lambdas like this.  Please declare a real function, and use std::bind_front.  Because this is a code move, ideally it would be done in a separate commit, but up to you.",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
