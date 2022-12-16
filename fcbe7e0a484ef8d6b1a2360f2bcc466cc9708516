@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba78c0a9_490b8a48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2022-12-16T09:32:27Z",
+      "side": 1,
+      "message": "It was our internal fix for a bug with these reproduction steps:\n\nCreate two users: read_only with read_only privilege and admin with administrator privilege\nGet X-Auth-Token for admin user by sending POST request to BMC:\n\ncurl -k -X POST -d \u0027{\"UserName\": \"admin\", \"Password\": \"donotchange\"}\u0027 https://BMC_IP/redfish/v1/SessionService/Sessions -H \"Content-Type: application/json\" -D headers_file.txt\n\nX-Auth-Token is incorporated in headers_file.txt\nPrepare CA and user certificate for read_only user\nAdd CA certificate to BMC\nExecute following request to BMC:\n\ncurl -k --cert user.pem --key user_key.pem -H \"Connection: keep-alive\" -H \"Cookie: SESSION\u003dadmin_x-auth-token\" -A \"abc\" https://BMC_IP/redfish/v1/AccountService/Accounts/admin\n\nCurrent results:\nFor request from last step BMC response is success - 200 OK\nSuccessful response is possible due to adding cookie header (with valid admin user X-Auth-Token) and nonempty User-Agent header\nThis is unexpected behavior which should be fixed\n\nExpected results:\nMTLS authentication passes - it can be confirmed because session for read_only user is created.\nAccountService/Accounts/admin resource should not be accessible by user with read_only privileges, expected response here is 403 - Forbidden",
+      "parentUuid": "8b46b460_40679191",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "fcbe7e0a484ef8d6b1a2360f2bcc466cc9708516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6373959_75ca1610",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-15T21:23:39Z",
       "side": 1,
       "message": "Which ones?  WHat are the tests doing?",
+      "range": {
+        "startLine": 11,
+        "startChar": 7,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "fcbe7e0a484ef8d6b1a2360f2bcc466cc9708516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1f01cf4_7241c12c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2022-12-16T09:32:27Z",
+      "side": 1,
+      "message": "The tests check various authorization scenarios and situation described in my reply above wasn\u0027t passing one without this change.",
+      "parentUuid": "e6373959_75ca1610",
       "range": {
         "startLine": 11,
         "startChar": 7,
