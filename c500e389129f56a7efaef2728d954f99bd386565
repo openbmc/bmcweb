@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4b9d65_07ab8324",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "In the overall design, it feels like this should be returning an integer rather than a string, which would simplify a number of your dbus path conversions.",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 18
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f19202_12bbedfa",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Please pass string_view by value.",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 56
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c05077f_d41c1ddb",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Still appears to be a common errors violation.  Commented on previous patches.",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4311bcc4_8efd64a2",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "nit,\nreturn \"\";\n is more clear",
+      "range": {
+        "startLine": 92,
+        "startChar": 15,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee3e37d_180ba16f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Still unfixed.  This is called out in common errors.md",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 5
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e219c0a_c15da6dd",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "As written, this is adding ALL pcie devices to all hosts.  I\u0027m really surprised this wasn\u0027t observed in testing that all 4 systems PCIe devices tree were the same?  Can we do some testing so that we make sure that won\u0027t be the case?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c6ff74_6638f245",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Per the developing guide, please use the appropriate classes when assembling dbus paths.  String conatenation of dbus paths is explicitly called out.",
+      "range": {
+        "startLine": 850,
+        "startChar": 8,
+        "endLine": 850,
+        "endChar": 63
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d56fbb8_149d676b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef6ff8a6_3f811997",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Same as above.  There are a number of these violations.  Please fix all of them.",
+      "range": {
+        "startLine": 917,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 76
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67229591_e9bbc88a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Isn\u0027t this going to break all existing systems?",
+      "range": {
+        "startLine": 1152,
+        "startChar": 0,
+        "endLine": 1152,
+        "endChar": 68
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

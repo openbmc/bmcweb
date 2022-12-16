@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61bb424b_0e529a0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "\u003e The host power interface is more relatable with the existing systems as existing systems that use x86-power-control and phosphor-state-manager for host power objects and both host dbus objects are similar and discovered through this.\n\nIf this is the intent, then the later patches need to ALSO be checking for power state for any sub node.  Today they are not, which is my point.",
+      "parentUuid": "318bc46f_42714bb4",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d72e5f73_335a4f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 32
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "service validator is ran to verify no additional errors were not introduced\nand individual computer system routes were verified by using curl commands\n\ncurl -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems\ncurl -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems/systemN\n host power control events and computer system info was also verified for discovered host routes.",
       "parentUuid": "d72e5f73_335a4f62",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ae4fb0_b2dfc077",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Per the developing guide, please test 404 works as expected.",
+      "parentUuid": "0e2f5919_788a0e8c",
       "range": {
         "startLine": 35,
         "startChar": 15,
@@ -494,6 +542,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f096c9e8_ff748f5a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "What test cases are we missing?",
+      "parentUuid": "9f88a34f_3e1bf449",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1a22e28_b2f51687",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 32
@@ -600,6 +672,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "d9792070_e0516e1c",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e78725af_146eebfd",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-16T19:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7725f5b3_52f43935",
       "range": {
         "startLine": 102,
         "startChar": 0,
