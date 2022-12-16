@@ -171,7 +171,7 @@ inline void
                 if (!enabled)
                 {
                     asyncResp->res.jsonValue["StorageControllers"][index]
-                                            ["Status"]["State"] = "Disabled";
+                                            ["Status"]["State"] = "Absent";
                 }
                 });
 
@@ -354,7 +354,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         if (!enabled)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
         });
 }
