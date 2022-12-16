@@ -166,17 +166,17 @@ inline void
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Item", "Present",
                 [asyncResp, index](const boost::system::error_code ec2,
-                                   bool enabled) {
+                                   bool isPresent) {
                 // this interface isn't necessary, only check it
                 // if we get a good return
                 if (ec2)
                 {
                     return;
                 }
-                if (!enabled)
+                if (!isPresent)
                 {
                     asyncResp->res.jsonValue["StorageControllers"][index]
-                                            ["Status"]["State"] = "Disabled";
+                                            ["Status"]["State"] = "Absent";
                 }
                 });
 
@@ -343,7 +343,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp, path](const boost::system::error_code ec,
-                          const bool enabled) {
+                          const bool isPresent) {
         // this interface isn't necessary, only check it if
         // we get a good return
         if (ec)
@@ -351,9 +351,9 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        if (!enabled)
+        if (!isPresent)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
         });
 }
