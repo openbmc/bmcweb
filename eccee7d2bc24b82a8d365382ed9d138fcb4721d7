@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e72eb97_71c10cf9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-12-16T15:12:10Z",
+      "side": 1,
+      "message": "Done.\n\n\"ErrorMessages\" property was removed, PATCH method introduced in next change will use dedicated method that updates multiple properties at same time.",
+      "parentUuid": "971fff0b_7f5130ee",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84e2f6ec_137ef175",
@@ -634,6 +658,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a636906_8239e235",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-12-16T15:12:10Z",
+      "side": 1,
+      "message": "Done.\n\nI changed API according to your comments. Defaults are kept in telemetry service. Default is triggered by passing empty string or maximum possible value for numbers. Telemetry service will pick default value for this parameters.",
+      "parentUuid": "7641ef67_18c37bc9",
+      "range": {
+        "startLine": 461,
+        "startChar": 64,
+        "endLine": 461,
+        "endChar": 73
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd3fa6d2_5281d200",
@@ -695,6 +743,30 @@
       "side": 1,
       "message": "\u003e This is possible exception that is being throw from sdbusplus when async_method_call takes as an argument std::variant which is used during calling \u0027Set\u0027 on properties interface.\n\nWe need to fix that.  async_method_call should return an error code, not throw an exception.  we should not be catching in bmcweb code when the API shouldnt\u0027 be throwing.  Can you point to where the exception is thrown from?\n\n\u003e \n\u003e Because this is possible case where exception is throw in destructor this catch was needed to silence clang-tidy error.\n\nWhich destructor?  In new code we should be wrapping that in an io_service.post() to avoid throwing in a destructor.",
       "parentUuid": "fb729489_67ffdaab",
+      "range": {
+        "startLine": 464,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 9
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b003d0_1a8b8690",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-12-16T15:12:10Z",
+      "side": 1,
+      "message": "Thank you, It\u0027s good information that we have a way out of this situation.\n\nI will use boost::asio::post instead and I will try to find exact place where this exception is thrown.",
+      "parentUuid": "6c181439_3a6bdb4a",
       "range": {
         "startLine": 464,
         "startChar": 0,
