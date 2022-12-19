@@ -72,6 +72,7 @@ feature_map = {
   'insecure-tftp-update'                        : '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
   'insecure-ignore-content-type'                : '-DBMCWEB_INSECURE_IGNORE_CONTENT_TYPE',
   'kvm'                                         : '-DBMCWEB_ENABLE_KVM' ,
+  'bmcweb-logging'                              : '',
   'mutual-tls-auth'                             : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
   'redfish-aggregation'                         : '-DBMCWEB_ENABLE_REDFISH_AGGREGATION',
   'redfish-allow-deprecated-power-thermal'      : '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL',
@@ -90,38 +91,33 @@ feature_map = {
   'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+  'tests'                                       : '',
 }
 
 # Get the options status and build a project summary to show which flags are
 # being enabled during the configuration time.
 
 foreach option_key,option_value : feature_map
-  if(get_option(option_key).enabled())
-    if(option_key == 'mutual-tls-auth' or option_key == 'insecure-disable-ssl')
-      if(get_option('insecure-disable-ssl').disabled() or get_option('mutual-tls-auth').disabled())
-        add_project_arguments(option_value,language:'cpp')
-        summary(option_key,option_value, section : 'Enabled Features')
-      endif
-    elif (option_key in ['basic-auth', 'cookie-auth', 'session-auth', 'xtoken-auth', 'mutual-tls-auth'])
-      if (get_option('insecure-disable-auth').disabled())
+  if (option_key in ['basic-auth', 'cookie-auth', 'session-auth', 'xtoken-auth', 'mutual-tls-auth'])
+    if not (get_option('insecure-disable-auth').disabled())
+      if (get_option(option_key).enabled())
         add_project_arguments(option_value, language:'cpp')
-        summary(option_key,option_value, section : 'Enabled Features')
       endif
-    else
-      summary(option_key,option_value, section : 'Enabled Features')
-      add_project_arguments(option_value,language:'cpp')
+    endif
+  elif (option_key == 'insecure-disable-ssl')
+    if (get_option(option_key).disabled())
+        # Note, there are both BMCWEB_ENABLE_SSL and BMCWEB_INSECURE_DISABLE_SSL
+        # in the code.  These should be consolidated at some point
+        add_project_arguments('-DBMCWEB_ENABLE_SSL', language : 'cpp')
+        add_project_arguments(option_value, language:'cpp')
     endif
   else
-      if(option_key == 'insecure-disable-ssl')
-        summary('ssl','-DBMCWEB_ENABLE_SSL', section : 'Enabled Features')
-        add_project_arguments('-DBMCWEB_ENABLE_SSL', language : 'cpp')
-      endif
+    if (option_value != '' and option_value == 'enabled')
+      add_project_arguments(option_value, language:'cpp')
+    endif
   endif
+  summary(option_key, get_option(option_key), section : 'Features')
 endforeach
-
-if(get_option('tests').enabled())
-  summary('unittest','NA', section : 'Enabled Features')
-endif
 
 # Add compiler arguments
 
@@ -204,7 +200,7 @@ if( get_option('bmcweb-logging') != 'disabled' or \
    ],
   language : 'cpp')
 
-  summary('debug', '-DBMCWEB_ENABLE_DEBUG', section : 'Enabled Features')
+  summary('debug', 'enabled', section : 'Enabled Features')
 endif
 
 # Set Compiler Security flags
