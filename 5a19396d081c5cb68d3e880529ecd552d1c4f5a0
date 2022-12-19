@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3994446a_6e98bb79",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 0,
+      "message": "Why was this removed?",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "5a19396d081c5cb68d3e880529ecd552d1c4f5a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15fcff06_2324be05",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 0,
+      "message": "Same here.  The old code was correct.",
+      "range": {
+        "startLine": 1591,
+        "startChar": 4,
+        "endLine": 1591,
+        "endChar": 20
+      },
+      "revId": "5a19396d081c5cb68d3e880529ecd552d1c4f5a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1596458_d595d7ca",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 0,
+      "message": "This moving is a little odd, but I guess that\u0027s ok.",
+      "range": {
+        "startLine": 1026,
+        "startChar": 22,
+        "endLine": 1026,
+        "endChar": 35
+      },
+      "revId": "5a19396d081c5cb68d3e880529ecd552d1c4f5a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

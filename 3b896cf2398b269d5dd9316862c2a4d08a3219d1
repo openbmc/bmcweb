@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea17338_06845962",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 1,
+      "message": "Overall I\u0027m in support of this change, but we need to get a couple of the refactoring things understood around why some things changed const-ness, and why std::vector was used so heavily.",
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf965dc_c2d4bfa0",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 1,
+      "message": "std::array please.",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 19
+      },
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccc177f6_5e52e3d8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 1,
+      "message": "array please.  Please fix all of these.",
+      "range": {
+        "startLine": 795,
+        "startChar": 13,
+        "endLine": 795,
+        "endChar": 19
+      },
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41687aa1_6c71cf89",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 1,
+      "message": "Can you comment why these needed to move from lvalue lambdas to inline rvalues.  It\u0027s not clear to me why that would be necessary in this refactor.",
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b726666_90058f9a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:53:54Z",
+      "side": 1,
+      "message": "Why do we need an intermediate here?  processorInterfaces is a std::array that the helper function should be able to use directly.",
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
