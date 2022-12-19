@@ -466,7 +466,7 @@ inline std::string encodeServiceObjectPath(const std::string& serviceName)
     return objPath.str;
 }
 
-void handleBmcNetworkProtocolHead(
+inline void handleBmcNetworkProtocolHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
