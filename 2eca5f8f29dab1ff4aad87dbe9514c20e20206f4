@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69fc6de9_b99f01a3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:34:15Z",
+      "side": 1,
+      "message": "It\u0027s interesting that the service validator didn\u0027t catch this.  This parameter in the schemas is \"ServiceProviderNotified\".  Can you please provide your test results so we can triage this failure in the service validator.  Considering that you ran this test and it passed, there might be a bug in the validator that we need to get fixed.",
+      "revId": "2eca5f8f29dab1ff4aad87dbe9514c20e20206f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473a11f2_05ce750c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:34:15Z",
+      "side": 1,
+      "message": "nit, like we do elsewhere, please do *notifyAction.",
+      "range": {
+        "startLine": 1782,
+        "startChar": 19,
+        "endLine": 1782,
+        "endChar": 40
+      },
+      "revId": "2eca5f8f29dab1ff4aad87dbe9514c20e20206f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
