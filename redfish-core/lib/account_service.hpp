@@ -975,8 +975,9 @@ inline void
             asyncResp->res,
             "Setting BasicAuth when basic-auth feature is disabled");
         return;
-#endif
+#else
         authMethodsConfig.basic = *basicAuth;
+#endif
     }
 
     if (cookie)
@@ -986,8 +987,9 @@ inline void
             asyncResp->res,
             "Setting Cookie when cookie-auth feature is disabled");
         return;
-#endif
+#else
         authMethodsConfig.cookie = *cookie;
+#endif
     }
 
     if (sessionToken)
@@ -997,8 +999,9 @@ inline void
             asyncResp->res,
             "Setting SessionToken when session-auth feature is disabled");
         return;
-#endif
+#else
         authMethodsConfig.sessionToken = *sessionToken;
+#endif
     }
 
     if (xToken)
@@ -1008,8 +1011,9 @@ inline void
             asyncResp->res,
             "Setting XToken when xtoken-auth feature is disabled");
         return;
-#endif
+#else
         authMethodsConfig.xtoken = *xToken;
+#endif
     }
 
     if (tls)
@@ -1019,8 +1023,9 @@ inline void
             asyncResp->res,
             "Setting TLS when mutual-tls-auth feature is disabled");
         return;
-#endif
+#else
         authMethodsConfig.tls = *tls;
+#endif
     }
 
     if (!authMethodsConfig.basic && !authMethodsConfig.cookie &&

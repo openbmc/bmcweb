@@ -134,6 +134,7 @@ static int run()
     if (rc != 0)
     {
         BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
+        crow::connections::systemBus = nullptr;
         return rc;
     }
 #endif
