@@ -124,7 +124,7 @@ static std::shared_ptr<persistent_data::UserSession>
 
 #ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
 static std::shared_ptr<persistent_data::UserSession>
-    performCookieAuth(boost::beast::http::verb method,
+    performCookieAuth(boost::beast::http::verb method [[maybe_unused]],
                       const boost::beast::http::header<true>& reqHeader)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
