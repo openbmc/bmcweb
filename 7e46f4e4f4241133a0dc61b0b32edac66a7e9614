@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e91b76e1_683b33f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-19T18:45:40Z",
+      "side": 1,
+      "message": "\"The project should be able to mock out dbus\" is a discussion that needs had in the context of sdbusplus at a project level.  bmcweb should not maintain its own mocking that\u0027s different.  bmcweb intentionally uses the common library sdbusplus (and in the past, took very painful migrations to get to that state).  So this discussion needs to continue in the context of sdbusplus.\n\nWith that said, i fully support adding mocking capability to sdbusplus, but that needs had in a different discussion.\n\nAll of the above isn\u0027t really the point though.  Testing needs to be done in as real of a test vehicle as possible, to ensure that we\u0027re catching integration problems.  Many of our bugs have been injected because of misunderstood expectations of how the DBus interface operates.  Very rarely do we actually get the dbus interface itself wrong in a way that a unit test could catch.  Especially so if the unit tests are written using the same code they\u0027re testing.\n\n\n\u003e I make my own program which reads the dimm information from the SPD via i2c.\n\nCool, let us know when that program is made available.  Until then, this patchset is dead code.  There\u0027s already similar code being worked on in dbus-sensors, so please collaborate with those folks to make sure that it\u0027s not duplicating already existing functionality.\n\n\u003e I think the test object is better than the real one.\n\nThe point of OpenBMC is to be able to build a bmc.  Tests can be very effective, but if there\u0027s no backend that actually hosts the functionality in question, the code itself doesn\u0027t do anyone much good.",
+      "parentUuid": "f2d2a868_d3e3508b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ac5b19d4_2f763154",
