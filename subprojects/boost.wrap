@@ -2,7 +2,7 @@
 directory = boost_1_81_0
 
 source_url = https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2
-source_hash = 941c568e7ac79aa448ac28c98a5ec391fd1317170953c487bcf977c6ee6061ce
+source_hash = 71feeed900fbccca04a3b4f2f84a7c217186f28a940ed8b7ed4725986baf99fa
 source_filename = 1_81_0.tar.bz2
 
 patch_directory = boost
