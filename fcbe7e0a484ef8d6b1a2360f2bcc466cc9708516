@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ee317d4_1a829c9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-20T18:54:04Z",
+      "side": 1,
+      "message": "Please add more details to your commit message, not in a gerrit comment.  I will respond once details are added there.",
+      "parentUuid": "ba78c0a9_490b8a48",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "fcbe7e0a484ef8d6b1a2360f2bcc466cc9708516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6373959_75ca1610",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "The tests check various authorization scenarios and situation described in my reply above wasn\u0027t passing one without this change.",
       "parentUuid": "e6373959_75ca1610",
+      "range": {
+        "startLine": 11,
+        "startChar": 7,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "fcbe7e0a484ef8d6b1a2360f2bcc466cc9708516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f9789a7_794a4b32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-20T18:54:04Z",
+      "side": 1,
+      "message": "Please update your commit message with which tests were run.",
+      "parentUuid": "c1f01cf4_7241c12c",
       "range": {
         "startLine": 11,
         "startChar": 7,
