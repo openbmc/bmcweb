@@ -45,8 +45,8 @@ enum class PrivilegeType
 
 /** @brief A fixed array of compile time privileges  */
 constexpr std::array<const char*, 5> basePrivileges{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+    "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
+    "ConfigureSelf"};
 
 constexpr const size_t basePrivilegeCount = basePrivileges.size();
 
@@ -55,8 +55,8 @@ constexpr const size_t maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
 static const std::array<std::string, maxPrivilegeCount> privilegeNames{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+    "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
+    "ConfigureSelf"};
 
 /**
  * @brief Redfish privileges
@@ -181,6 +181,32 @@ class Privileges
     }
 
     /**
+     * @brief Retrieves names of all active privileges
+     *     *
+     * @return            Vector of active privileges.  Pointers are valid until
+     * the setSinglePrivilege is called, or the Privilege structure is destroyed
+     *
+     */
+    std::vector<std::string> getAllActivePrivilegeNames() const
+    {
+        std::vector<std::string> activePrivileges;
+
+        size_t searchIndex = 0;
+        size_t endIndex = privilegeNames.size();
+
+        for (; searchIndex < endIndex; searchIndex++)
+        {
+            if (!privilegeNames[searchIndex].empty() &&
+                privilegeBitset.test(searchIndex))
+            {
+                activePrivileges.emplace_back(privilegeNames[searchIndex]);
+            }
+        }
+
+        return activePrivileges;
+    }
+
+    /**
      * @brief Determines if this Privilege set is a superset of the given
      * privilege set
      *
@@ -213,6 +239,21 @@ class Privileges
     {}
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
+
+inline std::vector<std::string> getAllOemPrivileges()
+{
+    size_t oemEndIndex = maxPrivilegeCount;
+    for (size_t i = basePrivilegeCount; i < privilegeNames.size(); ++i)
+    {
+        if (privilegeNames[i].empty())
+        {
+            oemEndIndex = i;
+            break;
+        }
+    }
+    return {privilegeNames.begin() + basePrivilegeCount,
+            privilegeNames.begin() + oemEndIndex};
+}
 
 inline const Privileges& getUserPrivileges(const std::string& userRole)
 {
