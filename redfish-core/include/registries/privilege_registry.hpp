@@ -48,7 +48,10 @@ const std::array<Privileges, 2> privilegeSetLoginOrNoAuth = {{
     {"Login"},
     {}
 }};
+<<<<<<< HEAD
 
+=======
+>>>>>>> a707503d (Implement GET on PrivilegeRegistry)
 enum class EntityTag {
     tagAccelerationFunction = 0,
     tagAccelerationFunctionCollection,
@@ -247,7 +250,10 @@ enum class EntityTag {
     tagZoneCollection,
 	none,
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> a707503d (Implement GET on PrivilegeRegistry)
 constexpr std::array<std::string_view, 195> entities {
     "AccelerationFunction",
     "AccelerationFunctionCollection",
@@ -445,7 +451,10 @@ constexpr std::array<std::string_view, 195> entities {
     "Zone",
     "ZoneCollection",
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> a707503d (Implement GET on PrivilegeRegistry)
 // AccelerationFunction
 const static auto& getAccelerationFunction = privilegeSetLogin;
 const static auto& headAccelerationFunction = privilegeSetLogin;
@@ -2005,7 +2014,7 @@ const static auto& postZoneCollection = privilegeSetConfigureComponents;
 const static auto& putZoneCollection = privilegeSetConfigureComponents;
 const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
 
-using OperationMap = std::array<const std::span<const Privileges>, HttpVerb::Max>;
+using OperationMap = std::array<const std::span<const Privileges>, 6>;
 const static std::array<OperationMap, 195> privilegeSetMap{{
     {{
       getAccelerationFunction,

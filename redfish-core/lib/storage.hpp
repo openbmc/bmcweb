@@ -731,7 +731,7 @@ inline void chassisDriveCollectionGet(
                 asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
                 }); // end association lambda
 
-        } // end Iterate over all retrieved ObjectPaths
+        }           // end Iterate over all retrieved ObjectPaths
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
