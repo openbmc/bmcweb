@@ -435,7 +435,7 @@ class RedfishAggregator
         }
 
         // We didn't recognize the prefix and need to return a 404
-        std::string_view nameStr = req.urlView.segments().back();
+        std::string nameStr = req.urlView.segments().back();
         messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
@@ -460,7 +460,7 @@ class RedfishAggregator
             // don't need to write an error code
             if (isCollection == AggregationType::Resource)
             {
-                std::string_view nameStr = sharedReq->urlView.segments().back();
+                std::string nameStr = sharedReq->urlView.segments().back();
                 messages::resourceNotFound(asyncResp->res, "", nameStr);
             }
             return;
