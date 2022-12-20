@@ -3178,7 +3178,6 @@ inline void requestRoutesCrashdumpEntry(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
         const std::string& logID = param;
@@ -3206,7 +3205,6 @@ inline void requestRoutesCrashdumpFile(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
 
@@ -3310,7 +3308,6 @@ inline void requestRoutesCrashdumpCollect(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
 
@@ -3440,7 +3437,6 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
         BMCWEB_LOG_DEBUG << "Do delete all entries.";
@@ -3488,7 +3484,6 @@ inline void requestRoutesPostCodesLogService(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] =
@@ -3534,7 +3529,6 @@ inline void requestRoutesPostCodesClear(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
         BMCWEB_LOG_DEBUG << "Do delete all postcodes entries.";
@@ -3888,7 +3882,6 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
@@ -3932,7 +3925,6 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
-            ;
             return;
         }
 
