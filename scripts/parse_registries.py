@@ -169,6 +169,23 @@ namespace redfish::privileges
 """
 )
 
+PRIVILEGE_GETTER = """
+inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
+{
+    // Must be the same order as HttpVerb
+    size_t entityIndex = static_cast<size_t>(entity);
+    size_t methodIndex = static_cast<size_t>(method);
+    return privilegeSetMap[entityIndex][methodIndex];
+}
+"""
+
+
+def array_to_cpp_init_list_str(array):
+    res = '{"'
+    res += '", "'.join(array)
+    res += '"}'
+    return res
+
 
 PRIVILEGE_GETTER = """
 inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
