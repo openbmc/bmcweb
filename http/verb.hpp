@@ -27,6 +27,10 @@ static constexpr const size_t methodNotAllowedIndex = notFoundIndex + 1;
 
 inline std::optional<HttpVerb> httpVerbFromBoost(boost::beast::http::verb bv)
 {
+    // It's not clear here how to avoid the clang warning while still getting
+    // the behavior we want.  For the moment, just disable the warning.
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wswitch-enum"
     switch (bv)
     {
         case boost::beast::http::verb::delete_:
@@ -44,9 +48,9 @@ inline std::optional<HttpVerb> httpVerbFromBoost(boost::beast::http::verb bv)
         case boost::beast::http::verb::put:
             return HttpVerb::Put;
         default:
-            return std::nullopt;
+            break;
     }
-
+    #pragma clang diagnostic pop
     return std::nullopt;
 }
 
