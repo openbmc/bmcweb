@@ -34,6 +34,24 @@
       "parentUuid": "f628c698_92e3d2c6",
       "revId": "68a2aa319a24f8ca32c50d2422cdde9e0d637731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca30027d_f5a54f63",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-20T18:50:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fa06c64_b9e803cf",
+      "revId": "68a2aa319a24f8ca32c50d2422cdde9e0d637731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
