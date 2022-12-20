@@ -35,6 +35,7 @@
 #include "pcie.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
+#include "privilege_registry.hpp"
 #include "processor.hpp"
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
@@ -75,6 +76,7 @@ class RedfishService
         requestRoutesNetworkProtocol(app);
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
+        requestPrivilegeRegistryRoutes(app);
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
         requestRoutesPower(app);
