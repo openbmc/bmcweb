@@ -169,16 +169,7 @@ namespace redfish::privileges
 """
 )
 
-
-PRIVILEGE_GETTER = """
-inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
-{
-    // Must be the same order as HttpVerb
-    size_t entityIndex = static_cast<size_t>(entity);
-    size_t methodIndex = static_cast<size_t>(method);
-    return privilegeSetMap[entityIndex][methodIndex];
-}
-"""
+operation_list = ["GET", "HEAD", "PATCH", "POST", "PUT", "DELETE"]
 
 
 def array_to_cpp_init_list_str(array):
@@ -246,7 +237,11 @@ def make_privilege_registry():
         for mapping in json_file["Mappings"]:
             entity = mapping["Entity"]
             registry.write("// {}\n".format(entity))
-            for operation, privilege_list in mapping["OperationMap"].items():
+            for operation in operation_list:
+                # TODO ManagerDiagnostic has no DELETE privilege in registry
+                if operation not in mapping["OperationMap"]:
+                    continue
+                privilege_list = mapping["OperationMap"][operation]
                 privilege_string = get_privilege_string_from_list(
                     privilege_list
                 )
@@ -258,28 +253,6 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
-
-        registry.write("using OperationMap = ")
-        registry.write("std::array<const std::span<const Privileges>, 6>;\n")
-        registry.write(
-            "const static std::array<OperationMap, {}> privilegeSetMap".format(
-                len(json_file["Mappings"])
-            )
-        )
-        registry.write("{{\n")
-
-        # Pass through to create map pointing to RO data
-        for mapping in json_file["Mappings"]:
-            entity = mapping["Entity"]
-            registry.write("    {{\n")
-            for operation, _ in mapping["OperationMap"].items():
-                operation = operation.lower()
-                registry.write("      {}{}".format(operation, entity))
-                registry.write(",\n")
-            registry.write("    }},\n")
-        registry.write("}};\n")
-
-        registry.write(PRIVILEGE_GETTER)
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
         )
