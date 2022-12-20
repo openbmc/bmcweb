@@ -323,6 +323,8 @@ class Connection :
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG << "Request failed to construct" << reqEc;
+            res.result(boost::beast::http::status::bad_request);
+            completeRequest();
             return;
         }
         thisReq.session = userSession;
