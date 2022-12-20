@@ -155,6 +155,7 @@ add_project_arguments(
     '-Wno-shadow',
     '-Wno-used-but-marked-unused',
     '-Wno-weak-vtables',
+    '-Wno-switch-enum',
   ]),
   language:'cpp')
 endif
