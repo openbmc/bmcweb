@@ -168,6 +168,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "03508615_26ad7d1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001210
+      },
+      "writtenOn": "2022-12-20T07:19:40Z",
+      "side": 1,
+      "message": "| Tests can be very effective, but if there\u0027s no backend that actually hosts\n| thefunctionality in question, the code itself doesn\u0027t do anyone much good.\n\nThat makes some sense, although I don\u0027t completely agree. But my code is not new code that no one but me uses. It is fixing a bug in the old code. Maybe this code is better deleted than a little fixing?",
+      "parentUuid": "e91b76e1_683b33f9",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ac5b19d4_2f763154",
