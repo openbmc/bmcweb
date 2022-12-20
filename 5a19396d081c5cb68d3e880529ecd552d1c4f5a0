@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a579bc47_ba4ae793",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-20T03:00:12Z",
+      "side": 0,
+      "message": "\u003e Why was this removed?\n\nBecause std::span does not accept std::array of const type\n\n```\n../redfish-core/lib/processor.hpp:1225:13: error: could not convert ‘redfish::processorInterfaces’ from ‘const std::array\u003cconst char*, 2\u003e’ to ‘std::span\u003cconst char*\u003e’\n 1225 |             processorInterfaces);\n      |             ^~~~~~~~~~~~~~~~~~~\n      |             |\n      |             const std::array\u003cconst char*, 2\u003e\n```",
+      "parentUuid": "3994446a_6e98bb79",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "5a19396d081c5cb68d3e880529ecd552d1c4f5a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15fcff06_2324be05",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5

@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc765b60_342e2ee9",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-20T03:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf965dc_c2d4bfa0",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 19
+      },
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccc177f6_5e52e3d8",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-19T18:53:54Z",
       "side": 1,
       "message": "array please.  Please fix all of these.",
+      "range": {
+        "startLine": 795,
+        "startChar": 13,
+        "endLine": 795,
+        "endChar": 19
+      },
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2321ab8a_369c1b19",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-20T03:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccc177f6_5e52e3d8",
       "range": {
         "startLine": 795,
         "startChar": 13,
@@ -83,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1afe8fc6_5a344c93",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-20T03:00:12Z",
+      "side": 1,
+      "message": "\u003e Can you comment why these needed to move from lvalue lambdas to inline rvalues.  It\u0027s not clear to me why that would be necessary in this refactor.\n\nBecause you said:\n```\nPlease don\u0027t use inline lambdas like this, and especially don\u0027t convert an existing call to using inline lambdas.  Either leave it the way it is as an rvalue, or move it over to the new pattern of a normal method.\n```\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59428/2..5/include/openbmc_dbus_rest.hpp#b1645",
+      "parentUuid": "41687aa1_6c71cf89",
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b726666_90058f9a",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
@@ -94,6 +160,24 @@
       "writtenOn": "2022-12-19T18:53:54Z",
       "side": 1,
       "message": "Why do we need an intermediate here?  processorInterfaces is a std::array that the helper function should be able to use directly.",
+      "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfa6fab_0d4f7a0d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-20T03:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b726666_90058f9a",
       "revId": "3b896cf2398b269d5dd9316862c2a4d08a3219d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
