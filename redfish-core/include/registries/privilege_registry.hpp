@@ -2005,7 +2005,7 @@ const static auto& postZoneCollection = privilegeSetConfigureComponents;
 const static auto& putZoneCollection = privilegeSetConfigureComponents;
 const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
 
-using OperationMap = std::array<const std::span<const Privileges>, HttpVerb::Max>;
+using OperationMap = std::array<const std::span<const Privileges>, 6>;
 const static std::array<OperationMap, 195> privilegeSetMap{{
     {{
       getAccelerationFunction,
