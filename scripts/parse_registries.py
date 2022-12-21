@@ -163,6 +163,7 @@ PRIVILEGE_HEADER = (
 #include "privileges.hpp"
 
 #include <array>
+#include <string_view>
 
 // clang-format off
 
@@ -253,7 +254,11 @@ def make_privilege_registry():
         for mapping in json_file["Mappings"]:
             entity = mapping["Entity"]
             registry.write("// {}\n".format(entity))
-            for operation, privilege_list in mapping["OperationMap"].items():
+            for operation in operation_list:
+                # TODO ManagerDiagnostic has no DELETE privilege in registry
+                if operation not in mapping["OperationMap"]:
+                    continue
+                privilege_list = mapping["OperationMap"][operation]
                 privilege_string = get_privilege_string_from_list(
                     privilege_list
                 )
@@ -265,6 +270,76 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
+
+        registry.write(
+            "} // namespace redfish::privileges\n// clang-format on\n"
+        )
+
+
+PRIVILEGE_MAP_HEADER = (
+    PRAGMA_ONCE
+    + WARNING
+    + """
+#include "privilege_registry.hpp"
+#include "privileges.hpp"
+#include "verb.hpp"
+
+#include <array>
+#include <span>
+
+// clang-format off
+
+namespace redfish::privileges
+{
+"""
+)
+
+
+PRIVILEGE_MAP_GETTER = """
+inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
+{
+    // Must be the same order as HttpVerb
+    size_t entityIndex = static_cast<size_t>(entity);
+    size_t methodIndex = static_cast<size_t>(method);
+    return privilegeSetMap[entityIndex][methodIndex];
+}
+"""
+
+operation_list = ["GET", "HEAD", "PATCH", "POST", "PUT", "DELETE"]
+
+
+def make_privilege_map_registry():
+    path, json_file, type_name, url = make_getter(
+        "Redfish_1.3.0_PrivilegeRegistry.json",
+        "privilege_map_registry.hpp",
+        "privilege",
+    )
+    with open(path, "w") as registry:
+        registry.write(PRIVILEGE_MAP_HEADER)
+        registry.write("using OperationMap = ")
+        registry.write("std::array<const std::span<const Privileges>, 6>;\n")
+        registry.write(
+            "constexpr const static std::array<OperationMap, {}>"
+            " privilegeSetMap".format(len(json_file["Mappings"]))
+        )
+        registry.write("{{\n")
+
+        # Pass through to create map pointing to RO data
+        for mapping in json_file["Mappings"]:
+            entity = mapping["Entity"]
+            registry.write("    {{\n")
+            for operation in operation_list:
+                # TODO ManagerDiagnostic has no DELETE privilege in registry
+                if operation not in mapping["OperationMap"]:
+                    continue
+                operation = operation.lower()
+                registry.write("      {}{}".format(operation, entity))
+                registry.write(",\n")
+            registry.write("    }},\n")
+        registry.write("}};\n")
+
+        registry.write(PRIVILEGE_MAP_GETTER)
+
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
         )
@@ -311,6 +386,7 @@ def main():
 
     if "privilege" in registries:
         make_privilege_registry()
+        make_privilege_map_registry()
 
 
 if __name__ == "__main__":
