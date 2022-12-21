@@ -24,6 +24,7 @@ struct DbusWebsocketSession
         interfaces;
 };
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static boost::container::flat_map<crow::websocket::Connection*,
                                   DbusWebsocketSession>
     sessions;

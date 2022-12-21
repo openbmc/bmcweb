@@ -11,6 +11,7 @@ namespace crow
 {
 namespace hostname_monitor
 {
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<sdbusplus::bus::match_t> hostnameSignalMonitor;
 
 inline void installCertificate(const std::filesystem::path& certPath)

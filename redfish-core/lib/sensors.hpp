@@ -55,12 +55,12 @@ static constexpr std::string_view thermal = "Thermal";
 // clang-format off
 namespace dbus
 {
-static auto powerPaths = std::to_array<std::string_view>({
+constexpr auto powerPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/voltage",
     "/xyz/openbmc_project/sensors/power"
 });
 
-static auto sensorPaths = std::to_array<std::string_view>({
+constexpr auto sensorPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/power",
     "/xyz/openbmc_project/sensors/current",
     "/xyz/openbmc_project/sensors/airflow",
@@ -76,7 +76,7 @@ static auto sensorPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/utilization"
 });
 
-static auto thermalPaths = std::to_array<std::string_view>({
+constexpr auto thermalPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/fan_tach",
     "/xyz/openbmc_project/sensors/temperature",
     "/xyz/openbmc_project/sensors/fan_pwm"
@@ -85,11 +85,12 @@ static auto thermalPaths = std::to_array<std::string_view>({
 } // namespace dbus
 // clang-format on
 
-using sensorPair = std::pair<std::string_view, std::span<std::string_view>>;
+using sensorPair =
+    std::pair<std::string_view, std::span<const std::string_view>>;
 static constexpr std::array<sensorPair, 3> paths = {
-    {{node::power, std::span<std::string_view>(dbus::powerPaths)},
-     {node::sensors, std::span<std::string_view>(dbus::sensorPaths)},
-     {node::thermal, std::span<std::string_view>(dbus::thermalPaths)}}};
+    {{node::power, dbus::powerPaths},
+     {node::sensors, dbus::sensorPaths},
+     {node::thermal, dbus::thermalPaths}}};
 
 inline sensor::ReadingType toReadingType(std::string_view sensorType)
 {
@@ -199,7 +200,7 @@ class SensorsAsyncResp
 
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
-                     std::span<std::string_view> typesIn,
+                     std::span<const std::string_view> typesIn,
                      std::string_view subNode) :
         asyncResp(asyncRespIn),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
@@ -209,7 +210,7 @@ class SensorsAsyncResp
     // Store extra data about sensor mapping and return it in callback
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
-                     std::span<std::string_view> typesIn,
+                     std::span<const std::string_view> typesIn,
                      std::string_view subNode,
                      DataCompleteCb&& creationComplete) :
         asyncResp(asyncRespIn),
@@ -221,7 +222,7 @@ class SensorsAsyncResp
     // sensor collections expand
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
-                     const std::span<std::string_view> typesIn,
+                     std::span<const std::string_view> typesIn,
                      const std::string_view& subNode, bool efficientExpandIn) :
         asyncResp(asyncRespIn),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
@@ -284,7 +285,7 @@ class SensorsAsyncResp
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     const std::string chassisId;
-    const std::span<std::string_view> types;
+    const std::span<const std::string_view> types;
     const std::string chassisSubNode;
     const bool efficientExpand;
 
@@ -439,7 +440,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
  */
 inline void reduceSensorList(
     crow::Response& res, std::string_view chassisSubNode,
-    std::span<std::string_view> sensorTypes,
+    std::span<const std::string_view> sensorTypes,
     const std::vector<std::string>* allSensors,
     const std::shared_ptr<std::set<std::string>>& activeSensors)
 {
@@ -511,7 +512,8 @@ inline void populateChassisNode(nlohmann::json& jsonValue,
 template <typename Callback>
 void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 std::string_view chassisId, std::string_view chassisSubNode,
-                std::span<std::string_view> sensorTypes, Callback&& callback)
+                std::span<const std::string_view> sensorTypes,
+                Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getChassis enter";
     const std::array<const char*, 2> interfaces = {
