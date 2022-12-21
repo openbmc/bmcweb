@@ -22,6 +22,30 @@
       },
       "revId": "9d2deeb9b5bb6dcd4e9be7432767df51e6bb5ca1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98236f01_2821792f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-21T18:32:56Z",
+      "side": 1,
+      "message": "Lets have this discussion outside the context of this patch, considering that this patch isnt\u0027 changing the asycnResp behavior at all.  I do believe that in this case, this code is more efficient by a small margin (because we have one consistent flow, so we never need to copy the shared_ptr, which can optimize better), but again, not the right forum for that discussion.",
+      "parentUuid": "400ab90f_cd9c83d2",
+      "range": {
+        "startLine": 1164,
+        "startChar": 33,
+        "endLine": 1164,
+        "endChar": 67
+      },
+      "revId": "9d2deeb9b5bb6dcd4e9be7432767df51e6bb5ca1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
