@@ -938,37 +938,23 @@ inline CreatePIDRet createPidInterface(
             }
             output.emplace_back("Zones", std::move(zonesStr));
         }
-        if (inputs || outputs)
+
+        if (inputs)
         {
-            std::array<
-                std::reference_wrapper<std::optional<std::vector<std::string>>>,
-                2>
-                containers = {inputs, outputs};
-            size_t index = 0;
-            for (std::optional<std::vector<std::string>>& container :
-                 containers)
+            for (std::string& value : *inputs)
             {
-                if (!container)
-                {
-                    index++;
-                    continue;
-                }
-                for (std::string& value : *container)
-                {
-                    std::replace(value.begin(), value.end(), '_', ' ');
-                }
-                std::string key;
-                if (index == 0)
-                {
-                    key = "Inputs";
-                }
-                else
-                {
-                    key = "Outputs";
-                }
-                output.emplace_back(key, *container);
-                index++;
+                std::replace(value.begin(), value.end(), '_', ' ');
             }
+            output.emplace_back("Inputs", *inputs);
+        }
+
+        if (outputs)
+        {
+            for (std::string& value : *outputs)
+            {
+                std::replace(value.begin(), value.end(), '_', ' ');
+            }
+            output.emplace_back("Outputs", *outputs);
         }
 
         if (setpointOffset)
