@@ -33,6 +33,7 @@ namespace task
 {
 constexpr size_t maxTaskCount = 100; // arbitrary limit
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::deque<std::shared_ptr<struct TaskData>> tasks;
 
 constexpr bool completed = true;
