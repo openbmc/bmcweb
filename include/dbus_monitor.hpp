@@ -24,9 +24,11 @@ struct DbusWebsocketSession
         interfaces;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  DbusWebsocketSession>
-    sessions;
+using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
+                                              DbusWebsocketSession>;
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static SessionMap sessions;
 
 inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
                             sd_bus_error* retError)

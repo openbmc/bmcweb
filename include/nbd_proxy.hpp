@@ -34,7 +34,7 @@ namespace nbd_proxy
 using boost::asio::local::stream_protocol;
 
 static constexpr auto nbdBufferSize = 131088;
-static const char* requiredPrivilegeString = "ConfigureManager";
+constexpr const char* requiredPrivilegeString = "ConfigureManager";
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {
@@ -247,9 +247,10 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     crow::websocket::Connection& connection;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  std::shared_ptr<NbdProxyServer>>
-    sessions;
+using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
+                                              std::shared_ptr<NbdProxyServer>>;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static SessionMap sessions;
 
 inline void requestRoutes(App& app)
 {

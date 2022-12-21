@@ -12,13 +12,18 @@ namespace crow
 namespace obmc_console
 {
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<boost::asio::local::stream_protocol::socket> hostSocket;
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::array<char, 4096> outputBuffer;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::string inputBuffer;
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static boost::container::flat_set<crow::websocket::Connection*> sessions;
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static bool doingWrite = false;
 
 inline void doWrite()
