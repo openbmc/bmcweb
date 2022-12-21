@@ -95,16 +95,12 @@ def update_registries(files):
                     '            "{message[Message]}",\n'
                     '            "{message[MessageSeverity]}",\n'
                     "            {message[NumberOfArgs]},\n"
-                    "            {{".format(
-                        messageId=messageId, message=message
-                    )
+                    "            {{".format(messageId=messageId, message=message)
                 )
                 paramTypes = message.get("ParamTypes")
                 if paramTypes:
                     for paramType in paramTypes:
-                        registry.write(
-                            '\n                "{}",'.format(paramType)
-                        )
+                        registry.write('\n                "{}",'.format(paramType))
                     registry.write("\n            },\n")
                 else:
                     registry.write("},\n")
@@ -118,9 +114,7 @@ def update_registries(files):
                 messageId = messageId[0].lower() + messageId[1:]
                 registry.write("    {} = {},\n".format(messageId, index))
             registry.write(
-                "}};\n}} // namespace redfish::registries::{}\n".format(
-                    namespace
-                )
+                "}};\n}} // namespace redfish::registries::{}\n".format(namespace)
             )
 
 
@@ -157,8 +151,10 @@ PRIVILEGE_HEADER = (
     + WARNING
     + """
 #include "privileges.hpp"
+#include "verb.hpp"
 
 #include <array>
+#include <span>
 
 // clang-format off
 
@@ -166,6 +162,17 @@ namespace redfish::privileges
 {
 """
 )
+
+
+PRIVILEGE_GETTER = """
+inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
+{
+    // Must be the same order as HttpVerb
+    size_t entityIndex = static_cast<size_t>(entity);
+    size_t methodIndex = static_cast<size_t>(method);
+    return privilegeSetMap[entityIndex][methodIndex];
+}
+"""
 
 
 def array_to_cpp_init_list_str(array):
@@ -188,9 +195,9 @@ def make_privilege_registry():
         for mapping in json_file["Mappings"]:
             # first pass, identify all the unique privilege sets
             for operation, privilege_list in mapping["OperationMap"].items():
-                privilege_dict[
-                    get_privilege_string_from_list(privilege_list)
-                ] = (privilege_list,)
+                privilege_dict[get_privilege_string_from_list(privilege_list)] = (
+                    privilege_list,
+                )
         for index, key in enumerate(privilege_dict):
             (privilege_list,) = privilege_dict[key]
             name = get_variable_name_for_privilege_set(privilege_list)
@@ -220,8 +227,7 @@ def make_privilege_registry():
         registry.write("};\n\n")
 
         registry.write(
-            "constexpr std::array<std::string_view, {}> entities".format(
-                len(entities))
+            "constexpr std::array<std::string_view, {}> entities".format(len(entities))
         )
         registry.write(" {\n")
         for entity in entities:
@@ -233,9 +239,7 @@ def make_privilege_registry():
             entity = mapping["Entity"]
             registry.write("// {}\n".format(entity))
             for operation, privilege_list in mapping["OperationMap"].items():
-                privilege_string = get_privilege_string_from_list(
-                    privilege_list
-                )
+                privilege_string = get_privilege_string_from_list(privilege_list)
                 operation = operation.lower()
 
                 registry.write(
@@ -244,9 +248,31 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
+
+        registry.write("using OperationMap = ")
         registry.write(
-            "} // namespace redfish::privileges\n// clang-format on\n"
+            "std::array<const std::span<const Privileges>, HttpVerb::Max>;\n"
         )
+        registry.write(
+            "const static std::array<OperationMap, {}> privilegeSetMap".format(
+                len(json_file["Mappings"])
+            )
+        )
+        registry.write("{{\n")
+
+        # Pass through to create map pointing to RO data
+        for mapping in json_file["Mappings"]:
+            entity = mapping["Entity"]
+            registry.write("    {{\n")
+            for operation, _ in mapping["OperationMap"].items():
+                operation = operation.lower()
+                registry.write("      {}{}".format(operation, entity))
+                registry.write(",\n")
+            registry.write("    }},\n")
+        registry.write("}};\n")
+
+        registry.write(PRIVILEGE_GETTER)
+        registry.write("} // namespace redfish::privileges\n// clang-format on\n")
 
 
 def main():
@@ -265,9 +291,7 @@ def main():
 
     if "base" in registries:
         files.append(
-            make_getter(
-                "Base.1.13.0.json", "base_message_registry.hpp", "base"
-            )
+            make_getter("Base.1.13.0.json", "base_message_registry.hpp", "base")
         )
     if "task_event" in registries:
         files.append(
