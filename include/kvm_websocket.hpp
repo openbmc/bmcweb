@@ -150,9 +150,10 @@ class KvmSession
     bool doingWrite{false};
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  std::unique_ptr<KvmSession>>
-    sessions;
+using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
+                                              std::unique_ptr<KvmSession>>;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static SessionMap sessions;
 
 inline void requestRoutes(App& app)
 {
