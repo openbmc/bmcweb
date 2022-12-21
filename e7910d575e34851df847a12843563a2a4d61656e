@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7b097c2_101066be",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-21T17:05:11Z",
+      "side": 1,
+      "message": "This function can be unit tested.",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9167070_db7b1cff",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-21T17:05:11Z",
+      "side": 1,
+      "message": "can use move here.",
+      "range": {
+        "startLine": 68,
+        "startChar": 51,
+        "endLine": 68,
+        "endChar": 67
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d068297_32340199",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-21T17:05:11Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2abaf1_d400b7db",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-21T17:05:11Z",
+      "side": 1,
+      "message": "nit: PrivilegeRegistry sounds better?",
+      "range": {
+        "startLine": 77,
+        "startChar": 50,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30cbb3a_5bfa0f8e",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-21T17:05:11Z",
+      "side": 1,
+      "message": "In the commit message, could you add why privilege registry as a resource is under AccountService, and why it uses privileges of AccountService?",
+      "range": {
+        "startLine": 78,
+        "startChar": 41,
+        "endLine": 78,
+        "endChar": 58
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
