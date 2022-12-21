@@ -78,7 +78,7 @@ static void
     m.read(objPath, interfacesProperties);
 
     BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
-    for (auto& interface : interfacesProperties)
+    for (const auto& interface : interfacesProperties)
     {
         BMCWEB_LOG_DEBUG << "interface = " << interface.first;
 
