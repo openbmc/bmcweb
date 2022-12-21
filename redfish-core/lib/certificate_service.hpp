@@ -572,6 +572,7 @@ inline void handleReplaceCertificateAction(
         certFile->getCertFilePath());
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<sdbusplus::bus::match_t> csrMatcher;
 /**
  * @brief Read data from CSR D-bus object and set to response

@@ -14,6 +14,7 @@ namespace crow
 namespace obmc_vm
 {
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static crow::websocket::Connection* session = nullptr;
 
 // The max network block device buffer size is 128kb plus 16bytes
