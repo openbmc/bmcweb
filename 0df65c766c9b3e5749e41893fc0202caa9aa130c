@@ -16,6 +16,24 @@
       "message": "I split up this commit into two to clean up the diff a bit.  Let me know if that works for you.",
       "revId": "0df65c766c9b3e5749e41893fc0202caa9aa130c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c767e6b7_dcbc0561",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T21:35:46Z",
+      "side": 1,
+      "message": "Yeah I think that makes sense.  I\u0027ve adjusted the commit message to remove the mention of enum generation.",
+      "parentUuid": "2c41139e_f7a5fc24",
+      "revId": "0df65c766c9b3e5749e41893fc0202caa9aa130c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
