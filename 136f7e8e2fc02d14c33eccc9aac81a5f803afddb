@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b6716f_28ced68a",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-21T18:24:43Z",
+      "side": 1,
+      "message": "There\u0027s already a commit to do something similar to this (and more) in review. \n https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54033\n \nIt\u0027s not rebased, because of the recent version sort issues we\u0027ve had, but i think it does everything you need, as well as adding version numbers.\n\nPTAL, and comment on that review.  If it doesn\u0027t handle what you need, I\u0027m happy to review this one instead, but lets keep the work centralized.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
