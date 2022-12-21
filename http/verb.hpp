@@ -10,9 +10,9 @@ enum class HttpVerb
     Get = 0,
     Head,
     Patch,
+    Post,
     Put,
     Delete,
-    Post,
     Options,
     Max,
 };
