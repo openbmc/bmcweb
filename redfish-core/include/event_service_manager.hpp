@@ -77,12 +77,17 @@ inline std::span<const MessageEntry>
 } // namespace registries
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
 static constexpr const char* redfishEventLogDir = "/var/log";
 static constexpr const char* redfishEventLogFile = "/var/log/redfish";
 static constexpr const size_t iEventSize = sizeof(inotify_event);
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int inotifyFd = -1;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int dirWatchDesc = -1;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int fileWatchDesc = -1;
 
 // <ID, timestamp, RedfishLogId, registryPrefix, MessageId, MessageArgs>
