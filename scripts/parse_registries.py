@@ -157,8 +157,10 @@ PRIVILEGE_HEADER = (
     + WARNING
     + """
 #include "privileges.hpp"
+#include "verb.hpp"
 
 #include <array>
+#include <span>
 
 // clang-format off
 
@@ -166,6 +168,17 @@ namespace redfish::privileges
 {
 """
 )
+
+
+PRIVILEGE_GETTER = """
+inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
+{
+    // Must be the same order as HttpVerb
+    size_t entityIndex = static_cast<size_t>(entity);
+    size_t methodIndex = static_cast<size_t>(method);
+    return privilegeSetMap[entityIndex][methodIndex];
+}
+"""
 
 
 def array_to_cpp_init_list_str(array):
@@ -244,6 +257,25 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
+        
+        registry.write(
+            "using OperationMap = std::array<const std::span<const Privileges>, REDFISH_VERB_COUNT>;\n")
+        registry.write("const static std::array<OperationMap, {}> privilegeSetMap".format(
+            len(json_file["Mappings"])))
+        registry.write("{{\n")
+
+        # Pass through to create map pointing to RO data
+        for mapping in json_file["Mappings"]:
+            entity = mapping["Entity"]
+            registry.write("    {{\n")
+            for operation, _ in mapping["OperationMap"].items():
+                operation = operation.lower()
+                registry.write("      {}{}".format(operation, entity))
+                registry.write(",\n")
+            registry.write("    }},\n")
+        registry.write("}};\n")
+
+        registry.write(PRIVILEGE_GETTER)
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
         )
