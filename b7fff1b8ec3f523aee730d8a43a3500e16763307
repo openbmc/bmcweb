@@ -16,6 +16,24 @@
       "message": "This should be Log instead of LogService",
       "revId": "b7fff1b8ec3f523aee730d8a43a3500e16763307",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcbe5064_e11b650e",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T00:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a760454_215d7504",
+      "revId": "b7fff1b8ec3f523aee730d8a43a3500e16763307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

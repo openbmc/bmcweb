@@ -262,6 +262,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae25e99_9ee2e13d",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T00:33:00Z",
+      "side": 1,
+      "message": "I no longer need to remove just plain Sessions.  That was getting parsed due to the previous iteration of the script which wasn\u0027t as picky about how it found a NavigationProperty.  Now we don\u0027t use iter() and we explicitly match the \"Name\" attribute for EntityType and ComplexType objects as part of parsing each file.",
+      "parentUuid": "3421832a_f7113b7f",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2d94a5a_a9c5ca45",
