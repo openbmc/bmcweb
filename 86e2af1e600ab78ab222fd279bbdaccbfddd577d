@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afb91443_cf301354",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T00:20:11Z",
+      "side": 1,
+      "message": "Right now this can\u0027t be hit by normal means.\n\nfindSatellite() only gets called by aggregateAndHandle() when the request is for a satellite resource and not an aggregated collection.  beginAggregation() will prevent us from proceeding with the flow for a satellite resource if the member in the URI does not begin with \"5B247A\".\n\nBecause of that, it\u0027s currently not possible to make it this far for a URI whose resource ID does not begin with a known prefix.\n\nThis check was added under the assumption that it would be needed as part of supporting multiple satellite configs.  This fail state here can be removed if that turns out to not be the case when support for that feature lands.\n\nThis change is exactly the same type as the other one in this patch.  Testing showed that change as being correct so I think this should be considered fine.",
+      "revId": "86e2af1e600ab78ab222fd279bbdaccbfddd577d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
