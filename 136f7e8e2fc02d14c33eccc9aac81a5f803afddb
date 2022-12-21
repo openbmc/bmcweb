@@ -70,6 +70,30 @@
       },
       "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81bf5ee_2295dc42",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-21T23:36:48Z",
+      "side": 1,
+      "message": "The PrivilegeRegistry resource\u0027s base registry is found here.\nhttps://redfish.dmtf.org/registries/Redfish_1.3.0_PrivilegeRegistry.json\n\nTo implement the GET for this PrivilegeRegistry resource (done in future commits), all entitytypes (including ones we havent implemented currently in bmcweb) must be listed here according to the schema. This is the code generated for things we dont currently implement (\"currently\" being the keyword). \n\nMy plan with the future commits is to generate the entire theoretical redfish tree as described by the schema and this theoretical redfish tree includes types that arent currently implemented in bmcweb.\n\nI needed the strings here to use them as the \"Entity\" field of the PrivilegeRegistry\nimplemented in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59802/12",
+      "parentUuid": "be8c11fe_425e7f58",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
