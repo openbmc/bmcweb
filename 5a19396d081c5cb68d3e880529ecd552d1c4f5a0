@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "205fbe20_b174c28b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-21T05:06:11Z",
+      "side": 0,
+      "message": "\u003e Looks like you were missing a const in front of std::span.\n\nspan does not propagate const\n\n```\nPropagating const for a type like *span* doesn\u0027t actually make much sense, since it cannot protect you from anything anyway.\n```\n\nBut we can fix it like this:\nstd::span\u003cconst char* const\u003e",
+      "parentUuid": "635f0099_a590f06e",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "5a19396d081c5cb68d3e880529ecd552d1c4f5a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15fcff06_2324be05",
@@ -85,6 +109,30 @@
       "writtenOn": "2022-12-19T18:53:54Z",
       "side": 0,
       "message": "Same here.  The old code was correct.",
+      "range": {
+        "startLine": 1591,
+        "startChar": 4,
+        "endLine": 1591,
+        "endChar": 20
+      },
+      "revId": "5a19396d081c5cb68d3e880529ecd552d1c4f5a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8215f595_664bd090",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-21T05:06:11Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "15fcff06_2324be05",
       "range": {
         "startLine": 1591,
         "startChar": 4,
