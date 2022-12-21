@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bf9bc53_c8b6e3d7",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-21T21:48:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed5e9c1d_8e50d454",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 41
+      },
+      "revId": "3bf384ac9a14bff6c5d7d8ad86a8e9cd9f3d4d57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46efe073_e8ecf96d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-21T21:40:38Z",
       "side": 1,
       "message": "THis print should be moved to the end.",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 54
+      },
+      "revId": "3bf384ac9a14bff6c5d7d8ad86a8e9cd9f3d4d57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef2f0b05_b35b220b",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-21T21:48:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46efe073_e8ecf96d",
       "range": {
         "startLine": 274,
         "startChar": 0,
