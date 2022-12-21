@@ -2,8 +2,12 @@
 import argparse
 import json
 import os
+import zipfile
+from io import BytesIO
 
 import requests
+
+VERSION = "DSP8010_2022.2"
 
 PRAGMA_ONCE = """#pragma once
 """
@@ -168,6 +172,40 @@ namespace redfish::privileges
 )
 
 
+def array_to_cpp_init_list_str(array):
+    res = '{"'
+    res += '", "'.join(array)
+    res += '"}'
+    return res
+
+
+def get_all_schema_names():
+    r = requests.get(
+        "https://www.dmtf.org/sites/default/files/standards/documents/"
+        + VERSION
+        + ".zip",
+        proxies=proxies,
+    )
+
+    r.raise_for_status()
+
+    zipBytesIO = BytesIO(r.content)
+    zip_ref = zipfile.ZipFile(zipBytesIO)
+
+    csdl_filenames = []
+
+    for zip_file in zip_ref.infolist():
+        if zip_file.is_dir():
+            continue
+        if zip_file.filename.startswith("csdl/"):
+            csdl_filenames.append(os.path.basename(zip_file.filename))
+
+    entities = [filename.split("_")[0] for filename in csdl_filenames]
+    entities.sort()
+
+    return entities
+
+
 def make_privilege_registry():
     path, json_file, type_name, url = make_getter(
         "Redfish_1.3.0_PrivilegeRegistry.json",
@@ -194,6 +232,23 @@ def make_privilege_registry():
                 )
             )
             privilege_dict[key] = (privilege_list, name)
+
+        # Generate all entities
+        entities = []
+        for entity in get_all_schema_names():
+            entities.append(entity)
+
+        # Add a Tag at the begin to prevent from conflicting with reversed
+        # keywords, e.g., switch
+        entity_tags = ["tag" + entity for entity in entities]
+
+        registry.write("\nenum class EntityTag {\n")
+        registry.write("    " + entity_tags[0] + " = 0,\n")
+
+        for i in range(1, len(entity_tags)):
+            registry.write("    " + entity_tags[i] + ",\n")
+        registry.write("    none,\n")
+        registry.write("};\n\n")
 
         for mapping in json_file["Mappings"]:
             entity = mapping["Entity"]
