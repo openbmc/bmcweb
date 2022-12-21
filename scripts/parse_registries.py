@@ -167,6 +167,9 @@ namespace redfish::privileges
 )
 
 
+operation_list = ["GET", "HEAD", "PATCH", "POST", "PUT", "DELETE"]
+
+
 def make_privilege_registry():
     path, json_file, type_name, url = make_getter(
         "Redfish_1.3.0_PrivilegeRegistry.json",
@@ -197,7 +200,11 @@ def make_privilege_registry():
         for mapping in json_file["Mappings"]:
             entity = mapping["Entity"]
             registry.write("// {}\n".format(entity))
-            for operation, privilege_list in mapping["OperationMap"].items():
+            for operation in operation_list:
+                # TODO ManagerDiagnostic has no DELETE privilege in registry
+                if operation not in mapping["OperationMap"]:
+                    continue
+                privilege_list = mapping["OperationMap"][operation]
                 privilege_string = get_privilege_string_from_list(
                     privilege_list
                 )
@@ -209,6 +216,7 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
+
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
         )

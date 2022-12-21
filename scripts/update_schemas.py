@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import json
 import shutil
 import xml.etree.ElementTree as ET
 import zipfile
@@ -157,6 +158,7 @@ cpp_path = os.path.realpath(
 
 
 schema_path = os.path.join(static_path, "schema")
+privilege_map_registry_path = os.path.join(cpp_path, "registries", "privilege_map_registry.hpp")
 json_schema_path = os.path.join(static_path, "JsonSchemas")
 metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
 
@@ -332,6 +334,61 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         hpp_file.write(f"        {varname},\n")
 
     hpp_file.write("    };\n}\n")
+
+
+# Script to add Privilege Registry Map
+
+operation_list = ["GET", "HEAD", "PATCH", "POST", "PUT", "DELETE"]
+
+url = "https://redfish.dmtf.org/registries/Redfish_1.3.0_PrivilegeRegistry.json"
+dmtf = requests.get(url, proxies=proxies)
+dmtf.raise_for_status()
+base_privilege_registry = json.loads(dmtf.text)
+
+base_privilege_registry_entities = set()
+
+for mapping in base_privilege_registry["Mappings"]:
+    base_privilege_registry_entities.add(mapping["Entity"])
+
+with open(privilege_map_registry_path, "w") as registry:
+    registry.write(
+        "#pragma once\n"
+        f"{WARNING}\n"
+        "// clang-format off\n"
+        '#include "privilege_registry.hpp"\n'
+        '#include "privileges.hpp"\n'
+        '#include "verb.hpp"\n'
+        "\n"
+        "#include <array>\n"
+        "#include <span>\n"
+        "\n"
+        "namespace redfish::privileges\n"
+        "{\n"
+    )
+    registry.write("using OperationMap = ")
+    registry.write("std::array<const std::span<const Privileges>, 6>;\n")
+    registry.write(
+        "constexpr const static std::array<OperationMap, {}>"
+        " privilegeSetMap".format(len(schema_versions.items()))
+    )
+    registry.write("{{\n")
+    for schema_namespace, versions in schema_versions.items():
+        if schema_namespace not in base_privilege_registry_entities:
+            registry.write("    NULL,\n")
+            continue
+        registry.write("    {{\n")
+        for operation in operation_list:
+            # TODO ManagerDiagnostic has no DELETE privilege in registry
+            if operation not in mapping["OperationMap"]:
+                continue
+            operation = operation.lower()
+            registry.write("      {}{}".format(operation, schema_namespace))
+            registry.write(",\n")
+        registry.write("    }},\n")
+    registry.write("}};\n")
+    registry.write(
+        "} // namespace redfish::privileges\n// clang-format on\n"
+    )
 
 zip_ref.close()
 
