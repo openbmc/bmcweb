@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d092176_3d1c3a81",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7f19202_12bbedfa",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 56
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c05077f_d41c1ddb",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 43
@@ -60,6 +84,30 @@
       "writtenOn": "2022-12-16T19:22:59Z",
       "side": 1,
       "message": "Still appears to be a common errors violation.  Commented on previous patches.",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa071b90_f00d0df8",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c05077f_d41c1ddb",
       "range": {
         "startLine": 88,
         "startChar": 34,
@@ -118,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9226ceb2_dbdf04bf",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fee3e37d_180ba16f",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 5
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e219c0a_c15da6dd",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 43
@@ -129,6 +201,30 @@
       "writtenOn": "2022-12-16T19:22:59Z",
       "side": 1,
       "message": "As written, this is adding ALL pcie devices to all hosts.  I\u0027m really surprised this wasn\u0027t observed in testing that all 4 systems PCIe devices tree were the same?  Can we do some testing so that we make sure that won\u0027t be the case?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceb925e6_a20d7cf3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e219c0a_c15da6dd",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -164,6 +260,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14f65234_b755a9de",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9c6ff74_6638f245",
+      "range": {
+        "startLine": 850,
+        "startChar": 8,
+        "endLine": 850,
+        "endChar": 63
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d56fbb8_149d676b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -175,6 +295,24 @@
       "writtenOn": "2022-12-16T19:22:59Z",
       "side": 1,
       "message": "Same as above.",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c649e4a6_c55ba18a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7d56fbb8_149d676b",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -251,6 +389,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d701b3f_b282cf5a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86b1b0bd_3bfbe96c",
+      "range": {
+        "startLine": 1152,
+        "startChar": 0,
+        "endLine": 1152,
+        "endChar": 68
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed93a51c_7ee7e4c6",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -268,6 +430,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2238b5ed_7ad5da1c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ed93a51c_7ee7e4c6",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07ba670f_175ddf3f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -279,6 +459,24 @@
       "writtenOn": "2022-12-16T19:39:43Z",
       "side": 1,
       "message": "Please don\u0027t inline large non-trivial lambdas like this.  Please declare a real function, and use std::bind_front.  Because this is a code move, ideally it would be done in a separate commit, but up to you.",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eef46a9_32a682ec",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07ba670f_175ddf3f",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

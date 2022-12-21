@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "447b1856_a10a072e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "A common util function can be added which returns system collection based on the host interface.This util function can be used by other places which requires the system details.",
+      "parentUuid": "61bb424b_0e529a0f",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d72e5f73_335a4f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 32
@@ -554,6 +578,30 @@
       "side": 1,
       "message": "What test cases are we missing?",
       "parentUuid": "9f88a34f_3e1bf449",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be2bff0a_64b054f1",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-21T14:05:41Z",
+      "side": 1,
+      "message": "Did you mean unit test cases.right now there is no test case file for systems.hpp file\nif we have to add is it okay to create a new patch?",
+      "parentUuid": "f096c9e8_ff748f5a",
       "range": {
         "startLine": 89,
         "startChar": 20,
