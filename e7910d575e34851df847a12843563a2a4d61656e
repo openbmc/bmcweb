@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "945d4bcf_5111ee3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-21T17:07:26Z",
+      "side": 1,
+      "message": "How much increase is due to the previous commit?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68c7c1eb_cb352a5d",
         "filename": "redfish-core/include/privileges.hpp",
         "patchSetId": 12
