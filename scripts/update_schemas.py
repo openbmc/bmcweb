@@ -261,20 +261,21 @@ with open(metadata_index_path, "w") as metadata_index:
 
     for filename in csdl_filenames:
         # filename looks like Zone_v1.xml
-        filenamesplit = filename.split("_")
-        if filenamesplit[0] not in include_list:
-            print("excluding schema: " + filename)
-            continue
-
         with open(os.path.join(schema_path, filename), "wb") as schema_out:
+            content = zip_ref.read(os.path.join("csdl", filename))
+            content = content.replace(b"\r\n", b"\n")
+
+            schema_out.write(content)
+
+            filenamesplit = filename.split("_")
+            if filenamesplit[0] not in include_list:
+                continue
             metadata_index.write(
                 '    <edmx:Reference Uri="/redfish/v1/schema/'
                 + filename
                 + '">\n'
             )
 
-            content = zip_ref.read(os.path.join("csdl", filename))
-            content = content.replace(b"\r\n", b"\n")
             xml_root = ET.fromstring(content)
             edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
             edm = "{http://docs.oasis-open.org/odata/ns/edm}"
@@ -296,7 +297,6 @@ with open(metadata_index_path, "w") as metadata_index:
                                     + namespace
                                     + '"/>\n'
                                 )
-            schema_out.write(content)
             metadata_index.write("    </edmx:Reference>\n")
 
     metadata_index.write(
@@ -391,3 +391,19 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
 zip_ref.close()
 
 generate_schema_enums.main()
+
+# Now delete the xml schema files we aren't supporting
+if os.path.exists(schema_path):
+    files = [
+        os.path.join(schema_path, f)
+        for f in os.listdir(schema_path)
+        if not f.startswith(skip_prefixes)
+    ]
+    for filename in files:
+        # filename will include the absolute path
+        filenamesplit = filename.split("/")
+        name = filenamesplit.pop()
+        namesplit = name.split("_")
+        if namesplit[0] not in include_list:
+            print("excluding schema: " + filename)
+            os.remove(filename)
