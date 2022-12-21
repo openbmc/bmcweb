@@ -22,6 +22,30 @@
       },
       "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89eec9c1_f94ee08f",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-21T21:22:27Z",
+      "side": 1,
+      "message": "I took a look and it seems like there is a lot of EntityTags/odata types that are missing from the schemas. One such example is AccelerationFunction. \n\nA lot of these types are not implemented anywhere in bmcweb, but they still need to be provided to follow the redfish schema for PrivilegeRegistry",
+      "parentUuid": "05b6716f_28ced68a",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
