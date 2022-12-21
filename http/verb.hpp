@@ -7,13 +7,13 @@
 
 enum class HttpVerb
 {
-    Delete = 0,
-    Get,
+    Get = 0,
     Head,
-    Options,
     Patch,
     Post,
     Put,
+    Delete,
+    Options,
     Max,
 };
 
