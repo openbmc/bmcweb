@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40faaaa5_231a9993",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T23:34:30Z",
+      "side": 1,
+      "message": "Yes I believe so.  I\u0027ve added a number of test cases which make sure that the specified prefix gets applied when appropriate.",
+      "parentUuid": "ef2babe3_3088e191",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e6715e7_2d9aa43b",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-11-30T19:41:02Z",
       "side": 1,
       "message": "should this also be a boost::url?",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 15
+      },
+      "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcdcfe55_5d6ad37e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T23:34:30Z",
+      "side": 1,
+      "message": "I\u0027ve removed currentUrl since I can use url.buffer() to serve the same purpose.",
+      "parentUuid": "5e6715e7_2d9aa43b",
       "range": {
         "startLine": 94,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c626a2d_7ea19281",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T23:34:30Z",
+      "side": 1,
+      "message": "I\u0027ve added const to the declaration.",
+      "parentUuid": "e11269b1_f3e59420",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "179b05a7_1197d7e1",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-11-30T19:41:02Z",
       "side": 1,
       "message": "note, when we upgrade to the boost version of url, this is no longer required.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 70
+      },
+      "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5fed9a3_0f25c617",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T23:34:30Z",
+      "side": 1,
+      "message": "Thanks, I\u0027ve removed it",
+      "parentUuid": "179b05a7_1197d7e1",
       "range": {
         "startLine": 102,
         "startChar": 0,
@@ -151,6 +247,54 @@
         "startChar": 36,
         "endLine": 103,
         "endChar": 46
+      },
+      "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa75c724_5717b449",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T23:34:30Z",
+      "side": 1,
+      "message": "You\u0027re right.  I\u0027ve removed currentUrl and now use url.buffer() in its place.",
+      "parentUuid": "ab478bc8_1eb4ba37",
+      "range": {
+        "startLine": 103,
+        "startChar": 36,
+        "endLine": 103,
+        "endChar": 46
+      },
+      "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13449d6a_81d8d432",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-21T23:34:30Z",
+      "side": 1,
+      "message": "It\u0027ll only be the wrong result if it\u0027s a top level collection URI that ends in \"/\" such as \"/redfish/v1/Chassis/\".  I was relying on the assumption that because bmcweb does not include trailing \"/\" on URIs in its responses, then we don\u0027t actually need to handle it.\n\nI\u0027ve updated the code to correctly handle trailing \"/\" on URIs and added tests to verify it.",
+      "parentUuid": "7b20e8c4_2cabb353",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 48
       },
       "revId": "2cb2ae540cac7cda89685faa98cfcc8ace41c6da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
