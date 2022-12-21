@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0ba88b6_a75e65db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-21T20:02:33Z",
+      "side": 1,
+      "message": "update (patch) a user?",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "9d2deeb9b5bb6dcd4e9be7432767df51e6bb5ca1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "400ab90f_cd9c83d2",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
