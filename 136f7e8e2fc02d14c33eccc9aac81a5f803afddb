@@ -118,6 +118,30 @@
       },
       "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dbd5023_6334902d",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-21T23:39:24Z",
+      "side": 1,
+      "message": "GET implementation strategy:\n1. For each Mapping, obtain the \"Entity\" field from the array of string_views\n2. For each Mapping, obtain the \"Privileges\" field from the map referencing RO data (created in next commit)",
+      "parentUuid": "77d1440e_170ae70a",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "136f7e8e2fc02d14c33eccc9aac81a5f803afddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
