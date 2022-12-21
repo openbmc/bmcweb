@@ -14,6 +14,7 @@ namespace crow
 namespace obmc_vm
 {
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static crow::websocket::Connection* session = nullptr;
 
 // The max network block device buffer size is 128kb plus 16bytes
@@ -157,6 +158,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         inputBuffer;
 };
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::shared_ptr<Handler> handler;
 
 inline void requestRoutes(App& app)

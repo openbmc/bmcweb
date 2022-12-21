@@ -16,6 +16,7 @@ namespace crow
 namespace image_upload
 {
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateMatcher;
 
 inline void
