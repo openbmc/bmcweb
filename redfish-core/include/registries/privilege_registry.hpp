@@ -10,8 +10,10 @@
  * github organization.
  ***************************************************************/
 #include "privileges.hpp"
+#include "verb.hpp"
 
 #include <array>
+#include <span>
 
 // clang-format off
 
@@ -584,9 +586,9 @@ const static auto& postBatteryMetrics = privilegeSetConfigureManager;
 const static auto& getBios = privilegeSetLogin;
 const static auto& headBios = privilegeSetLogin;
 const static auto& patchBios = privilegeSetConfigureComponents;
-const static auto& postBios = privilegeSetConfigureComponents;
 const static auto& putBios = privilegeSetConfigureComponents;
 const static auto& deleteBios = privilegeSetConfigureComponents;
+const static auto& postBios = privilegeSetConfigureComponents;
 
 // BootOption
 const static auto& getBootOption = privilegeSetLogin;
@@ -712,33 +714,33 @@ const static auto& postCompositionService = privilegeSetConfigureManager;
 const static auto& getComputerSystem = privilegeSetLogin;
 const static auto& headComputerSystem = privilegeSetLogin;
 const static auto& patchComputerSystem = privilegeSetConfigureComponents;
-const static auto& postComputerSystem = privilegeSetConfigureComponents;
 const static auto& putComputerSystem = privilegeSetConfigureComponents;
 const static auto& deleteComputerSystem = privilegeSetConfigureComponents;
+const static auto& postComputerSystem = privilegeSetConfigureComponents;
 
 // ComputerSystemCollection
 const static auto& getComputerSystemCollection = privilegeSetLogin;
 const static auto& headComputerSystemCollection = privilegeSetLogin;
 const static auto& patchComputerSystemCollection = privilegeSetConfigureComponents;
-const static auto& postComputerSystemCollection = privilegeSetConfigureComponents;
 const static auto& putComputerSystemCollection = privilegeSetConfigureComponents;
 const static auto& deleteComputerSystemCollection = privilegeSetConfigureComponents;
+const static auto& postComputerSystemCollection = privilegeSetConfigureComponents;
 
 // Connection
 const static auto& getConnection = privilegeSetLogin;
 const static auto& headConnection = privilegeSetLogin;
 const static auto& patchConnection = privilegeSetConfigureComponents;
-const static auto& postConnection = privilegeSetConfigureComponents;
 const static auto& putConnection = privilegeSetConfigureComponents;
 const static auto& deleteConnection = privilegeSetConfigureComponents;
+const static auto& postConnection = privilegeSetConfigureComponents;
 
 // ConnectionCollection
 const static auto& getConnectionCollection = privilegeSetLogin;
 const static auto& headConnectionCollection = privilegeSetLogin;
 const static auto& patchConnectionCollection = privilegeSetConfigureComponents;
-const static auto& postConnectionCollection = privilegeSetConfigureComponents;
 const static auto& putConnectionCollection = privilegeSetConfigureComponents;
 const static auto& deleteConnectionCollection = privilegeSetConfigureComponents;
+const static auto& postConnectionCollection = privilegeSetConfigureComponents;
 
 // ConnectionMethod
 const static auto& getConnectionMethod = privilegeSetLogin;
@@ -776,49 +778,49 @@ const static auto& postControlCollection = privilegeSetConfigureManager;
 const static auto& getDrive = privilegeSetLogin;
 const static auto& headDrive = privilegeSetLogin;
 const static auto& patchDrive = privilegeSetConfigureComponents;
-const static auto& postDrive = privilegeSetConfigureComponents;
 const static auto& putDrive = privilegeSetConfigureComponents;
 const static auto& deleteDrive = privilegeSetConfigureComponents;
+const static auto& postDrive = privilegeSetConfigureComponents;
 
 // DriveCollection
 const static auto& getDriveCollection = privilegeSetLogin;
 const static auto& headDriveCollection = privilegeSetLogin;
 const static auto& patchDriveCollection = privilegeSetConfigureComponents;
-const static auto& postDriveCollection = privilegeSetConfigureComponents;
 const static auto& putDriveCollection = privilegeSetConfigureComponents;
 const static auto& deleteDriveCollection = privilegeSetConfigureComponents;
+const static auto& postDriveCollection = privilegeSetConfigureComponents;
 
 // Endpoint
 const static auto& getEndpoint = privilegeSetLogin;
 const static auto& headEndpoint = privilegeSetLogin;
 const static auto& patchEndpoint = privilegeSetConfigureComponents;
-const static auto& postEndpoint = privilegeSetConfigureComponents;
 const static auto& putEndpoint = privilegeSetConfigureComponents;
 const static auto& deleteEndpoint = privilegeSetConfigureComponents;
+const static auto& postEndpoint = privilegeSetConfigureComponents;
 
 // EndpointCollection
 const static auto& getEndpointCollection = privilegeSetLogin;
 const static auto& headEndpointCollection = privilegeSetLogin;
 const static auto& patchEndpointCollection = privilegeSetConfigureComponents;
-const static auto& postEndpointCollection = privilegeSetConfigureComponents;
 const static auto& putEndpointCollection = privilegeSetConfigureComponents;
 const static auto& deleteEndpointCollection = privilegeSetConfigureComponents;
+const static auto& postEndpointCollection = privilegeSetConfigureComponents;
 
 // EndpointGroup
 const static auto& getEndpointGroup = privilegeSetLogin;
 const static auto& headEndpointGroup = privilegeSetLogin;
 const static auto& patchEndpointGroup = privilegeSetConfigureComponents;
-const static auto& postEndpointGroup = privilegeSetConfigureComponents;
 const static auto& putEndpointGroup = privilegeSetConfigureComponents;
 const static auto& deleteEndpointGroup = privilegeSetConfigureComponents;
+const static auto& postEndpointGroup = privilegeSetConfigureComponents;
 
 // EndpointGroupCollection
 const static auto& getEndpointGroupCollection = privilegeSetLogin;
 const static auto& headEndpointGroupCollection = privilegeSetLogin;
 const static auto& patchEndpointGroupCollection = privilegeSetConfigureComponents;
-const static auto& postEndpointGroupCollection = privilegeSetConfigureComponents;
 const static auto& putEndpointGroupCollection = privilegeSetConfigureComponents;
 const static auto& deleteEndpointGroupCollection = privilegeSetConfigureComponents;
+const static auto& postEndpointGroupCollection = privilegeSetConfigureComponents;
 
 // EnvironmentMetrics
 const static auto& getEnvironmentMetrics = privilegeSetLogin;
@@ -832,41 +834,41 @@ const static auto& postEnvironmentMetrics = privilegeSetConfigureManager;
 const static auto& getEthernetInterface = privilegeSetLogin;
 const static auto& headEthernetInterface = privilegeSetLogin;
 const static auto& patchEthernetInterface = privilegeSetConfigureComponents;
-const static auto& postEthernetInterface = privilegeSetConfigureComponents;
 const static auto& putEthernetInterface = privilegeSetConfigureComponents;
 const static auto& deleteEthernetInterface = privilegeSetConfigureComponents;
+const static auto& postEthernetInterface = privilegeSetConfigureComponents;
 
 // EthernetInterfaceCollection
 const static auto& getEthernetInterfaceCollection = privilegeSetLogin;
 const static auto& headEthernetInterfaceCollection = privilegeSetLogin;
 const static auto& patchEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const static auto& postEthernetInterfaceCollection = privilegeSetConfigureComponents;
 const static auto& putEthernetInterfaceCollection = privilegeSetConfigureComponents;
 const static auto& deleteEthernetInterfaceCollection = privilegeSetConfigureComponents;
+const static auto& postEthernetInterfaceCollection = privilegeSetConfigureComponents;
 
 // EventDestination
 const static auto& getEventDestination = privilegeSetLogin;
 const static auto& headEventDestination = privilegeSetLogin;
 const static auto& patchEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
-const static auto& postEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
 const static auto& putEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
 const static auto& deleteEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& postEventDestination = privilegeSetConfigureManagerOrConfigureSelf;
 
 // EventDestinationCollection
 const static auto& getEventDestinationCollection = privilegeSetLogin;
 const static auto& headEventDestinationCollection = privilegeSetLogin;
 const static auto& patchEventDestinationCollection = privilegeSetConfigureManagerOrConfigureComponents;
-const static auto& postEventDestinationCollection = privilegeSetConfigureManagerOrConfigureComponents;
 const static auto& putEventDestinationCollection = privilegeSetConfigureManagerOrConfigureComponents;
 const static auto& deleteEventDestinationCollection = privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& postEventDestinationCollection = privilegeSetConfigureManagerOrConfigureComponents;
 
 // EventService
 const static auto& getEventService = privilegeSetLogin;
 const static auto& headEventService = privilegeSetLogin;
 const static auto& patchEventService = privilegeSetConfigureManager;
-const static auto& postEventService = privilegeSetConfigureManager;
 const static auto& putEventService = privilegeSetConfigureManager;
 const static auto& deleteEventService = privilegeSetConfigureManager;
+const static auto& postEventService = privilegeSetConfigureManager;
 
 // ExternalAccountProvider
 const static auto& getExternalAccountProvider = privilegeSetLogin;
@@ -888,33 +890,33 @@ const static auto& postExternalAccountProviderCollection = privilegeSetConfigure
 const static auto& getFabric = privilegeSetLogin;
 const static auto& headFabric = privilegeSetLogin;
 const static auto& patchFabric = privilegeSetConfigureComponents;
-const static auto& postFabric = privilegeSetConfigureComponents;
 const static auto& putFabric = privilegeSetConfigureComponents;
 const static auto& deleteFabric = privilegeSetConfigureComponents;
+const static auto& postFabric = privilegeSetConfigureComponents;
 
 // FabricCollection
 const static auto& getFabricCollection = privilegeSetLogin;
 const static auto& headFabricCollection = privilegeSetLogin;
 const static auto& patchFabricCollection = privilegeSetConfigureComponents;
-const static auto& postFabricCollection = privilegeSetConfigureComponents;
 const static auto& putFabricCollection = privilegeSetConfigureComponents;
 const static auto& deleteFabricCollection = privilegeSetConfigureComponents;
+const static auto& postFabricCollection = privilegeSetConfigureComponents;
 
 // FabricAdapter
 const static auto& getFabricAdapter = privilegeSetLogin;
 const static auto& headFabricAdapter = privilegeSetLogin;
 const static auto& patchFabricAdapter = privilegeSetConfigureComponents;
-const static auto& postFabricAdapter = privilegeSetConfigureComponents;
 const static auto& putFabricAdapter = privilegeSetConfigureComponents;
 const static auto& deleteFabricAdapter = privilegeSetConfigureComponents;
+const static auto& postFabricAdapter = privilegeSetConfigureComponents;
 
 // FabricAdapterCollection
 const static auto& getFabricAdapterCollection = privilegeSetLogin;
 const static auto& headFabricAdapterCollection = privilegeSetLogin;
 const static auto& patchFabricAdapterCollection = privilegeSetConfigureComponents;
-const static auto& postFabricAdapterCollection = privilegeSetConfigureComponents;
 const static auto& putFabricAdapterCollection = privilegeSetConfigureComponents;
 const static auto& deleteFabricAdapterCollection = privilegeSetConfigureComponents;
+const static auto& postFabricAdapterCollection = privilegeSetConfigureComponents;
 
 // Facility
 const static auto& getFacility = privilegeSetLogin;
@@ -968,17 +970,17 @@ const static auto& postGraphicsControllerCollection = privilegeSetConfigureCompo
 const static auto& getHostInterface = privilegeSetLogin;
 const static auto& headHostInterface = privilegeSetLogin;
 const static auto& patchHostInterface = privilegeSetConfigureManager;
-const static auto& postHostInterface = privilegeSetConfigureManager;
 const static auto& putHostInterface = privilegeSetConfigureManager;
 const static auto& deleteHostInterface = privilegeSetConfigureManager;
+const static auto& postHostInterface = privilegeSetConfigureManager;
 
 // HostInterfaceCollection
 const static auto& getHostInterfaceCollection = privilegeSetLogin;
 const static auto& headHostInterfaceCollection = privilegeSetLogin;
 const static auto& patchHostInterfaceCollection = privilegeSetConfigureManager;
-const static auto& postHostInterfaceCollection = privilegeSetConfigureManager;
 const static auto& putHostInterfaceCollection = privilegeSetConfigureManager;
 const static auto& deleteHostInterfaceCollection = privilegeSetConfigureManager;
+const static auto& postHostInterfaceCollection = privilegeSetConfigureManager;
 
 // Job
 const static auto& getJob = privilegeSetLogin;
@@ -1008,17 +1010,17 @@ const static auto& postJobService = privilegeSetConfigureManager;
 const static auto& getJsonSchemaFile = privilegeSetLogin;
 const static auto& headJsonSchemaFile = privilegeSetLogin;
 const static auto& patchJsonSchemaFile = privilegeSetConfigureManager;
-const static auto& postJsonSchemaFile = privilegeSetConfigureManager;
 const static auto& putJsonSchemaFile = privilegeSetConfigureManager;
 const static auto& deleteJsonSchemaFile = privilegeSetConfigureManager;
+const static auto& postJsonSchemaFile = privilegeSetConfigureManager;
 
 // JsonSchemaFileCollection
 const static auto& getJsonSchemaFileCollection = privilegeSetLogin;
 const static auto& headJsonSchemaFileCollection = privilegeSetLogin;
 const static auto& patchJsonSchemaFileCollection = privilegeSetConfigureManager;
-const static auto& postJsonSchemaFileCollection = privilegeSetConfigureManager;
 const static auto& putJsonSchemaFileCollection = privilegeSetConfigureManager;
 const static auto& deleteJsonSchemaFileCollection = privilegeSetConfigureManager;
+const static auto& postJsonSchemaFileCollection = privilegeSetConfigureManager;
 
 // Key
 const static auto& getKey = privilegeSetLogin;
@@ -1096,25 +1098,25 @@ const static auto& postLogServiceCollection = privilegeSetConfigureManager;
 const static auto& getManager = privilegeSetLogin;
 const static auto& headManager = privilegeSetLogin;
 const static auto& patchManager = privilegeSetConfigureManager;
-const static auto& postManager = privilegeSetConfigureManager;
 const static auto& putManager = privilegeSetConfigureManager;
 const static auto& deleteManager = privilegeSetConfigureManager;
+const static auto& postManager = privilegeSetConfigureManager;
 
 // ManagerCollection
 const static auto& getManagerCollection = privilegeSetLogin;
 const static auto& headManagerCollection = privilegeSetLogin;
 const static auto& patchManagerCollection = privilegeSetConfigureManager;
-const static auto& postManagerCollection = privilegeSetConfigureManager;
 const static auto& putManagerCollection = privilegeSetConfigureManager;
 const static auto& deleteManagerCollection = privilegeSetConfigureManager;
+const static auto& postManagerCollection = privilegeSetConfigureManager;
 
 // ManagerAccount
 const static auto& getManagerAccount = privilegeSetConfigureManagerOrConfigureUsersOrConfigureSelf;
 const static auto& headManagerAccount = privilegeSetLogin;
 const static auto& patchManagerAccount = privilegeSetConfigureUsers;
-const static auto& postManagerAccount = privilegeSetConfigureUsers;
 const static auto& putManagerAccount = privilegeSetConfigureUsers;
 const static auto& deleteManagerAccount = privilegeSetConfigureUsers;
+const static auto& postManagerAccount = privilegeSetConfigureUsers;
 
 // ManagerAccountCollection
 const static auto& getManagerAccountCollection = privilegeSetLogin;
@@ -1128,104 +1130,104 @@ const static auto& postManagerAccountCollection = privilegeSetConfigureUsers;
 const static auto& getManagerDiagnosticData = privilegeSetLogin;
 const static auto& headManagerDiagnosticData = privilegeSetLogin;
 const static auto& patchManagerDiagnosticData = privilegeSetConfigureManager;
-const static auto& postManagerDiagnosticData = privilegeSetConfigureManager;
 const static auto& putManagerDiagnosticData = privilegeSetConfigureManager;
+const static auto& postManagerDiagnosticData = privilegeSetConfigureManager;
 
 // ManagerNetworkProtocol
 const static auto& getManagerNetworkProtocol = privilegeSetLogin;
 const static auto& headManagerNetworkProtocol = privilegeSetLogin;
 const static auto& patchManagerNetworkProtocol = privilegeSetConfigureManager;
-const static auto& postManagerNetworkProtocol = privilegeSetConfigureManager;
 const static auto& putManagerNetworkProtocol = privilegeSetConfigureManager;
 const static auto& deleteManagerNetworkProtocol = privilegeSetConfigureManager;
+const static auto& postManagerNetworkProtocol = privilegeSetConfigureManager;
 
 // MediaController
 const static auto& getMediaController = privilegeSetLogin;
 const static auto& headMediaController = privilegeSetLogin;
 const static auto& patchMediaController = privilegeSetConfigureComponents;
-const static auto& postMediaController = privilegeSetConfigureComponents;
 const static auto& putMediaController = privilegeSetConfigureComponents;
 const static auto& deleteMediaController = privilegeSetConfigureComponents;
+const static auto& postMediaController = privilegeSetConfigureComponents;
 
 // MediaControllerCollection
 const static auto& getMediaControllerCollection = privilegeSetLogin;
 const static auto& headMediaControllerCollection = privilegeSetLogin;
 const static auto& patchMediaControllerCollection = privilegeSetConfigureComponents;
-const static auto& postMediaControllerCollection = privilegeSetConfigureComponents;
 const static auto& putMediaControllerCollection = privilegeSetConfigureComponents;
 const static auto& deleteMediaControllerCollection = privilegeSetConfigureComponents;
+const static auto& postMediaControllerCollection = privilegeSetConfigureComponents;
 
 // Memory
 const static auto& getMemory = privilegeSetLogin;
 const static auto& headMemory = privilegeSetLogin;
 const static auto& patchMemory = privilegeSetConfigureComponents;
-const static auto& postMemory = privilegeSetConfigureComponents;
 const static auto& putMemory = privilegeSetConfigureComponents;
 const static auto& deleteMemory = privilegeSetConfigureComponents;
+const static auto& postMemory = privilegeSetConfigureComponents;
 
 // MemoryCollection
 const static auto& getMemoryCollection = privilegeSetLogin;
 const static auto& headMemoryCollection = privilegeSetLogin;
 const static auto& patchMemoryCollection = privilegeSetConfigureComponents;
-const static auto& postMemoryCollection = privilegeSetConfigureComponents;
 const static auto& putMemoryCollection = privilegeSetConfigureComponents;
 const static auto& deleteMemoryCollection = privilegeSetConfigureComponents;
+const static auto& postMemoryCollection = privilegeSetConfigureComponents;
 
 // MemoryChunks
 const static auto& getMemoryChunks = privilegeSetLogin;
 const static auto& headMemoryChunks = privilegeSetLogin;
 const static auto& patchMemoryChunks = privilegeSetConfigureComponents;
-const static auto& postMemoryChunks = privilegeSetConfigureComponents;
 const static auto& putMemoryChunks = privilegeSetConfigureComponents;
 const static auto& deleteMemoryChunks = privilegeSetConfigureComponents;
+const static auto& postMemoryChunks = privilegeSetConfigureComponents;
 
 // MemoryChunksCollection
 const static auto& getMemoryChunksCollection = privilegeSetLogin;
 const static auto& headMemoryChunksCollection = privilegeSetLogin;
 const static auto& patchMemoryChunksCollection = privilegeSetConfigureComponents;
-const static auto& postMemoryChunksCollection = privilegeSetConfigureComponents;
 const static auto& putMemoryChunksCollection = privilegeSetConfigureComponents;
 const static auto& deleteMemoryChunksCollection = privilegeSetConfigureComponents;
+const static auto& postMemoryChunksCollection = privilegeSetConfigureComponents;
 
 // MemoryDomain
 const static auto& getMemoryDomain = privilegeSetLogin;
 const static auto& headMemoryDomain = privilegeSetLogin;
 const static auto& patchMemoryDomain = privilegeSetConfigureComponents;
-const static auto& postMemoryDomain = privilegeSetConfigureComponents;
 const static auto& putMemoryDomain = privilegeSetConfigureComponents;
 const static auto& deleteMemoryDomain = privilegeSetConfigureComponents;
+const static auto& postMemoryDomain = privilegeSetConfigureComponents;
 
 // MemoryDomainCollection
 const static auto& getMemoryDomainCollection = privilegeSetLogin;
 const static auto& headMemoryDomainCollection = privilegeSetLogin;
 const static auto& patchMemoryDomainCollection = privilegeSetConfigureComponents;
-const static auto& postMemoryDomainCollection = privilegeSetConfigureComponents;
 const static auto& putMemoryDomainCollection = privilegeSetConfigureComponents;
 const static auto& deleteMemoryDomainCollection = privilegeSetConfigureComponents;
+const static auto& postMemoryDomainCollection = privilegeSetConfigureComponents;
 
 // MemoryMetrics
 const static auto& getMemoryMetrics = privilegeSetLogin;
 const static auto& headMemoryMetrics = privilegeSetLogin;
 const static auto& patchMemoryMetrics = privilegeSetConfigureComponents;
-const static auto& postMemoryMetrics = privilegeSetConfigureComponents;
 const static auto& putMemoryMetrics = privilegeSetConfigureComponents;
 const static auto& deleteMemoryMetrics = privilegeSetConfigureComponents;
+const static auto& postMemoryMetrics = privilegeSetConfigureComponents;
 
 // MessageRegistryFile
 const static auto& getMessageRegistryFile = privilegeSetLogin;
 const static auto& headMessageRegistryFile = privilegeSetLogin;
 const static auto& patchMessageRegistryFile = privilegeSetConfigureManager;
-const static auto& postMessageRegistryFile = privilegeSetConfigureManager;
 const static auto& putMessageRegistryFile = privilegeSetConfigureManager;
 const static auto& deleteMessageRegistryFile = privilegeSetConfigureManager;
+const static auto& postMessageRegistryFile = privilegeSetConfigureManager;
 
 // MessageRegistryFileCollection
 const static auto& getMessageRegistryFileCollection = privilegeSetLogin;
 const static auto& headMessageRegistryFileCollection = privilegeSetLogin;
 const static auto& patchMessageRegistryFileCollection = privilegeSetConfigureManager;
-const static auto& postMessageRegistryFileCollection = privilegeSetConfigureManager;
 const static auto& putMessageRegistryFileCollection = privilegeSetConfigureManager;
 const static auto& deleteMessageRegistryFileCollection = privilegeSetConfigureManager;
+const static auto& postMessageRegistryFileCollection = privilegeSetConfigureManager;
 
 // MetricDefinition
 const static auto& getMetricDefinition = privilegeSetLogin;
@@ -1279,17 +1281,17 @@ const static auto& postMetricReportDefinitionCollection = privilegeSetConfigureM
 const static auto& getNetworkAdapter = privilegeSetLogin;
 const static auto& headNetworkAdapter = privilegeSetLogin;
 const static auto& patchNetworkAdapter = privilegeSetConfigureComponents;
-const static auto& postNetworkAdapter = privilegeSetConfigureComponents;
 const static auto& putNetworkAdapter = privilegeSetConfigureComponents;
 const static auto& deleteNetworkAdapter = privilegeSetConfigureComponents;
+const static auto& postNetworkAdapter = privilegeSetConfigureComponents;
 
 // NetworkAdapterCollection
 const static auto& getNetworkAdapterCollection = privilegeSetLogin;
 const static auto& headNetworkAdapterCollection = privilegeSetLogin;
 const static auto& patchNetworkAdapterCollection = privilegeSetConfigureComponents;
-const static auto& postNetworkAdapterCollection = privilegeSetConfigureComponents;
 const static auto& putNetworkAdapterCollection = privilegeSetConfigureComponents;
 const static auto& deleteNetworkAdapterCollection = privilegeSetConfigureComponents;
+const static auto& postNetworkAdapterCollection = privilegeSetConfigureComponents;
 
 // NetworkAdapterMetrics
 const static auto& getNetworkAdapterMetrics = privilegeSetLogin;
@@ -1303,17 +1305,17 @@ const static auto& postNetworkAdapterMetrics = privilegeSetConfigureManager;
 const static auto& getNetworkDeviceFunction = privilegeSetLogin;
 const static auto& headNetworkDeviceFunction = privilegeSetLogin;
 const static auto& patchNetworkDeviceFunction = privilegeSetConfigureComponents;
-const static auto& postNetworkDeviceFunction = privilegeSetConfigureComponents;
 const static auto& putNetworkDeviceFunction = privilegeSetConfigureComponents;
 const static auto& deleteNetworkDeviceFunction = privilegeSetConfigureComponents;
+const static auto& postNetworkDeviceFunction = privilegeSetConfigureComponents;
 
 // NetworkDeviceFunctionCollection
 const static auto& getNetworkDeviceFunctionCollection = privilegeSetLogin;
 const static auto& headNetworkDeviceFunctionCollection = privilegeSetLogin;
 const static auto& patchNetworkDeviceFunctionCollection = privilegeSetConfigureComponents;
-const static auto& postNetworkDeviceFunctionCollection = privilegeSetConfigureComponents;
 const static auto& putNetworkDeviceFunctionCollection = privilegeSetConfigureComponents;
 const static auto& deleteNetworkDeviceFunctionCollection = privilegeSetConfigureComponents;
+const static auto& postNetworkDeviceFunctionCollection = privilegeSetConfigureComponents;
 
 // NetworkDeviceFunctionMetrics
 const static auto& getNetworkDeviceFunctionMetrics = privilegeSetLogin;
@@ -1327,145 +1329,145 @@ const static auto& postNetworkDeviceFunctionMetrics = privilegeSetConfigureManag
 const static auto& getNetworkInterface = privilegeSetLogin;
 const static auto& headNetworkInterface = privilegeSetLogin;
 const static auto& patchNetworkInterface = privilegeSetConfigureComponents;
-const static auto& postNetworkInterface = privilegeSetConfigureComponents;
 const static auto& putNetworkInterface = privilegeSetConfigureComponents;
 const static auto& deleteNetworkInterface = privilegeSetConfigureComponents;
+const static auto& postNetworkInterface = privilegeSetConfigureComponents;
 
 // NetworkInterfaceCollection
 const static auto& getNetworkInterfaceCollection = privilegeSetLogin;
 const static auto& headNetworkInterfaceCollection = privilegeSetLogin;
 const static auto& patchNetworkInterfaceCollection = privilegeSetConfigureComponents;
-const static auto& postNetworkInterfaceCollection = privilegeSetConfigureComponents;
 const static auto& putNetworkInterfaceCollection = privilegeSetConfigureComponents;
 const static auto& deleteNetworkInterfaceCollection = privilegeSetConfigureComponents;
+const static auto& postNetworkInterfaceCollection = privilegeSetConfigureComponents;
 
 // NetworkPort
 const static auto& getNetworkPort = privilegeSetLogin;
 const static auto& headNetworkPort = privilegeSetLogin;
 const static auto& patchNetworkPort = privilegeSetConfigureComponents;
-const static auto& postNetworkPort = privilegeSetConfigureComponents;
 const static auto& putNetworkPort = privilegeSetConfigureComponents;
 const static auto& deleteNetworkPort = privilegeSetConfigureComponents;
+const static auto& postNetworkPort = privilegeSetConfigureComponents;
 
 // NetworkPortCollection
 const static auto& getNetworkPortCollection = privilegeSetLogin;
 const static auto& headNetworkPortCollection = privilegeSetLogin;
 const static auto& patchNetworkPortCollection = privilegeSetConfigureComponents;
-const static auto& postNetworkPortCollection = privilegeSetConfigureComponents;
 const static auto& putNetworkPortCollection = privilegeSetConfigureComponents;
 const static auto& deleteNetworkPortCollection = privilegeSetConfigureComponents;
+const static auto& postNetworkPortCollection = privilegeSetConfigureComponents;
 
 // OperatingConfig
 const static auto& getOperatingConfig = privilegeSetLogin;
 const static auto& headOperatingConfig = privilegeSetLogin;
 const static auto& patchOperatingConfig = privilegeSetConfigureComponents;
-const static auto& postOperatingConfig = privilegeSetConfigureComponents;
 const static auto& putOperatingConfig = privilegeSetConfigureComponents;
 const static auto& deleteOperatingConfig = privilegeSetConfigureComponents;
+const static auto& postOperatingConfig = privilegeSetConfigureComponents;
 
 // OperatingConfigCollection
 const static auto& getOperatingConfigCollection = privilegeSetLogin;
 const static auto& headOperatingConfigCollection = privilegeSetLogin;
 const static auto& patchOperatingConfigCollection = privilegeSetConfigureComponents;
-const static auto& postOperatingConfigCollection = privilegeSetConfigureComponents;
 const static auto& putOperatingConfigCollection = privilegeSetConfigureComponents;
 const static auto& deleteOperatingConfigCollection = privilegeSetConfigureComponents;
+const static auto& postOperatingConfigCollection = privilegeSetConfigureComponents;
 
 // Outlet
 const static auto& getOutlet = privilegeSetLogin;
 const static auto& headOutlet = privilegeSetLogin;
 const static auto& patchOutlet = privilegeSetConfigureComponents;
-const static auto& postOutlet = privilegeSetConfigureComponents;
 const static auto& putOutlet = privilegeSetConfigureComponents;
 const static auto& deleteOutlet = privilegeSetConfigureComponents;
+const static auto& postOutlet = privilegeSetConfigureComponents;
 
 // OutletCollection
 const static auto& getOutletCollection = privilegeSetLogin;
 const static auto& headOutletCollection = privilegeSetLogin;
 const static auto& patchOutletCollection = privilegeSetConfigureComponents;
-const static auto& postOutletCollection = privilegeSetConfigureComponents;
 const static auto& putOutletCollection = privilegeSetConfigureComponents;
 const static auto& deleteOutletCollection = privilegeSetConfigureComponents;
+const static auto& postOutletCollection = privilegeSetConfigureComponents;
 
 // OutletGroup
 const static auto& getOutletGroup = privilegeSetLogin;
 const static auto& headOutletGroup = privilegeSetLogin;
 const static auto& patchOutletGroup = privilegeSetConfigureComponents;
-const static auto& postOutletGroup = privilegeSetConfigureComponents;
 const static auto& putOutletGroup = privilegeSetConfigureComponents;
 const static auto& deleteOutletGroup = privilegeSetConfigureComponents;
+const static auto& postOutletGroup = privilegeSetConfigureComponents;
 
 // OutletGroupCollection
 const static auto& getOutletGroupCollection = privilegeSetLogin;
 const static auto& headOutletGroupCollection = privilegeSetLogin;
 const static auto& patchOutletGroupCollection = privilegeSetConfigureComponents;
-const static auto& postOutletGroupCollection = privilegeSetConfigureComponents;
 const static auto& putOutletGroupCollection = privilegeSetConfigureComponents;
 const static auto& deleteOutletGroupCollection = privilegeSetConfigureComponents;
+const static auto& postOutletGroupCollection = privilegeSetConfigureComponents;
 
 // PCIeDevice
 const static auto& getPCIeDevice = privilegeSetLogin;
 const static auto& headPCIeDevice = privilegeSetLogin;
 const static auto& patchPCIeDevice = privilegeSetConfigureComponents;
-const static auto& postPCIeDevice = privilegeSetConfigureComponents;
 const static auto& putPCIeDevice = privilegeSetConfigureComponents;
 const static auto& deletePCIeDevice = privilegeSetConfigureComponents;
+const static auto& postPCIeDevice = privilegeSetConfigureComponents;
 
 // PCIeDeviceCollection
 const static auto& getPCIeDeviceCollection = privilegeSetLogin;
 const static auto& headPCIeDeviceCollection = privilegeSetLogin;
 const static auto& patchPCIeDeviceCollection = privilegeSetConfigureComponents;
-const static auto& postPCIeDeviceCollection = privilegeSetConfigureComponents;
 const static auto& putPCIeDeviceCollection = privilegeSetConfigureComponents;
 const static auto& deletePCIeDeviceCollection = privilegeSetConfigureComponents;
+const static auto& postPCIeDeviceCollection = privilegeSetConfigureComponents;
 
 // PCIeFunction
 const static auto& getPCIeFunction = privilegeSetLogin;
 const static auto& headPCIeFunction = privilegeSetLogin;
 const static auto& patchPCIeFunction = privilegeSetConfigureComponents;
-const static auto& postPCIeFunction = privilegeSetConfigureComponents;
 const static auto& putPCIeFunction = privilegeSetConfigureComponents;
 const static auto& deletePCIeFunction = privilegeSetConfigureComponents;
+const static auto& postPCIeFunction = privilegeSetConfigureComponents;
 
 // PCIeFunctionCollection
 const static auto& getPCIeFunctionCollection = privilegeSetLogin;
 const static auto& headPCIeFunctionCollection = privilegeSetLogin;
 const static auto& patchPCIeFunctionCollection = privilegeSetConfigureComponents;
-const static auto& postPCIeFunctionCollection = privilegeSetConfigureComponents;
 const static auto& putPCIeFunctionCollection = privilegeSetConfigureComponents;
 const static auto& deletePCIeFunctionCollection = privilegeSetConfigureComponents;
+const static auto& postPCIeFunctionCollection = privilegeSetConfigureComponents;
 
 // PCIeSlots
 const static auto& getPCIeSlots = privilegeSetLogin;
 const static auto& headPCIeSlots = privilegeSetLogin;
 const static auto& patchPCIeSlots = privilegeSetConfigureComponents;
-const static auto& postPCIeSlots = privilegeSetConfigureComponents;
 const static auto& putPCIeSlots = privilegeSetConfigureComponents;
 const static auto& deletePCIeSlots = privilegeSetConfigureComponents;
+const static auto& postPCIeSlots = privilegeSetConfigureComponents;
 
 // Port
 const static auto& getPort = privilegeSetLogin;
 const static auto& headPort = privilegeSetLogin;
 const static auto& patchPort = privilegeSetConfigureComponents;
-const static auto& postPort = privilegeSetConfigureComponents;
 const static auto& putPort = privilegeSetConfigureComponents;
 const static auto& deletePort = privilegeSetConfigureComponents;
+const static auto& postPort = privilegeSetConfigureComponents;
 
 // PortCollection
 const static auto& getPortCollection = privilegeSetLogin;
 const static auto& headPortCollection = privilegeSetLogin;
 const static auto& patchPortCollection = privilegeSetConfigureComponents;
-const static auto& postPortCollection = privilegeSetConfigureComponents;
 const static auto& putPortCollection = privilegeSetConfigureComponents;
 const static auto& deletePortCollection = privilegeSetConfigureComponents;
+const static auto& postPortCollection = privilegeSetConfigureComponents;
 
 // PortMetrics
 const static auto& getPortMetrics = privilegeSetLogin;
 const static auto& headPortMetrics = privilegeSetLogin;
 const static auto& patchPortMetrics = privilegeSetConfigureComponents;
-const static auto& postPortMetrics = privilegeSetConfigureComponents;
 const static auto& putPortMetrics = privilegeSetConfigureComponents;
 const static auto& deletePortMetrics = privilegeSetConfigureComponents;
+const static auto& postPortMetrics = privilegeSetConfigureComponents;
 
 // Power
 const static auto& getPower = privilegeSetLogin;
@@ -1479,25 +1481,25 @@ const static auto& postPower = privilegeSetConfigureManager;
 const static auto& getPowerDistribution = privilegeSetLogin;
 const static auto& headPowerDistribution = privilegeSetLogin;
 const static auto& patchPowerDistribution = privilegeSetConfigureComponents;
-const static auto& postPowerDistribution = privilegeSetConfigureComponents;
 const static auto& putPowerDistribution = privilegeSetConfigureComponents;
 const static auto& deletePowerDistribution = privilegeSetConfigureComponents;
+const static auto& postPowerDistribution = privilegeSetConfigureComponents;
 
 // PowerDistributionCollection
 const static auto& getPowerDistributionCollection = privilegeSetLogin;
 const static auto& headPowerDistributionCollection = privilegeSetLogin;
 const static auto& patchPowerDistributionCollection = privilegeSetConfigureComponents;
-const static auto& postPowerDistributionCollection = privilegeSetConfigureComponents;
 const static auto& putPowerDistributionCollection = privilegeSetConfigureComponents;
 const static auto& deletePowerDistributionCollection = privilegeSetConfigureComponents;
+const static auto& postPowerDistributionCollection = privilegeSetConfigureComponents;
 
 // PowerDistributionMetrics
 const static auto& getPowerDistributionMetrics = privilegeSetLogin;
 const static auto& headPowerDistributionMetrics = privilegeSetLogin;
 const static auto& patchPowerDistributionMetrics = privilegeSetConfigureComponents;
-const static auto& postPowerDistributionMetrics = privilegeSetConfigureComponents;
 const static auto& putPowerDistributionMetrics = privilegeSetConfigureComponents;
 const static auto& deletePowerDistributionMetrics = privilegeSetConfigureComponents;
+const static auto& postPowerDistributionMetrics = privilegeSetConfigureComponents;
 
 // PowerDomain
 const static auto& getPowerDomain = privilegeSetLogin;
@@ -1647,41 +1649,41 @@ const static auto& postRouteSetEntryCollection = privilegeSetConfigureComponents
 const static auto& getSecureBoot = privilegeSetLogin;
 const static auto& headSecureBoot = privilegeSetLogin;
 const static auto& patchSecureBoot = privilegeSetConfigureComponents;
-const static auto& postSecureBoot = privilegeSetConfigureComponents;
 const static auto& putSecureBoot = privilegeSetConfigureComponents;
 const static auto& deleteSecureBoot = privilegeSetConfigureComponents;
+const static auto& postSecureBoot = privilegeSetConfigureComponents;
 
 // SecureBootDatabase
 const static auto& getSecureBootDatabase = privilegeSetLogin;
 const static auto& headSecureBootDatabase = privilegeSetLogin;
 const static auto& patchSecureBootDatabase = privilegeSetConfigureComponents;
-const static auto& postSecureBootDatabase = privilegeSetConfigureComponents;
 const static auto& putSecureBootDatabase = privilegeSetConfigureComponents;
 const static auto& deleteSecureBootDatabase = privilegeSetConfigureComponents;
+const static auto& postSecureBootDatabase = privilegeSetConfigureComponents;
 
 // SecureBootDatabaseCollection
 const static auto& getSecureBootDatabaseCollection = privilegeSetLogin;
 const static auto& headSecureBootDatabaseCollection = privilegeSetLogin;
 const static auto& patchSecureBootDatabaseCollection = privilegeSetConfigureComponents;
-const static auto& postSecureBootDatabaseCollection = privilegeSetConfigureComponents;
 const static auto& putSecureBootDatabaseCollection = privilegeSetConfigureComponents;
 const static auto& deleteSecureBootDatabaseCollection = privilegeSetConfigureComponents;
+const static auto& postSecureBootDatabaseCollection = privilegeSetConfigureComponents;
 
 // Sensor
 const static auto& getSensor = privilegeSetLogin;
 const static auto& headSensor = privilegeSetLogin;
 const static auto& patchSensor = privilegeSetConfigureComponents;
-const static auto& postSensor = privilegeSetConfigureComponents;
 const static auto& putSensor = privilegeSetConfigureComponents;
 const static auto& deleteSensor = privilegeSetConfigureComponents;
+const static auto& postSensor = privilegeSetConfigureComponents;
 
 // SensorCollection
 const static auto& getSensorCollection = privilegeSetLogin;
 const static auto& headSensorCollection = privilegeSetLogin;
 const static auto& patchSensorCollection = privilegeSetConfigureComponents;
-const static auto& postSensorCollection = privilegeSetConfigureComponents;
 const static auto& putSensorCollection = privilegeSetConfigureComponents;
 const static auto& deleteSensorCollection = privilegeSetConfigureComponents;
+const static auto& postSensorCollection = privilegeSetConfigureComponents;
 
 // SerialInterface
 const static auto& getSerialInterface = privilegeSetLogin;
@@ -1735,97 +1737,97 @@ const static auto& postSessionService = privilegeSetConfigureManager;
 const static auto& getSignature = privilegeSetLogin;
 const static auto& headSignature = privilegeSetLogin;
 const static auto& patchSignature = privilegeSetConfigureComponents;
-const static auto& postSignature = privilegeSetConfigureComponents;
 const static auto& putSignature = privilegeSetConfigureComponents;
 const static auto& deleteSignature = privilegeSetConfigureComponents;
+const static auto& postSignature = privilegeSetConfigureComponents;
 
 // SignatureCollection
 const static auto& getSignatureCollection = privilegeSetLogin;
 const static auto& headSignatureCollection = privilegeSetLogin;
 const static auto& patchSignatureCollection = privilegeSetConfigureComponents;
-const static auto& postSignatureCollection = privilegeSetConfigureComponents;
 const static auto& putSignatureCollection = privilegeSetConfigureComponents;
 const static auto& deleteSignatureCollection = privilegeSetConfigureComponents;
+const static auto& postSignatureCollection = privilegeSetConfigureComponents;
 
 // SimpleStorage
 const static auto& getSimpleStorage = privilegeSetLogin;
 const static auto& headSimpleStorage = privilegeSetLogin;
 const static auto& patchSimpleStorage = privilegeSetConfigureComponents;
-const static auto& postSimpleStorage = privilegeSetConfigureComponents;
 const static auto& putSimpleStorage = privilegeSetConfigureComponents;
 const static auto& deleteSimpleStorage = privilegeSetConfigureComponents;
+const static auto& postSimpleStorage = privilegeSetConfigureComponents;
 
 // SimpleStorageCollection
 const static auto& getSimpleStorageCollection = privilegeSetLogin;
 const static auto& headSimpleStorageCollection = privilegeSetLogin;
 const static auto& patchSimpleStorageCollection = privilegeSetConfigureComponents;
-const static auto& postSimpleStorageCollection = privilegeSetConfigureComponents;
 const static auto& putSimpleStorageCollection = privilegeSetConfigureComponents;
 const static auto& deleteSimpleStorageCollection = privilegeSetConfigureComponents;
+const static auto& postSimpleStorageCollection = privilegeSetConfigureComponents;
 
 // SoftwareInventory
 const static auto& getSoftwareInventory = privilegeSetLogin;
 const static auto& headSoftwareInventory = privilegeSetLogin;
 const static auto& patchSoftwareInventory = privilegeSetConfigureComponents;
-const static auto& postSoftwareInventory = privilegeSetConfigureComponents;
 const static auto& putSoftwareInventory = privilegeSetConfigureComponents;
 const static auto& deleteSoftwareInventory = privilegeSetConfigureComponents;
+const static auto& postSoftwareInventory = privilegeSetConfigureComponents;
 
 // SoftwareInventoryCollection
 const static auto& getSoftwareInventoryCollection = privilegeSetLogin;
 const static auto& headSoftwareInventoryCollection = privilegeSetLogin;
 const static auto& patchSoftwareInventoryCollection = privilegeSetConfigureComponents;
-const static auto& postSoftwareInventoryCollection = privilegeSetConfigureComponents;
 const static auto& putSoftwareInventoryCollection = privilegeSetConfigureComponents;
 const static auto& deleteSoftwareInventoryCollection = privilegeSetConfigureComponents;
+const static auto& postSoftwareInventoryCollection = privilegeSetConfigureComponents;
 
 // Storage
 const static auto& getStorage = privilegeSetLogin;
 const static auto& headStorage = privilegeSetLogin;
 const static auto& patchStorage = privilegeSetConfigureComponents;
-const static auto& postStorage = privilegeSetConfigureComponents;
 const static auto& putStorage = privilegeSetConfigureComponents;
 const static auto& deleteStorage = privilegeSetConfigureComponents;
+const static auto& postStorage = privilegeSetConfigureComponents;
 
 // StorageCollection
 const static auto& getStorageCollection = privilegeSetLogin;
 const static auto& headStorageCollection = privilegeSetLogin;
 const static auto& patchStorageCollection = privilegeSetConfigureComponents;
-const static auto& postStorageCollection = privilegeSetConfigureComponents;
 const static auto& putStorageCollection = privilegeSetConfigureComponents;
 const static auto& deleteStorageCollection = privilegeSetConfigureComponents;
+const static auto& postStorageCollection = privilegeSetConfigureComponents;
 
 // StorageController
 const static auto& getStorageController = privilegeSetLogin;
 const static auto& headStorageController = privilegeSetLogin;
 const static auto& patchStorageController = privilegeSetConfigureComponents;
-const static auto& postStorageController = privilegeSetConfigureComponents;
 const static auto& putStorageController = privilegeSetConfigureComponents;
 const static auto& deleteStorageController = privilegeSetConfigureComponents;
+const static auto& postStorageController = privilegeSetConfigureComponents;
 
 // StorageControllerCollection
 const static auto& getStorageControllerCollection = privilegeSetLogin;
 const static auto& headStorageControllerCollection = privilegeSetLogin;
 const static auto& patchStorageControllerCollection = privilegeSetConfigureComponents;
-const static auto& postStorageControllerCollection = privilegeSetConfigureComponents;
 const static auto& putStorageControllerCollection = privilegeSetConfigureComponents;
 const static auto& deleteStorageControllerCollection = privilegeSetConfigureComponents;
+const static auto& postStorageControllerCollection = privilegeSetConfigureComponents;
 
 // Switch
 const static auto& getSwitch = privilegeSetLogin;
 const static auto& headSwitch = privilegeSetLogin;
 const static auto& patchSwitch = privilegeSetConfigureComponents;
-const static auto& postSwitch = privilegeSetConfigureComponents;
 const static auto& putSwitch = privilegeSetConfigureComponents;
 const static auto& deleteSwitch = privilegeSetConfigureComponents;
+const static auto& postSwitch = privilegeSetConfigureComponents;
 
 // SwitchCollection
 const static auto& getSwitchCollection = privilegeSetLogin;
 const static auto& headSwitchCollection = privilegeSetLogin;
 const static auto& patchSwitchCollection = privilegeSetConfigureComponents;
-const static auto& postSwitchCollection = privilegeSetConfigureComponents;
 const static auto& putSwitchCollection = privilegeSetConfigureComponents;
 const static auto& deleteSwitchCollection = privilegeSetConfigureComponents;
+const static auto& postSwitchCollection = privilegeSetConfigureComponents;
 
 // Task
 const static auto& getTask = privilegeSetLogin;
@@ -1903,9 +1905,9 @@ const static auto& postTriggersCollection = privilegeSetConfigureManager;
 const static auto& getUpdateService = privilegeSetLogin;
 const static auto& headUpdateService = privilegeSetLogin;
 const static auto& patchUpdateService = privilegeSetConfigureComponents;
-const static auto& postUpdateService = privilegeSetConfigureComponents;
 const static auto& putUpdateService = privilegeSetConfigureComponents;
 const static auto& deleteUpdateService = privilegeSetConfigureComponents;
+const static auto& postUpdateService = privilegeSetConfigureComponents;
 
 // USBController
 const static auto& getUSBController = privilegeSetLogin;
@@ -1975,33 +1977,1603 @@ const static auto& postVirtualMediaCollection = privilegeSetConfigureManager;
 const static auto& getVolume = privilegeSetLogin;
 const static auto& headVolume = privilegeSetLogin;
 const static auto& patchVolume = privilegeSetConfigureComponents;
-const static auto& postVolume = privilegeSetConfigureComponents;
 const static auto& putVolume = privilegeSetConfigureComponents;
 const static auto& deleteVolume = privilegeSetConfigureComponents;
+const static auto& postVolume = privilegeSetConfigureComponents;
 
 // VolumeCollection
 const static auto& getVolumeCollection = privilegeSetLogin;
 const static auto& headVolumeCollection = privilegeSetLogin;
 const static auto& patchVolumeCollection = privilegeSetConfigureComponents;
-const static auto& postVolumeCollection = privilegeSetConfigureComponents;
 const static auto& putVolumeCollection = privilegeSetConfigureComponents;
 const static auto& deleteVolumeCollection = privilegeSetConfigureComponents;
+const static auto& postVolumeCollection = privilegeSetConfigureComponents;
 
 // Zone
 const static auto& getZone = privilegeSetLogin;
 const static auto& headZone = privilegeSetLogin;
 const static auto& patchZone = privilegeSetConfigureComponents;
-const static auto& postZone = privilegeSetConfigureComponents;
 const static auto& putZone = privilegeSetConfigureComponents;
 const static auto& deleteZone = privilegeSetConfigureComponents;
+const static auto& postZone = privilegeSetConfigureComponents;
 
 // ZoneCollection
 const static auto& getZoneCollection = privilegeSetLogin;
 const static auto& headZoneCollection = privilegeSetLogin;
 const static auto& patchZoneCollection = privilegeSetConfigureComponents;
-const static auto& postZoneCollection = privilegeSetConfigureComponents;
 const static auto& putZoneCollection = privilegeSetConfigureComponents;
 const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
+const static auto& postZoneCollection = privilegeSetConfigureComponents;
 
+using OperationMap = std::array<const std::span<const Privileges>, 6>;
+const static std::array<OperationMap, 195> privilegeSetMap{{
+    {{
+      getAccelerationFunction,
+      headAccelerationFunction,
+      patchAccelerationFunction,
+      putAccelerationFunction,
+      deleteAccelerationFunction,
+      postAccelerationFunction,
+    }},
+    {{
+      getAccelerationFunctionCollection,
+      headAccelerationFunctionCollection,
+      patchAccelerationFunctionCollection,
+      putAccelerationFunctionCollection,
+      deleteAccelerationFunctionCollection,
+      postAccelerationFunctionCollection,
+    }},
+    {{
+      getAccountService,
+      headAccountService,
+      patchAccountService,
+      putAccountService,
+      deleteAccountService,
+      postAccountService,
+    }},
+    {{
+      getActionInfo,
+      headActionInfo,
+      patchActionInfo,
+      putActionInfo,
+      deleteActionInfo,
+      postActionInfo,
+    }},
+    {{
+      getAddressPool,
+      headAddressPool,
+      patchAddressPool,
+      putAddressPool,
+      deleteAddressPool,
+      postAddressPool,
+    }},
+    {{
+      getAddressPoolCollection,
+      headAddressPoolCollection,
+      patchAddressPoolCollection,
+      putAddressPoolCollection,
+      deleteAddressPoolCollection,
+      postAddressPoolCollection,
+    }},
+    {{
+      getAggregate,
+      headAggregate,
+      patchAggregate,
+      putAggregate,
+      deleteAggregate,
+      postAggregate,
+    }},
+    {{
+      getAggregateCollection,
+      headAggregateCollection,
+      patchAggregateCollection,
+      putAggregateCollection,
+      deleteAggregateCollection,
+      postAggregateCollection,
+    }},
+    {{
+      getAggregationService,
+      headAggregationService,
+      patchAggregationService,
+      putAggregationService,
+      deleteAggregationService,
+      postAggregationService,
+    }},
+    {{
+      getAggregationSource,
+      headAggregationSource,
+      patchAggregationSource,
+      putAggregationSource,
+      deleteAggregationSource,
+      postAggregationSource,
+    }},
+    {{
+      getAggregationSourceCollection,
+      headAggregationSourceCollection,
+      patchAggregationSourceCollection,
+      putAggregationSourceCollection,
+      deleteAggregationSourceCollection,
+      postAggregationSourceCollection,
+    }},
+    {{
+      getAllowDeny,
+      headAllowDeny,
+      patchAllowDeny,
+      putAllowDeny,
+      deleteAllowDeny,
+      postAllowDeny,
+    }},
+    {{
+      getAllowDenyCollection,
+      headAllowDenyCollection,
+      patchAllowDenyCollection,
+      putAllowDenyCollection,
+      deleteAllowDenyCollection,
+      postAllowDenyCollection,
+    }},
+    {{
+      getAssembly,
+      headAssembly,
+      patchAssembly,
+      putAssembly,
+      deleteAssembly,
+      postAssembly,
+    }},
+    {{
+      getBattery,
+      headBattery,
+      patchBattery,
+      putBattery,
+      deleteBattery,
+      postBattery,
+    }},
+    {{
+      getBatteryCollection,
+      headBatteryCollection,
+      patchBatteryCollection,
+      putBatteryCollection,
+      deleteBatteryCollection,
+      postBatteryCollection,
+    }},
+    {{
+      getBatteryMetrics,
+      headBatteryMetrics,
+      patchBatteryMetrics,
+      putBatteryMetrics,
+      deleteBatteryMetrics,
+      postBatteryMetrics,
+    }},
+    {{
+      getBios,
+      headBios,
+      patchBios,
+      putBios,
+      deleteBios,
+      postBios,
+    }},
+    {{
+      getBootOption,
+      headBootOption,
+      patchBootOption,
+      putBootOption,
+      deleteBootOption,
+      postBootOption,
+    }},
+    {{
+      getBootOptionCollection,
+      headBootOptionCollection,
+      patchBootOptionCollection,
+      putBootOptionCollection,
+      deleteBootOptionCollection,
+      postBootOptionCollection,
+    }},
+    {{
+      getCable,
+      headCable,
+      patchCable,
+      putCable,
+      deleteCable,
+      postCable,
+    }},
+    {{
+      getCableCollection,
+      headCableCollection,
+      patchCableCollection,
+      putCableCollection,
+      deleteCableCollection,
+      postCableCollection,
+    }},
+    {{
+      getCertificate,
+      headCertificate,
+      patchCertificate,
+      putCertificate,
+      deleteCertificate,
+      postCertificate,
+    }},
+    {{
+      getCertificateCollection,
+      headCertificateCollection,
+      patchCertificateCollection,
+      putCertificateCollection,
+      deleteCertificateCollection,
+      postCertificateCollection,
+    }},
+    {{
+      getCertificateLocations,
+      headCertificateLocations,
+      patchCertificateLocations,
+      putCertificateLocations,
+      deleteCertificateLocations,
+      postCertificateLocations,
+    }},
+    {{
+      getCertificateService,
+      headCertificateService,
+      patchCertificateService,
+      putCertificateService,
+      deleteCertificateService,
+      postCertificateService,
+    }},
+    {{
+      getChassis,
+      headChassis,
+      patchChassis,
+      putChassis,
+      deleteChassis,
+      postChassis,
+    }},
+    {{
+      getChassisCollection,
+      headChassisCollection,
+      patchChassisCollection,
+      putChassisCollection,
+      deleteChassisCollection,
+      postChassisCollection,
+    }},
+    {{
+      getCircuit,
+      headCircuit,
+      patchCircuit,
+      putCircuit,
+      deleteCircuit,
+      postCircuit,
+    }},
+    {{
+      getCircuitCollection,
+      headCircuitCollection,
+      patchCircuitCollection,
+      putCircuitCollection,
+      deleteCircuitCollection,
+      postCircuitCollection,
+    }},
+    {{
+      getCompositionReservation,
+      headCompositionReservation,
+      patchCompositionReservation,
+      putCompositionReservation,
+      deleteCompositionReservation,
+      postCompositionReservation,
+    }},
+    {{
+      getCompositionReservationCollection,
+      headCompositionReservationCollection,
+      patchCompositionReservationCollection,
+      putCompositionReservationCollection,
+      deleteCompositionReservationCollection,
+      postCompositionReservationCollection,
+    }},
+    {{
+      getCompositionService,
+      headCompositionService,
+      patchCompositionService,
+      putCompositionService,
+      deleteCompositionService,
+      postCompositionService,
+    }},
+    {{
+      getComputerSystem,
+      headComputerSystem,
+      patchComputerSystem,
+      putComputerSystem,
+      deleteComputerSystem,
+      postComputerSystem,
+    }},
+    {{
+      getComputerSystemCollection,
+      headComputerSystemCollection,
+      patchComputerSystemCollection,
+      putComputerSystemCollection,
+      deleteComputerSystemCollection,
+      postComputerSystemCollection,
+    }},
+    {{
+      getConnection,
+      headConnection,
+      patchConnection,
+      putConnection,
+      deleteConnection,
+      postConnection,
+    }},
+    {{
+      getConnectionCollection,
+      headConnectionCollection,
+      patchConnectionCollection,
+      putConnectionCollection,
+      deleteConnectionCollection,
+      postConnectionCollection,
+    }},
+    {{
+      getConnectionMethod,
+      headConnectionMethod,
+      patchConnectionMethod,
+      putConnectionMethod,
+      deleteConnectionMethod,
+      postConnectionMethod,
+    }},
+    {{
+      getConnectionMethodCollection,
+      headConnectionMethodCollection,
+      patchConnectionMethodCollection,
+      putConnectionMethodCollection,
+      deleteConnectionMethodCollection,
+      postConnectionMethodCollection,
+    }},
+    {{
+      getControl,
+      headControl,
+      patchControl,
+      putControl,
+      deleteControl,
+      postControl,
+    }},
+    {{
+      getControlCollection,
+      headControlCollection,
+      patchControlCollection,
+      putControlCollection,
+      deleteControlCollection,
+      postControlCollection,
+    }},
+    {{
+      getDrive,
+      headDrive,
+      patchDrive,
+      putDrive,
+      deleteDrive,
+      postDrive,
+    }},
+    {{
+      getDriveCollection,
+      headDriveCollection,
+      patchDriveCollection,
+      putDriveCollection,
+      deleteDriveCollection,
+      postDriveCollection,
+    }},
+    {{
+      getEndpoint,
+      headEndpoint,
+      patchEndpoint,
+      putEndpoint,
+      deleteEndpoint,
+      postEndpoint,
+    }},
+    {{
+      getEndpointCollection,
+      headEndpointCollection,
+      patchEndpointCollection,
+      putEndpointCollection,
+      deleteEndpointCollection,
+      postEndpointCollection,
+    }},
+    {{
+      getEndpointGroup,
+      headEndpointGroup,
+      patchEndpointGroup,
+      putEndpointGroup,
+      deleteEndpointGroup,
+      postEndpointGroup,
+    }},
+    {{
+      getEndpointGroupCollection,
+      headEndpointGroupCollection,
+      patchEndpointGroupCollection,
+      putEndpointGroupCollection,
+      deleteEndpointGroupCollection,
+      postEndpointGroupCollection,
+    }},
+    {{
+      getEnvironmentMetrics,
+      headEnvironmentMetrics,
+      patchEnvironmentMetrics,
+      putEnvironmentMetrics,
+      deleteEnvironmentMetrics,
+      postEnvironmentMetrics,
+    }},
+    {{
+      getEthernetInterface,
+      headEthernetInterface,
+      patchEthernetInterface,
+      putEthernetInterface,
+      deleteEthernetInterface,
+      postEthernetInterface,
+    }},
+    {{
+      getEthernetInterfaceCollection,
+      headEthernetInterfaceCollection,
+      patchEthernetInterfaceCollection,
+      putEthernetInterfaceCollection,
+      deleteEthernetInterfaceCollection,
+      postEthernetInterfaceCollection,
+    }},
+    {{
+      getEventDestination,
+      headEventDestination,
+      patchEventDestination,
+      putEventDestination,
+      deleteEventDestination,
+      postEventDestination,
+    }},
+    {{
+      getEventDestinationCollection,
+      headEventDestinationCollection,
+      patchEventDestinationCollection,
+      putEventDestinationCollection,
+      deleteEventDestinationCollection,
+      postEventDestinationCollection,
+    }},
+    {{
+      getEventService,
+      headEventService,
+      patchEventService,
+      putEventService,
+      deleteEventService,
+      postEventService,
+    }},
+    {{
+      getExternalAccountProvider,
+      headExternalAccountProvider,
+      patchExternalAccountProvider,
+      putExternalAccountProvider,
+      deleteExternalAccountProvider,
+      postExternalAccountProvider,
+    }},
+    {{
+      getExternalAccountProviderCollection,
+      headExternalAccountProviderCollection,
+      patchExternalAccountProviderCollection,
+      putExternalAccountProviderCollection,
+      deleteExternalAccountProviderCollection,
+      postExternalAccountProviderCollection,
+    }},
+    {{
+      getFabric,
+      headFabric,
+      patchFabric,
+      putFabric,
+      deleteFabric,
+      postFabric,
+    }},
+    {{
+      getFabricCollection,
+      headFabricCollection,
+      patchFabricCollection,
+      putFabricCollection,
+      deleteFabricCollection,
+      postFabricCollection,
+    }},
+    {{
+      getFabricAdapter,
+      headFabricAdapter,
+      patchFabricAdapter,
+      putFabricAdapter,
+      deleteFabricAdapter,
+      postFabricAdapter,
+    }},
+    {{
+      getFabricAdapterCollection,
+      headFabricAdapterCollection,
+      patchFabricAdapterCollection,
+      putFabricAdapterCollection,
+      deleteFabricAdapterCollection,
+      postFabricAdapterCollection,
+    }},
+    {{
+      getFacility,
+      headFacility,
+      patchFacility,
+      putFacility,
+      deleteFacility,
+      postFacility,
+    }},
+    {{
+      getFacilityCollection,
+      headFacilityCollection,
+      patchFacilityCollection,
+      putFacilityCollection,
+      deleteFacilityCollection,
+      postFacilityCollection,
+    }},
+    {{
+      getFan,
+      headFan,
+      patchFan,
+      putFan,
+      deleteFan,
+      postFan,
+    }},
+    {{
+      getFanCollection,
+      headFanCollection,
+      patchFanCollection,
+      putFanCollection,
+      deleteFanCollection,
+      postFanCollection,
+    }},
+    {{
+      getGraphicsController,
+      headGraphicsController,
+      patchGraphicsController,
+      putGraphicsController,
+      deleteGraphicsController,
+      postGraphicsController,
+    }},
+    {{
+      getGraphicsControllerCollection,
+      headGraphicsControllerCollection,
+      patchGraphicsControllerCollection,
+      putGraphicsControllerCollection,
+      deleteGraphicsControllerCollection,
+      postGraphicsControllerCollection,
+    }},
+    {{
+      getHostInterface,
+      headHostInterface,
+      patchHostInterface,
+      putHostInterface,
+      deleteHostInterface,
+      postHostInterface,
+    }},
+    {{
+      getHostInterfaceCollection,
+      headHostInterfaceCollection,
+      patchHostInterfaceCollection,
+      putHostInterfaceCollection,
+      deleteHostInterfaceCollection,
+      postHostInterfaceCollection,
+    }},
+    {{
+      getJob,
+      headJob,
+      patchJob,
+      putJob,
+      deleteJob,
+      postJob,
+    }},
+    {{
+      getJobCollection,
+      headJobCollection,
+      patchJobCollection,
+      putJobCollection,
+      deleteJobCollection,
+      postJobCollection,
+    }},
+    {{
+      getJobService,
+      headJobService,
+      patchJobService,
+      putJobService,
+      deleteJobService,
+      postJobService,
+    }},
+    {{
+      getJsonSchemaFile,
+      headJsonSchemaFile,
+      patchJsonSchemaFile,
+      putJsonSchemaFile,
+      deleteJsonSchemaFile,
+      postJsonSchemaFile,
+    }},
+    {{
+      getJsonSchemaFileCollection,
+      headJsonSchemaFileCollection,
+      patchJsonSchemaFileCollection,
+      putJsonSchemaFileCollection,
+      deleteJsonSchemaFileCollection,
+      postJsonSchemaFileCollection,
+    }},
+    {{
+      getKey,
+      headKey,
+      patchKey,
+      putKey,
+      deleteKey,
+      postKey,
+    }},
+    {{
+      getKeyCollection,
+      headKeyCollection,
+      patchKeyCollection,
+      putKeyCollection,
+      deleteKeyCollection,
+      postKeyCollection,
+    }},
+    {{
+      getKeyPolicy,
+      headKeyPolicy,
+      patchKeyPolicy,
+      putKeyPolicy,
+      deleteKeyPolicy,
+      postKeyPolicy,
+    }},
+    {{
+      getKeyPolicyCollection,
+      headKeyPolicyCollection,
+      patchKeyPolicyCollection,
+      putKeyPolicyCollection,
+      deleteKeyPolicyCollection,
+      postKeyPolicyCollection,
+    }},
+    {{
+      getKeyService,
+      headKeyService,
+      patchKeyService,
+      putKeyService,
+      deleteKeyService,
+      postKeyService,
+    }},
+    {{
+      getLogEntry,
+      headLogEntry,
+      patchLogEntry,
+      putLogEntry,
+      deleteLogEntry,
+      postLogEntry,
+    }},
+    {{
+      getLogEntryCollection,
+      headLogEntryCollection,
+      patchLogEntryCollection,
+      putLogEntryCollection,
+      deleteLogEntryCollection,
+      postLogEntryCollection,
+    }},
+    {{
+      getLogService,
+      headLogService,
+      patchLogService,
+      putLogService,
+      deleteLogService,
+      postLogService,
+    }},
+    {{
+      getLogServiceCollection,
+      headLogServiceCollection,
+      patchLogServiceCollection,
+      putLogServiceCollection,
+      deleteLogServiceCollection,
+      postLogServiceCollection,
+    }},
+    {{
+      getManager,
+      headManager,
+      patchManager,
+      putManager,
+      deleteManager,
+      postManager,
+    }},
+    {{
+      getManagerCollection,
+      headManagerCollection,
+      patchManagerCollection,
+      putManagerCollection,
+      deleteManagerCollection,
+      postManagerCollection,
+    }},
+    {{
+      getManagerAccount,
+      headManagerAccount,
+      patchManagerAccount,
+      putManagerAccount,
+      deleteManagerAccount,
+      postManagerAccount,
+    }},
+    {{
+      getManagerAccountCollection,
+      headManagerAccountCollection,
+      patchManagerAccountCollection,
+      putManagerAccountCollection,
+      deleteManagerAccountCollection,
+      postManagerAccountCollection,
+    }},
+    {{
+      getManagerDiagnosticData,
+      headManagerDiagnosticData,
+      patchManagerDiagnosticData,
+      putManagerDiagnosticData,
+      postManagerDiagnosticData,
+    }},
+    {{
+      getManagerNetworkProtocol,
+      headManagerNetworkProtocol,
+      patchManagerNetworkProtocol,
+      putManagerNetworkProtocol,
+      deleteManagerNetworkProtocol,
+      postManagerNetworkProtocol,
+    }},
+    {{
+      getMediaController,
+      headMediaController,
+      patchMediaController,
+      putMediaController,
+      deleteMediaController,
+      postMediaController,
+    }},
+    {{
+      getMediaControllerCollection,
+      headMediaControllerCollection,
+      patchMediaControllerCollection,
+      putMediaControllerCollection,
+      deleteMediaControllerCollection,
+      postMediaControllerCollection,
+    }},
+    {{
+      getMemory,
+      headMemory,
+      patchMemory,
+      putMemory,
+      deleteMemory,
+      postMemory,
+    }},
+    {{
+      getMemoryCollection,
+      headMemoryCollection,
+      patchMemoryCollection,
+      putMemoryCollection,
+      deleteMemoryCollection,
+      postMemoryCollection,
+    }},
+    {{
+      getMemoryChunks,
+      headMemoryChunks,
+      patchMemoryChunks,
+      putMemoryChunks,
+      deleteMemoryChunks,
+      postMemoryChunks,
+    }},
+    {{
+      getMemoryChunksCollection,
+      headMemoryChunksCollection,
+      patchMemoryChunksCollection,
+      putMemoryChunksCollection,
+      deleteMemoryChunksCollection,
+      postMemoryChunksCollection,
+    }},
+    {{
+      getMemoryDomain,
+      headMemoryDomain,
+      patchMemoryDomain,
+      putMemoryDomain,
+      deleteMemoryDomain,
+      postMemoryDomain,
+    }},
+    {{
+      getMemoryDomainCollection,
+      headMemoryDomainCollection,
+      patchMemoryDomainCollection,
+      putMemoryDomainCollection,
+      deleteMemoryDomainCollection,
+      postMemoryDomainCollection,
+    }},
+    {{
+      getMemoryMetrics,
+      headMemoryMetrics,
+      patchMemoryMetrics,
+      putMemoryMetrics,
+      deleteMemoryMetrics,
+      postMemoryMetrics,
+    }},
+    {{
+      getMessageRegistryFile,
+      headMessageRegistryFile,
+      patchMessageRegistryFile,
+      putMessageRegistryFile,
+      deleteMessageRegistryFile,
+      postMessageRegistryFile,
+    }},
+    {{
+      getMessageRegistryFileCollection,
+      headMessageRegistryFileCollection,
+      patchMessageRegistryFileCollection,
+      putMessageRegistryFileCollection,
+      deleteMessageRegistryFileCollection,
+      postMessageRegistryFileCollection,
+    }},
+    {{
+      getMetricDefinition,
+      headMetricDefinition,
+      patchMetricDefinition,
+      putMetricDefinition,
+      deleteMetricDefinition,
+      postMetricDefinition,
+    }},
+    {{
+      getMetricDefinitionCollection,
+      headMetricDefinitionCollection,
+      patchMetricDefinitionCollection,
+      putMetricDefinitionCollection,
+      deleteMetricDefinitionCollection,
+      postMetricDefinitionCollection,
+    }},
+    {{
+      getMetricReport,
+      headMetricReport,
+      patchMetricReport,
+      putMetricReport,
+      deleteMetricReport,
+      postMetricReport,
+    }},
+    {{
+      getMetricReportCollection,
+      headMetricReportCollection,
+      patchMetricReportCollection,
+      putMetricReportCollection,
+      deleteMetricReportCollection,
+      postMetricReportCollection,
+    }},
+    {{
+      getMetricReportDefinition,
+      headMetricReportDefinition,
+      patchMetricReportDefinition,
+      putMetricReportDefinition,
+      deleteMetricReportDefinition,
+      postMetricReportDefinition,
+    }},
+    {{
+      getMetricReportDefinitionCollection,
+      headMetricReportDefinitionCollection,
+      patchMetricReportDefinitionCollection,
+      putMetricReportDefinitionCollection,
+      deleteMetricReportDefinitionCollection,
+      postMetricReportDefinitionCollection,
+    }},
+    {{
+      getNetworkAdapter,
+      headNetworkAdapter,
+      patchNetworkAdapter,
+      putNetworkAdapter,
+      deleteNetworkAdapter,
+      postNetworkAdapter,
+    }},
+    {{
+      getNetworkAdapterCollection,
+      headNetworkAdapterCollection,
+      patchNetworkAdapterCollection,
+      putNetworkAdapterCollection,
+      deleteNetworkAdapterCollection,
+      postNetworkAdapterCollection,
+    }},
+    {{
+      getNetworkAdapterMetrics,
+      headNetworkAdapterMetrics,
+      patchNetworkAdapterMetrics,
+      putNetworkAdapterMetrics,
+      deleteNetworkAdapterMetrics,
+      postNetworkAdapterMetrics,
+    }},
+    {{
+      getNetworkDeviceFunction,
+      headNetworkDeviceFunction,
+      patchNetworkDeviceFunction,
+      putNetworkDeviceFunction,
+      deleteNetworkDeviceFunction,
+      postNetworkDeviceFunction,
+    }},
+    {{
+      getNetworkDeviceFunctionCollection,
+      headNetworkDeviceFunctionCollection,
+      patchNetworkDeviceFunctionCollection,
+      putNetworkDeviceFunctionCollection,
+      deleteNetworkDeviceFunctionCollection,
+      postNetworkDeviceFunctionCollection,
+    }},
+    {{
+      getNetworkDeviceFunctionMetrics,
+      headNetworkDeviceFunctionMetrics,
+      patchNetworkDeviceFunctionMetrics,
+      putNetworkDeviceFunctionMetrics,
+      deleteNetworkDeviceFunctionMetrics,
+      postNetworkDeviceFunctionMetrics,
+    }},
+    {{
+      getNetworkInterface,
+      headNetworkInterface,
+      patchNetworkInterface,
+      putNetworkInterface,
+      deleteNetworkInterface,
+      postNetworkInterface,
+    }},
+    {{
+      getNetworkInterfaceCollection,
+      headNetworkInterfaceCollection,
+      patchNetworkInterfaceCollection,
+      putNetworkInterfaceCollection,
+      deleteNetworkInterfaceCollection,
+      postNetworkInterfaceCollection,
+    }},
+    {{
+      getNetworkPort,
+      headNetworkPort,
+      patchNetworkPort,
+      putNetworkPort,
+      deleteNetworkPort,
+      postNetworkPort,
+    }},
+    {{
+      getNetworkPortCollection,
+      headNetworkPortCollection,
+      patchNetworkPortCollection,
+      putNetworkPortCollection,
+      deleteNetworkPortCollection,
+      postNetworkPortCollection,
+    }},
+    {{
+      getOperatingConfig,
+      headOperatingConfig,
+      patchOperatingConfig,
+      putOperatingConfig,
+      deleteOperatingConfig,
+      postOperatingConfig,
+    }},
+    {{
+      getOperatingConfigCollection,
+      headOperatingConfigCollection,
+      patchOperatingConfigCollection,
+      putOperatingConfigCollection,
+      deleteOperatingConfigCollection,
+      postOperatingConfigCollection,
+    }},
+    {{
+      getOutlet,
+      headOutlet,
+      patchOutlet,
+      putOutlet,
+      deleteOutlet,
+      postOutlet,
+    }},
+    {{
+      getOutletCollection,
+      headOutletCollection,
+      patchOutletCollection,
+      putOutletCollection,
+      deleteOutletCollection,
+      postOutletCollection,
+    }},
+    {{
+      getOutletGroup,
+      headOutletGroup,
+      patchOutletGroup,
+      putOutletGroup,
+      deleteOutletGroup,
+      postOutletGroup,
+    }},
+    {{
+      getOutletGroupCollection,
+      headOutletGroupCollection,
+      patchOutletGroupCollection,
+      putOutletGroupCollection,
+      deleteOutletGroupCollection,
+      postOutletGroupCollection,
+    }},
+    {{
+      getPCIeDevice,
+      headPCIeDevice,
+      patchPCIeDevice,
+      putPCIeDevice,
+      deletePCIeDevice,
+      postPCIeDevice,
+    }},
+    {{
+      getPCIeDeviceCollection,
+      headPCIeDeviceCollection,
+      patchPCIeDeviceCollection,
+      putPCIeDeviceCollection,
+      deletePCIeDeviceCollection,
+      postPCIeDeviceCollection,
+    }},
+    {{
+      getPCIeFunction,
+      headPCIeFunction,
+      patchPCIeFunction,
+      putPCIeFunction,
+      deletePCIeFunction,
+      postPCIeFunction,
+    }},
+    {{
+      getPCIeFunctionCollection,
+      headPCIeFunctionCollection,
+      patchPCIeFunctionCollection,
+      putPCIeFunctionCollection,
+      deletePCIeFunctionCollection,
+      postPCIeFunctionCollection,
+    }},
+    {{
+      getPCIeSlots,
+      headPCIeSlots,
+      patchPCIeSlots,
+      putPCIeSlots,
+      deletePCIeSlots,
+      postPCIeSlots,
+    }},
+    {{
+      getPort,
+      headPort,
+      patchPort,
+      putPort,
+      deletePort,
+      postPort,
+    }},
+    {{
+      getPortCollection,
+      headPortCollection,
+      patchPortCollection,
+      putPortCollection,
+      deletePortCollection,
+      postPortCollection,
+    }},
+    {{
+      getPortMetrics,
+      headPortMetrics,
+      patchPortMetrics,
+      putPortMetrics,
+      deletePortMetrics,
+      postPortMetrics,
+    }},
+    {{
+      getPower,
+      headPower,
+      patchPower,
+      putPower,
+      deletePower,
+      postPower,
+    }},
+    {{
+      getPowerDistribution,
+      headPowerDistribution,
+      patchPowerDistribution,
+      putPowerDistribution,
+      deletePowerDistribution,
+      postPowerDistribution,
+    }},
+    {{
+      getPowerDistributionCollection,
+      headPowerDistributionCollection,
+      patchPowerDistributionCollection,
+      putPowerDistributionCollection,
+      deletePowerDistributionCollection,
+      postPowerDistributionCollection,
+    }},
+    {{
+      getPowerDistributionMetrics,
+      headPowerDistributionMetrics,
+      patchPowerDistributionMetrics,
+      putPowerDistributionMetrics,
+      deletePowerDistributionMetrics,
+      postPowerDistributionMetrics,
+    }},
+    {{
+      getPowerDomain,
+      headPowerDomain,
+      patchPowerDomain,
+      putPowerDomain,
+      deletePowerDomain,
+      postPowerDomain,
+    }},
+    {{
+      getPowerDomainCollection,
+      headPowerDomainCollection,
+      patchPowerDomainCollection,
+      putPowerDomainCollection,
+      deletePowerDomainCollection,
+      postPowerDomainCollection,
+    }},
+    {{
+      getPowerEquipment,
+      headPowerEquipment,
+      patchPowerEquipment,
+      putPowerEquipment,
+      deletePowerEquipment,
+      postPowerEquipment,
+    }},
+    {{
+      getPowerSubsystem,
+      headPowerSubsystem,
+      patchPowerSubsystem,
+      putPowerSubsystem,
+      deletePowerSubsystem,
+      postPowerSubsystem,
+    }},
+    {{
+      getPowerSupply,
+      headPowerSupply,
+      patchPowerSupply,
+      putPowerSupply,
+      deletePowerSupply,
+      postPowerSupply,
+    }},
+    {{
+      getPowerSupplyCollection,
+      headPowerSupplyCollection,
+      patchPowerSupplyCollection,
+      putPowerSupplyCollection,
+      deletePowerSupplyCollection,
+      postPowerSupplyCollection,
+    }},
+    {{
+      getPowerSupplyMetrics,
+      headPowerSupplyMetrics,
+      patchPowerSupplyMetrics,
+      putPowerSupplyMetrics,
+      deletePowerSupplyMetrics,
+      postPowerSupplyMetrics,
+    }},
+    {{
+      getProcessor,
+      headProcessor,
+      patchProcessor,
+      putProcessor,
+      deleteProcessor,
+      postProcessor,
+    }},
+    {{
+      getProcessorCollection,
+      headProcessorCollection,
+      patchProcessorCollection,
+      putProcessorCollection,
+      deleteProcessorCollection,
+      postProcessorCollection,
+    }},
+    {{
+      getProcessorMetrics,
+      headProcessorMetrics,
+      patchProcessorMetrics,
+      putProcessorMetrics,
+      deleteProcessorMetrics,
+      postProcessorMetrics,
+    }},
+    {{
+      getResourceBlock,
+      headResourceBlock,
+      patchResourceBlock,
+      putResourceBlock,
+      deleteResourceBlock,
+      postResourceBlock,
+    }},
+    {{
+      getResourceBlockCollection,
+      headResourceBlockCollection,
+      patchResourceBlockCollection,
+      putResourceBlockCollection,
+      deleteResourceBlockCollection,
+      postResourceBlockCollection,
+    }},
+    {{
+      getRole,
+      headRole,
+      patchRole,
+      putRole,
+      deleteRole,
+      postRole,
+    }},
+    {{
+      getRoleCollection,
+      headRoleCollection,
+      patchRoleCollection,
+      putRoleCollection,
+      deleteRoleCollection,
+      postRoleCollection,
+    }},
+    {{
+      getRouteEntry,
+      headRouteEntry,
+      patchRouteEntry,
+      putRouteEntry,
+      deleteRouteEntry,
+      postRouteEntry,
+    }},
+    {{
+      getRouteEntryCollection,
+      headRouteEntryCollection,
+      patchRouteEntryCollection,
+      putRouteEntryCollection,
+      deleteRouteEntryCollection,
+      postRouteEntryCollection,
+    }},
+    {{
+      getRouteSetEntry,
+      headRouteSetEntry,
+      patchRouteSetEntry,
+      putRouteSetEntry,
+      deleteRouteSetEntry,
+      postRouteSetEntry,
+    }},
+    {{
+      getRouteSetEntryCollection,
+      headRouteSetEntryCollection,
+      patchRouteSetEntryCollection,
+      putRouteSetEntryCollection,
+      deleteRouteSetEntryCollection,
+      postRouteSetEntryCollection,
+    }},
+    {{
+      getSecureBoot,
+      headSecureBoot,
+      patchSecureBoot,
+      putSecureBoot,
+      deleteSecureBoot,
+      postSecureBoot,
+    }},
+    {{
+      getSecureBootDatabase,
+      headSecureBootDatabase,
+      patchSecureBootDatabase,
+      putSecureBootDatabase,
+      deleteSecureBootDatabase,
+      postSecureBootDatabase,
+    }},
+    {{
+      getSecureBootDatabaseCollection,
+      headSecureBootDatabaseCollection,
+      patchSecureBootDatabaseCollection,
+      putSecureBootDatabaseCollection,
+      deleteSecureBootDatabaseCollection,
+      postSecureBootDatabaseCollection,
+    }},
+    {{
+      getSensor,
+      headSensor,
+      patchSensor,
+      putSensor,
+      deleteSensor,
+      postSensor,
+    }},
+    {{
+      getSensorCollection,
+      headSensorCollection,
+      patchSensorCollection,
+      putSensorCollection,
+      deleteSensorCollection,
+      postSensorCollection,
+    }},
+    {{
+      getSerialInterface,
+      headSerialInterface,
+      patchSerialInterface,
+      putSerialInterface,
+      deleteSerialInterface,
+      postSerialInterface,
+    }},
+    {{
+      getSerialInterfaceCollection,
+      headSerialInterfaceCollection,
+      patchSerialInterfaceCollection,
+      putSerialInterfaceCollection,
+      deleteSerialInterfaceCollection,
+      postSerialInterfaceCollection,
+    }},
+    {{
+      getServiceRoot,
+      headServiceRoot,
+      patchServiceRoot,
+      putServiceRoot,
+      deleteServiceRoot,
+      postServiceRoot,
+    }},
+    {{
+      getSession,
+      headSession,
+      patchSession,
+      putSession,
+      deleteSession,
+      postSession,
+    }},
+    {{
+      getSessionCollection,
+      headSessionCollection,
+      patchSessionCollection,
+      putSessionCollection,
+      deleteSessionCollection,
+      postSessionCollection,
+    }},
+    {{
+      getSessionService,
+      headSessionService,
+      patchSessionService,
+      putSessionService,
+      deleteSessionService,
+      postSessionService,
+    }},
+    {{
+      getSignature,
+      headSignature,
+      patchSignature,
+      putSignature,
+      deleteSignature,
+      postSignature,
+    }},
+    {{
+      getSignatureCollection,
+      headSignatureCollection,
+      patchSignatureCollection,
+      putSignatureCollection,
+      deleteSignatureCollection,
+      postSignatureCollection,
+    }},
+    {{
+      getSimpleStorage,
+      headSimpleStorage,
+      patchSimpleStorage,
+      putSimpleStorage,
+      deleteSimpleStorage,
+      postSimpleStorage,
+    }},
+    {{
+      getSimpleStorageCollection,
+      headSimpleStorageCollection,
+      patchSimpleStorageCollection,
+      putSimpleStorageCollection,
+      deleteSimpleStorageCollection,
+      postSimpleStorageCollection,
+    }},
+    {{
+      getSoftwareInventory,
+      headSoftwareInventory,
+      patchSoftwareInventory,
+      putSoftwareInventory,
+      deleteSoftwareInventory,
+      postSoftwareInventory,
+    }},
+    {{
+      getSoftwareInventoryCollection,
+      headSoftwareInventoryCollection,
+      patchSoftwareInventoryCollection,
+      putSoftwareInventoryCollection,
+      deleteSoftwareInventoryCollection,
+      postSoftwareInventoryCollection,
+    }},
+    {{
+      getStorage,
+      headStorage,
+      patchStorage,
+      putStorage,
+      deleteStorage,
+      postStorage,
+    }},
+    {{
+      getStorageCollection,
+      headStorageCollection,
+      patchStorageCollection,
+      putStorageCollection,
+      deleteStorageCollection,
+      postStorageCollection,
+    }},
+    {{
+      getStorageController,
+      headStorageController,
+      patchStorageController,
+      putStorageController,
+      deleteStorageController,
+      postStorageController,
+    }},
+    {{
+      getStorageControllerCollection,
+      headStorageControllerCollection,
+      patchStorageControllerCollection,
+      putStorageControllerCollection,
+      deleteStorageControllerCollection,
+      postStorageControllerCollection,
+    }},
+    {{
+      getSwitch,
+      headSwitch,
+      patchSwitch,
+      putSwitch,
+      deleteSwitch,
+      postSwitch,
+    }},
+    {{
+      getSwitchCollection,
+      headSwitchCollection,
+      patchSwitchCollection,
+      putSwitchCollection,
+      deleteSwitchCollection,
+      postSwitchCollection,
+    }},
+    {{
+      getTask,
+      headTask,
+      patchTask,
+      putTask,
+      deleteTask,
+      postTask,
+    }},
+    {{
+      getTaskCollection,
+      headTaskCollection,
+      patchTaskCollection,
+      putTaskCollection,
+      deleteTaskCollection,
+      postTaskCollection,
+    }},
+    {{
+      getTaskService,
+      headTaskService,
+      patchTaskService,
+      putTaskService,
+      deleteTaskService,
+      postTaskService,
+    }},
+    {{
+      getTelemetryService,
+      headTelemetryService,
+      patchTelemetryService,
+      putTelemetryService,
+      deleteTelemetryService,
+      postTelemetryService,
+    }},
+    {{
+      getThermal,
+      headThermal,
+      patchThermal,
+      putThermal,
+      deleteThermal,
+      postThermal,
+    }},
+    {{
+      getThermalMetrics,
+      headThermalMetrics,
+      patchThermalMetrics,
+      putThermalMetrics,
+      deleteThermalMetrics,
+      postThermalMetrics,
+    }},
+    {{
+      getThermalSubsystem,
+      headThermalSubsystem,
+      patchThermalSubsystem,
+      putThermalSubsystem,
+      deleteThermalSubsystem,
+      postThermalSubsystem,
+    }},
+    {{
+      getTriggers,
+      headTriggers,
+      patchTriggers,
+      putTriggers,
+      deleteTriggers,
+      postTriggers,
+    }},
+    {{
+      getTriggersCollection,
+      headTriggersCollection,
+      patchTriggersCollection,
+      putTriggersCollection,
+      deleteTriggersCollection,
+      postTriggersCollection,
+    }},
+    {{
+      getUpdateService,
+      headUpdateService,
+      patchUpdateService,
+      putUpdateService,
+      deleteUpdateService,
+      postUpdateService,
+    }},
+    {{
+      getUSBController,
+      headUSBController,
+      patchUSBController,
+      putUSBController,
+      deleteUSBController,
+      postUSBController,
+    }},
+    {{
+      getUSBControllerCollection,
+      headUSBControllerCollection,
+      patchUSBControllerCollection,
+      putUSBControllerCollection,
+      deleteUSBControllerCollection,
+      postUSBControllerCollection,
+    }},
+    {{
+      getVCATEntry,
+      headVCATEntry,
+      patchVCATEntry,
+      putVCATEntry,
+      deleteVCATEntry,
+      postVCATEntry,
+    }},
+    {{
+      getVCATEntryCollection,
+      headVCATEntryCollection,
+      patchVCATEntryCollection,
+      putVCATEntryCollection,
+      deleteVCATEntryCollection,
+      postVCATEntryCollection,
+    }},
+    {{
+      getVLanNetworkInterface,
+      headVLanNetworkInterface,
+      patchVLanNetworkInterface,
+      putVLanNetworkInterface,
+      deleteVLanNetworkInterface,
+      postVLanNetworkInterface,
+    }},
+    {{
+      getVLanNetworkInterfaceCollection,
+      headVLanNetworkInterfaceCollection,
+      patchVLanNetworkInterfaceCollection,
+      putVLanNetworkInterfaceCollection,
+      deleteVLanNetworkInterfaceCollection,
+      postVLanNetworkInterfaceCollection,
+    }},
+    {{
+      getVirtualMedia,
+      headVirtualMedia,
+      patchVirtualMedia,
+      putVirtualMedia,
+      deleteVirtualMedia,
+      postVirtualMedia,
+    }},
+    {{
+      getVirtualMediaCollection,
+      headVirtualMediaCollection,
+      patchVirtualMediaCollection,
+      putVirtualMediaCollection,
+      deleteVirtualMediaCollection,
+      postVirtualMediaCollection,
+    }},
+    {{
+      getVolume,
+      headVolume,
+      patchVolume,
+      putVolume,
+      deleteVolume,
+      postVolume,
+    }},
+    {{
+      getVolumeCollection,
+      headVolumeCollection,
+      patchVolumeCollection,
+      putVolumeCollection,
+      deleteVolumeCollection,
+      postVolumeCollection,
+    }},
+    {{
+      getZone,
+      headZone,
+      patchZone,
+      putZone,
+      deleteZone,
+      postZone,
+    }},
+    {{
+      getZoneCollection,
+      headZoneCollection,
+      patchZoneCollection,
+      putZoneCollection,
+      deleteZoneCollection,
+      postZoneCollection,
+    }},
+}};
+
+inline std::span<const Privileges> getPrivilegeFromEntityAndMethod(EntityTag entity, HttpVerb method)
+{
+    // Must be the same order as HttpVerb
+    size_t entityIndex = static_cast<size_t>(entity);
+    size_t methodIndex = static_cast<size_t>(method);
+    return privilegeSetMap[entityIndex][methodIndex];
+}
 } // namespace redfish::privileges
 // clang-format on
