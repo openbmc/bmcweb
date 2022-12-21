@@ -168,6 +168,13 @@ namespace redfish::privileges
 )
 
 
+def array_to_cpp_init_list_str(array):
+    res = '{"'
+    res += '", "'.join(array)
+    res += '"}'
+    return res
+
+
 def make_privilege_registry():
     path, json_file, type_name, url = make_getter(
         "Redfish_1.3.0_PrivilegeRegistry.json",
@@ -194,6 +201,34 @@ def make_privilege_registry():
                 )
             )
             privilege_dict[key] = (privilege_list, name)
+
+        # Generate all entities
+        entities = []
+        for mapping in json_file["Mappings"]:
+            entities.append(mapping["Entity"])
+
+        # Add a Tag at the begin to prevent from conflicting with reversed
+        # keywords, e.g., switch
+        entity_tags = ["tag" + entity for entity in entities]
+
+        registry.write("\nenum class EntityTag {\n")
+        registry.write("    " + entity_tags[0] + " = 0,\n")
+
+        for i in range(1, len(entity_tags)):
+            registry.write("    " + entity_tags[i] + ",\n")
+        registry.write("\tnone,\n")
+        registry.write("};\n\n")
+
+        registry.write(
+            "constexpr std::array<std::string_view, {}> entities".format(
+                len(entities)
+            )
+        )
+        registry.write(" {\n")
+        for entity in entities:
+            registry.write('    "{}",\n'.format(entity))
+
+        registry.write("};\n\n")
 
         for mapping in json_file["Mappings"]:
             entity = mapping["Entity"]
