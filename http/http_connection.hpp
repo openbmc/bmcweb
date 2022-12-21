@@ -41,6 +41,7 @@ inline void prettyPrintJson(crow::Response& res)
                   "text/html;charset=UTF-8");
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int connectionCount = 0;
 
 // request body limit size set by the bmcwebHttpReqBodyLimitMb option
