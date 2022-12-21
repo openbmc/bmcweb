@@ -6,6 +6,7 @@
 namespace forward_unauthorized
 {
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static bool hasWebuiRoute = false;
 
 inline void sendUnauthorized(std::string_view url,
