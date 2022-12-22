@@ -17,7 +17,7 @@ read_path = os.path.realpath(
 
 proxies = {"https": os.environ.get("https_proxy", None)}
 
-REGEX_MATCH = r'BMCWEB_ROUTE\(app,("[^}.]*?")\).privileges\(redfish::privileges::(get|head|patch|post|put|delete)(.*?)\)'
+REGEX_MATCH = r'BMCWEB_ROUTE\(app,("[^}()]*?")\).privileges\(redfish::privileges::(get|head|patch|post|put|delete)(.*?)\)'
 
 
 PRAGMA_ONCE = """#pragma once
@@ -40,6 +40,8 @@ HEADER = (
     + """
 
 #include <array>
+#include <map>
+#include <string>
 #include <string_view>
 
 // clang-format off
@@ -72,6 +74,7 @@ def main():
         entity_tag_list.append(mapping["Entity"])
 
     entity_tag_to_uri = {}
+    uri_to_entity_tag = {}
 
     for entity in entity_tag_list:
         entity_tag_to_uri[entity] = set()
@@ -85,10 +88,13 @@ def main():
             matches = re.findall(
                 REGEX_MATCH, f.read().replace(" ", "").replace("\n", ""))
             for match in matches:
-                # print(match)
+                # print(match) (uri, verb, entity tag)
+                if match[0] not in uri_to_entity_tag:
+                    uri_to_entity_tag[match[0]] = match[2]
+
                 if match[0] in entity_tag_to_uri[match[2]]:
                     continue
-
+                
                 entity_tag_to_uri[match[2]].add(match[0])
 
     # print(entity_tag_to_uri)
@@ -114,6 +120,13 @@ def main():
         for entity in entity_tag_list:
             registry.write("    {}Uris,\n".format(entity))
         registry.write("}};\n")
+
+        registry.write("const static std::map<std::string, std::string> UriToEntityType {\n")
+        for key, value in uri_to_entity_tag.items():
+            registry.write("    {")
+            registry.write('{},"{}"'.format(key, value))
+            registry.write("},\n")
+        registry.write("};\n")
 
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
