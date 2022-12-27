@@ -19,6 +19,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/chassis.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "query.hpp"
@@ -33,9 +34,11 @@
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
 #include <ranges>
 #include <string_view>
+#include <vector>
 
 namespace redfish
 {
@@ -362,6 +365,53 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline chassis::ChassisType dbusToChassisType(const std::string& chassisType)
+{
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Blade")
+    {
+        return chassis::ChassisType::Blade;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Component")
+    {
+        return chassis::ChassisType::Component;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Enclosure")
+    {
+        return chassis::ChassisType::Enclosure;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Module")
+    {
+        return chassis::ChassisType::Module;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount")
+    {
+        return chassis::ChassisType::RackMount;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StandAlone")
+    {
+        return chassis::ChassisType::StandAlone;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StorageEnclosure")
+    {
+        return chassis::ChassisType::StorageEnclosure;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Zone")
+    {
+        return chassis::ChassisType::Zone;
+    }
+    // Values like "Unknown" or "Other" will return Invalid
+    // so just leave off
+    return chassis::ChassisType::Invalid;
+}
+
 inline void
     handleChassisGet(App& app, const crow::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -433,7 +483,47 @@ inline void
             asyncResp->res.jsonValue["@odata.id"] =
                 boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-            asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+
+            const std::string& connectionName = connectionNames[0].first;
+
+            const std::vector<std::string>& interfaces2 =
+                connectionNames[0].second;
+
+            const std::string chassisInterface =
+                "xyz.openbmc_project.Inventory.Item.Chassis";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          chassisInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<std::string>(
+                    *crow::connections::systemBus, connectionName, path,
+                    chassisInterface, "ChassisType",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code& ec2,
+                        const std::string& property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "DBus response error for ChassisType " << ec2;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    chassis::ChassisType chassisType =
+                        dbusToChassisType(property);
+                    // Values like "Unknown" or "Other" will return Invalid
+                    // so just leave off
+                    if (chassisType == chassis::ChassisType::Invalid)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Redfish cannot map chassis type for "
+                            << property;
+                    }
+                    else
+                    {
+                        asyncResp->res.jsonValue["ChassisType"] = chassisType;
+                    }
+                    });
+            }
+
             asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
                 boost::urls::format(
                     "/redfish/v1/Chassis/{}/Actions/Chassis.Reset", chassisId);
@@ -460,10 +550,6 @@ inline void
                 asyncResp->res.jsonValue["Drives"] = std::move(reference);
                 });
 
-            const std::string& connectionName = connectionNames[0].first;
-
-            const std::vector<std::string>& interfaces2 =
-                connectionNames[0].second;
             const std::array<const char*, 2> hasIndicatorLed = {
                 "xyz.openbmc_project.Inventory.Item.Panel",
                 "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
