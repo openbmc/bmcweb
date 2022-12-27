@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a75b4a53_c9a2f349",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "945d4bcf_5111ee3d",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68c7c1eb_cb352a5d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-21T17:06:30Z",
       "side": 1,
       "message": "Why do we need this change?",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440e5383_b0ad2f60",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "The number of privileges will change at runtime so I thought it would make most sense for it to be a vector that you add privileges onto as PATCHs are applied.",
+      "parentUuid": "68c7c1eb_cb352a5d",
       "range": {
         "startLine": 57,
         "startChar": 12,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfdd176f_b7b6bab6",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "How do I unit test this? Wouldnt curling be the test?",
+      "parentUuid": "e7b097c2_101066be",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9167070_db7b1cff",
         "filename": "redfish-core/lib/privilege_registry.hpp",
         "patchSetId": 12
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-21T17:05:11Z",
       "side": 1,
       "message": "can use move here.",
+      "range": {
+        "startLine": 68,
+        "startChar": 51,
+        "endLine": 68,
+        "endChar": 67
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca2b4ba_9f4cd224",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9167070_db7b1cff",
       "range": {
         "startLine": 68,
         "startChar": 51,
@@ -106,6 +202,30 @@
       "writtenOn": "2022-12-21T17:05:11Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "483df131_d719f704",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d068297_32340199",
       "range": {
         "startLine": 70,
         "startChar": 34,
@@ -187,6 +307,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c00ffc59_298dea42",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1f78b91_3c1e9ba4",
+      "range": {
+        "startLine": 77,
+        "startChar": 50,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c30cbb3a_5bfa0f8e",
@@ -200,6 +344,30 @@
       "writtenOn": "2022-12-21T17:05:11Z",
       "side": 1,
       "message": "In the commit message, could you add why privilege registry as a resource is under AccountService, and why it uses privileges of AccountService?",
+      "range": {
+        "startLine": 78,
+        "startChar": 41,
+        "endLine": 78,
+        "endChar": 58
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4a47dd_bc2e376f",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-27T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c30cbb3a_5bfa0f8e",
       "range": {
         "startLine": 78,
         "startChar": 41,
