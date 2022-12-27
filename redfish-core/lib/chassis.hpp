@@ -28,6 +28,12 @@
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
 
+std::map<std::string, std::string> chassisTypes{{"1", "Other"},
+                                                {"18", "Expansion Chassis"},
+                                                {"23", "RackMount Chassis"},
+                                                {"28", "Blade"},
+                                                {"29", "Blade Enclosure"}};
+
 namespace redfish
 {
 
@@ -206,6 +212,52 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void getChassisType(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& service,
+                           const std::string& objPath)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.FruDevice", "CHASSIS_TYPE",
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::string& value) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+            return;
+        }
+        aResp->res.jsonValue["ChassisType"] = chassisTypes[value];
+        });
+}
+
+inline void chassisType(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_INFO << "DBUS error: no matched iface " << ec << "\n";
+            return;
+        }
+        // Iterate over all retrieved ObjectPaths.
+        for (const auto& object : subtree)
+        {
+            for (const auto& service : object.second)
+            {
+                getChassisType(aResp, service.first, object.first);
+                return;
+            }
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/FruDevice", 1,
+        std::array<const char*, 1>{"xyz.openbmc_project.FruDevice"});
+}
+
 inline void
     handleChassisGet(App& app, const crow::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -272,7 +324,9 @@ inline void
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-            asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+
+            chassisType(asyncResp);
+
             asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
                 "/redfish/v1/Chassis/" + chassisId + "/Actions/Chassis.Reset";
             asyncResp->res
