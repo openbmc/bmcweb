@@ -276,7 +276,34 @@ inline void
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-            asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+
+            const std::string& connectionName = connectionNames[0].first;
+
+            const std::vector<std::string>& interfaces2 =
+                connectionNames[0].second;
+
+            const std::string chassisInterface =
+                "xyz.openbmc_project.Inventory.Item.Chassis";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          chassisInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<std::string>(
+                    *crow::connections::systemBus, connectionName, path,
+                    chassisInterface, "ChassisType",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code ec2,
+                        const std::string& property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBus response error for ChassisType";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["ChassisType"] = property;
+                    });
+            }
+
             asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
                 "/redfish/v1/Chassis/" + chassisId + "/Actions/Chassis.Reset";
             asyncResp->res
@@ -302,10 +329,6 @@ inline void
                 asyncResp->res.jsonValue["Drives"] = std::move(reference);
                 });
 
-            const std::string& connectionName = connectionNames[0].first;
-
-            const std::vector<std::string>& interfaces2 =
-                connectionNames[0].second;
             const std::array<const char*, 2> hasIndicatorLed = {
                 "xyz.openbmc_project.Inventory.Item.Panel",
                 "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
