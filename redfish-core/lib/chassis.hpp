@@ -206,6 +206,79 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void getChassisType(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& service,
+                           const std::string& objPath)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Inventory.Item.Chassis", "Type",
+        [aResp{aResp}](const boost::system::error_code ec,
+                       const std::string& value) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+            return;
+        }
+
+        std::string type = value;
+        std::string substr =
+            "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.";
+        std::size_t index = type.find(substr);
+
+        if (index != std::string::npos)
+        {
+            type.erase(index, substr.length());
+        }
+
+        aResp->res.jsonValue["ChassisType"] = type;
+        });
+}
+
+inline void chassisType(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& chassisId)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{aResp}, chassisId(std::string(chassisId))](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_INFO << "DBUS error: no matched iface " << ec << "\n";
+            return;
+        }
+
+        for (const auto& object : subtree)
+        {
+            for (const auto& service : object.second)
+            {
+                std::vector<std::string> path = {};
+                size_t pos = 0;
+                std::string objPath = object.first;
+
+                while ((pos = objPath.find('/')) != std::string::npos)
+                {
+                    path.push_back(objPath.substr(0, pos));
+                    objPath.erase(0, pos + 1);
+                }
+                path.push_back(objPath);
+
+                if ((std::find(path.begin(), path.end(), chassisId)) !=
+                    path.end())
+                {
+                    getChassisType(aResp, service.first, object.first);
+                }
+            }
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
 inline void
     handleChassisGet(App& app, const crow::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -272,7 +345,9 @@ inline void
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-            asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+
+            chassisType(asyncResp, chassisId);
+
             asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
                 "/redfish/v1/Chassis/" + chassisId + "/Actions/Chassis.Reset";
             asyncResp->res
