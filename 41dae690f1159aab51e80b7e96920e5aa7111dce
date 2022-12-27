@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "352a4d89_f755adcd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-12-27T11:07:19Z",
+      "side": 1,
+      "message": "Keep the original author (Michal Orzel) info intact - You can co-sign it.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "41dae690f1159aab51e80b7e96920e5aa7111dce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
