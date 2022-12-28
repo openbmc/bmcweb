@@ -43,7 +43,7 @@ inline void handleMessageRegistryFileCollectionGet(
     // because it has a duplicate entry for members
 
     asyncResp->res.jsonValue["@odata.type"] =
-        "#MessageRegistryFileCollection.MessageRegistryFileCollection";
+        schemas::messageRegistryFileCollection;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Registries";
     asyncResp->res.jsonValue["Name"] = "MessageRegistryFile Collection";
     asyncResp->res.jsonValue["Description"] =
@@ -114,8 +114,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Registries/" + registry;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::messageRegistryFile;
     asyncResp->res.jsonValue["Name"] = registry + " Message Registry File";
     asyncResp->res.jsonValue["Description"] =
         dmtf + registry + " Message Registry File Location";
