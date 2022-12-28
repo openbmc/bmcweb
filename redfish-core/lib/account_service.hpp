@@ -17,6 +17,7 @@
 
 #include "generated/enums/account_service.hpp"
 #include "registries/privilege_registry.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -1303,8 +1304,7 @@ inline void
 
     nlohmann::json& json = asyncResp->res.jsonValue;
     json["@odata.id"] = "/redfish/v1/AccountService";
-    json["@odata.type"] = "#AccountService."
-                          "v1_10_0.AccountService";
+    json["@odata.type"] = schemas::accountService;
     json["Id"] = "AccountService";
     json["Name"] = "Account Service";
     json["Description"] = "Account Service";
@@ -1528,8 +1528,7 @@ inline void handleAccountCollectionGet(
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/AccountService/Accounts";
-    asyncResp->res.jsonValue["@odata.type"] = "#ManagerAccountCollection."
-                                              "ManagerAccountCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::managerAccountCollection;
     asyncResp->res.jsonValue["Name"] = "Accounts Collection";
     asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
@@ -1760,8 +1759,7 @@ inline void
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ManagerAccount.v1_4_0.ManagerAccount";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::managerAccount;
         asyncResp->res.jsonValue["Name"] = "User Account";
         asyncResp->res.jsonValue["Description"] = "User Account";
         asyncResp->res.jsonValue["Password"] = nullptr;
