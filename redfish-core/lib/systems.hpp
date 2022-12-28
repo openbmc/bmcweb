@@ -14,13 +14,13 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "dbus_singleton.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "pcie.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
+#include "schemas.hpp"
 #include "utils/time_utils.hpp"
 
 #include <app.hpp>
@@ -2693,7 +2693,7 @@ inline void requestRoutesSystemsCollection(App& app)
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/ComputerSystemCollection.json>; rel=describedby");
         asyncResp->res.jsonValue["@odata.type"] =
-            "#ComputerSystemCollection.ComputerSystemCollection";
+            schemas::computerSystemCollection;
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
@@ -2922,8 +2922,7 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ComputerSystem.v1_16_0.ComputerSystem";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::computerSystem;
         asyncResp->res.jsonValue["Name"] = "system";
         asyncResp->res.jsonValue["Id"] = "system";
         asyncResp->res.jsonValue["SystemType"] = "Physical";
@@ -3213,8 +3212,7 @@ inline void requestRoutesSystemResetActionInfo(App& app)
 
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/ResetActionInfo";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ActionInfo.v1_1_2.ActionInfo";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::actionInfo;
         asyncResp->res.jsonValue["Name"] = "Reset Action Info";
         asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
 
