@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f8bd210_55c6594b",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "From the coding standard: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-global",
+      "parentUuid": "440e5383_b0ad2f60",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7b097c2_101066be",
         "filename": "redfish-core/lib/privilege_registry.hpp",
         "patchSetId": 12
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "How do I unit test this? Wouldnt curling be the test?",
       "parentUuid": "e7b097c2_101066be",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "e7910d575e34851df847a12843563a2a4d61656e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ebbe12_72992c83",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "Using curl is a functional test.  Unit tests are run within the process, and there are plenty of examples of unit tests for this sort of thing.",
+      "parentUuid": "dfdd176f_b7b6bab6",
       "range": {
         "startLine": 21,
         "startChar": 12,

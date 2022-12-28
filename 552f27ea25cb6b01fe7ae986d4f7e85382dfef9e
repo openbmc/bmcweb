@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d621cfa_64ff63a1",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "size_t please.  As-written this will cause warnings on non 32 bit systems.",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643b8a19_221752b8",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "nlohmann::json::object_t please.",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 22
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237ee1e1_0a0dbc10",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20b8cd49_d945fe63",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "Just declare this directly as nlohmann::json::array_t.",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6912d3f9_33dcebce",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "Would\u0027ve expected this to be a const reference.",
+      "range": {
+        "startLine": 60,
+        "startChar": 17,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63f030e8_89cee8f4",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "nlohmann::json::object_t",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 30
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df20374_1f4a2037",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "please use emplace_back and std::move",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d75de9_681fd0fb",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "Please handle errors from this method call.",
+      "range": {
+        "startLine": 68,
+        "startChar": 25,
+        "endLine": 68,
+        "endChar": 41
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67dd1add_00776af7",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:53:12Z",
+      "side": 1,
+      "message": "Looks incorrect.",
+      "range": {
+        "startLine": 78,
+        "startChar": 41,
+        "endLine": 78,
+        "endChar": 58
+      },
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
