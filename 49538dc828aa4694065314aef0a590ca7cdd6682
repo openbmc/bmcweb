@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "705879e2_7f677d9f",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T20:09:08Z",
+      "side": 1,
+      "message": "One other super interesting thing that boost::url added recently is static_url\n\nhttps://www.boost.org/doc/libs/1_81_0/libs/url/doc/html/url/ref/boost__urls__static_url.html\n\nWhich MIGHT be constexpr constructable?  And would give us exactly the type we want, rather than having to convert from string_view.  Food for thought, not required, but would certainly be better.",
+      "parentUuid": "5db3eaaa_82cb5302",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "49538dc828aa4694065314aef0a590ca7cdd6682",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c99bd787_6624da31",
         "filename": "redfish-core/include/aggregation_utils.hpp",
         "patchSetId": 48
