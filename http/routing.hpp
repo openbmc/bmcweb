@@ -1267,11 +1267,11 @@ class Router
         }
 
         if ((rules[ruleIndex]->getMethods() &
-             (1U << static_cast<size_t>(req.method()))) == 0)
+             (1U << static_cast<size_t>(*verb))) == 0)
         {
             BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
                              << " with " << req.methodString() << "("
-                             << static_cast<uint32_t>(req.method()) << ") / "
+                             << static_cast<uint32_t>(*verb) << ") / "
                              << rules[ruleIndex]->getMethods();
             res.result(boost::beast::http::status::not_found);
             res.end();
@@ -1279,7 +1279,7 @@ class Router
         }
 
         BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rules[ruleIndex]->rule
-                         << "' " << static_cast<uint32_t>(req.method()) << " / "
+                         << "' " << static_cast<uint32_t>(*verb) << " / "
                          << rules[ruleIndex]->getMethods();
 
         // any uncaught exceptions become 500s
@@ -1362,7 +1362,7 @@ class Router
         RoutingParams params = std::move(foundRoute.route.params);
 
         BMCWEB_LOG_DEBUG << "Matched rule '" << rule.rule << "' "
-                         << static_cast<uint32_t>(req.method()) << " / "
+                         << static_cast<uint32_t>(*verb) << " / "
                          << rule.getMethods();
 
         if (req.session == nullptr)
