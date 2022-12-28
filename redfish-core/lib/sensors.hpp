@@ -16,6 +16,7 @@
 #pragma once
 
 #include "generated/enums/sensor.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <boost/algorithm/string/classification.hpp>
@@ -481,17 +482,17 @@ inline void populateChassisNode(nlohmann::json& jsonValue,
 {
     if (chassisSubNode == sensors::node::power)
     {
-        jsonValue["@odata.type"] = "#Power.v1_5_2.Power";
+        jsonValue["@odata.type"] = schemas::power;
     }
     else if (chassisSubNode == sensors::node::thermal)
     {
-        jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
+        jsonValue["@odata.type"] = schemas::thermal;
         jsonValue["Fans"] = nlohmann::json::array();
         jsonValue["Temperatures"] = nlohmann::json::array();
     }
     else if (chassisSubNode == sensors::node::sensors)
     {
-        jsonValue["@odata.type"] = "#SensorCollection.SensorCollection";
+        jsonValue["@odata.type"] = schemas::sensorCollection;
         jsonValue["Description"] = "Collection of Sensors for this Chassis";
         jsonValue["Members"] = nlohmann::json::array();
         jsonValue["Members@odata.count"] = 0;
@@ -771,7 +772,7 @@ inline void objectPropertiesToJson(
     nlohmann::json::json_pointer unit("/Reading");
     if (chassisSubNode == sensors::node::sensors)
     {
-        sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
+        sensorJson["@odata.type"] = schemas::sensor;
 
         sensor::ReadingType readingType = sensors::toReadingType(sensorType);
         if (readingType == sensor::ReadingType::Invalid)
@@ -798,7 +799,6 @@ inline void objectPropertiesToJson(
     else if (sensorType == "temperature")
     {
         unit = "/ReadingCelsius"_json_pointer;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
@@ -806,7 +806,6 @@ inline void objectPropertiesToJson(
     {
         unit = "/Reading"_json_pointer;
         sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
     }
@@ -814,20 +813,17 @@ inline void objectPropertiesToJson(
     {
         unit = "/Reading"_json_pointer;
         sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
     }
     else if (sensorType == "voltage")
     {
         unit = "/ReadingVolts"_json_pointer;
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
     }
     else if (sensorType == "power")
     {
         if (boost::iequals(sensorName, "total_power"))
         {
-            sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
             // Put multiple "sensors" into a single PowerControl, so have
             // generic names for MemberId and Name. Follows Redfish mockup.
             sensorJson["MemberId"] = "0";
@@ -1131,7 +1127,7 @@ inline void populateFanRedundancy(
                         "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId +
                         "/" + sensorsAsyncResp->chassisSubNode +
                         "#/Redundancy/" + std::to_string(jResp.size());
-                    redundancy["@odata.type"] = "#Redundancy.v1_3_2.Redundancy";
+                    redundancy["@odata.type"] = schemas::redundancy;
                     redundancy["MinNumNeeded"] = minNumNeeded;
                     redundancy["MemberId"] = name;
                     redundancy["Mode"] = "N+m";
