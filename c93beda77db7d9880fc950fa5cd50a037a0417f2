@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce89ff17_1f04ef91",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T19:44:02Z",
+      "side": 1,
+      "message": "Any responses?  I\u0027m tempted to get this on master, to get it unbroken, and if there\u0027s additional followup, we can handle that later.  Seem reasonable?",
+      "parentUuid": "016f4db1_8846491e",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
