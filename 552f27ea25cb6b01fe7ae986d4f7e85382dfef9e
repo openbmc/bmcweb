@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c83a1051_fb8af6de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T23:56:04Z",
+      "side": 1,
+      "message": "\u003e This privilege registry is only missing the overrides. \n\nPlease point to the test that verifies that.  I\u0027d be really surprised if that were the case, but I\u0027m happy to be surprised.\n\nBefore we start, lets get an accounting (with a test) of how many entries need fixed.  That will determine if it\u0027s one commit, multiple commits, or needs an option.",
+      "parentUuid": "ad527eeb_6ebd6f29",
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d621cfa_64ff63a1",
         "filename": "redfish-core/lib/privilege_registry.hpp",
         "patchSetId": 18
