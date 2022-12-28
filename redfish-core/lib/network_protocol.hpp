@@ -18,6 +18,7 @@
 #include "error_messages.hpp"
 #include "openbmc_dbus_rest.hpp"
 #include "redfish_util.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -116,8 +117,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ManagerNetworkProtocol/NetworkProtocol.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ManagerNetworkProtocol.v1_5_0.ManagerNetworkProtocol";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::managerNetworkProtocol;
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/NetworkProtocol";
     asyncResp->res.jsonValue["Id"] = "NetworkProtocol";
