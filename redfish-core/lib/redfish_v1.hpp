@@ -1,6 +1,7 @@
 #pragma once
 
 #include "error_messages.hpp"
+#include "schemas.hpp"
 #include "utility.hpp"
 
 #include <app.hpp>
@@ -112,7 +113,7 @@ inline void
     json["@odata.id"] = "/redfish/v1/JsonSchemas";
     json["@odata.context"] =
         "/redfish/v1/$metadata#JsonSchemaFileCollection.JsonSchemaFileCollection";
-    json["@odata.type"] = "#JsonSchemaFileCollection.JsonSchemaFileCollection";
+    json["@odata.type"] = schemas::jsonSchemaFileCollection;
     json["Name"] = "JsonSchemaFile Collection";
     json["Description"] = "Collection of JsonSchemaFiles";
     nlohmann::json::array_t members;
