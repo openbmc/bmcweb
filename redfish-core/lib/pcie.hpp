@@ -17,6 +17,7 @@
 #pragma once
 
 #include "generated/enums/pcie_device.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <boost/system/linux_error.hpp>
@@ -101,8 +102,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#PCIeDeviceCollection.PCIeDeviceCollection";
+        asyncResp->res.jsonValue["@odata.type"] = pCIeDeviceCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/PCIeDevices";
         asyncResp->res.jsonValue["Name"] = "PCIe Device Collection";
@@ -234,8 +234,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                 asyncResp->res.jsonValue["DeviceType"] = *deviceType;
             }
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#PCIeDevice.v1_4_0.PCIeDevice";
+            asyncResp->res.jsonValue["@odata.type"] = pCIeDeviceType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/PCIeDevices/" + device;
             asyncResp->res.jsonValue["Name"] = "PCIe Device";
@@ -270,8 +269,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#PCIeFunctionCollection.PCIeFunctionCollection";
+        asyncResp->res.jsonValue["@odata.type"] = pCIeFunctionCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/PCIeDevices/" + device +
             "/PCIeFunctions";
@@ -398,8 +396,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                 return;
             }
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#PCIeFunction.v1_2_0.PCIeFunction";
+            asyncResp->res.jsonValue["@odata.type"] = pCIeFunctionType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/PCIeDevices/" + device +
                 "/PCIeFunctions/" + function;

@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -750,7 +751,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
         // Set @odata only if object is found
-        aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
+        aResp->res.jsonValue["@odata.type"] = memoryType;
         aResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory/" + dimmId;
         return;
@@ -786,8 +787,7 @@ inline void requestRoutesMemoryCollection(App& app)
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#MemoryCollection.MemoryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = memoryCollectionType;
         asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory";

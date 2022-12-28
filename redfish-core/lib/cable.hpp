@@ -1,4 +1,6 @@
 #pragma once
+#include "schemas.hpp"
+
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -138,7 +140,7 @@ inline void requestRoutesCable(App& app)
                     continue;
                 }
 
-                asyncResp->res.jsonValue["@odata.type"] = "#Cable.v1_0_0.Cable";
+                asyncResp->res.jsonValue["@odata.type"] = cableType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Cables/" + cableId;
                 asyncResp->res.jsonValue["Id"] = cableId;
@@ -174,8 +176,7 @@ inline void requestRoutesCableCollection(App& app)
         {
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#CableCollection.CableCollection";
+        asyncResp->res.jsonValue["@odata.type"] = cableCollectionType;
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Cables";
         asyncResp->res.jsonValue["Name"] = "Cable Collection";
         asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";

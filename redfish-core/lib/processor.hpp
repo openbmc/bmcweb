@@ -18,6 +18,7 @@
 #include "dbus_singleton.hpp"
 #include "error_messages.hpp"
 #include "health.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
@@ -1068,8 +1069,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
         {
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#OperatingConfigCollection.OperatingConfigCollection";
+        asyncResp->res.jsonValue["@odata.type"] = operatingConfigCollectionType;
         asyncResp->res.jsonValue["@odata.id"] = req.url;
         asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
 
@@ -1156,7 +1156,7 @@ inline void requestRoutesOperatingConfig(App& app)
                 }
 
                 nlohmann::json& json = asyncResp->res.jsonValue;
-                json["@odata.type"] = "#OperatingConfig.v1_0_0.OperatingConfig";
+                json["@odata.type"] = operatingConfigType;
                 json["@odata.id"] = reqUrl;
                 json["Name"] = "Processor Profile";
                 json["Id"] = configName;
@@ -1211,8 +1211,7 @@ inline void requestRoutesProcessorCollection(App& app)
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/ProcessorCollection/ProcessorCollection.json>; rel=describedby");
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ProcessorCollection.ProcessorCollection";
+        asyncResp->res.jsonValue["@odata.type"] = processorCollectionType;
         asyncResp->res.jsonValue["Name"] = "Processor Collection";
 
         asyncResp->res.jsonValue["@odata.id"] =
@@ -1258,8 +1257,7 @@ inline void requestRoutesProcessor(App& app)
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/Processor/Processor.json>; rel=describedby");
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#Processor.v1_11_0.Processor";
+        asyncResp->res.jsonValue["@odata.type"] = processorType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
 

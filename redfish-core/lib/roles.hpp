@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "schemas.hpp"
+
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
@@ -85,7 +87,7 @@ inline void requestRoutesRoles(App& app)
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] = "#Role.v1_2_2.Role";
+        asyncResp->res.jsonValue["@odata.type"] = roleType;
         asyncResp->res.jsonValue["Name"] = "User Role";
         asyncResp->res.jsonValue["Description"] = roleId + " User Role";
         asyncResp->res.jsonValue["OemPrivileges"] = nlohmann::json::array();
@@ -112,8 +114,7 @@ inline void requestRoutesRoleCollection(App& app)
 
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/AccountService/Roles";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#RoleCollection.RoleCollection";
+        asyncResp->res.jsonValue["@odata.type"] = roleCollectionType;
         asyncResp->res.jsonValue["Name"] = "Roles Collection";
         asyncResp->res.jsonValue["Description"] = "BMC User Roles";
 

@@ -2,6 +2,7 @@
 
 #include "error_messages.hpp"
 #include "generated/enums/pcie_slot.hpp"
+#include "schemas.hpp"
 #include "utility.hpp"
 
 #include <app.hpp>
@@ -215,7 +216,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get properties for PCIeSlots associated to chassis = "
                      << chassisID;
 
-    asyncResp->res.jsonValue["@odata.type"] = "#PCIeSlots.v1_4_1.PCIeSlots";
+    asyncResp->res.jsonValue["@odata.type"] = pCIeSlotsType;
     asyncResp->res.jsonValue["Name"] = "PCIe Slot Information";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Chassis", chassisID, "PCIeSlots");

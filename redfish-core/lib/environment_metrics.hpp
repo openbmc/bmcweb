@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "schemas.hpp"
 #include "utils/chassis_utils.hpp"
 
 #include <memory>
@@ -58,8 +59,7 @@ inline void handleEnvironmentMetricsGet(
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
+        asyncResp->res.jsonValue["@odata.type"] = environmentMetricsType;
         asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
         asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
         asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(

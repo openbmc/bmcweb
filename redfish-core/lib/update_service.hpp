@@ -14,8 +14,9 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "bmcweb_config.h"
+
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -552,8 +553,7 @@ inline void requestRoutesUpdateService(App& app)
         {
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#UpdateService.v1_5_0.UpdateService";
+        asyncResp->res.jsonValue["@odata.type"] = updateServiceType;
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
         asyncResp->res.jsonValue["Id"] = "UpdateService";
         asyncResp->res.jsonValue["Description"] = "Service for Software Update";
@@ -738,7 +738,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
-            "#SoftwareInventoryCollection.SoftwareInventoryCollection";
+            softwareInventoryCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory";
         asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
@@ -946,8 +946,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                         "FirmwareInventory", *swId));
                 return;
             }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#SoftwareInventory.v1_1_0.SoftwareInventory";
+            asyncResp->res.jsonValue["@odata.type"] = softwareInventoryType;
             asyncResp->res.jsonValue["Name"] = "Software Inventory";
             asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 

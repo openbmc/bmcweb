@@ -20,6 +20,7 @@
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <query.hpp>
@@ -41,8 +42,7 @@ inline void handleMessageRegistryFileCollectionGet(
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
 
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MessageRegistryFileCollection.MessageRegistryFileCollection";
+    asyncResp->res.jsonValue["@odata.type"] = messageRegistryFileCollectionType;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Registries";
     asyncResp->res.jsonValue["Name"] = "MessageRegistryFile Collection";
     asyncResp->res.jsonValue["Description"] =
@@ -113,8 +113,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Registries/" + registry;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
+    asyncResp->res.jsonValue["@odata.type"] = messageRegistryFileType;
     asyncResp->res.jsonValue["Name"] = registry + " Message Registry File";
     asyncResp->res.jsonValue["Description"] =
         dmtf + registry + " Message Registry File Location";

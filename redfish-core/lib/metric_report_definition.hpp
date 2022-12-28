@@ -1,5 +1,6 @@
 #pragma once
 
+#include "schemas.hpp"
 #include "sensors.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
@@ -32,8 +33,7 @@ inline void
                          const std::string& id,
                          const dbus::utility::DBusPropertiesMap& ret)
 {
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
+    asyncResp->res.jsonValue["@odata.type"] = metricReportDefinitionType;
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "TelemetryService", "MetricReportDefinitions", id);
     asyncResp->res.jsonValue["Id"] = id;
@@ -354,8 +354,8 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         }
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#MetricReportDefinitionCollection."
-            "MetricReportDefinitionCollection";
+            metricReportDefinitionCollectionType;
+
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
         asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";

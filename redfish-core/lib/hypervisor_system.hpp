@@ -1,5 +1,6 @@
 #pragma once
 
+#include "schemas.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
@@ -750,8 +751,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             }
             BMCWEB_LOG_DEBUG << "Hypervisor is available";
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_6_0.ComputerSystem";
+            asyncResp->res.jsonValue["@odata.type"] = computerSystemType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/hypervisor";
             asyncResp->res.jsonValue["Description"] = "Hypervisor";
@@ -800,8 +800,8 @@ inline void requestRoutesHypervisorSystems(App& app)
                 return;
             }
             asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterfaceCollection."
-                "EthernetInterfaceCollection";
+                ethernetInterfaceCollectionType;
+
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
             asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet "
@@ -855,8 +855,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                                            ifaceId);
                 return;
             }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterface.v1_6_0.EthernetInterface";
+            asyncResp->res.jsonValue["@odata.type"] = ethernetInterfaceType;
             asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet Interface";
             asyncResp->res.jsonValue["Description"] =
                 "Hypervisor's Virtual Management Ethernet Interface";
@@ -1024,8 +1023,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             // turn On The system object Action should be utilized
             // for other operations
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ActionInfo.v1_1_2.ActionInfo";
+            asyncResp->res.jsonValue["@odata.type"] = actionInfoType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/hypervisor/ResetActionInfo";
             asyncResp->res.jsonValue["Name"] = "Reset Action Info";

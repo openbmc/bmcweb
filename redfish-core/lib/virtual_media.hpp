@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include "schemas.hpp"
 
 #include <account_service.hpp>
 #include <app.hpp>
@@ -151,14 +152,13 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Managers", name, "VirtualMedia", resName);
 
-    item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
+    item["@odata.type"] = virtualMediaType;
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["WriteProtected"] = true;
     item["MediaTypes"] = nlohmann::json::array_t({"CD", "USBStick"});
     item["TransferMethod"] = "Stream";
-    item["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OemVirtualMedia.v1_0_0.VirtualMedia";
+    item["Oem"]["OpenBMC"]["@odata.type"] = oemVirtualMediaType;
 
     return item;
 }
@@ -986,8 +986,7 @@ inline void handleManagersVirtualMediaCollectionGet(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#VirtualMediaCollection.VirtualMediaCollection";
+    asyncResp->res.jsonValue["@odata.type"] = virtualMediaCollectionType;
     asyncResp->res.jsonValue["Name"] = "Virtual Media Services";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Managers", name, "VirtualMedia");

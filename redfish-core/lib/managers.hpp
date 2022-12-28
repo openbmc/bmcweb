@@ -21,6 +21,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "schemas.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 #include "utils/systemd_utils.hpp"
@@ -245,8 +246,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ActionInfo.v1_1_2.ActionInfo";
+        asyncResp->res.jsonValue["@odata.type"] = actionInfoType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/ResetActionInfo";
         asyncResp->res.jsonValue["Name"] = "Reset Action Info";
@@ -300,26 +300,26 @@ inline void
         nlohmann::json& configRoot =
             asyncResp->res.jsonValue["Oem"]["OpenBmc"]["Fan"];
         nlohmann::json& fans = configRoot["FanControllers"];
-        fans["@odata.type"] = "#OemManager.FanControllers";
+        fans["@odata.type"] = oemManagerType;
         fans["@odata.id"] =
             "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers";
 
         nlohmann::json& pids = configRoot["PidControllers"];
-        pids["@odata.type"] = "#OemManager.PidControllers";
+        pids["@odata.type"] = oemManagerType;
         pids["@odata.id"] =
             "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers";
 
         nlohmann::json& stepwise = configRoot["StepwiseControllers"];
-        stepwise["@odata.type"] = "#OemManager.StepwiseControllers";
+        stepwise["@odata.type"] = oemManagerType;
         stepwise["@odata.id"] =
             "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers";
 
         nlohmann::json& zones = configRoot["FanZones"];
         zones["@odata.id"] =
             "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones";
-        zones["@odata.type"] = "#OemManager.FanZones";
+        zones["@odata.type"] = oemManagerType;
         configRoot["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan";
-        configRoot["@odata.type"] = "#OemManager.Fan";
+        configRoot["@odata.type"] = oemManagerType;
         configRoot["Profile@Redfish.AllowableValues"] = supportedProfiles;
 
         if (!currentProfile.empty())
@@ -405,7 +405,7 @@ inline void
                     zone["@odata.id"] =
                         "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
                         name;
-                    zone["@odata.type"] = "#OemManager.FanZone";
+                    zone["@odata.type"] = oemManagerType;
                     config = &zone;
                 }
 
@@ -424,8 +424,7 @@ inline void
                     controller["@odata.id"] =
                         "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers/" +
                         name;
-                    controller["@odata.type"] =
-                        "#OemManager.StepwiseController";
+                    controller["@odata.type"] = oemManagerType;
 
                     controller["Direction"] = *classPtr;
                 }
@@ -448,14 +447,14 @@ inline void
                         element["@odata.id"] =
                             "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers/" +
                             name;
-                        element["@odata.type"] = "#OemManager.FanController";
+                        element["@odata.type"] = oemManagerType;
                     }
                     else
                     {
                         element["@odata.id"] =
                             "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers/" +
                             name;
-                        element["@odata.type"] = "#OemManager.PidController";
+                        element["@odata.type"] = oemManagerType;
                     }
                 }
                 else
@@ -1942,7 +1941,7 @@ inline void requestRoutesManager(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_14_0.Manager";
+        asyncResp->res.jsonValue["@odata.type"] = managerType;
         asyncResp->res.jsonValue["Id"] = "bmc";
         asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
         asyncResp->res.jsonValue["Description"] =
@@ -1971,9 +1970,9 @@ inline void requestRoutesManager(App& app)
         // default oem data
         nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
-        oem["@odata.type"] = "#OemManager.Oem";
+        oem["@odata.type"] = oemManagerType;
         oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
-        oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
+        oemOpenbmc["@odata.type"] = oemManagerType;
         oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
 
         nlohmann::json::object_t certificates;
@@ -2307,8 +2306,7 @@ inline void requestRoutesManagerCollection(App& app)
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ManagerCollection.ManagerCollection";
+        asyncResp->res.jsonValue["@odata.type"] = managerCollectionType;
         asyncResp->res.jsonValue["Name"] = "Manager Collection";
         asyncResp->res.jsonValue["Members@odata.count"] = 1;
         nlohmann::json::array_t members;
