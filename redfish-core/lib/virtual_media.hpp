@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include "schemas.hpp"
 
 #include <account_service.hpp>
 #include <app.hpp>
@@ -151,7 +152,7 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Managers", name, "VirtualMedia", resName);
 
-    item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
+    item["@odata.type"] = schemas::virtualMedia;
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["WriteProtected"] = true;
@@ -986,8 +987,7 @@ inline void handleManagersVirtualMediaCollectionGet(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#VirtualMediaCollection.VirtualMediaCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::virtualMediaCollection;
     asyncResp->res.jsonValue["Name"] = "Virtual Media Services";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Managers", name, "VirtualMedia");

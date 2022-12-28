@@ -17,6 +17,7 @@
 
 #include "error_messages.hpp"
 #include "persistent_data.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <http/utility.hpp>
@@ -34,7 +35,7 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["UserName"] = session.username;
     res.jsonValue["@odata.id"] =
         "/redfish/v1/SessionService/Sessions/" + session.uniqueId;
-    res.jsonValue["@odata.type"] = "#Session.v1_5_0.Session";
+    res.jsonValue["@odata.type"] = schemas::session;
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;
@@ -162,8 +163,7 @@ inline void handleSessionCollectionGet(
     asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers();
     asyncResp->res.jsonValue["Members@odata.count"] =
         asyncResp->res.jsonValue["Members"].size();
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#SessionCollection.SessionCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::sessionCollection;
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/SessionService/Sessions/";
     asyncResp->res.jsonValue["Name"] = "Session Collection";
@@ -296,8 +296,7 @@ inline void
 
 {
     handleSessionServiceHead(app, req, asyncResp);
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#SessionService.v1_0_2.SessionService";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::sessionService;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
     asyncResp->res.jsonValue["Name"] = "Session Service";
     asyncResp->res.jsonValue["Id"] = "SessionService";

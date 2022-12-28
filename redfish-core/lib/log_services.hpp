@@ -21,6 +21,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "schemas.hpp"
 #include "task.hpp"
 
 #include <systemd/sd-journal.h>
@@ -456,8 +457,7 @@ inline void
             odataIdStr.pop_back();
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logEntryCollection;
         asyncResp->res.jsonValue["@odata.id"] = std::move(odataIdStr);
         asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entries";
         asyncResp->res.jsonValue["Description"] =
@@ -502,7 +502,7 @@ inline void
                 continue;
             }
 
-            thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+            thisEntry["@odata.type"] = schemas::logEntry;
             thisEntry["@odata.id"] = entriesPath + entryID;
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
@@ -586,8 +586,7 @@ inline void
                 return;
             }
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntry.v1_9_0.LogEntry";
+            asyncResp->res.jsonValue["@odata.type"] = schemas::logEntry;
             asyncResp->res.jsonValue["@odata.id"] = entriesPath + entryID;
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
@@ -1048,8 +1047,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
 
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogServiceCollection.LogServiceCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logServiceCollection;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices";
         asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
@@ -1138,8 +1136,7 @@ inline void requestRoutesEventLogService(App& app)
         }
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logService;
         asyncResp->res.jsonValue["Name"] = "Event Log Service";
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
         asyncResp->res.jsonValue["Id"] = "EventLog";
@@ -1298,7 +1295,7 @@ static LogParseError
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    logEntryJson["@odata.type"] = schemas::logEntry;
     logEntryJson["@odata.id"] =
         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" + logEntryID;
     logEntryJson["Name"] = "System Event Log Entry";
@@ -1342,8 +1339,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
 
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logEntryCollection;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
@@ -1507,8 +1503,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
 
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logEntryCollection;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
@@ -1619,7 +1614,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 }
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
-                thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+                thisEntry["@odata.type"] = schemas::logEntry;
                 thisEntry["@odata.id"] =
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                     std::to_string(*id);
@@ -1728,8 +1723,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntry.v1_9_0.LogEntry";
+            asyncResp->res.jsonValue["@odata.type"] = schemas::logEntry;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                 std::to_string(*id);
@@ -2021,7 +2015,7 @@ inline void fillHostLoggerEntryJson(const std::string& logEntryID,
                                     nlohmann::json::object_t& logEntryJson)
 {
     // Fill in the log entry with the gathered data.
-    logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    logEntryJson["@odata.type"] = schemas::logEntry;
     logEntryJson["@odata.id"] =
         "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/" +
         logEntryID;
@@ -2053,8 +2047,7 @@ inline void requestRoutesSystemHostLogger(App& app)
         }
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/HostLogger";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logService;
         asyncResp->res.jsonValue["Name"] = "Host Logger Service";
         asyncResp->res.jsonValue["Description"] = "Host Logger Service";
         asyncResp->res.jsonValue["Id"] = "HostLogger";
@@ -2090,8 +2083,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         }
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/HostLogger/Entries";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logEntryCollection;
         asyncResp->res.jsonValue["Name"] = "HostLogger Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of HostLogger Entries";
@@ -2225,8 +2217,7 @@ inline void handleBMCLogServicesCollectionGet(
     }
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#LogServiceCollection.LogServiceCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::logServiceCollection;
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/LogServices";
     asyncResp->res.jsonValue["Name"] = "Open BMC Log Services Collection";
@@ -2311,8 +2302,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
         {
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logService;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
@@ -2377,7 +2367,7 @@ static int
     }
 
     // Fill in the log entry with the gathered data
-    bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    bmcJournalLogEntryJson["@odata.type"] = schemas::logEntry;
     bmcJournalLogEntryJson["@odata.id"] =
         "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
         bmcJournalLogEntryID;
@@ -2416,8 +2406,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
 
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logEntryCollection;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Entries";
@@ -2585,7 +2574,7 @@ inline void
     }
 
     asyncResp->res.jsonValue["@odata.id"] = dumpPath;
-    asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::logService;
     asyncResp->res.jsonValue["Name"] = "Dump LogService";
     asyncResp->res.jsonValue["Description"] = dumpType + " Dump LogService";
     asyncResp->res.jsonValue["Id"] = std::filesystem::path(dumpPath).filename();
@@ -2955,8 +2944,7 @@ inline void requestRoutesCrashdumpService(App& app)
         // SubRoute
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_2_0.LogService";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logService;
         asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
         asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
         asyncResp->res.jsonValue["Id"] = "Oem Crashdump";
@@ -3053,7 +3041,7 @@ static void
             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
             logID + "/" + filename;
         nlohmann::json::object_t logEntry;
-        logEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+        logEntry["@odata.type"] = schemas::logEntry;
         logEntry["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" + logID;
         logEntry["Name"] = "CPU Crashdump";
@@ -3126,7 +3114,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                 }
             }
             asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntryCollection.LogEntryCollection";
+                schemas::logEntryCollection;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
             asyncResp->res.jsonValue["Name"] = "Open BMC Crashdump Entries";
@@ -3493,8 +3481,7 @@ inline void requestRoutesPostCodesLogService(App& app)
         }
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logService;
         asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Id"] = "BIOS POST Code Log";
@@ -3700,7 +3687,7 @@ static bool fillPostCodeEntry(
 
         // Format entry
         nlohmann::json::object_t bmcLogEntry;
-        bmcLogEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+        bmcLogEntry["@odata.type"] = schemas::logEntry;
         bmcLogEntry["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
             postcodeEntryID;
@@ -3891,8 +3878,7 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
             ;
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::logEntryCollection;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
         asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";

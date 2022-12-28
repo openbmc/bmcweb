@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include "schemas.hpp"
 
 #include <bmcweb_config.h>
 

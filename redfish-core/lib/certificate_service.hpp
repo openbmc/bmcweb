@@ -1,5 +1,6 @@
 #pragma once
 
+#include "schemas.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <app.hpp>
@@ -328,8 +329,7 @@ static void getCertificateProperties(
         }
 
         asyncResp->res.jsonValue["@odata.id"] = certURL;
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#Certificate.v1_0_0.Certificate";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::certificate;
         asyncResp->res.jsonValue["Id"] = certId;
         asyncResp->res.jsonValue["Name"] = name;
         asyncResp->res.jsonValue["Description"] = name;
@@ -404,8 +404,7 @@ inline void handleCertificateServiceGet(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#CertificateService.v1_0_0.CertificateService";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::certificateService;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/CertificateService";
     asyncResp->res.jsonValue["Id"] = "CertificateService";
     asyncResp->res.jsonValue["Name"] = "Certificate Service";
@@ -443,8 +442,7 @@ inline void handleCertificateLocationsGet(
     }
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/CertificateService/CertificateLocations";
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#CertificateLocations.v1_0_0.CertificateLocations";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::certificateLocations;
     asyncResp->res.jsonValue["Name"] = "Certificate Locations";
     asyncResp->res.jsonValue["Id"] = "CertificateLocations";
     asyncResp->res.jsonValue["Description"] =
@@ -884,8 +882,7 @@ inline void handleHTTPSCertificateCollectionGet(
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#CertificateCollection.CertificateCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::certificateCollection;
     asyncResp->res.jsonValue["Name"] = "HTTPS Certificates Collection";
     asyncResp->res.jsonValue["Description"] =
         "A Collection of HTTPS certificate instances";
@@ -996,8 +993,7 @@ inline void handleLDAPCertificateCollectionGet(
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/AccountService/LDAP/Certificates";
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#CertificateCollection.CertificateCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::certificateCollection;
     asyncResp->res.jsonValue["Name"] = "LDAP Certificates Collection";
     asyncResp->res.jsonValue["Description"] =
         "A Collection of LDAP certificate instances";
@@ -1118,8 +1114,7 @@ inline void handleTrustStoreCertificateCollectionGet(
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/Truststore/Certificates/";
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#CertificateCollection.CertificateCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::certificateCollection;
     asyncResp->res.jsonValue["Name"] = "TrustStore Certificates Collection";
     asyncResp->res.jsonValue["Description"] =
         "A Collection of TrustStore certificate instances";
