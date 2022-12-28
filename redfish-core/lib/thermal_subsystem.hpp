@@ -1,9 +1,9 @@
 #pragma once
-
 #include "app.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "schemas.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/json_utils.hpp"
 
@@ -28,8 +28,7 @@ inline void doThermalSubsystemCollection(
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ThermalSubsystem.v1_0_0.ThermalSubsystem";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::thermalSubsystemType;
     asyncResp->res.jsonValue["Name"] = "Thermal Subsystem";
     asyncResp->res.jsonValue["Id"] = "ThermalSubsystem";
 

@@ -20,7 +20,7 @@ namespace
 void assertChassisResetActionInfoGet(const std::string& chassisId,
                                      crow::Response& res)
 {
-    EXPECT_EQ(res.jsonValue["@odata.type"], "#ActionInfo.v1_1_2.ActionInfo");
+    EXPECT_EQ(res.jsonValue["@odata.type"], "#ActionInfo.v1_3_0.ActionInfo");
     EXPECT_EQ(res.jsonValue["@odata.id"],
               "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo");
     EXPECT_EQ(res.jsonValue["Name"], "Reset Action Info");

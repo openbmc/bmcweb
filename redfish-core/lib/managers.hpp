@@ -245,8 +245,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ActionInfo.v1_1_2.ActionInfo";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::actionInfoType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/ResetActionInfo";
         asyncResp->res.jsonValue["Name"] = "Reset Action Info";
@@ -1942,7 +1941,7 @@ inline void requestRoutesManager(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_14_0.Manager";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::managerType;
         asyncResp->res.jsonValue["Id"] = "bmc";
         asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
         asyncResp->res.jsonValue["Description"] =
@@ -2308,7 +2307,7 @@ inline void requestRoutesManagerCollection(App& app)
         // because it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#ManagerCollection.ManagerCollection";
+            schemas::managerCollectionType;
         asyncResp->res.jsonValue["Name"] = "Manager Collection";
         asyncResp->res.jsonValue["Members@odata.count"] = 1;
         nlohmann::json::array_t members;
