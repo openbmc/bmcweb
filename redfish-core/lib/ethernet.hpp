@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "schemas.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
@@ -1741,7 +1742,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         }
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#EthernetInterfaceCollection.EthernetInterfaceCollection";
+            schemas::ethernetInterfaceCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces";
         asyncResp->res.jsonValue["Name"] =
@@ -1811,7 +1812,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             // Keep using the v1.6.0 schema here as currently bmcweb have to use
             // "VLANs" property deprecated in v1.7.0 for VLAN creation/deletion.
             asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterface.v1_6_0.EthernetInterface";
+                schemas::ethernetInterfaceType;
             asyncResp->res.jsonValue["Name"] = "Manager Ethernet Interface";
             asyncResp->res.jsonValue["Description"] =
                 "Management Network Interface";
@@ -1984,7 +1985,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
-            "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
+            schemas::vLanNetworkInterfaceType;
         asyncResp->res.jsonValue["Name"] = "VLAN Network Interface";
 
         if (!verifyNames(parentIfaceId, ifaceId))
@@ -2179,8 +2180,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#VLanNetworkInterfaceCollection."
-                "VLanNetworkInterfaceCollection";
+                schemas::vLanNetworkInterfaceCollectionType;
+
             asyncResp->res.jsonValue["Name"] =
                 "VLAN Network Interface Collection";
 

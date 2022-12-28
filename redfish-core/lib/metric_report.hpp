@@ -1,5 +1,6 @@
 #pragma once
 
+#include "schemas.hpp"
 #include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
@@ -41,7 +42,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
 inline bool fillReport(nlohmann::json& json, const std::string& id,
                        const TimestampReadings& timestampReadings)
 {
-    json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
+    json["@odata.type"] = schemas::metricReportType;
     json["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "TelemetryService", "MetricReports", id);
     json["Id"] = id;
@@ -69,7 +70,7 @@ inline void requestRoutesMetricReportCollection(App& app)
         }
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#MetricReportCollection.MetricReportCollection";
+            schemas::metricReportCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReports";
         asyncResp->res.jsonValue["Name"] = "Metric Report Collection";

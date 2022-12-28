@@ -14,9 +14,9 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "health.hpp"
 #include "openbmc_dbus_rest.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -48,7 +48,7 @@ inline void requestRoutesStorageCollection(App& app)
         }
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#StorageCollection.StorageCollection";
+            schemas::storageCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Storage";
         asyncResp->res.jsonValue["Name"] = "Storage Collection";
@@ -148,8 +148,7 @@ inline void
             nlohmann::json& storageController =
                 root.emplace_back(nlohmann::json::object());
 
-            storageController["@odata.type"] =
-                "#Storage.v1_7_0.StorageController";
+            storageController["@odata.type"] = schemas::storageType;
             storageController["@odata.id"] =
                 "/redfish/v1/Systems/system/Storage/1#/StorageControllers/" +
                 std::to_string(index);
@@ -266,7 +265,7 @@ inline void requestRoutesStorage(App& app)
         {
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::storageType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Storage/1";
         asyncResp->res.jsonValue["Name"] = "Storage";
@@ -601,7 +600,7 @@ inline void requestRoutesDrive(App& app)
             const dbus::utility::MapperServiceMap& connectionNames =
                 drive->second;
 
-            asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
+            asyncResp->res.jsonValue["@odata.type"] = schemas::driveType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/Storage/1/Drives/" + driveId;
             asyncResp->res.jsonValue["Name"] = driveId;
@@ -688,7 +687,7 @@ inline void chassisDriveCollectionGet(
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#DriveCollection.DriveCollection";
+                schemas::driveCollectionType;
             asyncResp->res.jsonValue["@odata.id"] =
                 crow::utility::urlFromPieces("redfish", "v1", "Chassis",
                                              chassisId, "Drives");
@@ -782,7 +781,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "Chassis", chassisId, "Drives", driveName);
 
-        asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
+        asyncResp->res.jsonValue["@odata.type"] = schemas::driveType;
         asyncResp->res.jsonValue["Name"] = driveName;
         asyncResp->res.jsonValue["Id"] = driveName;
         // default it to Enabled

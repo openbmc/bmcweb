@@ -1,5 +1,5 @@
 #pragma once
-
+#include "schemas.hpp"
 #include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
 
@@ -278,7 +278,7 @@ inline bool fillTrigger(
         json["MetricProperties"] = getMetricProperties(*sensors);
     }
 
-    json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
+    json["@odata.type"] = schemas::triggersType;
     json["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "TelemetryService", "Triggers", id);
     json["Id"] = id;
@@ -300,7 +300,7 @@ inline void requestRoutesTriggerCollection(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
-            "#TriggersCollection.TriggersCollection";
+            schemas::triggersCollectionType;
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/Triggers";
         asyncResp->res.jsonValue["Name"] = "Triggers Collection";
