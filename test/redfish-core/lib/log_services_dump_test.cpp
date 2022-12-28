@@ -17,7 +17,7 @@ namespace
 void assertLogServicesDumpServiceGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
-    EXPECT_EQ(json["@odata.type"], "#LogService.v1_2_0.LogService");
+    EXPECT_EQ(json["@odata.type"], "#LogService.v1_3_1.LogService");
     EXPECT_EQ(json["Name"], "Dump LogService");
 }
 
