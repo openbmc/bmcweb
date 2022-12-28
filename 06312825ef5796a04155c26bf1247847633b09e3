@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc40294_81bd5b1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-28T18:18:40Z",
+      "side": 1,
+      "message": "Comments from reference PR is also addressed in latest patch.",
+      "parentUuid": "acd67c11_b1fbbc73",
+      "revId": "06312825ef5796a04155c26bf1247847633b09e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa743c5c_ea81f0b2",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Seems the biosconfig-manager package is only included in meta-ibm and meta-inspur.",
       "parentUuid": "fa743c5c_ea81f0b2",
+      "revId": "06312825ef5796a04155c26bf1247847633b09e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1ccb406_c5ef4e2f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-28T18:18:40Z",
+      "side": 1,
+      "message": "Right now in handleBiosServiceGet we are populating Bios.ChangePassword\" only if the interface exists. Which means whoever uses BIOSConfigPassword will see the URI.",
+      "parentUuid": "227cd683_57966d78",
       "revId": "06312825ef5796a04155c26bf1247847633b09e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
