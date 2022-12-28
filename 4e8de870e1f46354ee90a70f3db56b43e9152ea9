@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db8bd3e_92fb0434",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T20:05:05Z",
+      "side": 1,
+      "message": "Lets just remove this block now,  We\u0027ve proven what we need to prove, and the generated code looks correct by inspection.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 9
+      },
+      "revId": "4e8de870e1f46354ee90a70f3db56b43e9152ea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a164e47_94d84432",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 49
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-28T20:05:05Z",
+      "side": 1,
+      "message": "?  We don\u0027t?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 75
+      },
+      "revId": "4e8de870e1f46354ee90a70f3db56b43e9152ea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
