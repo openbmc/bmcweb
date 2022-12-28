@@ -4,6 +4,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "schemas.hpp"
 #include "utils/chassis_utils.hpp"
 
 #include <memory>
@@ -27,8 +28,7 @@ inline void doPowerSubsystemCollection(
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/PowerSubsystem/PowerSubsystem.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#PowerSubsystem.v1_1_0.PowerSubsystem";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::powerSubsystemType;
     asyncResp->res.jsonValue["Name"] = "Power Subsystem";
     asyncResp->res.jsonValue["Id"] = "PowerSubsystem";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(

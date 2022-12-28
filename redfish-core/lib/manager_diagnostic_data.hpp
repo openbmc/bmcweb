@@ -1,5 +1,7 @@
 #pragma once
 
+#include "schemas.hpp"
+
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <http_request.hpp>
@@ -26,7 +28,7 @@ inline void handleManagerDiagnosticDataGet(
         return;
     }
     asyncResp->res.jsonValue["@odata.type"] =
-        "#ManagerDiagnosticData.v1_0_0.ManagerDiagnosticData";
+        schemas::managerDiagnosticDataType;
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
     asyncResp->res.jsonValue["Id"] = "ManagerDiagnosticData";

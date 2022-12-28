@@ -17,6 +17,7 @@
 
 #include "health.hpp"
 #include "led.hpp"
+#include "schemas.hpp"
 #include "utils/json_utils.hpp"
 
 #include <app.hpp>
@@ -142,8 +143,7 @@ inline void handleChassisCollectionGet(
     {
         return;
     }
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ChassisCollection.ChassisCollection";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::chassisCollectionType;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
 
@@ -267,8 +267,7 @@ inline void
                 continue;
             }
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#Chassis.v1_16_0.Chassis";
+            asyncResp->res.jsonValue["@odata.type"] = schemas::chassisType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -714,7 +713,7 @@ inline void handleChassisResetActionInfoGet(
     {
         return;
     }
-    asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::actionInfoType;
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo";
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
