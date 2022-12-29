@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c73b5827_da6b028e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T19:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bf7be81_86d47f2a",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8c32b2a6_f67913a9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -105,6 +123,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "870d3d6d_9171bdd5",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2009,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T19:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edbf7270_33304adb",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a740b060_e2954b72",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2009,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T19:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c17fc3a_90bd0b9c",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "170a57b3_1ab94b33",
@@ -128,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6645cb5_0affa26a",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T19:23:12Z",
+      "side": 1,
+      "message": "I will clarify more in commit message.",
+      "parentUuid": "170a57b3_1ab94b33",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 66
+      },
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f79f19e_1655f22c",
@@ -141,6 +219,30 @@
       "writtenOn": "2022-12-29T00:13:49Z",
       "side": 1,
       "message": "In general, I\u0027m assuming we\u0027ll need some kind of defaults of \"disallow all\" if the registry doesn\u0027t exist for a verb?",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e866728_e34b7d36",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T19:23:12Z",
+      "side": 1,
+      "message": "This route should either not exist or reject any request that comes this way, that will have to be implemented",
+      "parentUuid": "7f79f19e_1655f22c",
       "range": {
         "startLine": 252,
         "startChar": 0,
