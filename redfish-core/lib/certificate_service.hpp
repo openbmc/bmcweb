@@ -42,11 +42,6 @@ constexpr char const* authorityObjectPath =
  * are installed.
  */
 
-// TODO: Issue#61 No entries are available for Certificate
-// service at https://www.dmtf.org/standards/redfish
-// "redfish standard registries". Need to modify after DMTF
-// publish Privilege details for certificate service
-
 inline std::string getCertificateFromReqBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req)
