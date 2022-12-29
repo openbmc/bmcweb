@@ -16,6 +16,92 @@
       "message": "LGTM",
       "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b585e63_92316fa6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T02:35:02Z",
+      "side": 1,
+      "message": "I\u0027m really surprised we\u0027re not just adding this to entity-manager.",
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949bba41_278acc81",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T02:35:02Z",
+      "side": 1,
+      "message": "These numbers are meaningless, and shouldn\u0027t exist within bmcweb.  If this is the appropriate mapping, frudevice needs to publish it.",
+      "range": {
+        "startLine": 31,
+        "startChar": 49,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06cd4d01_1ca94630",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T02:35:02Z",
+      "side": 1,
+      "message": "This is getting the chassis type of ALL objects?  That seems wrong.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 67
+      },
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fad0114_0dc178cd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T02:35:02Z",
+      "side": 1,
+      "message": "Why are we doing a mapper lookup for an interface that only FruDevice publishes?",
+      "range": {
+        "startLine": 257,
+        "startChar": 36,
+        "endLine": 257,
+        "endChar": 66
+      },
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
