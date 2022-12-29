@@ -140,6 +140,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a36099_b3db0758",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-29T19:34:16Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bios-settings-mgr/commit/642f437e13a3bc09ad768f5fc7dd5a1afb7a9e0d#diff-6ce67247e6e8e2e44e354c63319323672399aecd84030431bf32aaa2d086de76R263",
+      "parentUuid": "7b2ad571_ddeb97a3",
+      "range": {
+        "startLine": 52,
+        "startChar": 45,
+        "endLine": 52,
+        "endChar": 55
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d964aa8_24a942a7",
@@ -176,6 +200,30 @@
       "writtenOn": "2022-12-29T01:24:50Z",
       "side": 1,
       "message": "What backend is this interacting with in your test?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 52
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d3869fa_d327c63c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-29T19:34:16Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bios-settings-mgr",
+      "parentUuid": "24d4780b_b4c5399e",
       "range": {
         "startLine": 149,
         "startChar": 0,
