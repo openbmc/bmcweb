@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc5d0c5c_6b16c27d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-12-29T04:02:53Z",
+      "side": 1,
+      "message": "I agree with you Ed. Anyway same logic is applied while sending the data to dbus. So no issue while patching SensorId. Thank you.",
+      "parentUuid": "ce89ff17_1f04ef91",
+      "range": {
+        "startLine": 806,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 30
+      },
+      "revId": "c93beda77db7d9880fc950fa5cd50a037a0417f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e30b378_d43f569d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 7
