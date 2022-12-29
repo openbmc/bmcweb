@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "756e90b2_28092245",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T00:13:04Z",
+      "side": 1,
+      "message": "The privilege_registry_test.cpp tests:\nPrivilegesUsed, OEMPrivilegesUsed, and OperationMap and Entity for every mapping in the mappings array.\n\nIt compares the base privilege registry (from https://redfish.dmtf.org/registries/Redfish_1.3.0_PrivilegeRegistry.json) to the one created by the handler.\n\nThe only non-trivial fields that arent verified are the different override types.",
+      "parentUuid": "c83a1051_fb8af6de",
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d621cfa_64ff63a1",
         "filename": "redfish-core/lib/privilege_registry.hpp",
         "patchSetId": 18
