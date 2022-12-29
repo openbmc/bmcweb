@@ -94,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e78c98_7486f45c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-29T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da51115_b6370b10",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 15
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57dcb08c_252afa95",
@@ -107,6 +131,30 @@
       "writtenOn": "2022-12-29T01:24:50Z",
       "side": 1,
       "message": "Why is this done within the lambda?  Shouldn\u0027t it be done outside?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218dfa1d_cb95735f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-29T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57dcb08c_252afa95",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -177,6 +225,30 @@
       "writtenOn": "2022-12-29T01:24:50Z",
       "side": 1,
       "message": "This doesn\u0027t look correct.  from the schema, this is not a username:\n\n\"This parameter shall contain the name of the BIOS password to change. For instance, AdminPassword or UserPassword.\"",
+      "range": {
+        "startLine": 133,
+        "startChar": 35,
+        "endLine": 133,
+        "endChar": 59
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2db254_7ca643bf",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-29T22:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d964aa8_24a942a7",
       "range": {
         "startLine": 133,
         "startChar": 35,
