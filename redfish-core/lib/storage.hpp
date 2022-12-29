@@ -96,7 +96,6 @@ inline void requestRoutesStorageCollection(App& app)
         .privileges(redfish::privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageCollectionGet, std::ref(app)));
-
     BMCWEB_ROUTE(app, "/redfish/v1/Storage/")
         .privileges(redfish::privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
@@ -202,10 +201,18 @@ inline void afterSystemsStorageGetSubtree(
 inline void
     handleSystemsStorageGet(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& systemName,
                             const std::string& storageId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
         return;
     }
 
@@ -280,7 +287,7 @@ inline void
 
 inline void requestRoutesStorage(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/<str>/")
         .privileges(redfish::privileges::getStorage)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageGet, std::ref(app)));
@@ -705,6 +712,14 @@ inline void handleSystemsStorageDriveGet(
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
     if (systemName != "system")
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",

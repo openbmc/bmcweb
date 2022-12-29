@@ -2833,28 +2833,46 @@ inline void requestRoutesSystemsCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
+        nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
+        ifaceArray = nlohmann::json::array();
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            asyncResp->res.jsonValue["Members@odata.count"] = 0;
+            // Option currently returns no systems.  TBD
+            return;
+        }
+        asyncResp->res.jsonValue["Members@odata.count"] = 1;
+        nlohmann::json::object_t system;
+        system["@odata.id"] = "/redfish/v1/Systems/system";
+        ifaceArray.emplace_back(std::move(system));
         sdbusplus::asio::getProperty<std::string>(
             *crow::connections::systemBus, "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
             [asyncResp](const boost::system::error_code& ec2,
                         const std::string& /*hostName*/) {
-            nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
-            ifaceArray = nlohmann::json::array();
-            auto& count = asyncResp->res.jsonValue["Members@odata.count"];
-
-            nlohmann::json::object_t system;
-            system["@odata.id"] = "/redfish/v1/Systems/system";
-            ifaceArray.emplace_back(std::move(system));
-            count = ifaceArray.size();
-            if (!ec2)
+            if (ec2)
             {
-                BMCWEB_LOG_DEBUG << "Hypervisor is available";
-                nlohmann::json::object_t hypervisor;
-                hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
-                ifaceArray.emplace_back(std::move(hypervisor));
-                count = ifaceArray.size();
+                return;
             }
+            auto val = asyncResp->res.jsonValue.find("Members@odata.count");
+            if (val == asyncResp->res.jsonValue.end())
+            {
+                BMCWEB_LOG_CRITICAL << "Count wasn't found??";
+                return;
+            }
+            uint64_t* count = val->get_ptr<uint64_t*>();
+            if (count == nullptr)
+            {
+                BMCWEB_LOG_CRITICAL << "Count wasn't found??";
+                return;
+            }
+            *count = *count + 1;
+            BMCWEB_LOG_DEBUG << "Hypervisor is available";
+            nlohmann::json& ifaceArray2 = asyncResp->res.jsonValue["Members"];
+            nlohmann::json::object_t hypervisor;
+            hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
+            ifaceArray2.emplace_back(std::move(hypervisor));
             });
         });
 }
@@ -2933,14 +2951,27 @@ inline void requestRoutesSystemActionsReset(App& app)
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Actions/ComputerSystem.Reset/")
         .privileges(redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemId);
+            return;
+        }
+        if (systemId != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemId);
             return;
         }
         std::string resetType;
@@ -3041,7 +3072,8 @@ inline void requestRoutesSystemActionsReset(App& app)
 
 inline void handleComputerSystemCollectionHead(
     App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*systemName*/)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -3094,7 +3126,7 @@ inline void afterPortRequest(
  */
 inline void requestRoutesSystems(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
         .privileges(redfish::privileges::headComputerSystem)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
@@ -3109,6 +3141,14 @@ inline void requestRoutesSystems(App& app)
                    const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
 
@@ -3261,6 +3301,13 @@ inline void requestRoutesSystems(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3386,7 +3433,8 @@ inline void requestRoutesSystems(App& app)
 
 inline void handleSystemCollectionResetActionHead(
     crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*systemId*/)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -3403,7 +3451,7 @@ inline void handleSystemCollectionResetActionHead(
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::headActionInfo)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleSystemCollectionResetActionHead, std::ref(app)));
@@ -3418,6 +3466,13 @@ inline void requestRoutesSystemResetActionInfo(App& app)
                    const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
 
