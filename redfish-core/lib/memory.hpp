@@ -787,6 +787,13 @@ inline void requestRoutesMemoryCollection(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -823,6 +830,15 @@ inline void requestRoutesMemory(App& app)
         {
             return;
         }
+
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
