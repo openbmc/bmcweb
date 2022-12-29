@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c17fc3a_90bd0b9c",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2009,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:19:07Z",
+      "side": 1,
+      "message": "\u003e I was thinking that this would be the last addition to the privilege registry and any override information should go into a new privilege_override_registry. This is because the map still pertains to the base privilege set given by the registry. I am happy to move it if you can come up with a better filename than \"privilege_registry_map.hpp\". Also would it just be that singular map in the file or should the enums be moved too\n\nMy reason for thinking it should be separate is pretty simple: all but one of users of this file don\u0027t need the map itself, they just need the variables.  my opinions here aren\u0027t super strong, but I do feel like that warrants a new file.",
+      "parentUuid": "0053b68d_b7ddadb7",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "170a57b3_1ab94b33",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 13
