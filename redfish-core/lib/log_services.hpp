@@ -1082,6 +1082,13 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1372,6 +1379,13 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1470,6 +1484,13 @@ inline void requestRoutesJournalEventLogEntry(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
 
         if (systemName != "system")
         {
@@ -1538,6 +1559,13 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                    const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -1732,6 +1760,13 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1839,6 +1874,13 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1880,6 +1922,13 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                    const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -1945,6 +1994,13 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                 http_helpers::ContentType::OctetStream, true))
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -2116,6 +2172,13 @@ inline void requestRoutesSystemHostLogger(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2151,6 +2214,13 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         if (!redfish::setUpRedfishRouteWithDelegation(
                 app, req, asyncResp, delegatedQuery, capabilities))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -2228,6 +2298,13 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                    const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -2828,15 +2905,24 @@ inline void handleLogServicesDumpCollectDiagnosticDataPost(
 inline void handleLogServicesDumpCollectDiagnosticDataComputerSystemPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId)
+    const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
-    if (chassisId != "system")
+
+    if constexpr (bmcwebEnableMultiHost)
     {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem", chassisId);
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
         return;
     }
     createDump(asyncResp, req, "System");
@@ -2856,15 +2942,23 @@ inline void handleLogServicesDumpClearLogPost(
 inline void handleLogServicesDumpClearLogComputerSystemPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId)
+    const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
-    if (chassisId != "system")
+    if constexpr (bmcwebEnableMultiHost)
     {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem", chassisId);
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
         return;
     }
     clearDump(asyncResp, "System");
@@ -3036,6 +3130,13 @@ inline void requestRoutesCrashdumpService(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3085,6 +3186,13 @@ void inline requestRoutesCrashdumpClear(App& app)
                    const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -3197,6 +3305,13 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3266,6 +3381,13 @@ inline void requestRoutesCrashdumpEntry(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3293,6 +3415,13 @@ inline void requestRoutesCrashdumpFile(App& app)
         // Do not call getRedfishRoute here since the crashdump file is not a
         // Redfish resource.
 
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3395,6 +3524,13 @@ inline void requestRoutesCrashdumpCollect(App& app)
             return;
         }
 
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3524,6 +3660,13 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3571,6 +3714,13 @@ inline void requestRoutesPostCodesLogService(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3614,6 +3764,13 @@ inline void requestRoutesPostCodesClear(App& app)
                    const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -3964,6 +4121,13 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
 
         if (systemName != "system")
         {
@@ -4006,6 +4170,13 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                 http_helpers::ContentType::OctetStream, true))
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
@@ -4085,6 +4256,13 @@ inline void requestRoutesPostCodesEntry(App& app)
                    const std::string& systemName, const std::string& targetID) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")

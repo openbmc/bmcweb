@@ -253,6 +253,12 @@ inline void
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
 
     getValidFabricAdapterPath(
         adapterId, systemName, aResp,
@@ -301,6 +307,12 @@ inline void handleFabricAdapterCollectionHead(
 {
     if (!redfish::setUpRedfishRoute(app, req, aResp))
     {
+        return;
+    }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
         return;
     }
     if (systemName != "system")

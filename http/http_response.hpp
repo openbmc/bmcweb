@@ -37,7 +37,8 @@ struct Response
         stringResponse->insert(key, value);
     }
 
-    void clearHeader(boost::beast::http::field key){
+    void clearHeader(boost::beast::http::field key)
+    {
         stringResponse->erase(key);
     }
 

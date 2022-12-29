@@ -1159,15 +1159,30 @@ inline void handleProcessorCollectionHead(
 
 inline void requestRoutesOperatingConfigCollection(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/")
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/Processors/<str>/OperatingConfigs/")
         .privileges(redfish::privileges::getOperatingConfigCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& cpuName) {
+                   const std::string& systemName, const std::string& cpuName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
@@ -1226,14 +1241,29 @@ inline void requestRoutesOperatingConfig(App& app)
 {
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/")
+        "/redfish/v1/Systems/<str>/Processors/<str>/OperatingConfigs/<str>/")
         .privileges(redfish::privileges::getOperatingConfig)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& cpuName, const std::string& configName) {
+                   const std::string& systemName, const std::string& cpuName,
+                   const std::string& configName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         // Ask for all objects implementing OperatingConfig so we can search
@@ -1302,6 +1332,14 @@ inline void requestRoutesProcessorCollection(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1349,6 +1387,13 @@ inline void requestRoutesProcessor(App& app)
         {
             return;
         }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1378,6 +1423,13 @@ inline void requestRoutesProcessor(App& app)
                    const std::string& processorId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
             return;
         }
         if (systemName != "system")
