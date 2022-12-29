@@ -105,6 +105,12 @@ static inline void handlePCIeDeviceCollectionGet(
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
     if (systemName != "system")
     {
         messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
@@ -369,6 +375,12 @@ inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
     if (systemName != "system")
     {
         messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
@@ -440,10 +452,16 @@ inline void addPCIeFunctionList(
 inline void handlePCIeFunctionCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-    const std::string& pcieDeviceId)
+    const std::string& systemName, const std::string& pcieDeviceId)
 {
     if (!redfish::setUpRedfishRoute(app, req, aResp))
     {
+        return;
+    }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
         return;
     }
 
@@ -477,7 +495,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/")
+                 "/redfish/v1/Systems/<str>/PCIeDevices/<str>/PCIeFunctions/")
         .privileges(redfish::privileges::getPCIeFunctionCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeFunctionCollectionGet, std::ref(app)));
@@ -577,6 +595,7 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
 inline void
     handlePCIeFunctionGet(App& app, const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& systemName,
                           const std::string& pcieDeviceId,
                           const std::string& pcieFunctionIdStr)
 {
@@ -584,6 +603,18 @@ inline void
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
+
     uint64_t pcieFunctionId = 0;
     std::from_chars_result result = std::from_chars(
         &*pcieFunctionIdStr.begin(), &*pcieFunctionIdStr.end(), pcieFunctionId);
@@ -619,8 +650,7 @@ inline void
 inline void requestRoutesSystemPCIeFunction(App& app)
 {
     BMCWEB_ROUTE(
-        app,
-        "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/")
+        app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/PCIeFunctions/<str>/")
         .privileges(redfish::privileges::getPCIeFunction)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeFunctionGet, std::ref(app)));

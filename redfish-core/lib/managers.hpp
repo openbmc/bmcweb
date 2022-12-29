@@ -2006,17 +2006,19 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
             nlohmann::json::array_t({"KVMIP"});
 #endif // BMCWEB_ENABLE_KVM
+        if constexpr (!bmcwebEnableMultiHost)
+        {
+            asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] =
+                1;
 
-        asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
+            nlohmann::json::array_t managerForServers;
+            nlohmann::json::object_t manager;
+            manager["@odata.id"] = "/redfish/v1/Systems/system";
+            managerForServers.emplace_back(std::move(manager));
 
-        nlohmann::json::array_t managerForServers;
-        nlohmann::json::object_t manager;
-        manager["@odata.id"] = "/redfish/v1/Systems/system";
-        managerForServers.emplace_back(std::move(manager));
-
-        asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
-            std::move(managerForServers);
-
+            asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
+                std::move(managerForServers);
+        }
         if constexpr (bmcwebEnableHealthPopulate)
         {
             auto health = std::make_shared<HealthPopulate>(asyncResp);
