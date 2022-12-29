@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c4df6f_9d074f22",
+        "filename": "test/redfish-core/lib/privilege_registry_test.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-29T00:15:00Z",
+      "side": 1,
+      "message": "The one entry that needs a fix is ManagerDiagnosticData\n\nIn https://redfish.dmtf.org/registries/Redfish_1.3.0_PrivilegeRegistry.json, ManagerDiagnosticData dosent seem to have permisions for Delete. This test fails right now due to it. Is this an issue in the schema/registry?",
+      "revId": "86287793e2ae5c6d90dcf7d020b2b4ff9ff7e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
