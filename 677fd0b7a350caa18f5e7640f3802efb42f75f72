@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ddd614a_32d5a8dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "Please wrap 50/72",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b93354b8_68865ce6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "nit, const error_code\u0026",
+      "range": {
+        "startLine": 37,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da51115_b6370b10",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "Please handle errors appropriately.  Only not found errors should be ignored.",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 15
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57dcb08c_252afa95",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "Why is this done within the lambda?  Shouldn\u0027t it be done outside?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2ad571_ddeb97a3",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "Please help to review the commits that are adding helper functions for this method call.",
+      "range": {
+        "startLine": 52,
+        "startChar": 45,
+        "endLine": 52,
+        "endChar": 55
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d964aa8_24a942a7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct.  from the schema, this is not a username:\n\n\"This parameter shall contain the name of the BIOS password to change. For instance, AdminPassword or UserPassword.\"",
+      "range": {
+        "startLine": 133,
+        "startChar": 35,
+        "endLine": 133,
+        "endChar": 59
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d4780b_b4c5399e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T01:24:50Z",
+      "side": 1,
+      "message": "What backend is this interacting with in your test?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 52
+      },
+      "revId": "677fd0b7a350caa18f5e7640f3802efb42f75f72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
