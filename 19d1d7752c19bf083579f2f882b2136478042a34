@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf7be81_86d47f2a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T00:13:49Z",
+      "side": 1,
+      "message": "Per the developing guide, please answer why the changes are being made.\n\nAll of those 3 things can be seen in the diff, but it\u0027s not clear why they\u0027re needed.  I especially don\u0027t understand why the verb enum ordering matters.\n\nPlease add those details to your commit message.",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c32b2a6_f67913a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T00:13:49Z",
+      "side": 1,
+      "message": "Looking like a really good start!",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9e6416c_ae3283b2",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2009,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T00:13:49Z",
+      "side": 1,
+      "message": "Should this go into a new file?",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbf7270_33304adb",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2009,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T00:13:49Z",
+      "side": 1,
+      "message": "nit, constexpr",
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "170a57b3_1ab94b33",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T00:13:49Z",
+      "side": 1,
+      "message": "Isn\u0027t this the only structure that has to match the order of the enum?",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 66
+      },
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f79f19e_1655f22c",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-29T00:13:49Z",
+      "side": 1,
+      "message": "In general, I\u0027m assuming we\u0027ll need some kind of defaults of \"disallow all\" if the registry doesn\u0027t exist for a verb?",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
