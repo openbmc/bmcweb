@@ -95,7 +95,32 @@ inline void requestRoutesStorageCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/")
         .privileges(redfish::privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
+<<<<<<< HEAD
             std::bind_front(handleSystemsStorageCollectionGet, std::ref(app)));
+=======
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        if constexpr (bmcwebEnableMultiHost)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+>>>>>>> 0be78259 (Add an option flag for multi-computersystem)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Storage/")
         .privileges(redfish::privileges::getStorageCollection)
@@ -280,10 +305,43 @@ inline void
 
 inline void requestRoutesStorage(App& app)
 {
+<<<<<<< HEAD
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/<str>/")
         .privileges(redfish::privileges::getStorage)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageGet, std::ref(app)));
+=======
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/")
+        .privileges(redfish::privileges::getStorage)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+            {
+                return;
+            }
+            if constexpr (bmcwebEnableMultiHost)
+            {
+                // Option currently returns no systems.  TBD
+                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                           systemName);
+                return;
+            }
+            if (systemName != "system")
+            {
+                // Option currently returns no systems.  TBD
+                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                           systemName);
+                return;
+            }
+            asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/Storage/1";
+            asyncResp->res.jsonValue["Name"] = "Storage";
+            asyncResp->res.jsonValue["Id"] = "1";
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+>>>>>>> 0be78259 (Add an option flag for multi-computersystem)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Storage/<str>/")
         .privileges(redfish::privileges::getStorage)
@@ -725,7 +783,109 @@ inline void requestRoutesDrive(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
         .privileges(redfish::privileges::getDrive)
         .methods(boost::beast::http::verb::get)(
+<<<<<<< HEAD
             std::bind_front(handleSystemsStorageDriveGet, std::ref(app)));
+=======
+                    [&app](const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& systemName,
+                           const std::string& driveId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+                if constexpr (bmcwebEnableMultiHost)
+                {
+                    // Option currently returns no systems.  TBD
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+                if (systemName != "system")
+                {
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+
+                constexpr std::array<std::string_view, 1> interfaces = {
+                    "xyz.openbmc_project.Inventory.Item.Drive"};
+                dbus::utility::getSubTree(
+                    "/xyz/openbmc_project/inventory", 0, interfaces,
+                    [asyncResp,
+                     driveId](const boost::system::error_code& ec,
+                              const dbus::utility::MapperGetSubTreeResponse&
+                                  subtree) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Drive mapper call error";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    auto drive = std::find_if(
+                        subtree.begin(), subtree.end(),
+                        [&driveId](
+                            const std::pair<std::string,
+                                            dbus::utility::MapperServiceMap>&
+                                object) {
+                        return sdbusplus::message::object_path(object.first)
+                                   .filename() == driveId;
+                        });
+
+                    if (drive == subtree.end())
+                    {
+                        messages::resourceNotFound(asyncResp->res, "Drive",
+                                                   driveId);
+                        return;
+                    }
+
+                    const std::string& path = drive->first;
+                    const dbus::utility::MapperServiceMap& connectionNames =
+                        drive->second;
+
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#Drive.v1_7_0.Drive";
+                    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                        "/redfish/v1/Systems/system/Storage/1/Drives/{}",
+                        driveId);
+                    asyncResp->res.jsonValue["Name"] = driveId;
+                    asyncResp->res.jsonValue["Id"] = driveId;
+
+                    if (connectionNames.size() != 1)
+                    {
+                        BMCWEB_LOG_ERROR << "Connection size "
+                                         << connectionNames.size()
+                                         << ", not equal to 1";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    getMainChassisId(
+                        asyncResp,
+                        [](const std::string& chassisId,
+                           const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                        aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+                            boost::urls::format("/redfish/v1/Chassis/{}",
+                                                chassisId);
+                        });
+
+                    // default it to Enabled
+                    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+
+                    if constexpr (bmcwebEnableHealthPopulate)
+                    {
+                        auto health =
+                            std::make_shared<HealthPopulate>(asyncResp);
+                        health->inventory.emplace_back(path);
+                        health->populate();
+                    }
+
+                    addAllDriveInfo(asyncResp, connectionNames[0].first, path,
+                                    connectionNames[0].second);
+                    });
+                });
+>>>>>>> 0be78259 (Add an option flag for multi-computersystem)
 }
 
 inline void afterChassisDriveCollectionSubtreeGet(

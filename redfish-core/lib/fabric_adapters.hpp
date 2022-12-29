@@ -255,6 +255,12 @@ inline void
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
 
     getValidFabricAdapterPath(
         adapterId, systemName, asyncResp,
@@ -272,6 +278,12 @@ inline void handleFabricAdapterCollectionGet(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems. TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
         return;
     }
     if (systemName != "system")
@@ -307,6 +319,12 @@ inline void handleFabricAdapterCollectionHead(
     {
         return;
     }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
     if (systemName != "system")
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -329,6 +347,12 @@ inline void
         return;
     }
 
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems. TBD
+        messages::resourceNotFound(aResp->res, "ComputerSystem", systemName);
+        return;
+    }
     getValidFabricAdapterPath(adapterId, systemName, asyncResp,
                               [asyncResp, systemName, adapterId](
                                   const std::string&, const std::string&) {
