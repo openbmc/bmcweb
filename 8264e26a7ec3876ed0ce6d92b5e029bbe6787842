@@ -16,6 +16,52 @@
       "message": "Hi Reviewers, can you please vote for this change to get it merged?\nThanks",
       "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df0f5d3_6799bee6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-30T18:18:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t directly map from dbus paths to redfish.  Some conversion will be required.",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5733152_4cf84321",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-30T18:18:13Z",
+      "side": 1,
+      "message": "Per the pattern we use elsewhere, please put this code in its own method.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 21
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
