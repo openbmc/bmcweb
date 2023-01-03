@@ -19,6 +19,14 @@ enum class Result
     NoLocalHandle
 };
 
+enum class SearchType
+{
+    Collection,
+    CollOrCon,
+    ContainsSubordinate,
+    Resource
+};
+
 // clang-format off
 // These are all of the properties as of version 2022.2 of the Redfish Resource
 // and Schema Guide whose Type is "string (URI)" and the name does not end in a
@@ -40,6 +48,83 @@ constexpr std::array nonUriProperties{
     "target", // normal string, but target URI for POST to invoke an action
 };
 // clang-format on
+
+// Search the top collection array to determine if the passed URI is of a
+// desired type
+inline bool searchCollectionsArray(const std::string_view uri,
+                                   const SearchType searchType)
+{
+    // The passed URI must begin with "/redfish/v1", but we have to strip it
+    // from the URI since topCollections does not include it in its URIs
+    if (!uri.starts_with("/redfish/v1"))
+    {
+        return false;
+    }
+
+    boost::urls::url targetUrl(uri.substr(11));
+    if (!targetUrl.segments().is_absolute() && !targetUrl.segments().empty())
+    {
+        return false;
+    }
+
+    // Handle possible trailing "/"
+    if (!targetUrl.segments().empty() && targetUrl.segments().back().empty())
+    {
+        targetUrl.segments().pop_back();
+    }
+
+    // If no segments() then the passed URI was either "/redfish/v1" or
+    // "/redfish/v1/".
+    if (targetUrl.segments().empty())
+    {
+        return (searchType == SearchType::ContainsSubordinate) ||
+            (searchType == SearchType::CollOrCon);
+    }
+
+    const auto* it = std::lower_bound(topCollections.begin(),
+                                      topCollections.end(), targetUrl.buffer());
+    if (it == topCollections.end())
+    {
+        return false;
+    }
+
+    boost::urls::url collectionUrl(*it);
+    boost::urls::segments_view collectionSegments = collectionUrl.segments();
+    boost::urls::segments_view::iterator itCollection =
+        collectionSegments.begin();
+    const boost::urls::segments_view::const_iterator endCollection =
+        collectionSegments.end();
+
+    // Each segment in the passed URI should match the found collection
+    for (const auto& segment : targetUrl.segments())
+    {
+        if (itCollection == endCollection)
+        {
+            // Leftover segments means the target is for an aggregation
+            // supported resource
+            return searchType == SearchType::Resource;
+        }
+
+        if (segment != (*itCollection))
+        {
+            return false;
+        }
+        itCollection++;
+    }
+
+    // No remaining segments means the passed URI was a top level collection
+    if (searchType == SearchType::Collection)
+    {
+        return itCollection == endCollection;
+    }
+    if (searchType == SearchType::ContainsSubordinate)
+    {
+        return itCollection != endCollection;
+    }
+
+    // Return this check instead of "true" in case other SearchTypes get added
+    return searchType == SearchType::CollOrCon;
+}
 
 // Determines if the passed property contains a URI.  Those property names
 // either end with a case-insensitive version of "uri" or are specifically
