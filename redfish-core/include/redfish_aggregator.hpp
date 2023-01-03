@@ -19,6 +19,14 @@ enum class Result
     NoLocalHandle
 };
 
+enum class SearchType
+{
+    Collection,
+    CollOrCon,
+    ContainsSubordinate,
+    Resource
+};
+
 // clang-format off
 // These are all of the properties as of version 2022.2 of the Redfish Resource
 // and Schema Guide whose Type is "string (URI)" and the name does not end in a
@@ -40,6 +48,103 @@ constexpr std::array nonUriProperties{
     "target", // normal string, but target URI for POST to invoke an action
 };
 // clang-format on
+
+// Search the top collection array to determine if the passed URI is of a
+// desired type
+inline bool searchCollectionsArray(std::string_view uri,
+                                   const SearchType searchType)
+{
+    constexpr std::string_view serviceRootUri = "/redfish/v1";
+
+    // The passed URI must begin with "/redfish/v1", but we have to strip it
+    // from the URI since topCollections does not include it in its URIs
+    if (!uri.starts_with(serviceRootUri))
+    {
+        return false;
+    }
+
+    // Catch empty final segments such as "/redfish/v1/Chassis//"
+    if (uri.ends_with("//"))
+    {
+        return false;
+    }
+
+    std::size_t parseCount = uri.size() - serviceRootUri.size();
+    // Don't include the trailing "/" if it exists such as in "/redfish/v1/"
+    if (uri.ends_with("/"))
+    {
+        parseCount--;
+    }
+
+    boost::urls::result<boost::urls::url_view> parsedUrl =
+        boost::urls::parse_relative_ref(
+            uri.substr(serviceRootUri.size(), parseCount));
+    if (!parsedUrl)
+    {
+        BMCWEB_LOG_ERROR << "Failed to get target URI from "
+                         << uri.substr(serviceRootUri.size());
+        return false;
+    }
+
+    if (!parsedUrl->segments().is_absolute() && !parsedUrl->segments().empty())
+    {
+        return false;
+    }
+
+    // If no segments() then the passed URI was either "/redfish/v1" or
+    // "/redfish/v1/".
+    if (parsedUrl->segments().empty())
+    {
+        return (searchType == SearchType::ContainsSubordinate) ||
+               (searchType == SearchType::CollOrCon);
+    }
+
+    const auto* it = std::lower_bound(
+        topCollections.begin(), topCollections.end(), parsedUrl->buffer());
+    if (it == topCollections.end())
+    {
+        // parsedUrl is alphabetically after the last entry in the array so it
+        // can't be a top collection or up tree from a top collection
+        return false;
+    }
+
+    boost::urls::url collectionUrl(*it);
+    boost::urls::segments_view collectionSegments = collectionUrl.segments();
+    boost::urls::segments_view::iterator itCollection =
+        collectionSegments.begin();
+    const boost::urls::segments_view::const_iterator endCollection =
+        collectionSegments.end();
+
+    // Each segment in the passed URI should match the found collection
+    for (const auto& segment : parsedUrl->segments())
+    {
+        if (itCollection == endCollection)
+        {
+            // Leftover segments means the target is for an aggregation
+            // supported resource
+            return searchType == SearchType::Resource;
+        }
+
+        if (segment != (*itCollection))
+        {
+            return false;
+        }
+        itCollection++;
+    }
+
+    // No remaining segments means the passed URI was a top level collection
+    if (searchType == SearchType::Collection)
+    {
+        return itCollection == endCollection;
+    }
+    if (searchType == SearchType::ContainsSubordinate)
+    {
+        return itCollection != endCollection;
+    }
+
+    // Return this check instead of "true" in case other SearchTypes get added
+    return searchType == SearchType::CollOrCon;
+}
 
 // Determines if the passed property contains a URI.  Those property names
 // either end with a case-insensitive version of "uri" or are specifically
