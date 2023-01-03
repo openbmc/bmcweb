@@ -16,6 +16,29 @@
       "message": "@Ed @Gunnar, Any comments on this one?",
       "revId": "77690fb4939af803d69d6256f56a67fda5be50c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9fe675f_da12e0bc",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-03T16:39:04Z",
+      "side": 1,
+      "message": "You don\u0027t need double const here.",
+      "range": {
+        "startLine": 161,
+        "startChar": 14,
+        "endLine": 161,
+        "endChar": 31
+      },
+      "revId": "77690fb4939af803d69d6256f56a67fda5be50c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
