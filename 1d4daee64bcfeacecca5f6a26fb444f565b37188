@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b032e82f_3f9a00ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000855
+      },
+      "writtenOn": "2023-01-03T21:52:59Z",
+      "side": 1,
+      "message": "Sorry for not answering before,  I didn\u0027t have a detailed answer, but I can give you more details, \n\nAfter adding the LDAP group, the JSON is in bad shape, VUE thinks that are 2 groups instead of one, so when the user clicks the delete button, VUE does a patch with the following body content \u0027{\"LDAP\":{\"RemoteRoleMapping\":[null,null]}}\u0027 \n\nThe same happens with the edit button, most of the time, the BMCWeb reports an error but after some intent, it crashes\n\nJan 03 21:48:58 newyork systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d6/ABRT",
+      "parentUuid": "280e4183_46ee0f23",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "1d4daee64bcfeacecca5f6a26fb444f565b37188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "399b03c8_c3c4aa3b",
