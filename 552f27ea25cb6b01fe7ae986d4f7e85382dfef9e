@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98f82ce5_485be2a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-03T18:20:05Z",
+      "side": 1,
+      "message": "This will require a mapping of entity types to uris. Going to have to put https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59861/10?usp\u003drelated-change before implement on GET can go in. Will update this commit with the above mentioned test.",
+      "parentUuid": "380cb728_e7b1d377",
+      "revId": "552f27ea25cb6b01fe7ae986d4f7e85382dfef9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d621cfa_64ff63a1",
         "filename": "redfish-core/lib/privilege_registry.hpp",
         "patchSetId": 18
