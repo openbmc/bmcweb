@@ -485,5 +485,70 @@ TEST(processResponse, DifferentContentType)
     assertProcessResponseContentType(";charset=utf-8");
 }
 
+bool containsSubordinateCollection(const std::string_view uri)
+{
+    return searchCollectionsArray(uri, SearchType::ContainsSubordinate);
+}
+
+bool isCollOrCon(const std::string_view uri)
+{
+    return searchCollectionsArray(uri, SearchType::CollOrCon);
+}
+
+TEST(searchCollectionsArray, validURIs)
+{
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1"));
+    EXPECT_TRUE(
+        containsSubordinateCollection("/redfish/v1/AggregationService"));
+    EXPECT_TRUE(
+        containsSubordinateCollection("/redfish/v1/CompositionService/"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/JobService"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/JobService/Log"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/KeyService"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/LicenseService/"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/PowerEquipment"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/TaskService"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/TelemetryService"));
+    EXPECT_TRUE(containsSubordinateCollection(
+        "/redfish/v1/TelemetryService/LogService/"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/UpdateService"));
+}
+
+TEST(searchCollectionArray, containsSubordinateInvalidURIs)
+{
+    EXPECT_FALSE(containsSubordinateCollection(""));
+    EXPECT_FALSE(containsSubordinateCollection("www.test.com/redfish/v1"));
+    EXPECT_FALSE(containsSubordinateCollection("/fail"));
+    EXPECT_FALSE(containsSubordinateCollection(
+        "/redfish/v1/AggregationService/Aggregates"));
+    EXPECT_FALSE(containsSubordinateCollection(
+        "/redfish/v1/AggregationService/AggregationSources/"));
+    EXPECT_FALSE(containsSubordinateCollection("/redfish/v1/Cables/"));
+    EXPECT_FALSE(
+        containsSubordinateCollection("/redfish/v1/Chassis/chassisId"));
+    EXPECT_FALSE(containsSubordinateCollection("/redfish/v1/Fake"));
+    EXPECT_FALSE(containsSubordinateCollection(
+        "/redfish/v1/TelemetryService/LogService/Entries"));
+    EXPECT_FALSE(containsSubordinateCollection(
+        "/redfish/v1/UpdateService/SoftwareInventory/"));
+}
+
+TEST(searchCollectionsArray, validCollectionOrContainsURIs)
+{
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1"));
+    EXPECT_TRUE(
+        containsSubordinateCollection("/redfish/v1/AggregationService"));
+    EXPECT_TRUE(
+        containsSubordinateCollection("/redfish/v1/CompositionService/"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/JobService"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/JobService/Log"));
+    EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/KeyService"));
+    EXPECT_TRUE(isCollOrCon("/redfish/v1/Chassis"));
+    EXPECT_TRUE(isCollOrCon("/redfish/v1/Cables/"));
+    EXPECT_TRUE(isCollOrCon("/redfish/v1/Fabrics"));
+    EXPECT_TRUE(isCollOrCon("/redfish/v1/Managers"));
+    EXPECT_TRUE(isCollOrCon("/redfish/v1/UpdateService/FirmwareInventory/"));
+}
+
 } // namespace
 } // namespace redfish
