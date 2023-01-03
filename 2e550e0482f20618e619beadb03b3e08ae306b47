@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c821ef22_0659b347",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-03T16:35:40Z",
+      "side": 1,
+      "message": "\"Why did this change?\" was not answered.",
+      "parentUuid": "528fc773_0ad03602",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e77432f_71f7b799",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 2
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "\u003e If we\u0027re changing this, we should be moving to std::span\u003cconst std::string_view\u003e.\n\nAck.\nwe should be moving to std::span\u003cconst char*\u003e instead of std::span\u003cconst std::string_view\u003e, because the async_method_call method does not accept parameters of type string_view",
       "parentUuid": "6e77432f_71f7b799",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81db5e8f_becf7113",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-03T16:35:40Z",
+      "side": 1,
+      "message": "That\u0027s fine.",
+      "parentUuid": "c9c0ceca_fe9a94f3",
       "range": {
         "startLine": 30,
         "startChar": 25,
