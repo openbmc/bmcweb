@@ -41,6 +41,86 @@ constexpr std::array nonUriProperties{
 };
 // clang-format on
 
+// Return if a top-level collection is subordinate to the passed URI
+inline bool containsSubordinateCollection(const std::string_view uri)
+{
+    // The passed URI must begin with "/redfish/v1", but we have to strip it
+    // from the URI since topCollections does not include it in its URIs
+    if (!uri.starts_with("/redfish/v1"))
+    {
+        return false;
+    }
+
+    boost::urls::url targetUrl(uri.substr(11));
+    if (!targetUrl.segments().is_absolute() && !targetUrl.segments().empty())
+    {
+        return false;
+    }
+
+    // Handle possible trailing "/"
+    if (!targetUrl.segments().empty() && targetUrl.segments().back().empty())
+    {
+        targetUrl.segments().pop_back();
+    }
+
+    // If no segments() then the passed URI was either "/redfish/v1" or
+    // "/redfish/v1/".
+    if (targetUrl.segments().empty())
+    {
+        return true;
+    }
+
+    auto it = std::lower_bound(topCollections.begin(), topCollections.end(),
+                               targetUrl.buffer());
+    if (it == topCollections.end())
+    {
+        return false;
+    }
+
+    boost::urls::url collectionUrl(*it);
+    boost::urls::segments_view collectionSegments = collectionUrl.segments();
+    boost::urls::segments_view::iterator itCollection =
+        collectionSegments.begin();
+    const boost::urls::segments_view::const_iterator endCollection =
+        collectionSegments.end();
+
+    // Each segment in the passed URI should match the found collection
+    for (const auto& segment : targetUrl.segments())
+    {
+        if (itCollection == endCollection)
+        {
+            return false;
+        }
+
+        if (segment != (*itCollection))
+        {
+            return false;
+        }
+        itCollection++;
+    }
+
+    // No remaining segments means the passed URI was a top level collection
+    return itCollection != endCollection;
+}
+
+//TODO: In initial aggregation if not aggregated resource and not collection:
+//Check if request for root of a top level collection.  If so then call an
+//alternative version of the collection function which specifically handle this
+//scenario.
+//
+//Handling collection parent response:
+//Read the URI from "@odata.id"
+//Parse the response properties for properties that only exist in sat resp
+//    Might need to go lower in case it's a nested property that's missing
+//Step through the prop looking for nested URI props (use isPropertyUri())
+//Make sure found URI is one segment past the overall "@odata.id" URI
+//    If not then keep going
+//See if the found URI is for a top level collection or parent of one
+//If it is then add the entire property to the response beginning at the
+//    highest level that is missing
+//Repeat until response completely parsed.
+//
+
 // Determines if the passed property contains a URI.  Those property names
 // either end with a case-insensitive version of "uri" or are specifically
 // defined in the above array.
