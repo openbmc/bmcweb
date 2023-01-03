@@ -251,6 +251,30 @@
       },
       "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3722e4_792b1385",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-03T18:00:44Z",
+      "side": 1,
+      "message": "The route does not exist. The default to disallow all if registry dosent exist will be implemented.",
+      "parentUuid": "8e866728_e34b7d36",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "19d1d7752c19bf083579f2f882b2136478042a34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
