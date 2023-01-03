@@ -40,6 +40,70 @@ constexpr std::array nonUriProperties{
 };
 // clang-format on
 
+// Return if a top-level collection is subordinate to the passed URI
+inline bool containsSubordinateCollection(const std::string_view uri)
+{
+    boost::urls::url targetUrl(uri);
+    if (!targetUrl.segments().is_absolute())
+    {
+        return false;
+    }
+
+    // Handle possible trailing "/"
+    if (targetUrl.segments().back().empty() && (targetUrl.segments().size() > 0))
+    {
+        targetUrl.segments().pop_back();
+    }
+
+    auto it = std::lower_bound(topCollections.begin(), topCollections.end(),
+                               targetUrl.buffer());
+    if (it == topCollections.end())
+    {
+        return false;
+    }
+
+    boost::urls::url collectionUrl(*it);
+    boost::urls::segments_view collectionSegments = collectionUrl.segments();
+    boost::urls::segments_view::iterator itCollection = collectionSegments.begin();
+    const boost::urls::segments_view::iterator endCollection = collectionSegments.end();
+
+    // Each segment in the passed uri should match the found collection
+    for (const auto& segment : targetUrl.segments())
+    {
+        if (itCollection == endCollection)
+        {
+            return false;
+        }
+
+        if (segment != (*itCollection))
+        {
+            return false;
+        }
+        itCollection++;
+    }
+
+    // No remaining segments means the passed URI was a top level collection
+    return itCollection != endCollection;
+}
+
+//TODO: In initial aggregation if not aggregated resource and not collection:
+//Check if request for root of a top level collection.  If so then call a an
+//alternative version of the collection function which specifically handle this
+//scenario.
+//
+//Handling collection parent response:
+//Read the URI from "@odata.id"
+//Parse the response properties for properties that only exist in sat resp
+//    Might need to go lower in case it's a nested property that's missing
+//Step through the prop looking for nested URI props (use isPropertyUri())
+//Make sure found URI is one segment past the overall "@odata.id" URI
+//    If not then keep going
+//See if the found URI is for a top level collection or parent of one
+//If it is then add the entire property to the response beginning at the
+//    highest level that is missing
+//Repeat until response completely parsed.
+//
+
 // Determines if the passed property contains a URI.  Those property names
 // either end with a case-insensitive version of "uri" or are specifically
 // defined in the above array.
