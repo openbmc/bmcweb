@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b839d863_b71e8680",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T21:45:19Z",
+      "side": 1,
+      "message": "If it doesn\u0027t, and progress has stopped, we\u0027ll delete the code beneath the option.",
+      "parentUuid": "dbe81477_e41804b3",
+      "range": {
+        "startLine": 17,
+        "startChar": 33,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "d2cea42457f849e5bc85cc8083ab18d2a5e471f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a0f7c6e_41ad764e",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07e08fc_0eb7d897",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T21:45:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a0f7c6e_41ad764e",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "d2cea42457f849e5bc85cc8083ab18d2a5e471f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6393c90_49082f96",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-01-04T20:02:45Z",
       "side": 1,
       "message": "Can we get this TODO answered before this merges?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "d2cea42457f849e5bc85cc8083ab18d2a5e471f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf06fb3d_c8c15492",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T21:45:19Z",
+      "side": 1,
+      "message": "Yep, that\u0027s the intent of asking the question.  I don\u0027t plan to merge this until we have someone named to take responsibility for this.",
+      "parentUuid": "f6393c90_49082f96",
       "range": {
         "startLine": 21,
         "startChar": 0,
