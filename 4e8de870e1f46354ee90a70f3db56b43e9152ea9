@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba22cfed_8d91040e",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-04T00:53:12Z",
+      "side": 1,
+      "message": "If you mean break this into:\n/redfish/v1/TelemetryService/LogService\n/redfish/v1/TelemetryService/LogService/Entries\n\nThen yeah you\u0027re overthinking it.  We need only top level collections in the array and /redfish/v1/TelemetryService/LogService is not one.",
+      "parentUuid": "496465dc_625bcd8c",
+      "range": {
+        "startLine": 53,
+        "startChar": 17,
+        "endLine": 53,
+        "endChar": 52
+      },
+      "revId": "4e8de870e1f46354ee90a70f3db56b43e9152ea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2db8bd3e_92fb0434",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 49
@@ -84,6 +108,30 @@
       "writtenOn": "2022-12-28T20:05:05Z",
       "side": 1,
       "message": "Lets just remove this block now,  We\u0027ve proven what we need to prove, and the generated code looks correct by inspection.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 9
+      },
+      "revId": "4e8de870e1f46354ee90a70f3db56b43e9152ea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab26f30b_293de248",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-04T00:53:12Z",
+      "side": 1,
+      "message": "I removed the for loop.  I can\u0027t completely remove it or else I get compile warnings about the topCollections not being used anywhere.",
+      "parentUuid": "2db8bd3e_92fb0434",
       "range": {
         "startLine": 167,
         "startChar": 0,
@@ -107,6 +155,30 @@
       "writtenOn": "2022-12-28T20:05:05Z",
       "side": 1,
       "message": "?  We don\u0027t?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 75
+      },
+      "revId": "4e8de870e1f46354ee90a70f3db56b43e9152ea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c726e0_cc3f312b",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 49
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-04T00:53:12Z",
+      "side": 1,
+      "message": "According to the schema, that data is a copy from a resource which is located elsewhere in the tree.  That means it won\u0027t be subordinate to our current path and thus don\u0027t need to parse it.\n\nhttps://github.com/DMTF/Redfish/blob/master/metadata/RedfishExtensions_v1.xml#L133-L135.",
+      "parentUuid": "6a164e47_94d84432",
       "range": {
         "startLine": 114,
         "startChar": 0,
