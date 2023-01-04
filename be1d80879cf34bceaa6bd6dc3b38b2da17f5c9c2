@@ -614,6 +614,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "847e7f57_5de44647",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T00:20:29Z",
+      "side": 1,
+      "message": "no, I mean functional tests.  Why wasn\u0027t this caught in testing, and what functional tests do we need to add to make sure it can\u0027t happen?",
+      "parentUuid": "be2bff0a_64b054f1",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1a22e28_b2f51687",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 32
