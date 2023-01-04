@@ -22,6 +22,30 @@
       },
       "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b0b817_a7b2325c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T21:26:35Z",
+      "side": 1,
+      "message": "\u003e I think I am fine with moving to the latest, but this is different than we have done in the past. \n\u003e In the past we used the lowest schema version we needed (e.g. if we needed 1_2 for property x we would move to 1_2, but not 1_3). We did this based on guidance from Redfish. I think Redfish\u0027s thinking was, if it isn\u0027t needed to use 1_3 then don\u0027t use it (if you don\u0027t implement properties y and z in 1_3, don\u0027t use 1_3, client knows instantly you don\u0027t implement properties y and z). \n\u003e \n\u003e So when we move to a new Redfish release pack (e.g. DSP8010_2023.1), we will then use all of those new schemas ?\n\nYes, it would update on new schema packs.\n\nAgreed, I\u0027m conflicted on changing that policy, but I think in terms of tradeoffs, just staying on latest is the best.  The only other thing we could do is keep a list somewhere of explicit versions of the schema, but then we\u0027re back to people forgetting to update them.  I think DMTFs guidance is coming from a place of \"less change is better\", but if the change is automated, I\u0027m not sure it hurts us.\n\nAnywho, it sounds like you\u0027re ok with it.  I\u0027m open to criticism of this, \"null hypothesis\" (ie leave it like it is), or other ideas that might be better.",
+      "parentUuid": "c9652543_f1f1c1fb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
