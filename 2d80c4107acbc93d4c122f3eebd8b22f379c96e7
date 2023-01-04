@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cceb09e_cdcb0aa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-04T19:33:04Z",
+      "side": 1,
+      "message": "I like this plan. It is disabled for now, but in the future, maybe in a few months, we will move to enabled by default? Later even, we remove this option.",
+      "revId": "2d80c4107acbc93d4c122f3eebd8b22f379c96e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495f88e5_4383a069",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-04T19:33:04Z",
+      "side": 1,
+      "message": "signed-off",
+      "revId": "2d80c4107acbc93d4c122f3eebd8b22f379c96e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
