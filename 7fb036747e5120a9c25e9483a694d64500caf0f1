@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9652543_f1f1c1fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-04T19:24:03Z",
+      "side": 1,
+      "message": "I think I am fine with moving to the latest, but this is different than we have done in the past. \nIn the past we used the lowest schema version we needed (e.g. if we needed 1_2 for property x we would move to 1_2, but not 1_3). We did this based on guidance from Redfish. I think Redfish\u0027s thinking was, if it isn\u0027t needed to use 1_3 then don\u0027t use it (if you don\u0027t implement properties y and z in 1_3, don\u0027t use 1_3, client knows instantly you don\u0027t implement properties y and z). \n\nSo when we move to a new Redfish release pack (e.g. DSP8010_2023.1), we will then use all of those new schemas ?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
