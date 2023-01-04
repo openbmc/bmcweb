@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "122d44f5_b4985a1c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-04T19:55:32Z",
+      "side": 1,
+      "message": "From https://redfish.dmtf.org/schemas/v1/Bios.v1_2_0.json\n\n```\n        \"ChangePassword\": {\n            \"additionalProperties\": false,\n            \"description\": \"This action changes a BIOS password.\",\n            \"longDescription\": \"This action shall change the selected BIOS password.\",\n            \"parameters\": {\n                \"NewPassword\": {\n                    \"description\": \"The new BIOS password.\",\n                    \"longDescription\": \"This parameter shall contain the new BIOS password.\",\n                    \"requiredParameter\": true,\n                    \"type\": \"string\"\n                },\n                \"OldPassword\": {\n                    \"description\": \"The existing BIOS password.\",\n                    \"longDescription\": \"This parameter shall contain the existing BIOS password to change.\",\n                    \"requiredParameter\": true,\n                    \"type\": \"string\"\n                },\n                \"PasswordName\": {\n                    \"description\": \"The name of the BIOS password to change.\",\n                    \"longDescription\": \"This parameter shall contain the name of the BIOS password to change.  For instance, AdminPassword or UserPassword.\",\n                    \"requiredParameter\": true,\n                    \"type\": \"string\"\n                }\n            },\n```",
+      "parentUuid": "9ea21f56_76771fec",
+      "range": {
+        "startLine": 141,
+        "startChar": 36,
+        "endLine": 141,
+        "endChar": 44
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb29f826_6c43d05d",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 20
