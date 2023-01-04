@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73250ce_6b4e1548",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-04T21:29:17Z",
+      "side": 1,
+      "message": "This is an oversight. I learned lesson. Fixed the code.\nRedfish validator is not checking EventLog Entries 2 - 99. I was testing by  changing EventLog Entry 99 as described in commit message.\nRedfish validator failed when I changed the EventLog Entry 102.",
+      "parentUuid": "d8c72117_2cb36602",
+      "revId": "2eca5f8f29dab1ff4aad87dbe9514c20e20206f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "473a11f2_05ce750c",
@@ -49,6 +67,30 @@
       "writtenOn": "2022-12-19T18:34:15Z",
       "side": 1,
       "message": "nit, like we do elsewhere, please do *notifyAction.",
+      "range": {
+        "startLine": 1782,
+        "startChar": 19,
+        "endLine": 1782,
+        "endChar": 40
+      },
+      "revId": "2eca5f8f29dab1ff4aad87dbe9514c20e20206f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c663e71_31e981c3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-04T21:29:17Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "473a11f2_05ce750c",
       "range": {
         "startLine": 1782,
         "startChar": 19,
