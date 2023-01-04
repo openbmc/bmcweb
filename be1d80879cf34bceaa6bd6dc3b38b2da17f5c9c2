@@ -193,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "817f06ec_a24f9d64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T00:28:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure how a common utility function would fix this, but I\u0027m open to the possibility.  Please show in code what you\u0027re thinking.",
+      "parentUuid": "447b1856_a10a072e",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d72e5f73_335a4f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 32
