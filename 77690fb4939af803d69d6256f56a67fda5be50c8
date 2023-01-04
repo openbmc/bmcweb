@@ -39,6 +39,30 @@
       },
       "revId": "77690fb4939af803d69d6256f56a67fda5be50c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09b727fb_bb6a72e6",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-04T09:48:11Z",
+      "side": 1,
+      "message": "\u003e You don\u0027t need double const here.\n\nNo, Since std::span does not accept const, and we need to pass in const, it can only be std::span\u003cconst char* const\u003e",
+      "parentUuid": "c9fe675f_da12e0bc",
+      "range": {
+        "startLine": 161,
+        "startChar": 14,
+        "endLine": 161,
+        "endChar": 31
+      },
+      "revId": "77690fb4939af803d69d6256f56a67fda5be50c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
