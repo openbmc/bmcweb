@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9121256f_7b928137",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T17:18:00Z",
+      "side": 1,
+      "message": "I\u0027m a little surprised neither of the other reviewers caught the schema violation.",
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03080aa7_ab5cc6c4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T17:18:00Z",
+      "side": 1,
+      "message": "Should be GetObject",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea21f56_76771fec",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T17:18:00Z",
+      "side": 1,
+      "message": "Doesn\u0027t match the schema.  How was this tested?",
+      "range": {
+        "startLine": 141,
+        "startChar": 36,
+        "endLine": 141,
+        "endChar": 44
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb29f826_6c43d05d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T17:18:00Z",
+      "side": 1,
+      "message": "nit, should be \u0026",
+      "range": {
+        "startLine": 147,
+        "startChar": 25,
+        "endLine": 147,
+        "endChar": 51
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
