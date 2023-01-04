@@ -22,6 +22,30 @@
       },
       "revId": "1330f2d2d42f3c34480774a5984572579c3f09b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d757356_1359d4a4",
+        "filename": "scripts/generate_odatatype_registry.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-04T21:38:19Z",
+      "side": 1,
+      "message": "\"/redfish/\"\nThis has no privileges required to see.\n\n\"/redfish/\u003cpath\u003e\"\nThese are 404 and 405 errors (Privileges required for these shouldnt be changed at runtime)\n\n\"/redfish/v1/SessionService/Sessions/Members/\"\nThese are automatically forwared without auth (authenticaiton.hpp)\n\n\"/redfish/v1/Systems/\u003cstr\u003e/LogServices/Crashdump/Entries/\"\n\"/redfish/v1/Systems/\u003cstr\u003e/LogServices/Crashdump/Entries/\u003cstr\u003e/\"\n\"/redfish/v1/Systems/\u003cstr\u003e/LogServices/PostCodes/Actions/LogService.ClearLog/\"\n\"/redfish/v1/Systems/\u003cstr\u003e/LogServices/Crashdump/Actions/LogService.ClearLog/\"\n\"/redfish/v1/Systems/\u003cstr\u003e/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData/\"\n\"/redfish/v1/Systems/\u003cstr\u003e/LogServices/Crashdump/\"\nThese will have to be hardcoded and updated to their entityTags when subordinate overrides are implemented to continue adhering to the schema.",
+      "parentUuid": "db449f15_3ff0e72d",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "1330f2d2d42f3c34480774a5984572579c3f09b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
