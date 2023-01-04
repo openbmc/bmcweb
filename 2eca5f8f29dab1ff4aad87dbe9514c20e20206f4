@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8c72117_2cb36602",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1781,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-04T19:58:15Z",
+      "side": 1,
+      "message": "From https://redfish.dmtf.org/schemas/v1/LogEntry.v1_13_0.json\n\n                \"ServiceProviderNotified\": {\n                    \"description\": \"Indicates if the log entry has been sent to the service provider.\",\n                    \"longDescription\": \"This property shall contain an indication if the log entry has been sent to the service provider.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"boolean\",\n                        \"null\"\n                    ],\n                    \"versionAdded\": \"v1_9_0\"\n                },",
+      "parentUuid": "69fc6de9_b99f01a3",
+      "revId": "2eca5f8f29dab1ff4aad87dbe9514c20e20206f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "473a11f2_05ce750c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 14
