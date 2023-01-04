@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50382655_93ee4012",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T21:57:40Z",
+      "side": 1,
+      "message": "nit, normally we would return directly from these;\n\nie\n\nreturn false;\n\nBut that\u0027s not the biggest of deal here.",
+      "revId": "9017faf2918308a375f37bebc9d431da9a75a7b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4e0cfd7_6fbd0700",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-04T21:57:40Z",
+      "side": 1,
+      "message": "notify is not added in all versions of the log interface.  Per DBUS_USAGE.md, it should not be required unless we\u0027ve updated all implementations.  I don\u0027t see that documentation in your commit message.",
+      "range": {
+        "startLine": 1762,
+        "startChar": 65,
+        "endLine": 1763,
+        "endChar": 33
+      },
+      "revId": "9017faf2918308a375f37bebc9d431da9a75a7b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
