@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecbda1f4_fb349fd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-04T14:08:15Z",
+      "side": 1,
+      "message": "Changed the code to read from \"xyz.openbmc_project.Inventory.Item.Chassis\" interface and display the chassisType in Redfish.",
+      "parentUuid": "0b585e63_92316fa6",
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "949bba41_278acc81",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "949bba41_278acc81",
+      "range": {
+        "startLine": 31,
+        "startChar": 49,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "254c8f00_bf8ec6a3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-04T14:08:15Z",
+      "side": 1,
+      "message": "\"xyz.openbmc_project.Inventory.Item.Chassis\" interface is used to display the chassisType interface",
+      "parentUuid": "1630f41f_7f684395",
       "range": {
         "startLine": 31,
         "startChar": 49,
@@ -129,6 +171,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5169fd4_e8509371",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-04T14:08:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43cd5269_d29f6680",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 67
+      },
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fad0114_0dc178cd",
@@ -166,6 +232,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "2fad0114_0dc178cd",
+      "range": {
+        "startLine": 257,
+        "startChar": 36,
+        "endLine": 257,
+        "endChar": 66
+      },
+      "revId": "92e6f3ece82db88c662b58e947510e5fa317e1ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c56a241_f0501609",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-04T14:08:15Z",
+      "side": 1,
+      "message": "Changed to \"xyz.openbmc_project.Inventory.Item.Chassis\" interface and display the chassisType in Redfish.",
+      "parentUuid": "df977108_5a084ad6",
       "range": {
         "startLine": 257,
         "startChar": 36,
