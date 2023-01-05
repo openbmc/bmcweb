@@ -182,6 +182,24 @@
       "parentUuid": "740bb3a1_256d24e6",
       "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda28871_e549e333",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-05T21:31:23Z",
+      "side": 1,
+      "message": "Yes it does.",
+      "parentUuid": "a4315fcc_8c15757b",
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

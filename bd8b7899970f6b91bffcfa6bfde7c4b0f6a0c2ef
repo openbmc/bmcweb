@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5708675b_ed890d18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-05T21:31:23Z",
+      "side": 1,
+      "message": "There are lots more odata types inside the entire folder redfish-core/lib. What is your plan for those?",
+      "revId": "bd8b7899970f6b91bffcfa6bfde7c4b0f6a0c2ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
