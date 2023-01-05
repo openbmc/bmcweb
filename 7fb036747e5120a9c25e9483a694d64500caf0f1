@@ -46,6 +46,23 @@
       },
       "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f7a739c_ed84e5e2",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-05T18:26:02Z",
+      "side": 1,
+      "message": "Could we add all the schemas to this file?\n\nThe ones we are missing for example are AccelerationFunction, ...\n\nThis would make it line up with the Base Privilege Registry as well",
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
