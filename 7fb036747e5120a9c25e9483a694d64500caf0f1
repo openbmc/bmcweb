@@ -81,6 +81,24 @@
       "parentUuid": "7f7a739c_ed84e5e2",
       "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ff019fa_8ea1f957",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-05T20:00:04Z",
+      "side": 1,
+      "message": "I dont mind creating my own schemas array in my own separate commit, but I do need all of the schemas (even the ones we omit) in an array somewhere. If it cant be done here, would you have any problems doing it in my own file?",
+      "parentUuid": "b6a11969_1bd02455",
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
