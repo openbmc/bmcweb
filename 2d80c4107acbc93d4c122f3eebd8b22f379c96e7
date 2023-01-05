@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a612b953_9f75ffca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T00:41:43Z",
+      "side": 1,
+      "message": "I think you inverted. \"enabled\" means \"don\u0027t verify\", which is what I have set as the default.  I\u0027m not sure there\u0027s any good reason to delay here.  The specification is pretty clear on what clients should do, the option is just a trap door, and I find it unlikely that anyone is going to test with this option until it\u0027s on master as a default (maybe I\u0027m wrong here?).\n\nWDYT",
+      "parentUuid": "6cceb09e_cdcb0aa3",
+      "revId": "2d80c4107acbc93d4c122f3eebd8b22f379c96e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "495f88e5_4383a069",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
