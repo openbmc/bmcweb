@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e71aad1_5887893d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-05T21:37:09Z",
+      "side": 1,
+      "message": "I am in favor of this. I think the upside (not dealing with schema versions, no more failing the validator because the schema wasn\u0027t bumped, mismatching schema versions (e.g., Log Entry version A here and Log Entry version B there)) outweighs the negative (more work/chance at failing when moving to the new release pack, schemas becoming less independent, more churn in our schema versions). I would still prefer a list somewhere of explicit versions of the schemas we use, but I understand why you went this way (maintaining that list is going to be a pain, just like maintaining those individual schema versions today) also this has a few extra benefits - E.g. no more author failed to bump the schema.",
+      "revId": "b46f3d457c5836c6e67776e1db7abccd1d620fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0081dae_2e4f2589",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-05T21:37:09Z",
+      "side": 1,
+      "message": "Separately we could still get rid of this include list.",
+      "revId": "b46f3d457c5836c6e67776e1db7abccd1d620fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
