@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22889926_5822df8d",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T21:16:27Z",
+      "side": 1,
+      "message": "fixed all the includes I found.",
+      "parentUuid": "bd825930_e9f68a52",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f7a739c_ed84e5e2",
@@ -138,6 +162,24 @@
       "side": 1,
       "message": "IMO, I\u0027d probably rather keep a single structure, with some sort of identifier like \"omit from metadata\".\n\nFWIW, I think we\u0027re pretty close to just getting rid of the filtering altogether.  It\u0027s become less useful over time as we support more and more things.",
       "parentUuid": "7ff019fa_8ea1f957",
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4315fcc_8c15757b",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T21:16:27Z",
+      "side": 1,
+      "message": "Take a look at what I have now.  I think it accommodates what you need.",
+      "parentUuid": "740bb3a1_256d24e6",
       "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
