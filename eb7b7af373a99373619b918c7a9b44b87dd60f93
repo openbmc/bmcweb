@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c18408c3_294b3777",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T00:50:48Z",
+      "side": 1,
+      "message": "Is this a well defined path within dbus?  I\u0027m a little surprised, given that the interface is called BIOSConfig.Password, that we need an explicit dbus path that isn\u0027t just bios_config?",
+      "range": {
+        "startLine": 57,
+        "startChar": 42,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ea21f56_76771fec",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 20
