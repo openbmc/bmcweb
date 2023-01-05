@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "60442ce1_88864f53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "Overall I agree with this statement, but this API, and the major lifting needs to be done in the mapper to avoid sending large DBus payloads, then throwing most of it away.  As a general rule, we should not be pulling more data than we need, then filtering or sorting it to turn it into what we need.  Just add the appropriate mapper APIs to get the data we need directly.\n\nWhile there are places where we do this in inefficient ways, they\u0027re not generic, so there is still some level of fixups that we could do, but this generic one implies that it\u0027s the expected way to do this, and by the openbmc design, this kind of thing needs done in the mapper.",
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5ded3ef_46fa8287",
@@ -14,6 +31,121 @@
       "writtenOn": "2022-12-15T17:34:30Z",
       "side": 1,
       "message": "Friendly ping for review 😊",
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efec67fa_c57c334a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "url_view please.",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 27
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f12ae56_2888d058",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "error_code\u0026 please.",
+      "range": {
+        "startLine": 103,
+        "startChar": 50,
+        "endLine": 103,
+        "endChar": 76
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdcfba5e_89dc184b",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "This kind of conversion needs done in the mapper.  If we need new mapper APIs, so be it, but we shouldn\u0027t be filtering at this level.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 24
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07530544_7720995a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "I don\u0027t think std::move does anything here.",
+      "range": {
+        "startLine": 148,
+        "startChar": 30,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7777751_b4c9fdfe",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "emplace_back.",
+      "range": {
+        "startLine": 149,
+        "startChar": 16,
+        "endLine": 149,
+        "endChar": 25
+      },
       "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -55,6 +187,30 @@
       "side": 1,
       "message": "Variables in the capture list by default are converted to const. If \u0027interfaces\u0027 becomes const, it cannot be passed down as std::span to \u0027getSubTreePaths\u0027. mutable avoids the const conversion.",
       "parentUuid": "cc50d3be_6768dcef",
+      "range": {
+        "startLine": 182,
+        "startChar": 29,
+        "endLine": 182,
+        "endChar": 36
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88c1893_64db26bd",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-05T17:12:56Z",
+      "side": 1,
+      "message": "Why does interfaces need to be non const?",
+      "parentUuid": "e3119efa_97e7b13f",
       "range": {
         "startLine": 182,
         "startChar": 29,
