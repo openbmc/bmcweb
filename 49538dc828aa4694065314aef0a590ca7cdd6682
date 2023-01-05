@@ -167,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed62f3cb_d18c1cee",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-05T04:41:27Z",
+      "side": 1,
+      "message": "I realized that I should have removed \"/redfish/v1\" instead of \"/redfish/v1/\".  Not having the leading slash makes the lookup in the future patches much trickier to implement.  I\u0027m going to come back and fix it.",
+      "parentUuid": "94831745_65a41384",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "49538dc828aa4694065314aef0a590ca7cdd6682",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5459c747_d31e20f7",
