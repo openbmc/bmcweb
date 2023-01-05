@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f99ec4b_4faf0faa",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-01-05T19:54:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03080aa7_ab5cc6c4",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c18408c3_294b3777",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-05T00:50:48Z",
       "side": 1,
       "message": "Is this a well defined path within dbus?  I\u0027m a little surprised, given that the interface is called BIOSConfig.Password, that we need an explicit dbus path that isn\u0027t just bios_config?",
+      "range": {
+        "startLine": 57,
+        "startChar": 42,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a762a2_2e205a10",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-01-05T19:54:14Z",
+      "side": 1,
+      "message": "Yes this is defined path.",
+      "parentUuid": "c18408c3_294b3777",
       "range": {
         "startLine": 57,
         "startChar": 42,
@@ -111,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f1136de_e07320df",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-01-05T19:54:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "122d44f5_b4985a1c",
+      "range": {
+        "startLine": 141,
+        "startChar": 36,
+        "endLine": 141,
+        "endChar": 44
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb29f826_6c43d05d",
@@ -124,6 +196,30 @@
       "writtenOn": "2023-01-04T17:18:00Z",
       "side": 1,
       "message": "nit, should be \u0026",
+      "range": {
+        "startLine": 147,
+        "startChar": 25,
+        "endLine": 147,
+        "endChar": 51
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2dcdc41_039d5590",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-01-05T19:54:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb29f826_6c43d05d",
       "range": {
         "startLine": 147,
         "startChar": 25,
