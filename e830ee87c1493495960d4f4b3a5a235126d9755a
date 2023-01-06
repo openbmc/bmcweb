@@ -52,6 +52,23 @@
       "parentUuid": "68f6fe56_a80d2d5e",
       "revId": "e830ee87c1493495960d4f4b3a5a235126d9755a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "056fbbcb_cae62e2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T17:46:05Z",
+      "side": 1,
+      "message": "This diff is now empty?  Please take a look.",
+      "revId": "e830ee87c1493495960d4f4b3a5a235126d9755a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
