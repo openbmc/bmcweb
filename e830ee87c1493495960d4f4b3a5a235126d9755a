@@ -34,6 +34,24 @@
       "parentUuid": "caf8a6d9_d16422e6",
       "revId": "e830ee87c1493495960d4f4b3a5a235126d9755a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6953025b_783fdb59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-06T17:41:00Z",
+      "side": 1,
+      "message": "Please add that to the commit msg Tested statement. :)",
+      "parentUuid": "68f6fe56_a80d2d5e",
+      "revId": "e830ee87c1493495960d4f4b3a5a235126d9755a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
