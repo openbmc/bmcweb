@@ -16,6 +16,179 @@
       "message": "@carson, what are your thoughts here?",
       "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ecb37b9_d717dace",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "Seems good for the most part.  The comments I left are pretty minor.\n\nThe system should give the same result across reboots which means the UUID shouldn\u0027t change.  Would it be alright to just generate the hash in the RedfishAggregator\u0027s constructor and save it as a private variable?  That\u0027ll save us from needing to query persistent_data each time.",
+      "parentUuid": "4289f751_96cee810",
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47bfe5b7_af670804",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "We\u0027ll also need to generate the hash in beginAggregation().  I\u0027d prefer that the initial seed was a private variable of RedfishAggregator (or a similar constant) so that we don\u0027t have to hard code the same value in multiple spots.",
+      "range": {
+        "startLine": 271,
+        "startChar": 54,
+        "endLine": 271,
+        "endChar": 64
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5343318_8a96af63",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "nit, this will change",
+      "range": {
+        "startLine": 811,
+        "startChar": 11,
+        "endLine": 811,
+        "endChar": 19
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b7b9a68_2bb1ec00",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "This also needs to be updated or else this path will partially break aggregation.",
+      "range": {
+        "startLine": 827,
+        "startChar": 39,
+        "endLine": 827,
+        "endChar": 47
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82eeaad4_66b8fd27",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "Is there a way to add a few test cases for this function to make sure the prefix is being generated like we expect it to be?",
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2da4687_40681a91",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "Should this instead be something like:\n\nuuid \u003d \"0x\" + uuid.substr(0, 8);\n\nso that \"0x\" is at the beginning of the new value of uuid?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00564c07_ca0f4dd2",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "What would the mechanism look like to make sure we wouldn\u0027t have collisions due to two entities choosing the same \"random unique ID\".  Right now we\u0027re hardcoding so that\u0027s easy enough to check by hand as long as the number of entities remain small.\n\nI\u0027m just thinking out loud.  No need to address this now since if this ever even becomes an issue I\u0027m guessing it\u0027ll be way on down the road.",
+      "range": {
+        "startLine": 22,
+        "startChar": 27,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26388f94_6c9ac243",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T01:46:50Z",
+      "side": 1,
+      "message": "Can the returned string be in hex without the leading \"0x\"?  I know at most it\u0027ll only save us two characters, but it\u0027ll be consistent with the UUID which is in hex instead of decimal.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
