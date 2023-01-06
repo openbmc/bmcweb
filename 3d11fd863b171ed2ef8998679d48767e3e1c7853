@@ -16,6 +16,24 @@
       "message": "Shouldnt this use the generated schema type?",
       "revId": "3d11fd863b171ed2ef8998679d48767e3e1c7853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b48c95a_2c3b92a0",
+        "filename": "test/redfish-core/lib/service_root_test.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:55:59Z",
+      "side": 1,
+      "message": "I didn\u0027t want to use the same source for both the test and the generation.  It doesn\u0027t make sense to test the output based on the code being tested.  For example, if something were broken, and the odata.type were set to empty string (\"\"), this test would still pass, but the code would obviously be wrong.\n\nMake sense?",
+      "parentUuid": "f2947d2e_249cbf7d",
+      "revId": "3d11fd863b171ed2ef8998679d48767e3e1c7853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
