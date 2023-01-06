@@ -215,6 +215,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "451b5f4f_dd0a0860",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "will push this change in separate patch",
+      "parentUuid": "817f06ec_a24f9d64",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d72e5f73_335a4f62",
@@ -276,6 +300,30 @@
       "side": 1,
       "message": "Per the developing guide, please test 404 works as expected.",
       "parentUuid": "0e2f5919_788a0e8c",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66d882cb_66b2c958",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2ae4fb0_b2dfc077",
       "range": {
         "startLine": 35,
         "startChar": 15,
@@ -650,6 +698,30 @@
       "side": 1,
       "message": "no, I mean functional tests.  Why wasn\u0027t this caught in testing, and what functional tests do we need to add to make sure it can\u0027t happen?",
       "parentUuid": "be2bff0a_64b054f1",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f91c31f_f2d44d6a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "the 404 error is verified in case of invalid system string",
+      "parentUuid": "847e7f57_5de44647",
       "range": {
         "startLine": 89,
         "startChar": 20,

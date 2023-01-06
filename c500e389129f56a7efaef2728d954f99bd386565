@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6cf9708_9192c815",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "the computerSystemIndex is needs to be added to a dbus object path to be used in all places. So keeping it as string after verifying its validity as number in this method will avoid  further conversions.",
+      "parentUuid": "ab4b9d65_07ab8324",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 18
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7f19202_12bbedfa",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "a7f19202_12bbedfa",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 56
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26d0814a_bbb736c5",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d092176_3d1c3a81",
       "range": {
         "startLine": 84,
         "startChar": 32,
@@ -118,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c808fd7_199e40d8",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "systemNameStr is just string so could not use the boost url manipulation library.\ncurrently additional checks are added to avoid the error conditions",
+      "parentUuid": "aa071b90_f00d0df8",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4311bcc4_8efd64a2",
@@ -131,6 +203,30 @@
       "writtenOn": "2022-12-16T19:22:59Z",
       "side": 1,
       "message": "nit,\nreturn \"\";\n is more clear",
+      "range": {
+        "startLine": 92,
+        "startChar": 15,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f53c1a_de87354d",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4311bcc4_8efd64a2",
       "range": {
         "startLine": 92,
         "startChar": 15,
@@ -188,6 +284,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b01aa3_60e50d08",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "systemNameStr is just string so could not use the boost url manipulation library.\ncurrently additional checks are added to avoid the error conditions",
+      "parentUuid": "9226ceb2_dbdf04bf",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 5
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e219c0a_c15da6dd",
@@ -225,6 +345,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "2e219c0a_c15da6dd",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6acc1a3_4b63dd67",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "This looks like it requires implementation change in the pcie dbus object to support multiple host. so shall we keep the implementation as it is in redfish.",
+      "parentUuid": "ceb925e6_a20d7cf3",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -282,6 +426,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27552b7f_52ae8d6f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14f65234_b755a9de",
+      "range": {
+        "startLine": 850,
+        "startChar": 8,
+        "endLine": 850,
+        "endChar": 63
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d56fbb8_149d676b",
@@ -317,6 +485,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8f54cf7_75c2106f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c649e4a6_c55ba18a",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef6ff8a6_3f811997",
@@ -330,6 +516,30 @@
       "writtenOn": "2022-12-16T19:22:59Z",
       "side": 1,
       "message": "Same as above.  There are a number of these violations.  Please fix all of them.",
+      "range": {
+        "startLine": 917,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 76
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ce4990_e83fbc92",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef6ff8a6_3f811997",
       "range": {
         "startLine": 917,
         "startChar": 0,
@@ -411,6 +621,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "382d52a7_95c3b496",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d701b3f_b282cf5a",
+      "range": {
+        "startLine": 1152,
+        "startChar": 0,
+        "endLine": 1152,
+        "endChar": 68
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed93a51c_7ee7e4c6",
@@ -446,6 +680,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d21ce49_f98e53dd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "std::bind_front is not working along with sdbusplus::async_method_call due to boost\nlibrary limitation.",
+      "parentUuid": "2238b5ed_7ad5da1c",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07ba670f_175ddf3f",
@@ -477,6 +729,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "07ba670f_175ddf3f",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "197ea53d_335eee02",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-01-06T18:19:50Z",
+      "side": 1,
+      "message": "std::bind_front is not working along with sdbusplus::async_method_call due to boost \nlibrary limitation.",
+      "parentUuid": "3eef46a9_32a682ec",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
