@@ -241,6 +241,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "610e7bf3_3eae6e72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "Please don\u0027t resolve comments that haven\u0027t been fixed yet.",
+      "parentUuid": "451b5f4f_dd0a0860",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d72e5f73_335a4f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 32
@@ -324,6 +348,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "b2ae4fb0_b2dfc077",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c4c820c_5f53a854",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "I see no changes in the commit message to reflect:\n\nA. the testing that the developing guide requires.\nB. The 404 testing that\u0027re required when adding new routes with wildcards.\n\nI\u0027m not sure how this got marked Done, but it doesn\u0027t appear to be.",
+      "parentUuid": "66d882cb_66b2c958",
       "range": {
         "startLine": 35,
         "startChar": 15,
@@ -746,6 +794,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "9f91c31f_f2d44d6a",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91f44d6_5ed8ae16",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "404 isn\u0027t a functional test, it\u0027s an error-bounds checking test, and no additional testing has been added to the commit message, so I\u0027m not sure how this is considered done?",
+      "parentUuid": "07ec3d2e_a658b4a6",
       "range": {
         "startLine": 89,
         "startChar": 20,

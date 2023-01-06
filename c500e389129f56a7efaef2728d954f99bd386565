@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8b447ef_d47efff7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "\u003e added to a dbus object path\n\nYou can add integers to a dbus object path.  std::to_string() might be required in some cases, but I think the type safety and error handling would make it worth it.",
+      "parentUuid": "d6cf9708_9192c815",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 18
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7f19202_12bbedfa",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 43
@@ -192,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9777b1e3_92f73fa0",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "This isn\u0027t a URL.  The url has already been parsed.",
+      "parentUuid": "9c808fd7_199e40d8",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4311bcc4_8efd64a2",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 43
@@ -310,6 +358,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7683d943_1961e20e",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "I didn\u0027t ask you to use the boost library here.  Not sure what your comment has to do with the previous issue, which is use of exceptions in response handlers.",
+      "parentUuid": "63b01aa3_60e50d08",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 5
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e219c0a_c15da6dd",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 43
@@ -369,6 +441,30 @@
       "side": 1,
       "message": "This looks like it requires implementation change in the pcie dbus object to support multiple host. so shall we keep the implementation as it is in redfish.",
       "parentUuid": "ceb925e6_a20d7cf3",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bdc26cc_9ab6e8d8",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "Not sure why this was marked done.  The existing implementation is still incorrect.",
+      "parentUuid": "c6acc1a3_4b63dd67",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -700,6 +796,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b9806c4_93e726f4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "\"Please don\u0027t take existing functions and turn them into large inline lambdas\"\n\nbind_front is one solution, breaking up the code into appropriate methods is still an option.",
+      "parentUuid": "3d21ce49_f98e53dd",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07ba670f_175ddf3f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -747,6 +861,24 @@
       "side": 1,
       "message": "std::bind_front is not working along with sdbusplus::async_method_call due to boost \nlibrary limitation.",
       "parentUuid": "3eef46a9_32a682ec",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c42c7a5_2da5f61a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T23:20:57Z",
+      "side": 1,
+      "message": "Feel free to use a lambda, but lambdas should be small and self contained.  This one is not.",
+      "parentUuid": "197ea53d_335eee02",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
