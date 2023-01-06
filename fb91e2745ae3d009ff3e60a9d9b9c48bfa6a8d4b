@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a7f79f0_eee576ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "We could, but then we\u0027d duplicate it.  Querying the persistent_data is already in memory, so it\u0027s not like we\u0027re hitting the filesystem every time.  Let me look at your way, but I don\u0027t think there\u0027s a huge difference between the two.",
+      "parentUuid": "7ecb37b9_d717dace",
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47bfe5b7_af670804",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 5
@@ -49,6 +67,30 @@
       "writtenOn": "2023-01-06T01:46:50Z",
       "side": 1,
       "message": "We\u0027ll also need to generate the hash in beginAggregation().  I\u0027d prefer that the initial seed was a private variable of RedfishAggregator (or a similar constant) so that we don\u0027t have to hard code the same value in multiple spots.",
+      "range": {
+        "startLine": 271,
+        "startChar": 54,
+        "endLine": 271,
+        "endChar": 64
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7786f2c_20bb4085",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47bfe5b7_af670804",
       "range": {
         "startLine": 271,
         "startChar": 54,
@@ -105,6 +147,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a744c5dc_ae0d4280",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b7b9a68_2bb1ec00",
+      "range": {
+        "startLine": 827,
+        "startChar": 39,
+        "endLine": 827,
+        "endChar": 47
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82eeaad4_66b8fd27",
@@ -124,6 +190,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4de9678_a6cb2669",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "I can look into it, but we\u0027d need to mock out persistent_data.  Should be doable.",
+      "parentUuid": "82eeaad4_66b8fd27",
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2da4687_40681a91",
         "filename": "redfish-core/include/utils/uri_utils.hpp",
         "patchSetId": 5
@@ -135,6 +219,30 @@
       "writtenOn": "2023-01-06T01:46:50Z",
       "side": 1,
       "message": "Should this instead be something like:\n\nuuid \u003d \"0x\" + uuid.substr(0, 8);\n\nso that \"0x\" is at the beginning of the new value of uuid?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e80584a_9f7d83f9",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "Yep....   I think I goofed in a refactor when I moved line 9.",
+      "parentUuid": "b2da4687_40681a91",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -168,6 +276,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5f64c90_d7aee6ae",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "My thinking is that every id would be hardcoded, or at least hardcoded within a namespace.  Aggregation would use\n\n0XABC01\n0XABC02\n0xABC03\n\nas their hashes.  In theory, we could get collisions, but given the number of bits of entropy, it seems unlikely.  This could use more thought though.",
+      "parentUuid": "00564c07_ca0f4dd2",
+      "range": {
+        "startLine": 22,
+        "startChar": 27,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26388f94_6c9ac243",
@@ -181,6 +313,30 @@
       "writtenOn": "2023-01-06T01:46:50Z",
       "side": 1,
       "message": "Can the returned string be in hex without the leading \"0x\"?  I know at most it\u0027ll only save us two characters, but it\u0027ll be consistent with the UUID which is in hex instead of decimal.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7032b10_f25bb5a9",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:54:10Z",
+      "side": 1,
+      "message": "Std::to_string returns the number itself, so it wouldn\u0027t even be hexified.  We might want to base64 encode it though.",
+      "parentUuid": "26388f94_6c9ac243",
       "range": {
         "startLine": 27,
         "startChar": 4,
