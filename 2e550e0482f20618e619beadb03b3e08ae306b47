@@ -207,6 +207,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98f86f99_f45b4b27",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:48:20Z",
+      "side": 1,
+      "message": "This is now fixed with the string_view change.",
+      "parentUuid": "a6f09abc_a3c73454",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "2e550e0482f20618e619beadb03b3e08ae306b47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e77432f_71f7b799",
