@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17bc3f1d_2ec33758",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T19:58:52Z",
+      "side": 1,
+      "message": "If it\u0027s already in memory then I\u0027m fine leaving it as is.  I don\u0027t imagine calling systemUniqueId() each time is that much of a hit",
+      "parentUuid": "9a7f79f0_eee576ad",
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47bfe5b7_af670804",
@@ -337,6 +355,30 @@
       "side": 1,
       "message": "Std::to_string returns the number itself, so it wouldn\u0027t even be hexified.  We might want to base64 encode it though.",
       "parentUuid": "26388f94_6c9ac243",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "159eb49b_01fb102a",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-06T19:58:52Z",
+      "side": 1,
+      "message": "Right, I\u0027m asking would we want the string to be hexified instead by using something like std::format(\"{:x}\", hash) instead of std::to_string(hash)?",
+      "parentUuid": "b7032b10_f25bb5a9",
       "range": {
         "startLine": 27,
         "startChar": 4,
