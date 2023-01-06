@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "771aa850_fda9ef0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:57:48Z",
+      "side": 1,
+      "message": "\u003e I am also concerned we will have trouble moving to a new schema version because of some reason which blocks us from moving up the rest of the schemas...\n\u003e \n\u003e Redfish has rules about backward compatibility, so that may be unlikely..? If it does happen and we can\u0027t fix it quickly, we could look at an explicit version for the problem schema.\n\u003e I am thinking of Redfish Validator errors we have hit in the past, the ones I am thinking of have to do with the property and not the schema version, so yeah, maybe that isn\u0027t much of a valid concern. I still do have some concerns about churn in the schema versions and going against what Redfish advised but as mentioned above I can get over those.\n\n\nIf it does happen in a certain case, we can always fall back to the old way we did versions, and hardcode the schema versions that fail, right?  Ideally, if we do hit that, we should just be fixing DMTF, but I think we still have the temporary trapdoor.",
+      "parentUuid": "cae27a40_540a7d06",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "7fb036747e5120a9c25e9483a694d64500caf0f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd825930_e9f68a52",
         "filename": "redfish-core/include/schemas.hpp",
         "patchSetId": 17

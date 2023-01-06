@@ -33,6 +33,24 @@
       "message": "Separately we could still get rid of this include list.",
       "revId": "b46f3d457c5836c6e67776e1db7abccd1d620fd2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2244a8e7_079287dd",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-06T18:57:48Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "d0081dae_2e4f2589",
+      "revId": "b46f3d457c5836c6e67776e1db7abccd1d620fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
