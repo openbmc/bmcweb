@@ -1859,11 +1859,11 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
         "/xyz/openbmc_project/pfr", "xyz.openbmc_project.PFR.Attributes",
         [aResp](const boost::system::error_code ec,
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
+        aResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
+            "#OpenBMCComputerSystem.FirmwareProvisioning";
+
         nlohmann::json& oemPFR =
             aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
-        aResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
-            "#OemComputerSystem.OpenBmc";
-        oemPFR["@odata.type"] = "#OemComputerSystem.FirmwareProvisioning";
 
         if (ec)
         {
