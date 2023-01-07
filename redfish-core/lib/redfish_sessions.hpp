@@ -42,12 +42,6 @@ inline void fillSessionObject(crow::Response& res,
     {
         res.jsonValue["Context"] = *session.clientId;
     }
-// The below implementation is deprecated in leiu of Session.Context
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-    res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OemSession.v1_0_0.Session";
-    res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session.clientId.value_or("");
-#endif
 }
 
 inline void
