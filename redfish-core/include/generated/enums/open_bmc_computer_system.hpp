@@ -1,7 +1,7 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace oem_computer_system
+namespace open_bmc_computer_system
 {
 // clang-format off
 
