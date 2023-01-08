@@ -2,8 +2,6 @@
 
 #include "logging.hpp"
 
-#include <boost/date_time.hpp>
-
 #include <algorithm>
 #include <charconv>
 #include <chrono>
@@ -420,30 +418,6 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
 }
 
 using usSinceEpoch = std::chrono::duration<uint64_t, std::micro>;
-inline std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
-{
-    std::string date(datetime);
-    std::stringstream stream(date);
-    // Convert from ISO 8601 to boost local_time
-    // (BMC only has time in UTC)
-    boost::posix_time::ptime posixTime;
-    boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
-    // Facet gets deleted with the stringsteam
-    auto ifc = std::make_unique<boost::local_time::local_time_input_facet>(
-        "%Y-%m-%d %H:%M:%S%F %ZP");
-    stream.imbue(std::locale(stream.getloc(), ifc.release()));
-
-    boost::local_time::local_date_time ldt(boost::local_time::not_a_date_time);
-
-    if (!(stream >> ldt))
-    {
-        return std::nullopt;
-    }
-    posixTime = ldt.utc_time();
-    boost::posix_time::time_duration dur = posixTime - epoch;
-    uint64_t durMicroSecs = static_cast<uint64_t>(dur.total_microseconds());
-    return std::chrono::duration<uint64_t, std::micro>{durMicroSecs};
-}
-
+std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
 } // namespace time_utils
 } // namespace redfish
