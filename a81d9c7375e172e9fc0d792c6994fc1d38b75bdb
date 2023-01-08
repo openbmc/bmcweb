@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa8c6a4_787b34e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:12:09Z",
+      "side": 1,
+      "message": "There\u0027s some nits on the python code, but because it\u0027s just generating CSDL, and not actual on-bmc code, there\u0027s some things that I can let slide from the coding standards.",
+      "revId": "a81d9c7375e172e9fc0d792c6994fc1d38b75bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc9c1dc8_2a3aa19a",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 52
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:12:09Z",
+      "side": 1,
+      "message": "Nitpick, this check is redundant.",
+      "revId": "a81d9c7375e172e9fc0d792c6994fc1d38b75bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
