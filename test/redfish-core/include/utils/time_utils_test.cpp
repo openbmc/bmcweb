@@ -166,9 +166,8 @@ TEST(Utility, DateStringToEpoch)
               usSinceEpoch{253402300799999999});
 
     // Underflow
-    // Currently gives wrong result
-    // EXPECT_EQ(dateStringToEpoch("1969-12-30T23:59:59.999999+00:00"),
-    //          std::nullopt);
+    EXPECT_EQ(dateStringToEpoch("1969-12-30T23:59:59.999999+00:00"),
+              std::nullopt);
 }
 
 } // namespace
