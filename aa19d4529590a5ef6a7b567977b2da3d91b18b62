@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98c19063_dc2e317e",
+        "filename": "static/redfish/v1/schema/OemVirtualMedia_v1.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2023-01-08T09:16:32Z",
+      "side": 1,
+      "message": "we can remove tab from here",
+      "revId": "aa19d4529590a5ef6a7b567977b2da3d91b18b62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "163b50e3_a766c851",
+        "filename": "static/redfish/v1/schema/OemVirtualMedia_v1.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2023-01-08T09:16:32Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "aa19d4529590a5ef6a7b567977b2da3d91b18b62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
