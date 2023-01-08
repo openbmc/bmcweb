@@ -335,7 +335,7 @@ srcfiles_bmcweb = files(
 )
 
 # Generate the bmcweb executable
-executable(
+bmcweb = executable(
   'bmcweb',
   srcfiles_bmcweb + ['src/webserver_main.cpp'],
   include_directories : incdir,
@@ -343,6 +343,16 @@ executable(
   link_args: '-Wl,--gc-sections',
   install: true,
   install_dir:bindir
+)
+
+bmcweb_obj = bmcweb.extract_objects(
+  'redfish-core/src/error_messages.cpp',
+  'redfish-core/src/utils/json_utils.cpp',
+  'src/boost_asio_ssl.cpp',
+  'src/boost_asio.cpp',
+  'src/boost_beast.cpp',
+  'src/boost_url.cpp',
+  'src/dbus_singleton.cpp'
 )
 
 srcfiles_unittest = files(
@@ -380,7 +390,8 @@ if(get_option('tests').enabled())
     foreach test_src : srcfiles_unittest
       test_bin = executable(
         fs.stem(test_src),
-        srcfiles_bmcweb + test_src,
+        test_src,
+        objects: bmcweb_obj,
         include_directories : incdir,
         install_dir: bindir,
         dependencies: bmcweb_dependencies + [
