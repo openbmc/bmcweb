@@ -139,5 +139,20 @@ TEST(Utility, GetDateTimeUintUs)
               "1970-01-01T00:00:00.000000+00:00");
 }
 
+TEST(Utility, DateStringToEpoch)
+{
+    EXPECT_EQ(dateStringToEpoch("2021-11-30T22:41:35.123456+00:00"),
+              usSinceEpoch{1638312095123456});
+
+    EXPECT_EQ(dateStringToEpoch("2021-11-30T22:41:35.123456+04:00"),
+              usSinceEpoch{1638297695123456});
+
+    EXPECT_EQ(dateStringToEpoch("1970-01-01T00:00:00.000000+00:00"),
+              usSinceEpoch{0});
+
+    EXPECT_EQ(dateStringToEpoch("9999-12-31T23:59:59.999999+00:00"),
+              usSinceEpoch{253402300799999999});
+}
+
 } // namespace
 } // namespace redfish::time_utils
