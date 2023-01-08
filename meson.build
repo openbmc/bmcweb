@@ -334,12 +334,19 @@ srcfiles_bmcweb = files(
   'src/dbus_singleton.cpp',
 )
 
+bmcweblib = static_library('bmcweblib',
+  srcfiles_bmcweb,
+  include_directories : incdir,
+  dependencies: bmcweb_dependencies,
+)
+
 # Generate the bmcweb executable
 executable(
   'bmcweb',
-  srcfiles_bmcweb + ['src/webserver_main.cpp'],
+  'src/webserver_main.cpp',
   include_directories : incdir,
   dependencies: bmcweb_dependencies,
+  link_with: bmcweblib,
   link_args: '-Wl,--gc-sections',
   install: true,
   install_dir:bindir
@@ -380,7 +387,8 @@ if(get_option('tests').enabled())
     foreach test_src : srcfiles_unittest
       test_bin = executable(
         fs.stem(test_src),
-        srcfiles_bmcweb + test_src,
+        test_src,
+        link_with: bmcweblib,
         include_directories : incdir,
         install_dir: bindir,
         dependencies: bmcweb_dependencies + [
