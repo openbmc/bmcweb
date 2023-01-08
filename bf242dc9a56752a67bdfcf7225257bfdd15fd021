@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "562ccd35_0778e017",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:26:08Z",
+      "side": 1,
+      "message": "Bunch of nits.  Other than that, looks ready to merge.  Decide which nits you want to fix, and we\u0027ll get this on master.",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6304023_6b084209",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:26:08Z",
+      "side": 1,
+      "message": "segments_view (really any _view) should be taken by value.",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4c5201_ede6fab6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:26:08Z",
+      "side": 1,
+      "message": "nit, neither of these are used on these lines.  I think you could just range check this, and do\n\nboost::urls::segments_view::iterator it \u003d urlSegments.begin() + 2;\n\nAt the very least declaring on line 97 would make this variable more clear.",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d056aeb9_904c7277",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:26:08Z",
+      "side": 1,
+      "message": "nit, should be const_iterator:\n\nhttps://www.boost.org/doc/libs/master/libs/url/doc/html/url/ref/boost__urls__segments_view/const_iterator.html",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67fdd414_55b8ea41",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:26:08Z",
+      "side": 1,
+      "message": "Note to self, we should really fix this in the core some day.",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3eaa081_16abf756",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-08T01:26:08Z",
+      "side": 1,
+      "message": "nit, std::move.  emplace_back()",
+      "range": {
+        "startLine": 115,
+        "startChar": 37,
+        "endLine": 115,
+        "endChar": 51
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
