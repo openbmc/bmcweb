@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "913ce32c_e021e8fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T22:37:35Z",
+      "side": 1,
+      "message": "It still should be able to, but we\u0027ll need to include the schemas in the image.",
+      "parentUuid": "aba2f758_8c607403",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "544ed9e5_512477b1",
