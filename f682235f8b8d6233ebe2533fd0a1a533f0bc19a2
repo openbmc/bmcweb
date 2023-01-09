@@ -86,6 +86,23 @@
       "message": "I don\u0027t think this can move forward yet?  Still waiting on standardization input.",
       "revId": "f682235f8b8d6233ebe2533fd0a1a533f0bc19a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fef9cb9c_f3e52e32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2023-01-09T22:03:56Z",
+      "side": 1,
+      "message": "Changing to WIP. Planning to use the new LogPurposes/OEMLogPurpose properties (https://github.com/DMTF/Redfish/pull/5336) instead of Name after the next Redfish release comes out (v2022.3).",
+      "revId": "f682235f8b8d6233ebe2533fd0a1a533f0bc19a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
