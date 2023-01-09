@@ -371,6 +371,7 @@ class Connection :
             return;
         }
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
+        keepAlive = req.keepAlive();
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG << "Setting completion handler";
         asyncResp->res.setCompleteRequestHandler(
@@ -441,7 +442,7 @@ class Connection :
         }
         res = std::move(thisRes);
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << req->keepAlive();
+                        << res.resultInt();
 
         addSecurityHeaders(*req, res);
 
@@ -508,8 +509,6 @@ class Connection :
         }
 
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
-
-        res.keepAlive(req->keepAlive());
 
         doWrite(res);
 
@@ -673,7 +672,7 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " from write(2)";
                 return;
             }
-            if (!res.keepAlive())
+            if (keepAlive)
             {
                 close();
                 BMCWEB_LOG_DEBUG << this << " from write(1)";
@@ -771,6 +770,8 @@ class Connection :
     std::shared_ptr<persistent_data::UserSession> userSession;
 
     boost::asio::steady_timer timer;
+
+    bool keepAlive = true;
 
     std::function<std::string()>& getCachedDateStr;
 

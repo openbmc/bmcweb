@@ -132,16 +132,6 @@ struct Response
         return stringResponse->base()[key];
     }
 
-    void keepAlive(bool k)
-    {
-        stringResponse->keep_alive(k);
-    }
-
-    bool keepAlive() const
-    {
-        return stringResponse->keep_alive();
-    }
-
     void preparePayload()
     {
         stringResponse->prepare_payload();
