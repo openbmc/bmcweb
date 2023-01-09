@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2328a43_5efb8c75",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T23:32:47Z",
+      "side": 1,
+      "message": "You linked to message, which is a user facing string.\n\nIf I look at phosphor-debus-interfaces, the description is right in the string \"This is an implementation-defined string\"\n\nIn redfish, this is not implementation defined.  From the CSDL \"This property shall contain the source of the log entry\"\n\nThis means that the source of the log entry needs to be resolvable to something in the Redfish tree, otherwise what\u0027s the point?  Or am I missing something in my analysis there?",
+      "parentUuid": "c6a75f90_628188f8",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5733152_4cf84321",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
