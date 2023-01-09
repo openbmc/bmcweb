@@ -16,6 +16,23 @@
       "message": "Would think you would want to change \nhttps://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/JsonSchemas/OemManager/index.json as well?",
       "revId": "0e66f33f63f21cbce401c21bbfa0c2eec79aad31",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cbc142e_634691d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T21:58:32Z",
+      "side": 1,
+      "message": "-310, +376 what else changed in the files?",
+      "revId": "0e66f33f63f21cbce401c21bbfa0c2eec79aad31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
