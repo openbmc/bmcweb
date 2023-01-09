@@ -16,6 +16,24 @@
       "message": "Interesting approach.  First time I\u0027ve seen this.\n\nWhat we\u0027ve done in most other repos is build a static-library.  I think that reduces the repetition slightly, but otherwise probably is equivalent.",
       "revId": "a969a1ec909f7aebc5e7c00f3c9dea4163cbf377",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83588dc2_80dd83ce",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:00:29Z",
+      "side": 1,
+      "message": "Whether it was your intent or not, I read this as \"don\u0027t be clever\", which seems reasonable to me.  I moved this patchset back to a static_library which seems more clear, and gives the same benefits.",
+      "parentUuid": "c01f816e_74ba1f04",
+      "revId": "a969a1ec909f7aebc5e7c00f3c9dea4163cbf377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
