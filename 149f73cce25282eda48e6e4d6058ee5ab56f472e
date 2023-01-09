@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0d1dc2_0b46a739",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:22:09Z",
+      "side": 0,
+      "message": "These changed. \nI have seen these in Redfish before with like elements in an array and I think this is where this came from but looking at the mockups from Redfish that still have the old Power/Thermal, Redfish does not seem to have odata.type for any elements in an array anymore. Just odata.id with that fragment (e.g.   \"@odata.id\": \"/redfish/v1/Chassis/1U/Power#/PowerControl/0\",) \nE.g. redfish » v1 » Chassis » 1U » Power in\nhttps://redfish.dmtf.org/redfish/mockups/v1/1206\n\nWonder if we should just remove?",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "023084e3_40bf6579",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:22:09Z",
+      "side": 0,
+      "message": "Don\u0027t love random line changes. I think just your script.. Oh well they are consistent. You are fine.",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

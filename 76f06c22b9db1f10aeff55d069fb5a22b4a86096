@@ -73,6 +73,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3aae488_7f7f8fff",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:22:09Z",
+      "side": 1,
+      "message": "storageController !\u003d Storage?",
+      "range": {
+        "startLine": 150,
+        "startChar": 56,
+        "endLine": 150,
+        "endChar": 63
+      },
+      "revId": "76f06c22b9db1f10aeff55d069fb5a22b4a86096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0fe2fe_bb3112ba",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:22:09Z",
+      "side": 1,
+      "message": "Need this?",
+      "revId": "76f06c22b9db1f10aeff55d069fb5a22b4a86096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "748a3062_d30f7986",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 14
