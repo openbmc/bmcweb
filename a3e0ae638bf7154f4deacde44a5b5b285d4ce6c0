@@ -22,6 +22,30 @@
       },
       "revId": "a3e0ae638bf7154f4deacde44a5b5b285d4ce6c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0bb41b4_63942f3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T21:21:03Z",
+      "side": 1,
+      "message": "NBD.  At least we know why CI has been failing a lot recently.",
+      "parentUuid": "525d1d4b_dea38011",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "a3e0ae638bf7154f4deacde44a5b5b285d4ce6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
