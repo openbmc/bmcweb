@@ -328,6 +328,7 @@ class Connection :
             return;
         }
         thisReq.session = userSession;
+        res.keepAlive(thisReq.keepAlive());
 
         // Fetch the client IP address
         readClientIp();
@@ -440,8 +441,9 @@ class Connection :
             return;
         }
         res = std::move(thisRes);
+
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << req->keepAlive();
+                        << res.resultInt() << " keepalive=" << res.keepAlive();
 
         addSecurityHeaders(*req, res);
 
@@ -508,8 +510,6 @@ class Connection :
         }
 
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
-
-        res.keepAlive(req->keepAlive());
 
         doWrite(res);
 
@@ -673,7 +673,7 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " from write(2)";
                 return;
             }
-            if (!res.keepAlive())
+            if (!serializer->get().keep_alive())
             {
                 close();
                 BMCWEB_LOG_DEBUG << this << " from write(1)";
