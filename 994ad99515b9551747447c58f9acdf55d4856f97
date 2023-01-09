@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e016e12_749bccb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T23:28:34Z",
+      "side": 1,
+      "message": "Alternatively, doing taking the URIs from the CSDL \"Name\" fields like we already do to build the topCollections array.  In theory this is just an extension of TopCollections to all levels, right?",
+      "parentUuid": "9da32ec8_ddf5c341",
+      "revId": "994ad99515b9551747447c58f9acdf55d4856f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7b084ac_e4538cc8",
         "filename": "redfish-core/include/registries/entity_type_registry.hpp",
         "patchSetId": 11
