@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c01f816e_74ba1f04",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-01-09T14:04:36Z",
+      "side": 1,
+      "message": "Interesting approach.  First time I\u0027ve seen this.\n\nWhat we\u0027ve done in most other repos is build a static-library.  I think that reduces the repetition slightly, but otherwise probably is equivalent.",
+      "revId": "a969a1ec909f7aebc5e7c00f3c9dea4163cbf377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
