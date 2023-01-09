@@ -34,6 +34,24 @@
       "parentUuid": "c01f816e_74ba1f04",
       "revId": "a969a1ec909f7aebc5e7c00f3c9dea4163cbf377",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7341038b_e80096cb",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-09T21:11:42Z",
+      "side": 1,
+      "message": "Do you need to update the commit message? Or the number is exactly the same?",
+      "parentUuid": "83588dc2_80dd83ce",
+      "revId": "a969a1ec909f7aebc5e7c00f3c9dea4163cbf377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
