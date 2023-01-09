@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "856e442f_dd01430e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T22:46:37Z",
+      "side": 1,
+      "message": "I think this one is good to go.  It\u0027s just adding some unit tests.",
+      "parentUuid": "9ce27228_326a7bc1",
+      "revId": "8a6a908f3b6d18aa2063960625b61a9411eac0f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd0fb384_5697379d",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-09T21:08:57Z",
       "side": 1,
       "message": "Still working on it?",
+      "range": {
+        "startLine": 170,
+        "startChar": 7,
+        "endLine": 170,
+        "endChar": 16
+      },
+      "revId": "8a6a908f3b6d18aa2063960625b61a9411eac0f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24bd3966_4989bdc7",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T22:46:37Z",
+      "side": 1,
+      "message": "No.  This is something that SHOULD work, but doesn\u0027t.  This is a test case that we don\u0027t currently pass that will be commented in in the next patchset, but I wanted to document here that it\u0027s a bug that unit testing caught.",
+      "parentUuid": "fd0fb384_5697379d",
       "range": {
         "startLine": 170,
         "startChar": 7,
