@@ -16,6 +16,24 @@
       "message": "Why are we removing odata.context ?",
       "revId": "5e3f0d59f8eca93cc5a43ebd9f80e8d4d2ccf084",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60f92be6_8c78fe86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:09:12Z",
+      "side": 1,
+      "message": "The commit mentioned at the beginning, 9440096005902d13e27fdb8911d33c657f8c7b77 has all the details.",
+      "parentUuid": "d16c9eb2_cfa362f5",
+      "revId": "5e3f0d59f8eca93cc5a43ebd9f80e8d4d2ccf084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
