@@ -52,6 +52,23 @@
       "parentUuid": "b1301905_b02787fc",
       "revId": "f682235f8b8d6233ebe2533fd0a1a533f0bc19a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67b2ccd6_1875a793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-09T21:00:08Z",
+      "side": 1,
+      "message": "Test presubmit. I will revoke this +2 to +1 in seconds.",
+      "revId": "f682235f8b8d6233ebe2533fd0a1a533f0bc19a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
