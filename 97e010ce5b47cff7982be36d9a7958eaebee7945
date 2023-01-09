@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88046f2c_71ffd9d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:17:34Z",
+      "side": 1,
+      "message": "what does \"highest priority\" mean in this context.  It\u0027s not clear.",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5c3027f_f3fa1d64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:17:34Z",
+      "side": 1,
+      "message": "Per the developing guide, please word wrap 50/72.",
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353042ae_79433168",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:17:34Z",
+      "side": 1,
+      "message": "Can you convey in your commit message why this is a problem.  If the user has access to multiple credentials, is there a problem if we use the highest one they posess?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "084fb4b5_3c0eb4ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:17:34Z",
+      "side": 1,
+      "message": "I\u0027m not following here.  You\u0027re using the admins session, isn\u0027t it expected that you get the admins privilege level?",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 38
+      },
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a07f816_ace79018",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:17:34Z",
+      "side": 1,
+      "message": "If anything we should be giving bad-request if we don\u0027t allow using two different forms of valid credentials.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 44
+      },
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1adefcb2_1348470b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-09T18:17:34Z",
+      "side": 1,
+      "message": "Based on the code, this looks fine.  Get your commit message cleaned up per the developing guide, and we\u0027ll get this on.",
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
