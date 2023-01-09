@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525d1d4b_dea38011",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-09T21:19:26Z",
+      "side": 1,
+      "message": "I guess my workstation is powerful enough such that I didn\u0027t notice this when separating test binaries.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "a3e0ae638bf7154f4deacde44a5b5b285d4ce6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
