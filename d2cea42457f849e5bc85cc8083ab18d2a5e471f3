@@ -157,6 +157,30 @@
       },
       "revId": "d2cea42457f849e5bc85cc8083ab18d2a5e471f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fafc4f92_bf0ab142",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-09T19:29:51Z",
+      "side": 1,
+      "message": "I didn\u0027t see the original author of the initial multi-host change was CCed.",
+      "parentUuid": "bf06fb3d_c8c15492",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "d2cea42457f849e5bc85cc8083ab18d2a5e471f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
