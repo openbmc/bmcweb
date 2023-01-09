@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8226fe88_c45a0db6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:05:42Z",
+      "side": 1,
+      "message": "This is an OEM schema. \n\nTo me, doing something like generating schema versions for OEM schemas is a separate problem/could be solved later if we choose. \n\nhttps://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md",
+      "parentUuid": "1d68d6bd_18c000a6",
+      "revId": "76f06c22b9db1f10aeff55d069fb5a22b4a86096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c93d795b_337a32b0",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 14
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53457afd_4aa8fe05",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:05:42Z",
+      "side": 1,
+      "message": "This is an OEM schema.",
+      "parentUuid": "c93d795b_337a32b0",
+      "revId": "76f06c22b9db1f10aeff55d069fb5a22b4a86096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "748a3062_d30f7986",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 14
@@ -48,6 +84,24 @@
       "writtenOn": "2023-01-08T08:59:17Z",
       "side": 1,
       "message": "Are u not creating any separate schema versions for all datatype of Oem OpenBmc?",
+      "revId": "76f06c22b9db1f10aeff55d069fb5a22b4a86096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9c9df0_3d0a566b",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-09T22:05:42Z",
+      "side": 1,
+      "message": "This is standard Redfish schemas only. \nIMO OEM can be a separate commit if we choose. This commit is already huge. :)",
+      "parentUuid": "748a3062_d30f7986",
       "revId": "76f06c22b9db1f10aeff55d069fb5a22b4a86096",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
