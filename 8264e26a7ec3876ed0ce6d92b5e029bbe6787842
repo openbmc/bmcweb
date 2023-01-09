@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6a75f90_628188f8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-01-09T06:45:12Z",
+      "side": 1,
+      "message": "This \"id\" from the dbus is a plain string (as defined in the dbus-interfaces).\n\nbmcweb just fetches it and sends it back to the redfish client (just like it is done in other places - eg: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58688/9/redfish-core/lib/log_services.hpp#b1576)\n\nDo you still think, a conversion on this string is needed?",
+      "parentUuid": "7df0f5d3_6799bee6",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5733152_4cf84321",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-30T18:18:13Z",
       "side": 1,
       "message": "Per the pattern we use elsewhere, please put this code in its own method.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 21
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d0db83_ebb59fa2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-01-09T06:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5733152_4cf84321",
       "range": {
         "startLine": 421,
         "startChar": 0,
