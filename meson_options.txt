@@ -128,9 +128,19 @@ option(
 
 option(
     'bmcweb-logging',
-    type: 'feature',
+    type: 'combo',
+    choices : [ 'disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical' ],
     value: 'disabled',
-    description: 'Enable output the extended debug logs'
+    description: 'Enable output the extended logging level.
+                    - disabled: disable bmcweb log traces.
+                    - enabled or debug :  enables all of bmcweb log traces.
+                    - info: enables the informational traces and
+                        warning/error/critical log traces as described below.
+                    - warning: enables the traces of the undesirable 
+                        or unintended conditions, and error/critical log traces
+                    - error: enables the severe traces like runtime errors,
+                        unexpected conditions, and critical logs
+                    - critical:  enables the traces of the bmcweb complete failures.'
 )
 
 option(

@@ -66,18 +66,35 @@ mentioned in `bmcweb/subprojects`.
 ## Debug logging
 
 bmcweb by default is compiled with runtime logging disabled, as a performance
-consideration. To enable it in a standalone build, add the
+consideration. To enable it in a standalone build, add the logging level
 
 ```ascii
--Dlogging='enabled'
+-Dlogging='<log-level>'
 ```
 
 option to your configure flags. If building within Yocto, add the following to
 your local.conf.
 
 ```bash
-EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
+EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='<log-level>'"
 ```
+
+The choices of `<log-level>` may be
+
+- `disabled`: Turns off all bmcweb log traces.
+
+- `debug` (or `enabled`): Information that's overly verbose, and only required
+  in debug, but rarely useful.
+
+- `info` : Information: Information for the golden path debugging.
+
+- `warning`: Something seems odd, but might occur in the normal path (not used
+  often).
+
+- `error`: Something went wrong, and we weren't able to give the expected
+  response because of it. Service is still operational.
+
+- `critical`: Something went wrong, and we're no longer able to serve traffic.
 
 ## Use of persistent data
 
