@@ -56,7 +56,7 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable Redfish APIs.  Paths are under /redfish/v1/. See
-                    https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish.'''
+                    DEVELOPING.md#redfish.'''
 )
 
 option(
@@ -128,9 +128,13 @@ option(
 
 option(
     'bmcweb-logging',
-    type: 'feature',
+    type: 'combo',
+    choices : [ 'disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical' ],
     value: 'disabled',
-    description: 'Enable output the extended debug logs'
+    description: '''Enable output the extended logging level.
+                    - disabled: disable bmcweb log traces.
+                    - enabled: treated as 'debug'
+                    - For the other logging level option, see DEVELOPING.md.'''
 )
 
 option(
