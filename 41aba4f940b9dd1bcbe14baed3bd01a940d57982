@@ -22,6 +22,30 @@
       },
       "revId": "41aba4f940b9dd1bcbe14baed3bd01a940d57982",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43a07bc5_dd25662f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-10T08:30:40Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t really see it getting any information. This isn\u0027t much of a commit msg. \n\u003e \n\u003e Can you update this to say something more like (I spent just a few mins writing, feel free to use but it can be further enhanced. Please take the time to write a good commit msg. :) ).\n\u003e \n\u003e \"Implements PowerSupply schema\n\u003e \n\u003e This commit implements the Redfish PowerSupply schema and populates the PowerSupplyCollection members. The PowerSupply is a grandchild of the PowerSubsystem. PowerSupply is part of the new PowerSubsystme/ThermalSubsystem schemas, released in Redfish Version 2020.4. \n\u003e \n\u003e This commit only displays the PowerSupplies in the chassis with common fields like odata.id, odata.type, Id, and Name. Future commits will add PowerSupply properties like FirmwareVersion, LocationIndicatorActive, Status, and Asset information like SerialNumber, PartNumber, Model.\n\u003e \n\u003e This commit looks at the powered_by association from Inventory.Item.Chassis to Inventory.Item.PowerSupply to find a PowerSupply. \n\u003e \n\u003e [1] https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/57428\"\n\nThanks Gunnar\nDone\n\n\u003e \n\u003e Does https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58609 play in here?\n\nYes, Updated.",
+      "parentUuid": "d6e34361_c2b1a9b4",
+      "range": {
+        "startLine": 9,
+        "startChar": 54,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "41aba4f940b9dd1bcbe14baed3bd01a940d57982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
