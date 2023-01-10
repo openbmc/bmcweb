@@ -45,20 +45,16 @@ class Logger
            [[maybe_unused]] const size_t line, LogLevel levelIn) :
         level(levelIn)
     {
-#ifdef BMCWEB_ENABLE_LOGGING
         stringstream << "(" << timestamp() << ") [" << prefix << " "
                      << std::filesystem::path(filename).filename() << ":"
                      << line << "] ";
-#endif
     }
     ~Logger()
     {
         if (level >= getCurrentLogLevel())
         {
-#ifdef BMCWEB_ENABLE_LOGGING
             stringstream << std::endl;
             std::cerr << stringstream.str();
-#endif
         }
     }
 
@@ -73,13 +69,11 @@ class Logger
     {
         if (level >= getCurrentLogLevel())
         {
-#ifdef BMCWEB_ENABLE_LOGGING
             // Somewhere in the code we're implicitly casting an array to a
             // pointer in logging code.  It's non-trivial to find, so disable
             // the check here for now
             // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
             stringstream << value;
-#endif
         }
         return *this;
     }
