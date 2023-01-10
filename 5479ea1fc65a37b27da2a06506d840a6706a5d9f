@@ -34,6 +34,41 @@
       "parentUuid": "a37a2f63_4a742fdf",
       "revId": "5479ea1fc65a37b27da2a06506d840a6706a5d9f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "516179f9_59e96ee0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2023-01-10T09:14:04Z",
+      "side": 1,
+      "message": "For the context here:\nhttps://github.com/openbmc/bmcweb/commit/2d6cb56b6b47c3fbb0d234ade5c1208edb69ef1f (specifically the \u0026req -\u003e req{std::move(req)} part) caused a regression in mTLS that I\u0027ve found while following https://github.com/openbmc/docs/blob/master/security/TLS-configuration.md guide\nA curl request with \"Connection: close\" header was still being treated as keep-alive meaning there was no way to have a request that was NOT being treated as keep-alive anymore.",
+      "parentUuid": "3ab33ac8_c3579db7",
+      "revId": "5479ea1fc65a37b27da2a06506d840a6706a5d9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97da6577_42ad95f5",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2023-01-10T09:14:04Z",
+      "side": 1,
+      "message": "I\u0027ve tested 3 scenarios - curl request with -H \"Connection: close\", -H \"Connection: keep-alive\" and no header - in all 3 req-\u003ekeepAlive() was true which means it doesn\u0027t contain meaningful information anymore - we should log res.keepAlive() or the keepAlive variable instead",
+      "revId": "5479ea1fc65a37b27da2a06506d840a6706a5d9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
