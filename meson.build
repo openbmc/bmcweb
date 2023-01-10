@@ -197,7 +197,7 @@ if (get_option('buildtype') != 'plain')
   endif
 endif
 
-if( get_option('bmcweb-logging').enabled() or \
+if( get_option('bmcweb-logging') != 'disabled' or \
     get_option('buildtype').startswith('debug'))
  add_project_arguments([
    '-DBMCWEB_ENABLE_LOGGING',
