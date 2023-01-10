@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf35f24_608b8892",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-10T22:00:28Z",
+      "side": 1,
+      "message": "I\u0027ve changed it to be by value and I did the same for a url_view that was used elsewhere in this file.",
+      "parentUuid": "c6304023_6b084209",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4c5201_ede6fab6",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-01-08T01:26:08Z",
       "side": 1,
       "message": "nit, neither of these are used on these lines.  I think you could just range check this, and do\n\nboost::urls::segments_view::iterator it \u003d urlSegments.begin() + 2;\n\nAt the very least declaring on line 97 would make this variable more clear.",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769ed236_611933ff",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-10T22:00:28Z",
+      "side": 1,
+      "message": "I\u0027ve moved the check for thisUrl starting with \"/redfish/v1\" to before this section where I initialize the segments iterators.\n\nIt\u0027s ugly, but I had to increment the iterator twice in that way because that seems to be the only supported method.  I don\u0027t think it allows adding integers to the iterator.  I had previously tried \"it +\u003d 2;\" which fails to compile.\n\nSimilarly, your suggestion produces the error: no match for ‘operator+’ (operand types are ‘boost::urls::segments_base::iterator’ and ‘int’)",
+      "parentUuid": "5d4c5201_ede6fab6",
       "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +125,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8b5c7e88_ccc392ef",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-10T22:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d056aeb9_904c7277",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "67fdd414_55b8ea41",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 14
@@ -94,6 +160,24 @@
       "writtenOn": "2023-01-08T01:26:08Z",
       "side": 1,
       "message": "Note to self, we should really fix this in the core some day.",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ebdff8_db8bcdbd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-10T22:00:28Z",
+      "side": 1,
+      "message": "Would that involve just dropping the trailing \"/\" as one of the first steps of handling each new response?",
+      "parentUuid": "67fdd414_55b8ea41",
       "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -111,6 +195,30 @@
       "writtenOn": "2023-01-08T01:26:08Z",
       "side": 1,
       "message": "nit, std::move.  emplace_back()",
+      "range": {
+        "startLine": 115,
+        "startChar": 37,
+        "endLine": 115,
+        "endChar": 51
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c9c76d_59607ada",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-10T22:00:28Z",
+      "side": 1,
+      "message": "As in \"url.segments().emplace_back(std::move(collectionItem))\"?  That gives the error: ‘class boost::urls::segments_ref’ has no member named ‘emplace_back’.\n\nIt doesn\u0027t look like it has an equivalent method available https://www.boost.org/doc/libs/master/libs/url/doc/html/url/ref/boost__urls__segments_ref.html",
+      "parentUuid": "b3eaa081_16abf756",
       "range": {
         "startLine": 115,
         "startChar": 37,
