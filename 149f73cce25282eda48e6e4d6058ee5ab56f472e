@@ -85,6 +85,24 @@
       "message": "What is this schema? I dont see it anywhere in the CSDL. Did it come out wrong when parsing? It also isnt sorted either.",
       "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f67061a_b0dc931a",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-10T00:20:07Z",
+      "side": 1,
+      "message": "There\u0027s no expectation it\u0027s sorted.  Is that needed?  We could add that in the future.\n\nValidation schema is present here:\nhttp://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml",
+      "parentUuid": "19167352_6448bc36",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
