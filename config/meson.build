@@ -13,6 +13,14 @@ conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
 
+# Logging level
+loglvlopt = get_option('bmcweb-logging')
+if get_option('buildtype').startswith('debug') and loglvlopt == 'disabled'
+   # Override logging level as 'debug' if 'bmcweb-logging' is set as 'dsiabled'
+   loglvlopt = 'debug'
+endif
+conf_data.set('BMCWEB_LOGGING_LEVEL', loglvlopt)
+
 conf_h_dep = declare_dependency(
     include_directories: include_directories('.'),
     sources: configure_file(
@@ -42,3 +50,4 @@ configure_file(input : 'pam-webserver',
                copy : true,
                install_dir: '/etc/pam.d',
                install : true)
+
