@@ -3,7 +3,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
-#include "generated/enums/pcie_slot.hpp"
+#include "generated/enums/pcie_slots.hpp"
 #include "pcie.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
