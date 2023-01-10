@@ -198,18 +198,14 @@ if (get_option('buildtype') != 'plain')
   endif
 endif
 
-if( get_option('bmcweb-logging').enabled() or \
+if( get_option('bmcweb-logging') != 'disabled' or \
     get_option('buildtype').startswith('debug'))
  add_project_arguments([
-   '-DBMCWEB_ENABLE_LOGGING',
    '-DBMCWEB_ENABLE_DEBUG'
    ],
   language : 'cpp')
 
-  summary({'debug' :'-DBMCWEB_ENABLE_DEBUG',
-     'logging' : '-DBMCWEB_ENABLE_LOGGING',
-
-    },section : 'Enabled Features')
+  summary('debug', '-DBMCWEB_ENABLE_DEBUG', section : 'Enabled Features')
 endif
 
 # Set Compiler Security flags
