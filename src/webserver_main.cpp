@@ -63,7 +63,10 @@ inline void setupSocket(crow::App& app)
 
 static int run()
 {
-    crow::Logger::setLogLevel(crow::LogLevel::Debug);
+#ifdef BMCWEB_ENABLE_LOGGING
+    crow::Logger::setLogLevel(
+        static_cast<crow::LogLevel>(BMCWEB_ENABLE_LOGGING));
+#endif
 
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
