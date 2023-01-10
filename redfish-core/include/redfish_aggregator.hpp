@@ -35,7 +35,7 @@ constexpr std::array nonUriProperties{
     // "HostName", // Isn't actually a Redfish URI
     "Image",
     "MetricProperty",
-    "OriginOfCondition",
+    // "OriginOfCondition", // Is URI when in request, but is object in response
     "TaskMonitor",
     "target", // normal string, but target URI for POST to invoke an action
 };
@@ -191,15 +191,10 @@ class RedfishAggregator
     static inline boost::system::error_code
         aggregationRetryHandler(unsigned int respCode)
     {
-        // As a default, assume 200X is alright.
-        // We don't need to retry on a 404
-        if ((respCode < 200) || ((respCode >= 300) && (respCode != 404)))
-        {
-            return boost::system::errc::make_error_code(
-                boost::system::errc::result_out_of_range);
-        }
-
-        // Return 0 if the response code is valid
+        // Allow all response codes because we want to surface any satellite
+        // issue to the client
+        BMCWEB_LOG_DEBUG << "Received " << respCode
+                         << " response from satellite";
         return boost::system::errc::make_error_code(
             boost::system::errc::success);
     }
@@ -584,6 +579,19 @@ class RedfishAggregator
         }
     }
 
+  public:
+    RedfishAggregator(const RedfishAggregator&) = delete;
+    RedfishAggregator& operator=(const RedfishAggregator&) = delete;
+    RedfishAggregator(RedfishAggregator&&) = delete;
+    RedfishAggregator& operator=(RedfishAggregator&&) = delete;
+    ~RedfishAggregator() = default;
+
+    static RedfishAggregator& getInstance()
+    {
+        static RedfishAggregator handler;
+        return handler;
+    }
+
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
     static void
@@ -591,14 +599,7 @@ class RedfishAggregator
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
-        // No processing needed if the request wasn't successful
-        if (resp.resultInt() != 200)
-        {
-            BMCWEB_LOG_DEBUG << "No need to parse satellite response";
-            asyncResp->res.stringResponse = std::move(resp.stringResponse);
-            return;
-        }
-
+        // We want to attempt prefix fixing regardless of response code
         // The resp will not have a json component
         // We need to create a json from resp's stringResponse
         if (resp.getHeaderValue("Content-Type") == "application/json")
@@ -614,9 +615,6 @@ class RedfishAggregator
 
             BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
 
-            // TODO: For collections we  want to add the satellite responses to
-            // our response rather than just straight overwriting them if our
-            // local handling was successful (i.e. would return a 200).
             addPrefixes(jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
@@ -630,8 +628,8 @@ class RedfishAggregator
         {
             if (!resp.body().empty())
             {
-                // We received a 200 response without the correct Content-Type
-                // so return an Operation Failed error
+                // We received a valid response without the correct
+                // Content-Type so return an Operation Failed error
                 BMCWEB_LOG_ERROR
                     << "Satellite response must be of type \"application/json\"";
                 messages::operationFailed(asyncResp->res);
@@ -761,19 +759,6 @@ class RedfishAggregator
             }
         }
     } // End processCollectionResponse()
-
-  public:
-    RedfishAggregator(const RedfishAggregator&) = delete;
-    RedfishAggregator& operator=(const RedfishAggregator&) = delete;
-    RedfishAggregator(RedfishAggregator&&) = delete;
-    RedfishAggregator& operator=(RedfishAggregator&&) = delete;
-    ~RedfishAggregator() = default;
-
-    static RedfishAggregator& getInstance()
-    {
-        static RedfishAggregator handler;
-        return handler;
-    }
 
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
