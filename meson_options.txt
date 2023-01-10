@@ -130,7 +130,23 @@ option(
     'bmcweb-logging',
     type: 'feature',
     value: 'disabled',
-    description: 'Enable output the extended debug logs'
+    description: 'Enable output the extended logs whose level can be specified
+                  via bmcweb-logging-level option. If bmcweb-logging-level is
+                  not set, all level of traces (i.e., debug) are enabled'
+)
+
+option(
+    'bmcweb-logging-level',
+    type: 'combo',
+    choices : [ 'debug', 'info', 'warning', 'error', 'critical' ],
+    value: 'debug',
+    description: 'Specify the level of the extended logs as follows.
+                  - debug :  enables all of bmcweb log traces.
+                  - info: enables the log traces with info or higher level including
+                          info, warning, error, or critical level traces.
+                  - warning: enables the log traces with warning or higher level.
+                  - error:  enables the log traces with error or higher level.
+                  - critical:  enables the log traces with critical level'
 )
 
 option(
