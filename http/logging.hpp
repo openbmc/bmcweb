@@ -40,25 +40,39 @@ class Logger
     }
 
   public:
+    constexpr static bool isLoggingEnabled()
+    {
+#ifdef BMCWEB_ENABLE_LOGGING
+        return true;
+#else
+        return false;
+#endif
+    }
+
     Logger([[maybe_unused]] const std::string& prefix,
            [[maybe_unused]] const std::string& filename,
            [[maybe_unused]] const size_t line, LogLevel levelIn) :
         level(levelIn)
     {
-#ifdef BMCWEB_ENABLE_LOGGING
-        stringstream << "(" << timestamp() << ") [" << prefix << " "
-                     << std::filesystem::path(filename).filename() << ":"
-                     << line << "] ";
-#endif
+        if constexpr (crow::Logger::isLoggingEnabled())
+        {
+            if (crow::Logger::checkLoggingLevel(level))
+            {
+                stringstream << "(" << timestamp() << ") [" << prefix << " "
+                             << std::filesystem::path(filename).filename()
+                             << ":" << line << "] ";
+            }
+        }
     }
     ~Logger()
     {
-        if (level >= getCurrentLogLevel())
+        if constexpr (crow::Logger::isLoggingEnabled())
         {
-#ifdef BMCWEB_ENABLE_LOGGING
-            stringstream << std::endl;
-            std::cerr << stringstream.str();
-#endif
+            if (crow::Logger::checkLoggingLevel(level))
+            {
+                stringstream << std::endl;
+                std::cerr << stringstream.str();
+            }
         }
     }
 
@@ -71,36 +85,32 @@ class Logger
     template <typename T>
     Logger& operator<<([[maybe_unused]] T const& value)
     {
-        if (level >= getCurrentLogLevel())
+        if constexpr (crow::Logger::isLoggingEnabled())
         {
-#ifdef BMCWEB_ENABLE_LOGGING
-            // Somewhere in the code we're implicitly casting an array to a
-            // pointer in logging code.  It's non-trivial to find, so disable
-            // the check here for now
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-            stringstream << value;
-#endif
+            if (crow::Logger::checkLoggingLevel(level))
+            {
+                // Somewhere in the code we're implicitly casting an array to a
+                // pointer in logging code. It's non-trivial to find,
+                // so disable the check here for now
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+                stringstream << value;
+            }
         }
         return *this;
     }
 
-    //
-    static void setLogLevel(LogLevel level)
+    constexpr static LogLevel getCurrentLogLevel()
     {
-        getLogLevelRef() = level;
+#ifdef BMCWEB_LOGGING_LEVEL
+        return static_cast<crow::LogLevel>(BMCWEB_LOGGING_LEVEL);
+#else
+        return static_cast<crow::LogLevel>(crow::LogLevel::Debug);
+#endif
     }
 
-    static LogLevel getCurrentLogLevel()
+    constexpr static bool checkLoggingLevel(const LogLevel level)
     {
-        return getLogLevelRef();
-    }
-
-  private:
-    //
-    static LogLevel& getLogLevelRef()
-    {
-        static auto currentLevel = static_cast<LogLevel>(1);
-        return currentLevel;
+        return isLoggingEnabled() && (getCurrentLogLevel() <= level);
     }
 
     //
@@ -115,25 +125,25 @@ class Logger
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_CRITICAL                                                    \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Critical)        \
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))   \
     crow::Logger("CRITICAL", __FILE__, __LINE__, crow::LogLevel::Critical)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_ERROR                                                       \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Error)           \
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Error))      \
     crow::Logger("ERROR", __FILE__, __LINE__, crow::LogLevel::Error)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_WARNING                                                     \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Warning)         \
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Warning))    \
     crow::Logger("WARNING", __FILE__, __LINE__, crow::LogLevel::Warning)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_INFO                                                        \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Info)            \
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Info))       \
     crow::Logger("INFO", __FILE__, __LINE__, crow::LogLevel::Info)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_DEBUG                                                       \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Debug)           \
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Debug))      \
     crow::Logger("DEBUG", __FILE__, __LINE__, crow::LogLevel::Debug)
