@@ -13,6 +13,7 @@
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
+#include <boost/beast/http/error.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/serializer.hpp>
@@ -565,7 +566,7 @@ class Connection :
             if (ec)
             {
                 errorWhileReading = true;
-                if (ec == boost::asio::error::eof)
+                if (ec == boost::beast::http::error::end_of_stream)
                 {
                     BMCWEB_LOG_WARNING
                         << this << " Error while reading: " << ec.message();
