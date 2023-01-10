@@ -33,6 +33,24 @@
       "message": "Should we exclude this if it is the default 0? Like we did before\nhttps://github.com/openbmc/bmcweb/blob/40e4f380d645c6bbe6bd8050e501203798a0c488/redfish-core/lib/sensors.hpp#L2317",
       "revId": "15353e1082b74eaadfaa7059a386df95d2c3bb97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ad8454_73e98177",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-10T09:36:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e888e7a2_2bf27af1",
+      "revId": "15353e1082b74eaadfaa7059a386df95d2c3bb97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
