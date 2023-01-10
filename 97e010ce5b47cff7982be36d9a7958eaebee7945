@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "061e4518_dc261f73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2023-01-10T12:12:29Z",
+      "side": 1,
+      "message": "The only line that exceeds 72 characters seems to be \"Signed-off-by: Boleslaw Ogonczyk Makowski \u003cboleslawx.ogonczyk-makowski@intel.com\u003e\" - is this the one that I should wrap? Asking for clarification because I haven\u0027t seen anyone else have to wrap their signed-off-by line but then their names might not be as long as mine.",
+      "parentUuid": "f5c3027f_f3fa1d64",
+      "revId": "97e010ce5b47cff7982be36d9a7958eaebee7945",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "353042ae_79433168",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
