@@ -1,0 +1,145 @@
+{
+    "$ref": "#/definitions/ManagerAccount",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
+    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Links": {
+            "additionalProperties": false,
+            "description": "Contains references to other resources that are related to this resource.",
+            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "Role": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "A reference to the Role object defining Privileges for this account--returned when the resource is read. The ID of the role is the same as property RoleId.",
+                    "longDescription": "The value of this property shall be a link to a Role object instance, and should reference the object identified by property RoleId.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "ManagerAccount": {
+            "additionalProperties": false,
+            "description": "The user accounts, owned by a Manager, are defined in this resource.  Changes to a Manager Account may affect the current Redfish service connection if this manager is responsible for the Redfish service.",
+            "longDescription": "This resource shall be used to represent resources that represent the user accounts for the manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Enabled": {
+                    "description": "This property is used by a User Administrator to disable an account w/o having to delet the user information.  When set to true, the user can login.  When set to false, the account is administratively disabled and the user cannot login.",
+                    "longDescription": "This property shall enable (if set to true) or disable (if set to false) the account for future logins. The value of Enable over-rides the locked property.",
+                    "readonly": false,
+                    "type": "boolean"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "Locked": {
+                    "description": "This property indicates that the account has been auto-locked by the account service because the lockout threshold has been exceeded.  When set to true, the account is locked. A user admin can write the property to false to manually unlock, or the account service will unlock it once the lockout duration period has passed.",
+                    "longDescription": "This property (when set to true) shall indicate that the account service has automatically locked the account due to the accountLockoutThreshold having been exceeded. If set to true, the account is locked.  If set to false, the account is not locked.  A user admin shall be able to write a false to the property to clear the lockout condition, prior to the lockout duration period.",
+                    "readonly": false,
+                    "type": "boolean"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Password": {
+                    "description": "This property is used with a PATCH or PUT to write the password for the account.  This property is null on a GET.",
+                    "longDescription": "The value of this property shall be the password for this account.  The value shall be null for GET requests.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RoleId": {
+                    "description": "This property contains the Role for this account.",
+                    "longDescription": "The value of this property shall be the ID (the RoleId) of the Role resource that configured for this account.  The service shall reject POST, PATCH, or PUT operations that provide a RoleId that does not exist by returning HTTP 400 (Bad Request).",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "UserName": {
+                    "description": "This property contains the user name for the account.",
+                    "longDescription": "The value of this property shall be the user name for this account.",
+                    "readonly": false,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "Password",
+                "UserName",
+                "RoleId"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ManagerAccount.v1_0_6.ManagerAccount"
+}

@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/JobService.json",
+    "$ref": "#/definitions/JobService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "JobService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/JobService.v1_0_4.json#/definitions/JobService"
+                }
+            ],
+            "deletable": false,
+            "description": "The JobService schema contains properties for scheduling and execution of operations, represents the properties for the job service itself, and has links to jobs managed by the job service.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a job service for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/JobService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#JobService.JobService"
+}

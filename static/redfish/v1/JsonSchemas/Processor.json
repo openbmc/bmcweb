@@ -1,0 +1,93 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.json",
+    "$ref": "#/definitions/Processor",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Processor": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_0_12.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_1_8.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_2_8.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_3_9.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_4_9.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_5_8.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_6_6.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_7_5.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_8_4.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_9_3.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_10_3.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_11_3.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_12_2.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_13_2.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_14_1.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_15_0.json#/definitions/Processor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.v1_16_0.json#/definitions/Processor"
+                }
+            ],
+            "deletable": false,
+            "description": "The Processor schema describes the information about a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}",
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}",
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}",
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Processor.Processor"
+}

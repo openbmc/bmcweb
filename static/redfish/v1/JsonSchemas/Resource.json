@@ -1,0 +1,677 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Condition": {
+            "additionalProperties": false,
+            "description": "A condition that requires attention.",
+            "longDescription": "This type shall contain the description and details of a condition that exists within this resource or a related resource that requires attention.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LogEntry": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LogEntry.json#/definitions/LogEntry",
+                    "description": "The link to the log entry created for this condition.",
+                    "longDescription": "This property shall contain a link to a resource of type LogEntry that represents the log entry created for this condition.",
+                    "readonly": true
+                },
+                "Message": {
+                    "description": "The human-readable message for this condition.",
+                    "longDescription": "This property shall contain a human-readable message describing this condition.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "MessageArgs": {
+                    "description": "An array of message arguments that are substituted for the arguments in the message when looked up in the message registry.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "MessageId": {
+                    "description": "The identifier for the message.",
+                    "longDescription": "This property shall contain a MessageId, as defined in the 'MessageId format' clause of the Redfish Specification.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "OriginOfCondition": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
+                    "description": "A link to the resource or object that originated the condition.",
+                    "longDescription": "This property shall contain a link to the resource or object that originated the condition.  This property shall not be present if the condition was caused by this resource.",
+                    "readonly": true
+                },
+                "Resolution": {
+                    "description": "Suggestions on how to resolve the condition.",
+                    "longDescription": "This property shall contain the resolution of the condition.  Services should replace the resolution defined in the message registry with a more specific resolution.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_14_0"
+                },
+                "Severity": {
+                    "$ref": "#/definitions/Health",
+                    "description": "The severity of the condition.",
+                    "longDescription": "This property shall contain the severity of the condition.  Services can replace the value defined in the message registry with a value more applicable to the implementation.",
+                    "readonly": true
+                },
+                "Timestamp": {
+                    "description": "The time the condition occurred.",
+                    "format": "date-time",
+                    "longDescription": "This property shall indicate the time the condition occurred.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "MessageId"
+            ],
+            "type": "object"
+        },
+        "Description": {
+            "description": "The description of this resource.  Used for commonality in the schema definitions.",
+            "longDescription": "This property shall contain the description of this resource.  The value shall conform with the 'Description' clause of the Redfish Specification.",
+            "type": "string"
+        },
+        "Health": {
+            "enum": [
+                "OK",
+                "Warning",
+                "Critical"
+            ],
+            "enumDescriptions": {
+                "Critical": "A critical condition requires immediate attention.",
+                "OK": "Normal.",
+                "Warning": "A condition requires attention."
+            },
+            "type": "string"
+        },
+        "Id": {
+            "description": "The unique identifier for this resource within the collection of similar resources.",
+            "longDescription": "This property shall contain the identifier for this resource.  The value shall conform with the 'Id' clause of the Redfish Specification.",
+            "type": "string"
+        },
+        "Identifier": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_1_15.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_2_14.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_3_13.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_4_12.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_5_11.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_6_11.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_7_10.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_8_10.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_8.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_10_5.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_11_4.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_3.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_13_2.json#/definitions/Identifier"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_14_1.json#/definitions/Identifier"
+                }
+            ],
+            "description": "Any additional identifiers for a resource.",
+            "longDescription": "This type shall contain any additional identifiers for a resource."
+        },
+        "IndicatorLED": {
+            "enum": [
+                "Lit",
+                "Blinking",
+                "Off"
+            ],
+            "enumDescriptions": {
+                "Blinking": "The indicator LED is blinking.",
+                "Lit": "The indicator LED is lit.",
+                "Off": "The indicator LED is off."
+            },
+            "enumLongDescriptions": {
+                "Blinking": "This value shall represent that the indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code.",
+                "Lit": "This value shall represent that the indicator LED is in a solid on state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code.",
+                "Off": "This value shall represent that the indicator LED is in a solid off state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."
+            },
+            "type": "string"
+        },
+        "Item": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "#/definitions/Resource"
+                }
+            ],
+            "description": "The base type for resources and members that can be linked to."
+        },
+        "ItemOrCollection": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "#/definitions/Item"
+                },
+                {
+                    "$ref": "#/definitions/ResourceCollection"
+                }
+            ]
+        },
+        "Links": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "Location": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_1_15.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_2_14.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_3_13.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_4_12.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_5_11.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_6_11.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_7_10.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_8_10.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_8.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_10_5.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_11_4.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_3.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_13_2.json#/definitions/Location"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_14_1.json#/definitions/Location"
+                }
+            ],
+            "description": "The location of a resource.",
+            "longDescription": "This type shall describe the location of a resource."
+        },
+        "Name": {
+            "description": "The name of the resource or array member.",
+            "longDescription": "This property shall contain the name of this resource or array member.  The value shall conform with the 'Name' clause of the Redfish Specification.",
+            "type": "string"
+        },
+        "Oem": {
+            "additionalProperties": true,
+            "description": "The OEM extension.",
+            "longDescription": "This object represents the OEM properties.  The resource values shall comply with the Redfish Specification-described requirements.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[A-Za-z0-9_]+$": {
+                    "$ref": "#/definitions/OemObject"
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OemObject": {
+            "additionalProperties": true,
+            "description": "The base type for an OEM extension.",
+            "longDescription": "This object represents the base type for an OEM object.  The resource values shall comply with the Redfish Specification-described requirements.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PowerState": {
+            "enum": [
+                "On",
+                "Off",
+                "PoweringOn",
+                "PoweringOff",
+                "Paused"
+            ],
+            "enumDescriptions": {
+                "Off": "The state is powered off.",
+                "On": "The state is powered on.",
+                "Paused": "The state is paused.",
+                "PoweringOff": "A temporary state between on and off.",
+                "PoweringOn": "A temporary state between off and on."
+            },
+            "enumVersionAdded": {
+                "Paused": "v1_13_0"
+            },
+            "type": "string"
+        },
+        "ReferenceableMember": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_0_13.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_1_15.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_2_14.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_3_13.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_4_12.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_5_11.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_6_11.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_7_10.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_8_10.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_8.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_10_5.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_11_4.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_3.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_13_2.json#/definitions/ReferenceableMember"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_14_1.json#/definitions/ReferenceableMember"
+                }
+            ]
+        },
+        "ResetType": {
+            "enum": [
+                "On",
+                "ForceOff",
+                "GracefulShutdown",
+                "GracefulRestart",
+                "ForceRestart",
+                "Nmi",
+                "ForceOn",
+                "PushPowerButton",
+                "PowerCycle",
+                "Suspend",
+                "Pause",
+                "Resume"
+            ],
+            "enumDescriptions": {
+                "ForceOff": "Turn off the unit immediately (non-graceful shutdown).",
+                "ForceOn": "Turn on the unit immediately.",
+                "ForceRestart": "Shut down immediately and non-gracefully and restart the system.",
+                "GracefulRestart": "Shut down gracefully and restart the system.",
+                "GracefulShutdown": "Shut down gracefully and power off.",
+                "Nmi": "Generate a diagnostic interrupt, which is usually an NMI on x86 systems, to stop normal operations, complete diagnostic actions, and, typically, halt the system.",
+                "On": "Turn on the unit.",
+                "Pause": "Pause execution on the unit but do not remove power.  This is typically a feature of virtual machine hypervisors.",
+                "PowerCycle": "Power cycle the unit.  Behaves like a full power removal, followed by a power restore to the resource.",
+                "PushPowerButton": "Simulate the pressing of the physical power button on this unit.",
+                "Resume": "Resume execution on the paused unit.  This is typically a feature of virtual machine hypervisors.",
+                "Suspend": "Write the state of the unit to disk before powering off.  This allows for the state to be restored when powered back on."
+            },
+            "enumLongDescriptions": {
+                "ForceOff": "This value shall indicate the resource will transition to a power off state.  The transition will start immediately.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`.",
+                "ForceOn": "This value shall indicate the resource will transition to a power on state.  The transition will start immediately.  Upon successful completion, the PowerState property shall contain the value `On`.",
+                "ForceRestart": "This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start immediately.  Upon successful completion, the PowerState property, if supported, shall shall contain the value `On`.",
+                "GracefulRestart": "This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start after first performing tasks to safely shutdown the resource.  For example, when shutting down a computer system, the hosted operating system is allowed to safely shutting down processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`.",
+                "GracefulShutdown": "This value shall indicate the resource will transition to a power off state.  The transition will start after first performing tasks to safely shutdown the resource.  For example, when shutting down a computer system, the hosted operating system is allowed to safely shutdown processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`.",
+                "Nmi": "This value shall indicate the resource will generate a diagnostic interrupt.",
+                "On": "This value shall indicate the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`.",
+                "Pause": "This value shall indicate the resource will transition to a paused state.  Upon successful completion, the PowerState property, if supported, shall contain the value `Paused`.",
+                "PowerCycle": "This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`.",
+                "PushPowerButton": "This value shall indicate the resource will behave as if the physical power button is pressed.  The behavior of pressing the physical power button may be dependent on the state of the unit and the behavior may be configurable.",
+                "Resume": "This value shall indicate the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`.",
+                "Suspend": "This value shall indicate the resource will have any state information written to persistent memory and then transition to a power off state.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."
+            },
+            "enumVersionAdded": {
+                "Pause": "v1_13_0",
+                "PowerCycle": "v1_4_0",
+                "Resume": "v1_13_0",
+                "Suspend": "v1_13_0"
+            },
+            "type": "string"
+        },
+        "Resource": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_0_13.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_1_15.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_2_14.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_3_13.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_4_12.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_5_11.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_6_11.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_7_10.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_8_10.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_8.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_10_5.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_11_4.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_3.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_13_2.json#/definitions/Resource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_14_1.json#/definitions/Resource"
+                }
+            ]
+        },
+        "ResourceCollection": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_0_13.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_1_15.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_2_14.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_3_13.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_4_12.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_5_11.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_6_11.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_7_10.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_8_10.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_8.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_10_5.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_11_4.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_12_3.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_13_2.json#/definitions/ResourceCollection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_14_1.json#/definitions/ResourceCollection"
+                }
+            ]
+        },
+        "State": {
+            "enum": [
+                "Enabled",
+                "Disabled",
+                "StandbyOffline",
+                "StandbySpare",
+                "InTest",
+                "Starting",
+                "Absent",
+                "UnavailableOffline",
+                "Deferring",
+                "Quiesced",
+                "Updating",
+                "Qualified"
+            ],
+            "enumDescriptions": {
+                "Absent": "This function or resource is either not present or detected.",
+                "Deferring": "The element does not process any commands but queues new requests.",
+                "Disabled": "This function or resource is disabled.",
+                "Enabled": "This function or resource is enabled.",
+                "InTest": "This function or resource is undergoing testing, or is in the process of capturing information for debugging.",
+                "Qualified": "The element quality is within the acceptable range of operation.",
+                "Quiesced": "The element is enabled but only processes a restricted set of commands.",
+                "StandbyOffline": "This function or resource is enabled but awaits an external action to activate it.",
+                "StandbySpare": "This function or resource is part of a redundancy set and awaits a failover or other external action to activate it.",
+                "Starting": "This function or resource is starting.",
+                "UnavailableOffline": "This function or resource is present but cannot be used.",
+                "Updating": "The element is updating and might be unavailable or degraded."
+            },
+            "enumVersionAdded": {
+                "Deferring": "v1_2_0",
+                "Qualified": "v1_9_0",
+                "Quiesced": "v1_2_0",
+                "UnavailableOffline": "v1_1_0",
+                "Updating": "v1_2_0"
+            },
+            "type": "string"
+        },
+        "Status": {
+            "additionalProperties": false,
+            "description": "The status and health of a resource and its children.",
+            "longDescription": "This type shall contain any status or health properties of a resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Conditions": {
+                    "description": "Conditions in this resource that require attention.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Condition"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall represent the active conditions requiring attention in this or a related resource that affects the Health or HealthRollup of this resource.  The service may roll up multiple conditions originating from a resource, using the `ConditionInRelatedResource` message from Base Message Registry.",
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
+                "Health": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The health state of this resource in the absence of its dependent resources.",
+                    "longDescription": "This property shall represent the health state of the resource without considering its dependent resources.  The values shall conform to those defined in the Redfish Specification.",
+                    "readonly": true
+                },
+                "HealthRollup": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The overall health state from the view of this resource.",
+                    "longDescription": "This property shall represent the health state of the resource and its dependent resources.  The values shall conform to those defined in the Redfish Specification.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "State": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/State"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The known state of the resource, such as, enabled.",
+                    "longDescription": "This property shall indicate whether and why this component is available.  Enabled indicates the resource is available.  Disabled indicates the resource has been intentionally made unavailable but it can be enabled.  Offline indicates the resource is unavailable intentionally and requires action to make it available.  InTest indicates that the component is undergoing testing.  Starting indicates that the resource is becoming available.  Absent indicates the resource is physically unavailable.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "UUID": {
+            "pattern": "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})",
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Resource"
+}

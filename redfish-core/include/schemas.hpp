@@ -1032,6 +1032,46 @@ namespace redfish::schemas
         false
     };
 
+    constexpr SchemaVersion oemAccountService{
+        "OemAccountService",
+        1,
+        0,
+        0,
+        false
+    };
+
+    constexpr SchemaVersion oemComputerSystem{
+        "OemComputerSystem",
+        0,
+        0,
+        0,
+        false
+    };
+
+    constexpr SchemaVersion oemManager{
+        "OemManager",
+        0,
+        0,
+        0,
+        false
+    };
+
+    constexpr SchemaVersion oemSession{
+        "OemSession",
+        1,
+        0,
+        0,
+        false
+    };
+
+    constexpr SchemaVersion oemVirtualMedia{
+        "OemVirtualMedia",
+        1,
+        0,
+        0,
+        false
+    };
+
     constexpr SchemaVersion operatingConfig{
         "OperatingConfig",
         1,
@@ -1824,7 +1864,7 @@ namespace redfish::schemas
         false
     };
 
-    constexpr const std::array<const SchemaVersion, 226> schemas {
+    constexpr const std::array<const SchemaVersion, 231> schemas {
         accelerationFunction,
         accelerationFunctionCollection,
         accountService,
@@ -1952,6 +1992,11 @@ namespace redfish::schemas
         networkInterfaceCollection,
         networkPort,
         networkPortCollection,
+        oemAccountService,
+        oemComputerSystem,
+        oemManager,
+        oemSession,
+        oemVirtualMedia,
         operatingConfig,
         operatingConfigCollection,
         outlet,

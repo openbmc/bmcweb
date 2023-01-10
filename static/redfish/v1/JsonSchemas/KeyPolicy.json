@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/KeyPolicy.json",
+    "$ref": "#/definitions/KeyPolicy",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "KeyPolicy": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/KeyPolicy.v1_0_0.json#/definitions/KeyPolicy"
+                }
+            ],
+            "deletable": true,
+            "description": "The KeyPolicy schema describes settings for how keys are allowed to be used for accessing devices or services.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a key policy for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/KeyService/NVMeoFKeyPolicies/{KeyPolicyId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#KeyPolicy.KeyPolicy"
+}

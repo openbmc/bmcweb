@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OperatingConfig.json",
+    "$ref": "#/definitions/OperatingConfig",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "OperatingConfig": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfig.v1_0_2.json#/definitions/OperatingConfig"
+                }
+            ],
+            "deletable": false,
+            "description": "The OperatingConfig schema specifies a configuration that can be used when the processor is operational.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an operational configuration for a processor in the Redfish Specification.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/OperatingConfigs/{OperatingConfigId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#OperatingConfig.OperatingConfig"
+}

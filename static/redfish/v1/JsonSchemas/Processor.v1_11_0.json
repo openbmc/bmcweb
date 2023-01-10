@@ -1,0 +1,1344 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_11_0.json",
+    "$ref": "#/definitions/Processor",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Processor.Reset": {
+                    "$ref": "#/definitions/Reset"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "BaseSpeedPriorityState": {
+            "enum": [
+                "Enabled",
+                "Disabled"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Base speed priority is disabled.",
+                "Enabled": "Base speed priority is enabled."
+            },
+            "type": "string"
+        },
+        "EthernetInterface": {
+            "additionalProperties": false,
+            "description": "This type defines an Ethernet interface.",
+            "longDescription": "These properties shall contain the definition for an Ethernet interface for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaxLanes": {
+                    "description": "The number of lanes supported by this interface.",
+                    "longDescription": "This property shall contain the maximum number of lanes supported by this interface.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MaxSpeedMbps": {
+                    "description": "The maximum speed supported by this interface.",
+                    "longDescription": "This property shall contain the maximum speed supported by this interface.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "Mbit/s",
+                    "versionAdded": "v1_4_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "FPGA": {
+            "additionalProperties": false,
+            "description": "The properties of the FPGA device.",
+            "longDescription": "This object shall contain the properties of the FPGA device represented by a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ExternalInterfaces": {
+                    "description": "An array of the FPGA external interfaces.",
+                    "items": {
+                        "$ref": "#/definitions/ProcessorInterface"
+                    },
+                    "longDescription": "This property shall contain an array of objects that describe the external connectivity of the FPGA.",
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "FirmwareId": {
+                    "description": "The FPGA firmware identifier.",
+                    "longDescription": "This property shall contain a string describing the FPGA firmware identifier.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "FirmwareManufacturer": {
+                    "description": "The FPGA firmware manufacturer.",
+                    "longDescription": "This property shall contain a string describing the FPGA firmware manufacturer.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "FirmwareVersion": {
+                    "deprecated": "This property has been deprecated in favor of the FirmwareVersion property in the root of this resource.",
+                    "description": "The FPGA firmware version.",
+                    "longDescription": "This property shall contain a string describing the FPGA firmware version.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_9_0"
+                },
+                "FpgaType": {
+                    "$ref": "#/definitions/FpgaType",
+                    "description": "The FPGA type.",
+                    "longDescription": "This property shall contain a type of the FPGA device.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "HostInterface": {
+                    "$ref": "#/definitions/ProcessorInterface",
+                    "deprecated": "This property has been deprecated in favor of the SystemInterface property in the root of this resource.",
+                    "description": "The FPGA interface to the host.",
+                    "longDescription": "This property shall contain an object that describes the connectivity to the host for system software to use.",
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_8_0"
+                },
+                "Model": {
+                    "description": "The FPGA model.",
+                    "longDescription": "This property shall contain a model of the FPGA device.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_4_0"
+                },
+                "PCIeVirtualFunctions": {
+                    "description": "The number of the PCIe Virtual Functions.",
+                    "longDescription": "This property shall contain an integer that describes the number of PCIe Virtual Functions configured within the FPGA.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_4_0"
+                },
+                "ProgrammableFromHost": {
+                    "description": "An indication of whether the FPGA firmware can be reprogrammed from the host by using system software.",
+                    "longDescription": "This property shall indicate whether the FPGA firmware can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the FPGA firmware from the system interface.  In either state, a management controller might be able to program the FPGA firmware by using the sideband interface.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "ReconfigurationSlots": {
+                    "description": "An array of the FPGA reconfiguration slots.  An FPGA uses a reconfiguration slot to contain an acceleration function that can change as the FPGA is provisioned.",
+                    "items": {
+                        "$ref": "#/definitions/FpgaReconfigurationSlot"
+                    },
+                    "longDescription": "This property shall contain an array of the structures that describe the FPGA reconfiguration slots that the acceleration functions can program.",
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "FpgaReconfigurationSlot": {
+            "additionalProperties": false,
+            "description": "This type describes the FPGA reconfiguration slot.  An FPGA uses a reconfiguration slot to contain an acceleration function that can change as the FPGA is provisioned.",
+            "longDescription": "This type shall contain information about the FPGA reconfiguration slot.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccelerationFunction": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.json#/definitions/AccelerationFunction",
+                    "description": "The link to the acceleration function that the code programmed into a reconfiguration slot provides.",
+                    "longDescription": "This property shall contain a link to a resource of type AccelerationFunction that represents the code programmed into this reconfiguration slot.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "ProgrammableFromHost": {
+                    "description": "An indication of whether the reconfiguration slot can be reprogrammed from the host by using system software.",
+                    "longDescription": "This property shall indicate whether the reconfiguration slot can be reprogrammed from the host by using system software.  If false, system software shall not be able to program the reconfiguration slot from the system interface.  In either state, a management controller might be able to program the reconfiguration slot by using the sideband interface.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "SlotId": {
+                    "description": "The FPGA reconfiguration slot identifier.",
+                    "longDescription": "This property shall contain the FPGA reconfiguration slot identifier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this reconfiguration slot.",
+                    "longDescription": "This property shall contain a universal unique identifier number for the reconfiguration slot.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "FpgaType": {
+            "enum": [
+                "Integrated",
+                "Discrete"
+            ],
+            "enumDescriptions": {
+                "Discrete": "The discrete FPGA device.",
+                "Integrated": "The FPGA device integrated with other processor in the single chip."
+            },
+            "type": "string"
+        },
+        "InstructionSet": {
+            "enum": [
+                "x86",
+                "x86-64",
+                "IA-64",
+                "ARM-A32",
+                "ARM-A64",
+                "MIPS32",
+                "MIPS64",
+                "PowerISA",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "ARM-A32": "ARM 32-bit.",
+                "ARM-A64": "ARM 64-bit.",
+                "IA-64": "Intel IA-64.",
+                "MIPS32": "MIPS 32-bit.",
+                "MIPS64": "MIPS 64-bit.",
+                "OEM": "OEM-defined.",
+                "PowerISA": "PowerISA-64 or PowerISA-32.",
+                "x86": "x86 32-bit.",
+                "x86-64": "x86 64-bit."
+            },
+            "enumVersionAdded": {
+                "PowerISA": "v1_4_0"
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Chassis": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
+                    "description": "The link to the chassis that contains this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type Chassis that represents the physical container associated with this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "ConnectedProcessors": {
+                    "description": "An array of links to the processors directly connected to this processor.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Processor that are directly connected to this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ConnectedProcessors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this processor.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent endpoints associated with this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Memory": {
+                    "description": "An array of links to the memory associated with this processor.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.json#/definitions/Memory"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Memory that are associated with this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
+                "Memory@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeDevice": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice",
+                    "description": "The link to the PCIe device associated with this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type PCIeDevice that represents the PCIe device associated with this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "PCIeFunctions": {
+                    "description": "An array of links to the PCIeFunctions associated with this processor.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions associated with this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "MemorySummary": {
+            "additionalProperties": false,
+            "description": "The summary of all memory associated with a processor.",
+            "longDescription": "This type shall contain properties that describe the summary of all memory that are associated with a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json#/definitions/MemoryMetrics",
+                    "description": "The link to the memory metrics associated with all memory of this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type MemoryMetrics that contains the metrics associated with all memory of this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "TotalCacheSizeMiB": {
+                    "description": "Total size of cache memory of this processor.",
+                    "longDescription": "This property shall contain the total size of cache memory of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_11_0"
+                },
+                "TotalMemorySizeMiB": {
+                    "description": "Total size of volatile memory of this processor.",
+                    "longDescription": "This property shall contain the total size of non-cache, volatile memory of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_11_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Processor": {
+            "additionalProperties": false,
+            "description": "The Processor schema describes the information about a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.",
+            "longDescription": "This resource shall represent a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "AccelerationFunctions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AccelerationFunctionCollection.json#/definitions/AccelerationFunctionCollection",
+                    "description": "The link to the collection of acceleration functions associated with this processor.",
+                    "longDescription": "This property shall contain a link to a resource collection of type AccelerationFunctionCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "AppliedOperatingConfig": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfig.json#/definitions/OperatingConfig",
+                    "description": "The link to the operating configuration that is applied to this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type OperatingConfig that specifies the configuration is applied to this processor.",
+                    "readonly": false,
+                    "versionAdded": "v1_9_0"
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to an assembly associated with this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "BaseSpeedMHz": {
+                    "description": "The base (nominal) clock speed of the processor in MHz.",
+                    "longDescription": "This property shall contain the base (nominal) clock speed of the processor in MHz.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz",
+                    "versionAdded": "v1_10_0"
+                },
+                "BaseSpeedPriorityState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BaseSpeedPriorityState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the base frequency settings of the operation configuration applied to this processor.",
+                    "longDescription": "This property shall contain the state of the base frequency settings of the operating configuration applied to this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "FPGA": {
+                    "$ref": "#/definitions/FPGA",
+                    "description": "The properties for processors of the FPGA type.",
+                    "longDescription": "This property shall contain an object containing properties for processors of type FPGA.",
+                    "versionAdded": "v1_4_0"
+                },
+                "FirmwareVersion": {
+                    "description": "The firmware version of the processor.",
+                    "longDescription": "This property shall contain a string describing the firmware version of the processor as provided by the manufacturer.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_7_0"
+                },
+                "HighSpeedCoreIDs": {
+                    "description": "The list of core identifiers corresponding to the cores that have been configured with the higher clock speed from the operating configuration applied to this processor.",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of core identifiers corresponding to the cores that have been configured with the higher clock speed from the operating configuration applied to this processor.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InstructionSet": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/InstructionSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The instruction set of the processor.",
+                    "longDescription": "This property shall contain the string that identifies the instruction set of the processor contained in this socket.",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the processor.",
+                    "longDescription": "This property shall contain location information of the associated processor.",
+                    "versionAdded": "v1_2_0"
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
+                },
+                "Manufacturer": {
+                    "description": "The processor manufacturer.",
+                    "longDescription": "This property shall contain a string that identifies the manufacturer of the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaxSpeedMHz": {
+                    "description": "The maximum clock speed of the processor.",
+                    "longDescription": "This property shall indicate the maximum rated clock speed of the processor in MHz.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz"
+                },
+                "MaxTDPWatts": {
+                    "description": "The maximum Thermal Design Power (TDP) in watts.",
+                    "longDescription": "This property shall contain the maximum Thermal Design Power (TDP) in watts.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "W",
+                    "versionAdded": "v1_4_0"
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
+                },
+                "MemorySummary": {
+                    "$ref": "#/definitions/MemorySummary",
+                    "description": "The summary of all memory associated with this processor.",
+                    "longDescription": "This property shall contain properties that describe the summary of all memory that are associated with this processor.",
+                    "versionAdded": "v1_11_0"
+                },
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.json#/definitions/ProcessorMetrics",
+                    "description": "The link to the metrics associated with this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type ProcessorMetrics that contains the metrics associated with this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "MinSpeedMHz": {
+                    "description": "The minimum clock speed of the processor in MHz.",
+                    "longDescription": "This property shall indicate the minimum rated clock speed of the processor in MHz.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz",
+                    "versionAdded": "v1_8_0"
+                },
+                "Model": {
+                    "description": "The product model number of this device.",
+                    "longDescription": "This property shall indicate the model information as provided by the manufacturer of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OperatingConfigs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfigCollection.json#/definitions/OperatingConfigCollection",
+                    "description": "The link to the collection operating configurations that can be applied to this processor.",
+                    "longDescription": "This property shall contain a link to a resource collection of type OperatingConfigCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "OperatingSpeedMHz": {
+                    "description": "Operating speed of the processor in MHz.",
+                    "longDescription": "This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor might change more frequently than the manager is able to monitor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz",
+                    "versionAdded": "v1_8_0"
+                },
+                "PartNumber": {
+                    "description": "The part number of the processor.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "ProcessorArchitecture": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ProcessorArchitecture"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The architecture of the processor.",
+                    "longDescription": "This property shall contain the string that identifies the architecture of the processor contained in this socket.",
+                    "readonly": true
+                },
+                "ProcessorId": {
+                    "$ref": "#/definitions/ProcessorId",
+                    "description": "The identification information for this processor.",
+                    "longDescription": "This object shall contain identification information for this processor."
+                },
+                "ProcessorMemory": {
+                    "description": "The memory directly attached or integrated within this processor.",
+                    "items": {
+                        "$ref": "#/definitions/ProcessorMemory"
+                    },
+                    "longDescription": "This property shall contain the memory directly attached or integrated within this processor.",
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ProcessorType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ProcessorType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of processor.",
+                    "longDescription": "This property shall contain the string that identifies the type of processor contained in this socket.",
+                    "readonly": true
+                },
+                "SerialNumber": {
+                    "description": "The serial number of the processor.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "Socket": {
+                    "description": "The socket or location of the processor.",
+                    "longDescription": "This property shall contain the string that identifies the physical location or socket of the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SparePartNumber": {
+                    "description": "The spare part number of the processor.",
+                    "longDescription": "This property shall contain the spare part number of the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
+                "SpeedLimitMHz": {
+                    "description": "The clock limit of the processor in MHz.",
+                    "longDescription": "This property shall contain the clock limit of the processor in MHz. This value shall be within the range of MinSpeedMHz and MaxSpeedMHz as provided by the manufacturer of this processor.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz",
+                    "versionAdded": "v1_10_0"
+                },
+                "SpeedLocked": {
+                    "description": "Indicates whether the clock speed of the processor is fixed at the value specified in the SpeedLimitMHz property.",
+                    "longDescription": "This property shall indicate whether the clock speed of the processor is fixed, where a value `true` shall indicate that the clock speed is fixed at the value specified in the SpeedLimitMHz property.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SubProcessors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection",
+                    "description": "The link to the collection of sub-processors associated with this system, such as cores or threads, that are part of a processor.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ProcessorCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "SystemInterface": {
+                    "$ref": "#/definitions/ProcessorInterface",
+                    "description": "The interface between the system and the processor.",
+                    "longDescription": "This property shall contain an object that describes the connectivity between the host system and the processor.",
+                    "versionAdded": "v1_8_0"
+                },
+                "TDPWatts": {
+                    "description": "The nominal Thermal Design Power (TDP) in watts.",
+                    "longDescription": "This property shall contain the nominal Thermal Design Power (TDP) in watts.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "W",
+                    "versionAdded": "v1_4_0"
+                },
+                "TotalCores": {
+                    "description": "The total number of cores that this processor contains.",
+                    "longDescription": "This property shall indicate the total count of independent processor cores contained within this processor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TotalEnabledCores": {
+                    "description": "The total number of enabled cores that this processor contains.",
+                    "longDescription": "This property shall indicate the total count of enabled independent processor cores contained within this processor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "TotalThreads": {
+                    "description": "The total number of execution threads that this processor supports.",
+                    "longDescription": "This property shall indicate the total count of independent execution threads that this processor supports.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TurboState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TurboState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the turbo for this processor.",
+                    "longDescription": "This property shall contain the state of turbo for this processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this processor.",
+                    "longDescription": "This property shall contain a universal unique identifier number for the processor.  RFC4122 describes methods to use to create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "Version": {
+                    "description": "The hardware version of the processor.",
+                    "longDescription": "This property shall contain the hardware version of the processor as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ProcessorArchitecture": {
+            "enum": [
+                "x86",
+                "IA-64",
+                "ARM",
+                "MIPS",
+                "Power",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "ARM": "ARM.",
+                "IA-64": "Intel Itanium.",
+                "MIPS": "MIPS.",
+                "OEM": "OEM-defined.",
+                "Power": "Power.",
+                "x86": "x86 or x86-64."
+            },
+            "enumVersionAdded": {
+                "Power": "v1_4_0"
+            },
+            "type": "string"
+        },
+        "ProcessorId": {
+            "additionalProperties": false,
+            "description": "The identification information for a processor.",
+            "longDescription": "This type shall contain identification information for a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EffectiveFamily": {
+                    "description": "The effective family for this processor.",
+                    "longDescription": "This property shall indicate the effective Family information as provided by the manufacturer of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "EffectiveModel": {
+                    "description": "The effective model for this processor.",
+                    "longDescription": "This property shall indicate the effective Model information as provided by the manufacturer of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "IdentificationRegisters": {
+                    "description": "The raw manufacturer-provided processor identification registers for this processor.",
+                    "longDescription": "This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MicrocodeInfo": {
+                    "description": "The microcode information for this processor.",
+                    "longDescription": "This property shall indicate the microcode information as provided by the manufacturer of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ProtectedIdentificationNumber": {
+                    "description": "The Protected Processor Identification Number (PPIN) for this processor.",
+                    "longDescription": "This property shall contain the Protected Processor Identification Number (PPIN) for this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
+                },
+                "Step": {
+                    "description": "The step value for this processor.",
+                    "longDescription": "This property shall indicate the Step or revision string information as provided by the manufacturer of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "VendorId": {
+                    "description": "The vendor identification for this processor.",
+                    "longDescription": "This property shall indicate the vendor Identification string information as provided by the manufacturer of this processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ProcessorInterface": {
+            "additionalProperties": false,
+            "description": "This type describes an interface between the system, or external connection, and the processor.",
+            "longDescription": "This type shall contain information about the system interface, or external connection, to the processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Ethernet": {
+                    "$ref": "#/definitions/EthernetInterface",
+                    "description": "The Ethernet-related information for this interface.",
+                    "longDescription": "This property shall contain an object the describes the Ethernet-related information for this interface.",
+                    "versionAdded": "v1_4_0"
+                },
+                "InterfaceType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SystemInterfaceType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The interface type.",
+                    "longDescription": "This property shall contain an enumerated value that describes the type of interface between the system, or external connection, and the processor.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "PCIe": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeInterface",
+                    "description": "The PCIe-related information for this interface.",
+                    "longDescription": "This property shall contain an object the describes the PCIe-related information for this interface.",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "ProcessorMemory": {
+            "additionalProperties": false,
+            "description": "This type describes the memory directly attached or integrated within a processor.",
+            "longDescription": "This type shall contain information about memory directly attached or integrated within a processor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CapacityMiB": {
+                    "description": "The memory capacity in MiB.",
+                    "longDescription": "This property shall contain the memory capacity in MiB.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_4_0"
+                },
+                "IntegratedMemory": {
+                    "description": "An indication of whether this memory is integrated within the processor.",
+                    "longDescription": "This property shall indicate whether this memory is integrated within the processor.  Otherwise, it is discrete memory attached to the processor.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MemoryType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ProcessorMemoryType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of memory used by this processor.",
+                    "longDescription": "This property shall contain a type of the processor memory type.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "SpeedMHz": {
+                    "description": "The operating speed of the memory in MHz.",
+                    "longDescription": "This property shall contain the operating speed of the memory in MHz.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "ProcessorMemoryType": {
+            "enum": [
+                "L1Cache",
+                "L2Cache",
+                "L3Cache",
+                "L4Cache",
+                "L5Cache",
+                "L6Cache",
+                "L7Cache",
+                "HBM1",
+                "HBM2",
+                "HBM3",
+                "SGRAM",
+                "GDDR",
+                "GDDR2",
+                "GDDR3",
+                "GDDR4",
+                "GDDR5",
+                "GDDR5X",
+                "GDDR6",
+                "DDR",
+                "DDR2",
+                "DDR3",
+                "DDR4",
+                "DDR5",
+                "SDRAM",
+                "SRAM",
+                "Flash",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "DDR": "Double data rate synchronous dynamic random-access memory.",
+                "DDR2": "Double data rate type two synchronous dynamic random-access memory.",
+                "DDR3": "Double data rate type three synchronous dynamic random-access memory.",
+                "DDR4": "Double data rate type four synchronous dynamic random-access memory.",
+                "DDR5": "Double data rate type five synchronous dynamic random-access memory.",
+                "Flash": "Flash memory.",
+                "GDDR": "Synchronous graphics random-access memory.",
+                "GDDR2": "Double data rate type two synchronous graphics random-access memory.",
+                "GDDR3": "Double data rate type three synchronous graphics random-access memory.",
+                "GDDR4": "Double data rate type four synchronous graphics random-access memory.",
+                "GDDR5": "Double data rate type five synchronous graphics random-access memory.",
+                "GDDR5X": "Double data rate type five X synchronous graphics random-access memory.",
+                "GDDR6": "Double data rate type six synchronous graphics random-access memory.",
+                "HBM1": "High Bandwidth Memory.",
+                "HBM2": "The second generation of High Bandwidth Memory.",
+                "HBM3": "The third generation of High Bandwidth Memory.",
+                "L1Cache": "L1 cache.",
+                "L2Cache": "L2 cache.",
+                "L3Cache": "L3 cache.",
+                "L4Cache": "L4 cache.",
+                "L5Cache": "L5 cache.",
+                "L6Cache": "L6 cache.",
+                "L7Cache": "L7 cache.",
+                "OEM": "OEM-defined.",
+                "SDRAM": "Synchronous dynamic random-access memory.",
+                "SGRAM": "Synchronous graphics RAM.",
+                "SRAM": "Static random-access memory."
+            },
+            "type": "string"
+        },
+        "ProcessorType": {
+            "enum": [
+                "CPU",
+                "GPU",
+                "FPGA",
+                "DSP",
+                "Accelerator",
+                "Core",
+                "Thread",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Accelerator": "An accelerator.",
+                "CPU": "A CPU.",
+                "Core": "A core in a processor.",
+                "DSP": "A DSP.",
+                "FPGA": "An FPGA.",
+                "GPU": "A GPU.",
+                "OEM": "An OEM-defined processing unit.",
+                "Thread": "A thread in a processor."
+            },
+            "enumVersionAdded": {
+                "Core": "v1_3_0",
+                "Thread": "v1_3_0"
+            },
+            "type": "string"
+        },
+        "Reset": {
+            "additionalProperties": false,
+            "description": "This action resets the processor.",
+            "longDescription": "This action shall reset the processor.",
+            "parameters": {
+                "ResetType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_6_0"
+        },
+        "SystemInterfaceType": {
+            "enum": [
+                "QPI",
+                "UPI",
+                "PCIe",
+                "Ethernet",
+                "AMBA",
+                "CCIX",
+                "CXL",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "AMBA": "The Arm Advanced Microcontroller Bus Architecture interface.",
+                "CCIX": "The Cache Coherent Interconnect for Accelerators interface.",
+                "CXL": "The Compute Express Link interface.",
+                "Ethernet": "An Ethernet interface.",
+                "OEM": "An OEM-defined interface.",
+                "PCIe": "A PCI Express interface.",
+                "QPI": "The Intel QuickPath Interconnect.",
+                "UPI": "The Intel UltraPath Interconnect."
+            },
+            "enumVersionAdded": {
+                "AMBA": "v1_8_0",
+                "CCIX": "v1_8_0",
+                "CXL": "v1_8_0"
+            },
+            "type": "string"
+        },
+        "TurboState": {
+            "enum": [
+                "Enabled",
+                "Disabled"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Turbo is disabled.",
+                "Enabled": "Turbo is enabled."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#Processor.v1_11_0.Processor"
+}

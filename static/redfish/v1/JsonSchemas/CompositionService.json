@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CompositionService.json",
+    "$ref": "#/definitions/CompositionService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "CompositionService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CompositionService.v1_0_5.json#/definitions/CompositionService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CompositionService.v1_1_3.json#/definitions/CompositionService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CompositionService.v1_2_0.json#/definitions/CompositionService"
+                }
+            ],
+            "deletable": false,
+            "description": "The CompositionService schema describes a composition service and its properties and links to the resources available for composition.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the composition service and its properties for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/CompositionService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#CompositionService.CompositionService"
+}

@@ -1,0 +1,46 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.json",
+    "$ref": "#/definitions/VirtualMedia",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "VirtualMedia": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_0_8.json#/definitions/VirtualMedia"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_1_6.json#/definitions/VirtualMedia"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_2_5.json#/definitions/VirtualMedia"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_3_3.json#/definitions/VirtualMedia"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_4_2.json#/definitions/VirtualMedia"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_5_1.json#/definitions/VirtualMedia"
+                }
+            ],
+            "deletable": false,
+            "description": "The VirtualMedia schema contains properties related to the monitor and control of an instance of virtual media, such as a remote CD, DVD, or USB device.  A manager for a system or device provides virtual media functionality.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a virtual media service for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Managers/{ManagerId}/VirtualMedia/{VirtualMediaId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#VirtualMedia.VirtualMedia"
+}

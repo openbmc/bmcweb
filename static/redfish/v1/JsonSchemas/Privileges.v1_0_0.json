@@ -1,0 +1,24 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_1_0.json",
+    "title": "#Privileges.v1_0_0",
+    "definitions": {
+        "PrivilegeType": {
+            "type": "string",
+            "enum": [
+                "Login",
+                "ConfigureManager",
+                "ConfigureUsers",
+                "ConfigureSelf",
+                "ConfigureComponents"
+            ],
+            "enumDescriptions": {
+                "Login": "Able to log into the service and read resources.",
+                "ConfigureManager": "Able to configure Manager resources.",
+                "ConfigureUsers": "Able to configure Users and their Accounts.",
+                "ConfigureSelf": "Able to change the password for the current user Account.",
+                "ConfigureComponents": "Able to configure components managed by this service."
+            }
+        }
+    },
+    "copyright": "Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}

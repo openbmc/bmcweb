@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  AllowDeny v1.0.0                                                  -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AllowDeny">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AllowDeny" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The AllowDeny schema represents a set of allow or deny configurations."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an AllowDeny resource in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AllowDeny.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="AllowDeny" BaseType="AllowDeny.AllowDeny">
+        <Property Name="Direction" Type="AllowDeny.v1_0_0.DataDirection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the direction of the data to which this permission applies."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the direction of the data to which this permission applies for this network device function."/>
+        </Property>
+        <Property Name="AllowType" Type="AllowDeny.v1_0_0.AllowType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the type of permission."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the type of permission."/>
+        </Property>
+        <Property Name="StatefulSession" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if this is a permission that only applies to stateful connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if this permission only applies to stateful connection, which are those using SYN, ACK, and FIN."/>
+        </Property>
+        <Property Name="IPAddressType" Type="AllowDeny.v1_0_0.IPAddressType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of IP address populated in the IPAddressLower and IPAddressUpper properties."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of IP address populated in the IPAddressLower and IPAddressUpper properties.  Services shall not permit mixing IPv6 and IPv4 addresses on the same resource."/>
+        </Property>
+        <Property Name="IPAddressLower" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The lower IP address to which this permission applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lower IP address to which this permission applies."/>
+        </Property>
+        <Property Name="IPAddressUpper" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The upper IP address to which this permission applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the upper IP address to which this permission applies."/>
+        </Property>
+        <Property Name="IANAProtocolNumber" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IANA protocol number to which this permission applies.  For TCP, this is `6`.  For UDP, this is `17`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IANA protocol number to which this permission applies."/>
+        </Property>
+        <Property Name="SourcePortLower" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TCP, UDP, or other source port to which this rule begins application, inclusive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCP, UDP, or other source port to which this rule begins application, inclusive."/>
+        </Property>
+        <Property Name="SourcePortUpper" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TCP, UDP or other source port to which this rule ends application, inclusive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCP, UDP, or other source port to which this rule ends application, inclusive."/>
+        </Property>
+        <Property Name="DestinationPortLower" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TCP, UDP, or other destination port to which this rule begins to application, inclusive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCP, UDP, or other destination port to which this rule begins application, inclusive."/>
+        </Property>
+        <Property Name="DestinationPortUpper" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TCP, UDP, or other destination port to which this rule ends application, inclusive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCP, UDP, or other destination port to which this rule ends application, inclusive."/>
+        </Property>
+        <Property Name="Actions" Type="AllowDeny.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="AllowDeny.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="IPAddressType">
+        <Member Name="IPv4">
+          <Annotation Term="OData.Description" String="IPv4 addressing is used for all IP-fields in this object."/>
+        </Member>
+        <Member Name="IPv6">
+          <Annotation Term="OData.Description" String="IPv6 addressing is used for all IP-fields in this object."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="AllowType">
+        <Member Name="Allow">
+          <Annotation Term="OData.Description" String="Indicates that traffic that matches the criteria in this resource shall be permitted."/>
+        </Member>
+        <Member Name="Deny">
+          <Annotation Term="OData.Description" String="Indicates that traffic that matches the criteria in this resource shall not be permitted."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="DataDirection">
+        <Member Name="Ingress">
+          <Annotation Term="OData.Description" String="Indicates that this limit is enforced on packets and bytes received by the network device function."/>
+        </Member>
+        <Member Name="Egress">
+          <Annotation Term="OData.Description" String="Indicates that this limit is enforced on packets and bytes transmitted by the network device function."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

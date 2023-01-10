@@ -1,0 +1,360 @@
+{
+    "$ref": "#/definitions/Assembly",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Assembly": {
+            "additionalProperties": false,
+            "description": "This is the schema definition for the Assembly properties.",
+            "longDescription": "This resource shall be used to represent an assembly information resource for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Assemblies": {
+                    "autoExpand": true,
+                    "description": "This is the definition for an assembly information record.",
+                    "items": {
+                        "$ref": "#/definitions/AssemblyData"
+                    },
+                    "longDescription": "These properties shall be the definition for assembly records  for a Redfish implementation.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Assemblies@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "AssemblyData": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/AssemblyDataActions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "BinaryDataURI": {
+                    "description": "URI that provides the ability to access an image of the assembly information.",
+                    "format": "uri",
+                    "longDescription": "The value of this property shall be a URI at which the Service provides for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME time application/octet-stream. An HTTP PUT to this URI, if supported by the Service, shall replace the binary image of the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "description": "Description of the Assembly.",
+                    "longDescription": "The value of this property shall be a description of this assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "EngineeringChangeLevel": {
+                    "description": "Engineering change level of the Assembly.",
+                    "longDescription": "The value of this property shall be the Engineering Change Level (ECL) or revision of the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MemberId": {
+                    "description": "This is the identifier for the member within the collection.",
+                    "longDescription": "The value of this string shall uniquely identify the member within the collection.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Model": {
+                    "description": "Model number of the Assembly.",
+                    "longDescription": "The value of this property shall be the name by which the manufacturer generally refers to the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "description": "Name of the Assembly.",
+                    "longDescription": "The value of this property shall be the name of the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "PartNumber": {
+                    "description": "Part number of the Assembly.",
+                    "longDescription": "The value of this property shall be the name of the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PhysicalContext": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext",
+                    "description": "Describes the area or device to which this assembly data applies.",
+                    "longDescription": "The value of this property shall be a description of the physical context for this assembly data.",
+                    "readonly": true
+                },
+                "Producer": {
+                    "description": "Producer or manufacturer of the Assembly.",
+                    "longDescription": "The value of this property shall be the name of the company which supplied or manufactured this assembly. This value shall be equal to the 'Manufacturer' field in a PLDM FRU structure, if applicable, for this assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ProductionDate": {
+                    "description": "Production date of the Assembly.",
+                    "format": "date-time",
+                    "longDescription": "The value of this property shall be the date of production or manufacture for this assembly.  The time of day portion of the property shall be '00:00:00Z' if the time of day is unknown.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SKU": {
+                    "description": "SKU of the Assembly.",
+                    "longDescription": "The value of this property shall be the name of the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number of this assembly.",
+                    "longDescription": "The value of this property shall be a manufacturer-allocated number used to identify the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SparePartNumber": {
+                    "description": "Spare part number of the Assembly.",
+                    "longDescription": "The value of this property shall be the name of the assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Vendor": {
+                    "description": "Vendor of the Assembly.",
+                    "longDescription": "The value of this property shall be the name of the company which provides the final product that includes this assembly. This value shall be equal to the 'Vendor' field in a PLDM FRU structure, if applicable, for this assembly.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Version": {
+                    "description": "Version of the Assembly.",
+                    "longDescription": "The value of this property shall be the version of the assembly as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "MemberId"
+            ],
+            "type": "object"
+        },
+        "AssemblyDataActions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/AssemblyDataOemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AssemblyDataOemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Assembly.v1_2_0.Assembly"
+}

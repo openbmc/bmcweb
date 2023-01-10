@@ -1,0 +1,215 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/BatteryMetrics.v1_0_0.json",
+    "$ref": "#/definitions/BatteryMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "BatteryMetrics": {
+            "additionalProperties": false,
+            "description": "The BatteryMetrics schema contains definitions for the metrics of a battery unit.",
+            "longDescription": "This resource shall be used to represent the metrics of a battery unit for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "CellVoltages": {
+                    "description": "The cell voltage readings for this battery.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                    },
+                    "longDescription": "This property shall contain the cell voltage sensors for this battery.",
+                    "type": "array"
+                },
+                "CellVoltages@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ChargePercent": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt",
+                    "description": "The amount of charge available in this battery as a percentage.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the amount of charge available in this battery as a percentage."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DischargeCycles": {
+                    "description": "The number of discharges this battery sustained.",
+                    "longDescription": "This property shall contain the number of discharges this battery sustained.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InputCurrentAmps": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt",
+                    "description": "The input current reading for this battery.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the input current sensor for this battery."
+                },
+                "InputVoltage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt",
+                    "description": "The input voltage reading for this battery.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the input voltage sensor for this battery."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OutputCurrentAmps": {
+                    "description": "The output current readings for this battery.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                    },
+                    "longDescription": "This property shall contain the output current sensors for this battery.  The sensors shall appear in the same array order as the OutputVoltages property.",
+                    "type": "array"
+                },
+                "OutputCurrentAmps@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "OutputVoltages": {
+                    "description": "The output voltage readings for this battery.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                    },
+                    "longDescription": "This property shall contain the output voltage sensors for this battery.  The sensors shall appear in the same array order as the OutputCurrentAmps property.",
+                    "type": "array"
+                },
+                "OutputVoltages@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "StoredChargeAmpHours": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt",
+                    "description": "The charge stored in this battery in amp-hours.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the charge sensor for this battery in amp-hours."
+                },
+                "StoredEnergyWattHours": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt",
+                    "description": "The energy stored in this battery in watt-hours.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the energy sensor for this battery in watt-hours."
+                },
+                "TemperatureCelsius": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt",
+                    "description": "The temperature reading for this battery.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the temperature sensor for this battery."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.2",
+    "title": "#BatteryMetrics.v1_0_0.BatteryMetrics"
+}

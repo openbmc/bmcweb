@@ -1,0 +1,30 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SecureBootDatabase.json",
+    "$ref": "#/definitions/SecureBootDatabase",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SecureBootDatabase": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SecureBootDatabase.v1_0_1.json#/definitions/SecureBootDatabase"
+                }
+            ],
+            "deletable": false,
+            "description": "The SecureBootDatabase schema describes a UEFI Secure Boot database used to store certificates or hashes.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent a UEFI Secure Boot database for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#SecureBootDatabase.SecureBootDatabase"
+}

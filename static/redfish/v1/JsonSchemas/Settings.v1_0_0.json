@@ -1,0 +1,59 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_1_0.json",
+    "title": "#Settings.v1_0_0",
+    "definitions": {
+        "Settings": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "Time": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time",
+                    "readonly": true,
+                    "description": "Indicates the time the settings were applied.",
+                    "longDescription": "The value of this property shall indicate the time that the settings object was applied to the resource."
+                },
+                "ETag": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The ETag of the resource to which the settings were applied, after the application.",
+                    "longDescription": "The value of this property shall be the ETag of the resource to which the settings were applied, after the application.  This is here so that the client can check it against the ETag of the current resource to see if any other changes have also happened to the resource."
+                },
+                "Messages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Message.json#/definitions/Message"
+                    },
+                    "readonly": true,
+                    "description": "This is an array of messages associated with the task.",
+                    "longDescription": "The value of this property shall be an array of messages associated with the task."
+                },
+                "SettingsObject": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/idRef",
+                    "description": "Reference to the resource the client may PUT/PATCH to in order to change this resource.",
+                    "longDescription": "The value of this property shall be the URI of the resource to which a client must do a PUT or PATCh in order to modify this resource."
+                }
+            }
+        }
+    },
+    "copyright": "Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}

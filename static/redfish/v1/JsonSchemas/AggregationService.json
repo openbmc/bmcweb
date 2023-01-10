@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationService.json",
+    "$ref": "#/definitions/AggregationService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AggregationService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AggregationService.v1_0_1.json#/definitions/AggregationService"
+                }
+            ],
+            "deletable": false,
+            "description": "The AggregationService schema contains properties for managing aggregation operations, either on ad hoc combinations of resources or on defined sets of resources called aggregates.  Access points define the properties needed to access the entity being aggregated and connection methods describe the protocol or other semantics of the connection.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an aggregation service for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/AggregationService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#AggregationService.AggregationService"
+}

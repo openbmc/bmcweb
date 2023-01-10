@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  RegisteredClient v1.0.0                                             -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RegisteredClient">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="RegisteredClient" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The RegisteredClient schema defines the record format for a registered client.  It is designed to allow well behaved clients to register with a Redfish service such that other clients are aware the service might be configured or monitored by the client."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a registered client  for a Redfish implementation.  It is not expected that transient tools, such as a short lived CLI tool, register.  Clients and management tools that live for long periods of time can create RegisteredClient resources so that other clients are aware the service might be configured or monitored by the client."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/RegisteredClients/{RegisteredClientId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RegisteredClient.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+
+      <EntityType Name="RegisteredClient" BaseType="RegisteredClient.RegisteredClient">
+        <Property Name="CreatedDate" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the client entry was created."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the client entry was created."/>
+        </Property>
+        <Property Name="ExpirationDate" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The date and time when the client entry will expire."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the client entry expires.  Registered clients that are actively managing or monitoring should periodically update this value.  The value should not be more than 7 days after the date when it was last set.  If the current date is beyond this date, the service may delete this client entry."/>
+        </Property>
+        <Property Name="ClientURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI of the registered client."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the registered client."/>
+        </Property>
+        <Property Name="ClientType" Type="RegisteredClient.v1_0_0.ClientType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of registered client."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of registered client."/>
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </Property>
+        <Property Name="ManagedResources" Type="Collection(RegisteredClient.v1_0_0.ManagedResource)">
+          <Annotation Term="OData.Description" String="An array of resources that the registered client monitors or configures."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of resources that the registered client monitors or configures.  Other clients can use this property to understand which resources are monitored or configured by the registered client."/>
+        </Property>
+        <Property Name="Actions" Type="RegisteredClient.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ClientType">
+        <Member Name="Monitor">
+          <Annotation Term="OData.Description" String="The registered client only performs read operations on this service."/>
+        </Member>
+        <Member Name="Configure">
+          <Annotation Term="OData.Description" String="The registered client performs update, create, and delete operations on the resources listed in the ManagedResources property as well as read operations on the service."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="ManagedResource">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A resource managed by a client."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain information about a resource managed by a client.  The managed resource may specify subordinate resources."/>
+        <Property Name="ManagedResourceURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI of the resource or resource collection managed by the registered client."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Redfish resource or Redfish resource collection managed by the registered client.  When the URI references a resource collection, all members of the resource collection may be monitored or configured by the client, and the IncludesSubordinates property shall contain `true`."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="PreferExclusive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the registered client expects to have exclusive access to the managed resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the registered client expects to have exclusive access to the managed resource referenced by the ManagedResourceURI property, and its subordinate resources if IncludesSubordinates contains `true`.  If not specified, the value is assumed to be `false`."/>
+        </Property>
+        <Property Name="IncludesSubordinates" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the subordinate resources of the managed resource are also managed by the registered client."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the subordinate resources of the managed resource referenced by the ManagedResourceURI property are also managed by the registered client.  If not specified, the value is assumed to be `false` unless ManagedResourceURI references a resource collection."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="RegisteredClient.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

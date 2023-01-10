@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerDomain.json",
+    "$ref": "#/definitions/PowerDomain",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerDomain": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDomain.v1_0_1.json#/definitions/PowerDomain"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDomain.v1_1_0.json#/definitions/PowerDomain"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDomain.v1_2_0.json#/definitions/PowerDomain"
+                }
+            ],
+            "deletable": true,
+            "description": "The PowerDomain schema contains definition for the DCIM power domain.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent a DCIM power domain for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Facilities/{FacilityId}/PowerDomains/{PowerDomainId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PowerDomain.PowerDomain"
+}

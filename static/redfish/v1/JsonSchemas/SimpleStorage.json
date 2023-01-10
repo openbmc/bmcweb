@@ -1,0 +1,41 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.json",
+    "$ref": "#/definitions/SimpleStorage",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SimpleStorage": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.v1_0_8.json#/definitions/SimpleStorage"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.v1_1_6.json#/definitions/SimpleStorage"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.v1_2_4.json#/definitions/SimpleStorage"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.v1_3_1.json#/definitions/SimpleStorage"
+                }
+            ],
+            "deletable": false,
+            "description": "The SimpleStorage schema represents the properties of a storage controller and its directly-attached devices.",
+            "insertable": false,
+            "longDescription": "This Resource contains a storage controller and its directly-attached devices.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/SimpleStorage/{SimpleStorageId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/SimpleStorage/{SimpleStorageId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#SimpleStorage.SimpleStorage"
+}

@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapterMetrics.json",
+    "$ref": "#/definitions/NetworkAdapterMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "NetworkAdapterMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapterMetrics.v1_0_0.json#/definitions/NetworkAdapterMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "The NetworkAdapterMetrics schema contains usage and health statistics for a network adapter.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the network metrics for a single network adapter in a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Metrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#NetworkAdapterMetrics.NetworkAdapterMetrics"
+}

@@ -1,0 +1,500 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_3.json",
+    "$ref": "#/definitions/UpdateService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#UpdateService.SimpleUpdate": {
+                    "$ref": "#/definitions/SimpleUpdate"
+                },
+                "#UpdateService.StartUpdate": {
+                    "$ref": "#/definitions/StartUpdate"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "ApplyTime": {
+            "enum": [
+                "Immediate",
+                "OnReset",
+                "AtMaintenanceWindowStart",
+                "InMaintenanceWindowOnReset"
+            ],
+            "enumDescriptions": {
+                "AtMaintenanceWindowStart": "Apply during an administrator-specified maintenance window.",
+                "Immediate": "Apply immediately.",
+                "InMaintenanceWindowOnReset": "Apply after a reset but within an administrator-specified maintenance window.",
+                "OnReset": "Apply on a reset."
+            },
+            "enumLongDescriptions": {
+                "AtMaintenanceWindowStart": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service might perform resets during this maintenance window.",
+                "Immediate": "This value shall indicate the HttpPushUri-provided software is applied immediately.",
+                "InMaintenanceWindowOnReset": "This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window.",
+                "OnReset": "This value shall indicate the HttpPushUri-provided software is applied when the system or service is reset."
+            },
+            "type": "string"
+        },
+        "HttpPushUriApplyTime": {
+            "additionalProperties": false,
+            "description": "The settings for when to apply HttpPushUri-provided software.",
+            "longDescription": "The properties in this object shall contain settings for when to apply HttpPushUri-provided software.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ApplyTime": {
+                    "$ref": "#/definitions/ApplyTime",
+                    "description": "The time when to apply the HttpPushUri-provided software update.",
+                    "longDescription": "This property shall indicate the time when to apply the HttpPushUri-provided software update.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                },
+                "MaintenanceWindowDurationInSeconds": {
+                    "description": "The expiry time, in seconds, of the maintenance window.",
+                    "longDescription": "This property shall indicate the end of the maintenance window as the number of seconds after the time specified by the MaintenanceWindowStartTime property.  This property shall be required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "s",
+                    "versionAdded": "v1_4_0"
+                },
+                "MaintenanceWindowStartTime": {
+                    "description": "The start time of a maintenance window.",
+                    "format": "date-time",
+                    "longDescription": "This property shall indicate the date and time when the service can start to apply the HttpPushUri-provided software as part of a maintenance window.  This property shall be required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "HttpPushUriOptions": {
+            "additionalProperties": false,
+            "description": "The settings for HttpPushUri-provided software updates.",
+            "longDescription": "The properties in this object shall contain settings and requirements of the service for HttpPushUri-provided software updates.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "HttpPushUriApplyTime": {
+                    "$ref": "#/definitions/HttpPushUriApplyTime",
+                    "description": "The settings for when to apply HttpPushUri-provided firmware.",
+                    "longDescription": "This property shall contain settings for when to apply HttpPushUri-provided firmware.",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SimpleUpdate": {
+            "additionalProperties": false,
+            "description": "This action updates software components.",
+            "longDescription": "This action shall update installed software components in a software image file located at an ImageURI parameter-specified URI.",
+            "parameters": {
+                "ImageURI": {
+                    "description": "The URI of the software image to install.",
+                    "longDescription": "This parameter shall contain an RFC3986-defined URI that links to a software image that the update service retrieves to install software in that image.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to get the image.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Password": {
+                    "description": "The password to access the URI specified by the ImageURI parameter.",
+                    "longDescription": "This parameter shall represent the password to access the URI specified by the ImageURI parameter.",
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "Targets": {
+                    "description": "An array of URIs that indicate where to apply the update image.",
+                    "format": "uri-reference",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This array property shall contain zero or more URIs that indicate where to apply the update image.  These targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "TransferProtocol": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "The network protocol that the update service uses to retrieve the software image file located at the URI provided in ImageURI.  This parameter is ignored if the URI provided in ImageURI contains a scheme.",
+                    "longDescription": "This parameter shall contain the network protocol that the update service shall use to retrieve the software image located at the ImageURI.  Services should ignore this parameter if the URI provided in ImageURI contains a scheme.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the image."
+                },
+                "Username": {
+                    "description": "The user name to access the URI specified by the ImageURI parameter.",
+                    "longDescription": "This parameter shall represent the user name to access the URI specified by the ImageURI parameter.",
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "StartUpdate": {
+            "additionalProperties": false,
+            "description": "This action starts an update of software components.",
+            "longDescription": "This action shall start an update of software component that have been scheduled with the OperationApplyTime value of `OnStartUpdateRequest`.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_7_0"
+        },
+        "TransferProtocolType": {
+            "enum": [
+                "CIFS",
+                "FTP",
+                "SFTP",
+                "HTTP",
+                "HTTPS",
+                "NSF",
+                "SCP",
+                "TFTP",
+                "OEM",
+                "NFS"
+            ],
+            "enumDeprecated": {
+                "NSF": "This value has been deprecated in favor of NFS."
+            },
+            "enumDescriptions": {
+                "CIFS": "Common Internet File System (CIFS).",
+                "FTP": "File Transfer Protocol (FTP).",
+                "HTTP": "Hypertext Transfer Protocol (HTTP).",
+                "HTTPS": "Hypertext Transfer Protocol Secure (HTTPS).",
+                "NFS": "Network File System (NFS).",
+                "NSF": "Network File System (NFS).",
+                "OEM": "A manufacturer-defined protocol.",
+                "SCP": "Secure Copy Protocol (SCP).",
+                "SFTP": "Secure File Transfer Protocol (SFTP).",
+                "TFTP": "Trivial File Transfer Protocol (TFTP)."
+            },
+            "enumVersionAdded": {
+                "NFS": "v1_3_0",
+                "SFTP": "v1_1_0"
+            },
+            "enumVersionDeprecated": {
+                "NSF": "v1_3_0"
+            },
+            "type": "string"
+        },
+        "UpdateParameters": {
+            "additionalProperties": false,
+            "description": "The update parameters used with MultipartHttpPushUri software update.",
+            "longDescription": "This type shall contain the update parameters when passing the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_8_0"
+                },
+                "Targets": {
+                    "description": "An array of URIs that indicate where to apply the update image.",
+                    "format": "uri-reference",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                }
+            },
+            "type": "object"
+        },
+        "UpdateService": {
+            "additionalProperties": false,
+            "description": "The UpdateService schema describes the update service and the properties for the service itself with links to collections of firmware and software inventory.  The update service also provides methods for updating software and firmware of the resources in a Redfish service.",
+            "longDescription": "This resource shall represent an update service and the properties that affect the service itself for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FirmwareInventory": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection.json#/definitions/SoftwareInventoryCollection",
+                    "description": "An inventory of firmware.",
+                    "longDescription": "This property shall contain a link to a resource collection of type SoftwareInventoryCollection.  The resource collection should contain the set of software components generally referred to as platform firmware or that does not execute within a host operating system.  Software in this collection is generally updated using platform-specific methods or utilities.",
+                    "readonly": true
+                },
+                "HttpPushUri": {
+                    "description": "The URI used to perform an HTTP or HTTPS push update to the update service.  The format of the message is vendor-specific.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI at which the update service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the update service.  If the service requires the `Content-Length` header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "HttpPushUriOptions": {
+                    "$ref": "#/definitions/HttpPushUriOptions",
+                    "description": "The options for HttpPushUri-provided software updates.",
+                    "longDescription": "This property shall contain options and requirements of the service for HttpPushUri-provided software updates.",
+                    "versionAdded": "v1_4_0"
+                },
+                "HttpPushUriOptionsBusy": {
+                    "description": "An indication of whether a client has reserved the HttpPushUriOptions properties for software updates.",
+                    "longDescription": "This property shall indicate whether a client uses the HttpPushUriOptions properties for software updates.  When a client uses any HttpPushUriOptions properties for software updates, it should set this property to `true`.  When a client no longer uses HttpPushUriOptions properties for software updates, it should set this property to `false`.  This property can provide multiple clients a way to negotiate ownership of HttpPushUriOptions properties.  Clients can use this property to determine whether another client uses HttpPushUriOptions properties for software updates.  This property has no functional requirements for the service.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "HttpPushUriTargets": {
+                    "description": "An array of URIs that indicate where to apply the update image.",
+                    "format": "uri-reference",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the HttpPushUri property to push a software image.  These targets should correspond to SoftwareInventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "HttpPushUriTargetsBusy": {
+                    "description": "An indication of whether any client has reserved the HttpPushUriTargets property.",
+                    "longDescription": "This property shall indicate whether any client has reserved the HttpPushUriTargets property for firmware updates.  A client should set this property to `true` when it uses HttpPushUriTargets for firmware updates.  A client should set it to `false` when it is no longer uses HttpPushUriTargets for updates.  The property can provide multiple clients a way to negotiate ownership of HttpPushUriTargets and helps clients determine whether another client is using HttpPushUriTargets to make firmware updates.  This property has no functional requirements for the service.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MaxImageSizeBytes": {
+                    "description": "The maximum size in bytes of the software update image that this service supports.",
+                    "longDescription": "This property shall indicate the maximum size of the software update image that clients can send to this update service.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By",
+                    "versionAdded": "v1_5_0"
+                },
+                "MultipartHttpPushUri": {
+                    "description": "The URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS push update to the update service.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_6_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SoftwareInventory": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection.json#/definitions/SoftwareInventoryCollection",
+                    "description": "An inventory of software.",
+                    "longDescription": "This property shall contain a link to a resource collection of type SoftwareInventoryCollection.  The resource collection should contain the set of software components executed in the context of a host operating system.  This can include device drivers, applications, or offload workloads.  Software in this collection is generally updated using operating system-centric methods.",
+                    "readonly": true
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2019.4",
+    "title": "#UpdateService.v1_8_3.UpdateService"
+}

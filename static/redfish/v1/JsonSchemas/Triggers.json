@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.json",
+    "$ref": "#/definitions/Triggers",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Triggers": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_0_6.json#/definitions/Triggers"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_1_4.json#/definitions/Triggers"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_2_0.json#/definitions/Triggers"
+                }
+            ],
+            "deletable": true,
+            "description": "The Triggers schema describes a trigger that applies to metrics.",
+            "insertable": false,
+            "longDescription": "This resource shall contain a trigger that applies to metrics.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/TelemetryService/Triggers/{TriggersId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Triggers.Triggers"
+}

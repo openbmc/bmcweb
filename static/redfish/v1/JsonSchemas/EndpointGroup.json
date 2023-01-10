@@ -1,0 +1,66 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.json",
+    "$ref": "#/definitions/EndpointGroup",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AccessState": {
+            "description": "Describes the options for the access characteristics of an endpoint.",
+            "enum": [
+                "Optimized",
+                "NonOptimized",
+                "Standby",
+                "Unavailable",
+                "Transitioning"
+            ],
+            "enumDescriptions": {
+                "NonOptimized": "The endpoints are in an active and non-optimized state.",
+                "Optimized": "The endpoints are in an active and optimized state.",
+                "Standby": "The endpoints are in a standby state.",
+                "Transitioning": "The endpoints are transitioning to a new state.",
+                "Unavailable": "The endpoints are in an unavailable state."
+            },
+            "enumLongDescriptions": {
+                "NonOptimized": "This value shall indicate each endpoint is in an active and non-optimized state.",
+                "Optimized": "This value shall indicate each endpoint is in an active and optimized state.",
+                "Standby": "This value shall indicate each endpoint is in a standby state.",
+                "Transitioning": "This value shall indicate each endpoint is transitioning to a new state.",
+                "Unavailable": "This value shall indicate each endpoint is in an unavailable state."
+            },
+            "longDescription": "This type shall describe the access to all associated resources through all aggregated endpoints.",
+            "type": "string"
+        },
+        "EndpointGroup": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.v1_0_5.json#/definitions/EndpointGroup"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.v1_1_6.json#/definitions/EndpointGroup"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.v1_2_4.json#/definitions/EndpointGroup"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.v1_3_2.json#/definitions/EndpointGroup"
+                }
+            ],
+            "deletable": true,
+            "description": "The EndpointGroup schema describes group of endpoints that are managed as a unit.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a group of endpoints that are managed as a unit for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Storage/{StorageId}/EndpointGroups/{EndpointGroupId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/EndpointGroups/{EndpointGroupId}",
+                "/redfish/v1/StorageServices/{StorageServiceId}/EndpointGroups/{EndpointGroupId}",
+                "/redfish/v1/Fabrics/{FabricId}/EndpointGroups/{EndpointGroupId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#EndpointGroup.EndpointGroup"
+}

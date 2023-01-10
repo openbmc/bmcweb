@@ -1,0 +1,63 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.json",
+    "$ref": "#/definitions/VLanNetworkInterface",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "VLAN": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_0_9.json#/definitions/VLAN"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_1_5.json#/definitions/VLAN"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_2_0.json#/definitions/VLAN"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_3_0.json#/definitions/VLAN"
+                }
+            ],
+            "description": "The attributes of a VLAN.",
+            "longDescription": "This type shall contain any attributes of a VLAN."
+        },
+        "VLanNetworkInterface": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_0_9.json#/definitions/VLanNetworkInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_1_5.json#/definitions/VLanNetworkInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_2_0.json#/definitions/VLanNetworkInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_3_0.json#/definitions/VLanNetworkInterface"
+                }
+            ],
+            "deletable": true,
+            "deprecated": "This schema has been deprecated in favor of using individual EthernetInterface resources to show VLAN information.",
+            "description": "The VLanNetworkInterface schema describes a VLAN network instance that is available on a manager, system, or other device.",
+            "insertable": false,
+            "longDescription": "This resource contains information for a VLAN network instance that is available on a manager, system, or other device for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/Ethernet/VLANs/{VLanNetworkInterfaceId}",
+                "/redfish/v1/Managers/{ManagerId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}/VLANs/{VLanNetworkInterfaceId}"
+            ],
+            "versionDeprecated": "v1_3_0"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#VLanNetworkInterface.VLanNetworkInterface"
+}

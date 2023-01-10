@@ -1,0 +1,117 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Outlet.json",
+    "$ref": "#/definitions/Outlet",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Outlet": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_0_3.json#/definitions/Outlet"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_1_2.json#/definitions/Outlet"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_2_1.json#/definitions/Outlet"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_3_1.json#/definitions/Outlet"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.v1_4_0.json#/definitions/Outlet"
+                }
+            ],
+            "deletable": false,
+            "description": "The Outlet schema contains definition for an electrical outlet.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent an electrical outlet for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Outlets/{OutletId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Outlets/{OutletId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Outlets/{OutletId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Outlets/{OutletId}",
+                "/redfish/v1/PowerEquipment/ElectricalBuses/{PowerDistributionId}/Outlets/{OutletId}"
+            ]
+        },
+        "PowerState": {
+            "enum": [
+                "On",
+                "Off",
+                "PowerCycle"
+            ],
+            "enumDescriptions": {
+                "Off": "Power off.",
+                "On": "Power on.",
+                "PowerCycle": "Power cycle."
+            },
+            "enumLongDescriptions": {
+                "PowerCycle": "This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."
+            },
+            "enumVersionAdded": {
+                "PowerCycle": "v1_4_0"
+            },
+            "type": "string"
+        },
+        "ReceptacleType": {
+            "enum": [
+                "NEMA_5_15R",
+                "NEMA_5_20R",
+                "NEMA_L5_20R",
+                "NEMA_L5_30R",
+                "NEMA_L6_20R",
+                "NEMA_L6_30R",
+                "IEC_60320_C13",
+                "IEC_60320_C19",
+                "CEE_7_Type_E",
+                "CEE_7_Type_F",
+                "SEV_1011_TYPE_12",
+                "SEV_1011_TYPE_23",
+                "BS_1363_Type_G",
+                "BusConnection"
+            ],
+            "enumDescriptions": {
+                "BS_1363_Type_G": "BS 1363 Type G (250V; 13A).",
+                "BusConnection": "Electrical bus connection.",
+                "CEE_7_Type_E": "CEE 7/7 Type E (250V; 16A).",
+                "CEE_7_Type_F": "CEE 7/7 Type F (250V; 16A).",
+                "IEC_60320_C13": "IEC C13 (250V; 10A or 15A).",
+                "IEC_60320_C19": "IEC C19 (250V; 16A or 20A).",
+                "NEMA_5_15R": "NEMA 5-15R (120V; 15A).",
+                "NEMA_5_20R": "NEMA 5-20R (120V; 20A).",
+                "NEMA_L5_20R": "NEMA L5-20R (120V; 20A).",
+                "NEMA_L5_30R": "NEMA L5-30R (120V; 30A).",
+                "NEMA_L6_20R": "NEMA L6-20R (250V; 20A).",
+                "NEMA_L6_30R": "NEMA L6-30R (250V; 30A).",
+                "SEV_1011_TYPE_12": "SEV 1011 Type 12 (250V; 10A).",
+                "SEV_1011_TYPE_23": "SEV 1011 Type 23 (250V; 16A)."
+            },
+            "enumLongDescriptions": {
+                "BS_1363_Type_G": "This value shall represent a receptacle that matches the British BS 1363 Type G receptacle (250V; 13A).",
+                "BusConnection": "This value shall represent a direct connection to an electrical bus.",
+                "CEE_7_Type_E": "This value shall represent a receptacle that matches the French specified CEE 7/7 Type E receptacle (250V; 16A).",
+                "CEE_7_Type_F": "This value shall represent a receptacle that matches the Schuko specified CEE 7/7 Type F receptacle (250V; 16A).",
+                "IEC_60320_C13": "This value shall represent a receptacle that matches the IEC 60320 Sheet F C13 specified receptacle (250V; 10A per IEC, 15A per UL).",
+                "IEC_60320_C19": "This value shall represent a receptacle that matches the IEC 60320 Sheet J C19 specified receptacle (250V; 16A per IEC, 20A per UL).",
+                "NEMA_5_15R": "This value shall represent a receptacle that matches the NEMA specified 5-15 receptacle (120V; 15A).  The current is commonly de-rated to 12A if it is protected by a 15A breaker.",
+                "NEMA_5_20R": "This value shall represent a receptacle that matches the NEMA specified 5-20 receptacle that exhibits a T-slot (120V; 20A).  The current is commonly de-rated to 16A if it is protected by a 20A breaker.",
+                "NEMA_L5_20R": "This value shall represent a receptacle that matches the NEMA specified locking L5-20 receptacle (120V; 20A).  The current is commonly de-rated to 16A if it is protected by a 20A breaker.",
+                "NEMA_L5_30R": "This value shall represent a receptacle that matches the NEMA specified locking L5-30 receptacle (120V; 30A).  The current is commonly de-rated to 24A if it is protected by a 30A breaker.",
+                "NEMA_L6_20R": "This value shall represent a receptacle that matches the NEMA specified locking L6-20 receptacle (250V; 20A).  The current is commonly de-rated to 16A if it is protected by a 20A breaker.",
+                "NEMA_L6_30R": "This value shall represent a receptacle that matches the NEMA specified locking L6-30 receptacle (250V; 30A).  The current is commonly de-rated to 24A if it is protected by a 30A breaker.",
+                "SEV_1011_TYPE_12": "This value shall represent a receptacle that matches the SEV 1011 specified Type 12 receptacle (250V; 10A).",
+                "SEV_1011_TYPE_23": "This value shall represent a receptacle that matches the SEV 1011 specified Type 23 receptacle (250V; 16A)."
+            },
+            "enumVersionAdded": {
+                "BusConnection": "v1_3_0"
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Outlet.Outlet"
+}

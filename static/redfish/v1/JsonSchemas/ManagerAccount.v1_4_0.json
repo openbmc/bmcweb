@@ -1,0 +1,388 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_4_0.json",
+    "$ref": "#/definitions/ManagerAccount",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AccountTypes": {
+            "enum": [
+                "Redfish",
+                "SNMP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "OEM": "OEM account type.",
+                "Redfish": "Allow access to the Redfish Service.",
+                "SNMP": "Allow access to SNMP services."
+            },
+            "type": "string"
+        },
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Role": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "The link to the Redfish Role that defines the privileges for this account.",
+                    "longDescription": "This property shall contain a link to a Role Resource instance, and should link to the Resource identified by the RoleId property.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "ManagerAccount": {
+            "additionalProperties": false,
+            "description": "The user accounts, owned by a manager, are defined in this Resource.  Changes to a manager account may affect the current Redfish Service connection if this manager is responsible for the Redfish Service.",
+            "longDescription": "This Resource shall represent Resources that represent the user accounts for the manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "AccountTypes": {
+                    "description": "The account types.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/AccountTypes"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array with the single value `Redfish`.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "The actions property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates used for this account.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type CertificateCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Enabled": {
+                    "description": "An indication of whether an account is enabled.  An administrator can disable it without deleting the user information.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.  This property overrides the Locked property.",
+                    "longDescription": "This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.  This property overrides the Locked property.",
+                    "readonly": false,
+                    "type": "boolean"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "This property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."
+                },
+                "Locked": {
+                    "description": "An indication of whether the Account Service automatically locked the account because the lockout threshold was exceeded.  To manually unlock the account before the lockout duration period, an administrator can change the property to `false` to clear the lockout condition.",
+                    "longDescription": "This property shall indicate whether the Account Service automatically locked the account because the AccountLockoutThreshold was exceeded.  To manually unlock the account before the lockout duration period, an administrator shall be able to change the property to `false` to clear the lockout condition.",
+                    "readonly": false,
+                    "type": "boolean"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "OEMAccountTypes": {
+                    "description": "The OEM account types.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the OEM account types for this account.  This property shall be valid when AccountTypes contains `OEM`.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Password": {
+                    "description": "The password.  Use this property with a PATCH or PUT to write the password for the account.  This property is `null` in responses.",
+                    "longDescription": "This property shall contain the password for this account.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PasswordChangeRequired": {
+                    "description": "An indication of whether the service requires that the password for this account be changed before further access to the account is allowed.",
+                    "longDescription": "This property shall indicate whether the service requires that the password for this account be changed before further access to the account is allowed.  The implementation may deny access to the service if the password has not been changed.  A manager account created with an initial PasswordChangeRequired value of `true` may force a password change before first access of the account.  When the Password property for this account is updated, the service shall set this property to `false`.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "RoleId": {
+                    "description": "The Role for this account.",
+                    "longDescription": "This property shall contain the RoleId of the Role Resource configured for this account.  The Service shall reject POST, PATCH, or PUT operations that provide a RoleId that does not exist by returning the HTTP 400 (Bad Request) status code.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "SNMP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPUserInfo"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The SNMP settings for this account.",
+                    "longDescription": "This property shall contain the SNMP settings for this account when AccountTypes contains `SNMP`.",
+                    "versionAdded": "v1_4_0"
+                },
+                "UserName": {
+                    "description": "The user name for the account.",
+                    "longDescription": "This property shall contain the user name for this account.",
+                    "readonly": false,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name",
+                "AccountTypes"
+            ],
+            "requiredOnCreate": [
+                "Password",
+                "UserName",
+                "RoleId"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SNMPAuthenticationProtocols": {
+            "enum": [
+                "None",
+                "HMAC_MD5",
+                "HMAC_SHA96"
+            ],
+            "enumDescriptions": {
+                "HMAC_MD5": "HMAC-MD5-96 authentication.",
+                "HMAC_SHA96": "HMAC-SHA-96 authentication.",
+                "None": "No authentication."
+            },
+            "enumLongDescriptions": {
+                "HMAC_MD5": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
+                "HMAC_SHA96": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol.",
+                "None": "This value shall indicate authentication is not required."
+            },
+            "type": "string"
+        },
+        "SNMPEncryptionProtocols": {
+            "enum": [
+                "None",
+                "CBC_DES",
+                "CFB128_AES128"
+            ],
+            "enumDescriptions": {
+                "CBC_DES": "CBC-DES encryption.",
+                "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "None": "No encryption."
+            },
+            "enumLongDescriptions": {
+                "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "None": "This value shall indicate there is no encryption."
+            },
+            "type": "string"
+        },
+        "SNMPUserInfo": {
+            "additionalProperties": false,
+            "description": "The SNMP settings for an account.",
+            "longDescription": "This object shall contain the SNMP settings for an account.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.",
+                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "AuthenticationProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPAuthenticationProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 authentication protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                },
+                "EncryptionKey": {
+                    "description": "The secret authentication key used in SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.",
+                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "EncryptionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPEncryptionProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The encryption protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 encryption protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2019.3",
+    "title": "#ManagerAccount.v1_4_0.ManagerAccount"
+}

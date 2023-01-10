@@ -1,0 +1,254 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PortMetrics.v1_0_1.json",
+    "$ref": "#/definitions/PortMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "GenZ": {
+            "additionalProperties": false,
+            "description": "The port metrics for a Gen-Z interface.",
+            "longDescription": "This type shall describe the Gen-Z related port metrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessKeyViolations": {
+                    "description": "The total number of Access Key Violations detected.",
+                    "longDescription": "This property shall contain the total number of Access Key Violations detected for packets received or transmitted on this interface.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "EndToEndCRCErrors": {
+                    "description": "The total number of ECRC transient errors detected.",
+                    "longDescription": "This property shall contain total number of ECRC transient errors detected in received link-local and end-to-end packets.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "LLRRecovery": {
+                    "description": "The total number of times Link-Level Reliability (LLR) recovery has been initiated.",
+                    "longDescription": "This property shall contain the total number of times Link-level Reliability (LLR) recovery has been initiated by this interface.  This is not to be confused with the number of packets retransmitted due to initiating LLR recovery.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "LinkNTE": {
+                    "description": "The total number of link-local non-transient errors detected.",
+                    "longDescription": "This property shall contain the total number of link-local non-transient errors detected on this interface.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MarkedECN": {
+                    "description": "The number of packets with the Congestion ECN bit set.",
+                    "longDescription": "This property shall contain the number of packets that the component set the Congestion ECN bit prior to transmission through this interface.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "NonCRCTransientErrors": {
+                    "description": "The total number transient errors detected that are unrelated to CRC validation.",
+                    "longDescription": "This property shall contain the total number of transient errors detected that are unrelated to CRC validation, which covers link-local and end-to-end packets, such as malformed Link Idle packets or PLA signal errors.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "PacketCRCErrors": {
+                    "description": "The total number of PCRC transient errors detected.",
+                    "longDescription": "This property shall contain the total number of PCRC transient errors detected in received link-local and end-to-end packets.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "PacketDeadlineDiscards": {
+                    "description": "The number of packets discarded due to the Congestion Deadline sub-field reaching zero.",
+                    "longDescription": "This property shall contain the number of packets discarded by this interface due to the Congestion Deadline sub-field reaching zero prior to packet transmission.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RXStompedECRC": {
+                    "description": "The total number of packets received with a stomped ECRC field.",
+                    "longDescription": "This property shall contain the total number of packets that this interface received with a stomped ECRC field.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ReceivedECN": {
+                    "description": "The number of packets received on this interface with the Congestion ECN bit set.",
+                    "longDescription": "This property shall contain the number of packets received on this interface with the Congestion ECN bit set.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXStompedECRC": {
+                    "description": "The total number of packets that this interface stomped the ECRC field.",
+                    "longDescription": "This property shall contain the total number of packets that this interfaced stomped the ECRC field.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PortMetrics": {
+            "additionalProperties": false,
+            "description": "The usage and health statistics for a switch device or component port summary.",
+            "longDescription": "The PortMetrics Schema shall contain the port metrics for a switch device or component port summary in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "GenZ": {
+                    "$ref": "#/definitions/GenZ",
+                    "description": "The port metrics specific to Gen-Z ports.",
+                    "longDescription": "This property shall contain the port metrics specific to Gen-Z ports."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2019.4",
+    "title": "#PortMetrics.v1_0_1.PortMetrics"
+}

@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.9.0                                        -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkPort_v1.xml">
+    <edmx:Include Namespace="NetworkPort"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunction_v1.xml">
+    <edmx:Include Namespace="PCIeFunction"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface_v1.xml">
+    <edmx:Include Namespace="VLanNetworkInterface"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VLanNetworkInterfaceCollection_v1.xml">
+    <edmx:Include Namespace="VLanNetworkInterfaceCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionMetrics_v1.xml">
+    <edmx:Include Namespace="NetworkDeviceFunctionMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterface_v1.xml">
+    <edmx:Include Namespace="EthernetInterface"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection_v1.xml">
+    <edmx:Include Namespace="EthernetInterfaceCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
+    <edmx:Include Namespace="ComputerSystem"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Processor_v1.xml">
+    <edmx:Include Namespace="Processor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AllowDenyCollection_v1.xml">
+    <edmx:Include Namespace="AllowDenyCollection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The NetworkDeviceFunction schema represents a logical interface that a network adapter exposes."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a logical interface that a network adapter exposes in a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Properties, such as WWN and MAC address information for this device, can be updated for a network device function."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.NetworkDeviceFunction">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="NetDevFuncType" Type="NetworkDeviceFunction.v1_0_0.NetworkDeviceTechnology">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured capability of this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured capability of this network device function."/>
+        </Property>
+        <Property Name="DeviceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the network device function is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the network device function is enabled.  The operating system shall not enumerate or see disabled network device functions."/>
+        </Property>
+        <Property Name="NetDevFuncCapabilities" Type="Collection(NetworkDeviceFunction.v1_0_0.NetworkDeviceTechnology)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of capabilities for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of capabilities for this network device function."/>
+        </Property>
+        <Property Name="Ethernet" Type="NetworkDeviceFunction.v1_0_0.Ethernet" Nullable="false">
+          <Annotation Term="OData.Description" String="The Ethernet capabilities, status, and configuration values for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain Ethernet capabilities, status, and configuration values for this network device function."/>
+        </Property>
+        <Property Name="iSCSIBoot" Type="NetworkDeviceFunction.v1_0_0.iSCSIBoot" Nullable="false">
+          <Annotation Term="OData.Description" String="The iSCSI boot capabilities, status, and configuration values for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain iSCSI boot capabilities, status, and configuration values for this network device function."/>
+        </Property>
+        <Property Name="FibreChannel" Type="NetworkDeviceFunction.v1_0_0.FibreChannel" Nullable="false">
+          <Annotation Term="OData.Description" String="The Fibre Channel capabilities, status, and configuration values for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain Fibre Channel capabilities, status, and configuration values for this network device function."/>
+        </Property>
+        <NavigationProperty Name="AssignablePhysicalPorts" Type="Collection(NetworkPort.NetworkPort)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkPort that are the physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AssignablePhysicalNetworkPorts property."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+        <NavigationProperty Name="PhysicalPortAssignment" Type="NetworkPort.NetworkPort" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkPort that is the physical port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated and moved to the Links property to avoid loops on expand."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+        <Property Name="BootMode" Type="NetworkDeviceFunction.v1_0_0.BootMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The boot mode configured for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the boot mode configured for this network device function.  If the value is not `Disabled`, this network device function shall be configured for boot by using the specified technology."/>
+        </Property>
+        <Property Name="VirtualFunctionsEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether single root input/output virtualization (SR-IOV) virtual functions are enabled for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether single root input/output virtualization (SR-IOV) virtual functions are enabled for this network device function."/>
+        </Property>
+        <Property Name="MaxVirtualFunctions" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of virtual functions that are available for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of virtual functions that are available for this network device function."/>
+        </Property>
+        <Property Name="Links" Type="NetworkDeviceFunction.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="FibreChannel">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes Fibre Channel capabilities, status, and configuration for a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the Fibre Channel capabilities, status, and configuration values for a network device function."/>
+        <Property Name="PermanentWWPN" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent World Wide Port Name (WWPN) address assigned to this function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent World Wide Port Name (WWPN) of this function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+        </Property>
+        <Property Name="PermanentWWNN" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent World Wide Node Name (WWNN) address assigned to this function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent World Wide Node Name (WWNN) of this function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="WWPN" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The currently configured World Wide Port Name (WWPN) address of this function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current World Wide Port Name (WWPN) of this function.  If an assignable WWPN is not supported, this is a read-only alias of the permanent WWPN."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="WWNN" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The currently configured World Wide Node Name (WWNN) address of this function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current World Wide Node Name (WWNN) of this function.  If an assignable WWNN is not supported, this is a read-only alias of the permanent WWNN."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="WWNSource" Type="NetworkDeviceFunction.v1_0_0.WWNSource">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configuration source of the World Wide Names (WWN) for this World Wide Node Name (WWNN) and World Wide Port Name (WWPN) connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configuration source of the World Wide Name (WWN) for this World Wide Node Name (WWNN) and World Wide Port Name (WWPN) connection."/>
+        </Property>
+        <Property Name="FCoELocalVLANId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The locally configured FCoE VLAN ID."/>
+          <Annotation Term="OData.LongDescription" String="For FCoE connections, this property shall contain the VLAN ID configured locally by setting this property.  This value shall be used for FCoE traffic to this network device function during boot unless AllowFIPVLANDiscovery is `true` and a valid FCoE VLAN ID is found through the FIP VLAN Discovery Protocol."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="4094"/>
+        </Property>
+        <Property Name="AllowFIPVLANDiscovery" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the FCoE Initialization Protocol (FIP) populates the FCoE VLAN ID."/>
+          <Annotation Term="OData.LongDescription" String="For FCoE connections, this boolean property shall indicate whether the FIP VLAN Discovery Protocol determines the FCoE VLAN ID selected by the network device function for the FCoE connection.  If `true` and the FIP VLAN discovery succeeds, the FCoEActiveVLANId property shall reflect the FCoE VLAN ID to use for all FCoE traffic.  If `false` or if the FIP VLAN Discovery protocol fails, the FCoELocalVLANId shall be used for all FCoE traffic and the FCoEActiveVLANId shall reflect the FCoELocalVLANId."/>
+        </Property>
+        <Property Name="FCoEActiveVLANId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The active FCoE VLAN ID."/>
+          <Annotation Term="OData.LongDescription" String="For FCoE connections, this property shall contain `null` or a VLAN ID currently being used for FCoE traffic.  When the FCoE link is down this value shall be null.  When the FCoE link is up this value shall be either the FCoELocalVLANId property or a VLAN discovered through the FIP protocol."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="4094"/>
+        </Property>
+        <Property Name="BootTargets" Type="Collection(NetworkDeviceFunction.v1_0_0.BootTargets)">
+          <Annotation Term="OData.Description" String="An array of Fibre Channel boot targets configured for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of Fibre Channel boot targets configured for this network device function."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Ethernet">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes Ethernet capabilities, status, and configuration for a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the Ethernet capabilities, status, and configuration values for a network device function."/>
+        <Property Name="PermanentMACAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent MAC address assigned to this function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent MAC Address of this function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="MACAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The currently configured MAC address."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current MAC address of this network device function.  If an assignable MAC address is not supported, this is a read-only alias of the PermanentMACAddress."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"/>
+        </Property>
+        <Property Name="MTUSize" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum transmission unit (MTU) configured for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="The maximum transmission unit (MTU) configured for this network device function.  This value serves as a default for the OS driver when booting.  The value only takes effect on boot."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="PCIeFunction" Type="PCIeFunction.PCIeFunction" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the PCIe function associated with this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PCIeFunction that represents the PCIe function associated with this network device function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="iSCSIBoot">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The iSCSI boot capabilities, status, and configuration for a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the iSCSI boot capabilities, status, and configuration values for a network device function."/>
+        <Property Name="IPAddressType" Type="NetworkDeviceFunction.v1_0_0.IPAddressType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of IP address being populated in the iSCSIBoot IP address fields."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of IP address being populated in the iSCSIBoot IP address fields.  Mixing IPv6 and IPv4 addresses on the same network device function shall not be permissible."/>
+        </Property>
+        <Property Name="InitiatorIPAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv6 or IPv4 address of the iSCSI initiator."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 or IPv4 address of the iSCSI boot initiator."/>
+        </Property>
+        <Property Name="InitiatorName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The iSCSI initiator name."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the iSCSI boot initiator name.  This property should match formats defined in RFC3720 or RFC3721."/>
+        </Property>
+        <Property Name="InitiatorDefaultGateway" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv6 or IPv4 iSCSI boot default gateway."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 or IPv4 iSCSI boot default gateway."/>
+        </Property>
+        <Property Name="InitiatorNetmask" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv6 or IPv4 netmask of the iSCSI boot initiator."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 or IPv4 netmask of the iSCSI boot initiator."/>
+        </Property>
+        <Property Name="TargetInfoViaDHCP" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the iSCSI boot target name, LUN, IP address, and netmask should be obtained from DHCP."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the iSCSI boot target name, LUN, IP address, and netmask should be obtained from DHCP."/>
+        </Property>
+        <Property Name="PrimaryTargetName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the iSCSI primary boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the primary iSCSI boot target.  This property should match formats defined in RFC3720 or RFC3721."/>
+        </Property>
+        <Property Name="PrimaryTargetIPAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv4 or IPv6 address for the primary iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv4 or IPv6 address for the primary iSCSI boot target."/>
+        </Property>
+        <Property Name="PrimaryTargetTCPPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TCP port for the primary iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCP port for the primary iSCSI boot target."/>
+        </Property>
+        <Property Name="PrimaryLUN" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The logical unit number (LUN) for the primary iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the logical unit number (LUN) for the primary iSCSI boot target."/>
+        </Property>
+        <Property Name="PrimaryVLANEnable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the primary VLAN is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this VLAN is enabled for the primary iSCSI boot target."/>
+        </Property>
+        <Property Name="PrimaryVLANId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The 802.1q VLAN ID to use for iSCSI boot from the primary target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the 802.1q VLAN ID to use for iSCSI boot from the primary target.  This VLAN ID is only used if PrimaryVLANEnable is true."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="4094"/>
+        </Property>
+        <Property Name="PrimaryDNS" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv6 or IPv4 address of the primary DNS server for the iSCSI boot initiator."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 or IPv4 address of the primary DNS server for the iSCSI boot initiator."/>
+        </Property>
+        <Property Name="SecondaryTargetName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the iSCSI secondary boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the secondary iSCSI boot target.  This property should match formats defined in RFC3720 or RFC3721."/>
+        </Property>
+        <Property Name="SecondaryTargetIPAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv4 or IPv6 address for the secondary iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv4 or IPv6 address for the secondary iSCSI boot target."/>
+        </Property>
+        <Property Name="SecondaryTargetTCPPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TCP port for the secondary iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCP port for the secondary iSCSI boot target."/>
+        </Property>
+        <Property Name="SecondaryLUN" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The logical unit number (LUN) for the secondary iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the logical unit number (LUN) for the secondary iSCSI boot target."/>
+        </Property>
+        <Property Name="SecondaryVLANEnable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the secondary VLAN is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this VLAN is enabled for the secondary iSCSI boot target."/>
+        </Property>
+        <Property Name="SecondaryVLANId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The 802.1q VLAN ID to use for iSCSI boot from the secondary target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the 802.1q VLAN ID to use for iSCSI boot from the secondary target.  This VLAN ID is only used if SecondaryVLANEnable is `true`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="4094"/>
+        </Property>
+        <Property Name="SecondaryDNS" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv6 or IPv4 address of the secondary DNS server for the iSCSI boot initiator."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 or IPv4 address of the secondary DNS server for the iSCSI boot initiator."/>
+        </Property>
+        <Property Name="IPMaskDNSViaDHCP" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the iSCSI boot initiator uses DHCP to obtain the initiator name, IP address, and netmask."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the iSCSI boot initiator uses DHCP to obtain the initiator name, IP address, and netmask."/>
+        </Property>
+        <Property Name="RouterAdvertisementEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether IPv6 router advertisement is enabled for the iSCSI boot target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv6 router advertisement is enabled for the iSCSI boot target.  This setting shall apply to only IPv6 configurations."/>
+        </Property>
+        <Property Name="AuthenticationMethod" Type="NetworkDeviceFunction.v1_0_0.AuthenticationMethod">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The iSCSI boot authentication method for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the iSCSI boot authentication method for this network device function."/>
+        </Property>
+        <Property Name="CHAPUsername" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The user name for CHAP authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user name for CHAP authentication."/>
+        </Property>
+        <Property Name="CHAPSecret" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The shared secret for CHAP authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the shared secret for CHAP authentication."/>
+        </Property>
+        <Property Name="MutualCHAPUsername" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The CHAP user name for two-way CHAP authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CHAP user name for two-way CHAP authentication."/>
+        </Property>
+        <Property Name="MutualCHAPSecret" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The CHAP secret for two-way CHAP authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CHAP secret for two-way CHAP authentication."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="BootTargets">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A Fibre Channel boot target configured for a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a Fibre Channel boot target configured for a network device function."/>
+        <Property Name="WWPN" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The World Wide Port Name (WWPN) from which to boot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain World Wide Port Name (WWPN) from which to boot."/>
+        </Property>
+        <Property Name="LUNID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The logical unit number (LUN) ID from which to boot on the device to which the corresponding WWPN refers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the logical unit number (LUN) ID from which to boot on the device to which the corresponding WWPN refers."/>
+        </Property>
+        <Property Name="BootPriority" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The relative priority for this entry in the boot targets array."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the relative priority for this entry in the boot targets array.  Lower numbers shall represent higher priority, with zero being the highest priority.  The BootPriority shall be unique for all entries of the BootTargets array."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="NetworkDeviceTechnology">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Neither enumerated nor visible to the operating system."/>
+        </Member>
+        <Member Name="Ethernet">
+          <Annotation Term="OData.Description" String="Appears to the operating system as an Ethernet device."/>
+        </Member>
+        <Member Name="FibreChannel">
+          <Annotation Term="OData.Description" String="Appears to the operating system as a Fibre Channel device."/>
+        </Member>
+        <Member Name="iSCSI">
+          <Annotation Term="OData.Description" String="Appears to the operating system as an iSCSI device."/>
+        </Member>
+        <Member Name="FibreChannelOverEthernet">
+          <Annotation Term="OData.Description" String="Appears to the operating system as an FCoE device."/>
+        </Member>
+        <Member Name="InfiniBand">
+          <Annotation Term="OData.Description" String="Appears to the operating system as an InfiniBand device."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="IPAddressType">
+        <Member Name="IPv4">
+          <Annotation Term="OData.Description" String="IPv4 addressing is used for all IP-fields in this object."/>
+        </Member>
+        <Member Name="IPv6">
+          <Annotation Term="OData.Description" String="IPv6 addressing is used for all IP-fields in this object."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="AuthenticationMethod">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No iSCSI authentication is used."/>
+        </Member>
+        <Member Name="CHAP">
+          <Annotation Term="OData.Description" String="iSCSI Challenge Handshake Authentication Protocol (CHAP) authentication is used."/>
+        </Member>
+        <Member Name="MutualCHAP">
+          <Annotation Term="OData.Description" String="iSCSI Mutual Challenge Handshake Authentication Protocol (CHAP) authentication is used."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="WWNSource">
+        <Member Name="ConfiguredLocally">
+          <Annotation Term="OData.Description" String="The set of FC/FCoE boot targets was applied locally through API or UI."/>
+        </Member>
+        <Member Name="ProvidedByFabric">
+          <Annotation Term="OData.Description" String="The set of FC/FCoE boot targets was applied by the Fibre Channel fabric."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="BootMode">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Do not indicate to UEFI/BIOS that this device is bootable."/>
+        </Member>
+        <Member Name="PXE">
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded PXE support.  Only applicable if the NetDevFuncType is `Ethernet` or `InfiniBand`."/>
+        </Member>
+        <Member Name="iSCSI">
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded iSCSI boot support and configuration.  Only applicable if the NetDevFuncType is `iSCSI` or `Ethernet`."/>
+        </Member>
+        <Member Name="FibreChannel">
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel support and configuration.  Only applicable if the NetDevFuncType is `FibreChannel`."/>
+        </Member>
+        <Member Name="FibreChannelOverEthernet">
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded Fibre Channel over Ethernet (FCoE) boot support and configuration.  Only applicable if the NetDevFuncType is `FibreChannelOverEthernet`."/>
+        </Member>
+        <Member Name="HTTP">
+          <Annotation Term="OData.Description" String="Boot this device by using the embedded HTTP/HTTPS support. Only applicable if the NetDevFuncType is `Ethernet`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add normative statements about the format of InitiatorName, PrimaryTargetName, and SecondaryTargetName properties in the iSCSIBoot structure.  It was also created to fix the descriptions for AssignablePhysicalPorts and PhysicalPortAssignment."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_3.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on several properties to not allow them to be null."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_4.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add a missing pattern term to MAC address properties.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_5.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_6.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_7.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add patterns to WWN properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_8.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_1.NetworkDeviceFunction">
+        <Property Name="Actions" Type="NetworkDeviceFunction.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="NetworkDeviceFunction.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add normative statements about the format of InitiatorName, PrimaryTargetName, and SecondaryTargetName properties in the iSCSIBoot structure.  It was also created to fix the descriptions for AssignablePhysicalPorts and PhysicalPortAssignment."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on several properties to not allow them to be null."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_3.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add a missing pattern term to MAC address properties.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_4.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_5.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_6.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add patterns to WWN properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_7.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_1.NetworkDeviceFunction"/>
+
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_0_0.Links">
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to endpoints associated with this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that are associated with this network device function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add validation terms to the different VLANId properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on several properties to not allow them to be null."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_3.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add a missing pattern term to MAC address properties.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_4.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_5.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_6.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add patterns to WWN properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_7.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  Also adds support for VLAN to Ethernet.  Also moving PhysicalPortAssignment to Links.  Also adds FibreChannel Adapter properties."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_2.NetworkDeviceFunction"/>
+
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_2_0.Links">
+        <NavigationProperty Name="PhysicalPortAssignment" Type="NetworkPort.NetworkPort" Nullable="false">
+          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkPort to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PhysicalNetworkPortAssignment property."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Ethernet" BaseType="NetworkDeviceFunction.v1_0_0.Ethernet">
+        <Property Name="VLAN" Type="VLanNetworkInterface.VLAN" Nullable="false">
+          <Annotation Term="OData.Description" String="The VLAN information for this interface.  If this network interface supports more than one VLAN, this property is not present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall not be present and the VLANs property shall be present instead."/>
+        </Property>
+        <NavigationProperty Name="VLANs" Type="VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of VLANs.  This property is used only if the interface supports more than one VLAN."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VLanNetworkInterfaceCollection.  If this property is used, the VLANEnabled and VLANId property shall not be used."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of representing multiple VLANs as EthernetInterface resources."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="FibreChannel" BaseType="NetworkDeviceFunction.v1_0_0.FibreChannel">
+        <Property Name="FibreChannelId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Fibre Channel ID that the switch assigns for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the Fibre Channel ID that the switch assigns for this interface."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on several properties to not allow them to be null."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add a missing pattern term to MAC address properties.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_3.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_4.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add patterns to WWN properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_5.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the link to EthernetInterface when one of the NetworkDeviceFunction VLANs has been represented as a virtual NIC for the purpose of showing the IP Address associated with that VLAN."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_3.NetworkDeviceFunction"/>
+
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_3_0.Links">
+        <NavigationProperty Name="EthernetInterface" Type="EthernetInterface.EthernetInterface" Nullable="false">
+          <Annotation Term="OData.Description" String="The link to a virtual Ethernet interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EthernetInterface that represents a virtual interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.  The EthernetInterfaceType property of that resource shall contain the value `Virtual`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of EthernetInterfaces as each NetworkDeviceFunction could have more than one EthernetInterface."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add patterns to WWN properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_1.NetworkDeviceFunction">
+        <NavigationProperty Name="AssignablePhysicalNetworkPorts" Type="Collection(Port.Port)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that are the physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PhysicalNetworkPortAssignment" Type="Port.Port" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Port that is the physical port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalNetworkPorts array members."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of PhysicalNetworkPortAssignment within Links to avoid loops on expand."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </NavigationProperty>
+        <Property Name="InfiniBand" Type="NetworkDeviceFunction.v1_5_0.InfiniBand" Nullable="false">
+          <Annotation Term="OData.Description" String="The InfiniBand capabilities, status, and configuration values for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain InfiniBand capabilities, status, and configuration values for this network device function."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_4_0.Links">
+        <NavigationProperty Name="PhysicalNetworkPortAssignment" Type="Port.Port" Nullable="false">
+          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Ethernet" BaseType="NetworkDeviceFunction.v1_3_0.Ethernet">
+        <Property Name="MTUSizeMaximum" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The largest maximum transmission unit (MTU) size supported for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the largest maximum transmission unit (MTU) size supported for this network device function."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="InfiniBand">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes InfiniBand capabilities, status, and configuration of a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the InfiniBand capabilities, status, and configuration values for a network device function."/>
+        <Property Name="PermanentPortGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent port GUID assigned to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent port GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="PermanentNodeGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent node GUID assigned to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent node GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="PermanentSystemGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The permanent system GUID assigned to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent system GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="PortGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The currently configured port GUID of the network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current virtual port GUID of this network device function.  If an assignable port GUID is not supported, this is a read-only alias of the PermanentPortGUID."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="NodeGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the currently configured node GUID of the network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current node GUID of this virtual port of this network device function.  If an assignable node GUID is not supported, this is a read-only alias of the PermanentNodeGUID."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="SystemGUID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the currently configured system GUID of the network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current system GUID of this virtual port of this network device function.  If an assignable system GUID is not supported, this is a read-only alias of the PermanentSystemGUID."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="SupportedMTUSizes" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum transmission unit (MTU) sizes supported for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the maximum transmission unit (MTU) sizes supported for this network device function."/>
+        </Property>
+        <Property Name="MTUSize" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum transmission unit (MTU) configured for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="The maximum transmission unit (MTU) configured for this network device function."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `iSCSI` boot mode to allow for `Ethernet`.  It was also created to correct the definition for Links to leverage the common definition found in the Resource schema.  It was also created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add patterns to WWN properties."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the Metrics property."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_2.NetworkDeviceFunction">
+        <NavigationProperty Name="Metrics" Type="NetworkDeviceFunctionMetrics.NetworkDeviceFunctionMetrics">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the metrics associated with this network function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkDeviceFunctionMetrics that contains the metrics associated with this network function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the EthernetInterface link and introduce the EthernetInterfaces array of links.  It was also created to add AllowDeny, Limits, and SAVI."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_6_0.NetworkDeviceFunction">
+        <Property Name="SAVIEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if Source Address Validation Improvement (SAVI) is enabled for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the RFC7039-defined Source Address Validation Improvement (SAVI) is enabled for this network device function."/>
+        </Property>
+        <Property Name="Limits" Type="Collection(NetworkDeviceFunction.v1_7_0.Limit)">
+          <Annotation Term="OData.Description" String="The byte and packet limits for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of byte and packet limits for this network device function."/>
+        </Property>
+        <NavigationProperty Name="AllowDeny" Type="AllowDenyCollection.AllowDenyCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of allow and deny permissions for packets leaving and arriving to this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AllowDenyCollection that contains the permissions for packets leaving and arriving to this network device function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Limit">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes the packet and byte limit of a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a single array element of the packet and byte limits of a network device function."/>
+        <Property Name="Direction" Type="NetworkDeviceFunction.v1_7_0.DataDirection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the direction of the data to which this limit applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the direction of the data to which this limit applies for this network device function."/>
+        </Property>
+        <Property Name="SustainedPacketsPerSecond" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of sustained packets per second for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of sustained packets per second allowed for this network device function."/>
+        </Property>
+        <Property Name="BurstPacketsPerSecond" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of packets per second in a burst for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of packets per second in a burst allowed for this network device function."/>
+        </Property>
+        <Property Name="SustainedBytesPerSecond" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of sustained bytes per second for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of sustained bytes per second allowed for this network device function."/>
+        </Property>
+        <Property Name="BurstBytesPerSecond" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of bytes per second in a burst for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of bytes per second in a burst allowed for this network device function."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_5_0.Links">
+        <NavigationProperty Name="EthernetInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
+          <Annotation Term="OData.Description" String="The links to Ethernet interfaces that were created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface that represent the virtual interfaces that were created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="OffloadSystem" Type="ComputerSystem.ComputerSystem" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The system that performs offload computation for this network function, such as with a SmartNIC."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ComputerSystem that represents the system that performs offload computation for this network function, such as with a SmartNIC.  The SystemType property contained in the referenced ComputerSystem resource should contain the value `DPU`.  This property shall not be present if OffloadProcessors is present."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="OffloadProcessors" Type="Collection(Processor.Processor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The processors that perform offload computation for this network function, such as with a SmartNIC."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor that represent the processors that performs offload computation for this network function, such as with a SmartNIC.  This property shall not be present if OffloadSystem is present."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="DataDirection">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="Indicates that this limit not enforced."/>
+        </Member>
+        <Member Name="Ingress">
+          <Annotation Term="OData.Description" String="Indicates that this limit is enforced on packets and bytes received by the network device function."/>
+        </Member>
+        <Member Name="Egress">
+          <Annotation Term="OData.Description" String="Indicates that this limit is enforced on packets and bytes transmitted by the network device function."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Ethernet" BaseType="NetworkDeviceFunction.v1_5_0.Ethernet">
+        <NavigationProperty Name="EthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Ethernet interface collection that represents all the Ethernet Interfaces on this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a collection of type EthernetInterfaceCollection that represent the Ethernet interfaces present on this network device function.  This property shall not be present if this network device function is not referenced by a NetworkInterface resource."/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate PhysicalNetworkPortAssignment at the root of the resource in favor of PhysicalNetworkPortAssignment within Links."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_7_0.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add support for HTTP(s) boot."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_8_0.NetworkDeviceFunction">
+        <Property Name="HTTPBoot" Type="NetworkDeviceFunction.v1_9_0.HTTPBoot" Nullable="false">
+          <Annotation Term="OData.Description" String="The HTTP and HTTPS boot capabilities, status, and configuration values for this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain HTTP and HTTPS boot capabilities, status, and configuration values for this network device function."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="HTTPBoot">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The HTTP and HTTPS boot capabilities, status, and configuration for a network device function."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the HTTP and HTTPS boot capabilities, status, and configuration values for a network device function."/>
+        <Property Name="BootMediaURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI of the boot media loaded with this network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the boot media loaded with this network device function.  An empty string shall indicate no boot media is configured.  All other values shall begin with `http://` or `https://`."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

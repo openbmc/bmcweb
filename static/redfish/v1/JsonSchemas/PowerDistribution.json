@@ -1,0 +1,39 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.json",
+    "$ref": "#/definitions/PowerDistribution",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerDistribution": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.v1_0_5.json#/definitions/PowerDistribution"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.v1_1_2.json#/definitions/PowerDistribution"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.v1_2_2.json#/definitions/PowerDistribution"
+                }
+            ],
+            "deletable": false,
+            "description": "This is the schema definition for a power distribution component or unit, such as a floor power distribution unit (PDU) or switchgear.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent a power distribution component or unit for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}",
+                "/redfish/v1/PowerEquipment/ElectricalBuses/{PowerDistributionId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PowerDistribution.PowerDistribution"
+}

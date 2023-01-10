@@ -1,0 +1,240 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_4_1.json",
+    "$ref": "#/definitions/MetricReport",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "MetricReport": {
+            "additionalProperties": false,
+            "description": "The MetricReport schema represents a set of collected metrics.",
+            "longDescription": "This resource shall represent a metric report in a Redfish implementation.  When a metric report is deleted, the historic metric data used to generate the report shall be deleted as well unless other metric reports are consuming the data.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Context": {
+                    "description": "A context can be supplied at subscription time.  This property is the context value supplied by the subscriber.",
+                    "longDescription": "This property shall contain a client supplied context for the event destination to which this event is being sent.  This property shall only be present when sent as a payload in an event.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MetricReportDefinition": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.json#/definitions/MetricReportDefinition",
+                    "description": "The link to the definition of this metric report.",
+                    "longDescription": "This property shall contain a link to a resource of type MetricReportDefinition.",
+                    "readonly": true
+                },
+                "MetricValues": {
+                    "description": "An array of metric values for the metered items of this metric report.",
+                    "items": {
+                        "$ref": "#/definitions/MetricValue"
+                    },
+                    "longDescription": "The values shall be metric values for this metric report.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ReportSequence": {
+                    "deprecated": "This property has been deprecated due to specification changes with regards to Server-Sent Events.",
+                    "description": "The current sequence identifier for this metric report.",
+                    "longDescription": "This property shall contain the current sequence identifier for this metric report.  The sequence identifier is a unique identifier assigned by the Service for serializing metric reports as they are produced.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionDeprecated": "v1_3_0"
+                },
+                "Timestamp": {
+                    "description": "The time associated with the metric report in its entirety.  The time of the metric report can be relevant when the time of individual metrics are minimally different.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the time when the metric report was generated.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "MetricValue": {
+            "additionalProperties": false,
+            "description": "Properties that capture a metric value and other associated information.",
+            "longDescription": "This type shall contain properties that capture a metric value and other associated information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MetricDefinition": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json#/definitions/MetricDefinition",
+                    "description": "The link to the metric definition for this metric.",
+                    "longDescription": "This property shall contain a link to a resource of type MetricDefinition that describes what this metric value captures.",
+                    "readonly": true
+                },
+                "MetricId": {
+                    "description": "The metric definitions identifier for this metric.",
+                    "longDescription": "This property shall contain the same value as the Id property of the source metric within the associated metric definition.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MetricProperty": {
+                    "description": "The URI for the property from which this metric is derived.",
+                    "format": "uri-reference",
+                    "longDescription": "The value shall be URI to the property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MetricValue": {
+                    "description": "The metric value, as a string.",
+                    "longDescription": "This property shall contain the metric value, as a string.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Timestamp": {
+                    "description": "The date and time when the metric is obtained.  A management application can establish a time series of metric data by retrieving the instances of metric value and sorting them according to their timestamp.",
+                    "format": "date-time",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this value might be different from the time when this instance is created.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.2",
+    "title": "#MetricReport.v1_4_1.MetricReport"
+}

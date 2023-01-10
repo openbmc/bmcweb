@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.json",
+    "$ref": "#/definitions/AttributeRegistry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AttributeRegistry": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_0_11.json#/definitions/AttributeRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_1_10.json#/definitions/AttributeRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_2_8.json#/definitions/AttributeRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_6.json#/definitions/AttributeRegistry"
+                }
+            ],
+            "deletable": false,
+            "description": "The AttributeRegistry schema contains a set of key-value pairs that represent the structure of an attribute registry.  It includes mechanisms for building user interfaces, or menus, allowing consistent navigation of the contents.  The attribute registry is specific to an implementation or product.  The attributes and property names are not standardized.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an attribute registry for a Redfish implementation.",
+            "updatable": false
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#AttributeRegistry.AttributeRegistry"
+}

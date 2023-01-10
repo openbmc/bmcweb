@@ -1,0 +1,55 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.json",
+    "$ref": "#/definitions/NetworkAdapter",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "NetworkAdapter": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_0_7.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_1_6.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_2_5.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_3_4.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_4_1.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_5_1.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_6_0.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_7_0.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_8_0.json#/definitions/NetworkAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_9_0.json#/definitions/NetworkAdapter"
+                }
+            ],
+            "deletable": false,
+            "description": "The NetworkAdapter schema represents a physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a physical network adapter capable of connecting to a computer network in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#NetworkAdapter.NetworkAdapter"
+}

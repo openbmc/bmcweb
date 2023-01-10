@@ -1,0 +1,38 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Role.json",
+    "$ref": "#/definitions/Role",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Role": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.v1_0_8.json#/definitions/Role"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.v1_1_6.json#/definitions/Role"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.v1_2_6.json#/definitions/Role"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.v1_3_1.json#/definitions/Role"
+                }
+            ],
+            "deletable": true,
+            "description": "The Role schema contains a Redfish role to use in conjunction with a manager account.",
+            "insertable": false,
+            "longDescription": "This resource represents the Redfish role for the user account.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/AccountService/Roles/{RoleId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/Roles/{RoleId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Role.Role"
+}

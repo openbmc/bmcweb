@@ -1,0 +1,56 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/odata-v4_0_4.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "definitions": {
+        "context": {
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true,
+            "description": "The OData description of a payload.",
+            "longDescription": "The value of this property shall be the context URL that describes the resource according to OData-Protocol and shall be of the form defined in the Redfish specification."
+        },
+        "id": {
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true,
+            "description": "The unique identifier for a resource.",
+            "longDescription": "The value of this property shall be the unique identifier for the resource and it shall be of the form defined in the Redfish specification."
+        },
+        "idRef": {
+            "type": "object",
+            "properties": {
+                "@odata.id": {
+                    "$ref": "#/definitions/id"
+                }
+            },
+            "additionalProperties": false,
+            "description": "A reference to a resource.",
+            "longDescription": "The value of this property shall be used for references to a resource."
+        },
+        "type": {
+            "type": "string",
+            "readonly": true,
+            "description": "The type of a resource.",
+            "longDescription": "The value of this property shall be a URI fragment that specifies the type of the resource and it shall be of the form defined in the Redfish specification."
+        },
+        "count": {
+            "type": "integer",
+            "readonly": true,
+            "description": "The number of items in a collection.",
+            "longDescription": "The value of this property shall be an integer representing the number of items in a collection."
+        },
+        "etag": {
+            "type": "string",
+            "readonly": true,
+            "description": "The current ETag of the resource.",
+            "longDescription": "The value of this property shall be a string that is defined by the ETag HTTP header definition in RFC7232."
+        },
+        "nextLink": {
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true,
+            "description": "The URI to the resource containing the next set of partial members.",
+            "longDescription": "The value of this property shall be a URI to a resource, with the same @odata.type, containing the next set of partial members."
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/USBController.json",
+    "$ref": "#/definitions/USBController",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "USBController": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/USBController.v1_0_0.json#/definitions/USBController"
+                }
+            ],
+            "deletable": false,
+            "description": "The USBController schema defines a Universal Serial Bus controller.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a USB controller in a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/USBControllers/{ControllerId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#USBController.USBController"
+}

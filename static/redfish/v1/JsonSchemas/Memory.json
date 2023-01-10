@@ -1,0 +1,81 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.json",
+    "$ref": "#/definitions/Memory",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Memory": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_0_11.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_1_10.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_2_9.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_3_9.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_4_9.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_5_8.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_6_7.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_7_6.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_8_4.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_9_4.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_10_1.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_11_0.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_12_0.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_13_1.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_14_0.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_15_0.json#/definitions/Memory"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.v1_16_0.json#/definitions/Memory"
+                }
+            ],
+            "deletable": false,
+            "description": "The Memory schema represents a memory device, such as a DIMM, and its configuration.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a memory device in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}",
+                "/redfish/v1/Chassis/{ChassisId}/Memory/{MemoryId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Memory.Memory"
+}

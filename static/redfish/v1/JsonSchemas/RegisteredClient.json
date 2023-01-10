@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/RegisteredClient.json",
+    "$ref": "#/definitions/RegisteredClient",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "RegisteredClient": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/RegisteredClient.v1_0_0.json#/definitions/RegisteredClient"
+                }
+            ],
+            "deletable": true,
+            "description": "The RegisteredClient schema defines the record format for a registered client.  It is designed to allow well behaved clients to register with a Redfish service such that other clients are aware the service might be configured or monitored by the client.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a registered client  for a Redfish implementation.  It is not expected that transient tools, such as a short lived CLI tool, register.  Clients and management tools that live for long periods of time can create RegisteredClient resources so that other clients are aware the service might be configured or monitored by the client.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/RegisteredClients/{RegisteredClientId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#RegisteredClient.RegisteredClient"
+}

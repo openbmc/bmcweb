@@ -1,0 +1,42 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json",
+    "$ref": "#/definitions/NetworkPort",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "NetworkPort": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_0_8.json#/definitions/NetworkPort"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_1_7.json#/definitions/NetworkPort"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_2_7.json#/definitions/NetworkPort"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_3_2.json#/definitions/NetworkPort"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_4_1.json#/definitions/NetworkPort"
+                }
+            ],
+            "deletable": false,
+            "deprecated": "This schema has been deprecated in favor of the Port schema.",
+            "description": "The NetworkPort schema describes a network port, which is a discrete physical port that can connect to a network.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a discrete physical port that can connect to a network in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkPorts/{NetworkPortId}"
+            ],
+            "versionDeprecated": "v1_4_0"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#NetworkPort.NetworkPort"
+}

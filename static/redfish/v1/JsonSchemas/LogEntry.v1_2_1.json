@@ -1,0 +1,517 @@
+{
+    "$ref": "#/definitions/LogEntry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_3_0.json",
+    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions"
+                }
+            },
+            "type": "object"
+        },
+        "EventSeverity": {
+            "enum": [
+                "OK",
+                "Warning",
+                "Critical"
+            ],
+            "enumDescriptions": {
+                "Critical": "A critical condition requiring immediate attention.",
+                "OK": "Informational or operating normally.",
+                "Warning": "A condition requiring attention."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "Contains references to other resources that are related to this resource.",
+            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "OriginOfCondition": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/idRef",
+                    "description": "This is the URI of the resource that caused the log entry.",
+                    "longDescription": "The value of this property shall be an href that references the resource for which the log is associated.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "LogEntry": {
+            "additionalProperties": false,
+            "description": "This resource defines the record format for a log.  It is designed to be used for SEL logs (from IPMI) as well as Event Logs and OEM-specific log formats.  The EntryType field indicates the type of log and the resource includes several additional properties dependent on the EntryType.",
+            "longDescription": "This resource shall represent the log format for log services in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/context"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Created": {
+                    "description": "The time the log entry was created.",
+                    "format": "date-time",
+                    "longDescription": "The value of this property shall be the time at which the log entry was created.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EntryCode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LogEntryCode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "If the EntryType is SEL, this will have the entry code for the log entry.",
+                    "longDescription": "This property shall be present if the EntryType value is SEL.  These enumerations are the values from table 42-1 and 42-2 of the IPMI specification.",
+                    "readonly": true
+                },
+                "EntryType": {
+                    "$ref": "#/definitions/LogEntryType",
+                    "description": "his is the type of log entry.",
+                    "longDescription": "This property shall represent the type of LogEntry.  If the resource represents an IPMI SEL log entry, the value shall be SEL.  If the resource represents an Event log, the value shall be Event.  If the resource represents an OEM log format, the value shall be Oem.",
+                    "readonly": true
+                },
+                "EventId": {
+                    "description": "This is a unique instance identifier of an event.",
+                    "longDescription": "If present, this LogEntry records an Event and the value shall indicate a unique identifier for the event, the format of which is implementation dependent.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "EventTimestamp": {
+                    "description": "This is time the event occurred.",
+                    "format": "date-time",
+                    "longDescription": "If present, this LogEntry records an Event and the value shall be the time the event occurred.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "EventType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType",
+                    "description": "This indicates the type of an event recorded in this log.",
+                    "longDescription": "If present, this LogEntry records an Event and the value shall indicate the type of event.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "Message": {
+                    "description": "This property decodes from EntryType:  If it is Event then it is a message string.  Otherwise, it is SEL or Oem specific.  In most cases, this will be the actual Log Entry.",
+                    "longDescription": "The value of this property shall be the Message property of the event if the EntryType is Event, the Description if EntryType is SEL and OEM Specific if the EntryType is OEM.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MessageArgs": {
+                    "description": "The values of this property shall be any arguments for the message.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This contains message arguments to be substituted into the message included or in the message looked up via a registry.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "MessageId": {
+                    "description": "This property decodes from EntryType:  If it is Event then it is a message id.  Otherwise, it is SEL or Oem specific.  This value is only used for registries - for more information, see the specification.",
+                    "longDescription": "The value of this property shall the MessageId property of the event if the EntryType is Event, the EventData if EntryType is SEL and OEM Specific if the EntryType is OEM.  The format of this property shall be as defined in the Redfish specification.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "OemRecordFormat": {
+                    "description": "If the entry type is Oem, this will contain more information about the record format from the Oem.",
+                    "longDescription": "The value of this property shall represent the OEM specific format of the Entry.  This property shall be required if the value of EntryType is Oem.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SensorNumber": {
+                    "description": "This property decodes from EntryType:  If it is SEL, it is the sensor number; if Event then the count of events.  Otherwise, it is Oem specific.",
+                    "longDescription": "The value of this property shall be the EntityInstance from IPMI spec if EntryType is SEL, the count of events if EntryType is Event and OEM Specific if the EntryType is OEM.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SensorType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SensorType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "If the EntryType is SEL, this will have the sensor type that the log entry pertains to.",
+                    "longDescription": "This property shall be present if the EntryType value is SEL.",
+                    "readonly": true
+                },
+                "Severity": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EventSeverity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This is the severity of the log entry.",
+                    "longDescription": "The value of this property shall be the severity of the condition resulting in the log entry, as defined in the Status section of the Redfish specificaiton.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "EntryType",
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "EntryType"
+            ],
+            "type": "object"
+        },
+        "LogEntryCode": {
+            "enum": [
+                "Assert",
+                "Deassert",
+                "Lower Non-critical - going low",
+                "Lower Non-critical - going high",
+                "Lower Critical - going low",
+                "Lower Critical - going high",
+                "Lower Non-recoverable - going low",
+                "Lower Non-recoverable - going high",
+                "Upper Non-critical - going low",
+                "Upper Non-critical - going high",
+                "Upper Critical - going low",
+                "Upper Critical - going high",
+                "Upper Non-recoverable - going low",
+                "Upper Non-recoverable - going high",
+                "Transition to Idle",
+                "Transition to Active",
+                "Transition to Busy",
+                "State Deasserted",
+                "State Asserted",
+                "Predictive Failure deasserted",
+                "Predictive Failure asserted",
+                "Limit Not Exceeded",
+                "Limit Exceeded",
+                "Performance Met",
+                "Performance Lags",
+                "Transition to OK",
+                "Transition to Non-Critical from OK",
+                "Transition to Critical from less severe",
+                "Transition to Non-recoverable from less severe",
+                "Transition to Non-Critical from more severe",
+                "Transition to Critical from Non-recoverable",
+                "Transition to Non-recoverable",
+                "Monitor",
+                "Informational",
+                "Device Removed / Device Absent",
+                "Device Inserted / Device Present",
+                "Device Disabled",
+                "Device Enabled",
+                "Transition to Running",
+                "Transition to In Test",
+                "Transition to Power Off",
+                "Transition to On Line",
+                "Transition to Off Line",
+                "Transition to Off Duty",
+                "Transition to Degraded",
+                "Transition to Power Save",
+                "Install Error",
+                "Fully Redundant",
+                "Redundancy Lost",
+                "Redundancy Degraded",
+                "Non-redundant:Sufficient Resources from Redundant",
+                "Non-redundant:Sufficient Resources from Insufficient Resources",
+                "Non-redundant:Insufficient Resources",
+                "Redundancy Degraded from Fully Redundant",
+                "Redundancy Degraded from Non-redundant",
+                "D0 Power State",
+                "D1 Power State",
+                "D2 Power State",
+                "D3 Power State",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Assert": "The condition has been asserted.",
+                "D0 Power State": "The ACPI defined D0 Power State.",
+                "D1 Power State": "The ACPI defined D1 Power State.",
+                "D2 Power State": "The ACPI defined D2 Power State.",
+                "D3 Power State": "The ACPI defined D3 Power State.",
+                "Deassert": "The condition has been deasserted.",
+                "Device Disabled": "A device has been disabled.",
+                "Device Enabled": "A device has been enabled.",
+                "Device Inserted / Device Present": "A device has been inserted or is now present.",
+                "Device Removed / Device Absent": "A device has been removed or is now absent.",
+                "Fully Redundant": "Indicates that full redundancy has been regained.",
+                "Informational": "An Informational event.",
+                "Install Error": "An Install Error has been detected.",
+                "Limit Exceeded": "A limit has been exceeded.",
+                "Limit Not Exceeded": "A limit has not been exceeded.",
+                "Lower Critical - going high": "The reading crossed the Lower Critical threshold while going high.",
+                "Lower Critical - going low": "The reading crossed the Lower Critical threshold while going low.",
+                "Lower Non-critical - going high": "The reading crossed the Lower Non-critical threshold while going high.",
+                "Lower Non-critical - going low": "The reading crossed the Lower Non-critical threshold while going low.",
+                "Lower Non-recoverable - going high": "The reading crossed the Lower Non-recoverable threshold while going high.",
+                "Lower Non-recoverable - going low": "The reading crossed the Lower Non-recoverable threshold while going low.",
+                "Monitor": "A Monitor event.",
+                "Non-redundant:Insufficient Resources": "Unit is non-redundant and has insufficient resource to maintain normal operation.",
+                "Non-redundant:Sufficient Resources from Insufficient Resources": "Unit has regianed minimum resources needed for normal operation.",
+                "Non-redundant:Sufficient Resources from Redundant": "Redundancy has been lost but unit is functioning with minimum resources needed for normal operation.",
+                "OEM": "An OEM defined event.",
+                "Performance Lags": "Performance does not meet expectations.",
+                "Performance Met": "Performance meets expectations.",
+                "Predictive Failure asserted": "A Predictive Failure has been detected.",
+                "Predictive Failure deasserted": "A Predictive Failure is no longer present.",
+                "Redundancy Degraded": "Redundancy still exists, but at less than full level.",
+                "Redundancy Degraded from Fully Redundant": "Unit has lost some redundant resource(s) but is still in a redundant state.",
+                "Redundancy Degraded from Non-redundant": "Unit has regained some resource(s) and is redundant but not fully redundant.",
+                "Redundancy Lost": "Entered any non-redundant state, including Non-redundant: Insufficient Resources.",
+                "State Asserted": "The state has been asserted.",
+                "State Deasserted": "The state has been deasserted.",
+                "Transition to Active": "The state transitioned to active.",
+                "Transition to Busy": "The state transitioned to busy.",
+                "Transition to Critical from Non-recoverable": "A state has changed to Critical from Non-recoverable.",
+                "Transition to Critical from less severe": "A state has changed to Critical from less severe.",
+                "Transition to Degraded": "A state has transitioned to Degraded.",
+                "Transition to Idle": "The state transitioned to idle.",
+                "Transition to In Test": "A state has transitioned to In Test.",
+                "Transition to Non-Critical from OK": "A state has changed to Non-Critical from OK.",
+                "Transition to Non-Critical from more severe": "A state has changed to Non-Critical from more severe.",
+                "Transition to Non-recoverable": "A state has changed to Non-recoverable.",
+                "Transition to Non-recoverable from less severe": "A state has changed to Non-recoverable from less severe.",
+                "Transition to OK": "A state has changed to OK.",
+                "Transition to Off Duty": "A state has transitioned to Off Duty.",
+                "Transition to Off Line": "A state has transitioned to Off Line.",
+                "Transition to On Line": "A state has transitioned to On Line.",
+                "Transition to Power Off": "A state has transitioned to Power Off.",
+                "Transition to Power Save": "A state has transitioned to Power Save.",
+                "Transition to Running": "A state has transitioned to Running.",
+                "Upper Critical - going high": "The reading crossed the Upper Critical threshold while going high.",
+                "Upper Critical - going low": "The reading crossed the Upper Critical threshold while going low.",
+                "Upper Non-critical - going high": "The reading crossed the Upper Non-critical threshold while going high.",
+                "Upper Non-critical - going low": "The reading crossed the Upper Non-critical threshold while going low.",
+                "Upper Non-recoverable - going high": "The reading crossed the Upper Non-recoverable threshold while going high.",
+                "Upper Non-recoverable - going low": "The reading crossed the Upper Non-recoverable threshold while going low."
+            },
+            "type": "string"
+        },
+        "LogEntryType": {
+            "enum": [
+                "Event",
+                "SEL",
+                "Oem"
+            ],
+            "enumDescriptions": {
+                "Event": "Contains a Redfish-defined message (event).",
+                "Oem": "Contains an entry in an OEM-defined format.",
+                "SEL": "Contains a legacy IPMI System Event Log (SEL) entry."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SensorType": {
+            "enum": [
+                "Platform Security Violation Attempt",
+                "Temperature",
+                "Voltage",
+                "Current",
+                "Fan",
+                "Physical Chassis Security",
+                "Processor",
+                "Power Supply / Converter",
+                "PowerUnit",
+                "CoolingDevice",
+                "Other Units-based Sensor",
+                "Memory",
+                "Drive Slot/Bay",
+                "POST Memory Resize",
+                "System Firmware Progress",
+                "Event Logging Disabled",
+                "System Event",
+                "Critical Interrupt",
+                "Button/Switch",
+                "Module/Board",
+                "Microcontroller/Coprocessor",
+                "Add-in Card",
+                "Chassis",
+                "ChipSet",
+                "Other FRU",
+                "Cable/Interconnect",
+                "Terminator",
+                "SystemBoot/Restart",
+                "Boot Error",
+                "BaseOSBoot/InstallationStatus",
+                "OS Stop/Shutdown",
+                "Slot/Connector",
+                "System ACPI PowerState",
+                "Watchdog",
+                "Platform Alert",
+                "Entity Presence",
+                "Monitor ASIC/IC",
+                "LAN",
+                "Management Subsystem Health",
+                "Battery",
+                "Session Audit",
+                "Version Change",
+                "FRUState",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Add-in Card": "A sensor for an add-in card.",
+                "BaseOSBoot/InstallationStatus": "A sensor for a base OS boot or installation status event.",
+                "Battery": "A sensor for a battery.",
+                "Boot Error": "A sensor for a boot error event.",
+                "Button/Switch": "A sensor for a button or switch.",
+                "Cable/Interconnect": "A sensor for a cable or interconnect type of device.",
+                "Chassis": "A sensor for a chassis.",
+                "ChipSet": "A sensor for a chipset.",
+                "CoolingDevice": "A sensor for a cooling device.",
+                "Critical Interrupt": "A sensor for a critical interrupt event.",
+                "Current": "A current sensor.",
+                "Drive Slot/Bay": "A sensor for a drive slot or bay.",
+                "Entity Presence": "A sensor for an entity presence event.",
+                "Event Logging Disabled": "A sensor for the event log.",
+                "FRUState": "A sensor for a FRU state event.",
+                "Fan": "A fan sensor.",
+                "LAN": "A sensor for a LAN device.",
+                "Management Subsystem Health": "A sensor for a management subsystem health event.",
+                "Memory": "A sensor for a memory device.",
+                "Microcontroller/Coprocessor": "A sensor for a microcontroller or coprocessor.",
+                "Module/Board": "A sensor for a module or board.",
+                "Monitor ASIC/IC": "A sensor for a monitor ASIC or IC.",
+                "OEM": "An OEM defined sensor.",
+                "OS Stop/Shutdown": "A sensor for an OS stop or shutdown event",
+                "Other FRU": "A sensor for an other type of FRU.",
+                "Other Units-based Sensor": "A sensor for a miscellaneous analog sensor.",
+                "POST Memory Resize": "A sensor for a POST memory resize event.",
+                "Physical Chassis Security": "A physical security sensor.",
+                "Platform Alert": "A sensor for a platform alert event.",
+                "Platform Security Violation Attempt": "A platform security sensor.",
+                "Power Supply / Converter": "A sensor for a power supply or DC-to-DC converter.",
+                "PowerUnit": "A sensor for a power unit.",
+                "Processor": "A sensor for a processor.",
+                "Session Audit": "A sensor for a session audit event.",
+                "Slot/Connector": "A sensor for a slot or connector.",
+                "System ACPI PowerState": "A sensor for an ACPI power state event.",
+                "System Event": "A sensor for a system event.",
+                "System Firmware Progress": "A sensor for a system firmware progress event.",
+                "SystemBoot/Restart": "A sensor for a system boot or restart event.",
+                "Temperature": "A temperature sensor.",
+                "Terminator": "A sensor for a terminator.",
+                "Version Change": "A sensor for a version change event.",
+                "Voltage": "A voltage sensor.",
+                "Watchdog": "A sensor for a watchdog event."
+            },
+            "type": "string"
+        }
+    },
+    "title": "#LogEntry.v1_2_1.LogEntry"
+}

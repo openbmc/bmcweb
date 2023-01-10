@@ -1,0 +1,615 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AccountService.v1_3_2.json",
+    "$ref": "#/definitions/AccountService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AccountProviderTypes": {
+            "enum": [
+                "RedfishService",
+                "ActiveDirectoryService",
+                "LDAPService",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "ActiveDirectoryService": "An external Active Directory Service.",
+                "LDAPService": "A generic external LDAP Service.",
+                "OEM": "An OEM specific external authentication or directory service.",
+                "RedfishService": "An external Redfish Service."
+            },
+            "enumLongDescriptions": {
+                "ActiveDirectoryService": "The external account provider shall be a service conforming to the Microsoft Active Directory Technical specification. The format of ServiceAddresses shall be a collection of FQDNs or Netbios names that references the set of domain servers for the Active Directory service.",
+                "LDAPService": "The external account provider shall be a service conforming to RFC4511. The format of ServiceAddresses shall be a collection of FQDNs that references the set of LDAP servers for the service.",
+                "RedfishService": "The external account provider shall be a service conforming to the DMTF Redfish specification. The format of ServiceAddresses shall be a collection of URIs which corresponds to a Redfish AccountService entity."
+            },
+            "type": "string"
+        },
+        "AccountService": {
+            "additionalProperties": false,
+            "description": "The AccountService schema contains properties for managing user accounts. The properties are common to all user accounts, such as password requirements, and control features such as account lockout. The schema also contains links to the collections of Manager Accounts and Roles.",
+            "longDescription": "This resource shall be used to represent a management account service for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "AccountLockoutCounterResetAfter": {
+                    "description": "The interval of time in seconds between the last failed login attempt and reset of the lockout threshold counter. This value must be less than or equal to AccountLockoutDuration. Reset sets the counter to zero.",
+                    "longDescription": "This property shall reference the threshold of time in seconds from the last failed login attempt at which point the AccountLockoutThreshold counter (that counts number of failed login attempts) is reset back to zero (at which point AccountLockoutThreshold failures would be required before the account is locked).  This value shall be less than or equal to AccountLockoutDuration. The threshold counter also resets to zero after each successful login.  If AccountLockoutCounterResetEnabled is set to false, the value of this property will be ignored.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "s"
+                },
+                "AccountLockoutDuration": {
+                    "description": "The time in seconds an account is locked out. The value must be greater than or equal to the value of the AccountLockoutCounterResetAfter property. If set to 0, no lockout occurs.",
+                    "longDescription": "This property shall reference the period of time in seconds that an account is locked after the number of failed login attempts reaches the threshold referenced by AccountLockoutThreshold, within the window of time referenced by AccountLockoutCounterResetAfter.  The value shall be greater than or equal to the value of AccountLockoutResetAfter.  If set to 0, no lockout shall occur.  If AccountLockoutCounterResetEnabled is set to false, the value of this property will be ignored.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "s"
+                },
+                "AccountLockoutThreshold": {
+                    "description": "The number of failed login attempts allowed before a user account is locked for a specified duration. A value of 0 means it is never locked.",
+                    "longDescription": "This property shall reference the threshold of failed login attempts at which point the user's account is locked.  If set to 0, no lockout shall ever occur.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Accounts": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerAccountCollection.json#/definitions/ManagerAccountCollection",
+                    "description": "A link to a collection of Manager Accounts.",
+                    "longDescription": "This property shall contain the link to a collection of type ManagerAccountCollection.",
+                    "readonly": true
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "ActiveDirectory": {
+                    "$ref": "#/definitions/ExternalAccountProvider",
+                    "description": "The first ActiveDirectory external account provider this AccountService supports.",
+                    "longDescription": "This property shall contain the first ActiveDirectory external account provider this AccountService supports. If the AccountService supports 1 or more ActiveDirectory services as an external account provider this entity must be populated by default. This entity shall not be present in the AdditionalExternalAccountProviders collection.",
+                    "versionAdded": "v1_3_0"
+                },
+                "AdditionalExternalAccountProviders": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProviderCollection.json#/definitions/ExternalAccountProviderCollection",
+                    "description": "The additional external account providers this AccountService is using.",
+                    "longDescription": "This property shall contain an additional external account providers this AccountService is using.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "AuthFailureLoggingThreshold": {
+                    "description": "The number of authorization failures allowed before the failure attempt is logged to the manager log.",
+                    "longDescription": "This property shall reference the threshold for when an authorization failure is logged.  This represents a modulo function value, thus the failure shall be logged every nth occurrence where n represents the value of this property.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": "integer"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LDAP": {
+                    "$ref": "#/definitions/ExternalAccountProvider",
+                    "description": "The first LDAP external account provider this AccountService supports.",
+                    "longDescription": "This property shall contain the first LDAP external account provider this AccountService supports. If the AccountService supports 1 or more LDAP services as an external account provider this entity must be populated by default. This entity shall not be present in the AdditionalExternalAccountProviders collection.",
+                    "versionAdded": "v1_3_0"
+                },
+                "LocalAccountAuth": {
+                    "$ref": "#/definitions/LocalAccountAuth",
+                    "description": "Controls when this service will use the accounts defined withing this AccountService as part of authentication.",
+                    "longDescription": "This property shall govern how the service uses the Accounts collection within this AccountService as part of authentication.  Details about each of the modes are found in the description of the enum values.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxPasswordLength": {
+                    "description": "The maximum password length for this service.",
+                    "longDescription": "This property shall reference the maximum password length that the implementation will allow a password to be set to.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer"
+                },
+                "MinPasswordLength": {
+                    "description": "The minimum password length for this service.",
+                    "longDescription": "This property shall reference the minimum password length that the implementation will allow a password to be set to.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "PrivilegeMap": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PrivilegeRegistry.json#/definitions/PrivilegeRegistry",
+                    "description": "A reference to the Privilege mapping that defines the privileges needed to perform a requested operation on a URI associated with this service.",
+                    "longDescription": "The value of this property shall be a link to a resource of type PrivilegeMappoing that defines the privileges a user context needs in order to perform a requested operation on a URI associated with this service.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "Roles": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/RoleCollection.json#/definitions/RoleCollection",
+                    "description": "A link to a collection of Roles.",
+                    "longDescription": "This property shall contain the link to a collection of type RoleCollection.",
+                    "readonly": true
+                },
+                "ServiceEnabled": {
+                    "description": "Indicates whether this service is enabled.  If set to false, the AccountService is disabled.  This means no users can be created, deleted or modified.  Any service attempting to access the AccountService resource (for example, the Session Service) will fail.  New sessions cannot be started when the service is disabled. However, established sessions may still continue operating. This does not affect Basic AUTH connections.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.  If this is set to false, the AccountService is disabled.  This means no users can be created, deleted or modified.  Any service attempting to access the Account Service, like the Session Service, will fail accessing.  Thus new sessions cannot be started with the service disabled (though established sessions may still continue operating).  Note: this does not affect Basic AUTH connections.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "Authentication": {
+            "additionalProperties": false,
+            "description": "Contains the authentication information for the external service.",
+            "longDescription": "This type shall contain all the required information to authenticate to the external service.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AuthenticationTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property contains the type of authentication used to connect to the external account provider.",
+                    "longDescription": "The value of this property shall be the type of authentication used to connect to the external account provider.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "KerberosKeytab": {
+                    "description": "This property is used with a PATCH or PUT to write a base64 encoded version of the kerberos keytab for the account.  This property is null on a GET.",
+                    "longDescription": "The value of this property shall be a base64 encoded version of the kerberos keytab for this account service.  The value shall be null for GET requests.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
+                },
+                "Password": {
+                    "description": "This property is used with a PATCH or PUT to write the password for the account service.  This property is null on a GET.",
+                    "longDescription": "The value of this property shall be the password for this account service.  The value shall be null for GET requests.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Token": {
+                    "description": "This property is used with a PATCH or PUT to write the token for the account.  This property is null on a GET.",
+                    "longDescription": "The value of this property shall be the token for this account service.  The value shall be null for GET requests.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Username": {
+                    "description": "This property contains the user name for the account service.",
+                    "longDescription": "The value of this property shall be the user name for this account service.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "AuthenticationTypes": {
+            "enum": [
+                "Token",
+                "KerberosKeytab",
+                "UsernameAndPassword",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "KerberosKeytab": "A kerberos keytab.",
+                "OEM": "An OEM specific authentication mechanism.",
+                "Token": "An opaque authentication token.",
+                "UsernameAndPassword": "Username and password combination."
+            },
+            "type": "string"
+        },
+        "ExternalAccountProvider": {
+            "additionalProperties": false,
+            "description": "A remote service that can provide accounts for this manager to utilize for authentication.",
+            "longDescription": "This type shall be used to represent resources that represent external user account services for this manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccountProviderType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AccountProviderTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property contains the type of external account provider this resource references.",
+                    "longDescription": "The value of this property shall be the type of external account provider referenced by this resource.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "Authentication": {
+                    "$ref": "#/definitions/Authentication",
+                    "description": "This property contains the authentication information for the external account provider.",
+                    "longDescription": "The value of this property shall contain the authentication information for the external account provider.",
+                    "versionAdded": "v1_3_0"
+                },
+                "LDAPService": {
+                    "$ref": "#/definitions/LDAPService",
+                    "description": "This property contains additional mapping information needed to parse a generic LDAP service.",
+                    "longDescription": "The value of this property shall contain any additional mapping information needed to parse a generic LDAP service.",
+                    "versionAdded": "v1_3_0"
+                },
+                "RemoteRoleMapping": {
+                    "description": "This property contains a collection of the mapping rules to convert the external account providers account information to the local Redfish Role.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/RoleMapping"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain a collection of the mapping rules to convert the external account providers account information to the local Redfish Role.",
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "ServiceAddresses": {
+                    "description": "This property contains the addresses of the user account providers this resource references. The format of this field depends on the Type.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "The value of this property shall be the addresses of the account providers this resource references. The format of this field depends on the Type of the ExternalAccountProvider. Each item in the array shall contain a single address. Services may define their own behavior for managing multiple addresses.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "ServiceEnabled": {
+                    "description": "This indicates whether this service is enabled.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "LDAPSearchSettings": {
+            "additionalProperties": false,
+            "description": "Contains settings for searching a generic LDAP service.",
+            "longDescription": "This type shall contain all the required settings for searching a generic LDAP service.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BaseDistinguishedNames": {
+                    "description": "The base distinguished names to use when searching the LDAP service.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "The value of this property shall be a collection of base distinguished names to use when searching the LDAP service.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "GroupNameAttribute": {
+                    "description": "The attribute name that contains the name of the Group on the group LDAP entry.",
+                    "longDescription": "The value of this property shall be the attribute name that contains the name of the Group.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "GroupsAttribute": {
+                    "description": "The attribute name that contains the Groups for a user on the user LDAP entry.",
+                    "longDescription": "The value of this property shall be the attribute name that contains the Groups for a user.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "UsernameAttribute": {
+                    "description": "The attribute name that contains the Username on the user LDAP entry.",
+                    "longDescription": "The value of this property shall be the attribute name that contains the Username.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "LDAPService": {
+            "additionalProperties": false,
+            "description": "Contains settings for parsing a generic LDAP service.",
+            "longDescription": "This type shall contain all the required settings for parsing a generic LDAP service.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
+                },
+                "SearchSettings": {
+                    "$ref": "#/definitions/LDAPSearchSettings",
+                    "description": "This property contains the settings needed to search an external LDAP service.",
+                    "longDescription": "The value of this property shall contain the settings needed to search an external LDAP service.",
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "LocalAccountAuth": {
+            "enum": [
+                "Enabled",
+                "Disabled",
+                "Fallback"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Authentication via accounts defined in this AccountService is disabled.",
+                "Enabled": "Authentication via accounts defined in this AccountService is enabled.",
+                "Fallback": "Authentication via accounts defined in this AccountService is only used if there are external account providers that are currently unreachable."
+            },
+            "enumLongDescriptions": {
+                "Disabled": "This value shall be used to indicate that the service will never authenticate users based on the Accounts collection within this AccountService.",
+                "Enabled": "This value shall be used to indicate that the service will authenticate users based on the Accounts collection within this AccountService.",
+                "Fallback": "This value shall be used to indicate that the service will authenticate users based on the Accounts collection within this AccountService only if there are external account providers that are currently unreachable."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "RoleMapping": {
+            "additionalProperties": false,
+            "description": "Contains mapping rules to convert the external account providers account information to the local Redfish Role.",
+            "longDescription": "This type shall contain mapping rules to convert the external account providers account information to the local Redfish Role.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LocalRole": {
+                    "description": "The name of the local role in which to map the remote user or group.",
+                    "longDescription": "The value of this property shall contain the value of the RoleId property within a Role resource on this Redfish service in which to map the remote user or group.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
+                },
+                "RemoteGroup": {
+                    "description": "This property is the name of the remote group (or in the case of a Redfish Service, remote role) that will be mapped to the local role referenced by this entity.",
+                    "longDescription": "The value of this property shall contain the name of the remote group (or in the case of a Redfish Service, remote role) that will be mapped to the local role referenced by this entity.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "RemoteUser": {
+                    "description": "This property is the name of the remote user that will be mapped to the local role referenced by this entity.",
+                    "longDescription": "The value of this property shall contain the name of the remote user that will be mapped to the local role referenced by this entity.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.1",
+    "title": "#AccountService.v1_3_2.AccountService"
+}

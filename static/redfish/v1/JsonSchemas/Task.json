@@ -1,0 +1,47 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.json",
+    "$ref": "#/definitions/Task",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Task": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_0_10.json#/definitions/Task"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_1_7.json#/definitions/Task"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_2_6.json#/definitions/Task"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_3_6.json#/definitions/Task"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_4_5.json#/definitions/Task"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_5_2.json#/definitions/Task"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.v1_6_1.json#/definitions/Task"
+                }
+            ],
+            "deletable": true,
+            "description": "The Task schema contains information about a task that the Redfish task service schedules or executes.  Tasks represent operations that take more time than a client typically wants to wait.",
+            "insertable": false,
+            "longDescription": "This resource contains a task for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/TaskService/Tasks/{TaskId}",
+                "/redfish/v1/TaskService/Tasks/{TaskId}/SubTasks/{TaskId2}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Task.Task"
+}

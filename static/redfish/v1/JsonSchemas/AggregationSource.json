@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.json",
+    "$ref": "#/definitions/AggregationSource",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AggregationSource": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_0_0.json#/definitions/AggregationSource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_1_0.json#/definitions/AggregationSource"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_2_0.json#/definitions/AggregationSource"
+                }
+            ],
+            "deletable": true,
+            "description": "The AggregationSource schema is used to represent the source of information for a subset of the resources provided by a Redfish service.  It can be thought of as a provider of information.  As such, most such interfaces have requirements to support the gathering of information like address and account used to access the information.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an aggregation source for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/AggregationService/AggregationSources/{AggregationSourceId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#AggregationSource.AggregationSource"
+}

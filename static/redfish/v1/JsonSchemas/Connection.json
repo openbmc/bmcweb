@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Connection.json",
+    "$ref": "#/definitions/Connection",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Connection": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Connection.v1_0_0.json#/definitions/Connection"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Connection.v1_1_0.json#/definitions/Connection"
+                }
+            ],
+            "deletable": true,
+            "description": "The Connection schema describes the access permissions endpoints, or groups of endpoints, have with other resources in the service.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a connection information in the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}/Connections/{ConnectionId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Connection.Connection"
+}

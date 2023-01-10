@@ -1,0 +1,71 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.json",
+    "$ref": "#/definitions/ServiceRoot",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ServiceRoot": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_0_9.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_1_6.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_2_4.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_3_5.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_4_3.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_5_2.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_6_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_7_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_8_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_9_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_10_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_11_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_12_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_13_0.json#/definitions/ServiceRoot"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_14_0.json#/definitions/ServiceRoot"
+                }
+            ],
+            "deletable": false,
+            "description": "The ServiceRoot schema describes the root of the Redfish Service, located at the '/redfish/v1' URI.  All other Resources accessible through the Redfish interface on this device are linked directly or indirectly from the Service Root.",
+            "insertable": false,
+            "longDescription": "This Resource represents the root Redfish Service.  All values that this schema describes for Resources shall comply with the Redfish Specification-described requirements.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1",
+                "/redfish/v1/"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ServiceRoot.ServiceRoot"
+}

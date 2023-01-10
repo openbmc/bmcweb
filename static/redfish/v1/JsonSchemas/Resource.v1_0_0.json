@@ -1,0 +1,16 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_1_0.json",
+    "title": "#Resource.v1_0_0",
+    "definitions": {
+        "ReferenceableMember": {
+
+        },
+        "Resource": {
+
+        },
+        "ResourceCollection": {
+
+        }
+    },
+    "copyright": "Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}

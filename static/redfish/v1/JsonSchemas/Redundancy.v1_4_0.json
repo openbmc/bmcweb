@@ -1,0 +1,296 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_4_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Redundancy": {
+            "additionalProperties": false,
+            "description": "The common redundancy definition and structure used in other Redfish schemas.",
+            "longDescription": "This object represents the redundancy element property.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "MaxNumSupported": {
+                    "description": "The maximum number of members allowable for this particular redundancy group.",
+                    "longDescription": "This property shall contain the maximum number of members allowed in the redundancy group.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MemberId": {
+                    "description": "The identifier for the member within the collection.",
+                    "longDescription": "This property shall uniquely identify the member within the collection.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "MinNumNeeded": {
+                    "description": "The minimum number of members needed for this group to be redundant.",
+                    "longDescription": "This property shall contain the minimum number of members allowed in the redundancy group for the current redundancy mode to still be fault tolerant.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Mode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/RedundancyMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The redundancy mode of the group.",
+                    "longDescription": "This property shall contain the information about the redundancy mode of this subsystem.",
+                    "readonly": false
+                },
+                "Name": {
+                    "description": "The name of the resource or array member.",
+                    "longDescription": "This object represents the name of this resource or array member.  The resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RedundancyEnabled": {
+                    "description": "An indication of whether redundancy is enabled.",
+                    "longDescription": "This property shall indicate whether the redundancy is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RedundancySet": {
+                    "description": "The links to components of this redundancy set.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain the links to components that are part of this redundancy set.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "RedundancySet@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "Name",
+                "Mode",
+                "MinNumNeeded",
+                "Status",
+                "RedundancySet",
+                "@odata.id",
+                "MemberId"
+            ],
+            "type": "object"
+        },
+        "RedundancyMode": {
+            "enum": [
+                "Failover",
+                "N+m",
+                "Sharing",
+                "Sparing",
+                "NotRedundant"
+            ],
+            "enumDescriptions": {
+                "Failover": "Failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions.",
+                "N+m": "Multiple units are available and active such that normal operation will continue if one or more units fail.",
+                "NotRedundant": "The subsystem is not configured in a redundancy mode, either due to configuration or the functionality has been disabled by the user.",
+                "Sharing": "Multiple units contribute or share such that operation will continue, but at a reduced capacity, if one or more units fail.",
+                "Sparing": "One or more spare units are available to take over the function of a failed unit, but takeover is not automatic."
+            },
+            "enumVersionAdded": {
+                "NotRedundant": "v1_3_0"
+            },
+            "type": "string"
+        },
+        "RedundancyType": {
+            "enum": [
+                "Failover",
+                "NPlusM",
+                "Sharing",
+                "Sparing",
+                "NotRedundant"
+            ],
+            "enumDescriptions": {
+                "Failover": "Failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions.",
+                "NPlusM": "Multiple units are available and active such that normal operation will continue if one or more units fail.",
+                "NotRedundant": "The subsystem is not configured in a redundancy mode, either due to configuration or the functionality has been disabled by the user.",
+                "Sharing": "Multiple units contribute or share such that operation will continue, but at a reduced capacity, if one or more units fail.",
+                "Sparing": "One or more spare units are available to take over the function of a failed unit, but takeover is not automatic."
+            },
+            "enumLongDescriptions": {
+                "Failover": "This value shall indicate that a failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions.",
+                "NPlusM": "This value shall indicate that the capacity or services provided by the set of N+M devices can withstand failure of up to M units, with all units in the group normally providing capacity or service."
+            },
+            "type": "string"
+        },
+        "RedundantGroup": {
+            "additionalProperties": false,
+            "description": "The redundancy information for the devices in a redundancy group.",
+            "longDescription": "This type shall contain redundancy information for the set of devices in this redundancy group.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaxSupportedInGroup": {
+                    "description": "The maximum number of devices supported in this redundancy group.",
+                    "longDescription": "This property shall contain the maximum number of devices allowed in the redundancy group.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MinNeededInGroup": {
+                    "description": "The minimum number of devices needed for this group to be redundant.",
+                    "longDescription": "This property shall contain the minimum number of functional devices needed in the redundancy group for the current redundancy mode to be fault tolerant.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "RedundancyGroup": {
+                    "description": "The links to the devices included in this redundancy group.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Resource"
+                    },
+                    "longDescription": "This property shall contain the links to the resources that represent the devices that are part of this redundancy group.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "RedundancyGroup@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "RedundancyType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/RedundancyType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The redundancy mode of the group.",
+                    "longDescription": "This property shall contain the information about the redundancy mode of this redundancy group.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "required": [
+                "RedundancyType",
+                "MinNeededInGroup",
+                "Status",
+                "RedundancyGroup"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#Redundancy.v1_4_0"
+}

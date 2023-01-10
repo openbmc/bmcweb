@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Cable.json",
+    "$ref": "#/definitions/Cable",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Cable": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Cable.v1_0_0.json#/definitions/Cable"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Cable.v1_1_0.json#/definitions/Cable"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Cable.v1_2_0.json#/definitions/Cable"
+                }
+            ],
+            "deletable": true,
+            "description": "The Cable schema contains properties that describe a cable connecting endpoints of a chassis, port, or any other cable-compatible endpoint.",
+            "insertable": false,
+            "longDescription": "This resource contains a simple cable for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Cables/{CableId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Cable.Cable"
+}

@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFile.json",
+    "$ref": "#/definitions/MessageRegistryFile",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "MessageRegistryFile": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFile.v1_0_7.json#/definitions/MessageRegistryFile"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFile.v1_1_3.json#/definitions/MessageRegistryFile"
+                }
+            ],
+            "deletable": false,
+            "description": "The MessageRegistryFile schema describes the Message Registry file locator Resource.",
+            "insertable": false,
+            "longDescription": "This Resource shall represent the Message Registry file locator for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Registries/{MessageRegistryFileId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#MessageRegistryFile.MessageRegistryFile"
+}

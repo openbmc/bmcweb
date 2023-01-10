@@ -1,0 +1,392 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_6_0.json",
+    "$ref": "#/definitions/EventDestination",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#EventDestination.ResumeSubscription": {
+                    "$ref": "#/definitions/ResumeSubscription"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "DeliveryRetryPolicy": {
+            "enum": [
+                "TerminateAfterRetries",
+                "SuspendRetries",
+                "RetryForever"
+            ],
+            "enumDescriptions": {
+                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the after the maximum number of retries is reached.",
+                "SuspendRetries": "The subscription is suspended after the maximum number of retries is reached.",
+                "TerminateAfterRetries": "The subscription is terminated after the maximum number of retries is reached."
+            },
+            "type": "string"
+        },
+        "EventDestination": {
+            "additionalProperties": false,
+            "description": "The EventDestination schema defines the target of an event subscription, including the event types and context to provide to the target in the Event payload.",
+            "longDescription": "This Resource shall represent the target of an event subscription, including the event types and context to provide to the target in the Event payload.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Context": {
+                    "description": "A client-supplied string that is stored with the event destination subscription.",
+                    "longDescription": "This property shall contain a client-supplied context that remains with the connection through the connection's lifetime.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DeliveryRetryPolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DeliveryRetryPolicy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property shall contain the subscription delivery retry policy for events, where the subscription type is RedfishEvent.",
+                    "longDescription": "This property shall indicate the subscription delivery retry policy for events where the subscription type is RedfishEvent.  If this property is not present, the policy shall be assumed to be TerminateAfterRetries.",
+                    "readonly": false,
+                    "versionAdded": "v1_6_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Destination": {
+                    "description": "The URI of the destination event receiver.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the destination where the events are sent.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "EventFormatType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.json#/definitions/EventFormatType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The content types of the message that are sent to the EventDestination.",
+                    "longDescription": "This property shall indicate the content types of the message that this service sends to the EventDestination.  If this property is not present, the EventFormatType shall be assumed to be Event.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "EventTypes": {
+                    "deprecated": "This property has been deprecated.  Starting with Redfish Specification v1.6 (Event v1.3), subscriptions are based on the RegistryPrefix and ResourceType properties and not on the EventType property.  Use EventFormatType to create subscriptions for Metric Reports.  If the subscription does not include this property, the service shall use a single element with a default of `Other`.",
+                    "description": "The types of events that are sent to the destination.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType"
+                    },
+                    "longDescription": "This property shall contain an array that contains the types of events that shall be sent to the destination.  To specify that a client is subscribing for Metric Reports, the EventTypes property should include 'MetricReport'.  If the subscription does not include this property, the service shall use a single element with a default of `Other`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionDeprecated": "v1_5_0"
+                },
+                "HttpHeaders": {
+                    "description": "An array of settings for HTTP headers, such as authorization information.  This array is null or an empty array in responses.  An empty array is the preferred return value on read operations.",
+                    "items": {
+                        "$ref": "#/definitions/HttpHeaderProperty"
+                    },
+                    "longDescription": "This property shall contain an object consisting of the names and values of of HTTP header to be included with every event POST to the Event Destination.  This object shall be null or an empty array in responses.  An empty array is the preferred return value in responses.",
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MessageIds": {
+                    "description": "The list of MessageIds that the service sends.  If this property is absent or the array is empty, events with any MessageId are sent to the subscriber.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall specify an array of MessageIds that are the only allowable values for the MessageId property within an EventRecord sent to the subscriber.  Events with MessageIds that are not contained in this array shall not be sent to the subscriber.  If this property is absent or the array is empty, the service shall send events with any MessageId to the subscriber.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricReportDefinitions": {
+                    "description": "A list of metric report definitions for which the service only sends related metric reports.  If this property is absent or the array is empty, metric reports that originate from any metric report definition are sent to the subscriber.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.json#/definitions/MetricReportDefinition"
+                    },
+                    "longDescription": "This property shall specify an array of metric report definitions that are the only allowable generators of metric reports for this subscription.  Metric reports originating from metric report definitions not contained in this array shall not be sent to the subscriber.  If this property is absent or the array is empty, the service shall send metric reports originating from any metric report definition to the subscriber.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                },
+                "MetricReportDefinitions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OriginResources": {
+                    "description": "The array of Resources for which the service sends only related events.  If this property is absent or the array is empty, the service sends the events that originate from any Resource to the subscriber.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall specify an array of Resources, Resource Collections, or Referenceable Members that are the only allowable values for the OriginOfCondition property within an EventRecord that the service sends to the subscriber.  The service shall not send events that originate from Resources, Resource Collections, or Referenceable Members, and that this array does not contain, to the subscriber.  If this property is absent or the array is empty, the service shall send events that originate from any Resource, Resource Collection, or Referenceable Member to the subscriber.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "OriginResources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Protocol": {
+                    "$ref": "#/definitions/EventDestinationProtocol",
+                    "description": "The protocol type of the event connection.",
+                    "longDescription": "This property shall contain the protocol type that the event uses to send the event to the destination.  A `Redfish` value shall indicate that the event type shall adhere to the type defined in the Redfish Specification.",
+                    "readonly": true
+                },
+                "RegistryPrefixes": {
+                    "description": "The list of the prefixes for the Message Registries that contain the MessageIds that are sent to this event destination.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the array of the prefixes of the Message Registries that contain the MessageIds in the Events that shall be sent to the EventDestination.  If this property is absent or the array is empty, the service shall send events with MessageIds from any Message Registry.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ResourceTypes": {
+                    "description": "The list of Resource Type values (Schema names) that correspond to the OriginOfCondition.  The version and full namespace should not be specified.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall specify an array of Resource Type values.  When an event is generated, if the OriginOfCondition's Resource Type matches a value in this array, the event shall be sent to the event destination (unless it would be filtered by other property conditions such as RegistryPrefix).  If this property is absent or the array is empty, the service shall send Events from any Resource type to the subscriber.  This property shall contain only the general namespace for the type and not the versioned value.  For example, it shall not contain Task.v1_2_0.Task and instead shall contain Task.  To specify that a client is subscribing to metric reports, the EventTypes property should include `MetricReport`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property shall contain the status of the subscription.",
+                    "longDescription": "This property shall contain the status of the subscription.",
+                    "versionAdded": "v1_6_0"
+                },
+                "SubordinateResources": {
+                    "description": "An indication of whether the subscription is for events in the OriginResources array and its subordinate Resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate Resources.  Note that Resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription shall be for events in the OriginResources array only.  If the OriginResources array is not present, this property shall have no relevance.",
+                    "longDescription": "This property shall indicate whether the subscription is for events in the OriginResources array and its subordinate Resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate Resources.  Note that Resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription shall be for events in the OriginResources array only.  If the OriginResources array is not present, this property shall have no relevance.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "SubscriptionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SubscriptionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The subscription type for events.",
+                    "longDescription": "This property shall indicate the type of subscription for events.  If this property is not present, the SubscriptionType shall be assumed to be RedfishEvent.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "required": [
+                "Context",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name",
+                "SubscriptionType"
+            ],
+            "requiredOnCreate": [
+                "Destination",
+                "Protocol"
+            ],
+            "type": "object"
+        },
+        "EventDestinationProtocol": {
+            "enum": [
+                "Redfish"
+            ],
+            "enumDescriptions": {
+                "Redfish": "The destination follows the Redfish Specification for event notifications."
+            },
+            "type": "string"
+        },
+        "HttpHeaderProperty": {
+            "additionalProperties": false,
+            "description": "The HTTP header value is the property value.  The header name is the property name.",
+            "longDescription": "This type shall contain the HTTP header name and value to include with every event POST to the event eestination.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[^:\\\\s]+$": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ResumeSubscription": {
+            "additionalProperties": false,
+            "description": "This action resumes a suspended event subscription.",
+            "longDescription": "This action shall resume a suspended event subscription, which affects the subscription status.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SubscriptionType": {
+            "enum": [
+                "RedfishEvent",
+                "SSE"
+            ],
+            "enumDescriptions": {
+                "RedfishEvent": "The subscription follows the Redfish Specification for event notifications.  To send an event notification, a service sends an HTTP POST to the subscriber's destination URI.",
+                "SSE": "The subscription follows the HTML5 Server-Sent Event definition for event notifications."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2019.2",
+    "title": "#EventDestination.v1_6_0.EventDestination"
+}

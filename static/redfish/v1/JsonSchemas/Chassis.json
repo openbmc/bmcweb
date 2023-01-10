@@ -1,0 +1,91 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.json",
+    "$ref": "#/definitions/Chassis",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Chassis": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_0_14.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_1_14.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_2_12.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_3_12.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_4_11.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_5_10.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_6_8.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_7_8.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_8_7.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_9_7.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_10_5.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_11_5.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_12_4.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_13_3.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_14_2.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_15_2.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_16_1.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_17_1.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_18_1.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_19_1.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_20_0.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_21_0.json#/definitions/Chassis"
+                }
+            ],
+            "deletable": true,
+            "description": "The Chassis schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a chassis or other physical enclosure for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Chassis.Chassis"
+}

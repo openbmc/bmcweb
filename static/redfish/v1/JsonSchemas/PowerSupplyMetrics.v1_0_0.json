@@ -1,0 +1,623 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupplyMetrics.v1_0_0.json",
+    "$ref": "#/definitions/PowerSupplyMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#PowerSupplyMetrics.ResetMetrics": {
+                    "$ref": "#/definitions/ResetMetrics"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CurrentSensors": {
+            "additionalProperties": false,
+            "description": "The current sensors for this power supply.",
+            "longDescription": "This type shall contain properties that describe current sensor readings for a power supply.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Input": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power supply input.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current at the input of the power supply.",
+                    "readonly": true
+                },
+                "InputSecondary": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power supply secondary input.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current at the secondary input of the power supply.  This property shall not be present if the power supply does not include a secondary input.",
+                    "readonly": true
+                },
+                "Output12Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 12V nominal output.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current on a 12 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 12V output.",
+                    "readonly": true
+                },
+                "Output3Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 3V nominal output.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current on a 3 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 3V output.",
+                    "readonly": true
+                },
+                "Output48Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 48V nominal output.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current on a 48 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 48V output.",
+                    "readonly": true
+                },
+                "Output5Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 5V nominal output.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current on a 5 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 5V output.",
+                    "readonly": true
+                },
+                "OutputAux": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The auxiliary (AUX) output.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current sensor that measures current on an auxiliary (AUX) output power rail.  This property shall not be present if the power supply does not include an auxiliary output.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PowerSensors": {
+            "additionalProperties": false,
+            "description": "The power sensors for this power supply.",
+            "longDescription": "This type shall contain properties that describe power sensor readings for a power supply.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Input": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The input power reading for the power supply.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, measured in Watts, for this power supply unit, as measured at the input of the power supply.",
+                    "readonly": true
+                },
+                "InputSecondary": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The secondary input power reading for the power supply.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, measured in Watts, for this power supply unit, as measured at the secondary input of the power supply.  This property shall not appear if the power supply does not contain a secondary input.",
+                    "readonly": true
+                },
+                "Output": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The output power reading for the power supply.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, measured in Watts, for this power supply unit, as measured at the output of the power supply.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "PowerSupplyMetrics": {
+            "additionalProperties": false,
+            "description": "The PowerSupplyMetrics schema contains definitions for the metrics of a power supply.",
+            "longDescription": "This resource shall be used to represent the metrics of a power supply unit for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EnergykWh": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The energy consumption of this unit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the total energy, measured in kilowatt-hours (kWh), for this unit, that represents the `Total` ElectricalContext sensor when multiple energy sensors exist.",
+                    "readonly": true
+                },
+                "FanSpeedPercent": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorFanExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The fan speed reading for this power supply.",
+                    "excerptCopy": "SensorFanExcerpt",
+                    "longDescription": "This property shall contain the fan speed sensor for this power supply.",
+                    "readonly": true
+                },
+                "FrequencyHz": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The frequency reading for this power supply.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the frequency sensor for this power supply.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InputCurrentAmps": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The input current reading for this power supply.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the sensor measuring the input current for this power supply.",
+                    "readonly": true
+                },
+                "InputPowerWatts": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The input power reading for this power supply.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the sensor measuring the input power for this power supply.",
+                    "readonly": true
+                },
+                "InputVoltage": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The input voltage reading for this power supply.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the sensor measuring the input voltage for this power supply.",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OutputPowerWatts": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The total power output reading for this power supply.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the sensor measuring the total output power for this power supply.",
+                    "readonly": true
+                },
+                "RailCurrentAmps": {
+                    "description": "The current readings for this power supply.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                    },
+                    "longDescription": "This property shall contain the output current sensors for this power supply.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "RailCurrentAmps@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "RailPowerWatts": {
+                    "description": "The power readings for this power supply.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                    },
+                    "longDescription": "This property shall contain the output power sensors for this power supply.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "RailPowerWatts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "RailVoltage": {
+                    "description": "The voltage readings for this power supply.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                    },
+                    "longDescription": "This property shall contain the output voltage sensors for this power supply.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "RailVoltage@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "TemperatureCelsius": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The temperature reading for this power supply.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the temperature sensor for this power supply.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ResetMetrics": {
+            "additionalProperties": false,
+            "description": "This action resets the summary metrics related to this equipment.",
+            "longDescription": "This action shall reset any time intervals or counted values for this equipment.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "VoltageSensors": {
+            "additionalProperties": false,
+            "description": "The voltage readings for a power supply.",
+            "longDescription": "This type shall contain properties that describe voltage sensor readings for a power supply.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Input": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power supply input.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures voltage at the input to the power supply.",
+                    "readonly": true
+                },
+                "InputSecondary": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power supply secondary input.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures voltage at a secondary input to the power supply.  This property shall not be present if the power supply does not include a secondary input.",
+                    "readonly": true
+                },
+                "Output12Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 12V nominal output.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures voltage on a 12 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 12V output.",
+                    "readonly": true
+                },
+                "Output3Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 3V nominal output.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures voltage on a 3 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 3V output.",
+                    "readonly": true
+                },
+                "Output48Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 48V nominal output.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures voltage on a 48 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 48V output.",
+                    "readonly": true
+                },
+                "Output5Volt": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The 5V nominal output.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures voltage on a 3 Volt nominal output power rail.  This property shall not be present if the power supply does not include a 3V output.",
+                    "readonly": true
+                },
+                "OutputAux": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The auxiliary (AUX) output.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage sensor that measures current on an auxiliary (AUX) output power rail.  This property shall not be present if the power supply does not include an auxiliary output.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#PowerSupplyMetrics.v1_0_0.PowerSupplyMetrics"
+}

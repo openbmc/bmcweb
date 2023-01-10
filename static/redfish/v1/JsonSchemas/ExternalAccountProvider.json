@@ -1,0 +1,41 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.json",
+    "$ref": "#/definitions/ExternalAccountProvider",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ExternalAccountProvider": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_0_5.json#/definitions/ExternalAccountProvider"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_1_4.json#/definitions/ExternalAccountProvider"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_2_0.json#/definitions/ExternalAccountProvider"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_3_1.json#/definitions/ExternalAccountProvider"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_4_1.json#/definitions/ExternalAccountProvider"
+                }
+            ],
+            "deletable": true,
+            "description": "The ExternalAccountProvider schema represents a remote service that provides accounts for this manager to use for authentication.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a remote authentication service in the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/AccountService/ExternalAccountProviders/{ExternalAccountProviderId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ExternalAccountProviders/{ExternalAccountProviderId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ExternalAccountProvider.ExternalAccountProvider"
+}

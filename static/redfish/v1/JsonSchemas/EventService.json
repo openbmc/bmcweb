@@ -1,0 +1,52 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.json",
+    "$ref": "#/definitions/EventService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "EventService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_0_14.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_1_7.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_2_7.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_3_6.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_4_6.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_5_5.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_6_4.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_7_3.json#/definitions/EventService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.v1_8_0.json#/definitions/EventService"
+                }
+            ],
+            "deletable": false,
+            "description": "The EventService schema contains properties for managing event subscriptions and generates the events sent to subscribers.  The resource has links to the actual collection of subscriptions, which are called event destinations.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an event service for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/EventService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#EventService.EventService"
+}

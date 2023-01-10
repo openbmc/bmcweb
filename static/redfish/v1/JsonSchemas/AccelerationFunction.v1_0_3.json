@@ -1,0 +1,266 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.v1_0_3.json",
+    "$ref": "#/definitions/AccelerationFunction",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AccelerationFunction": {
+            "additionalProperties": false,
+            "description": "The AccelerationFunction schema describes an acceleration function that a processor implements.  This can include functions such as audio processing, compression, encryption, packet inspection, packet switching, scheduling, or video processing.",
+            "longDescription": "This Resource shall represent the acceleration function that a processor implements in a Redfish implementation.  This can include functions such as audio processing, compression, encryption, packet inspection, packet switching, scheduling, or video processing.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "AccelerationFunctionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AccelerationFunctionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The acceleration function type.",
+                    "longDescription": "This property shall contain the string that identifies the acceleration function type.",
+                    "readonly": true
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FpgaReconfigurationSlots": {
+                    "description": "An array of the reconfiguration slot identifiers of the FPGA that this acceleration function occupies.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of the FPGA reconfiguration slot identifiers that this acceleration function occupies.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "This property shall contain links to Resources that are related to but are not contained by, or subordinate to, this Resource."
+                },
+                "Manufacturer": {
+                    "description": "The acceleration function code manufacturer.",
+                    "longDescription": "This property shall contain a string that identifies the manufacturer of the acceleration function.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PowerWatts": {
+                    "description": "The acceleration function power consumption, in watts.",
+                    "longDescription": "This property shall contain the total acceleration function power consumption, in watts.",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "W"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this acceleration function.",
+                    "longDescription": "This property shall contain a UUID for the acceleration function.  RFC4122 describes methods that can create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.",
+                    "readonly": true
+                },
+                "Version": {
+                    "description": "The acceleration function version.",
+                    "longDescription": "This property shall describe the acceleration function version.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "AccelerationFunctionType": {
+            "enum": [
+                "Encryption",
+                "Compression",
+                "PacketInspection",
+                "PacketSwitch",
+                "Scheduler",
+                "AudioProcessing",
+                "VideoProcessing",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "AudioProcessing": "An audio processing function.",
+                "Compression": "A compression function.",
+                "Encryption": "An encryption function.",
+                "OEM": "An OEM-defined acceleration function.",
+                "PacketInspection": "A packet inspection function.",
+                "PacketSwitch": "A packet switch function.",
+                "Scheduler": "A scheduler function.",
+                "VideoProcessing": "A video processing function."
+            },
+            "type": "string"
+        },
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by, or subordinate to, this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this acceleration function.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to Resources of the Endpoint type that are associated with this acceleration function.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeFunctions": {
+                    "description": "An array of links to the PCIeFunctions associated with this acceleration function.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links of the PCIeFunction type that represent the PCIe functions associated with this acceleration function.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.3",
+    "title": "#AccelerationFunction.v1_0_3.AccelerationFunction"
+}

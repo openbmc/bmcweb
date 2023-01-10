@@ -1,0 +1,42 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerDistributionMetrics.json",
+    "$ref": "#/definitions/PowerDistributionMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerDistributionMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionMetrics.v1_0_2.json#/definitions/PowerDistributionMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionMetrics.v1_1_1.json#/definitions/PowerDistributionMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionMetrics.v1_2_1.json#/definitions/PowerDistributionMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionMetrics.v1_3_0.json#/definitions/PowerDistributionMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "This is the schema definition for the metrics of a power distribution component or unit, such as a floor power distribution unit (PDU) or switchgear.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent the metrics of a power distribution component or unit for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Metrics",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Metrics",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Metrics",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Metrics",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Metrics",
+                "/redfish/v1/PowerEquipment/ElectricalBuses/{PowerDistributionId}/Metrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PowerDistributionMetrics.PowerDistributionMetrics"
+}

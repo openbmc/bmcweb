@@ -1,0 +1,42 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Redundancy.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Redundancy": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_0_10.json#/definitions/Redundancy"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_1_8.json#/definitions/Redundancy"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_2_6.json#/definitions/Redundancy"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_3_6.json#/definitions/Redundancy"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_4_1.json#/definitions/Redundancy"
+                }
+            ],
+            "description": "The common redundancy definition and structure used in other Redfish schemas.",
+            "longDescription": "This object represents the redundancy element property."
+        },
+        "RedundantGroup": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_4_1.json#/definitions/RedundantGroup"
+                }
+            ],
+            "description": "The redundancy information for the devices in a redundancy group.",
+            "longDescription": "This type shall contain redundancy information for the set of devices in this redundancy group."
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Redundancy"
+}

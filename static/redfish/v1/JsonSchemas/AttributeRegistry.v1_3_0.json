@@ -1,0 +1,932 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_0.json",
+    "$ref": "#/definitions/AttributeRegistry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "AttributeRegistry": {
+            "additionalProperties": false,
+            "description": "The AttributeRegistry schema contains a set of key-value pairs that represents the structure of a Registry. It includes mechanisms for building user interfaces (menus), allowing consistent navigation of the contents. The Attribute Registry is specific to a particular implementation or product. The attributes and property names are not standardized.",
+            "longDescription": "This resource shall be used to represent an Attribute registry for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Language": {
+                    "description": "This is the RFC 5646 compliant language code for the registry.",
+                    "longDescription": "The value of this property shall be a string consisting of an RFC 5646 language code.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "OwningEntity": {
+                    "description": "This is the organization or company that publishes this registry.",
+                    "longDescription": "The value of this property shall be a string that represents the publisher of this registry.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "RegistryEntries": {
+                    "$ref": "#/definitions/RegistryEntries",
+                    "description": "List of all attributes and their metadata for this component.",
+                    "longDescription": "The value of this property shall a list of all attributes for this component, along with their possible values, dependencies, and other metadata."
+                },
+                "RegistryVersion": {
+                    "description": "This is the attribute registry version which is used in the middle portion of a AttributeRegistry.",
+                    "longDescription": "The value of this property shall be the version of this attribute registry. The format of this string shall be of the format majorversion.minorversion.errata in compliance with Protocol Version section of the Redfish specification.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "SupportedSystems": {
+                    "description": "Array of systems supported by this attribute registry.",
+                    "items": {
+                        "$ref": "#/definitions/SupportedSystems"
+                    },
+                    "longDescription": "The value of this property shall be an array containing a list of systems supported by this attribute registry.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "Language",
+                "RegistryVersion",
+                "OwningEntity",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "AttributeType": {
+            "enum": [
+                "Enumeration",
+                "String",
+                "Integer",
+                "Boolean",
+                "Password"
+            ],
+            "enumDescriptions": {
+                "Boolean": "The attributes that are true or false.",
+                "Enumeration": "The attributes that include a list of the known possible enumerated values.",
+                "Integer": "The attributes that have integer numeric values.",
+                "Password": "The attributes that include password values and are not displayed as plain text. The value shall be null for GET requests.",
+                "String": "The attributes that include free form text in their values."
+            },
+            "type": "string"
+        },
+        "AttributeValue": {
+            "additionalProperties": false,
+            "description": "A possible value for attributes of type 'Enumeration'.",
+            "longDescription": "This type shall describe a possible value of an attribute of type 'Enumeration'.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ValueDisplayName": {
+                    "description": "A user-readable display string of the value of the attribute in the defined 'Language'.",
+                    "longDescription": "The value of this property shall be a string representing the user-readable display string of the value of the attribute in the defined 'Language'.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ValueName": {
+                    "description": "The unique value name of the attribute.",
+                    "longDescription": "The value of this property shall be a string representing the value name of the attribute. ValueName is a unique string within the list of possible values in the 'Value' array of a given attribute.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ValueName"
+            ],
+            "type": "object"
+        },
+        "Attributes": {
+            "additionalProperties": false,
+            "description": "An attribute and its possible values.",
+            "longDescription": "This type shall describe an attribute and its possible values and other metadata.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AttributeName": {
+                    "description": "The unique name of the attribute.",
+                    "longDescription": "The value of this property shall be the name of this attribute that is unique in this registry.",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "CurrentValue": {
+                    "description": "Placeholder of the current value of the attribute.",
+                    "longDescription": "Placeholder of the current value of the attribute, to aid in evaluating dependencies. The current value of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "boolean",
+                        "number",
+                        "null"
+                    ]
+                },
+                "DefaultValue": {
+                    "description": "The default current value of the attribute.",
+                    "longDescription": "The value of this property shall be the default value of the attribute.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "boolean",
+                        "number",
+                        "null"
+                    ]
+                },
+                "DisplayName": {
+                    "description": "The user-readable display string of the attribute in the defined 'Language'.",
+                    "longDescription": "The value of this property shall be the user-readable display string of the attribute in the defined 'Language'.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DisplayOrder": {
+                    "description": "The numeric value describing the ascending order that the attribute is displayed relative to other attributes.",
+                    "longDescription": "The value of this property shall be a number the describes the ascending order in which this attribute is displayed, relative to other attributes.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "GrayOut": {
+                    "description": "The gray-out state of this attribute.",
+                    "longDescription": "The value of this property shall be a boolean describing the gray-out state of this attribute. When set to true, a grayed-out attribute should be grayed out in user interfaces. But, unlike ReadOnly, the value of grayed-out attributes might still be modified. The grayout state of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "HelpText": {
+                    "description": "The help text for the attribute.",
+                    "longDescription": "The value of this property shall be the help text of the attribute.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Hidden": {
+                    "description": "The hidden state of this attribute.",
+                    "longDescription": "The value of this property shall be a boolean describing the visibility state of this attribute. When set to true, a hidden attribute should be hidden in user interfaces. The hidden state of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Immutable": {
+                    "description": "Defines whether this attribute is immutable or not.",
+                    "longDescription": "The value of this property shall be a boolean describing the immutable state of this attribute. Immutable attributes should not be modified and are typically used to reflect a hardware state.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "IsSystemUniqueProperty": {
+                    "description": "Defines whether this attribute is unique for this system and should not be replicated.",
+                    "longDescription": "The value of this property shall be a boolean describing this attribute is unique or not. A value of true indicates that the attribute is unique and should not be replicated.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "LowerBound": {
+                    "description": "The lower limit of the value of an attribute of type 'Integer'.",
+                    "longDescription": "The value of this property shall be a number indicating the lower limit of the value of an attribute of type 'Integer'.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MaxLength": {
+                    "description": "The maximum character length of the value of an attribute of type 'String'.",
+                    "longDescription": "The value of this property shall be a number indicating the maximum character length of the value of an attribute of type 'String'.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MenuPath": {
+                    "description": "A path that describes the menu hierarchy of this attribute.",
+                    "longDescription": "The value of this property shall be a string indicating the menu hierarchy of this attribute, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal.",
+                    "pattern": "^\\.\\/([^/]+(\\/[^/]+)*)?$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MinLength": {
+                    "description": "The minimum character length of the value of an attribute of type 'String'.",
+                    "longDescription": "The value of this property shall be a number indicating the minimum character length of the value of an attribute of type 'String'.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
+                },
+                "ReadOnly": {
+                    "description": "The read-only state of this attribute.",
+                    "longDescription": "The value of this property shall be a boolean describing the read-only state of attribute. A read-only attribute cannot be modified, and should be grayed out in user interfaces. The read-only state of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "ResetRequired": {
+                    "description": "True if changing the value of this attribute requires a system or device reset in order to take effect.",
+                    "longDescription": "The value of this property shall be a boolean describing the requirement for a system or device reset for this attribute value change to take effect.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "ScalarIncrement": {
+                    "description": "The amount to increment or decrement the value of an attribute of type 'Integer' each time a user requests a value change.",
+                    "longDescription": "The value of this property shall be a number indicating the amount to increment or decrement the value of an attribute of type 'Integer' each time a user requests a value change. A ScalarIncrement value of 0 indicates a free-form numeric user input.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Type": {
+                    "$ref": "#/definitions/AttributeType",
+                    "description": "The type of the attribute.",
+                    "longDescription": "The value of this property shall be an enumeration describing type of the attribute.",
+                    "readonly": true
+                },
+                "UefiDevicePath": {
+                    "description": "The UEFI device path that qualifies this attribute.",
+                    "longDescription": "This property shall contain the UEFI device path string used to qualify and locate the specific device for this Attribute, as defined by the UEFI Specification.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "UefiKeywordName": {
+                    "description": "The UEFI KeywordString of the attribute.",
+                    "longDescription": "The value of this property shall be the configuration KeywordString of this attribute, as defined in the UEFI Specification.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
+                },
+                "UefiNamespaceId": {
+                    "description": "The UEFI NamespaceId of the attribute.",
+                    "longDescription": "The value of this property shall be the configuration NamespaceId of this attribute, as defined in the UEFI Specification.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
+                },
+                "UpperBound": {
+                    "description": "The upper limit of the value of an attribute of type 'Integer'.",
+                    "longDescription": "The value of this property shall be a number indicating the upper limit of the value of an attribute of type 'Integer'.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Value": {
+                    "description": "The array containing possible values for attributes of type 'Enumeration'.",
+                    "items": {
+                        "$ref": "#/definitions/AttributeValue"
+                    },
+                    "longDescription": "The value of this property shall be an array containing the possible values of an attribute of type 'Enumeration'.",
+                    "type": "array"
+                },
+                "ValueExpression": {
+                    "description": "A regular expression that is used to validate the value of the attribute. This is only applicable to attributes of type 'String' or 'Integer'.",
+                    "longDescription": "The value of this property shall be a regular expression that is valid according to the Perl regular expression dialect. This string is used to validate the value of the attribute. This is only applicable to attributes of type 'String' or 'Integer'.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "WarningText": {
+                    "description": "The warning text for changing the attribute.",
+                    "longDescription": "The value of this property shall be the warning text of the attribute.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "WriteOnly": {
+                    "description": "Defines whether this attribute is write-only. Such attributes revert back to their initial value after settings are applied.",
+                    "longDescription": "The value of this property shall be a boolean describing the write-only state of this attribute. A write-only attribute reverts back to it's initial value after settings are applied.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "AttributeName"
+            ],
+            "type": "object"
+        },
+        "Dependencies": {
+            "additionalProperties": false,
+            "description": "A dependency of attributes on this component.",
+            "longDescription": "This type shall describe a dependency of attributes on this component.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Dependency": {
+                    "$ref": "#/definitions/Dependency",
+                    "description": "The dependency expression for one or more Attributes in this Attribute Registry.",
+                    "longDescription": "The value of this property shall be the dependency expression for one or more Attributes in this Attribute Registry."
+                },
+                "DependencyFor": {
+                    "description": "The AttributeName of the attribute whose change triggers the evaluation of this dependency expression.",
+                    "longDescription": "The value of this property shall be the AttributeName of the attribute whose change triggers the evaluation of this dependency expression.",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Type": {
+                    "$ref": "#/definitions/DependencyType",
+                    "description": "The type of the dependency structure.",
+                    "longDescription": "The value of this property shall be an enumeration describing type of the attribute dependency.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "Dependency": {
+            "additionalProperties": false,
+            "description": "The dependency expression for one or more Attributes in this Attribute Registry.",
+            "longDescription": "This type shall describe the dependency expression for one or more Attributes in this Attribute Registry.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MapFrom": {
+                    "description": "Array of the map-from conditions for mapping dependency.",
+                    "items": {
+                        "$ref": "#/definitions/MapFrom"
+                    },
+                    "longDescription": "The value of this property shall be an array containing the map-from conditions for a dependency of Type 'Map'.",
+                    "type": "array"
+                },
+                "MapToAttribute": {
+                    "description": "The Name of the attribute that is affected by this dependency expression.",
+                    "longDescription": "The value of this property shall be the AttributeName of the attribute that is affected by this dependency expression.",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "MapToProperty": {
+                    "$ref": "#/definitions/MapToProperty",
+                    "description": "The meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression.",
+                    "longDescription": "The value of this property shall be the meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression. For example, this could be the MapFromAttribute CurrentValue, or ReadOnly state.",
+                    "readonly": true
+                },
+                "MapToValue": {
+                    "description": "The value that MapToProperty is changed to if the dependency expression evaluates to true.",
+                    "longDescription": "The value that the property specified in MapToProperty (in the attribute specified in MapToAttribute) is changed to if the dependency expression evaluates to true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "boolean",
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "DependencyType": {
+            "enum": [
+                "Map"
+            ],
+            "enumDescriptions": {
+                "Map": "A simple mapping dependency. The attribute value or state is changed to the mapped value if the condition evaluates to true."
+            },
+            "type": "string"
+        },
+        "MapFrom": {
+            "additionalProperties": false,
+            "description": "A map-from condition for mapping dependency.",
+            "longDescription": "This type shall describe a map-from condition for a dependency of Type 'Map'.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MapFromAttribute": {
+                    "description": "The attribute that is used to evaluate this dependency expression.",
+                    "longDescription": "The value of this property shall be the AttributeName of the attribute that is used in evaluating this dependency expression term.",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "MapFromCondition": {
+                    "$ref": "#/definitions/MapFromCondition",
+                    "description": "The condition that is used to evaluate this dependency expression.",
+                    "longDescription": "The value of this property shall be the condition that is used to evaluate this dependency expression. For example, 'EQU' or 'NEQ'.",
+                    "readonly": true
+                },
+                "MapFromProperty": {
+                    "$ref": "#/definitions/MapFromProperty",
+                    "description": "The meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression.",
+                    "longDescription": "The value of this property shall be the meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression. For example, this could be the MapFromAttribute CurrentValue, or ReadOnly state.",
+                    "readonly": true
+                },
+                "MapFromValue": {
+                    "description": "The value that the is used property specified in MapFromProperty that is used to evaluate this dependency expression.",
+                    "longDescription": "The value that the property specified in MapFromProperty (in the attribute specified in MapFromAttribute) that is used to evaluate this dependency expression.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "boolean",
+                        "number",
+                        "null"
+                    ]
+                },
+                "MapTerms": {
+                    "$ref": "#/definitions/MapTerms",
+                    "description": "The logical term used to combine two or more MapFrom conditions in this dependency expression.",
+                    "longDescription": "The value of this property shall be the logical term used to combine two or more MapFrom conditions in this dependency expression. For example, 'AND' for logical AND, or 'OR' for logical OR of the conditions.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "MapFromCondition": {
+            "enum": [
+                "EQU",
+                "NEQ",
+                "GTR",
+                "GEQ",
+                "LSS",
+                "LEQ"
+            ],
+            "enumDescriptions": {
+                "EQU": "The logical operation for 'Equal'.",
+                "GEQ": "The logical operation for 'Greater than or Equal'.",
+                "GTR": "The logical operation for 'Greater than'.",
+                "LEQ": "The logical operation for 'Less than or Equal'.",
+                "LSS": "The logical operation for 'Less than'.",
+                "NEQ": "The logical operation for 'Not Equal'."
+            },
+            "type": "string"
+        },
+        "MapFromProperty": {
+            "enum": [
+                "CurrentValue",
+                "DefaultValue",
+                "ReadOnly",
+                "WriteOnly",
+                "GrayOut",
+                "Hidden",
+                "LowerBound",
+                "UpperBound",
+                "MinLength",
+                "MaxLength",
+                "ScalarIncrement"
+            ],
+            "enumDescriptions": {
+                "CurrentValue": "The dependency on an attribute's CurrentValue.",
+                "DefaultValue": "The dependency on an attribute's DefaultValue.",
+                "GrayOut": "The dependency on an attribute's GrayOut state.",
+                "Hidden": "The dependency on an attribute's Hidden state.",
+                "LowerBound": "The dependency on an attribute's LowerBound.",
+                "MaxLength": "The dependency on an attribute's MaxLength.",
+                "MinLength": "The dependency on an attribute's MinLength.",
+                "ReadOnly": "The dependency on an attribute's ReadOnly state.",
+                "ScalarIncrement": "The dependency on an attribute's ScalarIncrement.",
+                "UpperBound": "The dependency on an attribute's UpperBound.",
+                "WriteOnly": "The dependency on an attribute's WriteOnly state."
+            },
+            "type": "string"
+        },
+        "MapTerms": {
+            "enum": [
+                "AND",
+                "OR"
+            ],
+            "enumDescriptions": {
+                "AND": "The operation used for logical 'AND' of dependency terms.",
+                "OR": "The operation used for logical 'OR' of dependency terms."
+            },
+            "type": "string"
+        },
+        "MapToProperty": {
+            "enum": [
+                "CurrentValue",
+                "DefaultValue",
+                "ReadOnly",
+                "WriteOnly",
+                "GrayOut",
+                "Hidden",
+                "Immutable",
+                "HelpText",
+                "WarningText",
+                "DisplayName",
+                "DisplayOrder",
+                "LowerBound",
+                "UpperBound",
+                "MinLength",
+                "MaxLength",
+                "ScalarIncrement",
+                "ValueExpression"
+            ],
+            "enumDescriptions": {
+                "CurrentValue": "The dependency that affects an attribute's CurrentValue.",
+                "DefaultValue": "The dependency that affects an attribute's DefaultValue.",
+                "DisplayName": "The dependency that affects an attribute's DisplayName.",
+                "DisplayOrder": "The dependency that affects an attribute's DisplayName.",
+                "GrayOut": "The dependency that affects an attribute's GrayOut state.",
+                "HelpText": "The dependency that affects an attribute's HelpText.",
+                "Hidden": "The dependency that affects an attribute's Hidden state.",
+                "Immutable": "The dependency that affects an attribute's Immutable state.",
+                "LowerBound": "The dependency that affects an attribute's LowerBound.",
+                "MaxLength": "The dependency that affects an attribute's MaxLength.",
+                "MinLength": "The dependency that affects an attribute's MinLength.",
+                "ReadOnly": "The dependency that affects an attribute's ReadOnly state.",
+                "ScalarIncrement": "The dependency that affects an attribute's ScalarIncrement.",
+                "UpperBound": "The dependency that affects an attribute's UpperBound.",
+                "ValueExpression": "The dependency that affects an attribute's ValueExpression.",
+                "WarningText": "The dependency that affects an attribute's WarningText.",
+                "WriteOnly": "The dependency that affects an attribute's WriteOnly state."
+            },
+            "type": "string"
+        },
+        "Menus": {
+            "additionalProperties": false,
+            "description": "A menu and its hierarchy.",
+            "longDescription": "This type shall describe an attribute's menu and its hierarchy.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DisplayName": {
+                    "description": "The user-readable display string of this menu in the defined 'Language'.",
+                    "longDescription": "The value of this property shall be the user-readable display string of the menu in the defined 'Language'.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DisplayOrder": {
+                    "description": "The numeric value describing the ascending order in which this menu is displayed relative to other menus.",
+                    "longDescription": "The value of this property shall be a number the describes the ascending order in which this menu is displayed, relative to other menus.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "GrayOut": {
+                    "description": "The gray-out state of this menu. A grayed-only menu is not accessible in user interfaces.",
+                    "longDescription": "The value of this property shall be a boolean describing the gray-out state of this menu. When set to true, a grayed-only menu is not accessible in user interfaces.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Hidden": {
+                    "description": "The hidden state of this menu.",
+                    "longDescription": "The value of this property shall be a boolean describing the visibility state of this menu. When set to true, a hidden menu should be hidden in user interfaces. The hidden state of a menu might be affected by the results of evaluating the 'Dependencies' array.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MenuName": {
+                    "description": "The unique name string of this menu.",
+                    "longDescription": "The value of this property shall be the name of this menu that is unique in this registry.",
+                    "pattern": "^[^/]+$",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "MenuPath": {
+                    "description": "A path that describes this menu hierarchy relative to other menus.",
+                    "longDescription": "The value of this property shall be a string indicating the menu hierarchy of this menu, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal.",
+                    "pattern": "^\\.\\/([^/]+(\\/[^/]+)*)?$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
+                },
+                "ReadOnly": {
+                    "description": "The read-only state of this menu.",
+                    "longDescription": "The value of this property shall be a boolean describing the read-only state of this menu. A read-only menu is not accessible in user interfaces, and all properties contained in that menu and its sub-menus become read-only.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "RegistryEntries": {
+            "additionalProperties": false,
+            "description": "List of all attributes and their metadata for this component.",
+            "longDescription": "This type shall describe a list of all attributes for this component, along with their possible values, dependencies, and other metadata.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Attributes": {
+                    "description": "The array containing the attributes and their possible values.",
+                    "items": {
+                        "$ref": "#/definitions/Attributes"
+                    },
+                    "longDescription": "The value of this property shall be an array containing the attributes and their possible values and other metadata.",
+                    "type": "array"
+                },
+                "Dependencies": {
+                    "description": "The array containing a list of dependencies of attributes on this component.",
+                    "items": {
+                        "$ref": "#/definitions/Dependencies"
+                    },
+                    "longDescription": "The value of this property shall be an array containing a list of dependencies of attributes on this component.",
+                    "type": "array"
+                },
+                "Menus": {
+                    "description": "The array containing the attributes menus and their hierarchy.",
+                    "items": {
+                        "$ref": "#/definitions/Menus"
+                    },
+                    "longDescription": "The value of this property shall be an array containing the attributes menus and their hierarchy.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "SupportedSystems": {
+            "additionalProperties": false,
+            "description": "A system supported by this attribute registry.",
+            "longDescription": "This type shall describe a system supported by this attribute registry.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "FirmwareVersion": {
+                    "description": "Firmware version.",
+                    "longDescription": "The version of the component firmware image that this registry applies to.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ProductName": {
+                    "description": "The product name of the system.",
+                    "longDescription": "The value of this property shall be the product name of the computer system that this registry applies to.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SystemId": {
+                    "description": "The system ID of the system.",
+                    "longDescription": "The value of this property shall be the system ID that identifies the computer system model that this registry applies to.",
+                    "pattern": "^[A-Za-z0-9]+$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.3",
+    "title": "#AttributeRegistry.v1_3_0.AttributeRegistry"
+}

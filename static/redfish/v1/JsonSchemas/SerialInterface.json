@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SerialInterface.json",
+    "$ref": "#/definitions/SerialInterface",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SerialInterface": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SerialInterface.v1_0_11.json#/definitions/SerialInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SerialInterface.v1_1_8.json#/definitions/SerialInterface"
+                }
+            ],
+            "deletable": false,
+            "description": "The SerialInterface schema describes an asynchronous serial interface, such as an RS-232 interface, available to a system or device.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a serial interface as part of the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Managers/{ManagerId}/SerialInterfaces/{SerialInterfaceId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#SerialInterface.SerialInterface"
+}

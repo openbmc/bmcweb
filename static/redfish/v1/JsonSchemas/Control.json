@@ -1,0 +1,78 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Control.json",
+    "$ref": "#/definitions/Control",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Control": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_0_1.json#/definitions/Control"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_1_0.json#/definitions/Control"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_2_0.json#/definitions/Control"
+                }
+            ],
+            "deletable": false,
+            "description": "The Control schema describes a control point and its properties.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a control point for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/Controls/{ControlId}",
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Controls/{ControlId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Controls/{ControlId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Controls/{ControlId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Controls/{ControlId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Controls/{ControlId}"
+            ]
+        },
+        "ControlExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_0_1.json#/definitions/ControlExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_1_0.json#/definitions/ControlExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_2_0.json#/definitions/ControlExcerpt"
+                }
+            ]
+        },
+        "ControlRangeExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_0_1.json#/definitions/ControlRangeExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_1_0.json#/definitions/ControlRangeExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_2_0.json#/definitions/ControlRangeExcerpt"
+                }
+            ]
+        },
+        "ControlSingleExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_0_1.json#/definitions/ControlSingleExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_1_0.json#/definitions/ControlSingleExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.v1_2_0.json#/definitions/ControlSingleExcerpt"
+                }
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Control.Control"
+}

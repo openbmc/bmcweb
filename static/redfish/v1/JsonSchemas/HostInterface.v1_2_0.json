@@ -1,0 +1,311 @@
+{
+    "$ref": "#/definitions/HostInterface",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AuthenticationMode": {
+            "enum": [
+                "AuthNone",
+                "BasicAuth",
+                "RedfishSessionAuth",
+                "OemAuth"
+            ],
+            "enumDescriptions": {
+                "AuthNone": "Requests without any sort of authentication are allowed.",
+                "BasicAuth": "Requests using HTTP Basic Authentication are allowed.",
+                "OemAuth": "Requests using OEM authentication mechanisms are allowed.",
+                "RedfishSessionAuth": "Requests using Redfish Session Authentication are allowed."
+            },
+            "type": "string"
+        },
+        "HostInterface": {
+            "additionalProperties": false,
+            "description": "This schema defines a single Host Interface resource.",
+            "longDescription": "This resource shall be used to represent Host Interface resources as part of the Redfish specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "AuthNoneRoleId": {
+                    "description": "The Role used when no authentication on this interface is used.",
+                    "longDescription": "The value of this property shall be the ID of the Role resource that is used when no authentication on this interface is performed.  This property shall be absent if AuthNone is not supported by the service for the AuthenticationModes property.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "AuthenticationModes": {
+                    "description": "Indicates the authentication modes available on this interface.",
+                    "items": {
+                        "$ref": "#/definitions/AuthenticationMode"
+                    },
+                    "longDescription": "The value of this property shall be an array consisting of the authentication modes allowed on this interface.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExternallyAccessible": {
+                    "description": "Indicates whether this interface is accessible by external entities.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this interface is accessible by external (non-host) entities.  For example, if the host and manager are connected via a switch, and the switch also exposes an external port on the system, then the interface could also be used by external clients, and this property will have the value set to true.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "FirmwareAuthEnabled": {
+                    "description": "Indicates whether this firmware authentication is enabled for this interface.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether firmware authentication for this interface is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "FirmwareAuthRoleId": {
+                    "description": "The Role used for firmware authentication on this interface.",
+                    "longDescription": "The value of this property shall be the ID of the Role resource that is configured for firmware authentication on this interface.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "HostEthernetInterfaces": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection",
+                    "description": "The Redfish link to the collection of network interface controllers or cards (NICs) that a Computer System uses to communicate with this Host Interface.",
+                    "longDescription": "The value of this property shall be a link to a collection of type EthernetInterfaceCollection that Computer Systems use as the Host Interface to this Manager.",
+                    "readonly": true
+                },
+                "HostInterfaceType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/HostInterfaceType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the Host Interface type for this interface.",
+                    "longDescription": "The value of this property shall be an enumeration describing type of the interface.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InterfaceEnabled": {
+                    "description": "Indicates whether this interface is enabled.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this interface is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "KernelAuthEnabled": {
+                    "description": "Indicates whether this kernel authentication is enabled for this interface.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether kernel authentication for this interface is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "KernelAuthRoleId": {
+                    "description": "The Role used for kernel authentication on this interface.",
+                    "longDescription": "The value of this property shall be the ID of the Role resource that is configured for kernel authentication on this interface.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "ManagerEthernetInterface": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface",
+                    "description": "The Redfish link to a single network interface controllers or cards (NIC) that this Manager uses for network communication with this Host Interface.",
+                    "longDescription": "The value of this property shall be a link to a resource of type EthernetInterface which represents the network interface used by this Manager as the HostInterface.",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NetworkProtocol": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.json#/definitions/ManagerNetworkProtocol",
+                    "description": "The Redfish link to the network services and their settings that the Manager controls.  It is here that clients will find network configuration options as well as network services.",
+                    "longDescription": "The value of this property shall contain a reference to a resource of type ManagerNetworkProtocol which represents the network services for this Manager.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "HostInterfaceType": {
+            "enum": [
+                "NetworkHostInterface"
+            ],
+            "enumDescriptions": {
+                "NetworkHostInterface": "This interface is a Network Host Interface."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "References to other resources that are related to this resource.",
+            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthNoneRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "A reference to the Role that contains the privileges on this Host Interface when no authentication is performed.",
+                    "longDescription": "The value of this property shall be a link to a Role object instance, and should reference the object identified by property AuthNoneRoleId.  This property shall be absent if AuthNone is not supported by the service for the AuthenticationModes property.",
+                    "readonly": true
+                },
+                "ComputerSystems": {
+                    "description": "An array of references to the Computer Systems connected to this Host Interface.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
+                    },
+                    "longDescription": "The value of this property shall be an array of references to resources of type ComputerSystem that are connected to this HostInterface.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComputerSystems@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "FirmwareAuthRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "A reference to the Role that has firmware authentication privileges on this Host Interface.",
+                    "longDescription": "The value of this property shall be a link to a Role object instance, and should reference the object identified by property FirmwareAuthRoleId.",
+                    "readonly": true
+                },
+                "KernelAuthRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "A reference to the Role object defining Privileges for this Host Interface when using kernel authentication.",
+                    "longDescription": "The value of this property shall be a link to a Role object instance, and should reference the object identified by property KernelAuthRoleId.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#HostInterface.v1_2_0.HostInterface"
+}

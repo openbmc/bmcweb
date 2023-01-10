@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Aggregate.json",
+    "$ref": "#/definitions/Aggregate",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Aggregate": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Aggregate.v1_0_1.json#/definitions/Aggregate"
+                }
+            ],
+            "deletable": true,
+            "description": "The Aggregate schema describes a grouping method for an aggregation service.  Aggregates are formal groups of resources that are more persistent than ad hoc groupings.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an aggregation service grouping method for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/AggregationService/Aggregates/{AggregateId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Aggregate.Aggregate"
+}

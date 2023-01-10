@@ -1,0 +1,252 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_0_11.json",
+    "$ref": "#/definitions/EventService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#EventService.SubmitTestEvent": {
+                    "$ref": "#/definitions/SubmitTestEvent"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "EventService": {
+            "additionalProperties": false,
+            "description": "The EventService schema contains properties for managing event subscriptions and generates the events sent to subscribers.  The resource has links to the actual collection of subscriptions, which are called event destinations.",
+            "longDescription": "This resource shall represent an event service for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "DeliveryRetryAttempts": {
+                    "description": "The number of times that the POST of an event is retried before the subscription terminates.  This retry occurs at the service level, which means that the HTTP POST to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates.",
+                    "longDescription": "This property shall contain the number of times that the POST of an event is retried before the subscription terminates.  This retry occurs at the service level, which means that the HTTP POST to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates.",
+                    "readonly": false,
+                    "type": "integer"
+                },
+                "DeliveryRetryIntervalSeconds": {
+                    "description": "The interval, in seconds, between retry attempts for sending any event.",
+                    "longDescription": "This property shall contain the interval, in seconds, between the retry attempts for any event sent to the subscription destination.",
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "s"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EventTypesForSubscription": {
+                    "description": "The types of events to which a client can subscribe.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType"
+                    },
+                    "longDescription": "This property shall contain the types of events to which a client can subscribe.  The semantics associated with the enumeration values are defined in the Redfish Specification.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Subscriptions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestinationCollection.json#/definitions/EventDestinationCollection",
+                    "description": "The link to a collection of event destinations.",
+                    "longDescription": "This property shall contain the link to a resource collection of type EventDestinationCollection.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SubmitTestEvent": {
+            "additionalProperties": false,
+            "description": "This action generates a test event.",
+            "longDescription": "This action shall add a test event to the event service with the event data specified in the action parameters.  Then, this message should be sent to any appropriate event destinations.",
+            "parameters": {
+                "EventId": {
+                    "description": "The ID for the event to add.",
+                    "longDescription": "This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service may ignore this value and replace it with its own.",
+                    "type": "string"
+                },
+                "EventTimestamp": {
+                    "description": "The date and time for the event to add.",
+                    "format": "date-time",
+                    "longDescription": "This parameter shall contain the date and time for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish.",
+                    "type": "string"
+                },
+                "EventType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType",
+                    "description": "The type for the event to add.",
+                    "longDescription": "This parameter shall contain the property name for which the following allowable values apply."
+                },
+                "Message": {
+                    "description": "The human-readable message for the event to add.",
+                    "longDescription": "This parameter shall have the same semantics as the Message property in the Event schema for Redfish.",
+                    "type": "string"
+                },
+                "MessageArgs": {
+                    "description": "An array of message arguments for the event to add.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This parameter shall have the same semantics as the MessageArgs property in the Event schema for Redfish.",
+                    "type": "array"
+                },
+                "MessageId": {
+                    "description": "The MessageId for the event to add.",
+                    "longDescription": "This parameter shall contain the MessageId for the event to add and have the same semantics as the MessageId property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "OriginOfCondition": {
+                    "description": "The URL in the OriginOfCondition property of the event to add.  It is not a reference object.",
+                    "format": "uri-reference",
+                    "longDescription": "This parameter shall be a string that represents the URL contained by the OriginOfCondition property in the Event schema for Redfish.",
+                    "type": "string"
+                },
+                "Severity": {
+                    "description": "The severity for the event to add.",
+                    "longDescription": "This parameter shall contain the severity for the event to add and have the same semantics as the Severity property in the Event schema for Redfish.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "1.0",
+    "title": "#EventService.v1_0_11.EventService"
+}

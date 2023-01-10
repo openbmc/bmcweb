@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/GraphicsController.json",
+    "$ref": "#/definitions/GraphicsController",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "GraphicsController": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/GraphicsController.v1_0_0.json#/definitions/GraphicsController"
+                }
+            ],
+            "deletable": true,
+            "description": "The GraphicsController schema defines a graphics controller that can be used to drive one or more display devices.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a graphics output device in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/GraphicsControllers/{ControllerId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#GraphicsController.GraphicsController"
+}

@@ -1,0 +1,55 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json",
+    "$ref": "#/definitions/MemoryMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "MemoryMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_0_8.json#/definitions/MemoryMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_1_8.json#/definitions/MemoryMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_2_2.json#/definitions/MemoryMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_3_1.json#/definitions/MemoryMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_4_1.json#/definitions/MemoryMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_5_0.json#/definitions/MemoryMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "The usage and health statistics for a memory device or system memory summary.",
+            "insertable": false,
+            "longDescription": "The MemoryMetrics schema shall contain the memory metrics for a memory device or system memory summary in a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics",
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/MemoryMetrics",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/MemoryMetrics",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#MemoryMetrics.MemoryMetrics"
+}

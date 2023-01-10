@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ActionInfo.json",
+    "$ref": "#/definitions/ActionInfo",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ActionInfo": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_0_7.json#/definitions/ActionInfo"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_1_3.json#/definitions/ActionInfo"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_2_0.json#/definitions/ActionInfo"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_3_0.json#/definitions/ActionInfo"
+                }
+            ],
+            "deletable": false,
+            "description": "The ActionInfo schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the supported parameters and other information for a Redfish action on a target within a Redfish implementation.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters.",
+            "updatable": false
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ActionInfo.ActionInfo"
+}

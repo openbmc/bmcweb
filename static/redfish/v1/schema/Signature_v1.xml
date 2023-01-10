@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Signature v1.0.2                                                    -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="Signature" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The Signature schema describes a signature or a hash."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains a signature for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Use the DELETE operation to remove signatures."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Signatures/{SignatureId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Signatures/{SignatureId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Signatures/{SignatureId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="SignatureTypeRegistry">
+        <Member Name="UEFI">
+          <Annotation Term="OData.Description" String="A signature defined in the UEFI Specification."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the SignatureType string contains the #define name of the SignatureType member of the EFI_SIGNATURE_LIST, as defined by the UEFI Specification.  This value shall also indicate that the format of the SignatureString is a big-endian hex-encoded string of the binary value specified in the UEFI SignatureData array in EFI_SIGNATURE_DATA, as defined by the UEFI Specification."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+
+      <EntityType Name="Signature" BaseType="Signature.Signature">
+        <Property Name="SignatureTypeRegistry" Type="Signature.SignatureTypeRegistry">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of the signature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type for the signature."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </Property>
+        <Property Name="SignatureType" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The format of the signature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the signature.  The format is qualified by the value of the SignatureTypeRegistry property."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </Property>
+        <Property Name="SignatureString" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The string for the signature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string of the signature, and the format shall follow the requirements specified by the value of the SignatureType property.  If the signature contains any private keys, they shall be removed from the string in responses.  If the private key for the signature is not known by the service and is needed to use the signature, the client shall provide the private key as part of the string in the POST request."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </Property>
+        <Property Name="UefiSignatureOwner" Type="Edm.Guid">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UEFI signature owner for this signature."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the GUID of the UEFI signature owner for this signature as defined by the UEFI Specification.  This property shall only be present if the SignatureTypeRegistry property is `UEFI`."/>
+        </Property>
+        <Property Name="Actions" Type="Signature.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="Signature.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Signature" BaseType="Signature.v1_0_0.Signature"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Signature" BaseType="Signature.v1_0_1.Signature"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

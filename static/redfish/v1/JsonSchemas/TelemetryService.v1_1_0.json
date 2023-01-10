@@ -1,0 +1,345 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_1_0.json",
+    "$ref": "#/definitions/TelemetryService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#TelemetryService.SubmitTestMetricReport": {
+                    "$ref": "#/definitions/SubmitTestMetricReport"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CollectionFunction": {
+            "description": "An operation to perform over the sample.",
+            "enum": [
+                "Average",
+                "Maximum",
+                "Minimum",
+                "Summation"
+            ],
+            "enumDescriptions": {
+                "Average": "An averaging function.",
+                "Maximum": "A maximum function.",
+                "Minimum": "A minimum function.",
+                "Summation": "A summation function."
+            },
+            "longDescription": "If present, the metric value shall be computed according to this function.",
+            "type": "string"
+        },
+        "MetricValue": {
+            "additionalProperties": false,
+            "description": "A metric value.",
+            "longDescription": "A metric value in the context of a Metric.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MetricDefinition": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json#/definitions/MetricDefinition",
+                    "description": "A link to the Metric Definition.",
+                    "longDescription": "The value shall be reference to the Metric Definition resource that describes what this Metric Report is capturing.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricId": {
+                    "description": "The metric definitions identifier for this metric.",
+                    "longDescription": "The value shall be the same as the Id property of the source metric within the associated MetricDefinition.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricProperty": {
+                    "description": "The URI for the property from which this metric is derived.",
+                    "format": "uri",
+                    "longDescription": "The value shall be URI to the a property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricValue": {
+                    "description": "The value identifies this resource.",
+                    "longDescription": "The value of the metric represented as a string.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Timestamp": {
+                    "description": "The time when the value of the metric is obtained. A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp.",
+                    "format": "date-time",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SubmitTestMetricReport": {
+            "additionalProperties": false,
+            "description": "This action is used to generate a metric report.",
+            "longDescription": "This action shall cause the event service to immediately generate the metric report, as an Alert Event. This message should then be sent to any appropriate ListenerDestination targets.",
+            "parameters": {
+                "GeneratedMetricReportValues": {
+                    "description": "The content of the MetricReportValues in the generated metric report.",
+                    "items": {
+                        "$ref": "#/definitions/MetricValue"
+                    },
+                    "longDescription": "This parameter shall contain the contents of the MetricReportValues array property in the generated metric report.",
+                    "requiredParameter": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricReportName": {
+                    "description": "The Name property of the metric report in generated metric report.",
+                    "longDescription": "This parameter shall be the value of the Name property in the generated metric report.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "MetricReportValues": {
+                    "deprecated": "This property has been Deprecated in favor of using the property 'GeneratedMetricReportValues'.",
+                    "description": "The content of MetricReportValues array in generated metric report.",
+                    "longDescription": "This parameter shall contain the contents of the MetricReportValues array property in the generated metric report.",
+                    "type": "string",
+                    "versionDeprecated": "v1_1_0"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "TelemetryService": {
+            "additionalProperties": false,
+            "description": "This is the schema definition for the Metrics Service.  It represents the properties for the service itself and has links to collections of metric definitions and metric report definitions.",
+            "longDescription": "This resource shall be used to represent an Metrics Service for a Redfish implementation.  It represents the properties that affect the service itself.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LogService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LogService.json#/definitions/LogService",
+                    "description": "This is a reference to a Log Service used by the Telemetry Service.",
+                    "longDescription": "The value of this property shall contain a reference to a LogService for the use by this Telemetry Service.",
+                    "readonly": true
+                },
+                "MaxReports": {
+                    "description": "The maximum number of metric reports supported by this service.",
+                    "longDescription": "The value shall be the maximum number of metric reports supported by this service.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MetricDefinitions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinitionCollection.json#/definitions/MetricDefinitionCollection",
+                    "description": "A link to the collection of Metric Definitions.",
+                    "longDescription": "The entries of shall be resources of type MetricDefinitionCollection.",
+                    "readonly": true
+                },
+                "MetricReportDefinitions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinitionCollection.json#/definitions/MetricReportDefinitionCollection",
+                    "description": "A link to the collection of Metric Report Definitions.",
+                    "longDescription": "The value shall be a link to a resource of type MetricReportDefinitionCollection.",
+                    "readonly": true
+                },
+                "MetricReports": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportCollection.json#/definitions/MetricReportCollection",
+                    "description": "A link to the collection of Metric Reports.",
+                    "longDescription": "The value shall be a link to a resource of type MetricReportCollection.",
+                    "readonly": true
+                },
+                "MinCollectionInterval": {
+                    "description": "The minimum time interval between collections supported by this service.",
+                    "longDescription": "The value shall be the minimum time interval between collections supported by this service.  The value shall conform to the Duration format.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SupportedCollectionFunctions": {
+                    "description": "The functions that can be performed over each metric.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CollectionFunction"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The value shall define the function to apply over the collection duration.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Triggers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/TriggersCollection.json#/definitions/TriggersCollection",
+                    "description": "A link to the collection of Triggers, which apply to metrics.",
+                    "longDescription": "The value shall be a link to a resource of type TriggersCollection.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.3",
+    "title": "#TelemetryService.v1_1_0.TelemetryService"
+}

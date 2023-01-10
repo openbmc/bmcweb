@@ -1,0 +1,21 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Message.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Message": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Message.v1_0_10.json#/definitions/Message"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Message.v1_1_2.json#/definitions/Message"
+                }
+            ],
+            "description": "The message that the Redfish service returns.",
+            "longDescription": "This type shall contain a message that the Redfish service returns, as described in the Redfish Specification."
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Message"
+}

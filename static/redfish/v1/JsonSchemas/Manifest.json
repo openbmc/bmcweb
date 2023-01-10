@@ -1,0 +1,21 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manifest.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Manifest": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manifest.v1_0_0.json#/definitions/Manifest"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manifest.v1_1_0.json#/definitions/Manifest"
+                }
+            ],
+            "description": "This type describes a manifest containing a set of requests to be fulfilled.  The manifest contains a set of stanzas, where each stanza describes a single request.",
+            "longDescription": "This type shall describe a manifest containing a set of requests to be fulfilled."
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Manifest"
+}

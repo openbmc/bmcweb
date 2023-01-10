@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  CompositionService v1.2.0                                           -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection_v1.xml">
+    <edmx:Include Namespace="ResourceBlockCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ZoneCollection_v1.xml">
+    <edmx:Include Namespace="ZoneCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Manifest_v1.xml">
+    <edmx:Include Namespace="Manifest"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CompositionReservationCollection_v1.xml">
+    <edmx:Include Namespace="CompositionReservationCollection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="CompositionService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The CompositionService schema describes a composition service and its properties and links to the resources available for composition."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the composition service and its properties for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Some properties, such as ServiceEnabled, can be updated for the composition service."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/CompositionService</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="Compose" IsBound="true">
+        <Annotation Term="OData.Description" String="This action performs a set of operations specified by a manifest."/>
+        <Annotation Term="OData.LongDescription" String="This action shall perform a set of operations specified by a manifest.  Services shall not apply any part of the manifest unless all operations specified by the manifest are successful."/>
+        <Parameter Name="CompositionService" Type="CompositionService.v1_0_0.Actions"/>
+        <Parameter Name="RequestFormat" Type="CompositionService.v1_2_0.ComposeRequestFormat" Nullable="false">
+          <Annotation Term="OData.Description" String="The format of the request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the format of the request."/>
+        </Parameter>
+        <Parameter Name="RequestType" Type="CompositionService.v1_2_0.ComposeRequestType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of request."/>
+        </Parameter>
+        <Parameter Name="Manifest" Type="Manifest.Manifest">
+          <Annotation Term="OData.Description" String="The manifest containing the compose operation request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the manifest containing the compose operation request.  This parameter shall be required if RequestFormat contains the value `Manifest`."/>
+        </Parameter>
+        <Parameter Name="ReservationId" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The identifier of the composition reservation if applying a reservation.  The value for this parameter is obtained from the response of a Compose action where the RequestType parameter contains the value `PreviewReserve`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the value of the Id property of the CompositionReservation resource for applying a reservation."/>
+        </Parameter>
+        <ReturnType Type="CompositionService.v1_2_0.ComposeResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
+
+      <EntityType Name="CompositionService" BaseType="CompositionService.CompositionService">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is enabled."/>
+        </Property>
+        <Property Name="Actions" Type="CompositionService.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+        <NavigationProperty Name="ResourceBlocks" Type="ResourceBlockCollection.ResourceBlockCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The resource blocks available on the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ResourceBlockCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ResourceZones" Type="ZoneCollection.ZoneCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The resource zones available on the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ZoneCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="CompositionService.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions that this schema defines."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_0_0.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_0_1.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_0_2.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_0_3.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_0_4.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_0_2.CompositionService">
+        <Property Name="AllowOverprovisioning" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is allowed to overprovision a composition relative to the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is allowed to overprovision a composition relative to the composition request."/>
+        </Property>
+        <Property Name="AllowZoneAffinity" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether a client can request that a specific resource zone fulfill a composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a client can request that a specific resource zone fulfill a composition request."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_1_0.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_1_1.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_1_2.CompositionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the ActivePool and FreePool properties, and the Compose action."/>
+
+      <EntityType Name="CompositionService" BaseType="CompositionService.v1_1_3.CompositionService">
+        <NavigationProperty Name="ActivePool" Type="ResourceBlockCollection.ResourceBlockCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of resource blocks within the active pool.  Resource blocks in the active pool are contributing to at least one composed resource as a result of a composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ResourceBlockCollection.  The members of this collection shall represent the resource blocks in the active pool.  Services shall filter members of this collection based on the requesting client."/>
+        </NavigationProperty>
+        <NavigationProperty Name="FreePool" Type="ResourceBlockCollection.ResourceBlockCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of resource blocks within the free pool.  Resource blocks in the free pool are not contributing to any composed resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ResourceBlockCollection.  The members of this collection shall represent the resource blocks in the free pool.  Services shall filter members of this collection based on the requesting client."/>
+        </NavigationProperty>
+        <NavigationProperty Name="CompositionReservations" Type="CompositionReservationCollection.CompositionReservationCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of reservations with the composition reservation collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CompositionReservationCollection.  The members of this collection shall contain links to reserved resource blocks and the related document that caused the reservations.  Services shall filter members of this collection based on the requesting client."/>
+        </NavigationProperty>
+        <Property Name="ReservationDuration" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The length of time a composition reservation is held before the service deletes the reservation marks any related resource blocks as no longer reserved."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the length of time a composition reservation is held before the service deletes the reservation marks any related resource blocks as no longer reserved."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ComposeResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response body for the Compose action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the Compose action."/>
+        <Property Name="RequestFormat" Type="CompositionService.v1_2_0.ComposeRequestFormat" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The format of the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the format of the request."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="RequestType" Type="CompositionService.v1_2_0.ComposeRequestType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of request."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Manifest" Type="Manifest.Manifest" Nullable="false">
+          <Annotation Term="OData.Description" String="The manifest containing the compose operation response."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the manifest containing the compose operation response.  This property shall be required if RequestFormat contains the value `Manifest`."/>
+        </Property>
+        <Property Name="ReservationId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the composition reservation that was created."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value of the Id property of the CompositionReservation resource that was created.  This property shall be required if RequestType contains the value `PreviewReserve`."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ComposeRequestType">
+        <Member Name="Preview">
+          <Annotation Term="OData.Description" String="Preview the outcome of the operations specified by the manifest."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the request is to preview the outcome of the operations specified by the manifest to show what the service will do based on the contents of the request, and not affect any resources within the service."/>
+        </Member>
+        <Member Name="PreviewReserve">
+          <Annotation Term="OData.Description" String="Preview the outcome of the operations specified by the manifest and reserve resources."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the request is to preview the outcome of the operations specified by the manifest to show what the service will do based on the contents of the request.  Resources that would have been affected by this request shall be marked as reserved, but otherwise shall not be affected."/>
+        </Member>
+        <Member Name="Apply">
+          <Annotation Term="OData.Description" String="Perform the requested operations specified by the manifest and modify resources as needed."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the request is to apply the requested operations specified by the manifest and modify resources as needed."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ComposeRequestFormat">
+        <Member Name="Manifest">
+          <Annotation Term="OData.Description" String="The request body contains a manifest."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the request contains a manifest as defined by the Redfish Manifest schema."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

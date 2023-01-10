@@ -1,0 +1,40 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/VCATEntry.json",
+    "$ref": "#/definitions/VCATEntry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "VCATEntry": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VCATEntry.v1_0_1.json#/definitions/VCATEntry"
+                }
+            ],
+            "deletable": true,
+            "description": "The VCATEntry schema defines an entry in a Virtual Channel Action Table.  A Virtual Channel is a mechanism used to create multiple, logical communication streams across a physical link.",
+            "insertable": false,
+            "longDescription": "This resource shall represent and entry of Virtual Channel Action Table in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/VCAT/{VCATEntryId}",
+                "/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/VCAT/{VCATEntryId}",
+                "/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/REQ-VCAT/{VCATEntryId}",
+                "/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/RSP-VCAT/{VCATEntryId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/VCAT/{VCATEntryId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/REQ-VCAT/{VCATEntryId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/RSP-VCAT/{VCATEntryId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/VCAT/{VCATEntryId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/REQ-VCAT/{VCATEntryId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/RSP-VCAT/{VCATEntryId}",
+                "/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/VCAT/{VCATEntryId}",
+                "/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/REQ-VCAT/{VCATEntryId}",
+                "/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/RSP-VCAT/{VCATEntryId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#VCATEntry.VCATEntry"
+}

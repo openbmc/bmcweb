@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ConnectionMethod.json",
+    "$ref": "#/definitions/ConnectionMethod",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ConnectionMethod": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ConnectionMethod.v1_0_0.json#/definitions/ConnectionMethod"
+                }
+            ],
+            "deletable": false,
+            "description": "The ConnectionMethod schema describes the protocol, provider, or other method used to communicate to a given access point for a Redfish aggregation service.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a connection method for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/AggregationService/ConnectionMethods/{ConnectionMethodId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ConnectionMethod.ConnectionMethod"
+}

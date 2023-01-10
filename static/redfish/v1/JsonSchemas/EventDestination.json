@@ -1,0 +1,80 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.json",
+    "$ref": "#/definitions/EventDestination",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "EventDestination": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_0_11.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_1_10.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_2_8.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_3_6.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_4_5.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_5_4.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_6_5.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_7_5.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_8_5.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_9_6.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_10_5.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_11_3.json#/definitions/EventDestination"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_12_0.json#/definitions/EventDestination"
+                }
+            ],
+            "deletable": true,
+            "description": "The EventDestination schema defines the target of an event subscription, including the event types and context to provide to the target in the event payload.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the target of an event subscription, including the event types and context to provide to the target in the event payload.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/EventService/Subscriptions/{EventDestinationId}"
+            ]
+        },
+        "EventFormatType": {
+            "enum": [
+                "Event",
+                "MetricReport"
+            ],
+            "enumDescriptions": {
+                "Event": "The subscription destination receives an event payload.",
+                "MetricReport": "The subscription destination receives a metric report."
+            },
+            "enumLongDescriptions": {
+                "Event": "The subscription destination shall receive an event payload as defined by the value of the Protocol property.",
+                "MetricReport": "The subscription destination shall receive a metric report payload as defined by the value of the Protocol property."
+            },
+            "type": "string",
+            "versionAdded": "v1_4_0"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#EventDestination.EventDestination"
+}

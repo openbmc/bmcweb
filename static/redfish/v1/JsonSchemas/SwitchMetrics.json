@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SwitchMetrics.json",
+    "$ref": "#/definitions/SwitchMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SwitchMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SwitchMetrics.v1_0_0.json#/definitions/SwitchMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "The SwitchMetrics schema contains usage and health statistics for a switch device.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the metrics for a switch device in a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/SwitchMetrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#SwitchMetrics.SwitchMetrics"
+}

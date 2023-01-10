@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionMetrics.json",
+    "$ref": "#/definitions/NetworkDeviceFunctionMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "NetworkDeviceFunctionMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionMetrics.v1_0_0.json#/definitions/NetworkDeviceFunctionMetrics"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionMetrics.v1_1_0.json#/definitions/NetworkDeviceFunctionMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "The NetworkDeviceFunctionMetrics schema contains usage and health statistics for a network function of a network adapter.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the network metrics for a single network function of a network adapter in a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/Metrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#NetworkDeviceFunctionMetrics.NetworkDeviceFunctionMetrics"
+}

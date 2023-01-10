@@ -1,0 +1,51 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.json",
+    "$ref": "#/definitions/Endpoint",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Endpoint": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_0_12.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_1_9.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_2_8.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_3_7.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_6.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_5_4.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_6_2.json#/definitions/Endpoint"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_7_0.json#/definitions/Endpoint"
+                }
+            ],
+            "deletable": true,
+            "description": "The Endpoint schema contains the properties of an endpoint resource that represents the properties of an entity that sends or receives protocol-defined messages over a transport.",
+            "insertable": false,
+            "longDescription": "This resource contains a fabric endpoint for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}/Endpoints/{EndpointId}",
+                "/redfish/v1/StorageServices/{StorageServiceId}/Endpoints/{EndpointId}",
+                "/redfish/v1/Storage/{StorageId}/Endpoints/{EndpointId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Endpoint.Endpoint"
+}

@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/KeyService.json",
+    "$ref": "#/definitions/KeyService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "KeyService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/KeyService.v1_0_0.json#/definitions/KeyService"
+                }
+            ],
+            "deletable": false,
+            "description": "The KeyService schema describes a key service that represents the actions available to manage keys.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the key service properties for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/KeyService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#KeyService.KeyService"
+}

@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSubsystem.json",
+    "$ref": "#/definitions/PowerSubsystem",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerSubsystem": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSubsystem.v1_0_0.json#/definitions/PowerSubsystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSubsystem.v1_1_0.json#/definitions/PowerSubsystem"
+                }
+            ],
+            "deletable": false,
+            "description": "This PowerSubsystem schema contains the definition for the power subsystem of a chassis.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a power subsystem for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PowerSubsystem.PowerSubsystem"
+}

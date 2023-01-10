@@ -1,0 +1,40 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.json",
+    "$ref": "#/definitions/MessageRegistry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "MessageRegistry": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_0_10.json#/definitions/MessageRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_1_6.json#/definitions/MessageRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_2_4.json#/definitions/MessageRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_3_3.json#/definitions/MessageRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_2.json#/definitions/MessageRegistry"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_5_0.json#/definitions/MessageRegistry"
+                }
+            ],
+            "deletable": false,
+            "description": "The MessageRegistry schema describes all message registries.  It represents the properties for the message registries themselves.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a message registry for a Redfish implementation.",
+            "updatable": false
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#MessageRegistry.MessageRegistry"
+}

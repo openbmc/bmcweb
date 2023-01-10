@@ -1,0 +1,33 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AllowDeny.json",
+    "$ref": "#/definitions/AllowDeny",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AllowDeny": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AllowDeny.v1_0_0.json#/definitions/AllowDeny"
+                }
+            ],
+            "deletable": true,
+            "description": "The AllowDeny schema represents a set of allow or deny configurations.",
+            "insertable": false,
+            "longDescription": "This resource shall represent an AllowDeny resource in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions{NetworkDeviceFunctionId}/AllowDeny/{AllowDenyId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#AllowDeny.AllowDeny"
+}

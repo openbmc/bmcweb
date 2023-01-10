@@ -1,0 +1,284 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_4_0.json",
+    "$ref": "#/definitions/SoftwareInventory",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "MeasurementBlock": {
+            "additionalProperties": false,
+            "description": "The DSP0274-defined measurement block information.",
+            "longDescription": "This type shall describe a DSP0274-defined measurement block.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Measurement": {
+                    "description": "The hexadecimal string representation of the numeric value of the DSP0274-defined Measurement field  of the measurement block.",
+                    "longDescription": "This property shall contain the value of the hexadecimal string representation of the numeric value of the DSP0274-defined Measurement field  of the measurement block.",
+                    "pattern": "^[0-9a-fA-F]+$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MeasurementSize": {
+                    "description": "The DSP0274-defined MeasurementSize field of the measurement block.",
+                    "longDescription": "This property shall contain the value of DSP0274-defined MeasurementSize field of the measurement block.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "MeasurementSpecification": {
+                    "description": "The DSP0274-defined MeasurementSpecification field of the measurement block.",
+                    "longDescription": "This property shall contain the value of DSP0274-defined MeasurementSpecification field of the measurement block.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SoftwareInventory": {
+            "additionalProperties": false,
+            "description": "The SoftwareInventory schema contains an inventory of software components.  This can include software components such as BIOS, BMC firmware, firmware for other devices, system drivers, or provider software.",
+            "longDescription": "This Resource contains a single software component that this Redfish Service manages.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LowestSupportedVersion": {
+                    "description": "The lowest supported version of this software.",
+                    "longDescription": "This property shall represent the lowest supported version of this software.  This string is formatted using the same format used for the Version property.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer or producer of this software.",
+                    "longDescription": "This property shall represent the name of the manufacturer or producer of this software.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Measurement": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock",
+                    "description": "A DSP0274-defined measurement block.",
+                    "longDescription": "This property shall contain a DSP0274-defined measurement block.",
+                    "versionAdded": "v1_4_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RelatedItem": {
+                    "description": "The IDs of the Resources associated with this software inventory item.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is associated with this software inventory item.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "RelatedItem@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ReleaseDate": {
+                    "description": "The release date of this software.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date of release or production for this software.  If the time of day is unknown, the time of day portion of the property shall contain `00:00:00Z`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "SoftwareId": {
+                    "description": "The implementation-specific label that identifies this software.",
+                    "longDescription": "This property shall represent an implementation-specific label that identifies this software.  This string correlates with a component repository or database.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                },
+                "UefiDevicePaths": {
+                    "description": "The list of UEFI device paths of the components associated with this software inventory item.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain a list UEFI device paths of the components associated with this software inventory item.  The UEFI device paths shall be formatted as defined by the UEFI Specification.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "Updateable": {
+                    "description": "An indication of whether the Update Service can update this software.",
+                    "longDescription": "This property shall indicate whether the Update Service can update this software.  If `true`, the Service can update this software.  If `false`, the Service cannot update this software and the software is for reporting purposes only.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Version": {
+                    "description": "The version of this software.",
+                    "longDescription": "This property shall contain the version of this software.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "WriteProtected": {
+                    "description": "Indicates if the software is write-protected.",
+                    "longDescription": "This property shall indicate whether the software image can be overwritten, where a value `true` shall indicate that the software cannot be altered or overwritten.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#SoftwareInventory.v1_4_0.SoftwareInventory"
+}

@@ -7,6 +7,7 @@ from collections import OrderedDict, defaultdict
 from io import BytesIO
 
 import generate_schema_enums
+import generate_meson
 import requests
 
 VERSION = "DSP8010_2022.2"
@@ -21,6 +22,13 @@ WARNING = """/****************************************************************
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/"""
+oem_schemas = [
+    "OemAccountService",
+    "OemComputerSystem",
+    "OemManager",
+    "OemSession",
+    "OemVirtualMedia",
+]
 
 # To use a new schema, add to list and rerun tool
 include_list = [
@@ -124,6 +132,10 @@ include_list = [
     "VLanNetworkInterface",
     "VirtualMedia",
     "VirtualMediaCollection",
+]
+include_list.extend(oem_schemas)
+
+json_only_schemas = [
     "odata",
     "odata-v4",
     "redfish-error",
@@ -225,23 +237,27 @@ csdl_filenames = []
 json_schema_files = defaultdict(list)
 schema_versions = defaultdict(list)
 
-
 for zip_file in zip_ref.infolist():
     if zip_file.is_dir():
         continue
     if zip_file.filename.startswith("csdl/"):
+        content = zip_ref.read(zip_file.filename)
+        content = content.replace(b"\r\n", b"\n")
+        with open(os.path.join(schema_path, os.path.basename(zip_file.filename)), "wb") as schema_out:
+            schema_out.write(content)
         csdl_filenames.append(os.path.basename(zip_file.filename))
+
     elif zip_file.filename.startswith("json-schema/"):
-        filename = os.path.basename(zip_file.filename)
-        filenamesplit = filename.split(".")
-        # exclude schemas again to save flash space
-        if filenamesplit[0] not in include_list:
-            continue
-        json_schema_files[filenamesplit[0]].append(filename)
+        with open(os.path.join(json_schema_path, os.path.basename(zip_file.filename)), "wb") as schema_file:
+            schema_file.write(zip_ref.read(zip_file.filename).replace(b"\r\n", b"\n"))
     elif zip_file.filename.startswith("openapi/"):
         pass
     elif zip_file.filename.startswith("dictionaries/"):
         pass
+
+csdl_filenames.extend(
+  [schema + "_v1.xml" for schema in oem_schemas]
+)
 
 # sort the json files by version
 for key, value in json_schema_files.items():
@@ -255,11 +271,10 @@ json_schema_files = OrderedDict(
 csdl_filenames.sort(key=SchemaVersion)
 for filename in csdl_filenames:
     # filename looks like Zone_v1.xml
-    with open(os.path.join(schema_path, filename), "wb") as schema_out:
-        content = zip_ref.read(os.path.join("csdl", filename))
-        content = content.replace(b"\r\n", b"\n")
-
-        schema_out.write(content)
+    filepath = os.path.join(schema_path, filename)
+    with open(filepath, "r") as schema_out:
+        print(f"Reading {filepath}\n")
+        content = schema_out.read()
 
         filenamesplit = filename.split("_")
         xml_root = ET.fromstring(content)
@@ -276,14 +291,6 @@ for filename in csdl_filenames:
 
                         schema_versions[subname[0]].append(version)
 
-
-for schema, version in json_schema_files.items():
-    zip_filepath = os.path.join("json-schema", version[0])
-    schemadir = os.path.join(json_schema_path, schema)
-    os.makedirs(schemadir)
-
-    with open(os.path.join(schemadir, schema + ".json"), "wb") as schema_file:
-        schema_file.write(zip_ref.read(zip_filepath).replace(b"\r\n", b"\n"))
 
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     hpp_file.write(
@@ -336,19 +343,4 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
 zip_ref.close()
 
 generate_schema_enums.main()
-
-# Now delete the xml schema files we aren't supporting
-if os.path.exists(schema_path):
-    files = [
-        os.path.join(schema_path, f)
-        for f in os.listdir(schema_path)
-        if not f.startswith(skip_prefixes)
-    ]
-    for filename in files:
-        # filename will include the absolute path
-        filenamesplit = filename.split("/")
-        name = filenamesplit.pop()
-        namesplit = name.split("_")
-        if namesplit[0] not in include_list:
-            print("excluding schema: " + filename)
-            os.remove(filename)
+generate_meson.main(csdl_filenames, include_list, schema_versions)

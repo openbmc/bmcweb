@@ -1,0 +1,409 @@
+{
+    "$ref": "#/definitions/ResourceBlock",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
+    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions"
+                }
+            },
+            "type": "object"
+        },
+        "CompositionState": {
+            "enum": [
+                "Composing",
+                "ComposedAndAvailable",
+                "Composed",
+                "Unused",
+                "Failed"
+            ],
+            "enumDescriptions": {
+                "Composed": "Final successful state of a Resource Block which has participated in composition.",
+                "ComposedAndAvailable": "Indicates the Resource Block is currently participating in one or more compositions, and is available to be used in more compositions.",
+                "Composing": "Intermediate state indicating composition is in progress.",
+                "Failed": "The final composition resulted in failure and manual intervention may be required to fix it.",
+                "Unused": "Indicates the Resource Block is free and can participate in composition."
+            },
+            "type": "string"
+        },
+        "CompositionStatus": {
+            "additionalProperties": false,
+            "description": "Composition status of the Resource Block.",
+            "longDescription": "This type shall contain properties that describe the high level composition status of the Resource Block.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CompositionState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CompositionState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property represents the current state of the Resource Block from a composition perspective.",
+                    "longDescription": "The value of this property shall be an enumerated value describing composition state of the Resource Block.",
+                    "readonly": true
+                },
+                "MaxCompositions": {
+                    "description": "The maximum number of compositions in which this Resource Block is capable of participating simultaneously.",
+                    "longDescription": "The value of this property shall be a number indicating the maximum number of compositions in which this Resource Block is capable of participating simultaneously.  Services may have additional constraints that prevent this value from being achieved, such as due to system topology and current composed resource utilization.  If SharingCapable is set to false, this value shall be set to 1.  The service shall support this property if SharingCapable supported.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "NumberOfCompositions": {
+                    "description": "The number of compositions in which this Resource Block is currently participating.",
+                    "longDescription": "The value of this property shall be the number of compositions in which this Resource Block is currently participating.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Reserved": {
+                    "description": "This represents if the Resource Block is reserved by any client.",
+                    "longDescription": "This property shall be a boolean that is set by client once the Resource Block is identified to be composed.  It shall provide multiple clients a way to negotiate its ownership.  This will help clients to know if a Resource Block is reserved by other client.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SharingCapable": {
+                    "description": "Indicates if this Resource Block is capable of participating in multiple compositions simultaneously.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this Resource Block is capable of participating in multiple compositions simultaneously.  If this property is not provided, it shall be assumed that this Resource Block is not capable of being shared.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SharingEnabled": {
+                    "description": "Indicates if this Resource Block is allowed to participate in multiple compositions simultaneously.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this Resource Block is allowed to participate in multiple compositions simultaneously.  The service shall reject modifications of this property with HTTP 400 Bad Request if this Resource Block already being used as part of a composed resource.  If this property is set to false, the service shall not use the ComposedAndAvailable state for this Resource Block.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "CompositionState"
+            ],
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "Contains references to other resources that are related to this resource.",
+            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Chassis": {
+                    "description": "An array of references to the Chassis in which this Resource Block is contained.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Chassis that represent the physical container associated with this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Chassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "ComputerSystems": {
+                    "description": "An array of references to the Computer Systems that are composed from this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type ComputerSystem that represent the Computer Systems composed from this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComputerSystems@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "Zones": {
+                    "description": "An array of references to the Zones in which this Resource Block is bound.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Zone that represent the binding constraints associated with this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Zones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ResourceBlock": {
+            "additionalProperties": false,
+            "description": "This schema defines a Resource Block resource.",
+            "longDescription": "This resource shall be used to represent a Resource Block for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "CompositionStatus": {
+                    "$ref": "#/definitions/CompositionStatus",
+                    "description": "This property describes the composition status details for this Resource Block.",
+                    "longDescription": "The value of this property shall contain composition status information about this Resource Block."
+                },
+                "ComputerSystems": {
+                    "description": "An array of references to the Computer Systems available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type ComputerSystem that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComputerSystems@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EthernetInterfaces": {
+                    "description": "An array of references to the Ethernet Interfaces available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type EthernetInterface that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "EthernetInterfaces@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "Memory": {
+                    "description": "An array of references to the Memory available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.json#/definitions/Memory"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Memory that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Memory@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NetworkInterfaces": {
+                    "description": "An array of references to the Network Interfaces available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkInterface.json#/definitions/NetworkInterface"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type NetworkInterface that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "NetworkInterfaces@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Processors": {
+                    "description": "An array of references to the Processors available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Processor that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Processors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "ResourceBlockType": {
+                    "description": "This property represents the types of resources available on this Resource Block.",
+                    "items": {
+                        "$ref": "#/definitions/ResourceBlockType"
+                    },
+                    "longDescription": "The value of this property shall be an array of enumerated values describing type of resources available.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SimpleStorage": {
+                    "description": "An array of references to the Simple Storage available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.json#/definitions/SimpleStorage"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type SimpleStorage that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SimpleStorage@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                },
+                "Storage": {
+                    "description": "An array of references to the Storage available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Storage that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Storage@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                }
+            },
+            "required": [
+                "CompositionStatus",
+                "ResourceBlockType",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ResourceBlockType": {
+            "enum": [
+                "Compute",
+                "Processor",
+                "Memory",
+                "Network",
+                "Storage",
+                "ComputerSystem"
+            ],
+            "enumDescriptions": {
+                "Compute": "This Resource Block contains both Processor and Memory resources in a manner that creates a compute complex.",
+                "ComputerSystem": "This Resource Block contains ComputerSystem resources.",
+                "Memory": "This Resource Block contains Memory resources.",
+                "Network": "This Resource Block contains Network resources, such as Ethernet Interfaces.",
+                "Processor": "This Resource Block contains Processor resources.",
+                "Storage": "This Resource Block contains Storage resources, such as Storage and Simple Storage."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ResourceBlock.v1_1_0.ResourceBlock"
+}

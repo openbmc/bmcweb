@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFile.json",
+    "$ref": "#/definitions/JsonSchemaFile",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "JsonSchemaFile": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFile.v1_0_8.json#/definitions/JsonSchemaFile"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFile.v1_1_4.json#/definitions/JsonSchemaFile"
+                }
+            ],
+            "deletable": false,
+            "description": "The JsonSchemaFile schema contains the properties that describe the locations, as URIs, of a Redfish Schema definition that a Redfish Service implements or references.",
+            "insertable": false,
+            "longDescription": "This Resource shall represent the schema file locator Resource for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/JsonSchemas/{JsonSchemaFileId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#JsonSchemaFile.JsonSchemaFile"
+}

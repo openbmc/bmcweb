@@ -1,0 +1,37 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Fabric.json",
+    "$ref": "#/definitions/Fabric",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Fabric": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Fabric.v1_0_9.json#/definitions/Fabric"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Fabric.v1_1_3.json#/definitions/Fabric"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Fabric.v1_2_2.json#/definitions/Fabric"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Fabric.v1_3_0.json#/definitions/Fabric"
+                }
+            ],
+            "deletable": false,
+            "description": "The Fabric schema represents a simple fabric consisting of one or more switches, zero or more endpoints, and zero or more zones.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a simple switchable fabric for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Fabric.Fabric"
+}

@@ -1,0 +1,30 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "CollectionCapabilities": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_0_4.json#/definitions/CollectionCapabilities"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_1_3.json#/definitions/CollectionCapabilities"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_2_2.json#/definitions/CollectionCapabilities"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_3_0.json#/definitions/CollectionCapabilities"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.v1_4_0.json#/definitions/CollectionCapabilities"
+                }
+            ],
+            "description": "This type describes the capabilities of a collection.",
+            "longDescription": "This type shall describe any capabilities of a resource collection in terms of how a client can create resources within the resource collection."
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#CollectionCapabilities"
+}

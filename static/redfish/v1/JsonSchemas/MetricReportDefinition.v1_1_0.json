@@ -1,0 +1,445 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_1_0.json",
+    "$ref": "#/definitions/MetricReportDefinition",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CalculationAlgorithmEnum": {
+            "description": "Specifies the function to apply to the list of metric properties.",
+            "enum": [
+                "Average",
+                "Maximum",
+                "Minimum",
+                "Summation"
+            ],
+            "enumDescriptions": {
+                "Average": "The metric is calculated as the average of a metric reading over a sliding time interval.",
+                "Maximum": "The metric is calculated as the maximum value of a metric reading over during a time interval.",
+                "Minimum": "The metric is calculated as the minimum value of a metric reading over a sliding time interval.",
+                "Summation": "The metric is calculated as the sum of the values over a sliding time interval."
+            },
+            "enumLongDescriptions": {
+                "Average": "The metric shall be calculated as the average of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property.",
+                "Maximum": "The metric shall be calculated as the maximum of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property.",
+                "Minimum": "The metric shall be calculated as the minimum of a  metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property.",
+                "Summation": "The metric shall be calculated as the sum of the the specified metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property."
+            },
+            "longDescription": "The value shall specify the function to apply to the list of metric properties.",
+            "type": "string"
+        },
+        "CollectionTimeScope": {
+            "description": "The time scope of the related metric values.",
+            "enum": [
+                "Point",
+                "Interval",
+                "StartupInterval"
+            ],
+            "enumDescriptions": {
+                "Interval": "The corresponding metric values apply to a time interval.  On the corresponding metric value instances, the value of Timestamp shall specify the end of the time interval and Duration shall specify its duration.",
+                "Point": "The corresponding metric values apply to a point in time.  On the corresponding metric value instances, the value of Timestamp shall specify the point in time.",
+                "StartupInterval": "The corresponding metric values apply to a time interval that began at the startup of the measured resource (i.e. the Resources associated by Links.MetricDefinitionForResources).  On the corresponding metric value instances, the value of Timestamp shall specify the end of the time interval.  The value of Duration shall specifies the duration between startup of the resource and TimeStamp."
+            },
+            "longDescription": "The value of the property shall specify the time scope of the corresponding metric values.",
+            "type": "string"
+        },
+        "Metric": {
+            "additionalProperties": false,
+            "description": "Specifies a metric to include in the metric report. The metrics are derived by applying a calculation on each of the listed metric properties.",
+            "longDescription": "The properties shall specify a metric to include in the metric report. The metrics shall be derived by applying the algorithm specified in CollectionnFunction property to each of the metric properties listed in the MetricProperties property.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CollectionDuration": {
+                    "description": "Specifies the duration over which the function is computed.",
+                    "longDescription": "The value shall specify the duration over which the function is computed.  The value shall conform to the Duration format.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "CollectionFunction": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CalculationAlgorithmEnum"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Specified the function to perform on each of the metric properties listed in the MetricProperties property.",
+                    "longDescription": "The property shall specify the function to perform on each of the metric properties listed in the MetricProperties property.",
+                    "readonly": false
+                },
+                "CollectionTimeScope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CollectionTimeScope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Specifies the scope of time scope over which the function is applied.",
+                    "longDescription": "The value shall specify the scope of time over which the function is applied.",
+                    "readonly": false
+                },
+                "MetricId": {
+                    "description": "Specifies the label for the metric definition which is derived by applying the CollectionFunction to the metric property.",
+                    "longDescription": "This property shall specify a label for use in the metric report for the metric which is derived metrics by applying the CollectionFunction to the metric property.  This property shall match the Id property of the corresponding metric definition resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MetricProperties": {
+                    "description": "A collection of URI for the properties on which this metric is collected.",
+                    "format": "uri",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "Each value may contain one or more Wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same Wildcard index is used for each in one substitution pass.  After substituting the WildCard values entries, each value shall be a URI for a property in a resource that matches a property declaration in the corresponding MetricDefinition.",
+                    "readonly": false,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "MetricReportDefinition": {
+            "additionalProperties": false,
+            "description": "A set of metrics that are collected into a metric report.",
+            "longDescription": "This resource specifies a set of metrics that shall be collected into a metric report.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "AppendLimit": {
+                    "description": "Indicates the maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior is dictated by the ReportUpdates property.",
+                    "longDescription": "This property shall be a number that indicates the maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior shall be dictated by the ReportUpdates property.  This property shall be required if ReportUpdates is either AppendWrapsWhenFull or AppendStopsWhenFull.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MetricProperties": {
+                    "description": "A list of URIs with wildcards and property identifiers to include in the metric report. If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
+                    "format": "uri",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This array property shall contain a list of URIs with wildcards and property identifiers to include in the metric report. Each wildcard in the URI shall be delimited by a set of curly braces. Each wildcard shall be substituted as specified by the corresponding entry in the Wildcard array property.  Once an URI with wildcards has had its wildcards fully substituted, it shall reference a resource property to include in the metric report. The property identifiers portion of the URI shall follow JSON fragment notation rules defined by RFC6901.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "MetricReport": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.json#/definitions/MetricReport",
+                    "description": "Specifies the location where the resultant metric report is placed.",
+                    "longDescription": "This property shall be a reference to the resource where the resultant metric report is placed.",
+                    "readonly": true
+                },
+                "MetricReportDefinitionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MetricReportDefinitionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Specifies when the metric report is generated.",
+                    "longDescription": "The value shall specify when the metric report is generated.  If the value of the property is 'Periodic', then the Schedule property shall be present.",
+                    "readonly": false
+                },
+                "Metrics": {
+                    "description": "Specifies a list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Metric"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The property shall specify a list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "ReportActions": {
+                    "description": "Specifies the actions to perform when a metric report is generated.",
+                    "items": {
+                        "$ref": "#/definitions/ReportActionsEnum"
+                    },
+                    "longDescription": "The value of this property shall specify the actions to perform when the metric report is generated.  The options are transmit an event or create a metric report resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ReportUpdates": {
+                    "$ref": "#/definitions/ReportUpdatesEnum",
+                    "description": "When logging metric reports, specifies how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  Namely, whether to overwrite, append, or create new report resource.",
+                    "longDescription": "The value of this property shall specify how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.",
+                    "readonly": true
+                },
+                "Schedule": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Schedule.json#/definitions/Schedule",
+                    "description": "Specifies the schedule for generating the metric report.",
+                    "longDescription": "If the schedule present, the metric report is generated at an interval specified by Schedule.RecurrenceInterval property.  If Schedule.MaxOccurrences is specified, the metric report will no longer be generated after the specified number of occurances."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Wildcards": {
+                    "description": "A list of wildcards and their substitution values to be applied to the entries in the MetricProperties array property.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Wildcard"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property. Each wildcard shall have a corresponding entry in this array property.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "MetricReportDefinitionType": {
+            "description": "Indicates when the metric report is generated.",
+            "enum": [
+                "Periodic",
+                "OnChange",
+                "OnRequest"
+            ],
+            "enumDescriptions": {
+                "OnChange": "The metric report is generated when any of the metric values change.",
+                "OnRequest": "The metric report is generated when a HTTP GET is performed on the specified metric report.",
+                "Periodic": "The metric report is generated at a periodic time interval, specified in the Schedule property."
+            },
+            "longDescription": "The value shall specify when the metric report is generated.",
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ReportActionsEnum": {
+            "description": "Actions to perform when a metric report is generated.",
+            "enum": [
+                "LogToMetricReportsCollection",
+                "RedfishEvent"
+            ],
+            "enumDescriptions": {
+                "LogToMetricReportsCollection": "When a metric report is scheduled to be generated, record the occurrence to the Metric Report Collection.",
+                "RedfishEvent": "When a metric report is scheduled to be generated, send a Redfish Event message of type MetricReport."
+            },
+            "enumLongDescriptions": {
+                "LogToMetricReportsCollection": "When a metric report is scheduled to be generated, the service shall record the occurrence to the Metric Report Collection found under the Telemetry Service.  The service shall update the Metric Report Collection based on the setting of the ReportUpdates property.",
+                "RedfishEvent": "When a metric report is scheduled to be generated, the service shall produce a Redfish Event of type MetricReport to matching subscribers indicated in the EventSubscription collection found on the EventService."
+            },
+            "longDescription": "The value shall specify the actions to perform when a metric report is generated.",
+            "type": "string"
+        },
+        "ReportUpdatesEnum": {
+            "description": "How to what to do with subsequent metric reports when a metric report already exists.",
+            "enum": [
+                "Overwrite",
+                "AppendWrapsWhenFull",
+                "AppendStopsWhenFull",
+                "NewReport"
+            ],
+            "enumDescriptions": {
+                "AppendStopsWhenFull": "When a metric report is updated, append to the specified metric report resource.  This also indicates that the metric report stops adding entries when the metric report has reached its maximum capacity.",
+                "AppendWrapsWhenFull": "When a metric report is updated, append to the specified metric report resource.  This also indicates that the metric report overwrites its entries with new entries when the metric report has reached its maximum capacity.",
+                "NewReport": "When a metric report is updated, create a new metric report resource, whose resource name is the metric report resource name concatenated with the timestamp.",
+                "Overwrite": "When a metric report is updated, overwrite the specified metric report resource."
+            },
+            "longDescription": "The value shall specify what to do with subsequent metric reports when a metric report already exists.",
+            "type": "string"
+        },
+        "Wildcard": {
+            "additionalProperties": false,
+            "description": "Contains a wildcard and its substitution values.",
+            "longDescription": "This property shall contain a wildcard and its substitution values.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Keys": {
+                    "description": "An array of values to substitute for the wildcard.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the list of values to substitute for the wildcard.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Name": {
+                    "description": "The string used as a wildcard.",
+                    "longDescription": "This property shall contain the string used as a wildcard.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Values": {
+                    "description": "An array of values to substitute for the wildcard.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the list of values to substitute for the wildcard.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.3",
+    "title": "#MetricReportDefinition.v1_1_0.MetricReportDefinition"
+}

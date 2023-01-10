@@ -1,0 +1,1309 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_2_0.json",
+    "$ref": "#/definitions/ComponentIntegrity",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#ComponentIntegrity.SPDMGetSignedMeasurements": {
+                    "$ref": "#/definitions/SPDMGetSignedMeasurements"
+                },
+                "#ComponentIntegrity.TPMGetSignedMeasurements": {
+                    "$ref": "#/definitions/TPMGetSignedMeasurements"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CommonAuthInfo": {
+            "additionalProperties": false,
+            "description": "Common Authentication information.",
+            "longDescription": "This object shall contain common identity-related authentication information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ComponentCertificate": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "A link to the certificate that represents the identify of the component.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property.",
+                    "readonly": true
+                },
+                "VerificationStatus": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VerificationStatus"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The status of the verification of the identity of the component.",
+                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property..",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "CommunicationInfo": {
+            "additionalProperties": false,
+            "description": "Information about communication between two components.",
+            "longDescription": "This object shall contain information about communication between two components.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Sessions": {
+                    "description": "The active sessions or communication channels between two components.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SingleSessionInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "ComponentIntegrity": {
+            "additionalProperties": false,
+            "description": "The ComponentIntegrity resource provides critical and pertinent security information about a specific device, system, software element, or other managed entity.",
+            "longDescription": "This resource shall represent critical and pertinent security information about a specific device, system, software element, or other managed entity.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ComponentIntegrityEnabled": {
+                    "description": "An indication of whether security protocols are enabled for the component.",
+                    "longDescription": "This property shall indicate whether security protocols are enabled for the component.  If ComponentIntegrityType contains `SPDM`, a value of `false` shall prohibit the SPDM Requester from using SPDM to communicate with the component identified by the TargetComponentURI property.  If ComponentIntegrityType contains `TPM`, a value of `false` shall disable the TPM component identified by the TargetComponentURI property entirely.  If `false`, services shall not provide the TPM and SPDM properties in response payloads for this resource.  If `false`, services shall reject action requests to this resource.  If `true`, services shall allow security protocols with the component identified by the TargetComponentURI property.",
+                    "readonly": false,
+                    "type": "boolean"
+                },
+                "ComponentIntegrityType": {
+                    "$ref": "#/definitions/ComponentIntegrityType",
+                    "description": "The type of security technology for the component.",
+                    "longDescription": "This value of this property shall contain the underlying security technology providing integrity information for the component.",
+                    "readonly": true
+                },
+                "ComponentIntegrityTypeVersion": {
+                    "description": "The version of the security technology.",
+                    "longDescription": "This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\\d+\\.\\d+\\.\\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LastUpdated": {
+                    "description": "The date and time when information for the component was last updated.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when information for the component was last updated.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "SPDM": {
+                    "$ref": "#/definitions/SPDMinfo",
+                    "description": "Integrity information about the SPDM Responder as reported by an SPDM Requester.",
+                    "longDescription": "This property shall contain integrity information about the SPDM Responder identified by the TargetComponentURI property as reported by an SPDM Requester.  This property shall be present if ComponentIntegrityType contains `SPDM` and `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "TPM": {
+                    "$ref": "#/definitions/TPMinfo",
+                    "description": "Integrity information about the Trusted Platform Module (TPM).",
+                    "longDescription": "This property shall contain integrity information about the Trusted Platform Module (TPM) identified by the TargetComponentURI property,  This property shall be present if ComponentIntegrityType contains `TPM` and `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."
+                },
+                "TargetComponentURI": {
+                    "description": "The link to the the component whose integrity that this resource reports.",
+                    "longDescription": "This value of this property shall contain a link to the resource whose integrity information is reported in this resource.  If ComponentIntegrityType contains `SPDM`, this property shall contain a URI to the resource that represents the SPDM Responder.  If ComponentIntegrityType contains `TPM`, this property shall contain a URI with RFC6901-defined JSON fragment notation to a member of the TrustedModules array in a ComputerSystem resource that represents the TPM or a resource of type TrustedComponent that represents the TPM.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ComponentIntegrityType",
+                "ComponentIntegrityTypeVersion",
+                "TargetComponentURI",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ComponentIntegrityType": {
+            "enum": [
+                "SPDM",
+                "TPM",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "OEM": "OEM-specific.",
+                "SPDM": "Security Protocol and Data Model (SPDM) protocol.",
+                "TPM": "Trusted Platform Module (TPM)."
+            },
+            "enumLongDescriptions": {
+                "OEM": "This value shall indicate the integrity information is OEM-specific and the OEM section may include additional information.",
+                "SPDM": "This value shall indicate the integrity information is obtained through the Security Protocol and Data Model (SPDM) protocol as defined in DMTF DSP0274.",
+                "TPM": "This value shall indicate the integrity information is related to a Trusted Platform Module (TPM) as defined by the Trusted Computing Group (TCG)."
+            },
+            "type": "string"
+        },
+        "DMTFmeasurementTypes": {
+            "enum": [
+                "ImmutableROM",
+                "MutableFirmware",
+                "HardwareConfiguration",
+                "FirmwareConfiguration",
+                "MutableFirmwareVersion",
+                "MutableFirmwareSecurityVersionNumber",
+                "MeasurementManifest"
+            ],
+            "enumDescriptions": {
+                "FirmwareConfiguration": "Firmware configuration, such as configurable firmware policy.",
+                "HardwareConfiguration": "Hardware configuration, such as straps.",
+                "ImmutableROM": "Immutable ROM.",
+                "MeasurementManifest": "Measurement Manifest.",
+                "MutableFirmware": "Mutable firmware or any mutable code.",
+                "MutableFirmwareSecurityVersionNumber": "Mutable firmware security version number.",
+                "MutableFirmwareVersion": "Mutable firmware version."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ComponentsProtected": {
+                    "description": "An array of links to resources that the target component protects.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources that the component identified by the TargetComponentURI property provides integrity protection.  This property shall not contain the value of the TargetComponentURI property.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComponentsProtected@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "MeasurementSpecification": {
+            "enum": [
+                "DMTF"
+            ],
+            "enumDescriptions": {
+                "DMTF": "DMTF."
+            },
+            "enumLongDescriptions": {
+                "DMTF": "This value shall indicate the measurement specification is defined by DMTF in DSP0274."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SPDMGetSignedMeasurements": {
+            "actionResponse": {
+                "$ref": "#/definitions/SPDMGetSignedMeasurementsResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action generates an SPDM cryptographic signed statement over the given nonce and measurements of the SPDM Responder.",
+            "longDescription": "This action shall generate a cryptographic signed statement over the given nonce and measurements corresponding to the SPDM Responder.  This action shall not be present if the ComponentIntegrityType property does not contain the value `SPDM`.  The SPDM Requester shall issue one or more SPDM 'GET_MEASUREMENTS' requests for each of the requested measurement indices to the SPDM Responder.  When the SPDM 'GET_MEASUREMENTS' requests are made for version 1.2, the parameter 'RawBitStreamRequested' shall contain `0`.  The SPDM Requester shall provide the nonce for the action to the SPDM Responder in the last SPDM 'GET_MEASUREMENTS' request.  The SPDM Requester shall request a signature in the last SPDM 'GET_MEASUREMENTS' request.",
+            "parameters": {
+                "MeasurementIndices": {
+                    "description": "An array of indices that identify the measurement blocks to sign.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "longDescription": "This parameter shall contain an array of indices that identify the measurement blocks to sign.  This array shall contain one or more unique values between `0` to `254`, inclusive, or contain a single value of `255`.  If not provided by the client, the value shall be assumed to be an array containing a single value of `255`.",
+                    "type": "array"
+                },
+                "Nonce": {
+                    "description": "A 32-byte hex-encoded string that is signed with the measurements.  The value should be unique.",
+                    "longDescription": "This parameter shall contain a 32-byte hex-encoded string that is signed with the measurements.  If not provided by the client, the SPDM Requester shall generate the nonce.  The value should be unique and generated using a random or a pseudo-random generator.  The SPDM Requester shall send this value to the SPDM Responder in the SPDM 'GET_MEASUREMENTS' request.",
+                    "pattern": "^[0-9a-fA-F]{64}$",
+                    "type": "string"
+                },
+                "SlotId": {
+                    "description": "The slot identifier for the certificate containing the private key to generate the signature over the measurements.",
+                    "longDescription": "This parameter shall contain the SPDM slot identifier for the certificate containing the private key to generate the signature over the measurements.  If not provided by the client, the value shall be assumed to be `0`.  The SPDM Requester shall send this value to the SPDM Responder in the SPDM 'GET_MEASUREMENTS' request.",
+                    "type": "integer"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SPDMGetSignedMeasurementsResponse": {
+            "additionalProperties": false,
+            "description": "The SPDM signed measurement from an SPDM Responder.",
+            "longDescription": "This object shall contain the SPDM signed measurements from an SPDM Responder.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Certificate": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "A link to the certificate corresponding to the SPDM slot identifier that can be used to validate the signature.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the certificate corresponding to the SPDM slot identifier that can be used to validate the signature.  This property shall not be present if the SlotId parameter contains the value `15`.",
+                    "readonly": true
+                },
+                "HashingAlgorithm": {
+                    "description": "The hashing algorithm used for generating the cryptographic signed statement.",
+                    "longDescription": "This property shall contain the hashing algorithm negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PublicKey": {
+                    "description": "A Privacy Enhanced Mail (PEM)-encoded public key that can be used to validate the signature.",
+                    "longDescription": "This property shall contain a Privacy Enhanced Mail (PEM)-encoded public key, as defined in section 13 of RFC7468, that can be used to validate the signature.  This property shall only be present when the SPDM Requester was pre-provisioned with the SPDM Responder's public key and the SlotId parameter contains the value `15`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "SignedMeasurements": {
+                    "description": "Base64 encoded cryptographic signed statement generated by the signer.",
+                    "longDescription": "This property shall contain the cryptographic signed statement over the given nonce and measurement blocks corresponding to the requested measurement indices.  If the SPDM version is 1.2, this value shall be a concatenation of SPDM 'VCA' and 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  If SPDM version is 1.0 or 1.1, this value shall be a concatenation of SPDM 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  The last 'MEASUREMENTS' response shall contain a signature generated over the 'L2' string by the SPDM Responder.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "SigningAlgorithm": {
+                    "description": "The asymmetric signing algorithm used for generating the cryptographic signed statement.",
+                    "longDescription": "This property shall contain the asymmetric signing algorithm negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'BaseAsymAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Version": {
+                    "description": "The SPDM version used by the SPDM Responder to generate the cryptographic signed statement.",
+                    "longDescription": "This property shall contain the SPDM version negotiated between the SPDM Requester and the SPDM Responder to generate the cryptographic signed statement.  For example, `1.0`, `1.1`, or `1.2`.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "SignedMeasurements",
+                "Version",
+                "HashingAlgorithm",
+                "SigningAlgorithm"
+            ],
+            "type": "object"
+        },
+        "SPDMcommunication": {
+            "additionalProperties": false,
+            "description": "Information about communication between two components.",
+            "longDescription": "This object shall contain information about communication between two components.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Sessions": {
+                    "description": "The active sessions or communication channels between two components.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SingleSessionInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "SPDMidentity": {
+            "additionalProperties": false,
+            "description": "Identity authentication information about the SPDM Requester and SPDM Responder.",
+            "longDescription": "This object shall contain identity authentication information about the SPDM Requester and SPDM Responder.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "RequesterAuthentication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMrequesterAuth"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Authentication information of the identity of the SPDM Requester.",
+                    "longDescription": "This property shall contain authentication information of the identity of the SPDM Requester."
+                },
+                "ResponderAuthentication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMresponderAuth"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Authentication information of the identity of the SPDM Responder.",
+                    "longDescription": "This property shall contain authentication information of the identity of the SPDM Responder."
+                }
+            },
+            "type": "object"
+        },
+        "SPDMinfo": {
+            "additionalProperties": false,
+            "description": "Integrity information about an SPDM Responder as reported by an SPDM Requester.",
+            "longDescription": "This object shall contain integrity information about an SPDM Responder as reported by an SPDM Requester.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ComponentCommunication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMcommunication"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Information about communication between the SPDM Requester and SPDM Responder.",
+                    "longDescription": "This property shall contain information about communication between the SPDM Requester and SPDM Responder."
+                },
+                "IdentityAuthentication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMidentity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Identity authentication information about the SPDM Requester and SPDM Responder.",
+                    "longDescription": "This property shall contain identity authentication information about the SPDM Requester and SPDM Responder."
+                },
+                "MeasurementSet": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMmeasurementSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Measurement information about the SPDM Responder.",
+                    "longDescription": "This property shall contain measurement information for the SPDM Responder."
+                },
+                "Requester": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
+                    "description": "The link to the the component that is reporting the integrity information of the target component.",
+                    "longDescription": "This property shall contain a link to the resource representing the SPDM Responder that is reporting the integrity of the SPDM Responder identified by the TargetComponentURI property.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "Requester"
+            ],
+            "type": "object"
+        },
+        "SPDMmeasurementSet": {
+            "additionalProperties": false,
+            "description": "SPDM Responder measurement information.",
+            "longDescription": "This object shall contain SPDM Responder measurement information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MeasurementSpecification": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MeasurementSpecification"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The measurement specification negotiated between the SPDM Requester and SPDM Responder.",
+                    "longDescription": "This property shall contain the measurement specification negotiated between the SPDM Requester and SPDM Responder.",
+                    "readonly": true
+                },
+                "MeasurementSummary": {
+                    "description": "The measurement summary data.",
+                    "longDescription": "This property shall contain the Base64-encoded measurement summary using the hash algorithm indicated by the MeasurementSummaryHashAlgorithm property.",
+                    "pattern": "^[A-Za-z0-9+/]+={0,2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MeasurementSummaryHashAlgorithm": {
+                    "description": "The hash algorithm used to compute the measurement summary.",
+                    "longDescription": "This property shall contain the hash algorithm used to compute the measurement summary.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MeasurementSummaryType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMmeasurementSummaryType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of measurement summary.",
+                    "longDescription": "This property shall contain the type of measurement summary.",
+                    "readonly": true
+                },
+                "Measurements": {
+                    "description": "Measurements from an SPDM Responder.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SPDMsingleMeasurement"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain measurements from an SPDM Responder.",
+                    "type": "array"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "SPDMmeasurementSummaryType": {
+            "enum": [
+                "TCB",
+                "All"
+            ],
+            "enumDescriptions": {
+                "All": "The measurement summary covers all measurements in SPDM.",
+                "TCB": "The measurement summary covers the TCB."
+            },
+            "type": "string"
+        },
+        "SPDMrequesterAuth": {
+            "additionalProperties": false,
+            "description": "Authentication information of the identity of the SPDM Requester.",
+            "longDescription": "This object shall contain authentication information of the identity of the SPDM Requester.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ProvidedCertificate": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "A link to the certificate that represents the identify of the SPDM Requester provided in mutual authentication.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the SPDM Requester provided in mutual authentication.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "SPDMresponderAuth": {
+            "additionalProperties": false,
+            "description": "Common Authentication information.",
+            "longDescription": "This object shall contain common identity-related authentication information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ComponentCertificate": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "A link to the certificate that represents the identify of the component.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property.",
+                    "readonly": true
+                },
+                "VerificationStatus": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VerificationStatus"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The status of the verification of the identity of the component.",
+                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property..",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "SPDMsingleMeasurement": {
+            "additionalProperties": false,
+            "description": "A single SPDM measurement for an SPDM Responder.",
+            "longDescription": "This object shall contain a single SPDM measurement for an SPDM Responder.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LastUpdated": {
+                    "description": "The date and time when information for the measurement was last updated.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when information for the measurement was last updated.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Measurement": {
+                    "description": "The measurement data.",
+                    "longDescription": "This property shall contain the Base64-encoded measurement using the hash algorithm indicated by the MeasurementHashAlgorithm property.  This property shall not contain a raw bit stream as a measurement.  If the SPDM Responder provides a raw bit stream, the SPDM Requester may apply a hash algorithm to the raw bit stream in order to report the measurement.",
+                    "pattern": "^[A-Za-z0-9+/]+={0,2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MeasurementHashAlgorithm": {
+                    "description": "The hash algorithm used to compute the measurement.",
+                    "longDescription": "This property shall contain the hash algorithm used to compute the measurement.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.  This property shall not be present if MeasurementSpecification does not contain `DMTF`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MeasurementIndex": {
+                    "description": "The index of the measurement.",
+                    "longDescription": "This property shall contain the index of the measurement.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MeasurementType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DMTFmeasurementTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type or characteristics of the data that this measurement represents.",
+                    "longDescription": "This property shall contain the type or characteristics of the data that this measurement represents.  This property shall not be present if MeasurementSpecification does not contain `DMTF`.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PartofSummaryHash": {
+                    "description": "Indicates whether this measurement is part of the measurement summary.",
+                    "longDescription": "This property shall indicate if this measurement is part of the measurement summary in the MeasurementSummary property.  If this property is not present, it shall be assumed to be `false`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SecurityVersionNumber": {
+                    "description": "The security version number the measurement represents.",
+                    "longDescription": "This property shall contain an 8-byte hex-encoded string of the security version number the measurement represents.  This property shall only be present if MeasurementType contains the value `MutableFirmwareSecurityVersionNumber`.",
+                    "pattern": "^[A-Za-z0-9]{16}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "SecureSessionType": {
+            "enum": [
+                "Plain",
+                "EncryptedAuthenticated",
+                "AuthenticatedOnly"
+            ],
+            "enumDescriptions": {
+                "AuthenticatedOnly": "An established session where only authentication is protecting the communication.",
+                "EncryptedAuthenticated": "An established session where both encryption and authentication are protecting the communication.",
+                "Plain": "A plain text session without any protection."
+            },
+            "type": "string"
+        },
+        "SingleSessionInfo": {
+            "additionalProperties": false,
+            "description": "Information about a single communication channel or session between two components.",
+            "longDescription": "This object shall contain information about a single communication channel or session between two components.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SessionId": {
+                    "description": "The identifier for an active session or communication channel between two components.",
+                    "longDescription": "This property shall contain the unique identifier for the active session or communication channel between two components.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "SessionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SecureSessionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of session or communication channel between two components.",
+                    "longDescription": "This property shall contain the type of session or communication channel between two components.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "TPMGetSignedMeasurements": {
+            "actionResponse": {
+                "$ref": "#/definitions/TPMGetSignedMeasurementsResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action generates a TPM cryptographic signed statement over the given nonce and PCRs of the TPM for TPM 2.0 devices.",
+            "longDescription": "This action shall generate a cryptographic signed statement over the given nonce and PCRs of the TPM for TPM 2.0 devices.  This action shall not be present if the ComponentIntegrityType property does not contain the value `TPM`.",
+            "parameters": {
+                "Certificate": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "The URI for the certificate that represents the TPM attestation key.",
+                    "longDescription": "This parameter shall contain the reference to the certificate installed on the TPM that represents the TPM's attestation key for the 'signHandle' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification.",
+                    "requiredParameter": true
+                },
+                "Nonce": {
+                    "description": "A set of bytes as a hex-encoded string that is signed with the measurements.  The value should be unique.",
+                    "longDescription": "This parameter shall contain a set of bytes as a hex-encoded string that is signed with the measurements.  Services shall reject the action request if the number of bytes provided is larger than the value specified by the NonceSizeBytesMaximum property in the TPM property.  If not provided by the client, the service shall generate the nonce.  The value should be unique and generated using a random or a pseudo-random generator.  The service shall send this value to the TPM in the 'qualifyingData' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification.",
+                    "pattern": "^[0-9a-fA-F]$",
+                    "type": "string"
+                },
+                "PCRSelection": {
+                    "description": "An object that identify the PCRs to sign.",
+                    "longDescription": "This parameter shall contain the Base64-encoded representation of the 'TPML_PCR_SELECTION' object, as defined by the Trusted Platform Module Library Specification, that identifies the PCRs to sign.  The service shall send this value to the TPM in the 'PCRselect' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Scheme": {
+                    "description": "The signing scheme to use for the TPM attestation key.",
+                    "longDescription": "This parameter shall contain the Base64-encoded representation of the 'TPMT_SIG_SCHEME' object, as defined in the Trusted Platform Module Library Specification, that identifies the signing scheme to use for the TPM attestation key.  The service shall send this value to the TPM in the 'inScheme' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
+        "TPMGetSignedMeasurementsResponse": {
+            "additionalProperties": false,
+            "description": "The TPM signed measurement from a TPM.",
+            "longDescription": "This object shall contain the TPM signed PCR measurements from an TPM.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_2_0"
+                },
+                "SignedMeasurements": {
+                    "description": "The Base64-encoded cryptographic signed statement generated by the signer.",
+                    "longDescription": "This property shall contain a Base64-encoded cryptographic signed statement generated by the signer.  This value shall be the concatenation of the 'quoted' and 'signature' response values of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "required": [
+                "SignedMeasurements"
+            ],
+            "type": "object"
+        },
+        "TPMauth": {
+            "additionalProperties": false,
+            "description": "Common Authentication information.",
+            "longDescription": "This object shall contain common identity-related authentication information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ComponentCertificate": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "A link to the certificate that represents the identify of the component.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property.",
+                    "readonly": true
+                },
+                "VerificationStatus": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VerificationStatus"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The status of the verification of the identity of the component.",
+                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property..",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "TPMcommunication": {
+            "additionalProperties": false,
+            "description": "Information about communication between two components.",
+            "longDescription": "This object shall contain information about communication between two components.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Sessions": {
+                    "description": "The active sessions or communication channels between two components.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SingleSessionInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "TPMinfo": {
+            "additionalProperties": false,
+            "description": "Integrity information about a Trusted Platform Module (TPM).",
+            "longDescription": "This object shall contain integrity information about a Trusted Platform Module (TPM).",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ComponentCommunication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TPMcommunication"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Information about communication with the TPM.",
+                    "longDescription": "This property shall contain information about communication with the TPM."
+                },
+                "IdentityAuthentication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TPMauth"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Identity authentication information about the TPM.",
+                    "longDescription": "This property shall contain identity authentication information about the TPM."
+                },
+                "MeasurementSet": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TPMmeasurementSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Measurement information from the TPM.",
+                    "longDescription": "This property shall contain measurement information from the TPM."
+                },
+                "NonceSizeBytesMaximum": {
+                    "description": "The maximum number of bytes that can be specified in the Nonce parameter of the TPMGetSignedMeasurements action.",
+                    "longDescription": "This property shall contain the maximum number of bytes that can be specified in the Nonce parameter of the TPMGetSignedMeasurements action.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "TPMmeasurementSet": {
+            "additionalProperties": false,
+            "description": "Trusted Computing Group TPM measurement information.",
+            "longDescription": "This object shall contain Trusted Computing Group TPM measurement information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Measurements": {
+                    "description": "Measurements from a TPM.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/TPMsingleMeasurement"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain measurements from a TPM.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "TPMsingleMeasurement": {
+            "additionalProperties": false,
+            "description": "A single Trusted Computing Group TPM measurement.",
+            "longDescription": "This object shall contain a single Trusted Computing Group TPM measurement.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LastUpdated": {
+                    "description": "The date and time when information for the measurement was last updated.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when information for the measurement was last updated.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Measurement": {
+                    "description": "The measurement data.",
+                    "longDescription": "This property shall contain the Base64-encoded PCR digest using the hashing algorithm indicated by MeasurementHashAlgorithm property.",
+                    "pattern": "^[A-Za-z0-9+/]+={0,2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MeasurementHashAlgorithm": {
+                    "description": "The hash algorithm used to compute the measurement.",
+                    "longDescription": "This property shall contain the hash algorithm used to compute the measurement.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PCR": {
+                    "description": "The Platform Configuration Register (PCR) bank of the measurement.",
+                    "longDescription": "This property shall contain the Platform Configuration Register (PCR) bank of the measurement.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "VerificationStatus": {
+            "enum": [
+                "Success",
+                "Failed"
+            ],
+            "enumDescriptions": {
+                "Failed": "Unsuccessful verification.",
+                "Success": "Successful verification."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.2",
+    "title": "#ComponentIntegrity.v1_2_0.ComponentIntegrity"
+}

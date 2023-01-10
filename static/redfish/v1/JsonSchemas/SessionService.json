@@ -1,0 +1,31 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SessionService.json",
+    "$ref": "#/definitions/SessionService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "SessionService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SessionService.v1_0_9.json#/definitions/SessionService"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SessionService.v1_1_8.json#/definitions/SessionService"
+                }
+            ],
+            "deletable": false,
+            "description": "The SessionService schema describes the session service and its properties, with links to the actual list of sessions.",
+            "insertable": false,
+            "longDescription": "This resource contains the session service properties for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/SessionService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#SessionService.SessionService"
+}

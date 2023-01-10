@@ -1,0 +1,51 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.json",
+    "$ref": "#/definitions/StorageController",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "StorageController": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_0_2.json#/definitions/StorageController"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_1_1.json#/definitions/StorageController"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_2_0.json#/definitions/StorageController"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_3_0.json#/definitions/StorageController"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_4_0.json#/definitions/StorageController"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_5_0.json#/definitions/StorageController"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_6_0.json#/definitions/StorageController"
+                }
+            ],
+            "deletable": false,
+            "description": "The StorageController schema describes a storage controller and its properties.  A storage controller represents a physical or virtual storage device that produces volumes.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a storage controller in the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Storage/{StorageId}/Controllers/{ControllerId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{ControllerId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{ControllerId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#StorageController.StorageController"
+}

@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/BatteryMetrics.json",
+    "$ref": "#/definitions/BatteryMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "BatteryMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/BatteryMetrics.v1_0_1.json#/definitions/BatteryMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "The BatteryMetrics schema contains definitions for the metrics of a battery unit.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent the metrics of a battery unit for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/Batteries/{BatteryId}/Metrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#BatteryMetrics.BatteryMetrics"
+}

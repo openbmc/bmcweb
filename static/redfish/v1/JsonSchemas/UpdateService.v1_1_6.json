@@ -1,0 +1,237 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_1_6.json",
+    "$ref": "#/definitions/UpdateService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#UpdateService.SimpleUpdate": {
+                    "$ref": "#/definitions/SimpleUpdate"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SimpleUpdate": {
+            "additionalProperties": false,
+            "description": "This action updates software components.",
+            "longDescription": "This action shall update installed software components in a software image file located at an ImageURI parameter-specified URI.",
+            "parameters": {
+                "ImageURI": {
+                    "description": "The URI of the software image to install.",
+                    "longDescription": "This parameter shall contain an RFC3986-defined URI that links to a software image that the Update Service retrieves to install software in that image.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the Service shall use HTTP to get the image.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "TransferProtocol": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "The network protocol that the Update Service uses to retrieve the software image file located at the URI provided in ImageURI, if the URI does not contain a scheme.",
+                    "longDescription": "This parameter shall contain the network protocol that the Update Service shall use to retreive the software image located at the ImageURI.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the Service shall use HTTP to retrieve the image."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "TransferProtocolType": {
+            "enum": [
+                "CIFS",
+                "FTP",
+                "SFTP",
+                "HTTP",
+                "HTTPS",
+                "NSF",
+                "SCP",
+                "TFTP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "CIFS": "Common Internet File System (CIFS).",
+                "FTP": "File Transfer Protocol (FTP).",
+                "HTTP": "Hypertext Transfer Protocol (HTTP).",
+                "HTTPS": "Hypertext Transfer Protocol Secure (HTTPS).",
+                "NSF": "Network File System (NFS).",
+                "OEM": "A manufacturer-defined protocol.",
+                "SCP": "Secure Copy Protocol (SCP).",
+                "SFTP": "Secure File Transfer Protocol (SFTP).",
+                "TFTP": "Trivial File Transfer Protocol (TFTP)."
+            },
+            "enumVersionAdded": {
+                "SFTP": "v1_1_0"
+            },
+            "type": "string"
+        },
+        "UpdateService": {
+            "additionalProperties": false,
+            "description": "The UpdateService schema describes the Update Service and the properties for the Service itself with links to collections of firmware and software inventory.  The Update Service also provides methods for updating software and firmware of the Resources in a Redfish Service.",
+            "longDescription": "This Resource shall represent an Update Service and the properties that affect the Service itself for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FirmwareInventory": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection.json#/definitions/SoftwareInventoryCollection",
+                    "description": "An inventory of firmware.",
+                    "longDescription": "This property shall contain a link to a Resource of type SoftwareInventoryCollection.",
+                    "readonly": true
+                },
+                "HttpPushUri": {
+                    "description": "The URI used to perform an HTTP or HTTPS push update to the Update Service.  The format of the message is vendor-specific.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI at which the Update Service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the Update Service.  If the Service requires the Content-Length header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SoftwareInventory": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection.json#/definitions/SoftwareInventoryCollection",
+                    "description": "An inventory of software.",
+                    "longDescription": "This property shall contain a link to a Resource of type SoftwareInventoryCollection.",
+                    "readonly": true
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2016.3",
+    "title": "#UpdateService.v1_1_6.UpdateService"
+}

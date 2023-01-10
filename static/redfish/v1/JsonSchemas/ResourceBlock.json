@@ -1,0 +1,51 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json",
+    "$ref": "#/definitions/ResourceBlock",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ResourceBlock": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_0_6.json#/definitions/ResourceBlock"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_1_6.json#/definitions/ResourceBlock"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_2_5.json#/definitions/ResourceBlock"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_3_4.json#/definitions/ResourceBlock"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_4_0.json#/definitions/ResourceBlock"
+                }
+            ],
+            "deletable": true,
+            "description": "The ResourceBlock schema contains definitions resource blocks, its components, and affinity to composed devices.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a resource block for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}"
+            ]
+        },
+        "ResourceBlockLimits": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_3_4.json#/definitions/ResourceBlockLimits"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_4_0.json#/definitions/ResourceBlockLimits"
+                }
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ResourceBlock.ResourceBlock"
+}

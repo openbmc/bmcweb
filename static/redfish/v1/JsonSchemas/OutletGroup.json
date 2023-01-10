@@ -1,0 +1,53 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OutletGroup.json",
+    "$ref": "#/definitions/OutletGroup",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "OutletGroup": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OutletGroup.v1_0_2.json#/definitions/OutletGroup"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OutletGroup.v1_1_0.json#/definitions/OutletGroup"
+                }
+            ],
+            "deletable": true,
+            "description": "The OutletGroup schema contains definitions for an electrical outlet group.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent an electrical outlet group for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/OutletGroups/{OutletGroupId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/OutletGroups/{OutletGroupId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/OutletGroups/{OutletGroupId}",
+                "/redfish/v1/PowerEquipment/ElectricalBuses/{PowerDistributionId}/OutletGroups/{OutletGroupId}"
+            ]
+        },
+        "PowerState": {
+            "enum": [
+                "On",
+                "Off",
+                "PowerCycle"
+            ],
+            "enumDescriptions": {
+                "Off": "Power off.",
+                "On": "Power on.",
+                "PowerCycle": "Power cycle."
+            },
+            "enumLongDescriptions": {
+                "PowerCycle": "This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."
+            },
+            "enumVersionAdded": {
+                "PowerCycle": "v1_1_0"
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#OutletGroup.OutletGroup"
+}

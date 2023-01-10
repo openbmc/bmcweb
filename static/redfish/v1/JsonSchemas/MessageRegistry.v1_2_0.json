@@ -1,0 +1,347 @@
+{
+    "$ref": "#/definitions/MessageRegistry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "ClearingLogic": {
+            "additionalProperties": false,
+            "description": "The clearing logic associated with this message.  The properties within indicate that what messages are cleared by this message as well as under what conditions.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ClearsAll": {
+                    "description": "This property indicates that all prior conditions and messages are cleared provided the ClearsIf condition is met.",
+                    "longDescription": "This property shall indicate that all prior conditions and messages are cleared provided the ClearsIf condition is met.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "ClearsIf": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ClearingType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "readonly": true
+                },
+                "ClearsMessage": {
+                    "description": "This property contains the array of Message Ids that are cleared by this message, provided the other conditions are met.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of Message Ids that are cleared by this message, provided the other conditions are met.  The Message Ids shall not include the Registry name or version and shall just be the Message Id portion.  Message Ids shall not reference other Message Registries.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "ClearingType": {
+            "description": "The enumerations of ClearingType specify the choice of conditions on when an event is cleared.",
+            "enum": [
+                "SameOriginOfCondition"
+            ],
+            "enumDescriptions": {
+                "SameOriginOfCondition": "Indicates the message is cleared by the other message(s) listed in the ClearingLogic object, provided the OriginOfCondition for both Events are the same."
+            },
+            "type": "string"
+        },
+        "Message": {
+            "additionalProperties": false,
+            "description": "This type shall reprensent how a message is defined within the registry.",
+            "longDescription": "The type shall represent how a message is defined within within a message registry.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ClearingLogic": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ClearingLogic"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The clearing logic associated with this message.  The properties within indicate that what messages are cleared by this message as well as under what conditions.",
+                    "longDescription": "This type shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "description": "This is a short description of how and when this message is to be used.",
+                    "longDescription": "The value of this property shall indicate how and when this message is returned by the Redfish service.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Message": {
+                    "description": "The actual message.",
+                    "longDescription": "The value of this property shall be the message to be displayed.  If a %integer is included in part of the string, it shall be used to represent a string substitution for any MessageArgs accompanying the message, in order.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "NumberOfArgs": {
+                    "description": "The number of arguments to be expected to be passed in as MessageArgs for this message.",
+                    "longDescription": "The value of this property shall be the number of MessageArgs that are expected to be substituted in the Message in the locations within the Message marked by %<integer>.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "ParamTypes": {
+                    "description": "The MessageArg types, in order, for the message.",
+                    "items": {
+                        "$ref": "#/definitions/ParamType"
+                    },
+                    "longDescription": "The value of this property shall be an ordered array of parameter types which match the types of the MessageArgs, in order.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Resolution": {
+                    "description": "Used to provide suggestions on how to resolve the situation that caused the error.",
+                    "longDescription": "This property shall contain an override of the Resolution of the message in message registry, if present.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Severity": {
+                    "description": "This is the severity of the message.",
+                    "longDescription": "The value of this property shall be the severity of the condition resulting in the message, as defined in the Status section of the Redfish specification.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Description",
+                "Message",
+                "Severity",
+                "NumberOfArgs",
+                "Resolution"
+            ],
+            "type": "object"
+        },
+        "MessageProperty": {
+            "additionalProperties": false,
+            "description": "The pattern type indicates that a free-form string is the unique identifier for the message within the registry.",
+            "longDescription": "The pattern type shall represent the suffix to be used in the MessageId and shall be unique within this message registry.",
+            "patternProperties": {
+                "[A-Za-z0-9]+": {
+                    "$ref": "#/definitions/Message"
+                },
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "MessageRegistry": {
+            "additionalProperties": false,
+            "description": "This is the schema definition for all Message Registries.  It represents the properties for the registries themselves.  The MessageId is formed per the Redfish specification.  It consists of the RegistryPrefix concatenated with the version concatenated with the unique identifier for the message registry entry.",
+            "longDescription": "This resource shall be used to represent a message registry for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Language": {
+                    "description": "This is the RFC 5646 compliant language code for the registry.",
+                    "longDescription": "The value of this property shall be a string consisting of an RFC 5646 language code.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Messages": {
+                    "$ref": "#/definitions/MessageProperty",
+                    "description": "The pattern property indicates that a free-form string is the unique identifier for the message within the registry.",
+                    "longDescription": "The pattern property shall represent the suffix to be used in the MessageId and shall be unique within this message registry."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "OwningEntity": {
+                    "description": "This is the organization or company that publishes this registry.",
+                    "longDescription": "The value of this property shall be a string that represents the publisher of this registry.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "RegistryPrefix": {
+                    "description": "This is the single word prefix used to form a messageID structure.",
+                    "longDescription": "The value of this property shall be the prefix used in messageIDs which uniquely identifies all of the messages in this registry as belonging to this registry.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "RegistryVersion": {
+                    "description": "This is the message registry version which is used in the middle portion of a messageID.",
+                    "longDescription": "The value of this property shall be the version of this message registry.   The format of this string shall be of the format majorversion.minorversion.errata in compliance with Protocol Version section of the Redfish specification.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Language",
+                "RegistryPrefix",
+                "RegistryVersion",
+                "OwningEntity",
+                "Messages",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ParamType": {
+            "enum": [
+                "string",
+                "number"
+            ],
+            "enumDescriptions": {
+                "number": "The parameter is a number.",
+                "string": "The parameter is a string."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#MessageRegistry.v1_2_0.MessageRegistry"
+}

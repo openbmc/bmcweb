@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateService.json",
+    "$ref": "#/definitions/CertificateService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "CertificateService": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_4.json#/definitions/CertificateService"
+                }
+            ],
+            "deletable": false,
+            "description": "The CertificateService schema describes a certificate service that represents the actions available to manage certificates and links to the certificates.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the certificate service properties for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/CertificateService"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#CertificateService.CertificateService"
+}

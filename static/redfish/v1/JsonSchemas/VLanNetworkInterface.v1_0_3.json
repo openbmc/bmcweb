@@ -1,0 +1,129 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_1_0.json",
+    "title": "#VLanNetworkInterface.v1_0_3.VLanNetworkInterface",
+    "$ref": "#/definitions/VLanNetworkInterface",
+    "definitions": {
+        "VLAN": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "VLANEnable": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": false,
+                    "description": "This indicates if this VLAN is enabled.",
+                    "longDescription": "The value of this property shall be used to indicate if this VLAN is enabled for this interface."
+                },
+                "VLANId": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/VLANId"},
+                        {"type": "null"}
+                    ],
+                    "readonly": false,
+                    "description": "This indicates the VLAN identifier for this VLAN.",
+                    "longDescription": "The value of this property shall be used to indicate the VLAN identifier for this VLAN."
+                }
+            },
+            "requiredOnCreate": [
+                "VLANEnable",
+                "VLANId"
+            ]
+        },
+        "VLANId": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 4094
+        },
+        "VLanNetworkInterface": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/context"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/type"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {"$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "VLANEnable": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": false,
+                    "description": "This indicates if this VLAN is enabled.",
+                    "longDescription": "The value of this property shall be used to indicate if this VLAN is enabled for this interface."
+                },
+                "VLANId": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/VLANId"},
+                        {"type": "null"}
+                    ],
+                    "readonly": false,
+                    "description": "This indicates the VLAN identifier for this VLAN.",
+                    "longDescription": "The value of this property shall be used to indicate the VLAN identifier for this VLAN."
+                }
+            },
+            "required": [
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "VLANEnable",
+                "VLANId"
+            ],
+            "description": "This resource contains information for a Virtual LAN (VLAN) network instance available on a manager, system or other device."
+        }
+    },
+    "copyright": "Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}

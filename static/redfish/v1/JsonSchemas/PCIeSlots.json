@@ -1,0 +1,43 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.json",
+    "$ref": "#/definitions/PCIeSlots",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PCIeSlots": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_0_3.json#/definitions/PCIeSlots"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_1_2.json#/definitions/PCIeSlots"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_2_0.json#/definitions/PCIeSlots"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_3_0.json#/definitions/PCIeSlots"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_4_1.json#/definitions/PCIeSlots"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_5_0.json#/definitions/PCIeSlots"
+                }
+            ],
+            "deletable": false,
+            "description": "The PCIeSlots schema describes PCIe slot properties.",
+            "insertable": false,
+            "longDescription": "This Resource shall represent a set of PCIe slot information for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/PCIeSlots"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PCIeSlots.PCIeSlots"
+}

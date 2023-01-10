@@ -1,0 +1,28 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateLocations.json",
+    "$ref": "#/definitions/CertificateLocations",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "CertificateLocations": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateLocations.v1_0_2.json#/definitions/CertificateLocations"
+                }
+            ],
+            "deletable": false,
+            "description": "The CertificateLocations schema describes a Resource that an administrator can use in order to locate all certificates installed on a given service.",
+            "insertable": false,
+            "longDescription": "This Resource shall represent the Certificate Location Properties for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/CertificateService/CertificateLocations"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#CertificateLocations.CertificateLocations"
+}

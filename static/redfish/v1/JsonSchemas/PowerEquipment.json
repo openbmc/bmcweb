@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerEquipment.json",
+    "$ref": "#/definitions/PowerEquipment",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerEquipment": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerEquipment.v1_0_0.json#/definitions/PowerEquipment"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerEquipment.v1_1_0.json#/definitions/PowerEquipment"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerEquipment.v1_2_0.json#/definitions/PowerEquipment"
+                }
+            ],
+            "deletable": false,
+            "description": "This is the schema definition for the set of power equipment.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent the set of power equipment for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/PowerEquipment"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PowerEquipment.PowerEquipment"
+}

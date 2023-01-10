@@ -1,0 +1,32 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.json",
+    "$ref": "#/definitions/AccelerationFunction",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AccelerationFunction": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.v1_0_3.json#/definitions/AccelerationFunction"
+                }
+            ],
+            "deletable": false,
+            "description": "The AccelerationFunction schema describes an acceleration function that a processor implements.  This can include functions such as audio processing, compression, encryption, packet inspection, packet switching, scheduling, or video processing.",
+            "insertable": false,
+            "longDescription": "This Resource shall represent the acceleration function that a processor implements in a Redfish implementation.  This can include functions such as audio processing, compression, encryption, packet inspection, packet switching, scheduling, or video processing.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#AccelerationFunction.AccelerationFunction"
+}

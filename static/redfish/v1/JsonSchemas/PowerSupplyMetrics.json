@@ -1,0 +1,29 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupplyMetrics.json",
+    "$ref": "#/definitions/PowerSupplyMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerSupplyMetrics": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupplyMetrics.v1_0_1.json#/definitions/PowerSupplyMetrics"
+                }
+            ],
+            "deletable": false,
+            "description": "The PowerSupplyMetrics schema contains definitions for the metrics of a power supply.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent the metrics of a power supply unit for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Metrics",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}/Metrics"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#PowerSupplyMetrics.PowerSupplyMetrics"
+}

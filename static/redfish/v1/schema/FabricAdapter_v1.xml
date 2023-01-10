@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  FabricAdapter v1.4.0                                                -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Protocol_v1.xml">
+    <edmx:Include Namespace="Protocol"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PortCollection_v1.xml">
+    <edmx:Include Namespace="PortCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RouteEntryCollection_v1.xml">
+    <edmx:Include Namespace="RouteEntryCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VCATEntryCollection_v1.xml">
+    <edmx:Include Namespace="VCATEntryCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryDomain_v1.xml">
+    <edmx:Include Namespace="MemoryDomain"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FabricAdapter">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="FabricAdapter" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="A FabricAdapter represents the physical fabric adapter capable of connecting to an interconnect fabric.  Examples include but are not limited to Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters."/>
+        <Annotation Term="OData.LongDescription" String="A FabricAdapter represents the physical Fabric adapter capable of connecting to an interconnect fabric.  Examples include but are not limited to Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}</String>
+            <String>/redfish/v1/CompositionService/Resourceblocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}</String>
+            <String>/redfish/v1/Resourceblocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FabricAdapter.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="FabricAdapter" BaseType="FabricAdapter.FabricAdapter">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+        </Property>
+        <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of ports that exist on the fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type PortCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer or OEM of this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a value that represents the manufacturer of the fabric adapter."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model string for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about how the manufacturer refers to this fabric adapter."/>
+        </Property>
+        <Property Name="SKU" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer SKU for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SKU for the fabric adapter."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the serial number for the fabric adapter."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the part number for the fabric adapter as defined by the manufacturer."/>
+        </Property>
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number for the fabric adapter as defined by the manufacturer."/>
+        </Property>
+        <Property Name="ASICRevisionIdentifier" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The revision identifier for the ASIC on this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the revision identifier of the ASIC for the fabric adapter as defined by the manufacturer."/>
+        </Property>
+        <Property Name="ASICPartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number for the ASIC on this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the part number of the ASIC for the fabric adapter as defined by the manufacturer."/>
+        </Property>
+        <Property Name="ASICManufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer name for the ASIC of this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the manufacturer name of the ASIC for the fabric adapter as defined by the manufacturer."/>
+        </Property>
+        <Property Name="FirmwareVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The firmware version of this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the firmware version for the fabric adapter as defined by the manufacturer."/>
+        </Property>
+        <Property Name="UUID" Type="Resource.UUID">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UUID for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a universal unique identifier number for the fabric adapter."/>
+        </Property>
+        <Property Name="PCIeInterface" Type="PCIeDevice.PCIeInterface" Nullable="false">
+          <Annotation Term="OData.Description" String="The PCIe interface details for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain details on the PCIe interface that connects this PCIe-based fabric adapter to its host."/>
+        </Property>
+        <Property Name="GenZ" Type="FabricAdapter.v1_0_0.GenZ" Nullable="false">
+          <Annotation Term="OData.Description" String="The Gen-Z specific properties for this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Gen-Z specific properties for this fabric adapter."/>
+        </Property>
+        <Property Name="Actions" Type="FabricAdapter.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+        </Property>
+        <Property Name="Links" Type="FabricAdapter.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="GenZ">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Gen-Z related properties for a fabric adapter."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain Gen-Z related properties for a fabric adapter."/>
+        <NavigationProperty Name="SSDT" Type="RouteEntryCollection.RouteEntryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Single Subnet Destination Table for the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined SSDT structure."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="MSDT" Type="RouteEntryCollection.RouteEntryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Multi Subnet Destination Table for the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined MSDT structure."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="RequestorVCAT" Type="VCATEntryCollection.VCATEntryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Requestor Virtual Channel Action Table for the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type VCATEntryCollection, and shall represent the Gen-Z Core Specification-defined REQ-VCAT structure."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ResponderVCAT" Type="VCATEntryCollection.VCATEntryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Responder Virtual Channel Action Table for the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type VCATEntryCollection, and shall represent the Gen-Z Core Specification-defined RSP-VCAT structure."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="RITable" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of table entry values for the Responder Interface Table."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of table entry values for the Gen-Z Core Specification-defined Responder Interface Table for the component."/>
+        </Property>
+        <Property Name="PIDT" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of table entry values for the Packet Injection Delay Table."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of table entry values for the Gen-Z Core Specification-defined Packet Injection Delay Table for the component."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Property Name="Oem" Type="FabricAdapter.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the endpoints that represent the logical fabric connection to this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to Resources of type Endpoint that represents the logical fabric connection associated with this fabric adapter."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FabricAdapter.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="FabricAdapter" BaseType="FabricAdapter.v1_0_0.FabricAdapter">
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location of the fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information for the fabric adapter."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FabricAdapter.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+
+      <EntityType Name="FabricAdapter" BaseType="FabricAdapter.v1_1_0.FabricAdapter"/>
+
+      <ComplexType Name="Links" BaseType="FabricAdapter.v1_0_0.Links">
+        <NavigationProperty Name="PCIeDevices" Type="Collection(PCIeDevice.PCIeDevice)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the PCIe devices associated with this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeDevice that represent the PCIe devices associated with this fabric adapter."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FabricAdapter.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="FabricAdapter" BaseType="FabricAdapter.v1_2_0.FabricAdapter">
+        <Property Name="FabricType" Type="Protocol.Protocol" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured fabric type of this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured fabric type of this fabric adapter."/>
+        </Property>
+        <Property Name="FabricTypeCapabilities" Type="Collection(Protocol.Protocol)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of fabric types supported by this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of fabric types supported by this fabric adapter."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="FabricAdapter.v1_2_0.Links">
+        <NavigationProperty Name="MemoryDomains" Type="Collection(MemoryDomain.MemoryDomain)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to the memory domains associated with this fabric adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryDomain that represent the memory domains associated with this fabric adapter."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="FabricAdapter.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="FabricAdapter" BaseType="FabricAdapter.v1_3_0.FabricAdapter">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,393 @@
+{
+    "$ref": "#/definitions/EventService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#EventService.SubmitTestEvent": {
+                    "$ref": "#/definitions/SubmitTestEvent"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "EventFormatType": {
+            "enum": [
+                "Event",
+                "MetricReport"
+            ],
+            "enumDescriptions": {
+                "Event": "The subscription destination will receive JSON Bodies of the Resource Type Event.",
+                "MetricReport": "The subscription destination will receive JSON Bodies of the Resource Type MetricReport."
+            },
+            "type": "string"
+        },
+        "EventService": {
+            "additionalProperties": false,
+            "description": "The Event Service resource contains properties for managing event subcriptions and generates the events sent to subscribers.  The resource has links to the actual collection of subscriptions (called Event Destinations).",
+            "longDescription": "This resource shall be used to represent an event service for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "DeliveryRetryAttempts": {
+                    "description": "This is the number of attempts an event posting is retried before the subscription is terminated.  This retry is at the service level, meaning the HTTP POST to the Event Destination was returned by the HTTP operation as unsuccessful (4xx or 5xx return code) or an HTTP timeout occurred this many times before the Event Destination subscription is terminated.",
+                    "longDescription": "The value of this property shall be the number of retrys attempted for any given event to the subscription destination before the subscription is terminated.  This retry is at the service level, meaning the HTTP POST to the Event Destination was returned by the HTTP operation as unsuccessful (4xx or 5xx return code) or an HTTP timeout occurred this many times before the Event Destination subscription is terminated.",
+                    "readonly": false,
+                    "type": "integer"
+                },
+                "DeliveryRetryIntervalSeconds": {
+                    "description": "This represents the number of seconds between retry attempts for sending any given Event.",
+                    "longDescription": "The value of this property shall be the interval in seconds between the retry attempts for any given event to the subscription destination.",
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "s"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EventFormatTypes": {
+                    "description": "Indicates the content types of the message that this service can send to the event destination.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.json#/definitions/EventFormatType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The value of this property shall indicate the the content types of the message that this service can send to the event destination.  If this property is not present, the EventFormatType shall be assumed to be Event.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "EventTypesForSubscription": {
+                    "description": "This is the types of Events that can be subscribed to.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType"
+                    },
+                    "longDescription": "The value of this property shall be the types of events that subscriptions can subscribe to.  The semantics associated with the enumerations values are defined in the Redfish specification.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "RegistryPrefixes": {
+                    "description": "A list of the Prefixes of the Message Registries that can be used for the RegistryPrefix property on a subscription.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "The value of this property is the array of the Prefixes of the Message Registries that shall be allowed for an Event Subscription.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ResourceTypes": {
+                    "description": "A list of @odata.type values (Schema names) that can be specified in a ResourceType on a subscription.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "The value of this property shall specify an array of the valid @odata.type values that can be used for an Event Subscription.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SSEFilterPropertiesSupported": {
+                    "$ref": "#/definitions/SSEFilterPropertiesSupported",
+                    "description": "Contains a set of properties that indicate which properties are supported in the $filter query parameter for the ServerSentEventUri.",
+                    "longDescription": "The value of this property shall contain a set of properties that indicate which properties are supported in the $filter query parameter for the URI indicated by the ServerSentEventUri property."
+                },
+                "ServerSentEventUri": {
+                    "description": "Link to a URI for receiving Sever Sent Event representations of the events generated by this service.",
+                    "format": "uri",
+                    "longDescription": "The value of this property shall be a URI that specifies an HTML5 Server-Sent Event conformant endpoint.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "ServiceEnabled": {
+                    "description": "This indicates whether this service is enabled.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SubordinateResourcesSupported": {
+                    "description": "This indicates if the service supports the SubordinateResource property on Event Subscriptions.",
+                    "longDescription": "When set to true, the service is indicating that it supports the SubordinateResource property on Event Subscriptions and on generated Events.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Subscriptions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestinationCollection.json#/definitions/EventDestinationCollection",
+                    "description": "This is a reference to a collection of Event Destination resources.",
+                    "longDescription": "The value of this property shall contain the link to a collection of type EventDestinationCollection.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SSEFilterPropertiesSupported": {
+            "additionalProperties": false,
+            "description": "Contains a set of properties that indicate which properties are supported in the $filter query parameter for the ServerSentEventUri.",
+            "longDescription": "The type shall contain a set of properties that indicate which properties are supported in the $filter query parameter for the URI indicated by the ServerSentEventUri property.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EventFormatType": {
+                    "description": "This indicates if the EventFormatType property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the EventFormatType property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "EventType": {
+                    "description": "This indicates if the EventType property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the EventType property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "MessageId": {
+                    "description": "This indicates if the MessageId property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the MessageId property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "MetricReportDefinition": {
+                    "description": "This indicates if the MetricReportDefinition property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the MetricReportDefinition property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "OriginResource": {
+                    "description": "This indicates if the OriginResource property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the OriginResource property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "RegistryPrefix": {
+                    "description": "This indicates if the RegistryPrefix property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the RegistryPrefix property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "ResourceType": {
+                    "description": "This indicates if the ResourceType property is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating if this service supports the use of the ResourceType property in the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "SubmitTestEvent": {
+            "additionalProperties": false,
+            "description": "This action is used to generate a test event.",
+            "longDescription": "This action shall add a test event to the event service with the event data specified in the action parameters. This message should then be sent to any appropriate ListenerDestination targets.",
+            "parameters": {
+                "EventId": {
+                    "description": "This is the ID of event to be added.",
+                    "longDescription": "This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "EventTimestamp": {
+                    "description": "This is the time stamp of event to be added.",
+                    "format": "date-time",
+                    "longDescription": "This parameter shall have the same semantics as the EventTimestamp property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "EventType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType",
+                    "description": "This is the type of event to be added.",
+                    "longDescription": "This parameter shall define the property name for which the following allowable values apply.",
+                    "requiredParameter": true
+                },
+                "Message": {
+                    "description": "This is the human readable message of event to be added.",
+                    "longDescription": "This parameter shall have the same semantics as the Message property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "MessageArgs": {
+                    "description": "This is the array of message arguments of the event to be added.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This parameter shall have the same semantics as the MessageArgs property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "array"
+                },
+                "MessageId": {
+                    "description": "This is the message ID of event to be added.",
+                    "longDescription": "This parameter shall have the same semantics as the MessageId property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "OriginOfCondition": {
+                    "description": "This is the string of the URL within the OriginOfCondition property of the event to be added.  It is not a reference object.",
+                    "format": "uri",
+                    "longDescription": "This parameter shall be a string that represents the URL contained by the OriginOfCondition property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Severity": {
+                    "description": "This is the Severity of event to be added.",
+                    "longDescription": "This parameter shall have the same semantics as the Severity property in the Event schema for Redfish.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#EventService.v1_2_0.EventService"
+}

@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Battery.json",
+    "$ref": "#/definitions/Battery",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Battery": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Battery.v1_0_1.json#/definitions/Battery"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Battery.v1_1_0.json#/definitions/Battery"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Battery.v1_2_0.json#/definitions/Battery"
+                }
+            ],
+            "deletable": false,
+            "description": "The Battery schema describes a battery unit, such as those used to provide systems with power during a power loss event.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a battery for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/Batteries/{BatteryId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Battery.Battery"
+}

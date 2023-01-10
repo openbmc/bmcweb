@@ -1,0 +1,43 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.json",
+    "$ref": "#/definitions/MetricReport",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "MetricReport": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_0_8.json#/definitions/MetricReport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_1_7.json#/definitions/MetricReport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_2_5.json#/definitions/MetricReport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_3_5.json#/definitions/MetricReport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_4_3.json#/definitions/MetricReport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_5_0.json#/definitions/MetricReport"
+                }
+            ],
+            "deletable": true,
+            "description": "The MetricReport schema represents a set of collected metrics.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a metric report in a Redfish implementation.  When a metric report is deleted, the historic metric data used to generate the report shall be deleted as well unless other metric reports are consuming the data.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/TelemetryService/MetricReports/{MetricReportId}"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#MetricReport.MetricReport"
+}

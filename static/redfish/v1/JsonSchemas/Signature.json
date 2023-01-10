@@ -1,0 +1,42 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Signature.json",
+    "$ref": "#/definitions/Signature",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Signature": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Signature.v1_0_2.json#/definitions/Signature"
+                }
+            ],
+            "deletable": true,
+            "description": "The Signature schema describes a signature or a hash.",
+            "insertable": false,
+            "longDescription": "This resource contains a signature for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Signatures/{SignatureId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Signatures/{SignatureId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Signatures/{SignatureId}"
+            ]
+        },
+        "SignatureTypeRegistry": {
+            "enum": [
+                "UEFI"
+            ],
+            "enumDescriptions": {
+                "UEFI": "A signature defined in the UEFI Specification."
+            },
+            "enumLongDescriptions": {
+                "UEFI": "This value shall indicate that the SignatureType string contains the #define name of the SignatureType member of the EFI_SIGNATURE_LIST, as defined by the UEFI Specification.  This value shall also indicate that the format of the SignatureString is a big-endian hex-encoded string of the binary value specified in the UEFI SignatureData array in EFI_SIGNATURE_DATA, as defined by the UEFI Specification."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Signature.Signature"
+}
