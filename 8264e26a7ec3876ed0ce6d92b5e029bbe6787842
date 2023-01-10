@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54ec9714_c8ab80ae",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-01-10T07:32:54Z",
+      "side": 1,
+      "message": "This is for dump logentry.\n\nIf any other log entry happens to implement \"OriginatedBy\" interface to use this property and that stores some other unique id, then that can have its own implementation to interpret this string for redfish response.",
+      "parentUuid": "4c5b9f42_2d4b5fa6",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5733152_4cf84321",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
