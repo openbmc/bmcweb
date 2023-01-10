@@ -233,16 +233,26 @@ And their use cases:
 
 ### Enabling logging
 
+
 bmcweb by default is compiled with runtime logging disabled, as a performance
-consideration. To enable it in a standalone build, add the
+consideration. To enable it in a standalone build, add the logging level
 
 ```ascii
--Dlogging='enabled'
+-Dlogging='<log-level>'
 ```
 
 option to your configure flags. If building within Yocto, add the following to
 your local.conf.
 
 ```bash
-EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
+EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='<log-level>'"
 ```
+
+The choices of `<log-level>` can be
+
+- `disabled`: Turns off all bmcweb log traces.
+
+- `enabled`: Treated as `debug`
+
+- The other option can be selected as described above [Logging Levels](DEVELOPING.md)
+
