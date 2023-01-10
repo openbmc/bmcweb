@@ -1,5 +1,9 @@
 #pragma once
 
+#include "bmcweb_config.h"
+
+#include <algorithm>
+#include <array>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -7,17 +11,45 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <string_view>
 
 namespace crow
 {
 enum class LogLevel
 {
-    Debug = 0,
+    Disabled = 0,
+    Debug,
     Info,
     Warning,
     Error,
     Critical,
 };
+
+// Mapping of the external loglvl name to internal loglvl
+constexpr std::array<std::pair<std::string_view, crow::LogLevel>, 7>
+    mapLogLevelFromName{{{"disabled", crow::LogLevel::Disabled},
+                         {"enabled", crow::LogLevel::Debug},
+                         {"debug", crow::LogLevel::Debug},
+                         {"info", crow::LogLevel::Info},
+                         {"warning", crow::LogLevel::Warning},
+                         {"error", crow::LogLevel::Error},
+                         {"critical", crow::LogLevel::Critical}}};
+
+constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
+{
+    const auto* const iter =
+        std::find_if(begin(mapLogLevelFromName), end(mapLogLevelFromName),
+                     [&name](const auto& v) { return v.first == name; });
+    if (iter != end(mapLogLevelFromName))
+    {
+        return iter->second;
+    }
+    return crow::LogLevel::Disabled;
+}
+
+// configured bmcweb LogLevel
+constexpr crow::LogLevel bmcwebCurrentLoggingLevel =
+    getLogLevelFromName(bmcwebLoggingLevel);
 
 class Logger
 {
@@ -42,24 +74,16 @@ class Logger
   public:
     Logger([[maybe_unused]] const std::string& prefix,
            [[maybe_unused]] const std::string& filename,
-           [[maybe_unused]] const size_t line, LogLevel levelIn) :
-        level(levelIn)
+           [[maybe_unused]] const size_t line)
     {
-#ifdef BMCWEB_ENABLE_LOGGING
         stringstream << "(" << timestamp() << ") [" << prefix << " "
                      << std::filesystem::path(filename).filename() << ":"
                      << line << "] ";
-#endif
     }
     ~Logger()
     {
-        if (level >= getCurrentLogLevel())
-        {
-#ifdef BMCWEB_ENABLE_LOGGING
-            stringstream << std::endl;
-            std::cerr << stringstream.str();
-#endif
-        }
+        stringstream << std::endl;
+        std::cerr << stringstream.str();
     }
 
     Logger(const Logger&) = delete;
@@ -71,41 +95,32 @@ class Logger
     template <typename T>
     Logger& operator<<([[maybe_unused]] T const& value)
     {
-        if (level >= getCurrentLogLevel())
-        {
-#ifdef BMCWEB_ENABLE_LOGGING
-            // Somewhere in the code we're implicitly casting an array to a
-            // pointer in logging code.  It's non-trivial to find, so disable
-            // the check here for now
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-            stringstream << value;
-#endif
-        }
+        // Somewhere in the code we're implicitly casting an array to a
+        // pointer in logging code. It's non-trivial to find,
+        // so disable the check here for now
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+        stringstream << value;
         return *this;
     }
 
-    //
-    static void setLogLevel(LogLevel level)
+    constexpr static LogLevel getCurrentLogLevel()
     {
-        getLogLevelRef() = level;
+        return bmcwebCurrentLoggingLevel;
     }
 
-    static LogLevel getCurrentLogLevel()
+    constexpr static bool isLoggingEnabled()
     {
-        return getLogLevelRef();
+        return getCurrentLogLevel() >= crow::LogLevel::Debug;
+    }
+
+    constexpr static bool checkLoggingLevel(const LogLevel level)
+    {
+        return isLoggingEnabled() && (getCurrentLogLevel() <= level);
     }
 
   private:
     //
-    static LogLevel& getLogLevelRef()
-    {
-        static auto currentLevel = static_cast<LogLevel>(1);
-        return currentLevel;
-    }
-
-    //
     std::ostringstream stringstream;
-    LogLevel level;
 };
 } // namespace crow
 
@@ -115,25 +130,25 @@ class Logger
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_CRITICAL                                                    \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Critical)        \
-    crow::Logger("CRITICAL", __FILE__, __LINE__, crow::LogLevel::Critical)
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))   \
+    crow::Logger("CRITICAL", __FILE__, __LINE__)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_ERROR                                                       \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Error)           \
-    crow::Logger("ERROR", __FILE__, __LINE__, crow::LogLevel::Error)
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Error))      \
+    crow::Logger("ERROR", __FILE__, __LINE__)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_WARNING                                                     \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Warning)         \
-    crow::Logger("WARNING", __FILE__, __LINE__, crow::LogLevel::Warning)
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Warning))    \
+    crow::Logger("WARNING", __FILE__, __LINE__)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_INFO                                                        \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Info)            \
-    crow::Logger("INFO", __FILE__, __LINE__, crow::LogLevel::Info)
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Info))       \
+    crow::Logger("INFO", __FILE__, __LINE__)
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_DEBUG                                                       \
-    if (crow::Logger::getCurrentLogLevel() <= crow::LogLevel::Debug)           \
-    crow::Logger("DEBUG", __FILE__, __LINE__, crow::LogLevel::Debug)
+    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Debug))      \
+    crow::Logger("DEBUG", __FILE__, __LINE__)
