@@ -197,18 +197,35 @@ if (get_option('buildtype') != 'plain')
   endif
 endif
 
-if( get_option('bmcweb-logging').enabled() or \
+# Set Logging flags
+
+if( get_option('bmcweb-logging') != 'disabled' or \
     get_option('buildtype').startswith('debug'))
- add_project_arguments([
-   '-DBMCWEB_ENABLE_LOGGING',
-   '-DBMCWEB_ENABLE_DEBUG'
-   ],
-  language : 'cpp')
 
-  summary({'debug' :'-DBMCWEB_ENABLE_DEBUG',
-     'logging' : '-DBMCWEB_ENABLE_LOGGING',
+  # Logging is enabled
+  logging_level_map = {
+    'debug' : '-DBMCWEB_LOGGING_LEVEL=0',
+    'info' : '-DBMCWEB_LOGGING_LEVEL=1',
+    'warning' : '-DBMCWEB_LOGGING_LEVEL=2',
+    'error' : '-DBMCWEB_LOGGING_LEVEL=3',
+    'critical' : '-DBMCWEB_LOGGING_LEVEL=4'
+  }
 
-    },section : 'Enabled Features')
+  # Check if build is for debugging
+  if get_option('buildtype').startswith('debug')
+    add_project_arguments( '-DBMCWEB_ENABLE_DEBUG', language : 'cpp')
+    summary('debug', '-DBMCWEB_ENABLE_DEBUG', section : 'Enabled Features')
+    loglvlopt='debug'
+  else
+     loglvlopt = get_option('bmcweb-logging')
+  endif
+
+  # get mapped logging-level to cpp flags
+  if logging_level_map.has_key(loglvlopt)
+    loglvlflag = logging_level_map.get(loglvlopt)
+    add_project_arguments(  loglvlflag, language : 'cpp' )
+    summary( 'logging', loglvlflag, section : 'Enabled Features')
+  endif
 endif
 
 # Set Compiler Security flags
