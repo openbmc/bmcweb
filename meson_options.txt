@@ -130,7 +130,15 @@ option(
     'bmcweb-logging',
     type: 'feature',
     value: 'disabled',
-    description: 'Enable output the extended debug logs'
+    description: 'Enable output the extended logs'
+)
+
+option(
+    'bmcweb-logging-level',
+    type: 'combo',
+    choices : [ 'debug', 'info', 'warning', 'error', 'critical' ],
+    value: 'debug',
+    description: 'Specify the level of the extended logs'
 )
 
 option(
