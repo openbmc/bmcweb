@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b22b1a3_0ffe6350",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-10T17:58:36Z",
+      "side": 1,
+      "message": "Was discussed on discord.  Will add more followup now that we know this is the fix.",
+      "parentUuid": "516179f9_59e96ee0",
+      "revId": "5479ea1fc65a37b27da2a06506d840a6706a5d9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97da6577_42ad95f5",
         "filename": "http/http_connection.hpp",
         "patchSetId": 3
