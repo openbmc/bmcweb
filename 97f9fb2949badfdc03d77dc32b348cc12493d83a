@@ -171,6 +171,24 @@
       "parentUuid": "1329e501_7ae0c675",
       "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba194afb_165ae989",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-10T00:34:12Z",
+      "side": 1,
+      "message": "I am good in this thread.",
+      "parentUuid": "daa6f13a_226c3ac5",
+      "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
