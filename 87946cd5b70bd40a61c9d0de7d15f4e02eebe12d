@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6339c764_7aaf9e28",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 2610,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-10T00:33:57Z",
+      "side": 1,
+      "message": "Can do this outside the loop.",
+      "range": {
+        "startLine": 2609,
+        "startChar": 24,
+        "endLine": 2610,
+        "endChar": 69
+      },
+      "revId": "87946cd5b70bd40a61c9d0de7d15f4e02eebe12d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
