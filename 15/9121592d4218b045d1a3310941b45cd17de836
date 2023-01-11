@@ -1,0 +1,7 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Submitted-by: George Liu <liuxiwei@inspur.com>
+Submitted-at: Wed, 11 Jan 2023 06:54:12 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60222
+Project: openbmc/bmcweb
+Branch: refs/heads/master
