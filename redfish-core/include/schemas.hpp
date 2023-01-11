@@ -39,6 +39,8 @@ namespace redfish
         "EventDestination",
         "EventDestinationCollection",
         "EventService",
+        "FabricAdapter",
+        "FabricAdapterCollection",
         "Fan",
         "FanCollection",
         "IPAddresses",
