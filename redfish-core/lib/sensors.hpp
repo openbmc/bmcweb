@@ -2910,15 +2910,16 @@ inline void handleSensorGet(App& app, const crow::Request& req,
 
     BMCWEB_LOG_DEBUG << "Sensor doGet enter";
 
-    const std::array<const char*, 1> interfaces = {
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Sensor.Value"};
     std::string sensorPath = "/xyz/openbmc_project/sensors/" + nameType.first +
                              '/' + nameType.second;
     // Get a list of all of the sensors that implement Sensor.Value
     // and get the path and service name associated with the sensor
-    crow::connections::systemBus->async_method_call(
+    ::dbus::utility::getDbusObject(
+        sensorPath, interfaces,
         [asyncResp,
-         sensorPath](const boost::system::error_code ec,
+         sensorPath](const boost::system::error_code& ec,
                      const ::dbus::utility::MapperGetObject& subtree) {
         BMCWEB_LOG_DEBUG << "respHandler1 enter";
         if (ec)
@@ -2930,11 +2931,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         }
         getSensorFromDbus(asyncResp, sensorPath, subtree);
         BMCWEB_LOG_DEBUG << "respHandler1 exit";
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject", sensorPath,
-        interfaces);
+        });
 }
 
 } // namespace sensors

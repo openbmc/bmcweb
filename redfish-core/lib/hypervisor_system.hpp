@@ -111,9 +111,12 @@ inline void
     getHypervisorActions(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get hypervisor actions.";
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.State.Host"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/state/hypervisor0", interfaces,
         [aResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 objInfo) {
         if (ec)
@@ -146,12 +149,7 @@ inline void
             "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset";
         reset["@Redfish.ActionInfo"] =
             "/redfish/v1/Systems/hypervisor/ResetActionInfo";
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        "/xyz/openbmc_project/state/hypervisor0",
-        std::array<const char*, 1>{"xyz.openbmc_project.State.Host"});
+        });
 }
 
 inline bool extractHypervisorInterfaceData(
@@ -993,8 +991,11 @@ inline void requestRoutesHypervisorSystems(App& app)
             return;
         }
         // Only return action info if hypervisor D-Bus object present
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.State.Host"};
+        dbus::utility::getDbusObject(
+            "/xyz/openbmc_project/state/hypervisor0", interfaces,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::vector<std::pair<
                             std::string, std::vector<std::string>>>& objInfo) {
             if (ec)
@@ -1040,12 +1041,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             parameter["AllowableValues"] = std::move(allowed);
             parameters.push_back(std::move(parameter));
             asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetObject",
-            "/xyz/openbmc_project/state/hypervisor0",
-            std::array<const char*, 1>{"xyz.openbmc_project.State.Host"});
+            });
         });
 
     BMCWEB_ROUTE(app,
