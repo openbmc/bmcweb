@@ -2282,7 +2282,7 @@ inline void handleBMCLogServicesCollectionGet(
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
 
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
-    const std::array<const char*, 1> interfaces = {
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Collection.DeleteAll"};
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/dump", 0, interfaces,
