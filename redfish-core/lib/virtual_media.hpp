@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
+
 #include <account_service.hpp>
 #include <app.hpp>
 #include <boost/process/async_pipe.hpp>
@@ -23,6 +25,9 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
+
+#include <array>
+#include <string_view>
 
 namespace redfish
 {
@@ -796,9 +801,10 @@ inline void handleManagersVirtualMediaActionInsertPost(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/VirtualMedia", {},
         [asyncResp, actionParams,
-         resName](const boost::system::error_code ec,
+         resName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetObject& getObjectType) mutable {
         if (ec)
         {
@@ -872,11 +878,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             },
             service, "/xyz/openbmc_project/VirtualMedia",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
+        });
 }
 
 inline void handleManagersVirtualMediaActionEject(
@@ -896,9 +898,10 @@ inline void handleManagersVirtualMediaActionEject(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/VirtualMedia", {},
         [asyncResp,
-         resName](const boost::system::error_code ec2,
+         resName](const boost::system::error_code& ec2,
                   const dbus::utility::MapperGetObject& getObjectType) {
         if (ec2)
         {
@@ -959,11 +962,7 @@ inline void handleManagersVirtualMediaActionEject(
             },
             service, "/xyz/openbmc_project/VirtualMedia",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
+        });
 }
 
 inline void handleManagersVirtualMediaCollectionGet(
@@ -988,8 +987,9 @@ inline void handleManagersVirtualMediaCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Managers", name, "VirtualMedia");
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, name](const boost::system::error_code ec,
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/VirtualMedia", {},
+        [asyncResp, name](const boost::system::error_code& ec,
                           const dbus::utility::MapperGetObject& getObjectType) {
         if (ec)
         {
@@ -1002,11 +1002,7 @@ inline void handleManagersVirtualMediaCollectionGet(
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
         getVmResourceList(asyncResp, service, name);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
+        });
 }
 
 inline void
@@ -1025,9 +1021,10 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/VirtualMedia", {},
         [asyncResp, name,
-         resName](const boost::system::error_code ec,
+         resName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetObject& getObjectType) {
         if (ec)
         {
@@ -1040,11 +1037,7 @@ inline void
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
         getVmData(asyncResp, service, name, resName);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        "/xyz/openbmc_project/VirtualMedia", std::array<const char*, 0>());
+        });
 }
 
 inline void requestNBDVirtualMediaRoutes(App& app)

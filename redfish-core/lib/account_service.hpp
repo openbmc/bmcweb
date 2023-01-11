@@ -15,11 +15,11 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "generated/enums/account_service.hpp"
 #include "registries/privilege_registry.hpp"
 
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data.hpp>
@@ -29,8 +29,10 @@
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 
+#include <array>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish
@@ -425,11 +427,12 @@ inline void getLDAPConfigData(const std::string& ldapType,
                               CallbackFunc&& callback)
 {
 
-    const std::array<const char*, 2> interfaces = {ldapEnableInterface,
-                                                   ldapConfigInterface};
+    constexpr std::array<std::string_view, 2> interfaces = {
+        ldapEnableInterface, ldapConfigInterface};
 
-    crow::connections::systemBus->async_method_call(
-        [callback, ldapType](const boost::system::error_code ec,
+    dbus::utility::getDbusObject(
+        ldapConfigObjectName, interfaces,
+        [callback, ldapType](const boost::system::error_code& ec,
                              const dbus::utility::MapperGetObject& resp) {
         if (ec || resp.empty())
         {
@@ -580,9 +583,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
             callback(true, confData, ldapType);
             },
             service, ldapRootObject, dbusObjManagerIntf, "GetManagedObjects");
-        },
-        mapperBusName, mapperObjectPath, mapperIntf, "GetObject",
-        ldapConfigObjectName, interfaces);
+        });
 }
 
 /**

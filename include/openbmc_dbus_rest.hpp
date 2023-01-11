@@ -407,8 +407,9 @@ inline void findObjectManagerPathForEnumerate(
 inline void getObjectAndEnumerate(
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    crow::connections::systemBus->async_method_call(
-        [transaction](const boost::system::error_code ec,
+    dbus::utility::getDbusObject(
+        transaction->objectPath, {},
+        [transaction](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetObject& objects) {
         if (ec)
         {
@@ -467,11 +468,7 @@ inline void getObjectAndEnumerate(
                     transaction->objectPath, connection.first, transaction);
             }
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        transaction->objectPath, std::array<const char*, 0>());
+        });
 }
 
 // Structure for storing data on an in progress action
@@ -1572,9 +1569,10 @@ inline void handleAction(const crow::Request& req,
     transaction->path = objectPath;
     transaction->methodName = methodName;
     transaction->arguments = std::move(*data);
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getDbusObject(
+        objectPath, {},
         [transaction](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 interfaceNames) {
         if (ec || interfaceNames.empty())
@@ -1594,11 +1592,7 @@ inline void handleAction(const crow::Request& req,
         {
             findActionOnInterface(transaction, object.first);
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject", objectPath,
-        std::array<std::string, 0>());
+        });
 }
 
 inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1606,9 +1600,10 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "handleDelete on path: " << objectPath;
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getDbusObject(
+        objectPath, {},
         [asyncResp, objectPath](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 interfaceNames) {
         if (ec || interfaceNames.empty())
@@ -1631,11 +1626,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             findActionOnInterface(transaction, object.first);
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject", objectPath,
-        std::array<const char*, 0>());
+        });
 }
 
 inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1711,9 +1702,10 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::shared_ptr<std::string> path =
         std::make_shared<std::string>(std::move(objectPath));
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getDbusObject(
+        *path, {},
         [asyncResp, path,
-         propertyName](const boost::system::error_code ec,
+         propertyName](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& objectNames) {
         if (ec || objectNames.empty())
         {
@@ -1802,11 +1794,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     });
             }
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject", *path,
-        std::array<std::string, 0>());
+        });
 }
 
 struct AsyncPutRequest
@@ -1879,8 +1867,9 @@ inline void handlePut(const crow::Request& req,
     transaction->propertyName = destProperty;
     transaction->propertyValue = propertySetValue;
 
-    crow::connections::systemBus->async_method_call(
-        [transaction](const boost::system::error_code ec2,
+    dbus::utility::getDbusObject(
+        transaction->objectPath, {},
+        [transaction](const boost::system::error_code& ec2,
                       const dbus::utility::MapperGetObject& objectNames) {
         if (!ec2 && objectNames.empty())
         {
@@ -2017,11 +2006,7 @@ inline void handlePut(const crow::Request& req,
                 connectionName, transaction->objectPath,
                 "org.freedesktop.DBus.Introspectable", "Introspect");
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject",
-        transaction->objectPath, std::array<std::string, 0>());
+        });
 }
 
 inline void handleDBusUrl(const crow::Request& req,

@@ -17,14 +17,18 @@
 
 #include "bmcweb_config.h"
 
+#include "dbus_utility.hpp"
+
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/sw_utils.hpp>
+
+#include <array>
+#include <string_view>
 
 namespace redfish
 {
@@ -81,9 +85,12 @@ static void
         if (interface.first == "xyz.openbmc_project.Software.Activation")
         {
             // Retrieve service and activate
-            crow::connections::systemBus->async_method_call(
+            constexpr std::array<std::string_view, 1> interfaces = {
+                "xyz.openbmc_project.Software.Activation"};
+            dbus::utility::getDbusObject(
+                objPath.str, interfaces,
                 [objPath, asyncResp, payload(std::move(payload))](
-                    const boost::system::error_code errorCode,
+                    const boost::system::error_code& errorCode,
                     const std::vector<
                         std::pair<std::string, std::vector<std::string>>>&
                         objInfo) mutable {
@@ -240,12 +247,7 @@ static void
                     task->payload.emplace(std::move(payload));
                 }
                 fwUpdateInProgress = false;
-                },
-                "xyz.openbmc_project.ObjectMapper",
-                "/xyz/openbmc_project/object_mapper",
-                "xyz.openbmc_project.ObjectMapper", "GetObject", objPath.str,
-                std::array<const char*, 1>{
-                    "xyz.openbmc_project.Software.Activation"});
+                });
 
             break;
         }
