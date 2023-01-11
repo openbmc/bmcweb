@@ -100,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbf9b88_6d880239",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T23:50:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "769ed236_611933ff",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d056aeb9_904c7277",
@@ -182,6 +200,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cef854e_d3d71942",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T23:50:40Z",
+      "side": 1,
+      "message": "Basically yes, with the addition that we need to check to see if there is a different route defined that differs only by / at the end.  There\u0027s one case in the dbus-rest code that relies on the trailing slash, which is annoying, but needs to be considered to not break anything.",
+      "parentUuid": "24ebdff8_db8bcdbd",
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3eaa081_16abf756",
@@ -219,6 +255,30 @@
       "side": 1,
       "message": "As in \"url.segments().emplace_back(std::move(collectionItem))\"?  That gives the error: ‘class boost::urls::segments_ref’ has no member named ‘emplace_back’.\n\nIt doesn\u0027t look like it has an equivalent method available https://www.boost.org/doc/libs/master/libs/url/doc/html/url/ref/boost__urls__segments_ref.html",
       "parentUuid": "b3eaa081_16abf756",
+      "range": {
+        "startLine": 115,
+        "startChar": 37,
+        "endLine": 115,
+        "endChar": 51
+      },
+      "revId": "bf242dc9a56752a67bdfcf7225257bfdd15fd021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e0d677f_19efac91",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T23:50:40Z",
+      "side": 1,
+      "message": "Ack.  A little surprised it doesn\u0027t, but nbd.",
+      "parentUuid": "c0c9c76d_59607ada",
       "range": {
         "startLine": 115,
         "startChar": 37,
