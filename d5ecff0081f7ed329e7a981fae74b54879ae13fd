@@ -16,6 +16,24 @@
       "message": "Don\u0027t you also need to change directory name of https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/JsonSchemas/OemVirtualMedia ?",
       "revId": "d5ecff0081f7ed329e7a981fae74b54879ae13fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a95f85f_9a9cb002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T01:39:38Z",
+      "side": 1,
+      "message": "You mean kinda like this?  😊\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60129",
+      "parentUuid": "dd7c6732_0ffcd880",
+      "revId": "d5ecff0081f7ed329e7a981fae74b54879ae13fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
