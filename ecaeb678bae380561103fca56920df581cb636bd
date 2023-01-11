@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f715c9_1395199c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T23:48:18Z",
+      "side": 1,
+      "message": "Would like to see better type safety in the future.  But as written, this seems fine.",
+      "revId": "ecaeb678bae380561103fca56920df581cb636bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "042e9372_743087ae",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T23:48:18Z",
+      "side": 1,
+      "message": "Anything new should really be using the dbus_path object, not a string.",
+      "range": {
+        "startLine": 179,
+        "startChar": 18,
+        "endLine": 179,
+        "endChar": 36
+      },
+      "revId": "ecaeb678bae380561103fca56920df581cb636bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
