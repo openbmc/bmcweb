@@ -68,6 +68,24 @@
       "message": "I\u0027m good with this after we get testing figured out.",
       "revId": "d912fd8503a6523a1e8b0cc3aa735f6332e4a955",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c602509f_e4b85956",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-11T22:11:07Z",
+      "side": 1,
+      "message": "I\u0027ve restored patchset 3.  I\u0027d really like to know why patchset 4 didn\u0027t work, as I think it\u0027s cleaner, but we can go with 3 for now.",
+      "parentUuid": "c69ebd3a_7291d3cb",
+      "revId": "d912fd8503a6523a1e8b0cc3aa735f6332e4a955",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
