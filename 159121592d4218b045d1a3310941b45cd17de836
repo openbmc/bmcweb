@@ -16,6 +16,24 @@
       "message": "And you tested with BMCWEB_ENABLE_REDFISH_DUMP_LOG enabled?",
       "revId": "159121592d4218b045d1a3310941b45cd17de836",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f0a45a_2c5833eb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-11T03:05:10Z",
+      "side": 1,
+      "message": "\u003e And you tested with BMCWEB_ENABLE_REDFISH_DUMP_LOG enabled?\n\nyes, I tested it locally and CI passes.",
+      "parentUuid": "449c431f_3348be25",
+      "revId": "159121592d4218b045d1a3310941b45cd17de836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
