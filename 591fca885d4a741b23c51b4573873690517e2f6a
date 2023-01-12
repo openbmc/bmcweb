@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "80e82b80_297d0832",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 30
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6c3426c5_c42f8b23",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 30
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b416f8a9_d8c91317",
         "filename": "/COMMIT_MSG",
@@ -67,10 +68,10 @@
         "endChar": 3
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bc85f1cb_1145f5fe",
         "filename": "/COMMIT_MSG",
@@ -90,10 +91,10 @@
         "endChar": 21
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8c3bd3ff_61a29f01",
         "filename": "/COMMIT_MSG",
@@ -114,10 +115,10 @@
         "endChar": 21
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4d5b0c61_1fee0b9f",
         "filename": "/COMMIT_MSG",
@@ -138,10 +139,10 @@
         "endChar": 3
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "240aead0_1f116d4b",
         "filename": "/COMMIT_MSG",
@@ -161,10 +162,10 @@
         "endChar": 12
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a32c559a_8c725470",
         "filename": "/COMMIT_MSG",
@@ -185,10 +186,34 @@
         "endChar": 12
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9761a4f9_66ad8e0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-12T23:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a32c559a_8c725470",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 12
+      },
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "828a3d18_abbd38eb",
         "filename": "redfish-core/include/redfish.hpp",
@@ -202,10 +227,10 @@
       "side": 1,
       "message": "The list below is alphabetized and last I checked, f comes after a, not before it :-)\nThis project clearly uses snake_case for filenames in the lib directory yet you\u0027ve used CamelCase for this file name.  Why is that?",
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d9c9dbf0_76b46219",
         "filename": "redfish-core/include/redfish.hpp",
@@ -220,10 +245,10 @@
       "message": "+1.  I\u0027m a little surprised clang-format succeeded here;  It should\u0027ve alphabetized things automatically.  Oh well, maybe the .. confused it.",
       "parentUuid": "828a3d18_abbd38eb",
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ec7f7785_5f647102",
         "filename": "redfish-core/include/redfish.hpp",
@@ -238,10 +263,10 @@
       "message": "I double checked and yup f does comes after a 😄\nI placed it at the right position and it was not missed by clang. Instead it was shifted to top by clang (Since the file name by mistake was starting with a capital).",
       "parentUuid": "d9c9dbf0_76b46219",
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3c78bee6_9973ccc9",
         "filename": "redfish-core/include/redfish.hpp",
@@ -256,10 +281,28 @@
       "message": "ah, that makes more sense.",
       "parentUuid": "ec7f7785_5f647102",
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c5dcee6_1c7f99e1",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-12T23:04:44Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "3c78bee6_9973ccc9",
+      "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "70105843_240836f0",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
@@ -279,10 +322,10 @@
         "endChar": 19
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "47cf7013_dbdec395",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
@@ -303,10 +346,10 @@
         "endChar": 19
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7265b81b_51c80f37",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
@@ -326,10 +369,10 @@
         "endChar": 31
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d6c84018_caa1acef",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
@@ -350,10 +393,10 @@
         "endChar": 31
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3ca473c3_55a074de",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
@@ -373,10 +416,10 @@
         "endChar": 31
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6cb21429_43fc5578",
         "filename": "redfish-core/lib/FabricAdapters.hpp",
@@ -397,8 +440,7 @@
         "endChar": 31
       },
       "revId": "591fca885d4a741b23c51b4573873690517e2f6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

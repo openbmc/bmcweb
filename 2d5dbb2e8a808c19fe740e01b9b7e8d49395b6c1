@@ -16,6 +16,24 @@
       "message": "Huh ? I already see these changes in this file..",
       "revId": "2d5dbb2e8a808c19fe740e01b9b7e8d49395b6c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b3c8593_c2c5b9c4",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 26
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-12T23:04:44Z",
+      "side": 1,
+      "message": "Deleted duplicate changes.",
+      "parentUuid": "58b3e1e4_2ec8645c",
+      "revId": "2d5dbb2e8a808c19fe740e01b9b7e8d49395b6c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
