@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c74d9af_1a3c7f0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-12T22:07:32Z",
+      "side": 1,
+      "message": "What about a meson option to turn on Error like we have a option to turn on Debug today? I think Error should be internal to the bmc problems, not bad user data, although i\u0027m sure some will need to change..\n\nMaybe this option allows for selecting a level from the 5:\n\n#define BMCWEB_LOG_CRITICAL                                                    \\\n    if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Critical)        \\\n    crow::Logger(\"CRITICAL\", __FILE__, __LINE__, crow::LogLevel::Critical)\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_ERROR                                                       \\\n    if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Error)           \\\n    crow::Logger(\"ERROR\", __FILE__, __LINE__, crow::LogLevel::Error)\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_WARNING                                                     \\\n    if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Warning)         \\\n    crow::Logger(\"WARNING\", __FILE__, __LINE__, crow::LogLevel::Warning)\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_INFO                                                        \\\n    if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Info)            \\\n    crow::Logger(\"INFO\", __FILE__, __LINE__, crow::LogLevel::Info)\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_DEBUG                                                       \\\n    if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Debug)           \\\n    crow::Logger(\"DEBUG\", __FILE__, __LINE__, crow::LogLevel::Debug)",
+      "parentUuid": "904c1e81_d5b0ada2",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "6b272ea7b5a44e911ac80e5e9035e1780cf77039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdf3eef4_814bcf84",
         "filename": "src/webserver_main.cpp",
         "patchSetId": 1
