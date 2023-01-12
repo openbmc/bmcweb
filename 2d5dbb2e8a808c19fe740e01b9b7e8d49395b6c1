@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b3e1e4_2ec8645c",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 26
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-12T22:03:49Z",
+      "side": 1,
+      "message": "Huh ? I already see these changes in this file..",
+      "revId": "2d5dbb2e8a808c19fe740e01b9b7e8d49395b6c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
