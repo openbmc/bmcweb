@@ -46,6 +46,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a7dfae_62022597",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-12T22:33:30Z",
+      "side": 0,
+      "message": "Then register the two routes as different routes if they need to return 404 differently.  We cannot be ignoring errors.  As-written, this also doesn\u0027t work as you describe, it will set 400 errors within the response even in legacy mode.",
+      "parentUuid": "a5280b5d_202df472",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
