@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afe62f52_f893b974",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-12T22:31:56Z",
+      "side": 1,
+      "message": "\u003e What about a meson option to turn on Error like we have a option to turn on Debug today?\n\nThat nobody is allowed to set because it\u0027s a security DOS issue?  Doesn\u0027t seem like it adds value, or maybe I\u0027m missing something?\n\n\u003e I think Error should be internal to the bmc problems, not bad user data, although i\u0027m sure some will need to change..\n\nThis is not true today, although I do agree with you, we could come up with a formal definition like this and audit all of the log statements.\n\n\u003e \n\u003e Maybe this option allows for selecting a level from the 5:\n\u003e \n\u003e #define BMCWEB_LOG_CRITICAL                                                    \\\n\u003e     if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Critical)        \\\n\u003e     crow::Logger(\"CRITICAL\", __FILE__, __LINE__, crow::LogLevel::Critical)\n\u003e // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n\u003e #define BMCWEB_LOG_ERROR                                                       \\\n\u003e     if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Error)           \\\n\u003e     crow::Logger(\"ERROR\", __FILE__, __LINE__, crow::LogLevel::Error)\n\u003e // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n\u003e #define BMCWEB_LOG_WARNING                                                     \\\n\u003e     if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Warning)         \\\n\u003e     crow::Logger(\"WARNING\", __FILE__, __LINE__, crow::LogLevel::Warning)\n\u003e // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n\u003e #define BMCWEB_LOG_INFO                                                        \\\n\u003e     if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Info)            \\\n\u003e     crow::Logger(\"INFO\", __FILE__, __LINE__, crow::LogLevel::Info)\n\u003e // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n\u003e #define BMCWEB_LOG_DEBUG                                                       \\\n\u003e     if (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Debug)           \\\n\u003e     crow::Logger(\"DEBUG\", __FILE__, __LINE__, crow::LogLevel::Debug)",
+      "parentUuid": "5c74d9af_1a3c7f0b",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "6b272ea7b5a44e911ac80e5e9035e1780cf77039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdf3eef4_814bcf84",
         "filename": "src/webserver_main.cpp",
         "patchSetId": 1
