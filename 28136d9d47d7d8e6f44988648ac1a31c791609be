@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb6853a_53540019",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-13T01:16:46Z",
+      "side": 1,
+      "message": "Done. I see Ran Redfish validator in the tested statement.",
+      "parentUuid": "98610abe_0f753715",
+      "revId": "28136d9d47d7d8e6f44988648ac1a31c791609be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b344564_11a062a5",
