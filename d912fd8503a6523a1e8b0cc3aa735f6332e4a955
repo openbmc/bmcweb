@@ -122,6 +122,24 @@
       "parentUuid": "c602509f_e4b85956",
       "revId": "d912fd8503a6523a1e8b0cc3aa735f6332e4a955",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0324e187_82c5a37d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:05:16Z",
+      "side": 1,
+      "message": "Yep, I made a mistake.  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60275 is the fix.",
+      "parentUuid": "3af375ca_23d3f979",
+      "revId": "d912fd8503a6523a1e8b0cc3aa735f6332e4a955",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
