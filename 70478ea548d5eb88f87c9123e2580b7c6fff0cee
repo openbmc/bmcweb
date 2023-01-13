@@ -16,6 +16,23 @@
       "message": "UT being worked at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59792 on top of this commit",
       "revId": "70478ea548d5eb88f87c9123e2580b7c6fff0cee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a74a838f_c5adeebd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-01-13T04:34:03Z",
+      "side": 1,
+      "message": "looks good to me",
+      "revId": "70478ea548d5eb88f87c9123e2580b7c6fff0cee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
