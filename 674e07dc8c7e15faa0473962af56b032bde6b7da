@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0060bef7_d6cb76c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Overall the code just needs ported to the new patterns and helpers we have.  code largely looks fine.",
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca6a7ffc_44d29a16",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Please don\u0027t invent new types that duplicated types that already exist.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c522d66_5bde0b2d",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md.  This code pattern is specifically called out in one of the examples.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 63
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0715d203_45852923",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "error_code\u0026",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15864275_c0033e3f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Please put the contents of this lambda in its own method.  non-trivial lambdas are difficult to read.",
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba665e2_2e1aca41",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "We don\u0027t do this anywhere I\u0027m aware of except sensors.  Please just make this \"FabricAdapter\" for the moment.",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 62
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf76a88_9b6eb13f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Please use dbus::utility::getSubTree",
+      "range": {
+        "startLine": 80,
+        "startChar": 45,
+        "endLine": 80,
+        "endChar": 55
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13433c37_30029c62",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Please register your routes as \u003cstr\u003e then within the handler, check for\n\nif (systemName \u003d\u003d \"system\"){\n   messages::resourceNotFound;\n   return;\n}",
+      "range": {
+        "startLine": 91,
+        "startChar": 43,
+        "endLine": 91,
+        "endChar": 49
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d391146a_ee109f14",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Please don\u0027t use a lambda for BMCWEB_ROUTE registrations.  use std::bind_front.",
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee9c9c6_38e258e1",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "upper case Adapter?",
+      "range": {
+        "startLine": 98,
+        "startChar": 51,
+        "endLine": 98,
+        "endChar": 58
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f47f7c_d779c2ef",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:26:02Z",
+      "side": 1,
+      "message": "Remove the lambda, per the transforms we\u0027ve done elsewhere, please use bind_front.",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 50
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
