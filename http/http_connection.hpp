@@ -188,7 +188,6 @@ class Connection :
             return;
         }
         thisReq.session = userSession;
-        res.keepAlive(thisReq.keepAlive());
 
         // Fetch the client IP address
         readClientIp();
@@ -220,6 +219,7 @@ class Connection :
             completeRequest(res);
             return;
         }
+        keepAlive = thisReq.keepAlive();
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         if (!crow::authentication::isOnAllowlist(req->url, req->method()) &&
             thisReq.session == nullptr)
@@ -301,9 +301,10 @@ class Connection :
             return;
         }
         res = std::move(thisRes);
+        res.keepAlive(keepAlive);
 
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << res.keepAlive();
+                        << res.resultInt() << " keepalive=" << keepAlive;
 
         addSecurityHeaders(*req, res);
 
@@ -533,7 +534,7 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " from write(2)";
                 return;
             }
-            if (!serializer->get().keep_alive())
+            if (!keepAlive)
             {
                 close();
                 BMCWEB_LOG_DEBUG << this << " from write(1)";
@@ -631,6 +632,8 @@ class Connection :
     std::shared_ptr<persistent_data::UserSession> userSession;
 
     boost::asio::steady_timer timer;
+
+    bool keepAlive = true;
 
     std::function<std::string()>& getCachedDateStr;
 
