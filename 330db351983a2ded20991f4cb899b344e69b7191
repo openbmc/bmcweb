@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d2e744_73c5a49f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T21:16:52Z",
+      "side": 1,
+      "message": "So how do we fix that?  Do our lookup tables need to be namespaced on odata.type?  I kinda wondered if that were the case.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "330db351983a2ded20991f4cb899b344e69b7191",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c5953d_eb8703c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T21:16:52Z",
+      "side": 1,
+      "message": "Couple minor comments.",
+      "revId": "330db351983a2ded20991f4cb899b344e69b7191",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6c0836e_fd8ae89b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T21:16:52Z",
+      "side": 1,
+      "message": "We should allow all 3XX response codes as well.  Check out section 8.3, table 14 of the redfish spec for all the \"valid\" return codes.",
+      "range": {
+        "startLine": 196,
+        "startChar": 49,
+        "endLine": 196,
+        "endChar": 52
+      },
+      "revId": "330db351983a2ded20991f4cb899b344e69b7191",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
