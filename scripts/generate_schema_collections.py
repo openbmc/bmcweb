@@ -31,6 +31,16 @@ CPP_OUTFILE = os.path.realpath(
     )
 )
 
+ENTITY_TO_URIS_OUTFILE = os.path.realpath(
+    os.path.join(
+        SCRIPT_DIR,
+        "..",
+        "redfish-core",
+        "include",
+        "registries",
+        "entity_type_uris_registry.hpp",
+    )
+)
 
 # Odata string types
 EDMX = "{http://docs.oasis-open.org/odata/ns/edmx}"
@@ -40,8 +50,18 @@ seen_paths = set()
 
 
 def parse_node(
-    target_entitytype, path, top_collections, found_top, xml_file, depth
+    target_entitytype,
+    path,
+    top_collections,
+    uri_to_entity_map,
+    found_top,
+    xml_file,
+    include_list,
 ):
+    filename = xml_file.split("_")[0]
+    if found_top and filename not in include_list:
+        return
+
     filepath = os.path.join(REDFISH_SCHEMA_DIR, xml_file)
 
     # Bail if we are attempting to open a schema we haven't pulled in.  This
@@ -49,8 +69,7 @@ def parse_node(
     if not os.path.exists(filepath):
         return
 
-    print("\nxml file is: ", xml_file)
-    print("Path is: ", path)
+    uri_to_entity_map[path] = filename
 
     tree = ET.parse(filepath)
     root = tree.getroot()
@@ -73,9 +92,10 @@ def parse_node(
         target_entitytype,
         path,
         top_collections,
+        uri_to_entity_map,
         found_top,
         xml_map,
-        depth,
+        include_list,
     )
 
 
@@ -83,7 +103,14 @@ def parse_node(
 # specific EntityType.  This is a separate routine so that we can rewalk the
 # current tree when a NavigationProperty Type links to the current file.
 def parse_root(
-    root, target_entitytype, path, top_collections, found_top, xml_map, depth
+    root,
+    target_entitytype,
+    path,
+    top_collections,
+    uri_to_entity_map,
+    found_top,
+    xml_map,
+    include_list,
 ):
     ds = root.find(EDMX + "DataServices")
     for schema in ds.findall(EDM + "Schema"):
@@ -98,10 +125,28 @@ def parse_root(
                     nav_prop,
                     path,
                     top_collections,
+                    uri_to_entity_map,
                     found_top,
                     xml_map,
-                    depth,
+                    include_list,
                 )
+
+        # We have to generate some uris based off of Actions and Action Info
+        for action in schema.findall(EDM + "Action"):
+            schema_namespace = str(schema.get("Namespace"))
+            action_name = str(action.get("Name"))
+
+            # ActionInfo's naming convention is
+            # path + {Action Name} + "ActionInfo"
+            action_info_path = path + "/" + action_name + "ActionInfo"
+            uri_to_entity_map[action_info_path] = "ActionInfo"
+
+            # Action's naming convention is
+            # path + {Schema Namespace} + "." + {Action name}
+            action_path = (
+                path + "/Actions/" + schema_namespace + "." + action_name
+            )
+            uri_to_entity_map[action_path] = schema_namespace
 
         # These ComplexType objects contain links to actual resources or
         # resource collections
@@ -116,9 +161,10 @@ def parse_root(
                     nav_prop,
                     path,
                     top_collections,
+                    uri_to_entity_map,
                     found_top,
                     xml_map,
-                    depth,
+                    include_list,
                 )
 
 
@@ -130,9 +176,10 @@ def parse_navigation_property(
     element,
     path,
     top_collections,
+    uri_to_entity_map,
     found_top,
     xml_map,
-    depth,
+    include_list,
 ):
     if element.tag != (EDM + "NavigationProperty"):
         return
@@ -169,9 +216,7 @@ def parse_navigation_property(
                 path += "/" + nav_name
                 if path in seen_paths:
                     return
-                print("Path is: ", path)
                 seen_paths.add(path)
-                depth += 1
 
                 # Did we find the top level collection in the current path or
                 # did we previously find it?
@@ -223,7 +268,6 @@ def parse_navigation_property(
     # schema is not used as part of the path
     seg_len = 0 - (len(new_path) - len(path) - 1)
     new_seg = new_path[seg_len:]
-    print("new_seg is: ", new_seg)
 
     if new_path == "/redfish/v1/Tasks":
         new_path = "/redfish/v1/TaskService"
@@ -235,43 +279,48 @@ def parse_navigation_property(
             "ExternalAccountProvider",
             new_path + "/ActiveDirectory",
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map[file_key],
-            depth + 2,
+            include_list,
         )
         parse_node(
             "ExternalAccountProvider",
             new_path + "/LDAP",
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map[file_key],
-            depth + 2,
+            include_list,
         )
     elif new_seg == "RemoteAccountService":
         parse_node(
             "ExternalAccountProvider",
             new_path + "/ActiveDirectory",
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map[file_key],
-            depth + 2,
+            include_list,
         )
         parse_node(
             "ExternalAccountProvider",
             new_path + "/LDAP",
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map[file_key],
-            depth + 2,
+            include_list,
         )
     elif new_seg == "{NetworkDeviceFunctionId}":
         parse_node(
             "Ethernet",
             new_path + "/Ethernet",
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map[file_key],
-            depth + 2,
+            include_list,
         )
 
     # Other Properties treated this way are:
@@ -316,9 +365,10 @@ def parse_navigation_property(
             typename,
             new_path,
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map[file_key],
-            depth + 1,
+            include_list,
         )
     else:
         parse_root(
@@ -326,13 +376,14 @@ def parse_navigation_property(
             typename,
             new_path,
             top_collections,
+            uri_to_entity_map,
             found_top,
             xml_map,
-            depth,
+            include_list,
         )
 
 
-def generate_top_collections():
+def generate_top_collections(top_collections):
     # We need to separately track top level resources as well as all URIs that
     # are upstream from a top level resource.  We shouldn't combine these into
     # a single structure because:
@@ -348,33 +399,12 @@ def generate_top_collections():
     # CompositionService is not a top level collection.
 
     # Contains URIs for all top level collections
-    top_collections = set()
-
-    # Begin parsing from the Service Root
-    curr_path = "/redfish/v1"
-    seen_paths.add(curr_path)
-
-    # ServiceRoot_v1.xml also shows "/redfish/v1/" as an example
-    seen_paths.add(curr_path + "/")
-    parse_node(
-        "ServiceRoot",
-        curr_path,
-        top_collections,
-        False,
-        "ServiceRoot_v1.xml",
-        2,
-    )
-
-    print("Finished traversal!")
-    print("Printing all generated URIs:")
-    for path in sorted(seen_paths):
-        print("Generated path is: ", path)
 
     TOTAL = len(top_collections)
     with open(CPP_OUTFILE, "w") as hpp_file:
         hpp_file.write(
             "#pragma once\n"
-            "{WARNING}\n"
+            f"{WARNING}\n"
             "// clang-format off\n"
             "#include <array>\n"
             "#include <string_view>\n"
@@ -395,3 +425,133 @@ def generate_top_collections():
             )
 
         hpp_file.write("};\n} // namespace redfish\n")
+
+
+# These uris below are the delta between what is handled in bmcweb and what this script is able to parse.
+# This is more of a TODO list to enhance the script to be able to parse the rest of these URIs.
+HARDCODED_URIS_MAP = {
+    "/redfish": "ServiceRoot",
+    "/redfish/v1/Managers/{ManagerId}/Actions/Manager.FanMode.Change": (
+        "Manager"
+    ),
+    "/redfish/v1/Managers/{ManagerId}/FanMode.Change.ActionInfo": "ActionInfo",
+    "/redfish/v1/Managers/{ManagerId}/NetworkProtocol/HTTPS/Certificates": (
+        "CertificateCollection"
+    ),
+    "/redfish/v1/Managers/{ManagerId}/NetworkProtocol/HTTPS/Certificates/{CertificateId}": (
+        "Certificate"
+    ),
+    "/redfish/v1/Managers/{ManagerId}/Truststore/Certificates": (
+        "CertificateCollection"
+    ),
+    "/redfish/v1/Managers/{ManagerId}/Truststore/Certificates/{CertificateId}": (
+        "Certificate"
+    ),
+    "/redfish/v1/Registries/{Registry}/{RegistryFileId}": (
+        "MessageRegistryFile"
+    ),
+    "/redfish/v1/Systems/{ComputerSystemId}/LogServices/{LogServiceId}/Entries/{LogEntryId}/{LogEntryFileId}": (
+        "LogEntry"
+    ),
+    "/redfish/v1/Systems/{ComputerSystemId}/PCIeDevices": (
+        "PCIeDeviceCollection"
+    ),
+    "/redfish/v1/TaskService/Tasks/{TaskId}/Monitor": "Task",
+}
+
+
+SEARCH_FUNCTION = """
+inline bool uriMatchesPath(std::string_view uri, std::string_view path){
+  size_t uriIndex = 0;
+  size_t pathIndex = 0;
+  while(uriIndex < uri.size() && pathIndex < path.size()){
+    //If characters match, move onto next char
+    if(uri[uriIndex] == path[pathIndex]){
+      ++uriIndex;
+      ++pathIndex;
+      continue;
+    }
+    //If path has a wildcard, denoted by '{', then fast forward to next '/'
+    if(path[pathIndex] == '{'){
+      while(uriIndex < uri.size() && uri[uriIndex] != '/'){
+        ++uriIndex;
+      }
+      while(pathIndex < path.size() && path[pathIndex] != '/'){
+        ++pathIndex;
+      }
+      continue;
+    }
+    //If neither above is true, then return false;
+    return false;
+  }
+  return true;
+}
+inline std::string_view findEntityType(std::string_view uri){
+  for(const auto& [path, entityType] : pathToEntityType){
+    if(uriMatchesPath(uri, path)){
+      return entityType;
+    }
+  }
+  return "";
+}
+"""
+
+
+def generate_entity_to_uris(uri_to_entity_map):
+    # Add hardcoded uris:
+    for uri, type in HARDCODED_URIS_MAP.items():
+        uri_to_entity_map[uri] = type
+
+    with open(ENTITY_TO_URIS_OUTFILE, "w") as registry:
+        registry.write(
+            "#pragma once\n"
+            f"{WARNING}\n"
+            "// clang-format off\n"
+            "#include <array>\n"
+            "#include <utility>\n"
+            "#include <string_view>\n"
+            "\n"
+            "namespace redfish\n"
+            "{\n"
+        )
+
+        registry.write(
+            "const std::array<std::pair<std::string_view, std::string_view>,"
+            " {}> pathToEntityType ".format(len(uri_to_entity_map))
+        )
+        registry.write("{{\n")
+        for uri in sorted(uri_to_entity_map.keys()):
+            registry.write("  {")
+            registry.write('"{}", "{}"'.format(uri, uri_to_entity_map[uri]))
+            registry.write("},\n")
+        registry.write("}};\n")
+
+        registry.write(SEARCH_FUNCTION)
+
+        registry.write("\n} // namespace redfish\n")
+
+
+def generate_registries(include_list):
+    top_collections = set()
+    uri_to_entity_map = {}
+
+    # Begin parsing from the Service Root
+    curr_path = "/redfish/v1"
+    seen_paths.add(curr_path)
+
+    # ServiceRoot_v1.xml also shows "/redfish/v1/" as an example
+    seen_paths.add(curr_path + "/")
+    parse_node(
+        "ServiceRoot",
+        curr_path,
+        top_collections,
+        uri_to_entity_map,
+        False,
+        "ServiceRoot_v1.xml",
+        include_list,
+    )
+
+    print("Finished traversal!")
+
+    generate_top_collections(top_collections)
+    generate_entity_to_uris(uri_to_entity_map)
