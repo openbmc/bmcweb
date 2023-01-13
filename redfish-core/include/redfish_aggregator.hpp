@@ -51,6 +51,19 @@ inline bool isPropertyUri(const std::string_view propertyName)
                               propertyName);
 }
 
+inline bool uriIsTopCollection(const boost::urls::url_view& url)
+{
+    std::string_view str = url.buffer();
+    auto range =
+        std::ranges::equal_range(topCollections.begin(), topCollections.end(),
+                                 str, std::ranges::less{}, &Path::path);
+    if (range.begin() == range.end())
+    {
+        return false;
+    }
+    return range.begin()->isTop;
+}
+
 static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
     std::string* strValue = item.get_ptr<std::string*>();
@@ -109,8 +122,7 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
             return;
         }
 
-        if (std::binary_search(topCollections.begin(), topCollections.end(),
-                               url.buffer()))
+        if (uriIsTopCollection(url))
         {
             std::string collectionItem(prefix);
             collectionItem += "_" + (*it);
@@ -504,8 +516,7 @@ class RedfishAggregator
         it++;
         for (; it != end; it++)
         {
-            if (std::binary_search(topCollections.begin(), topCollections.end(),
-                                   currentUrl.buffer()))
+            if (uriIsTopCollection(currentUrl))
             {
                 // We've matched a resource collection so this current segment
                 // must contain an aggregation prefix
@@ -826,8 +837,7 @@ class RedfishAggregator
         for (; it != end; it++)
         {
             const std::string& collectionItem = *it;
-            if (std::binary_search(topCollections.begin(), topCollections.end(),
-                                   currentUrl.buffer()))
+            if (uriIsTopCollection(currentUrl))
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
@@ -863,8 +873,7 @@ class RedfishAggregator
 
         // If we made it here then currentUrl could contain a top level
         // collection URI without a trailing "/", e.g. /redfish/v1/Chassis
-        if (std::binary_search(topCollections.begin(), topCollections.end(),
-                               currentUrl.buffer()))
+        if (uriIsTopCollection(currentUrl))
         {
             startAggregation(AggregationType::Collection, thisReq, asyncResp);
             return Result::LocalHandle;
