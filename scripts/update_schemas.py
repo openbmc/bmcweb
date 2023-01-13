@@ -10,7 +10,7 @@ import generate_schema_enums
 import requests
 from generate_schema_collections import generate_registries
 
-VERSION = "DSP8010_2022.2"
+VERSION = "DSP8010_2022.3"
 
 WARNING = """/****************************************************************
  *                 READ THIS WARNING FIRST
@@ -194,12 +194,12 @@ class SchemaVersion:
 
 
 # Remove the old files
-skip_prefixes = "Oem"
+skip_prefixes = ["Oem", "OpenBMC"]
 if os.path.exists(schema_path):
     files = [
         os.path.join(schema_path, f)
         for f in os.listdir(schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for f in files:
         os.remove(f)
@@ -207,7 +207,7 @@ if os.path.exists(json_schema_path):
     files = [
         os.path.join(json_schema_path, f)
         for f in os.listdir(json_schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for f in files:
         if os.path.isfile(f):
@@ -385,14 +385,14 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
 zip_ref.close()
 
 generate_schema_enums.main()
-generate_registries(include_list)
+generate_registries()
 
 # Now delete the xml schema files we aren't supporting
 if os.path.exists(schema_path):
     files = [
         os.path.join(schema_path, f)
         for f in os.listdir(schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for filename in files:
         # filename will include the absolute path
