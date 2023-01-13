@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f6772fd_f139f0bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:30:31Z",
+      "side": 1,
+      "message": "\u003e Let me describe. \n\u003e \n\u003e According to the design, there are two ways how to initiate virtual media requests. First is initiated by redfish action (legacy mode) and second (proxy mode) using websocket. \n\n\nWhy does the websocket take the redfish path?\n\n\u003e As proxy mode is not initiated using redfish, requests for appropriate action with proxy mode endpoint needs to be denied with appropriate response message and code.\n\nWhy do the proxy mode endpoints need represented in redfish at all?  What\u0027s the use case?\n\n\u003e At the moment when we parse the parameters, we do not know which type of endpoint we operate on. That\u0027s why we pass the empty actionParams parameter to the place where such decision could be made, and the appropriate exit code can be passed to the user. Validation is added in other patches.\n\nACK\n\n\u003e \n\u003e I will extend the description, hope above gave you some more insight.\n\u003e \n\u003e Btw, VM backend is available as review request chain in jsnbd repo, so if you want to play around - it is possible now.",
+      "parentUuid": "d454f321_dd01f527",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 62
+      },
+      "revId": "24f98588df231b32ab81593af90fe0dd677c1b9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c67d1d54_473a0573",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 1
