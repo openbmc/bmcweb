@@ -70,6 +70,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40d3b57_37d2b1cc",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-13T11:06:05Z",
+      "side": 0,
+      "message": "I understand your concern. Redfish path is the same for both modes (legacy and proxy). What differs is the path on DBus. We have to postpone validation to the time, when full validation is possible. I do not have other idea how to handle such case without redesign and having redfish endpoints names prefixed with mode.\n\nAlso, I see your point - json validation (when json is malformed) ends the connection and even if we change response later it does not matter. \nI would pass the whole readJsonAction() to dbus callback, but in one of previous reviews you asked me to not pass reference to request object in lambda capture list. How to deal with this problem then? Ignore and pass request down to dbus callback or pass as simple copy?",
+      "parentUuid": "50a7dfae_62022597",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
