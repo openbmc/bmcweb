@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "686c3fec_8fa1c893",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:38:22Z",
+      "side": 1,
+      "message": "One minor change, then LGTM.",
+      "revId": "aebc876ecea26a1e89b7bba258ab00c787edb8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27db42f5_b8674205",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T18:38:22Z",
+      "side": 1,
+      "message": "Why can\u0027t we just pass callback directly?  This lambda looks like it does nothing.",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 9
+      },
+      "revId": "aebc876ecea26a1e89b7bba258ab00c787edb8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
