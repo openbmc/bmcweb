@@ -9,6 +9,7 @@ from io import BytesIO
 
 import generate_schema_enums
 import requests
+from generate_schema_collections import generate_registries
 
 VERSION = "DSP8010_2022.2"
 
@@ -395,6 +396,7 @@ with open(privilege_map_registry_path, "w") as registry:
 zip_ref.close()
 
 generate_schema_enums.main()
+generate_registries(include_list)
 
 # Now delete the xml schema files we aren't supporting
 if os.path.exists(schema_path):
