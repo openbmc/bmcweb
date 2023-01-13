@@ -141,6 +141,30 @@
       },
       "revId": "24f98588df231b32ab81593af90fe0dd677c1b9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d01446_f4ca6885",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-13T20:39:01Z",
+      "side": 1,
+      "message": "ah, gotcha.  I was reading InsertMediaActionParams as a method, not a constructor.  I suspect what you want here is to make all the elements within InsertMediaActionParams take std::optional (because that\u0027s your intent, for all parameters to be optional), then",
+      "parentUuid": "c67d1d54_473a0573",
+      "range": {
+        "startLine": 777,
+        "startChar": 43,
+        "endLine": 777,
+        "endChar": 55
+      },
+      "revId": "24f98588df231b32ab81593af90fe0dd677c1b9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
