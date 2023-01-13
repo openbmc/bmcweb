@@ -118,6 +118,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fe8dbaa_5f7f6493",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-13T19:04:14Z",
+      "side": 0,
+      "message": "I would like to, but without request passed to DBus callback I would have to check it manually, first parse json then validate. But there is already a solution for this.",
+      "parentUuid": "d8be2f44_93bdc6f7",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

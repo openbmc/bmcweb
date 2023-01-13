@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d056327_a8f5fbf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-13T19:04:14Z",
+      "side": 1,
+      "message": "\u003e \u003e Let me describe. \n\u003e \u003e \n\u003e \u003e According to the design, there are two ways how to initiate virtual media requests. First is initiated by redfish action (legacy mode) and second (proxy mode) using websocket. \n\u003e \n\u003e \n\u003e Why does the websocket take the redfish path?\n\nNo, it does not. For proxy mode we just open /nbd/X websocket to initiate connection. \n\n\u003e \n\u003e \u003e As proxy mode is not initiated using redfish, requests for appropriate action with proxy mode endpoint needs to be denied with appropriate response message and code.\n\u003e \n\u003e Why do the proxy mode endpoints need represented in redfish at all?  What\u0027s the use case? \n\nRedfish could be used to:\n- check if there are any and if so - how many slots are available for each type/mode\n- check current status in each node\n- disconnect current connection\n\nAll is covered in the design document (https://github.com/openbmc/docs/blob/master/designs/virtual-media.md).",
+      "parentUuid": "1f6772fd_f139f0bc",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 62
+      },
+      "revId": "24f98588df231b32ab81593af90fe0dd677c1b9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c67d1d54_473a0573",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 1
