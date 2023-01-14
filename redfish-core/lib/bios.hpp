@@ -1,7 +1,8 @@
 #pragma once
 
-#include <app.hpp>
-#include <query.hpp>
+#include "app.hpp"
+#include "query.hpp"
+
 #include <registries/privilege_registry.hpp>
 #include <utils/sw_utils.hpp>
 

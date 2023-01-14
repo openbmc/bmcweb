@@ -15,14 +15,15 @@
 */
 #pragma once
 
+#include "app.hpp"
+#include "async_resp.hpp"
+#include "http_request.hpp"
+#include "persistent_data.hpp"
+#include "query.hpp"
+
 #include <bmcweb_config.h>
 
-#include <app.hpp>
-#include <async_resp.hpp>
-#include <http_request.hpp>
 #include <nlohmann/json.hpp>
-#include <persistent_data.hpp>
-#include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/systemd_utils.hpp>
 

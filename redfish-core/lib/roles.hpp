@@ -15,9 +15,10 @@
 */
 #pragma once
 
-#include <app.hpp>
-#include <dbus_utility.hpp>
-#include <query.hpp>
+#include "app.hpp"
+#include "dbus_utility.hpp"
+#include "query.hpp"
+
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 

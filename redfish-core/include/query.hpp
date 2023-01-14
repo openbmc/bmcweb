@@ -27,7 +27,7 @@
 // IWYU pragma: no_include <boost/url/impl/params_view.hpp>
 // IWYU pragma: no_include <boost/url/impl/url_view.hpp>
 
-#include <redfish_aggregator.hpp>
+#include "redfish_aggregator.hpp"
 
 namespace redfish
 {

@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
@@ -24,7 +25,6 @@
 #include "redfish_util.hpp"
 #include "utils/time_utils.hpp"
 
-#include <app.hpp>
 #include <boost/container/flat_map.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
