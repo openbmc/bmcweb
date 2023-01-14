@@ -1,9 +1,12 @@
 #pragma once
 
+#include "logging.hpp"
+
 #include <zlib.h>
 
 #include <array>
 #include <filesystem>
+#include <string>
 #include <vector>
 
 class GzFileReader

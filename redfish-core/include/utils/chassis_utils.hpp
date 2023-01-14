@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 
 #include <async_resp.hpp>
 

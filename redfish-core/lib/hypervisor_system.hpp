@@ -1,16 +1,17 @@
 #pragma once
 
+#include "app.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
+#include "ethernet.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
 #include "utils/ip_utils.hpp"
+#include "utils/json_utils.hpp"
 
-#include <app.hpp>
 #include <boost/container/flat_set.hpp>
-#include <dbus_singleton.hpp>
-#include <error_messages.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
-#include <utils/json_utils.hpp>
 
 #include <array>
 #include <optional>
