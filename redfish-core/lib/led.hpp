@@ -15,11 +15,11 @@
 */
 #pragma once
 
+#include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "redfish_util.hpp"
 
-#include <app.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 namespace redfish

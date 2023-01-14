@@ -17,6 +17,8 @@
 
 #include "async_resolve.hpp"
 #include "http_response.hpp"
+#include "logging.hpp"
+#include "ssl_key_handler.hpp"
 
 #include <boost/asio/connect.hpp>
 #include <boost/asio/io_context.hpp>
@@ -37,8 +39,6 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
-#include <logging.hpp>
-#include <ssl_key_handler.hpp>
 
 #include <cstdlib>
 #include <functional>

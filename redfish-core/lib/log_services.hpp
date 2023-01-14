@@ -15,20 +15,25 @@
 */
 #pragma once
 
+#include "app.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "gzfile.hpp"
 #include "http_utility.hpp"
 #include "human_sort.hpp"
+#include "query.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/privilege_registry.hpp"
 #include "task.hpp"
+#include "utils/dbus_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <systemd/sd-journal.h>
 #include <tinyxml2.h>
 #include <unistd.h>
 
-#include <app.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -36,13 +41,8 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
-#include <error_messages.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/dbus_utils.hpp>
-#include <utils/time_utils.hpp>
 
 #include <array>
 #include <charconv>

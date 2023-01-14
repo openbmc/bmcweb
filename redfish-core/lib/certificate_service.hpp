@@ -1,18 +1,22 @@
 #pragma once
 
+#include "app.hpp"
+#include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "http_response.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
+#include "utils/time_utils.hpp"
 
-#include <app.hpp>
-#include <async_resp.hpp>
 #include <boost/system/linux_error.hpp>
-#include <http_response.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <memory>
 #include <string_view>
 
 namespace redfish

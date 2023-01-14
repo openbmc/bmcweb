@@ -1,4 +1,7 @@
 #pragma once
+#include "dbus_singleton.hpp"
+#include "logging.hpp"
+
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/asio/ip/tcp.hpp>

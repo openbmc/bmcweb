@@ -13,6 +13,9 @@
 // limitations under the License.
 
 #pragma once
+#include "app.hpp"
+#include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -23,8 +26,6 @@
 #include <systemd/sd-bus.h>
 #include <tinyxml2.h>
 
-#include <app.hpp>
-#include <async_resp.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -33,8 +34,6 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/property.hpp>

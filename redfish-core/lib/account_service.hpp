@@ -15,19 +15,19 @@
 */
 #pragma once
 
+#include "app.hpp"
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
+#include "openbmc_dbus_rest.hpp"
+#include "persistent_data.hpp"
+#include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 
-#include <app.hpp>
-#include <dbus_utility.hpp>
-#include <error_messages.hpp>
-#include <openbmc_dbus_rest.hpp>
-#include <persistent_data.hpp>
-#include <query.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/dbus_utils.hpp>
-#include <utils/json_utils.hpp>
 
 #include <optional>
 #include <string>

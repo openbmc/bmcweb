@@ -1,16 +1,16 @@
 #pragma once
 
+#include "app.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_slot.hpp"
+#include "pcie.hpp"
+#include "registries/privilege_registry.hpp"
 #include "utility.hpp"
+#include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 
-#include <app.hpp>
-#include <pcie.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/dbus_utils.hpp>
-#include <utils/json_utils.hpp>
 
 namespace redfish
 {
