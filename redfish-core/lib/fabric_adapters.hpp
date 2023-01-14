@@ -2,6 +2,8 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/json_utils.hpp"
 
