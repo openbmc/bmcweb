@@ -39,6 +39,30 @@
       },
       "revId": "aebc876ecea26a1e89b7bba258ab00c787edb8ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "104fb343_78bab56b",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-14T01:44:30Z",
+      "side": 1,
+      "message": "\u003e Why can\u0027t we just pass callback directly?  This lambda looks like it does nothing.\n\nThanks Ed, Ack.",
+      "parentUuid": "27db42f5_b8674205",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 9
+      },
+      "revId": "aebc876ecea26a1e89b7bba258ab00c787edb8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
