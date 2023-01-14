@@ -21,6 +21,7 @@
 #include "dbus_utility.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "task.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 
