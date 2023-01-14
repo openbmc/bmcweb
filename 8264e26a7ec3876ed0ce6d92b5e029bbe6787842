@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77718ca9_7d2e920a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-01-14T15:14:35Z",
+      "side": 1,
+      "message": "As you have already quoted:\n```\nOriginator:\n          description: The source of the log entry.\n          readOnly: true\n          type: string\n          x-longDescription: This property shall contain the source of the log entry.\n```\n\nFor dumps, clientId is taken as the source string in the backend. Since redfish specifies \"string\" as its type, do we need any conversion in bmcweb for this plain string that is read from dbus?",
+      "parentUuid": "cac9d0f6_8262db8d",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5733152_4cf84321",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
