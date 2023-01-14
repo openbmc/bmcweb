@@ -1,6 +1,7 @@
 #pragma once
 
-#include <bmcweb_config.h>
+#include "bmcweb_config.h"
+
 #include <openssl/crypto.h>
 
 #include <boost/callable_traits.hpp>

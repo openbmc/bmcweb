@@ -15,15 +15,14 @@
 */
 #pragma once
 
+#include "app.hpp"
+#include "query.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/privilege_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
-
-#include <app.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 
 #include <array>
 

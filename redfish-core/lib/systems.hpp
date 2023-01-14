@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
@@ -22,16 +23,15 @@
 #include "pcie.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
+#include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
+#include "utils/sw_utils.hpp"
 #include "utils/time_utils.hpp"
 
-#include <app.hpp>
 #include <boost/container/flat_map.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/dbus_utils.hpp>
-#include <utils/json_utils.hpp>
-#include <utils/sw_utils.hpp>
 
 #include <array>
 #include <string_view>

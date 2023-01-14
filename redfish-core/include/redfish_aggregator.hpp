@@ -1,11 +1,12 @@
 #pragma once
 
-#include <aggregation_utils.hpp>
+#include "aggregation_utils.hpp"
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
+#include "http_client.hpp"
+#include "http_connection.hpp"
+
 #include <boost/algorithm/string/predicate.hpp>
-#include <dbus_utility.hpp>
-#include <error_messages.hpp>
-#include <http_client.hpp>
-#include <http_connection.hpp>
 
 #include <array>
 

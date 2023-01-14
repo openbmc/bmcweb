@@ -2,6 +2,7 @@
 
 #include "http_connection.hpp"
 #include "logging.hpp"
+#include "ssl_key_handler.hpp"
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
@@ -9,7 +10,6 @@
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
-#include <ssl_key_handler.hpp>
 
 #include <atomic>
 #include <chrono>

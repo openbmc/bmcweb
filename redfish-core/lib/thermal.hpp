@@ -15,11 +15,10 @@
 */
 #pragma once
 
+#include "app.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
 #include "sensors.hpp"
-
-#include <app.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 
 namespace redfish
 {
