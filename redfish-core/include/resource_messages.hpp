@@ -1,7 +1,8 @@
 #pragma once
 
+#include "registries/resource_event_message_registry.hpp"
+
 #include <nlohmann/json.hpp>
-#include <registries/resource_event_message_registry.hpp>
 
 namespace redfish
 {

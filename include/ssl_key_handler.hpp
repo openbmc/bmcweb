@@ -1,5 +1,8 @@
 #pragma once
 
+#include "logging.hpp"
+#include "random.hpp"
+
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -11,9 +14,10 @@
 #include <openssl/ssl.h>
 
 #include <boost/asio/ssl/context.hpp>
-#include <random.hpp>
 
+#include <optional>
 #include <random>
+#include <string>
 
 namespace ensuressl
 {

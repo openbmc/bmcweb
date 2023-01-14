@@ -4,7 +4,11 @@
 #include "authentication.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
+#include "json_html_serializer.hpp"
 #include "logging.hpp"
+#include "mutual_tls.hpp"
+#include "security_headers.hpp"
+#include "ssl_key_handler.hpp"
 #include "utility.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
@@ -21,10 +25,6 @@
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url_view.hpp>
-#include <json_html_serializer.hpp>
-#include <mutual_tls.hpp>
-#include <security_headers.hpp>
-#include <ssl_key_handler.hpp>
 
 #include <atomic>
 #include <chrono>
