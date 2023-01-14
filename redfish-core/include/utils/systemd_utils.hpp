@@ -17,6 +17,9 @@
 
 #include <systemd/sd-id128.h>
 
+#include <array>
+#include <string>
+
 namespace redfish
 {
 
