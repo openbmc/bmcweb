@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a589490_7f35c605",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-14T01:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27055155_8cefa6a0",
+      "range": {
+        "startLine": 491,
+        "startChar": 42,
+        "endLine": 491,
+        "endChar": 50
+      },
+      "revId": "a73cf4ae32714a66b7bf2eaa87523b2063ff631f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8628cf6f_4f98238b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-10T18:52:32Z",
       "side": 1,
       "message": "const_iterator",
+      "range": {
+        "startLine": 793,
+        "startChar": 42,
+        "endLine": 793,
+        "endChar": 50
+      },
+      "revId": "a73cf4ae32714a66b7bf2eaa87523b2063ff631f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cbd3d02_725c16ce",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-14T01:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8628cf6f_4f98238b",
       "range": {
         "startLine": 793,
         "startChar": 42,
