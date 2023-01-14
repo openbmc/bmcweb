@@ -3,15 +3,15 @@
 #include "logging.hpp"
 #include "random.hpp"
 #include "utility.hpp"
+#include "utils/ip_utils.hpp"
 
 #include <nlohmann/json.hpp>
-#include <utils/ip_utils.hpp>
 
 #include <csignal>
 #include <optional>
 #include <random>
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-#include <ibm/locks.hpp>
+#include "ibm/locks.hpp"
 #endif
 
 namespace persistent_data

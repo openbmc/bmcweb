@@ -15,25 +15,24 @@
 */
 #pragma once
 
+#include "app.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/sensor.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
+#include "utils/query_param.hpp"
 
-#include <app.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/find.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
-#include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/dbus_utils.hpp>
-#include <utils/json_utils.hpp>
-#include <utils/query_param.hpp>
 
 #include <array>
 #include <cmath>

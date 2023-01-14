@@ -1,12 +1,13 @@
 #pragma once
 
+#include "app.hpp"
 #include "error_messages.hpp"
+#include "http_request.hpp"
+#include "http_response.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
+#include "schemas.hpp"
 #include "utility.hpp"
-
-#include <app.hpp>
-#include <http_request.hpp>
-#include <http_response.hpp>
-#include <schemas.hpp>
 
 #include <string>
 

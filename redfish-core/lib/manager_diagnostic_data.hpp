@@ -1,11 +1,14 @@
 #pragma once
 
-#include <app.hpp>
-#include <async_resp.hpp>
-#include <http_request.hpp>
+#include "app.hpp"
+#include "async_resp.hpp"
+#include "http_request.hpp"
+#include "privileges.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
+#include "routing.hpp"
+
 #include <nlohmann/json.hpp>
-#include <privileges.hpp>
-#include <routing.hpp>
 
 #include <string>
 

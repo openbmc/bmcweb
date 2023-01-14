@@ -1,7 +1,15 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "http/utility.hpp"
+#include "logging.hpp"
 #include "utility.hpp"
+
+#include <boost/container/flat_map.hpp>
+#include <boost/container/flat_set.hpp>
+#include <sdbusplus/message/native_types.hpp>
+
+#include <string>
 
 namespace redfish
 {

@@ -14,12 +14,20 @@
 // limitations under the License.
 */
 #pragma once
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
+#include "event_service_store.hpp"
+#include "http_client.hpp"
 #include "metric_report.hpp"
+#include "persistent_data.hpp"
+#include "random.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "server_sent_events.hpp"
 #include "utility.hpp"
+#include "utils/json_utils.hpp"
 
 #include <sys/inotify.h>
 
@@ -27,15 +35,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
-#include <dbus_utility.hpp>
-#include <error_messages.hpp>
-#include <event_service_store.hpp>
-#include <http_client.hpp>
-#include <persistent_data.hpp>
-#include <random.hpp>
 #include <sdbusplus/bus/match.hpp>
-#include <server_sent_events.hpp>
-#include <utils/json_utils.hpp>
 
 #include <cstdlib>
 #include <ctime>
