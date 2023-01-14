@@ -1,6 +1,5 @@
 #pragma once
 
-#include "app.hpp"
 #include "event_service_store.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
