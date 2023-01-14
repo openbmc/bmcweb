@@ -16,9 +16,15 @@
 */
 #pragma once
 
+#include "logging.hpp"
+
+#include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/strand.hpp>
 #include <boost/beast/http/buffer_body.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/read.hpp>
+#include <boost/beast/http/serializer.hpp>
+#include <boost/beast/http/write.hpp>
 #include <boost/beast/version.hpp>
 
 #include <cstdlib>

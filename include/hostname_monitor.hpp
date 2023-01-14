@@ -1,5 +1,7 @@
 #pragma once
 #ifdef BMCWEB_ENABLE_SSL
+#include "logging.hpp"
+
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
 #include <include/dbus_utility.hpp>

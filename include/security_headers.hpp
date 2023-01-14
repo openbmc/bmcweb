@@ -2,6 +2,7 @@
 
 #include <bmcweb_config.h>
 
+#include <http_request.hpp>
 #include <http_response.hpp>
 
 inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],

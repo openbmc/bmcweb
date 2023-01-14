@@ -6,6 +6,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <sdbusplus/bus/match.hpp>
 
 #include <cstdio>
 #include <fstream>
