@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2527b8d_6bc68e32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-16T16:30:49Z",
+      "side": 1,
+      "message": "I\u0027ve introduced a new meson option to optionally set the logging-level (\u0027debug\u0027 if not set) like\n   -Dbmcweb-logging-level\u003d\u003clevel\u003e. \n   \u003clevel\u003e can be either \u0027debug\u0027, \u0027info\u0027, \u0027warning\u0027, \u0027error\u0027, or \u0027critical\u0027.\n \nThe logging-level will be used if bmcweb-logging is enabled.\nFor example, if error/critical traces are needed, it can be specified like\n   -Dbmcweb-logging\u003denabled\n   -Dbmcweb-logging-level\u003derror\n   \nIn addition to this addition, I\u0027ve optimized Logger class by using \u0027constexpr\u0027 so that the only enabled logging codes are emitted to the binary.\n\n\n\n    constexpr static bool isLoggingEnabled()\n    {\n#ifdef BMCWEB_ENABLE_LOGGING\n        return true;\n#else\n        return false;\n#endif\n    }\n    \n    constexpr static LogLevel getCurrentLogLevel()\n    {\n#ifdef BMCWEB_LOGGING_LEVEL\n        return static_cast\u003ccrow::LogLevel\u003e(BMCWEB_LOGGING_LEVEL);\n#else\n        return crow::LogLevel::Debug;\n#endif\n    }\n\n\n    constexpr static bool checkLoggingLevel(const LogLevel level)\n    {\n        return isLoggingEnabled() \u0026\u0026 (getCurrentLogLevel() \u003c\u003d level);\n    }\n\n\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_CRITICAL                                                    \\\n    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))\t\\\n    crow::Logger(\"CRITICAL\", __FILE__, __LINE__, crow::LogLevel::Critical)",
+      "parentUuid": "afe62f52_f893b974",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "6b272ea7b5a44e911ac80e5e9035e1780cf77039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdf3eef4_814bcf84",
@@ -85,6 +109,30 @@
       "writtenOn": "2023-01-11T01:53:32Z",
       "side": 1,
       "message": "Why did this move?  The old code ensured that if logging is disabled, none of the strings could ever get into the binary.  As-written, I don\u0027t think this code realizes that.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "6b272ea7b5a44e911ac80e5e9035e1780cf77039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "380c0229_ae8e5ebf",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-16T16:30:49Z",
+      "side": 1,
+      "message": "As you and Gunnar suggested, I\u0027ve introduced a new meson option \nto optionally set the logging-level (\u0027debug\u0027 if not set) like\n  -Dbmcweb-logging-level\u003d\u003clevel\u003e.\n  \n\u003clevel\u003e can be either \u0027debug\u0027, \u0027info\u0027, \u0027warning\u0027, \u0027error\u0027, or \u0027critical\u0027.\nThis logging level will be effective if bmcweb-logging is enabled.\n\nSince the logging level is specified as an option, the debugging level is known\nduring the compile time and thus \u0027setLogLevel()\u0027 is not needed.\n\nIn addition, we can optimized Logger class  by using \u0027constexpr\u0027 \nso that the only enabled logging codes are emitted to the binary.\n\nSo, I\u0027ve removed setLogLevel() function, but introduced a constexpr function \n\n constexpr static bool checkLoggingLevel(const LogLevel level)\n \n And then I\u0027ve applied those into BMCWEB_LOG_XXX macros like\n \n // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_CRITICAL                                                    \\\n    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))\t\\\n    crow::Logger(\"CRITICAL\", __FILE__, __LINE__, crow::LogLevel::Critical)\n\n\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_ERROR                                                       \\\n    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Error))\t\\\n    crow::Logger(\"ERROR\", __FILE__, __LINE__, crow::LogLevel::Error)",
+      "parentUuid": "bdf3eef4_814bcf84",
       "range": {
         "startLine": 65,
         "startChar": 0,
