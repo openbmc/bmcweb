@@ -22,6 +22,30 @@
       },
       "revId": "d18b9f151225a11fc03e267ca6174a85303f27ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2449d2b4_7203e697",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-16T16:31:39Z",
+      "side": 1,
+      "message": "The original #348 uses LinkWidth in the commit header by telling LanesInUse is mapped to LinkWidth in GUI.\nBut as you commented, LanesInUse may be better in upstream.",
+      "parentUuid": "6c588f6d_80e4d0b5",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "d18b9f151225a11fc03e267ca6174a85303f27ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -154,6 +154,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "866d9ceb_3f87a7f4",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-16T16:31:39Z",
+      "side": 1,
+      "message": "Based on the discussion, I made that the property LanesInUse will be shown off if its value is 0 (as a default).",
+      "parentUuid": "ea346843_d54fda38",
+      "range": {
+        "startLine": 202,
+        "startChar": 30,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "a6048637fb125d8d268f47bd48a4174085e1823e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37b3f6c5_960d90de",
