@@ -34,6 +34,23 @@
       "parentUuid": "f815e4aa_e3506e3c",
       "revId": "8bdbbbe3efa27fbc414855e750cfce3ab156e54a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5553d9c2_9abdcb50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-01-17T23:59:39Z",
+      "side": 1,
+      "message": "LGTM as long as TODO is completed",
+      "revId": "8bdbbbe3efa27fbc414855e750cfce3ab156e54a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
