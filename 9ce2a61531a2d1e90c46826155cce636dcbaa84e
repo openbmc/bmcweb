@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f221e9c1_24107b69",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:32:31Z",
+      "side": 1,
+      "message": "These always map 1-to-1 D-Bus to Redfish? \nI would prefer we did something more like https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L619",
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "500729f8_1e02e98f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:32:31Z",
+      "side": 1,
+      "message": "Can we use dbus::utility::getSubTree ?",
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87069b24_b417926f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:32:31Z",
+      "side": 1,
+      "message": "I am confused why we need another call to mapper and this code can\u0027t look something like this code here?\n\n            const std::string chassisInterface \u003d\n                \"xyz.openbmc_project.Inventory.Item.Chassis\";\n            if (std::find(interfaces2.begin(), interfaces2.end(),\n                          chassisInterface) !\u003d interfaces2.end())\n            {\n                sdbusplus::asio::getProperty\u003cstd::string\u003e(\n                    *crow::connections::systemBus, connectionName, path,\n                    chassisInterface, \"ChassisType\",\n                    [asyncResp, chassisId(std::string(chassisId))](\n                        const boost::system::error_code ec2,\n                        const std::string\u0026 property) {\n                    if (ec2)\n                    {\n                        BMCWEB_LOG_DEBUG \u003c\u003c \"DBus response error for ChassisType\";\n                        messages::internalError(asyncResp-\u003eres);\n                        return;\n                    }\n                    asyncResp-\u003eres.jsonValue[\"ChassisType\"] \u003d getChassisType(property);\n                    });\n            }",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 13
+      },
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
