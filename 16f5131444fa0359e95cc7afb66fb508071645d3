@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07023831_f4fa9a09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-17T16:04:50Z",
+      "side": 1,
+      "message": "I\u0027ve modified the commit message to comply the spec.",
+      "parentUuid": "1087db2e_2e5bf898",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad899732_09c0a20f",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-17T14:39:16Z",
       "side": 1,
       "message": "Tested statement?",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ce1833_d94ea5f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-17T16:04:50Z",
+      "side": 1,
+      "message": "The test statement is added",
+      "parentUuid": "ad899732_09c0a20f",
       "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2c1ce09_cac22316",
+        "filename": "meson_options.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-17T16:04:50Z",
+      "side": 1,
+      "message": "Description is modified to:\n\n    description: \u0027Enable output the extended logs whose level can be specified\n                  via bmcweb-logging-level option.  If bmcweb-logging-level is\n                  not set, all level (i.e. debug) of traces are enabled\u0027",
+      "parentUuid": "a7a06d05_6ac44e84",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2b6f29d_c425d2c5",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-01-17T14:39:16Z",
       "side": 1,
       "message": "So this only works if the option above is true? Can you add more detail here..",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "295f1481_21ab5569",
+        "filename": "meson_options.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-17T16:04:50Z",
+      "side": 1,
+      "message": "It is modified to add option description like:\n\n    description: \u0027Specify the level of the extended logs as follows.\n                  - debug : enables all of bmcweb log traces.\n                  - info : enables the log traces with info or higher level including info, warning, error, or critical levels.\n                  - warning : enables the log traces with warning or higher level.\n                   - error :  enables the log traces with error or higher level.\n                   - critical :  enables the log traces with critical level\u0027",
+      "parentUuid": "b2b6f29d_c425d2c5",
       "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
