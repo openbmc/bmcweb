@@ -16,6 +16,24 @@
       "message": "Nitpick update commit msg summary..\n\nRevert and replace \"Fix keepalive false\" \n\nReplace \"Fix keepalive false\" with patchset 3 ?\n\nI see the standard Revert commit message and think it is a straight revert, there is more here. Oh well.",
       "revId": "98c11c91a7b9b1308b46965c8214b8612ad579c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb60299_c469575e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-17T21:26:27Z",
+      "side": 1,
+      "message": "Took your second suggestion.",
+      "parentUuid": "cc1fc2d0_f64fcb14",
+      "revId": "98c11c91a7b9b1308b46965c8214b8612ad579c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
