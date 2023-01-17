@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "18d47daa_a170a2d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:18:10Z",
+      "side": 1,
+      "message": "Why a new option instead of switching the existing one to an enum ?",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92dab4c0_1a546364",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:18:10Z",
+      "side": 1,
+      "message": "remove the tabs",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "af3d39dc_3f67743f",
@@ -14,6 +48,24 @@
       "writtenOn": "2023-01-17T22:10:11Z",
       "side": 1,
       "message": "Can we define what each of these levels mean? \nCritical is bmcweb complete failure\nError is internal bmc failures\nWarning is ...",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be5f9253_22605767",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:18:10Z",
+      "side": 1,
+      "message": "See several definitions searching google",
+      "parentUuid": "af3d39dc_3f67743f",
       "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

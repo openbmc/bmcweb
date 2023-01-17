@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46d44a48_084c8fcd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:18:10Z",
+      "side": 1,
+      "message": "\u003e That nobody is allowed to set because it\u0027s a security DOS issue? Doesn\u0027t seem like it adds value, or maybe I\u0027m missing something?\n\nI think the value is, more easily debug bmcweb related issues. I think users should be able to enable whatever level of debug they choose. We already allow for enabling logs just not a granular setting",
+      "parentUuid": "a2527b8d_6bc68e32",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "6b272ea7b5a44e911ac80e5e9035e1780cf77039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdf3eef4_814bcf84",
         "filename": "src/webserver_main.cpp",
         "patchSetId": 1
