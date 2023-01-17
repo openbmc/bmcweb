@@ -16,6 +16,114 @@
       "message": "Thanks for the review. I fixed the code as per comments.",
       "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4aab83_d8fac54c",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:17:16Z",
+      "side": 1,
+      "message": "Can this go into dbus::utility like the others?",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad31a3ff_8bd038b2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:17:16Z",
+      "side": 1,
+      "message": "include what you use e.g. \n#include \u003cstring\u003e\n#include \u003cvector\u003e\n#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c52f40_9cb531c6",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:17:16Z",
+      "side": 1,
+      "message": "Why 2 traces in this function that do the same thing? \n\nCould we just put\n\nBMCWEB_LOG_ERROR \u003c\u003c \"DBus method call failed with error \" \u003c\u003c ec.value(); here?\nThat way on a resourceNotFound, we don\u0027t have a ERROR trace..",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e659b30_edb48fb3",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:17:16Z",
+      "side": 1,
+      "message": "This params aren\u0027t complete.. oh well.",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7981a0d_3ff7d3e2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:17:16Z",
+      "side": 1,
+      "message": "If no xyz.openbmc_project.Inventory.Item.FabricAdapter are found, this collection is just empty? \ni.e. a system doesn\u0027t have any xyz.openbmc_project.Inventory.Item.FabricAdapter, then it just is an empty collection and doesn\u0027t hurt anything more",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4347348_e86cc53b",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:17:16Z",
+      "side": 1,
+      "message": "Let\u0027s do \n\"/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\u003cstr\u003e\" here too\n\nif (systemName \u003d\u003d \"system\"){\nmessages::resourceNotFound;\nreturn;\n}",
+      "range": {
+        "startLine": 136,
+        "startChar": 43,
+        "endLine": 136,
+        "endChar": 49
+      },
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
