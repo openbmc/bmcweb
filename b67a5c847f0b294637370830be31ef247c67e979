@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bada652_9c0543ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-17T23:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce48b590_f4b73f98",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "b67a5c847f0b294637370830be31ef247c67e979",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bc09029_ad5f6215",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-01-17T17:59:54Z",
       "side": 1,
       "message": "Can we enable this in CI?",
+      "revId": "b67a5c847f0b294637370830be31ef247c67e979",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e5e7f9_b6e954f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-17T23:04:26Z",
+      "side": 1,
+      "message": "I\u0027m trying to, but it finds a lot of new stuff that needs fixed before it will pass, including some false positives that need worked around.  It\u0027s on my list.",
+      "parentUuid": "6bc09029_ad5f6215",
       "revId": "b67a5c847f0b294637370830be31ef247c67e979",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
