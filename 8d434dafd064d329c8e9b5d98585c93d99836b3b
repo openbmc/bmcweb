@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c12bfcf_58c34f3f",
+        "filename": ".clang-tidy",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:26:29Z",
+      "side": 1,
+      "message": "Do we still want to call each of these out individually? It shouldn\u0027t hurt anything..",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 43
+      },
+      "revId": "8d434dafd064d329c8e9b5d98585c93d99836b3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca26bd3_8c75d977",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:26:29Z",
+      "side": 1,
+      "message": "Another sentence or two? \n\nEnable the rest of the cppcoreguidelines checks except .. \nThis has been an effort as of late to ..\n\nTested: CI passes. ;)",
+      "revId": "8d434dafd064d329c8e9b5d98585c93d99836b3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
