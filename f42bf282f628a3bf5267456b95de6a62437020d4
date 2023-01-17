@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13811a90_b7659107",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T18:19:04Z",
+      "side": 1,
+      "message": "You could add a comment that default is 0, and this leaves it off if default but I think most developers would pick that up.",
+      "revId": "f42bf282f628a3bf5267456b95de6a62437020d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
