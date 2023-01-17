@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3d39dc_3f67743f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:10:11Z",
+      "side": 1,
+      "message": "Can we define what each of these levels mean? \nCritical is bmcweb complete failure\nError is internal bmc failures\nWarning is ...",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa4e18ba_8b6b2180",
+        "filename": "http/logging.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T22:10:11Z",
+      "side": 1,
+      "message": "Doesn\u0027t\n\n    type: \u0027combo\u0027,\n    choices : [ \u0027debug\u0027\n\nalready default to the first which is debug?",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
