@@ -56,6 +56,30 @@
       },
       "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24e6d42_24040732",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-01-17T23:55:44Z",
+      "side": 1,
+      "message": "+1. Shouldn\u0027t do extra dbus calls to just get a property.",
+      "parentUuid": "87069b24_b417926f",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 13
+      },
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
