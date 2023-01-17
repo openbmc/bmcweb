@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c96aa4e8_5f46dafa",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Removed duplicate types.",
+      "parentUuid": "ca6a7ffc_44d29a16",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c522d66_5bde0b2d",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-13T18:26:02Z",
       "side": 1,
       "message": "Please read and understand COMMON_ERRORS.md.  This code pattern is specifically called out in one of the examples.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 63
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf1cc6fe_e4dde793",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Fixed the code.",
+      "parentUuid": "3c522d66_5bde0b2d",
       "range": {
         "startLine": 28,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e260bed_8ecdab43",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Fixed it here. Several functions in lib are not passing the address of ec.",
+      "parentUuid": "0715d203_45852923",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15864275_c0033e3f",
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceb08f41_68f95d3a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Created new method.",
+      "parentUuid": "15864275_c0033e3f",
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ba665e2_2e1aca41",
@@ -117,6 +207,30 @@
       "writtenOn": "2023-01-13T18:26:02Z",
       "side": 1,
       "message": "We don\u0027t do this anywhere I\u0027m aware of except sensors.  Please just make this \"FabricAdapter\" for the moment.",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 62
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7877e22b_95cdaefb",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "7ba665e2_2e1aca41",
       "range": {
         "startLine": 70,
         "startChar": 12,
@@ -150,6 +264,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36bcb710_d824e17b",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "dbf76a88_9b6eb13f",
+      "range": {
+        "startLine": 80,
+        "startChar": 45,
+        "endLine": 80,
+        "endChar": 55
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13433c37_30029c62",
@@ -163,6 +301,30 @@
       "writtenOn": "2023-01-13T18:26:02Z",
       "side": 1,
       "message": "Please register your routes as \u003cstr\u003e then within the handler, check for\n\nif (systemName \u003d\u003d \"system\"){\n   messages::resourceNotFound;\n   return;\n}",
+      "range": {
+        "startLine": 91,
+        "startChar": 43,
+        "endLine": 91,
+        "endChar": 49
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb0e38b_46f9e534",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13433c37_30029c62",
       "range": {
         "startLine": 91,
         "startChar": 43,
@@ -190,6 +352,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33df9bc7_1b30c89e",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d391146a_ee109f14",
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aee9c9c6_38e258e1",
@@ -213,6 +393,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74053e7b_538eb4f9",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aee9c9c6_38e258e1",
+      "range": {
+        "startLine": 98,
+        "startChar": 51,
+        "endLine": 98,
+        "endChar": 58
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51f47f7c_d779c2ef",
@@ -226,6 +430,30 @@
       "writtenOn": "2023-01-13T18:26:02Z",
       "side": 1,
       "message": "Remove the lambda, per the transforms we\u0027ve done elsewhere, please use bind_front.",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 50
+      },
+      "revId": "674e07dc8c7e15faa0473962af56b032bde6b7da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "522d36c7_110a6cc2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-17T16:49:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51f47f7c_d779c2ef",
       "range": {
         "startLine": 123,
         "startChar": 12,
