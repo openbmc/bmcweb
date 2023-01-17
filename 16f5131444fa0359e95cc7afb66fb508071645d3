@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1087db2e_2e5bf898",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T14:39:16Z",
+      "side": 1,
+      "message": "Limit the subject line to 50 characters From https://cbea.ms/git-commit/",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad899732_09c0a20f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T14:39:16Z",
+      "side": 1,
+      "message": "Tested statement?",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7a06d05_6ac44e84",
+        "filename": "meson_options.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T14:39:16Z",
+      "side": 1,
+      "message": "Can you add more detail here?",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b6f29d_c425d2c5",
+        "filename": "meson_options.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-17T14:39:16Z",
+      "side": 1,
+      "message": "So this only works if the option above is true? Can you add more detail here..",
+      "revId": "16f5131444fa0359e95cc7afb66fb508071645d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
