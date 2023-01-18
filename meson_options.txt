@@ -309,3 +309,13 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'logged-in-connection-timeout',
+    type : 'integer',
+    min : 1,
+    max : 10000,
+    value : 60,
+    description : '''Specifies the logged in connection timeout value. User may
+                     decide to change it based on the network speed.'''
+)
