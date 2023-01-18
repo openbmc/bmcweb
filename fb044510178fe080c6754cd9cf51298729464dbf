@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23abf2e9_ba7ef1a0",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-18T21:43:48Z",
+      "side": 1,
+      "message": "Deleted the line, we are not using ServiceMap.",
+      "parentUuid": "eb4aab83_d8fac54c",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad31a3ff_8bd038b2",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48348dcc_4f5830ce",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-18T21:43:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad31a3ff_8bd038b2",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3c52f40_9cb531c6",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-01-17T18:17:16Z",
       "side": 1,
       "message": "Why 2 traces in this function that do the same thing? \n\nCould we just put\n\nBMCWEB_LOG_ERROR \u003c\u003c \"DBus method call failed with error \" \u003c\u003c ec.value(); here?\nThat way on a resourceNotFound, we don\u0027t have a ERROR trace..",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab98c3dd_c15624ec",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-18T21:43:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c52f40_9cb531c6",
       "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -103,6 +157,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47421715_f905f6c5",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-18T21:43:48Z",
+      "side": 1,
+      "message": "Tested with no FabricAdapaters and it is an empty collection.\n\n\"\"\"# curl -k https://$bmc/redfish/v1/Systems/system/FabricAdapters\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters\",\n  \"@odata.type\": \"#FabricAdapterCollection.FabricAdapterCollection\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"Fabric adapter Collection\"\n}\"\"\"",
+      "parentUuid": "d7981a0d_3ff7d3e2",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36df5961_c1b07776",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-18T21:43:48Z",
+      "side": 1,
+      "message": "Tested with no FabricAdapaters and it is an empty collection.\n\n\"\"\"# curl -k https://$bmc/redfish/v1/Systems/system/FabricAdapters\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters\",\n  \"@odata.type\": \"#FabricAdapterCollection.FabricAdapterCollection\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"Fabric Adapter Collection\"\n}\"\"\"",
+      "parentUuid": "d7981a0d_3ff7d3e2",
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4347348_e86cc53b",
@@ -116,6 +206,30 @@
       "writtenOn": "2023-01-17T18:17:16Z",
       "side": 1,
       "message": "Let\u0027s do \n\"/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\u003cstr\u003e\" here too\n\nif (systemName \u003d\u003d \"system\"){\nmessages::resourceNotFound;\nreturn;\n}",
+      "range": {
+        "startLine": 136,
+        "startChar": 43,
+        "endLine": 136,
+        "endChar": 49
+      },
+      "revId": "fb044510178fe080c6754cd9cf51298729464dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8764ca6_8cf54d0c",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-18T21:43:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4347348_e86cc53b",
       "range": {
         "startLine": 136,
         "startChar": 43,
