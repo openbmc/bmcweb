@@ -309,3 +309,14 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'logged-in-connection-timeout',
+    type : 'integer',
+    min : 1,
+    max : 10000,
+    value : 60,
+    description : '''Specifies the logged in connection timeout value. Sets
+                     the time in seconds that bmcweb will keep HTTP connections
+                     open for logged in users.'''
+)
