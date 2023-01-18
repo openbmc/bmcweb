@@ -22,6 +22,30 @@
       },
       "revId": "bed6bdb952fb82d100b947bca5f30e995000a127",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7711bc3a_c4df9eab",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-18T17:05:38Z",
+      "side": 1,
+      "message": "Some were manual, but most of them I did with git ls-files, grep for headers, then grep all files for those headers, and change any local headers to \"\"",
+      "parentUuid": "eaef10ef_1052ff7c",
+      "range": {
+        "startLine": 7,
+        "startChar": 10,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "bed6bdb952fb82d100b947bca5f30e995000a127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
