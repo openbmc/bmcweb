@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d15b0b_fff44272",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-01-18T03:55:39Z",
+      "side": 1,
+      "message": "This section would also need to go away",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 222,
+        "endChar": 18
+      },
+      "revId": "35ab91da9c3fb51eb22ec03f816ca985cebdd1fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
