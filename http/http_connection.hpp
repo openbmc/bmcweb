@@ -578,7 +578,6 @@ class Connection :
         if (loggedIn)
         {
             timeout = std::chrono::seconds(60);
-            return;
         }
 
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
