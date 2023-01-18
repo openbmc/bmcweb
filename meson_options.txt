@@ -196,6 +196,17 @@ option(
 )
 
 option(
+    'logged-in-connection-timeout',
+    type : 'integer',
+    min : 1,
+    max : 10000,
+    value : 60,
+    description : '''Specifies the logged in connection timeout value. Sets
+                     the time in seconds that bmcweb will keep HTTP connections
+                     open for logged in users.'''
+)
+
+option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
     value: 'disabled',
