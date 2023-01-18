@@ -34,6 +34,24 @@
       "parentUuid": "1e14d5ca_aa94b652",
       "revId": "0d9462115c53d478ed757ca4a3cccd0acf593781",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03dbe6f4_ef83ab4f",
+        "filename": "http/logging.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T14:20:18Z",
+      "side": 0,
+      "message": "This approach (using if constexpr) also helps to reduce the binary output size with LOGGING macros, esp if the debug or logging level is not enabled.\n\nTaking an example like this logging code\n\n```\n           BMCWEB_LOG_DEBUG \u003c\u003c \"Request failed to construct\" \u003c\u003c reqEc;\n```\n\nThis original logging macro will generate the binary code even if it may not execute at the runtime.\n\n```\n#define BMCWEB_LOG_DEBUG \\\nif (crow::Logger::getCurrentLogLevel() \u003c\u003d crow::LogLevel::Debug) \\\ncrow::Logger(\"DEBUG\", FILE, LINE, crow::LogLevel::Debug)\n```\n\nHowever, with this new constexpr approach, the logging part won\u0027t be generated into the binary.\n```\n#define BMCWEB_LOG_DEBUG \\\nif constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Debug)) \\\ncrow::Logger(\"CRITICAL\", FILE, LINE, crow::LogLevel::Debug)\n```\n\nAs the result, bmcweb binary size will become smaller (if debug is not enabled).\n\nHere is the binaries with old/new approach as an example\n```\n- 159708372 bmcweb    // with old #ifdef macro\n- 158467232 bmcweb    // with \u0027if constexpr\u0027\n```",
+      "parentUuid": "7b6f8695_c1c070bc",
+      "revId": "0d9462115c53d478ed757ca4a3cccd0acf593781",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
