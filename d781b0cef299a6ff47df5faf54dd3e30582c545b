@@ -50,6 +50,91 @@
       "message": "lakshmiy@us.ibm.com",
       "revId": "d781b0cef299a6ff47df5faf54dd3e30582c545b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa4a030_89fd2619",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-18T22:25:38Z",
+      "side": 1,
+      "message": "Looks good. 4 minor comments",
+      "revId": "d781b0cef299a6ff47df5faf54dd3e30582c545b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26edc0fc_1dde733a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-18T22:25:38Z",
+      "side": 1,
+      "message": "#include \u003cmemory\u003e since shared_ptr",
+      "revId": "d781b0cef299a6ff47df5faf54dd3e30582c545b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9002c64b_5584f4b4",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-18T22:25:38Z",
+      "side": 1,
+      "message": "Can we remove this since we have it below?",
+      "revId": "d781b0cef299a6ff47df5faf54dd3e30582c545b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d9846a_b4792c6f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-18T22:25:38Z",
+      "side": 1,
+      "message": "Can we move this to LOG_DEBUG or LOG_WARNING? \nI think LOG_ERROR should only be non-user errors",
+      "revId": "d781b0cef299a6ff47df5faf54dd3e30582c545b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e00cb75_32a0473a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-18T22:25:38Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e since std::bind_front",
+      "revId": "d781b0cef299a6ff47df5faf54dd3e30582c545b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
