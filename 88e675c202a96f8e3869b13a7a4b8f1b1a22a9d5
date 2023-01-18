@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbb7c332_542cb575",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T03:28:34Z",
+      "side": 1,
+      "message": "I think we can do one of the following approaches.\n\n1) Use a single option with the following possible choices.\n\n  - bmcweb-logging \u003d \n    - disabled  \u003c- (default) and this is needed to disable the logging. \n    - debug  ( | enabled \u003c-- to allow the current \u0027enabled\u0027 as debug)\n    - info\n    - warning\n    - error\n    - critical\n    \nThis specification may cause some confusion as its value may contain both \u0027disabled\u0027 (and/or \u0027enabled\u0027) in addition to logging-lvel?\n  \n   \n2) Two options as suggested here originally\n   - bmcweb-logging \u003d disabled | enabled\n   - bmcweb-logging-level \u003d\n     - debug \n     - info\n    - warning\n    - error\n    - critical\n\n\n What do you think?",
+      "parentUuid": "5f40903c_edff5852",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92dab4c0_1a546364",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
