@@ -576,7 +576,8 @@ class Connection :
         bool loggedIn = userSession != nullptr;
         if (loggedIn)
         {
-            timeout = std::chrono::seconds(60);
+            // Use timeout value configured based on the network speed.
+            timeout = std::chrono::seconds(bmcwebLoggedInConnectionTimeout);
         }
 
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
@@ -607,7 +608,8 @@ class Connection :
             self->close();
         });
 
-        BMCWEB_LOG_DEBUG << this << " timer started";
+        BMCWEB_LOG_DEBUG << this << " timer started timeout: "
+                         << timeout.count() << " seconds";
     }
 
     Adaptor adaptor;
