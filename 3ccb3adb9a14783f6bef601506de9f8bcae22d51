@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2218b3c0_ba3a31af",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-18T18:15:18Z",
+      "side": 0,
+      "message": "This hasn\u0027t change since this was rewrote a year ago \nhttps://github.com/openbmc/bmcweb/commit/5dfb5b2d8826f568a0ad6f6430f01cd7a86ab07f",
+      "revId": "3ccb3adb9a14783f6bef601506de9f8bcae22d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
