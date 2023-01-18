@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f40903c_edff5852",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T01:30:02Z",
+      "side": 1,
+      "message": "I have thought it -- by changing bmcweb-logging as \u0027combo\u0027 field instead of keeping the current bmcweb-logging as \u0027feature\u0027 [enabled/disabled] like\n  -Dbmcweb-logging\u003ddebug|info|warning|error|warning.\n  \nIf do so, if may cause the cascading failure for the existing bmcweb or its forked branches if they use \u0027-Dbmcweb-logging\u003ddisabled|enable\u0027 option.\n\nSo, I kept the existing bmcweb-logging as is, and it\u0027s behavior as same.\nbmcweb-logging-level is optional if the specific levels are wished to enable.\n\nHowever, I\u0027m okay to use the existing \u0027bmcweb-logging\u0027 option as combo option,\nif it is understood that the existing usage -Dbmcweb-logging will be broken and required to update.\n\nShould we use only \u0027bmcweb-logging\u0027?",
+      "parentUuid": "18d47daa_a170a2d2",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92dab4c0_1a546364",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-17T22:18:10Z",
       "side": 1,
       "message": "remove the tabs",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f237d5ec_b31524c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T01:30:02Z",
+      "side": 1,
+      "message": "I\u0027ll update to use only \u0027-Dbmcweb-logging\u0027 as a combo/enum method, provided that\u0027s the proper direction.",
+      "parentUuid": "92dab4c0_1a546364",
       "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -72,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "850e4b81_e3300c9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T01:30:02Z",
+      "side": 1,
+      "message": "I\u0027ll research this more.",
+      "parentUuid": "be5f9253_22605767",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa4e18ba_8b6b2180",
         "filename": "http/logging.hpp",
         "patchSetId": 15
@@ -83,6 +137,24 @@
       "writtenOn": "2023-01-17T22:10:11Z",
       "side": 1,
       "message": "Doesn\u0027t\n\n    type: \u0027combo\u0027,\n    choices : [ \u0027debug\u0027\n\nalready default to the first which is debug?",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86533792_eaa93cb1",
+        "filename": "http/logging.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T01:30:02Z",
+      "side": 1,
+      "message": "That\u0027s true.  \nI did it as a defensive approach just in case the macro is not defined,\nfrom my past area.\n\nI\u0027ll change it.",
+      "parentUuid": "fa4e18ba_8b6b2180",
       "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

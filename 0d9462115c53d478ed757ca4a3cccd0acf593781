@@ -16,6 +16,24 @@
       "message": "Why remove these?",
       "revId": "0d9462115c53d478ed757ca4a3cccd0acf593781",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b6f8695_c1c070bc",
+        "filename": "http/logging.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-18T01:30:02Z",
+      "side": 0,
+      "message": "It is changed using \u0027if constexpr\u0027 method which will only emit the binary code\nif it is true during the compilation time.\n\nThe spec / example is described in https://en.cppreference.com/w/cpp/language/if\n\n------\nConstexpr if\nThe statement that begins with if constexpr is known as the constexpr if statement.\n\nIn a constexpr if statement, the value of condition must be a contextually converted constant expression of type bool (until C++23)an expression contextually converted to bool, where the conversion is a constant expression (since C++23). \n*** If the value is true, then statement-false is discarded (if present), otherwise, statement-true is discarded ***\n\n--------\n\nhttps://stackoverflow.com/questions/52433953/using-constexpr-to-replace-define-and-ifdef-for-conditional-compilation\n\n\n\nEssentially, from the code generation point of view, the \u003cbody of the code\u003e will not be generated.\n\n\n    Logger([[maybe_unused]] const std::string\u0026 prefix,\n           [[maybe_unused]] const std::string\u0026 filename,\n           [[maybe_unused]] const size_t line, LogLevel levelIn) :\n        level(levelIn)\n    {\n#ifdef BMCWEB_ENABLE_LOGGING\n       ....\u003ccode body\u003e\n#endif\n\n\u003d\u003d\u003e\n\n\u003econstexpr isLoggingEnabled() function will be evaluated as true\nduring the compilation, if BMCWEB_ENABLE_LOGGING is defined.\nOtherwise, it will be false (during the compile).\n\n    constexpr static bool isLoggingEnabled()\n    {\n#ifdef BMCWEB_ENABLE_LOGGING\n        return true;\n#else\n        return false;\n#endif\n    }\n\n    Logger([[maybe_unused]] const std::string\u0026 prefix,\n           [[maybe_unused]] const std::string\u0026 filename,\n           [[maybe_unused]] const size_t line, LogLevel levelIn) :\n        level(levelIn)\n    {\n        if constexpr (crow::Logger::isLoggingEnabled()) \n        {  \n       \u003d\u003d\u003e By the compiler, this code will be discarded if isLoggingEnabled() is false.\n           ... \u003ccode body\u003e\n        }\n    }",
+      "parentUuid": "1e14d5ca_aa94b652",
+      "revId": "0d9462115c53d478ed757ca4a3cccd0acf593781",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
