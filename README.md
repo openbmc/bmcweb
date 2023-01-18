@@ -79,6 +79,15 @@ your local.conf.
 EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
 ```
 
+## Logged in connection timeout
+
+bmcweb by default is compiled with default logged in connection timeout. To
+enable it in a standalone build, add the following option if building within
+Yacto.
+
+```bash
+EXTRA_OEMESON:pn-bmcweb:append = "-Dlogged-in-connection-timeout='300'"
+```
 ## Use of persistent data
 
 bmcweb relies on some on-system data for storage of persistent data that is
