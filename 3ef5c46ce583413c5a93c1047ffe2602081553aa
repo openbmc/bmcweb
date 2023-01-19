@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5fddfbd_5696fddd",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "Single quotes around these.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 31
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27119653_c38ba097",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "Don\u0027t pass by shared_ptr unless you\u0027re taking ownership of that pointer.  This function takes no ownership of aResp, so pass by Response\u0026",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8e6e215_6afca1e4",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "This docstring args aren\u0027t close to correct.  Either don\u0027t include a docstring, or make it correct.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "077142f5_9fadd828",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "Common error #12",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 70
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a2af5e_4221936c",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "Please don\u0027t put this much code into a lambda.  Make it a normal method.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 73
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2da7a3_1d191a0b",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "nit, std::array please.",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb57b3cb_369cfbf9",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:21:24Z",
+      "side": 1,
+      "message": "Missing HEAD definitions for both of these routes.",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 16
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
