@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de4b5757_81e65736",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T20:24:39Z",
+      "side": 1,
+      "message": "5 is arbitrary, and happy to discuss it more if there\u0027s a better number, but my thinking is that 5 lines in our coding standard lets you handle errors within a lambda, ie\n\n```\n[](const boost::system::error_code\u0026 ec){\n    if (ec){\n        handleError();\n        return;\n    }\n    HandleSuccess();\n}\n```\n\nBut I didn\u0027t actually add that example, because I thought it made the doc too wordy, but maybe I should?",
+      "parentUuid": "69df69e9_876c954e",
+      "range": {
+        "startLine": 350,
+        "startChar": 30,
+        "endLine": 350,
+        "endChar": 31
+      },
+      "revId": "24f2e9bb40ef9b0d5d665efebca32d41f113c71f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cb3bb4d_a61bfee7",
         "filename": "COMMON_ERRORS.md",
         "patchSetId": 3
