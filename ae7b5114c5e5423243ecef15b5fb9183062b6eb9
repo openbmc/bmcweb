@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a085d148_d6f5baee",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:00:08Z",
+      "side": 1,
+      "message": "ACK, looks like it\u0027s inherited from Resource, although we don\u0027t really use it anywhere.\n\n\"The value shall conform with the \u0027Id\u0027 clause of the Redfish Specification.\"\n\nHave you verified that all input meets the specification?  Considering this comes from a user, it seems unlikely that it would meet the specification without escaping/input validation.",
+      "parentUuid": "f86be063_adb4ada5",
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f70b4fc7_d421b991",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 74
@@ -144,6 +162,30 @@
       "side": 1,
       "message": "Do you mean \"TelemetryService/\" + args.id.value_or(\"\")? This field is verified by backend. If needed we can duplicate this validation in bmcweb.",
       "parentUuid": "5e82df41_5d58caa9",
+      "range": {
+        "startLine": 413,
+        "startChar": 12,
+        "endLine": 413,
+        "endChar": 78
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2333a513_8efa1556",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:00:08Z",
+      "side": 1,
+      "message": "I mean that you\u0027re combining two fields, including a user-facing field, without using the appropriate escaping methods.  What if a user picks the id of empty string?  What if the user picks an id that contains a / in it?  This is why we use the appropriate classes that handle escaping/descaping of user data, per owasp and coding standards.",
+      "parentUuid": "2d28e53a_0a7f0988",
       "range": {
         "startLine": 413,
         "startChar": 12,
