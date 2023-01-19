@@ -328,3 +328,42 @@ binaries.
 Note, another form of this error involves calling nlohmann::json::reset(), to
 clear an object that's already been filled in. This has the potential to clear
 correct data that was already filled in from other sources.
+
+## 14. Very long lambda callbacks
+
+```cpp
+dbus::utility::getSubTree("/", interfaces,
+                         [asyncResp](boost::system::error_code& ec,
+                                     MapperGetSubTreeResult& res){
+                            <many lines of code>
+                         })
+```
+
+Inline lambdas, while useful in some contexts, are difficult to read, and have
+inconsistent formatting with tools like clang-format, which causes significant
+problems in review, and in applying patchsets that might have minor conflicts.
+In addition, because they are declared in a function scope, they are difficult
+to unit test, and produce log messages that are difficult to read given their
+unnamed nature.
+
+Prefer to either use std::bind_front, and a normal method to handle the return,
+or a lambda that is less than 10 lines of code to handle an error inline. In
+cases where std::bind_front cannot be used, such as in
+sdbusplus::asio::connection::async_method_call, keep the lambda length less than
+10 lines, and call the appropriate function for handling non-trivial transforms.
+
+```cpp
+void afterGetSubTree(std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     boost::system::error_code& ec,
+                     MapperGetSubTreeResult& res){
+   <many lines of code>
+}
+
+dbus::utility::getSubTree("/xyz/openbmc_project/inventory", interfaces,
+                         std::bind_front(afterGetSubTree, asyncResp));
+```
+
+See also the
+[Cpp Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f11-use-an-unnamed-lambda-if-you-need-a-simple-function-object-in-one-place-only)
+for generalized guidelines on when lambdas are appropriate. The above
+recommendation is aligned with the C++ Core Guidelines.
