@@ -39,6 +39,30 @@
       },
       "revId": "c3e5ca537931bfd5f1f1540fcd1f55826c649340",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1ef8fe_ee61231a",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:13:54Z",
+      "side": 1,
+      "message": "No, it can\u0027t.  Doing so would require span to point at memory owned by an rvalue.",
+      "parentUuid": "b457e1f9_f88979ab",
+      "range": {
+        "startLine": 92,
+        "startChar": 48,
+        "endLine": 92,
+        "endChar": 58
+      },
+      "revId": "c3e5ca537931bfd5f1f1540fcd1f55826c649340",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
