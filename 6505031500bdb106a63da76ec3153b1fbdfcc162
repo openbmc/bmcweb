@@ -222,6 +222,30 @@
       },
       "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf0333a_cf7ca162",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "Per DBUS_USAGE.md, we use dbus to determine what services exist on the bmc, not configure options.",
+      "parentUuid": "50527c06_49b5a6ff",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 71
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

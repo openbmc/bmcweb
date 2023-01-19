@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fced8abb_861bd8d1",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "Common error #12",
+      "range": {
+        "startLine": 146,
+        "startChar": 33,
+        "endLine": 147,
+        "endChar": 51
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da98249c_2cb57a38",
         "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
         "patchSetId": 57
@@ -19,6 +42,121 @@
         "startChar": 16,
         "endLine": 195,
         "endChar": 17
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6090d976_039e3f7b",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "This is business logic that we shouldn\u0027t be doing in bmcweb.  If the client already exists, the SNMP daemon needs to return an appropriate error code.",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3b96df5_efd07955",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "common error #12",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 79
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b7743b_49862f0e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "Missing #include for this at the top of the file.",
+      "range": {
+        "startLine": 202,
+        "startChar": 20,
+        "endLine": 202,
+        "endChar": 31
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14f6305a_16282a38",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "This error needs handled first, before parsing the objects.",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 5
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa1cb57a_a9b126d0",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T17:48:13Z",
+      "side": 1,
+      "message": "I\u0027m not following what we\u0027re doing here.  We previously were getting id out, now we\u0027re not?",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 73
       },
       "revId": "14379c209958d49f94adbd3989e55603320cd882",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
