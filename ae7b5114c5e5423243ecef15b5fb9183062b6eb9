@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae1ed1e_fe0616e7",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-19T14:03:44Z",
+      "side": 1,
+      "message": "MetricId was used like any other Id which was wrong. MetricId can be used to identify metric instead of MetricProperty. We are currently not using MetricId for that purpose so we deleted MetricId for the time being.",
+      "parentUuid": "dcd559a4_9872a897",
+      "range": {
+        "startLine": 259,
+        "startChar": 28,
+        "endLine": 259,
+        "endChar": 53
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e82df41_5d58caa9",
@@ -177,6 +201,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4902b7b8_f5363429",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-19T14:03:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3c662c7_9d927510",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 73
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af3dc618_1f44b98d",
@@ -208,6 +256,24 @@
       "side": 1,
       "message": "Sure, I will do it",
       "parentUuid": "af3dc618_1f44b98d",
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a33e1e_dfa69ed5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-19T14:03:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8902ca6e_ea869d97",
       "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -259,6 +325,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8995e7cc_de744be4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-19T14:03:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a272dae_9cdc8e42",
+      "range": {
+        "startLine": 484,
+        "startChar": 27,
+        "endLine": 484,
+        "endChar": 40
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f7c9c48_7c52e231",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-19T14:03:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a272dae_9cdc8e42",
+      "range": {
+        "startLine": 484,
+        "startChar": 27,
+        "endLine": 484,
+        "endChar": 40
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0916611c_5572001b",
@@ -296,6 +410,30 @@
       "side": 1,
       "message": "We will change it so the backend will use enums in form of xyz.openbmc_project.Namespace.Enum.Value",
       "parentUuid": "0916611c_5572001b",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a651dd0a_01b15346",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-19T14:03:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c129942a_705cf153",
       "range": {
         "startLine": 86,
         "startChar": 0,
