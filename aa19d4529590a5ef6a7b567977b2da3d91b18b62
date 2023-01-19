@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d74bc97_ddc66bed",
+        "filename": "static/redfish/v1/schema/OemVirtualMedia_v1.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T18:14:06Z",
+      "side": 1,
+      "message": "Anjali?  Any input here on what you meant?",
+      "parentUuid": "51700bf3_6d44eea5",
+      "revId": "aa19d4529590a5ef6a7b567977b2da3d91b18b62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "163b50e3_a766c851",
         "filename": "static/redfish/v1/schema/OemVirtualMedia_v1.xml",
         "patchSetId": 2
