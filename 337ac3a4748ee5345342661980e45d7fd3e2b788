@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de501c52_7b658b92",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-19T20:23:45Z",
+      "side": 1,
+      "message": "We do already check for the leading /redfish/v1 in beginAggregation() so it\u0027s fine to remove it here.\n\n\u003e Also, if we\u0027re incrementing through the URI anyway on line 510, if we wanted to do the checks, should we just do them there and only iterate once?\n\nWe could try, but the code would look really ugly.  The URIs in the topCollections array do not begin with \"/redfish/v1\" so we really don\u0027t want to include them as part of currentUrl which is getting built one segment at a time.",
+      "parentUuid": "69984f73_bfc3be06",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 9
+      },
+      "revId": "337ac3a4748ee5345342661980e45d7fd3e2b788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8064d39_2a971466",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-19T17:32:07Z",
       "side": 1,
       "message": "nit, this const is redundant if you\u0027re using const_iterator.",
+      "range": {
+        "startLine": 506,
+        "startChar": 8,
+        "endLine": 506,
+        "endChar": 13
+      },
+      "revId": "337ac3a4748ee5345342661980e45d7fd3e2b788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f80fdeda_e2348e89",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-19T20:23:45Z",
+      "side": 1,
+      "message": "So I ran some tests and surprisingly, const_iterators can be modified.  I changed \"it\" on the previous line to const_iterator and it built without complaints.  I did the same for \"it\" in addPrefixToItem() and the tests associated with that function passed.",
+      "parentUuid": "f8064d39_2a971466",
       "range": {
         "startLine": 506,
         "startChar": 8,
