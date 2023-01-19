@@ -205,6 +205,7 @@ class RedfishService
 
         requestRoutesSensorCollection(app);
         requestRoutesSensor(app);
+        requestRoutesSensorPatching(app);
 
         requestRoutesTaskMonitor(app);
         requestRoutesTaskService(app);
