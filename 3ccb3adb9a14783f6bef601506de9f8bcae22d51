@@ -16,6 +16,24 @@
       "message": "This hasn\u0027t change since this was rewrote a year ago \nhttps://github.com/openbmc/bmcweb/commit/5dfb5b2d8826f568a0ad6f6430f01cd7a86ab07f",
       "revId": "3ccb3adb9a14783f6bef601506de9f8bcae22d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0641f4a2_2f095195",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T00:09:16Z",
+      "side": 0,
+      "message": "We\u0027ve been relying on the TCP timeouts for a while now, which I guess work for logged in users.  5 minutes isn\u0027t that different from one minute, and we\u0027re not worried too much about DOS attacks from logged in users.\n\nThis looks like it\u0027s correct.",
+      "parentUuid": "2218b3c0_ba3a31af",
+      "revId": "3ccb3adb9a14783f6bef601506de9f8bcae22d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
