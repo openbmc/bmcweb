@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dbc1171_178c1ad8",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-19T21:30:26Z",
+      "side": 1,
+      "message": "5 seems strict, i would be okay with double that (maybe 15 even). \nThis rule makes sense though, good to document, not doing to get caught up on the number of lines. :)\nAnytime I think we point at this, it will be because the violation was bad",
+      "parentUuid": "7feb9a80_8142c468",
+      "range": {
+        "startLine": 350,
+        "startChar": 30,
+        "endLine": 350,
+        "endChar": 31
+      },
+      "revId": "24f2e9bb40ef9b0d5d665efebca32d41f113c71f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cb3bb4d_a61bfee7",
         "filename": "COMMON_ERRORS.md",
         "patchSetId": 3
