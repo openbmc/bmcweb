@@ -142,6 +142,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49c9e96_27cdd522",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T01:36:30Z",
+      "side": 0,
+      "message": "Why?  std::optional shouldn\u0027t have issues if all params are optional, it will only throw errors if they are the wrong type, which you want to anyway.",
+      "parentUuid": "2fe8dbaa_5f7f6493",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
