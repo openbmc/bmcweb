@@ -16,6 +16,24 @@
       "message": "Give the reviewer 2 more days? Then merge?",
       "revId": "e392f04e7e1c350b9df821e7f744796146bf2fad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d824df_bf87a796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-19T21:52:17Z",
+      "side": 1,
+      "message": "That was my thinking as well.",
+      "parentUuid": "c0442835_24da7a93",
+      "revId": "e392f04e7e1c350b9df821e7f744796146bf2fad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
