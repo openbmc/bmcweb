@@ -1,0 +1,8 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: Bolesław Ogończyk Mąkowski <boleslawx.ogonczyk-makowski@intel.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Fri, 20 Jan 2023 21:06:50 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60275
+Project: openbmc/bmcweb
+Branch: refs/heads/master
