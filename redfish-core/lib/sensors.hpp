@@ -21,6 +21,7 @@
 #include "generated/enums/sensor.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "str_utility.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
@@ -29,7 +30,6 @@
 #include <boost/algorithm/string/find.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -2281,14 +2281,15 @@ inline void getSensorData(
                 // Reserve space for
                 // /xyz/openbmc_project/sensors/<name>/<subname>
                 split.reserve(6);
-                boost::algorithm::split(split, objPath, boost::is_any_of("/"));
+                // NOLINTNEXTLINE
+                bmcweb::split(split, objPath, '/');
                 if (split.size() < 6)
                 {
                     BMCWEB_LOG_ERROR << "Got path that isn't long enough "
                                      << objPath;
                     continue;
                 }
-                // These indexes aren't intuitive, as boost::split puts an empty
+                // These indexes aren't intuitive, as split puts an empty
                 // string at the beginning
                 const std::string& sensorType = split[4];
                 const std::string& sensorName = split[5];
