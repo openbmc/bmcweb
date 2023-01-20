@@ -21,6 +21,7 @@
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "routing.hpp"
+#include "str_utility.hpp"
 
 #include <systemd/sd-bus-protocol.h>
 #include <systemd/sd-bus.h>
@@ -28,7 +29,6 @@
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
@@ -2089,7 +2089,8 @@ inline void
                         const std::string& requestedPath)
 {
     std::vector<std::string> strs;
-    boost::split(strs, requestedPath, boost::is_any_of("/"));
+
+    bmcweb::split(strs, requestedPath, '/');
     std::string objectPath;
     std::string interfaceName;
     std::string methodName;
