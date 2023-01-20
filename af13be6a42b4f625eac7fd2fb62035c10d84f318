@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49010294_587513bf",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T11:00:02Z",
+      "side": 1,
+      "message": "Okay, I misunderstood one of your comments. I will inline this variable.",
+      "parentUuid": "432c7290_f11df548",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 76
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "781e5b83_101fb734",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 76
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-19T17:00:08Z",
       "side": 1,
       "message": "This needs to return an internal error if we got something we don\u0027t expect.",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 38
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b583574_6698b6ef",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T11:00:02Z",
+      "side": 1,
+      "message": "I will fix it.",
+      "parentUuid": "781e5b83_101fb734",
       "range": {
         "startLine": 199,
         "startChar": 0,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29714cde_f6136a31",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T11:00:02Z",
+      "side": 1,
+      "message": "I will fix it.",
+      "parentUuid": "0828921b_b8443333",
+      "range": {
+        "startLine": 244,
+        "startChar": 39,
+        "endLine": 244,
+        "endChar": 40
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c39c988_009af859",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 76
@@ -100,6 +172,30 @@
       "writtenOn": "2023-01-19T17:00:08Z",
       "side": 1,
       "message": "Shouldn\u0027t 0 duration also be an error?",
+      "range": {
+        "startLine": 476,
+        "startChar": 33,
+        "endLine": 476,
+        "endChar": 55
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b521c6_20d1aa4b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T11:00:02Z",
+      "side": 1,
+      "message": "Duration \u003d\u003d 0 is valid in case of reportingType \u003d\u003d OnRequest or OnChange. This field is also validated in backend to put only required code in bmcweb. This conversion is needed because std::chrono::milliseconds returns int64_t instead of uint64_t which is required by backend.",
+      "parentUuid": "0c39c988_009af859",
       "range": {
         "startLine": 476,
         "startChar": 33,

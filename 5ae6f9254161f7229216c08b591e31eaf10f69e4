@@ -16,6 +16,24 @@
       "message": "Not clear why this was removed.  Presumably we still need to escape user input?",
       "revId": "5ae6f9254161f7229216c08b591e31eaf10f69e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738bdc92_b00a5276",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T11:00:02Z",
+      "side": 0,
+      "message": "All input values are validated by backend (including Id). If there is need for conversion from dbus to redfish value then there is additional validation in redfish for conversion purposes.",
+      "parentUuid": "1f1cb5ce_15a407d8",
+      "revId": "5ae6f9254161f7229216c08b591e31eaf10f69e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
