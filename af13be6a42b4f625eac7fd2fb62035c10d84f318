@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb74761_0d5eb6c1",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T15:53:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49010294_587513bf",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 76
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "781e5b83_101fb734",
@@ -112,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ceadf92_e3c88fe3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T15:53:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b583574_6698b6ef",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 38
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0828921b_b8443333",
@@ -149,6 +197,30 @@
       "side": 1,
       "message": "I will fix it.",
       "parentUuid": "0828921b_b8443333",
+      "range": {
+        "startLine": 244,
+        "startChar": 39,
+        "endLine": 244,
+        "endChar": 40
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e314f613_fd54bacc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-01-20T15:53:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29714cde_f6136a31",
       "range": {
         "startLine": 244,
         "startChar": 39,
