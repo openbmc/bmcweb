@@ -7,11 +7,11 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "str_utility.hpp"
 
 #include <sys/types.h>
 
 #include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/message.hpp> // IWYU pragma: keep
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -351,7 +351,7 @@ inline QueryError getTopParam(std::string_view value, Query& query)
 inline bool getSelectParam(std::string_view value, Query& query)
 {
     std::vector<std::string> properties;
-    boost::split(properties, value, boost::is_any_of(","));
+    bmcweb::split(properties, value, ',');
     if (properties.empty())
     {
         return false;

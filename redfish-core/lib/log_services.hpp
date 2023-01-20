@@ -98,7 +98,7 @@ static const Message* getMessage(const std::string_view& messageID)
     // the right Message
     std::vector<std::string> fields;
     fields.reserve(4);
-    boost::split(fields, messageID, boost::is_any_of("."));
+    bmcweb::split(fields, messageID, '.');
     const std::string& registryName = fields[0];
     const std::string& messageKey = fields[3];
 
@@ -1238,8 +1238,7 @@ static LogParseError
     entry.remove_prefix(entryStart);
     // Use split to separate the entry into its fields
     std::vector<std::string> logEntryFields;
-    boost::split(logEntryFields, entry, boost::is_any_of(","),
-                 boost::token_compress_on);
+    bmcweb::split(logEntryFields, entry, ',');
     // We need at least a MessageId to be valid
     if (logEntryFields.empty())
     {
@@ -3616,7 +3615,7 @@ inline static bool parsePostCode(const std::string& postCodeID,
                                  uint64_t& currentValue, uint16_t& index)
 {
     std::vector<std::string> split;
-    boost::algorithm::split(split, postCodeID, boost::is_any_of("-"));
+    bmcweb::split(split, postCodeID, '-');
     if (split.size() != 2 || split[0].length() < 2 || split[0].front() != 'B')
     {
         return false;

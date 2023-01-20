@@ -26,13 +26,13 @@
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 #include "server_sent_events.hpp"
+#include "str_utility.hpp"
 #include "utility.hpp"
 #include "utils/json_utils.hpp"
 
 #include <sys/inotify.h>
 
 #include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
 #include <sdbusplus/bus/match.hpp>
@@ -121,7 +121,8 @@ static const Message* formatMessage(const std::string_view& messageID)
     // the right Message
     std::vector<std::string> fields;
     fields.reserve(4);
-    boost::split(fields, messageID, boost::is_any_of("."));
+
+    bmcweb::split(fields, messageID, '.');
     if (fields.size() != 4)
     {
         return nullptr;
@@ -189,8 +190,7 @@ inline int getEventLogParams(const std::string& logEntry,
     entry.remove_prefix(entryStart);
     // Use split to separate the entry into its fields
     std::vector<std::string> logEntryFields;
-    boost::split(logEntryFields, entry, boost::is_any_of(","),
-                 boost::token_compress_on);
+    bmcweb::split(logEntryFields, entry, ',');
     // We need at least a MessageId to be valid
     if (logEntryFields.empty())
     {
@@ -222,7 +222,7 @@ inline void getRegistryAndMessageKey(const std::string& messageID,
     // the right Message
     std::vector<std::string> fields;
     fields.reserve(4);
-    boost::split(fields, messageID, boost::is_any_of("."));
+    bmcweb::split(fields, messageID, '.');
     if (fields.size() == 4)
     {
         registryName = fields[0];
@@ -301,8 +301,9 @@ inline bool
                     sseFilter.end());
 
     std::vector<std::string> result;
-    boost::split(result, sseFilter, boost::is_any_of(" "),
-                 boost::token_compress_on);
+
+    // NOLINTNEXTLINE
+    bmcweb::split(result, sseFilter, ' ');
 
     BMCWEB_LOG_DEBUG << "No of tokens in SEE query: " << result.size();
 
