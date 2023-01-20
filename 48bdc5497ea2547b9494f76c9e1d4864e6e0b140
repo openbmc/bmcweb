@@ -33,6 +33,24 @@
       "message": "Ci fail:\n\ndiff --git a/COMMON_ERRORS.md b/COMMON_ERRORS.md\nindex cf20c9f7..c41d7f82 100644\n--- a/COMMON_ERRORS.md\n+++ b/COMMON_ERRORS.md\n@@ -349,8 +349,8 @@ unnamed nature.\n Prefer to either use std::bind_front, and a normal method to handle the return,\n or a lambda that is less than 10 lines of code to handle an error inline. In\n cases where std::bind_front cannot be used, such as in\n-sdbusplus::bus::async_method_call, keep the lambda length less than 10 lines, and\n-call the appropriate function for handling non-trivial transforms.\n+sdbusplus::bus::async_method_call, keep the lambda length less than 10 lines,\n+and call the appropriate function for handling non-trivial transforms.\n \n ```cpp",
       "revId": "48bdc5497ea2547b9494f76c9e1d4864e6e0b140",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56648931_3203a100",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-20T20:43:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1505e19b_40a61269",
+      "revId": "48bdc5497ea2547b9494f76c9e1d4864e6e0b140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
