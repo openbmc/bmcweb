@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2ab50637_adbf61ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-20T00:33:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6395de4f_5914d4ff",
+      "revId": "f87f8479f68f090317cc336dcff78c8ad51487e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45924bea_28c2efc2",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 9
@@ -65,6 +83,30 @@
       "writtenOn": "2023-01-19T19:39:26Z",
       "side": 1,
       "message": "this was 2 before",
+      "range": {
+        "startLine": 978,
+        "startChar": 40,
+        "endLine": 978,
+        "endChar": 41
+      },
+      "revId": "f87f8479f68f090317cc336dcff78c8ad51487e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7428cebc_28661426",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-20T00:33:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "318bb4ef_5b21a01e",
       "range": {
         "startLine": 978,
         "startChar": 40,
