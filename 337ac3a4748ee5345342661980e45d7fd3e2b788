@@ -110,6 +110,30 @@
       },
       "revId": "337ac3a4748ee5345342661980e45d7fd3e2b788",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "008c7499_d758c8f0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-20T21:32:11Z",
+      "side": 1,
+      "message": "Right, you can change a const iterator, but you can\u0027t change the value contained within it.  In general, we don\u0027t declare variables const that we believe won\u0027t be modified.  NBD.",
+      "parentUuid": "f80fdeda_e2348e89",
+      "range": {
+        "startLine": 506,
+        "startChar": 8,
+        "endLine": 506,
+        "endChar": 13
+      },
+      "revId": "337ac3a4748ee5345342661980e45d7fd3e2b788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
