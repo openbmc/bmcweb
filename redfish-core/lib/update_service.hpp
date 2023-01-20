@@ -25,6 +25,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 
+#include <boost/algorithm/string/case_conv.hpp>
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/bus/match.hpp>
