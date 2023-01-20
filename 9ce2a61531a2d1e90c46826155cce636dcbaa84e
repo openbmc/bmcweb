@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a039b2_c9a2a56f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-20T16:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "209c321b_ffa2021d",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "734463ee_11735160",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-17T23:57:56Z",
       "side": 1,
       "message": "Can be constexpr stringview",
+      "range": {
+        "startLine": 225,
+        "startChar": 20,
+        "endLine": 225,
+        "endChar": 26
+      },
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f399a17c_9bfe3d1c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-20T16:42:52Z",
+      "side": 1,
+      "message": "Modified the code and updated.",
+      "parentUuid": "734463ee_11735160",
       "range": {
         "startLine": 225,
         "startChar": 20,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7158087b_e7b1545e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-20T16:42:52Z",
+      "side": 1,
+      "message": "Modified the code and updated.",
+      "parentUuid": "f221e9c1_24107b69",
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "500729f8_1e02e98f",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-01-17T22:32:31Z",
       "side": 1,
       "message": "Can we use dbus::utility::getSubTree ?",
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1555a1f9_33348b5e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-20T16:42:52Z",
+      "side": 1,
+      "message": "Modified the code and updated.",
+      "parentUuid": "500729f8_1e02e98f",
       "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -118,6 +202,30 @@
       "side": 1,
       "message": "+1. Shouldn\u0027t do extra dbus calls to just get a property.",
       "parentUuid": "87069b24_b417926f",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 13
+      },
+      "revId": "9ce2a61531a2d1e90c46826155cce636dcbaa84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ef8ae56_f4da79bb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-20T16:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d24e6d42_24040732",
       "range": {
         "startLine": 384,
         "startChar": 0,
