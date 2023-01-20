@@ -6,6 +6,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/telemetry_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
