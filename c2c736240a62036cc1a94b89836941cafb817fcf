@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e4889cc_118ece2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "This patch effectively includes all of the changes from the linked patch.  You should use that patch as a base instead of directly copying over the code.",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0145324b_e90c766b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "The generated file is not actually being used by the BMCWeb executable so I don\u0027t think it\u0027s getting pulled in.",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f302ebdb_1ef7479f",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "Use constexpr instead",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b8a24b_ebec604c",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "What if the inputs are \"/redfish/v1/\" and \"/redfish/v1\"?  Those should count as a match, but I don\u0027t think this function accounts for trailing \"/\".\n\nYou might also have false positives with something like \"/redfish/v1/Chassis\" and \"/redfish/v1/Chassis/{ChassisId}\".  I think even \"/redfish\" and \"/redfish/\u003canything else\u003e\" will return as a match.\n\nAdd some test cases for this function.",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc70617f_be705a70",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "Is the passed URI always going to be the Redfish handler routes which include a wildcard or will they be the URI supplied by an actual request?  If it\u0027s the former then it\u0027d be easier to modify the array entries to make the wildcards match.",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f4dd5f2_57009a09",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "You should be able to use std::binary_search so that you aren\u0027t iterating over every array entry in order.",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 3
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8872ee_cbaeb374",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "I think you should avoid having your script generate actual C++ functions.  For one thing it\u0027s going to be a headache if they need to be modified for any reason.  Create a separate file for these functions and let them pull from the generated array of URIs.",
+      "range": {
+        "startLine": 463,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 3
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7b866da_f1db5020",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "Renaming this makes sense, but the new name hides that it\u0027s still generating top collections.  The file itself is still called \"generate_schema_collections.py\".  Try to combine those in some way to indicate that the function is generating both registries and top level collections.",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa9b69a1_54d9a854",
+        "filename": "test/include/entity_type_uris_registry_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-21T01:26:22Z",
+      "side": 1,
+      "message": "Can you add another test to make sure it\u0027s able to tell when a passed URI is not in the registry?",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
