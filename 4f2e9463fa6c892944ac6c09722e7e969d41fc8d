@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b94571d_792632c7",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-01-22T22:55:02Z",
+      "side": 1,
+      "message": "This should be `sdbusplus::asio::connection::async_method_call`. Reported by Patrick here:\n\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/60392/comment/21f497bf_8b4fdc3f/",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 33
+      },
+      "revId": "4f2e9463fa6c892944ac6c09722e7e969d41fc8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32444793_28baa389",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-01-22T22:55:02Z",
+      "side": 1,
+      "message": "Use \u0027Cpp\u0027 here as we\u0027ve done for the link. Reported by Patrick here:\n\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/60392/comment/895d5789_da3934b4/",
+      "range": {
+        "startLine": 369,
+        "startChar": 35,
+        "endLine": 369,
+        "endChar": 38
+      },
+      "revId": "4f2e9463fa6c892944ac6c09722e7e969d41fc8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
