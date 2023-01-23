@@ -496,13 +496,25 @@ class Connection :
     {
         BMCWEB_LOG_DEBUG << this << " doRead";
         startDeadline();
-        boost::beast::http::async_read(adaptor, buffer, *parser,
-                                       [this, self(shared_from_this())](
-                                           const boost::system::error_code& ec,
-                                           std::size_t bytesTransferred) {
+        boost::beast::http::async_read_some(
+            adaptor, buffer, *parser,
+            [this,
+             self(shared_from_this())](const boost::system::error_code& ec,
+                                       std::size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG << this << " async_read " << bytesTransferred
                              << " Bytes";
-            cancelDeadlineTimer();
+
+            // If the user is logged in, allow them to send files incrementally
+            // one piece at a time.
+            if (userSession != nullptr)
+            {
+                cancelDeadlineTimer();
+            }
+            if (ec == boost::beast::http::error::partial_message)
+            {
+                doRead();
+                return;
+            }
             if (ec)
             {
                 BMCWEB_LOG_ERROR << this
@@ -511,8 +523,9 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " from read(1)";
                 return;
             }
+            cancelDeadlineTimer();
             handle();
-        });
+            });
     }
 
     void doWrite(crow::Response& thisRes)
@@ -570,23 +583,13 @@ class Connection :
 
     void startDeadline()
     {
-        cancelDeadlineTimer();
-
         std::chrono::seconds timeout(15);
-        // allow slow uploads for logged in users
-        bool loggedIn = userSession != nullptr;
-        if (loggedIn)
-        {
-            timeout = std::chrono::seconds(60);
-            return;
-        }
 
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
         timer.expires_after(timeout);
         timer.async_wait([weakSelf](const boost::system::error_code ec) {
             // Note, we are ignoring other types of errors here;  If the timer
             // failed for any reason, we should still close the connection
-
             std::shared_ptr<Connection<Adaptor, Handler>> self =
                 weakSelf.lock();
             if (!self)
