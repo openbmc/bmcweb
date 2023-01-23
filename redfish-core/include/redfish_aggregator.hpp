@@ -136,6 +136,26 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
     }
 }
 
+static void addLinksToAggregatedResponse(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, crow::Response& resp)
+{
+    if (!resp.getHeaderValue("Location").empty())
+    {
+        asyncResp->res.addHeader("Location", resp.getHeaderValue("Location"));
+    }
+}
+
+static void addHeaderPrefixes(crow::Response& resp, std::string_view prefix)
+{
+    std::string_view location = resp.getHeaderValue("Location");
+    if (!location.empty())
+    {
+        nlohmann::json item = location;
+        addPrefixToItem(item, prefix);
+        resp.addHeader(boost::beast::http::field::location, std::string(item));
+    }
+}
+
 // Search the json for all URIs and add the supplied prefix if the URI is for
 // an aggregated resource.
 static void addPrefixes(nlohmann::json& json, std::string_view prefix)
@@ -618,10 +638,12 @@ class RedfishAggregator
 
             BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
 
+            addHeaderPrefixes(resp, prefix);
             addPrefixes(jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
 
+            addLinksToAggregatedResponse(asyncResp, resp);
             asyncResp->res.result(resp.result());
             asyncResp->res.jsonValue = std::move(jsonVal);
 
