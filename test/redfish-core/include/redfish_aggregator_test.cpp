@@ -205,6 +205,15 @@ TEST(addPrefixes, ParseJsonObjectNestedArray)
               "/redfish/v1/Chassis/5B42_TestChassis");
 }
 
+TEST(addHeaderPrefixes, validResponseHeader)
+{
+    crow::Response resp;
+    resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
+    addHeaderPrefixes(resp, "prefix");
+    EXPECT_EQ(resp.getHeaderValue("Location"),
+              "/redfish/v1/Chassis/prefix_TestChassis");
+}
+
 // Attempts to perform prefix fixing on a response with response code "result".
 // Fixing should always occur
 void assertProcessResponse(unsigned result)
@@ -217,11 +226,14 @@ void assertProcessResponse(unsigned result)
     resp.body() =
         jsonResp.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
     resp.addHeader("Content-Type", "application/json");
+    resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
     resp.result(result);
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     RedfishAggregator::processResponse("prefix", asyncResp, resp);
 
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"),
+              "/redfish/v1/Chassis/prefix_TestChassis");
     EXPECT_EQ(asyncResp->res.jsonValue["Name"], "Test");
     EXPECT_EQ(asyncResp->res.jsonValue["@odata.id"],
               "/redfish/v1/Chassis/prefix_TestChassis");

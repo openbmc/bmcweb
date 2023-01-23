@@ -51,19 +51,14 @@ inline bool isPropertyUri(const std::string_view propertyName)
                               propertyName);
 }
 
-static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+static void addPrefixToStringItem(std::string& strValue,
+                                  std::string_view prefix)
 {
-    std::string* strValue = item.get_ptr<std::string*>();
-    if (strValue == nullptr)
-    {
-        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
-        return;
-    }
     // Make sure the value is a properly formatted URI
-    auto parsed = boost::urls::parse_relative_ref(*strValue);
+    auto parsed = boost::urls::parse_relative_ref(strValue);
     if (!parsed)
     {
-        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << *strValue;
+        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << strValue;
         return;
     }
 
@@ -132,7 +127,38 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
     if (addedPrefix)
     {
         url.segments().insert(url.segments().begin(), {"redfish", "v1"});
-        item = url;
+        strValue = url.buffer();
+    }
+}
+
+static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+{
+    std::string* strValue = item.get_ptr<std::string*>();
+    if (strValue == nullptr)
+    {
+        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+        return;
+    }
+    addPrefixToStringItem(*strValue, prefix);
+    item = *strValue;
+}
+
+static void addLinksToAggregatedResponse(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, crow::Response& resp)
+{
+    if (!resp.getHeaderValue("Location").empty())
+    {
+        asyncResp->res.addHeader("Location", resp.getHeaderValue("Location"));
+    }
+}
+
+static void addHeaderPrefixes(crow::Response& resp, std::string_view prefix)
+{
+    std::string location = std::basic_string(resp.getHeaderValue("Location"));
+    if (!location.empty())
+    {
+        addPrefixToStringItem(location, prefix);
+        resp.addHeader(boost::beast::http::field::location, location);
     }
 }
 
@@ -618,10 +644,12 @@ class RedfishAggregator
 
             BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
 
+            addHeaderPrefixes(resp, prefix);
             addPrefixes(jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
 
+            addLinksToAggregatedResponse(asyncResp, resp);
             asyncResp->res.result(resp.result());
             asyncResp->res.jsonValue = std::move(jsonVal);
 
