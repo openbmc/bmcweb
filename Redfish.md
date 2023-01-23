@@ -520,6 +520,12 @@ other.
 - Created
 - EntryType
 
+### /redfish/v1/Managers/bmc/ManagerDiagnosticData/
+
+#### ManagerDiagnosticData
+
+- ServiceRootUptimeSeconds
+
 ### /redfish/v1/Managers/bmc/NetworkProtocol/
 
 #### ManagerNetworkProtocol
