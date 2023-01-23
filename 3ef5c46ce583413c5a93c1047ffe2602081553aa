@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f3e4c8c_15393d3a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5fddfbd_5696fddd",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 31
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27119653_c38ba097",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcae0671_e00e1c7f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27119653_c38ba097",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8e6e215_6afca1e4",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-19T17:21:24Z",
       "side": 1,
       "message": "This docstring args aren\u0027t close to correct.  Either don\u0027t include a docstring, or make it correct.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73f3c52_e1d35f74",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a8e6e215_6afca1e4",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -142,6 +214,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bfe9294_29d2a630",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Changed to use urlFromPieces.",
+      "parentUuid": "b8f370f3_73de132d",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 70
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa104f3_a41674fa",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Changed the lambda to a normal method. We are checking (systemName \u003d\u003d system) before calling new method.",
+      "parentUuid": "a0c29276_41ae112e",
+      "range": {
+        "startLine": 82,
+        "startChar": 37,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "02a2af5e_4221936c",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 36
@@ -153,6 +273,30 @@
       "writtenOn": "2023-01-19T17:21:24Z",
       "side": 1,
       "message": "Please don\u0027t put this much code into a lambda.  Make it a normal method.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 73
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9cd91be_91ca06ba",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Changed to method.",
+      "parentUuid": "02a2af5e_4221936c",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -186,6 +330,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bfd930e_53ddffe4",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "dbus::utility::getSubTree doesn\u0027t take array.",
+      "parentUuid": "9c2da7a3_1d191a0b",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "708b32af_67cc7c60",
@@ -203,6 +371,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50b0b05_d1e6b557",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "708b32af_67cc7c60",
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb57b3cb_369cfbf9",
@@ -216,6 +402,30 @@
       "writtenOn": "2023-01-19T17:21:24Z",
       "side": 1,
       "message": "Missing HEAD definitions for both of these routes.",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 16
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71447cd7_5b1ad145",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T04:07:38Z",
+      "side": 1,
+      "message": "Updated Redfish.md.",
+      "parentUuid": "bb57b3cb_369cfbf9",
       "range": {
         "startLine": 130,
         "startChar": 4,
