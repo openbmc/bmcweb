@@ -16,6 +16,24 @@
       "message": "Instead of using the BMCWEB_ENABLE_LOGGING, does it make sense to name it as BMCWEB_LOGGING_LEVEL?",
       "revId": "97a991579ecf85be6caf3309b9a5ec9edeec2aea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb00c535_de861977",
+        "filename": "meson.build",
+        "patchSetId": 25
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-23T21:11:26Z",
+      "side": 1,
+      "message": "Yes, it makes more sense to rename it to BMCWEB_LOGGING_LEVEL.\nI renamed it.",
+      "parentUuid": "531f4f4f_5ec94cb5",
+      "revId": "97a991579ecf85be6caf3309b9a5ec9edeec2aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
