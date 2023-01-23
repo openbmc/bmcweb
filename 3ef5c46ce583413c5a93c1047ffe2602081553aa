@@ -380,6 +380,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18dab136_4b673827",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-23T22:14:45Z",
+      "side": 1,
+      "message": "Build is failing if I change into an array. \n\nI see George is working on a change getSubTree which is not merged. May be that is what you are referring. \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59537",
+      "parentUuid": "86f7699d_34f5927d",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "708b32af_67cc7c60",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 36
