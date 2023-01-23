@@ -1,0 +1,144 @@
+From cb0247b8c4a2df3d45ed4325726e1434c6555dff Mon Sep 17 00:00:00 2001
+From: Khang Kieu <khangk@google.com>
+Date: Mon, 23 Jan 2023 23:42:17 +0000
+Subject: [PATCH] Aggregation: Fix up aggregated response header URIs
+
+The aggregator did not propagate header's fields from aggregated
+responses. This change will take into account of response code other
+than 200, which will modify a field called "Location". The Location
+field in the response's header will point to where the response data
+can be read from. This "Location" field in response Header will now
+contain the correct URI with the prefix appended.
+
+Added some test cases for the above fixes.
+
+Tested:
+Unit Tests pass.
+Queries reponse that returns other result than 200 that has Location
+field and the response received is as expected.
+
+Signed-off-by: Khang Kieu <khangk@google.com>
+Change-Id: I77c7dae32a103fbec3015fe14b51a3ed0022143e
+---
+ redfish-core/include/redfish_aggregator.hpp   | 55 +++++++++++++++----
+ .../include/redfish_aggregator_test.cpp       | 10 ++++
+ 2 files changed, 54 insertions(+), 11 deletions(-)
+
+diff --git a/redfish-core/include/redfish_aggregator.hpp b/redfish-core/include/redfish_aggregator.hpp
+index be5c8aa0..fc6b3bd7 100644
+--- a/redfish-core/include/redfish_aggregator.hpp
++++ b/redfish-core/include/redfish_aggregator.hpp
+@@ -51,19 +51,14 @@ inline bool isPropertyUri(const std::string_view propertyName)
+                               propertyName);
+ }
+ 
+-static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
++static inline void addPrefixToStringItem(std::string& strValue,
++                                         std::string_view prefix)
+ {
+-    std::string* strValue = item.get_ptr<std::string*>();
+-    if (strValue == nullptr)
+-    {
+-        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+-        return;
+-    }
+     // Make sure the value is a properly formatted URI
+-    auto parsed = boost::urls::parse_relative_ref(*strValue);
++    auto parsed = boost::urls::parse_relative_ref(strValue);
+     if (!parsed)
+     {
+-        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << *strValue;
++        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << strValue;
+         return;
+     }
+ 
+@@ -132,13 +127,50 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+     if (addedPrefix)
+     {
+         url.segments().insert(url.segments().begin(), {"redfish", "v1"});
+-        item = url;
++        strValue = url.buffer();
++    }
++}
++
++static inline void addPrefixToItem(nlohmann::json& item,
++                                   std::string_view prefix)
++{
++    std::string* strValue = item.get_ptr<std::string*>();
++    if (strValue == nullptr)
++    {
++        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
++        return;
++    }
++    addPrefixToStringItem(*strValue, prefix);
++    item = *strValue;
++}
++
++static inline void addAggregatedHeaders(crow::Response& asyncResp,
++                                        crow::Response& resp,
++                                        std::string_view prefix)
++{
++    asyncResp.addHeader(boost::beast::http::field::content_type,
++                        resp.getHeaderValue("Content-Type"));
++    if (resp.getHeaderValue("Content-Type") == "application/json")
++    {
++        std::string_view header = resp.getHeaderValue("Location");
++        if (!header.empty())
++        {
++            std::string location(header);
++            addPrefixToStringItem(location, prefix);
++            asyncResp.addHeader(boost::beast::http::field::location, location);
++        }
++        if (!resp.getHeaderValue("Retry-After").empty())
++        {
++            asyncResp.addHeader(boost::beast::http::field::retry_after,
++                                resp.getHeaderValue("Retry-After"));
++        }
+     }
++    // TODO: we need special handling for Link Header Value
+ }
+ 
+ // Search the json for all URIs and add the supplied prefix if the URI is for
+ // an aggregated resource.
+-static void addPrefixes(nlohmann::json& json, std::string_view prefix)
++static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
+ {
+     nlohmann::json::object_t* object =
+         json.get_ptr<nlohmann::json::object_t*>();
+@@ -638,6 +670,7 @@ class RedfishAggregator
+                 messages::operationFailed(asyncResp->res);
+             }
+         }
++        addAggregatedHeaders(asyncResp->res, resp, prefix);
+     }
+ 
+     // Processes the collection response returned by a satellite BMC and merges
+diff --git a/test/redfish-core/include/redfish_aggregator_test.cpp b/test/redfish-core/include/redfish_aggregator_test.cpp
+index 665446c1..3e4553e2 100644
+--- a/test/redfish-core/include/redfish_aggregator_test.cpp
++++ b/test/redfish-core/include/redfish_aggregator_test.cpp
+@@ -217,11 +217,21 @@ void assertProcessResponse(unsigned result)
+     resp.body() =
+         jsonResp.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+     resp.addHeader("Content-Type", "application/json");
++    resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
++    resp.addHeader("Link", "metadataLink");
++    resp.addHeader("Retry-After", "120");
+     resp.result(result);
+ 
+     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+     RedfishAggregator::processResponse("prefix", asyncResp, resp);
+ 
++    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
++              "application/json");
++    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"),
++              "/redfish/v1/Chassis/prefix_TestChassis");
++    EXPECT_EQ(asyncResp->res.getHeaderValue("Link"), "");
++    EXPECT_EQ(asyncResp->res.getHeaderValue("Retry-After"), "120");
++
+     EXPECT_EQ(asyncResp->res.jsonValue["Name"], "Test");
+     EXPECT_EQ(asyncResp->res.jsonValue["@odata.id"],
+               "/redfish/v1/Chassis/prefix_TestChassis");
+-- 
+2.39.1.456.gfc5497dd1b-goog
+
