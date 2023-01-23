@@ -217,10 +217,22 @@ void assertProcessResponse(unsigned result)
     resp.body() =
         jsonResp.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
     resp.addHeader("Content-Type", "application/json");
+    resp.addHeader("Allow", "GET");
+    resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
+    resp.addHeader("Link", "</redfish/v1/Test.json>; rel=describedby");
+    resp.addHeader("Retry-After", "120");
     resp.result(result);
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     RedfishAggregator::processResponse("prefix", asyncResp, resp);
+
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
+              "application/json");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Allow"), "GET");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"),
+              "/redfish/v1/Chassis/prefix_TestChassis");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Link"), "");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Retry-After"), "120");
 
     EXPECT_EQ(asyncResp->res.jsonValue["Name"], "Test");
     EXPECT_EQ(asyncResp->res.jsonValue["@odata.id"],
@@ -444,6 +456,32 @@ TEST(processCollectionResponse, preserveHeaders)
     EXPECT_EQ(asyncResp->res.resultInt(), 404);
     EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
     EXPECT_EQ(asyncResp->res.getHeaderValue("Location"), "");
+}
+void assertProcessResponseContentType(std::string_view contentType)
+{
+    crow::Response resp;
+    resp.body() = "responseBody";
+    resp.addHeader("Content-Type", contentType);
+    resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
+    resp.addHeader("Link", "metadataLink");
+    resp.addHeader("Retry-After", "120");
+
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    RedfishAggregator::processResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"), contentType);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"),
+              "/redfish/v1/Chassis/prefix_TestChassis");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Link"), "");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Retry-After"), "120");
+    EXPECT_EQ(asyncResp->res.body(), "responseBody");
+}
+
+TEST(processResponse, DifferentContentType)
+{
+    assertProcessResponseContentType("application/xml");
+    assertProcessResponseContentType("application/yaml");
+    assertProcessResponseContentType("text/event-stream");
+    assertProcessResponseContentType(";charset=utf-8");
 }
 
 } // namespace
