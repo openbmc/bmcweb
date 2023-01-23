@@ -52,6 +52,24 @@
       "parentUuid": "7b6f8695_c1c070bc",
       "revId": "0d9462115c53d478ed757ca4a3cccd0acf593781",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e00a949_804eb388",
+        "filename": "http/logging.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-23T14:11:13Z",
+      "side": 0,
+      "message": "The approach (if constexpr) is doing the same effect (like #ifdef), but I\u0027m going to revive to use #ifdef BMCWEB_ENABLE_LOGGING as it was.",
+      "parentUuid": "03dbe6f4_ef83ab4f",
+      "revId": "0d9462115c53d478ed757ca4a3cccd0acf593781",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06da3de_c19ee287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-23T14:11:13Z",
+      "side": 1,
+      "message": "I\u0027ve decided to take a little more conservative approach so that setLogLevel() can be set at the runtime.\n- If -Dbmcweb-logging is not set, or set to \u0027disabled\u0027, no logging will occur.\n   In addition, the log routines will not be included in a binary (via if constexpr method).\n \n- If -Dbmcweb-logging is set to a value like \u0027debug\u0027, \u0027info\u0027, \u0027warning\u0027, \u0027error\u0027, \u0027critical\u0027, all log code routines will be included into an executable object.\n\n\n```\n    constexpr static bool isLoggingEnabled()\n    {\n#ifdef BMCWEB_ENABLE_LOGGING\n        return true;\n#else\n        return false;\n#endif\n    }\n```\n\n```\n    static void setLogLevel(LogLevel level)\n    {\n        getLogLevelRef() \u003d level;\n    }\n\n    static LogLevel getCurrentLogLevel()\n    {\n        return getLogLevelRef();\n    }\n\n    static bool checkLoggingLevel(const LogLevel level)\n    {\n        return getCurrentLogLevel() \u003c\u003d level;\n    }\n```\n\nAnd then use these primitives for the logging calls like\n\n```\n// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)\n#define BMCWEB_LOG_WARNING                                                     \\\n    if constexpr (crow::Logger::isLoggingEnabled())                            \\\n        if (crow::Logger::checkLoggingLevel(crow::LogLevel::Warning))          \\\n    crow::Logger(\"WARNING\", __FILE__, __LINE__, crow::LogLevel::Warning)\n```",
+      "parentUuid": "0d65a895_fb1b9ffe",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "6b272ea7b5a44e911ac80e5e9035e1780cf77039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdf3eef4_814bcf84",

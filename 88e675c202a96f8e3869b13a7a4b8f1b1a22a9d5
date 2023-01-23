@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8723204e_1d31a266",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-23T14:11:13Z",
+      "side": 1,
+      "message": "Changed to use the first approach\n\n```\nbmcweb-logging \u003d\n- disabled \u003c- (default) and this is needed to disable the logging.\n- debug  \u003c-- to allow the current \u0027enabled\u0027 as debug)\n- info\n- warning\n- error\n- critical\n```",
+      "parentUuid": "cbb7c332_542cb575",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92dab4c0_1a546364",
@@ -85,6 +103,24 @@
       "side": 1,
       "message": "I\u0027ll update to use only \u0027-Dbmcweb-logging\u0027 as a combo/enum method, provided that\u0027s the proper direction.",
       "parentUuid": "92dab4c0_1a546364",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "911f9baa_46ecc6ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-23T14:11:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f237d5ec_b31524c2",
       "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -138,6 +174,24 @@
       "side": 1,
       "message": "I\u0027ll research this more.",
       "parentUuid": "be5f9253_22605767",
+      "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e0c68c7_2c4cb750",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-23T14:11:13Z",
+      "side": 1,
+      "message": "I updated meson_options.txt like\n\n```\noption(\n    \u0027bmcweb-logging\u0027,\n    type: \u0027combo\u0027,\n    choices : [ \u0027disabled\u0027, \u0027debug\u0027, \u0027info\u0027, \u0027warning\u0027, \u0027error\u0027, \u0027critical\u0027 ],\n    value: \u0027disabled\u0027,\n    description: \u0027Enable output the extended logging level.\n                  - disabled: disable bmcweb log traces.\n                  - debug :  enables all of bmcweb log traces.\n                  - info: enables the informational traces and\n                        warning/error/critical log traces as described below.\n                  - warning: enables the traces of the undesirable or unintended conditions,\n                       and error/critical log traces\n                  - error: enables the severe traces like runtime errors,\n                       unexpected conditions, and critical logs\n                  - critical:  enables the traces of the bmcweb complete failures.\u0027\n)\n```",
+      "parentUuid": "850e4b81_e3300c9f",
       "revId": "88e675c202a96f8e3869b13a7a4b8f1b1a22a9d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
