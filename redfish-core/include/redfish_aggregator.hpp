@@ -51,19 +51,13 @@ inline bool isPropertyUri(const std::string_view propertyName)
                               propertyName);
 }
 
-static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+void addPrefixToStringItem(std::string& strValue, std::string_view prefix)
 {
-    std::string* strValue = item.get_ptr<std::string*>();
-    if (strValue == nullptr)
-    {
-        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
-        return;
-    }
     // Make sure the value is a properly formatted URI
-    auto parsed = boost::urls::parse_relative_ref(*strValue);
+    auto parsed = boost::urls::parse_relative_ref(strValue);
     if (!parsed)
     {
-        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << *strValue;
+        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << strValue;
         return;
     }
 
@@ -132,13 +126,56 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
     if (addedPrefix)
     {
         url.segments().insert(url.segments().begin(), {"redfish", "v1"});
-        item = url;
+        strValue = url.buffer();
+    }
+}
+
+void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+{
+    std::string* strValue = item.get_ptr<std::string*>();
+    if (strValue == nullptr)
+    {
+        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+        return;
+    }
+    addPrefixToStringItem(*strValue, prefix);
+    item = *strValue;
+}
+
+void addLinksToAggregatedResponse(crow::Response& asyncResp,
+                                  crow::Response& resp)
+{
+    if (!resp.getHeaderValue("Content-Type").empty())
+    {
+        asyncResp.addHeader(boost::beast::http::field::content_type,
+                            resp.getHeaderValue("Content-Type"));
+    }
+    if (!resp.getHeaderValue("Location").empty())
+    {
+        asyncResp.addHeader(boost::beast::http::field::location,
+                            resp.getHeaderValue("Location"));
+    }
+    if (!resp.getHeaderValue("Retry-After").empty())
+    {
+        asyncResp.addHeader(boost::beast::http::field::retry_after,
+                            resp.getHeaderValue("Retry-After"));
+    }
+    // TODO: Special handling for Link Header Value
+}
+
+void addHeaderPrefixes(crow::Response& resp, std::string_view prefix)
+{
+    std::string location = std::basic_string(resp.getHeaderValue("Location"));
+    if (!location.empty())
+    {
+        addPrefixToStringItem(location, prefix);
+        resp.addHeader(boost::beast::http::field::location, location);
     }
 }
 
 // Search the json for all URIs and add the supplied prefix if the URI is for
 // an aggregated resource.
-static void addPrefixes(nlohmann::json& json, std::string_view prefix)
+void addPrefixes(nlohmann::json& json, std::string_view prefix)
 {
     nlohmann::json::object_t* object =
         json.get_ptr<nlohmann::json::object_t*>();
@@ -618,10 +655,12 @@ class RedfishAggregator
 
             BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
 
+            addHeaderPrefixes(resp, prefix);
             addPrefixes(jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
 
+            addLinksToAggregatedResponse(asyncResp->res, resp);
             asyncResp->res.result(resp.result());
             asyncResp->res.jsonValue = std::move(jsonVal);
 
