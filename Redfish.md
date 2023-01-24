@@ -132,6 +132,21 @@ Fields common to all schemas
 - OemPrivileges
 - RoleId
 
+### /redfish/v1/Cables/
+
+#### CableCollection
+
+- Description
+- Members
+- Members@odata.count
+
+### /redfish/v1/Cables/{CableId}/
+
+#### Cable
+
+- CableType
+- LengthMeters
+
 ### /redfish/v1/CertificateService/
 
 #### CertificateService
