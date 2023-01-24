@@ -32,6 +32,7 @@ Fields common to all schemas
 #### ServiceRoot
 
 - AccountService
+- Cables
 - CertificateService
 - Chassis
 - EventService
@@ -122,6 +123,20 @@ Fields common to all schemas
     or has been modified from default, will be marked as false.
 - OemPrivileges
 - RoleId
+
+### /redfish/v1/Cables/
+
+#### CableCollection
+
+- Description
+- Members
+- Members@odata.count
+
+### /redfish/v1/Cables/{CableId}/
+
+#### Cable
+
+- Status
 
 ### /redfish/v1/CertificateService/
 
