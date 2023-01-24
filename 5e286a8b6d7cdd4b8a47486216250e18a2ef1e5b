@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "849d1db5_e8da03a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001162
+      },
+      "writtenOn": "2023-01-24T01:58:47Z",
+      "side": 1,
+      "message": "nit: remove `bmcweb: `",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "5e286a8b6d7cdd4b8a47486216250e18a2ef1e5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72e49fd8_2ebed79a",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001162
+      },
+      "writtenOn": "2023-01-24T01:58:47Z",
+      "side": 1,
+      "message": "I noticed that typically the error log also includes `ec` (see line 31 above). It should probably be included here too",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 60
+      },
+      "revId": "5e286a8b6d7cdd4b8a47486216250e18a2ef1e5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
