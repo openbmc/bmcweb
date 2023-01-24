@@ -136,6 +136,8 @@ Fields common to all schemas
 
 #### Cable
 
+- CableType
+- LengthMeters
 - Status
 
 ### /redfish/v1/CertificateService/
