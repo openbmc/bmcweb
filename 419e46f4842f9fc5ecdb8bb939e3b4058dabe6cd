@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b3c8f8_3f7347ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T19:34:35Z",
+      "side": 1,
+      "message": "Looks great. Thanks for documenting",
+      "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "673d79cf_8d41dfb5",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T19:34:35Z",
+      "side": 1,
+      "message": "it is resend right below, oh well",
+      "range": {
+        "startLine": 162,
+        "startChar": 31,
+        "endLine": 162,
+        "endChar": 38
+      },
+      "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de3c6fb_ecf613b3",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T19:34:35Z",
+      "side": 1,
+      "message": "How does bmcweb do \"4. Support HTTPS connection to satellite BMC\" without this? \nbmcweb assumes something like mTLS is already set up?",
+      "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
