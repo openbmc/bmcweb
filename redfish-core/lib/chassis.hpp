@@ -342,6 +342,28 @@ inline void
                 }
             }
 
+            const std::string chassisInterface =
+                "xyz.openbmc_project.Inventory.Item.PCIeSlot";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          chassisInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<bool>(
+                    *crow::connections::systemBus, connectionName, path,
+                    chassisInterface, "HotPluggable",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code ec2,
+                        const bool property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBus error response for hotpluggable";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["HotPluggable"] = property;
+                    });
+            }
+
             sdbusplus::asio::getAllProperties(
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
