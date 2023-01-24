@@ -86,6 +86,30 @@
       },
       "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df76f7e6_eb6b07eb",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T18:21:48Z",
+      "side": 1,
+      "message": "```\nasyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n\nif (present)\n{\nasyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n}\n```\nis the same logic right so doesn\u0027t matter, right? the \n\n```\nasyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n\nif (!present)\n{\nasyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n}\n```\nis just what I have seen other places.\n\nAlso sometimes we have a default of Enabled for when the interface isn\u0027t there but that wasn\u0027t what I was talking about in this comment. \n\nI am fine with the if/else.",
+      "parentUuid": "67a76c0d_087845c9",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
