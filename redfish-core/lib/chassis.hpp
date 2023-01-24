@@ -272,7 +272,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Chassis.v1_16_0.Chassis";
+                "#Chassis.v1_22_0.Chassis";
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -340,6 +340,28 @@ inline void
                     getLocationIndicatorActive(asyncResp);
                     break;
                 }
+            }
+
+            const std::string chassisInterface =
+                "xyz.openbmc_project.Inventory.Decorator.Replaceable";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          chassisInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<bool>(
+                    *crow::connections::systemBus, connectionName, path,
+                    chassisInterface, "HotPluggable",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code ec2,
+                        const bool property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBus error response for hotpluggable";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["HotPluggable"] = property;
+                    });
             }
 
             sdbusplus::asio::getAllProperties(
