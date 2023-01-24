@@ -88,19 +88,43 @@ inline void
     {
         for (const auto& interface : interfaces)
         {
-            if (interface != "xyz.openbmc_project.Inventory.Item.Cable")
+            if (interface == "xyz.openbmc_project.Inventory.Item.Cable")
             {
-                continue;
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, service, cableObjectPath,
+                    interface,
+                    [asyncResp](
+                        const boost::system::error_code& ec,
+                        const dbus::utility::DBusPropertiesMap& properties) {
+                    fillCableProperties(asyncResp->res, ec, properties);
+                    });
             }
+            else if (interface == "xyz.openbmc_project.Inventory.Item")
+            {
+                sdbusplus::asio::getProperty<bool>(
+                    *crow::connections::systemBus, service, cableObjectPath,
+                    interface, "Present",
+                    [asyncResp,
+                     cableObjectPath](const boost::system::error_code& ec,
+                                      bool present) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "get presence failed for Cable "
+                                         << cableObjectPath << " with error "
+                                         << ec;
+                        if (ec.value() != EBADR)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
 
-            sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, service, cableObjectPath,
-                interface,
-                [asyncResp](
-                    const boost::system::error_code& ec,
-                    const dbus::utility::DBusPropertiesMap& properties) {
-                fillCableProperties(asyncResp->res, ec, properties);
-                });
+                    if (!present)
+                    {
+                        asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+                    }
+                    });
+            }
         }
     }
 }
@@ -155,6 +179,7 @@ inline void requestRoutesCable(App& app)
                                                  cableId);
                 asyncResp->res.jsonValue["Id"] = cableId;
                 asyncResp->res.jsonValue["Name"] = "Cable";
+                asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
                 getCableProperties(asyncResp, objectPath, serviceMap);
                 return;
