@@ -45,6 +45,63 @@
       },
       "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78ad89a9_338d1338",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-24T20:49:16Z",
+      "side": 1,
+      "message": "Overall, this feature is still in experimental, so I\u0027m ok with a little less than perfect testing (especially given that we\u0027re just messing with tuning parameters that don\u0027t effect function), but I would like to see at least SOME theory of how these numbers were chosen, even if it\u0027s \"We set these numbers, and the performance goes up\"",
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a2783d_a2fe3888",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-24T20:49:16Z",
+      "side": 1,
+      "message": "This is confusing.  The comment says 100, the pool size is 20.  Do we have data that 20 is the right tuning?  The last time I measured, the tipping point for bmcweb was in the 4-8 connection range.",
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72111729_f64a1408",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-24T20:49:16Z",
+      "side": 1,
+      "message": "if the specific type doesn\u0027t matter, just use int or unsigned int.",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 18
+      },
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
