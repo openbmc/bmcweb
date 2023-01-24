@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb47e778_4765494c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2023-01-24T22:54:11Z",
+      "side": 1,
+      "message": "Curious. Why item[\"temp\"] and not just item?",
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
