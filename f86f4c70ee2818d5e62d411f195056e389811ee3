@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e006050_88c328f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T18:02:02Z",
+      "side": 1,
+      "message": "Redfish.md update but looks good",
+      "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ccc5f1f_f75cdfc7",
+        "filename": "Redfish.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T18:02:02Z",
+      "side": 1,
+      "message": "CableCollection, the name of the schema\n\nhttps://redfish.dmtf.org/schemas/v1/CableCollection.json",
+      "range": {
+        "startLine": 129,
+        "startChar": 5,
+        "endLine": 129,
+        "endChar": 11
+      },
+      "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48324ba6_197dbb32",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T18:02:02Z",
+      "side": 1,
+      "message": "More common styling in bmcweb is \n\nasyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n\nif (!present)\n{\n    asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n}\n\nbut oh well",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
