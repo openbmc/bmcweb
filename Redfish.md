@@ -33,6 +33,7 @@ Fields common to all schemas
 
 - AccountService
 - AggregationService
+- Cables
 - CertificateService
 - Chassis
 - EventService
@@ -146,6 +147,7 @@ Fields common to all schemas
 
 - CableType
 - LengthMeters
+- Status
 
 ### /redfish/v1/CertificateService/
 
