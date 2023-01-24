@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b58d139_0c0cf970",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2023-01-24T23:12:45Z",
+      "side": 1,
+      "message": "+1 to what Ed said.",
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb47e778_4765494c",
