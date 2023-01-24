@@ -272,7 +272,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Chassis.v1_16_0.Chassis";
+                "#Chassis.v1_22_0.Chassis";
             asyncResp->res.jsonValue["@odata.id"] =
                 crow::utility::urlFromPieces("redfish", "v1", "Chassis",
                                              chassisId);
@@ -317,23 +317,51 @@ inline void
 
             const std::string assetTagInterface =
                 "xyz.openbmc_project.Inventory.Decorator.AssetTag";
-            if (std::find(interfaces2.begin(), interfaces2.end(),
-                          assetTagInterface) != interfaces2.end())
+            const std::string chassisInterface =
+                "xyz.openbmc_project.Inventory.Decorator.Replaceable";
+            for (const auto& interface : interfaces2)
             {
-                sdbusplus::asio::getProperty<std::string>(
-                    *crow::connections::systemBus, connectionName, path,
-                    assetTagInterface, "AssetTag",
-                    [asyncResp, chassisId(std::string(chassisId))](
-                        const boost::system::error_code& ec2,
-                        const std::string& property) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_DEBUG << "DBus response error for AssetTag";
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    asyncResp->res.jsonValue["AssetTag"] = property;
-                    });
+                if (interface == assetTagInterface)
+                {
+                    sdbusplus::asio::getProperty<std::string>(
+                        *crow::connections::systemBus, connectionName, path,
+                        assetTagInterface, "AssetTag",
+                        [asyncResp, chassisId(std::string(chassisId))](
+                            const boost::system::error_code& ec2,
+                            const std::string& property) {
+                        if (ec2)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "DBus response error for AssetTag: " << ec2;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["AssetTag"] = property;
+                        });
+                }
+                else if (interface == chassisInterface)
+                {
+                    sdbusplus::asio::getProperty<bool>(
+                        *crow::connections::systemBus, connectionName, path,
+                        chassisInterface, "HotPluggable",
+                        [asyncResp, chassisId(std::string(chassisId))](
+                            const boost::system::error_code& ec2,
+                            const bool property) {
+                        if (ec2)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "DBus response error for HotPluggable: "
+                                << ec2;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["HotPluggable"] = property;
+                        });
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG << "Invalid interface: " << interface;
+                }
             }
 
             for (const char* interface : hasIndicatorLed)
