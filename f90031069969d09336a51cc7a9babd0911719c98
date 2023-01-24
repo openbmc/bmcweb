@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e8a2f7_271558bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-01-24T17:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309e492b_8b30b478",
+      "revId": "f90031069969d09336a51cc7a9babd0911719c98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "524d10e8_554d88f8",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b6d225_24fc788b",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-01-24T17:35:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "524d10e8_554d88f8",
+      "revId": "f90031069969d09336a51cc7a9babd0911719c98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e046b668_61acee07",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-01-24T16:18:12Z",
       "side": 1,
       "message": "Sometimes we have a default of Enabled but we aren\u0027t consistent so I think this is fine",
+      "revId": "f90031069969d09336a51cc7a9babd0911719c98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03aa047a_838b1872",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-01-24T17:35:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e046b668_61acee07",
       "revId": "f90031069969d09336a51cc7a9babd0911719c98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
