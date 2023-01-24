@@ -428,6 +428,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ed99fdf_0b5dddd3",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-24T20:18:49Z",
+      "side": 1,
+      "message": "you are correct, and the aformentioned review has been merged.",
+      "parentUuid": "77627363_ab65bc29",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "3ef5c46ce583413c5a93c1047ffe2602081553aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "708b32af_67cc7c60",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 36
