@@ -16,6 +16,40 @@
       "message": "Can you fill out https://github.com/openbmc/bmcweb/blob/master/Redfish.md ?",
       "revId": "f90031069969d09336a51cc7a9babd0911719c98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524d10e8_554d88f8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T16:18:12Z",
+      "side": 1,
+      "message": "See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60384/10/COMMON_ERRORS.md \nI think this is okay, but this is right on the edge of a long lambda callback",
+      "revId": "f90031069969d09336a51cc7a9babd0911719c98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e046b668_61acee07",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T16:18:12Z",
+      "side": 1,
+      "message": "Sometimes we have a default of Enabled but we aren\u0027t consistent so I think this is fine",
+      "revId": "f90031069969d09336a51cc7a9babd0911719c98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
