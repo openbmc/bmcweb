@@ -16,6 +16,86 @@
       "message": "Fixed the issues with GetSubTree. Ready for reviewing. thx",
       "revId": "80144246f8275ccc4003b7eb104faf31b4bb1392",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b06dd0d2_480bc804",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T16:27:38Z",
+      "side": 1,
+      "message": "You use systemName below, let\u0027s do it here too",
+      "range": {
+        "startLine": 66,
+        "startChar": 41,
+        "endLine": 66,
+        "endChar": 47
+      },
+      "revId": "80144246f8275ccc4003b7eb104faf31b4bb1392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6533ead6_6f6eb692",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T16:27:38Z",
+      "side": 1,
+      "message": "The collection should also have a link \n\n    asyncResp-\u003eres.addHeader(\n        boost::beast::http::field::link,\n        \"\u003c/redfish/v1/JsonSchemas/FabricAdapaterCollection/FabricAdapaterCollection.json\u003e; rel\u003ddescribedby\");",
+      "revId": "80144246f8275ccc4003b7eb104faf31b4bb1392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aae96a4_303b8ff3",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T16:27:38Z",
+      "side": 1,
+      "message": "I still don\u0027t see the HEAD methods.\nSee other commits like  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57669/17/redfish-core/lib/power_supply.hpp\n\nWould expect something like \n```\ninline void handleFabricAdapterCollectionHead(\n    crow::App\u0026 app, const crow::Request\u0026 req,\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 aResp,\n    const std::string\u0026 systemName)\n{\n    if (!redfish::setUpRedfishRoute(app, req, aResp))\n    {\n        return;\n    }\n    if (systemName !\u003d \"system\")\n    {\n        messages::resourceNotFound(aResp-\u003eres, \"ComputerSystem\", systemName);\n        return;\n    }\n        aResp-\u003eres.addHeader(\n            boost::beast::http::field::link,\n            \"\u003c/redfish/v1/JsonSchemas/FabricAdapterCollection/FabricAdapterCollection.json\u003e; rel\u003ddescribedby\");\n\n}\n\n\ninline void requestRoutesFabricAdapterCollection(App\u0026 app)\n{\n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\")\n        .privileges(redfish::privileges::getFabricAdapterCollection)\n        .methods(boost::beast::http::verb::get)(\n            std::bind_front(handleFabricAdapterCollectionGet, std::ref(app)));\n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\")\n        .privileges(redfish::privileges::headFabricAdapterCollection)\n        .methods(boost::beast::http::verb::head)(\n            std::bind_front(handleFabricAdapterCollectionHead, std::ref(app)));\n\n}\n```",
+      "revId": "80144246f8275ccc4003b7eb104faf31b4bb1392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb6ae6de_d47bf4cc",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-24T16:27:38Z",
+      "side": 1,
+      "message": "I think this would be better if the naming was consistent\nhandleFabricAdapterGet",
+      "range": {
+        "startLine": 156,
+        "startChar": 28,
+        "endLine": 156,
+        "endChar": 38
+      },
+      "revId": "80144246f8275ccc4003b7eb104faf31b4bb1392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
