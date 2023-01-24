@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bd40fd3e_bbf3139c",
+        "filename": "Redfish.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-01-24T18:56:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ccc5f1f_f75cdfc7",
+      "range": {
+        "startLine": 129,
+        "startChar": 5,
+        "endLine": 129,
+        "endChar": 11
+      },
+      "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "48324ba6_197dbb32",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 3
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "Here are 2 examples of the default to Enabled when the interface isn\u0027t there \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59739/2/redfish-core/lib/storage.hpp\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/processor.hpp#L101",
       "parentUuid": "df76f7e6_eb6b07eb",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "f86f4c70ee2818d5e62d411f195056e389811ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f89e47_59318df8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-01-24T18:56:31Z",
+      "side": 1,
+      "message": "Yeah the logic is same, I was talking about convention in general not particular to the code logic. May be it\u0027s just me to which it makes more sense to have status disabled and enabling it after hw detection or some other parametrics.",
+      "parentUuid": "6e3f2406_9c7e6a46",
       "range": {
         "startLine": 118,
         "startChar": 0,
