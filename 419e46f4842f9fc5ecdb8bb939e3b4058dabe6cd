@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ae7fc738_49b500da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-24T20:48:58Z",
+      "side": 1,
+      "message": "No problem",
+      "parentUuid": "54b3c8f8_3f7347ca",
+      "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "673d79cf_8d41dfb5",
         "filename": "AGGREGATION.md",
         "patchSetId": 9
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-24T19:34:35Z",
       "side": 1,
       "message": "it is resend right below, oh well",
+      "range": {
+        "startLine": 162,
+        "startChar": 31,
+        "endLine": 162,
+        "endChar": 38
+      },
+      "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c8a11a8_de219eef",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-24T20:48:58Z",
+      "side": 1,
+      "message": "Oops, I\u0027m going to fix it anyway and remove the hyphen.",
+      "parentUuid": "673d79cf_8d41dfb5",
       "range": {
         "startLine": 162,
         "startChar": 31,
@@ -54,6 +96,24 @@
       "writtenOn": "2023-01-24T19:34:35Z",
       "side": 1,
       "message": "How does bmcweb do \"4. Support HTTPS connection to satellite BMC\" without this? \nbmcweb assumes something like mTLS is already set up?",
+      "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba0d09f_df265e72",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-24T20:48:58Z",
+      "side": 1,
+      "message": "The HTTP client in bmcweb has HTTPS support via SSL.  Right now it\u0027s only used for EventService.  Aggregation just uses the normal HTTP flow.  \"4. Support HTTPS connection to satellite BMC\" should be a relatively minor change to allow aggregation to make use of the HTTPS path.\n\nAuthentication support is in the sense of needing to login to receive a token and then include it in subsequent communications.  The aggregator would need to maintain the token when keep-alive or grab a new one on each message sending event.",
+      "parentUuid": "8de3c6fb_ecf613b3",
       "revId": "419e46f4842f9fc5ecdb8bb939e3b4058dabe6cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
