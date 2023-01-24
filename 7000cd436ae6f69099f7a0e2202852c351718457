@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055a278f_c65a785f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-01-24T04:30:33Z",
+      "side": 1,
+      "message": "It is not clear to me how the buffer is chopped into small pieces. Shouldn\u0027t we update buffer or parser to specify small size.",
+      "revId": "7000cd436ae6f69099f7a0e2202852c351718457",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0da1534_66c1429e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-01-24T04:30:33Z",
+      "side": 1,
+      "message": "Isn\u0027t there a issue of stack overflow due to recursion for large image? I think it is better to write a loop here instead of recursion.",
+      "revId": "7000cd436ae6f69099f7a0e2202852c351718457",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
