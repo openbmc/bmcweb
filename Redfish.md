@@ -191,6 +191,7 @@ Fields common to all schemas
 
 - Actions
 - ChassisType
+- HotPluggable
 - Links/ComputerSystems
 - Links/ManagedBy
 - PCIeDevices
