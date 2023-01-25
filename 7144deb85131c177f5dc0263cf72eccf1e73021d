@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1729528f_87a1d697",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T21:23:33Z",
+      "side": 1,
+      "message": "doesn\u0027t look like you are using this now",
+      "revId": "7144deb85131c177f5dc0263cf72eccf1e73021d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

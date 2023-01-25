@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e27d20_7e9544eb",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T21:23:33Z",
+      "side": 0,
+      "message": "I assume the validator was happy with these removed? If so I am good here. (could also be done in a separate commit)",
+      "parentUuid": "f0777104_21f4cee3",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "023084e3_40bf6579",
