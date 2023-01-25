@@ -55,9 +55,6 @@ constexpr const char* ldapPrivMapperInterface =
     "xyz.openbmc_project.User.PrivilegeMapper";
 constexpr const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 constexpr const char* propertyInterface = "org.freedesktop.DBus.Properties";
-constexpr const char* mapperBusName = "xyz.openbmc_project.ObjectMapper";
-constexpr const char* mapperObjectPath = "/xyz/openbmc_project/object_mapper";
-constexpr const char* mapperIntf = "xyz.openbmc_project.ObjectMapper";
 
 struct LDAPRoleMapData
 {
