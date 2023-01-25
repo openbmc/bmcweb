@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc253d26_a9c53ad9",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-25T00:18:01Z",
+      "side": 1,
+      "message": "The buffer isn\u0027t \"chopped into pieces\" the async_read_some only returns was could be read in a single operation, to allow tracking.",
+      "parentUuid": "e110dce3_3384c7c2",
+      "revId": "7000cd436ae6f69099f7a0e2202852c351718457",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0da1534_66c1429e",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I understood it now. the callback function is posted in separate thread.",
       "parentUuid": "b0da1534_66c1429e",
+      "revId": "7000cd436ae6f69099f7a0e2202852c351718457",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe36998a_36fe4a4a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-25T00:18:01Z",
+      "side": 1,
+      "message": "Correct.  There is no recursion here.",
+      "parentUuid": "449f0ccd_5a0e490b",
       "revId": "7000cd436ae6f69099f7a0e2202852c351718457",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
