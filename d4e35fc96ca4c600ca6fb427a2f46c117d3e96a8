@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "433dc639_88ef2590",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "sorry, I mean the tests in test/redfish-core/include/redfish_aggregator_test.cpp",
+      "parentUuid": "a2ff002b_5d23cf1c",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f310ec4_efb28cbe",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-24T23:15:21Z",
       "side": 1,
       "message": "This commit also implements Links, which as-written the code looks like it won\u0027t function correctly for.  Can you please test that before you submit your next patch, or omit it it if you don\u0027t plan on testing it?",
+      "range": {
+        "startLine": 22,
+        "startChar": 60,
+        "endLine": 22,
+        "endChar": 68
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7878c642_4e70ef4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "I will omit \"Link\" for now",
+      "parentUuid": "9f310ec4_efb28cbe",
       "range": {
         "startLine": 22,
         "startChar": 60,
@@ -139,6 +187,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c499dc48_3727e868",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "Done. My mistake, I remember `item` did not work but it does.",
+      "parentUuid": "9c48e18f_7ddf4a34",
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae623fa7_3d167d45",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "Done. You\u0027re right, it\u0027s not needed. Thanks for catching this.",
+      "parentUuid": "5371f0e5_8e58a7ae",
+      "range": {
+        "startLine": 145,
+        "startChar": 22,
+        "endLine": 145,
+        "endChar": 35
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "823632e9_3647b434",
@@ -152,6 +242,30 @@
       "writtenOn": "2023-01-24T23:11:37Z",
       "side": 1,
       "message": "oh, I see.  addPrefixToItem takes a nlohmann::json object.  I think the answer is we need to break down addPrefixToItem into two methods, one that takes a string, and one that takes a nlohmann::object, which calls the string version.  That way, we\u0027re not constructing arbitrary objects just for the sake of it.",
+      "range": {
+        "startLine": 146,
+        "startChar": 8,
+        "endLine": 146,
+        "endChar": 23
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80804b17_384eeb13",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "Yes, I created the item object for addPrefixToItem purpose. It\u0027s one extra line for the item creation, if you think we should split addPrefixToItem into 2 methods, I can do that too. What do you suggest?",
+      "parentUuid": "823632e9_3647b434",
       "range": {
         "startLine": 146,
         "startChar": 8,
@@ -185,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "097a904c_8defc333",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "Ack. I reverted back to using `item` instead.",
+      "parentUuid": "22591e25_cea41235",
+      "range": {
+        "startLine": 148,
+        "startChar": 23,
+        "endLine": 148,
+        "endChar": 48
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ca56fe0_a0b38b86",
@@ -198,6 +336,30 @@
       "writtenOn": "2023-01-24T23:11:37Z",
       "side": 1,
       "message": "This is going to be a metadata link, which given that we don\u0027t support $metadata correctly yet, this won\u0027t resolve properly.  Also, there\u0027s quite a bit of duplication with Location (it\u0027s basically the same transform).  We might want to deduplicate.",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 56
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5fdb30c_439d41c4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T00:56:07Z",
+      "side": 1,
+      "message": "I see, I assumed that \"Link\" is similar to \"Location\". I will omit the \"Link\" changes",
+      "parentUuid": "6ca56fe0_a0b38b86",
       "range": {
         "startLine": 150,
         "startChar": 0,
