@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "746b4d3e_e1fe5f14",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T18:09:06Z",
+      "side": 1,
+      "message": "For next time, an explanation from https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#associations about how this works would help. :) \n\nWhen an object with, for example, an object path of pathA uses the following values:\n\n[\"foo\", \"bar\", \"pathB\"]\n\nThe mapper will create 2 new objects:\n\n    pathA/foo\n    pathB/bar",
+      "revId": "b4c2832beea47567abed56c7e052bd68a2ca2b7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
