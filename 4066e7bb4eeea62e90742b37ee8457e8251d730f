@@ -125,6 +125,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0a016dc3_3dc45265",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-25T18:27:14Z",
+      "side": 1,
+      "message": "When you do that, it actually drops it to two lines anyway, so what you wrote ends up being:\n\nstd::chrono::milliseconds uptimeMs \u003d std::chrono::duration_cast\u003cstd::chrono::milliseconds\u003e(run);\n\nwhich is more confusing IMO.",
+      "parentUuid": "53360341_0fb39acc",
+      "revId": "4066e7bb4eeea62e90742b37ee8457e8251d730f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d8d23441_7c67d86f",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -136,6 +154,24 @@
       "writtenOn": "2023-01-24T18:17:35Z",
       "side": 1,
       "message": "I just think \naResp-\u003eres.jsonValue[\"ServiceRootUptime\"] \u003d  time_utils::toDurationString(uptimeMs);\n\nlooks cleaner/what I see other places (e.g.https://github.com/openbmc/bmcweb/blob/3ccb3adb9a14783f6bef601506de9f8bcae22d51/redfish-core/lib/telemetry_service.hpp#L78) , unless there is another reason to have the using? Oh well. I am fine.",
+      "revId": "4066e7bb4eeea62e90742b37ee8457e8251d730f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf8fe47e_c29080c3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1803,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-25T18:27:14Z",
+      "side": 1,
+      "message": "Same thing, it drops it to two lines anyway, so might as well try to break up the lines the way a reader would.  Maybe I went overboard.",
+      "parentUuid": "d8d23441_7c67d86f",
       "revId": "4066e7bb4eeea62e90742b37ee8457e8251d730f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
