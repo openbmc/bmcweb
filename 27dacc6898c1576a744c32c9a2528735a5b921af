@@ -39,6 +39,30 @@
       },
       "revId": "27dacc6898c1576a744c32c9a2528735a5b921af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e913b485_75263601",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T02:29:28Z",
+      "side": 1,
+      "message": "Most properties in this file are that way.\n \"This document details the Redfish schemas supported by bmcweb.\" Supported by bmcweb, you still need a backend with the interfaces/properties implemented",
+      "parentUuid": "33434711_aff5f2c9",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 14
+      },
+      "revId": "27dacc6898c1576a744c32c9a2528735a5b921af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
