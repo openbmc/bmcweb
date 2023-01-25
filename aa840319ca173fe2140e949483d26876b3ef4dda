@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a583fc_84c7d798",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T15:36:02Z",
+      "side": 1,
+      "message": "```\ndiff --git a/AGGREGATION.md b/AGGREGATION.md\nindex e576b290..9fa4b7ea 100644\n--- a/AGGREGATION.md\n+++ b/AGGREGATION.md\n@@ -96,7 +96,7 @@ satellite will be assigned its own unique satellite prefix.\n \n Requests to top level collections are locally processed like normal by the\n aggregating BMC. In addition, the request is forwarded to the satellite BMCs as\n-long as it was a GET request.  Any other types of request is still handled\n+long as it was a GET request. Any other types of request is still handled\n locally, but the aggregator will not forward it to the satellites.\n```\nis the CI fail",
+      "revId": "aa840319ca173fe2140e949483d26876b3ef4dda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
