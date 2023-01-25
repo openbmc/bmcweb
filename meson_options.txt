@@ -196,6 +196,15 @@ option(
 )
 
 option(
+    'update-task-keepalive-timeout',
+    type: 'integer',
+    min: 1,
+    max: 10,
+    value: 5,
+    description: 'Specifies the update task keep alive timer'
+)
+
+option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
     value: 'disabled',
