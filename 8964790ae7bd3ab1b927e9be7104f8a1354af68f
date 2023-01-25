@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c11d0d2_864b2157",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T20:01:20Z",
+      "side": 1,
+      "message": "Should have a tested: statement, although in this case I know Absent is a property of Status State, always best. \n\n                \"Absent\": \"This function or resource is either not present or detected.\",",
+      "revId": "8964790ae7bd3ab1b927e9be7104f8a1354af68f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
