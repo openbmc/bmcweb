@@ -97,6 +97,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f4184288_1f79d154",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T07:37:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7878c642_4e70ef4e",
+      "range": {
+        "startLine": 22,
+        "startChar": 60,
+        "endLine": 22,
+        "endChar": 68
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8b58d139_0c0cf970",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -370,6 +394,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b43254_04487791",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T07:37:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5fdb30c_439d41c4",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 56
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea3450e3_daca54b0",
@@ -383,6 +431,30 @@
       "writtenOn": "2023-01-24T23:11:37Z",
       "side": 1,
       "message": "Lets put this into a separate method \"addLinksToAggregatedResponse\" (or some other name that you think is better).",
+      "range": {
+        "startLine": 648,
+        "startChar": 0,
+        "endLine": 656,
+        "endChar": 13
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37be79a6_db64232f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-25T07:37:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea3450e3_daca54b0",
       "range": {
         "startLine": 648,
         "startChar": 0,
