@@ -11,6 +11,8 @@ constexpr const bool bmcwebInsecureEnableQueryParams = @BMCWEB_INSECURE_ENABLE_Q
 
 constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
 
+constexpr const size_t updateTaskKeepAliveTimeout = @UPDATE_TASK_KEEPALIVE_TIMEOUT@;
+
 constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
 
 constexpr const bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
