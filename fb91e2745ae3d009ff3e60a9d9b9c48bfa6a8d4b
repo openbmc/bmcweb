@@ -271,6 +271,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "350cc108_d5a04083",
+        "filename": "redfish-core/include/utils/uri_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-25T21:37:01Z",
+      "side": 1,
+      "message": "Can\u0027t get rid of this with https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#probounds-bounds-safety-profile ?",
+      "revId": "fb91e2745ae3d009ff3e60a9d9b9c48bfa6a8d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "00564c07_ca0f4dd2",
