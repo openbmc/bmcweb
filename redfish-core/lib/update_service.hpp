@@ -236,7 +236,8 @@ static void
 
                             // if we're getting status updates it's
                             // still alive, update timer
-                            taskData->extendTimer(std::chrono::minutes(5));
+                            taskData->extendTimer(std::chrono::seconds(
+                                updateTaskKeepAliveTimeout * 60));
                         }
 
                         // as firmware update often results in a
