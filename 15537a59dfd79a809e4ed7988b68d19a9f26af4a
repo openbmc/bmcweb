@@ -16,6 +16,69 @@
       "message": "I added Head methods. Thanks for the review.",
       "revId": "15537a59dfd79a809e4ed7988b68d19a9f26af4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5fc969a_68fa7256",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-26T18:18:05Z",
+      "side": 1,
+      "message": "I think you can remove vector now",
+      "revId": "15537a59dfd79a809e4ed7988b68d19a9f26af4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d476fe_421d5b75",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-26T18:18:05Z",
+      "side": 1,
+      "message": "but then you don\u0027t implement this link so would be a dead link.. Can you just remove?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 79
+      },
+      "revId": "15537a59dfd79a809e4ed7988b68d19a9f26af4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84076e23_974947b6",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-26T18:18:05Z",
+      "side": 1,
+      "message": "bit surprised to see this here but oh well",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 5
+      },
+      "revId": "15537a59dfd79a809e4ed7988b68d19a9f26af4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
