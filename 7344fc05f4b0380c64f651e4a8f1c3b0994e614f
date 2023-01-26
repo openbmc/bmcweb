@@ -51,6 +51,57 @@
       "message": "Now that we put this upstream for reference, the next question is \"What\u0027s the best way to legitimately do this for reset actions.\"\n\nI see two options:\n1) Implement the Redfish Job Service.\n2) Talk to DMTF about reusing the \"PowercycleDelay\" property that is in PowerDomains, and apply it to system and chassis reset.\n\nI should probably open a Redfish forum post about this.",
       "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0750657_ef411e46",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 1000523
+      },
+      "writtenOn": "2023-01-26T22:23:43Z",
+      "side": 1,
+      "message": "Would it be more reusable to put this after that hostCommand has been resolved, and then set the last Host.Transition.X flag with sprintf?",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b284bbf_9f3366ca",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2775,
+      "author": {
+        "id": 1000523
+      },
+      "writtenOn": "2023-01-26T22:23:43Z",
+      "side": 1,
+      "message": "Another option we have is to call curl instead of busctl. That way this \"patch\" would still work even if someone changes the behavior lower down in the function.\n\nWould there be any downsides to using curl?",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c93844_859eb83a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2791,
+      "author": {
+        "id": 1000523
+      },
+      "writtenOn": "2023-01-26T22:23:43Z",
+      "side": 1,
+      "message": "The problem we\u0027re having is that we want to call \"ForceOn\" after we network connection. So I think your using the wrong command in the call to busctl.",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
