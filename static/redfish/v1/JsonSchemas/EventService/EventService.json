@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_9_0.json",
     "$ref": "#/definitions/EventService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -214,6 +214,23 @@
                         "null"
                     ]
                 },
+                "Severities": {
+                    "description": "The list of severities that can be specified in the Severities array in a subscription.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall specify an array of the allowable severities that can be used for an event subscription.  If this property is absent or contains an empty array, the service does not support severity-based subscriptions.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
@@ -330,7 +347,15 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_5_0"
+                    "versionAdded": "v1_5_0",
+                    "writeOnly ": true
+                },
+                "PasswordSet": {
+                    "description": "Indicates if the Password property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the Password property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_9_0"
                 },
                 "Port": {
                     "description": "The destination SMTP port.",
@@ -597,6 +622,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#EventService.v1_8_0.EventService"
+    "release": "2022.3",
+    "title": "#EventService.v1_9_0.EventService"
 }

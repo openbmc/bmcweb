@@ -40,6 +40,15 @@ enum class TransferMethod{
     Upload,
 };
 
+enum class EjectPolicy{
+    Invalid,
+    OnPowerOff,
+    Session,
+    Timed,
+    AfterUse,
+    Persistent,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MediaType, {
     {MediaType::Invalid, "Invalid"},
     {MediaType::CD, "CD"},
@@ -73,6 +82,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferMethod, {
     {TransferMethod::Invalid, "Invalid"},
     {TransferMethod::Stream, "Stream"},
     {TransferMethod::Upload, "Upload"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(EjectPolicy, {
+    {EjectPolicy::Invalid, "Invalid"},
+    {EjectPolicy::OnPowerOff, "OnPowerOff"},
+    {EjectPolicy::Session, "Session"},
+    {EjectPolicy::Timed, "Timed"},
+    {EjectPolicy::AfterUse, "AfterUse"},
+    {EjectPolicy::Persistent, "Persistent"},
 });
 
 }

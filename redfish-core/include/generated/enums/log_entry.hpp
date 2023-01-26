@@ -17,6 +17,7 @@ enum class LogEntryType{
     Event,
     SEL,
     Oem,
+    CXL,
 };
 
 enum class LogDiagnosticDataTypes{
@@ -36,6 +37,15 @@ enum class OriginatorTypes{
     SupportingService,
 };
 
+enum class CXLEntryType{
+    Invalid,
+    DynamicCapacity,
+    Informational,
+    Warning,
+    Failure,
+    Fatal,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EventSeverity, {
     {EventSeverity::Invalid, "Invalid"},
     {EventSeverity::OK, "OK"},
@@ -48,6 +58,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogEntryType, {
     {LogEntryType::Event, "Event"},
     {LogEntryType::SEL, "SEL"},
     {LogEntryType::Oem, "Oem"},
+    {LogEntryType::CXL, "CXL"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LogDiagnosticDataTypes, {
@@ -65,6 +76,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OriginatorTypes, {
     {OriginatorTypes::Client, "Client"},
     {OriginatorTypes::Internal, "Internal"},
     {OriginatorTypes::SupportingService, "SupportingService"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CXLEntryType, {
+    {CXLEntryType::Invalid, "Invalid"},
+    {CXLEntryType::DynamicCapacity, "DynamicCapacity"},
+    {CXLEntryType::Informational, "Informational"},
+    {CXLEntryType::Warning, "Warning"},
+    {CXLEntryType::Failure, "Failure"},
+    {CXLEntryType::Fatal, "Fatal"},
 });
 
 }

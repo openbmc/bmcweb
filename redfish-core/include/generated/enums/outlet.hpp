@@ -5,13 +5,6 @@ namespace outlet
 {
 // clang-format off
 
-enum class PowerState{
-    Invalid,
-    On,
-    Off,
-    PowerCycle,
-};
-
 enum class ReceptacleType{
     Invalid,
     NEMA_5_15R,
@@ -35,13 +28,6 @@ enum class VoltageType{
     AC,
     DC,
 };
-
-NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
-    {PowerState::Invalid, "Invalid"},
-    {PowerState::On, "On"},
-    {PowerState::Off, "Off"},
-    {PowerState::PowerCycle, "PowerCycle"},
-});
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ReceptacleType, {
     {ReceptacleType::Invalid, "Invalid"},

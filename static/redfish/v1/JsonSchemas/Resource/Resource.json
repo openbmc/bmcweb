@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_14_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_15_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -65,7 +65,8 @@
                 "NQN",
                 "NSID",
                 "NGUID",
-                "MACAddress"
+                "MACAddress",
+                "GCXLID"
             ],
             "enumDeprecated": {
                 "NSID": "This value has been deprecated due to its non-uniqueness and `NGUID` should be used."
@@ -73,6 +74,7 @@
             "enumDescriptions": {
                 "EUI": "The IEEE-defined 64-bit Extended Unique Identifier (EUI).",
                 "FC_WWN": "The Fibre Channel (FC) World Wide Name (WWN).",
+                "GCXLID": "The globally unique CXL logical device identifier (GCXLID).",
                 "MACAddress": "The media access control address (MAC address).",
                 "NAA": "The Name Address Authority (NAA) format.",
                 "NGUID": "The Namespace Globally Unique Identifier (NGUID).",
@@ -84,6 +86,7 @@
             "enumLongDescriptions": {
                 "EUI": "This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
                 "FC_WWN": "This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
+                "GCXLID": "This durable name shall be in the globally unique CXL logical device identifier (GCXLID).  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$', where the first eight hyphen-delimited octets contain the PCIe serial number, where the most significant octet is first, and the remaining 16-bit field contains the CXL Logical Device Identifier, where the most significant byte first.",
                 "MACAddress": "This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
                 "NAA": "This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the regular expression pattern '^(([0-9A-Fa-f]{2}){8}){1,2}$', where the most significant octet is first.",
                 "NGUID": "This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}){16}$', where the most significant octet is first.",
@@ -93,6 +96,7 @@
                 "iQN": "This durable name shall be in the iSCSI Qualified Name (iQN) format, as defined in RFC3720 and RFC3721."
             },
             "enumVersionAdded": {
+                "GCXLID": "v1_15_0",
                 "MACAddress": "v1_14_0",
                 "NGUID": "v1_10_0",
                 "NQN": "v1_6_0",
@@ -1057,6 +1061,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#Resource.v1_14_1"
+    "release": "2022.3",
+    "title": "#Resource.v1_15_0"
 }

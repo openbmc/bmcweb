@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_9_1.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -505,7 +505,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_8_0"
+                    "versionAdded": "v1_8_0",
+                    "writeOnly ": true
                 },
                 "PasswordSet": {
                     "description": "Indicates if the Password property is set.",
@@ -904,5 +905,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.2",
-    "title": "#ManagerNetworkProtocol.v1_9_0.ManagerNetworkProtocol"
+    "title": "#ManagerNetworkProtocol.v1_9_1.ManagerNetworkProtocol"
 }

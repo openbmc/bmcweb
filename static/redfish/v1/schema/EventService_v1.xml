@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.8.0                                                 -->
+<!--# Redfish Schema:  EventService v1.9.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -599,7 +599,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the username for authentication with the SMTP server."/>
         </Property>
         <Property Name="Password" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
           <Annotation Term="OData.Description" String="The password for authentication with the SMTP server.  The value is `null` in responses."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the password for authentication with the SMTP server.  The value shall be `null` in responses."/>
         </Property>
@@ -687,6 +687,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_5_4.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_5_5.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -724,6 +730,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_6_3.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_6_4.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -750,6 +762,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_7_2.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_7_3.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -766,6 +784,33 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the ExcludeMessageIds property."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_8_0.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="EventService" BaseType="EventService.v1_8_1.EventService">
+        <Property Name="Severities" Type="Collection(Resource.Health)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The list of severities that can be specified in the Severities array in a subscription."/>
+          <Annotation Term="OData.LongDescription" String="This property shall specify an array of the allowable severities that can be used for an event subscription.  If this property is absent or contains an empty array, the service does not support severity-based subscriptions."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SMTP" BaseType="EventService.v1_5_0.SMTP">
+        <Property Name="PasswordSet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the Password property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the Password property.  Otherwise, the property shall contain `false`."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

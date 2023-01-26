@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Task v1.6.1                                                         -->
+<!--# Redfish Schema:  Task v1.7.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -361,8 +361,8 @@
 
       <EntityType Name="Task" BaseType="Task.v1_2_1.Task">
         <Property Name="Payload" Type="Task.v1_3_0.Payload" Nullable="false">
-          <Annotation Term="OData.Description" String="The HTTP and JSON payload details for this task, unless they are hidden from view by the service."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This property shall not be included in the response if the HidePayload property is `true`."/>
+          <Annotation Term="OData.Description" String="The HTTP and JSON request payload details for this task, unless they are hidden from view by the service."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the HTTP and JSON request payload information for executing this task.  This property shall not be included in the response if the HidePayload property is `true`."/>
         </Property>
         <Property Name="HidePayload" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -435,6 +435,12 @@
       <EntityType Name="Task" BaseType="Task.v1_3_5.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Payload property."/>
+      <EntityType Name="Task" BaseType="Task.v1_3_6.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -480,6 +486,12 @@
       <EntityType Name="Task" BaseType="Task.v1_4_4.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Payload property."/>
+      <EntityType Name="Task" BaseType="Task.v1_4_5.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -506,6 +518,12 @@
       <EntityType Name="Task" BaseType="Task.v1_5_1.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Payload property."/>
+      <EntityType Name="Task" BaseType="Task.v1_5_2.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -523,6 +541,35 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
       <EntityType Name="Task" BaseType="Task.v1_6_0.Task"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Payload property."/>
+      <EntityType Name="Task" BaseType="Task.v1_6_1.Task"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="Task" BaseType="Task.v1_6_2.Task">
+        <Property Name="Links" Type="Task.v1_7_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="CreatedResources" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of URIs referencing the resources created as the result of the operation that produced this task."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources indicating the resources created as the result of the operation that produced this task.  Services shall set this property prior to the task entering its final state."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

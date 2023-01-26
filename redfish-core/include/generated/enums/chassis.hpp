@@ -38,14 +38,6 @@ enum class IndicatorLED{
     Off,
 };
 
-enum class PowerState{
-    Invalid,
-    On,
-    Off,
-    PoweringOn,
-    PoweringOff,
-};
-
 enum class IntrusionSensor{
     Invalid,
     Normal,
@@ -106,14 +98,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Lit, "Lit"},
     {IndicatorLED::Blinking, "Blinking"},
     {IndicatorLED::Off, "Off"},
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
-    {PowerState::Invalid, "Invalid"},
-    {PowerState::On, "On"},
-    {PowerState::Off, "Off"},
-    {PowerState::PoweringOn, "PoweringOn"},
-    {PowerState::PoweringOff, "PoweringOff"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(IntrusionSensor, {

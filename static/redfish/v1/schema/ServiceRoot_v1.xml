@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.14.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.15.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -39,6 +39,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ManagerCollection_v1.xml">
     <edmx:Include Namespace="ManagerCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Manager_v1.xml">
+    <edmx:Include Namespace="Manager"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TaskService_v1.xml">
     <edmx:Include Namespace="TaskService"/>
@@ -122,8 +125,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ServiceRoot" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ServiceRoot schema describes the root of the Redfish Service, located at the '/redfish/v1' URI.  All other Resources accessible through the Redfish interface on this device are linked directly or indirectly from the Service Root."/>
-        <Annotation Term="OData.LongDescription" String="This Resource represents the root Redfish Service.  All values that this schema describes for Resources shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.Description" String="The ServiceRoot schema describes the root of the Redfish service, located at the '/redfish/v1' URI.  All other resources accessible through the Redfish interface on this device are linked directly or indirectly from the service root."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the root of the Redfish service."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -146,7 +149,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_0">
@@ -170,88 +172,87 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.ServiceRoot">
         <Property Name="RedfishVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The version of the Redfish Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the Redfish protocol version, as specified in the Protocol Version clause of the Redfish Specification, to which this Service conforms."/>
+          <Annotation Term="OData.Description" String="The version of the Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the Redfish protocol version, as specified in the 'Protocol version' clause of the Redfish Specification, to which this service conforms."/>
           <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
         </Property>
-        <Property Name="UUID" Type="Resource.UUID">
+        <Property Name="UUID" Type="Edm.Guid">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Unique identifier for a service instance.  When SSDP is used, this value should be an exact match of the UUID value returned in a 200 OK from an SSDP M-SEARCH request during discovery."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the id of the Redfish Service instance.  The format of this string shall contain a 32-byte value in the form 8-4-4-4-12.  If SSDP is used, this value shall be an exact match of the UUID value returned in a 200 OK from an SSDP M-SEARCH request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID."/>
+          <Annotation Term="OData.Description" String="Unique identifier for a service instance.  When SSDP is used, this value contains the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID."/>
         </Property>
         <NavigationProperty Name="Systems" Type="ComputerSystemCollection.ComputerSystemCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of systems."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type ComputerSystemCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ComputerSystemCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Chassis" Type="ChassisCollection.ChassisCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type ChassisCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ChassisCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Managers" Type="ManagerCollection.ManagerCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of managers."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type ManagerCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ManagerCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Tasks" Type="TaskService.TaskService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Task Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type TaskService."/>
+          <Annotation Term="OData.Description" String="The link to the task service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type TaskService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SessionService" Type="SessionService.SessionService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Sessions Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type SessionService."/>
+          <Annotation Term="OData.Description" String="The link to the sessions service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SessionService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="AccountService" Type="AccountService.AccountService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Account Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type AccountService."/>
+          <Annotation Term="OData.Description" String="The link to the account service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type AccountService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="EventService" Type="EventService.EventService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Event Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type EventService."/>
+          <Annotation Term="OData.Description" String="The link to the event service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EventService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Registries" Type="MessageRegistryFileCollection.MessageRegistryFileCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of Registries."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MessageRegistryFileCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of registries."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MessageRegistryFileCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="JsonSchemas" Type="JsonSchemaFileCollection.JsonSchemaFileCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of JSON Schema files."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type JsonSchemaFileCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type JsonSchemaFileCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Links" Type="ServiceRoot.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Sessions" Type="SessionCollection.SessionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of Sessions."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type SessionCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of sessions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SessionCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_2">
@@ -280,7 +281,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add a missing Redfish.Required term to the Sessions link."/>
+      <Annotation Term="OData.Description" String="This version was created to mark the Sessions property as required."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_5.ServiceRoot"/>
     </Schema>
 
@@ -302,29 +303,36 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_8.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_9.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
+
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_2.ServiceRoot">
         <NavigationProperty Name="StorageSystems" Type="StorageSystemCollection.StorageSystemCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of storage systems."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type StorageSystemCollection.  This collection shall contain computer systems that act as storage servers.  The HostingRoles attribute of each such computer system shall have a StorageServer entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageSystemCollection.  This collection shall contain computer systems that act as storage servers.  The HostingRoles property of each such computer system shall contain a StorageServer entry."/>
         </NavigationProperty>
         <NavigationProperty Name="StorageServices" Type="StorageServiceCollection.StorageServiceCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of all storage service entities."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type StorageServiceCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of storage services."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageServiceCollection."/>
         </NavigationProperty>
         <NavigationProperty Name="Fabrics" Type="FabricCollection.FabricCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of all fabric entities."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type FabricCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of fabrics."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FabricCollection."/>
         </NavigationProperty>
         <NavigationProperty Name="UpdateService" Type="UpdateService.UpdateService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Update Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type UpdateService."/>
+          <Annotation Term="OData.Description" String="The link to the update service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type UpdateService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -341,7 +349,6 @@
       </EntityContainer>
 
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_0.ServiceRoot"/>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_2">
@@ -352,7 +359,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add a missing Redfish.Required term to the Sessions link."/>
+      <Annotation Term="OData.Description" String="This version was created to mark the Sessions property as required."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_2.ServiceRoot"/>
     </Schema>
 
@@ -374,6 +381,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_5.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_6.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -385,17 +398,16 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_2.ServiceRoot">
         <NavigationProperty Name="CompositionService" Type="CompositionService.CompositionService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Composition Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type CompositionService."/>
+          <Annotation Term="OData.Description" String="The link to the composition service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type CompositionService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add a missing Redfish.Required term to the Sessions link."/>
+      <Annotation Term="OData.Description" String="This version was created to mark the Sessions property as required."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_0.ServiceRoot"/>
     </Schema>
 
@@ -417,6 +429,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_3.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_4.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -424,8 +442,8 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_0.ServiceRoot">
         <Property Name="Product" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The product associated with this Redfish Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall include the name of the product represented by this Redfish Service."/>
+          <Annotation Term="OData.Description" String="The product associated with this Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall include the name of the product represented by this Redfish service."/>
         </Property>
         <Property Name="ProtocolFeaturesSupported" Type="ServiceRoot.v1_3_0.ProtocolFeaturesSupported" Nullable="false">
           <Annotation Term="OData.Description" String="The information about protocol features that the service supports."/>
@@ -478,17 +496,15 @@
         <Property Name="MaxLevels" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum $levels option value in the $expand query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum $levels option value in the $expand query parameter.  Shall be included only if $levels is true."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum $levels option value in the $expand query parameter.  This property shall be present if the Levels property contains `true`."/>
           <Annotation Term="Validation.Minimum" Int="1"/>
-          <Annotation Term="Validation.Maximum" Int="6"/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add a missing Redfish.Required term to the Sessions link."/>
+      <Annotation Term="OData.Description" String="This version was created to mark the Sessions property as required."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_0.ServiceRoot"/>
     </Schema>
 
@@ -516,6 +532,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_4.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_5.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -529,14 +551,14 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_2.ServiceRoot">
         <NavigationProperty Name="JobService" Type="JobService.JobService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the JobService."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type JobService."/>
+          <Annotation Term="OData.Description" String="The link to the job service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type JobService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="TelemetryService" Type="TelemetryService.TelemetryService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Telemetry Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type TelemetryService."/>
+          <Annotation Term="OData.Description" String="The link to the telemetry service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type TelemetryService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -573,6 +595,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_2.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_3.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -585,19 +613,19 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_1.ServiceRoot">
         <Property Name="Vendor" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The vendor or manufacturer associated with this Redfish Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall include the name of the manufacturer or vendor represented by this Redfish Service.  If this property is supported, the vendor name shall not be included in the Product property value."/>
+          <Annotation Term="OData.Description" String="The vendor or manufacturer associated with this Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall include the name of the manufacturer or vendor represented by this Redfish service.  If this property is supported, the vendor name shall not be included in the Product property value."/>
         </Property>
         <NavigationProperty Name="CertificateService" Type="CertificateService.CertificateService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Certificate Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type CertificateService."/>
+          <Annotation Term="OData.Description" String="The link to the certificate service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type CertificateService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ResourceBlocks" Type="ResourceBlockCollection.ResourceBlockCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of all Resource Block Resources.  This collection is intended for implementations that do not contain a Composition Service but that expose Resources to an orchestrator that implements a Composition Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type ResourceBlockCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of resource blocks.  This collection is intended for implementations that do not contain a composition service but that expose resources to an orchestrator that implements a composition service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ResourceBlockCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -613,6 +641,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_5_1.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_5_2.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_6_0">
@@ -637,6 +671,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FacilityCollection."/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_6_0.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_7_0">
@@ -671,9 +711,14 @@
           <Annotation Term="OData.Description" String="The maximum levels of resources allowed in deep operations."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the maximum levels of resources allowed in deep operations."/>
           <Annotation Term="Validation.Minimum" Int="1"/>
-          <Annotation Term="Validation.Maximum" Int="6"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_7_0.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_8_0">
@@ -694,6 +739,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_8_0.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -712,6 +763,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_9_0.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -728,6 +785,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_10_0.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_11_0">
@@ -754,6 +817,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_11_0.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -770,6 +839,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_12_0.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_13_0">
@@ -801,6 +876,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_13_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_13_0.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -819,6 +900,27 @@
           <Annotation Term="OData.Description" String="An indication of whether the service supports multiple outstanding HTTP requests."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports multiple outstanding HTTP requests."/>
         </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_14_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_14_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_14_1.ServiceRoot"/>
+
+      <ComplexType Name="Links" BaseType="ServiceRoot.v1_0_0.Links">
+        <NavigationProperty Name="ManagerProvidingService" Type="Manager.Manager" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the manager that is providing this Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Manager that represents the manager providing this Redfish service."/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 

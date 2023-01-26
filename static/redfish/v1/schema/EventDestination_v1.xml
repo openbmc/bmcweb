@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.12.0                                            -->
+<!--# Redfish Schema:  EventDestination v1.13.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -167,6 +167,18 @@
         <Member Name="Redfish">
           <Annotation Term="OData.Description" String="The destination follows the Redfish Specification for event notifications."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the Redfish Specification for event notifications.  Destinations requesting EventFormatType of `Event` shall receive a Redfish resource of type Event.  Destinations requesting EventFormatType of `MetricReport` shall receive a Redfish resource of type MetricReport."/>
+        </Member>
+        <Member Name="Kafka">
+          <Annotation Term="OData.Description" String="The destination follows the Kafka protocol for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the Apache-defined Kafka protocol as defined by the Kafka Protocol Guide.  The Context property shall contain the Kafka topic of the destination broker."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="SNMPv1">
           <Annotation Term="OData.Description" String="The destination follows the SNMPv1 protocol for event notifications."/>
@@ -366,7 +378,7 @@
         <Property Name="MessageIds" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The list of MessageIds that are sent to this event destination."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of MessageIds that are the allowable values for the MessageId property within an event sent to the subscriber.  The MessageId should be in the `MessageRegistry.MessageId` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is not contained in this array and is not from a message registry contained in RegistryPrefixes shall not be sent to the subscriber.  If this property is an empty array or is absent, no inclusive filtering based upon the MessageId of an event is performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of MessageIds that are the allowable values for the MessageId property within an event sent to the subscriber.  The MessageId should be in the `MessageRegistryPrefix.MessageKey` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is not contained in this array and is not from a message registry contained in RegistryPrefixes shall not be sent to the subscriber.  If this property is an empty array or is absent, no inclusive filtering based upon the MessageId of an event is performed."/>
         </Property>
       </EntityType>
     </Schema>
@@ -429,6 +441,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the format of the MessageId in the MessageIds property."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_9.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_10.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_0">
@@ -505,6 +523,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the format of the MessageId in the MessageIds property."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_7.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_8.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_0">
@@ -614,6 +638,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_5.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_6.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -673,6 +703,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -703,6 +739,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the format of the MessageId in the MessageIds property."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_3.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_4.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_0">
@@ -785,6 +827,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -802,12 +850,12 @@
         <Annotation Term="OData.Description" String="Settings for an SNMP event destination."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the settings for an SNMP event destination."/>
         <Property Name="TrapCommunity" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
           <Annotation Term="OData.Description" String="The SNMP trap community string."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP trap community string.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="AuthenticationKey" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
           <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\*+$)"/>
@@ -818,7 +866,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 authentication protocol."/>
         </Property>
         <Property Name="EncryptionKey" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
           <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
@@ -943,6 +991,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -987,6 +1041,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -995,13 +1055,13 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of server certificates for the server referenced by the Destination property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="VerifyCertificate" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.  If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event with the certificates found in the collection referenced by the Certificates property.  If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
         </Property>
         <Property Name="SyslogFilters" Type="Collection(EventDestination.v1_9_0.SyslogFilter)">
           <Annotation Term="OData.Description" String="A list of filters applied to syslog messages before sending to a remote syslog server.  An empty list indicates all syslog messages are sent."/>
@@ -1181,6 +1241,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_5.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_6.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols and to provide better description for the authentication and encryption keys.  It also added `RetryForeverWithBackoff` to DeliveryRetryPolicy and long description details to the DeliveryRetryPolicy values."/>
@@ -1232,6 +1298,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1276,6 +1348,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_2.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_3.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1290,7 +1368,27 @@
         <Property Name="ExcludeMessageIds" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The list of MessageIds that are not sent to this event destination."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of excluded MessageIds that are not allowed values for the MessageId property within an event sent to the subscriber.  The MessageId shall be in the `MessageRegistry.MessageId` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the MessageId of an event is performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of excluded MessageIds that are not allowed values for the MessageId property within an event sent to the subscriber.  The MessageId shall be in the `MessageRegistryPrefix.MessageKey` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the MessageId of an event is performed."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Kafka` to EventDestinationProtocol."/>
+
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_1.EventDestination">
+        <Property Name="Severities" Type="Collection(Resource.Health)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The list of severities that are sent to this event destination."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of severities that are the allowable values for the MessageSeverity property within an event sent to the subscriber.  If this property is an empty array or is absent, no filtering based upon the MessageSeverity of an event is performed."/>
         </Property>
       </EntityType>
     </Schema>

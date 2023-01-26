@@ -92,6 +92,9 @@
             "uris": [
                 "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies",
                 "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies"
+            ],
+            "urisDeprecated": [
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies"
             ]
         }
     },

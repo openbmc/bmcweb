@@ -69,6 +69,16 @@ enum class LogDiagnosticDataTypes{
     OEM,
 };
 
+enum class LogPurpose{
+    Invalid,
+    Diagnostic,
+    Operations,
+    Security,
+    Telemetry,
+    ExternalEntity,
+    OEM,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Invalid, "Invalid"},
     {OverWritePolicy::Unknown, "Unknown"},
@@ -131,6 +141,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogDiagnosticDataTypes, {
     {LogDiagnosticDataTypes::PreOS, "PreOS"},
     {LogDiagnosticDataTypes::OS, "OS"},
     {LogDiagnosticDataTypes::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(LogPurpose, {
+    {LogPurpose::Invalid, "Invalid"},
+    {LogPurpose::Diagnostic, "Diagnostic"},
+    {LogPurpose::Operations, "Operations"},
+    {LogPurpose::Security, "Security"},
+    {LogPurpose::Telemetry, "Telemetry"},
+    {LogPurpose::ExternalEntity, "ExternalEntity"},
+    {LogPurpose::OEM, "OEM"},
 });
 
 }

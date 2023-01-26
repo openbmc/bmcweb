@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.14.1                                                    -->
+<!--# Redfish Schema:  Resource v1.15.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -313,7 +313,7 @@
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Power cycle the unit.  Behaves like a full power removal, followed by a power restore to the resource."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will perform a power cycle.  If currently in the power on state, the resource will transition to a power off state, then transition to a power on state.  If currently in the power off state, the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -390,19 +390,19 @@
 
       <EnumType Name="PowerState">
         <Member Name="On">
-          <Annotation Term="OData.Description" String="The state is powered on."/>
+          <Annotation Term="OData.Description" String="The resource is powered on."/>
         </Member>
         <Member Name="Off">
-          <Annotation Term="OData.Description" String="The state is powered off."/>
+          <Annotation Term="OData.Description" String="The resource is powered off.  The components within the resource might continue to have AUX power."/>
         </Member>
         <Member Name="PoweringOn">
-          <Annotation Term="OData.Description" String="A temporary state between off and on."/>
+          <Annotation Term="OData.Description" String="A temporary state between off and on.  The components within the resource can take time to process the power on action."/>
         </Member>
         <Member Name="PoweringOff">
-          <Annotation Term="OData.Description" String="A temporary state between on and off."/>
+          <Annotation Term="OData.Description" String="A temporary state between on and off.  The components within the resource can take time to process the power off action."/>
         </Member>
         <Member Name="Paused">
-          <Annotation Term="OData.Description" String="The state is paused."/>
+          <Annotation Term="OData.Description" String="The resource is paused."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -651,6 +651,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="GCXLID">
+          <Annotation Term="OData.Description" String="The globally unique CXL logical device identifier (GCXLID)."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be in the globally unique CXL logical device identifier (GCXLID).  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$', where the first eight hyphen-delimited octets contain the PCIe serial number, where the most significant octet is first, and the remaining 16-bit field contains the CXL Logical Device Identifier, where the most significant byte first."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_15_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1770,6 +1782,12 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `GCXLID` to DurableNameFormat."/>
     </Schema>
 
   </edmx:DataServices>

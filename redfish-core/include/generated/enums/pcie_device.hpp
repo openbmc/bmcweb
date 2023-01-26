@@ -42,6 +42,13 @@ enum class LaneSplittingType{
     Bifurcated,
 };
 
+enum class CXLDeviceType{
+    Invalid,
+    Type1,
+    Type2,
+    Type3,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Invalid, "Invalid"},
     {PCIeTypes::Gen1, "Gen1"},
@@ -77,6 +84,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LaneSplittingType, {
     {LaneSplittingType::None, "None"},
     {LaneSplittingType::Bridged, "Bridged"},
     {LaneSplittingType::Bifurcated, "Bifurcated"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CXLDeviceType, {
+    {CXLDeviceType::Invalid, "Invalid"},
+    {CXLDeviceType::Type1, "Type1"},
+    {CXLDeviceType::Type2, "Type2"},
+    {CXLDeviceType::Type3, "Type3"},
 });
 
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_13_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_14_0.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -91,6 +91,32 @@
                 "TotalCacheSizeMiB"
             ],
             "type": "object"
+        },
+        "EncryptionMode": {
+            "enum": [
+                "Disabled",
+                "UseExternalKey",
+                "UseLocalKey"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Encryption is disabled on the storage subsystem.",
+                "UseExternalKey": "The storage subsystem uses one or more external keys for encryption.",
+                "UseLocalKey": "The storage subsystem uses a local key for encryption."
+            },
+            "type": "string"
+        },
+        "HotspareActivationPolicy": {
+            "enum": [
+                "OnDriveFailure",
+                "OnDrivePredictedFailure",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "OEM": "The hot spare drive will take over for the original drive in an algorithm custom to the OEM.",
+                "OnDriveFailure": "The hot spare drive will take over for the original drive when the original drive has been marked as failed by the storage domain.",
+                "OnDrivePredictedFailure": "The hot spare drive will take over for the original drive when the original drive has been predicted to fail in the future by the storage domain."
+            },
+            "type": "string"
         },
         "Links": {
             "additionalProperties": false,
@@ -296,14 +322,26 @@
         },
         "SetEncryptionKey": {
             "additionalProperties": false,
-            "description": "This action sets the encryption key for the storage subsystem.",
-            "longDescription": "This action shall set the encryption key for the storage subsystem.",
+            "description": "This action sets the local encryption key for the storage subsystem.",
+            "longDescription": "This action shall set the local encryption key for the storage subsystem.",
             "parameters": {
+                "CurrentEncryptionKey": {
+                    "description": "The current local encryption key on the storage subsystem.",
+                    "longDescription": "This parameter shall contain the current local encryption key on the storage subsystem.  Services may reject the action request if this parameter is not provided.",
+                    "type": "string",
+                    "versionAdded": "v1_14_0"
+                },
                 "EncryptionKey": {
-                    "description": "The encryption key to set on the storage subsystem.",
-                    "longDescription": "This parameter shall contain the encryption key to set on the storage subsystem.",
+                    "description": "The local encryption key to set on the storage subsystem.",
+                    "longDescription": "This parameter shall contain the local encryption key to set on the storage subsystem.",
                     "requiredParameter": true,
                     "type": "string"
+                },
+                "EncryptionKeyIdentifier": {
+                    "description": "The local encryption key identifier used by the storage subsystem.",
+                    "longDescription": "This property shall contain the local encryption key identifier used by the storage subsystem.",
+                    "type": "string",
+                    "versionAdded": "v1_14_0"
                 }
             },
             "patternProperties": {
@@ -406,6 +444,20 @@
                 "Drives@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "EncryptionMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EncryptionMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The encryption mode of this storage subsystem.",
+                    "longDescription": "This property shall contain the encryption mode of this storage subsystem.",
+                    "readonly": false,
+                    "versionAdded": "v1_14_0"
+                },
                 "EndpointGroups": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroupCollection.json#/definitions/EndpointGroupCollection",
                     "description": "All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem.",
@@ -419,6 +471,20 @@
                     "longDescription": "This property shall contain a link to a resource collection of type FileSystemCollection.  This property shall be used when file systems are shared or exported by the storage subsystem.",
                     "readonly": true,
                     "versionAdded": "v1_8_0"
+                },
+                "HotspareActivationPolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/HotspareActivationPolicy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The policy under which hot spare drives in this storage domain will activate.",
+                    "longDescription": "This property shall contain the policy under which all drives operating as hot spares in this storage domain will activate.",
+                    "readonly": false,
+                    "versionAdded": "v1_14_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -437,6 +503,16 @@
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
                     "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "LocalEncryptionKeyIdentifier": {
+                    "description": "The local encryption key identifier used by the storage subsystem.",
+                    "longDescription": "This property shall contain the local encryption key identifier used by the storage subsystem when EncryptionMode contains `UseLocalKey`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_14_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -864,6 +940,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#Storage.v1_13_0.Storage"
+    "release": "2022.3",
+    "title": "#Storage.v1_14_0.Storage"
 }

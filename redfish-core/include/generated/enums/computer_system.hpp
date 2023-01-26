@@ -44,14 +44,6 @@ enum class IndicatorLED{
     Off,
 };
 
-enum class PowerState{
-    Invalid,
-    On,
-    Off,
-    PoweringOn,
-    PoweringOff,
-};
-
 enum class BootSourceOverrideEnabled{
     Invalid,
     Disabled,
@@ -187,6 +179,12 @@ enum class CompositionUseCase{
     ExpandableSystem,
 };
 
+enum class KMIPCachePolicy{
+    Invalid,
+    None,
+    AfterFirstUse,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Invalid, "Invalid"},
     {BootSource::None, "None"},
@@ -224,14 +222,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Lit, "Lit"},
     {IndicatorLED::Blinking, "Blinking"},
     {IndicatorLED::Off, "Off"},
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
-    {PowerState::Invalid, "Invalid"},
-    {PowerState::On, "On"},
-    {PowerState::Off, "Off"},
-    {PowerState::PoweringOn, "PoweringOn"},
-    {PowerState::PoweringOff, "PoweringOff"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSourceOverrideEnabled, {
@@ -367,6 +357,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CompositionUseCase, {
     {CompositionUseCase::Invalid, "Invalid"},
     {CompositionUseCase::ResourceBlockCapable, "ResourceBlockCapable"},
     {CompositionUseCase::ExpandableSystem, "ExpandableSystem"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(KMIPCachePolicy, {
+    {KMIPCachePolicy::Invalid, "Invalid"},
+    {KMIPCachePolicy::None, "None"},
+    {KMIPCachePolicy::AfterFirstUse, "AfterFirstUse"},
 });
 
 }

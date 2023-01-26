@@ -65,6 +65,11 @@
             <String>/redfish/v1/Chassis/{ChassisId}/Thermal</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/Thermal</String>
+          </Collection>
+        </Annotation>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
