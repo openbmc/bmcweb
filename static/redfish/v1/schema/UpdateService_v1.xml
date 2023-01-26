@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.11.1                                               -->
+<!--# Redfish Schema:  UpdateService v1.11.2                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -321,7 +321,7 @@
         <Property Name="HttpPushUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI used to perform an HTTP or HTTPS push update to the update service.  The format of the message is vendor-specific."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI at which the update service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the update service.  If the service requires the `Content-Length` header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request.  The value of this property should not contain a URI of a Redfish resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI at which the update service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the update service.  If the service requires the `Content-Length` header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
       </EntityType>
@@ -385,6 +385,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that non-resource URIs should not contain URIs of Redfish resources."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_9.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_10.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_0">
@@ -460,6 +466,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_8.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_9.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -508,6 +520,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that non-resource URIs should not contain URIs of Redfish resources."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_6.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_7.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_0">
@@ -634,6 +652,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_6.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_7.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -684,6 +708,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_5.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_6.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -692,7 +722,7 @@
         <Property Name="MultipartHttpPushUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS push update to the update service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  The value of this property should not contain a URI of a Redfish resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
       </EntityType>
@@ -740,6 +770,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_4.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_7.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -776,6 +812,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the StartUpdate action.  It was also created to clarify that non-resource URIs should not contain URIs of Redfish resources."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_4.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_5.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_0">
@@ -822,6 +864,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_4.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_5.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -830,13 +878,13 @@
         <NavigationProperty Name="RemoteServerCertificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of server certificates for the server referenced by the ImageURI property in SimpleUpdate."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="VerifyRemoteServerCertificate" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request with the certificates found in the collection referenced by the RemoteServerCertificates property.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
         </Property>
       </EntityType>
     </Schema>
@@ -851,6 +899,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the StartUpdate action.  It was also created to clarify that non-resource URIs should not contain URIs of Redfish resources."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_9_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification.  It was also created to clarify that other certificate verification might be performed by the service due to other policies in the service."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_9_2.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_10_0">
@@ -877,6 +931,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the StartUpdate action.  It was also created to clarify that non-resource URIs should not contain URIs of Redfish resources."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_10_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification.  It was also created to clarify that other certificate verification might be performed by the service due to other policies in the service."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_10_2.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_11_0">
@@ -907,6 +967,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the StartUpdate action.  It was also created to clarify that non-resource URIs should not contain URIs of Redfish resources."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_11_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification.  It was also created to clarify that other certificate verification might be performed by the service due to other policies in the service."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_11_1.UpdateService"/>
     </Schema>
 
   </edmx:DataServices>

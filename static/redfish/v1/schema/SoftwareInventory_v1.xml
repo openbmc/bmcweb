@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.8.0                                            -->
+<!--# Redfish Schema:  SoftwareInventory v1.9.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -357,6 +357,34 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the operating system name of this software."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_8_0.SoftwareInventory">
+        <Property Name="VersionScheme" Type="SoftwareInventory.v1_9_0.VersionScheme">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The format of the version."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the scheme used to format the value of the Version property."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="VersionScheme">
+        <Member Name="SemVer">
+          <Annotation Term="OData.Description" String="Version follows Semantic Versioning 2.0 rules."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the value of the Version property conforms to the format and rules of the Semantic Version 2.0 specification, and may include pre-release or build metadata."/>
+        </Member>
+        <Member Name="DotIntegerNotation">
+          <Annotation Term="OData.Description" String="Version formatted as dot-separated integers."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the value of the Version property contains a sequence of integers separated by period (dot) characters, and shall follow the pattern `^\d+(\.\d+)*$`.  Leading zeros in the sequence shall be ignored."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="Version follows OEM-defined format."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the value of the Version property follows a format and rules as defined by the vendor or manufacturer."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

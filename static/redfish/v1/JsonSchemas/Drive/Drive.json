@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_15_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_16_0.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -154,6 +154,20 @@
                         }
                     ],
                     "readonly": true
+                },
+                "DriveFormFactor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/FormFactor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The form factor of the drive inserted in this slot.",
+                    "longDescription": "This property shall contain the form factor of the drive inserted in this slot.",
+                    "readonly": true,
+                    "versionAdded": "v1_16_0"
                 },
                 "EncryptionAbility": {
                     "anyOf": [
@@ -441,6 +455,37 @@
                         "null"
                     ]
                 },
+                "SlotCapableProtocols": {
+                    "description": "The drive protocols capable in this slot.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the drive protocols capable in this slot.  The value of this property depends upon the connector in this slot, the storage controllers connected to this slot, the configuration of the system, and other constraints that determine if a particular protocol is capable at a given time.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
+                },
+                "SlotFormFactor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/FormFactor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The form factor of the slot.",
+                    "longDescription": "This property shall contain the form factor of the slot.",
+                    "readonly": true,
+                    "versionAdded": "v1_16_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
@@ -517,6 +562,63 @@
             },
             "type": "string"
         },
+        "FormFactor": {
+            "enum": [
+                "Drive3_5",
+                "Drive2_5",
+                "EDSFF_1U_Long",
+                "EDSFF_1U_Short",
+                "EDSFF_E3_Short",
+                "EDSFF_E3_Long",
+                "M2_2230",
+                "M2_2242",
+                "M2_2260",
+                "M2_2280",
+                "M2_22110",
+                "U2",
+                "PCIeSlotFullLength",
+                "PCIeSlotLowProfile",
+                "PCIeHalfLength",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Drive2_5": "A 2.5 inch drive.",
+                "Drive3_5": "A 3.5 inch drive.",
+                "EDSFF_1U_Long": "An EDSFF 1U Long (E1.L) drive.",
+                "EDSFF_1U_Short": "An EDSFF 1U Short (E1.S) drive.",
+                "EDSFF_E3_Long": "An EDSFF E3 Long (E3.L) drive.",
+                "EDSFF_E3_Short": "An EDSFF E3 Short (E3.S) drive.",
+                "M2_22110": "An M.2 22110 drive.",
+                "M2_2230": "An M.2 2230 drive.",
+                "M2_2242": "An M.2 2242 drive.",
+                "M2_2260": "An M.2 2260 drive.",
+                "M2_2280": "An M.2 2280 drive.",
+                "OEM": "An OEM-defined form factor.",
+                "PCIeHalfLength": "A half length PCIe add in card.",
+                "PCIeSlotFullLength": "A full length PCIe add in card.",
+                "PCIeSlotLowProfile": "A low profile PCIe add in card.",
+                "U2": "A U.2 drive."
+            },
+            "enumLongDescriptions": {
+                "Drive2_5": "This value shall indicate the drive is approximately 2.5 inches in width and no more than 0.8 inches in height and is not a U.2 drive.",
+                "Drive3_5": "This value shall indicate the drive is approximately 3.5 inches in width and no more than 1.1 inches in height.",
+                "EDSFF_1U_Long": "This value shall indicate the drive corresponds to the SFF-TA-1007 Specification.",
+                "EDSFF_1U_Short": "This value shall indicate the drive corresponds to the SFF-TA-1006 Specification.",
+                "EDSFF_E3_Long": "This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 142.2mm in length.",
+                "EDSFF_E3_Short": "This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 112.75mm in length.",
+                "M2_22110": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 110mm in length.",
+                "M2_2230": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 30mm in length.",
+                "M2_2242": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 42mm in length.",
+                "M2_2260": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 60mm in length.",
+                "M2_2280": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 80mm in length.",
+                "OEM": "This value shall indicate the drive is an OEM-defined form factor.",
+                "PCIeHalfLength": "This value shall indicate the drive is an add in card less than 7 inches in length.",
+                "PCIeSlotFullLength": "This value shall indicate the drive is an add in card greater than 7 inches in length.",
+                "PCIeSlotLowProfile": "This value shall indicate the drive is an add in card less than 2.5 inches in height.",
+                "U2": "This value shall indicate the drive corresponds to the PCI Express SFF-8639 Module Specification."
+            },
+            "type": "string"
+        },
         "HotspareReplacementModeType": {
             "enum": [
                 "Revertible",
@@ -562,6 +664,13 @@
                 }
             },
             "properties": {
+                "ActiveSoftwareImage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory",
+                    "description": "The link to the software inventory that represents the active drive firmware image.",
+                    "longDescription": "This property shall contain a link a resource of type SoftwareInventory that represents the active drive firmware image.",
+                    "readonly": false,
+                    "versionAdded": "v1_16_0"
+                },
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this drive.",
@@ -610,6 +719,19 @@
                     "versionAdded": "v1_6_0"
                 },
                 "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "SoftwareImages": {
+                    "description": "The images that are associated with this drive.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type SoftwareInventory that represent the firmware images that apply to this drive.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
+                },
+                "SoftwareImages@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Storage": {
@@ -838,6 +960,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#Drive.v1_15_0.Drive"
+    "release": "2022.3",
+    "title": "#Drive.v1_16_0.Drive"
 }

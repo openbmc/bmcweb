@@ -58,6 +58,11 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Managers/{ManagerId}/VirtualMedia</String>
+          </Collection>
+        </Annotation>
         <NavigationProperty Name="Members" Type="Collection(VirtualMedia.VirtualMedia)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>

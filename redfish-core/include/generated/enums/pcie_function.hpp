@@ -38,6 +38,12 @@ enum class FunctionType{
     Virtual,
 };
 
+enum class FunctionProtocol{
+    Invalid,
+    PCIe,
+    CXL,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DeviceClass, {
     {DeviceClass::Invalid, "Invalid"},
     {DeviceClass::UnclassifiedDevice, "UnclassifiedDevice"},
@@ -69,6 +75,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FunctionType, {
     {FunctionType::Invalid, "Invalid"},
     {FunctionType::Physical, "Physical"},
     {FunctionType::Virtual, "Virtual"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(FunctionProtocol, {
+    {FunctionProtocol::Invalid, "Invalid"},
+    {FunctionProtocol::PCIe, "PCIe"},
+    {FunctionProtocol::CXL, "CXL"},
 });
 
 }

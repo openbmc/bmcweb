@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService v1.3.0                                                   -->
+<!--# Redfish Schema:  LogService v1.4.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -63,6 +63,7 @@
             <String>/redfish/v1/JobService/Log</String>
             <String>/redfish/v1/TelemetryService/LogService</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/CXLLogicalDevices/{CXLLogicalDeviceId}/DeviceLog</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -469,6 +470,55 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the CollectDiagnosticData action."/>
       <EntityType Name="LogService" BaseType="LogService.v1_3_0.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="LogService" BaseType="LogService.v1_3_1.LogService">
+        <Property Name="LogPurposes" Type="Collection(LogService.v1_4_0.LogPurpose)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The purposes of the log."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the purposes of the log."/>
+        </Property>
+        <Property Name="OEMLogPurpose" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM-specified purpose of the log if LogPurposes contains `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-specified purpose of the log if LogPurposes contains `OEM`."/>
+        </Property>
+        <Property Name="Persistency" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the log service is persistent across a cold reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the log service is persistent across a cold reset of the device."/>
+        </Property>
+        <Property Name="Overflow" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the log service has overflowed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the log service has overflowed and is no longer able to store new logs."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="LogPurpose">
+        <Member Name="Diagnostic">
+          <Annotation Term="OData.Description" String="The log provides information for diagnosing hardware or software issues, such as error conditions, sensor threshold trips, or exception cases."/>
+        </Member>
+        <Member Name="Operations">
+          <Annotation Term="OData.Description" String="The log provides information about management operations that have a significant impact on the system, such as firmware updates, system resets, and storage volume creation."/>
+        </Member>
+        <Member Name="Security">
+          <Annotation Term="OData.Description" String="The log provides security-related information such as authentication, authorization, and data access logging required for security audits."/>
+        </Member>
+        <Member Name="Telemetry">
+          <Annotation Term="OData.Description" String="The log provides telemetry history, typically collected on a regular basis."/>
+        </Member>
+        <Member Name="ExternalEntity">
+          <Annotation Term="OData.Description" String="The log exposes log entries provided by external entities, such as external users, system firmware, operating systems, or management applications."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The log is used for an OEM-defined purpose."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

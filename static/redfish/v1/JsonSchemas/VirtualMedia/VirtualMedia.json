@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_0.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -85,6 +85,23 @@
             },
             "type": "object",
             "versionAdded": "v1_2_0"
+        },
+        "EjectPolicy": {
+            "enum": [
+                "OnPowerOff",
+                "Session",
+                "Timed",
+                "AfterUse",
+                "Persistent"
+            ],
+            "enumDescriptions": {
+                "AfterUse": "The virtual media ejection occurs after the media is used.",
+                "OnPowerOff": "The virtual media ejection occurs during a system power or reset event.",
+                "Persistent": "The virtual media mount information persists indefinitely.",
+                "Session": "The virtual media ejection occurs when a session is terminated.  The session may be outside the Redfish service.",
+                "Timed": "The virtual media ejection occurs when a timer configured by the EjectTimeout property expires."
+            },
+            "type": "string"
         },
         "InsertMedia": {
             "additionalProperties": false,
@@ -272,7 +289,7 @@
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
                     "description": "The link to a collection of server certificates for the server referenced by the Image property.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
@@ -306,6 +323,31 @@
                         }
                     ],
                     "readonly": true
+                },
+                "EjectPolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EjectPolicy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The ejection policy for the virtual media.",
+                    "longDescription": "This property shall contain the ejection policy for the virtual media.",
+                    "readonly": false,
+                    "versionAdded": "v1_6_0"
+                },
+                "EjectTimeout": {
+                    "description": "Timeout value before the virtual media is automatically ejected.",
+                    "longDescription": "This property shall indicate the amount of time before virtual media is automatically ejected when EjectPolicy contains `Timed`.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -413,7 +455,7 @@
                 },
                 "VerifyCertificate": {
                     "description": "An indication of whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.",
-                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.",
+                    "longDescription": "This property shall indicate whether the service will verify the certificate of the server referenced by the Image property prior to completing the remote media connection with the certificates found in the collection referenced by the Certificates property.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -441,6 +483,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#VirtualMedia.v1_5_1.VirtualMedia"
+    "release": "2022.3",
+    "title": "#VirtualMedia.v1_6_0.VirtualMedia"
 }

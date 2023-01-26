@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.13.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.14.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -137,12 +137,36 @@
       </EntityType>
 
       <Action Name="SetEncryptionKey" IsBound="true">
-        <Annotation Term="OData.Description" String="This action sets the encryption key for the storage subsystem."/>
-        <Annotation Term="OData.LongDescription" String="This action shall set the encryption key for the storage subsystem."/>
+        <Annotation Term="OData.Description" String="This action sets the local encryption key for the storage subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the local encryption key for the storage subsystem."/>
         <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
         <Parameter Name="EncryptionKey" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The encryption key to set on the storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the encryption key to set on the storage subsystem."/>
+          <Annotation Term="OData.Description" String="The local encryption key to set on the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the local encryption key to set on the storage subsystem."/>
+        </Parameter>
+        <Parameter Name="EncryptionKeyIdentifier" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The local encryption key identifier used by the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the local encryption key identifier used by the storage subsystem."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="CurrentEncryptionKey" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current local encryption key on the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current local encryption key on the storage subsystem.  Services may reject the action request if this parameter is not provided."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Parameter>
       </Action>
 
@@ -1123,6 +1147,53 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate the StorageControllers array property in favor of the StorageController resource collection provided by the Controllers property."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_12_0.Storage"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_14_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_13_0.Storage">
+        <Property Name="HotspareActivationPolicy" Type="Storage.v1_14_0.HotspareActivationPolicy">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The policy under which hot spare drives in this storage domain will activate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the policy under which all drives operating as hot spares in this storage domain will activate."/>
+        </Property>
+        <Property Name="EncryptionMode" Type="Storage.v1_14_0.EncryptionMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The encryption mode of this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the encryption mode of this storage subsystem."/>
+        </Property>
+        <Property Name="LocalEncryptionKeyIdentifier" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The local encryption key identifier used by the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the local encryption key identifier used by the storage subsystem when EncryptionMode contains `UseLocalKey`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="HotspareActivationPolicy">
+        <Member Name="OnDriveFailure">
+          <Annotation Term="OData.Description" String="The hot spare drive will take over for the original drive when the original drive has been marked as failed by the storage domain."/>
+        </Member>
+        <Member Name="OnDrivePredictedFailure">
+          <Annotation Term="OData.Description" String="The hot spare drive will take over for the original drive when the original drive has been predicted to fail in the future by the storage domain."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The hot spare drive will take over for the original drive in an algorithm custom to the OEM."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="EncryptionMode">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Encryption is disabled on the storage subsystem."/>
+        </Member>
+        <Member Name="UseExternalKey">
+          <Annotation Term="OData.Description" String="The storage subsystem uses one or more external keys for encryption."/>
+        </Member>
+        <Member Name="UseLocalKey">
+          <Annotation Term="OData.Description" String="The storage subsystem uses a local key for encryption."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

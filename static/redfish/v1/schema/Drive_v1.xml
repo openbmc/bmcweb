@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Drive v1.15.0                                                                   -->
+<!--# Redfish Schema:  Drive v1.16.0                                                                   -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -1342,6 +1342,111 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by overwriting data by writing an implementation specific pattern onto all sectors of the drive."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_15_0.Drive">
+        <Property Name="SlotFormFactor" Type="Drive.v1_16_0.FormFactor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The form factor of the slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the form factor of the slot."/>
+        </Property>
+        <Property Name="DriveFormFactor" Type="Drive.v1_16_0.FormFactor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The form factor of the drive inserted in this slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the form factor of the drive inserted in this slot."/>
+        </Property>
+        <Property Name="SlotCapableProtocols" Type="Collection(Protocol.Protocol)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The drive protocols capable in this slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the drive protocols capable in this slot.  The value of this property depends upon the connector in this slot, the storage controllers connected to this slot, the configuration of the system, and other constraints that determine if a particular protocol is capable at a given time."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="FormFactor">
+        <Member Name="Drive3_5">
+          <Annotation Term="OData.Description" String="A 3.5 inch drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is approximately 3.5 inches in width and no more than 1.1 inches in height."/>
+        </Member>
+        <Member Name="Drive2_5">
+          <Annotation Term="OData.Description" String="A 2.5 inch drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is approximately 2.5 inches in width and no more than 0.8 inches in height and is not a U.2 drive."/>
+        </Member>
+        <Member Name="EDSFF_1U_Long">
+          <Annotation Term="OData.Description" String="An EDSFF 1U Long (E1.L) drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1007 Specification."/>
+        </Member>
+        <Member Name="EDSFF_1U_Short">
+          <Annotation Term="OData.Description" String="An EDSFF 1U Short (E1.S) drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1006 Specification."/>
+        </Member>
+        <Member Name="EDSFF_E3_Short">
+          <Annotation Term="OData.Description" String="An EDSFF E3 Short (E3.S) drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 112.75mm in length."/>
+        </Member>
+        <Member Name="EDSFF_E3_Long">
+          <Annotation Term="OData.Description" String="An EDSFF E3 Long (E3.L) drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 142.2mm in length."/>
+        </Member>
+        <Member Name="M2_2230">
+          <Annotation Term="OData.Description" String="An M.2 2230 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 30mm in length."/>
+        </Member>
+        <Member Name="M2_2242">
+          <Annotation Term="OData.Description" String="An M.2 2242 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 42mm in length."/>
+        </Member>
+        <Member Name="M2_2260">
+          <Annotation Term="OData.Description" String="An M.2 2260 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 60mm in length."/>
+        </Member>
+        <Member Name="M2_2280">
+          <Annotation Term="OData.Description" String="An M.2 2280 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 80mm in length."/>
+        </Member>
+        <Member Name="M2_22110">
+          <Annotation Term="OData.Description" String="An M.2 22110 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 110mm in length."/>
+        </Member>
+        <Member Name="U2">
+          <Annotation Term="OData.Description" String="A U.2 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express SFF-8639 Module Specification."/>
+        </Member>
+        <Member Name="PCIeSlotFullLength">
+          <Annotation Term="OData.Description" String="A full length PCIe add in card."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add in card greater than 7 inches in length."/>
+        </Member>
+        <Member Name="PCIeSlotLowProfile">
+          <Annotation Term="OData.Description" String="A low profile PCIe add in card."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add in card less than 2.5 inches in height."/>
+        </Member>
+        <Member Name="PCIeHalfLength">
+          <Annotation Term="OData.Description" String="A half length PCIe add in card."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add in card less than 7 inches in length."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="An OEM-defined form factor."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an OEM-defined form factor."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Drive.v1_14_0.Links">
+        <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the software inventory that represents the active drive firmware image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link a resource of type SoftwareInventory that represents the active drive firmware image."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SoftwareImages" Type="Collection(SoftwareInventory.SoftwareInventory)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The images that are associated with this drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type SoftwareInventory that represent the firmware images that apply to this drive."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

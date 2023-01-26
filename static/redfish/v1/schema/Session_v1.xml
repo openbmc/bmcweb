@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Session v1.5.0                                                      -->
+<!--# Redfish Schema:  Session v1.6.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -69,7 +69,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the username that matches an account recognized by the account service."/>
         </Property>
         <Property Name="Password" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/None"/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Description" String="The password for this session.  The value is `null` in responses."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the password for this session.  The value shall be `null` in responses."/>
@@ -111,6 +111,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Session" BaseType="Session.v1_0_6.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="Session" BaseType="Session.v1_0_7.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_1_0">
@@ -163,6 +169,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Session" BaseType="Session.v1_1_3.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="Session" BaseType="Session.v1_1_4.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_0">
@@ -222,6 +234,12 @@
       <EntityType Name="Session" BaseType="Session.v1_2_1.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="Session" BaseType="Session.v1_2_2.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -241,6 +259,12 @@
       <EntityType Name="Session" BaseType="Session.v1_3_0.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="Session" BaseType="Session.v1_3_1.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -254,6 +278,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="Session" BaseType="Session.v1_4_0.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -263,6 +293,25 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A client-supplied string that is stored with the session."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a client-supplied context that remains with the session through the session's lifetime."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
+      <EntityType Name="Session" BaseType="Session.v1_5_0.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="Session" BaseType="Session.v1_5_1.Session">
+        <Property Name="Token" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/None"/>
+          <Annotation Term="OData.Description" String="The multi-factor authentication token for this session.  The value is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the multi-factor authentication token for this session.  The value shall be `null` in responses."/>
         </Property>
       </EntityType>
     </Schema>

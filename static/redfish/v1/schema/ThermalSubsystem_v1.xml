@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalSubsystem v1.0.0                                             -->
+<!--# Redfish Schema:  ThermalSubsystem v1.1.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -33,6 +33,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ThermalMetrics_v1.xml">
     <edmx:Include Namespace="ThermalMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/HeaterCollection_v1.xml">
+    <edmx:Include Namespace="HeaterCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -113,6 +116,20 @@
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_0_0.ThermalSubsystem">
+        <NavigationProperty Name="Heaters" Type="HeaterCollection.HeaterCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of heaters within this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type HeaterCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

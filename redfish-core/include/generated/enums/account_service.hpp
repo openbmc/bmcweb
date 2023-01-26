@@ -5,6 +5,16 @@ namespace account_service
 {
 // clang-format off
 
+enum class MFABypassType{
+    Invalid,
+    All,
+    SecurID,
+    GoogleAuthenticator,
+    MicrosoftAuthenticator,
+    ClientCertificate,
+    OEM,
+};
+
 enum class LocalAccountAuth{
     Invalid,
     Enabled,
@@ -46,6 +56,23 @@ enum class OAuth2Mode{
     Offline,
 };
 
+enum class CertificateMappingAttribute{
+    Invalid,
+    Whole,
+    CommonName,
+    UserPrincipalName,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(MFABypassType, {
+    {MFABypassType::Invalid, "Invalid"},
+    {MFABypassType::All, "All"},
+    {MFABypassType::SecurID, "SecurID"},
+    {MFABypassType::GoogleAuthenticator, "GoogleAuthenticator"},
+    {MFABypassType::MicrosoftAuthenticator, "MicrosoftAuthenticator"},
+    {MFABypassType::ClientCertificate, "ClientCertificate"},
+    {MFABypassType::OEM, "OEM"},
+});
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LocalAccountAuth, {
     {LocalAccountAuth::Invalid, "Invalid"},
     {LocalAccountAuth::Enabled, "Enabled"},
@@ -85,6 +112,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OAuth2Mode, {
     {OAuth2Mode::Invalid, "Invalid"},
     {OAuth2Mode::Discovery, "Discovery"},
     {OAuth2Mode::Offline, "Offline"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CertificateMappingAttribute, {
+    {CertificateMappingAttribute::Invalid, "Invalid"},
+    {CertificateMappingAttribute::Whole, "Whole"},
+    {CertificateMappingAttribute::CommonName, "CommonName"},
+    {CertificateMappingAttribute::UserPrincipalName, "UserPrincipalName"},
 });
 
 }

@@ -106,6 +106,9 @@
       <Term Name="Uris" Type="Collection(Edm.String)">
         <Annotation Term="OData.Description" String="The term specifies the URIs that a service can use for the resource."/>
       </Term>
+      <Term Name="DeprecatedUris" Type="Collection(Edm.String)">
+        <Annotation Term="OData.Description" String="The term specifies the deprecated URIs that a service can use for the resource.  Each URI listed shall be specified in the Uris term."/>
+      </Term>
       <Term Name="RequestedCount" Type="Edm.Int64">
         <Annotation Term="OData.Description" String="The term is used by a client to specify a request for a quantity of items."/>
       </Term>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.10.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.11.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,6 +42,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Switch_v1.xml">
     <edmx:Include Namespace="Switch"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CXLLogicalDeviceCollection_v1.xml">
+    <edmx:Include Namespace="CXLLogicalDeviceCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -640,6 +643,75 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_10_0.PCIeDevice">
+        <Property Name="CXLDevice" Type="PCIeDevice.v1_11_0.CXLDevice">
+          <Annotation Term="OData.Description" String="The CXL-specific properties of this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain CXL-specific properties of this PCIe device."/>
+        </Property>
+        <Property Name="StagedVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The staged firmware version for this PCIe device, but is not yet active."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the staged firmware version for this PCIe device, but is not yet active."/>
+        </Property>
+        <NavigationProperty Name="CXLLogicalDevices" Type="CXLLogicalDeviceCollection.CXLLogicalDeviceCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of CXL logical devices within this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CXLLogicalDeviceCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="CXLDevice">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The CXL-specific properties of a PCIe device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain CXL-specific properties of a PCIe device."/>
+        <Property Name="MaxNumberLogicalDevices" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of logical devices supported by this CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of logical devices supported by this CXL device."/>
+        </Property>
+        <Property Name="EgressPortCongestionSupport" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the CXL device supports egress port congestion management."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CXL device supports the CXL Specification-defined 'Egress Port Congestion' mechanism."/>
+        </Property>
+        <Property Name="ThroughputReductionSupport" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the CXL device supports throughput reduction."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CXL device supports the CXL Specification-defined 'Throughput Reduction' mechanism."/>
+        </Property>
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The timestamp set on the CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the timestamp set on the CXL device."/>
+        </Property>
+        <Property Name="DeviceType" Type="PCIeDevice.v1_11_0.CXLDeviceType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL device type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CXL device type."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CXLDeviceType">
+        <Member Name="Type1">
+          <Annotation Term="OData.Description" String="A CXL Type 1 device."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a CXL Specification-defined Type 1 device."/>
+        </Member>
+        <Member Name="Type2">
+          <Annotation Term="OData.Description" String="A CXL Type 2 device."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a CXL Specification-defined Type 2 device."/>
+        </Member>
+        <Member Name="Type3">
+          <Annotation Term="OData.Description" String="A CXL Type 3 device."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a CXL Specification-defined Type 3 device."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

@@ -44,6 +44,7 @@ enum class Protocol{
     HDMI,
     VGA,
     DVI,
+    CXL,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
@@ -85,6 +86,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::HDMI, "HDMI"},
     {Protocol::VGA, "VGA"},
     {Protocol::DVI, "DVI"},
+    {Protocol::CXL, "CXL"},
 });
 
 }

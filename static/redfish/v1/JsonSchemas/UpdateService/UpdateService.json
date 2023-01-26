@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_11_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_11_2.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -420,7 +420,7 @@
                 "HttpPushUri": {
                     "description": "The URI used to perform an HTTP or HTTPS push update to the update service.  The format of the message is vendor-specific.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI at which the update service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the update service.  If the service requires the `Content-Length` header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request.  The value of this property should not contain a URI of a Redfish resource.",
+                    "longDescription": "This property shall contain a URI at which the update service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the update service.  If the service requires the `Content-Length` header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_1_0"
@@ -483,7 +483,7 @@
                 "MultipartHttpPushUri": {
                     "description": "The URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS push update to the update service.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  The value of this property should not contain a URI of a Redfish resource.",
+                    "longDescription": "This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_6_0"
@@ -500,7 +500,7 @@
                 "RemoteServerCertificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
                     "description": "The link to a collection of server certificates for the server referenced by the ImageURI property in SimpleUpdate.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
@@ -526,7 +526,7 @@
                 },
                 "VerifyRemoteServerCertificate": {
                     "description": "An indication of whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
-                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.",
+                    "longDescription": "This property shall indicate whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request with the certificates found in the collection referenced by the RemoteServerCertificates property.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -546,5 +546,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2021.4",
-    "title": "#UpdateService.v1_11_1.UpdateService"
+    "title": "#UpdateService.v1_11_2.UpdateService"
 }
