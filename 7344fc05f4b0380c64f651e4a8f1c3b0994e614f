@@ -16,6 +16,41 @@
       "message": "Huh? Why push then?",
       "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51566e64_baec605f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000523
+      },
+      "writtenOn": "2023-01-26T22:12:59Z",
+      "side": 1,
+      "message": "I feel like there ought to be a way to write a change intended as a patch, but viewable through gerrit using the normal diff tool. Because right now the downstream patch is pretty difficult to read, but this PR just adds noise upstream.\n\nHonestly this is probably an argument to have a downstream mirror.",
+      "parentUuid": "60cdb79d_b33af261",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa9c271_c1c2a8ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000523
+      },
+      "writtenOn": "2023-01-26T22:12:59Z",
+      "side": 1,
+      "message": "Now that we put this upstream for reference, the next question is \"What\u0027s the best way to legitimately do this for reset actions.\"\n\nI see two options:\n1) Implement the Redfish Job Service.\n2) Talk to DMTF about reusing the \"PowercycleDelay\" property that is in PowerDomains, and apply it to system and chassis reset.\n\nI should probably open a Redfish forum post about this.",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
