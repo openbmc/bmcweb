@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "240cd46a_0aef0a02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-01-26T23:45:16Z",
+      "side": 1,
+      "message": "Sorry for  distracting you",
+      "parentUuid": "51566e64_baec605f",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "caa9c271_c1c2a8ec",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -49,6 +67,41 @@
       "writtenOn": "2023-01-26T22:12:59Z",
       "side": 1,
       "message": "Now that we put this upstream for reference, the next question is \"What\u0027s the best way to legitimately do this for reset actions.\"\n\nI see two options:\n1) Implement the Redfish Job Service.\n2) Talk to DMTF about reusing the \"PowercycleDelay\" property that is in PowerDomains, and apply it to system and chassis reset.\n\nI should probably open a Redfish forum post about this.",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb0b075_d0bb8b90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-01-26T23:45:16Z",
+      "side": 1,
+      "message": "moved to google patch .\n\nhttps://gbmc-review.git.corp.google.com/c/meta-gbmc-staging/+/3151",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e13e596_b8723d03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-01-26T23:45:16Z",
+      "side": 1,
+      "message": "moved to:\nhttps://gbmc-review.git.corp.google.com/c/meta-gbmc-staging/+/3151/comments/5bee07f0_e5f96e87",
+      "parentUuid": "caa9c271_c1c2a8ec",
       "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -70,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef90be0_e03a4fc4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-01-26T23:45:16Z",
+      "side": 1,
+      "message": "moved to \nhttps://gbmc-review.git.corp.google.com/c/meta-gbmc-staging/+/3151/comment/9cd8f972_5b571032/",
+      "parentUuid": "e0750657_ef411e46",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b284bbf_9f3366ca",
@@ -87,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c16ad365_4a1982a2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2775,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-01-26T23:45:16Z",
+      "side": 1,
+      "message": "moved to : \nhttps://gbmc-review.git.corp.google.com/c/meta-gbmc-staging/+/3151/comment/8723b755_776581b7/",
+      "parentUuid": "4b284bbf_9f3366ca",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36c93844_859eb83a",
@@ -100,6 +189,24 @@
       "writtenOn": "2023-01-26T22:23:43Z",
       "side": 1,
       "message": "The problem we\u0027re having is that we want to call \"ForceOn\" after we network connection. So I think your using the wrong command in the call to busctl.",
+      "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "904f310f_2ed5d6ce",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2791,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-01-26T23:45:16Z",
+      "side": 1,
+      "message": "moved to \nhttps://gbmc-review.git.corp.google.com/c/meta-gbmc-staging/+/3151/comment/46cc01d1_2aacd5b2/",
+      "parentUuid": "36c93844_859eb83a",
       "revId": "7344fc05f4b0380c64f651e4a8f1c3b0994e614f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
