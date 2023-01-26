@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_1_0.json",
     "$ref": "#/definitions/ThermalSubsystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -113,6 +113,13 @@
                     "longDescription": "This property shall contain a link to a resource collection of type FanCollection.",
                     "readonly": true
                 },
+                "Heaters": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/HeaterCollection.json#/definitions/HeaterCollection",
+                    "description": "The link to the collection of heaters within this subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type HeaterCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -148,6 +155,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#ThermalSubsystem.v1_0_0.ThermalSubsystem"
+    "release": "2022.3",
+    "title": "#ThermalSubsystem.v1_1_0.ThermalSubsystem"
 }

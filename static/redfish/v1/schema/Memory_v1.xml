@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.16.0                                                      -->
+<!--# Redfish Schema:  Memory v1.17.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -54,6 +54,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
     <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryChunks_v1.xml">
+    <edmx:Include Namespace="MemoryChunks"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Battery_v1.xml">
     <edmx:Include Namespace="Battery"/>
@@ -123,6 +129,66 @@
         </Parameter>
       </Action>
 
+      <Action Name="FreezeSecurityState" IsBound="true">
+        <Annotation Term="OData.Description" String="Freezes the security state of the memory device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall freeze the security state of the memory device."/>
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_17_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ScanMedia" IsBound="true">
+        <Annotation Term="OData.Description" String="Scans the media of the memory device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall scan the media of the memory device."/>
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Parameter Name="PhysicalAddress" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The starting device physical address to scan as a hex-encoded string."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the starting device physical address to scan as a hex-encoded string."/>
+          <Annotation Term="Validation.Pattern" String="^0x[0-9a-fA-F]+$"/>
+        </Parameter>
+        <Parameter Name="Length" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The length of the target region to scan in bytes from the physical address."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the target region to scan in bytes from the PhysicalAddress parameter."/>
+        </Parameter>
+        <Parameter Name="NoEventLog" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="Indicates whether events related to the media scan are not logged."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether events related to the media scan are not logged.  If not provided by the client, the value shall be assumed to be `false`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_17_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="InjectPersistentPoison" IsBound="true">
+        <Annotation Term="OData.Description" String="Injects poison to a specific persistent memory address in the memory device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall inject poison to a specific persistent memory address in the memory device."/>
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Parameter Name="PhysicalAddress" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The device persistent physical address in which to perform a poison injection as a hex-encoded string."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the device persistent physical address in which to perform a poison injection as a hex-encoded string."/>
+          <Annotation Term="Validation.Pattern" String="^0x[0-9a-fA-F]+$"/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_17_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
       <Action Name="OverwriteUnit" IsBound="true">
         <Annotation Term="OData.Description" String="This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Overwrite."/>
         <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Overwrite.  Use the SecureEraseUnit method to perform NIST SP800-88 Purge: Cryptographic Erase."/>
@@ -159,6 +225,28 @@
         </Parameter>
       </Action>
 
+      <Action Name="SetMasterPassphrase" IsBound="true">
+        <Annotation Term="OData.Description" String="Sets the master passphrase for the given region."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the supplied master passphrase to the supplied region."/>
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The memory region ID to which to apply the master passphrase."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the memory region ID to which to apply the master passphrase."/>
+        </Parameter>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The master passphrase to set for the specified region."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the master passphrase to set for the specified region."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_17_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
       <Action Name="DisablePassphrase" IsBound="true">
         <Annotation Term="OData.Description" String="Disable passphrase for given regions."/>
         <Annotation Term="OData.LongDescription" String="This action shall disable the need for passphrases on the supplied region provided the supplied passphrase matches that of the region."/>
@@ -171,6 +259,28 @@
           <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase used in this action."/>
         </Parameter>
+      </Action>
+
+      <Action Name="DisableMasterPassphrase" IsBound="true">
+        <Annotation Term="OData.Description" String="Disables the master passphrase for given region."/>
+        <Annotation Term="OData.LongDescription" String="This action shall disable the master passphrase on the supplied region provided the supplied master passphrase matches that of the region."/>
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The memory region ID to which to disable the master passphrase."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the memory region ID to which to disable the master passphrase."/>
+        </Parameter>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The master passphrase for the specified region."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the master passphrase for the specified region."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_17_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="Reset" IsBound="true">
@@ -534,7 +644,7 @@
           <Annotation Term="OData.Description" String="Pipelined Nibble."/>
         </Member>
         <Member Name="Logical">
-          <Annotation Term="OData.Description" String="Logical Non-volatile device."/>
+          <Annotation Term="OData.Description" String="Logical device, such as when the memory is fabric-attached."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -562,6 +672,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HBM2E">
+          <Annotation Term="OData.Description" String="An updated version of the second generation of High Bandwidth Memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1789,6 +1910,119 @@
       <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
 
       <EntityType Name="Memory" BaseType="Memory.v1_15_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `HBM2E` to MemoryDeviceType.  It was also created to add the FreezeSecurityState, ScanMedia, SetMasterPassphrase, and DisableMasterPassphrase actions."/>
+
+      <EntityType Name="Memory" BaseType="Memory.v1_16_0.Memory">
+        <Property Name="PoisonListMaxMediaErrorRecords" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of media error records this device can track in its poison list."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of media error records this device can track in its poison list."/>
+        </Property>
+        <Property Name="CXL" Type="Memory.v1_17_0.CXL" Nullable="false">
+          <Annotation Term="OData.Description" String="CXL properties for this memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain CXL-specific properties for this memory device."/>
+        </Property>
+        <Property Name="VolatileSizeLimitMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The total volatile memory capacity in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total volatile memory capacity in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="NonVolatileSizeLimitMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The total non-volatile memory capacity in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total non-volatile memory capacity in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="SecurityStates" Type="Memory.v1_17_0.SecurityStateInfo" Nullable="false">
+          <Annotation Term="OData.Description" String="The security states of this memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the security states of this memory device."/>
+        </Property>
+        <Property Name="HealthData" Type="Memory.v1_17_0.HealthData" Nullable="false">
+         <Annotation Term="OData.Description" String="The health data of this memory device."/>
+         <Annotation Term="OData.LongDescription" String="This property shall contain the health data of this memory device."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Memory.v1_15_0.Links">
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the endpoints associated with this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that represent the endpoints associated with this memory."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="MemoryMediaSources" Type="Collection(MemoryChunks.MemoryChunks)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of memory chunks providing media for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryChunks that represent the memory chunk instances providing media for this memory."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="CXL">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="CXL properties for a memory device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain CXL-specific properties for a memory device."/>
+        <Property Name="LabelStorageSizeBytes" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The size of the label storage area in bytes of this memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the label storage area in bytes of this memory device."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="StagedVolatileSizeMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Total device non-volatile capacity in MiB staged for next activation.  This value shall be in multiples of 256 MiB."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the total device non-volatile capacity in Mebibytes staged for next activation.  This value shall be in multiples of 256 Mebibytes."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="StagedNonVolatileSizeMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Total device non-volatile capacity in MiB.  The value shall be in multiples of 256MiB."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the total device non-volatile capacity in Mebibytes.  The value shall be in multiples of 256 Mebibytes."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="RegionSet" BaseType="Memory.v1_5_0.RegionSet">
+        <Property Name="MasterPassphraseEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the master passphrase is enabled for this region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the master passphrase is enabled for this region."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SecurityStateInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The security states of a memory device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the security states of a memory device."/>
+        <Property Name="UserPassphraseAttemptCountReached" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether an incorrect user passphrase attempt count has been reached."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether an incorrect user passphrase attempt count has been reached."/>
+        </Property>
+        <Property Name="MasterPassphraseAttemptCountReached" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether an incorrect master passphrase attempt count has been reached."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether an incorrect master passphrase attempt count has been reached."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="HealthData">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The health data of a memory device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the health data of a memory device."/>
+        <Property Name="PredictedMediaLifeLeftPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current health of the memory device as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current health of the memory device as a percentage."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

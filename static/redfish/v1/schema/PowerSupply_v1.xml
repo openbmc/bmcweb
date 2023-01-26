@@ -80,6 +80,11 @@
             <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
       <Action Name="Reset" IsBound="true">

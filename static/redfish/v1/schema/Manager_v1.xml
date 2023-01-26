@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.16.0                                                     -->
+<!--# Redfish Schema:  Manager v1.17.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1352,6 +1352,19 @@
           <Annotation Term="OData.Description" String="The security policy settings for this manager."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SecurityPolicy that contains the security policy settings for this manager."/>
         </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_16_0.Manager">
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware version of this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hardware version of this manager as determined by the vendor or supplier."/>
+        </Property>
       </EntityType>
     </Schema>
 

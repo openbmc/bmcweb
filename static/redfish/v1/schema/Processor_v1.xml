@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.16.0                                                   -->
+<!--# Redfish Schema:  Processor v1.17.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -88,6 +88,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PortCollection_v1.xml">
     <edmx:Include Namespace="PortCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FabricAdapter_v1.xml">
+    <edmx:Include Namespace="FabricAdapter"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -133,6 +136,9 @@
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Processors/{ProcessorId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -793,6 +799,17 @@
       </ComplexType>
 
       <EnumType Name="ProcessorMemoryType">
+        <Member Name="Cache">
+          <Annotation Term="OData.Description" String="Processor cache, but no level is determined."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="L1Cache">
           <Annotation Term="OData.Description" String="L1 cache."/>
         </Member>
@@ -819,6 +836,17 @@
         </Member>
         <Member Name="HBM2">
           <Annotation Term="OData.Description" String="The second generation of High Bandwidth Memory."/>
+        </Member>
+        <Member Name="HBM2E">
+          <Annotation Term="OData.Description" String="An updated version of the second generation of High Bandwidth Memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="HBM3">
           <Annotation Term="OData.Description" String="The third generation of High Bandwidth Memory."/>
@@ -1617,7 +1645,7 @@
         <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of ports for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection.  It shall contain the interconnect ports of this processor.  It shall not contain ports of for GraphicsController resources, USBController resources, or other adapter-related type of resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection.  It shall contain the interconnect and fabric ports of this processor.  It shall not contain ports for GraphicsController resources, USBController resources, or other local adapter-related types of resources."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1652,6 +1680,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_13_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_13_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1666,6 +1700,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_14_0.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_14_1.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1676,6 +1716,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the additional firmware versions of the processor."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_15_0.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_0">
@@ -1728,6 +1774,35 @@
           <Annotation Term="OData.Description" String="The cause of the processor being throttled is OEM-specific."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_16_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `HBM2E` to MemoryType.  It was also created to add `Cache` to ProcessorMemoryType."/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_16_1.Processor">
+        <Property Name="PowerState" Type="Resource.PowerState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current power state of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power state of the processor.  If the PowerState property in the associated Chassis resource contains the value `Off`, this property shall contain `Off`."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Processor.v1_13_0.Links">
+        <NavigationProperty Name="FabricAdapters" Type="Collection(FabricAdapter.FabricAdapter)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the fabric adapters that present this processor to a fabric."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type FabricAdapter that represent the fabric adapters that present this processor to a fabric."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

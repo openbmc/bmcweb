@@ -60,6 +60,26 @@ enum class DataSanitizationType{
     Overwrite,
 };
 
+enum class FormFactor{
+    Invalid,
+    Drive3_5,
+    Drive2_5,
+    EDSFF_1U_Long,
+    EDSFF_1U_Short,
+    EDSFF_E3_Short,
+    EDSFF_E3_Long,
+    M2_2230,
+    M2_2242,
+    M2_2260,
+    M2_2280,
+    M2_22110,
+    U2,
+    PCIeSlotFullLength,
+    PCIeSlotLowProfile,
+    PCIeHalfLength,
+    OEM,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MediaType, {
     {MediaType::Invalid, "Invalid"},
     {MediaType::HDD, "HDD"},
@@ -113,6 +133,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataSanitizationType, {
     {DataSanitizationType::BlockErase, "BlockErase"},
     {DataSanitizationType::CryptographicErase, "CryptographicErase"},
     {DataSanitizationType::Overwrite, "Overwrite"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(FormFactor, {
+    {FormFactor::Invalid, "Invalid"},
+    {FormFactor::Drive3_5, "Drive3_5"},
+    {FormFactor::Drive2_5, "Drive2_5"},
+    {FormFactor::EDSFF_1U_Long, "EDSFF_1U_Long"},
+    {FormFactor::EDSFF_1U_Short, "EDSFF_1U_Short"},
+    {FormFactor::EDSFF_E3_Short, "EDSFF_E3_Short"},
+    {FormFactor::EDSFF_E3_Long, "EDSFF_E3_Long"},
+    {FormFactor::M2_2230, "M2_2230"},
+    {FormFactor::M2_2242, "M2_2242"},
+    {FormFactor::M2_2260, "M2_2260"},
+    {FormFactor::M2_2280, "M2_2280"},
+    {FormFactor::M2_22110, "M2_22110"},
+    {FormFactor::U2, "U2"},
+    {FormFactor::PCIeSlotFullLength, "PCIeSlotFullLength"},
+    {FormFactor::PCIeSlotLowProfile, "PCIeSlotLowProfile"},
+    {FormFactor::PCIeHalfLength, "PCIeHalfLength"},
+    {FormFactor::OEM, "OEM"},
 });
 
 }

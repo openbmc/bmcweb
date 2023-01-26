@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData.v1_2_0.json",
     "$ref": "#/definitions/ManagerDiagnosticData",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -253,6 +253,16 @@
                     "$ref": "#/definitions/ProcessorStatistics",
                     "description": "The processor statistics of the manager.",
                     "longDescription": "This property shall contain the processor statistics of the manager."
+                },
+                "ServiceRootUptimeSeconds": {
+                    "description": "The wall-clock time the service root hosted by this manager has been running in seconds.",
+                    "longDescription": "This property shall contain the wall-clock time the service root hosted by this manager has been running in seconds.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "TopProcesses": {
                     "description": "The statistics of the top processes of this manager.",
@@ -583,6 +593,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#ManagerDiagnosticData.v1_1_0.ManagerDiagnosticData"
+    "release": "2022.3",
+    "title": "#ManagerDiagnosticData.v1_2_0.ManagerDiagnosticData"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalMetrics v1.0.1                                               -->
+<!--# Redfish Schema:  ThermalMetrics v1.1.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -132,6 +132,34 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control. It was also created to correct various typographical errors."/>
       <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_0_0.ThermalMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_0_1.ThermalMetrics">
+        <Property Name="HeaterSummary" Type="ThermalMetrics.v1_1_0.HeaterSummary">
+          <Annotation Term="OData.Description" String="The summary of heater metrics for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the summary of heater metrics for this subsystem."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="HeaterSummary">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The heater metrics summary for the subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the heater metrics summary for the subsystem."/>
+        <Property Name="TotalPrePowerOnHeatingTimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of seconds all the heaters in the thermal subsystem were active while the respective devices they heat were powered off."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of seconds all the heaters in the thermal subsystem were active while the respective devices they heat were powered off."/>
+        </Property>
+        <Property Name="TotalRuntimeHeatingTimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of seconds all the heaters in the thermal subsystem were active while the respective devices they heat were powered on."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of seconds all the heaters in the thermal subsystem were active while the respective devices they heat were powered on."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

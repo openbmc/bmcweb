@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_16_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_17_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -358,6 +358,19 @@
                     "versionAdded": "v1_4_0"
                 },
                 "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "FabricAdapters": {
+                    "description": "An array of links to the fabric adapters that present this processor to a fabric.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.json#/definitions/FabricAdapter"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type FabricAdapter that represent the fabric adapters that present this processor to a fabric.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_17_0"
+                },
+                "FabricAdapters@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "GraphicsController": {
@@ -836,9 +849,23 @@
                 "Ports": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
                     "description": "The link to the collection of ports for this processor.",
-                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.  It shall contain the interconnect ports of this processor.  It shall not contain ports of for GraphicsController resources, USBController resources, or other adapter-related type of resources.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.  It shall contain the interconnect and fabric ports of this processor.  It shall not contain ports for GraphicsController resources, USBController resources, or other local adapter-related types of resources.",
                     "readonly": true,
                     "versionAdded": "v1_13_0"
+                },
+                "PowerState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/PowerState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current power state of the processor.",
+                    "longDescription": "This property shall contain the power state of the processor.  If the PowerState property in the associated Chassis resource contains the value `Off`, this property shall contain `Off`.",
+                    "readonly": true,
+                    "versionAdded": "v1_17_0"
                 },
                 "ProcessorArchitecture": {
                     "anyOf": [
@@ -1307,6 +1334,7 @@
         },
         "ProcessorMemoryType": {
             "enum": [
+                "Cache",
                 "L1Cache",
                 "L2Cache",
                 "L3Cache",
@@ -1316,6 +1344,7 @@
                 "L7Cache",
                 "HBM1",
                 "HBM2",
+                "HBM2E",
                 "HBM3",
                 "SGRAM",
                 "GDDR",
@@ -1336,6 +1365,7 @@
                 "OEM"
             ],
             "enumDescriptions": {
+                "Cache": "Processor cache, but no level is determined.",
                 "DDR": "Double data rate synchronous dynamic random-access memory.",
                 "DDR2": "Double data rate type two synchronous dynamic random-access memory.",
                 "DDR3": "Double data rate type three synchronous dynamic random-access memory.",
@@ -1351,6 +1381,7 @@
                 "GDDR6": "Double data rate type six synchronous graphics random-access memory.",
                 "HBM1": "High Bandwidth Memory.",
                 "HBM2": "The second generation of High Bandwidth Memory.",
+                "HBM2E": "An updated version of the second generation of High Bandwidth Memory.",
                 "HBM3": "The third generation of High Bandwidth Memory.",
                 "L1Cache": "L1 cache.",
                 "L2Cache": "L2 cache.",
@@ -1363,6 +1394,10 @@
                 "SDRAM": "Synchronous dynamic random-access memory.",
                 "SGRAM": "Synchronous graphics RAM.",
                 "SRAM": "Static random-access memory."
+            },
+            "enumVersionAdded": {
+                "Cache": "v1_17_0",
+                "HBM2E": "v1_17_0"
             },
             "type": "string"
         },
@@ -1523,6 +1558,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#Processor.v1_16_0.Processor"
+    "release": "2022.3",
+    "title": "#Processor.v1_17_0.Processor"
 }

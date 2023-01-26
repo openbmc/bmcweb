@@ -60,6 +60,7 @@
             <String>/redfish/v1/JobService/Log/Entries</String>
             <String>/redfish/v1/TelemetryService/LogService/Entries</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog/Entries</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/CXLLogicalDevices/{CXLLogicalDeviceId}/DeviceLog/Entries</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(LogEntry.LogEntry)">

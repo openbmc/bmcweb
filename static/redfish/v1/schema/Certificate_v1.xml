@@ -56,10 +56,14 @@
             <String>/redfish/v1/AccountService/ActiveDirectory/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/LDAP/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/ExternalAccountProviders/{ExternalAccountProviderId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/AccountService/MultiFactorAuth/SecurID/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/Accounts/{ManagerAccountId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ActiveDirectory/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/LDAP/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ExternalAccountProviders/{ExternalAccountProviderId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/MultiFactorAuth/SecurID/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/NetworkProtocol/HTTPS/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}</String>

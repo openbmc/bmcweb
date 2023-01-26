@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerDiagnosticData v1.1.0                                        -->
+<!--# Redfish Schema:  ManagerDiagnosticData v1.2.0                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -305,6 +305,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of times this process has restarted unexpectedly, such as due to unintentional failures, restarts, or shutdowns, with the same command line including arguments."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_1_0.ManagerDiagnosticData">
+        <Property Name="ServiceRootUptimeSeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The wall-clock time the service root hosted by this manager has been running in seconds."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the wall-clock time the service root hosted by this manager has been running in seconds."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

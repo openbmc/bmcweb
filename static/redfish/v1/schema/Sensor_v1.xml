@@ -65,7 +65,6 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Chassis/{ChassisId}/Sensors/{SensorId}</String>
-            <String>/redfish/v1/PowerEquipment/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors/{SensorId}</String>

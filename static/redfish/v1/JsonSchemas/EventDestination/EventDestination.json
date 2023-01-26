@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_13_0.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -102,7 +102,7 @@
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
                     "description": "The link to a collection of server certificates for the server referenced by the Destination property.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
@@ -187,7 +187,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of exculded MessageIds that are not allowed values for the MessageId property within an event sent to the subscriber.  The MessageId shall be in the `MessageRegistry.MessageId` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the MessageId of an event is performed.",
+                    "longDescription": "This property shall contain an array of excluded MessageIds that are not allowed values for the MessageId property within an event sent to the subscriber.  The MessageId shall be in the `MessageRegistryPrefix.MessageKey` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the MessageId of an event is performed.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_12_0"
@@ -247,7 +247,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of MessageIds that are the allowable values for the MessageId property within an event sent to the subscriber.  The MessageId should be in the `MessageRegistry.MessageId` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is not contained in this array and is not from a message registry contained in RegistryPrefixes shall not be sent to the subscriber.  If this property is an empty array or is absent, no inclusive filtering based upon the MessageId of an event is performed.",
+                    "longDescription": "This property shall contain an array of MessageIds that are the allowable values for the MessageId property within an event sent to the subscriber.  The MessageId should be in the `MessageRegistryPrefix.MessageKey` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is not contained in this array and is not from a message registry contained in RegistryPrefixes shall not be sent to the subscriber.  If this property is an empty array or is absent, no inclusive filtering based upon the MessageId of an event is performed.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_1_0"
@@ -349,6 +349,23 @@
                     ],
                     "versionAdded": "v1_11_0"
                 },
+                "Severities": {
+                    "description": "The list of severities that are sent to this event destination.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of severities that are the allowable values for the MessageSeverity property within an event sent to the subscriber.  If this property is an empty array or is absent, no filtering based upon the MessageSeverity of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_13_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "This property shall contain the status of the subscription.",
@@ -397,7 +414,7 @@
                 },
                 "VerifyCertificate": {
                     "description": "An indication of whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.",
-                    "longDescription": "This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.  If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.",
+                    "longDescription": "This property shall indicate whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event with the certificates found in the collection referenced by the Certificates property.  If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -423,6 +440,7 @@
         "EventDestinationProtocol": {
             "enum": [
                 "Redfish",
+                "Kafka",
                 "SNMPv1",
                 "SNMPv2c",
                 "SNMPv3",
@@ -434,6 +452,7 @@
                 "OEM"
             ],
             "enumDescriptions": {
+                "Kafka": "The destination follows the Kafka protocol for event notifications.",
                 "OEM": "The destination follows an OEM protocol for event notifications.",
                 "Redfish": "The destination follows the Redfish Specification for event notifications.",
                 "SMTP": "The destination follows the SMTP specification for event notifications.",
@@ -446,6 +465,7 @@
                 "SyslogUDP": "The destination follows syslog UDP-based for event notifications."
             },
             "enumLongDescriptions": {
+                "Kafka": "This value shall indicate the destination follows the Apache-defined Kafka protocol as defined by the Kafka Protocol Guide.  The Context property shall contain the Kafka topic of the destination broker.",
                 "OEM": "This value shall indicate an OEM specific protocol.  The OEMProtocol property shall contain the specific OEM event destination protocol.",
                 "Redfish": "This value shall indicate the destination follows the Redfish Specification for event notifications.  Destinations requesting EventFormatType of `Event` shall receive a Redfish resource of type Event.  Destinations requesting EventFormatType of `MetricReport` shall receive a Redfish resource of type MetricReport.",
                 "SMTP": "This value shall indicate the destination follows the RFC5321-defined SMTP specification.",
@@ -458,6 +478,7 @@
                 "SyslogUDP": "This value shall indicate the destination follows the UDP-based transport for syslog as defined in RFC5424."
             },
             "enumVersionAdded": {
+                "Kafka": "v1_13_0",
                 "OEM": "v1_9_0",
                 "SMTP": "v1_7_0",
                 "SNMPv1": "v1_7_0",
@@ -640,7 +661,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_7_0"
+                    "versionAdded": "v1_7_0",
+                    "writeOnly ": true
                 },
                 "AuthenticationKeySet": {
                     "description": "Indicates if the AuthenticationKey property is set.",
@@ -672,7 +694,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_7_0"
+                    "versionAdded": "v1_7_0",
+                    "writeOnly ": true
                 },
                 "EncryptionKeySet": {
                     "description": "Indicates if the EncryptionKey property is set.",
@@ -703,7 +726,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_7_0"
+                    "versionAdded": "v1_7_0",
+                    "writeOnly ": true
                 }
             },
             "type": "object"
@@ -911,6 +935,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#EventDestination.v1_12_0.EventDestination"
+    "release": "2022.3",
+    "title": "#EventDestination.v1_13_0.EventDestination"
 }

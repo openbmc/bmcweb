@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_6_0.json",
     "$ref": "#/definitions/MessageRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -154,7 +154,7 @@
                 },
                 "Deprecated": {
                     "description": "The reason the message has been deprecated.",
-                    "longDescription": "This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry.",
+                    "longDescription": "This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry.  The ReplacedBy property may be used to provide a reference to a replacement message definition.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -177,6 +177,20 @@
                         "null"
                     ],
                     "versionAdded": "v1_3_0"
+                },
+                "MapsToGeneralMessages": {
+                    "description": "The general or less-specific messages related to this message.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall indicate that this message maps to general or less-specific messages that duplicates information about the condition that generated this message.  Services may issue the referenced messages along with this message to provide consistency for clients.  The array shall contain `MessageRegistryPrefix.MessageKey` formatted values that describe the message registry and message key used to identify the messages.",
+                    "pattern": "^[A-Z]\\w+\\.[A-Z]\\w+$",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
                 },
                 "Message": {
                     "description": "The actual message.",
@@ -218,6 +232,17 @@
                     "longDescription": "This property shall contain an ordered array of argument data types that match the data types of the MessageArgs.",
                     "readonly": true,
                     "type": "array"
+                },
+                "ReplacedBy": {
+                    "description": "The message identifier that replaces this message.",
+                    "longDescription": "This property shall contain the message registry and message key, in the `MessageRegistryPrefix.MessageKey` format, that identifies the message that replaces this message.  This property may be used to indicate replacement for a deprecated message, including cases where a standardized version replaces an OEM-created message.",
+                    "pattern": "^[A-Z]\\w+\\.[A-Z]\\w+$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
                 },
                 "Resolution": {
                     "description": "Used to provide suggestions on how to resolve the situation that caused the error.",
@@ -419,6 +444,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.3",
-    "title": "#MessageRegistry.v1_5_0.MessageRegistry"
+    "release": "2022.3",
+    "title": "#MessageRegistry.v1_6_0.MessageRegistry"
 }

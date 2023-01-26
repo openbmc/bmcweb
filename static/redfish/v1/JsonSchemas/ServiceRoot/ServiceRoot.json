@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_15_0.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -40,7 +40,6 @@
                 "MaxLevels": {
                     "description": "The maximum levels of resources allowed in deep operations.",
                     "longDescription": "This property shall contain the maximum levels of resources allowed in deep operations.",
-                    "maximum": 6,
                     "minimum": 1,
                     "readonly": true,
                     "type": "integer",
@@ -91,8 +90,7 @@
                 },
                 "MaxLevels": {
                     "description": "The maximum $levels option value in the $expand query parameter.",
-                    "longDescription": "This property shall contain the maximum $levels option value in the $expand query parameter.  Shall be included only if $levels is true.",
-                    "maximum": 6,
+                    "longDescription": "This property shall contain the maximum $levels option value in the $expand query parameter.  This property shall be present if the Levels property contains `true`.",
                     "minimum": 1,
                     "readonly": true,
                     "type": "integer",
@@ -110,8 +108,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -127,6 +125,13 @@
                 }
             },
             "properties": {
+                "ManagerProvidingService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager",
+                    "description": "The link to the manager that is providing this Redfish service.",
+                    "longDescription": "This property shall contain a link to a resource of type Manager that represents the manager providing this Redfish service.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -134,8 +139,8 @@
                 },
                 "Sessions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SessionCollection.json#/definitions/SessionCollection",
-                    "description": "The link to a collection of Sessions.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type SessionCollection.",
+                    "description": "The link to a collection of sessions.",
+                    "longDescription": "This property shall contain a link to a resource collection of type SessionCollection.",
                     "readonly": true
                 }
             },
@@ -215,8 +220,8 @@
         },
         "ServiceRoot": {
             "additionalProperties": false,
-            "description": "The ServiceRoot schema describes the root of the Redfish Service, located at the '/redfish/v1' URI.  All other Resources accessible through the Redfish interface on this device are linked directly or indirectly from the Service Root.",
-            "longDescription": "This Resource represents the root Redfish Service.  All values that this schema describes for Resources shall comply with the Redfish Specification-described requirements.",
+            "description": "The ServiceRoot schema describes the root of the Redfish service, located at the '/redfish/v1' URI.  All other resources accessible through the Redfish interface on this device are linked directly or indirectly from the service root.",
+            "longDescription": "This resource shall represent the root of the Redfish service.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -246,8 +251,8 @@
                 },
                 "AccountService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/AccountService",
-                    "description": "The link to the Account Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type AccountService.",
+                    "description": "The link to the account service.",
+                    "longDescription": "This property shall contain a link to a resource of type AccountService.",
                     "readonly": true
                 },
                 "AggregationService": {
@@ -266,15 +271,15 @@
                 },
                 "CertificateService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateService.json#/definitions/CertificateService",
-                    "description": "The link to the Certificate Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type CertificateService.",
+                    "description": "The link to the certificate service.",
+                    "longDescription": "This property shall contain a link to a resource of type CertificateService.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ChassisCollection.json#/definitions/ChassisCollection",
                     "description": "The link to a collection of chassis.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type ChassisCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ChassisCollection.",
                     "readonly": true
                 },
                 "ComponentIntegrity": {
@@ -286,8 +291,8 @@
                 },
                 "CompositionService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CompositionService.json#/definitions/CompositionService",
-                    "description": "The link to the Composition Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type CompositionService.",
+                    "description": "The link to the composition service.",
+                    "longDescription": "This property shall contain a link to a resource of type CompositionService.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -304,14 +309,14 @@
                 },
                 "EventService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EventService.json#/definitions/EventService",
-                    "description": "The link to the Event Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type EventService.",
+                    "description": "The link to the event service.",
+                    "longDescription": "This property shall contain a link to a resource of type EventService.",
                     "readonly": true
                 },
                 "Fabrics": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/FabricCollection.json#/definitions/FabricCollection",
-                    "description": "The link to a collection of all fabric entities.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type FabricCollection.",
+                    "description": "The link to a collection of fabrics.",
+                    "longDescription": "This property shall contain a link to a resource collection of type FabricCollection.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
@@ -328,15 +333,15 @@
                 },
                 "JobService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/JobService.json#/definitions/JobService",
-                    "description": "The link to the JobService.",
-                    "longDescription": "This property shall contain a link to a Resource of type JobService.",
+                    "description": "The link to the job service.",
+                    "longDescription": "This property shall contain a link to a resource of type JobService.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
                 "JsonSchemas": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFileCollection.json#/definitions/JsonSchemaFileCollection",
                     "description": "The link to a collection of JSON Schema files.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type JsonSchemaFileCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type JsonSchemaFileCollection.",
                     "readonly": true
                 },
                 "KeyService": {
@@ -355,13 +360,13 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Managers": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerCollection.json#/definitions/ManagerCollection",
                     "description": "The link to a collection of managers.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type ManagerCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ManagerCollection.",
                     "readonly": true
                 },
                 "NVMeDomains": {
@@ -388,8 +393,8 @@
                     "versionAdded": "v1_6_0"
                 },
                 "Product": {
-                    "description": "The product associated with this Redfish Service.",
-                    "longDescription": "This property shall include the name of the product represented by this Redfish Service.",
+                    "description": "The product associated with this Redfish service.",
+                    "longDescription": "This property shall include the name of the product represented by this Redfish service.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -404,8 +409,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "RedfishVersion": {
-                    "description": "The version of the Redfish Service.",
-                    "longDescription": "This property shall represent the Redfish protocol version, as specified in the Protocol Version clause of the Redfish Specification, to which this Service conforms.",
+                    "description": "The version of the Redfish service.",
+                    "longDescription": "This property shall represent the Redfish protocol version, as specified in the 'Protocol version' clause of the Redfish Specification, to which this service conforms.",
                     "pattern": "^\\d+\\.\\d+\\.\\d+$",
                     "readonly": true,
                     "type": "string"
@@ -419,14 +424,14 @@
                 },
                 "Registries": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFileCollection.json#/definitions/MessageRegistryFileCollection",
-                    "description": "The link to a collection of Registries.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type MessageRegistryFileCollection.",
+                    "description": "The link to a collection of registries.",
+                    "longDescription": "This property shall contain a link to a resource collection of type MessageRegistryFileCollection.",
                     "readonly": true
                 },
                 "ResourceBlocks": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection.json#/definitions/ResourceBlockCollection",
-                    "description": "The link to a collection of all Resource Block Resources.  This collection is intended for implementations that do not contain a Composition Service but that expose Resources to an orchestrator that implements a Composition Service.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type ResourceBlockCollection.",
+                    "description": "The link to a collection of resource blocks.  This collection is intended for implementations that do not contain a composition service but that expose resources to an orchestrator that implements a composition service.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ResourceBlockCollection.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
@@ -446,8 +451,8 @@
                 },
                 "SessionService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SessionService.json#/definitions/SessionService",
-                    "description": "The link to the Sessions Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type SessionService.",
+                    "description": "The link to the sessions service.",
+                    "longDescription": "This property shall contain a link to a resource of type SessionService.",
                     "readonly": true
                 },
                 "Storage": {
@@ -459,60 +464,57 @@
                 },
                 "StorageServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageServiceCollection.json#/definitions/StorageServiceCollection",
-                    "description": "The link to a collection of all storage service entities.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type StorageServiceCollection.",
+                    "description": "The link to a collection of storage services.",
+                    "longDescription": "This property shall contain a link to a resource collection of type StorageServiceCollection.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "StorageSystems": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageSystemCollection.json#/definitions/StorageSystemCollection",
                     "description": "The link to a collection of storage systems.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type StorageSystemCollection.  This collection shall contain computer systems that act as storage servers.  The HostingRoles attribute of each such computer system shall have a StorageServer entry.",
+                    "longDescription": "This property shall contain a link to a resource collection of type StorageSystemCollection.  This collection shall contain computer systems that act as storage servers.  The HostingRoles property of each such computer system shall contain a StorageServer entry.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "Systems": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystemCollection.json#/definitions/ComputerSystemCollection",
                     "description": "The link to a collection of systems.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type ComputerSystemCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ComputerSystemCollection.",
                     "readonly": true
                 },
                 "Tasks": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TaskService.json#/definitions/TaskService",
-                    "description": "The link to the Task Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type TaskService.",
+                    "description": "The link to the task service.",
+                    "longDescription": "This property shall contain a link to a resource of type TaskService.",
                     "readonly": true
                 },
                 "TelemetryService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TelemetryService.json#/definitions/TelemetryService",
-                    "description": "The link to the Telemetry Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type TelemetryService.",
+                    "description": "The link to the telemetry service.",
+                    "longDescription": "This property shall contain a link to a resource of type TelemetryService.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
                 "UUID": {
-                    "anyOf": [
-                        {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Unique identifier for a service instance.  When SSDP is used, this value should be an exact match of the UUID value returned in a 200 OK from an SSDP M-SEARCH request during discovery.",
-                    "longDescription": "This property shall represent the id of the Redfish Service instance.  The format of this string shall contain a 32-byte value in the form 8-4-4-4-12.  If SSDP is used, this value shall be an exact match of the UUID value returned in a 200 OK from an SSDP M-SEARCH request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
-                    "readonly": true
+                    "description": "Unique identifier for a service instance.  When SSDP is used, this value contains the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.",
+                    "longDescription": "This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
+                    "pattern": "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "UpdateService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/UpdateService.json#/definitions/UpdateService",
-                    "description": "The link to the Update Service.",
-                    "longDescription": "This property shall contain a link to a Resource of type UpdateService.",
+                    "description": "The link to the update service.",
+                    "longDescription": "This property shall contain a link to a resource of type UpdateService.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "Vendor": {
-                    "description": "The vendor or manufacturer associated with this Redfish Service.",
-                    "longDescription": "This property shall include the name of the manufacturer or vendor represented by this Redfish Service.  If this property is supported, the vendor name shall not be included in the Product property value.",
+                    "description": "The vendor or manufacturer associated with this Redfish service.",
+                    "longDescription": "This property shall include the name of the manufacturer or vendor represented by this Redfish service.  If this property is supported, the vendor name shall not be included in the Product property value.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -532,6 +534,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#ServiceRoot.v1_14_0.ServiceRoot"
+    "release": "2022.3",
+    "title": "#ServiceRoot.v1_15_0.ServiceRoot"
 }

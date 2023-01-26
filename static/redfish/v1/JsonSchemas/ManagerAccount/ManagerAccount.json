@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_10_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -132,8 +132,8 @@
                 },
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
-                    "description": "The link to a collection of certificates used for this account.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection.",
+                    "description": "The link to a collection of user identity certificates for this account.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the user identity certificates for this account.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -183,6 +183,19 @@
                     "readonly": false,
                     "type": "boolean"
                 },
+                "MFABypass": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/MFABypass"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The multi-factor authentication bypass settings for this account.",
+                    "longDescription": "This property shall contain the multi-factor authentication bypass settings for this account.",
+                    "versionAdded": "v1_10_0"
+                },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
@@ -212,7 +225,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "writeOnly ": true
                 },
                 "PasswordChangeRequired": {
                     "description": "An indication of whether the service requires that the password for this account be changed before further access to the account is allowed.",
@@ -388,7 +402,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_4_0"
+                    "versionAdded": "v1_4_0",
+                    "writeOnly ": true
                 },
                 "AuthenticationKeySet": {
                     "description": "Indicates if the AuthenticationKey property is set.",
@@ -420,7 +435,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_4_0"
+                    "versionAdded": "v1_4_0",
+                    "writeOnly ": true
                 },
                 "EncryptionKeySet": {
                     "description": "Indicates if the EncryptionKey property is set.",
@@ -448,6 +464,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#ManagerAccount.v1_9_0.ManagerAccount"
+    "release": "2022.3",
+    "title": "#ManagerAccount.v1_10_0.ManagerAccount"
 }

@@ -42,6 +42,7 @@ enum class LinkNetworkTechnology{
     InfiniBand,
     FibreChannel,
     GenZ,
+    PCIe,
 };
 
 enum class PortConnectionType{
@@ -119,6 +120,49 @@ enum class FiberConnectionType{
     MultiMode,
 };
 
+enum class LLDPSystemCapabilities{
+    Invalid,
+    None,
+    Bridge,
+    DOCSISCableDevice,
+    Other,
+    Repeater,
+    Router,
+    Station,
+    Telephone,
+    WLANAccessPoint,
+};
+
+enum class CurrentPortConfigurationState{
+    Invalid,
+    Disabled,
+    BindInProgress,
+    UnbindInProgress,
+    DSP,
+    USP,
+    Reserved,
+};
+
+enum class ConnectedDeviceMode{
+    Invalid,
+    Disconnected,
+    RCD,
+    CXL68BFlitAndVH,
+    Standard256BFlit,
+    CXLLatencyOptimized256BFlit,
+    PBR,
+};
+
+enum class ConnectedDeviceType{
+    Invalid,
+    None,
+    PCIeDevice,
+    Type1,
+    Type2,
+    Type3SLD,
+    Type3MLD,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PortType, {
     {PortType::Invalid, "Invalid"},
     {PortType::UpstreamPort, "UpstreamPort"},
@@ -156,6 +200,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LinkNetworkTechnology, {
     {LinkNetworkTechnology::InfiniBand, "InfiniBand"},
     {LinkNetworkTechnology::FibreChannel, "FibreChannel"},
     {LinkNetworkTechnology::GenZ, "GenZ"},
+    {LinkNetworkTechnology::PCIe, "PCIe"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PortConnectionType, {
@@ -231,6 +276,49 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FiberConnectionType, {
     {FiberConnectionType::Invalid, "Invalid"},
     {FiberConnectionType::SingleMode, "SingleMode"},
     {FiberConnectionType::MultiMode, "MultiMode"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(LLDPSystemCapabilities, {
+    {LLDPSystemCapabilities::Invalid, "Invalid"},
+    {LLDPSystemCapabilities::None, "None"},
+    {LLDPSystemCapabilities::Bridge, "Bridge"},
+    {LLDPSystemCapabilities::DOCSISCableDevice, "DOCSISCableDevice"},
+    {LLDPSystemCapabilities::Other, "Other"},
+    {LLDPSystemCapabilities::Repeater, "Repeater"},
+    {LLDPSystemCapabilities::Router, "Router"},
+    {LLDPSystemCapabilities::Station, "Station"},
+    {LLDPSystemCapabilities::Telephone, "Telephone"},
+    {LLDPSystemCapabilities::WLANAccessPoint, "WLANAccessPoint"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CurrentPortConfigurationState, {
+    {CurrentPortConfigurationState::Invalid, "Invalid"},
+    {CurrentPortConfigurationState::Disabled, "Disabled"},
+    {CurrentPortConfigurationState::BindInProgress, "BindInProgress"},
+    {CurrentPortConfigurationState::UnbindInProgress, "UnbindInProgress"},
+    {CurrentPortConfigurationState::DSP, "DSP"},
+    {CurrentPortConfigurationState::USP, "USP"},
+    {CurrentPortConfigurationState::Reserved, "Reserved"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConnectedDeviceMode, {
+    {ConnectedDeviceMode::Invalid, "Invalid"},
+    {ConnectedDeviceMode::Disconnected, "Disconnected"},
+    {ConnectedDeviceMode::RCD, "RCD"},
+    {ConnectedDeviceMode::CXL68BFlitAndVH, "CXL68BFlitAndVH"},
+    {ConnectedDeviceMode::Standard256BFlit, "Standard256BFlit"},
+    {ConnectedDeviceMode::CXLLatencyOptimized256BFlit, "CXLLatencyOptimized256BFlit"},
+    {ConnectedDeviceMode::PBR, "PBR"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConnectedDeviceType, {
+    {ConnectedDeviceType::Invalid, "Invalid"},
+    {ConnectedDeviceType::None, "None"},
+    {ConnectedDeviceType::PCIeDevice, "PCIeDevice"},
+    {ConnectedDeviceType::Type1, "Type1"},
+    {ConnectedDeviceType::Type2, "Type2"},
+    {ConnectedDeviceType::Type3SLD, "Type3SLD"},
+    {ConnectedDeviceType::Type3MLD, "Type3MLD"},
 });
 
 }

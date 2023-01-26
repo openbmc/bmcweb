@@ -107,6 +107,7 @@
             <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Assembly</String>
             <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}/Assembly</String>
             <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/Batteries/{BatteryId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Heaters/{HeaderId}/Assembly</String>
           </Collection>
         </Annotation>
       </EntityType>

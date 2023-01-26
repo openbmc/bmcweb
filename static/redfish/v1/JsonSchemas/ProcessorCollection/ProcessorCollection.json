@@ -105,7 +105,10 @@
                 "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors",
                 "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors",
                 "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors",
-                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors"
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors",
+                "/redfish/v1/Chassis/{ChassisId}/Processors",
+                "/redfish/v1/Chassis/{ChassisId}/Processors/{ProcessorId}/SubProcessors",
+                "/redfish/v1/Chassis/{ChassisId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors"
             ]
         }
     },

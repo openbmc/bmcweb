@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_4_0.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -151,6 +151,25 @@
             },
             "type": "string"
         },
+        "LogPurpose": {
+            "enum": [
+                "Diagnostic",
+                "Operations",
+                "Security",
+                "Telemetry",
+                "ExternalEntity",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Diagnostic": "The log provides information for diagnosing hardware or software issues, such as error conditions, sensor threshold trips, or exception cases.",
+                "ExternalEntity": "The log exposes log entries provided by external entities, such as external users, system firmware, operating systems, or management applications.",
+                "OEM": "The log is used for an OEM-defined purpose.",
+                "Operations": "The log provides information about management operations that have a significant impact on the system, such as firmware updates, system resets, and storage volume creation.",
+                "Security": "The log provides security-related information such as authentication, authorization, and data access logging required for security audits.",
+                "Telemetry": "The log provides telemetry history, typically collected on a regular basis."
+            },
+            "type": "string"
+        },
         "LogService": {
             "additionalProperties": false,
             "description": "The LogService schema contains properties for monitoring and configuring a log service.  When the Id property contains `DeviceLog`, the log contains device-resident log entries that follow the physical device when moved from system-to-system, and not a replication or subset of a system event log.",
@@ -249,6 +268,23 @@
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
+                "LogPurposes": {
+                    "description": "The purposes of the log.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/LogPurpose"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the purposes of the log.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
                 "MaxNumberOfRecords": {
                     "description": "The maximum number of log entries that this service can have.",
                     "longDescription": "This property shall contain the maximum number of LogEntry resources in the LogEntryCollection resource for this service.",
@@ -260,6 +296,16 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
                 },
+                "OEMLogPurpose": {
+                    "description": "The OEM-specified purpose of the log if LogPurposes contains `OEM`.",
+                    "longDescription": "This property shall contain the OEM-specified purpose of the log if LogPurposes contains `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -270,6 +316,20 @@
                     "description": "The overwrite policy for this service that takes place when the log is full.",
                     "longDescription": "This property shall indicate the policy of the log service when the MaxNumberOfRecords has been reached.",
                     "readonly": true
+                },
+                "Overflow": {
+                    "description": "Indicates whether the log service has overflowed.",
+                    "longDescription": "This property shall indicate whether the log service has overflowed and is no longer able to store new logs.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_4_0"
+                },
+                "Persistency": {
+                    "description": "Indicates whether the log service is persistent across a cold reset.",
+                    "longDescription": "This property shall indicate whether the log service is persistent across a cold reset of the device.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_4_0"
                 },
                 "ServiceEnabled": {
                     "description": "An indication of whether this service is enabled.",
@@ -483,6 +543,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#LogService.v1_3_1.LogService"
+    "release": "2022.3",
+    "title": "#LogService.v1_4_0.LogService"
 }

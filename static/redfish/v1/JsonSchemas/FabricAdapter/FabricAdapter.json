@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_0.json",
     "$ref": "#/definitions/FabricAdapter",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -393,6 +393,19 @@
                 },
                 "PCIeDevices@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Processors": {
+                    "description": "An array of links to the processors that this fabric adapter provides to a fabric.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Processor that represent the processors that this fabric adapter provides to a fabric.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "Processors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -420,6 +433,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#FabricAdapter.v1_4_0.FabricAdapter"
+    "release": "2022.3",
+    "title": "#FabricAdapter.v1_5_0.FabricAdapter"
 }
