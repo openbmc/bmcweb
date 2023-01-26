@@ -2764,6 +2764,28 @@ inline void requestRoutesSystemActionsReset(App& app)
         // Get the command and host vs. chassis
         std::string command;
         bool hostCommand = true;
+        if (resetType == "delay"){
+
+        /*
+        busctl set-property xyz.openbmc_project.State.Host \
+        /xyz/openbmc_project/state/host0 xyz.openbmc_project.State.Host \
+        RequestedHostTransition s \
+        "xyz.openbmc_project.State.Host.Transition.On"
+        */
+            if(popen("sleep 30  &&  busctl set-property "
+                      "xyz.openbmc_project.State.Host "
+                      "/xyz/openbmc_project/state/host0 "
+                      "xyz.openbmc_project.State.Host "
+                      "RequestedHostTransition s "
+                      "\"xyz.openbmc_project.State.Host.Transition.Reboot\"",
+                      "re") == nullptr){
+                 BMCWEB_LOG_ERROR << "Delay host off started";
+             }
+             else{
+                 BMCWEB_LOG_ERROR << "Delay host off error";
+              }
+              return;
+        }
         if ((resetType == "On") || (resetType == "ForceOn"))
         {
             command = "xyz.openbmc_project.State.Host.Transition.On";
