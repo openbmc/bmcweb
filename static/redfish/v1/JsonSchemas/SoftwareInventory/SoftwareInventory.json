@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_9_0.json",
     "$ref": "#/definitions/SoftwareInventory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -344,6 +344,20 @@
                         "null"
                     ]
                 },
+                "VersionScheme": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VersionScheme"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The format of the version.",
+                    "longDescription": "This property shall describe the scheme used to format the value of the Version property.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
                 "WriteProtected": {
                     "description": "Indicates if the software is write-protected.",
                     "longDescription": "This property shall indicate whether the software image can be overwritten, where a value `true` shall indicate that the software cannot be altered or overwritten.",
@@ -362,9 +376,27 @@
                 "Name"
             ],
             "type": "object"
+        },
+        "VersionScheme": {
+            "enum": [
+                "SemVer",
+                "DotIntegerNotation",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "DotIntegerNotation": "Version formatted as dot-separated integers.",
+                "OEM": "Version follows OEM-defined format.",
+                "SemVer": "Version follows Semantic Versioning 2.0 rules."
+            },
+            "enumLongDescriptions": {
+                "DotIntegerNotation": "This value shall indicate that the value of the Version property contains a sequence of integers separated by period (dot) characters, and shall follow the pattern `^\\d+(\\.\\d+)*$`.  Leading zeros in the sequence shall be ignored.",
+                "OEM": "This value shall indicate that the value of the Version property follows a format and rules as defined by the vendor or manufacturer.",
+                "SemVer": "This value shall indicate that the value of the Version property conforms to the format and rules of the Semantic Version 2.0 specification, and may include pre-release or build metadata."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#SoftwareInventory.v1_8_0.SoftwareInventory"
+    "release": "2022.3",
+    "title": "#SoftwareInventory.v1_9_0.SoftwareInventory"
 }

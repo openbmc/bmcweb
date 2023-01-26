@@ -64,7 +64,7 @@
           </Annotation>
         </Member>
         <Member Name="AdministrateSystems">
-          <Annotation Term="OData.Description" String="Adminsitrator for systems found in the systems collection.  Able to manage boot configuration, keys, and certificates for systems."/>
+          <Annotation Term="OData.Description" String="Administrator for systems found in the systems collection.  Able to manage boot configuration, keys, and certificates for systems."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -75,7 +75,7 @@
           </Annotation>
         </Member>
         <Member Name="OperateSystems">
-          <Annotation Term="OData.Description" String="Operator for systems found in the systems colletion.  Able to perform resets and configure interfaces."/>
+          <Annotation Term="OData.Description" String="Operator for systems found in the systems collection.  Able to perform resets and configure interfaces."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>

@@ -14,6 +14,7 @@ enum class EventFormatType{
 enum class EventDestinationProtocol{
     Invalid,
     Redfish,
+    Kafka,
     SNMPv1,
     SNMPv2c,
     SNMPv3,
@@ -112,6 +113,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EventFormatType, {
 NLOHMANN_JSON_SERIALIZE_ENUM(EventDestinationProtocol, {
     {EventDestinationProtocol::Invalid, "Invalid"},
     {EventDestinationProtocol::Redfish, "Redfish"},
+    {EventDestinationProtocol::Kafka, "Kafka"},
     {EventDestinationProtocol::SNMPv1, "SNMPv1"},
     {EventDestinationProtocol::SNMPv2c, "SNMPv2c"},
     {EventDestinationProtocol::SNMPv3, "SNMPv3"},

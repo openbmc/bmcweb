@@ -56,6 +56,11 @@
             <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies</String>
+          </Collection>
+        </Annotation>
         <NavigationProperty Name="Members" Type="Collection(PowerSupply.PowerSupply)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>

@@ -98,7 +98,8 @@
                 "/redfish/v1/Chassis/{ChassisId}/LogServices/{LogServiceId}/Entries",
                 "/redfish/v1/JobService/Log/Entries",
                 "/redfish/v1/TelemetryService/LogService/Entries",
-                "/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog/Entries"
+                "/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog/Entries",
+                "/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/CXLLogicalDevices/{CXLLogicalDeviceId}/DeviceLog/Entries"
             ]
         }
     },

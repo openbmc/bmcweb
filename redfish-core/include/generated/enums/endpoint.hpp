@@ -23,6 +23,8 @@ enum class EntityType{
     FabricBridge,
     Manager,
     StorageSubsystem,
+    Memory,
+    CXLDevice,
 };
 
 enum class EntityRole{
@@ -50,6 +52,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EntityType, {
     {EntityType::FabricBridge, "FabricBridge"},
     {EntityType::Manager, "Manager"},
     {EntityType::StorageSubsystem, "StorageSubsystem"},
+    {EntityType::Memory, "Memory"},
+    {EntityType::CXLDevice, "CXLDevice"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(EntityRole, {

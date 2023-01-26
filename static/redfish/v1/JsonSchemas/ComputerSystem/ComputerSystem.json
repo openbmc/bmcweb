@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_19_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -252,7 +252,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The current boot source to use at the next boot instead of the normal boot device, if BootSourceOverrideEnabled is `true`.",
+                    "description": "The current boot source to use at the next boot instead of the normal boot device, if BootSourceOverrideEnabled does not contain `Disabled`.",
                     "longDescription": "This property shall contain the source to boot the system from, overriding the normal boot order.  The @Redfish.AllowableValues annotation specifies the valid values for this property.  `UefiTarget` indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride.  `UefiBootNext` indicates to boot from the UEFI BootOptionReference found in BootNext.  Virtual devices for a target should take precedence over a physical device.  Systems may attempt to boot from multiple devices that share a target identifier.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false
                 },
@@ -266,7 +266,7 @@
                 "HttpBootUri": {
                     "description": "The URI to boot from when BootSourceOverrideTarget is set to `UefiHttp`.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI to perform an HTTP or HTTPS boot when BootSourceOverrideTarget is set to `UefiHttp`.",
+                    "longDescription": "This property shall contain the URI to perform an HTTP or HTTPS boot when BootSourceOverrideTarget is set to `UefiHttp`.  If this property is not configured or supported, the URI shall be provided by a DHCP server as specified by the UEFI Specification.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -937,7 +937,7 @@
                 "PowerState": {
                     "anyOf": [
                         {
-                            "$ref": "#/definitions/PowerState"
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/PowerState"
                         },
                         {
                             "type": "null"
@@ -1403,6 +1403,17 @@
             },
             "type": "string"
         },
+        "KMIPCachePolicy": {
+            "enum": [
+                "None",
+                "AfterFirstUse"
+            ],
+            "enumDescriptions": {
+                "AfterFirstUse": "The system caches KMIP data after first use for the duration specified by the CacheDuration property.",
+                "None": "The system does not cache KMIP data."
+            },
+            "type": "string"
+        },
         "KMIPServer": {
             "additionalProperties": false,
             "description": "The KMIP server settings for a computer system.",
@@ -1432,6 +1443,31 @@
                     ],
                     "versionAdded": "v1_16_0"
                 },
+                "CacheDuration": {
+                    "description": "The duration the system caches KMIP data.",
+                    "longDescription": "This property shall contain the duration that the system caches KMIP data.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_20_0"
+                },
+                "CachePolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/KMIPCachePolicy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The cache policy to control how KMIP data is cached.",
+                    "longDescription": "This property shall contain the cache policy to control how KMIP data is cached.",
+                    "readonly": false,
+                    "versionAdded": "v1_20_0"
+                },
                 "Password": {
                     "description": "The password to access the KMIP server.  The value is `null` in responses.",
                     "longDescription": "This property shall contain the password to access the KMIP server.  The value shall be `null` in responses.",
@@ -1440,7 +1476,8 @@
                         "string",
                         "null"
                     ],
-                    "versionAdded": "v1_16_0"
+                    "versionAdded": "v1_16_0",
+                    "writeOnly ": true
                 },
                 "Port": {
                     "description": "The KMIP server port.",
@@ -1810,21 +1847,6 @@
                 "AlwaysOff": "The system always remains powered off when power is applied.",
                 "AlwaysOn": "The system always powers on when power is applied.",
                 "LastState": "The system returns to its last on or off power state when power is applied."
-            },
-            "type": "string"
-        },
-        "PowerState": {
-            "enum": [
-                "On",
-                "Off",
-                "PoweringOn",
-                "PoweringOff"
-            ],
-            "enumDescriptions": {
-                "Off": "The system is powered off, although some components might continue to have AUX power such as management controller.",
-                "On": "The system is powered on.",
-                "PoweringOff": "A temporary state between on and off.  The power off action can take time while the OS is in the shutdown process.",
-                "PoweringOn": "A temporary state between off and on.  This temporary state can be very short."
             },
             "type": "string"
         },
@@ -2402,6 +2424,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#ComputerSystem.v1_19_0.ComputerSystem"
+    "release": "2022.3",
+    "title": "#ComputerSystem.v1_20_0.ComputerSystem"
 }

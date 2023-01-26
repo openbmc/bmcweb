@@ -19,6 +19,7 @@ enum class ProcessorType{
 
 enum class ProcessorMemoryType{
     Invalid,
+    Cache,
     L1Cache,
     L2Cache,
     L3Cache,
@@ -28,6 +29,7 @@ enum class ProcessorMemoryType{
     L7Cache,
     HBM1,
     HBM2,
+    HBM2E,
     HBM3,
     SGRAM,
     GDDR,
@@ -101,6 +103,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorType, {
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorMemoryType, {
     {ProcessorMemoryType::Invalid, "Invalid"},
+    {ProcessorMemoryType::Cache, "Cache"},
     {ProcessorMemoryType::L1Cache, "L1Cache"},
     {ProcessorMemoryType::L2Cache, "L2Cache"},
     {ProcessorMemoryType::L3Cache, "L3Cache"},
@@ -110,6 +113,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorMemoryType, {
     {ProcessorMemoryType::L7Cache, "L7Cache"},
     {ProcessorMemoryType::HBM1, "HBM1"},
     {ProcessorMemoryType::HBM2, "HBM2"},
+    {ProcessorMemoryType::HBM2E, "HBM2E"},
     {ProcessorMemoryType::HBM3, "HBM3"},
     {ProcessorMemoryType::SGRAM, "SGRAM"},
     {ProcessorMemoryType::GDDR, "GDDR"},

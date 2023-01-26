@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.13.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.14.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -66,6 +66,7 @@
             <String>/redfish/v1/JobService/Log/Entries/{LogEntryId}</String>
             <String>/redfish/v1/TelemetryService/LogService/Entries/{LogEntryId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/DeviceLog/Entries/{LogEntryId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/CXLLogicalDevices/{CXLLogicalDeviceId}/DeviceLog/Entries/{LogEntryId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -90,7 +91,7 @@
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the type of log entry.  If the resource represents an IPMI SEL entry, the value shall contain `SEL`.  If the resource represents a Redfish event log entry, the value shall contain `Event`.  If the resource represents an OEM log entry format, the value shall contain `Oem`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the type of log entry.  If the resource represents an IPMI SEL entry, the value shall contain `SEL`.  If the resource represents a Redfish event log entry, the value shall contain `Event`.  If the resource represents a CXL event record, the value shall contain `CXL`.  If the resource represents an OEM log entry format, the value shall contain `Oem`."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OemRecordFormat" Type="Edm.String">
@@ -115,13 +116,13 @@
         </Property>
         <Property Name="Message" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
+          <Annotation Term="OData.Description" String="The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  If the entry type is `CXL`, this property contains a CXL event record.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  If the entry type is `CXL`, this property contains the CXL event record as a string of hex bytes in the pattern '^([a-fA-F0-9]{2})+$'.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
         </Property>
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId.  If the entry type is `SEL`, this property contains the Event Data.  Otherwise, this property contains OEM-specific information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){4}$', which results in a string in the form '0xNNaabbcc', where 'NN' is the EventDir/EventType byte, 'aa' is the Event Data 1 byte, 'bb' is Event Data 2 byte, 'cc' is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  Otherwise, this property contains OEM-specific information."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){4}$', which results in a string in the form '0xNNaabbcc', where 'NN' is the EventDir/EventType byte, 'aa' is the Event Data 1 byte, 'bb' is Event Data 2 byte, 'cc' is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  If the entry type is `CXL`, this property shall not be present.  Otherwise, this property contains OEM-specific information."/>
         </Property>
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -166,6 +167,17 @@
         </Member>
         <Member Name="Oem">
           <Annotation Term="OData.Description" String="An entry in an OEM-defined format."/>
+        </Member>
+        <Member Name="CXL">
+          <Annotation Term="OData.Description" String="A CXL log entry."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -700,6 +712,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_14.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_15.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -810,6 +828,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_12.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_13.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -904,6 +928,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_10.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_11.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -983,6 +1013,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_9.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_10.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1051,6 +1087,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_8.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_9.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1096,6 +1138,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_4.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_5.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1132,6 +1180,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_3.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_4.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_0">
@@ -1216,6 +1270,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_1.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_2.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1234,6 +1294,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events.  It was also created to clarify that DiagnosticDataType refers to the data located at the AdditionalDataURI."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_1.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_0">
@@ -1267,6 +1333,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_1.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_2.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -1285,6 +1357,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events.  It was also created to clarify that DiagnosticDataType refers to the data located at the AdditionalDataURI."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_1.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_2.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_0">
@@ -1323,6 +1401,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_0.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_1.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1345,6 +1429,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_0.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1356,6 +1446,64 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate that this log entry is equivalent to another log entry, with a more specific definition, within the same EventGroupId.  For example, the `DriveFailed` message from the Storage Device Message Registry is more specific than the `ResourceStatusChangedCritical` message from the Resource Event Message Registry, when both occur with the same EventGroupId.  This property shall contain `true` if a more specific event is available, and shall contain `false` if no equivalent event exists in the same EventGroupId.  If this property is absent, the value shall be assumed to be `false`."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `CXL` to LogEntryType."/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_1.LogEntry">
+        <Property Name="OverflowErrorCount" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The count of overflow errors that occurred after this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the count of overflow errors that occurred after this log entry.  If this log entry is the most recent log entry in the log service, this property shall not be present if no overflow errors occurred after the time of this log entry.  If this log entry is not the most recent log entry in the log service, this property shall not be present if no overflow errors occurred between the time of this log entry and the time of the next log entry."/>
+        </Property>
+        <Property Name="FirstOverflowTimestamp" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The timestamp of the first overflow captured after this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the timestamp of the first overflow captured after this log entry.  If this log entry is the most recent log entry in the log service, this property shall not be present if no overflow errors occurred after the time of this log entry.  If this log entry is not the most recent log entry in the log service, this property shall not be present if no overflow errors occurred between the time of this log entry and the time of the next log entry."/>
+        </Property>
+        <Property Name="LastOverflowTimestamp" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The timestamp of the last overflow captured after this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the timestamp of the last overflow captured after this log entry.  If this log entry is the most recent log entry in the log service, this property shall not be present if no overflow errors occurred after the time of this log entry.  If this log entry is not the most recent log entry in the log service, this property shall not be present if no overflow errors occurred between the time of this log entry and the time of the next log entry."/>
+        </Property>
+        <Property Name="CXLEntryType" Type="LogEntry.v1_14_0.CXLEntryType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The specific CXL entry type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the specific CXL entry type.  This property shall only be present if EntryType contains `CXL`."/>
+        </Property>
+        <Property Name="Persistency" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the log entry is persistent across a cold reset of the device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether log entry is persistent across a cold reset of the device."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="CXLEntryType">
+        <Member Name="DynamicCapacity">
+          <Annotation Term="OData.Description" String="A CXL Dynamic Capacity log entry."/>
+        </Member>
+        <Member Name="Informational">
+          <Annotation Term="OData.Description" String="A CXL informational log entry."/>
+        </Member>
+        <Member Name="Warning">
+          <Annotation Term="OData.Description" String="A CXL warning log entry."/>
+        </Member>
+        <Member Name="Failure">
+          <Annotation Term="OData.Description" String="A CXL failure log entry."/>
+        </Member>
+        <Member Name="Fatal">
+          <Annotation Term="OData.Description" String="A CXL fatal log entry."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

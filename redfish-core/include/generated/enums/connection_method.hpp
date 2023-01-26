@@ -15,6 +15,12 @@ enum class ConnectionMethodType{
     OEM,
 };
 
+enum class TunnelingProtocolType{
+    Invalid,
+    SSH,
+    OEM,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ConnectionMethodType, {
     {ConnectionMethodType::Invalid, "Invalid"},
     {ConnectionMethodType::Redfish, "Redfish"},
@@ -23,6 +29,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectionMethodType, {
     {ConnectionMethodType::IPMI20, "IPMI20"},
     {ConnectionMethodType::NETCONF, "NETCONF"},
     {ConnectionMethodType::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(TunnelingProtocolType, {
+    {TunnelingProtocolType::Invalid, "Invalid"},
+    {TunnelingProtocolType::SSH, "SSH"},
+    {TunnelingProtocolType::OEM, "OEM"},
 });
 
 }

@@ -14,6 +14,7 @@ enum class PowerEquipmentType{
     Switchgear,
     PowerShelf,
     Bus,
+    BatteryShelf,
 };
 
 enum class TransferSensitivityType{
@@ -32,6 +33,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerEquipmentType, {
     {PowerEquipmentType::Switchgear, "Switchgear"},
     {PowerEquipmentType::PowerShelf, "PowerShelf"},
     {PowerEquipmentType::Bus, "Bus"},
+    {PowerEquipmentType::BatteryShelf, "BatteryShelf"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TransferSensitivityType, {

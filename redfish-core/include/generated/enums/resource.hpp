@@ -71,6 +71,7 @@ enum class DurableNameFormat{
     NSID,
     NGUID,
     MACAddress,
+    GCXLID,
 };
 
 enum class RackUnits{
@@ -176,6 +177,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DurableNameFormat, {
     {DurableNameFormat::NSID, "NSID"},
     {DurableNameFormat::NGUID, "NGUID"},
     {DurableNameFormat::MACAddress, "MACAddress"},
+    {DurableNameFormat::GCXLID, "GCXLID"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(RackUnits, {

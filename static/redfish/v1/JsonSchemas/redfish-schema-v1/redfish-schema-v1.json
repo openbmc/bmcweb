@@ -99,6 +99,13 @@
             },
             "description": "The term specifies the URIs a service is allowed to use for the given resource."
         },
+        "urisDeprecated": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "The term specifies the deprecated URIs a service is allowed to use for the given resource.  Each URI listed shall be specified in the uris term."
+        },
         "autoExpand": {
             "type": "boolean",
             "description": "The term specifies if the resource referenced by the hyperlink shall be expanded in the response body as specified in the 'Expanded resources' clause of the Redfish Specification."
