@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32551ded_84ba07f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 59
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-26T18:08:57Z",
+      "side": 1,
+      "message": "What is this? Can you just remove?",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "6858e1a9e0f52c171031de50e8d5e0eec1607547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f974286_d72317c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 59
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-26T18:08:57Z",
+      "side": 1,
+      "message": "just remove?",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 59
+      },
+      "revId": "6858e1a9e0f52c171031de50e8d5e0eec1607547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
