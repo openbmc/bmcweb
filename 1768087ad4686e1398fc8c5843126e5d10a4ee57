@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "322922af_7c4256e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-01-26T22:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db1f1d59_65012612",
+      "revId": "1768087ad4686e1398fc8c5843126e5d10a4ee57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "611b20c1_258bce9a",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "+1;  Current name is fine, and descriptive.",
       "parentUuid": "b8b8f6fd_cecbe0b7",
+      "revId": "1768087ad4686e1398fc8c5843126e5d10a4ee57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e39dc72_2cfc430e",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-01-26T22:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c00ba039_babb1c87",
       "revId": "1768087ad4686e1398fc8c5843126e5d10a4ee57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
