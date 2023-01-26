@@ -16,6 +16,24 @@
       "message": "For next time, make sure to run the Redfish Validator and include it in the Tested statement. :)",
       "revId": "237659bd8d1523950d98575e165435a21a7d3e1d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56839dee_e1b70a36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-26T20:22:06Z",
+      "side": 1,
+      "message": "My bad.. I did run the redfish validator, but forgot to include it in the Tested section. Updated 😊",
+      "parentUuid": "e9adf209_2831cdad",
+      "revId": "237659bd8d1523950d98575e165435a21a7d3e1d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
