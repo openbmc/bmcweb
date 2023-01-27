@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed27287_918dfae1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2023-01-27T05:23:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c55b90c5_227fdfc8",
+      "revId": "49eb0b3fa72ef366dfa96a91eb3a1dfb995e707e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b4d62e5_9caf4ed4",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-24T16:31:12Z",
       "side": 1,
       "message": "Can you update Redfish.md?",
+      "revId": "49eb0b3fa72ef366dfa96a91eb3a1dfb995e707e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "456ef852_52de957f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2023-01-27T05:23:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b4d62e5_9caf4ed4",
       "revId": "49eb0b3fa72ef366dfa96a91eb3a1dfb995e707e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
