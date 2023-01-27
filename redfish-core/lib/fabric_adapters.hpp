@@ -144,6 +144,32 @@ inline void
         });
 }
 
+inline void
+    getFabricAdapterHealth(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& serviceName,
+                           const std::string& fabricAdapterPath)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [aResp](const boost::system::error_code ec, const bool functional) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Health";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (!functional)
+        {
+            aResp->res.jsonValue["Status"]["Health"] = "Critical";
+        }
+        });
+}
+
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& systemName,
                          const std::string& adapterId,
@@ -160,10 +186,12 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "redfish", "v1", "Systems", systemName, "FabricAdapters", adapterId);
 
     aResp->res.jsonValue["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue["Status"]["Health"] = "OK";
 
     getFabricAdapterLocation(aResp, serviceName, fabricAdapterPath);
     getFabricAdapterAsset(aResp, serviceName, fabricAdapterPath);
     getFabricAdapterState(aResp, serviceName, fabricAdapterPath);
+    getFabricAdapterHealth(aResp, serviceName, fabricAdapterPath);
 }
 
 inline bool checkFabricAdapterId(const std::string& adapterPath,
