@@ -37,6 +37,7 @@ Fields common to all schemas
 - Chassis
 - EventService
 - JsonSchemas
+- Links/ManagerProvidingService
 - Links/Sessions
 - Managers
 - RedfishVersion

@@ -49,7 +49,7 @@ inline void handleServiceRootGetImpl(
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
     asyncResp->res.jsonValue["@odata.type"] =
-        "#ServiceRoot.v1_11_0.ServiceRoot";
+        "#ServiceRoot.v1_15_0.ServiceRoot";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
@@ -82,6 +82,9 @@ inline void handleServiceRootGetImpl(
     asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
         "/redfish/v1/TelemetryService";
     asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
+
+    asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
+        "/redfish/v1/Managers/bmc";
 
     nlohmann::json& protocolFeatures =
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"];
