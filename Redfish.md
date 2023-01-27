@@ -680,6 +680,7 @@ other.
 - PartNumber
 - SerialNumber
 - SparePartNumber
+- Status
 
 ### /redfish/v1/Systems/system/LogServices/
 
