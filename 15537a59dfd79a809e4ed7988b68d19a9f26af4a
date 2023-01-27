@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0761b022_dbbc55b1",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-27T02:10:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5fc969a_68fa7256",
+      "revId": "15537a59dfd79a809e4ed7988b68d19a9f26af4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01d476fe_421d5b75",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-01-26T18:18:05Z",
       "side": 1,
       "message": "but then you don\u0027t implement this link so would be a dead link.. Can you just remove?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 79
+      },
+      "revId": "15537a59dfd79a809e4ed7988b68d19a9f26af4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c32fed74_425eddc7",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-27T02:10:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01d476fe_421d5b75",
       "range": {
         "startLine": 41,
         "startChar": 0,
