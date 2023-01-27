@@ -155,6 +155,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37c6c1ef_a02a0ab2",
+        "filename": "config/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-01-27T19:29:57Z",
+      "side": 1,
+      "message": "Maybe edit the file locally and \u0027git commit --amend\u0027 \u0026 \u0027git push gerrit\u0027?",
+      "parentUuid": "71b93377_206fc00c",
+      "revId": "3b7f51d32235b63a7b75c091ce39ea3b2a1eaeec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65321be1_5f2204d5",
