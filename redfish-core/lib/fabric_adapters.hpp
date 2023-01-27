@@ -1,6 +1,7 @@
 #pragma once
 
 #include "boost/system/error_code.hpp"
+#include "dbus_utility.hpp"
 #include "utils/collection.hpp"
 #include "utils/json_utils.hpp"
 
@@ -18,7 +19,7 @@ inline void handleAdapterError(const boost::system::error_code& ec,
 
     if (ec.value() == boost::system::errc::io_error)
     {
-        messages::resourceNotFound(res, "#FabricAdapter.v1_0_0.FabricAdapter",
+        messages::resourceNotFound(res, "#FabricAdapter.v1_4_0.FabricAdapter",
                                    adapterId);
         return;
     }
@@ -27,18 +28,59 @@ inline void handleAdapterError(const boost::system::error_code& ec,
     messages::internalError(res);
 }
 
+inline void
+    getFabricAdapterLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& serviceName,
+                             const std::string& fabricAdapterPath)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [aResp](const boost::system::error_code ec,
+                const std::string& property) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for Location";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+            property;
+        });
+}
+
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& systemName,
-                         const std::string& adapterId)
+                         const std::string& adapterId,
+                         const std::string& fabricAdapterPath)
 {
     aResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/FabricAdapter/FabricAdapter.json>; rel=describedby");
-    aResp->res.jsonValue["@odata.type"] = "#FabricAdapter.v1_0_0.FabricAdapter";
+    aResp->res.jsonValue["@odata.type"] = "#FabricAdapter.v1_4_0.FabricAdapter";
     aResp->res.jsonValue["Name"] = "Fabric Adapter";
     aResp->res.jsonValue["Id"] = adapterId;
     aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", systemName, "FabricAdapters", adapterId);
+
+    dbus::utility::getDbusObject(
+        fabricAdapterPath, {},
+        [aResp,
+         fabricAdapterPath](const boost::system::error_code& ec,
+                            const dbus::utility::MapperGetObject& object) {
+        if (ec || object.empty())
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        getFabricAdapterLocation(aResp, object.begin()->first,
+                                 fabricAdapterPath);
+        });
 }
 
 inline bool checkFabricAdapterId(const std::string& adapterPath,
@@ -99,8 +141,8 @@ inline void
 
     getValidFabricAdapterPath(
         adapterId, systemName, aResp,
-        [aResp, systemName, adapterId](const std::string&) {
-        doAdapterGet(aResp, systemName, adapterId);
+        [aResp, systemName, adapterId](const std::string& fabricAdapterPath) {
+        doAdapterGet(aResp, systemName, adapterId, fabricAdapterPath);
         });
 }
 
