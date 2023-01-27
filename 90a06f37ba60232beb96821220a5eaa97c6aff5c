@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f93cea9_94ae81e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-01-27T04:48:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c4e0dae7_77518538",
+      "revId": "90a06f37ba60232beb96821220a5eaa97c6aff5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39906514_1fdd2802",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-19T21:33:58Z",
       "side": 1,
       "message": "This is ReadOnly in the Redfish spec",
+      "range": {
+        "startLine": 3066,
+        "startChar": 54,
+        "endLine": 3066,
+        "endChar": 70
+      },
+      "revId": "90a06f37ba60232beb96821220a5eaa97c6aff5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be65b7ec_4c877eec",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3066,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-01-27T04:48:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39906514_1fdd2802",
       "range": {
         "startLine": 3066,
         "startChar": 54,
