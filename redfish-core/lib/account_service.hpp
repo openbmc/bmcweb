@@ -1871,9 +1871,9 @@ inline void
 }
 
 inline void
-    handleAccounttDelete(App& app, const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& username)
+    handleAccountDelete(App& app, const crow::Request& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& username)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -2049,7 +2049,7 @@ inline void requestAccountServiceRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
         .privileges(redfish::privileges::deleteManagerAccount)
         .methods(boost::beast::http::verb::delete_)(
-            std::bind_front(handleAccounttDelete, std::ref(app)));
+            std::bind_front(handleAccountDelete, std::ref(app)));
 }
 
 } // namespace redfish
