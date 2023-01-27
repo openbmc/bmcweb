@@ -676,6 +676,10 @@ other.
 #### FabricAdapter
 
 - Location
+- Model
+- PartNumber
+- SerialNumber
+- SparePartNumber
 
 ### /redfish/v1/Systems/system/LogServices/
 
