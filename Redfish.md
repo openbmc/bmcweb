@@ -671,6 +671,12 @@ other.
 - Members
 - Members@odata.count
 
+### /redfish/v1/Systems/system/FabricAdapters/{"FabricAdapterId"}/
+
+#### FabricAdapter
+
+- Location
+
 ### /redfish/v1/Systems/system/LogServices/
 
 #### LogServiceCollection
