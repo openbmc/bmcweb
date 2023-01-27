@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "751a8259_eb826af5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-27T01:17:24Z",
+      "side": 1,
+      "message": "Both were chosen to be on the safe side.  You can end up with hundreds of requests via a multi-level expand.  20 max connections is only a fifth of how many the satellite BMC can support at once.  In my initial testing I was able to send expand queries which would cause all 20 connections to be active.  By also buffering 500 we can handle a single large expand request while also having extra room for queries from other clients.\n\nAlso note that the buffer size is independent of how many connections the satellite BMC can support.  HTTP Client has a buffer for each destination.",
+      "parentUuid": "3b9122d5_ea17cb2d",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52753775_4213e294",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-24T20:36:44Z",
       "side": 1,
       "message": "Do you have any data on this?\ne.g. bmcweb memory increased to x",
+      "range": {
+        "startLine": 16,
+        "startChar": 41,
+        "endLine": 17,
+        "endChar": 64
+      },
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8109684e_3eb61d03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-27T01:17:24Z",
+      "side": 1,
+      "message": "It\u0027s what I\u0027ve heard so I\u0027ll have to look into getting hard numbers",
+      "parentUuid": "52753775_4213e294",
       "range": {
         "startLine": 16,
         "startChar": 41,
@@ -83,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce660d6b_b511d1a3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-27T01:17:24Z",
+      "side": 1,
+      "message": "I didn\u0027t overly tune it.  I increased the old max by a factor of 5 and I was able to see that all connections were getting used.  That combined with the buffer increase prevented requests from being dropped due to regular queries.  I stopped at 20 since it produced the results I was hoping for and it didn\u0027t seem concerning to take up only 20% of the satellite\u0027s allowed connections.  I\u0027ll look into some tuning",
+      "parentUuid": "28a2783d_a2fe3888",
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72111729_f64a1408",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -118,6 +184,30 @@
       "side": 1,
       "message": "actually, these are probably being compared against a size_t, so this should be the same.",
       "parentUuid": "72111729_f64a1408",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 18
+      },
+      "revId": "77f91e81ce0576b4b0a83cc11fa8419c1fd6d98a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fbd792f_ae6d0472",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-27T01:17:24Z",
+      "side": 1,
+      "message": "Yeah they\u0027re being compared against size_t so I\u0027ve changed their types to match that.",
+      "parentUuid": "edc020d3_eb66c275",
       "range": {
         "startLine": 56,
         "startChar": 10,
