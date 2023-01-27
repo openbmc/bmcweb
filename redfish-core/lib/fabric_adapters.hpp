@@ -112,6 +112,32 @@ inline void
         });
 }
 
+inline void
+    getFabricAdapterState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& serviceName,
+                          const std::string& fabricAdapterPath)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [aResp](const boost::system::error_code ec, const bool present) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error for State";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (!present)
+        {
+            aResp->res.jsonValue["Status"]["State"] = "Absent";
+        }
+        });
+}
+
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& systemName,
                          const std::string& adapterId,
@@ -125,6 +151,8 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     aResp->res.jsonValue["Id"] = adapterId;
     aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", systemName, "FabricAdapters", adapterId);
+
+    aResp->res.jsonValue["Status"]["State"] = "Enabled";
 
     dbus::utility::getDbusObject(
         fabricAdapterPath, {},
@@ -140,6 +168,7 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         getFabricAdapterLocation(aResp, object.begin()->first,
                                  fabricAdapterPath);
         getFabricAdapterAsset(aResp, object.begin()->first, fabricAdapterPath);
+        getFabricAdapterState(aResp, object.begin()->first, fabricAdapterPath);
         });
 }
 
