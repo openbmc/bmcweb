@@ -59,6 +59,65 @@ inline void
         });
 }
 
+inline void
+    getFabricAdapterAsset(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& serviceName,
+                          const std::string& fabricAdapterPath)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        [fabricAdapterPath,
+         aResp{aResp}](const boost::system::error_code ec,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Properties";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        const std::string* serialNumber = nullptr;
+        const std::string* model = nullptr;
+        const std::string* partNumber = nullptr;
+        const std::string* sparePartNumber = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "SerialNumber",
+            serialNumber, "Model", model, "PartNumber", partNumber,
+            "SparePartNumber", sparePartNumber);
+
+        if (!success)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (serialNumber != nullptr)
+        {
+            aResp->res.jsonValue["SerialNumber"] = *serialNumber;
+        }
+
+        if (model != nullptr)
+        {
+            aResp->res.jsonValue["Model"] = *model;
+        }
+
+        if (partNumber != nullptr)
+        {
+            aResp->res.jsonValue["PartNumber"] = *partNumber;
+        }
+
+        if (sparePartNumber != nullptr && !sparePartNumber->empty())
+        {
+            aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+        });
+}
+
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& systemName,
                          const std::string& adapterId,
@@ -75,6 +134,7 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "redfish", "v1", "Systems", systemName, "FabricAdapters", adapterId);
 
     getFabricAdapterLocation(aResp, serviceName, fabricAdapterPath);
+    getFabricAdapterAsset(aResp, serviceName, fabricAdapterPath);
 }
 
 inline bool checkFabricAdapterId(const std::string& adapterPath,
