@@ -797,7 +797,6 @@ class RedfishAggregator
         // /redfish/v1/Chassis
         // /redfish/v1/UpdateService/FirmwareInventory
         const boost::urls::segments_view urlSegments = url.segments();
-        std::string collectionItem;
         boost::urls::url currentUrl("/");
         boost::urls::segments_view::iterator it = urlSegments.begin();
         const boost::urls::segments_view::const_iterator end =
@@ -808,7 +807,7 @@ class RedfishAggregator
         it++;
         for (; it != end; it++)
         {
-            collectionItem = *it;
+            const std::string& collectionItem = *it;
             if (std::binary_search(topCollections.begin(), topCollections.end(),
                                    currentUrl.buffer()))
             {
