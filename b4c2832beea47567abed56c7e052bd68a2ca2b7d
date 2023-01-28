@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32e4dce6_3dc723d9",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:27:56Z",
+      "side": 1,
+      "message": "\u003e Should be string_view for new code?  As written, this is going to point to an rvalue, so (I think?) it\u0027s undefined behavior.\n\nAt present, only `const std::string\u0026` is accepted in sdbusplus, but not `std::string_view`\nhttps://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/asio/property.hpp#L45\nhttps://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/asio/connection.hpp#L202",
+      "parentUuid": "d9d62b77_3d1d2025",
+      "range": {
+        "startLine": 197,
+        "startChar": 4,
+        "endLine": 197,
+        "endChar": 27
+      },
+      "revId": "b4c2832beea47567abed56c7e052bd68a2ca2b7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "344b0884_2486b19e",
         "filename": "redfish-core/include/utils/sw_utils.hpp",
         "patchSetId": 19
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-25T18:21:45Z",
       "side": 1,
       "message": "Can we just intergrate this into the utility function itself?  Otherwise, this \"create a dbus path\" will be duplicated in every caller of the utility function, and I can\u0027t think of any reason why you wouldn\u0027t use the typesafe path.\n\nCould be done in a different path if you wanted.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 53
+      },
+      "revId": "b4c2832beea47567abed56c7e052bd68a2ca2b7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e8caa9_1022454c",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:27:56Z",
+      "side": 1,
+      "message": "\u003e Can we just intergrate this into the utility function itself?  Otherwise, this \"create a dbus path\" will be duplicated in every caller of the utility function, and I can\u0027t think of any reason why you wouldn\u0027t use the typesafe path.\n\u003e \n\u003e Could be done in a different path if you wanted.\n\nAck.\nAnd I will completely refactor everything using the `endpoints` method in the next commit",
+      "parentUuid": "344b0884_2486b19e",
       "range": {
         "startLine": 76,
         "startChar": 0,
