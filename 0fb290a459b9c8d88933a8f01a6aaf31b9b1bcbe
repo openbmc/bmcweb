@@ -16,6 +16,161 @@
       "message": "Fixed the function name.Thx",
       "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825f456b_8960076f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "#include \"dbus_utility.hpp\"",
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f4f6258_ac59f284",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "Nit:\n```\n#include \u003cfunctional\u003e\n#include \u003cmemory\u003e\n#include \u003cstring\u003e\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a2ced38_b30459f7",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "The latest version is 1_5_0",
+      "range": {
+        "startLine": 21,
+        "startChar": 56,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caf379b7_30153446",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "1_5_0",
+      "range": {
+        "startLine": 37,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 64
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da728b7e_39895b25",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "Actually it should not be hardcoded here\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/23/redfish-core/include/utils/systems_utils.hpp",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 116,
+        "endChar": 31
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9adfff8f_e038c877",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "spelling\n\nFabricAdapterCollection",
+      "range": {
+        "startLine": 124,
+        "startChar": 34,
+        "endLine": 124,
+        "endChar": 83
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ee6935_be20e9e2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-28T01:49:48Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 30
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
