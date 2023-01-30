@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e2f7c3_39d742ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-30T12:19:00Z",
+      "side": 1,
+      "message": "Another approach to handle different behaviors of proxy and legacy modes.",
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

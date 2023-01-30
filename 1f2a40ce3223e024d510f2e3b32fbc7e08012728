@@ -166,6 +166,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c87792_8acc4d50",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-30T12:19:00Z",
+      "side": 0,
+      "message": "The problem I have is that raedJsonAction (the utility which does right job and does it good) invokes res.end() when json couldn\u0027t be parsed (this is an issue when we don\u0027t provide json at all). It also fills jsonValue with appropriate messages related to the format of the data provided in json. \nThis is OK for legacy mode, but I would also like to have a possibility to discard all for proxy. For proxy we shall behave like this route does not exist at all.\nThe proposal how to deal with this is a subject of the next patchset.",
+      "parentUuid": "b49c9e96_27cdd522",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
