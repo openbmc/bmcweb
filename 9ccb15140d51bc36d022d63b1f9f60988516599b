@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a44c2b_1a36c2d1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-30T23:14:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70ff1358_7c70ef5c",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 6
+      },
+      "revId": "9ccb15140d51bc36d022d63b1f9f60988516599b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1554d725_f0540c61",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-27T21:57:41Z",
       "side": 1,
       "message": "Do not pass by shared_ptr unless the method is taking ownership of the object.  This should be passed by Response\u0026",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 55
+      },
+      "revId": "9ccb15140d51bc36d022d63b1f9f60988516599b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddfa951e_5ca42b69",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-30T23:14:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1554d725_f0540c61",
       "range": {
         "startLine": 147,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92d17c05_114f80f4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-30T23:14:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77e053d3_8e65072a",
+      "range": {
+        "startLine": 151,
+        "startChar": 34,
+        "endLine": 151,
+        "endChar": 42
+      },
+      "revId": "9ccb15140d51bc36d022d63b1f9f60988516599b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1c430a2_4ca00afb",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-27T21:57:41Z",
       "side": 1,
       "message": "Why is a string copy needed here?  This all looks used in a const context, so the string_view should be fine?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 78
+      },
+      "revId": "9ccb15140d51bc36d022d63b1f9f60988516599b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e377337f_ea9b52d5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-30T23:14:42Z",
+      "side": 1,
+      "message": "We are going to change `location` later, should we use string instead of string_view?",
+      "parentUuid": "e1c430a2_4ca00afb",
       "range": {
         "startLine": 157,
         "startChar": 0,

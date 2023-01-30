@@ -516,6 +516,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78b63d08_429de17e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-30T23:14:42Z",
+      "side": 1,
+      "message": "I added checks for other Header Values according to our conversation offline. I might have missed some, can you verify? As I recall, we don\u0027t copy any other header values to asyncResp, correct?",
+      "parentUuid": "fb3c7c41_7f9c40c5",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 56
+      },
+      "revId": "d4e35fc96ca4c600ca6fb427a2f46c117d3e96a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea3450e3_daca54b0",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 2
