@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b87c5f5_1919a563",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-30T17:48:36Z",
+      "side": 1,
+      "message": "George is right here, https://stackoverflow.com/questions/21593/what-is-the-difference-between-include-filename-and-include-filename explains this better than I could why we use quotes for some and \u003c\u003e for others",
+      "parentUuid": "107ef84a_239b7019",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a2ced38_b30459f7",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 43
@@ -137,6 +161,30 @@
       "side": 1,
       "message": "We don\u0027t need to update the version here. \nI updated the version when we get the properties. I updated the version to 1_4_0. Redfish validator is failing for v1_5_0.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60508",
       "parentUuid": "7a2ced38_b30459f7",
+      "range": {
+        "startLine": 21,
+        "startChar": 56,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ac85b4_3ea19e21",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-30T17:48:36Z",
+      "side": 1,
+      "message": "Yeah, our current policy is, we don\u0027t use the latest schema version, only the schema version we need. \nThis might change in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54030 but until that merges, let\u0027s stick with our current policy of using the version we need, not necessarily the latest.",
+      "parentUuid": "357122b9_5e90dbef",
       "range": {
         "startLine": 21,
         "startChar": 56,
@@ -219,6 +267,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f594d3c_3184f536",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-30T17:48:36Z",
+      "side": 1,
+      "message": "This is what we are doing else where in the code today.. until we do something else, I think we should stick with this https://github.com/openbmc/bmcweb/search?q\u003dsystemName",
+      "parentUuid": "da728b7e_39895b25",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 116,
+        "endChar": 31
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9adfff8f_e038c877",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 43
@@ -277,6 +349,30 @@
       "writtenOn": "2023-01-28T01:49:48Z",
       "side": 1,
       "message": "as above",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 30
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "532b1619_5fe22177",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-30T17:48:36Z",
+      "side": 1,
+      "message": "This is what we are doing else where in the code today.. until we do something else, I think we should stick with this https://github.com/openbmc/bmcweb/search?q\u003dsystemName",
+      "parentUuid": "a4ee6935_be20e9e2",
       "range": {
         "startLine": 147,
         "startChar": 8,
