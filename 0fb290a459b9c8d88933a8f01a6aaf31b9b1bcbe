@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8180a1af_b0720ff4",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-30T15:17:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "825f456b_8960076f",
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f4f6258_ac59f284",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-01-28T01:49:48Z",
       "side": 1,
       "message": "Nit:\n```\n#include \u003cfunctional\u003e\n#include \u003cmemory\u003e\n#include \u003cstring\u003e\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "107ef84a_239b7019",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-30T15:17:40Z",
+      "side": 1,
+      "message": "There is a commit to use quotes for includes \nhttps://github.com/openbmc/bmcweb/commit/3ccb3adb9a14783f6bef601506de9f8bcae22d51",
+      "parentUuid": "1f4f6258_ac59f284",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -83,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "357122b9_5e90dbef",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-30T15:17:40Z",
+      "side": 1,
+      "message": "We don\u0027t need to update the version here. \nI updated the version when we get the properties. I updated the version to 1_4_0. Redfish validator is failing for v1_5_0.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60508",
+      "parentUuid": "7a2ced38_b30459f7",
+      "range": {
+        "startLine": 21,
+        "startChar": 56,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "caf379b7_30153446",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 43
@@ -94,6 +160,30 @@
       "writtenOn": "2023-01-28T01:49:48Z",
       "side": 1,
       "message": "1_5_0",
+      "range": {
+        "startLine": 37,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 64
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b234f67_a0f8818d",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-30T15:17:40Z",
+      "side": 1,
+      "message": "same as above.",
+      "parentUuid": "caf379b7_30153446",
       "range": {
         "startLine": 37,
         "startChar": 58,
@@ -140,6 +230,30 @@
       "writtenOn": "2023-01-28T01:49:48Z",
       "side": 1,
       "message": "spelling\n\nFabricAdapterCollection",
+      "range": {
+        "startLine": 124,
+        "startChar": 34,
+        "endLine": 124,
+        "endChar": 83
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e81aeec4_253918b9",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-30T15:17:40Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "9adfff8f_e038c877",
       "range": {
         "startLine": 124,
         "startChar": 34,
