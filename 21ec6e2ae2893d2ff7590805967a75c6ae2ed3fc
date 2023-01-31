@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "870947e9_16a84833",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-31T14:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b78a883_33f7abd9",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 77
+      },
+      "revId": "21ec6e2ae2893d2ff7590805967a75c6ae2ed3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d5220a5_2f79928c",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-01-31T04:25:33Z",
       "side": 1,
       "message": "Redfish.md update?",
+      "revId": "21ec6e2ae2893d2ff7590805967a75c6ae2ed3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6661e4f3_a0354740",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-01-31T14:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d5220a5_2f79928c",
       "revId": "21ec6e2ae2893d2ff7590805967a75c6ae2ed3fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
