@@ -93,6 +93,30 @@
       },
       "revId": "908b9c8bb948e2486ac26dd18c06422631638da7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ad2f10_7b645e7d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-31T20:43:42Z",
+      "side": 1,
+      "message": "Could you remove these lines (245-249) and have something like this \n(see https://github.com/openbmc/bmcweb/blob/e99073f55f30e2af2c36d7859513ea9464fa647d/redfish-core/lib/memory.hpp#L545)\n```\ninline std::string dbusToChassisType(const std::string\u0026 chassisType)\n{\n    if (chassisType \u003d\u003d\n        \"xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Component\")\n    {\n        return \"Component\";\n    }\n    if (chassisType \u003d\u003d\n        \"xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Enclosure\")\n    {\n        return \"Enclosure\";\n    }\n    if (chassisType \u003d\u003d\n        \"xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Module\")\n    {\n        return \"Module\";\n    }\n...\n    /// The value is unknown, etc. leave off \n    return \"\";\n}\n```\n\n```\n\n            const std::string chassisInterface \u003d\n                \"xyz.openbmc_project.Inventory.Item.Chassis\";\n            if (std::find(interfaces2.begin(), interfaces2.end(),\n                          chassisInterface) !\u003d interfaces2.end())\n            {\n                sdbusplus::asio::getProperty\u003cstd::string\u003e(\n                    *crow::connections::systemBus, connectionName, path,\n                    chassisInterface, \"ChassisType\",\n                    [asyncResp, chassisId(std::string(chassisId))](\n                        const boost::system::error_code ec2,\n                        const std::string\u0026 property) {\n                    if (ec2)\n                    {\n                        BMCWEB_LOG_DEBUG\n                            \u003c\u003c \"DBus response error for ChassisType\";\n                        messages::internalError(asyncResp-\u003eres);\n                        return;\n                    }\n                    std::string chassisType \u003d dbusToChassisType(*property);\n                    // Values like \"Unknown\" or \"Other\" will return empty\n                    // so just leave off\n                    if (!chassisType.empty())\n                    {\n                       asyncResp-\u003eres.jsonValue[\"ChassisType\"] \u003d chassisType;\n                    }\n....\n```\n\nThere is other ways to do this like: \nhttps://github.com/openbmc/bmcweb/blob/703f67418ae1915e49ac32d475de872da3ab2819/redfish-core/lib/pcie.hpp#L147\n\nhttps://github.com/openbmc/bmcweb/blob/e99073f55f30e2af2c36d7859513ea9464fa647d/redfish-core/lib/pcie_slots.hpp#L133",
+      "parentUuid": "998d07e9_9e9e8b29",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 5
+      },
+      "revId": "908b9c8bb948e2486ac26dd18c06422631638da7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
