@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5d7d20c_633d27fa",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T16:56:54Z",
+      "side": 1,
+      "message": "One std::find is acceptable, but now that we\u0027re searching for more than one interface, we need to change this to loop over interfaces2, like we do in other places.  Arguably that needed to be done before the line on 355 was completed, but lets do it now.  Something like\n```\nfor (interface : interfaces2){\n   if (interface.first \u003d\u003d \"xyz.openbmc_project.Inventory.Decorator.AssetTag\"){\n      ...\n   }\n   else if (interface.first \u003d\u003d ...){\n      ....\n   }\n\n}\n```",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 13
+      },
+      "revId": "409951b7cdb6af364594d70c8e40d3eb017bd823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
