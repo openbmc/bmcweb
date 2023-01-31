@@ -16,6 +16,40 @@
       "message": "Updated Redfish.md. Thx",
       "revId": "55ee16055d6d09a60d3c1db6e92d3cd8652208fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa9ee80_3be0bd8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-31T04:23:58Z",
+      "side": 1,
+      "message": "Looks good, 1 minor comment",
+      "revId": "55ee16055d6d09a60d3c1db6e92d3cd8652208fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15858fe3_a099631f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-31T04:23:58Z",
+      "side": 1,
+      "message": "Everywhere else in bmcweb, we have been checking for empty for sparePartNumber.. \nCan you do that here? It isn\u0027t used by many companies but still part of the interface so if the default (empty), we leave off \nhttps://github.com/openbmc/bmcweb/blob/e99073f55f30e2af2c36d7859513ea9464fa647d/redfish-core/lib/chassis.hpp#L391\nhttps://github.com/openbmc/bmcweb/search?q\u003dsparePartNumber",
+      "revId": "55ee16055d6d09a60d3c1db6e92d3cd8652208fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
