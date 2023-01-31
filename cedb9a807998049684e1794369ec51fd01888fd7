@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "042cdae4_3f9a4567",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "Makes total sense. I think Willy has already proposed a CL to add such mapper APIs, which fits exactly into our requirement.\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/57822\n\nSince it is still under review, I guess my change should wait until it merges.\n\nKeeping this comment open, so I can update the current CL once those mapper are available.",
+      "parentUuid": "60442ce1_88864f53",
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5ded3ef_46fa8287",
@@ -81,6 +99,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6606967d_b6a8be1a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f12ae56_2888d058",
+      "range": {
+        "startLine": 103,
+        "startChar": 50,
+        "endLine": 103,
+        "endChar": 76
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cf76fc4_67b87878",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "I am seeing bmcweb crash when converting the boost::urls::url_view to boost::urls::url. The conversion is needed to pass it to crow::utility::appendUrlPieces method below in line 146. I also tried extracting the string using collectionPath.buffer() and std::string(collectionPath.buffer()) both and then converting to boost::urls::url , but it still crashes.",
+      "parentUuid": "efec67fa_c57c334a",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 27
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdcfba5e_89dc184b",
@@ -94,6 +160,30 @@
       "writtenOn": "2023-01-05T17:12:56Z",
       "side": 1,
       "message": "This kind of conversion needs done in the mapper.  If we need new mapper APIs, so be it, but we shouldn\u0027t be filtering at this level.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 24
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31038608_bf8ea2b6",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "Ack.. Replied on previous comment, that a change to add the mappers is under review and the current one will probably need to wait until the mapper change is merged",
+      "parentUuid": "fdcfba5e_89dc184b",
       "range": {
         "startLine": 122,
         "startChar": 0,
@@ -127,6 +217,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24db7314_2c27ea4f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07530544_7720995a",
+      "range": {
+        "startLine": 148,
+        "startChar": 30,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7777751_b4c9fdfe",
@@ -140,6 +254,30 @@
       "writtenOn": "2023-01-05T17:12:56Z",
       "side": 1,
       "message": "emplace_back.",
+      "range": {
+        "startLine": 149,
+        "startChar": 16,
+        "endLine": 149,
+        "endChar": 25
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "808168e6_216eca97",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7777751_b4c9fdfe",
       "range": {
         "startLine": 149,
         "startChar": 16,
@@ -223,6 +361,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "437dcf87_6e0875f0",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "If a particular system does not have the associations setup, then the collection response would result in a Get error. To avoid that, simply return in case of any error in getProperty call",
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5863dc52_b758a447",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 8
@@ -234,6 +389,24 @@
       "writtenOn": "2023-01-20T20:47:56Z",
       "side": 1,
       "message": "Does this not require the second parameter to be the `depth`?\n\n```\ngetSubTreePaths(\"/xyz/openbmc_project/inventory\", /**depth\u003d*/0, interfaces...)\n```\n\nhttps://github.com/openbmc/bmcweb/blob/master/include/dbus_utility.hpp#L161",
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a0674f_0e83157f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2023-01-31T17:10:49Z",
+      "side": 1,
+      "message": "yes.. My HEAD of local bmcweb repo was old. I have updated it now.",
+      "parentUuid": "5863dc52_b758a447",
       "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
