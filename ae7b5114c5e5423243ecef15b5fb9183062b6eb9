@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5524b5a4_c1388c16",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:18:31Z",
+      "side": 1,
+      "message": "\u003e Can we keep it as is? Or should we copy paste id validation code to bmcweb?\n\nNeither.  Strings from need escaped for URI usages when used in a URI.",
+      "parentUuid": "2b830cf0_148c0163",
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f70b4fc7_d421b991",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 74
@@ -228,6 +246,30 @@
       "side": 1,
       "message": "Same reply as in one of the above comments:\n\n\u003d\u003d\u003d\u003d\nAll of the mentioned cases are validated in backend to avoid code duplication between backend and bmcweb. We tested that if user provides invalid data there is proper response send on dbus.\n\nWe need to perform full validation in backend because of possible other users. For example other services that may want to call telemetry dbus API. Since it is safe to call AddReport we decided to not duplicate this code in bmcweb.\n\nCan we keep it as is? Or should we copy paste id validation code to bmcweb?",
       "parentUuid": "2333a513_8efa1556",
+      "range": {
+        "startLine": 413,
+        "startChar": 12,
+        "endLine": 413,
+        "endChar": 78
+      },
+      "revId": "ae7b5114c5e5423243ecef15b5fb9183062b6eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef7c5ed_72d704e0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 74
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:18:31Z",
+      "side": 1,
+      "message": "\u003e validated in backend\n\nNothing in the dbus interface gaurantees that these are representable without escaping as html URIs.  There\u0027s no reason to believe at this level that the backend knows anything about HTML URI escaping (nor should it know how to escape an HTTP uri).\n\nI\u0027m not that bothered by it.  Fine as is.",
+      "parentUuid": "e7a35c54_4ff0748d",
       "range": {
         "startLine": 413,
         "startChar": 12,

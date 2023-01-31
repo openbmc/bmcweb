@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07142a2_30316262",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 81
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:18:31Z",
+      "side": 1,
+      "message": "Nit, in new code we would pass by span, but this is fine.",
+      "range": {
+        "startLine": 138,
+        "startChar": 39,
+        "endLine": 138,
+        "endChar": 50
+      },
+      "revId": "fbc901c3c0732b8f45bbb5b6cd1cfd64526335de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

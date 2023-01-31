@@ -276,6 +276,30 @@
       },
       "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff269334_4138a80a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:18:31Z",
+      "side": 1,
+      "message": "\u003e Duration \u003d\u003d 0 is valid in case of reportingType \u003d\u003d OnRequest or OnChange\n\nThis doesn\u0027t seem right, but sure, it\u0027s fine that it\u0027s handled in the backend.  FWIW, we should really just change fromDurationString to return a duration\u003cuint64_t\u003e instead of a std::chrono::milliseconds, considering we use that everywhere.",
+      "parentUuid": "e8b521c6_20d1aa4b",
+      "range": {
+        "startLine": 476,
+        "startChar": 33,
+        "endLine": 476,
+        "endChar": 55
+      },
+      "revId": "af13be6a42b4f625eac7fd2fb62035c10d84f318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

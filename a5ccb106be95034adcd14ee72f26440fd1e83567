@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b8a669_3d689d8d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:18:31Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/a1347418307d31a94bd21f22897aa508df938dcf/yaml/xyz/openbmc_project/Telemetry/ReportManager.interface.yaml#L12\n\nDoesn\u0027t look like it matches?  I went looking for the TelemetryService/ + args.id part, because it seems quite odd that\u0027s what the implementation expects, and I needed to make sure bmcweb was escaping the user input properly.",
+      "range": {
+        "startLine": 618,
+        "startChar": 60,
+        "endLine": 618,
+        "endChar": 69
+      },
+      "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
