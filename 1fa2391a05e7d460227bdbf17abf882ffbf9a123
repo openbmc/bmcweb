@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "325f6f5e_270f3545",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-31T19:57:37Z",
+      "side": 1,
+      "message": "With that change would it be alright that when we don\u0027t perform prefix fixing we\u0027d still end up returning the initial string?  The current approach potentially saves us from that last copy.",
+      "parentUuid": "26b6a8f2_d7e4e1cb",
+      "revId": "1fa2391a05e7d460227bdbf17abf882ffbf9a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d732d0e0_dbc2f364",
@@ -79,6 +97,30 @@
       "side": 1,
       "message": "No, I\u0027m saying that the Location header needs the prefix appended.  We shouldn\u0027t be blindly copying it here.\n\nI think what you want here is\n\nstd::string_view header \u003d resp.getHeaderValue(boost::beast::http::field::location);\nif (header.empty()){\n   std::string location(header);\n   addPrefixToStringItem(location, prefix);\n   asyncResp.addHeader(boost::beast::http::field::location, location);\n}\n\nOtherwise we\u0027re passing the header through, just to look it up again, right?",
       "parentUuid": "b410e40a_a86ea9af",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 61
+      },
+      "revId": "1fa2391a05e7d460227bdbf17abf882ffbf9a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf37aa7a_822eefd3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-31T19:57:37Z",
+      "side": 1,
+      "message": "I\u0027d prefer you go ahead and make this change so you\u0027re not making multiple lookups.  You could just always call addHeaderPrefixes() and then inside of that function use Ed\u0027s example code.",
+      "parentUuid": "61ab2003_5ece4331",
       "range": {
         "startLine": 157,
         "startChar": 0,
