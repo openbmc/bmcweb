@@ -214,6 +214,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9562686b_3bbe395d",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-31T21:31:38Z",
+      "side": 0,
+      "message": "Thanks for showing this review, I will remove the code adding possibility to avoid res.end() with readJsonAction().\n\nAs I mentioned it while upstreaming VM service, this naming scheme is provided and accepted in the design document. Feel free to propose some other name for this \"regular/normal/URL based\" path, but let\u0027s move this discussion to the design document. Then we do follow the scheme accepted by the community.\nOnce again, upstream of backend it WIP but all required patches are submitted, so could be tested.",
+      "parentUuid": "26354df9_61152882",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

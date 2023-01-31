@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0757025_57eaeb68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-31T21:31:38Z",
+      "side": 1,
+      "message": "Legacy term is used following accepted design docs for VM. See also other comment.",
+      "parentUuid": "7f35e79e_9e7e88b7",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70fd5678_193fe3e1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-31T17:35:49Z",
       "side": 1,
       "message": "Doesn\u0027t this already happen in the router?  I\u0027m confused why we need special handling here.  I\u0027m assuming you want this to return 404?",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d72f622_9a2bcabc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-31T21:31:38Z",
+      "side": 1,
+      "message": "Yes, I want regular 404 as this path is not listed in action list for \"proxy\" mode so shall not be serviced.\n\nLet\u0027s take a look at the \"real\" example:\nFirst GET on Proxy node:\ncurl -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request GET https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_0                                 \n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_0\",\n  \"@odata.type\": \"#VirtualMedia.v1_3_0.VirtualMedia\",\n  \"Actions\": {\n    \"#VirtualMedia.EjectMedia\": {\n      \"target\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_0/Actions/VirtualMedia.EjectMedia\"\n    }\n  },\n  \"ConnectedVia\": \"NotConnected\",\n  \"Id\": \"Slot_0\",\n  \"Inserted\": false,\n  \"MediaTypes\": [\n    \"CD\",\n    \"USBStick\"\n  ],\n  \"Name\": \"Virtual Removable Media\",\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"@odata.type\": \"#OemVirtualMedia.v1_0_0.VirtualMedia\",\n      \"WebSocketEndpoint\": \"/nbd/0\"\n    }\n  },\n  \"TransferMethod\": \"Stream\",\n  \"TransferProtocolType\": \"OEM\",\n  \"WriteProtected\": true\n}\n200\n\nBut somebody could use this action on an object representing proxy node and should get 404:\ncurl -o /dev/null -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request POST https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_0/Actions/VirtualMedia.InsertMedia --data \"{}\"\n404\n\nFor \"legacy\" http code is 200 or e.g. 502 when host is not recognized:\ncurl -o /dev/null -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request POST https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_2/Actions/VirtualMedia.InsertMedia --data \"{\\\"Image\\\": \\\"https://something\\\"}\"\n502\n\nFor completeness, GET on Slot_2 shows:\ncurl -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request GET https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_2\n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_2\",\n  \"@odata.type\": \"#VirtualMedia.v1_3_0.VirtualMedia\",\n  \"Actions\": {\n    \"#VirtualMedia.EjectMedia\": {\n      \"target\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_2/Actions/VirtualMedia.EjectMedia\"\n    },\n    \"#VirtualMedia.InsertMedia\": {\n      \"target\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_2/Actions/VirtualMedia.InsertMedia\"\n    }\n  },\n  \"ConnectedVia\": \"NotConnected\",\n  \"Id\": \"Slot_2\",\n  \"Inserted\": false,\n  \"MediaTypes\": [\n    \"CD\",\n    \"USBStick\"\n  ],\n  \"Name\": \"Virtual Removable Media\",\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"@odata.type\": \"#OemVirtualMedia.v1_0_0.VirtualMedia\"\n    }\n  },\n  \"TransferMethod\": \"Stream\",\n  \"WriteProtected\": true\n}\n200\n\nHope this puts some more light on the issue.",
+      "parentUuid": "70fd5678_193fe3e1",
       "range": {
         "startLine": 12,
         "startChar": 15,
@@ -81,6 +129,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5220e55_d0845281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-31T21:31:38Z",
+      "side": 1,
+      "message": "This will assume kinda static names for nodes, but this, again, is not defined in the design. Actually, this could be discussed again, but is beyond the scope of this patchset.\nI would be more than happy to update the code base later (this could simplify the code).",
+      "parentUuid": "7a59cda8_365dc970",
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "984ccef1_ff0985a6",
@@ -94,6 +160,30 @@
       "writtenOn": "2023-01-31T17:35:49Z",
       "side": 1,
       "message": "I\u0027m surprised this \"false\" works here.  any idea what it\u0027s doing?",
+      "range": {
+        "startLine": 787,
+        "startChar": 33,
+        "endLine": 787,
+        "endChar": 38
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56224772_77b2c735",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2023-01-31T21:31:38Z",
+      "side": 1,
+      "message": "this is the \"extension\" proposed to allow parsing without res.end().",
+      "parentUuid": "984ccef1_ff0985a6",
       "range": {
         "startLine": 787,
         "startChar": 33,
