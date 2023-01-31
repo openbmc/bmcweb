@@ -190,6 +190,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26354df9_61152882",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:25:20Z",
+      "side": 0,
+      "message": "\u003e The problem I have is that raedJsonAction (the utility which does right job and does it good) invokes res.end()\n\nAh, that makes more sense then.\n\nhttps://github.com/openbmc/bmcweb/blob/cef57e855f5a800222d5e5ba47cbbe69174211e9/redfish-core/src/utils/json_utils.cpp#L33\n\nI think is the one you\u0027re talking about, and that line can just be removed.  In fact, I already have a patch to remove it.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59941\n\n\u003e when json couldn\u0027t be parsed (this is an issue when we don\u0027t provide json at all). It also fills jsonValue with appropriate messages related to the format of the data provided in json. \n\u003e This is OK for legacy mode, but I would also like to have a possibility to discard all for proxy. For proxy we shall behave like this route does not exist at all.\n\u003e The proposal how to deal with this is a subject of the next patchset.\n\nIt would help quite a bit if we could get some level of documentation on this \"legacy\" versus \"normal\" pathing, and the intended behavior and parameters of each.  Considering that none of the backend code made it upstream, it\u0027s really hard as-is to understand the intent between the two, and why both need to exist.",
+      "parentUuid": "13c87792_8acc4d50",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
