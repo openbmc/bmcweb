@@ -45,10 +45,10 @@ async def hello():
     authbytes = "{}:{}".format(args.username, args.password).encode("ascii")
     auth = "Basic {}".format(base64.b64encode(authbytes).decode("ascii"))
     headers = {"Authorization": auth}
-    async with websockets.connect(
-        uri, ssl=ssl_context, extra_headers=headers
-    ) if args.ssl else websockets.connect(
-        uri, extra_headers=headers
+    async with (
+        websockets.connect(uri, ssl=ssl_context, extra_headers=headers)
+        if args.ssl
+        else websockets.connect(uri, extra_headers=headers)
     ) as websocket:
         request = json.dumps(
             {
