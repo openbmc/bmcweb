@@ -16,6 +16,24 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60514/3/redfish-core/lib/fabric_adapters.hpp is doing the same thing and has a default for when the interface doesn\u0027t exist. \nWould like to be constant here, could you move line 119 to here?\n\n                    asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";",
       "revId": "7e3eb2743513b9cecc97aec7de94a00df17d9528",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0040043d_c8e2fac8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-01-31T22:06:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aec5c0c3_e2141a78",
+      "revId": "7e3eb2743513b9cecc97aec7de94a00df17d9528",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
