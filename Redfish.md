@@ -159,6 +159,7 @@ Fields common to all schemas
   - Shall be included if component contains voltage/current sensing components,
     otherwise will be omitted.
 - PowerState
+- Replaceable
 - Sensors
 - Status
 - Thermal
