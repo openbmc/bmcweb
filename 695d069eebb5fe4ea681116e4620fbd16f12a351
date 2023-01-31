@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f35e79e_9e7e88b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:35:49Z",
+      "side": 1,
+      "message": "Out of curiosity, why was this called \"legacy\" mode if it\u0027s in the redfish standard?",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70fd5678_193fe3e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:35:49Z",
+      "side": 1,
+      "message": "Doesn\u0027t this already happen in the router?  I\u0027m confused why we need special handling here.  I\u0027m assuming you want this to return 404?",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6e2f7c3_39d742ed",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -14,6 +60,46 @@
       "writtenOn": "2023-01-30T12:19:00Z",
       "side": 1,
       "message": "Another approach to handle different behaviors of proxy and legacy modes.",
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a59cda8_365dc970",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:35:49Z",
+      "side": 1,
+      "message": "Overall, this really seems like something we need a naming convention for in the URI, which is how we handle this in other places.  something like\n\n/redfish/v1/Managers/\u003cstr\u003e/VirtualMedia/Redfish\u003cstr\u003e/Actions/VirtualMedia.InsertMedia\n\nWould point to the redfish capable endpoints, and\n\n/redfish/v1/Managers/\u003cstr\u003e/VirtualMedia/ws\u003cstr\u003e/Actions/VirtualMedia.InsertMedia\n\nWould point to the websocket endpoints.\n\nThat way, we don\u0027t even have to parse the json, and we can keep the rule that a given URI accepts and returns one type, which this doesn\u0027t handle well.",
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "984ccef1_ff0985a6",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:35:49Z",
+      "side": 1,
+      "message": "I\u0027m surprised this \"false\" works here.  any idea what it\u0027s doing?",
+      "range": {
+        "startLine": 787,
+        "startChar": 33,
+        "endLine": 787,
+        "endChar": 38
+      },
       "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
