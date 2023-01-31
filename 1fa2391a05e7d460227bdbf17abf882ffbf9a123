@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b410e40a_a86ea9af",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-31T18:27:17Z",
+      "side": 1,
+      "message": "I was modifying the resp as well, I changed it to modifying just asyncResp",
+      "parentUuid": "d732d0e0_dbc2f364",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 61
+      },
+      "revId": "1fa2391a05e7d460227bdbf17abf882ffbf9a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91dc886b_97a7c9e8",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-31T17:06:33Z",
       "side": 1,
       "message": "Nit, typo?  not sure it matters.",
+      "range": {
+        "startLine": 230,
+        "startChar": 27,
+        "endLine": 230,
+        "endChar": 33
+      },
+      "revId": "1fa2391a05e7d460227bdbf17abf882ffbf9a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2901cdff_e770948c",
+        "filename": "test/redfish-core/include/redfish_aggregator_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-31T18:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91dc886b_97a7c9e8",
       "range": {
         "startLine": 230,
         "startChar": 27,
