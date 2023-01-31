@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a1eada3_50503c76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-31T20:23:39Z",
+      "side": 1,
+      "message": "Redfish Validator ?",
+      "revId": "409951b7cdb6af364594d70c8e40d3eb017bd823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5d7d20c_633d27fa",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 2
