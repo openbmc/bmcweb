@@ -16,6 +16,24 @@
       "message": "These multi-tiered lambdas still need broken up into appropriate methods.  At this function we are 4 lambda scopes deep, and this patchset makes it a 300+ line single method.",
       "revId": "0fe7ca2c2987263a1c2c13f32db3d070fbac6c81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "421c2372_54109376",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-01-31T05:22:49Z",
+      "side": 1,
+      "message": "Change to use getPowerMetricData function to reduce the lambda scope deep.\nPlease help to review it again. Thank you.",
+      "parentUuid": "20bb2e57_ebf7156e",
+      "revId": "0fe7ca2c2987263a1c2c13f32db3d070fbac6c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
