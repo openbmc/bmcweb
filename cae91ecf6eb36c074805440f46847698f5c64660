@@ -16,6 +16,24 @@
       "message": "We have a very \"touchy\" redfish client on our systems that will fail any operation (like a concurrent code update or maintenance operation) if the manager interface, even for one GET, returns an internalError. We\u0027ve been burned a few times on a missing service causing a internalError and failing a customer path. This is def not a critical property, so I\u0027d lean towards no error here, but, if we get an error on a systemd d-bus call we\u0027ve probably got bigger issues.",
       "revId": "cae91ecf6eb36c074805440f46847698f5c64660",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6134efd_45a328bc",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1780,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:41:11Z",
+      "side": 1,
+      "message": "That was my thought.  If systemd isn\u0027t responding, something is very... very wrong.  With that said, keeping this as a non-error seems worthwhile.\n\nThinking about it more, if this is running in non-daemon mode, you don\u0027t really want to rely on the systemd time, so this makes sense to me.\n\nDone",
+      "parentUuid": "8df7a5c6_1f3258f4",
+      "revId": "cae91ecf6eb36c074805440f46847698f5c64660",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
