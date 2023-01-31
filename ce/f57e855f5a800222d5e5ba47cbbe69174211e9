@@ -1,0 +1,10 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: George Liu <liuxiwei@inspur.com>
+Code-Review+1: Lakshmi Yadlapati <lakshmiy@us.ibm.com>
+Code-Review+1: Myung Bae <myungbae@us.ibm.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Submitted-by: Nikhil Namjoshi <nikhilnamjoshi@google.com>
+Submitted-at: Tue, 31 Jan 2023 04:53:29 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59739
+Project: openbmc/bmcweb
+Branch: refs/heads/master
