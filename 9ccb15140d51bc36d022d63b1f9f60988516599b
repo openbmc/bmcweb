@@ -187,6 +187,30 @@
       },
       "revId": "9ccb15140d51bc36d022d63b1f9f60988516599b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b74bb34_1e5ce4d0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T17:06:33Z",
+      "side": 1,
+      "message": "Sure, that\u0027d be fine, but just construct it like normal\n\nstd::string location(resp.getHeaderValue(\"Location\"));\n\nAt some point, now that we\u0027re not really modifying in place, addPrefixToStringItem should probably just return the new string instead of completely replacing it with a copy.",
+      "parentUuid": "e377337f_ea9b52d5",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 78
+      },
+      "revId": "9ccb15140d51bc36d022d63b1f9f60988516599b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
