@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d52dd326_4f61a451",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-31T13:53:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e19ad868_864d38b7",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 89
+      },
+      "revId": "908b9c8bb948e2486ac26dd18c06422631638da7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d304c6f_c5f0553a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-24T16:30:19Z",
       "side": 1,
       "message": "If it gets set to Unknown, isn\u0027t this a Redfish validator error ? Leave off if Unknown ?",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 5
+      },
+      "revId": "908b9c8bb948e2486ac26dd18c06422631638da7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "998d07e9_9e9e8b29",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-01-31T13:53:20Z",
+      "side": 1,
+      "message": "Yes, it is Redfish Validator error. I have referred the chassisType from PDI yaml file. Whether this needs to be removed here ?\nPlease provide your suggestions on this.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml",
+      "parentUuid": "3d304c6f_c5f0553a",
       "range": {
         "startLine": 245,
         "startChar": 0,
