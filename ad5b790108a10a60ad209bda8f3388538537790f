@@ -70,6 +70,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceca7517_22aab7f7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-31T21:39:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "135c3406_78771678",
+      "revId": "ad5b790108a10a60ad209bda8f3388538537790f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba07bca_f2de90ee",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-31T21:39:10Z",
+      "side": 1,
+      "message": "@Ed We discussed on Chat that we won\u0027t forward these Headers to Aggregated Resp. Is this still correct?",
+      "parentUuid": "b4649e92_5be90c63",
+      "revId": "ad5b790108a10a60ad209bda8f3388538537790f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65186d1c_68d988e4",
@@ -83,6 +119,24 @@
       "writtenOn": "2023-01-31T19:57:37Z",
       "side": 1,
       "message": "This will only get called when if the \"Content-Type\" of the response is \"application/json\".  We drop any other \"Content-Type\".  Should this patch include support for these other header formats so that we don\u0027t drop them? https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.17.0.pdf#page\u003d68",
+      "revId": "ad5b790108a10a60ad209bda8f3388538537790f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a868c35_fe25a8e4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-01-31T21:39:10Z",
+      "side": 1,
+      "message": "You\u0027re right, I moved the function outside of the if statement. Right now, it should copy over any Content-type but only when Content-type is \"application/json\" that we process the other headers.",
+      "parentUuid": "65186d1c_68d988e4",
       "revId": "ad5b790108a10a60ad209bda8f3388538537790f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
