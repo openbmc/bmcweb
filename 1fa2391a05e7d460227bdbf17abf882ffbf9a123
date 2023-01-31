@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ab2003_5ece4331",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T19:00:22Z",
+      "side": 1,
+      "message": "No, I\u0027m saying that the Location header needs the prefix appended.  We shouldn\u0027t be blindly copying it here.\n\nI think what you want here is\n\nstd::string_view header \u003d resp.getHeaderValue(boost::beast::http::field::location);\nif (header.empty()){\n   std::string location(header);\n   addPrefixToStringItem(location, prefix);\n   asyncResp.addHeader(boost::beast::http::field::location, location);\n}\n\nOtherwise we\u0027re passing the header through, just to look it up again, right?",
+      "parentUuid": "b410e40a_a86ea9af",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 61
+      },
+      "revId": "1fa2391a05e7d460227bdbf17abf882ffbf9a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91dc886b_97a7c9e8",
