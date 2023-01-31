@@ -16,6 +16,24 @@
       "message": "According to https://github.com/DMTF/Redfish/issues/5441, we should be good now? If so, I am good with this going in.",
       "revId": "1b7aff150f032a358040a5162b2a7bef3c213d89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bfca877_e962dba4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-01-31T18:14:20Z",
+      "side": 1,
+      "message": "Yeah, I think we\u0027re good now.",
+      "parentUuid": "afa619b7_58d66bed",
+      "revId": "1b7aff150f032a358040a5162b2a7bef3c213d89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
