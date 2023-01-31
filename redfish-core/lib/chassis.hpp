@@ -330,6 +330,27 @@ inline void
                     asyncResp->res.jsonValue["AssetTag"] = property;
                     });
             }
+            const std::string replaceableInterface =
+                "xyz.openbmc_project.Inventory.Decorator.Replaceable";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          replaceableInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<bool>(
+                    *crow::connections::systemBus, connectionName, path,
+                    replaceableInterface, "FieldReplaceable",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code ec2,
+                        const bool property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBus response error for FieldReplaceable";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["FieldReplaceable"] = property;
+                    });
+            }
 
             for (const char* interface : hasIndicatorLed)
             {
