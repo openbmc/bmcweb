@@ -219,6 +219,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e17e37_6c806a4e",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-31T01:06:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82ac85b4_3ea19e21",
+      "range": {
+        "startLine": 21,
+        "startChar": 56,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caf379b7_30153446",
@@ -266,6 +290,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c04691b_f96492d3",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-31T01:06:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4b234f67_a0f8818d",
+      "range": {
+        "startLine": 37,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 64
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da728b7e_39895b25",
@@ -303,6 +351,30 @@
       "side": 1,
       "message": "This is what we are doing else where in the code today.. until we do something else, I think we should stick with this https://github.com/openbmc/bmcweb/search?q\u003dsystemName",
       "parentUuid": "da728b7e_39895b25",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 116,
+        "endChar": 31
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e7f4226_70992f4a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-31T01:06:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f594d3c_3184f536",
       "range": {
         "startLine": 116,
         "startChar": 3,
@@ -397,6 +469,30 @@
       "side": 1,
       "message": "This is what we are doing else where in the code today.. until we do something else, I think we should stick with this https://github.com/openbmc/bmcweb/search?q\u003dsystemName",
       "parentUuid": "a4ee6935_be20e9e2",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 30
+      },
+      "revId": "0fb290a459b9c8d88933a8f01a6aaf31b9b1bcbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fef66d58_e556e51e",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-01-31T01:06:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "532b1619_5fe22177",
       "range": {
         "startLine": 147,
         "startChar": 8,
