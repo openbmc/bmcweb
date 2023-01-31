@@ -155,6 +155,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2c53d6_028061ab",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-01-31T22:40:33Z",
+      "side": 1,
+      "message": "I\u0027m fine with that",
+      "parentUuid": "577177e0_4a4dd268",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 61
+      },
+      "revId": "1fa2391a05e7d460227bdbf17abf882ffbf9a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91dc886b_97a7c9e8",
