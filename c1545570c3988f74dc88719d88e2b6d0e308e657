@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a9252db_c4eef310",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-01-31T04:21:33Z",
+      "side": 1,
+      "message": "sure this is the correct wrapping? \nhttps://cbea.ms/git-commit/\nWrap the body at 72 characters",
+      "range": {
+        "startLine": 11,
+        "startChar": 72,
+        "endLine": 11,
+        "endChar": 73
+      },
+      "revId": "c1545570c3988f74dc88719d88e2b6d0e308e657",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
