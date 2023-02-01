@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7a7ae61_6f976ae7",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-01T21:03:51Z",
+      "side": 1,
+      "message": "This is resolution of Ed\u0027s previous comment, read previous comments.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60384\nPrefer to use a normal method to handle the return.",
+      "parentUuid": "72ebeb86_ae4bf276",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 58
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ce73345_1e8835c2",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 50
@@ -100,6 +124,30 @@
       "writtenOn": "2023-02-01T15:48:34Z",
       "side": 1,
       "message": "Can doAdapterGet() be inlined here similar to handleFabricAdapterHead()?\n(This may be easier to read -- instead of seeing another function).\n\n    getValidFabricAdapterPath(\n        adapterId, systemName, aResp,\n        [aResp, systemName, adapterId](const std::string\u0026) {\n    aResp-\u003eres.addHeader(\n        boost::beast::http::field::link,\n        \"\u003c/redfish/v1/JsonSchemas/FabricAdapter/FabricAdapter.json\u003e; rel\u003ddescribedby\");\n    aResp-\u003eres.jsonValue[\"@odata.type\"] \u003d \"#FabricAdapter.v1_0_0.FabricAdapter\";\n    aResp-\u003eres.jsonValue[\"Name\"] \u003d \"Fabric Adapter\";\n    aResp-\u003eres.jsonValue[\"Id\"] \u003d adapterId;\n    aResp-\u003eres.jsonValue[\"@odata.id\"] \u003d crow::utility::urlFromPieces(\n        \"redfish\", \"v1\", \"Systems\", systemName, \"FabricAdapters\", adapterId);\n});",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f5da6e7_b96f1e9d",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-01T21:03:51Z",
+      "side": 1,
+      "message": "Prefer to keep the lambda length less than 10 lines. More properties are added in doAdapterGet in next commits.",
+      "parentUuid": "6ce73345_1e8835c2",
       "range": {
         "startLine": 101,
         "startChar": 0,
