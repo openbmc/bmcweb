@@ -117,6 +117,30 @@
       },
       "revId": "908b9c8bb948e2486ac26dd18c06422631638da7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "020537c0_2bccd6e2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-02-01T14:28:35Z",
+      "side": 1,
+      "message": "Added a comment to leave \"Unknown\" chassisType and return empty.",
+      "parentUuid": "b2ad2f10_7b645e7d",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 5
+      },
+      "revId": "908b9c8bb948e2486ac26dd18c06422631638da7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
