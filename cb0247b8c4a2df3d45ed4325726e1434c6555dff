@@ -70,6 +70,30 @@
       },
       "revId": "cb0247b8c4a2df3d45ed4325726e1434c6555dff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef8cd10_ea421791",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1001211
+      },
+      "writtenOn": "2023-02-01T23:43:43Z",
+      "side": 1,
+      "message": "I see, I added the change to copy the body as well. Do we want to copy the response result too? \n\nAlso, the failing message, not sure if I should remove it now that we copy over the body and all.",
+      "parentUuid": "bae0d728_f7e09c9c",
+      "range": {
+        "startLine": 662,
+        "startChar": 0,
+        "endLine": 673,
+        "endChar": 59
+      },
+      "revId": "cb0247b8c4a2df3d45ed4325726e1434c6555dff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
