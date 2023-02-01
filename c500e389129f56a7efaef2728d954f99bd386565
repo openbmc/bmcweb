@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd5ca5c6_dae284c6",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-02-01T16:25:23Z",
+      "side": 1,
+      "message": "If error checking is a concern shall we keep the logic as it is, since the error handling and range check is done once inside getComputerSystemIndexString() method before converting it to string,",
+      "parentUuid": "d8b447ef_d47efff7",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 18
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7f19202_12bbedfa",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 43
@@ -477,6 +501,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97040979_c169a45c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-02-01T16:25:23Z",
+      "side": 1,
+      "message": "Recently we don\u0027t have pciedevices dbus object enabled in our platform. this file was touched because there was a method call from systems.hpp.  \nI think this multihost pcieDevice change can also be taken as a separate patch.",
+      "parentUuid": "3bdc26cc_9ab6e8d8",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9c6ff74_6638f245",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -814,6 +862,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "761c22b2_2b052ef4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-02-01T16:25:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b9806c4_93e726f4",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07ba670f_175ddf3f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -879,6 +945,24 @@
       "side": 1,
       "message": "Feel free to use a lambda, but lambdas should be small and self contained.  This one is not.",
       "parentUuid": "197ea53d_335eee02",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689f187d_b95dfd86",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-02-01T16:25:23Z",
+      "side": 1,
+      "message": "I have split the lambda code into small methods to simplify the lambda",
+      "parentUuid": "7c42c7a5_2da5f61a",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

@@ -263,6 +263,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b606dc55_7617f43a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-02-01T16:25:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "610e7bf3_3eae6e72",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d72e5f73_335a4f62",
@@ -372,6 +396,30 @@
       "side": 1,
       "message": "I see no changes in the commit message to reflect:\n\nA. the testing that the developing guide requires.\nB. The 404 testing that\u0027re required when adding new routes with wildcards.\n\nI\u0027m not sure how this got marked Done, but it doesn\u0027t appear to be.",
       "parentUuid": "66d882cb_66b2c958",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35f6228_3b1568b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-02-01T16:25:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0c4c820c_5f53a854",
       "range": {
         "startLine": 35,
         "startChar": 15,
