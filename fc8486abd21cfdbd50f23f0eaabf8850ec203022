@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e84a9fb_17c5ff6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-01T14:40:39Z",
+      "side": 1,
+      "message": "Please wrap commit msgs at 50/72. \nWe follow https://cbea.ms/git-commit/ for commit msgs",
+      "revId": "fc8486abd21cfdbd50f23f0eaabf8850ec203022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
