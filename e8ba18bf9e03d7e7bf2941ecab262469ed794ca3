@@ -16,6 +16,24 @@
       "message": "Tested?",
       "revId": "e8ba18bf9e03d7e7bf2941ecab262469ed794ca3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c03f5baa_0ddb47a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-01T23:52:05Z",
+      "side": 1,
+      "message": "I\u0027m not sure how to test these.  I don\u0027t know of any tooling that uses it.",
+      "parentUuid": "1b6f46bb_5bf215c2",
+      "revId": "e8ba18bf9e03d7e7bf2941ecab262469ed794ca3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
