@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb9e91a2_bad95564",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-01T15:48:34Z",
+      "side": 1,
+      "message": "I think this is needed.\n\n#include \"app.hpp\"",
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a0f91a_88702c7d",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-01T15:48:34Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be\n\n#include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c228d91_15701773",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-01T15:48:34Z",
+      "side": 1,
+      "message": "Additionally\n\n#include \u003carray\u003e\n#include \u003cstring_view\u003e",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72ebeb86_ae4bf276",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-01T15:48:34Z",
+      "side": 1,
+      "message": "This handleAdapterError() is used only here.\nCan\u0027t be inlined here instead of a separate function?\n(If there are other error cases, the msgs may be different).",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 58
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce73345_1e8835c2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-01T15:48:34Z",
+      "side": 1,
+      "message": "Can doAdapterGet() be inlined here similar to handleFabricAdapterHead()?\n(This may be easier to read -- instead of seeing another function).\n\n    getValidFabricAdapterPath(\n        adapterId, systemName, aResp,\n        [aResp, systemName, adapterId](const std::string\u0026) {\n    aResp-\u003eres.addHeader(\n        boost::beast::http::field::link,\n        \"\u003c/redfish/v1/JsonSchemas/FabricAdapter/FabricAdapter.json\u003e; rel\u003ddescribedby\");\n    aResp-\u003eres.jsonValue[\"@odata.type\"] \u003d \"#FabricAdapter.v1_0_0.FabricAdapter\";\n    aResp-\u003eres.jsonValue[\"Name\"] \u003d \"Fabric Adapter\";\n    aResp-\u003eres.jsonValue[\"Id\"] \u003d adapterId;\n    aResp-\u003eres.jsonValue[\"@odata.id\"] \u003d crow::utility::urlFromPieces(\n        \"redfish\", \"v1\", \"Systems\", systemName, \"FabricAdapters\", adapterId);\n});",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
