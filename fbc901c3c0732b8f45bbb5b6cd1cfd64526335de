@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2686977f_1d0e0d3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 81
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-01T15:48:55Z",
+      "side": 1,
+      "message": "My +1 is I support this direction and new features and this code seems reasonable. Excited to see this land. \n\nThanks Krzysztof and Ed for working this.",
+      "revId": "fbc901c3c0732b8f45bbb5b6cd1cfd64526335de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e07142a2_30316262",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
         "patchSetId": 81
