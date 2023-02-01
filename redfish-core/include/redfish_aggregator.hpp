@@ -509,20 +509,29 @@ class RedfishAggregator
     enum AggregationType
     {
         Collection,
+        ContainsSubordinate,
         Resource,
     };
 
     static void
-        startAggregation(AggregationType isCollection,
-                         const crow::Request& thisReq,
+        startAggregation(AggregationType aggType, const crow::Request& thisReq,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
-        if ((isCollection == AggregationType::Collection) &&
-            (thisReq.method() != boost::beast::http::verb::get))
+        if (thisReq.method() != boost::beast::http::verb::get)
         {
-            BMCWEB_LOG_DEBUG
-                << "Only aggregate GET requests to top level collections";
-            return;
+            if (aggType == AggregationType::Collection)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Only aggregate GET requests to top level collections";
+                return;
+            }
+
+            if (aggType == AggregationType::ContainsSubordinate)
+            {
+                BMCWEB_LOG_DEBUG << "Only aggregate GET requests when uptree of"
+                                 << " a top level collection";
+                return;
+            }
         }
 
         // Create a copy of thisReq so we we can still locally process the req
@@ -531,15 +540,15 @@ class RedfishAggregator
         if (ec)
         {
             BMCWEB_LOG_ERROR << "Failed to create copy of request";
-            if (isCollection != AggregationType::Collection)
+            if (aggType == AggregationType::Resource)
             {
                 messages::internalError(asyncResp->res);
             }
             return;
         }
 
-        getSatelliteConfigs(std::bind_front(aggregateAndHandle, isCollection,
-                                            localReq, asyncResp));
+        getSatelliteConfigs(
+            std::bind_front(aggregateAndHandle, aggType, localReq, asyncResp));
     }
 
     static void findSatellite(
@@ -574,7 +583,7 @@ class RedfishAggregator
     // Intended to handle an incoming request based on if Redfish Aggregation
     // is enabled.  Forwards request to satellite BMC if it exists.
     static void aggregateAndHandle(
-        AggregationType isCollection,
+        AggregationType aggType,
         const std::shared_ptr<crow::Request>& sharedReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
@@ -588,9 +597,10 @@ class RedfishAggregator
         // aggregate
         if (satelliteInfo.empty())
         {
-            // For collections we'll also handle the request locally so we
+            // For collections or resources that can contain a subordinate
+            // top level collection we'll also handle the request locally so we
             // don't need to write an error code
-            if (isCollection == AggregationType::Resource)
+            if (aggType == AggregationType::Resource)
             {
                 std::string nameStr = sharedReq->urlView.segments().back();
                 messages::resourceNotFound(asyncResp->res, "", nameStr);
@@ -604,13 +614,26 @@ class RedfishAggregator
 
         // We previously determined the request is for a collection.  No need to
         // check again
-        if (isCollection == AggregationType::Collection)
+        if (aggType == AggregationType::Collection)
         {
             BMCWEB_LOG_DEBUG << "Aggregating a collection";
             // We need to use a specific response handler and send the
             // request to all known satellites
             getInstance().forwardCollectionRequests(thisReq, asyncResp,
                                                     satelliteInfo);
+            return;
+        }
+
+        // We previously determined the request may contain a subordinate
+        // collection.  No need to check again
+        if (aggType == AggregationType::ContainsSubordinate)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Aggregating what may have a subordinate collection";
+            // We need to use a specific response handler and send the
+            // request to all known satellites
+            getInstance().forwardContainsSubordinateRequests(thisReq, asyncResp,
+                                                             satelliteInfo);
             return;
         }
 
@@ -694,6 +717,27 @@ class RedfishAggregator
         {
             std::function<void(crow::Response&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
+
+            std::string targetURI(thisReq.target());
+            std::string data = thisReq.req.body();
+            crow::HttpClient::getInstance().sendDataWithCallback(
+                data, id, std::string(sat.second.host()),
+                sat.second.port_number(), targetURI, false /*useSSL*/,
+                thisReq.fields, thisReq.method(), retryPolicyName, cb);
+        }
+    }
+
+    // Forward request for a URI that is uptree of a top level collection to
+    // each known satellite BMC
+    void forwardContainsSubordinateRequests(
+        const crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        for (const auto& sat : satelliteInfo)
+        {
+            std::function<void(crow::Response&)> cb = std::bind_front(
+                processContainsSubordinateResponse, sat.first, asyncResp);
 
             std::string targetURI(thisReq.target());
             std::string data = thisReq.req.body();
@@ -899,6 +943,147 @@ class RedfishAggregator
         }
     } // End processCollectionResponse()
 
+    // Processes the collection response returned by a satellite BMC and merges
+    // its "@odata.id" values
+    static void processContainsSubordinateResponse(
+        const std::string& prefix,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        crow::Response& resp)
+    {
+        // 429 and 502 mean we didn't actually send the request so don't
+        // overwrite the response headers in that case
+        if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+        {
+            return;
+        }
+
+        if (resp.resultInt() != 200)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Resource uptree from Collection does not exist in "
+                << "satellite BMC \"" << prefix << "\"";
+            // Return the error if we haven't had any successes
+            if (asyncResp->res.resultInt() != 200)
+            {
+                asyncResp->res.stringResponse = std::move(resp.stringResponse);
+            }
+            return;
+        }
+
+        // The resp will not have a json component
+        // We need to create a json from resp's stringResponse
+        if (resp.getHeaderValue("Content-Type") == "application/json")
+        {
+            bool addedLinks = false;
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(resp.body(), nullptr, false);
+            if (jsonVal.is_discarded())
+            {
+                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+
+                // Notify the user if doing so won't overwrite a valid response
+                if ((asyncResp->res.resultInt() != 200) &&
+                    (asyncResp->res.resultInt() != 429) &&
+                    (asyncResp->res.resultInt() != 502))
+                {
+                    messages::operationFailed(asyncResp->res);
+                }
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+
+            // Parse response and add properties missing from the AsyncResp
+            // Valid properties will be of the form <property>.@odata.id.<URI>
+            nlohmann::json::object_t* object =
+                jsonVal.get_ptr<nlohmann::json::object_t*>();
+            if (object == nullptr)
+            {
+                // No reason to do anything else
+                return;
+            }
+
+            for (std::pair<const std::string, nlohmann::json>& prop : *object)
+            {
+                if (asyncResp->res.jsonValue.contains(prop.first))
+                {
+                    // No need to overwrite if the link already exists
+                    continue;
+                }
+                if (prop.second.contains("@odata.id"))
+                {
+                    std::string* strValue =
+                        prop.second["@odata.id"].get_ptr<std::string*>();
+                    if (strValue == nullptr)
+                    {
+                        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+                        continue;
+                    }
+                    if (searchCollectionsArray(*strValue,
+                                               SearchType::CollOrCon))
+                    {
+                        BMCWEB_LOG_DEBUG << "Adding link for " << *strValue
+                                         << " from BMC " << prefix;
+                        if (!addedLinks)
+                        {
+                            if (asyncResp->res.resultInt() != 200)
+                            {
+                                // This resource didn't locally exist so remove
+                                // any potential error messages
+                                asyncResp->res.jsonValue.clear();
+                            }
+                            addedLinks = true;
+                        }
+                        asyncResp->res.jsonValue[prop.first]["@odata.id"] =
+                            *strValue;
+                    }
+                }
+            }
+
+            // This resource didn't locally exist so we only want to copy over a
+            // bare minimum amount of additional information that we'd expect to
+            // have been populated.
+            if (addedLinks && (asyncResp->res.resultInt() != 200))
+            {
+                asyncResp->res.result(resp.result());
+                if (object->contains("@odata.id"))
+                {
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        (*object)["@odata.id"];
+                }
+                if (object->contains("@odata.type"))
+                {
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        (*object)["@odata.type"];
+                }
+                if (object->contains("Id"))
+                {
+                    asyncResp->res.jsonValue["Id"] = (*object)["Id"];
+                }
+                if (object->contains("Name"))
+                {
+                    asyncResp->res.jsonValue["Name"] = (*object)["Name"];
+                }
+            }
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
+                             << "\"";
+            // We received as response that was not a json
+            // Notify the user only if we did not receive any valid responses,
+            // if the resource does not already exist on the aggregating BMC,
+            // and if we did not already set this warning due to a failure from
+            // a different satellite
+            if ((asyncResp->res.resultInt() != 200) &&
+                (asyncResp->res.resultInt() != 429) &&
+                (asyncResp->res.resultInt() != 502))
+            {
+                messages::operationFailed(asyncResp->res);
+            }
+        }
+    }
+
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
     // request
@@ -985,6 +1170,16 @@ class RedfishAggregator
                                currentUrl.buffer()))
         {
             startAggregation(AggregationType::Collection, thisReq, asyncResp);
+            return Result::LocalHandle;
+        }
+
+        // If nothing else then the request could be for a resource which has a
+        // top level collection as a subordinate
+        if (searchCollectionsArray(url.buffer(),
+                                   SearchType::ContainsSubordinate))
+        {
+            startAggregation(AggregationType::ContainsSubordinate, thisReq,
+                             asyncResp);
             return Result::LocalHandle;
         }
 
