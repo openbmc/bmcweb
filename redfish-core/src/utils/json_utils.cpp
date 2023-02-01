@@ -30,8 +30,6 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
     {
         messages::malformedJSON(res);
 
-        res.end();
-
         return false;
     }
 

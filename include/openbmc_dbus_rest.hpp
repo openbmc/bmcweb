@@ -515,8 +515,6 @@ struct InProgressActionData
                 }
             }
         }
-
-        res.end();
     }
     InProgressActionData(const InProgressActionData&) = delete;
     InProgressActionData(InProgressActionData&&) = delete;
