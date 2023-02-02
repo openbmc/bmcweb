@@ -3305,8 +3305,8 @@
             <EntityContainer Name="Service" Extends="ServiceRoot.v1_0_0.ServiceContainer"/>
         </Schema>
     </edmx:DataServices>
-    <edmx:Reference Uri="/redfish/v1/schema/OemManager_v1.xml">
-        <edmx:Include Namespace="OemManager"/>
+    <edmx:Reference Uri="/redfish/v1/schema/OpenBMCManager_v1.xml">
+        <edmx:Include Namespace="OpenBMCManager"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemComputerSystem_v1.xml">
         <edmx:Include Namespace="OemComputerSystem"/>
