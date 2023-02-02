@@ -238,6 +238,30 @@
       },
       "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "309009fd_f244d5ae",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-02T23:00:37Z",
+      "side": 0,
+      "message": "Sure, I\u0027m happy to discuss.  The problem I\u0027m noticing is actually a bmcweb specific one.  If there are \"legacy\" paths that should accept one set of params, and \"non legacy\" paths that accept a different set of params, they really should be different bmcweb_route instances.\n\nI wonder if at the virtual media collection level, we should append legacy_ or standard_ so we can directly differentiate.  postponing parameter validation isn\u0027t something we generally do.",
+      "parentUuid": "9562686b_3bbe395d",
+      "range": {
+        "startLine": 790,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 15
+      },
+      "revId": "1f2a40ce3223e024d510f2e3b32fbc7e08012728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
