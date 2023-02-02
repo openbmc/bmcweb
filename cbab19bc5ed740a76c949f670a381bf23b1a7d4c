@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f32418_daa7a531",
+        "filename": "static/google/v1/schema/NVMeCollection_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-02-02T23:16:20Z",
+      "side": 1,
+      "message": "Missing reference to NVMe",
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1359e9a5_ff465d0e",
+        "filename": "static/google/v1/schema/NVMeController_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-02-02T23:16:20Z",
+      "side": 1,
+      "message": "Missing reference to Storage Controller",
+      "range": {
+        "startLine": 80,
+        "startChar": 9,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c3df4ee_b7c6a074",
+        "filename": "static/google/v1/schema/NVMe_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-02-02T23:16:20Z",
+      "side": 1,
+      "message": "Missing NVMeController schema and reference to it",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 27
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee4110a4_06c96e8d",
+        "filename": "static/google/v1/schema/NVMe_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-02-02T23:16:20Z",
+      "side": 1,
+      "message": "Missing reference to Storage",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc6055ae_a1bbae29",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-02-02T23:16:20Z",
+      "side": 1,
+      "message": "Missing reference to NVMe collectioin",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 94
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
