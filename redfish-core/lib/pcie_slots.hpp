@@ -7,6 +7,7 @@
 #include "pcie.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
@@ -20,7 +21,8 @@
 namespace redfish
 {
 
-inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
+inline std::optional<pcie_slots::SlotTypes>
+    dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
@@ -64,9 +66,15 @@ inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
     {
         return pcie_slots::SlotTypes::U2;
     }
+    if (slotType.empty() ||
+        slotType ==
+            "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown")
+    {
+        return pcie_slots::SlotTypes::Invalid;
+    }
 
-    // Unknown or others
-    return pcie_slots::SlotTypes::Invalid;
+    // Unspecified slotType needs return an internal error.
+    return std::nullopt;
 }
 
 inline void
@@ -119,7 +127,10 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        slot["PCIeType"] = !pcieType;
+        if (*pcieType != pcie_device::PCIeTypes::Invalid)
+        {
+            slot["PCIeType"] = *pcieType;
+        }
     }
 
     if (lanes != nullptr)
@@ -130,13 +141,17 @@ inline void
 
     if (slotType != nullptr)
     {
-        pcie_slots::SlotTypes redfishSlotType = dbusSlotTypeToRf(*slotType);
-        if (redfishSlotType == pcie_slots::SlotTypes::Invalid)
+        std::optional<pcie_slots::SlotTypes> redfishSlotType =
+            dbusSlotTypeToRf(*slotType);
+        if (!redfishSlotType)
         {
             messages::internalError(asyncResp->res);
             return;
         }
-        slot["SlotType"] = redfishSlotType;
+        if (*redfishSlotType != pcie_slots::SlotTypes::Invalid)
+        {
+            slot["SlotType"] = *redfishSlotType;
+        }
     }
 
     if (hotPluggable != nullptr)
@@ -220,6 +235,9 @@ inline void
     BMCWEB_LOG_DEBUG << "Get properties for PCIeSlots associated to chassis = "
                      << chassisID;
 
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/PCIeSlots/PCIeSlots.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] = "#PCIeSlots.v1_4_1.PCIeSlots";
     asyncResp->res.jsonValue["Name"] = "PCIe Slot Information";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
@@ -254,6 +272,28 @@ inline void
     }
 }
 
+inline void
+    doPCIeSlotCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& chassisID,
+                         const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+    dbus::utility::getSubTree(
+        *validChassisPath, 0, interfaces,
+        [asyncResp,
+         chassisID](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        onMapperSubtreeDone(asyncResp, chassisID, ec, subtree);
+        });
+}
+
 inline void handlePCIeSlotCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -264,15 +304,9 @@ inline void handlePCIeSlotCollectionGet(
         return;
     }
 
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp,
-         chassisID](const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        onMapperSubtreeDone(asyncResp, chassisID, ec, subtree);
-        });
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisID,
+        std::bind_front(doPCIeSlotCollection, asyncResp, chassisID));
 }
 
 inline void requestRoutesPCIeSlots(App& app)
