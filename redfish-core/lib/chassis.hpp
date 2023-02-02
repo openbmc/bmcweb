@@ -287,8 +287,9 @@ inline void
                 crow::utility::urlFromPieces("redfish", "v1", "Chassis",
                                              chassisId, "ResetActionInfo");
             asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "PCIeDevices");
+                "/redfish/v1/Systems/system/PCIeDevices";
+            asyncResp->res.jsonValue["PCIeSlots"]["@odata.id"] =
+                "/redfish/v1/Chassis/" + chassisId + "/PCIeSlots";
 
             sdbusplus::asio::getProperty<std::vector<std::string>>(
                 *crow::connections::systemBus,
