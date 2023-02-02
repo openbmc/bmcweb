@@ -16,6 +16,24 @@
       "message": "Can you quote the rules? \nOr point at them",
       "revId": "e6e7eeb519b00e1b3a7844c5c311d1c8320c6fda",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97b25b4_c4d254f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-02T23:04:20Z",
+      "side": 1,
+      "message": "I just ran the tool on these, which I linked in the commit message.  The \"rules\" are decently documented in that tool, but require reading code, I don\u0027t know of a better spot.",
+      "parentUuid": "04c4ef45_3f6a2bed",
+      "revId": "e6e7eeb519b00e1b3a7844c5c311d1c8320c6fda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
