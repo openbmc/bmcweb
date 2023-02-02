@@ -16,6 +16,24 @@
       "message": "Redfish Validator passes?",
       "revId": "9749fa267c4e5cb8011413b33cc31bd227606c99",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84272e53_2d562ddb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-02-02T01:03:02Z",
+      "side": 1,
+      "message": "No. we just run single test for power control metrics is PASS.\nShould we run Redfish Validator?\n\nAccording to JsonSchemas/Power/Power.json, we add below properties for passing automation test about chassis power control.\n\n\"AverageConsumedWatts\"\n\"IntervalInMin\"\n\"MaxConsumedWatts\"\n\"MinConsumedWatts\"",
+      "parentUuid": "734451ee_12d9ef08",
+      "revId": "9749fa267c4e5cb8011413b33cc31bd227606c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
