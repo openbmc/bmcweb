@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6182edeb_65689cd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-02T21:25:41Z",
+      "side": 1,
+      "message": "This feature is intentionally not enabled because the last time we turned it on, it broke things.  Presumably you\u0027ve debugged that and made sure that it works in all cases?  Including cases where no PCIeSlots exist?\n\nIt should also be noted, this schema is pretty likely to be deprecated by DMTF shortly, so I\u0027m not sure I see the value in having it on OpenBMC.",
+      "revId": "6ebc711b97f7864b6d1449b0542b5e41a9f4b5d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
