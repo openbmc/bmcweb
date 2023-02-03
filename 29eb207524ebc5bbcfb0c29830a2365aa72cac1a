@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4067d21a_262a49ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-02-03T23:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3f9d46b_76048b4c",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d92c38a_ac55d293",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cab77bb7_5a083ebb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-02-03T23:54:22Z",
+      "side": 1,
+      "message": "Older comment, \n\nThat should be handled by the cause of 533 now.",
+      "parentUuid": "d54a4548_b61945f1",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 9
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8666f9f_a7c17ff5",
@@ -130,6 +178,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b5f8b8_e1cd08e0",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-02-03T23:54:22Z",
+      "side": 1,
+      "message": "Thank you, our goal is the follow the redfish spec for drive. \n\nPlease reopen if there are any more questions about schema or intent.",
+      "parentUuid": "6cd489c4_3180da16",
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5c0cbd5_1d375f03",
@@ -143,6 +209,30 @@
       "writtenOn": "2022-09-05T17:21:02Z",
       "side": 1,
       "message": "It should be else or Since you are returning in above conditions(line no: 531), you can make it as default. without any block.\n\n if (*isLocked)\n        {\n            //\"The drive is currently encrypted and the data is not\n            // accessible to the user.\"\n            asyncResp-\u003eres.jsonValue[\"EncryptionStatus\"] \u003d \"Locked\";\n            return;\n        }\nasyncResp-\u003eres.jsonValue[\"EncryptionStatus\"] \u003d \"Unlocked\";",
+      "range": {
+        "startLine": 533,
+        "startChar": 8,
+        "endLine": 533,
+        "endChar": 23
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93eda82e_a7e9e000",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-02-03T23:54:22Z",
+      "side": 1,
+      "message": "good catch, done.",
+      "parentUuid": "d5c0cbd5_1d375f03",
       "range": {
         "startLine": 533,
         "startChar": 8,
@@ -202,6 +292,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "e8c66c0f_4f8a03c8",
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68f411f7_c6c74cf7",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-02-03T23:54:22Z",
+      "side": 1,
+      "message": "thank you",
+      "parentUuid": "bcdf0196_42e9af3f",
       "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
