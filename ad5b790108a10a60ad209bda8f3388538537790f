@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "268a82fc_400620cf",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T23:06:46Z",
+      "side": 1,
+      "message": "Access-Control-Allow-Origin, Cache-Control, OData-Version headers are set for all bmcweb Redfish responses, so no need to copy.\n\nAllow should be copied.\n\nwww-authenticate, and x-auth-token are authentication params, and in the current model the user is logging into bmcweb, which is already authenticated with the satellite (ie we don\u0027t pass auth through) so not copying these shoudl be fine.\n\nTL; DR, just need to get Allow in the list.",
+      "parentUuid": "cba07bca_f2de90ee",
+      "revId": "ad5b790108a10a60ad209bda8f3388538537790f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65186d1c_68d988e4",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 15

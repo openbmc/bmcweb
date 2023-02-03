@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff994fc2_25c38055",
+        "filename": "test/redfish-core/include/redfish_aggregator_test.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T23:06:46Z",
+      "side": 1,
+      "message": "Can you make this something correct to the standard please?  This isn\u0027t a valid link.",
+      "range": {
+        "startLine": 221,
+        "startChar": 28,
+        "endLine": 221,
+        "endChar": 40
+      },
+      "revId": "15a59b3a099c7b4533208a3d829eb88e824a1f9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
