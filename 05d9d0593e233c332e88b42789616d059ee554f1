@@ -16,6 +16,24 @@
       "message": "Makes sense. Although is_object() is documented to never throw: https://json.nlohmann.me/api/basic_json/is_object/\n\nThe advantage of get_ptr is like applying the \"!\" suffix to a variable, in Swift and other newer languages, in that it locks down the type of a variable and decisively validates constraints enforced upon it. After get_ptr returns successfully, the type of that variable is now guaranteed, and so the compiler doesn\u0027t have to do any more type checking for it at runtime, avoiding all the associated overhead and error possibility from that point forward.",
       "revId": "05d9d0593e233c332e88b42789616d059ee554f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6d50da_20164937",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T21:53:03Z",
+      "side": 1,
+      "message": "\u003e Makes sense. Although is_object() is documented to never throw: https://json.nlohmann.me/api/basic_json/is_object/\n\nis_object doesn\u0027t throw, but items() does throw.\nhttps://json.nlohmann.me/api/basic_json/items/\n\n\u003e \n\u003e The advantage of get_ptr is like applying the \"!\" suffix to a variable, in Swift and other newer languages, in that it locks down the type of a variable and decisively validates constraints enforced upon it. After get_ptr returns successfully, the type of that variable is now guaranteed, and so the compiler doesn\u0027t have to do any more type checking for it at runtime, avoiding all the associated overhead and error possibility from that point forward.",
+      "parentUuid": "68d2731e_22275020",
+      "revId": "05d9d0593e233c332e88b42789616d059ee554f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
