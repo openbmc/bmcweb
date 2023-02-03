@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1494ae_a52e122c",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-03T17:38:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb9e91a2_bad95564",
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5a0f91a_88702c7d",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b05ff5a0_6f1f31e1",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-03T17:38:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5a0f91a_88702c7d",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c228d91_15701773",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-02-01T15:48:34Z",
       "side": 1,
       "message": "Additionally\n\n#include \u003carray\u003e\n#include \u003cstring_view\u003e",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df4887d4_c9cf6a1a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-03T17:38:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c228d91_15701773",
       "range": {
         "startLine": 8,
         "startChar": 0,
