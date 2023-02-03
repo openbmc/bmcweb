@@ -87,12 +87,18 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         }
 
         // data is type oa{sa{sv}} which is an array[2] of string, object
-        for (const auto& entry : data[1].items())
+        nlohmann::json::object_t* obj =
+            data[1].get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr)
         {
-            auto it = thisSession->second.interfaces.find(entry.key());
+            return 0;
+        }
+        for (const auto& entry : *obj)
+        {
+            auto it = thisSession->second.interfaces.find(entry.first);
             if (it != thisSession->second.interfaces.end())
             {
-                json["interfaces"][entry.key()] = entry.value();
+                json["interfaces"][entry.first] = entry.second;
             }
         }
     }
