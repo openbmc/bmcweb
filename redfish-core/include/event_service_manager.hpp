@@ -712,18 +712,23 @@ class EventServiceManager
             BMCWEB_LOG_ERROR << "Old eventService config parse error.";
             return;
         }
-
-        for (const auto& item : jsonData.items())
+        nlohmann::json::object_t* data =
+            jsonData.get_ptr<nlohmann::json::object_t*>();
+        if (data == nullptr)
         {
-            if (item.key() == "Configuration")
+            return;
+        }
+        for (const auto& item : *data)
+        {
+            if (item.first == "Configuration")
             {
                 persistent_data::EventServiceStore::getInstance()
                     .getEventServiceConfig()
-                    .fromJson(item.value());
+                    .fromJson(item.second);
             }
-            else if (item.key() == "Subscriptions")
+            else if (item.first == "Subscriptions")
             {
-                for (const auto& elem : item.value())
+                for (const auto& elem : item.second)
                 {
                     std::shared_ptr<persistent_data::UserSubscription>
                         newSubscription =
