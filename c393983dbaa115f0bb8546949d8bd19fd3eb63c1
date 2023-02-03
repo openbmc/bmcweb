@@ -18,6 +18,46 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d20ca5_4b10cf5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:45:14Z",
+      "side": 1,
+      "message": "Documentation needs to be complete.",
+      "revId": "c393983dbaa115f0bb8546949d8bd19fd3eb63c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243a6739_f624717c",
+        "filename": "Redfish.md",
+        "patchSetId": 52
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:45:14Z",
+      "side": 1,
+      "message": "This commit also adds FabricAdapters/\u003cstr\u003e",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 21
+      },
+      "revId": "c393983dbaa115f0bb8546949d8bd19fd3eb63c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d740e075_92cd712f",
