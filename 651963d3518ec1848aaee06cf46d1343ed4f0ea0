@@ -16,6 +16,24 @@
       "message": "For an internalError I think we should be BMCWEB_LOG_ERROR level. I know we aren\u0027t consistent here, but I think LOG_ERROR makes the most sense",
       "revId": "651963d3518ec1848aaee06cf46d1343ed4f0ea0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aeedb4a_4fd72b1a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-03T18:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd4d3342_0c9a45dd",
+      "revId": "651963d3518ec1848aaee06cf46d1343ed4f0ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
