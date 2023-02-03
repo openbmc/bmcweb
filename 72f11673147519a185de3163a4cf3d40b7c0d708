@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "740b91a5_e7b196c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:54:11Z",
+      "side": 1,
+      "message": "Per the developing guide.  WHY is this useful?  What information is put into originator?  (considering it\u0027s implementation defined, we need to document it.)",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b22d7c8e_1ca52e46",
@@ -31,6 +54,52 @@
       "writtenOn": "2023-02-03T07:14:41Z",
       "side": 1,
       "message": "Hi Maintainers, Can this commit go in?",
+      "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d1903a_149681cd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:54:11Z",
+      "side": 1,
+      "message": "Please use the generated redfish enums for this.",
+      "range": {
+        "startLine": 362,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 24
+      },
+      "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb706dee_3e031e2f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:54:11Z",
+      "side": 1,
+      "message": "We\u0027re now persisting the clients IP, which is generally considered as identifying information, which imposes a new set of requirements on bmcweb that we generally haven\u0027t in the past.\n\nIt also isn\u0027t mentioned at all in the commit message.  What guarantees at an interface level do we have that the daemon on the other end supports this?  Have all the daemons been tested?",
+      "range": {
+        "startLine": 993,
+        "startChar": 8,
+        "endLine": 993,
+        "endChar": 29
+      },
       "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
