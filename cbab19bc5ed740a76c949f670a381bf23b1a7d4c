@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfad342a_aa79c648",
+        "filename": "static/google/v1/schema/NVMeController_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-02-03T00:44:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1359e9a5_ff465d0e",
+      "range": {
+        "startLine": 80,
+        "startChar": 9,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c3df4ee_b7c6a074",
@@ -111,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c76c564_3ba8d925",
+        "filename": "static/google/v1/schema/NVMe_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-02-03T00:44:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee4110a4_06c96e8d",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc6055ae_a1bbae29",
@@ -124,6 +172,30 @@
       "writtenOn": "2023-02-02T23:16:20Z",
       "side": 1,
       "message": "Missing reference to NVMe collectioin",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 94
+      },
+      "revId": "cbab19bc5ed740a76c949f670a381bf23b1a7d4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d72a3f_b6c8ac60",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-02-03T00:44:25Z",
+      "side": 1,
+      "message": "not sure if it is right, but I added it.",
+      "parentUuid": "dc6055ae_a1bbae29",
       "range": {
         "startLine": 46,
         "startChar": 0,
