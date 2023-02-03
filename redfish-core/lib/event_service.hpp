@@ -337,18 +337,24 @@ inline void requestRoutesEventDestinationCollection(App& app)
         {
             for (const nlohmann::json& headerChunk : *headers)
             {
-                for (const auto& item : headerChunk.items())
+                const nlohmann::json::object_t* object =
+                    headerChunk.get_ptr<const nlohmann::json::object_t*>();
+                if (object == nullptr)
+                {
+                    continue;
+                }
+                for (const auto& item : *object)
                 {
                     const std::string* value =
-                        item.value().get_ptr<const std::string*>();
+                        item.second.get_ptr<const std::string*>();
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, item.value().dump(2, 1),
-                            "HttpHeaders/" + item.key());
+                            asyncResp->res, item.second.dump(2, 1),
+                            "HttpHeaders/" + item.first);
                         return;
                     }
-                    subValue->httpHeaders.set(item.key(), *value);
+                    subValue->httpHeaders.set(item.first, *value);
                 }
             }
         }
@@ -576,18 +582,20 @@ inline void requestRoutesEventDestination(App& app)
             boost::beast::http::fields fields;
             for (const nlohmann::json& headerChunk : *headers)
             {
-                for (const auto& it : headerChunk.items())
+                const nlohmann::json::object_t* object =
+                    headerChunk.get_ptr<const nlohmann::json::object_t*>();
+                for (const auto& it : *object)
                 {
                     const std::string* value =
-                        it.value().get_ptr<const std::string*>();
+                        it.second.get_ptr<const std::string*>();
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, it.value().dump(2, ' ', true),
-                            "HttpHeaders/" + it.key());
+                            asyncResp->res, it.second.dump(2, ' ', true),
+                            "HttpHeaders/" + it.first);
                         return;
                     }
-                    fields.set(it.key(), *value);
+                    fields.set(it.first, *value);
                 }
             }
             subValue->httpHeaders = fields;

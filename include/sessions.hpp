@@ -63,37 +63,39 @@ struct UserSession
     {
         std::shared_ptr<UserSession> userSession =
             std::make_shared<UserSession>();
-        for (const auto& element : j.items())
+        const nlohmann::json::object_t* obj =
+            j.get_ptr<const nlohmann::json::object_t*>();
+        for (const auto& element : *obj)
         {
             const std::string* thisValue =
-                element.value().get_ptr<const std::string*>();
+                element.second.get_ptr<const std::string*>();
             if (thisValue == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Error reading persistent store.  Property "
-                                 << element.key() << " was not of type string";
+                                 << element.first << " was not of type string";
                 continue;
             }
-            if (element.key() == "unique_id")
+            if (element.first == "unique_id")
             {
                 userSession->uniqueId = *thisValue;
             }
-            else if (element.key() == "session_token")
+            else if (element.first == "session_token")
             {
                 userSession->sessionToken = *thisValue;
             }
-            else if (element.key() == "csrf_token")
+            else if (element.first == "csrf_token")
             {
                 userSession->csrfToken = *thisValue;
             }
-            else if (element.key() == "username")
+            else if (element.first == "username")
             {
                 userSession->username = *thisValue;
             }
-            else if (element.key() == "client_id")
+            else if (element.first == "client_id")
             {
                 userSession->clientId = *thisValue;
             }
-            else if (element.key() == "client_ip")
+            else if (element.first == "client_ip")
             {
                 userSession->clientIp = *thisValue;
             }
@@ -102,7 +104,7 @@ struct UserSession
             {
                 BMCWEB_LOG_ERROR
                     << "Got unexpected property reading persistent file: "
-                    << element.key();
+                    << element.first;
                 continue;
             }
         }
@@ -165,31 +167,37 @@ struct AuthConfigMethods
 
     void fromJson(const nlohmann::json& j)
     {
-        for (const auto& element : j.items())
+        const nlohmann::json::object_t* obj =
+            j.get_ptr<const nlohmann::json::object_t*>();
+        if (obj == nullptr)
         {
-            const bool* value = element.value().get_ptr<const bool*>();
+            return;
+        }
+        for (const auto& element : *obj)
+        {
+            const bool* value = element.second.get_ptr<const bool*>();
             if (value == nullptr)
             {
                 continue;
             }
 
-            if (element.key() == "XToken")
+            if (element.first == "XToken")
             {
                 xtoken = *value;
             }
-            else if (element.key() == "Cookie")
+            else if (element.first == "Cookie")
             {
                 cookie = *value;
             }
-            else if (element.key() == "SessionToken")
+            else if (element.first == "SessionToken")
             {
                 sessionToken = *value;
             }
-            else if (element.key() == "BasicAuth")
+            else if (element.first == "BasicAuth")
             {
                 basic = *value;
             }
-            else if (element.key() == "TLS")
+            else if (element.first == "TLS")
             {
                 tls = *value;
             }
