@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1530cd83_959f7074",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:44:25Z",
+      "side": 1,
+      "message": "A couple minor things, fix them if you like.",
+      "revId": "c393983dbaa115f0bb8546949d8bd19fd3eb63c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d740e075_92cd712f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:44:25Z",
+      "side": 1,
+      "message": "We generally don\u0027t do lookups for HEAD requests.  HEAD is not supposed to verify the route exists.",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 29
+      },
+      "revId": "c393983dbaa115f0bb8546949d8bd19fd3eb63c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

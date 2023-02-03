@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e150f91c_6e835454",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:44:25Z",
+      "side": 1,
+      "message": "The intent of my comment was that this whole lambda should\u0027ve been a method, not just the error handling.",
+      "parentUuid": "d7a7ae61_6f976ae7",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 58
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ce73345_1e8835c2",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 50
@@ -214,6 +238,30 @@
       "side": 1,
       "message": "Prefer to keep the lambda length less than 10 lines. More properties are added in doAdapterGet in next commits.",
       "parentUuid": "6ce73345_1e8835c2",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "bc83f6f43167517e84f836e2909c930b5ca1e2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f304326_0963641b",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T19:44:25Z",
+      "side": 1,
+      "message": "Yes, please don\u0027t inline it.  Doing so is now a documented anti-pattern.",
+      "parentUuid": "7f5da6e7_b96f1e9d",
       "range": {
         "startLine": 101,
         "startChar": 0,
