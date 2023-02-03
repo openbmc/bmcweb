@@ -16,6 +16,24 @@
       "message": "Include what you use:\n\n#include \u003cvector\u003e\n#include \u003calgorithm\u003e     (std::find)\n#include \u003cboost/system/error_code.hpp\u003e",
       "revId": "e355354c468ab044fe85cef00150410eb7589872",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b577640a_f3b4e9dc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-02-03T09:16:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ee8fd0c_86b929fd",
+      "revId": "e355354c468ab044fe85cef00150410eb7589872",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
