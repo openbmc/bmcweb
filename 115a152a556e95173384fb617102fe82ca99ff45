@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "42965f35_fa2c781a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T20:06:32Z",
+      "side": 1,
+      "message": "This is a 5 minute timer between updates to the status API.  Considering that for a progress API, I would expect updates every 10 seconds or so, 5 minutes seems like more than enough, and the bug likely lies in your implementation of firmware update.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7f7163a_455380c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-03T20:06:32Z",
+      "side": 1,
+      "message": "I have no idea what an \"IFWI full flash\" is;  Can you please document the actual test you performed, which generally involves some sort of redfish command.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1da287ea_72913a7d",
