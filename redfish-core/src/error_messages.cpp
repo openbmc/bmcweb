@@ -244,6 +244,30 @@ void actionParameterValueFormatError(crow::Response& res, std::string_view arg1,
 
 /**
  * @internal
+ * @brief Formats ActionParameterValueNotInList message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json actionParameterValueNotInList(std::string_view arg1,
+                                             std::string_view arg2,
+                                             std::string_view arg3)
+{
+    return getLog(
+        redfish::registries::base::Index::actionParameterValueNotInList,
+        std::to_array({arg1, arg2, arg3}));
+}
+
+void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
+                                   std::string_view arg2, std::string_view arg3)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue,
+                          actionParameterValueNotInList(arg1, arg2, arg3));
+}
+
+/**
+ * @internal
  * @brief Formats InternalError message into JSON
  *
  * See header file for more information
