@@ -235,6 +235,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1535a3bb_dac5d7a3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-03T16:32:27Z",
+      "side": 1,
+      "message": "\u003e This means that the source of the log entry needs to be resolvable to something in the Redfish tree, otherwise what\u0027s the point? Or am I missing something in my analysis there?\n\nThen they would have done a link to an array of Redfish resources..\n\ne.g. \n```\n                \"Originator\": {\n                    \"description\": \"An array of links to resources or objects that .....\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef\"\n                    },\n                    \"longDescription\": \"This property shall contain an array of links to resources or objects that....\",\n                    \"readonly\": true,\n                    \"type\": \"array\",\n```\n\nbut they didn\u0027t (not sure I agree with them).. \nSo https://github.com/openbmc/phosphor-dbus-interfaces/blob/a1347418307d31a94bd21f22897aa508df938dcf/yaml/xyz/openbmc_project/Common/OriginatedBy.interface.yaml#L8 seems to map closest with what they did",
+      "parentUuid": "34303d8a_fd1acebc",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "8264e26a7ec3876ed0ce6d92b5e029bbe6787842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5733152_4cf84321",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 9
