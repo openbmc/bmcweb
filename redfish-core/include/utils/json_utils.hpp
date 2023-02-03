@@ -404,13 +404,15 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
                            std::span<PerUnpack> toUnpack)
 {
     bool result = true;
-    if (!jsonRequest.is_object())
+    nlohmann::json::object_t* obj =
+        jsonRequest.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
     {
         BMCWEB_LOG_DEBUG << "Json value is not an object";
         messages::unrecognizedRequestBody(res);
         return false;
     }
-    for (const auto& item : jsonRequest.items())
+    for (auto& item : *obj)
     {
         size_t unpackIndex = 0;
         for (; unpackIndex < toUnpack.size(); unpackIndex++)
@@ -425,7 +427,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
                 key = key.substr(0, keysplitIndex);
             }
 
-            if (key != item.key() || unpackSpec.complete)
+            if (key != item.first || unpackSpec.complete)
             {
                 continue;
             }
@@ -436,7 +438,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
                 // Include the slash in the key so we can compare later
                 key = unpackSpec.key.substr(0, keysplitIndex + 1);
                 nlohmann::json j;
-                result = details::unpackValue<nlohmann::json>(item.value(), key,
+                result = details::unpackValue<nlohmann::json>(item.second, key,
                                                               res, j) &&
                          result;
                 if (!result)
@@ -465,7 +467,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
                 using ContainedT =
                     std::remove_pointer_t<std::decay_t<decltype(val)>>;
                 return details::unpackValue<ContainedT>(
-                    item.value(), unpackSpec.key, res, *val);
+                    item.second, unpackSpec.key, res, *val);
                          },
                          unpackSpec.value) &&
                 result;
@@ -476,7 +478,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
 
         if (unpackIndex == toUnpack.size())
         {
-            messages::propertyUnknown(res, item.key());
+            messages::propertyUnknown(res, item.first);
             result = false;
         }
     }
