@@ -95,6 +95,24 @@ void actionParameterValueFormatError(crow::Response& res, std::string_view arg1,
                                      std::string_view arg3);
 
 /**
+ * @brief Formats ActionParameterValueNotInList message into JSON
+ * Message body: "The value <arg1> for the parameter <arg2> in the action <arg3>
+ * is not in the list of acceptable values."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ * @param[in] arg3 Parameter of message that will replace %3 in its body.
+ *
+ * @returns Message ActionParameterValueFormatError formatted to JSON */
+nlohmann::json actionParameterValueNotInList(std::string_view arg1,
+                                             std::string_view arg2,
+                                             std::string_view arg3);
+
+void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
+                                   std::string_view arg2,
+                                   std::string_view arg3);
+
+/**
  * @brief Formats InternalError message into JSON
  * Message body: "The request failed due to an internal service error.  The
  * service is still operational."
