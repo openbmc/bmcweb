@@ -571,12 +571,13 @@ inline void setDHCPEnabled(const std::string& ifaceId,
 }
 
 inline void handleHypervisorIPv4StaticPatch(
-    const std::string& ifaceId, const nlohmann::json& input,
+    const std::string& ifaceId, const nlohmann::json::array_t& input,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if ((!input.is_array()) || input.empty())
+    if (input.empty())
     {
-        messages::propertyValueTypeError(asyncResp->res, input.dump(),
+        messages::propertyValueTypeError(asyncResp->res,
+                                         nlohmann::json(input).dump(),
                                          "IPv4StaticAddresses");
         return;
     }
@@ -919,31 +920,32 @@ inline void requestRoutesHypervisorSystems(App& app)
 
             if (ipv4StaticAddresses)
             {
-                const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
-                if (ipv4Static.begin() == ipv4Static.end())
+                const nlohmann::json& j = *ipv4StaticAddresses;
+                const nlohmann::json::array_t* ipv4StaticObj =
+                    j.get_ptr<const nlohmann::json::array_t*>();
+                if (ipv4StaticObj->begin() == ipv4StaticObj->end())
                 {
                     messages::propertyValueTypeError(
                         asyncResp->res,
-                        ipv4Static.dump(
-                            2, ' ', true,
-                            nlohmann::json::error_handler_t::replace),
+                        j.dump(2, ' ', true,
+                               nlohmann::json::error_handler_t::replace),
                         "IPv4StaticAddresses");
                     return;
                 }
 
                 // One and only one hypervisor instance supported
-                if (ipv4Static.size() != 1)
+                if (ipv4StaticObj->size() != 1)
                 {
                     messages::propertyValueFormatError(
                         asyncResp->res,
-                        ipv4Static.dump(
-                            2, ' ', true,
-                            nlohmann::json::error_handler_t::replace),
+                        nlohmann::json(*ipv4StaticObj)
+                            .dump(2, ' ', true,
+                                  nlohmann::json::error_handler_t::replace),
                         "IPv4StaticAddresses");
                     return;
                 }
 
-                const nlohmann::json& ipv4Json = ipv4Static[0];
+                const nlohmann::json& ipv4Json = *ipv4StaticObj->begin();
                 // Check if the param is 'null'. If its null, it means
                 // that user wants to delete the IP address. Deleting
                 // the IP address is allowed only if its statically
@@ -958,7 +960,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                 }
                 else
                 {
-                    handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
+                    handleHypervisorIPv4StaticPatch(ifaceId, *ipv4StaticObj,
                                                     asyncResp);
                 }
             }
