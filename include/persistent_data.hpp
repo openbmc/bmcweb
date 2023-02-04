@@ -101,7 +101,15 @@ class ConfigFile
                     }
                     else if (item.first == "sessions")
                     {
-                        for (const auto& elem : item.second)
+                        const nlohmann::json::array_t* arr =
+                            item.second
+                                .get_ptr<const nlohmann::json::array_t*>();
+                        if (arr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Sessions wasn't an array");
+                            continue;
+                        }
+                        for (const auto& elem : *arr)
                         {
                             std::shared_ptr<UserSession> newSession =
                                 UserSession::fromJson(elem);
@@ -155,7 +163,15 @@ class ConfigFile
                     }
                     else if (item.first == "subscriptions")
                     {
-                        for (const auto& elem : item.second)
+                        const nlohmann::json::array_t* subarr =
+                            item.second
+                                .get_ptr<const nlohmann::json::array_t*>();
+                        if (subarr == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG("Problem reading Subscriptions");
+                            continue;
+                        }
+                        for (const auto& elem : *subarr)
                         {
                             std::shared_ptr<UserSubscription> newSubscription =
                                 UserSubscription::fromJson(elem);
