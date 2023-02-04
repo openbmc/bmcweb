@@ -568,15 +568,20 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
 
     // Assume a single object for now.
     const nlohmann::json* j = &inputJson;
-    nlohmann::json::const_iterator jIt = inputJson.begin();
-
+    const nlohmann::json::array_t* inputArr =
+        inputJson.get_ptr<const nlohmann::json::array_t*>();
+    if (inputArr == nullptr)
+    {
+        return -3;
+    }
+    nlohmann::json::array_t::const_iterator jIt = inputArr->begin();
     for (const std::string& argCode : argTypes)
     {
         // If we are decoding multiple objects, grab the pointer to the
         // iterator, and increment it for the next loop
         if (argTypes.size() > 1)
         {
-            if (jIt == inputJson.end())
+            if (jIt == inputArr->end())
             {
                 return -2;
             }
@@ -801,8 +806,13 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return r;
             }
-
-            for (const auto& it : *j)
+            const nlohmann::json::array_t* arr =
+                j->get_ptr<const nlohmann::json::array_t*>();
+            if (arr == nullptr)
+            {
+                return -1;
+            }
+            for (const auto& it : *arr)
             {
                 r = convertJsonToDbus(m, containedType, it);
                 if (r < 0)
@@ -845,11 +855,16 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return r;
             }
-
-            nlohmann::json::const_iterator it = j->begin();
-            for (const std::string& argCode2 : dbusArgSplit(containedType))
+            const nlohmann::json::array_t* arr =
+                j->get_ptr<const nlohmann::json::array_t*>();
+            if (arr == nullptr)
             {
-                if (it == j->end())
+                return -1;
+            }
+            nlohmann::json::array_t::const_iterator it = arr->begin();
+            for (const std::string& argCode2 : dbusArgSplit(argType))
+            {
+                if (it == arr->end())
                 {
                     return -1;
                 }
@@ -1551,8 +1566,17 @@ inline void handleAction(const crow::Request& req,
                          badReqMsg);
         return;
     }
-    nlohmann::json::iterator data = requestDbusData.find("data");
-    if (data == requestDbusData.end())
+    nlohmann::json::object_t* obj =
+        requestDbusData.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        setErrorResponse(asyncResp->res,
+                         boost::beast::http::status::bad_request, noJsonDesc,
+                         badReqMsg);
+        return;
+    }
+    nlohmann::json::object_t::iterator data = obj->find("data");
+    if (data == obj->end())
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
@@ -1560,7 +1584,7 @@ inline void handleAction(const crow::Request& req,
         return;
     }
 
-    if (!data->is_array())
+    if (!data->second.is_array())
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
@@ -1869,8 +1893,17 @@ inline void handlePut(const crow::Request& req,
         return;
     }
 
-    auto propertyIt = requestDbusData.find("data");
-    if (propertyIt == requestDbusData.end())
+    nlohmann::json::object_t* obj =
+        requestDbusData.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        setErrorResponse(asyncResp->res,
+                         boost::beast::http::status::bad_request, noJsonDesc,
+                         badReqMsg);
+        return;
+    }
+    auto propertyIt = obj->find("data");
+    if (propertyIt == obj->end())
     {
         setErrorResponse(asyncResp->res,
                          boost::beast::http::status::bad_request, noJsonDesc,
