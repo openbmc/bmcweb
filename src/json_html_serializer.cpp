@@ -420,7 +420,13 @@ static void dump(std::string& out, const nlohmann::json& val)
     {
         case nlohmann::json::value_t::object:
         {
-            if (val.empty())
+            const nlohmann::json::object_t* obj =
+                val.get_ptr<const nlohmann::json::object_t*>();
+            if (obj == nullptr)
+            {
+                return;
+            }
+            if (obj->empty())
             {
                 out += "{}";
                 return;
@@ -429,33 +435,33 @@ static void dump(std::string& out, const nlohmann::json& val)
             out += "{";
 
             out += "<div class=tab>";
-            for (auto i = val.begin(); i != val.end();)
+            for (auto i = obj->begin(); i != obj->end();)
             {
                 out += "&quot";
-                dumpEscaped(out, i.key());
+                dumpEscaped(out, i->first);
                 out += "&quot: ";
 
                 bool inATag = false;
-                if (i.key() == "@odata.id" || i.key() == "@odata.context" ||
-                    i.key() == "Members@odata.nextLink" || i.key() == "Uri")
+                if (i->first == "@odata.id" || i->first == "@odata.context" ||
+                    i->first == "Members@odata.nextLink" || i->first == "Uri")
                 {
                     inATag = true;
                     out += "<a href=\"";
                     const std::string* str =
-                        i.value().get_ptr<const std::string*>();
+                        i->second.get_ptr<const std::string*>();
                     if (str != nullptr)
                     {
                         dumpEscaped(out, *str);
                     }
                     out += "\">";
                 }
-                dump(out, i.value());
+                dump(out, i->second);
                 if (inATag)
                 {
                     out += "</a>";
                 }
                 i++;
-                if (i != val.end())
+                if (i != obj->end())
                 {
                     out += ",";
                 }
@@ -480,7 +486,9 @@ static void dump(std::string& out, const nlohmann::json& val)
             out += "<div class=tab>";
 
             // first n-1 elements
-            for (auto i = val.cbegin(); i != val.cend() - 1; ++i)
+            const nlohmann::json::array_t* arr =
+                val.get_ptr<const nlohmann::json::array_t*>();
+            for (auto i = arr->cbegin(); i != arr->cend() - 1; ++i)
             {
                 dump(out, *i);
                 out += ",<br>";
