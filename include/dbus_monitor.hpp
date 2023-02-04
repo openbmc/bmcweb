@@ -148,11 +148,26 @@ inline void requestRoutes(App& app)
             conn.close("Unable to parse json request");
             return;
         }
-        nlohmann::json::iterator interfaces = j.find("interfaces");
-        if (interfaces != j.end())
+        nlohmann::json::object_t* jObj = j.get_ptr<nlohmann::json::object_t*>();
+        if (jObj == nullptr)
         {
-            thisSession.interfaces.reserve(interfaces->size());
-            for (auto& interface : *interfaces)
+            BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
+            conn.close("Unable to parse json request");
+            return;
+        }
+        auto interfaces = jObj->find("interfaces");
+        if (interfaces != jObj->end())
+        {
+            nlohmann::json::array_t* jArr =
+                interfaces->second.get_ptr<nlohmann::json::array_t*>();
+            if (jArr == nullptr)
+            {
+                BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
+                conn.close("Unable to parse json request");
+                return;
+            }
+            thisSession.interfaces.reserve(jArr->size());
+            for (auto& interface : *jArr)
             {
                 const std::string* str =
                     interface.get_ptr<const std::string*>();
@@ -163,14 +178,21 @@ inline void requestRoutes(App& app)
             }
         }
 
-        nlohmann::json::iterator paths = j.find("paths");
-        if (paths == j.end())
+        auto paths = jObj->find("paths");
+        if (paths == jObj->end())
         {
             BMCWEB_LOG_ERROR("Unable to find paths in json data");
             conn.close("Unable to find paths in json data");
             return;
         }
-
+        nlohmann::json::array_t* jArr =
+            interfaces->second.get_ptr<nlohmann::json::array_t*>();
+        if (jArr == nullptr)
+        {
+            BMCWEB_LOG_ERROR("Unable to find paths in json data");
+            conn.close("Unable to find paths in json data");
+            return;
+        }
         size_t interfaceCount = thisSession.interfaces.size();
         if (interfaceCount == 0)
         {
@@ -180,7 +202,7 @@ inline void requestRoutes(App& app)
         // interfacesAdded, and InterfaceCount number for
         // PropertiesChanged
         thisSession.matches.reserve(thisSession.matches.size() +
-                                    paths->size() * (1U + interfaceCount));
+                                    jArr->size() * (1U + interfaceCount));
 
         // These regexes derived on the rules here:
         // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
@@ -188,7 +210,7 @@ inline void requestRoutes(App& app)
         static std::regex validInterface(
             "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
 
-        for (const auto& thisPath : *paths)
+        for (const auto& thisPath : *jArr)
         {
             const std::string* thisPathString =
                 thisPath.get_ptr<const std::string*>();
