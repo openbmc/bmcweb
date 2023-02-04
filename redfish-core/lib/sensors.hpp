@@ -1086,6 +1086,12 @@ inline void populateFanRedundancy(
                     nlohmann::json::array_t redfishCollection;
                     const auto& fanRedfish =
                         sensorsAsyncResp->asyncResp->res.jsonValue["Fans"];
+                    const nlohmann::json::array_t* fanRedfishArr =
+                        fanRedfish.get_ptr<const nlohmann::json::array_t*>();
+                    if (fanRedfishArr == nullptr)
+                    {
+                        return;
+                    }
                     for (const std::string& item : *collection)
                     {
                         sdbusplus::message::object_path itemPath(item);
@@ -1098,12 +1104,12 @@ inline void populateFanRedundancy(
                         todo(ed): merge patch that fixes the names
                         std::replace(itemName.begin(),
                                      itemName.end(), '_', ' ');*/
-                        auto schemaItem =
-                            std::find_if(fanRedfish.begin(), fanRedfish.end(),
-                                         [itemName](const nlohmann::json& fan) {
+                        auto schemaItem = std::find_if(
+                            fanRedfishArr->begin(), fanRedfishArr->end(),
+                            [itemName](const nlohmann::json& fan) {
                             return fan["MemberId"] == itemName;
                             });
-                        if (schemaItem != fanRedfish.end())
+                        if (schemaItem != fanRedfishArr->end())
                         {
                             nlohmann::json::object_t collectionId;
                             collectionId["@odata.id"] =
@@ -1152,6 +1158,7 @@ inline void
     sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
     nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
+
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
     if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
@@ -1162,14 +1169,20 @@ inline void
         nlohmann::json::iterator entry = response.find(sensorGroup);
         if (entry != response.end())
         {
-            std::sort(entry->begin(), entry->end(),
+            nlohmann::json::array_t* entryObj =
+                entry->get_ptr<nlohmann::json::array_t*>();
+            if (entryObj == nullptr)
+            {
+                continue;
+            }
+            std::sort(entryObj->begin(), entryObj->end(),
                       [](const nlohmann::json& c1, const nlohmann::json& c2) {
                 return c1["Name"] < c2["Name"];
             });
 
             // add the index counts to the end of each entry
             size_t count = 0;
-            for (nlohmann::json& sensorJson : *entry)
+            for (nlohmann::json& sensorJson : *entryObj)
             {
                 nlohmann::json::iterator odata = sensorJson.find("@odata.id");
                 if (odata == sensorJson.end())
@@ -2183,7 +2196,7 @@ static void
  * @param chassisId Chassis that contains the power supply.
  * @return JSON PowerSupply object for the specified inventory item.
  */
-inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
+inline nlohmann::json& getPowerSupply(nlohmann::json::array_t& powerSupplyArray,
                                       const InventoryItem& inventoryItem,
                                       const std::string& chassisId)
 {
@@ -2372,11 +2385,18 @@ inline void getSensorData(
                         continue;
                     }
 
-                    nlohmann::json& tempArray =
+                    nlohmann::json& obj =
                         sensorsAsyncResp->asyncResp->res.jsonValue[fieldName];
+                    nlohmann::json::array_t* tempArray =
+                        obj.get_ptr<nlohmann::json::array_t*>();
+                    if (tempArray == nullptr)
+                    {
+                        obj = nlohmann::json::array_t();
+                        tempArray = obj.get_ptr<nlohmann::json::array_t*>();
+                    }
                     if (fieldName == "PowerControl")
                     {
-                        if (tempArray.empty())
+                        if (tempArray->empty())
                         {
                             // Put multiple "sensors" into a single
                             // PowerControl. Follows MemberId naming and
@@ -2387,16 +2407,16 @@ inline void getSensorData(
                                 sensorsAsyncResp->chassisId + "/" +
                                 sensorsAsyncResp->chassisSubNode + "#/" +
                                 fieldName + "/0";
-                            tempArray.push_back(std::move(power));
+                            tempArray->push_back(std::move(power));
                         }
-                        sensorJson = &(tempArray.back());
+                        sensorJson = &(tempArray->back());
                     }
                     else if (fieldName == "PowerSupplies")
                     {
                         if (inventoryItem != nullptr)
                         {
                             sensorJson =
-                                &(getPowerSupply(tempArray, *inventoryItem,
+                                &(getPowerSupply(*tempArray, *inventoryItem,
                                                  sensorsAsyncResp->chassisId));
                         }
                     }
@@ -2416,8 +2436,8 @@ inline void getSensorData(
                             "redfish", "v1", "Chassis",
                             sensorsAsyncResp->chassisId,
                             sensorsAsyncResp->chassisSubNode, sensorId);
-                        tempArray.push_back(std::move(member));
-                        sensorJson = &(tempArray.back());
+                        tempArray->push_back(std::move(member));
+                        sensorJson = &(tempArray->back());
                     }
                     else
                     {
@@ -2427,8 +2447,8 @@ inline void getSensorData(
                                               "/" +
                                               sensorsAsyncResp->chassisSubNode +
                                               "#/" + fieldName + "/";
-                        tempArray.push_back(std::move(member));
-                        sensorJson = &(tempArray.back());
+                        tempArray->push_back(std::move(member));
+                        sensorJson = &(tempArray->back());
                     }
                 }
 

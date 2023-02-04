@@ -821,7 +821,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         [ethifaceId{std::string{ethifaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
-            const dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
         boost::container::flat_set<IPv4AddressData> ipv4Data;
         boost::container::flat_set<IPv6AddressData> ipv6Data;
@@ -1262,15 +1262,16 @@ inline boost::container::flat_set<IPv6AddressData>::const_iterator
 }
 
 inline void handleIPv4StaticPatch(
-    const std::string& ifaceId, nlohmann::json& input,
+    const std::string& ifaceId, nlohmann::json::array_t& input,
     const boost::container::flat_set<IPv4AddressData>& ipv4Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if ((!input.is_array()) || input.empty())
+    if (input.empty())
     {
         messages::propertyValueTypeError(
             asyncResp->res,
-            input.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
+            nlohmann::json(input).dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace),
             "IPv4StaticAddresses");
         return;
     }
@@ -1465,15 +1466,16 @@ inline void handleStaticNameServersPatch(
 }
 
 inline void handleIPv6StaticAddressesPatch(
-    const std::string& ifaceId, const nlohmann::json& input,
+    const std::string& ifaceId, const nlohmann::json::array_t& input,
     const boost::container::flat_set<IPv6AddressData>& ipv6Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!input.is_array() || input.empty())
+    if (input.empty())
     {
         messages::propertyValueTypeError(
             asyncResp->res,
-            input.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
+            nlohmann::json(input).dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace),
             "IPv6StaticAddresses");
         return;
     }
@@ -1834,8 +1836,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
         std::optional<std::string> ipv6DefaultGateway;
-        std::optional<nlohmann::json> ipv4StaticAddresses;
-        std::optional<nlohmann::json> ipv6StaticAddresses;
+        std::optional<nlohmann::json::array_t> ipv4StaticAddresses;
+        std::optional<nlohmann::json::array_t> ipv6StaticAddresses;
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<nlohmann::json> dhcpv4;
         std::optional<nlohmann::json> dhcpv6;
@@ -1894,7 +1896,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
              v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
                 const bool& success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-                const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
+                const boost::container::flat_set<IPv6AddressData>&
+                    ipv6Data) mutable {
             if (!success)
             {
                 // ... otherwise return error
@@ -1928,15 +1931,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (ipv4StaticAddresses)
             {
-                // TODO(ed) for some reason the capture of
-                // ipv4Addresses above is returning a const value,
-                // not a non-const value. This doesn't really work
-                // for us, as we need to be able to efficiently move
-                // out the intermedia nlohmann::json objects. This
-                // makes a copy of the structure, and operates on
-                // that, but could be done more efficiently
-                nlohmann::json ipv4Static = *ipv4StaticAddresses;
-                handleIPv4StaticPatch(ifaceId, ipv4Static, ipv4Data, asyncResp);
+                handleIPv4StaticPatch(ifaceId, *ipv4StaticAddresses, ipv4Data,
+                                      asyncResp);
             }
 
             if (staticNameServers)
@@ -1953,9 +1949,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (ipv6StaticAddresses)
             {
-                const nlohmann::json& ipv6Static = *ipv6StaticAddresses;
-                handleIPv6StaticAddressesPatch(ifaceId, ipv6Static, ipv6Data,
-                                               asyncResp);
+                handleIPv6StaticAddressesPatch(ifaceId, *ipv6StaticAddresses,
+                                               ipv6Data, asyncResp);
             }
 
             if (interfaceEnabled)

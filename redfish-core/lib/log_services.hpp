@@ -479,8 +479,10 @@ inline void
         asyncResp->res.jsonValue["Description"] =
             "Collection of " + dumpType + " Dump Entries";
 
-        nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-        entriesArray = nlohmann::json::array();
+        nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+        members = nlohmann::json::array();
+        nlohmann::json::array_t* entriesArray =
+            members.get_ptr<nlohmann::json::array_t*>();
         std::string dumpEntryPath =
             "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/";
@@ -541,9 +543,9 @@ inline void
                     entriesPath + entryID + "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
-            entriesArray.push_back(std::move(thisEntry));
+            entriesArray->push_back(std::move(thisEntry));
         }
-        asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
+        asyncResp->res.jsonValue["Members@odata.count"] = entriesArray->size();
         },
         "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -1526,8 +1528,10 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-            entriesArray = nlohmann::json::array();
+            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
+            nlohmann::json::array_t* entriesArray =
+                members.get_ptr<nlohmann::json::array_t*>();
             for (const auto& objectPath : resp)
             {
                 const uint32_t* id = nullptr;
@@ -1628,8 +1632,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 {
                     continue;
                 }
-                entriesArray.push_back({});
-                nlohmann::json& thisEntry = entriesArray.back();
+                entriesArray->push_back({});
+                nlohmann::json& thisEntry = entriesArray->back();
                 thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
                 thisEntry["@odata.id"] =
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
@@ -1663,12 +1667,12 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 }
             }
             std::sort(
-                entriesArray.begin(), entriesArray.end(),
+                entriesArray->begin(), entriesArray->end(),
                 [](const nlohmann::json& left, const nlohmann::json& right) {
                 return (left["Id"] <= right["Id"]);
                 });
             asyncResp->res.jsonValue["Members@odata.count"] =
-                entriesArray.size();
+                entriesArray->size();
             },
             "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
