@@ -622,13 +622,21 @@ inline std::string getHealth(nlohmann::json& sensorJson,
     // objects contain multiple sensors (such as PowerSupplies).  We want to set
     // the overall health to be the most severe of any of the sensors.
     std::string currentHealth;
-    auto statusIt = sensorJson.find("Status");
-    if (statusIt != sensorJson.end())
+    nlohmann::json::object_t* obj =
+        sensorJson.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
     {
-        auto healthIt = statusIt->find("Health");
-        if (healthIt != statusIt->end())
+        return "";
+    }
+    auto statusIt = obj->find("Status");
+    if (statusIt != obj->end())
+    {
+        nlohmann::json::object_t* statusobj =
+            statusIt->second.get_ptr<nlohmann::json::object_t*>();
+        auto healthIt = statusobj->find("Health");
+        if (healthIt != statusobj->end())
         {
-            std::string* health = healthIt->get_ptr<std::string*>();
+            std::string* health = healthIt->second.get_ptr<std::string*>();
             if (health != nullptr)
             {
                 currentHealth = *health;
@@ -1091,8 +1099,13 @@ inline void populateFanRedundancy(
                         health = "Critical";
                     }
                     nlohmann::json::array_t redfishCollection;
-                    const auto& fanRedfish =
-                        sensorsAsyncResp->asyncResp->res.jsonValue["Fans"];
+                    const nlohmann::json::array_t* fanRedfish =
+                        sensorsAsyncResp->asyncResp->res.jsonValue["Fans"]
+                            .get_ptr<const nlohmann::json::array_t*>();
+                    if (fanRedfish == nullptr)
+                    {
+                        return;
+                    }
                     for (const std::string& item : *collection)
                     {
                         sdbusplus::message::object_path itemPath(item);
@@ -1105,12 +1118,13 @@ inline void populateFanRedundancy(
                         todo(ed): merge patch that fixes the names
                         std::replace(itemName.begin(),
                                      itemName.end(), '_', ' ');*/
+
                         auto schemaItem =
-                            std::find_if(fanRedfish.begin(), fanRedfish.end(),
+                            std::find_if(fanRedfish->begin(), fanRedfish->end(),
                                          [itemName](const nlohmann::json& fan) {
                             return fan["Name"] == itemName;
                             });
-                        if (schemaItem != fanRedfish.end())
+                        if (schemaItem != fanRedfish->end())
                         {
                             nlohmann::json::object_t collectionId;
                             collectionId["@odata.id"] =
@@ -1160,7 +1174,13 @@ inline void populateFanRedundancy(
 inline void
     sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
+    nlohmann::json::object_t* response =
+        sensorsAsyncResp->asyncResp->res.jsonValue
+            .get_ptr<nlohmann::json::object_t*>();
+    if (response == nullptr)
+    {
+        return;
+    }
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
     if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
@@ -1168,30 +1188,48 @@ inline void
     }
     for (const std::string& sensorGroup : sensorHeaders)
     {
-        nlohmann::json::iterator entry = response.find(sensorGroup);
-        if (entry != response.end())
+        auto entry = response->find(sensorGroup);
+        if (entry != response->end())
         {
-            std::sort(entry->begin(), entry->end(),
+            nlohmann::json::array_t* arr =
+                entry->second.get_ptr<nlohmann::json::array_t*>();
+            if (arr == nullptr)
+            {
+                continue;
+            }
+            std::sort(arr->begin(), arr->end(),
                       [](const nlohmann::json& c1, const nlohmann::json& c2) {
                 return c1["Name"] < c2["Name"];
             });
-
+            nlohmann::json::object_t* obj =
+                entry->second.get_ptr<nlohmann::json::object_t*>();
+            if (obj == nullptr)
+            {
+                continue;
+            }
             // add the index counts to the end of each entry
             size_t count = 0;
-            for (nlohmann::json& sensorJson : *entry)
+            for (auto& sensorJson : *obj)
             {
-                nlohmann::json::iterator odata = sensorJson.find("@odata.id");
-                if (odata == sensorJson.end())
+                nlohmann::json::object_t* sensorobj =
+                    entry->second.get_ptr<nlohmann::json::object_t*>();
+                if (obj == nullptr)
                 {
                     continue;
                 }
-                std::string* value = odata->get_ptr<std::string*>();
+                auto odata = sensorobj->find("@odata.id");
+                if (odata == sensorobj->end())
+                {
+                    continue;
+                }
+                std::string* value = odata->second.get_ptr<std::string*>();
                 if (value != nullptr)
                 {
                     *value += "/" + std::to_string(count);
-                    sensorJson["MemberId"] = std::to_string(count);
+                    (sensorJson.second)["MemberId"] = std::to_string(count);
                     count++;
-                    sensorsAsyncResp->updateUri(sensorJson["Name"], *value);
+                    sensorsAsyncResp->updateUri((sensorJson.second)["Name"],
+                                                *value);
                 }
             }
         }
@@ -2184,7 +2222,7 @@ static void
  * @param chassisId Chassis that contains the power supply.
  * @return JSON PowerSupply object for the specified inventory item.
  */
-inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
+inline nlohmann::json& getPowerSupply(nlohmann::json::array_t& powerSupplyArray,
                                       const InventoryItem& inventoryItem,
                                       const std::string& chassisId)
 {
@@ -2199,7 +2237,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     }
 
     // Add new PowerSupply object to JSON array
-    powerSupplyArray.push_back({});
+    powerSupplyArray.emplace_back({});
     nlohmann::json& powerSupply = powerSupplyArray.back();
     boost::urls::url url = boost::urls::format("/redfish/v1/Chassis/{}/Power",
                                                chassisId);
@@ -2378,8 +2416,7 @@ inline void getSensorData(
                         continue;
                     }
 
-                    nlohmann::json& tempArray =
-                        sensorsAsyncResp->asyncResp->res.jsonValue[fieldName];
+                    nlohmann::json::array_t tempArray;
                     if (fieldName == "PowerControl")
                     {
                         if (tempArray.empty())
@@ -2440,6 +2477,8 @@ inline void getSensorData(
                         tempArray.emplace_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
+                    sensorsAsyncResp->asyncResp->res.jsonValue[fieldName] =
+                        std::move(tempArray);
                 }
 
                 if (sensorJson != nullptr)
