@@ -478,7 +478,7 @@ class RedfishAggregator
 
         const crow::Request& thisReq = *sharedReq;
         BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
-                         << thisReq.target();
+                         << thisReq.url;
 
         // We previously determined the request is for a collection.  No need to
         // check again
@@ -540,7 +540,7 @@ class RedfishAggregator
         }
 
         // We need to strip the prefix from the request's path
-        std::string targetURI(thisReq.target());
+        std::string targetURI(thisReq.url);
         size_t pos = targetURI.find(prefix + "_");
         if (pos == std::string::npos)
         {
@@ -573,7 +573,7 @@ class RedfishAggregator
             std::function<void(crow::Response&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
 
-            std::string targetURI(thisReq.target());
+            std::string targetURI(thisReq.url);
             std::string data = thisReq.req.body();
             crow::HttpClient::getInstance().sendDataWithCallback(
                 data, id, std::string(sat.second.host()),
