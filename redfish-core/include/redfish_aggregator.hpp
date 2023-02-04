@@ -1134,7 +1134,13 @@ class RedfishAggregator
 
                 auto& members = asyncResp->res.jsonValue["Members"];
                 auto& satMembers = jsonVal["Members"];
-                for (auto& satMem : satMembers)
+                nlohmann::json::array_t* satMembersArr =
+                    satMembers.get_ptr<nlohmann::json::array_t*>();
+                if (satMembersArr == nullptr)
+                {
+                    return;
+                }
+                for (auto& satMem : *satMembersArr)
                 {
                     members.emplace_back(std::move(satMem));
                 }
