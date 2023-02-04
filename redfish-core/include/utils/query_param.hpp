@@ -470,8 +470,16 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
-    auto itMemBegin = itMembers->begin();
-    if (itMemBegin == itMembers->end() || itMembers->size() != 1)
+    nlohmann::json::array_t* arrMembers =
+        itMembers->get_ptr<nlohmann::json::array_t*>();
+    if (arrMembers == nullptr)
+    {
+        messages::queryNotSupportedOnResource(res);
+        completionHandler(res);
+        return false;
+    }
+    auto itMemBegin = arrMembers->begin();
+    if (itMemBegin == arrMembers->end() || arrMembers->size() != 1)
     {
         BMCWEB_LOG_DEBUG(
             "Members contains {} element, returning full collection.",
@@ -948,12 +956,12 @@ inline void recursiveSelect(nlohmann::json& currRoot,
     if (object != nullptr)
     {
         BMCWEB_LOG_DEBUG("Current JSON is an object");
-        auto it = currRoot.begin();
-        while (it != currRoot.end())
+        auto it = object->begin();
+        while (it != object->end())
         {
             auto nextIt = std::next(it);
-            BMCWEB_LOG_DEBUG("key={}", it.key());
-            const SelectTrieNode* nextNode = currNode.find(it.key());
+            BMCWEB_LOG_DEBUG("key={}", it->first);
+            const SelectTrieNode* nextNode = currNode.find(it->first);
             // Per the Redfish spec section 7.3.3, the service shall select
             // certain properties as if $select was omitted. This applies to
             // every TrieNode that contains leaves and the root.
@@ -962,7 +970,7 @@ inline void recursiveSelect(nlohmann::json& currRoot,
                 "error"};
             bool reserved = std::find(reservedProperties.begin(),
                                       reservedProperties.end(),
-                                      it.key()) != reservedProperties.end();
+                                      it->first) != reservedProperties.end();
             if (reserved || (nextNode != nullptr && nextNode->isSelected()))
             {
                 it = nextIt;
@@ -970,13 +978,13 @@ inline void recursiveSelect(nlohmann::json& currRoot,
             }
             if (nextNode != nullptr)
             {
-                BMCWEB_LOG_DEBUG("Recursively select: {}", it.key());
-                recursiveSelect(*it, *nextNode);
+                BMCWEB_LOG_DEBUG("Recursively select: {}", it->first);
+                recursiveSelect(it->second, *nextNode);
                 it = nextIt;
                 continue;
             }
-            BMCWEB_LOG_DEBUG("{} is getting removed!", it.key());
-            it = currRoot.erase(it);
+            BMCWEB_LOG_DEBUG("{} is getting removed!", it->first);
+            it = object->erase(it);
         }
     }
     nlohmann::json::array_t* array =

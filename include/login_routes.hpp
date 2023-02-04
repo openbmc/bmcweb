@@ -68,18 +68,47 @@ inline void handleLogin(const crow::Request& req,
                 // "password"]
                 if (dataIt->is_array())
                 {
-                    if (dataIt->size() == 2)
+                    // Some apis produce an array of value ["username",
+                    // "password"]
+                    nlohmann::json::array_t* arr =
+                        dataIt->get_ptr<nlohmann::json::array_t*>();
+                    nlohmann::json::object_t* obj =
+                        dataIt->get_ptr<nlohmann::json::object_t*>();
+                    if (arr != nullptr)
                     {
-                        nlohmann::json::iterator userIt2 = dataIt->begin();
-                        nlohmann::json::iterator passIt2 = dataIt->begin() + 1;
-                        looksLikePhosphorRest = true;
-                        if (userIt2 != dataIt->end() &&
-                            passIt2 != dataIt->end())
+                        if (arr->size() == 2)
+                        {
+                            nlohmann::json::array_t::iterator userIt2 =
+                                arr->begin();
+                            nlohmann::json::array_t::iterator passIt2 =
+                                arr->begin() + 1;
+                            looksLikePhosphorRest = true;
+                            if (userIt2 != arr->end() && passIt2 != arr->end())
+                            {
+                                const std::string* userStr =
+                                    userIt2->get_ptr<const std::string*>();
+                                const std::string* passStr =
+                                    passIt2->get_ptr<const std::string*>();
+                                if (userStr != nullptr && passStr != nullptr)
+                                {
+                                    username = *userStr;
+                                    password = *passStr;
+                                }
+                            }
+                        }
+                    }
+                    else if (obj != nullptr)
+                    {
+                        nlohmann::json::object_t::iterator userIt2 =
+                            obj->find("username");
+                        nlohmann::json::object_t::iterator passIt2 =
+                            obj->find("password");
+                        if (userIt2 != obj->end() && passIt2 != obj->end())
                         {
                             const std::string* userStr =
-                                userIt2->get_ptr<const std::string*>();
+                                userIt2->second.get_ptr<const std::string*>();
                             const std::string* passStr =
-                                passIt2->get_ptr<const std::string*>();
+                                passIt2->second.get_ptr<const std::string*>();
                             if (userStr != nullptr && passStr != nullptr)
                             {
                                 username = *userStr;
