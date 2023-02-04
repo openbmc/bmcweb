@@ -174,7 +174,13 @@ class EventServiceManager
             }
             else if (item.first == "Subscriptions")
             {
-                for (const auto& elem : item.second)
+                const nlohmann::json::array_t* arr =
+                    item.second.get_ptr<const nlohmann::json::array_t*>();
+                if (arr == nullptr)
+                {
+                    continue;
+                }
+                for (const auto& elem : *arr)
                 {
                     std::optional<persistent_data::UserSubscription>
                         newSubscription =
