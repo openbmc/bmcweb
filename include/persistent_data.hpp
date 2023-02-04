@@ -159,7 +159,15 @@ class ConfigFile
                     }
                     else if (item.first == "sessions")
                     {
-                        for (const auto& elem : item.second)
+                        const nlohmann::json::array_t* arr =
+                            item.second
+                                .get_ptr<const nlohmann::json::array_t*>();
+                        if (arr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Sessions wasn't an array");
+                            continue;
+                        }
+                        for (const auto& elem : *arr)
                         {
                             const nlohmann::json::object_t* jObj =
                                 elem.get_ptr<const nlohmann::json::object_t*>();
@@ -219,7 +227,15 @@ class ConfigFile
                     }
                     else if (item.first == "subscriptions")
                     {
-                        for (const auto& elem : item.second)
+                        const nlohmann::json::array_t* subarr =
+                            item.second
+                                .get_ptr<const nlohmann::json::array_t*>();
+                        if (subarr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Problem reading Subscriptions");
+                            continue;
+                        }
+                        for (const auto& elem : *subarr)
                         {
                             const nlohmann::json::object_t* subobj =
                                 elem.get_ptr<const nlohmann::json::object_t*>();

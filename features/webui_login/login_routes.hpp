@@ -51,63 +51,71 @@ inline void handleLogin(const crow::Request& req,
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
-
-        // check for username/password in the root object
-        // THis method is how intel APIs authenticate
-        nlohmann::json::iterator userIt = loginCredentials.find("username");
-        nlohmann::json::iterator passIt = loginCredentials.find("password");
-        if (userIt != loginCredentials.end() &&
-            passIt != loginCredentials.end())
+        const nlohmann::json::object_t* obj =
+            loginCredentials.get_ptr<const nlohmann::json::object_t*>();
+        if (obj != nullptr)
         {
-            const std::string* userStr = userIt->get_ptr<const std::string*>();
-            const std::string* passStr = passIt->get_ptr<const std::string*>();
-            if (userStr != nullptr && passStr != nullptr)
+            // check for username/password in the root object
+            // This method is how intel APIs authenticate
+            auto userIt = obj->find("username");
+            auto passIt = obj->find("password");
+            if (userIt != obj->end() && passIt != obj->end())
             {
-                username = *userStr;
-                password = *passStr;
-            }
-        }
-        else
-        {
-            // Openbmc appears to push a data object that contains the
-            // same keys (username and password), attempt to use that
-            auto dataIt = loginCredentials.find("data");
-            if (dataIt != loginCredentials.end())
-            {
-                // Some apis produce an array of value ["username",
-                // "password"]
-                if (dataIt->is_array())
+                const std::string* userStr =
+                    userIt->second.get_ptr<const std::string*>();
+                const std::string* passStr =
+                    passIt->second.get_ptr<const std::string*>();
+                if (userStr != nullptr && passStr != nullptr)
                 {
-                    if (dataIt->size() == 2)
+                    username = *userStr;
+                    password = *passStr;
+                }
+            }
+            else
+            {
+                // Openbmc appears to push a data object that contains the
+                // same keys (username and password), attempt to use that
+                auto dataIt = obj->find("data");
+                if (dataIt != obj->end())
+                {
+                    // Some apis produce an array of value ["username",
+                    // "password"]
+                    const nlohmann::json::array_t* arr =
+                        dataIt->second
+                            .get_ptr<const nlohmann::json::array_t*>();
+                    if (arr != nullptr)
                     {
-                        nlohmann::json::iterator userIt2 = dataIt->begin();
-                        nlohmann::json::iterator passIt2 = dataIt->begin() + 1;
-                        if (userIt2 != dataIt->end() &&
-                            passIt2 != dataIt->end())
+                        if (arr->size() == 2)
                         {
-                            const std::string* userStr =
-                                userIt2->get_ptr<const std::string*>();
-                            const std::string* passStr =
-                                passIt2->get_ptr<const std::string*>();
-                            if (userStr != nullptr && passStr != nullptr)
+                            nlohmann::json::array_t::const_iterator userIt2 =
+                                arr->begin();
+                            nlohmann::json::array_t::const_iterator passIt2 =
+                                arr->begin() + 1;
+                            if (userIt2 != arr->end() && passIt2 != arr->end())
                             {
-                                username = *userStr;
-                                password = *passStr;
+                                const std::string* userStr =
+                                    userIt2->get_ptr<const std::string*>();
+                                const std::string* passStr =
+                                    passIt2->get_ptr<const std::string*>();
+                                if (userStr != nullptr && passStr != nullptr)
+                                {
+                                    username = *userStr;
+                                    password = *passStr;
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    nlohmann::json::object_t* obj =
-                        dataIt->get_ptr<nlohmann::json::object_t*>();
-                    if (obj != nullptr)
+                    const nlohmann::json::object_t* obj2 =
+                        dataIt->second
+                            .get_ptr<const nlohmann::json::object_t*>();
+
+                    if (obj2 != nullptr)
                     {
-                        nlohmann::json::object_t::iterator userIt2 =
-                            obj->find("username");
-                        nlohmann::json::object_t::iterator passIt2 =
-                            obj->find("password");
-                        if (userIt2 != obj->end() && passIt2 != obj->end())
+                        nlohmann::json::object_t::const_iterator userIt2 =
+                            obj2->find("username");
+                        nlohmann::json::object_t::const_iterator passIt2 =
+                            obj2->find("password");
+                        if (userIt2 != obj2->end() && passIt2 != obj2->end())
                         {
                             const std::string* userStr =
                                 userIt2->second.get_ptr<const std::string*>();
