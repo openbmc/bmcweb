@@ -147,7 +147,9 @@ inline void requestRoutes(App& app)
         if (interfaces != j.end())
         {
             thisSession.interfaces.reserve(interfaces->size());
-            for (auto& interface : *interfaces)
+            nlohmann::json::array_t* interfacesArr =
+                interfaces->get_ptr<nlohmann::json::array_t*>();
+            for (auto& interface : *interfacesArr)
             {
                 const std::string* str =
                     interface.get_ptr<const std::string*>();
@@ -182,8 +184,13 @@ inline void requestRoutes(App& app)
         std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
         std::regex validInterface(
             "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
-
-        for (const auto& thisPath : *paths)
+        const nlohmann::json::array_t* pathsObj =
+            paths->get_ptr<const nlohmann::json::array_t*>();
+        if (pathsObj == nullptr)
+        {
+            return;
+        }
+        for (const auto& thisPath : *pathsObj)
         {
             const std::string* thisPathString =
                 thisPath.get_ptr<const std::string*>();

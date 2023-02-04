@@ -323,7 +323,10 @@ TEST(processCollectionResponse, localOnly)
     EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
               "application/json");
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
-    for (auto& member : asyncResp->res.jsonValue["Members"])
+    const nlohmann::json::array_t* arr =
+        asyncResp->res.jsonValue["Members"]
+            .get_ptr<const nlohmann::json::array_t*>();
+    for (auto& member : *arr)
     {
         // There should only be one member
         EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/system");
@@ -344,7 +347,10 @@ TEST(processCollectionResponse, satelliteOnly)
     EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
               "application/json");
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
-    for (auto& member : asyncResp->res.jsonValue["Members"])
+    const nlohmann::json::array_t* arr =
+        asyncResp->res.jsonValue["Members"]
+            .get_ptr<const nlohmann::json::array_t*>();
+    for (auto& member : *arr)
     {
         // There should only be one member
         EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/prefix_system");
@@ -368,7 +374,10 @@ TEST(processCollectionResponse, bothExist)
 
     bool foundLocal = false;
     bool foundSat = false;
-    for (auto& member : asyncResp->res.jsonValue["Members"])
+    const nlohmann::json::array_t* arr =
+        asyncResp->res.jsonValue["Members"]
+            .get_ptr<const nlohmann::json::array_t*>();
+    for (auto& member : *arr)
     {
         if (member["@odata.id"] == "/redfish/v1/Systems/system")
         {
@@ -400,7 +409,10 @@ TEST(processCollectionResponse, satelliteWrongContentHeader)
     EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
               "application/json");
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
-    for (auto& member : asyncResp->res.jsonValue["Members"])
+    const nlohmann::json::array_t* arr =
+        asyncResp->res.jsonValue["Members"]
+            .get_ptr<const nlohmann::json::array_t*>();
+    for (auto& member : *arr)
     {
         EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/system");
     }
