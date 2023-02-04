@@ -467,18 +467,27 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                                maxHeaderSizeED);
                     return;
                 }
-                for (const auto& item : headerChunk.items())
+                const nlohmann::json::object_t* headers2 =
+                    headerChunk.get_ptr<const nlohmann::json::object_t*>();
+                if (headers2 == nullptr)
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, headerChunk, "HttpHeaders");
+                    return;
+                }
+
+                for (const auto& item : *headers2)
                 {
                     const std::string* value =
-                        item.value().get_ptr<const std::string*>();
+                        item.second.get_ptr<const std::string*>();
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, item.value(),
-                            "HttpHeaders/" + item.key());
+                            asyncResp->res, item.second,
+                            "HttpHeaders/" + item.first);
                         return;
                     }
-                    subValue->httpHeaders.set(item.key(), *value);
+                    subValue->httpHeaders.set(item.first, *value);
                 }
             }
         }
