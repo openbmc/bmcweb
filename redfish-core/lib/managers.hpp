@@ -764,14 +764,14 @@ inline const dbus::utility::ManagedObjectType::value_type*
 
 inline CreatePIDRet createPidInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& response, const std::string& type,
-    const nlohmann::json::iterator& it, const std::string& path,
+    const nlohmann::json::object_t::iterator it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
     dbus::utility::DBusPropertiesMap& output, std::string& chassis,
     const std::string& profile)
 {
 
     // common deleter
-    if (it.value() == nullptr)
+    if (it->second == nullptr)
     {
         std::string iface;
         if (type == "PidControllers" || type == "FanControllers")
@@ -814,7 +814,7 @@ inline CreatePIDRet createPidInterface(
     {
         // if we aren't creating a new object, we should be able to find it on
         // d-bus
-        managedItem = findChassis(managedObj, it.key(), chassis);
+        managedItem = findChassis(managedObj, it->first, chassis);
         if (managedItem == nullptr)
         {
             BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
@@ -903,7 +903,7 @@ inline CreatePIDRet createPidInterface(
         std::map<std::string, std::optional<double>> doubles;
         std::optional<std::string> setpointOffset;
         if (!redfish::json_util::readJson(
-                it.value(), response->res, "Inputs", inputs, "Outputs", outputs,
+                it->second, response->res, "Inputs", inputs, "Outputs", outputs,
                 "Zones", zones, "FFGainCoefficient",
                 doubles["FFGainCoefficient"], "FFOffCoefficient",
                 doubles["FFOffCoefficient"], "ICoefficient",
@@ -918,7 +918,7 @@ inline CreatePIDRet createPidInterface(
         {
             BMCWEB_LOG_ERROR
                 << "Illegal Property "
-                << it.value().dump(2, ' ', true,
+                << it->second.dump(2, ' ', true,
                                    nlohmann::json::error_handler_t::replace);
             return CreatePIDRet::fail;
         }
@@ -983,7 +983,7 @@ inline CreatePIDRet createPidInterface(
             {
                 BMCWEB_LOG_ERROR << "Invalid setpointoffset "
                                  << *setpointOffset;
-                messages::propertyValueNotInList(response->res, it.key(),
+                messages::propertyValueNotInList(response->res, it->first,
                                                  "SetPointOffset");
                 return CreatePIDRet::fail;
             }
@@ -1008,14 +1008,14 @@ inline CreatePIDRet createPidInterface(
         std::optional<nlohmann::json> chassisContainer;
         std::optional<double> failSafePercent;
         std::optional<double> minThermalOutput;
-        if (!redfish::json_util::readJson(it.value(), response->res, "Chassis",
+        if (!redfish::json_util::readJson(it->second, response->res, "Chassis",
                                           chassisContainer, "FailSafePercent",
                                           failSafePercent, "MinThermalOutput",
                                           minThermalOutput))
         {
             BMCWEB_LOG_ERROR
                 << "Illegal Property "
-                << it.value().dump(2, ' ', true,
+                << it->second.dump(2, ' ', true,
                                    nlohmann::json::error_handler_t::replace);
             return CreatePIDRet::fail;
         }
@@ -1065,14 +1065,14 @@ inline CreatePIDRet createPidInterface(
         std::optional<double> negativeHysteresis;
         std::optional<std::string> direction; // upper clipping curve vs lower
         if (!redfish::json_util::readJson(
-                it.value(), response->res, "Zones", zones, "Steps", steps,
+                it->second, response->res, "Zones", zones, "Steps", steps,
                 "Inputs", inputs, "PositiveHysteresis", positiveHysteresis,
                 "NegativeHysteresis", negativeHysteresis, "Direction",
                 direction))
         {
             BMCWEB_LOG_ERROR
                 << "Illegal Property "
-                << it.value().dump(2, ' ', true,
+                << it->second.dump(2, ' ', true,
                                    nlohmann::json::error_handler_t::replace);
             return CreatePIDRet::fail;
         }
@@ -1110,7 +1110,7 @@ inline CreatePIDRet createPidInterface(
                 {
                     BMCWEB_LOG_ERROR
                         << "Illegal Property "
-                        << it.value().dump(
+                        << it->second.dump(
                                2, ' ', true,
                                nlohmann::json::error_handler_t::replace);
                     return CreatePIDRet::fail;
@@ -1512,11 +1512,16 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             BMCWEB_LOG_DEBUG << *container;
 
             const std::string& type = containerPair.first;
-
-            for (nlohmann::json::iterator it = container->begin();
-                 it != container->end(); ++it)
+            nlohmann::json::object_t* jsonObj =
+                container->get_ptr<nlohmann::json::object_t*>();
+            if (jsonObj == nullptr)
             {
-                const auto& name = it.key();
+                continue;
+            }
+            for (nlohmann::json::object_t::iterator it = jsonObj->begin();
+                 it != jsonObj->end(); ++it)
+            {
+                const auto& name = it->first;
                 BMCWEB_LOG_DEBUG << "looking for " << name;
 
                 auto pathItr =
@@ -1577,11 +1582,11 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     }
                 }
 
-                if (createNewObject && it.value() == nullptr)
+                if (createNewObject && it->second == nullptr)
                 {
                     // can't delete a non-existent object
                     messages::propertyValueNotInList(response->res,
-                                                     it.value().dump(), name);
+                                                     it->second.dump(), name);
                     continue;
                 }
 
