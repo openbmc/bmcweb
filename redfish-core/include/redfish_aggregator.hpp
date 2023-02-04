@@ -729,7 +729,12 @@ class RedfishAggregator
             std::function<void(crow::Response&)> cb = std::bind_front(
                 processContainsSubordinateResponse, sat.first, asyncResp);
 
-            std::string targetURI(thisReq.target());
+            // We need to strip the query params because our response processing
+            // will ignore an expanded resource in the response if that resource
+            // is not already supported by the aggregating BMC
+            // TODO: Improve the processing so that we don't have to strip query
+            // params in this specific case
+            std::string targetURI(thisReq.url().path());
             std::string data = thisReq.req.body();
             client.sendDataWithCallback(data, std::string(sat.second.host()),
                                         sat.second.port_number(), targetURI,
@@ -1215,7 +1220,7 @@ class RedfishAggregator
 
         // If nothing else then the request could be for a resource which has a
         // top level collection as a subordinate
-        if (searchCollectionsArray(url.buffer(),
+        if (searchCollectionsArray(url.path(),
                                    SearchType::ContainsSubordinate))
         {
             startAggregation(AggregationType::ContainsSubordinate, thisReq,
@@ -1223,7 +1228,7 @@ class RedfishAggregator
             return Result::LocalHandle;
         }
 
-        BMCWEB_LOG_DEBUG << "Aggregation not required";
+        BMCWEB_LOG_DEBUG << "Aggregation not required for " << url.buffer();
         return Result::LocalHandle;
     }
 };
