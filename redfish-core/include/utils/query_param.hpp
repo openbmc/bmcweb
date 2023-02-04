@@ -463,32 +463,52 @@ inline bool processOnly(crow::App& app, crow::Response& res,
                         std::function<void(crow::Response&)>& completionHandler)
 {
     BMCWEB_LOG_DEBUG("Processing only query param");
-    auto itMembers = res.jsonValue.find("Members");
-    if (itMembers == res.jsonValue.end())
+    const nlohmann::json::object_t* obj =
+        res.jsonValue.get_ptr<const nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        return false;
+    }
+    auto itMembers = obj->find("Members");
+    if (itMembers == obj->end())
     {
         messages::queryNotSupportedOnResource(res);
         completionHandler(res);
         return false;
     }
-    auto itMemBegin = itMembers->begin();
-    if (itMemBegin == itMembers->end() || itMembers->size() != 1)
+    const nlohmann::json::array_t* arrMembers =
+        itMembers->second.get_ptr<const nlohmann::json::array_t*>();
+    if (arrMembers == nullptr)
+    {
+        messages::queryNotSupportedOnResource(res);
+        completionHandler(res);
+        return false;
+    }
+    auto itMemBegin = arrMembers->begin();
+    if (itMemBegin == arrMembers->end() || arrMembers->size() != 1)
     {
         BMCWEB_LOG_DEBUG(
             "Members contains {} element, returning full collection.",
-            itMembers->size());
+            arrMembers->size());
         completionHandler(res);
         return false;
     }
 
-    auto itUrl = itMemBegin->find("@odata.id");
-    if (itUrl == itMemBegin->end())
+    const nlohmann::json::object_t* member =
+        itMemBegin->get_ptr<const nlohmann::json::object_t*>();
+    if (member == nullptr)
+    {
+        return false;
+    }
+    auto itUrl = member->find("@odata.id");
+    if (itUrl == member->end())
     {
         BMCWEB_LOG_DEBUG("No found odata.id");
         messages::internalError(res);
         completionHandler(res);
         return false;
     }
-    const std::string* url = itUrl->get_ptr<const std::string*>();
+    const std::string* url = itUrl->second.get_ptr<const std::string*>();
     if (url == nullptr)
     {
         BMCWEB_LOG_DEBUG("@odata.id wasn't a string????");
@@ -948,12 +968,12 @@ inline void recursiveSelect(nlohmann::json& currRoot,
     if (object != nullptr)
     {
         BMCWEB_LOG_DEBUG("Current JSON is an object");
-        auto it = currRoot.begin();
-        while (it != currRoot.end())
+        auto it = object->begin();
+        while (it != object->end())
         {
             auto nextIt = std::next(it);
-            BMCWEB_LOG_DEBUG("key={}", it.key());
-            const SelectTrieNode* nextNode = currNode.find(it.key());
+            BMCWEB_LOG_DEBUG("key={}", it->first);
+            const SelectTrieNode* nextNode = currNode.find(it->first);
             // Per the Redfish spec section 7.3.3, the service shall select
             // certain properties as if $select was omitted. This applies to
             // every TrieNode that contains leaves and the root.
@@ -962,7 +982,7 @@ inline void recursiveSelect(nlohmann::json& currRoot,
                 "error"};
             bool reserved = std::find(reservedProperties.begin(),
                                       reservedProperties.end(),
-                                      it.key()) != reservedProperties.end();
+                                      it->first) != reservedProperties.end();
             if (reserved || (nextNode != nullptr && nextNode->isSelected()))
             {
                 it = nextIt;
@@ -970,14 +990,15 @@ inline void recursiveSelect(nlohmann::json& currRoot,
             }
             if (nextNode != nullptr)
             {
-                BMCWEB_LOG_DEBUG("Recursively select: {}", it.key());
-                recursiveSelect(*it, *nextNode);
+                BMCWEB_LOG_DEBUG("Recursively select: {}", it->first);
+                recursiveSelect(it->second, *nextNode);
                 it = nextIt;
                 continue;
             }
-            BMCWEB_LOG_DEBUG("{} is getting removed!", it.key());
-            it = currRoot.erase(it);
+            BMCWEB_LOG_DEBUG("{} is getting removed!", it->first);
+            it = object->erase(it);
         }
+        return;
     }
     nlohmann::json::array_t* array =
         currRoot.get_ptr<nlohmann::json::array_t*>();

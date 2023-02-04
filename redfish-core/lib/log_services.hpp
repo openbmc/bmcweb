@@ -492,8 +492,7 @@ inline void
         asyncResp->res.jsonValue["Description"] = "Collection of " + dumpType +
                                                   " Dump Entries";
 
-        nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-        entriesArray = nlohmann::json::array();
+        nlohmann::json::array_t entriesArray;
         std::string dumpEntryPath =
             "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/";
@@ -568,6 +567,7 @@ inline void
             entriesArray.emplace_back(std::move(thisEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
+        asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
         });
 }
 
@@ -1588,8 +1588,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-            entriesArray = nlohmann::json::array();
+            nlohmann::json::array_t entriesArray;
             for (const auto& objectPath : resp)
             {
                 const uint32_t* id = nullptr;
@@ -1690,8 +1689,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 {
                     continue;
                 }
-                entriesArray.push_back({});
-                nlohmann::json& thisEntry = entriesArray.back();
+                nlohmann::json& thisEntry = entriesArray.emplace_back();
                 thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
                 thisEntry["@odata.id"] = boost::urls::format(
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}",
@@ -1731,6 +1729,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 });
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
+            asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
             });
         });
 }
