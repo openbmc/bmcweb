@@ -863,7 +863,8 @@ inline void handleHypervisorEthernetInterfacePatch(
 
         if (ipv4StaticAddresses)
         {
-            const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
+            const std::vector<nlohmann::json>& ipv4Static =
+                *ipv4StaticAddresses;
             if (ipv4Static.begin() == ipv4Static.end())
             {
                 messages::propertyValueTypeError(asyncResp->res, ipv4Static,
@@ -880,6 +881,12 @@ inline void handleHypervisorEthernetInterfacePatch(
             }
 
             const nlohmann::json& ipv4Json = ipv4Static[0];
+            if (ipv4Json == nullptr)
+            {
+                messages::propertyValueFormatError(asyncResp->res, ipv4Static,
+                                                   "IPv4StaticAddresses");
+                return;
+            }
             // Check if the param is 'null'. If its null, it means
             // that user wants to delete the IP address. Deleting
             // the IP address is allowed only if its statically

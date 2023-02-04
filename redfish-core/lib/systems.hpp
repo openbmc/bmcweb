@@ -2933,13 +2933,19 @@ inline void handleComputerSystemCollectionGet(
         {
             return;
         }
-        auto val = asyncResp->res.jsonValue.find("Members@odata.count");
-        if (val == asyncResp->res.jsonValue.end())
+        nlohmann::json::object_t* obj =
+            asyncResp->res.jsonValue.get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr)
+        {
+            return;
+        }
+        auto val = obj->find("Members@odata.count");
+        if (val == obj->end())
         {
             BMCWEB_LOG_CRITICAL("Count wasn't found??");
             return;
         }
-        uint64_t* count = val->get_ptr<uint64_t*>();
+        uint64_t* count = val->second.get_ptr<uint64_t*>();
         if (count == nullptr)
         {
             BMCWEB_LOG_CRITICAL("Count wasn't found??");
