@@ -84,6 +84,8 @@ Commonly used methods that fall into this pattern:
 - nlohmann::json::items
 - nlohmann::json::operator\<\<
 - nlohmann::json::operator\>\>
+- nlohmann::json::begin
+- nlohmann::json::operator[]
 - std::filesystem::create_directory
 - std::filesystem::rename
 - std::filesystem::file_size
@@ -103,6 +105,19 @@ to `false`.
 accepts an optional argument that causes it to not throw: set the 4th argument
 to `replace`. Although `ignore` preserves content 1:1, `replace` is preferred
 from a security point of view.
+
+The nlohmann::json class represents ANY json object, but unforuntately includes
+a number of helper functions that allow it to "act" like it only represents an
+json dict. In the majority of uses, these will not cause a problem, but if a
+type that isn't an object (0.0, "foo", or null) is already present in the
+object, these methods will
+[throw an exception](https://json.nlohmann.me/api/basic_json/operator%5B%5D/#exceptions),
+which generally goes uncaught, and can lead to potential for denial of service
+on bad input. Care should be taken when operating with a nlohmann::json object,
+and should generally prefer to use an nlohmann::json::object_t or
+nlohmann::json::array_t where appropriate. There is quite a large amount of code
+in bmcweb that does not handle the distinction between nlohmann::json and
+nlohmann::json::object_t correctly. These will be corrected over time.
 
 ### Special note: Boost
 

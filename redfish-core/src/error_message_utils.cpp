@@ -6,6 +6,7 @@
 
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {
@@ -16,11 +17,21 @@ namespace messages
 void addMessageToErrorJson(nlohmann::json& target,
                            const nlohmann::json& message)
 {
-    auto& error = target["error"];
+    nlohmann::json::object_t* targetObj =
+        target.get_ptr<nlohmann::json::object_t*>();
+    if (targetObj == nullptr)
+    {
+        target = nlohmann::json::object_t();
+        targetObj = target.get_ptr<nlohmann::json::object_t*>();
+    }
+
+    nlohmann::json& error = (*targetObj)["error"];
+    nlohmann::json::object_t* errorObj =
+        error.get_ptr<nlohmann::json::object_t*>();
 
     // If this is the first error message, fill in the information from the
     // first error message to the top level struct
-    if (!error.is_object())
+    if (errorObj == nullptr)
     {
         auto messageIdIterator = message.find("MessageId");
         if (messageIdIterator == message.end())
@@ -36,27 +47,29 @@ void addMessageToErrorJson(nlohmann::json& target,
             BMCWEB_LOG_CRITICAL("Attempt to add error message without Message");
             return;
         }
-        error["code"] = *messageIdIterator;
-        error["message"] = *messageFieldIterator;
+        nlohmann::json::object_t errorMsg;
+        errorMsg["code"] = *messageIdIterator;
+        errorMsg["message"] = *messageFieldIterator;
+        error = std::move(errorMsg);
+        errorObj = error.get_ptr<nlohmann::json::object_t*>();
     }
     else
     {
         // More than 1 error occurred, so the message has to be generic
-        error["code"] = std::string(messageVersionPrefix) + "GeneralError";
-        error["message"] = "A general error has occurred. See Resolution for "
-                           "information on how to resolve the error.";
+        (*errorObj)["code"] =
+            std::string(messageVersionPrefix) + "GeneralError";
+        (*errorObj)["message"] =
+            "A general error has occurred. See Resolution for "
+            "information on how to resolve the error.";
     }
 
     // This check could technically be done in the default construction
     // branch above, but because we need the pointer to the extended info field
     // anyway, it's more efficient to do it here.
-    auto& extendedInfo = error[messages::messageAnnotation];
-    if (!extendedInfo.is_array())
-    {
-        extendedInfo = nlohmann::json::array();
-    }
+    auto extendedInfo = errorObj->try_emplace(messages::messageAnnotation,
+                                              nlohmann::json::array());
 
-    extendedInfo.push_back(message);
+    extendedInfo.first->second.push_back(message);
 }
 
 void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
@@ -105,13 +118,14 @@ void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
 
 void addMessageToJsonRoot(nlohmann::json& target, const nlohmann::json& message)
 {
-    if (!target[messages::messageAnnotation].is_array())
+    nlohmann::json& annotation = target[messages::messageAnnotation];
+    if (!annotation.is_array())
     {
         // Force object to be an array
-        target[messages::messageAnnotation] = nlohmann::json::array();
+        annotation = nlohmann::json::array();
     }
 
-    target[messages::messageAnnotation].push_back(message);
+    annotation.push_back(message);
 }
 
 void addMessageToJson(nlohmann::json& target, const nlohmann::json& message,
