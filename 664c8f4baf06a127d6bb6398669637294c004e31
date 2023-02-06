@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b4913f6_3c9bed2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-06T22:49:13Z",
+      "side": 1,
+      "message": "I\u0027m not understanding why anything other than a bug would cause this.\n\n/redfish/v1/Chassis/mysatelite_foo?$expand\u003d.($depth\u003d1)\n\nWould get forwarded as:\n/redfish/v1/Chassis/foo?$expand\u003d.($depth\u003d1)\n\nwhich would still result in the correct response?",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "744408ed_afe38ed0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-06T22:49:13Z",
+      "side": 1,
+      "message": "A couple things to consider:\n1. Implementations are allowed to define OEM parameters, or might support a newer version of Redfish protocol than the aggregator, so if we\u0027re going to remove the redfish-supported query params, we should only remove the ones we know that don\u0027t play well.\n2. I\u0027d really like to understand why this is failing.\nThe check here:\nhttps://github.com/openbmc/bmcweb/blob/079360ae6e04d3f2245e00d70f83d15c5cad3630/redfish-core/include/utils/query_param.hpp#L569\n\nShould prevent the duplicated expansion of a navigation reference, because any filled in resource will have more keys than just @odata.id.",
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d4f638_e0c22607",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-06T22:49:13Z",
+      "side": 1,
+      "message": "at some point in the future, Request::uri is going away.  Please use uriView.path(), which I think gets you what you need?",
+      "range": {
+        "startLine": 543,
+        "startChar": 30,
+        "endLine": 543,
+        "endChar": 41
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
