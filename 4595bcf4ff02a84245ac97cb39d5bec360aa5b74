@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f973dcc2_26ab126a",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Also fixed the VolatileRegionSizeMaxMiB property",
       "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8956e9a6_5dbb3b94",
         "filename": "/COMMIT_MSG",
@@ -31,10 +32,10 @@
       "side": 1,
       "message": "Can you run the Redfish validator ?",
       "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2493ea2f_fe5484f0",
         "filename": "redfish-core/lib/memory.hpp",
@@ -48,10 +49,10 @@
       "side": 1,
       "message": "These should be separate changes. Makes reviewing harder.",
       "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "19bffebb_aa7782e8",
         "filename": "redfish-core/lib/memory.hpp",
@@ -66,10 +67,10 @@
       "message": "+1  Please split these up.",
       "parentUuid": "2493ea2f_fe5484f0",
       "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "21ce7266_423c5bae",
         "filename": "redfish-core/lib/memory.hpp",
@@ -83,10 +84,10 @@
       "side": 1,
       "message": "I don\u0027t see these in https://github.com/openbmc/phosphor-dbus-interfaces/search?q\u003dFirmwareApiVersion ? \nAre they in review? \nIn so, please link that review in the commit msg",
       "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b8621dba_5afac046",
         "filename": "redfish-core/lib/memory.hpp",
@@ -101,8 +102,8 @@
       "message": "As-written, these wouldn\u0027t go in the memory interface, they would use the SoftwareVersion dbus api. \n\nI\u0027m going to mark this patchset WIP for the moment, and we can discuss further in the context of a phosphor-dbus-interfaces review.",
       "parentUuid": "21ce7266_423c5bae",
       "revId": "4595bcf4ff02a84245ac97cb39d5bec360aa5b74",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
-  ]
+  ],
+  "submitRequirementResults": []
 }
