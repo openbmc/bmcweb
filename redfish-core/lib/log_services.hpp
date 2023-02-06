@@ -3302,7 +3302,7 @@ inline void requestRoutesCrashdumpFile(App& app)
         }
 
         auto getStoredLogCallback =
-            [asyncResp, logID, fileName, url(boost::urls::url(req.urlView))](
+            [asyncResp, logID, fileName, url(boost::urls::url(req.url()))](
                 const boost::system::error_code& ec,
                 const std::vector<
                     std::pair<std::string, dbus::utility::DbusVariantType>>&
