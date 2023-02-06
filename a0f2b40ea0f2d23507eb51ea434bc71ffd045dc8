@@ -105,6 +105,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad95eb8f_2c5a6f61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-06T21:00:28Z",
+      "side": 1,
+      "message": "Sorry, I missed this;  Code that doesn\u0027t build doesn\u0027t pop up in my list by default.\n\nFrom my perspective, what\u0027s needed is:\nSome indication that we\u0027re using auditd here in the way we intend.  Showing other web servers directly pulling in auditd would be a good example of this, but I was unable to find that.\nGeneralized consensus that this feature is needed for all systems, and that the overhead and failure modes are manageable.  Alternatively, to make it optional.\nSome level of documentation that this has been tested beyond just an example.",
+      "parentUuid": "168086ef_ff0e4eea",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "757d587e_0311a6fd",
         "filename": "include/audit_events.hpp",
         "patchSetId": 8
