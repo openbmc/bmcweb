@@ -21,7 +21,6 @@ struct Request
 {
     boost::beast::http::request<boost::beast::http::string_body> req;
     boost::beast::http::fields& fields;
-    std::string_view url{};
     boost::urls::url_view urlView{};
 
     bool isSecure{false};
@@ -123,7 +122,6 @@ struct Request
             return false;
         }
         urlView = *result;
-        url = urlView.encoded_path();
         return true;
     }
 };
