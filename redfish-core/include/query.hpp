@@ -78,7 +78,8 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     boost::system::error_code ec;
 
     // Try to GET the same resource
-    crow::Request newReq({boost::beast::http::verb::get, req.url, 11}, ec);
+    crow::Request newReq(
+        {boost::beast::http::verb::get, req.urlView.encoded_path(), 11}, ec);
 
     if (ec)
     {
