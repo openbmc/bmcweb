@@ -102,9 +102,12 @@ class Connection :
         // don't require auth
         if (preverified)
         {
-            userSession = verifyMtlsUser(req->ipAddress, ctx);
-            if (userSession)
+            mtlsSession = verifyMtlsUser(req->ipAddress, ctx);
+            if (mtlsSession)
             {
+                BMCWEB_LOG_DEBUG
+                    << this
+                    << " Generating TLS session: " << mtlsSession->uniqueId;
                 sessionIsFromTransport = true;
             }
         }
@@ -465,11 +468,10 @@ class Connection :
             {
                 BMCWEB_LOG_DEBUG << "Unable to get client IP";
             }
-            sessionIsFromTransport = false;
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
             boost::beast::http::verb method = parser->get().method();
             userSession = crow::authentication::authenticate(
-                ip, res, method, parser->get().base(), userSession);
+                ip, res, method, parser->get().base(), mtlsSession);
 
             bool loggedIn = userSession != nullptr;
             if (!loggedIn)
@@ -550,12 +552,7 @@ class Connection :
                                                   // newly created parser
             buffer.consume(buffer.size());
 
-            // If the session was built from the transport, we don't need to
-            // clear it.  All other sessions are generated per request.
-            if (!sessionIsFromTransport)
-            {
-                userSession = nullptr;
-            }
+            userSession = nullptr;
 
             // Destroy the Request via the std::optional
             req.reset();
@@ -630,6 +627,7 @@ class Connection :
 
     bool sessionIsFromTransport = false;
     std::shared_ptr<persistent_data::UserSession> userSession;
+    std::shared_ptr<persistent_data::UserSession> mtlsSession;
 
     boost::asio::steady_timer timer;
 
