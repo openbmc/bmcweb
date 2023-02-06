@@ -482,7 +482,7 @@ class RedfishAggregator
         }
 
         // We didn't recognize the prefix and need to return a 404
-        std::string nameStr = req.urlView.segments().back();
+        std::string nameStr = req.url().segments().back();
         messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
@@ -507,7 +507,7 @@ class RedfishAggregator
             // don't need to write an error code
             if (isCollection == AggregationType::Resource)
             {
-                std::string nameStr = sharedReq->urlView.segments().back();
+                std::string nameStr = sharedReq->url().segments().back();
                 messages::resourceNotFound(asyncResp->res, "", nameStr);
             }
             return;
@@ -529,8 +529,7 @@ class RedfishAggregator
             return;
         }
 
-        const boost::urls::segments_view urlSegments =
-            thisReq.urlView.segments();
+        const boost::urls::segments_view urlSegments = thisReq.url().segments();
         boost::urls::url currentUrl("/");
         boost::urls::segments_view::iterator it = urlSegments.begin();
         const boost::urls::segments_view::const_iterator end =
@@ -823,7 +822,7 @@ class RedfishAggregator
     {
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
-        const boost::urls::url_view url = thisReq.urlView;
+        const boost::urls::url_view url = thisReq.url();
 
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
