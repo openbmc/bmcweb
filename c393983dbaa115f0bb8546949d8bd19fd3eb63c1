@@ -151,6 +151,30 @@
       },
       "revId": "c393983dbaa115f0bb8546949d8bd19fd3eb63c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22d5090a_919e9e11",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-06T21:42:30Z",
+      "side": 1,
+      "message": "I want to be consistent. To me though, this is more correct (checking 404) \n\nFrom https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods\n\n    The HEAD method asks for a response identical to a GET request, but without the response body.\n\nWe would not have an identical response if we didn\u0027t check for 404. \n\nAnyway, I agree with \"Oh well; It\u0027s not clear to me we need to be consistent here. Fuzzing tools are generally checking GETs\"\nso we can work on this later",
+      "parentUuid": "5d93dc15_c1b2b53a",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 29
+      },
+      "revId": "c393983dbaa115f0bb8546949d8bd19fd3eb63c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
