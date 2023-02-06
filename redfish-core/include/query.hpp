@@ -78,7 +78,8 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     boost::system::error_code ec;
 
     // Try to GET the same resource
-    crow::Request newReq({boost::beast::http::verb::get, req.url, 11}, ec);
+    crow::Request newReq(
+        {boost::beast::http::verb::get, req.url().encoded_path(), 11}, ec);
 
     if (ec)
     {
@@ -127,7 +128,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     asyncResp->res.addHeader("OData-Version", "4.0");
 
     std::optional<query_param::Query> queryOpt =
-        query_param::parseParameters(req.urlView.params(), asyncResp->res);
+        query_param::parseParameters(req.url().params(), asyncResp->res);
     if (queryOpt == std::nullopt)
     {
         return false;

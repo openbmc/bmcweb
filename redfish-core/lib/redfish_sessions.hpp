@@ -212,7 +212,7 @@ inline void handleSessionCollectionPost(
     bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
     if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
     {
-        messages::resourceAtUriUnauthorized(asyncResp->res, req.urlView,
+        messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
                                             "Invalid username or password");
         return;
     }

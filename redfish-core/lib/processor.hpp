@@ -1072,7 +1072,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
         }
         asyncResp->res.jsonValue["@odata.type"] =
             "#OperatingConfigCollection.OperatingConfigCollection";
-        asyncResp->res.jsonValue["@odata.id"] = req.url;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Systems", "system", "Processors", cpuName,
+            "OperatingConfigs");
         asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
 
         // First find the matching CPU object so we know how to
@@ -1140,7 +1142,7 @@ inline void requestRoutesOperatingConfig(App& app)
             "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"};
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/inventory", 0, interfaces,
-            [asyncResp, cpuName, configName, reqUrl{req.url}](
+            [asyncResp, cpuName, configName](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
@@ -1161,7 +1163,9 @@ inline void requestRoutesOperatingConfig(App& app)
 
                 nlohmann::json& json = asyncResp->res.jsonValue;
                 json["@odata.type"] = "#OperatingConfig.v1_0_0.OperatingConfig";
-                json["@odata.id"] = reqUrl;
+                json["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Systems", "system", "Processors", cpuName,
+                    "OperatingConfigs", configName);
                 json["Name"] = "Processor Profile";
                 json["Id"] = configName;
 
