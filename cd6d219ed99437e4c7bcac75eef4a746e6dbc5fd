@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19abf226_36a16d8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-02-06T21:22:05Z",
+      "side": 1,
+      "message": "\u003e PCISlots doesn\u0027t fit in the general Redfish direction.\n\nCan you give some context? It pcie slots look like a valid redfish schema. \nhttps://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_5_0.json",
+      "revId": "cd6d219ed99437e4c7bcac75eef4a746e6dbc5fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4e64272_36f21dea",
