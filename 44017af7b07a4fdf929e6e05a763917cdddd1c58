@@ -51,6 +51,24 @@
       "message": "Why can\u0027t you do another sdbusplus::asio::getProperty\u003c  ?",
       "revId": "44017af7b07a4fdf929e6e05a763917cdddd1c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc6b4497_3747ee82",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-02-06T08:16:24Z",
+      "side": 1,
+      "message": "Yes, I will update it.",
+      "parentUuid": "1b9f564a_50c9f111",
+      "revId": "44017af7b07a4fdf929e6e05a763917cdddd1c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
