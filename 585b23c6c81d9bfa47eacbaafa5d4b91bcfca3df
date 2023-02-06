@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16169cd8_b11b9e11",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-06T13:08:39Z",
+      "side": 1,
+      "message": "Do all elements in object have the same \u0027serviceName\u0027?",
+      "range": {
+        "startLine": 175,
+        "startChar": 37,
+        "endLine": 175,
+        "endChar": 58
+      },
+      "revId": "585b23c6c81d9bfa47eacbaafa5d4b91bcfca3df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
