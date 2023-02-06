@@ -8,7 +8,7 @@
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/websocket.hpp>
-#include <boost/url/url_view.hpp>
+#include <boost/url/url.hpp>
 
 #include <string>
 #include <string_view>
@@ -20,9 +20,11 @@ namespace crow
 struct Request
 {
     boost::beast::http::request<boost::beast::http::string_body> req;
-    std::string_view url{};
-    boost::urls::url_view urlView{};
 
+  private:
+    boost::urls::url urlBase{};
+
+  public:
     bool isSecure{false};
 
     boost::asio::io_context* ioService{};
@@ -49,21 +51,8 @@ struct Request
         }
     }
 
-    Request(const Request& other) :
-        req(other.req), isSecure(other.isSecure), ioService(other.ioService),
-        ipAddress(other.ipAddress), session(other.session),
-        userRole(other.userRole)
-    {
-        setUrlInfo();
-    }
-
-    Request(Request&& other) noexcept :
-        req(std::move(other.req)), isSecure(other.isSecure),
-        ioService(other.ioService), ipAddress(std::move(other.ipAddress)),
-        session(std::move(other.session)), userRole(std::move(other.userRole))
-    {
-        setUrlInfo();
-    }
+    Request(const Request& other) = default;
+    Request(Request&& other) = default;
 
     Request& operator=(const Request&) = delete;
     Request& operator=(const Request&&) = delete;
@@ -92,6 +81,11 @@ struct Request
     std::string_view target() const
     {
         return req.target();
+    }
+
+    boost::urls::url_view url() const
+    {
+        return {urlBase};
     }
 
     const boost::beast::http::fields& fields() const
@@ -134,8 +128,7 @@ struct Request
         {
             return false;
         }
-        urlView = *result;
-        url = urlView.encoded_path();
+        urlBase = *result;
         return true;
     }
 };
