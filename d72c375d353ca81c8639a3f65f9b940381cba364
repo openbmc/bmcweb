@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29ff34b5_7d077078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-06T21:46:57Z",
+      "side": 1,
+      "message": "Thanks for getting this in, for next time, why not just upload a new patch set on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54650 (instead of opening a new gerrit change)?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "d72c375d353ca81c8639a3f65f9b940381cba364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07f6114f_5892ed8a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
