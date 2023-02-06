@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229e2703_9f0298dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-06T23:42:54Z",
+      "side": 1,
+      "message": "Looks reasonable.  I don\u0027t like that it\u0027s merging mtlsSession and userSession in the case of mtls, but I can\u0027t see a cleaner solution.",
+      "revId": "40ecf939bed9ef4e505f66dc0fa3e41fefe5ca9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
