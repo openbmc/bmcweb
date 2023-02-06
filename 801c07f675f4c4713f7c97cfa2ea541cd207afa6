@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "68a91c7e_933e5bf6",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 43
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "41260aac_e59253d6",
         "filename": "/COMMIT_MSG",
@@ -43,10 +44,10 @@
         "endChar": 23
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3f7a573b_fbfa04ee",
         "filename": "/COMMIT_MSG",
@@ -66,10 +67,10 @@
         "endChar": 33
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "89290252_961de323",
         "filename": "/COMMIT_MSG",
@@ -89,10 +90,10 @@
         "endChar": 0
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0ed9353c_7e047835",
         "filename": "redfish-core/lib/sensors.hpp",
@@ -112,10 +113,10 @@
         "endChar": 31
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "52d32562_cfbb2175",
         "filename": "redfish-core/lib/sensors.hpp",
@@ -135,10 +136,10 @@
         "endChar": 64
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "46614285_bd56a700",
         "filename": "redfish-core/lib/sensors.hpp",
@@ -158,8 +159,8 @@
         "endChar": 50
       },
       "revId": "801c07f675f4c4713f7c97cfa2ea541cd207afa6",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
-  ]
+  ],
+  "submitRequirementResults": []
 }
