@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944fd08f_c7db955e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-06T20:59:34Z",
+      "side": 1,
+      "message": "Reviewers,\n\nI have updated the code in mainly 2 areas;\n- Keep BMCWEB_ENABLE_LOGGING macro which will be set if \u0027buildtype\u003ddebug\u0027 or bmcweb-logging !\u003d disabled\u0027\n- Generate a constexpr const int bmcwebLoggingLevel in \"bmcweb_config.h\"\n- Use bmcwebLoggingLevel instead of macro in defining logging level\n\nThanks",
+      "revId": "b22072716fa2b69302affac802a421e040304bdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
