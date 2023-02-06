@@ -1218,7 +1218,8 @@ class Router
             // Make sure it's safe to deference the array at that index
             static_assert(maxVerbIndex <
                           std::tuple_size_v<decltype(perMethods)>);
-            FindRoute route = findRouteByIndex(req.url, perMethodIndex);
+            FindRoute route =
+                findRouteByIndex(req.urlView.encoded_path(), perMethodIndex);
             if (route.rule == nullptr)
             {
                 continue;
@@ -1251,11 +1252,13 @@ class Router
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
-        const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
+        const std::pair<unsigned, RoutingParams>& found =
+            trie.find(req.urlView.encoded_path());
         unsigned ruleIndex = found.first;
         if (ruleIndex == 0U)
         {
-            BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
+            BMCWEB_LOG_DEBUG << "Cannot match rules "
+                             << req.urlView.encoded_path();
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
@@ -1269,8 +1272,9 @@ class Router
         if ((rules[ruleIndex]->getMethods() &
              (1U << static_cast<size_t>(*verb))) == 0)
         {
-            BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
-                             << " with " << req.methodString() << "("
+            BMCWEB_LOG_DEBUG << "Rule found but method mismatch: "
+                             << req.urlView.encoded_path() << " with "
+                             << req.methodString() << "("
                              << static_cast<uint32_t>(*verb) << ") / "
                              << rules[ruleIndex]->getMethods();
             res.result(boost::beast::http::status::not_found);
@@ -1324,13 +1328,14 @@ class Router
             // route
             if (foundRoute.allowHeader.empty())
             {
-                foundRoute.route = findRouteByIndex(req.url, notFoundIndex);
+                foundRoute.route =
+                    findRouteByIndex(req.urlView.encoded_path(), notFoundIndex);
             }
             else
             {
                 // See if we have a method not allowed (405) handler
-                foundRoute.route =
-                    findRouteByIndex(req.url, methodNotAllowedIndex);
+                foundRoute.route = findRouteByIndex(req.urlView.encoded_path(),
+                                                    methodNotAllowedIndex);
             }
         }
 

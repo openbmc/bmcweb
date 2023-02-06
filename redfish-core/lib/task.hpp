@@ -47,8 +47,8 @@ constexpr bool completed = true;
 struct Payload
 {
     explicit Payload(const crow::Request& req) :
-        targetUri(req.url), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array())
+        targetUri(req.urlView.encoded_path()),
+        httpOperation(req.methodString()), httpHeaders(nlohmann::json::array())
     {
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>

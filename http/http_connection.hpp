@@ -225,12 +225,14 @@ class Connection :
         }
         keepAlive = thisReq.keepAlive();
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-        if (!crow::authentication::isOnAllowlist(req->url, req->method()) &&
+        if (!crow::authentication::isOnAllowlist(req->urlView.encoded_path(),
+                                                 req->method()) &&
             thisReq.session == nullptr)
         {
             BMCWEB_LOG_WARNING << "Authentication failed";
             forward_unauthorized::sendUnauthorized(
-                req->url, req->getHeaderValue("X-Requested-With"),
+                req->urlView.encoded_path(),
+                req->getHeaderValue("X-Requested-With"),
                 req->getHeaderValue("Accept"), res);
             completeRequest(res);
             return;
@@ -307,8 +309,9 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << keepAlive;
+        BMCWEB_LOG_INFO << "Response: " << this << ' '
+                        << req->urlView.encoded_path() << ' ' << res.resultInt()
+                        << " keepalive=" << keepAlive;
 
         addSecurityHeaders(*req, res);
 
