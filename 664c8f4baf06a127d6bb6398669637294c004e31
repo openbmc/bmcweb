@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e922a74_e096813b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-06T23:30:57Z",
+      "side": 1,
+      "message": "Forwarding \"/redfish/v1/Chassis/foo?$expand\u003d.($depth\u003d1)\" by itself will get expanded and returned correctly if the satellite BMC supports $expand.  However, once the response is returned, we still perform param processing on it and treat the response as it if hasn\u0027t already been expanded.\n\nIn effect, /redfish/v1/Chassis/mysatelite_foo?$expand\u003d.($depth\u003d1) ends up becoming /redfish/v1/Chassis/mysatelite_foo?$expand\u003d.($depth\u003d2).",
+      "parentUuid": "3b4913f6_3c9bed2e",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "744408ed_afe38ed0",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7636ca64_7a89eb87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-06T23:30:57Z",
+      "side": 1,
+      "message": "1. OEM parameters is an interesting case.  Selectively filtering params is probably the way to go.  Right now we don\u0027t a great way to verify if a param is supported by a satellite.  $expand for sure has issues so params that require making additional requests will probably see the same.\n\nWe don\u0027t have to strip any params if our handling code is able to detect that that operation has already occurred, or skip portions of the response that have been operated on.  To be safe for now we could block forwarding all schema defined params, but could that cause an issue with processing the params in the correct order if an OEM one should not be processed first?\n\n\n2. I think it\u0027s because that function is recursive so you end up parsing until you pass a json object that looks like\n{\n    \"@odata.id\": \"{Some_URI}\"\n}\n\nEven after expanding, the resulting json should still have links that fit that format at its lowest level.  It doesn\u0027t know if that object was added as the result of expanding a previous level.",
+      "parentUuid": "744408ed_afe38ed0",
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14d4f638_e0c22607",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-02-06T22:49:13Z",
       "side": 1,
       "message": "at some point in the future, Request::uri is going away.  Please use uriView.path(), which I think gets you what you need?",
+      "range": {
+        "startLine": 543,
+        "startChar": 30,
+        "endLine": 543,
+        "endChar": 41
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "762feb52_3f34b650",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-06T23:30:57Z",
+      "side": 1,
+      "message": "I think that\u0027ll work since it should strip query params.  I\u0027ll try it out",
+      "parentUuid": "14d4f638_e0c22607",
       "range": {
         "startLine": 543,
         "startChar": 30,
