@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c051e4d_c9fd164d",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-06T13:04:52Z",
+      "side": 1,
+      "message": "It looks like - the only first serviceName for the object is used in \n```\n    getFabricAdapterLocation(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 aResp,\n                             const std::string\u0026 serviceName,\n                             const std::string\u0026 fabricAdapterPath)\n```\n                             \nDo all elements in object have the same \"serviceName\"?",
+      "range": {
+        "startLine": 85,
+        "startChar": 40,
+        "endLine": 85,
+        "endChar": 61
+      },
+      "revId": "fad059f8ad513232c22b522de2c07b28767d2ce3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
