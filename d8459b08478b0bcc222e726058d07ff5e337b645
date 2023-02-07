@@ -22,6 +22,30 @@
       },
       "revId": "d8459b08478b0bcc222e726058d07ff5e337b645",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1816c146_d7b9d94a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-07T14:40:06Z",
+      "side": 1,
+      "message": "Same serviceName, this is an assumption and is used in other places like powerSuuply.",
+      "parentUuid": "b4e3db53_e052b703",
+      "range": {
+        "startLine": 203,
+        "startChar": 38,
+        "endLine": 203,
+        "endChar": 59
+      },
+      "revId": "d8459b08478b0bcc222e726058d07ff5e337b645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
