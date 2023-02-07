@@ -3117,14 +3117,18 @@ inline void requestRoutesSystems(App& app)
 
         health->populate();
 
-        getMainChassisId(asyncResp,
-                         [](const std::string& chassisId,
-                            const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+        getAllChassisId(asyncResp,
+                        [](const std::vector<std::string>& chassisIdList,
+                           const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
             nlohmann::json::array_t chassisArray;
-            nlohmann::json& chassis = chassisArray.emplace_back();
-            chassis["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Chassis", chassisId);
-            aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
+            for (const auto& chassisId : chassisIdList)
+            {
+                nlohmann::json chassis;
+                chassis["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Chassis", chassisId);
+                chassisArray.push_back(std::move(chassis));
+            }
+            aRsp->res.jsonValue["Links"]["Chassis"] = chassisArray;
         });
 
         getLocationIndicatorActive(asyncResp);
