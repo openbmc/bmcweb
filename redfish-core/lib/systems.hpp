@@ -55,23 +55,23 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Dimm Functional: " << isDimmFunctional;
 
-    // Set it as Enabled if at least one DIMM is functional
-    // Update STATE only if previous State was DISABLED and current Dimm is
-    // ENABLED.
+    // Set it as OK if at least one DIMM is functional
+    // Update STATE only if previous State was not OK and current Dimm is
+    // functional.
     const nlohmann::json& prevMemSummary =
-        aResp->res.jsonValue["MemorySummary"]["Status"]["State"];
-    if (prevMemSummary == "Disabled")
+        aResp->res.jsonValue["MemorySummary"]["Status"]["Health"];
+    if (prevMemSummary != "OK")
     {
         if (isDimmFunctional)
         {
-            aResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
-                "Enabled";
+            aResp->res.jsonValue["MemorySummary"]["Status"]["Health"] = "OK";
         }
     }
 }
 
 /*
- * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
+ * @brief Update "ProcessorSummary" "Count" and "state" based on Cpu
+ *               PresenceState
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
  * @param[in] cpuPresenceState CPU present or not
@@ -95,11 +95,12 @@ inline void
             // shouldn't be possible to be nullptr
             *procCountPtr += 1;
         }
+        aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Enabled";
     }
 }
 
 /*
- * @brief Update "ProcessorSummary" "Status" "State" based on
+ * @brief Update "ProcessorSummary" "Status" "Health" based on
  *        CPU Functional State
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
@@ -114,17 +115,16 @@ inline void
     BMCWEB_LOG_DEBUG << "Cpu Functional: " << isCpuFunctional;
 
     const nlohmann::json& prevProcState =
-        aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
+        aResp->res.jsonValue["ProcessorSummary"]["Status"]["Health"];
 
     // Set it as Enabled if at least one CPU is functional
     // Update STATE only if previous State was Non_Functional and current CPU is
     // Functional.
-    if (prevProcState == "Disabled")
+    if (prevProcState != "OK")
     {
         if (isCpuFunctional)
         {
-            aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
-                "Enabled";
+            aResp->res.jsonValue["ProcessorSummary"]["Status"]["Health"] = "OK";
         }
     }
 }
@@ -2918,10 +2918,14 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
         asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
             "Disabled";
+        asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["Health"] =
+            "Critical";
         asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
             uint64_t(0);
         asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
             "Disabled";
+        asyncResp->res.jsonValue["MemorySummary"]["Status"]["Health"] =
+            "Critical";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
         asyncResp->res.jsonValue["Processors"]["@odata.id"] =
