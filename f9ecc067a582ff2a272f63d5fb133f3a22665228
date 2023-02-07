@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65da3da_9c50c6c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T14:58:00Z",
+      "side": 1,
+      "message": "You could put the reason for the change here as well",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa01374_d5465d0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T14:58:00Z",
+      "side": 1,
+      "message": "Redfish Validator was happy?",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47ee74c6_09a2c9c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T14:58:00Z",
+      "side": 1,
+      "message": "Need changes in whatever repo puts this out on D-Bus?",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aea1c20_eb88904e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T14:58:00Z",
+      "side": 1,
+      "message": "It is a string in the Redfish API\n\n                \"Step\": {\n                    \"description\": \"The step value for this processor.\",\n                    \"longDescription\": \"This property shall indicate the Step or revision string information as provided by the manufacturer of this processor.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ]\n                },",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
