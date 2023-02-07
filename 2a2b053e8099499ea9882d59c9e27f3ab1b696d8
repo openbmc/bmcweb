@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e9048d6_5a1b2882",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-07T19:34:39Z",
+      "side": 1,
+      "message": "In FabricAdapter, it seems okay because it is initialized as \"OK\" first.\n\nSimilar logic can be done here by setting as something not\"OK\" first like in \n\n```\n#2923        asyncResp-\u003eres.jsonValue[\"MemorySummary\"][\"Status\"][\"State\"] \u003d\n#2924            \"Disabled\";\n      ADD\u003e asyncResp-\u003eres.jsonValue[\"MemorySummary\"][\"Status\"][\"Health\"] \u003d \"Critical\"; \n\n```\n\nOR \nreverse the logic like - initialized as \"OK\" and then detect \"Critical\" state?",
+      "parentUuid": "8866254e_2ec6c478",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "2a2b053e8099499ea9882d59c9e27f3ab1b696d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d4404c0_39bea291",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
