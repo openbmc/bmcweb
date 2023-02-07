@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e0fe4e2_11bad334",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-07T02:14:54Z",
+      "side": 1,
+      "message": "Nit: I\u0027m a little curious, when do you use `boost::system::errc::io_error` here and when do you use `boost::system::linux_error::bad_request_descriptor`? Do we have a uniform specification?",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b247a434_1f436e9a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-07T02:14:54Z",
+      "side": 1,
+      "message": "Why not use getSubTreePaths? Because I don\u0027t see anywhere you use `serviceMap`.",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
