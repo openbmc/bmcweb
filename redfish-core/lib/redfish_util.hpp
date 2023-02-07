@@ -97,6 +97,52 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 }
 
 template <typename CallbackFunc>
+void getAllChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                     CallbackFunc&& callback)
+{
+    // Find managed chassis
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        [callback,
+         asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << ec;
+            return;
+        }
+        if (subtree.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Can't find chassis!";
+            return;
+        }
+        std::vector<std::string> chassisIdList;
+        for (const auto& element : subtree)
+        {
+            std::size_t idPos = element.first.rfind('/');
+            if (idPos == std::string::npos ||
+                (idPos + 1) >= element.first.size())
+            {
+                continue;
+            }
+            std::string chassisId = element.first.substr(idPos + 1);
+            BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+            chassisIdList.emplace_back(chassisId);
+        }
+        if (chassisIdList.empty())
+        {
+            messages::internalError(asyncResp->res);
+            BMCWEB_LOG_DEBUG << "Can't parse chassis ID!";
+            return;
+        }
+        callback(chassisIdList, asyncResp);
+        });
+}
+
+template <typename CallbackFunc>
 void getPortStatusAndPath(
     std::span<const std::pair<std::string_view, std::string_view>>
         protocolToDBus,
