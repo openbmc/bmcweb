@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f669854_b0aa6437",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T21:51:00Z",
+      "side": 1,
+      "message": "I assume token based auth, basic auth still look good?",
+      "revId": "2109fe1885bbdedc4d54863ee4fbbb144bd30555",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
