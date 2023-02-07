@@ -199,16 +199,16 @@ inline void getCpuDataByInterface(
             }
             else if (property.first == "Step")
             {
-                const uint16_t* value = std::get_if<uint16_t>(&property.second);
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
                 if (value == nullptr)
                 {
                     messages::internalError(aResp->res);
                     return;
                 }
-                if (*value != 0)
+                if (*value != "")
                 {
-                    aResp->res.jsonValue["ProcessorId"]["Step"] =
-                        "0x" + intToHexString(*value, 4);
+                    aResp->res.jsonValue["ProcessorId"]["Step"] = *value;
                 }
             }
         }
