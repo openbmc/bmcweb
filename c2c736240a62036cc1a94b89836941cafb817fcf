@@ -35,6 +35,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30765e4f_6b5282ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "Overall looks like a good start.  Just need to get the corner cases handled",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f302ebdb_1ef7479f",
@@ -48,6 +65,98 @@
       "writtenOn": "2023-01-21T01:26:22Z",
       "side": 1,
       "message": "Use constexpr instead",
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3111d464_b02e5ee0",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "This is incorrect.  /redfish does not have the type ServiceRoot.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc16c3f_36dff889",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "Can we drop these names in the generated code, and use either * or {}?  The actual name here doesn\u0027t matter to this data structure.",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "433bec46_2aa468fb",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "Looks incorrect.  Actions I think have their own type?",
+      "range": {
+        "startLine": 27,
+        "startChar": 128,
+        "endLine": 27,
+        "endChar": 129
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad9de654_af55eac6",
+        "filename": "redfish-core/include/registries/entity_type_uris_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "This isn\u0027t right.  /redfish/v1/AccountService/ActiveDirectory isn\u0027t a valid URI, given that ActiveDirectory is a property, not a NavigationResource.",
+      "range": {
+        "startLine": 31,
+        "startChar": 50,
+        "endLine": 31,
+        "endChar": 64
+      },
       "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +214,46 @@
         "endLine": 680,
         "endChar": 3
       },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee0f5bd_2c24c547",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "By redfish definitions, is this a Registry?  It doesn\u0027t seem like it would be.",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228e2c45_939bf0e8",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:56:22Z",
+      "side": 1,
+      "message": "Can we just write the below in a normal c++ file?  I don\u0027t see anything generated in the below, and it looks self contained.",
       "revId": "c2c736240a62036cc1a94b89836941cafb817fcf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
