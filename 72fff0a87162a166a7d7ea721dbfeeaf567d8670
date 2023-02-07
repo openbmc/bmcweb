@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc94689_a9aa20a0",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T21:53:54Z",
+      "side": 0,
+      "message": "Flip this to disable first maybe? \nI pinged in discord and I think https://github.com/openbmc/openbmc-test-automation was making a change",
+      "revId": "72fff0a87162a166a7d7ea721dbfeeaf567d8670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
