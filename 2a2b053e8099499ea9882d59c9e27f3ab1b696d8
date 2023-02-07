@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8866254e_2ec6c478",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-07T16:35:47Z",
+      "side": 1,
+      "message": "May be similar to FabricAdapter, initialize the State and Health with \"Enabled\" and \"OK\"\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60515/5",
+      "parentUuid": "f55a3b1e_069cf6b2",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "2a2b053e8099499ea9882d59c9e27f3ab1b696d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d4404c0_39bea291",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
