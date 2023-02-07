@@ -22,6 +22,30 @@
       },
       "revId": "585b23c6c81d9bfa47eacbaafa5d4b91bcfca3df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be831b93_8499c136",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-07T14:40:43Z",
+      "side": 1,
+      "message": "serviceName is same.",
+      "parentUuid": "16169cd8_b11b9e11",
+      "range": {
+        "startLine": 175,
+        "startChar": 37,
+        "endLine": 175,
+        "endChar": 58
+      },
+      "revId": "585b23c6c81d9bfa47eacbaafa5d4b91bcfca3df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
