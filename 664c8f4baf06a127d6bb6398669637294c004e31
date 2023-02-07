@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f8795e_1dec4564",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-02-07T20:20:57Z",
+      "side": 1,
+      "message": "Hmm, IMO this is a problem caused by how we setup aggregation.\n\nIn BMCWeb handlers, the assumption is handler that doesn\u0027t call delegation has no capacity to deal with query parameters.\n\nSo if your aggregation handler setup the delegation correctly, you won\u0027t have this problem.",
+      "parentUuid": "6bf3d050_6cb43c82",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "744408ed_afe38ed0",
