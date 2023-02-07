@@ -27,6 +27,7 @@ WARNING = """/****************************************************************
 include_list = [
     "AccountService",
     "ActionInfo",
+    "AggregationService",
     "Assembly",
     "AttributeRegistry",
     "Bios",
