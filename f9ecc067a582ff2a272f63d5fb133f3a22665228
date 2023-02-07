@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d20affd1_29aaad36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-07T19:50:35Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/47827383270de5777b49775bb69bf7d37ec7384e/TESTING.md#L124\n\nhttps://github.com/openbmc/bmcweb/blob/703f67418ae1915e49ac32d475de872da3ab2819/Redfish.md#L10",
+      "parentUuid": "4619abee_25a61b73",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47ee74c6_09a2c9c7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
