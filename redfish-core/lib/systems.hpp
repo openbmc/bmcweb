@@ -2995,13 +2995,10 @@ inline void requestRoutesSystems(App& app)
 
         health->populate();
 
-        getMainChassisId(asyncResp,
-                         [](const std::string& chassisId,
-                            const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-            nlohmann::json::array_t chassisArray;
-            nlohmann::json& chassis = chassisArray.emplace_back();
-            chassis["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
-            aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
+        getAllChassisId(asyncResp,
+                        [](const nlohmann::json::array_t& chassisArray,
+                           const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+            aRsp->res.jsonValue["Links"]["Chassis"] = chassisArray;
         });
 
         getLocationIndicatorActive(asyncResp);
