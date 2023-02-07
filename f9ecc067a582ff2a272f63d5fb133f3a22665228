@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7047e6a1_c82de078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-07T15:14:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b65da3da_9c50c6c0",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fa01374_d5465d0d",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4619abee_25a61b73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-07T15:14:06Z",
+      "side": 1,
+      "message": "Ah I didn\u0027t know we have a validator.\nDo we have a doc about how to use it?",
+      "parentUuid": "6fa01374_d5465d0d",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47ee74c6_09a2c9c7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2023-02-07T14:58:00Z",
       "side": 1,
       "message": "Need changes in whatever repo puts this out on D-Bus?",
+      "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a6482c2_ff0ded56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-07T15:14:06Z",
+      "side": 1,
+      "message": "I checked. Currently only smbios-mdr exports processor related properties.\nHowever `Step` is not included.\nRef: https://github.com/openbmc/smbios-mdr/blob/master/include/cpu.hpp#L172-L183",
+      "parentUuid": "47ee74c6_09a2c9c7",
       "revId": "f9ecc067a582ff2a272f63d5fb133f3a22665228",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
