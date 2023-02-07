@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd53cfd3_270f8e50",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-07T05:28:19Z",
+      "side": 1,
+      "message": "boost::system::errc::io_error is a more generic error code for I/O failures.\n\nboost::system::linux_error::bad_request_descriptor is a specific error code when a bad file descriptor is passed to a function.",
+      "parentUuid": "9e0fe4e2_11bad334",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b247a434_1f436e9a",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 54
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-07T02:14:54Z",
       "side": 1,
       "message": "Why not use getSubTreePaths? Because I don\u0027t see anywhere you use `serviceMap`.",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4754bf94_a5e06c5b",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-07T05:28:19Z",
+      "side": 1,
+      "message": "Most of the implementation that I looked used dbus::utility::getSubTree.",
+      "parentUuid": "b247a434_1f436e9a",
       "range": {
         "startLine": 71,
         "startChar": 19,
