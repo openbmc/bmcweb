@@ -655,29 +655,31 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
     json singleTreeNode = R"({"Foo" : {"@odata.id": "/foobar"}})"_json;
 
     // Parsing as the root should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleTreeNode),
+    EXPECT_THAT(findNavigationReferences(ExpandType::Both, 1, singleTreeNode),
                 UnorderedElementsAre(
                     ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 
     // Parsing in Non-hyperlinks mode should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, singleTreeNode),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::NotLinks, 1, singleTreeNode),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 
     // Searching for not types should return empty set
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::None, singleTreeNode).empty());
+        findNavigationReferences(ExpandType::None, 1, singleTreeNode).empty());
 
     // Searching for hyperlinks only should return empty set
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::Links, singleTreeNode).empty());
+        findNavigationReferences(ExpandType::Links, 1, singleTreeNode).empty());
 
     json multiTreeNodes =
         R"({"Links": {"@odata.id": "/links"}, "Foo" : {"@odata.id": "/foobar"}})"_json;
     // Should still find Foo
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, multiTreeNodes),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::NotLinks, 1, multiTreeNodes),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 }
 
 TEST(QueryParams, FindNavigationReferencesLink)
@@ -688,21 +690,22 @@ TEST(QueryParams, FindNavigationReferencesLink)
         R"({"Links" : {"Sessions": {"@odata.id": "/foobar"}}})"_json;
 
     // Parsing as the root should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleLinkNode),
+    EXPECT_THAT(findNavigationReferences(ExpandType::Both, 1, singleLinkNode),
                 UnorderedElementsAre(ExpandNode{
                     json::json_pointer("/Links/Sessions"), "/foobar"}));
     // Parsing in hyperlinks mode should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Links, singleLinkNode),
+    EXPECT_THAT(findNavigationReferences(ExpandType::Links, 1, singleLinkNode),
                 UnorderedElementsAre(ExpandNode{
                     json::json_pointer("/Links/Sessions"), "/foobar"}));
 
     // Searching for not types should return empty set
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::None, singleLinkNode).empty());
+        findNavigationReferences(ExpandType::None, 1, singleLinkNode).empty());
 
     // Searching for non-hyperlinks only should return empty set
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::NotLinks, singleLinkNode).empty());
+        findNavigationReferences(ExpandType::NotLinks, 1, singleLinkNode)
+            .empty());
 }
 
 } // namespace

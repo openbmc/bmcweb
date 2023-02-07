@@ -536,7 +536,7 @@ struct ExpandNode
 // with the keys from the jsonResponse object
 inline void findNavigationReferencesRecursive(
     ExpandType eType, nlohmann::json& jsonResponse,
-    const nlohmann::json::json_pointer& p, bool inLinks,
+    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
     std::vector<ExpandNode>& out)
 {
     // If no expand is needed, return early
@@ -555,7 +555,7 @@ inline void findNavigationReferencesRecursive(
             nlohmann::json::json_pointer newPtr = p / index;
             BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
             findNavigationReferencesRecursive(eType, element, newPtr, inLinks,
-                                              out);
+                                              depth - 1, out);
             index++;
         }
     }
@@ -579,6 +579,7 @@ inline void findNavigationReferencesRecursive(
             }
         }
     }
+
     // Loop the object and look for links
     for (auto& element : *obj)
     {
@@ -601,17 +602,26 @@ inline void findNavigationReferencesRecursive(
         nlohmann::json::json_pointer newPtr = p / element.first;
         BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr;
 
+        int newDepth = depth;
+        // only traverse depth if this is a NavigationReference
+        auto odataId = obj->find("@odata.id");
+        if (odataId != obj->end())
+        {
+            newDepth++;
+        }
         findNavigationReferencesRecursive(eType, element.second, newPtr,
-                                          localInLinks, out);
+                                          localInLinks, newDepth, out);
     }
 }
 
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse)
+    findNavigationReferences(ExpandType eType, int depth,
+                             nlohmann::json& jsonResponse)
 {
     std::vector<ExpandNode> ret;
     const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
-    findNavigationReferencesRecursive(eType, jsonResponse, root, false, ret);
+    findNavigationReferencesRecursive(eType, jsonResponse, root, depth, false,
+                                      ret);
     return ret;
 }
 
@@ -772,8 +782,8 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // for deeper levels.
     void startQuery(const Query& query)
     {
-        std::vector<ExpandNode> nodes =
-            findNavigationReferences(query.expandType, finalRes->res.jsonValue);
+        std::vector<ExpandNode> nodes = findNavigationReferences(
+            query.expandType, query.expandLevel, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
         const std::optional<std::string> queryStr = formatQueryForExpand(query);
         if (!queryStr)
