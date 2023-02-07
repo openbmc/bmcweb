@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f55a3b1e_069cf6b2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-07T16:05:05Z",
+      "side": 1,
+      "message": "It looks like the HeathState is updated only if previous HealthState is not \"OK\".\n\nWhat if the current HealthState is \"OK\" but isDimmFunctional is changed?\n\nFor example, should we do like this?\n\n```\nif (prevMemSummary !\u003d \"OK\" \u0026\u0026 isDimmFunctional)\n{\n     aResp-\u003eres.jsonValue[\"MemorySummary\"][\"Status\"][\"Health\"] \u003d \"OK\";\n}\nelse if(prevMemSummary \u003d\u003d \"OK\" \u0026\u0026 !isDimmFunctional)\n{\n     aResp-\u003eres.jsonValue[\"MemorySummary\"][\"Status\"][\"Health\"] \u003d \"Critical\";\n}\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "2a2b053e8099499ea9882d59c9e27f3ab1b696d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d4404c0_39bea291",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-07T16:05:05Z",
+      "side": 1,
+      "message": "Similar to the above Memory status, it looks like the HeathState is updated only if previous HealthState is not \"OK\".\n\nWhat if the current HealthState is \"OK\" but isDimmFunctional is changed?\n\nFor example, should we do like this?\n\n```\nif (prevProcState !\u003d \"OK\" \u0026\u0026 isCpuFunctional)\n{\n    aResp-\u003eres.jsonValue[\"ProcessorSummary\"][\"Status\"][\"Health\"] \u003d \"OK\";\n}\nelse if(prevProcState \u003d\u003d \"OK\" \u0026\u0026 !isCpuFunctional)\n{\n    aResp-\u003eres.jsonValue[\"ProcessorSummary\"][\"Status\"][\"Health\"]  \u003d \"Critical\";\n}\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 5
+      },
+      "revId": "2a2b053e8099499ea9882d59c9e27f3ab1b696d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
