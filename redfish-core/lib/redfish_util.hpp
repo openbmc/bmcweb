@@ -82,17 +82,20 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        std::size_t idPos = subtree[0].first.rfind('/');
-        if (idPos == std::string::npos ||
-            (idPos + 1) >= subtree[0].first.size())
+        for (const auto& chassis : subtree)
         {
-            messages::internalError(asyncResp->res);
-            BMCWEB_LOG_DEBUG << "Can't parse chassis ID!";
-            return;
+            std::size_t idPos = chassis.first.rfind('/');
+            if (idPos == std::string::npos ||
+                (idPos + 1) >= chassis.first.size())
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_DEBUG << "Can't parse chassis ID!";
+                return;
+            }
+            std::string chassisId = chassis.first.substr(idPos + 1);
+            BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+            callback(chassisId, asyncResp);
         }
-        std::string chassisId = subtree[0].first.substr(idPos + 1);
-        BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
-        callback(chassisId, asyncResp);
         });
 }
 
