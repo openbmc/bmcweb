@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0268028f_dc44d012",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:52:59Z",
+      "side": 1,
+      "message": "The aggregation code isn\u0027t a single handler, it has to attach to essentially all handlers (in the same way that query delegation does).  Doing what you describe would require us to register the aggregation routes in the router, which might be possible, but would involve changing all the existing code and odata.ids in a really bad way, and still would require collections to be registered with both.",
+      "parentUuid": "f1f8795e_1dec4564",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "744408ed_afe38ed0",
