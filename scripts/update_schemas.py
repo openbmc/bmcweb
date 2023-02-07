@@ -26,6 +26,7 @@ WARNING = """/****************************************************************
 # To use a new schema, add to list and rerun tool
 include_list = [
     "AccountService",
+    "AggregationService",
     "ActionInfo",
     "Assembly",
     "AttributeRegistry",
