@@ -536,7 +536,7 @@ struct ExpandNode
 // with the keys from the jsonResponse object
 inline void findNavigationReferencesRecursive(
     ExpandType eType, nlohmann::json& jsonResponse,
-    const nlohmann::json::json_pointer& p, bool inLinks,
+    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
     std::vector<ExpandNode>& out)
 {
     // If no expand is needed, return early
@@ -544,6 +544,7 @@ inline void findNavigationReferencesRecursive(
     {
         return;
     }
+
     nlohmann::json::array_t* array =
         jsonResponse.get_ptr<nlohmann::json::array_t*>();
     if (array != nullptr)
@@ -554,8 +555,8 @@ inline void findNavigationReferencesRecursive(
         {
             nlohmann::json::json_pointer newPtr = p / index;
             BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
-            findNavigationReferencesRecursive(eType, element, newPtr, inLinks,
-                                              out);
+            findNavigationReferencesRecursive(eType, element, newPtr, depth,
+                                              inLinks, out);
             index++;
         }
     }
@@ -574,14 +575,39 @@ inline void findNavigationReferencesRecursive(
                 obj->begin()->second.get_ptr<const std::string*>();
             if (uri != nullptr)
             {
-                BMCWEB_LOG_DEBUG << "Found element at " << p.to_string();
+                BMCWEB_LOG_DEBUG << "Found " << *uri << " at " << p.to_string();
                 out.push_back({p, *uri});
+                return;
             }
         }
     }
+
+    int newDepth = depth;
+    auto odataId = obj->find("@odata.id");
+    if (odataId != obj->end())
+    {
+        // The Redfish spec requires all resources to include the resource
+        // identifier.  If the object has multiple elements and one of them is
+        // "@odata.id" then that means we have entered a new level / expanded
+        // resource.  We need to stop traversing if we're already at the desired
+        // depth
+        if ((obj->size() > 1) && (depth == 0))
+        {
+            return;
+        }
+        newDepth--;
+    }
+
     // Loop the object and look for links
     for (auto& element : *obj)
     {
+        // If there are multiple elements and one is named "@odata.id" then that
+        // element is the self-referential resource identifier.  We don't want
+        // to expand that URI
+        if ((element.first == "@odata.id") && (obj->size() > 1))
+        {
+            continue;
+        }
         bool localInLinks = inLinks;
         if (!localInLinks)
         {
@@ -602,16 +628,24 @@ inline void findNavigationReferencesRecursive(
         BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr;
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
-                                          localInLinks, out);
+                                          newDepth, localInLinks, out);
     }
 }
 
+// TODO: When aggregation is enabled and we receive a partially expanded
+// response we may need need additional handling when the original URI was
+// up tree from a top level collection.
+// Isn't a concern until https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556
+// lands.  May want to avoid forwarding query params when request is uptree from
+// a top level collection.
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse)
+    findNavigationReferences(ExpandType eType, int depth,
+                             nlohmann::json& jsonResponse)
 {
     std::vector<ExpandNode> ret;
     const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
-    findNavigationReferencesRecursive(eType, jsonResponse, root, false, ret);
+    findNavigationReferencesRecursive(eType, jsonResponse, root, depth, false,
+                                      ret);
     return ret;
 }
 
@@ -772,8 +806,8 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // for deeper levels.
     void startQuery(const Query& query)
     {
-        std::vector<ExpandNode> nodes =
-            findNavigationReferences(query.expandType, finalRes->res.jsonValue);
+        std::vector<ExpandNode> nodes = findNavigationReferences(
+            query.expandType, query.expandLevel, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
         const std::optional<std::string> queryStr = formatQueryForExpand(query);
         if (!queryStr)
