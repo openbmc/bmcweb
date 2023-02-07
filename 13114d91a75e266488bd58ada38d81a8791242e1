@@ -46,6 +46,29 @@
       },
       "revId": "13114d91a75e266488bd58ada38d81a8791242e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a861f8a0_073b1760",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-07T21:59:14Z",
+      "side": 1,
+      "message": "Depth is no longer being used in the latest patchset to stop traversal.  I\u0027m assuming you still want this call wrapped inside of \"if (newDepth \u003e\u003d 0)\" from the initial patchset.  You may also want to reintroduce the code just before this call\n\nif (!localInLinks)\n{\n    // A links object doesn\u0027t count as a depth traversal\n    newDepth--;\n}",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 71
+      },
+      "revId": "13114d91a75e266488bd58ada38d81a8791242e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
