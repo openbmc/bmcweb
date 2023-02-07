@@ -22,6 +22,30 @@
       },
       "revId": "3edab7e773362bf33051b668996d11fb92c6897a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42108c47_e0f1ed13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-07T23:33:25Z",
+      "side": 1,
+      "message": "Updated commit message with new wording.",
+      "parentUuid": "3bd7e076_f1b91576",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "3edab7e773362bf33051b668996d11fb92c6897a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
