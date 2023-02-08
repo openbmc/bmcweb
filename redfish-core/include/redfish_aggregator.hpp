@@ -51,6 +51,19 @@ inline bool isPropertyUri(const std::string_view propertyName)
                               propertyName);
 }
 
+inline bool uriIsTopCollection(const boost::urls::url_view& url)
+{
+    std::string_view str = url.buffer();
+    auto range =
+        std::ranges::equal_range(topCollections.begin(), topCollections.end(),
+                                 str, std::ranges::less{}, &Path::path);
+    if (range.begin() == range.end())
+    {
+        return false;
+    }
+    return range.begin()->isTop;
+}
+
 static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
     std::string* strValue = item.get_ptr<std::string*>();
@@ -109,8 +122,7 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
             return;
         }
 
-        if (std::binary_search(topCollections.begin(), topCollections.end(),
-                               url.buffer()))
+        if (uriIsTopCollection(url))
         {
             std::string collectionItem(prefix);
             collectionItem += "_" + (*it);
@@ -504,8 +516,7 @@ class RedfishAggregator
         it++;
         for (; it != end; it++)
         {
-            if (std::binary_search(topCollections.begin(), topCollections.end(),
-                                   currentUrl.buffer()))
+            if (uriIsTopCollection(currentUrl))
             {
                 // We've matched a resource collection so this current segment
                 // must contain an aggregation prefix
@@ -602,6 +613,14 @@ class RedfishAggregator
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
+        // 429 and 502 mean we didn't actually send the request so don't
+        // overwrite the response headers in that case
+        if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+        {
+            asyncResp->res.result(resp.result());
+            return;
+        }
+
         // We want to attempt prefix fixing regardless of response code
         // The resp will not have a json component
         // We need to create a json from resp's stringResponse
@@ -647,6 +666,13 @@ class RedfishAggregator
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         crow::Response& resp)
     {
+        // 429 and 502 mean we didn't actually send the request so don't
+        // overwrite the response headers in that case
+        if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+        {
+            return;
+        }
+
         if (resp.resultInt() != 200)
         {
             BMCWEB_LOG_DEBUG
@@ -672,6 +698,7 @@ class RedfishAggregator
 
                 // Notify the user if doing so won't overwrite a valid response
                 if ((asyncResp->res.resultInt() != 200) &&
+                    (asyncResp->res.resultInt() != 429) &&
                     (asyncResp->res.resultInt() != 502))
                 {
                     messages::operationFailed(asyncResp->res);
@@ -707,6 +734,7 @@ class RedfishAggregator
                     << "Collection does not exist, overwriting asyncResp";
                 asyncResp->res.result(resp.result());
                 asyncResp->res.jsonValue = std::move(jsonVal);
+                asyncResp->res.addHeader("Content-Type", "application/json");
 
                 BMCWEB_LOG_DEBUG << "Finished overwriting asyncResp";
             }
@@ -750,12 +778,13 @@ class RedfishAggregator
         {
             BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
                              << "\"";
-            // We received as response that was not a json
+            // We received a response that was not a json.
             // Notify the user only if we did not receive any valid responses,
             // if the resource collection does not already exist on the
             // aggregating BMC, and if we did not already set this warning due
             // to a failure from a different satellite
             if ((asyncResp->res.resultInt() != 200) &&
+                (asyncResp->res.resultInt() != 429) &&
                 (asyncResp->res.resultInt() != 502))
             {
                 messages::operationFailed(asyncResp->res);
@@ -797,7 +826,6 @@ class RedfishAggregator
         // /redfish/v1/Chassis
         // /redfish/v1/UpdateService/FirmwareInventory
         const boost::urls::segments_view urlSegments = url.segments();
-        std::string collectionItem;
         boost::urls::url currentUrl("/");
         boost::urls::segments_view::iterator it = urlSegments.begin();
         const boost::urls::segments_view::const_iterator end =
@@ -808,9 +836,8 @@ class RedfishAggregator
         it++;
         for (; it != end; it++)
         {
-            collectionItem = *it;
-            if (std::binary_search(topCollections.begin(), topCollections.end(),
-                                   currentUrl.buffer()))
+            const std::string& collectionItem = *it;
+            if (uriIsTopCollection(currentUrl))
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
@@ -846,8 +873,7 @@ class RedfishAggregator
 
         // If we made it here then currentUrl could contain a top level
         // collection URI without a trailing "/", e.g. /redfish/v1/Chassis
-        if (std::binary_search(topCollections.begin(), topCollections.end(),
-                               currentUrl.buffer()))
+        if (uriIsTopCollection(currentUrl))
         {
             startAggregation(AggregationType::Collection, thisReq, asyncResp);
             return Result::LocalHandle;
