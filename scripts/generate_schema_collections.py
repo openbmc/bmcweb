@@ -180,6 +180,13 @@ def parse_navigation_property(
     if nav_name in ["JsonSchemas", "AccountService", "SessionService"]:
         found_top = True
 
+    for annotation in element:
+        if annotation.tag == EDM + "Annotation":
+            annotation_term = annotation.get("Term")
+            if annotation_term == "Redfish.UriSegment":
+                print(f"Chaginng propery name from {nav_name}")
+                nav_name = annotation.get("String")
+                print(f"to {nav_name}")
     nav_type = element.get("Type")
     if "Collection" in nav_type:
         # Type is either Collection(<Namespace>.<TypeName>) or
@@ -248,11 +255,6 @@ def parse_navigation_property(
     seg_len = -(len(new_path) - len(path) - 1)
     new_seg = new_path[seg_len:]
 
-    if new_path == "/Tasks":
-        new_path = "/TaskService"
-
-    # These are "Property" instead of "NavigationProperty", but should still
-    # appear in the path
     if new_seg == "AccountService":
         parse_node(
             "ExternalAccountProvider",
@@ -296,35 +298,6 @@ def parse_navigation_property(
             found_top,
             xml_map[file_key],
         )
-
-    # Other Properties treated this way are:
-    new_path2 = ""
-    if "ComputerSystems" in new_path:
-        new_path2 = new_path.replace("ComputerSystems", "Systems")
-    # For Metrics sometimes the TypeName from the Type attribute is used
-    # instead of the Name attribute
-    if new_seg == "Metrics":
-        if curr_entitytype in ["Processor", "Memory", "Switch"]:
-            new_path2 = path + "/" + nav_type_split[1]
-
-    elif new_seg == "RequestorVCAT":
-        new_path2 = path + "/" + "REQ-VCAT"
-
-    elif new_seg == "ResponderVCAT":
-        new_path2 = path + "/" + "RSP-VCAT"
-
-    elif new_seg == "AdditionalExternalAccountProviders":
-        new_path2 = path + "/" + "ExternalAccountProviders"
-
-    elif (new_seg == "Log") and (curr_entitytype == "Memory"):
-        new_path = path + "/" + "DeviceLog"
-
-    # If we had to apply special handling then we need to remove the inital
-    # version of the URI if it was previously added
-    if new_path2 != "":
-        if new_path in seen_paths:
-            seen_paths.remove(new_path)
-        new_path = new_path2
 
     # No need to parse the new URI if we've already done so
     if new_path in seen_paths:

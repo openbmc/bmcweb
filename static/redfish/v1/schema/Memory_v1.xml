@@ -547,6 +547,7 @@
           <Annotation Term="OData.Description" String="The link to the metrics associated with this memory device."/>
           <Annotation Term="OData.LongDescription" String="The link to the metrics associated with this memory device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.UriSegment" String="MemoryMetrics"/>
         </NavigationProperty>
         <Property Name="Actions" Type="Memory.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -1864,6 +1865,7 @@
           <Annotation Term="OData.Description" String="The link to the log service associated with this memory."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type LogService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.UriSegment" String="DeviceLog"/>
         </NavigationProperty>
         <NavigationProperty Name="OperatingSpeedRangeMHz" Type="Control.Control">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>

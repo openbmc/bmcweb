@@ -447,6 +447,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The additional external account providers that this account service uses."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ExternalAccountProviderCollection that represents the additional external account providers that this account service uses."/>
+          <Annotation Term="Redfish.UriSegment" String="ExternalAccountProviders"/>
         </NavigationProperty>
       </EntityType>
 

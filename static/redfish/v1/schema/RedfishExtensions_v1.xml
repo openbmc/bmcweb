@@ -151,6 +151,9 @@
       <Term Name="License" Type="Edm.String">
         <Annotation Term="OData.Description" String="The term specifies licensing information for a Redfish schema or registry."/>
       </Term>
+      <Term Name="UriSegment" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies the segment appended to the URI for a given route when it differs from the key Name."/>
+      </Term>
 
       <EnumType Name="ReleaseStatusType">
         <Member Name="Standard">

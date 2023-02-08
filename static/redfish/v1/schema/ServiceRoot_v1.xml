@@ -204,6 +204,7 @@
           <Annotation Term="OData.Description" String="The link to the task service."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type TaskService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.UriSegment" String="TaskService"/>
         </NavigationProperty>
         <NavigationProperty Name="SessionService" Type="SessionService.SessionService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>

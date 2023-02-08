@@ -195,12 +195,14 @@
           <Annotation Term="OData.Description" String="The Requestor Virtual Channel Action Table for the component."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type VCATEntryCollection, and shall represent the Gen-Z Core Specification-defined REQ-VCAT structure."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.UriSegment" String="REQ-VCAT"/>
         </NavigationProperty>
         <NavigationProperty Name="ResponderVCAT" Type="VCATEntryCollection.VCATEntryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Responder Virtual Channel Action Table for the component."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type VCATEntryCollection, and shall represent the Gen-Z Core Specification-defined RSP-VCAT structure."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.UriSegment" String="RES-VCAT"/>
         </NavigationProperty>
         <Property Name="RITable" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>

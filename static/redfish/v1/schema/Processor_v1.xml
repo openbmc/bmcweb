@@ -722,6 +722,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the metrics associated with this processor."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ProcessorMetrics that contains the metrics associated with this processor."/>
+          <Annotation Term="Redfish.UriSegment" String="ProcessorMetrics"/>
         </NavigationProperty>
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
