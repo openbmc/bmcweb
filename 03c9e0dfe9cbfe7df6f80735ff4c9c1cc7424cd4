@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e54fc42e_9b1b2cf0",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-08T06:54:27Z",
+      "side": 1,
+      "message": "I am not sure, may be @Ed or @Gunner can answer.",
+      "parentUuid": "3228c7a8_08ccf991",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b247a434_1f436e9a",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 54
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "\u003e Most of the implementation that I looked used dbus::utility::getSubTree.\n\nThis is not a reason to use GetSubTree, if you just need to get all object paths, then GetSubTreePaths is an appropriate choice. If you plan to use **servicename** and **interfaces**, then you should choose GetSubTree.",
       "parentUuid": "c7b72b86_e0f99d45",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60718d7c_c53f548f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-08T06:54:27Z",
+      "side": 1,
+      "message": "Fixed the code to return serviceMap which will be used in next commits.",
+      "parentUuid": "1166c280_ea31020f",
       "range": {
         "startLine": 71,
         "startChar": 19,
