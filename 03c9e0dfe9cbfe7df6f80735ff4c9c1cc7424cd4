@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3228c7a8_08ccf991",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-08T00:13:37Z",
+      "side": 1,
+      "message": "\u003e boost::system::errc::io_error is a more generic error code for I/O failures.\n\u003e \n\u003e boost::system::linux_error::bad_request_descriptor is a specific error code when a bad file descriptor is passed to a function.\n\nYes, I see\nSo my question is: Do we only need `boost::system::errc::io_error` here?",
+      "parentUuid": "bd53cfd3_270f8e50",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b247a434_1f436e9a",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 54
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "I expected to see it used in the commits above but I don\u0027t",
       "parentUuid": "4754bf94_a5e06c5b",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "03c9e0dfe9cbfe7df6f80735ff4c9c1cc7424cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1166c280_ea31020f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-08T00:13:37Z",
+      "side": 1,
+      "message": "\u003e Most of the implementation that I looked used dbus::utility::getSubTree.\n\nThis is not a reason to use GetSubTree, if you just need to get all object paths, then GetSubTreePaths is an appropriate choice. If you plan to use **servicename** and **interfaces**, then you should choose GetSubTree.",
+      "parentUuid": "c7b72b86_e0f99d45",
       "range": {
         "startLine": 71,
         "startChar": 19,
