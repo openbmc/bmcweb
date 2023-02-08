@@ -16,6 +16,24 @@
       "message": "Why do you need the getDbusObject call if you already have a GetSubTree call?",
       "revId": "3dda37144acb7811065ecad766d4e1dbfc32b916",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbae91e0_86bca76f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-08T07:31:25Z",
+      "side": 1,
+      "message": "Removed call to getDbusObject and used serviceMap from GetSubTree.",
+      "parentUuid": "fe073806_653a5830",
+      "revId": "3dda37144acb7811065ecad766d4e1dbfc32b916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
