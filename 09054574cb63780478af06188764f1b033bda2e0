@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc811cc_40147e6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-08T21:37:24Z",
+      "side": 1,
+      "message": "Ack. The purpose of having this, is so the client knows aggregation is supported and some the resources might be aggregated. The resource itsel,f as is, isn\u0027t much but makes sense we have it for the use case mentioned.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "09054574cb63780478af06188764f1b033bda2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27bb154a_b827d9df",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-08T21:37:24Z",
+      "side": 1,
+      "message": "Nitpick: Description ?\nI almost think Description should be above in common properties.",
+      "revId": "09054574cb63780478af06188764f1b033bda2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85dbd2b9_4d085610",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-08T21:37:24Z",
+      "side": 1,
+      "message": "Nitpick ServiceEnabled?",
+      "revId": "09054574cb63780478af06188764f1b033bda2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd49950f_1e2bdc2d",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-08T21:37:24Z",
+      "side": 1,
+      "message": "I don\u0027t see all of these includes used",
+      "revId": "09054574cb63780478af06188764f1b033bda2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
