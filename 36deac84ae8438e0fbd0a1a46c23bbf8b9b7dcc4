@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84c7768_23a7c67a",
+        "filename": "test/redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-08T19:03:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b0e1e383_9a9add21",
+      "range": {
+        "startLine": 741,
+        "startChar": 0,
+        "endLine": 743,
+        "endChar": 76
+      },
+      "revId": "36deac84ae8438e0fbd0a1a46c23bbf8b9b7dcc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cae9afff_199ad17c",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-08T05:33:53Z",
       "side": 1,
       "message": "This test fails.  I think it\u0027s also returning \"/redfish/v1/Chassis/5B247A_Sat1/Sensors\"",
+      "range": {
+        "startLine": 782,
+        "startChar": 0,
+        "endLine": 785,
+        "endChar": 71
+      },
+      "revId": "36deac84ae8438e0fbd0a1a46c23bbf8b9b7dcc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17cc60e0_0b67dd48",
+        "filename": "test/redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-08T19:03:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cae9afff_199ad17c",
       "range": {
         "startLine": 782,
         "startChar": 0,
