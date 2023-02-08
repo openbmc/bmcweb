@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00fca99d_d5b5fec0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-02-08T16:14:59Z",
+      "side": 1,
+      "message": "Added initialization for \"state\"\"health\". Also talked to Lakshmi and Myung about it and they are fine with how states are set.",
+      "parentUuid": "7e4feb47_1c7a21fc",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "2a2b053e8099499ea9882d59c9e27f3ab1b696d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d4404c0_39bea291",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "These are summary states across multiple CPU and memory. Hence we can not mark them critical based on single memory or CPU state.",
       "parentUuid": "1d4404c0_39bea291",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 5
+      },
+      "revId": "2a2b053e8099499ea9882d59c9e27f3ab1b696d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655f2f21_af8b3af8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-02-08T16:14:59Z",
+      "side": 1,
+      "message": "I talked to Myung and he is fine with it.",
+      "parentUuid": "a95a9053_0d7b5421",
       "range": {
         "startLine": 123,
         "startChar": 0,
