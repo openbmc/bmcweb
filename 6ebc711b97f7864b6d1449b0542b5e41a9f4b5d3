@@ -16,6 +16,29 @@
       "message": "This feature is intentionally not enabled because the last time we turned it on, it broke things.  Presumably you\u0027ve debugged that and made sure that it works in all cases?  Including cases where no PCIeSlots exist?\n\nIt should also be noted, this schema is pretty likely to be deprecated by DMTF shortly, so I\u0027m not sure I see the value in having it on OpenBMC.",
       "revId": "6ebc711b97f7864b6d1449b0542b5e41a9f4b5d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d594349_4d54a86f",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-08T13:11:40Z",
+      "side": 1,
+      "message": "If slotType is not empty but dbusSlotTypeToRf() return invalid, the output will become \"Invalid\" instead of not showing the output.\n\nFor example, we have the case slotType is \"xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown\".\n\nI think it can be done by ignoring \"invalid\" slotType like.\n\n```\n        pcie_slots::SlotTypes redfishSlotType \u003d dbusSlotTypeToRf(*slotType);\n        if (slotType-\u003eempty())\n        {\n            messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n+        if(redfishSlotType !\u003d pcie_slot::SlotTypes::Invalid)\n+         {\n+            slot[\"SlotType\"] \u003d redfishSlotType;\n+        }\n```\n\nOR do similar to  redfishPcieGenerationFromDbus() using std::optional\u003c\u003e\n\n```\n       std::optional\u003cpcie_slots::SlotTypes\u003e redfishSlotType \u003d\n            dbusSlotTypeToRf(*slotType);\n        if (!redfishSlotType)\n        {\n            messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n        if (*redfishSlotType !\u003d pcie_slots::SlotTypes::Invalid)\n        {\n            slot[\"SlotType\"] \u003d *redfishSlotType;\n        }\n```",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 43
+      },
+      "revId": "6ebc711b97f7864b6d1449b0542b5e41a9f4b5d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
