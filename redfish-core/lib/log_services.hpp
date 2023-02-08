@@ -2338,7 +2338,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
             "/redfish/v1/Managers/bmc/LogServices/Journal";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
         asyncResp->res.jsonValue["Description"] = "BMC Journal Log Service";
-        asyncResp->res.jsonValue["Id"] = "BMC Journal";
+        asyncResp->res.jsonValue["Id"] = "Journal";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
@@ -3541,7 +3541,7 @@ inline void requestRoutesPostCodesLogService(App& app)
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
-        asyncResp->res.jsonValue["Id"] = "BIOS POST Code Log";
+        asyncResp->res.jsonValue["Id"] = "PostCodes";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
