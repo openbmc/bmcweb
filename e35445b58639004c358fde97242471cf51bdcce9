@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2eed5de_c1c7acf8",
+        "filename": "http/routing.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-02-09T15:42:08Z",
+      "side": 1,
+      "message": "If you want to move variable you should pass it via \u0026\u0026 or by copy. Passing it by non const reference hides your intention.\n\nSince std::span was introduces it would be better to pass it via span and make explicit copy in BaseRule",
+      "range": {
+        "startLine": 350,
+        "startChar": 27,
+        "endLine": 350,
+        "endChar": 68
+      },
+      "revId": "e35445b58639004c358fde97242471cf51bdcce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75be6c04_f5813380",
+        "filename": "http/routing.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-02-09T15:42:08Z",
+      "side": 1,
+      "message": "bmcweb tries to avoid using templates when it is possible. Use std::span instead of std::array",
+      "range": {
+        "startLine": 569,
+        "startChar": 4,
+        "endLine": 571,
+        "endChar": 30
+      },
+      "revId": "e35445b58639004c358fde97242471cf51bdcce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
