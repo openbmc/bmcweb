@@ -22,6 +22,30 @@
       },
       "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56710f81_1ea70a58",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-02-09T10:34:26Z",
+      "side": 1,
+      "message": "I updated phosphor dbus interfaces, you can see related commit here:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/60750",
+      "parentUuid": "33b8a669_3d689d8d",
+      "range": {
+        "startLine": 618,
+        "startChar": 60,
+        "endLine": 618,
+        "endChar": 69
+      },
+      "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
