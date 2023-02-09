@@ -232,7 +232,8 @@ class Connection :
             forward_unauthorized::sendUnauthorized(
                 req->url().encoded_path(),
                 req->getHeaderValue("X-Requested-With"),
-                req->getHeaderValue("Accept"), res);
+                req->getHeaderValue("Accept"),
+                req->getHeaderValue("User-Agent"), res);
             completeRequest(res);
             return;
         }
