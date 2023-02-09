@@ -156,7 +156,6 @@ add_project_arguments(
     '-Wno-used-but-marked-unused',
     '-Wno-weak-vtables',
     '-Wno-switch-enum',
-    '-fconstexpr-steps=2000000',
   ]),
   language:'cpp')
 endif

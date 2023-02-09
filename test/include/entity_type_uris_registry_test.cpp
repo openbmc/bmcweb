@@ -43,8 +43,9 @@ inline bool uriMatchesPath(std::string_view uri, std::string_view path)
     return true;
 }
 
-inline std::string_view findEntityType(std::string_view uri)
+inline std::string_view findEntityType(std::string_view /*uri*/)
 {
+  /*
     for (const Path& entityType : topCollections)
     {
         if (uriMatchesPath(uri, entityType.path))
@@ -52,6 +53,7 @@ inline std::string_view findEntityType(std::string_view uri)
             return entityType.type;
         }
     }
+    */
     return "";
 }
 

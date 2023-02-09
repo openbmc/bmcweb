@@ -9,6 +9,7 @@
 
 import os
 import xml.etree.ElementTree as ET
+import copy
 
 WARNING = """/****************************************************************
  *                 READ THIS WARNING FIRST
@@ -46,8 +47,6 @@ def parse_node(
     found_top,
     xml_file,
 ):
-    filename = xml_file.split("_")[0]
-
     filepath = os.path.join(REDFISH_SCHEMA_DIR, xml_file)
 
     # Bail if we are attempting to open a schema we haven't pulled in.  This
@@ -55,7 +54,7 @@ def parse_node(
     if not os.path.exists(filepath):
         return
 
-    uri_to_entity_map[path] = filename
+    uri_to_entity_map[path] = target_entitytype
 
     tree = ET.parse(filepath)
     root = tree.getroot()
@@ -250,7 +249,6 @@ def parse_navigation_property(
     # These are "Property" instead of "NavigationProperty", but should still
     # appear in the path
     if new_seg == "AccountService" or new_seg == "RemoteAccountService":
-        print(f"nav_name{nav_name}")
         for node_name in ("ActiveDirectory", "LDAP"):
             parse_node(
                 "ExternalAccountProvider",
@@ -321,6 +319,40 @@ def parse_navigation_property(
         )
 
 
+def parse_trie(top_collections, registry, path, root):
+    root_copy = copy.copy(root)
+    typename = root_copy.pop("__index", None)
+    for key, value in sorted(root_copy.items()):
+        if key == "[*]":
+            key = "wildcard"
+
+        if not isinstance(value, str):
+            new_collections = []
+            for uri in top_collections:
+              uri = uri.split("/")
+              if uri[0] == key:
+                new_collections.append("/".join(uri[1:]))
+            parse_trie(new_collections, registry, path + "_" + key.replace(".", "_"), value)
+
+    registry.write(
+        f"constexpr std::array<Path, {len(root_copy)}> {path}{{{{\n"
+    )
+    lines = []
+    for key, value in sorted(root_copy.items()):
+        if key == "[*]":
+            key = "wildcard"
+        if isinstance(value, str):
+            typename = value
+        else:
+            typename = ""
+        typename = value.get("__index", "")
+        is_top = str(key in top_collections).lower()
+        new_path = path + "_" + key.replace(".", "_")
+        lines.append(f'    {{"{key}", "{typename}", {is_top}, {{{new_path}}}}}')
+    registry.write(",\n".join(lines))
+    registry.write("\n}};\n\n")
+
+
 def generate_top_collections(uri_to_entity_map, top_collections):
     # We need to separately track top level resources as well as all URIs that
     # are upstream from a top level resource.  We shouldn't combine these into
@@ -337,6 +369,20 @@ def generate_top_collections(uri_to_entity_map, top_collections):
     # CompositionService is not a top level collection.
 
     # Contains URIs for all top level collections
+
+    root = {}
+    for uri, typename in uri_to_entity_map.items():
+        current = root
+        for element in uri[1:].split("/"):
+            if element == "":
+                continue
+            if element not in current:
+                current[element] = {}
+
+            current = current[element]
+
+        current["__index"] = typename
+
     with open(CPP_OUTFILE, "w") as registry:
         registry.write(
             "#pragma once\n"
@@ -344,6 +390,7 @@ def generate_top_collections(uri_to_entity_map, top_collections):
             "// clang-format off\n"
             "#include <array>\n"
             "#include <utility>\n"
+            "#include <span>\n"
             "#include <string_view>\n"
             "\n"
             "namespace redfish\n"
@@ -351,20 +398,12 @@ def generate_top_collections(uri_to_entity_map, top_collections):
             "\n"
             "struct Path{{\n"
             "    std::string_view path;\n"
-            "    std::string_view type;\n"
+            "    std::string_view typeName;\n"
             "    bool isTop;\n"
-            "}};\n\n"
-            "constexpr std::array<Path, {}> topCollections".format(
-                WARNING, len(uri_to_entity_map)
-            )
+            "    std::span<const Path> children;\n"
+            "}};\n\n".format(WARNING)
         )
-        registry.write("{{\n")
-        for uri, typename in sorted(uri_to_entity_map.items()):
-            is_top = str(uri in top_collections).lower()
-            registry.write("  {")
-            registry.write(f'"{uri}", "{typename}", {is_top}')
-            registry.write("},\n")
-        registry.write("}};\n")
+        parse_trie([a[1:] for a in top_collections], registry, "redfish_v1", root)
 
         registry.write("\n} // namespace redfish\n")
 
