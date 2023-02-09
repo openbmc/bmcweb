@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2fae9b6_d63c0251",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-09T03:53:47Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e for std::bind_front and std::ref",
+      "revId": "7dc9098421e8fcb18578e50ff1228a199ab48a11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96145c0c_c1919237",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-09T03:53:47Z",
+      "side": 1,
+      "message": "get",
+      "range": {
+        "startLine": 56,
+        "startChar": 41,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "7dc9098421e8fcb18578e50ff1228a199ab48a11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
