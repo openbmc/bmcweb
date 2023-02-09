@@ -117,6 +117,30 @@
       },
       "revId": "db37f3fba95321bcb27b1ca25c320e94c013aab3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8f1e3d9_5ac7a575",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-02-09T15:33:47Z",
+      "side": 1,
+      "message": "Yes. I did Run Redfish Validator and it Passed.\n\nAlso, I chose few endpoints at random to perform some manual testing as well.\nFew of which i have called it out in the TESTED section.\nIt covers both Positive and Failure Cases.",
+      "parentUuid": "95eb6f60_a1777cb0",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "db37f3fba95321bcb27b1ca25c320e94c013aab3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
