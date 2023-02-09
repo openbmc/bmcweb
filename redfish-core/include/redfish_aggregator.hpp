@@ -66,14 +66,18 @@ struct PathComparer
 
 inline bool uriIsTopCollection(const boost::urls::url_view& url)
 {
-    std::string_view str = url.buffer();
-    auto range = std::equal_range(topCollections.begin(), topCollections.end(),
-                                  str, PathComparer{});
-    if (range.first == range.second)
-    {
+    std::span<const Path> current = redfish_v1;
+    for (const auto& segment: url.segments()){
+      auto route = std::find_if(current.begin(), current.end(), [segment](const Path& path){
+        return segment == path.path;
+      });
+      if (route == current.end()){
         return false;
+      }
+      current = route->children;
     }
-    return range.first->isTop;
+    // TODO(ed) need isTop
+    return true;
 }
 
 static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
