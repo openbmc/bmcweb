@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "167524be_dbfecc3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-09T17:33:22Z",
+      "side": 1,
+      "message": "I\u0027d be surprised if anyone took issue with this, because we\u0027re following the spec, and I have yet to see a client that actually looks at Id.  Lets get service validator passing.  As always, happy to discuss if people think there\u0027s a compatibility problem here, but I doubt it.",
+      "revId": "54a5107d3afd2212af660a097b4408c043a470f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
