@@ -48,6 +48,11 @@ inline void sendUnauthorized(std::string_view url,
     {
         return;
     }
-    res.addHeader(boost::beast::http::field::www_authenticate, "Basic");
+    // To avoid the browser's authentication pop-up window,
+    // restrict the "www-authenticate" header in web requests.
+    if (!hasWebuiRoute)
+    {
+        res.addHeader(boost::beast::http::field::www_authenticate, "Basic");
+    }
 }
 } // namespace forward_unauthorized
