@@ -196,6 +196,15 @@ option(
 )
 
 option(
+    'extend-timer',
+    type: 'integer',
+    min: 0,
+    max: 60,
+    value: 6,
+    description: 'Specifies the task extension timer'
+)
+
+option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
     value: 'disabled',
