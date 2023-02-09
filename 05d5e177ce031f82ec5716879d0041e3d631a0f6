@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a553ecd_df51fd39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-09T00:16:18Z",
+      "side": 1,
+      "message": "I got George a build. Would like him to give an okay that https://github.com/openbmc/openbmc-test-automation is good.",
+      "revId": "05d5e177ce031f82ec5716879d0041e3d631a0f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
