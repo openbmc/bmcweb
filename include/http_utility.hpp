@@ -41,6 +41,22 @@ constexpr std::array<ContentTypePair, 4> contentTypes{{
     {"text/html", ContentType::HTML},
 }};
 
+static const std::array<std::string, 8> userAgentTypes = {
+    "AppleWebKit", "Chrome", "Edg",   "Firefox",
+    "Mozilla",     "OPR",    "Opera", "Safari",
+};
+
+inline bool checkUserAgent(std::string_view userAgent, bool isUserAgentMatched)
+{
+    for (const auto& type : userAgentTypes)
+    {
+        size_t found = userAgent.find(type);
+        if (found != std::string::npos)
+            return isUserAgentMatched;
+    }
+    return !isUserAgentMatched;
+}
+
 inline ContentType
     getPreferedContentType(std::string_view header,
                            std::span<const ContentType> preferedOrder)
