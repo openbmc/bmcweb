@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3777f6a2_81685ff5",
+        "filename": "http/routing.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-09T17:31:56Z",
+      "side": 1,
+      "message": "Same as above, use span rather than creating an array template.",
+      "range": {
+        "startLine": 40,
+        "startChar": 50,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "06172191f4eca9960e587dfc826a7c241287ac22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a15d74e_334b3028",
+        "filename": "http/routing.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-09T17:31:56Z",
+      "side": 1,
+      "message": "Why two constructors?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "06172191f4eca9960e587dfc826a7c241287ac22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791f2e3a_8a42172d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-09T17:31:56Z",
+      "side": 1,
+      "message": "Please don\u0027t use the Redfish namespace in a non-Redfish backend.",
+      "range": {
+        "startLine": 743,
+        "startChar": 17,
+        "endLine": 743,
+        "endChar": 24
+      },
+      "revId": "06172191f4eca9960e587dfc826a7c241287ac22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b002cdd_5e074218",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-09T17:31:56Z",
+      "side": 1,
+      "message": "There are lots more examples, but I\u0027ll call this one out as well, this is not a redfish URI.  Please fix all of them.",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "06172191f4eca9960e587dfc826a7c241287ac22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c210bd79_378b9a6f",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-09T17:31:56Z",
+      "side": 1,
+      "message": "Why were these copied and pasted from here:\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/privilege_registry.hpp#L20\n\nThis is certainly not the right place for individual privilege definitions.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 0
+      },
+      "revId": "06172191f4eca9960e587dfc826a7c241287ac22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
