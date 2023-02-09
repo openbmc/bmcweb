@@ -16,6 +16,23 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60390 is the alternative",
       "revId": "b292c3ee465e79bd0142c2e45c82510829c8c0af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacf8c89_5bb36d73",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-02-09T19:24:13Z",
+      "side": 1,
+      "message": "If userSession is not active and async_read_some returns partial data then we are calling startDeadline() timer without canceling earlier one.",
+      "revId": "b292c3ee465e79bd0142c2e45c82510829c8c0af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
