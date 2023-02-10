@@ -47,11 +47,13 @@ inline void
                                 const bool populateLinkToImages)
 {
     // Used later to determine running (known on Redfish as active) Sw images
-    dbus::utility::getAssociationEndPoints(
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/software/functional",
-        [aResp, swVersionPurpose, activeVersionPropName, populateLinkToImages](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperEndPoints& functionalSw) {
+        "xyz.openbmc_project.Association", "endpoints",
+        [aResp, swVersionPurpose, activeVersionPropName,
+         populateLinkToImages](const boost::system::error_code ec,
+                               const std::vector<std::string>& functionalSw) {
         BMCWEB_LOG_DEBUG << "populateSoftwareInformation enter";
         if (ec)
         {
@@ -74,8 +76,9 @@ inline void
         // example functionalSw:
         // v as 2 "/xyz/openbmc_project/software/ace821ef"
         //        "/xyz/openbmc_project/software/230fb078"
-        for (const auto& path : functionalSw)
+        for (const auto& sw : functionalSw)
         {
+            sdbusplus::message::object_path path(sw);
             std::string leaf = path.filename();
             if (leaf.empty())
             {
