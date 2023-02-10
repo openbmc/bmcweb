@@ -3,7 +3,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
-#include "generated/enums/pcie_slot.hpp"
+#include "generated/enums/pcie_slots.hpp"
 #include "pcie.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
@@ -20,53 +20,53 @@
 namespace redfish
 {
 
-inline pcie_slot::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
+inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
     {
-        return pcie_slot::SlotTypes::FullLength;
+        return pcie_slots::SlotTypes::FullLength;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.HalfLength")
     {
-        return pcie_slot::SlotTypes::HalfLength;
+        return pcie_slots::SlotTypes::HalfLength;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.LowProfile")
     {
-        return pcie_slot::SlotTypes::LowProfile;
+        return pcie_slots::SlotTypes::LowProfile;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Mini")
     {
-        return pcie_slot::SlotTypes::Mini;
+        return pcie_slots::SlotTypes::Mini;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.M_2")
     {
-        return pcie_slot::SlotTypes::M2;
+        return pcie_slots::SlotTypes::M2;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OEM")
     {
-        return pcie_slot::SlotTypes::OEM;
+        return pcie_slots::SlotTypes::OEM;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Small")
     {
-        return pcie_slot::SlotTypes::OCP3Small;
+        return pcie_slots::SlotTypes::OCP3Small;
     }
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Large")
     {
-        return pcie_slot::SlotTypes::OCP3Large;
+        return pcie_slots::SlotTypes::OCP3Large;
     }
     if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2")
     {
-        return pcie_slot::SlotTypes::U2;
+        return pcie_slots::SlotTypes::U2;
     }
 
     // Unknown or others
-    return pcie_slot::SlotTypes::Invalid;
+    return pcie_slots::SlotTypes::Invalid;
 }
 
 inline void
@@ -130,8 +130,8 @@ inline void
 
     if (slotType != nullptr)
     {
-        std::string redfishSlotType = dbusSlotTypeToRf(*slotType);
-        if (!slotType.empty())
+        pcie_slots::SlotTypes redfishSlotType = dbusSlotTypeToRf(*slotType);
+        if (redfishSlotType == pcie_slots::SlotTypes::Invalid)
         {
             messages::internalError(asyncResp->res);
             return;
@@ -193,9 +193,9 @@ inline void onMapperAssociationDone(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code ec2,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-        onPcieSlotGetAllDone(asyncResp, ec, propertiesList);
+        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
         });
 }
 
@@ -241,10 +241,10 @@ inline void
             // it belongs to this ChassisID
             crow::connections::systemBus->async_method_call(
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
-                    const boost::system::error_code ec,
+                    const boost::system::error_code& ec2,
                     const std::variant<std::vector<std::string>>& endpoints) {
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
-                                        connectionName, ec, endpoints);
+                                        connectionName, ec2, endpoints);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 std::string{pcieSlotAssociationPath},
