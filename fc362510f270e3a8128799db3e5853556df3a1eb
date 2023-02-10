@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1c1d713_564fd4b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-10T19:36:39Z",
+      "side": 1,
+      "message": "As always, happy to discuss, but the likelihood anyone cares about this is basically zero.  It\u0027s a file that\u0027s been unused for a very long time, and doesn\u0027t meet our coding standard.  Any new code would use boost, so this can go.",
+      "revId": "fc362510f270e3a8128799db3e5853556df3a1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
