@@ -56,7 +56,7 @@ class BaseRule
 
     virtual void handle(const Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
-                        const RoutingParams&) = 0;
+                        const std::vector<std::string>&) = 0;
 #ifndef BMCWEB_ENABLE_SSL
     virtual void
         handleUpgrade(const Request& /*req*/,
@@ -131,82 +131,34 @@ template <typename H1>
 struct CallParams
 {
     H1& handler;
-    const RoutingParams& params;
+    const std::vector<std::string>& params;
     const Request& req;
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp;
 };
 
-template <typename F, int NInt, int NUint, int NDouble, int NString,
-          typename S1, typename S2>
+template <typename F, int NString, typename S1, typename S2>
 struct Call
 {};
 
-template <typename F, int NInt, int NUint, int NDouble, int NString,
-          typename... Args1, typename... Args2>
-struct Call<F, NInt, NUint, NDouble, NString, black_magic::S<int64_t, Args1...>,
+template <typename F, int NString, typename... Args1, typename... Args2>
+struct Call<F, NString, black_magic::S<std::string, Args1...>,
             black_magic::S<Args2...>>
-{
-    void operator()(F cparams)
-    {
-        using pushed = typename black_magic::S<Args2...>::template push_back<
-            CallPair<int64_t, NInt>>;
-        Call<F, NInt + 1, NUint, NDouble, NString, black_magic::S<Args1...>,
-             pushed>()(cparams);
-    }
-};
-
-template <typename F, int NInt, int NUint, int NDouble, int NString,
-          typename... Args1, typename... Args2>
-struct Call<F, NInt, NUint, NDouble, NString,
-            black_magic::S<uint64_t, Args1...>, black_magic::S<Args2...>>
-{
-    void operator()(F cparams)
-    {
-        using pushed = typename black_magic::S<Args2...>::template push_back<
-            CallPair<uint64_t, NUint>>;
-        Call<F, NInt, NUint + 1, NDouble, NString, black_magic::S<Args1...>,
-             pushed>()(cparams);
-    }
-};
-
-template <typename F, int NInt, int NUint, int NDouble, int NString,
-          typename... Args1, typename... Args2>
-struct Call<F, NInt, NUint, NDouble, NString, black_magic::S<double, Args1...>,
-            black_magic::S<Args2...>>
-{
-    void operator()(F cparams)
-    {
-        using pushed = typename black_magic::S<Args2...>::template push_back<
-            CallPair<double, NDouble>>;
-        Call<F, NInt, NUint, NDouble + 1, NString, black_magic::S<Args1...>,
-             pushed>()(cparams);
-    }
-};
-
-template <typename F, int NInt, int NUint, int NDouble, int NString,
-          typename... Args1, typename... Args2>
-struct Call<F, NInt, NUint, NDouble, NString,
-            black_magic::S<std::string, Args1...>, black_magic::S<Args2...>>
 {
     void operator()(F cparams)
     {
         using pushed = typename black_magic::S<Args2...>::template push_back<
             CallPair<std::string, NString>>;
-        Call<F, NInt, NUint, NDouble, NString + 1, black_magic::S<Args1...>,
-             pushed>()(cparams);
+        Call<F, NString + 1, black_magic::S<Args1...>, pushed>()(cparams);
     }
 };
 
-template <typename F, int NInt, int NUint, int NDouble, int NString,
-          typename... Args1>
-struct Call<F, NInt, NUint, NDouble, NString, black_magic::S<>,
-            black_magic::S<Args1...>>
+template <typename F, int NString, typename... Args1>
+struct Call<F, NString, black_magic::S<>, black_magic::S<Args1...>>
 {
     void operator()(F cparams)
     {
-        cparams.handler(
-            cparams.req, cparams.asyncResp,
-            cparams.params.template get<typename Args1::type>(Args1::pos)...);
+        cparams.handler(cparams.req, cparams.asyncResp,
+                        cparams.params[Args1::pos]...);
     }
 };
 
@@ -289,8 +241,7 @@ struct Wrapped
         using type = std::function<void(
             const crow::Request& /*req*/,
             const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
-        using args_type =
-            black_magic::S<typename black_magic::PromoteT<Args>...>;
+        using args_type = black_magic::S<Args...>;
     };
 
     template <typename... Args>
@@ -299,8 +250,7 @@ struct Wrapped
         using type = std::function<void(
             const crow::Request& /*req*/,
             const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
-        using args_type =
-            black_magic::S<typename black_magic::PromoteT<Args>...>;
+        using args_type = black_magic::S<Args...>;
     };
 
     template <typename... Args>
@@ -310,19 +260,18 @@ struct Wrapped
         using type = std::function<void(
             const crow::Request& /*req*/,
             const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
-        using args_type =
-            black_magic::S<typename black_magic::PromoteT<Args>...>;
+        using args_type = black_magic::S<Args...>;
     };
 
     typename HandlerTypeHelper<ArgsWrapped...>::type handler;
 
     void operator()(const Request& req,
                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                    const RoutingParams& params)
+                    const std::vector<std::string>& params)
     {
         detail::routing_handler_call_helper::Call<
             detail::routing_handler_call_helper::CallParams<decltype(handler)>,
-            0, 0, 0, 0, typename HandlerTypeHelper<ArgsWrapped...>::args_type,
+            0, typename HandlerTypeHelper<ArgsWrapped...>::args_type,
             black_magic::S<>>()(
             detail::routing_handler_call_helper::CallParams<decltype(handler)>{
                 handler, params, req, asyncResp});
@@ -344,7 +293,7 @@ class WebSocketRule : public BaseRule
 
     void handle(const Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const RoutingParams& /*params*/) override
+                const std::vector<std::string>& /*params*/) override
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
@@ -526,7 +475,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
 
     void handle(const Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const RoutingParams& params) override
+                const std::vector<std::string>& params) override
     {
         erasedHandler(req, asyncResp, params);
     }
@@ -547,20 +496,11 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     template <typename Func, unsigned... Indices>
     std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
-                       const RoutingParams&)>
+                       const std::vector<std::string>&)>
         wrap(Func f, std::integer_sequence<unsigned, Indices...> /*is*/)
     {
         using function_t = crow::utility::FunctionTraits<Func>;
 
-        if (!black_magic::isParameterTagCompatible(
-                black_magic::getParameterTag(rule.c_str()),
-                black_magic::computeParameterTagFromArgsList<
-                    typename function_t::template arg<Indices>...>::value))
-        {
-            throw std::runtime_error("routeDynamic: Handler type is mismatched "
-                                     "with URL parameters: " +
-                                     rule);
-        }
         auto ret = detail::routing_handler_call_helper::Wrapped<
             Func, typename function_t::template arg<Indices>...>();
         ret.template set<typename function_t::template arg<Indices>...>(
@@ -578,7 +518,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
   private:
     std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
-                       const RoutingParams&)>
+                       const std::vector<std::string>&)>
         erasedHandler;
 };
 
@@ -603,70 +543,13 @@ class TaggedRule :
     }
 
     template <typename Func>
-    typename std::enable_if<
-        black_magic::CallHelper<Func, black_magic::S<Args...>>::value,
-        void>::type
-        operator()(Func&& f)
+    void operator()(Func&& f)
     {
         static_assert(
-            black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                black_magic::CallHelper<
-                    Func, black_magic::S<crow::Request, Args...>>::value,
-            "Handler type is mismatched with URL parameters");
-        static_assert(
-            !std::is_same<void, decltype(f(std::declval<Args>()...))>::value,
-            "Handler function cannot have void return type; valid return "
-            "types: "
-            "string, int, crow::response, nlohmann::json");
-
-        handler = [f = std::forward<Func>(f)](
-                      const Request&,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      Args... args) { asyncResp->res.result(f(args...)); };
-    }
-
-    template <typename Func>
-    typename std::enable_if<
-        !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
             black_magic::CallHelper<
-                Func, black_magic::S<crow::Request, Args...>>::value,
-        void>::type
-        operator()(Func&& f)
-    {
-        static_assert(
-            black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                black_magic::CallHelper<
-                    Func, black_magic::S<crow::Request, Args...>>::value,
-            "Handler type is mismatched with URL parameters");
-        static_assert(
-            !std::is_same<void, decltype(f(std::declval<crow::Request>(),
-                                           std::declval<Args>()...))>::value,
-            "Handler function cannot have void return type; valid return "
-            "types: "
-            "string, int, crow::response,nlohmann::json");
-
-        handler = [f = std::forward<Func>(f)](
-                      const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      Args... args) { asyncResp->res.result(f(req, args...)); };
-    }
-
-    template <typename Func>
-    typename std::enable_if<
-        !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
-            !black_magic::CallHelper<
-                Func, black_magic::S<crow::Request, Args...>>::value,
-        void>::type
-        operator()(Func&& f)
-    {
-        static_assert(
-            black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                black_magic::CallHelper<
-                    Func, black_magic::S<crow::Request, Args...>>::value ||
-                black_magic::CallHelper<
-                    Func, black_magic::S<crow::Request,
-                                         std::shared_ptr<bmcweb::AsyncResp>&,
-                                         Args...>>::value,
+                Func, black_magic::S<crow::Request,
+                                     std::shared_ptr<bmcweb::AsyncResp>&,
+                                     Args...>>::value,
             "Handler type is mismatched with URL parameters");
         static_assert(
             std::is_same<
@@ -674,9 +557,7 @@ class TaggedRule :
                 decltype(f(std::declval<crow::Request>(),
                            std::declval<std::shared_ptr<bmcweb::AsyncResp>&>(),
                            std::declval<Args>()...))>::value,
-            "Handler function with response argument should have void "
-            "return "
-            "type");
+            "Handler function with response argument should have void return type");
 
         handler = std::forward<Func>(f);
     }
@@ -690,11 +571,11 @@ class TaggedRule :
 
     void handle(const Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const RoutingParams& params) override
+                const std::vector<std::string>& params) override
     {
         detail::routing_handler_call_helper::Call<
             detail::routing_handler_call_helper::CallParams<decltype(handler)>,
-            0, 0, 0, 0, black_magic::S<Args...>, black_magic::S<>>()(
+            0, black_magic::S<Args...>, black_magic::S<>>()(
             detail::routing_handler_call_helper::CallParams<decltype(handler)>{
                 handler, params, req, asyncResp});
     }
@@ -825,18 +706,18 @@ class Trie
         }
     }
 
-    std::pair<unsigned, RoutingParams>
-        find(std::string_view reqUrl, const Node* node = nullptr,
-             size_t pos = 0, RoutingParams* params = nullptr) const
+    std::pair<unsigned, std::vector<std::string>>
+        find(const std::string_view reqUrl, const Node* node = nullptr,
+             size_t pos = 0, std::vector<std::string>* params = nullptr) const
     {
-        RoutingParams empty;
+        std::vector<std::string> empty;
         if (params == nullptr)
         {
             params = &empty;
         }
 
         unsigned found{};
-        RoutingParams matchParams;
+        std::vector<std::string> matchParams;
 
         if (node == nullptr)
         {
@@ -848,81 +729,14 @@ class Trie
         }
 
         auto updateFound =
-            [&found, &matchParams](std::pair<unsigned, RoutingParams>& ret) {
+            [&found,
+             &matchParams](std::pair<unsigned, std::vector<std::string>>& ret) {
             if (ret.first != 0U && (found == 0U || found > ret.first))
             {
                 found = ret.first;
                 matchParams = std::move(ret.second);
             }
         };
-
-        if (node->paramChildrens[static_cast<size_t>(ParamType::INT)] != 0U)
-        {
-            char c = reqUrl[pos];
-            if ((c >= '0' && c <= '9') || c == '+' || c == '-')
-            {
-                char* eptr = nullptr;
-                errno = 0;
-                long long int value =
-                    std::strtoll(reqUrl.data() + pos, &eptr, 10);
-                if (errno != ERANGE && eptr != reqUrl.data() + pos)
-                {
-                    params->intParams.push_back(value);
-                    std::pair<unsigned, RoutingParams> ret =
-                        find(reqUrl,
-                             &nodes[node->paramChildrens[static_cast<size_t>(
-                                 ParamType::INT)]],
-                             static_cast<size_t>(eptr - reqUrl.data()), params);
-                    updateFound(ret);
-                    params->intParams.pop_back();
-                }
-            }
-        }
-
-        if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)] != 0U)
-        {
-            char c = reqUrl[pos];
-            if ((c >= '0' && c <= '9') || c == '+')
-            {
-                char* eptr = nullptr;
-                errno = 0;
-                unsigned long long int value =
-                    std::strtoull(reqUrl.data() + pos, &eptr, 10);
-                if (errno != ERANGE && eptr != reqUrl.data() + pos)
-                {
-                    params->uintParams.push_back(value);
-                    std::pair<unsigned, RoutingParams> ret =
-                        find(reqUrl,
-                             &nodes[node->paramChildrens[static_cast<size_t>(
-                                 ParamType::UINT)]],
-                             static_cast<size_t>(eptr - reqUrl.data()), params);
-                    updateFound(ret);
-                    params->uintParams.pop_back();
-                }
-            }
-        }
-
-        if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)] != 0U)
-        {
-            char c = reqUrl[pos];
-            if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
-            {
-                char* eptr = nullptr;
-                errno = 0;
-                double value = std::strtod(reqUrl.data() + pos, &eptr);
-                if (errno != ERANGE && eptr != reqUrl.data() + pos)
-                {
-                    params->doubleParams.push_back(value);
-                    std::pair<unsigned, RoutingParams> ret =
-                        find(reqUrl,
-                             &nodes[node->paramChildrens[static_cast<size_t>(
-                                 ParamType::DOUBLE)]],
-                             static_cast<size_t>(eptr - reqUrl.data()), params);
-                    updateFound(ret);
-                    params->doubleParams.pop_back();
-                }
-            }
-        }
 
         if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)] != 0U)
         {
@@ -937,15 +751,14 @@ class Trie
 
             if (epos != pos)
             {
-                params->stringParams.emplace_back(
-                    reqUrl.substr(pos, epos - pos));
-                std::pair<unsigned, RoutingParams> ret =
+                params->emplace_back(reqUrl.substr(pos, epos - pos));
+                std::pair<unsigned, std::vector<std::string>> ret =
                     find(reqUrl,
                          &nodes[node->paramChildrens[static_cast<size_t>(
                              ParamType::STRING)]],
                          epos, params);
                 updateFound(ret);
-                params->stringParams.pop_back();
+                params->pop_back();
             }
         }
 
@@ -955,15 +768,14 @@ class Trie
 
             if (epos != pos)
             {
-                params->stringParams.emplace_back(
-                    reqUrl.substr(pos, epos - pos));
-                std::pair<unsigned, RoutingParams> ret =
+                params->emplace_back(reqUrl.substr(pos, epos - pos));
+                std::pair<unsigned, std::vector<std::string>> ret =
                     find(reqUrl,
                          &nodes[node->paramChildrens[static_cast<size_t>(
                              ParamType::PATH)]],
                          epos, params);
                 updateFound(ret);
-                params->stringParams.pop_back();
+                params->pop_back();
             }
         }
 
@@ -974,7 +786,7 @@ class Trie
 
             if (reqUrl.compare(pos, fragment.size(), fragment) == 0)
             {
-                std::pair<unsigned, RoutingParams> ret =
+                std::pair<unsigned, std::vector<std::string>> ret =
                     find(reqUrl, child, pos + fragment.size(), params);
                 updateFound(ret);
             }
@@ -992,18 +804,16 @@ class Trie
             char c = url[i];
             if (c == '<')
             {
-                const static std::array<std::pair<ParamType, std::string>, 7>
+                constexpr static std::array<
+                    std::pair<ParamType, std::string_view>, 3>
                     paramTraits = {{
-                        {ParamType::INT, "<int>"},
-                        {ParamType::UINT, "<uint>"},
-                        {ParamType::DOUBLE, "<float>"},
-                        {ParamType::DOUBLE, "<double>"},
                         {ParamType::STRING, "<str>"},
                         {ParamType::STRING, "<string>"},
                         {ParamType::PATH, "<path>"},
                     }};
 
-                for (const std::pair<ParamType, std::string>& x : paramTraits)
+                for (const std::pair<ParamType, std::string_view>& x :
+                     paramTraits)
                 {
                     if (url.compare(i, x.second.size(), x.second) == 0)
                     {
@@ -1050,15 +860,6 @@ class Trie
                     2U * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
                 switch (static_cast<ParamType>(i))
                 {
-                    case ParamType::INT:
-                        BMCWEB_LOG_DEBUG << "<int>";
-                        break;
-                    case ParamType::UINT:
-                        BMCWEB_LOG_DEBUG << "<uint>";
-                        break;
-                    case ParamType::DOUBLE:
-                        BMCWEB_LOG_DEBUG << "<float>";
-                        break;
                     case ParamType::STRING:
                         BMCWEB_LOG_DEBUG << "<str>";
                         break;
@@ -1188,7 +989,7 @@ class Router
     struct FindRoute
     {
         BaseRule* rule = nullptr;
-        RoutingParams params;
+        std::vector<std::string> params;
     };
 
     struct FindRouteResponse
@@ -1206,7 +1007,8 @@ class Router
             return route;
         }
         const PerMethod& perMethod = perMethods[index];
-        std::pair<unsigned, RoutingParams> found = perMethod.trie.find(url);
+        std::pair<unsigned, std::vector<std::string>> found =
+            perMethod.trie.find(url);
         if (found.first >= perMethod.rules.size())
         {
             throw std::runtime_error("Trie internal structure corrupted!");
@@ -1409,7 +1211,7 @@ class Router
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
-        const std::pair<unsigned, RoutingParams>& found =
+        const std::pair<unsigned, std::vector<std::string>>& found =
             trie.find(req.url().encoded_path());
         unsigned ruleIndex = found.first;
         if (ruleIndex == 0U)
@@ -1504,7 +1306,7 @@ class Router
         }
 
         BaseRule& rule = *foundRoute.route.rule;
-        RoutingParams params = std::move(foundRoute.route.params);
+        std::vector<std::string> params = std::move(foundRoute.route.params);
 
         BMCWEB_LOG_DEBUG << "Matched rule '" << rule.rule << "' "
                          << static_cast<uint32_t>(*verb) << " / "

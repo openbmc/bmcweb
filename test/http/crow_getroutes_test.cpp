@@ -20,6 +20,7 @@ namespace crow
 namespace
 {
 
+using ::bmcweb::AsyncResp;
 using ::testing::Eq;
 using ::testing::IsEmpty;
 using ::testing::Pointee;
@@ -38,7 +39,9 @@ TEST(GetRoutes, TestOneRoute)
 {
     App app;
 
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/")
+    ([](const crow::Request& /*req*/,
+        const std::shared_ptr<AsyncResp>& /*asyncResp*/) {});
 
     // TODO: "/" doesn't get reported in |getRoutes| today. Uncomment this once
     // it is fixed
@@ -50,12 +53,18 @@ TEST(GetRoutes, TestOneRoute)
 TEST(GetRoutes, TestlotsOfRoutes)
 {
     App app;
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/foo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/bar")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/baz")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/boo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/moo")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/")
+    ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    BMCWEB_ROUTE(app, "/foo")
+    ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    BMCWEB_ROUTE(app, "/bar")
+    ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    BMCWEB_ROUTE(app, "/baz")
+    ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    BMCWEB_ROUTE(app, "/boo")
+    ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    BMCWEB_ROUTE(app, "/moo")
+    ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
 
     app.validate();
 
