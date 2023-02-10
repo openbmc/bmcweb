@@ -1089,10 +1089,12 @@ class Trie
     std::vector<Node> nodes;
 };
 
-inline void afterPrivilegeLookup(
-    Request& req, const std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-    BaseRule& rule, RoutingParams params, const boost::system::error_code& ec,
-    const dbus::utility::DBusPropertiesMap& userInfoMap)
+inline void
+    afterPrivilegeLookup(Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         BaseRule& rule, const RoutingParams& params,
+                         const boost::system::error_code& ec,
+                         const dbus::utility::DBusPropertiesMap& userInfoMap)
 {
     if (ec)
     {
