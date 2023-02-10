@@ -76,7 +76,7 @@ TEST(Crow, Rule)
     // executing handler
     ASSERT_EQUAL(0, x);
     boost::beast::http::request<boost::beast::http::string_body> req{};
-    r.handle(Request(req), res, RoutingParams());
+    r.handle(Request(req), res, std::vector<std::string>());
     ASSERT_EQUAL(1, x);
 
     // registering handler with Request argument
@@ -89,7 +89,7 @@ TEST(Crow, Rule)
 
     // executing handler
     ASSERT_EQUAL(1, x);
-    r.handle(Request(req), res, RoutingParams());
+    r.handle(Request(req), res, std::vector<std::string>());
     ASSERT_EQUAL(2, x);
 }
 
@@ -301,7 +301,7 @@ TEST(Crow, simple_response_RoutingParams)
                           "Internal Error?")
                      .resultInt());
 
-    RoutingParams rp;
+    std::vector<std::string> rp;
     rp.intParams.push_back(1);
     rp.intParams.push_back(5);
     rp.uintParams.push_back(2);
