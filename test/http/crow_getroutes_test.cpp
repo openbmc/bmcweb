@@ -50,12 +50,12 @@ TEST(GetRoutes, TestOneRoute)
 TEST(GetRoutes, TestlotsOfRoutes)
 {
     App app;
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/foo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/bar")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/baz")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/boo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/moo")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/")([](Request& /*req*/, std::shared_ptr<AsyncResp>& /*res*/){});
+    BMCWEB_ROUTE(app, "/foo")([](Request& /*req*/, std::shared_ptr<AsyncResp>& /*res*/){});
+    BMCWEB_ROUTE(app, "/bar")([](Request& /*req*/, std::shared_ptr<AsyncResp>& /*res*/){});
+    BMCWEB_ROUTE(app, "/baz")([](Request& /*req*/, std::shared_ptr<AsyncResp>& /*res*/){});
+    BMCWEB_ROUTE(app, "/boo")([](Request& /*req*/, std::shared_ptr<AsyncResp>& /*res*/){});
+    BMCWEB_ROUTE(app, "/moo")([](Request& /*req*/, std::shared_ptr<AsyncResp>& /*res*/){});
 
     app.validate();
 
