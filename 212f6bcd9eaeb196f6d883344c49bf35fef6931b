@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7044f08_15ab7c1b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-10T01:09:29Z",
+      "side": 1,
+      "message": "Id needs to match the last segment otherwise the valdiator will now fail. Must be \"Settings\"",
+      "revId": "212f6bcd9eaeb196f6d883344c49bf35fef6931b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
