@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bb56488_da41d954",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-10T01:25:19Z",
+      "side": 1,
+      "message": "inline keyword here, not static.",
+      "range": {
+        "startLine": 1245,
+        "startChar": 4,
+        "endLine": 1245,
+        "endChar": 10
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49feeeaa_dfb9db6f",
         "filename": "http/routing.hpp",
         "patchSetId": 8
@@ -14,6 +37,30 @@
       "writtenOn": "2022-11-25T09:08:14Z",
       "side": 1,
       "message": "Since you are asserting that remoteUser must be present you can make unpackPropertiesNoThrow to do that instead.\n\nSimply do: boll remoteUser \u003d false;\n\nThen unpackPropertiesNoThrow will return false if this property is missing. Proper information will be logged by UnpackErrorPrinter.",
+      "range": {
+        "startLine": 1252,
+        "startChar": 8,
+        "endLine": 1252,
+        "endChar": 41
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b80432a_2108f4a7",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-10T01:25:19Z",
+      "side": 1,
+      "message": "This code is just moved from the old code.  Lets do code updates in a different commit from moves.",
+      "parentUuid": "49feeeaa_dfb9db6f",
       "range": {
         "startLine": 1252,
         "startChar": 8,
@@ -49,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff0c35ba_d3eef75b",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-10T01:25:19Z",
+      "side": 1,
+      "message": "Again, this was in the old code.  Lets do code moves in a different commit from changes.",
+      "parentUuid": "bef6cc3c_1d8cd5b2",
+      "range": {
+        "startLine": 1276,
+        "startChar": 12,
+        "endLine": 1276,
+        "endChar": 76
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1442a5e_ebd28c5d",
         "filename": "http/routing.hpp",
         "patchSetId": 8
@@ -60,6 +131,30 @@
       "writtenOn": "2022-11-25T09:08:14Z",
       "side": 1,
       "message": "unpackPropertiesNotThrow ensures type is correct. If passwordExpired is nullptr it means that it was missing. Otherwise unpackPropertiesNotThrow would return false.",
+      "range": {
+        "startLine": 1287,
+        "startChar": 18,
+        "endLine": 1288,
+        "endChar": 66
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947d16d0_91434f06",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-10T01:25:19Z",
+      "side": 1,
+      "message": "Same again.",
+      "parentUuid": "e1442a5e_ebd28c5d",
       "range": {
         "startLine": 1287,
         "startChar": 18,
@@ -111,6 +206,29 @@
         "startChar": 16,
         "endLine": 1344,
         "endChar": 71
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32da2ded_6e49fb2a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-10T01:25:19Z",
+      "side": 1,
+      "message": "Per asio conventions, callbacks should always be called when the operation is completed.",
+      "range": {
+        "startLine": 1349,
+        "startChar": 16,
+        "endLine": 1349,
+        "endChar": 24
       },
       "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
