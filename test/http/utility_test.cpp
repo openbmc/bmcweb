@@ -220,17 +220,9 @@ TEST(Utility, ValidateAndSplitUrlPositive)
 
 TEST(Router, ParameterTagging)
 {
-    EXPECT_EQ(6 * 6 + 6 * 3 + 2, getParameterTag("<uint><double><int>"));
-    EXPECT_EQ(1, getParameterTag("<int>"));
-    EXPECT_EQ(2, getParameterTag("<uint>"));
-    EXPECT_EQ(3, getParameterTag("<float>"));
-    EXPECT_EQ(3, getParameterTag("<double>"));
-    EXPECT_EQ(4, getParameterTag("<str>"));
-    EXPECT_EQ(4, getParameterTag("<string>"));
-    EXPECT_EQ(5, getParameterTag("<path>"));
-    EXPECT_EQ(6 * 6 + 6 + 1, getParameterTag("<int><int><int>"));
-    EXPECT_EQ(6 * 6 + 6 + 2, getParameterTag("<uint><int><int>"));
-    EXPECT_EQ(6 * 6 + 6 * 3 + 2, getParameterTag("<uint><double><int>"));
+    EXPECT_EQ(1, getParameterTag("<str>"));
+    EXPECT_EQ(1, getParameterTag("<string>"));
+    EXPECT_EQ(2, getParameterTag("<path>"));
 }
 
 TEST(URL, JsonEncoding)
