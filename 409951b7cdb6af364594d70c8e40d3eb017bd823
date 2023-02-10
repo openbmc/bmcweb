@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5cc6af8_47706efe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2023-02-10T07:25:01Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/43e14d38178f6e9a362d2f066a05fecd41503d84/static/redfish/v1/JsonSchemas/Chassis/Chassis.json\n\nI have added Replaceable entry using above chassis schema Chassis.v1_22_0.json.\nBut service validator setup we have for Chassis.v1_1_6.json only. So getting FAIL while service validator is running.\n\nWorking on to resolve this issue.",
+      "parentUuid": "727543bf_5ea39eec",
+      "revId": "409951b7cdb6af364594d70c8e40d3eb017bd823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5d7d20c_633d27fa",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 2
@@ -121,6 +139,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "b5d7d20c_633d27fa",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 13
+      },
+      "revId": "409951b7cdb6af364594d70c8e40d3eb017bd823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad69720f_ed199a4a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2023-02-10T07:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da82ac7f_fa6df27e",
       "range": {
         "startLine": 333,
         "startChar": 0,
