@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dd9b1db8_6f3199ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-02-10T08:12:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "740b91a5_e7b196c3",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b22d7c8e_1ca52e46",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 15
@@ -81,6 +105,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79c5d09_4ca302e1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-02-10T08:12:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00d1903a_149681cd",
+      "range": {
+        "startLine": 362,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 24
+      },
+      "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb706dee_3e031e2f",
@@ -94,6 +142,30 @@
       "writtenOn": "2023-02-03T19:54:11Z",
       "side": 1,
       "message": "We\u0027re now persisting the clients IP, which is generally considered as identifying information, which imposes a new set of requirements on bmcweb that we generally haven\u0027t in the past.\n\nIt also isn\u0027t mentioned at all in the commit message.  What guarantees at an interface level do we have that the daemon on the other end supports this?  Have all the daemons been tested?",
+      "range": {
+        "startLine": 993,
+        "startChar": 8,
+        "endLine": 993,
+        "endChar": 29
+      },
+      "revId": "72f11673147519a185de3163a4cf3d40b7c0d708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b75e75e_b57169bc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-02-10T08:12:32Z",
+      "side": 1,
+      "message": "I have updated the commit message indicating that client\u0027s/dump originator\u0027s ip address will be stored in the redfish property and the same will be stored in the backend that already has this support.",
+      "parentUuid": "cb706dee_3e031e2f",
       "range": {
         "startLine": 993,
         "startChar": 8,
