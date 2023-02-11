@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a60fa4a_2d8cb5b0",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-11T03:33:58Z",
+      "side": 1,
+      "message": "\u003e \u003e Is the idea that this field only indicates that we could aggregate? We don\u0027t aggregate if there aren\u0027t any satellite configs, but \"ServiceEnabled\" is not a consideration of if satellite configs exist?\n\u003e That\u0027s the thinking. ServiceEnabled on it\u0027s own isn\u0027t super useful. My thinking was AggregationSourceCollection makes it more useful.\n\n\u003e \u003e Or should we tie the value of \"ServiceEnabled\" to the existence of satellite configs and let the existence of /redfish/v1/AggregationService indicate that aggregation is possible.\n\n\u003e I\u0027m keying off what we did elsewhere in things like EventService, where if it\u0027s possible, it\u0027s enabled, regardless of whether you have anything else set up. While that definition is subjective, I think it\u0027s still correct.\n\nSGTM",
+      "parentUuid": "3d04dd2d_f191709c",
+      "revId": "7dc9098421e8fcb18578e50ff1228a199ab48a11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96145c0c_c1919237",
