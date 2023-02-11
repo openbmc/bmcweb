@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "529324b7_867fcc02",
         "filename": "redfish-core/lib/systems.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This should be an internal error.\n\nIf GetSubTree does not find a service name associated with the interface (i.e. xyz.openbmc_project.Logging.Settings) then it will return an empty array. This situation will be handled in your code at line 1277. \n\nIf for some reason GetSubTree does throw an error for some other reason, it most likely needs to be an internal error.",
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cae135e8_0983624d",
         "filename": "redfish-core/lib/systems.hpp",
@@ -32,10 +33,10 @@
       "message": "+1",
       "parentUuid": "529324b7_867fcc02",
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "77515cc6_eed2828c",
         "filename": "redfish-core/lib/systems.hpp",
@@ -50,10 +51,10 @@
       "message": "Done",
       "parentUuid": "cae135e8_0983624d",
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "86b880b2_388e14ed",
         "filename": "redfish-core/lib/systems.hpp",
@@ -73,10 +74,10 @@
         "endChar": 25
       },
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d7d6ab67_20c0b7ce",
         "filename": "redfish-core/lib/systems.hpp",
@@ -97,10 +98,10 @@
         "endChar": 25
       },
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "81a15f4d_48150de2",
         "filename": "redfish-core/lib/systems.hpp",
@@ -114,10 +115,10 @@
       "side": 1,
       "message": "Shouldn\u0027t this be an error?",
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7395ef6a_e1f0fbb8",
         "filename": "redfish-core/lib/systems.hpp",
@@ -132,10 +133,10 @@
       "message": "In line 1718, this error has been processed, here is to ensure that you can exit directly when encountering an error, do Ｉ need to mark the error again here?",
       "parentUuid": "81a15f4d_48150de2",
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "96a71201_f19aa7ae",
         "filename": "redfish-core/lib/systems.hpp",
@@ -150,8 +151,25 @@
       "message": "I don\u0027t think so. You handle the error well at line 1716.",
       "parentUuid": "7395ef6a_e1f0fbb8",
       "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cb144af_6e5f385c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1744,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-11T08:12:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96a71201_f19aa7ae",
+      "revId": "b24a81b9cfbb561ad18159b35f118846f8c04a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "907b3b1f_eae67beb",
         "filename": "redfish-core/lib/systems.hpp",
@@ -20,10 +21,10 @@
         "endChar": 52
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6d526fc0_471de35b",
         "filename": "redfish-core/lib/systems.hpp",
@@ -44,10 +45,10 @@
         "endChar": 52
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9b16019d_da1679cb",
         "filename": "redfish-core/lib/systems.hpp",
@@ -68,10 +69,34 @@
         "endChar": 52
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3216727c_4e972ed8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-11T08:12:17Z",
+      "side": 1,
+      "message": "\u003e Correct.\n\u003e If \"xyz.openbmc_project.Logging.Settings\" doesn\u0027t exist, subtree size will be 0 but an ec isn\u0027t returned\n\nIn the new commit, I think it is necessary to hardcode “xyz.openbmc_project.Logging.Settings”",
+      "parentUuid": "9b16019d_da1679cb",
+      "range": {
+        "startLine": 1330,
+        "startChar": 0,
+        "endLine": 1330,
+        "endChar": 52
+      },
+      "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "ead130b9_0a529f8d",
         "filename": "redfish-core/lib/systems.hpp",
@@ -91,10 +116,10 @@
         "endChar": 72
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "393f27f5_d015d0ea",
         "filename": "redfish-core/lib/systems.hpp",
@@ -115,10 +140,10 @@
         "endChar": 72
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "65da91a1_f322b203",
         "filename": "redfish-core/lib/systems.hpp",
@@ -139,10 +164,10 @@
         "endChar": 72
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2d099fdf_b5fab555",
         "filename": "redfish-core/lib/systems.hpp",
@@ -163,10 +188,10 @@
         "endChar": 72
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a444decf_6681e19e",
         "filename": "redfish-core/lib/systems.hpp",
@@ -187,10 +212,10 @@
         "endChar": 72
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8a8928e3_dfe410b1",
         "filename": "redfish-core/lib/systems.hpp",
@@ -210,10 +235,10 @@
         "endChar": 36
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8ea9f60a_f02a8829",
         "filename": "redfish-core/lib/systems.hpp",
@@ -234,10 +259,10 @@
         "endChar": 36
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "76cfcaf9_2bc31043",
         "filename": "redfish-core/lib/systems.hpp",
@@ -257,10 +282,10 @@
         "endChar": 42
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f49e7a63_97c9af16",
         "filename": "redfish-core/lib/systems.hpp",
@@ -281,8 +306,7 @@
         "endChar": 42
       },
       "revId": "b15bb8f522aa645d05ec68a839ca5d0bdeef4bf3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
