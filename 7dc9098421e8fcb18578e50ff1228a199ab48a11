@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9c11ce7_4a66341f",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-11T02:30:41Z",
+      "side": 1,
+      "message": "Is the idea that this field only indicates that we could aggregate?  We don\u0027t aggregate if there aren\u0027t any satellite configs, but \"ServiceEnabled\" is not a consideration of if satellite configs exist?\n\nThe indication of whether or not any aggregation will actually occur will be indicated by the existence or lack thereof of a something like AggregationSource resources https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2022.3.pdf#page\u003d117?\n\nOr should we tie the value of \"ServiceEnabled\" to the existence of satellite configs and let the existence of /redfish/v1/AggregationService indicate that aggregation is possible.",
+      "revId": "7dc9098421e8fcb18578e50ff1228a199ab48a11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96145c0c_c1919237",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 2
@@ -36,6 +53,29 @@
         "startChar": 41,
         "endLine": 56,
         "endChar": 45
+      },
+      "revId": "7dc9098421e8fcb18578e50ff1228a199ab48a11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dd84b96_c952da4d",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-11T02:30:41Z",
+      "side": 1,
+      "message": "nit, move this down one to preserve the list being alphabetical.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 25
       },
       "revId": "7dc9098421e8fcb18578e50ff1228a199ab48a11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
