@@ -16,6 +16,23 @@
       "message": "Can we just fix this by resolving the safety error?",
       "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a686ee58_2b39d4d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-13T18:29:08Z",
+      "side": 1,
+      "message": "I\u0027m not seeing this locally, and i believe CI builds debug.  Can you elaborate on your steps you did to reproduce this?",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
