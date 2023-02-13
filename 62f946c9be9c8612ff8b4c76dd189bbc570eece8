@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77ea9960_8b8b4885",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T22:58:48Z",
+      "side": 1,
+      "message": "OpenBMC here too?",
+      "range": {
+        "startLine": 348,
+        "startChar": 32,
+        "endLine": 348,
+        "endChar": 35
+      },
+      "revId": "62f946c9be9c8612ff8b4c76dd189bbc570eece8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47571d20_8f0a3a1d",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T22:58:48Z",
+      "side": 1,
+      "message": "OpenBMC ?",
+      "range": {
+        "startLine": 3008,
+        "startChar": 44,
+        "endLine": 3008,
+        "endChar": 51
+      },
+      "revId": "62f946c9be9c8612ff8b4c76dd189bbc570eece8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
