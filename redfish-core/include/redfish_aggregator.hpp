@@ -899,6 +899,147 @@ class RedfishAggregator
         }
     } // End processCollectionResponse()
 
+    // Processes the collection response returned by a satellite BMC and merges
+    // its "@odata.id" values
+    static void processContainsSubordinateResponse(
+        const std::string& prefix,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        crow::Response& resp)
+    {
+        // 429 and 502 mean we didn't actually send the request so don't
+        // overwrite the response headers in that case
+        if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+        {
+            return;
+        }
+
+        if (resp.resultInt() != 200)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Resource uptree from Collection does not exist in "
+                << "satellite BMC \"" << prefix << "\"";
+            // Return the error if we haven't had any successes
+            if (asyncResp->res.resultInt() != 200)
+            {
+                asyncResp->res.stringResponse = std::move(resp.stringResponse);
+            }
+            return;
+        }
+
+        // The resp will not have a json component
+        // We need to create a json from resp's stringResponse
+        if (resp.getHeaderValue("Content-Type") == "application/json")
+        {
+            bool addedLinks = false;
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(resp.body(), nullptr, false);
+            if (jsonVal.is_discarded())
+            {
+                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+
+                // Notify the user if doing so won't overwrite a valid response
+                if ((asyncResp->res.resultInt() != 200) &&
+                    (asyncResp->res.resultInt() != 429) &&
+                    (asyncResp->res.resultInt() != 502))
+                {
+                    messages::operationFailed(asyncResp->res);
+                }
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+
+            // Parse response and add properties missing from the AsyncResp
+            // Valid properties will be of the form <property>.@odata.id.<URI>
+            nlohmann::json::object_t* object =
+                jsonVal.get_ptr<nlohmann::json::object_t*>();
+            if (object == nullptr)
+            {
+                // No reason to do anything else
+                return;
+            }
+
+            for (std::pair<const std::string, nlohmann::json>& prop : *object)
+            {
+                if (asyncResp->res.jsonValue.contains(prop.first))
+                {
+                    // No need to overwrite if the link already exists
+                    continue;
+                }
+                if (prop.second.contains("@odata.id"))
+                {
+                    std::string* strValue =
+                        prop.second["@odata.id"].get_ptr<std::string*>();
+                    if (strValue == nullptr)
+                    {
+                        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+                        continue;
+                    }
+                    if (searchCollectionsArray(*strValue,
+                                               SearchType::CollOrCon))
+                    {
+                        BMCWEB_LOG_DEBUG << "Adding link for " << *strValue
+                                         << " from BMC " << prefix;
+                        if (!addedLinks)
+                        {
+                            if (asyncResp->res.resultInt() != 200)
+                            {
+                                // This resource didn't locally exist so remove
+                                // any potential error messages
+                                asyncResp->res.jsonValue.clear();
+                            }
+                            addedLinks = true;
+                        }
+                        asyncResp->res.jsonValue[prop.first]["@odata.id"] =
+                            *strValue;
+                    }
+                }
+            }
+
+            // This resource didn't locally exist so we only want to copy over a
+            // bare minimum amount of additional information that we'd expect to
+            // have been populated.
+            if (addedLinks && (asyncResp->res.resultInt() != 200))
+            {
+                asyncResp->res.result(resp.result());
+                if (object->contains("@odata.id"))
+                {
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        (*object)["@odata.id"];
+                }
+                if (object->contains("@odata.type"))
+                {
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        (*object)["@odata.type"];
+                }
+                if (object->contains("Id"))
+                {
+                    asyncResp->res.jsonValue["Id"] = (*object)["Id"];
+                }
+                if (object->contains("Name"))
+                {
+                    asyncResp->res.jsonValue["Name"] = (*object)["Name"];
+                }
+            }
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
+                             << "\"";
+            // We received as response that was not a json
+            // Notify the user only if we did not receive any valid responses,
+            // if the resource does not already exist on the aggregating BMC,
+            // and if we did not already set this warning due to a failure from
+            // a different satellite
+            if ((asyncResp->res.resultInt() != 200) &&
+                (asyncResp->res.resultInt() != 429) &&
+                (asyncResp->res.resultInt() != 502))
+            {
+                messages::operationFailed(asyncResp->res);
+            }
+        }
+    }
+
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
     // request
