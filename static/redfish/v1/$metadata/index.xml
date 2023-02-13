@@ -3006,7 +3006,7 @@
         <edmx:Include Namespace="OemVirtualMedia.v1_0_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OpenbmcAccountService_v1.xml">
-        <edmx:Include Namespace="OemAccountService"/>
-        <edmx:Include Namespace="OemAccountService.v1_0_0"/>
+        <edmx:Include Namespace="OpenBMCAccountService"/>
+        <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>
     </edmx:Reference>
 </edmx:Edmx>
