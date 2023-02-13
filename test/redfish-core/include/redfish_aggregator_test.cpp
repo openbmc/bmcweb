@@ -614,5 +614,162 @@ TEST(searchCollectionsArray, collectionOrContainsURIs)
     EXPECT_FALSE(isCollOrCon("/redfish/v1/UpdateService/SoftwareInventory2"));
 }
 
+TEST(processContainsSubordinateResponse, addLinks)
+{
+    crow::Response resp;
+    resp.result(200);
+    nlohmann::json jsonValue;
+    resp.addHeader("Content-Type", "application/json");
+    jsonValue["@odata.id"] = "/redfish/v1";
+    jsonValue["Fabrics"]["@odata.id"] = "/redfish/v1/Fabrics";
+    jsonValue["Test"]["@odata.id"] = "/redfish/v1/Test";
+    jsonValue["TelemetryService"]["@odata.id"] = "/redfish/v1/TelemetryService";
+    jsonValue["UpdateService"]["@odata.id"] = "/redfish/v1/UpdateService";
+    resp.body() =
+        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.result(200);
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
+    asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
+
+    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
+                                                          resp);
+    EXPECT_EQ(asyncResp->res.jsonValue["Chassis"]["@odata.id"],
+              "/redfish/v1/Chassis");
+    EXPECT_EQ(asyncResp->res.jsonValue["Fabrics"]["@odata.id"],
+              "/redfish/v1/Fabrics");
+    EXPECT_EQ(asyncResp->res.jsonValue["TelemetryService"]["@odata.id"],
+              "/redfish/v1/TelemetryService");
+    EXPECT_EQ(asyncResp->res.jsonValue["UpdateService"]["@odata.id"],
+              "/redfish/v1/UpdateService");
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Test"));
+}
+
+TEST(processContainsSubordinateResponse, localNotOK)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.addHeader("Content-Type", "application/json");
+    messages::resourceNotFound(asyncResp->res, "", "");
+
+    // This field was added by resourceNotFound()
+    // Sanity test to make sure it gets removed later
+    EXPECT_TRUE(asyncResp->res.jsonValue.contains("error"));
+
+    crow::Response resp;
+    resp.result(200);
+    nlohmann::json jsonValue;
+    resp.addHeader("Content-Type", "application/json");
+    jsonValue["@odata.id"] = "/redfish/v1";
+    jsonValue["@odata.type"] = "#ServiceRoot.v1_11_0.ServiceRoot";
+    jsonValue["Id"] = "RootService";
+    jsonValue["Name"] = "Root Service";
+    jsonValue["Fabrics"]["@odata.id"] = "/redfish/v1/Fabrics";
+    jsonValue["Test"]["@odata.id"] = "/redfish/v1/Test";
+    jsonValue["TelemetryService"]["@odata.id"] = "/redfish/v1/TelemetryService";
+    jsonValue["UpdateService"]["@odata.id"] = "/redfish/v1/UpdateService";
+    resp.body() =
+        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+
+    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
+                                                          resp);
+
+    // Most of the response should get copied over since asyncResp is a 404
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.jsonValue["@odata.id"], "/redfish/v1");
+    EXPECT_EQ(asyncResp->res.jsonValue["@odata.type"],
+              "#ServiceRoot.v1_11_0.ServiceRoot");
+    EXPECT_EQ(asyncResp->res.jsonValue["Id"], "RootService");
+    EXPECT_EQ(asyncResp->res.jsonValue["Name"], "Root Service");
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Fabrics"]["@odata.id"],
+              "/redfish/v1/Fabrics");
+    EXPECT_EQ(asyncResp->res.jsonValue["TelemetryService"]["@odata.id"],
+              "/redfish/v1/TelemetryService");
+    EXPECT_EQ(asyncResp->res.jsonValue["UpdateService"]["@odata.id"],
+              "/redfish/v1/UpdateService");
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Test"));
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("error"));
+
+    // Test for local response being partially populated before throwing error
+    asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.addHeader("Content-Type", "application/json");
+    asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
+    asyncResp->res.jsonValue["Fake"]["@odata.id"] = "/redfish/v1/Fake";
+    messages::internalError(asyncResp->res);
+
+    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
+                                                          resp);
+
+    // These should also be copied over since asyncResp is a 500
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.jsonValue["@odata.id"], "/redfish/v1");
+    EXPECT_EQ(asyncResp->res.jsonValue["@odata.type"],
+              "#ServiceRoot.v1_11_0.ServiceRoot");
+    EXPECT_EQ(asyncResp->res.jsonValue["Id"], "RootService");
+    EXPECT_EQ(asyncResp->res.jsonValue["Name"], "Root Service");
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Fabrics"]["@odata.id"],
+              "/redfish/v1/Fabrics");
+    EXPECT_EQ(asyncResp->res.jsonValue["TelemetryService"]["@odata.id"],
+              "/redfish/v1/TelemetryService");
+    EXPECT_EQ(asyncResp->res.jsonValue["UpdateService"]["@odata.id"],
+              "/redfish/v1/UpdateService");
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Test"));
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("error"));
+
+    // These fields should still be present
+    EXPECT_EQ(asyncResp->res.jsonValue["Chassis"]["@odata.id"],
+              "/redfish/v1/Chassis");
+    EXPECT_EQ(asyncResp->res.jsonValue["Fake"]["@odata.id"],
+              "/redfish/v1/Fake");
+}
+
+TEST(processContainsSubordinateResponse, noValidLinks)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.result(500);
+    asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
+
+    crow::Response resp;
+    resp.result(200);
+    nlohmann::json jsonValue;
+    resp.addHeader("Content-Type", "application/json");
+    jsonValue["@odata.id"] = "/redfish/v1";
+    resp.body() =
+        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+
+    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
+                                                          resp);
+
+    // We won't add any links from response so asyncResp shouldn't change
+    EXPECT_EQ(asyncResp->res.resultInt(), 500);
+    EXPECT_EQ(asyncResp->res.jsonValue["Chassis"]["@odata.id"],
+              "/redfish/v1/Chassis");
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("@odata.id"));
+
+    // Sat response is non-500 so it shouldn't get copied over
+    asyncResp->res.result(200);
+    resp.result(500);
+    jsonValue["Fabrics"]["@odata.id"] = "/redfish/v1/Fabrics";
+    jsonValue["Test"]["@odata.id"] = "/redfish/v1/Test";
+    jsonValue["TelemetryService"]["@odata.id"] = "/redfish/v1/TelemetryService";
+    jsonValue["UpdateService"]["@odata.id"] = "/redfish/v1/UpdateService";
+    resp.body() =
+        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+
+    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
+                                                          resp);
+
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.jsonValue["Chassis"]["@odata.id"],
+              "/redfish/v1/Chassis");
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("@odata.id"));
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Fabrics"));
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Test"));
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("TelemetryService"));
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("UpdateService"));
+}
+
 } // namespace
 } // namespace redfish
