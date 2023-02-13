@@ -16,6 +16,23 @@
       "message": "Why open a new patch set vs just doing this on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60451?",
       "revId": "957586dc6fb34eda5b902c2577a0a34e1ea266a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "935b72b4_17e618a3",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T18:02:14Z",
+      "side": 1,
+      "message": "Is this in minutes, seconds ? This is the task extension timer for code update or for all tasks?",
+      "revId": "957586dc6fb34eda5b902c2577a0a34e1ea266a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
