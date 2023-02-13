@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "635fe380_f4ef703a",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-02-13T20:04:22Z",
+      "side": 1,
+      "message": "Are this field value case sensitive? My impression is most headers are case insensitive, is that the case for ContentType?",
+      "range": {
+        "startLine": 22,
+        "startChar": 24,
+        "endLine": 22,
+        "endChar": 40
+      },
+      "revId": "c232e30dac5f77f785289aa0cef60570fda18ca3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
