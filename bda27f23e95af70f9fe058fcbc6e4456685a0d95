@@ -22,6 +22,30 @@
       },
       "revId": "bda27f23e95af70f9fe058fcbc6e4456685a0d95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94c0f25f_30cf25b8",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-13T21:31:38Z",
+      "side": 1,
+      "message": "It handles it the same as it always did.  The timer changes never worked with disable-authx so far as I can tell.",
+      "parentUuid": "ce80d9cc_ec82288c",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 27
+      },
+      "revId": "bda27f23e95af70f9fe058fcbc6e4456685a0d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
