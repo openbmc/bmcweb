@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c37e1b19_a77c972c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T17:23:10Z",
+      "side": 1,
+      "message": "Looks like added here https://github.com/openbmc/bmcweb/commit/3909dc82a003893812f598434d6c4558107afa28 \n\nBeen this way for a long time",
+      "revId": "7887ff5afe40e8a7561373fc8489a291c85473b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
