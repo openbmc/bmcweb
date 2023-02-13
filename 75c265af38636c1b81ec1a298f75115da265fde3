@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6bcc732_b1101d74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-02-13T14:24:40Z",
+      "side": 1,
+      "message": "Hi Ed,\n\nAs Karol is no longer working on the project, I have been assigned to proceed with this patch. I have rebased the change and modified the description, so that it contains now more detailed description how to reproduce the attack related with the problem.\n\nI have tested the problem on an Intel platform, using OpenBMC build based on commit f465b3d2f9265b230f9609fb6f1ec4cb0d263a5b, with bmcweb revision set to 0af78d5a61687d999d7ec68b003137db1201b225. I have been able to successfully reproduce the issue without fix, as well as confirm that problem is solved with the fix applied. Could You please take a look at the reproduction description? Would You like anything else to be included there?\n\nI\u0027ve read the discussion that was taking place here and I\u0027m aware that the change might break many scripts that have now been working well with BMC. However, not including this fix might leave BMC vulnerable to XSRF attacks when user has enabled mTLS authentication and has a default certificate added in web browser. \n\nThere is also another factor that might help with decision whether to proceed with this fix or not: at this moment mTLS works well only with raw Redfish requests. It is not possible to log into WebUI using client certificate. One might say that this reduces the impact of this issue, as end user probably doesn\u0027t use mTLS at all because of that.\n\nAnyway, I\u0027m leaving the final decision up to You about how we should handle this change. Should You have any questions, don\u0027t hesitate to ask.",
+      "revId": "75c265af38636c1b81ec1a298f75115da265fde3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
