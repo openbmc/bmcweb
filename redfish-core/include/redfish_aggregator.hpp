@@ -746,7 +746,8 @@ class RedfishAggregator
     {
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
-        if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+        if ((resp.result() == boost::beast::http::status::too_many_requests) ||
+            (resp.result() == boost::beast::http::status::bad_gateway))
         {
             asyncResp->res.result(resp.result());
             return;
@@ -795,7 +796,8 @@ class RedfishAggregator
     {
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
-        if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+        if ((resp.result() == boost::beast::http::status::too_many_requests) ||
+            (resp.result() == boost::beast::http::status::bad_gateway))
         {
             return;
         }
@@ -808,7 +810,8 @@ class RedfishAggregator
             // Return the error if we haven't had any successes
             if (asyncResp->res.resultInt() != 200)
             {
-                asyncResp->res.stringResponse = std::move(resp.stringResponse);
+                asyncResp->res.result(resp.result());
+                asyncResp->res.write(resp.body());
             }
             return;
         }
@@ -824,9 +827,7 @@ class RedfishAggregator
                 BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
 
                 // Notify the user if doing so won't overwrite a valid response
-                if ((asyncResp->res.resultInt() != 200) &&
-                    (asyncResp->res.resultInt() != 429) &&
-                    (asyncResp->res.resultInt() != 502))
+                if (asyncResp->res.resultInt() != 200)
                 {
                     messages::operationFailed(asyncResp->res);
                 }
@@ -906,18 +907,159 @@ class RedfishAggregator
             BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
                              << "\"";
             // We received a response that was not a json.
-            // Notify the user only if we did not receive any valid responses,
-            // if the resource collection does not already exist on the
-            // aggregating BMC, and if we did not already set this warning due
-            // to a failure from a different satellite
-            if ((asyncResp->res.resultInt() != 200) &&
-                (asyncResp->res.resultInt() != 429) &&
-                (asyncResp->res.resultInt() != 502))
+            // Notify the user only if we did not receive any valid responses
+            // and if the resource collection does not already exist on the
+            // aggregating BMC
+            if (asyncResp->res.resultInt() != 200)
             {
                 messages::operationFailed(asyncResp->res);
             }
         }
     } // End processCollectionResponse()
+
+    // Processes the response returned by a satellite BMC and merges any
+    // properties whose "@odata.id" value is the URI or either a top level
+    // collection or is uptree from a top level collection
+    static void processContainsSubordinateResponse(
+        const std::string& prefix,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        crow::Response& resp)
+    {
+        // 429 and 502 mean we didn't actually send the request so don't
+        // overwrite the response headers in that case
+        if ((resp.result() == boost::beast::http::status::too_many_requests) ||
+            (resp.result() == boost::beast::http::status::bad_gateway))
+        {
+            return;
+        }
+
+        if (resp.resultInt() != 200)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Resource uptree from Collection does not exist in "
+                << "satellite BMC \"" << prefix << "\"";
+            // Return the error if we haven't had any successes
+            if (asyncResp->res.resultInt() != 200)
+            {
+                asyncResp->res.result(resp.result());
+                asyncResp->res.write(resp.body());
+            }
+            return;
+        }
+
+        // The resp will not have a json component
+        // We need to create a json from resp's stringResponse
+        if (resp.getHeaderValue("Content-Type") == "application/json")
+        {
+            bool addedLinks = false;
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(resp.body(), nullptr, false);
+            if (jsonVal.is_discarded())
+            {
+                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+
+                // Notify the user if doing so won't overwrite a valid response
+                if (asyncResp->res.resultInt() != 200)
+                {
+                    messages::operationFailed(asyncResp->res);
+                }
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+
+            // Parse response and add properties missing from the AsyncResp
+            // Valid properties will be of the form <property>.@odata.id and
+            // @odata.id is a <URI>.  In other words, the json should contain
+            // multiple properties such that
+            // {"<property>":{"@odata.id": "<URI>"}}
+            nlohmann::json::object_t* object =
+                jsonVal.get_ptr<nlohmann::json::object_t*>();
+            if (object == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Parsed JSON was not an object?";
+                return;
+            }
+
+            for (std::pair<const std::string, nlohmann::json>& prop : *object)
+            {
+                if (!prop.second.contains("@odata.id"))
+                {
+                    continue;
+                }
+
+                std::string* strValue =
+                    prop.second["@odata.id"].get_ptr<std::string*>();
+                if (strValue == nullptr)
+                {
+                    BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+                    continue;
+                }
+                if (!searchCollectionsArray(*strValue, SearchType::CollOrCon))
+                {
+                    continue;
+                }
+
+                BMCWEB_LOG_DEBUG << "Adding link for " << *strValue
+                                 << " from BMC " << prefix;
+                addedLinks = true;
+                if (!asyncResp->res.jsonValue.contains(prop.first))
+                {
+                    // Only add the property if it did not already exist
+                    asyncResp->res.jsonValue[prop.first]["@odata.id"] =
+                        *strValue;
+                    continue;
+                }
+            }
+
+            // If we added links to a previously unsuccessful (non-200) response
+            // then we need to make sure the response contains the bare minimum
+            // amount of additional information that we'd expect to have been
+            // populated.
+            if (addedLinks && (asyncResp->res.resultInt() != 200))
+            {
+                // This resource didn't locally exist or an error
+                // occurred while generating the response.  Remove any
+                // error messages and update the error code.
+                asyncResp->res.jsonValue.erase(
+                    asyncResp->res.jsonValue.find("error"));
+                asyncResp->res.result(resp.result());
+
+                const auto& it1 = object->find("@odata.id");
+                if (it1 != object->end())
+                {
+                    asyncResp->res.jsonValue["@odata.id"] = (it1->second);
+                }
+                const auto& it2 = object->find("@odata.type");
+                if (it2 != object->end())
+                {
+                    asyncResp->res.jsonValue["@odata.type"] = (it2->second);
+                }
+                const auto& it3 = object->find("Id");
+                if (it3 != object->end())
+                {
+                    asyncResp->res.jsonValue["Id"] = (it3->second);
+                }
+                const auto& it4 = object->find("Name");
+                if (it4 != object->end())
+                {
+                    asyncResp->res.jsonValue["Name"] = (it4->second);
+                }
+            }
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
+                             << "\"";
+            // We received as response that was not a json
+            // Notify the user only if we did not receive any valid responses,
+            // and if the resource does not already exist on the aggregating BMC
+            if (asyncResp->res.resultInt() != 200)
+            {
+                messages::operationFailed(asyncResp->res);
+            }
+        }
+    }
 
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
