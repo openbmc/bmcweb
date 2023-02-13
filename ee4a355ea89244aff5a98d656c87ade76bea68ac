@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bb30973_5937ba43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T18:28:50Z",
+      "side": 1,
+      "message": "Need the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60891/2/static/redfish/v1/%2524metadata/index.xml change",
+      "revId": "ee4a355ea89244aff5a98d656c87ade76bea68ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
