@@ -34,6 +34,7 @@
 #include <sdbusplus/utility/dedup_variant.hpp>
 
 #include <array>
+#include <limits>
 #include <string_view>
 
 namespace redfish
@@ -205,7 +206,7 @@ inline void getCpuDataByInterface(
                     messages::internalError(aResp->res);
                     return;
                 }
-                if (*value != 0)
+                if (*value != std::numeric_limits<uint16_t>::max())
                 {
                     aResp->res.jsonValue["ProcessorId"]["Step"] =
                         "0x" + intToHexString(*value, 4);
