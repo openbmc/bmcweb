@@ -46,6 +46,30 @@
       },
       "revId": "c232e30dac5f77f785289aa0cef60570fda18ca3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d48f906_3d0cc79c",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-13T23:16:02Z",
+      "side": 1,
+      "message": "Interesting, I\u0027ve never seen them be case insensitive, but you do appear to be correct:\n\nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types\n\nMost implementations normalize them to lower case beforehand, and I don\u0027t know of any clients that send these in upper case, but being technically correct seems worthwhile.\n\nI exchanged these with boost::iequals.",
+      "parentUuid": "fb9cde65_1400d293",
+      "range": {
+        "startLine": 22,
+        "startChar": 24,
+        "endLine": 22,
+        "endChar": 40
+      },
+      "revId": "c232e30dac5f77f785289aa0cef60570fda18ca3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
