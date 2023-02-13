@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e0ed9ca_831cc7d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T22:56:19Z",
+      "side": 1,
+      "message": "as mentioned, please wrap at 50/72",
+      "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "144f6c05_21b9db2c",
