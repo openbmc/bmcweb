@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2725726_0d79c00c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T20:34:04Z",
+      "side": 1,
+      "message": "And the default worked correctly? i.e. when default (max) this leaves the property off?",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7e729537_12efc5fb",
@@ -14,6 +31,23 @@
       "writtenOn": "2023-02-13T17:21:35Z",
       "side": 1,
       "message": "LGTM.  Waiting on https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/60717 to merge.",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "359535b1_66fbb37c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-13T20:34:04Z",
+      "side": 1,
+      "message": "It is a uint32 in PDI, this works correctly?",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
