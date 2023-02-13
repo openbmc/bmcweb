@@ -169,13 +169,20 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
      '-Wduplicated-cond',
      '-Wduplicated-branches',
      '-Wlogical-op',
-     '-Wnull-dereference',
      '-Wunused-parameter',
      '-Wdouble-promotion',
      '-Wshadow',
      '-Wno-psabi',
      ]),
     language:'cpp')
+
+  if(not get_option('buildtype').startswith('debug'))
+    add_project_arguments(
+      cxx.get_supported_arguments([
+       '-Wnull-dereference',
+      ]),
+      language:'cpp')
+  endif
 endif
 
 if (get_option('buildtype') != 'plain')
