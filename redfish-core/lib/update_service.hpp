@@ -236,7 +236,8 @@ static void
 
                             // if we're getting status updates it's
                             // still alive, update timer
-                            taskData->extendTimer(std::chrono::minutes(bmcwebExtendTimer));
+                            taskData->extendTimer(
+                                std::chrono::minutes(bmcwebExtendTimer));
                         }
 
                         // as firmware update often results in a
