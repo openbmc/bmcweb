@@ -83,7 +83,7 @@ are the steps for using the SDK and QEMU.
   or Redfish command
 
   ```sh
-  curl -c cjar -b cjar -k -X POST https://127.0.0.1:2443/login -d "{\"data\": [ \"root\", \"0penBmc\" ] }"
+  curl -c cjar -b cjar -k -H "Content-Type: application/json" -X POST https://127.0.0.1:2443/login -d "{\"data\": [ \"root\", \"0penBmc\" ] }"
   curl -c cjar -b cjar -k -X GET https://127.0.0.1:2443/xyz/openbmc_project/state/bmc0
   ```
 
