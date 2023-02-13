@@ -22,6 +22,30 @@
       },
       "revId": "c232e30dac5f77f785289aa0cef60570fda18ca3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb9cde65_1400d293",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-13T22:54:59Z",
+      "side": 1,
+      "message": "\u003e My impression is most headers are case insensitive, is that the case for ContentType?\n\nI don\u0027t believe so.  Do you have some documentation that says that these should be case insensitive?",
+      "parentUuid": "635fe380_f4ef703a",
+      "range": {
+        "startLine": 22,
+        "startChar": 24,
+        "endLine": 22,
+        "endChar": 40
+      },
+      "revId": "c232e30dac5f77f785289aa0cef60570fda18ca3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
