@@ -345,7 +345,7 @@ with open(metadata_index_path, "w") as metadata_index:
 
     metadata_index.write(
         '    <edmx:Reference Uri="'
-        '/redfish/v1/schema/OpenbmcAccountService_v1.xml">\n'
+        '/redfish/v1/schema/OpenBMCAccountService_v1.xml">\n'
     )
     metadata_index.write(
         '        <edmx:Include Namespace="OemAccountService"/>\n'
