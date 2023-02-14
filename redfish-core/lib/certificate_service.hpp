@@ -59,7 +59,7 @@ inline std::string getCertificateFromReqBody(
     if (ret != JsonParseResult::Success)
     {
         // We did not receive JSON request, proceed as it is RAW data
-        return req.body;
+        return req.body();
     }
 
     std::string certificate;
