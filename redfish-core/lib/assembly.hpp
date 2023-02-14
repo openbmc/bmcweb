@@ -278,6 +278,36 @@ void getAssemblyPresence(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     });
 }
 
+void getAssemblyHeath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const auto& serviceName, const auto& assembly,
+                      const auto& assemblyIndex)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, assembly,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [asyncResp, assemblyIndex](const boost::system::error_code& ec,
+                                   bool functional) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        nlohmann::json& assemblyArray = asyncResp->res.jsonValue["Assemblies"];
+        nlohmann::json& assemblyData = assemblyArray.at(assemblyIndex);
+
+        if (!functional)
+        {
+            assemblyData["Status"]["Health"] = "Critical";
+        }
+        else
+        {
+            assemblyData["Status"]["Health"] = "OK";
+        }
+    });
+}
+
 /**
  * @brief Get properties for the assemblies associated to given chassis
  * @param[in] asyncResp - Shared pointer for asynchronous calls.
@@ -352,6 +382,13 @@ inline void
                     {
                         getAssemblyLocationCode(asyncResp, serviceName,
                                                 assembly, assemblyIndex);
+                    }
+                    else if (
+                        interface ==
+                        "xyz.openbmc_project.State.Decorator.OperationalStatus")
+                    {
+                        getAssemblyHeath(asyncResp, serviceName, assembly,
+                                         assemblyIndex);
                     }
                     else if (interface == "xyz.openbmc_project.Inventory.Item")
                     {
