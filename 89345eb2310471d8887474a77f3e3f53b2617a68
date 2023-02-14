@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79d819f_f9cde9c3",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-14T20:06:27Z",
+      "side": 1,
+      "message": "Similar to redfishSlotType handling, this would also have the same issue if *generation \u003d\u003d \"xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown\".\n\nSo, this would be better to rewrite as\n\n-       slot[\"PCIeType\"] \u003d *pcieType;\n+       if (*pcieType !\u003d pcie_device::PCIeTypes::Invalid)\n+       {\n+           slot[\"PCIeType\"] \u003d *pcieType;\n+       }",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 37
+      },
+      "revId": "89345eb2310471d8887474a77f3e3f53b2617a68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
