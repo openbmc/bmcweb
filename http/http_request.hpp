@@ -20,7 +20,6 @@ namespace crow
 struct Request
 {
     boost::beast::http::request<boost::beast::http::string_body> req;
-    boost::beast::http::fields& fields;
     std::string_view url{};
     boost::urls::url_view urlView{};
 
@@ -37,7 +36,7 @@ struct Request
     Request(boost::beast::http::request<boost::beast::http::string_body> reqIn,
             std::error_code& ec) :
         req(std::move(reqIn)),
-        fields(req.base()), body(req.body())
+        body(req.body())
     {
         if (!setUrlInfo())
         {
@@ -46,18 +45,16 @@ struct Request
     }
 
     Request(const Request& other) :
-        req(other.req), fields(req.base()), isSecure(other.isSecure),
-        body(req.body()), ioService(other.ioService),
-        ipAddress(other.ipAddress), session(other.session),
-        userRole(other.userRole)
+        req(other.req), isSecure(other.isSecure), body(req.body()),
+        ioService(other.ioService), ipAddress(other.ipAddress),
+        session(other.session), userRole(other.userRole)
     {
         setUrlInfo();
     }
 
     Request(Request&& other) noexcept :
-        req(std::move(other.req)), fields(req.base()), isSecure(other.isSecure),
-        body(req.body()), ioService(other.ioService),
-        ipAddress(std::move(other.ipAddress)),
+        req(std::move(other.req)), isSecure(other.isSecure), body(req.body()),
+        ioService(other.ioService), ipAddress(std::move(other.ipAddress)),
         session(std::move(other.session)), userRole(std::move(other.userRole))
     {
         setUrlInfo();
@@ -90,6 +87,11 @@ struct Request
     std::string_view target() const
     {
         return req.target();
+    }
+
+    const boost::beast::http::fields& fields() const
+    {
+        return req.base();
     }
 
     bool target(std::string_view target)
