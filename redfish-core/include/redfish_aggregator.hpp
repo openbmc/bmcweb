@@ -596,7 +596,7 @@ class RedfishAggregator
         crow::HttpClient::getInstance().sendDataWithCallback(
             data, id, std::string(sat->second.host()),
             sat->second.port_number(), targetURI, false /*useSSL*/,
-            thisReq.fields, thisReq.method(), retryPolicyName, cb);
+            thisReq.fields(), thisReq.method(), retryPolicyName, cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -615,7 +615,7 @@ class RedfishAggregator
             crow::HttpClient::getInstance().sendDataWithCallback(
                 data, id, std::string(sat.second.host()),
                 sat.second.port_number(), targetURI, false /*useSSL*/,
-                thisReq.fields, thisReq.method(), retryPolicyName, cb);
+                thisReq.req, thisReq.method(), retryPolicyName, cb);
         }
     }
 
