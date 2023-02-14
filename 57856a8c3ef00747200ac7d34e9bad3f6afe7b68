@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc210567_71a007bb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b081159_9456c9f7",
+      "range": {
+        "startLine": 911,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 9
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eafb691e_581c048e",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-02-14T01:39:56Z",
       "side": 1,
       "message": "TODO: Do I need to explicitly copy over the return code?",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79681cbc_e5535a8e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eafb691e_581c048e",
       "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -95,6 +137,30 @@
       "side": 1,
       "message": "Thanks I can at least copy the same idea.  I don\u0027t think I want to call the function directly because it calls parse() and then discards the json.  I need to operate on the json so I\u0027d have to call parse() again.",
       "parentUuid": "9e20142d_bab4dce2",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 931,
+        "endChar": 70
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e90bfac8_2b12f38f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "Disregard that, I see it returns the json as the second argument.  I can use it directly and should likely do the same for all of the processX() functions.",
+      "parentUuid": "71099963_68e49ae4",
       "range": {
         "startLine": 931,
         "startChar": 0,
@@ -152,6 +218,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a2d6bd_c1363669",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "I\u0027ve added additional clarification to the comment.",
+      "parentUuid": "a7dd24c8_f1470eb2",
+      "range": {
+        "startLine": 953,
+        "startChar": 52,
+        "endLine": 953,
+        "endChar": 78
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f3029f6_0c0084ea",
@@ -183,6 +273,24 @@
       "side": 1,
       "message": "Logging an error is fair",
       "parentUuid": "8f3029f6_0c0084ea",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "203962ea_b788f4b5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed320d4b_3d2ee8db",
       "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -253,6 +361,24 @@
       "side": 1,
       "message": "ACK, I\u0027ll change that",
       "parentUuid": "e806ba64_edf98502",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f74be03_c4bbfdb4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "I broke out some of the nested ifs",
+      "parentUuid": "e7a6f875_68bc5b0f",
       "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -411,6 +537,30 @@
       "side": 1,
       "message": "200 is really the only valid response for this.  However, 429 and 502 are dummy responses generated by the aggregated when we didn\u0027t successfully forward the responses because either the request buffer was full so we dropped the request (429) or we exhausted the retry policy (502).\n\nThis also matches the handling we use for processCollectionResponse().  There is a lot of similarity in how we process collection responses and responses that are uptree from a top level collection.\n\nIn both instances it may be fine to just simplify it to !200.",
       "parentUuid": "04655893_52559f22",
+      "range": {
+        "startLine": 1030,
+        "startChar": 0,
+        "endLine": 1039,
+        "endChar": 13
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1e6b60e_8b68d5d6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T17:16:27Z",
+      "side": 1,
+      "message": "I removed the additional checks for 429 and 502 at the end of the processX() functions.  They shouldn\u0027t be needed since there is also a check at the start of those functions for these response codes.",
+      "parentUuid": "85d74956_91edc913",
       "range": {
         "startLine": 1030,
         "startChar": 0,
