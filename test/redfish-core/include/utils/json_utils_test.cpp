@@ -273,7 +273,7 @@ TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     std::error_code ec;
     crow::Request req({}, ec);
     // Ignore errors intentionally
-    req.body = "{\"integer\": 1}";
+    req.body() = "{\"integer\": 1}";
 
     int64_t integer = 0;
     ASSERT_TRUE(readJsonPatch(req, res, "integer", integer));
@@ -288,7 +288,7 @@ TEST(ReadJsonPatch, EmptyObjectReturnsFalseResponseBadRequest)
     std::error_code ec;
     crow::Request req({}, ec);
     // Ignore errors intentionally
-    req.body = "{}";
+    req.body() = "{}";
 
     std::optional<int64_t> integer = 0;
     ASSERT_FALSE(readJsonPatch(req, res, "integer", integer));
@@ -302,7 +302,7 @@ TEST(ReadJsonPatch, OdataIgnored)
     std::error_code ec;
     crow::Request req({}, ec);
     // Ignore errors intentionally
-    req.body = R"({"@odata.etag": "etag", "integer": 1})";
+    req.body() = R"({"@odata.etag": "etag", "integer": 1})";
 
     std::optional<int64_t> integer = 0;
     ASSERT_TRUE(readJsonPatch(req, res, "integer", integer));
@@ -317,7 +317,7 @@ TEST(ReadJsonPatch, OnlyOdataGivesNoOperation)
     std::error_code ec;
     crow::Request req({}, ec);
     // Ignore errors intentionally
-    req.body = R"({"@odata.etag": "etag"})";
+    req.body() = R"({"@odata.etag": "etag"})";
 
     std::optional<int64_t> integer = 0;
     ASSERT_FALSE(readJsonPatch(req, res, "integer", integer));
@@ -331,7 +331,7 @@ TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     std::error_code ec;
     crow::Request req({}, ec);
     // Ignore errors intentionally
-    req.body = "{\"integer\": 1}";
+    req.body() = "{\"integer\": 1}";
 
     int64_t integer = 0;
     ASSERT_TRUE(readJsonAction(req, res, "integer", integer));
@@ -346,7 +346,7 @@ TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
     std::error_code ec;
     crow::Request req({}, ec);
     // Ignore errors intentionally
-    req.body = "{}";
+    req.body() = "{}";
 
     std::optional<int64_t> integer = 0;
     ASSERT_TRUE(readJsonAction(req, res, "integer", integer));

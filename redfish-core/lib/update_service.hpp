@@ -546,7 +546,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
-    out << req.body;
+    out << req.body();
     out.close();
     BMCWEB_LOG_DEBUG << "file upload complete!!";
 }

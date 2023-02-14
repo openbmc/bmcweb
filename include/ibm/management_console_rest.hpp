@@ -117,7 +117,7 @@ inline void handleFilePut(const crow::Request& req,
     BMCWEB_LOG_DEBUG << "saveAreaDirSize: " << saveAreaDirSize;
 
     // Get the file size getting uploaded
-    const std::string& data = req.body;
+    const std::string& data = req.body();
     BMCWEB_LOG_DEBUG << "data length: " << data.length();
 
     if (data.length() < minSaveareaFileSize)
