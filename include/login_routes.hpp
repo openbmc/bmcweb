@@ -37,7 +37,8 @@ inline void requestRoutes(App& app)
         // Check if auth was provided by a payload
         if (contentType.starts_with("application/json"))
         {
-            loginCredentials = nlohmann::json::parse(req.body, nullptr, false);
+            loginCredentials =
+                nlohmann::json::parse(req.body(), nullptr, false);
             if (loginCredentials.is_discarded())
             {
                 BMCWEB_LOG_DEBUG << "Bad json in request";
