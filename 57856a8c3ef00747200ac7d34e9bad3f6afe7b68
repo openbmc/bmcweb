@@ -1,0 +1,233 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1666ca1_4f970560",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "First round of comments.",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b081159_9456c9f7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "Please use the named \"result\" versions of these, unless you\u0027re doing 2XX level comparisons.  As written, I have to remember what 429 means 😊",
+      "range": {
+        "startLine": 911,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 9
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e20142d_bab4dce2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "icompare, and needs to handle both forms of content-type.\u0027\n\nThis is the perfect time to inform you that I\u0027m adding a helper function that does this correctly for you 😊\n\nIf it does what you need, please just use it:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59941/9/http/parsing.hpp#18",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 931,
+        "endChar": 70
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955ce777_4e7ff419",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "huh?  What form is this?",
+      "range": {
+        "startLine": 953,
+        "startChar": 52,
+        "endLine": 953,
+        "endChar": 78
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f3029f6_0c0084ea",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "nit, log an error here?  if we\u0027re getting non-json-object responses from the satellite, it\u0027s arguably an error.",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "756cfbb1_0293ba9f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "nit, prefer to return early to save scopes.\n\nAlso, I\u0027m not quite understanding this check.  you\u0027re checking .second, which means you\u0027re matching against the form\n\n{\n  \"thing\": {\n     \"@odata.id\": \u003cmy id\u003e\n  }\n}\n\nWhich doesn\u0027t seem right to me, or I\"m not understanding the case where it\u0027s useful.",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e806ba64_edf98502",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "nit, another place you can save horizontal space.",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1de7952_c1ea3609",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "OH man.  This pattern has burned us so many times.  I get why you did it, but can you please be more specific about ONLY clearing the thing you expect to be there, rather than clearing the whole response?  Ideally we\u0027d follow the design of never needing to delete, but that\u0027s a hard one in this case, and might need integrated with AsyncResp to do.\n\nalso, when you do this, I think this removes the need for the addedLinks variable, which seems to read as just a check to make sure you haven\u0027t cleared data that\u0027s already been posted.",
+      "range": {
+        "startLine": 987,
+        "startChar": 32,
+        "endLine": 989,
+        "endChar": 65
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6930f4b1_33891731",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "All of these should be using the pattern of \n\nit \u003d find(\"key\")\nif (it !\u003d thing.end()){\n     *it now points at value.\n}\n\nDoing it the way you did duplicates the key string a few times, and complicates the solution.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1022,
+        "endChar": 17
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca6ab706_0ec43cd8",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "I don\u0027t think this is an error in all cases, for example, the AdditionalDataUri property?  I\u0027m ok with not handling it for now, but lets leave a comment for now that this is incorrect and needs fixed.",
+      "range": {
+        "startLine": 1029,
+        "startChar": 0,
+        "endLine": 1029,
+        "endChar": 58
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04655893_52559f22",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T00:47:19Z",
+      "side": 1,
+      "message": "There\u0027s more valid responses than this?",
+      "range": {
+        "startLine": 1030,
+        "startChar": 0,
+        "endLine": 1039,
+        "endChar": 13
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
