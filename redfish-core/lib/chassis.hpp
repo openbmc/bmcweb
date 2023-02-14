@@ -272,7 +272,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Chassis.v1_16_0.Chassis";
+                "#Chassis.v1_22_0.Chassis";
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Chassis/" + chassisId;
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
