@@ -33,6 +33,42 @@
       "message": "I\u0027m not seeing this locally, and i believe CI builds debug.  Can you elaborate on your steps you did to reproduce this?",
       "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe54c3ca_a3181ed5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-14T13:18:52Z",
+      "side": 1,
+      "message": "I\u0027m not sure how we can do it to the boost source code, as it is happening while compiling a boost source code.\nPerhaps, would this need to report to \u0027boost\u0027 community?",
+      "parentUuid": "bbce5e9b_f39980d3",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32035399_3b4c9a4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-14T13:18:52Z",
+      "side": 1,
+      "message": "This can be reproduced by using both master branches of openbmc \u0026 bmcweb from github.com:openbmc.\n\n```\n$ cd openbmc\n$ git remote -v\norigin\tgit@github.com:openbmc/openbmc.git (fetch)\norigin\tgit@github.com:openbmc/openbmc.git (push)\n\n$ cd bmcweb\n$ git remote -v\norigin\tgit@github.com:openbmc/bmcweb.git (fetch)\norigin\tgit@github.com:openbmc/bmcweb.git (push)\n```\n\n\nAdd --buildtype\u003ddebug to bmcweb_%.bbappend\n\n\n```\n$ git diff\ndiff --git a/meta-ibm/recipes-phosphor/interfaces/bmcweb_%.bbappend b/meta-ibm/recipes-phosphor/interfaces/bmcweb_%.bbappend\nindex 2ea5d19e9..bd03889ad 100644\n--- a/meta-ibm/recipes-phosphor/interfaces/bmcweb_%.bbappend\n+++ b/meta-ibm/recipes-phosphor/interfaces/bmcweb_%.bbappend\n@@ -4,6 +4,7 @@ EXTRA_OEMESON:append \u003d \" \\\n     -Dredfish-new-powersubsystem-thermalsubsystem\u003denabled \\\n     -Dredfish-dump-log\u003denabled \\\n     -Dredfish-oem-manager-fan-data\u003ddisabled \\\n+    --buildtype\u003ddebug \\\n\"\nEXTRA_OEMESON:append:p10bmc \u003d \" \\\n```\n\n\nThen, I started  to build ‘bmcweb’ – I’ve tried ‘p10bmc’ and ‘witherspoon’ which gives the same error.\n\n1)\n. setup witherspoon\n\n2)\nMACHINE\u003dwitherspoon bitbake bmcweb\n\nThen, I got this error while compiling src/ boost_url.cpp.",
+      "parentUuid": "a686ee58_2b39d4d2",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
