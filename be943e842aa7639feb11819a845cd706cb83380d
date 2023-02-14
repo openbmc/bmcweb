@@ -16,6 +16,24 @@
       "message": "boost::to_upper right?",
       "revId": "be943e842aa7639feb11819a845cd706cb83380d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "350bc96b_f769df3c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-14T17:50:25Z",
+      "side": 1,
+      "message": "Yep",
+      "parentUuid": "c22e6ce6_7a85d0d3",
+      "revId": "be943e842aa7639feb11819a845cd706cb83380d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
