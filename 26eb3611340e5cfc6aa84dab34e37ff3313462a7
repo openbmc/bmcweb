@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d8ea22f_c3079309",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "This reads better, has more information! Great work!",
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "808c9aeb_61e5349c",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "company\u0027s\n\nnitpick: I think this reads better. \n\nGenerally, a single individual or group of senior individuals in a corporate organization is responsible for maintaining that company\u0027s OEM namespace. They ensure that it remains correct, doesn\u0027t duplicate functionality found elsewhere, and can be maintained forever. Within OpenBMC,",
+      "range": {
+        "startLine": 11,
+        "startChar": 58,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6542f158_90ece429",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "\"open-source\" \"closed-source\" I believe",
+      "range": {
+        "startLine": 17,
+        "startChar": 38,
+        "endLine": 17,
+        "endChar": 50
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18188a6e_8c56a7bc",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "reads weird.. \nOpenBMC\u0027s external Redfish API aims to be as compatible between systems as possible?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9004563_9f95e317",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "Nitpick: workflow? is feature better? \"to be able\" can be removed and the sentence sounds more concise. \n\nIf a given feature eventually becomes standardized, OpenBMC OEM endpoints now have to break an API boundary to move to the standard implementation.",
+      "range": {
+        "startLine": 36,
+        "startChar": 30,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a0b7cd_f1d5ec31",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "Nitpick: it sounds more forceful, concise without the filler phase \"amount of\"\n\n Given the effort it takes to break an API, it is much simpler to wait for the standard to be completed before merging the OEM code to master.",
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a67126_74925516",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "how to develop ?",
+      "range": {
+        "startLine": 75,
+        "startChar": 51,
+        "endLine": 75,
+        "endChar": 54
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b08d5314_3ed5b517",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:57:50Z",
+      "side": 1,
+      "message": "reads weird.. \nWe require OEM to have the same level of quality as non-OEM? \nWe require OEM to have the same level of quality as Standard Redfish.",
+      "range": {
+        "startLine": 81,
+        "startChar": 58,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
