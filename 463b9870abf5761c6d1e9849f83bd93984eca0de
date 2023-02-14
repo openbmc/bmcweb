@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e87b98f_0a1c288b",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:23:39Z",
+      "side": 1,
+      "message": "This is the most common pattern I see, have a default of enabled, then set Absent if present is false\n\nhttps://github.com/openbmc/bmcweb/blob/f041387d5912db27e0317805e5c341c9c472887a/redfish-core/lib/storage.hpp#L181",
+      "revId": "463b9870abf5761c6d1e9849f83bd93984eca0de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
