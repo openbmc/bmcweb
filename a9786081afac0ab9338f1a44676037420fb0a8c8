@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de65336e_fc813233",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:20:35Z",
+      "side": 1,
+      "message": "There are a few more properties like BuildDate, Submodel and Manufacturer. If anyone has a use case for these, they could be added later with little effort.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/a1347418307d31a94bd21f22897aa508df938dcf/yaml/xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L12",
+      "revId": "a9786081afac0ab9338f1a44676037420fb0a8c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
