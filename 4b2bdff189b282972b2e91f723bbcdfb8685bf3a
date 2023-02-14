@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "990f1ff5_28fabaa7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-14T03:42:03Z",
+      "side": 1,
+      "message": "Yes, just added it in the `Tested` label.",
+      "parentUuid": "a2725726_0d79c00c",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7e729537_12efc5fb",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "IIIIIInteresting.  we got this wrong apparently.",
       "parentUuid": "359535b1_66fbb37c",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f83a9921_472f5190",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-14T03:42:03Z",
+      "side": 1,
+      "message": "What\u0027s PDI?\nI thought we follow the `CPUID` instruction in the x86 architecture.\nhttps://en.wikipedia.org/wiki/CPUID",
+      "parentUuid": "c8f5c137_8d4b4a29",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
