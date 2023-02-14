@@ -104,6 +104,24 @@
       "parentUuid": "c8f5c137_8d4b4a29",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9435360_f35c1da7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-14T18:15:38Z",
+      "side": 1,
+      "message": "PDI is phosphor-dbus-interfaces. It is a uint32 at \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/60717/5/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml",
+      "parentUuid": "f83a9921_472f5190",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
