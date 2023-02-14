@@ -25,8 +25,6 @@ struct Request
 
     bool isSecure{false};
 
-    std::string& body;
-
     boost::asio::io_context* ioService{};
     boost::asio::ip::address ipAddress{};
 
@@ -35,8 +33,15 @@ struct Request
     std::string userRole{};
     Request(boost::beast::http::request<boost::beast::http::string_body> reqIn,
             std::error_code& ec) :
-        req(std::move(reqIn)),
-        body(req.body())
+        req(std::move(reqIn))
+    {
+        if (!setUrlInfo())
+        {
+            ec = std::make_error_code(std::errc::invalid_argument);
+        }
+    }
+
+    Request(std::string_view bodyIn, std::error_code& ec) : req({}, bodyIn)
     {
         if (!setUrlInfo())
         {
@@ -45,15 +50,15 @@ struct Request
     }
 
     Request(const Request& other) :
-        req(other.req), isSecure(other.isSecure), body(req.body()),
-        ioService(other.ioService), ipAddress(other.ipAddress),
-        session(other.session), userRole(other.userRole)
+        req(other.req), isSecure(other.isSecure), ioService(other.ioService),
+        ipAddress(other.ipAddress), session(other.session),
+        userRole(other.userRole)
     {
         setUrlInfo();
     }
 
     Request(Request&& other) noexcept :
-        req(std::move(other.req)), isSecure(other.isSecure), body(req.body()),
+        req(std::move(other.req)), isSecure(other.isSecure),
         ioService(other.ioService), ipAddress(std::move(other.ipAddress)),
         session(std::move(other.session)), userRole(std::move(other.userRole))
     {
@@ -92,6 +97,11 @@ struct Request
     const boost::beast::http::fields& fields() const
     {
         return req.base();
+    }
+
+    const std::string& body() const
+    {
+        return req.body();
     }
 
     bool target(std::string_view target)
