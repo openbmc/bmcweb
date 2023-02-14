@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eafb691e_581c048e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "TODO: Do I need to explicitly copy over the return code?",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e20142d_bab4dce2",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -54,6 +71,30 @@
       "writtenOn": "2023-02-14T00:47:19Z",
       "side": 1,
       "message": "icompare, and needs to handle both forms of content-type.\u0027\n\nThis is the perfect time to inform you that I\u0027m adding a helper function that does this correctly for you 😊\n\nIf it does what you need, please just use it:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59941/9/http/parsing.hpp#18",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 931,
+        "endChar": 70
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71099963_68e49ae4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "Thanks I can at least copy the same idea.  I don\u0027t think I want to call the function directly because it calls parse() and then discards the json.  I need to operate on the json so I\u0027d have to call parse() again.",
+      "parentUuid": "9e20142d_bab4dce2",
       "range": {
         "startLine": 931,
         "startChar": 0,
@@ -89,6 +130,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7dd24c8_f1470eb2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "I was trying to convey this from the JSON response.\n\n{\n    \"\u003cproperty\u003e\": {\n        \"@odata.id\":  \"\u003cURI\u003e\"\n    }\n}\n\nMaybe it would\u0027ve been more appropriate to say \u003cproperty\u003e.@odata.id \u003d \u003cURI\u003e ?",
+      "parentUuid": "955ce777_4e7ff419",
+      "range": {
+        "startLine": 953,
+        "startChar": 52,
+        "endLine": 953,
+        "endChar": 78
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f3029f6_0c0084ea",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -100,6 +165,24 @@
       "writtenOn": "2023-02-14T00:47:19Z",
       "side": 1,
       "message": "nit, log an error here?  if we\u0027re getting non-json-object responses from the satellite, it\u0027s arguably an error.",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed320d4b_3d2ee8db",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "Logging an error is fair",
+      "parentUuid": "8f3029f6_0c0084ea",
       "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +206,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "589e9d38_3c2937cc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "It\u0027s situations like querying the service root.  The response would look something like:\n\n{\n{\n\"Fabrics\": {\n\"@odata.id\": \"/redfish/v1/Fabrics\"\n},\n\"Tasks\": {\n\"@odata.id\": \"/redfish/v1/TaskService\"\n}\n}\n\nLet\u0027s say the aggregator did not for some reason support Fabrics and TaskService.  We\u0027d want to include both of those in the overall response.  I have to find the actual URI since that\u0027s what let\u0027s me know if it\u0027s a top level collection or up tree from a top level collection.  I also need to know the initial property because I have to include that as well in the overall response.",
+      "parentUuid": "756cfbb1_0293ba9f",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e806ba64_edf98502",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -134,6 +235,24 @@
       "writtenOn": "2023-02-14T00:47:19Z",
       "side": 1,
       "message": "nit, another place you can save horizontal space.",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a6f875_68bc5b0f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "ACK, I\u0027ll change that",
+      "parentUuid": "e806ba64_edf98502",
       "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -186,6 +305,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d2272f2_4a5633c2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "ACK, I\u0027ll fix that",
+      "parentUuid": "6930f4b1_33891731",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1022,
+        "endChar": 17
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca6ab706_0ec43cd8",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -209,6 +352,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea71cec0_588c5f6f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "I think it would be in the sense that we are only parsing responses from URIs which are uptree from top level collections.  If something like /redfish/v1 or /redfish/v1/UpdateService on a satellite did not return a json then the aggregator can\u0027t do anything with it anyway.\n\nAdditionalDataURI should appear under a resource which is part of a top level collection so it should never show up when parsing a response as part of processContainsSubordinateResponse().",
+      "parentUuid": "ca6ab706_0ec43cd8",
+      "range": {
+        "startLine": 1029,
+        "startChar": 0,
+        "endLine": 1029,
+        "endChar": 58
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04655893_52559f22",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -220,6 +387,30 @@
       "writtenOn": "2023-02-14T00:47:19Z",
       "side": 1,
       "message": "There\u0027s more valid responses than this?",
+      "range": {
+        "startLine": 1030,
+        "startChar": 0,
+        "endLine": 1039,
+        "endChar": 13
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d74956_91edc913",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-14T01:39:56Z",
+      "side": 1,
+      "message": "200 is really the only valid response for this.  However, 429 and 502 are dummy responses generated by the aggregated when we didn\u0027t successfully forward the responses because either the request buffer was full so we dropped the request (429) or we exhausted the retry policy (502).\n\nThis also matches the handling we use for processCollectionResponse().  There is a lot of similarity in how we process collection responses and responses that are uptree from a top level collection.\n\nIn both instances it may be fine to just simplify it to !200.",
+      "parentUuid": "04655893_52559f22",
       "range": {
         "startLine": 1030,
         "startChar": 0,
