@@ -736,7 +736,7 @@ inline const dbus::utility::ManagedObjectType::value_type*
     BMCWEB_LOG_DEBUG << "Find Chassis: " << value << "\n";
 
     std::string escaped = value;
-    std::replace(escaped.begin(), escaped.end(), '_', ' ');
+    std::replace(escaped.begin(), escaped.end(), ' ', '_');
     escaped = "/" + escaped;
     auto it = std::find_if(managedObj.begin(), managedObj.end(),
                            [&escaped](const auto& obj) {
@@ -1517,13 +1517,15 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                  it != container->end(); ++it)
             {
                 const auto& name = it.key();
+                std::string dbusObjName = name;
+                std::replace(dbusObjName.begin(), dbusObjName.end(), ' ', '_');
                 BMCWEB_LOG_DEBUG << "looking for " << name;
 
                 auto pathItr =
                     std::find_if(managedObj.begin(), managedObj.end(),
-                                 [&name](const auto& obj) {
+                                 [&dbusObjName](const auto& obj) {
                     return boost::algorithm::ends_with(obj.first.str,
-                                                       "/" + name);
+                                                       "/" + dbusObjName);
                     });
                 dbus::utility::DBusPropertiesMap output;
 
