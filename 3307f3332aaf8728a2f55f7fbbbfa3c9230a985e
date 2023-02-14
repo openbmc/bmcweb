@@ -16,6 +16,23 @@
       "message": "code lgtm but the documentation \u0026 entit-manager part need to be closed as mentioned by Gunnar:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/44570/comments/66a79d92_c6c2dc48\n\n\nhttps://gerrit.openbmc.org/c/openbmc/entity-manager/+/43958\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/46806",
       "revId": "3307f3332aaf8728a2f55f7fbbbfa3c9230a985e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8e24ecc_ec906eac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-02-14T09:55:43Z",
+      "side": 1,
+      "message": "I\u0027ve revived this change now that the design as been accepted: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914",
+      "revId": "3307f3332aaf8728a2f55f7fbbbfa3c9230a985e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
