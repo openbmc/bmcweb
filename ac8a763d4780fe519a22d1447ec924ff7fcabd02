@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1892723e_10ddd326",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-14T22:54:59Z",
+      "side": 1,
+      "message": "Removed the function.",
+      "parentUuid": "dd557197_4a731cdc",
+      "range": {
+        "startLine": 1100,
+        "startChar": 4,
+        "endLine": 1100,
+        "endChar": 45
+      },
+      "revId": "ac8a763d4780fe519a22d1447ec924ff7fcabd02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b01c9e7_191879d0",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 77
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-29T20:11:36Z",
       "side": 1,
       "message": "This doesn\u0027t work for multiple hosts.  I\u0027m pretty sure you need to be looking up the particular instance of the host you want.",
+      "range": {
+        "startLine": 1208,
+        "startChar": 57,
+        "endLine": 1208,
+        "endChar": 61
+      },
+      "revId": "ac8a763d4780fe519a22d1447ec924ff7fcabd02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e4a9aae_d2434109",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-14T22:54:59Z",
+      "side": 1,
+      "message": "Removed the function.",
+      "parentUuid": "6b01c9e7_191879d0",
       "range": {
         "startLine": 1208,
         "startChar": 57,
