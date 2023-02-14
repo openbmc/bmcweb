@@ -63,7 +63,7 @@ struct Payload
             return;
         }
 
-        for (const auto& field : req.fields)
+        for (const auto& field : req.fields())
         {
             if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
                           field.name()) == headerWhitelist.end())
