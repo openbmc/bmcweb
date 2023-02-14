@@ -74,8 +74,8 @@ class MultipartParser
         lookbehind.resize(boundary.size() + 8);
         state = State::START;
 
-        const char* buffer = req.body.data();
-        size_t len = req.body.size();
+        const char* buffer = req.body().data();
+        size_t len = req.body().size();
         char cl = 0;
 
         for (size_t i = 0; i < len; i++)
