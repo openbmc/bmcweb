@@ -2010,8 +2010,9 @@ inline void requestRoutesProcessor(App& app)
  *
  * @note - The "Enabled" member of the Processor Core is used to enable
  *         (aka isolate) or disable (aka deisolate) the resource from the
- *         system boot so this function will call "processHardwareIsolationReq"
- *         function which is used to handle the resource isolation request.
+ *         system boot so this function will call
+ * "processHardwareIsolationReq" function which is used to handle the
+ * resource isolation request.
  *       - The "Enabled" member of the Processor Core is mapped with
  *         "xyz.openbmc_project.Object.Enable::Enabled" dbus property.
  */
@@ -2029,15 +2030,17 @@ inline void
  * @brief API used to process the Processor Core members which are tried to
  *        patch.
  *
- * @param[in] req - The redfish patched request to identify the patched members
+ * @param[in] req - The redfish patched request to identify the patched
+ * members
  * @param[in] asyncResp - The redfish response to return.
- * @param[in] processorId - The patched Core Processor resource id (unused now)
+ * @param[in] processorId - The patched Core Processor resource id (unused
+ * now)
  * @param[in] coreId - The patched Processor Core resource id.
  *
  * @return The redfish response in the given buffer.
  *
- * @note This function will call the appropriate function to handle the patched
- *       members of the Processor Core.
+ * @note This function will call the appropriate function to handle the
+ * patched members of the Processor Core.
  */
 inline void
     patchCpuCoreMembers(const crow::Request& req,
@@ -2057,4 +2060,23 @@ inline void
         patchCpuCoreMemberEnabled(asyncResp, coreId, *enabled);
     }
 }
+
+inline void requestRoutesSubProcessorsCore(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/system/Processors/<str>/SubProcessors/<str>")
+        .privileges(redfish::privileges::getProcessor)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& processorId, const std::string& coreId) {
+        getSubProcessorData(asyncResp, processorId, coreId);
+    });
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/system/Processors/<str>/SubProcessors/<str>")
+        .privileges(redfish::privileges::patchProcessor)
+        .methods(boost::beast::http::verb::patch)(patchCpuCoreMembers);
+}
+
 } // namespace redfish
