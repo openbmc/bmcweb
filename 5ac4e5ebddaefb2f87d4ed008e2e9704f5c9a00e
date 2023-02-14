@@ -105,6 +105,24 @@
       "parentUuid": "c9bf0d84_f52a23d7",
       "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3d1b2f_eeb07fbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2023-02-14T22:27:16Z",
+      "side": 1,
+      "message": "I don\u0027t remember why I added this to the Chassis resource.  I may have been hitting a Redfish Validator error that this resolved.\n\nAs long as the Validator passes, I think this is okay.  The Redfish schema guide does specify that this should be the PCIe devices located in this chassis.  If this implementation doesn\u0027t meet that description, then I agree it should be removed.",
+      "parentUuid": "5dbce894_8f29b29a",
+      "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
