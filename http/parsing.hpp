@@ -29,7 +29,7 @@ inline JsonParseResult parseRequestAsJson(const crow::Request& req,
         return JsonParseResult::BadContentType;
 #endif
     }
-    jsonOut = nlohmann::json::parse(req.body, nullptr, false);
+    jsonOut = nlohmann::json::parse(req.body(), nullptr, false);
     if (jsonOut.is_discarded())
     {
         BMCWEB_LOG_WARNING << "Failed to parse json in request";
