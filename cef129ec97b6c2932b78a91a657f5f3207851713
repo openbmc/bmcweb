@@ -16,6 +16,24 @@
       "message": "And this was tested on Romulus Qemu or someplace that recreated the issue we saw with the bump?\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60859",
       "revId": "cef129ec97b6c2932b78a91a657f5f3207851713",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "362b76f7_5d384046",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-15T02:18:36Z",
+      "side": 1,
+      "message": "\u003e And this was tested on Romulus Qemu or someplace that recreated the issue we saw with the bump?\n\u003e \n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60859\n\nFor this one: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60859/1/include/dbus_utility.hpp#b98\nWe tested on Romulus Qemu, fp5280g2 Qemu, and P10bmc Qemu, Unable to get the `FirmwareVersion` value.\n\nFor this one:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60872/2/include/dbus_utility.hpp#99\nWe tested on Romulus Qemu, fp5280g2 Qemu, and P10bmc Qemu, it works fine. we can got the correct `FirmwareVersion` value.",
+      "parentUuid": "4f0dad7c_d2b31c44",
+      "revId": "cef129ec97b6c2932b78a91a657f5f3207851713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
