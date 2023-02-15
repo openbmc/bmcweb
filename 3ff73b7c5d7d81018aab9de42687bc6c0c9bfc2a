@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7861ca3_33c526b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-02-15T22:01:37Z",
+      "side": 1,
+      "message": "Correct.  Redfish intended WebUI to control access to legacy web interfaces, not for Web interfaces which use Redfish APIs.\nSee https://redfishforum.com/post/1361/thread (search for WebUI).  [Although it appears I answered my own question, the answer was based on a discussion in the private Redfish forum.  Please re-ask if you want someone else to answer.]",
+      "revId": "3ff73b7c5d7d81018aab9de42687bc6c0c9bfc2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d7c63ba9_604ac262",
