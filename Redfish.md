@@ -404,7 +404,6 @@ Fields common to all schemas
 - Links/ManagerForServers
 - Links/ManagerForServers@odata.count
 - Links/ManagerInChassis
-- Links/ServiceRootUptime
 - Links/SoftwareImages
 - Links/SoftwareImages@odata.count
 - LogServices

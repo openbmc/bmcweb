@@ -33,7 +33,6 @@
 
 #include <algorithm>
 #include <array>
-#include <chrono>
 #include <cstdint>
 #include <memory>
 #include <sstream>
@@ -1770,47 +1769,6 @@ inline void
         });
 }
 
-inline void
-    afterGetManagerStartTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                             const boost::system::error_code& ec,
-                             uint64_t bmcwebResetTime)
-{
-    if (ec)
-    {
-        return;
-    }
-    using std::chrono::steady_clock;
-    std::chrono::microseconds usReset{bmcwebResetTime};
-    steady_clock::time_point resetTime{usReset};
-
-    steady_clock::time_point now = steady_clock::now();
-
-    steady_clock::duration run = now - resetTime;
-
-    if (run < steady_clock::duration::zero())
-    {
-        BMCWEB_LOG_CRITICAL << "Uptime was negative????";
-        messages::internalError(aResp->res);
-        return;
-    }
-
-    using Milli = std::chrono::milliseconds;
-    Milli uptimeMs = std::chrono::duration_cast<Milli>(run);
-
-    using redfish::time_utils::toDurationString;
-    aResp->res.jsonValue["ServiceRootUptime"] = toDurationString(uptimeMs);
-}
-
-inline void
-    managerGetServiceRootUptime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
-{
-    sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "org.freedesktop.systemd1",
-        "/org/freedesktop/systemd1/unit/bmcweb_2eservice",
-        "org.freedesktop.systemd1.Unit", "ActiveEnterTimestampMonotonic",
-        std::bind_front(afterGetManagerStartTime, aResp));
-}
-
 /**
  * @brief Set the running firmware image
  *
@@ -2067,8 +2025,6 @@ inline void requestRoutesManager(App& app)
                                              "FirmwareVersion", true);
 
         managerGetLastResetTime(asyncResp);
-
-        managerGetServiceRootUptime(asyncResp);
 
         // ManagerDiagnosticData is added for all BMCs.
         nlohmann::json& managerDiagnosticData =
