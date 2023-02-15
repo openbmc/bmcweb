@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "442a4d2e_94583c42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-15T22:22:52Z",
+      "side": 1,
+      "message": "Redfish Validator?",
+      "revId": "ee6b4b9558a6221711ad5cf3aadccb1f1a1ea356",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89c1b7ba_45fc4772",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
@@ -14,6 +31,23 @@
       "writtenOn": "2023-02-14T21:30:01Z",
       "side": 1,
       "message": "Any chance you could use https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60872 ? \nI would rather the code base does it this way or has some utility funciton like getAssociationEndPoints. Don\u0027t want both",
+      "revId": "ee6b4b9558a6221711ad5cf3aadccb1f1a1ea356",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47decee0_189f0743",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-15T22:22:52Z",
+      "side": 1,
+      "message": "nit: may be BMCWEB_LOG_ERROR when we have a internalError.",
       "revId": "ee6b4b9558a6221711ad5cf3aadccb1f1a1ea356",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
