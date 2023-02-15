@@ -378,6 +378,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cabe758_c05773c0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-15T20:33:35Z",
+      "side": 1,
+      "message": "I\u0027ve changed the code so that it can return early.  Please reopen if you have additional questions about the checks being made.",
+      "parentUuid": "589e9d38_3c2937cc",
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e806ba64_edf98502",
@@ -444,6 +462,30 @@
       "writtenOn": "2023-02-14T00:47:19Z",
       "side": 1,
       "message": "OH man.  This pattern has burned us so many times.  I get why you did it, but can you please be more specific about ONLY clearing the thing you expect to be there, rather than clearing the whole response?  Ideally we\u0027d follow the design of never needing to delete, but that\u0027s a hard one in this case, and might need integrated with AsyncResp to do.\n\nalso, when you do this, I think this removes the need for the addedLinks variable, which seems to read as just a check to make sure you haven\u0027t cleared data that\u0027s already been posted.",
+      "range": {
+        "startLine": 987,
+        "startChar": 32,
+        "endLine": 989,
+        "endChar": 65
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9882dd8e_bb2de2e3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-15T20:33:35Z",
+      "side": 1,
+      "message": "The property I for sure want to remove is \"error\" if it exists.  My other concern (which I didn\u0027t articulate) is the local response may have been partially generated before throwing an error.  In that case I didn\u0027t want to expose any of that partial information since in the overall response it would not be possible to tell what properties came from a 200 response and what properties came from a partially populated non-200 response.\n\nI\u0027ve changed the code to only clear \"error\" and leave whatever properties may have been populated before the error occurred.  We need the addedLinks boolean because we do not want to remove errors from a non-200 local response unless one of the satellite responses contains a valid link that we want to add.\n\nI\u0027ve also added additional test cases to verify this behavior.",
+      "parentUuid": "f1de7952_c1ea3609",
       "range": {
         "startLine": 987,
         "startChar": 32,
