@@ -122,6 +122,24 @@
       "parentUuid": "f83a9921_472f5190",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34251b8_102d7439",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-15T00:13:08Z",
+      "side": 1,
+      "message": "I thought `maxint` means the max value of that type.\nBecause I saw it had been used on `byte` and `uint64` as well.\n\n- https://github1s.com/openbmc/phosphor-dbus-interfaces/blob/HEAD/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L31-L33\n- https://github1s.com/openbmc/phosphor-dbus-interfaces/blob/HEAD/yaml/xyz/openbmc_project/State/Drive.interface.yaml#L22-L24\n\nAlso I tried manually set the `Step` to 65535 on DBus and confirmed bmcweb doesn\u0027t show `Step` anymore.",
+      "parentUuid": "a9435360_f35c1da7",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
