@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4068f235_94b304ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2023-02-15T21:50:49Z",
+      "side": 1,
+      "message": "My Ethanolx board BIOS at some boot stages produces many POST codes in 1 second intervals. In that case if several POST codes have the same \u0027Created\u0027 time, it is impossible to sort them correctly. I\u0027ve described the problem with screenshots from the webui-vue in the discord duscussion https://discord.com/channels/775381525260664832/776550056391606352/1075121416984338532",
+      "parentUuid": "74679f29_084bb10f",
+      "revId": "73639de2e78528b8a1dbe4fc2f5ea6a7904eece2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a8980bce_116d6eb3",
