@@ -173,6 +173,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dabf0fa_8a8b480b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-15T02:18:31Z",
+      "side": 1,
+      "message": "Actually I can\u0027t use it because it\u0027s designed for parsing requests and I need to parse a response.  Even if it could handle responses, it\u0027d be a bit awkward to use in the short term.  We need to take 3 different actions depending on:\n1) It\u0027s not an application/json\n2) It\u0027s an application/json, but we failed to parse\n3) It\u0027s an application/json and we parsed it\n\nThat helper function only has two exit routes until BMCWEB_INSECURE_IGNORE_CONTENT_TYPE is disabled by default.  Until then we\u0027d have to derive if scenario 1) occurred.\n\nI\u0027m leaning towards copying the icompare portion for now.",
+      "parentUuid": "e90bfac8_2b12f38f",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 931,
+        "endChar": 70
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "955ce777_4e7ff419",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
