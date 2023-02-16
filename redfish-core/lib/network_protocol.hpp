@@ -94,7 +94,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code errorCode,
+            const boost::system::error_code& errorCode,
             const dbus::utility::ManagedObjectType& dbusData) {
         std::vector<std::string> ntpServers;
         std::vector<std::string> domainNames;
@@ -185,7 +185,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& serviceName = protocol.second;
         getPortStatusAndPath(
             serviceName,
-            [asyncResp, protocolName](const boost::system::error_code ec,
+            [asyncResp, protocolName](const boost::system::error_code& ec,
                                       const std::string& socketPath,
                                       bool isProtocolEnabled) {
             // If the service is not installed, that is not an error
@@ -205,7 +205,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
                 isProtocolEnabled;
             getPortNumber(socketPath, [asyncResp, protocolName](
-                                          const boost::system::error_code ec2,
+                                          const boost::system::error_code& ec2,
                                           int portNumber) {
                 if (ec2)
                 {
@@ -233,7 +233,7 @@ inline void handleNTPProtocolEnabled(
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code errorCode) {
+        [asyncResp](const boost::system::error_code& errorCode) {
         if (errorCode)
         {
             messages::internalError(asyncResp->res);
@@ -350,7 +350,7 @@ inline void
                     }
 
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec2) {
+                        [asyncResp](const boost::system::error_code& ec2) {
                         if (ec2)
                         {
                             messages::internalError(asyncResp->res);
@@ -389,7 +389,7 @@ inline void
             if (boost::algorithm::starts_with(entry.first, netBasePath))
             {
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec2) {
+                    [asyncResp](const boost::system::error_code& ec2) {
                     if (ec2)
                     {
                         messages::internalError(asyncResp->res);
@@ -402,7 +402,7 @@ inline void
                     dbus::utility::DbusVariantType{protocolEnabled});
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec2) {
+                    [asyncResp](const boost::system::error_code& ec2) {
                     if (ec2)
                     {
                         messages::internalError(asyncResp->res);
@@ -437,7 +437,7 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/time/sync_method",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        [asyncResp](const boost::system::error_code errorCode,
+        [asyncResp](const boost::system::error_code& errorCode,
                     const std::string& timeSyncMethod) {
         if (errorCode)
         {

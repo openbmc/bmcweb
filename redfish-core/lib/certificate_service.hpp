@@ -299,7 +299,7 @@ static void getCertificateProperties(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objectPath, certs::certPropIntf,
         [asyncResp, certURL, certId,
-         name](const boost::system::error_code ec,
+         name](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
@@ -383,7 +383,7 @@ static void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp,
-         id{objectPath.filename()}](const boost::system::error_code ec) {
+         id{objectPath.filename()}](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::resourceNotFound(asyncResp->res, "Certificate", id);
@@ -551,7 +551,7 @@ inline void handleReplaceCertificateAction(
         std::make_shared<CertificateFile>(certificate);
     crow::connections::systemBus->async_method_call(
         [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id,
-         name](const boost::system::error_code ec) {
+         name](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -593,7 +593,7 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      << " CSRObjectPath=" << csrObjPath
                      << " service=" << service;
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certURI](const boost::system::error_code ec,
+        [asyncResp, certURI](const boost::system::error_code& ec,
                              const std::string& csr) {
         if (ec)
         {
@@ -831,7 +831,7 @@ inline void
         }
         });
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec, const std::string&) {
+        [asyncResp](const boost::system::error_code& ec, const std::string&) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error: " << ec.message();
@@ -922,7 +922,7 @@ inline void handleHTTPSCertificateCollectionPost(
         std::make_shared<CertificateFile>(certFileBody);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certFile](const boost::system::error_code ec,
+        [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
         if (ec)
         {
@@ -1029,7 +1029,7 @@ inline void handleLDAPCertificateCollectionPost(
         std::make_shared<CertificateFile>(certFileBody);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certFile](const boost::system::error_code ec,
+        [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
         if (ec)
         {
@@ -1150,7 +1150,7 @@ inline void handleTrustStoreCertificateCollectionPost(
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certFileBody);
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certFile](const boost::system::error_code ec,
+        [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
         if (ec)
         {

@@ -131,7 +131,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         [transaction, processName{std::string(processName)},
          objectPath{std::string(objectPath)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::string& introspectXml) {
         if (ec)
         {
@@ -192,7 +192,7 @@ inline void getPropertiesForEnumerate(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objectPath, interface,
         [asyncResp, objectPath, service,
-         interface](const boost::system::error_code ec,
+         interface](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (ec)
         {
@@ -305,7 +305,7 @@ inline void getManagedObjectsForEnumerate(
                      << " connection_name " << connectionName;
     crow::connections::systemBus->async_method_call(
         [transaction, objectName,
-         connectionName](const boost::system::error_code ec,
+         connectionName](const boost::system::error_code& ec,
                          const dbus::utility::ManagedObjectType& objects) {
         if (ec)
         {
@@ -375,7 +375,7 @@ inline void findObjectManagerPathForEnumerate(
                      << " on connection:" << connectionName;
     crow::connections::systemBus->async_method_call(
         [transaction, objectName, connectionName](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetAncestorsResponse& objects) {
         if (ec)
         {
@@ -1383,7 +1383,7 @@ inline void findActionOnInterface(
                      << connectionName;
     crow::connections::systemBus->async_method_call(
         [transaction, connectionName{std::string(connectionName)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::string& introspectXml) {
         BMCWEB_LOG_DEBUG << "got xml:\n " << introspectXml;
         if (ec)
@@ -1495,7 +1495,7 @@ inline void findActionOnInterface(
                         crow::connections::systemBus->async_send(
                             m,
                             [transaction,
-                             returnType](boost::system::error_code ec2,
+                             returnType](const boost::system::error_code& ec2,
                                          sdbusplus::message_t& m2) {
                             if (ec2)
                             {
@@ -1747,7 +1747,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 m.append(interface);
                 crow::connections::systemBus->async_send(
                     m, [asyncResp, response,
-                        propertyName](const boost::system::error_code ec2,
+                        propertyName](const boost::system::error_code& ec2,
                                       sdbusplus::message_t& msg) {
                         if (ec2)
                         {
@@ -1900,7 +1900,7 @@ inline void handlePut(const crow::Request& req,
 
             crow::connections::systemBus->async_method_call(
                 [connectionName{std::string(connectionName)},
-                 transaction](const boost::system::error_code ec3,
+                 transaction](const boost::system::error_code& ec3,
                               const std::string& introspectXml) {
                 if (ec3)
                 {
@@ -1984,8 +1984,9 @@ inline void handlePut(const crow::Request& req,
                                 }
                                 crow::connections::systemBus->async_send(
                                     m,
-                                    [transaction](boost::system::error_code ec,
-                                                  sdbusplus::message_t& m2) {
+                                    [transaction](
+                                        const boost::system::error_code& ec,
+                                        sdbusplus::message_t& m2) {
                                     BMCWEB_LOG_DEBUG << "sent";
                                     if (ec)
                                     {
@@ -2157,7 +2158,7 @@ inline void
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, processName,
-             objectPath](const boost::system::error_code ec,
+             objectPath](const boost::system::error_code& ec,
                          const std::string& introspectXml) {
             if (ec)
             {
@@ -2212,7 +2213,7 @@ inline void
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp, processName, objectPath,
-             interfaceName](const boost::system::error_code ec,
+             interfaceName](const boost::system::error_code& ec,
                             const std::string& introspectXml) {
             if (ec)
             {
@@ -2445,7 +2446,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        auto myCallback = [asyncResp](const boost::system::error_code ec,
+        auto myCallback = [asyncResp](const boost::system::error_code& ec,
                                       std::vector<std::string>& names) {
             if (ec)
             {

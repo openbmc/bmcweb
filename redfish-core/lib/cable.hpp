@@ -24,7 +24,7 @@ namespace redfish
  */
 inline void
     fillCableProperties(crow::Response& resp,
-                        const boost::system::error_code ec,
+                        const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
@@ -97,7 +97,7 @@ inline void
                 *crow::connections::systemBus, service, cableObjectPath,
                 interface,
                 [asyncResp](
-                    const boost::system::error_code ec,
+                    const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
                 fillCableProperties(asyncResp->res, ec, properties);
                 });
