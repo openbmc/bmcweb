@@ -83,8 +83,8 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
  * @param username The provided username aka account name.
  * @param password The provided password.
  * @returns PAM error code or PAM_SUCCESS for success. */
-inline int pamAuthenticateUser(const std::string_view username,
-                               const std::string_view password)
+inline int pamAuthenticateUser(std::string_view username,
+                               std::string_view password)
 {
     std::string userStr(username);
     std::string passStr(password);
