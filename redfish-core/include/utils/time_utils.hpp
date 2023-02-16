@@ -47,7 +47,7 @@ inline std::string padZeros(int64_t value, size_t pad)
 }
 
 template <typename FromTime>
-bool fromDurationItem(std::string_view& fmt, const char postfix,
+bool fromDurationItem(std::string_view fmt, const char postfix,
                       std::chrono::milliseconds& out)
 {
     const size_t pos = fmt.find(postfix);

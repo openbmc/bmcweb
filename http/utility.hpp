@@ -378,7 +378,7 @@ struct FunctionTraits
     using arg = std::tuple_element_t<i, boost::callable_traits::args_t<T>>;
 };
 
-inline std::string base64encode(const std::string_view data)
+inline std::string base64encode(std::string_view data)
 {
     const std::array<char, 64> key = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -438,7 +438,7 @@ inline std::string base64encode(const std::string_view data)
 
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
-inline bool base64Decode(const std::string_view input, std::string& output)
+inline bool base64Decode(std::string_view input, std::string& output)
 {
     static const char nop = static_cast<char>(-1);
     // See note on encoding_data[] in above function
@@ -541,8 +541,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     return true;
 }
 
-inline bool constantTimeStringCompare(const std::string_view a,
-                                      const std::string_view b)
+inline bool constantTimeStringCompare(std::string_view a, std::string_view b)
 {
     // Important note, this function is ONLY constant time if the two input
     // sizes are the same
@@ -555,7 +554,7 @@ inline bool constantTimeStringCompare(const std::string_view a,
 
 struct ConstantTimeCompare
 {
-    bool operator()(const std::string_view a, const std::string_view b) const
+    bool operator()(std::string_view a, std::string_view b) const
     {
         return constantTimeStringCompare(a, b);
     }
@@ -567,7 +566,7 @@ inline boost::urls::url
     appendUrlPieces(boost::urls::url& url,
                     const std::initializer_list<std::string_view> args)
 {
-    for (const std::string_view& arg : args)
+    for (std::string_view arg : args)
     {
         url.segments().push_back(arg);
     }
@@ -696,7 +695,7 @@ inline bool readUrlSegments(const boost::urls::url_view& urlView,
 
 inline boost::urls::url replaceUrlSegment(const boost::urls::url_view& urlView,
                                           const uint replaceLoc,
-                                          const std::string_view newSegment)
+                                          std::string_view newSegment)
 {
     const boost::urls::segments_view& urlSegments = urlView.segments();
     boost::urls::url url("/");
