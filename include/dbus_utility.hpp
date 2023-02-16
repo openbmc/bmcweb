@@ -133,7 +133,7 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::forward<Callback>(callback)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetObject& objectNames) {
         callback(!ec && !objectNames.empty());
         },
@@ -151,7 +151,7 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -167,7 +167,7 @@ inline void getSubTreePaths(
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
         callback(ec, subtreePaths);
         },

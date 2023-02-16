@@ -71,7 +71,7 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;

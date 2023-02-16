@@ -43,7 +43,7 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
         "xyz.openbmc_project.State.Host", "CurrentHostState",
-        [aResp](const boost::system::error_code ec,
+        [aResp](const boost::system::error_code& ec,
                 const std::string& hostState) {
         if (ec)
         {
@@ -322,7 +322,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
     crow::connections::systemBus->async_method_call(
         [ethIfaceId{std::string{ethIfaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code error,
+            const boost::system::error_code& error,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
         boost::container::flat_set<IPv4AddressData> ipv4Data;
@@ -361,7 +361,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Address
                      << " on Iface: " << ethIfaceId;
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec) {
+        [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
@@ -393,7 +393,7 @@ inline void
                      << " on Iface: " << ethIfaceId;
 
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec) {
+        [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
@@ -425,7 +425,7 @@ inline void
         << "Setting the DefaultGateway to the last configured gateway";
 
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec) {
+        [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
@@ -525,7 +525,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
 {
     const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -554,7 +554,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         origin = "xyz.openbmc_project.Network.IP.AddressOrigin.DHCP";
     }
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
@@ -689,7 +689,7 @@ inline void
 
     asyncResp->res.jsonValue["HostName"] = hostName;
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -707,7 +707,7 @@ inline void
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -741,7 +741,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             *crow::connections::systemBus, "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::string& /*hostName*/) {
             if (ec)
             {
@@ -1080,7 +1080,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         std::string command = "xyz.openbmc_project.State.Host.Transition.On";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, resetType](const boost::system::error_code ec) {
+            [asyncResp, resetType](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;

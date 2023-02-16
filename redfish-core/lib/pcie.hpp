@@ -169,7 +169,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
 
         auto getPCIeDeviceCallback =
             [asyncResp, device](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
             if (ec)
             {
@@ -286,7 +286,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
 
         auto getPCIeDeviceCallback =
             [asyncResp, device](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
             if (ec)
             {
@@ -362,7 +362,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
         }
         auto getPCIeDeviceCallback =
             [asyncResp, device, function](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
             if (ec)
             {
