@@ -288,7 +288,7 @@ class AddReport
         const std::shared_ptr<bmcweb::AsyncResp> aResp = asyncResp;
         crow::connections::systemBus->async_method_call(
             [aResp, name = args.name, uriToDbus = std::move(uriToDbus)](
-                const boost::system::error_code ec, const std::string&) {
+                const boost::system::error_code& ec, const std::string&) {
             if (ec == boost::system::errc::file_exists)
             {
                 messages::resourceAlreadyExists(
@@ -436,7 +436,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
             *crow::connections::systemBus, telemetry::service,
             telemetry::getDbusReportPath(id), telemetry::reportInterface,
             [asyncResp,
-             id](const boost::system::error_code ec,
+             id](const boost::system::error_code& ec,
                  const std::vector<std::pair<
                      std::string, dbus::utility::DbusVariantType>>& ret) {
             if (ec.value() == EBADR ||
@@ -473,7 +473,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
         const std::string reportPath = telemetry::getDbusReportPath(id);
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, id](const boost::system::error_code ec) {
+            [asyncResp, id](const boost::system::error_code& ec) {
             /*
              * boost::system::errc and std::errc are missing value
              * for EBADR error that is defined in Linux.
