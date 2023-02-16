@@ -401,7 +401,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     }
 
     static void onTimeout(const std::weak_ptr<ConnectionInfo>& weakSelf,
-                          const boost::system::error_code ec)
+                          const boost::system::error_code& ec)
     {
         if (ec == boost::asio::error::operation_aborted)
         {

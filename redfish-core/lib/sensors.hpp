@@ -1003,7 +1003,7 @@ inline void populateFanRedundancy(
                 "xyz.openbmc_project.ObjectMapper", path + "/chassis",
                 "xyz.openbmc_project.Association", "endpoints",
                 [path, owner,
-                 sensorsAsyncResp](const boost::system::error_code e,
+                 sensorsAsyncResp](const boost::system::error_code& e,
                                    const std::vector<std::string>& endpoints) {
                 if (e)
                 {
@@ -1445,7 +1445,7 @@ static void getInventoryItemsData(
         auto respHandler = [sensorsAsyncResp, inventoryItems, invConnections,
                             callback{std::forward<Callback>(callback)},
                             invConnectionsIndex](
-                               const boost::system::error_code ec,
+                               const boost::system::error_code& ec,
                                const dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getInventoryItemsData respHandler enter";
             if (ec)
@@ -1601,7 +1601,7 @@ static void getInventoryItemAssociations(
     // Response handler for GetManagedObjects
     auto respHandler =
         [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
-         sensorNames](const boost::system::error_code ec,
+         sensorNames](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& resp) {
         BMCWEB_LOG_DEBUG << "getInventoryItemAssociations respHandler enter";
         if (ec)
@@ -1775,7 +1775,7 @@ void getInventoryLedData(
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
              callback{std::forward<Callback>(callback)}, ledConnectionsIndex](
-                const boost::system::error_code ec, const std::string& state) {
+                const boost::system::error_code& ec, const std::string& state) {
             BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
             if (ec)
             {
@@ -1959,7 +1959,7 @@ void getPowerSupplyAttributesData(
     auto respHandler =
         [sensorsAsyncResp, inventoryItems,
          callback{std::forward<Callback>(callback)}](
-            const boost::system::error_code ec, const uint32_t value) {
+            const boost::system::error_code& ec, const uint32_t value) {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData respHandler enter";
         if (ec)
         {
@@ -2264,7 +2264,7 @@ inline void getSensorData(
         // Response handler to process managed objects
         auto getManagedObjectsCb =
             [sensorsAsyncResp, sensorNames,
-             inventoryItems](const boost::system::error_code ec,
+             inventoryItems](const boost::system::error_code& ec,
                              const dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb enter";
             if (ec)
@@ -2696,7 +2696,7 @@ inline void setSensorsOverride(
                     return;
                 }
                 crow::connections::systemBus->async_method_call(
-                    [sensorAsyncResp](const boost::system::error_code ec) {
+                    [sensorAsyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
                         if (ec.value() ==
@@ -2865,7 +2865,7 @@ inline void
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, sensorPath, "",
         [asyncResp,
-         sensorPath](const boost::system::error_code ec,
+         sensorPath](const boost::system::error_code& ec,
                      const ::dbus::utility::DBusPropertiesMap& valuesDict) {
         if (ec)
         {

@@ -638,7 +638,7 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -654,7 +654,7 @@ inline void updateIPv4DefaultGateway(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -684,7 +684,7 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     auto createIpHandler =
-        [asyncResp, ifaceId, gateway](const boost::system::error_code ec) {
+        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -722,7 +722,7 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, ifaceId, address, prefixLength,
-         gateway](const boost::system::error_code ec) {
+         gateway](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -730,7 +730,8 @@ inline void
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, ifaceId, gateway](const boost::system::error_code ec2) {
+            [asyncResp, ifaceId,
+             gateway](const boost::system::error_code& ec2) {
             if (ec2)
             {
                 messages::internalError(asyncResp->res);
@@ -762,7 +763,7 @@ inline void deleteIPv6(const std::string& ifaceId, const std::string& ipHash,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -792,13 +793,13 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, ifaceId, address,
-         prefixLength](const boost::system::error_code ec) {
+         prefixLength](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
         }
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec2) {
+            [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
                 messages::internalError(asyncResp->res);
@@ -829,7 +830,7 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
                        const std::string& address,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    auto createIpHandler = [asyncResp](const boost::system::error_code ec) {
+    auto createIpHandler = [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -860,7 +861,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
     crow::connections::systemBus->async_method_call(
         [ethifaceId{std::string{ethifaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code errorCode,
+            const boost::system::error_code& errorCode,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
         boost::container::flat_set<IPv4AddressData> ipv4Data;
@@ -910,7 +911,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code errorCode,
+            const boost::system::error_code& errorCode,
             dbus::utility::ManagedObjectType& resp) {
         // Callback requires vector<string> to retrieve all available
         // ethernet interfaces
@@ -963,7 +964,7 @@ inline void
         return;
     }
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -982,7 +983,7 @@ inline void
     sdbusplus::message::object_path objPath =
         "/xyz/openbmc_project/network/" + ifaceId;
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -1001,7 +1002,7 @@ inline void
 {
     std::vector<std::string> vectorDomainname = {domainname};
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -1082,7 +1083,7 @@ inline void
         "xyz.openbmc_project.Common.Error.NotAllowed";
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, macAddress](const boost::system::error_code ec,
+        [asyncResp, macAddress](const boost::system::error_code& ec,
                                 const sdbusplus::message_t& msg) {
         if (ec)
         {
@@ -1115,7 +1116,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
 {
     const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -1136,7 +1137,7 @@ inline void setEthernetInterfaceBoolProperty(
     const bool& value, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -1156,7 +1157,7 @@ inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
 {
     BMCWEB_LOG_DEBUG << propertyName << " = " << value;
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -1490,7 +1491,7 @@ inline void handleStaticNameServersPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -2109,7 +2110,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 if (vlanEnable)
                 {
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+                        [asyncResp](const boost::system::error_code& ec) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
@@ -2165,7 +2166,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             if (success && ethData.vlanId)
             {
                 auto callback =
-                    [asyncResp](const boost::system::error_code ec) {
+                    [asyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
@@ -2281,7 +2282,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             return;
         }
 
-        auto callback = [asyncResp](const boost::system::error_code ec) {
+        auto callback = [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
                 // TODO(ed) make more consistent error messages

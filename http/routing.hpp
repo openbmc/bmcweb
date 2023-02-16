@@ -1374,7 +1374,7 @@ class Router
 
         crow::connections::systemBus->async_method_call(
             [req{std::move(req)}, asyncResp, &rule, params](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (ec)
             {

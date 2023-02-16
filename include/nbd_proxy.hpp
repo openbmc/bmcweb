@@ -65,9 +65,9 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     void run()
     {
-        acceptor.async_accept(
-            [this, self(shared_from_this())](boost::system::error_code ec,
-                                             stream_protocol::socket socket) {
+        acceptor.async_accept([this, self(shared_from_this())](
+                                  const boost::system::error_code& ec,
+                                  stream_protocol::socket socket) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "UNIX socket: async_accept error = "
@@ -93,8 +93,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         });
 
         auto mountHandler =
-            [this, self(shared_from_this())](const boost::system::error_code ec,
-                                             const bool) {
+            [this, self(shared_from_this())](
+                const boost::system::error_code& ec, const bool) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBus error: cannot call mount method = "
@@ -130,7 +130,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         }
         // The reference to session should exists until unmount is
         // called
-        auto unmountHandler = [](const boost::system::error_code ec) {
+        auto unmountHandler = [](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBus error: " << ec
@@ -157,8 +157,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         // Trigger async read
         peerSocket->async_read_some(
             ux2wsBuf.prepare(nbdBufferSize),
-            [this, self(shared_from_this())](boost::system::error_code ec,
-                                             std::size_t bytesRead) {
+            [this, self(shared_from_this())](
+                const boost::system::error_code& ec, std::size_t bytesRead) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "UNIX socket: async_read_some error = "
@@ -208,8 +208,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         uxWriteInProgress = true;
         boost::asio::async_write(
             *peerSocket, ws2uxBuf.data(),
-            [this, self(shared_from_this())](boost::system::error_code ec,
-                                             std::size_t bytesWritten) {
+            [this, self(shared_from_this())](
+                const boost::system::error_code& ec, std::size_t bytesWritten) {
             ws2uxBuf.consume(bytesWritten);
             uxWriteInProgress = false;
             if (ec)
@@ -261,7 +261,7 @@ inline void requestRoutes(App& app)
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
             auto getUserInfoHandler =
-                [&conn](const boost::system::error_code ec,
+                [&conn](const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& userInfo) {
             if (ec)
             {
@@ -304,7 +304,7 @@ inline void requestRoutes(App& app)
             }
 
             auto openHandler =
-                [&conn](const boost::system::error_code ec2,
+                [&conn](const boost::system::error_code& ec2,
                         const dbus::utility::ManagedObjectType& objects) {
                 const std::string* socketValue = nullptr;
                 const std::string* endpointValue = nullptr;

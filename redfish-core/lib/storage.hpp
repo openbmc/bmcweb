@@ -169,7 +169,7 @@ inline void
             sdbusplus::asio::getProperty<bool>(
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Item", "Present",
-                [asyncResp, index](const boost::system::error_code ec2,
+                [asyncResp, index](const boost::system::error_code& ec2,
                                    bool isPresent) {
                 // this interface isn't necessary, only check it
                 // if we get a good return
@@ -188,7 +188,7 @@ inline void
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
                 [asyncResp, index](
-                    const boost::system::error_code ec2,
+                    const boost::system::error_code& ec2,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
@@ -291,7 +291,7 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
@@ -346,7 +346,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
-        [asyncResp, path](const boost::system::error_code ec,
+        [asyncResp, path](const boost::system::error_code& ec,
                           const bool isPresent) {
         // this interface isn't necessary, only check it if
         // we get a good return
@@ -369,7 +369,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
-        [asyncResp](const boost::system::error_code ec, const bool updating) {
+        [asyncResp](const boost::system::error_code& ec, const bool updating) {
         // this interface isn't necessary, only check it
         // if we get a good return
         if (ec)
@@ -432,7 +432,7 @@ inline void
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
@@ -706,7 +706,7 @@ inline void chassisDriveCollectionGet(
                 *crow::connections::systemBus,
                 "xyz.openbmc_project.ObjectMapper", path + "/drive",
                 "xyz.openbmc_project.Association", "endpoints",
-                [asyncResp, chassisId](const boost::system::error_code ec3,
+                [asyncResp, chassisId](const boost::system::error_code& ec3,
                                        const std::vector<std::string>& resp) {
                 if (ec3)
                 {
@@ -753,7 +753,7 @@ inline void requestRoutesChassisDrive(App& app)
 inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& chassisId,
                        const std::string& driveName,
-                       const boost::system::error_code ec,
+                       const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
 
@@ -872,7 +872,7 @@ inline void
                 "xyz.openbmc_project.ObjectMapper", path + "/drive",
                 "xyz.openbmc_project.Association", "endpoints",
                 [asyncResp, chassisId,
-                 driveName](const boost::system::error_code ec3,
+                 driveName](const boost::system::error_code& ec3,
                             const std::vector<std::string>& resp) {
                 if (ec3)
                 {

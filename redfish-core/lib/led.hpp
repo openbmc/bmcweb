@@ -40,7 +40,7 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        [aResp](const boost::system::error_code ec, const bool blinking) {
+        [aResp](const boost::system::error_code& ec, const bool blinking) {
         // Some systems may not have enclosure_identify_blink object so
         // proceed to get enclosure_identify state.
         if (ec == boost::system::errc::invalid_argument)
@@ -63,7 +63,7 @@ inline void
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
             "xyz.openbmc_project.Led.Group", "Asserted",
-            [aResp](const boost::system::error_code ec2, const bool ledOn) {
+            [aResp](const boost::system::error_code& ec2, const bool ledOn) {
             if (ec2 == boost::system::errc::invalid_argument)
             {
                 BMCWEB_LOG_DEBUG
@@ -121,7 +121,8 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, ledOn, ledBlinkng](const boost::system::error_code ec) mutable {
+        [aResp, ledOn,
+         ledBlinkng](const boost::system::error_code& ec) mutable {
         if (ec)
         {
             // Some systems may not have enclosure_identify_blink object so
@@ -133,7 +134,7 @@ inline void
             }
         }
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec2) {
+            [aResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
@@ -170,7 +171,7 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        [aResp](const boost::system::error_code ec, const bool blinking) {
+        [aResp](const boost::system::error_code& ec, const bool blinking) {
         // Some systems may not have enclosure_identify_blink object so
         // proceed to get enclosure_identify state.
         if (ec == boost::system::errc::invalid_argument)
@@ -193,7 +194,7 @@ inline void
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
             "xyz.openbmc_project.Led.Group", "Asserted",
-            [aResp](const boost::system::error_code ec2, const bool ledOn) {
+            [aResp](const boost::system::error_code& ec2, const bool ledOn) {
             if (ec2 == boost::system::errc::invalid_argument)
             {
                 BMCWEB_LOG_DEBUG
@@ -227,14 +228,14 @@ inline void
     BMCWEB_LOG_DEBUG << "Set LocationIndicatorActive";
 
     crow::connections::systemBus->async_method_call(
-        [aResp, ledState](const boost::system::error_code ec) mutable {
+        [aResp, ledState](const boost::system::error_code& ec) mutable {
         if (ec)
         {
             // Some systems may not have enclosure_identify_blink object so
             // lets set enclosure_identify state also if
             // enclosure_identify_blink failed
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec2) {
+                [aResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;

@@ -60,7 +60,7 @@ inline static void activateImage(const std::string& objPath,
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
     crow::connections::systemBus->async_method_call(
-        [](const boost::system::error_code errorCode) {
+        [](const boost::system::error_code& errorCode) {
         if (errorCode)
         {
             BMCWEB_LOG_DEBUG << "error_code = " << errorCode;
@@ -135,7 +135,7 @@ static void
                 {
                     std::shared_ptr<task::TaskData> task =
                         task::TaskData::createTask(
-                            [](boost::system::error_code ec,
+                            [](const boost::system::error_code& ec,
                                sdbusplus::message_t& msg,
                                const std::shared_ptr<task::TaskData>&
                                    taskData) {
@@ -506,7 +506,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 
         // Call TFTP service
         crow::connections::systemBus->async_method_call(
-            [](const boost::system::error_code ec) {
+            [](const boost::system::error_code& ec) {
             if (ec)
             {
                 // messages::internalError(asyncResp->res);
@@ -603,7 +603,7 @@ inline void requestRoutesUpdateService(App& app)
             *crow::connections::systemBus, "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/software/apply_time",
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::string& applyTime) {
             if (ec)
             {
@@ -689,7 +689,7 @@ inline void requestRoutesUpdateService(App& app)
 
                     // Set the requested image apply time value
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+                        [asyncResp](const boost::system::error_code& ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -832,7 +832,7 @@ inline void
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Software.Version",
         [asyncResp,
-         swId](const boost::system::error_code errorCode,
+         swId](const boost::system::error_code& errorCode,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (errorCode)
         {

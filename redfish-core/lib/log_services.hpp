@@ -455,7 +455,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, entriesPath,
-         dumpType](const boost::system::error_code ec,
+         dumpType](const boost::system::error_code& ec,
                    dbus::utility::ManagedObjectType& resp) {
         if (ec)
         {
@@ -561,7 +561,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, entryID, dumpType,
-         entriesPath](const boost::system::error_code ec,
+         entriesPath](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& resp) {
         if (ec)
         {
@@ -642,7 +642,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& dumpType)
 {
     auto respHandler =
-        [asyncResp, entryID](const boost::system::error_code ec) {
+        [asyncResp, entryID](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG << "Dump Entry doDelete callback: Done";
         if (ec)
         {
@@ -734,7 +734,7 @@ inline void createDumpTaskCallback(
     crow::connections::systemBus->async_method_call(
         [asyncResp, payload, createdObjPath,
          dumpEntryPath{std::move(dumpEntryPath)},
-         dumpId](const boost::system::error_code ec,
+         dumpId](const boost::system::error_code& ec,
                  const std::string& introspectXml) {
         if (ec)
         {
@@ -782,7 +782,7 @@ inline void createDumpTaskCallback(
 
         std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
             [createdObjPath, dumpEntryPath, dumpId, isProgressIntfPresent](
-                boost::system::error_code err, sdbusplus::message_t& msg,
+                const boost::system::error_code& err, sdbusplus::message_t& msg,
                 const std::shared_ptr<task::TaskData>& taskData) {
             if (err)
             {
@@ -913,9 +913,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         createDumpParamVec;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, payload(task::Payload(req)), dumpPath](
-            const boost::system::error_code ec, const sdbusplus::message_t& msg,
-            const sdbusplus::message::object_path& objPath) mutable {
+        [asyncResp, payload(task::Payload(req)),
+         dumpPath](const boost::system::error_code& ec,
+                   const sdbusplus::message_t& msg,
+                   const sdbusplus::message::object_path& objPath) mutable {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
@@ -1191,7 +1192,7 @@ inline void requestRoutesJournalEventLogClear(App& app)
 
         // Reload rsyslog so it knows to start new log files
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Failed to reload rsyslog: " << ec;
@@ -1515,7 +1516,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::ManagedObjectType& resp) {
             if (ec)
             {
@@ -1702,7 +1703,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         sdbusplus::asio::getAllProperties(
             *crow::connections::systemBus, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID, "",
-            [asyncResp, entryID](const boost::system::error_code ec,
+            [asyncResp, entryID](const boost::system::error_code& ec,
                                  const dbus::utility::DBusPropertiesMap& resp) {
             if (ec.value() == EBADR)
             {
@@ -1811,7 +1812,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         BMCWEB_LOG_DEBUG << "Set Resolved";
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, entryId](const boost::system::error_code ec) {
+            [asyncResp, entryId](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1852,7 +1853,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
         // Process response from Logging service.
         auto respHandler =
-            [asyncResp, entryID](const boost::system::error_code ec) {
+            [asyncResp, entryID](const boost::system::error_code& ec) {
             BMCWEB_LOG_DEBUG << "EventLogEntry (DBus) doDelete callback: Done";
             if (ec)
             {
@@ -1914,7 +1915,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         dbus::utility::escapePathForDbus(entryID);
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, entryID](const boost::system::error_code ec,
+            [asyncResp, entryID](const boost::system::error_code& ec,
                                  const sdbusplus::message::unix_fd& unixfd) {
             if (ec.value() == EBADR)
             {
@@ -3053,7 +3054,7 @@ void inline requestRoutesCrashdumpClear(App& app)
             return;
         }
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::string&) {
             if (ec)
             {
@@ -3072,7 +3073,7 @@ static void
 {
     auto getStoredLogCallback =
         [asyncResp, logID,
-         &logEntryJson](const boost::system::error_code ec,
+         &logEntryJson](const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& params) {
         if (ec)
         {
@@ -3261,7 +3262,7 @@ inline void requestRoutesCrashdumpFile(App& app)
 
         auto getStoredLogCallback =
             [asyncResp, logID, fileName, url(boost::urls::url(req.urlView))](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const std::vector<
                     std::pair<std::string, dbus::utility::DbusVariantType>>&
                     resp) {
@@ -3416,7 +3417,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
 
         auto collectCrashdumpCallback =
             [asyncResp, payload(task::Payload(req)),
-             taskMatchStr](const boost::system::error_code ec,
+             taskMatchStr](const boost::system::error_code& ec,
                            const std::string&) mutable {
             if (ec)
             {
@@ -3437,7 +3438,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 return;
             }
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [](boost::system::error_code err, sdbusplus::message_t&,
+                [](const boost::system::error_code& err, sdbusplus::message_t&,
                    const std::shared_ptr<task::TaskData>& taskData) {
                 if (!err)
                 {
@@ -3492,7 +3493,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
         BMCWEB_LOG_DEBUG << "Do delete all entries.";
 
         // Process response from Logging service.
-        auto respHandler = [asyncResp](const boost::system::error_code ec) {
+        auto respHandler = [asyncResp](const boost::system::error_code& ec) {
             BMCWEB_LOG_DEBUG << "doClearLog resp_handler callback: Done";
             if (ec)
             {
@@ -3585,7 +3586,7 @@ inline void requestRoutesPostCodesClear(App& app)
 
         // Make call to post-code service to request clear all
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
                 // TODO Handle for specific error code
@@ -3799,7 +3800,7 @@ static void getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     crow::connections::systemBus->async_method_call(
         [aResp, entryId, bootIndex,
-         codeIndex](const boost::system::error_code ec,
+         codeIndex](const boost::system::error_code& ec,
                     const boost::container::flat_map<
                         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
                         postcode) {
@@ -3836,7 +3837,7 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     crow::connections::systemBus->async_method_call(
         [aResp, bootIndex, bootCount, entryCount, skip,
-         top](const boost::system::error_code ec,
+         top](const boost::system::error_code& ec,
               const boost::container::flat_map<
                   uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
                   postcode) {
@@ -3895,7 +3896,7 @@ static void
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount",
-        [aResp, entryCount, skip, top](const boost::system::error_code ec,
+        [aResp, entryCount, skip, top](const boost::system::error_code& ec,
                                        const uint16_t bootCount) {
         if (ec)
         {
@@ -3987,7 +3988,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, postCodeID, currentValue](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const std::vector<std::tuple<uint64_t, std::vector<uint8_t>>>&
                     postcodes) {
             if (ec.value() == EBADR)

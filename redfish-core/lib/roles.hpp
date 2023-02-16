@@ -122,7 +122,7 @@ inline void requestRoutesRoleCollection(App& app)
             *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
             "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
             "AllPrivileges",
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::vector<std::string>& privList) {
             if (ec)
             {
