@@ -23,7 +23,7 @@ This pointer is not guaranteed to be filled, and could be a null dereference.
 ## 2. String views aren't null terminated
 
 ```cpp
-int getIntFromString(const std::string_view s){
+int getIntFromString(std::string_view s){
     return std::atoi(s.data());
 }
 ```

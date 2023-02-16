@@ -422,7 +422,7 @@ struct RuleParameterTraits
         return *p;
     }
 
-    self_t& name(const std::string_view name) noexcept
+    self_t& name(std::string_view name) noexcept
     {
         self_t* self = static_cast<self_t*>(this);
         self->nameStr = name;
@@ -663,7 +663,7 @@ class TaggedRule :
     }
 
     template <typename Func>
-    void operator()(const std::string_view name, Func&& f)
+    void operator()(std::string_view name, Func&& f)
     {
         nameStr = name;
         (*this).template operator()<Func>(std::forward(f));
@@ -807,7 +807,7 @@ class Trie
     }
 
     std::pair<unsigned, RoutingParams>
-        find(const std::string_view reqUrl, const Node* node = nullptr,
+        find(std::string_view reqUrl, const Node* node = nullptr,
              size_t pos = 0, RoutingParams* params = nullptr) const
     {
         RoutingParams empty;

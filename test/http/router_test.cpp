@@ -36,7 +36,7 @@ TEST(Router, AllowHeader)
     Router router;
     std::error_code ec;
 
-    constexpr const std::string_view url = "/foo";
+    constexpr std::string_view url = "/foo";
 
     Request req{{boost::beast::http::verb::get, url, 11}, ec};
 
@@ -75,7 +75,7 @@ TEST(Router, 404)
     Router router;
     std::error_code ec;
 
-    constexpr const std::string_view url = "/foo/bar";
+    constexpr std::string_view url = "/foo/bar";
 
     Request req{{boost::beast::http::verb::get, url, 11}, ec};
 
@@ -105,7 +105,7 @@ TEST(Router, 405)
     Router router;
     std::error_code ec;
 
-    constexpr const std::string_view url = "/foo/bar";
+    constexpr std::string_view url = "/foo/bar";
 
     Request req{{boost::beast::http::verb::patch, url, 11}, ec};
 
