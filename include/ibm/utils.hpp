@@ -10,7 +10,7 @@ namespace crow
 namespace ibm_utils
 {
 
-inline bool createDirectory(const std::string_view path)
+inline bool createDirectory(std::string_view path)
 {
     // Create persistent directory
     std::error_code ec;

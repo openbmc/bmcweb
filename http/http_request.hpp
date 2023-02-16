@@ -92,7 +92,7 @@ struct Request
         return req.target();
     }
 
-    bool target(const std::string_view target)
+    bool target(std::string_view target)
     {
         req.target(target);
         return setUrlInfo();
