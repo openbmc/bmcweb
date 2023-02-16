@@ -52,7 +52,7 @@ inline void
         "/xyz/openbmc_project/software/functional",
         "xyz.openbmc_project.Association", "endpoints",
         [aResp, swVersionPurpose, activeVersionPropName,
-         populateLinkToImages](const boost::system::error_code ec,
+         populateLinkToImages](const boost::system::error_code& ec,
                                const std::vector<std::string>& functionalSw) {
         BMCWEB_LOG_DEBUG << "populateSoftwareInformation enter";
         if (ec)
@@ -138,7 +138,7 @@ inline void
                     obj.first, "xyz.openbmc_project.Software.Version",
                     [aResp, swId, runningImage, swVersionPurpose,
                      activeVersionPropName, populateLinkToImages](
-                        const boost::system::error_code ec3,
+                        const boost::system::error_code& ec3,
                         const dbus::utility::DBusPropertiesMap&
                             propertiesList) {
                     if (ec3)
@@ -305,7 +305,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/xyz/openbmc_project/software/" + *swId,
         "xyz.openbmc_project.Software.Activation",
         [asyncResp,
-         swId](const boost::system::error_code errorCode,
+         swId](const boost::system::error_code& errorCode,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (errorCode)
         {
@@ -358,7 +358,7 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/software/updateable",
         "xyz.openbmc_project.Association", "endpoints",
-        [asyncResp, swId](const boost::system::error_code ec,
+        [asyncResp, swId](const boost::system::error_code& ec,
                           const std::vector<std::string>& objPaths) {
         if (ec)
         {

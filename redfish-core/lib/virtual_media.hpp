@@ -178,7 +178,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
     crow::connections::systemBus->async_method_call(
         [name, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
@@ -218,7 +218,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     crow::connections::systemBus->async_method_call(
         [resName, name,
-         aResp](const boost::system::error_code ec,
+         aResp](const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
@@ -702,7 +702,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, secretPipe](const boost::system::error_code ec,
+        [asyncResp, secretPipe](const boost::system::error_code& ec,
                                 bool success) {
         if (ec)
         {
@@ -734,7 +734,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     if (legacy)
     {
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
@@ -749,7 +749,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     else // proxy
     {
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
@@ -818,7 +818,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
         crow::connections::systemBus->async_method_call(
             [service, resName, actionParams,
-             asyncResp](const boost::system::error_code ec2,
+             asyncResp](const boost::system::error_code& ec2,
                         dbus::utility::ManagedObjectType& subtree) mutable {
             if (ec2)
             {
@@ -915,7 +915,7 @@ inline void handleManagersVirtualMediaActionEject(
 
         crow::connections::systemBus->async_method_call(
             [resName, service, asyncResp{asyncResp}](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {

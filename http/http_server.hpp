@@ -181,7 +181,7 @@ class Server
         }
         acceptor->async_accept(
             boost::beast::get_lowest_layer(connection->socket()),
-            [this, connection](boost::system::error_code ec) {
+            [this, connection](const boost::system::error_code& ec) {
             if (!ec)
             {
                 boost::asio::post(*this->ioService,

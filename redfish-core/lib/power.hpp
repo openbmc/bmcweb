@@ -79,7 +79,7 @@ inline void setPowerCapOverride(
             *crow::connections::systemBus, "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/control/host0/power_cap",
             "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
-            [value, sensorsAsyncResp](const boost::system::error_code ec,
+            [value, sensorsAsyncResp](const boost::system::error_code& ec,
                                       bool powerCapEnable) {
             if (ec)
             {
@@ -98,7 +98,7 @@ inline void setPowerCapOverride(
             }
 
             crow::connections::systemBus->async_method_call(
-                [sensorsAsyncResp](const boost::system::error_code ec2) {
+                [sensorsAsyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
                     BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: " << ec2;
@@ -196,7 +196,7 @@ inline void requestRoutesPower(App& app)
 
             auto valueHandler =
                 [sensorAsyncResp](
-                    const boost::system::error_code ec,
+                    const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
                 if (ec)
                 {

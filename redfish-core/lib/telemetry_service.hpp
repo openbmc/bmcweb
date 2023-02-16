@@ -39,7 +39,7 @@ inline void handleTelemetryServiceGet(
         *crow::connections::systemBus, telemetry::service,
         "/xyz/openbmc_project/Telemetry/Reports",
         "xyz.openbmc_project.Telemetry.ReportManager",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& ret) {
         if (ec == boost::system::errc::host_unreachable)
         {
