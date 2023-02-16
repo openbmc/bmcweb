@@ -34,6 +34,23 @@
       "parentUuid": "4f0dad7c_d2b31c44",
       "revId": "cef129ec97b6c2932b78a91a657f5f3207851713",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5340b69b_150c15c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2023-02-16T07:22:00Z",
+      "side": 1,
+      "message": "I tested it on the romulus machine, everything was OK.",
+      "revId": "cef129ec97b6c2932b78a91a657f5f3207851713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
