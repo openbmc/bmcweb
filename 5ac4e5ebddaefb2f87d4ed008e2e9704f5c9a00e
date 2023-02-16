@@ -123,6 +123,24 @@
       "parentUuid": "5dbce894_8f29b29a",
       "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a73e9a_34b32600",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-16T16:39:17Z",
+      "side": 1,
+      "message": "So PCIeDevice Collection can be under Chassis or System (or resource blocks but ignoring those) \n\n\u003cString\u003e/redfish/v1/Chassis/{ChassisId}/PCIeDevices\u003c/String\u003e\n\u003cString\u003e/redfish/v1/Systems/{ComputerSystemId}/PCIeDevices\u003c/String\u003e\n\nhttps://redfish.dmtf.org/schemas/v1/PCIeDeviceCollection_v1.xml\n\nWhat I would expect if we had this PCIeDevices Link in Chassis, we would have  implemented the PCIeDevices Collection (and the PCIeDevices schema) under Chassis. E.g. \n\n            asyncResp-\u003eres.jsonValue[\"PCIeDevices\"][\"@odata.id\"] \u003d\n                \"/redfish/v1/Chassis/\u003cchassis id\u003e/PCIeDevices\";",
+      "parentUuid": "db3d1b2f_eeb07fbd",
+      "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
