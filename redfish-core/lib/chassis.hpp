@@ -49,7 +49,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
         *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
-        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+        [aResp{std::move(aResp)}](const boost::system::error_code& ec,
                                   const std::string& chassisState) {
         if (ec)
         {
@@ -90,7 +90,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Chassis.Intrusion", "Status",
-        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+        [aResp{std::move(aResp)}](const boost::system::error_code& ec,
                                   const std::string& value) {
         if (ec)
         {
@@ -176,7 +176,7 @@ inline void
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
         if (ec)
         {
@@ -197,7 +197,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Common.UUID", "UUID",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code& ec,
                     const std::string& chassisUUID) {
         if (ec)
         {
@@ -254,7 +254,7 @@ inline void
                 *crow::connections::systemBus,
                 "xyz.openbmc_project.ObjectMapper", path + "/all_sensors",
                 "xyz.openbmc_project.Association", "endpoints",
-                [health](const boost::system::error_code ec2,
+                [health](const boost::system::error_code& ec2,
                          const std::vector<std::string>& resp) {
                 if (ec2)
                 {
@@ -289,7 +289,7 @@ inline void
                 *crow::connections::systemBus,
                 "xyz.openbmc_project.ObjectMapper", path + "/drive",
                 "xyz.openbmc_project.Association", "endpoints",
-                [asyncResp, chassisId](const boost::system::error_code ec3,
+                [asyncResp, chassisId](const boost::system::error_code& ec3,
                                        const std::vector<std::string>& resp) {
                 if (ec3 || resp.empty())
                 {
@@ -319,7 +319,7 @@ inline void
                     *crow::connections::systemBus, connectionName, path,
                     assetTagInterface, "AssetTag",
                     [asyncResp, chassisId(std::string(chassisId))](
-                        const boost::system::error_code ec2,
+                        const boost::system::error_code& ec2,
                         const std::string& property) {
                     if (ec2)
                     {
@@ -346,7 +346,7 @@ inline void
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
                 [asyncResp, chassisId(std::string(chassisId))](
-                    const boost::system::error_code /*ec2*/,
+                    const boost::system::error_code& /*ec2*/,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
                 const std::string* partNumber = nullptr;
                 const std::string* serialNumber = nullptr;
@@ -504,7 +504,7 @@ inline void
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, chassisId, locationIndicatorActive,
-         indicatorLed](const boost::system::error_code ec,
+         indicatorLed](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -635,7 +635,7 @@ inline void
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec2) {
+            [asyncResp](const boost::system::error_code& ec2) {
             // Use "Set" method to set the property value.
             if (ec2)
             {

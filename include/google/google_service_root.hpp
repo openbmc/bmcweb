@@ -65,7 +65,7 @@ inline void hothGetSubtreeCallback(
     const std::string& command,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& rotId, const ResolvedEntityHandler& entityHandler,
-    const boost::system::error_code ec,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -147,7 +147,7 @@ inline void
 
 inline void
     invocationCallback(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const boost::system::error_code ec,
+                       const boost::system::error_code& ec,
                        const std::vector<uint8_t>& responseBytes)
 {
     if (ec)
@@ -177,7 +177,7 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp{asyncResp}](const boost::system::error_code ec,
+        [asyncResp{asyncResp}](const boost::system::error_code& ec,
                                const std::vector<uint8_t>& responseBytes) {
         invocationCallback(asyncResp, ec, responseBytes);
         },

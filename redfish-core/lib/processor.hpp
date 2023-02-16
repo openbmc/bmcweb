@@ -60,7 +60,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
+        [objPath, aResp{std::move(aResp)}](const boost::system::error_code& ec,
                                            const std::string& property) {
         if (ec)
         {
@@ -224,7 +224,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
     crow::connections::systemBus->async_method_call(
         [cpuId, service, objPath, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& dbusData) {
         if (ec)
         {
@@ -299,7 +299,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [objPath, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
@@ -373,7 +373,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Revision",
         [objPath, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
@@ -409,7 +409,7 @@ inline void getAcceleratorDataByService(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
         [acclrtrId, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
@@ -523,7 +523,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         [aResp, cpuId,
-         service](const boost::system::error_code ec,
+         service](const boost::system::error_code& ec,
                   const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
@@ -584,7 +584,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 "OperatingConfig",
                 "BaseSpeedPrioritySettings",
                 [aResp](
-                    const boost::system::error_code ec2,
+                    const boost::system::error_code& ec2,
                     const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
                 if (ec2)
                 {
@@ -621,7 +621,7 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
+        [objPath, aResp{std::move(aResp)}](const boost::system::error_code& ec,
                                            const std::string& property) {
         if (ec)
         {
@@ -652,7 +652,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         *crow::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
-        [aResp](boost::system::error_code ec, const std::string& id) {
+        [aResp](const boost::system::error_code& ec, const std::string& id) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "Failed to read cpu unique id: " << ec;
@@ -812,7 +812,7 @@ inline void
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
-        [aResp](const boost::system::error_code ec,
+        [aResp](const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
@@ -912,7 +912,7 @@ inline void
 inline void
     handleAppliedConfigResponse(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                                 const std::string& setPropVal,
-                                boost::system::error_code ec,
+                                const boost::system::error_code& ec,
                                 const sdbusplus::message_t& msg)
 {
     if (!ec)
@@ -1018,7 +1018,7 @@ inline void patchAppliedOperatingConfig(
 
     // Set the property, with handler to check error responses
     crow::connections::systemBus->async_method_call(
-        [resp, appliedConfigUri](const boost::system::error_code ec,
+        [resp, appliedConfigUri](const boost::system::error_code& ec,
                                  const sdbusplus::message_t& msg) {
         handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
         },

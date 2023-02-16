@@ -71,7 +71,7 @@ inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 
 inline void
     onPcieSlotGetAllDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const boost::system::error_code ec,
+                         const boost::system::error_code& ec,
                          const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
@@ -150,7 +150,7 @@ inline void
 inline void onMapperAssociationDone(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID, const std::string& pcieSlotPath,
-    const std::string& connectionName, const boost::system::error_code ec,
+    const std::string& connectionName, const boost::system::error_code& ec,
     const std::variant<std::vector<std::string>>& endpoints)
 {
     if (ec)
@@ -193,7 +193,7 @@ inline void onMapperAssociationDone(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code ec2,
+        [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
         });
@@ -202,7 +202,7 @@ inline void onMapperAssociationDone(
 inline void
     onMapperSubtreeDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& chassisID,
-                        const boost::system::error_code ec,
+                        const boost::system::error_code& ec,
                         const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -241,7 +241,11 @@ inline void
             // it belongs to this ChassisID
             crow::connections::systemBus->async_method_call(
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
+<<<<<<< HEAD
                     const boost::system::error_code& ec2,
+=======
+                    const boost::system::error_code& ec,
+>>>>>>> d7d7f24b (Take boost error_code by reference)
                     const std::variant<std::vector<std::string>>& endpoints) {
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
                                         connectionName, ec2, endpoints);

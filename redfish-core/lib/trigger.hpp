@@ -333,7 +333,7 @@ inline void requestRoutesTrigger(App& app)
             *crow::connections::systemBus, telemetry::service,
             telemetry::getDbusTriggerPath(id), telemetry::triggerInterface,
             [asyncResp,
-             id](const boost::system::error_code ec,
+             id](const boost::system::error_code& ec,
                  const std::vector<std::pair<
                      std::string, telemetry::TriggerGetParamsVariant>>& ret) {
             if (ec.value() == EBADR ||
@@ -369,7 +369,7 @@ inline void requestRoutesTrigger(App& app)
         const std::string triggerPath = telemetry::getDbusTriggerPath(id);
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, id](const boost::system::error_code ec) {
+            [asyncResp, id](const boost::system::error_code& ec) {
             if (ec.value() == EBADR)
             {
                 messages::resourceNotFound(asyncResp->res, "Triggers", id);

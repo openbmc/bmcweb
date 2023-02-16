@@ -102,7 +102,7 @@ void getPortStatusAndPath(const std::string& serviceName,
 {
     crow::connections::systemBus->async_method_call(
         [serviceName, callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::vector<UnitStruct>& r) {
         if (ec)
         {
@@ -180,7 +180,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
         [callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const std::vector<std::tuple<std::string, std::string>>& resp) {
         if (ec)
         {

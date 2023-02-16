@@ -37,7 +37,7 @@ class Resolver
         uint64_t flag = 0;
         crow::connections::systemBus->async_method_call(
             [host, port, handler{std::forward<ResolveHandler>(handler)}](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const std::vector<
                     std::tuple<int32_t, int32_t, std::vector<uint8_t>>>& resp,
                 const std::string& hostName, const uint64_t flagNum) {

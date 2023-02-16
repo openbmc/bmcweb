@@ -61,7 +61,7 @@ inline void
     dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         // Use "Set" method to set the property value.
         if (ec)
         {
@@ -90,7 +90,7 @@ inline void
     dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         // Use "Set" method to set the property value.
         if (ec)
         {
@@ -211,7 +211,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "Failed to ResetToDefaults: " << ec;
@@ -291,7 +291,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, currentProfile, supportedProfiles](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& managedObj) {
         if (ec)
         {
@@ -796,7 +796,7 @@ inline CreatePIDRet createPidInterface(
         BMCWEB_LOG_DEBUG << "del " << path << " " << iface << "\n";
         // delete interface
         crow::connections::systemBus->async_method_call(
-            [response, path](const boost::system::error_code ec) {
+            [response, path](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Error patching " << path << ": " << ec;
@@ -1223,7 +1223,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             sdbusplus::asio::getAllProperties(
                 *crow::connections::systemBus, owner, path, thermalModeIface,
                 [path, owner,
-                 self](const boost::system::error_code ec2,
+                 self](const boost::system::error_code& ec2,
                        const dbus::utility::DBusPropertiesMap& resp) {
                 if (ec2)
                 {
@@ -1383,7 +1383,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
         crow::connections::systemBus->async_method_call(
-            [self](const boost::system::error_code ec,
+            [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& mObj) {
             if (ec)
             {
@@ -1436,7 +1436,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             const std::string& owner = subtree[0].second[0].first;
             sdbusplus::asio::getAllProperties(
                 *crow::connections::systemBus, owner, path, thermalModeIface,
-                [self, path, owner](const boost::system::error_code ec2,
+                [self, path, owner](const boost::system::error_code& ec2,
                                     const dbus::utility::DBusPropertiesMap& r) {
                 if (ec2)
                 {
@@ -1490,7 +1490,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
             currentProfile = *profile;
             crow::connections::systemBus->async_method_call(
-                [response](const boost::system::error_code ec) {
+                [response](const boost::system::error_code& ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error patching profile" << ec;
@@ -1624,7 +1624,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         crow::connections::systemBus->async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](
-                                const boost::system::error_code ec) {
+                                const boost::system::error_code& ec) {
                             if (ec)
                             {
                                 BMCWEB_LOG_ERROR << "Error patching "
@@ -1669,7 +1669,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     }
 
                     crow::connections::systemBus->async_method_call(
-                        [response](const boost::system::error_code ec) {
+                        [response](const boost::system::error_code& ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "Error Adding Pid Object "
@@ -1727,7 +1727,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [aResp](const boost::system::error_code ec,
+        [aResp](const boost::system::error_code& ec,
                 const std::string& property) {
         if (ec)
         {
@@ -1751,7 +1751,7 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
         "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
         "LastRebootTime",
-        [aResp](const boost::system::error_code ec,
+        [aResp](const boost::system::error_code& ec,
                 const uint64_t lastResetTime) {
         if (ec)
         {
@@ -1803,7 +1803,7 @@ inline void
     // Make sure the image is valid before setting priority
     crow::connections::systemBus->async_method_call(
         [aResp, firmwareId,
-         runningFirmwareTarget](const boost::system::error_code ec,
+         runningFirmwareTarget](const boost::system::error_code& ec,
                                 dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
@@ -1859,7 +1859,7 @@ inline void
         // An addition could be a Redfish Setting like
         // ActiveSoftwareImageApplyTime and support OnReset
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec2) {
+            [aResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "D-Bus response error setting.";
@@ -1894,7 +1894,7 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
     }
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)},
-         datetime{std::move(datetime)}](const boost::system::error_code ec) {
+         datetime{std::move(datetime)}](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "Failed to set elapsed time. "
@@ -2059,7 +2059,7 @@ inline void requestRoutesManager(App& app)
                 *crow::connections::systemBus, "org.freedesktop.systemd1",
                 "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
                 "Progress",
-                [asyncResp](const boost::system::error_code ec,
+                [asyncResp](const boost::system::error_code& ec,
                             const double& val) {
                 if (ec)
                 {
@@ -2120,7 +2120,7 @@ inline void requestRoutesManager(App& app)
                     sdbusplus::asio::getAllProperties(
                         *crow::connections::systemBus, connectionName, path,
                         "xyz.openbmc_project.Inventory.Decorator.Asset",
-                        [asyncResp](const boost::system::error_code ec2,
+                        [asyncResp](const boost::system::error_code& ec2,
                                     const dbus::utility::DBusPropertiesMap&
                                         propertiesList) {
                         if (ec2)

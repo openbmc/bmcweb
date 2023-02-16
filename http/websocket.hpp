@@ -138,7 +138,7 @@ class ConnectionImpl : public Connection
 
         // Perform the websocket upgrade
         ws.async_accept(req, [this, self(shared_from_this())](
-                                 boost::system::error_code ec) {
+                                 const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Error in ws.async_accept " << ec;
@@ -180,7 +180,7 @@ class ConnectionImpl : public Connection
     {
         ws.async_close(
             {boost::beast::websocket::close_code::normal, msg},
-            [self(shared_from_this())](boost::system::error_code ec) {
+            [self(shared_from_this())](const boost::system::error_code& ec) {
             if (ec == boost::asio::error::operation_aborted)
             {
                 return;
