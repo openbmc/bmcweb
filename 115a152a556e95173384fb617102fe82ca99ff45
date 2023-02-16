@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3123eab_2b45184d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-02-16T10:13:43Z",
+      "side": 1,
+      "message": "since we are updating SPI region in IFWI full flash which is using blocking call and it is 64MB file, so its taking more than 5 minutes and so the increase in timeout value.",
+      "parentUuid": "42965f35_fa2c781a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7f7163a_455380c2",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-03T20:06:32Z",
       "side": 1,
       "message": "I have no idea what an \"IFWI full flash\" is;  Can you please document the actual test you performed, which generally involves some sort of redfish command.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fab1e71e_ce324c39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-02-16T10:13:43Z",
+      "side": 1,
+      "message": "his feature is to support the BIOS/Host SPI chip full flash without dependency on external hardware.",
+      "parentUuid": "d7f7163a_455380c2",
       "range": {
         "startLine": 13,
         "startChar": 0,
