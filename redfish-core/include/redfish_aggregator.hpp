@@ -44,7 +44,7 @@ constexpr std::array nonUriProperties{
 // Determines if the passed property contains a URI.  Those property names
 // either end with a case-insensitive version of "uri" or are specifically
 // defined in the above array.
-inline bool isPropertyUri(const std::string_view propertyName)
+inline bool isPropertyUri(std::string_view propertyName)
 {
     return boost::iends_with(propertyName, "uri") ||
            std::binary_search(nonUriProperties.begin(), nonUriProperties.end(),

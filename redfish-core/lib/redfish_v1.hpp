@@ -83,7 +83,7 @@ inline void
     json["Name"] = "JsonSchemaFile Collection";
     json["Description"] = "Collection of JsonSchemaFiles";
     nlohmann::json::array_t members;
-    for (const std::string_view schema : schemas)
+    for (std::string_view schema : schemas)
     {
         nlohmann::json::object_t member;
         member["@odata.id"] = crow::utility::urlFromPieces(
