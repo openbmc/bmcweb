@@ -194,7 +194,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         });
     }
 
-    static void sendTaskEvent(const std::string_view state, size_t index)
+    static void sendTaskEvent(std::string_view state, size_t index)
     {
         std::string origin =
             "/redfish/v1/TaskService/Tasks/" + std::to_string(index);
