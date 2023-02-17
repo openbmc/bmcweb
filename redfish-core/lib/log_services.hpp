@@ -206,8 +206,7 @@ inline static bool getEntryTimestamp(sd_journal* journal,
                          << strerror(-ret);
         return false;
     }
-    entryTimestamp =
-        redfish::time_utils::getDateTimeUint(timestamp / 1000 / 1000);
+    entryTimestamp = redfish::time_utils::getDateTimeUintUs(timestamp);
     return true;
 }
 
