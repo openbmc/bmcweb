@@ -675,8 +675,6 @@ other.
 
 #### FabricAdapter
 
-- Location
-
 ### /redfish/v1/Systems/system/LogServices/
 
 #### LogServiceCollection
