@@ -59,117 +59,6 @@ inline void
         });
 }
 
-inline void
-    getFabricAdapterAsset(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                          const std::string& serviceName,
-                          const std::string& fabricAdapterPath)
-{
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
-        [fabricAdapterPath,
-         aResp{aResp}](const boost::system::error_code ec,
-                       const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error for Properties";
-                messages::internalError(aResp->res);
-            }
-            return;
-        }
-
-        const std::string* serialNumber = nullptr;
-        const std::string* model = nullptr;
-        const std::string* partNumber = nullptr;
-        const std::string* sparePartNumber = nullptr;
-
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), propertiesList, "SerialNumber",
-            serialNumber, "Model", model, "PartNumber", partNumber,
-            "SparePartNumber", sparePartNumber);
-
-        if (!success)
-        {
-            messages::internalError(aResp->res);
-            return;
-        }
-
-        if (serialNumber != nullptr)
-        {
-            aResp->res.jsonValue["SerialNumber"] = *serialNumber;
-        }
-
-        if (model != nullptr)
-        {
-            aResp->res.jsonValue["Model"] = *model;
-        }
-
-        if (partNumber != nullptr)
-        {
-            aResp->res.jsonValue["PartNumber"] = *partNumber;
-        }
-
-        if (sparePartNumber != nullptr && !sparePartNumber->empty())
-        {
-            aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
-        }
-        });
-}
-
-inline void
-    getFabricAdapterState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                          const std::string& serviceName,
-                          const std::string& fabricAdapterPath)
-{
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
-        "xyz.openbmc_project.Inventory.Item", "Present",
-        [aResp](const boost::system::error_code ec, const bool present) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error for State";
-                messages::internalError(aResp->res);
-            }
-            return;
-        }
-
-        if (!present)
-        {
-            aResp->res.jsonValue["Status"]["State"] = "Absent";
-        }
-        });
-}
-
-inline void
-    getFabricAdapterHealth(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                           const std::string& serviceName,
-                           const std::string& fabricAdapterPath)
-{
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        [aResp](const boost::system::error_code ec, const bool functional) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error for Health";
-                messages::internalError(aResp->res);
-            }
-            return;
-        }
-
-        if (!functional)
-        {
-            aResp->res.jsonValue["Status"]["Health"] = "Critical";
-        }
-        });
-}
-
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& systemName,
                          const std::string& adapterId,
@@ -189,9 +78,6 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     aResp->res.jsonValue["Status"]["Health"] = "OK";
 
     getFabricAdapterLocation(aResp, serviceName, fabricAdapterPath);
-    getFabricAdapterAsset(aResp, serviceName, fabricAdapterPath);
-    getFabricAdapterState(aResp, serviceName, fabricAdapterPath);
-    getFabricAdapterHealth(aResp, serviceName, fabricAdapterPath);
 }
 
 inline bool checkFabricAdapterId(const std::string& adapterPath,
