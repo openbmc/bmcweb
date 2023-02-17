@@ -145,7 +145,7 @@ static inline void addPrefixToItem(nlohmann::json& item,
 }
 
 static inline void addAggregatedHeaders(crow::Response& asyncResp,
-                                        crow::Response& resp,
+                                        const crow::Response& resp,
                                         std::string_view prefix)
 {
     if (!resp.getHeaderValue("Content-Type").empty())
