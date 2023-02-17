@@ -9,6 +9,7 @@
 
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <functional>
