@@ -16,6 +16,23 @@
       "message": "What actually exposes Step in OpenBMC?",
       "revId": "501718c3ea3196d77a6b3faa5b21959a200bfa4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc0ec40_980225e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-17T00:30:56Z",
+      "side": 1,
+      "message": "After the references provided, LGTM.  Still would like Gunnars input.",
+      "revId": "501718c3ea3196d77a6b3faa5b21959a200bfa4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

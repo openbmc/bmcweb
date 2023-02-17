@@ -194,6 +194,24 @@
       "parentUuid": "525145c2_3351142d",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "448dff4e_00c2b684",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-17T00:30:56Z",
+      "side": 1,
+      "message": "@Gunnar, The links from Michael make it look like you may have read another property?  Does that jive with you?",
+      "parentUuid": "d59fc0e1_f1dc1a4d",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
