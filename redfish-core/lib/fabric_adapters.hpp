@@ -8,6 +8,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <array>
 #include <functional>
