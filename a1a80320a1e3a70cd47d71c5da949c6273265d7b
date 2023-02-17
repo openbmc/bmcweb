@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3558aad_697d7888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-17T21:02:30Z",
+      "side": 1,
+      "message": "Other than the style issue, LGTM.",
+      "revId": "a1a80320a1e3a70cd47d71c5da949c6273265d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
