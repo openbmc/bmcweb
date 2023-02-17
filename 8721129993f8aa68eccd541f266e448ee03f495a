@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d707697d_8914375a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-17T17:01:55Z",
+      "side": 1,
+      "message": "Looks like the fails are all due to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61021",
+      "revId": "8721129993f8aa68eccd541f266e448ee03f495a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
