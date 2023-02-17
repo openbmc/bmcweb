@@ -176,6 +176,24 @@
       "parentUuid": "30c1942a_f81e4329",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d59fc0e1_f1dc1a4d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-02-17T00:26:30Z",
+      "side": 1,
+      "message": "In PDI it is `uint16`.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml#L54-L58\n```\n    - name: Step\n      type: uint16\n      description: \u003e\n          The step value for this processor\n      default: 0\n```\n\nAnd I didn\u0027t change `type` but `default`.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/60717/5/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml\n```\n    - name: Step\n      type: uint16\n      description: \u003e\n          The step value for this processor\n      default: maxint\n```\n\nDid I misunderstand something?",
+      "parentUuid": "525145c2_3351142d",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
