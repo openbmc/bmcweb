@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4522ce_eeaf69b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-17T15:21:17Z",
+      "side": 1,
+      "message": "What is the long term plan here?\nDo we think our bmcweb:split goes away as we move to more specific checks?\n\nI don\u0027t love using a homegrown function when there is already a boost::split.",
+      "revId": "50ebd4af91ece2e7b5e75b600f83a2a74b315068",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
