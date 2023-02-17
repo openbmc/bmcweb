@@ -158,6 +158,24 @@
       "parentUuid": "f34251b8_102d7439",
       "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525145c2_3351142d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-17T00:20:48Z",
+      "side": 1,
+      "message": "We haven\u0027t resolved that this is the wrong type compared to PDI.\n\n\u003e I thought maxint means the max value of that type.\n\nCorrect, and the type is uint32_t, not uint16_t, so I\u0027m surprised this works.  uint16_t_max !\u003d uint32_t_max",
+      "parentUuid": "30c1942a_f81e4329",
+      "revId": "4b2bdff189b282972b2e91f723bbcdfb8685bf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
