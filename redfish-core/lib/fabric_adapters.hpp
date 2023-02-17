@@ -5,10 +5,12 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <functional>
