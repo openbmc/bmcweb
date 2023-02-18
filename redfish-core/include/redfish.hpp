@@ -74,6 +74,7 @@ class RedfishService
         requestAccountServiceRoutes(app);
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
         requestAggregationServiceRoutes(app);
+        requestAggregationSourcesRoutes(app);
 #endif
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);

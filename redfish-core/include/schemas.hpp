@@ -18,6 +18,7 @@ namespace redfish
         "AccountService",
         "ActionInfo",
         "AggregationService",
+        "AggregationSourceCollection",
         "Assembly",
         "AttributeRegistry",
         "Bios",
