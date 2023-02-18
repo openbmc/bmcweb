@@ -33,6 +33,7 @@ Fields common to all schemas
 
 - AccountService
 - AggregationService
+- AggregationSource
 - CertificateService
 - Chassis
 - EventService
@@ -78,10 +79,18 @@ Fields common to all schemas
 
 ### /redfish/v1/AggregationService/AggregationSources
 
+#### AggregationSourceCollection
+
 - Members
 - Members@odata.count
 
-#### AggregationSources
+### /redfish/v1/AggregationService/AggregationSources/{AggregationSourceId}
+
+#### AggregationSource
+
+- HostName
+- Password
+- UserName
 
 ### /redfish/v1/AccountService/Accounts/
 
