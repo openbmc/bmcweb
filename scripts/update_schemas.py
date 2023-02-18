@@ -28,6 +28,7 @@ include_list = [
     "AccountService",
     "ActionInfo",
     "AggregationService",
+    "AggregationSourceCollection",
     "Assembly",
     "AttributeRegistry",
     "Bios",
