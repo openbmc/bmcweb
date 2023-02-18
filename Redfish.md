@@ -83,6 +83,14 @@ Fields common to all schemas
 - Members
 - Members@odata.count
 
+### /redfish/v1/AggregationService/AggregationSources/{AggregationSourceId}
+
+#### AggregationSource
+
+- HostName
+- Password
+- UserName
+
 ### /redfish/v1/AccountService/Accounts/
 
 #### ManagerAccountCollection
