@@ -118,6 +118,9 @@
         <edmx:Include Namespace="AggregationService.v1_0_0"/>
         <edmx:Include Namespace="AggregationService.v1_0_1"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/AggregationSourceCollection_v1.xml">
+        <edmx:Include Namespace="AggregationSourceCollection"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Assembly_v1.xml">
         <edmx:Include Namespace="Assembly"/>
         <edmx:Include Namespace="Assembly.v1_0_0"/>

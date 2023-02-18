@@ -71,8 +71,16 @@ Fields common to all schemas
 
 #### AggregationService
 
+- AggregationSources
 - Description
 - ServiceEnabled
+
+### /redfish/v1/AggregationService/AggregationSources
+
+- Members
+- Members@odata.count
+
+#### AggregationSources
 
 ### /redfish/v1/AccountService/Accounts/
 
