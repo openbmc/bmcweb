@@ -118,6 +118,17 @@
         <edmx:Include Namespace="AggregationService.v1_0_0"/>
         <edmx:Include Namespace="AggregationService.v1_0_1"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/AggregationSource_v1.xml">
+        <edmx:Include Namespace="AggregationSource"/>
+        <edmx:Include Namespace="AggregationSource.v1_0_0"/>
+        <edmx:Include Namespace="AggregationSource.v1_0_1"/>
+        <edmx:Include Namespace="AggregationSource.v1_1_0"/>
+        <edmx:Include Namespace="AggregationSource.v1_1_1"/>
+        <edmx:Include Namespace="AggregationSource.v1_2_0"/>
+        <edmx:Include Namespace="AggregationSource.v1_2_1"/>
+        <edmx:Include Namespace="AggregationSource.v1_3_0"/>
+        <edmx:Include Namespace="AggregationSource.v1_3_1"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/AggregationSourceCollection_v1.xml">
         <edmx:Include Namespace="AggregationSourceCollection"/>
     </edmx:Reference>
