@@ -5,6 +5,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "query.hpp"
+#include "redfish_aggregator.hpp"
 #include "registries/privilege_registry.hpp"
 
 #include <nlohmann/json.hpp>
@@ -50,7 +51,7 @@ inline void handleAggregationServiceGet(
         "/redfish/v1/AggregationService/AggregationSources";
 }
 
-inline void requestAggregationServiceRoutes(App& app)
+inline void requestRoutesAggregationService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/")
         .privileges(redfish::privileges::headAggregationService)
@@ -62,7 +63,31 @@ inline void requestAggregationServiceRoutes(App& app)
             std::bind_front(handleAggregationServiceGet, std::ref(app)));
 }
 
-inline void handleAggregationSourcesGet(
+inline void populateAggregationSourceCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code ec,
+    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+{
+    // Something went wrong while querying dbus
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    nlohmann::json members = nlohmann::json::array();
+    for (const auto& sat : satelliteInfo)
+    {
+        nlohmann::json::object_t member;
+        member["@odata.id"] =
+            crow::utility::urlFromPieces("redfish", "v1", "AggregationService",
+                                         "AggregationSources", sat.first);
+        members.push_back(std::move(member));
+    }
+    asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+    asyncResp->res.jsonValue["Members"] = std::move(members);
+}
+
+inline void handleAggregationSourceCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -78,18 +103,93 @@ inline void handleAggregationSourcesGet(
     json["@odata.type"] =
         "#AggregationSourceCollection.AggregationSourceCollection";
     json["Name"] = "Aggregation Source Collection";
-    json["Members"] = nlohmann::json::array();
-    json["Members@odata.count"] = 0;
 
-    // TODO: Query D-Bus for satellite configs and add them to the Members array
+    // Query D-Bus for satellite configs and add them to the Members array
+    std::function<void(
+        const boost::system::error_code,
+        const std::unordered_map<std::string, boost::urls::url>&)>
+        cb = std::bind_front(populateAggregationSourceCollection, asyncResp);
+    RedfishAggregator::getSatelliteConfigs(cb);
 }
 
-inline void requestAggregationSourcesRoutes(App& app)
+inline void requestRoutesAggregationSourceCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/AggregationSources/")
-        .privileges(redfish::privileges::getAggregationService)
+        .privileges(redfish::privileges::getAggregationSourceCollection)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleAggregationSourceCollectionGet, std::ref(app)));
+}
+
+inline void populateAggregationSource(
+    const std::string& aggregationSourceId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code ec,
+    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/AggregationSource/AggregationSource.json>; rel=describedby");
+
+    // Something went wrong while querying dbus
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& sat = satelliteInfo.find(aggregationSourceId);
+    if (sat == satelliteInfo.end())
+    {
+        messages::resourceNotFound(asyncResp->res, "AggregationSource",
+                                   aggregationSourceId);
+    }
+
+    asyncResp->res.jsonValue["@odata.id"] =
+        crow::utility::urlFromPieces("redfish", "v1", "AggregationService",
+                                     "AggregationSources", aggregationSourceId);
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#AggregationSource.v1_3_1.AggregationSource";
+    asyncResp->res.jsonValue["Id"] = aggregationSourceId;
+
+    // TODO: Should this instead be the Name property from the satellite config?
+    asyncResp->res.jsonValue["Name"] = aggregationSourceId;
+    std::string hostName(sat->second.scheme());
+    hostName += "://";
+    hostName += sat->second.encoded_host_and_port();
+    asyncResp->res.jsonValue["HostName"] = std::move(hostName);
+
+    // These are null since aggregation does not currently support authorization
+    asyncResp->res.jsonValue["Password"] = "";
+    asyncResp->res.jsonValue["UserName"] = "";
+}
+
+inline void handleAggregationSourceGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& aggregationSourceId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    // Query D-Bus for satellite config corresponding to the specified
+    // AggregationSource
+    std::function<void(
+        const boost::system::error_code,
+        const std::unordered_map<std::string, boost::urls::url>&)>
+        cb = std::bind_front(populateAggregationSource, aggregationSourceId,
+                             asyncResp);
+    RedfishAggregator::getSatelliteConfigs(cb);
+}
+
+inline void requestRoutesAggregationSource(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/AggregationService/AggregationSources/<str>/")
+        .privileges(redfish::privileges::getAggregationSource)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleAggregationSourcesGet, std::ref(app)));
+            std::bind_front(handleAggregationSourceGet, std::ref(app)));
 }
 
 } // namespace redfish
