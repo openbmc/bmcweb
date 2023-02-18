@@ -5,6 +5,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "query.hpp"
+#include "redfish_aggregator.hpp"
 #include "registries/privilege_registry.hpp"
 
 #include <nlohmann/json.hpp>
@@ -78,10 +79,26 @@ inline void handleAggregationSourcesGet(
     json["@odata.type"] =
         "#AggregationSourceCollection.AggregationSourceCollection";
     json["Name"] = "Aggregation Source Collection";
-    json["Members"] = nlohmann::json::array();
-    json["Members@odata.count"] = 0;
 
     // TODO: Query D-Bus for satellite configs and add them to the Members array
+    RedfishAggregator::getSatelliteConfigs(std::bind_front(populateAggregationSources, asyncResp));
+}
+
+inline void populateAggregationSources(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+{
+    nlohmann::json& json = asyncResp->res.jsonValue;
+    json["Members"] = nlohmann::json::array();
+    nlohmann::json& members = json["Members"];
+    for (const auto& sat : satelliteInfo)
+    {
+        nlohmann::json::object_t member;
+        member["@odata.id"] =
+            "/redfish/v1/AggregationService/AggregationSources/" + sat.first;
+        members.push_back(std::move(member));
+    }
+    json["Members@odata.count"] = members.size();
 }
 
 inline void requestAggregationSourcesRoutes(App& app)
