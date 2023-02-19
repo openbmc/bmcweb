@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceb678c9_9da287c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-02-19T14:02:05Z",
+      "side": 1,
+      "message": "Hi Gunnar,\n\nI have update it, please help review.",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
