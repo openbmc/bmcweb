@@ -167,7 +167,7 @@ inline void
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Chassis.Intrusion"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/Intrusion", 1, interfaces,
+        "/xyz/openbmc_project", 0, interfaces,
         [asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
