@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670143cc_d17969c8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-02-20T21:20:12Z",
+      "side": 1,
+      "message": "nit:spelling",
+      "range": {
+        "startLine": 1147,
+        "startChar": 56,
+        "endLine": 1147,
+        "endChar": 60
+      },
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe7b3d6_e240efd2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-02-20T21:20:12Z",
+      "side": 1,
+      "message": "Could we do something like \"BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus responses error: \" \u003c\u003c ec;\" so we get the error code in the journal?",
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a3aa7f_1d82312b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-02-20T21:20:12Z",
+      "side": 1,
+      "message": "Why not have this in an else on the autoRebootEnabled so we only ever write it once?",
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1671b3c_2c3d7544",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-02-20T21:20:12Z",
+      "side": 1,
+      "message": "We now have somewhat-support for multiple hosts. We do have a legacy rule that instance 0 will always be the \"entire system\" so maybe for things like this, a 0 is ok. But I wonder if the long term thing here is to set all hostX instances? I hope we flesh this out as we work through the aggregation and composed system designs.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 70,
+        "endLine": 1271,
+        "endChar": 75
+      },
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
