@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5cb6a5_f930ea26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-20T17:30:11Z",
+      "side": 1,
+      "message": "The other BootProgress states are all enum string values which are in plain english. A hex code here seems out of place. \n\n\n\n       \"BootProgressTypes\": {\n            \"enum\": [\n                \"None\",\n                \"PrimaryProcessorInitializationStarted\",\n                \"BusInitializationStarted\",\n                \"MemoryInitializationStarted\",\n                \"SecondaryProcessorInitializationStarted\",\n                \"PCIResourceConfigStarted\",\n                \"SystemHardwareInitializationComplete\",\n                \"SetupEntered\",\n                \"OSBootStarted\",\n                \"OSRunning\",\n                \"OEM\"\n            ],\n            \"enumDescriptions\": {\n                \"BusInitializationStarted\": \"The system has started initializing the buses.\",\n                \"MemoryInitializationStarted\": \"The system has started initializing the memory.\",\n                \"None\": \"The system is not booting.\",\n                \"OEM\": \"A boot progress state in an OEM-defined format.\",\n                \"OSBootStarted\": \"The operating system has started booting.\",\n                \"OSRunning\": \"The operating system is running.\",\n                \"PCIResourceConfigStarted\": \"The system has started initializing the PCI resources.\",\n                \"PrimaryProcessorInitializationStarted\": \"The system has started initializing the primary processor.\",\n                \"SecondaryProcessorInitializationStarted\": \"The system has started initializing the remaining processors.\",\n                \"SetupEntered\": \"The system has entered the setup utility.\",\n                \"SystemHardwareInitializationComplete\": \"The system has completed initializing all hardware.\"\n            },",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ceb678c9_9da287c6",
@@ -14,6 +31,46 @@
       "writtenOn": "2023-02-19T14:02:05Z",
       "side": 1,
       "message": "Hi Gunnar,\n\nI have update it, please help review.",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef8738ea_cf4bc8f8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-20T17:30:11Z",
+      "side": 1,
+      "message": "Don\u0027t we already have this same call on line 844?",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc07775_268e4152",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-20T17:30:11Z",
+      "side": 1,
+      "message": "I don\u0027t think this business logic should be in bmcweb. \nI think bmcweb should get the value from D-Bus.",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 17
+      },
       "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
