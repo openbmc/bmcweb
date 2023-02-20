@@ -16,6 +16,23 @@
       "message": "@Gunnar @Ed\nAny comments on this one?",
       "revId": "e9f8668ed5048b3e284899e2185ad65688e3a2bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e25af1d5_39130850",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-20T19:42:06Z",
+      "side": 1,
+      "message": "Don\u0027t you need #include \u003cfunctional\u003e ? I am surprised clang passed",
+      "revId": "e9f8668ed5048b3e284899e2185ad65688e3a2bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
