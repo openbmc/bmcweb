@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2f64cd3_fd811cb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-02-21T07:24:30Z",
+      "side": 1,
+      "message": "Does this work for IPv6 as well ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ec669e_df3ca380",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-02-21T07:24:30Z",
+      "side": 1,
+      "message": "Ed, Is it better to check this runtime? If there is no DNS server set on the system (Static/Dynamic DNS server) then use the boost::asio resolver. Else use the crow::async_resolver",
+      "range": {
+        "startLine": 151,
+        "startChar": 7,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e489d1_937e0613",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-02-21T07:24:30Z",
+      "side": 1,
+      "message": "Should this be private?",
+      "range": {
+        "startLine": 877,
+        "startChar": 4,
+        "endLine": 877,
+        "endChar": 57
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e10ad3_cc365f97",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-02-21T07:24:30Z",
+      "side": 1,
+      "message": "If httpClientSingleton is null, then call initialize and return the httpClientSingleton object",
+      "range": {
+        "startLine": 886,
+        "startChar": 8,
+        "endLine": 886,
+        "endChar": 39
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
