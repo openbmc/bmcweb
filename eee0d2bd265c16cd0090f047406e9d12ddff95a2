@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99805c2c_c30252d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-21T20:42:55Z",
+      "side": 1,
+      "message": "What introduced this?",
+      "revId": "eee0d2bd265c16cd0090f047406e9d12ddff95a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b3102ba_9c01dadc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-21T20:42:55Z",
+      "side": 1,
+      "message": "Where is this used? I don\u0027t see a std::make_shared\u003cHealthPopulate\u003e(asyncResp). The only \"health\" I see in here is line 964",
+      "revId": "eee0d2bd265c16cd0090f047406e9d12ddff95a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
