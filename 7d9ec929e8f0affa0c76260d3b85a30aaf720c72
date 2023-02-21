@@ -69,6 +69,24 @@
       "parentUuid": "96c28ec6_b810db6a",
       "revId": "7d9ec929e8f0affa0c76260d3b85a30aaf720c72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3452c5_fe1b1803",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-21T19:11:09Z",
+      "side": 1,
+      "message": "Added some wording to the commit message.",
+      "parentUuid": "fbd2f605_d9243cef",
+      "revId": "7d9ec929e8f0affa0c76260d3b85a30aaf720c72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
