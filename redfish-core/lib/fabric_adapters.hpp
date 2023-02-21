@@ -173,6 +173,39 @@ inline void
         });
 }
 
+inline void
+    addFabricAdapterLinkToPorts(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& systemName,
+                                const std::string& fabricAdapterPath,
+                                const std::string& adapterId)
+{
+    // Add Link to Ports if there are.
+    dbus::utility::getAssociationEndPoints(
+        fabricAdapterPath + "/connecting",
+        [aResp, systemName,
+         adapterId](const boost::system::error_code& ec,
+                    const dbus::utility::MapperEndPoints& endpoints) {
+        if (ec)
+        {
+            if (ec.value() == EBADR)
+            {
+                BMCWEB_LOG_DEBUG << "Port association not found";
+                return;
+            }
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec.message();
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (!endpoints.empty())
+        {
+            aResp->res.jsonValue["Ports"]["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/{}/FabricAdapters/{}/Ports", systemName,
+                adapterId);
+        }
+        });
+}
+
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          const std::string& systemName,
                          const std::string& adapterId,
@@ -191,6 +224,8 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     aResp->res.jsonValue["Status"]["State"] = "Enabled";
     aResp->res.jsonValue["Status"]["Health"] = "OK";
 
+    addFabricAdapterLinkToPorts(aResp, systemName, fabricAdapterPath,
+                                adapterId);
     getFabricAdapterLocation(aResp, serviceName, fabricAdapterPath);
     getFabricAdapterAsset(aResp, serviceName, fabricAdapterPath);
     getFabricAdapterState(aResp, serviceName, fabricAdapterPath);
