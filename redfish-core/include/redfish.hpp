@@ -36,6 +36,7 @@
 #include "network_protocol.hpp"
 #include "pcie.hpp"
 #include "pcie_slots.hpp"
+#include "port.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
 #include "processor.hpp"
@@ -222,6 +223,7 @@ class RedfishService
         requestRoutesEventDestination(app);
         requestRoutesFabricAdapters(app);
         requestRoutesFabricAdapterCollection(app);
+        requestRoutesPortCollection(app);
         requestRoutesSubmitTestEvent(app);
 
         requestRoutesHypervisorSystems(app);

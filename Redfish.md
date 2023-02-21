@@ -716,9 +716,14 @@ other.
 - Location
 - Model
 - PartNumber
+- Ports
 - SerialNumber
 - SparePartNumber
 - Status
+
+### /redfish/v1/Systems/system/FabricAdapters/{FabricAdapterId}/Ports
+
+#### PortCollection
 
 ### /redfish/v1/Systems/system/LogServices/
 
