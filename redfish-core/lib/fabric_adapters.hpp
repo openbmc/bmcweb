@@ -187,6 +187,9 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     aResp->res.jsonValue["Id"] = adapterId;
     aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", systemName, "FabricAdapters", adapterId);
+    aResp->res.jsonValue["Ports"]["@odata.id"] =
+        crow::utility::urlFromPieces("redfish", "v1", "Systems", systemName,
+                                     "FabricAdapters", adapterId, "Ports");
 
     aResp->res.jsonValue["Status"]["State"] = "Enabled";
     aResp->res.jsonValue["Status"]["Health"] = "OK";
