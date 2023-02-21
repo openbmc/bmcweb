@@ -1,5 +1,7 @@
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "query.hpp"
@@ -7,6 +9,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/port_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -58,7 +61,7 @@ inline void getFabricAdapterLocation(
 
         asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
-        });
+    });
 }
 
 inline void
@@ -117,7 +120,7 @@ inline void
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
         }
-        });
+    });
 }
 
 inline void
@@ -143,7 +146,7 @@ inline void
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        });
+    });
 }
 
 inline void
@@ -170,7 +173,7 @@ inline void
         {
             asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
         }
-        });
+    });
 }
 
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -192,6 +195,19 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";
 
+    // Add Link to Ports if there are.
+    redfish::port_utils::getPortList(
+        asyncResp, fabricAdapterPath,
+        [asyncResp, systemName,
+         adapterId](const dbus::utility::MapperEndPoints& portPaths) {
+        if (!portPaths.empty())
+        {
+            asyncResp->res.jsonValue["Ports"]["@odata.id"] =
+                boost::urls::format(
+                    "/redfish/v1/Systems/{}/FabricAdapters/{}/Ports",
+                    systemName, adapterId);
+        }
+    });
     getFabricAdapterLocation(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterAsset(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterState(asyncResp, serviceName, fabricAdapterPath);
@@ -242,7 +258,7 @@ inline void getValidFabricAdapterPath(
         }
         BMCWEB_LOG_WARNING("Adapter not found");
         messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
-        });
+    });
 }
 
 inline void
@@ -269,7 +285,7 @@ inline void
                                            const std::string& serviceName) {
         doAdapterGet(asyncResp, systemName, adapterId, fabricAdapterPath,
                      serviceName);
-        });
+    });
 }
 
 inline void handleFabricAdapterCollectionGet(
