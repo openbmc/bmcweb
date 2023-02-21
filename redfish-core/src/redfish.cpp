@@ -14,6 +14,7 @@
 #include "event_service.hpp"
 #include "eventservice_sse.hpp"
 #include "fabric_adapters.hpp"
+#include "fabric_ports.hpp"
 #include "fan.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
@@ -218,6 +219,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesEventDestination(app);
     requestRoutesFabricAdapters(app);
     requestRoutesFabricAdapterCollection(app);
+    requestRoutesFabricPort(app);
     requestRoutesSubmitTestEvent(app);
 
     requestRoutesHypervisorSystems(app);
