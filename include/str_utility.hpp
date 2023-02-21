@@ -14,10 +14,11 @@ inline void split(std::vector<std::string>& strings, std::string_view str,
 {
     size_t start = 0;
     size_t end = 0;
-    while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
+    while (end <= str.size())
     {
         end = str.find(delim, start);
         strings.emplace_back(str.substr(start, end - start));
+        start = end + 1;
     }
 }
 } // namespace bmcweb
