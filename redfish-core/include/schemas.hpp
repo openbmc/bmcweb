@@ -79,6 +79,8 @@ namespace redfish
         "PCIeFunctionCollection",
         "PCIeSlots",
         "PhysicalContext",
+        "Port",
+        "PortCollection",
         "Power",
         "PowerSubsystem",
         "PowerSupply",
