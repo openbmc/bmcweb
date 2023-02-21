@@ -69,6 +69,23 @@
       "parentUuid": "f972cc11_e8d6aefa",
       "revId": "06af4956778c9b55fcc2b3d2be4303fcf950572f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae42632_1930b570",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-02-21T15:00:42Z",
+      "side": 1,
+      "message": "I see in the commit message that PATCH commands pass, and that the validator passes.\nDid you test to make sure systemd-networkd gets the configuration you desire? All of the DHCP conf states (v4, v4v6stateless, v6stateless, etc..) have been dropped by phosphor-network.\nShould this commit merge I don\u0027t believe it will perform the desired actions as written.",
+      "revId": "06af4956778c9b55fcc2b3d2be4303fcf950572f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
