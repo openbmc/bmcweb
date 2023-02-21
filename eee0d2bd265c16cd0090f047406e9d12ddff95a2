@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2454fc1e_91a9bf5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-21T21:41:13Z",
+      "side": 1,
+      "message": "I\u0027m not sure, but it\u0027s not recent.",
+      "parentUuid": "99805c2c_c30252d8",
+      "revId": "eee0d2bd265c16cd0090f047406e9d12ddff95a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b3102ba_9c01dadc",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-21T20:42:55Z",
       "side": 1,
       "message": "Where is this used? I don\u0027t see a std::make_shared\u003cHealthPopulate\u003e(asyncResp). The only \"health\" I see in here is line 964",
+      "revId": "eee0d2bd265c16cd0090f047406e9d12ddff95a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3df52d_aacabe2e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-21T21:41:13Z",
+      "side": 1,
+      "message": "hmmmm..  you\u0027re right, I don\u0027t see anything.  I swear it showed up in the jenkins logs.  Let me rerun jenkins without this patch, and see what happens.\n\nSorry for the noise.",
+      "parentUuid": "6b3102ba_9c01dadc",
       "revId": "eee0d2bd265c16cd0090f047406e9d12ddff95a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
