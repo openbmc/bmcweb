@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0b3dc84d_cd41bbd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-02-21T08:22:16Z",
+      "side": 1,
+      "message": "Hi Gunnar,\n\nThe BootProgress\u0027s OemLastState contains the 9-byte hex values of the BootProgress code report as an example in SBMR spec DEN0069D_SBMR_2.0.pdf document section F.2.2.\n\"BootProgress\": {\n        \"LastState\": \"OEM\",\n        \"LastStateTime\": \"2022-11-14T06:12:09.936477+00:00\",\n        \"OemLastState\": \"0x010000000010010000\"\n    }\nPlease check the DEN0069D_SBMR_2.0.pdf document section F.2.2.\n\nF.2.2 Example boot progress codes (Redfish)\n\nDMTF Redfish Schema Supplement [7] [47] version 2020.3 and newer introduced a method to read the last Boot Progress Code using the ComputerSystem.BootProgress Redfish object. Using this feature, the user can read the last Boot Progress Code that was reported by system firmware to the BMC. The DMTF schema defines a handful of standard boot progress codes and a method for reporting implementation-specific OEM defined codes.\nSBMR recommends that Level M2.1-based server systems report the Boot Progress Codes through Redfish out-of-band and in-band interfaces. When possible, implementations should use the DMTF-defined standard codes. If the Boot Progress Code does not map to one of the DMTF defined codes, SBMR recommends reporting the codes as defined in Section F.2. Achieve this by setting the Redfish BootProgress.LastState property to OEM and setting the BootProgress.OEMLastState property to the 9-byte hex values defined in Section F.2.\n\nHere is an example of the Redfish JSON mockup for Boot Progress property and how it maps to the UEFI and IPMI definitions:\n\nExample 1 - Host processor power-on initialization\n(Refer to IPMI Example 1 in Section F.2.1)\n\nUEFI PI Status Code Definition:\nEFI_COMPUTING_UNIT_HOST_PROCESSOR | EFI_CU_HP_PC_POWER_ON_INIT, Instance \u003d 0\n\nIPMI command to send the progress code to the BMC:\n0x2C 0x02 0xAE 0x01 0x00 0x00 0x00 0x00 0x10 0x01 0x00 0x00\n\nRedfish JSON mockup when reading the Progress Code from the Redfish interface:\n\"BootProgress\": {\n        \"LastState\": \"OEM\",\n        \"OemLastState\": \"0x010000000010010000\",\n        \"LastStateTime\": \"2020-03-13T04:14:13+06:00\"\n    }",
+      "parentUuid": "bc5cb6a5_f930ea26",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ceb678c9_9da287c6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b515f5_d8b2f873",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-02-21T08:22:16Z",
+      "side": 1,
+      "message": "The OemLastState shall only be present if LastState is OEM.\nPlease check the Redfish Schema Supplement DSP0268_2021.2.pdf (6.23 ComputerSystem 1.16.0, BootProgress (v1.13+)).\nSo the purpose of this code is just to show the OemLastState if LastState is OEM.",
+      "parentUuid": "ef8738ea_cf4bc8f8",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cc07775_268e4152",
@@ -65,6 +101,30 @@
       "writtenOn": "2023-02-20T17:30:11Z",
       "side": 1,
       "message": "I don\u0027t think this business logic should be in bmcweb. \nI think bmcweb should get the value from D-Bus.",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 17
+      },
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70411c1_e0e1dac8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-02-21T08:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc07775_268e4152",
       "range": {
         "startLine": 938,
         "startChar": 0,
