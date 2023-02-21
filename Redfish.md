@@ -678,9 +678,17 @@ other.
 - Location
 - Model
 - PartNumber
+- Ports
 - SerialNumber
 - SparePartNumber
 - Status
+
+### /redfish/v1/Systems/system/FabricAdapters/{FabricAdapterId}/Ports
+
+#### PortCollection
+
+- Members
+- Members@odata.count
 
 ### /redfish/v1/Systems/system/LogServices/
 
@@ -924,6 +932,5 @@ other.
 
 [1]: https://www.dmtf.org/standards/redfish
 [2]: https://redfish.dmtf.org/schemas/v1/LogService.json
-[3]:
-  https://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in-bmcweb.md
+[3]: https://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in-bmcweb.md
 [4]: https://github.com/openbmc/phosphor-logging
