@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5701f99a_eba5d557",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-21T14:26:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "670143cc_d17969c8",
+      "range": {
+        "startLine": 1147,
+        "startChar": 56,
+        "endLine": 1147,
+        "endChar": 60
+      },
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfe7b3d6_e240efd2",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77308b28_1e93182a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-21T14:26:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfe7b3d6_e240efd2",
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a3aa7f_1d82312b",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-02-20T21:20:12Z",
       "side": 1,
       "message": "Why not have this in an else on the autoRebootEnabled so we only ever write it once?",
+      "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9317924_8191e1f0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-02-21T14:26:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a3aa7f_1d82312b",
       "revId": "162efb3973cbb4547467fdecab88d0a1101057b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
