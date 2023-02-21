@@ -19,6 +19,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "health.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task.hpp"
