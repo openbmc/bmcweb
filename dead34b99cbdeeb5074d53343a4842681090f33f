@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "77fdd6ab_b523a650",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000940
+      },
+      "writtenOn": "2023-02-21T08:38:28Z",
+      "side": 1,
+      "message": "Hi Gunnar,\nLet check BootProgress structure in ComputerSystem schema https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_0.json. We have 2 different properties:\n- LastState: contain values as you listed.\n- OemLastState: The OEM-specific last state. This is a free form string.\n\nIn this commit, Hieu supports setting OemLastState from PostCode when LastState\u003dOEM. Refer to https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/57842 for discussion before.\n\nHieu,\n9-bytes are just for PostCodes from SBMR definition. Other platforms might use different PostCodes. Your commit supports getting PostCodes data to set to OemLastState for all values, not just 9 bytes",
+      "parentUuid": "0b3dc84d_cd41bbd3",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ceb678c9_9da287c6",
