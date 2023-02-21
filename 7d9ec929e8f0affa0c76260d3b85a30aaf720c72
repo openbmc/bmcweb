@@ -51,6 +51,24 @@
       "parentUuid": "b380cec1_165b05a0",
       "revId": "7d9ec929e8f0affa0c76260d3b85a30aaf720c72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbd2f605_d9243cef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-21T18:55:54Z",
+      "side": 1,
+      "message": "I think it makes sense to support it.  Ultimately, this function needs to go away, so spending more time on it doesn\u0027t seem worth it to me.  Happy to update the commit message if you want that mentioned, but I don\u0027t think it\u0027s worth it.",
+      "parentUuid": "96c28ec6_b810db6a",
+      "revId": "7d9ec929e8f0affa0c76260d3b85a30aaf720c72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
