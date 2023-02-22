@@ -204,36 +204,33 @@ static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
     }
 }
 
+inline boost::system::error_code aggregationRetryHandler(unsigned int respCode)
+{
+    // Allow all response codes because we want to surface any satellite
+    // issue to the client
+    BMCWEB_LOG_DEBUG << "Received " << respCode << " response from satellite";
+    return boost::system::errc::make_error_code(boost::system::errc::success);
+}
+
+inline crow::ConnectionPolicy getAggregationPolicy()
+{
+    return {.maxRetryAttempts = 1,
+            .requestByteLimit = 50 * 1024 * 1024, // 50MB
+            .maxConnections = 20,
+            .retryPolicyAction = "TerminateAfterRetries",
+            .retryIntervalSecs = std::chrono::seconds(0),
+            .invalidResp = aggregationRetryHandler};
+}
+
 class RedfishAggregator
 {
   private:
-    const std::string retryPolicyName = "RedfishAggregation";
-    const std::string retryPolicyAction = "TerminateAfterRetries";
-    const uint32_t retryAttempts = 1;
-    const uint32_t retryTimeoutInterval = 0;
-    const std::string id = "Aggregator";
+    crow::HttpClient client;
 
-    RedfishAggregator()
+    RedfishAggregator() :
+        client(std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
     {
         getSatelliteConfigs(constructorCallback);
-
-        // Setup the retry policy to be used by Redfish Aggregation
-        crow::HttpClient::getInstance().setRetryConfig(
-            retryAttempts, retryTimeoutInterval, aggregationRetryHandler,
-            retryPolicyName);
-        crow::HttpClient::getInstance().setRetryPolicy(retryPolicyAction,
-                                                       retryPolicyName);
-    }
-
-    static inline boost::system::error_code
-        aggregationRetryHandler(unsigned int respCode)
-    {
-        // Allow all response codes because we want to surface any satellite
-        // issue to the client
-        BMCWEB_LOG_DEBUG << "Received " << respCode
-                         << " response from satellite";
-        return boost::system::errc::make_error_code(
-            boost::system::errc::success);
     }
 
     // Dummy callback used by the Constructor so that it can report the number
@@ -592,10 +589,10 @@ class RedfishAggregator
             std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.req.body();
-        crow::HttpClient::getInstance().sendDataWithCallback(
-            data, id, std::string(sat->second.host()),
-            sat->second.port_number(), targetURI, false /*useSSL*/,
-            thisReq.fields(), thisReq.method(), retryPolicyName, cb);
+        client.sendDataWithCallback(data, std::string(sat->second.host()),
+                                    sat->second.port_number(), targetURI,
+                                    false /*useSSL*/, thisReq.fields(),
+                                    thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -611,10 +608,10 @@ class RedfishAggregator
 
             std::string targetURI(thisReq.target());
             std::string data = thisReq.req.body();
-            crow::HttpClient::getInstance().sendDataWithCallback(
-                data, id, std::string(sat.second.host()),
-                sat.second.port_number(), targetURI, false /*useSSL*/,
-                thisReq.fields(), thisReq.method(), retryPolicyName, cb);
+            client.sendDataWithCallback(data, std::string(sat.second.host()),
+                                        sat.second.port_number(), targetURI,
+                                        false /*useSSL*/, thisReq.fields(),
+                                        thisReq.method(), cb);
         }
     }
 
