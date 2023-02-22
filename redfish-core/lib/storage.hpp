@@ -447,80 +447,57 @@ inline void
             {
                 const std::string* value =
                     std::get_if<std::string>(&property.second);
-                if (value == nullptr)
+                if (value != nullptr)
                 {
-                    // illegal property
-                    BMCWEB_LOG_ERROR << "Illegal property: Type";
-                    messages::internalError(asyncResp->res);
-                    return;
+                    std::optional<std::string> mediaType =
+                        convertDriveType(*value);
+                    if (mediaType)
+                    {
+                        asyncResp->res.jsonValue["MediaType"] = *mediaType;
+                    }
                 }
-
-                std::optional<std::string> mediaType = convertDriveType(*value);
-                if (!mediaType)
-                {
-                    BMCWEB_LOG_ERROR << "Unsupported DriveType Interface: "
-                                     << *value;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                asyncResp->res.jsonValue["MediaType"] = *mediaType;
             }
             else if (propertyName == "Capacity")
             {
                 const uint64_t* capacity =
                     std::get_if<uint64_t>(&property.second);
-                if (capacity == nullptr)
+                if (capacity != nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal property: Capacity";
-                    messages::internalError(asyncResp->res);
-                    return;
+                    if (*capacity == 0)
+                    {
+                        // drive capacity not known
+                        continue;
+                    }
+                    asyncResp->res.jsonValue["CapacityBytes"] = *capacity;
                 }
-                if (*capacity == 0)
-                {
-                    // drive capacity not known
-                    continue;
-                }
-
-                asyncResp->res.jsonValue["CapacityBytes"] = *capacity;
             }
             else if (propertyName == "Protocol")
             {
                 const std::string* value =
                     std::get_if<std::string>(&property.second);
-                if (value == nullptr)
+                if (value != nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal property: Protocol";
-                    messages::internalError(asyncResp->res);
-                    return;
+                    std::optional<std::string> proto =
+                        convertDriveProtocol(*value);
+                    if (proto)
+                    {
+                        asyncResp->res.jsonValue["Protocol"] = *proto;
+                    }
                 }
-
-                std::optional<std::string> proto = convertDriveProtocol(*value);
-                if (!proto)
-                {
-                    BMCWEB_LOG_ERROR << "Unsupported DrivePrototype Interface: "
-                                     << *value;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                asyncResp->res.jsonValue["Protocol"] = *proto;
             }
             else if (propertyName == "PredictedMediaLifeLeftPercent")
             {
                 const uint8_t* lifeLeft =
                     std::get_if<uint8_t>(&property.second);
-                if (lifeLeft == nullptr)
+                if (lifeLeft != nullptr)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Illegal property: PredictedMediaLifeLeftPercent";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                // 255 means reading the value is not supported
-                if (*lifeLeft != 255)
-                {
-                    asyncResp->res.jsonValue["PredictedMediaLifeLeftPercent"] =
-                        *lifeLeft;
+                    // 255 means reading the value is not supported
+                    if (*lifeLeft != 255)
+                    {
+                        asyncResp->res
+                            .jsonValue["PredictedMediaLifeLeftPercent"] =
+                            *lifeLeft;
+                    }
                 }
             }
         }
