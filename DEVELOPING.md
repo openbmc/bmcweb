@@ -203,3 +203,45 @@ design patterns, and bug prone constructs. The checks are implemented in the
 .clang-tidy file in the root of bmcweb, and are expected to be passing.
 [openbmc-build-scripts](https://github.com/openbmc/openbmc-build-scripts/blob/master/run-unit-test-docker.sh)
 implements clang-tidy checks and is the recommended way to run these checks
+
+### Logging Levels
+
+Five bmcweb logging levels are supported, from least to most severity:
+
+- debug
+- info
+- warning
+- error
+- critical
+
+And their use cases:
+- critical: Something went badly wrong, and we're no longer able to serve
+  traffic. "critical" should be used when bmcweb encountered an event or entered
+  a state that caused crucial function to stop working or when bmcweb
+  encountered a fatal error.
+- error: Something went wrong, and we weren't able to give the expected
+  response. Service is still operational. "error" should be used for unexpected
+  conditions that prevented bmcweb from fulfilling the request. "error" shall be
+  used for 5xx errors.
+- warning: A condition occurred that is outside the expected flows, but isn't
+  necessarily an error in the webserver, or might only be an error in certain
+  scenarios. For example, connection drops or 4xx errors.
+- info: Information for the golden path debugging.
+- debug: Information that's overly verbose such that it shouldn't be printed in
+  all debug scenarios, but might be useful in some debug contexts.
+
+### Enabling logging
+
+bmcweb by default is compiled with runtime logging disabled, as a performance
+consideration. To enable it in a standalone build, add the
+
+```ascii
+-Dlogging='enabled'
+```
+
+option to your configure flags. If building within Yocto, add the following to
+your local.conf.
+
+```bash
+EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
+```
