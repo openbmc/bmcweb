@@ -398,6 +398,11 @@ inline std::optional<std::string> convertDriveType(const std::string& type)
     {
         return "SSD";
     }
+    if (type.empty() ||
+        type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.Unknown")
+    {
+        return "Unknown";
+    }
 
     return std::nullopt;
 }
@@ -419,6 +424,12 @@ inline std::optional<std::string> convertDriveProtocol(const std::string& proto)
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.FC")
     {
         return "FC";
+    }
+    if (proto.empty() ||
+        proto ==
+            "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.Unknown")
+    {
+        return "Unknown";
     }
 
     return std::nullopt;
