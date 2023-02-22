@@ -121,9 +121,9 @@ implementations exist, but for implementations where only a single
 implementation exists, prefer to make the code correct and clean rather than
 implement a concrete interface.
 
-### phosphor webui
+### webui-vue
 
-The webserver should be capable of hosting phosphor-webui, and implementing the
+The webserver should be capable of hosting webui-vue, and implementing the
 required flows to host the application. In general, all access methods should be
 available to the webui.
 
