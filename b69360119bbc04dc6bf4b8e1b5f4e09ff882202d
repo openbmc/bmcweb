@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01d6e2b_68871c8c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:47:52Z",
+      "side": 1,
+      "message": "Meh, this whole section could probably be removed now.  clang-tidy is enforced in CI, no need to document it here.  but meh, not worried about it.",
+      "revId": "b69360119bbc04dc6bf4b8e1b5f4e09ff882202d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
