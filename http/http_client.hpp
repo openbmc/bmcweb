@@ -80,6 +80,12 @@ enum class ConnState
     retry
 };
 
+enum class RequestSource
+{
+    Aggregation,
+    EventService
+};
+
 static inline boost::system::error_code
     defaultRetryHandler(unsigned int respCode)
 {
@@ -126,6 +132,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     ConnState state = ConnState::initialized;
     uint32_t retryCount = 0;
     std::string subId;
+    RequestSource reqSource;
     std::string host;
     uint16_t port;
     uint32_t connId;
@@ -323,7 +330,15 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         state = ConnState::recvInProgress;
 
         parser.emplace(std::piecewise_construct, std::make_tuple());
-        parser->body_limit(httpReadBodyLimit);
+
+        if (reqSource == RequestSource::Aggregation)
+        {
+            parser->body_limit(boost::none);
+        }
+        else
+        {
+            parser->body_limit(httpReadBodyLimit);
+        }
 
         timer.expires_after(std::chrono::seconds(30));
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
@@ -584,9 +599,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
   public:
     explicit ConnectionInfo(boost::asio::io_context& iocIn,
                             const std::string& idIn,
+                            RequestSource reqSourceIn,
                             const std::string& destIPIn, uint16_t destPortIn,
-                            bool useSSL, unsigned int connIdIn) :
-        subId(idIn),
+                            bool useSSL, unsigned int connIdIn):
+        subId(idIn), reqSource(reqSourceIn),
         host(destIPIn), port(destPortIn), connId(connIdIn), conn(iocIn),
         timer(iocIn)
     {
@@ -619,6 +635,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
   private:
     boost::asio::io_context& ioc;
     std::string id;
+    RequestSource reqSource;
     std::string destIP;
     uint16_t destPort;
     bool useSSL;
@@ -812,7 +829,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         unsigned int newId = static_cast<unsigned int>(connections.size());
 
         auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
-            ioc, id, destIP, destPort, useSSL, newId));
+            ioc, id, reqSource, destIP, destPort, useSSL, newId));
 
         BMCWEB_LOG_DEBUG << "Added connection "
                          << std::to_string(connections.size() - 1)
@@ -824,11 +841,11 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
   public:
     explicit ConnectionPool(boost::asio::io_context& iocIn,
-                            const std::string& idIn,
+                            const std::string& idIn, RequestSource reqSourceIn,
                             const std::string& destIPIn, uint16_t destPortIn,
                             bool useSSLIn) :
         ioc(iocIn),
-        id(idIn), destIP(destIPIn), destPort(destPortIn), useSSL(useSSLIn)
+        id(idIn), reqSource(reqSourceIn), destIP(destIPIn), destPort(destPortIn), useSSL(useSSLIn)
     {
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
                          << std::to_string(destPort);
@@ -872,6 +889,7 @@ class HttpClient
     // Send a request to destIP:destPort where additional processing of the
     // result is not required
     void sendData(std::string& data, const std::string& id,
+                  RequestSource reqSource,
                   const std::string& destIP, uint16_t destPort,
                   const std::string& destUri, bool useSSL,
                   const boost::beast::http::fields& httpHeader,
@@ -879,13 +897,14 @@ class HttpClient
                   const std::string& retryPolicyName)
     {
         const std::function<void(Response&)> cb = genericResHandler;
-        sendDataWithCallback(data, id, destIP, destPort, destUri, useSSL,
+        sendDataWithCallback(data, id, reqSource, destIP, destPort, destUri, useSSL,
                              httpHeader, verb, retryPolicyName, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
     // handle the response
     void sendDataWithCallback(std::string& data, const std::string& id,
+                              RequestSource reqSource,
                               const std::string& destIP, uint16_t destPort,
                               const std::string& destUri, bool useSSL,
                               const boost::beast::http::fields& httpHeader,
@@ -897,13 +916,22 @@ class HttpClient
         clientKey += destIP;
         clientKey += ":";
         clientKey += std::to_string(destPort);
+        clientKey += ":";
+        if (reqSource == RequestSource::Aggregation)
+        {
+            clientKey += "Aggregation";
+        }
+        else if (reqSource == RequestSource::EventService)
+        {
+            clientKey += "EventService";
+        }
         // Use nullptr to avoid creating a ConnectionPool each time
         std::shared_ptr<ConnectionPool>& conn = connectionPools[clientKey];
         if (conn == nullptr)
         {
             // Now actually create the ConnectionPool shared_ptr since it does
             // not already exist
-            conn = std::make_shared<ConnectionPool>(ioc, id, destIP, destPort,
+            conn = std::make_shared<ConnectionPool>(ioc, id, reqSource, destIP, destPort,
                                                     useSSL);
             BMCWEB_LOG_DEBUG << "Created connection pool for " << clientKey;
         }
