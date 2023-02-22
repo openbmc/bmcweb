@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6edc7b14_00fb9d88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:12Z",
+      "side": 1,
+      "message": "Overall a good start;  I\u0027m a little worried that trying to enforce this without automation or testing will cause a significant thrash, or people will expect that the logging system is performant (hint, it isn\u0027t).\n\nIf we value logging over performance, we need to figure out how that encodes the guidelines section.  We know logging slows performance by a large margin, that\u0027s why it\u0027s not enabled;  If we value debugability over performance/binary size, we need to document that.",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "189d5506_be701059",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:12Z",
+      "side": 1,
+      "message": "I thought we already had a section on logging (at least how to enable the option).  Can we reference that and put these things together?",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28d4ae92_8ec14682",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:12Z",
+      "side": 1,
+      "message": "Nit, can we write these without negatives.  Saying what a log level is \"not\" isn\u0027t super helpful.  Listing each one, and what they should be used for is better (for example, putting in warning that a single request has failed).  I don\u0027t necessarily agree with that definition, but meh.",
+      "range": {
+        "startLine": 219,
+        "startChar": 45,
+        "endLine": 219,
+        "endChar": 53
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ce55675_6ab1cad0",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:12Z",
+      "side": 1,
+      "message": "Nit, this can be removed.  Exceptions are always critical events in the bmcweb developing guide.",
+      "range": {
+        "startLine": 218,
+        "startChar": 51,
+        "endLine": 219,
+        "endChar": 9
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c734af7c_7e82ab9b",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:12Z",
+      "side": 1,
+      "message": "This is another thing \"and above\" makes it subjective, which we shouldn\u0027t do (also, it\u0027s not clear which direction is \"above\" in this scenario.",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 19
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b040cd68_f606a71d",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:12Z",
+      "side": 1,
+      "message": "Overall missing:\nDefining a \"user error\" more precisely so it can handle the broad case.\nTalking about behavior for use cases like fuzzing (do we expect a fuzzer to never trigger above a certain level)?",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
