@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "304c9655_c765a1b1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-02-22T13:07:46Z",
+      "side": 0,
+      "message": "I think the previous behavior is correct. If you have property name of \"Type\", \"Capacity\", or \"Protocol\"..., then it is expected to be valid value.\n\nIt seems like that we needed to update how the property are populated in your system instead of the code here.",
+      "range": {
+        "startLine": 450,
+        "startChar": 16,
+        "endLine": 450,
+        "endChar": 37
+      },
+      "revId": "b64c62627d7a7473a590dcd97b7b50c57d599786",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
