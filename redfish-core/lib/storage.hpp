@@ -458,15 +458,10 @@ inline void
                 }
 
                 std::optional<std::string> mediaType = convertDriveType(*value);
-                if (!mediaType)
+                if (mediaType)
                 {
-                    BMCWEB_LOG_ERROR << "Unsupported DriveType Interface: "
-                                     << *value;
-                    messages::internalError(asyncResp->res);
-                    return;
+                    asyncResp->res.jsonValue["MediaType"] = *mediaType;
                 }
-
-                asyncResp->res.jsonValue["MediaType"] = *mediaType;
             }
             else if (propertyName == "Capacity")
             {
@@ -498,14 +493,10 @@ inline void
                 }
 
                 std::optional<std::string> proto = convertDriveProtocol(*value);
-                if (!proto)
+                if (proto)
                 {
-                    BMCWEB_LOG_ERROR << "Unsupported DrivePrototype Interface: "
-                                     << *value;
-                    messages::internalError(asyncResp->res);
-                    return;
+                    asyncResp->res.jsonValue["Protocol"] = *proto;
                 }
-                asyncResp->res.jsonValue["Protocol"] = *proto;
             }
             else if (propertyName == "PredictedMediaLifeLeftPercent")
             {
