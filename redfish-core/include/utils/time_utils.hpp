@@ -7,15 +7,12 @@
 #include <algorithm>
 #include <charconv>
 #include <chrono>
-#include <cmath>
-#include <compare>
 #include <cstddef>
 #include <cstdint>
 #include <optional>
 #include <ratio>
 #include <string>
 #include <string_view>
-#include <system_error>
 
 // IWYU pragma: no_include <stddef.h>
 // IWYU pragma: no_include <stdint.h>
@@ -46,64 +43,6 @@ inline std::string padZeros(int64_t value, size_t pad)
     return result;
 }
 
-template <typename FromTime>
-bool fromDurationItem(std::string_view& fmt, const char postfix,
-                      std::chrono::milliseconds& out)
-{
-    const size_t pos = fmt.find(postfix);
-    if (pos == std::string::npos)
-    {
-        return true;
-    }
-    if ((pos + 1U) > fmt.size())
-    {
-        return false;
-    }
-
-    const char* end = nullptr;
-    std::chrono::milliseconds::rep ticks = 0;
-    if constexpr (std::is_same_v<FromTime, std::chrono::milliseconds>)
-    {
-        end = fmt.data() + std::min<size_t>(pos, 3U);
-    }
-    else
-    {
-        end = fmt.data() + pos;
-    }
-
-    auto [ptr, ec] = std::from_chars(fmt.data(), end, ticks);
-    if (ptr != end || ec != std::errc())
-    {
-        BMCWEB_LOG_ERROR << "Failed to convert string to decimal with err: "
-                         << static_cast<int>(ec) << "("
-                         << std::make_error_code(ec).message() << "), ptr{"
-                         << static_cast<const void*>(ptr) << "} != end{"
-                         << static_cast<const void*>(end) << "})";
-        return false;
-    }
-
-    if constexpr (std::is_same_v<FromTime, std::chrono::milliseconds>)
-    {
-        ticks *= static_cast<std::chrono::milliseconds::rep>(
-            std::pow(10, 3 - std::min<size_t>(pos, 3U)));
-    }
-    if (ticks < 0)
-    {
-        return false;
-    }
-
-    out += FromTime(ticks);
-    const auto maxConversionRange =
-        std::chrono::duration_cast<FromTime>(std::chrono::milliseconds::max())
-            .count();
-    if (out < FromTime(ticks) || maxConversionRange < ticks)
-    {
-        return false;
-    }
-
-    fmt.remove_prefix(pos + 1U);
-    return true;
-}
 } // namespace details
 
 /**
@@ -111,65 +50,134 @@ bool fromDurationItem(std::string_view& fmt, const char postfix,
  *        equivalent.
  */
 inline std::optional<std::chrono::milliseconds>
-    fromDurationString(const std::string& str)
+    fromDurationString(std::string_view v)
 {
     std::chrono::milliseconds out = std::chrono::milliseconds::zero();
-    std::string_view v = str;
+    enum class ProcessingStage
+    {
+        // P1DT1H1M1.100S
+        P,
+        Days,
+        T,
+        Hours,
+        Minutes,
+        Seconds,
+        Milliseconds,
+        Done,
+    };
+    ProcessingStage stage = ProcessingStage::P;
 
-    if (v.empty())
+    while (!v.empty())
     {
-        return out;
-    }
-    if (v.front() != 'P')
-    {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
-        return std::nullopt;
-    }
-
-    v.remove_prefix(1);
-    if (!details::fromDurationItem<details::Days>(v, 'D', out))
-    {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
-        return std::nullopt;
-    }
-
-    if (v.empty())
-    {
-        return out;
-    }
-    if (v.front() != 'T')
-    {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
-        return std::nullopt;
-    }
-
-    v.remove_prefix(1);
-    if (!details::fromDurationItem<std::chrono::hours>(v, 'H', out) ||
-        !details::fromDurationItem<std::chrono::minutes>(v, 'M', out))
-    {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
-        return std::nullopt;
-    }
-
-    if (v.find('.') != std::string::npos && v.find('S') != std::string::npos)
-    {
-        if (!details::fromDurationItem<std::chrono::seconds>(v, '.', out) ||
-            !details::fromDurationItem<std::chrono::milliseconds>(v, 'S', out))
+        if (stage == ProcessingStage::P)
         {
-            BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
+            if (v.front() != 'P')
+            {
+                return std::nullopt;
+            }
+            v.remove_prefix(1);
+            stage = ProcessingStage::Days;
+            continue;
+        }
+        else if (stage == ProcessingStage::Days || stage == ProcessingStage::T)
+        {
+            if (v.front() == 'T')
+            {
+                if (stage == ProcessingStage::T)
+                {
+                    return std::nullopt;
+                }
+                v.remove_prefix(1);
+                stage = ProcessingStage::Hours;
+                continue;
+            }
+        }
+        uint64_t ticks = 0;
+        auto [ptr, ec] = std::from_chars(v.data(), v.data() + v.size(), ticks);
+        if (ec != std::errc())
+        {
+            BMCWEB_LOG_ERROR << "Failed to convert string \"" << v
+                             << "\" to decimal";
             return std::nullopt;
         }
-    }
-    else if (!details::fromDurationItem<std::chrono::seconds>(v, 'S', out))
-    {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
-        return std::nullopt;
-    }
+        size_t charactersRead = static_cast<size_t>(ptr - v.data());
+        if (ptr >= v.data() + v.size())
+        {
+            BMCWEB_LOG_ERROR << "Missing postfix";
+            return std::nullopt;
+        }
+        if (*ptr == 'D')
+        {
+            if (stage > ProcessingStage::Days)
+            {
+                return std::nullopt;
+            }
+            out += details::Days(ticks);
+        }
+        else if (*ptr == 'H')
+        {
+            if (stage > ProcessingStage::Hours)
+            {
+                return std::nullopt;
+            }
+            out += std::chrono::hours(ticks);
+        }
+        else if (*ptr == 'M')
+        {
+            if (stage > ProcessingStage::Minutes)
+            {
+                return std::nullopt;
+            }
+            out += std::chrono::minutes(ticks);
+        }
+        else if (*ptr == '.')
+        {
+            if (stage > ProcessingStage::Seconds)
+            {
+                return std::nullopt;
+            }
+            out += std::chrono::seconds(ticks);
+            stage = ProcessingStage::Milliseconds;
+        }
+        else if (*ptr == 'S')
+        {
+            // We could be seeing seconds for the first time, (as is the case in
+            // 1S) or for the second time (in the case of 1.1S).
+            if (stage <= ProcessingStage::Seconds)
+            {
+                out += std::chrono::seconds(ticks);
+                stage = ProcessingStage::Milliseconds;
+            }
+            else if (stage > ProcessingStage::Milliseconds)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Got unexpected information at end of parse";
+                return std::nullopt;
+            }
+            else
+            {
+                // Seconds could be any form of (1S, 1.1S, 1.11S, 1.111S);
+                // Handle them all milliseconds are after the decimal point,
+                // so they need right padded.
+                if (charactersRead == 1)
+                {
+                    ticks *= 100;
+                }
+                else if (charactersRead == 2)
+                {
+                    ticks *= 10;
+                }
+                out += std::chrono::milliseconds(ticks);
+                stage = ProcessingStage::Milliseconds;
+            }
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unknown postfix " << *ptr;
+            return std::nullopt;
+        }
 
-    if (!v.empty())
-    {
-        BMCWEB_LOG_ERROR << "Invalid duration format: " << str;
-        return std::nullopt;
+        v.remove_prefix(charactersRead + 1U);
     }
     return out;
 }
