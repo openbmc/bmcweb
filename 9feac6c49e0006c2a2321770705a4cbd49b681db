@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa8367a_f44713ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:53:30Z",
+      "side": 1,
+      "message": "How is this a user error though?  Clearly the user had some reason to believe this URI existed, and it wasn\u0027t like we wouldn\u0027t interpret what the user wanted.\n\nThese are definitely not debug level as well.  404/405 are errors in some implementation, I\u0027m not really seeing why we would want them at a non-error log level.",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "9feac6c49e0006c2a2321770705a4cbd49b681db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
