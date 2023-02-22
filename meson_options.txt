@@ -248,6 +248,17 @@ option(
     description: 'Allows this BMC to aggregate resources from satellite BMCs'
 )
 
+option(
+    'http-resp-body-limit',
+    type: 'integer',
+    min: 0,
+    max: 1048576,
+    value: 128,
+    description: '''Specifies the http response body length limit in KB for
+                    responses that can be received by the internal HTTP client
+                    from an external server.'''
+)
+
 # Insecure options. Every option that starts with a `insecure` flag should
 # not be enabled by default for any platform, unless the author fully comprehends
 # the implications of doing so.In general, enabling these options will cause security

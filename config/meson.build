@@ -2,6 +2,7 @@
 
 conf_data = configuration_data()
 conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
+conf_data.set('BMCWEB_HTTP_RESP_BODY_LIMIT_KB', get_option('http-resp-body-limit'))
 xss_enabled = get_option('insecure-disable-xss')
 conf_data.set10('BMCWEB_INSECURE_DISABLE_XSS_PREVENTION', xss_enabled.enabled())
 enable_redfish_query = get_option('insecure-enable-redfish-query')
