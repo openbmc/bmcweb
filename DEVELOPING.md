@@ -203,3 +203,33 @@ design patterns, and bug prone constructs. The checks are implemented in the
 .clang-tidy file in the root of bmcweb, and are expected to be passing.
 [openbmc-build-scripts](https://github.com/openbmc/openbmc-build-scripts/blob/master/run-unit-test-docker.sh)
 implements clang-tidy checks and is the recommended way to run these checks
+
+### Logging Levels
+
+Five bmcweb logging levels are supported, from least to most severity:
+
+- debug
+- info
+- warning
+- error
+- critical
+
+And their use cases:
+
+- critical: Something went badly wrong; we're no longer able to serve traffic.
+"critical" should be used when bmcweb encountered an event or entered a state
+that caused crucial function to stop working or when bmcweb threw an exception.
+- error: Something went wrong, and we weren't able to give the expected response
+because of it. Service is still operational. "error" should be used for
+unexpected conditions that prevented bmcweb from fulfilling the request. "error"
+should be used for 5xx errors.
+- warning: Something seems odd. It might be the client or the server. "warning"
+should be used for 4xx errors.
+- info: Information for the golden path debugging.
+- debug: Information that's overly verbose, and only required in debug, but
+rarely useful.
+
+Following these logging guidelines means different logging levels can be enabled
+for different use cases.
+
+Enabling bmcweb logging can be found [here](README.md#debug-logging).
