@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a719ead4_ccba8a74",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T17:13:20Z",
+      "side": 1,
+      "message": "nit, for these kinds of transforms, prefer to use a local variable of nlohmann::json::array, then std::move it into the final location, rather than doing the map lookup twice, similar to how you do it for the array itself.\n\nFWIW, I really wish json had an \"emplace()\" method that returned a reference to the type that you emplaced, so you could do\n\nnlohmann::json::array_t arr \u003d json.emplace(\"Members\", nlohmann::json::array_t());\n\nOh well.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 46
+      },
+      "revId": "2e0d976b7be6ffc21f257356e5cb24f2bba264ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd74047_19bd5b4d",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T17:13:20Z",
+      "side": 1,
+      "message": "Please use urlFromPieces.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 77
+      },
+      "revId": "2e0d976b7be6ffc21f257356e5cb24f2bba264ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
