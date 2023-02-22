@@ -37,7 +37,7 @@ inline void redfish404(App& app, const crow::Request& req,
         return;
     }
 
-    BMCWEB_LOG_ERROR << "404 on path " << path;
+    BMCWEB_LOG_WARNING << "404 on path " << path;
 
     std::string name = req.urlView.segments().back();
     // Note, if we hit the wildcard route, we don't know the "type" the user was
@@ -57,7 +57,7 @@ inline void redfish405(App& app, const crow::Request& req,
         return;
     }
 
-    BMCWEB_LOG_ERROR << "405 on path " << path;
+    BMCWEB_LOG_WARNING << "405 on path " << path;
     asyncResp->res.result(boost::beast::http::status::method_not_allowed);
     if (req.method() == boost::beast::http::verb::delete_)
     {
