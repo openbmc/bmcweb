@@ -63,22 +63,6 @@ If any of the dependencies are not found on the host system during
 configuration, meson will automatically download them via its wrap dependencies
 mentioned in `bmcweb/subprojects`.
 
-## Debug logging
-
-bmcweb by default is compiled with runtime logging disabled, as a performance
-consideration. To enable it in a standalone build, add the
-
-```ascii
--Dlogging='enabled'
-```
-
-option to your configure flags. If building within Yocto, add the following to
-your local.conf.
-
-```bash
-EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
-```
-
 ## Use of persistent data
 
 bmcweb relies on some on-system data for storage of persistent data that is
