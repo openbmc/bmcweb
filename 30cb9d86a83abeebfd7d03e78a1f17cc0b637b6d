@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f181bed0_a6a47533",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-22T03:34:58Z",
+      "side": 1,
+      "message": "Hey if you are interested in this code, please help upstream the backend\nSee https://github.com/openbmc/bmcweb/issues/188\nI feel bmcweb has been very patient here",
+      "revId": "30cb9d86a83abeebfd7d03e78a1f17cc0b637b6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
