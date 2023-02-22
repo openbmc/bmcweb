@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15428b3f_2db6beef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-22T02:38:53Z",
+      "side": 1,
+      "message": "Do we truly support newer protocols? \nAre there features we support added in 1.10.0 - 1.17.0? \nI guess query parameters which were expanded in 1.15.",
+      "revId": "1210f95d3ca7bf729336b7f135c0ba812588660b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38122314_22bd9f12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-22T02:38:53Z",
+      "side": 1,
+      "message": "Code seems fine, looking more for why we want this change and why 1.17 (vs 1.15)",
+      "revId": "1210f95d3ca7bf729336b7f135c0ba812588660b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
