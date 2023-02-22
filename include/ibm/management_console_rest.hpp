@@ -308,7 +308,7 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/var/lib/bmcweb/ibm-management-console/configfiles/" + fileID);
     if (!std::filesystem::exists(loc) || !std::filesystem::is_regular_file(loc))
     {
-        BMCWEB_LOG_ERROR << loc.string() << " Not found";
+        BMCWEB_LOG_DEBUG << loc.string() << " Not found";
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
@@ -317,7 +317,7 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::ifstream readfile(loc.string());
     if (!readfile)
     {
-        BMCWEB_LOG_ERROR << loc.string() << " Not found";
+        BMCWEB_LOG_DEBUG << loc.string() << " Not found";
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
@@ -358,7 +358,7 @@ inline void
     }
     else
     {
-        BMCWEB_LOG_ERROR << "File not found!\n";
+        BMCWEB_LOG_DEBUG << "File not found!\n";
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
     }

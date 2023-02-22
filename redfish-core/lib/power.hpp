@@ -39,7 +39,7 @@ inline void setPowerCapOverride(
             const std::optional<std::string>& chassisPath) mutable {
         if (!chassisPath)
         {
-            BMCWEB_LOG_ERROR << "Don't find valid chassis path ";
+            BMCWEB_LOG_DEBUG << "Don't find valid chassis path ";
             messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
                                        "Chassis", sensorsAsyncResp->chassisId);
             return;

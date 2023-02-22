@@ -4003,7 +4003,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
             size_t value = static_cast<size_t>(currentValue) - 1;
             if (value == std::string::npos || postcodes.size() < currentValue)
             {
-                BMCWEB_LOG_ERROR << "Wrong currentValue value";
+                BMCWEB_LOG_DEBUG << "Wrong currentValue value";
                 messages::resourceNotFound(asyncResp->res, "LogEntry",
                                            postCodeID);
                 return;

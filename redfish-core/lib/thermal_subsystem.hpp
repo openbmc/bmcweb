@@ -20,7 +20,7 @@ inline void doThermalSubsystemCollection(
 {
     if (!validChassisPath)
     {
-        BMCWEB_LOG_ERROR << "Not a valid chassis ID" << chassisId;
+        BMCWEB_LOG_DEBUG << "Not a valid chassis ID" << chassisId;
         messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         return;
     }
