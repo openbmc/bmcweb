@@ -405,8 +405,9 @@ class Subscription : public persistent_data::UserSubscription
         bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
         crow::HttpClient::getInstance().sendData(
-            msg, id, host, port, path, useSSL, httpHeaders,
-            boost::beast::http::verb::post, retryPolicyName);
+            msg, id, crow::RequestSource::EventService, host, port, path,
+            useSSL, httpHeaders, boost::beast::http::verb::post,
+            retryPolicyName);
         eventSeqNum++;
 
         if (sseConn != nullptr)
