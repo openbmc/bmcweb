@@ -378,15 +378,18 @@ class Subscription : public persistent_data::UserSubscription
 
     Subscription(const std::string& inHost, uint16_t inPort,
                  const std::string& inPath, const std::string& inUriProto) :
-        eventSeqNum(1),
-        host(inHost), port(inPort), path(inPath), uriProto(inUriProto)
+        host(inHost),
+        port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
+        client(policy), path(inPath), uriProto(inUriProto)
     {
         // Subscription constructor
+        policy->invalidResp = retryRespHandler;
     }
 
     explicit Subscription(
         const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
-        eventSeqNum(1),
+        policy(std::make_shared<crow::ConnectionPolicy>()),
+        client(policy),
         sseConn(std::make_shared<crow::ServerSentEvents>(adaptor))
     {}
 
@@ -404,9 +407,8 @@ class Subscription : public persistent_data::UserSubscription
 
         bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
-        crow::HttpClient::getInstance().sendData(
-            msg, id, host, port, path, useSSL, httpHeaders,
-            boost::beast::http::verb::post, retryPolicyName);
+        client.sendData(msg, host, port, path, useSSL, httpHeaders,
+                        boost::beast::http::verb::post);
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -552,18 +554,11 @@ class Subscription : public persistent_data::UserSubscription
         this->sendEvent(strMsg);
     }
 
-    void updateRetryConfig(const uint32_t retryAttempts,
-                           const uint32_t retryTimeoutInterval)
+    void updateRetryConfig(uint32_t retryAttempts,
+                           uint32_t retryTimeoutInterval)
     {
-        crow::HttpClient::getInstance().setRetryConfig(
-            retryAttempts, retryTimeoutInterval, retryRespHandler,
-            retryPolicyName);
-    }
-
-    void updateRetryPolicy()
-    {
-        crow::HttpClient::getInstance().setRetryPolicy(retryPolicy,
-                                                       retryPolicyName);
+        policy->maxRetryAttempts = retryAttempts;
+        policy->retryIntervalSecs = std::chrono::seconds(retryTimeoutInterval);
     }
 
     uint64_t getEventSeqNum() const
@@ -572,13 +567,14 @@ class Subscription : public persistent_data::UserSubscription
     }
 
   private:
-    uint64_t eventSeqNum;
+    uint64_t eventSeqNum = 1;
     std::string host;
     uint16_t port = 0;
+    std::shared_ptr<crow::ConnectionPolicy> policy;
+    crow::HttpClient client;
     std::string path;
     std::string uriProto;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
-    std::string retryPolicyName = "SubscriptionEvent";
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
@@ -695,7 +691,6 @@ class EventServiceManager
 #endif
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-            subValue->updateRetryPolicy();
         }
     }
 
@@ -949,7 +944,6 @@ class EventServiceManager
 #endif
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-        subValue->updateRetryPolicy();
 
         return id;
     }
