@@ -18,6 +18,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/drive.hpp"
+#include "generated/enums/protocol.hpp"
 #include "health.hpp"
 #include "human_sort.hpp"
 #include "openbmc_dbus_rest.hpp"
@@ -388,40 +389,50 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline std::optional<std::string> convertDriveType(const std::string& type)
+inline std::optional<drive::MediaType> convertDriveType(std::string_view type)
 {
     if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD")
     {
-        return "HDD";
+        return drive::MediaType::HDD;
     }
     if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.SSD")
     {
-        return "SSD";
+        return drive::MediaType::SSD;
+    }
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.Unknown")
+    {
+        return std::nullopt;
     }
 
-    return std::nullopt;
+    return drive::MediaType::Invalid;
 }
 
-inline std::optional<std::string> convertDriveProtocol(const std::string& proto)
+inline std::optional<protocol::Protocol>
+    convertDriveProtocol(std::string_view proto)
 {
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SAS")
     {
-        return "SAS";
+        return protocol::Protocol::SAS;
     }
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SATA")
     {
-        return "SATA";
+        return protocol::Protocol::SATA;
     }
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.NVMe")
     {
-        return "NVMe";
+        return protocol::Protocol::NVMe;
     }
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.FC")
     {
-        return "FC";
+        return protocol::Protocol::FC;
+    }
+    if (proto ==
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.Unknown")
+    {
+        return std::nullopt;
     }
 
-    return std::nullopt;
+    return protocol::Protocol::Invalid;
 }
 
 inline void
@@ -459,11 +470,16 @@ inline void
                     return;
                 }
 
-                std::optional<std::string> mediaType = convertDriveType(*value);
+                std::optional<drive::MediaType> mediaType =
+                    convertDriveType(*value);
                 if (!mediaType)
                 {
-                    BMCWEB_LOG_ERROR << "Unsupported DriveType Interface: "
-                                     << *value;
+                    BMCWEB_LOG_WARNING << "UnknownDriveType Interface: "
+                                       << *value;
+                    continue;
+                }
+                if (*mediaType == drive::MediaType::Invalid)
+                {
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -499,11 +515,16 @@ inline void
                     return;
                 }
 
-                std::optional<std::string> proto = convertDriveProtocol(*value);
+                std::optional<protocol::Protocol> proto =
+                    convertDriveProtocol(*value);
                 if (!proto)
                 {
-                    BMCWEB_LOG_ERROR << "Unsupported DrivePrototype Interface: "
-                                     << *value;
+                    BMCWEB_LOG_WARNING << "Unknown DrivePrototype Interface: "
+                                       << *value;
+                    continue;
+                }
+                if (*proto == protocol::Protocol::Invalid)
+                {
                     messages::internalError(asyncResp->res);
                     return;
                 }
