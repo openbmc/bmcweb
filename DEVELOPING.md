@@ -196,7 +196,7 @@ possible, but as with all security, impact will need to be weighed against the
 security impact of not making changes, and judgement calls will be made, with
 options to allow providing the old behavior.
 
-## clang-tidy
+### clang-tidy
 
 clang-tidy is a tool that can be used to identify coding style violations, bad
 design patterns, and bug prone constructs. The checks are implemented in the
