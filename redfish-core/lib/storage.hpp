@@ -388,40 +388,50 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline std::optional<std::string> convertDriveType(const std::string& type)
+inline std::optional<drive::MediaType> convertDriveType(const std::string& type)
 {
     if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD")
     {
-        return "HDD";
+        return drive::MediaType::HDD;
     }
     if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.SSD")
     {
-        return "SSD";
+        return drive::MediaType::SSD;
+    }
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.Unknown")
+    {
+        return std::nullopt;
     }
 
-    return std::nullopt;
+    return drive::MediaType::Invalid;
 }
 
-inline std::optional<std::string> convertDriveProtocol(const std::string& proto)
+inline std::optional<drive::DriveProtocol>
+    convertDriveProtocol(const std::string& proto)
 {
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SAS")
     {
-        return "SAS";
+        return drive::DriveProtocol::SAS;
     }
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SATA")
     {
-        return "SATA";
+        return drive::DriveProtocol::SATA;
     }
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.NVMe")
     {
-        return "NVMe";
+        return drive::DriveProtocol::NVMe;
     }
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.FC")
     {
-        return "FC";
+        return drive::DriveProtocol::FC;
+    }
+    if (proto ==
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.Unknown")
+    {
+        return std::nullop;
     }
 
-    return std::nullopt;
+    return drive::DriveProtocol::Invalid;
 }
 
 inline void
@@ -459,11 +469,16 @@ inline void
                     return;
                 }
 
-                std::optional<std::string> mediaType = convertDriveType(*value);
+                std::optional<drive::MediaType> mediaType =
+                    convertDriveType(*value);
                 if (!mediaType)
                 {
-                    BMCWEB_LOG_ERROR << "Unsupported DriveType Interface: "
+                    BMCWEB_LOG_ERROR << "UnknownDriveType Interface: "
                                      << *value;
+                    return;
+                }
+                if (*mediaType == drive::MediaType::Invalid)
+                {
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -499,11 +514,16 @@ inline void
                     return;
                 }
 
-                std::optional<std::string> proto = convertDriveProtocol(*value);
+                std::optional<drive::DriveProtocol> proto =
+                    convertDriveProtocol(*value);
                 if (!proto)
                 {
-                    BMCWEB_LOG_ERROR << "Unsupported DrivePrototype Interface: "
+                    BMCWEB_LOG_ERROR << "Unknown DrivePrototype Interface: "
                                      << *value;
+                    return;
+                }
+                if (*proto == drive::DriveProtocol::Invalid)
+                {
                     messages::internalError(asyncResp->res);
                     return;
                 }
