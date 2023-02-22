@@ -97,11 +97,18 @@ static inline boost::system::error_code
 
 // We need to allow retry information to be set before a message has been sent
 // and a connection pool has been created
-struct RetryPolicyData
+struct ConnectionPolicy
 {
     uint32_t maxRetryAttempts = 5;
-    std::chrono::seconds retryIntervalSecs = std::chrono::seconds(0);
+
+    // the max size of requests in bytes.  0 for unlimited
+    size_t requestByteLimit = httpReadBodyLimit;
+
+    size_t maxConnections = 1;
+
     std::string retryPolicyAction = "TerminateAfterRetries";
+
+    std::chrono::seconds retryIntervalSecs = std::chrono::seconds(0);
     std::function<boost::system::error_code(unsigned int respCode)>
         invalidResp = defaultRetryHandler;
 };
@@ -110,13 +117,11 @@ struct PendingRequest
 {
     boost::beast::http::request<boost::beast::http::string_body> req;
     std::function<void(bool, uint32_t, Response&)> callback;
-    RetryPolicyData retryPolicy;
     PendingRequest(
         boost::beast::http::request<boost::beast::http::string_body>&& reqIn,
-        const std::function<void(bool, uint32_t, Response&)>& callbackIn,
-        const RetryPolicyData& retryPolicyIn) :
+        const std::function<void(bool, uint32_t, Response&)>& callbackIn) :
         req(std::move(reqIn)),
-        callback(callbackIn), retryPolicy(retryPolicyIn)
+        callback(callbackIn)
     {}
 };
 
@@ -126,13 +131,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     ConnState state = ConnState::initialized;
     uint32_t retryCount = 0;
     std::string subId;
+    std::shared_ptr<ConnectionPolicy> connPolicy;
     std::string host;
     uint16_t port;
     uint32_t connId;
-
-    // Retry policy information
-    // This should be updated before each message is sent
-    RetryPolicyData retryPolicy;
 
     // Data buffers
     boost::beast::http::request<boost::beast::http::string_body> req;
@@ -323,8 +325,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         state = ConnState::recvInProgress;
 
         parser.emplace(std::piecewise_construct, std::make_tuple());
-        parser->body_limit(httpReadBodyLimit);
 
+        // byte limits of zero default to unlimited
+        if (connPolicy->requestByteLimit != 0)
+        {
+            parser->body_limit(connPolicy->requestByteLimit);
+        }
         timer.expires_after(std::chrono::seconds(30));
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
@@ -373,7 +379,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         // Make sure the received response code is valid as defined by
         // the associated retry policy
-        if (retryPolicy.invalidResp(respCode))
+        if (connPolicy->invalidResp(respCode))
         {
             // The listener failed to receive the Sent-Event
             BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
@@ -425,19 +431,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void waitAndRetry()
     {
-        if ((retryCount >= retryPolicy.maxRetryAttempts) ||
+        if ((retryCount >= connPolicy->maxRetryAttempts) ||
             (state == ConnState::sslInitFailed))
         {
             BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
             BMCWEB_LOG_DEBUG << "Retry policy: "
-                             << retryPolicy.retryPolicyAction;
+                             << connPolicy->retryPolicyAction;
 
-            if (retryPolicy.retryPolicyAction == "TerminateAfterRetries")
+            if (connPolicy->retryPolicyAction == "TerminateAfterRetries")
             {
                 // TODO: delete subscription
                 state = ConnState::terminated;
             }
-            if (retryPolicy.retryPolicyAction == "SuspendRetries")
+            if (connPolicy->retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
             }
@@ -458,9 +464,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         BMCWEB_LOG_DEBUG << "Attempt retry after "
                          << std::to_string(
-                                retryPolicy.retryIntervalSecs.count())
+                                connPolicy->retryIntervalSecs.count())
                          << " seconds. RetryCount = " << retryCount;
-        timer.expires_after(retryPolicy.retryIntervalSecs);
+        timer.expires_after(connPolicy->retryIntervalSecs);
         timer.async_wait(std::bind_front(&ConnectionInfo::onTimerDone, this,
                                          shared_from_this()));
     }
@@ -582,13 +588,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     }
 
   public:
-    explicit ConnectionInfo(boost::asio::io_context& iocIn,
-                            const std::string& idIn,
-                            const std::string& destIPIn, uint16_t destPortIn,
-                            bool useSSL, unsigned int connIdIn) :
+    explicit ConnectionInfo(
+        boost::asio::io_context& iocIn, const std::string& idIn,
+        const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
+        const std::string& destIPIn, uint16_t destPortIn, bool useSSL,
+        unsigned int connIdIn) :
         subId(idIn),
-        host(destIPIn), port(destPortIn), connId(connIdIn), conn(iocIn),
-        timer(iocIn)
+        connPolicy(connPolicyIn), host(destIPIn), port(destPortIn),
+        connId(connIdIn), conn(iocIn), timer(iocIn)
     {
         if (useSSL)
         {
@@ -619,6 +626,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
   private:
     boost::asio::io_context& ioc;
     std::string id;
+    std::shared_ptr<ConnectionPolicy> connPolicy;
     std::string destIP;
     uint16_t destPort;
     bool useSSL;
@@ -639,7 +647,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
 
         auto nextReq = requestQueue.front();
-        conn.retryPolicy = std::move(nextReq.retryPolicy);
         conn.req = std::move(nextReq.req);
         conn.callback = std::move(nextReq.callback);
 
@@ -649,16 +656,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
         // We can remove the request from the queue at this point
         requestQueue.pop_front();
-    }
-
-    // Configures a connection to use the specific retry policy.
-    inline void setConnRetryPolicy(ConnectionInfo& conn,
-                                   const RetryPolicyData& retryPolicy)
-    {
-        BMCWEB_LOG_DEBUG << destIP << ":" << std::to_string(destPort)
-                         << ", id: " << std::to_string(conn.connId);
-
-        conn.retryPolicy = retryPolicy;
     }
 
     // Gets called as part of callback after request is sent
@@ -714,7 +711,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     void sendData(std::string& data, const std::string& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
-                  const RetryPolicyData& retryPolicy,
                   const std::function<void(Response&)>& resHandler)
     {
         // Construct the request to be sent
@@ -736,7 +732,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             {
                 conn->req = std::move(thisReq);
                 conn->callback = std::move(cb);
-                setConnRetryPolicy(*conn, retryPolicy);
                 std::string commonMsg = std::to_string(i) + " from pool " +
                                         destIP + ":" + std::to_string(destPort);
 
@@ -758,21 +753,19 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
         // All connections in use so create a new connection or add request to
         // the queue
-        if (connections.size() < maxPoolSize)
+        if (connections.size() < connPolicy->maxConnections)
         {
             BMCWEB_LOG_DEBUG << "Adding new connection to pool " << destIP
                              << ":" << std::to_string(destPort);
             auto conn = addConnection();
             conn->req = std::move(thisReq);
             conn->callback = std::move(cb);
-            setConnRetryPolicy(*conn, retryPolicy);
             conn->doResolve();
         }
         else if (requestQueue.size() < maxRequestQueueSize)
         {
             BMCWEB_LOG_ERROR << "Max pool size reached. Adding data to queue.";
-            requestQueue.emplace_back(std::move(thisReq), std::move(cb),
-                                      retryPolicy);
+            requestQueue.emplace_back(std::move(thisReq), std::move(cb));
         }
         else
         {
@@ -812,7 +805,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         unsigned int newId = static_cast<unsigned int>(connections.size());
 
         auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
-            ioc, id, destIP, destPort, useSSL, newId));
+            ioc, id, connPolicy, destIP, destPort, useSSL, newId));
 
         BMCWEB_LOG_DEBUG << "Added connection "
                          << std::to_string(connections.size() - 1)
@@ -823,12 +816,13 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     }
 
   public:
-    explicit ConnectionPool(boost::asio::io_context& iocIn,
-                            const std::string& idIn,
-                            const std::string& destIPIn, uint16_t destPortIn,
-                            bool useSSLIn) :
+    explicit ConnectionPool(
+        boost::asio::io_context& iocIn, const std::string& idIn,
+        const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
+        const std::string& destIPIn, uint16_t destPortIn, bool useSSLIn) :
         ioc(iocIn),
-        id(idIn), destIP(destIPIn), destPort(destPortIn), useSSL(useSSLIn)
+        id(idIn), connPolicy(connPolicyIn), destIP(destIPIn),
+        destPort(destPortIn), useSSL(useSSLIn)
     {
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
                          << std::to_string(destPort);
@@ -841,12 +835,10 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 class HttpClient
 {
   private:
-    std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
-        connectionPools;
+    std::unordered_map<std::string, ConnectionPool> connectionPools;
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
-    std::unordered_map<std::string, RetryPolicyData> retryInfo;
-    HttpClient() = default;
+    std::shared_ptr<ConnectionPolicy> connPolicy;
 
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
@@ -857,120 +849,48 @@ class HttpClient
     }
 
   public:
+    HttpClient() = delete;
+    explicit HttpClient(const std::shared_ptr<ConnectionPolicy>& connPolicyIn) :
+        connPolicy(connPolicyIn)
+    {}
     HttpClient(const HttpClient&) = delete;
     HttpClient& operator=(const HttpClient&) = delete;
     HttpClient(HttpClient&&) = delete;
     HttpClient& operator=(HttpClient&&) = delete;
     ~HttpClient() = default;
 
-    static HttpClient& getInstance()
-    {
-        static HttpClient handler;
-        return handler;
-    }
-
     // Send a request to destIP:destPort where additional processing of the
     // result is not required
-    void sendData(std::string& data, const std::string& id,
-                  const std::string& destIP, uint16_t destPort,
-                  const std::string& destUri, bool useSSL,
+    void sendData(std::string& data, const std::string& destIP,
+                  uint16_t destPort, const std::string& destUri, bool useSSL,
                   const boost::beast::http::fields& httpHeader,
-                  const boost::beast::http::verb verb,
-                  const std::string& retryPolicyName)
+                  const boost::beast::http::verb verb)
     {
         const std::function<void(Response&)> cb = genericResHandler;
-        sendDataWithCallback(data, id, destIP, destPort, destUri, useSSL,
-                             httpHeader, verb, retryPolicyName, cb);
+        sendDataWithCallback(data, destIP, destPort, destUri, useSSL,
+                             httpHeader, verb, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
     // handle the response
-    void sendDataWithCallback(std::string& data, const std::string& id,
-                              const std::string& destIP, uint16_t destPort,
-                              const std::string& destUri, bool useSSL,
+    void sendDataWithCallback(std::string& data, const std::string& destIP,
+                              uint16_t destPort, const std::string& destUri,
+                              bool useSSL,
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
-                              const std::string& retryPolicyName,
                               const std::function<void(Response&)>& resHandler)
     {
         std::string clientKey = useSSL ? "https" : "http";
         clientKey += destIP;
         clientKey += ":";
         clientKey += std::to_string(destPort);
-        // Use nullptr to avoid creating a ConnectionPool each time
-        std::shared_ptr<ConnectionPool>& conn = connectionPools[clientKey];
-        if (conn == nullptr)
-        {
-            // Now actually create the ConnectionPool shared_ptr since it does
-            // not already exist
-            conn = std::make_shared<ConnectionPool>(ioc, id, destIP, destPort,
-                                                    useSSL);
-            BMCWEB_LOG_DEBUG << "Created connection pool for " << clientKey;
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG << "Using existing connection pool for "
-                             << clientKey;
-        }
-
-        // Get the associated retry policy
-        auto policy = retryInfo.try_emplace(retryPolicyName);
-        if (policy.second)
-        {
-            BMCWEB_LOG_DEBUG << "Creating retry policy \"" << retryPolicyName
-                             << "\" with default values";
-        }
+        auto pool = connectionPools.try_emplace(
+            clientKey, ioc, clientKey, connPolicy, destIP, destPort, useSSL);
 
         // Send the data using either the existing connection pool or the newly
         // created connection pool
-        conn->sendData(data, destUri, httpHeader, verb, policy.first->second,
-                       resHandler);
-    }
-
-    void setRetryConfig(
-        const uint32_t retryAttempts, const uint32_t retryTimeoutInterval,
-        const std::function<boost::system::error_code(unsigned int respCode)>&
-            invalidResp,
-        const std::string& retryPolicyName)
-    {
-        // We need to create the retry policy if one does not already exist for
-        // the given retryPolicyName
-        auto result = retryInfo.try_emplace(retryPolicyName);
-        if (result.second)
-        {
-            BMCWEB_LOG_DEBUG << "setRetryConfig(): Creating new retry policy \""
-                             << retryPolicyName << "\"";
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG << "setRetryConfig(): Updating retry info for \""
-                             << retryPolicyName << "\"";
-        }
-
-        result.first->second.maxRetryAttempts = retryAttempts;
-        result.first->second.retryIntervalSecs =
-            std::chrono::seconds(retryTimeoutInterval);
-        result.first->second.invalidResp = invalidResp;
-    }
-
-    void setRetryPolicy(const std::string& retryPolicy,
-                        const std::string& retryPolicyName)
-    {
-        // We need to create the retry policy if one does not already exist for
-        // the given retryPolicyName
-        auto result = retryInfo.try_emplace(retryPolicyName);
-        if (result.second)
-        {
-            BMCWEB_LOG_DEBUG << "setRetryPolicy(): Creating new retry policy \""
-                             << retryPolicyName << "\"";
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG << "setRetryPolicy(): Updating retry policy for \""
-                             << retryPolicyName << "\"";
-        }
-
-        result.first->second.retryPolicyAction = retryPolicy;
+        pool.first->second.sendData(data, destUri, httpHeader, verb,
+                                    resHandler);
     }
 };
 } // namespace crow
