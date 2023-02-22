@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aec663d_fc03496a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-22T20:56:58Z",
+      "side": 1,
+      "message": "How so?  If bmcweb returned a URI that doesn\u0027t exist as part of the tree, that\u0027s an error in bmcweb, not an error in the client (that\u0027s also a class of error that happens all the time).\n\nCan you talk a little more about what you\u0027re trying to accomplish here?  A functioning service/client should never 404 or 405 in Redfish, so I\u0027m not understanding why these would ever show up in the logs?\n\nFWIW, I don\u0027t care so much about the IBM stuff;  Feel free to do whatever you like there, but for everything else, keeping 404 at Error level is something that has helped significantly in the past, and overall it was my goal to propagate similar log messages to what we did for internal error.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "973d2043fd5e6e516e170be26af4802ac070896e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
