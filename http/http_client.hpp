@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#include "bmcweb_config.h"
 
 #include "async_resolve.hpp"
 #include "http_response.hpp"
@@ -53,7 +54,8 @@ namespace crow
 // It is assumed that the BMC should be able to handle 4 parallel connections
 constexpr uint8_t maxPoolSize = 4;
 constexpr uint8_t maxRequestQueueSize = 50;
-constexpr unsigned int httpReadBodyLimit = 131072;
+// response body limit size set by the bmcwebHttpRespBodyLimitKb option
+constexpr unsigned int httpReadBodyLimit = bmcwebHttpRespBodyLimitKb * 1024;
 constexpr unsigned int httpReadBufferSize = 4096;
 
 enum class ConnState
@@ -845,7 +847,11 @@ class HttpClient
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
     std::unordered_map<std::string, RetryPolicyData> retryInfo;
-    HttpClient() = default;
+    HttpClient()
+    {
+        BMCWEB_LOG_DEBUG << "HTTP Client created with httpReadBodyLimit of "
+                         << httpReadBodyLimit << " bytes";
+    }
 
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
