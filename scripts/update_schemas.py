@@ -130,8 +130,6 @@ include_list = [
     "Triggers",
     "TriggersCollection",
     "UpdateService",
-    "VLanNetworkInterfaceCollection",
-    "VLanNetworkInterface",
     "VirtualMedia",
     "VirtualMediaCollection",
     "odata",
