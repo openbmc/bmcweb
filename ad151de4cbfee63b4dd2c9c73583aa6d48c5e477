@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66cb0d8d_9e18457a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-23T00:44:40Z",
+      "side": 1,
+      "message": "They share connection pools so there isn\u0027t a great way to decouple this.  We already have separate pools for SSL and non-SSL.  I want to avoid further doubling the number of potential pools based on the entity sending requests.\n\nI\u0027m fine with setting no limit for aggregation and tying that to its compiler option.  My thought was you may want to be able to set an upper bound as a weak attempt at preventing reading in a large enough response that we run out of memory.",
+      "parentUuid": "86df3972_c47a3a46",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56b822c2_dc48aafb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-22T23:03:03Z",
       "side": 1,
       "message": "Really?  Seems like some amount of commonality here could be achieved.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00fcfe0c_8f369783",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-23T00:44:40Z",
+      "side": 1,
+      "message": "I guess it depends on how you feel about EventService being able to read in enormous responses.  EventService doesn\u0027t do anything with the responses it receives so it really shouldn\u0027t need to read in that large of responses, or at least not anything near what the aggregator may read in.\n\nI don\u0027t think it hurts anything if EventService has a limit that is orders of magnitude larger than it actually needs.  I just wanted to preserve the option of keeping the limit low.",
+      "parentUuid": "56b822c2_dc48aafb",
       "range": {
         "startLine": 13,
         "startChar": 0,
