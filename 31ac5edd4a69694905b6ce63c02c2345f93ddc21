@@ -16,6 +16,185 @@
       "message": "Is there an (implemented) design that this is following or proposing?  I don’t think the Redfish message journal entries have been accepted by most maintainers and is not a scalable solution.",
       "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e5a57b9_a7d221b2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "+1.  This appears to duplicate quite a bit of code with the other journald based logger;  This needs a design.\n\nAlso, considering the dbus logging interface definitions are governed by phsosphor-dbus-interfaces, not the OpenBMC message registry, I would expect that this needs to construct a new \"Dbus registry\" (or append items to the existing registry) for these to match up properly with the published interfaces.\n\nI think the best path forward is to discuss not in a patchset, but in terms of interfaces, probably in a PDI review.",
+      "parentUuid": "816befab_c935a4f6",
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94fbf523_4c858118",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "bmcweb can\u0027t look for keys within an opaque dictionary structure, given there\u0027s no schema for it.  If this is something you want to push, it needs to be put into an interface property, so we don\u0027t have to duplicate parsing code, as you\u0027ve done here.",
+      "range": {
+        "startLine": 1493,
+        "startChar": 33,
+        "endLine": 1493,
+        "endChar": 51
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0631db6_c84c807d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "Please don\u0027t use boost::split.  It has clang-tidy false positives.",
+      "range": {
+        "startLine": 1500,
+        "startChar": 13,
+        "endLine": 1500,
+        "endChar": 24
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5f4483_251d523d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "Please read and understand COMMON_ERRORS.md.  This type of lookup is called out specifically",
+      "range": {
+        "startLine": 1502,
+        "startChar": 24,
+        "endLine": 1502,
+        "endChar": 26
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "199acf6a_e432a081",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "why is this check needed?",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1506,
+        "endChar": 27
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcfb67e7_9d89f1e3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "This will get from ALL registries, which isn\u0027t how the other OpenBMC registry feature works, and can cause bugs.  For example, dbus should never be sending a ResourceEvent, given that bmcweb owns all the redfish resources.",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 79
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a2ed7d_18586896",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "Please don\u0027t rewrite this code.  We have code that does % replacement of message registry entries in other places, please reuse, and if necessary, refactor the existing, but I suspect the existing code will work just fine.",
+      "range": {
+        "startLine": 1516,
+        "startChar": 0,
+        "endLine": 1527,
+        "endChar": 13
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7c5107d_ca1d8506",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-23T16:58:27Z",
+      "side": 1,
+      "message": "bmcweb generally ignores these opaque dict-like structures, given that there is no schema governing them, we cannot rely on the existence or types of any key to be present.  Please get this into a PDI interface, with a property.",
+      "range": {
+        "startLine": 1626,
+        "startChar": 0,
+        "endLine": 1631,
+        "endChar": 29
+      },
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
