@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "816befab_c935a4f6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-23T12:14:13Z",
+      "side": 1,
+      "message": "Is there an (implemented) design that this is following or proposing?  I don’t think the Redfish message journal entries have been accepted by most maintainers and is not a scalable solution.",
+      "revId": "31ac5edd4a69694905b6ce63c02c2345f93ddc21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
