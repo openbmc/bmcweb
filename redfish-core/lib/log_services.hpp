@@ -51,6 +51,7 @@
 #include <span>
 #include <string_view>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -1215,6 +1216,23 @@ enum class LogParseError
 };
 
 static LogParseError
+    [[maybe_unused]] fillEventLogMessage(std::string& eventMessage,
+                         const std::vector<std::string>& messageArgs)
+{
+    int i = 0;
+    for (const std::string& messageArg : messageArgs)
+    {
+        std::string argStr = "%" + std::to_string(++i);
+        size_t argPos = eventMessage.find(argStr);
+        if (argPos != std::string::npos)
+        {
+            eventMessage.replace(argPos, argStr.length(), messageArg);
+        }
+    }
+    return LogParseError::success;
+}
+
+static LogParseError
     fillEventLogEntryJson(const std::string& logEntryID,
                           const std::string& logEntry,
                           nlohmann::json::object_t& logEntryJson)
@@ -1255,31 +1273,14 @@ static LogParseError
     }
 
     std::string msg = message->message;
-
-    // Get the MessageArgs from the log if there are any
-    std::span<std::string> messageArgs;
+    std::vector<std::string> messageArgs;
     if (logEntryFields.size() > 1)
     {
-        std::string& messageArgsStart = logEntryFields[1];
-        // If the first string is empty, assume there are no MessageArgs
-        std::size_t messageArgsSize = 0;
-        if (!messageArgsStart.empty())
+        messageArgs.assign(logEntryFields.begin() + 1, logEntryFields.end());
+        LogParseError status = fillEventLogMessage(msg, messageArgs);
+        if (status != LogParseError::success)
         {
-            messageArgsSize = logEntryFields.size() - 1;
-        }
-
-        messageArgs = {&messageArgsStart, messageArgsSize};
-
-        // Fill the MessageArgs into the Message
-        int i = 0;
-        for (const std::string& messageArg : messageArgs)
-        {
-            std::string argStr = "%" + std::to_string(++i);
-            size_t argPos = msg.find(argStr);
-            if (argPos != std::string::npos)
-            {
-                msg.replace(argPos, argStr.length(), messageArg);
-            }
+            return LogParseError::parseFailed;
         }
     }
 
@@ -1301,7 +1302,7 @@ static LogParseError
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] = std::move(messageID);
-    logEntryJson["MessageArgs"] = messageArgs;
+    logEntryJson["MessageArgs"] = std::move(messageArgs);
     logEntryJson["EntryType"] = "Event";
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Created"] = std::move(timestamp);
@@ -1482,6 +1483,53 @@ inline void requestRoutesJournalEventLogEntry(App& app)
         });
 }
 
+static LogParseError
+    parseEventLogMessage(std::string& eventMessage, std::string& messageId,
+                         std::vector<std::string>& messageArgs,
+                         const std::vector<std::string>& additionalDatas)
+{
+    for (const auto& additionalData : additionalDatas)
+    {
+        if (additionalData.find("REDFISH_MESSAGE_ID") != std::string::npos)
+        {
+            messageId = additionalData.substr(additionalData.find('='));
+            messageId.erase(messageId.begin());
+        }
+        if (additionalData.find("REDFISH_MESSAGE_ARGS") != std::string::npos)
+        {
+            boost::split(messageArgs, additionalData, boost::is_any_of(","),
+                         boost::token_compress_on);
+            messageArgs[0] = messageArgs[0].substr(messageArgs[0].find('='));
+            messageArgs[0].erase(messageArgs[0].begin());
+        }
+    }
+    if (!messageId.empty())
+    {
+        const registries::Message* message = registries::getMessage(messageId);
+        if (message == nullptr)
+        {
+            BMCWEB_LOG_WARNING << "messageId not found in registry: "
+                               << messageId;
+            return LogParseError::messageIdNotInRegistry;
+        }
+        eventMessage = message->message;
+        if (!messageArgs.empty())
+        {
+            int i = 0;
+            for (const std::string& messageArg : messageArgs)
+            {
+                std::string argStr = "%" + std::to_string(++i);
+                size_t argPos = eventMessage.find(argStr);
+                if (argPos != std::string::npos)
+                {
+                    eventMessage.replace(argPos, argStr.length(), messageArg);
+                }
+            }
+        }
+    }
+    return LogParseError::success;
+}
+
 inline void requestRoutesDBusEventLogEntryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
@@ -1533,6 +1581,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 const uint64_t* updateTimestamp = nullptr;
                 const std::string* severity = nullptr;
                 const std::string* message = nullptr;
+                std::string eventMessage;
+                const std::string* messageId = nullptr;
+                const std::vector<std::string>* messageArgs = nullptr;
                 const std::string* filePath = nullptr;
                 const std::string* resolution = nullptr;
                 bool resolved = false;
@@ -1573,6 +1624,17 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                             {
                                 message = std::get_if<std::string>(
                                     &propertyMap.second);
+                            }
+                            else if (propertyMap.first == "MessageId")
+                            {
+                                messageId = std::get_if<std::string>(
+                                    &propertyMap.second);
+                            }
+                            else if (propertyMap.first == "MessageArgs")
+                            {
+                                messageArgs =
+                                    std::get_if<std::vector<std::string>>(
+                                        &propertyMap.second);
                             }
                             else if (propertyMap.first == "Resolved")
                             {
@@ -1626,6 +1688,30 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 {
                     continue;
                 }
+
+                if ((messageId != nullptr) && (!(*messageId).empty()))
+                {
+                    const registries::Message* registryMessage =
+                        registries::getMessage(*messageId);
+                    if (registryMessage == nullptr)
+                    {
+                        BMCWEB_LOG_WARNING << "messageId not found in registry: "
+                                           << messageId;
+                        continue;
+                    }
+                    eventMessage = registryMessage->message;
+                    if ((messageArgs != nullptr) && (!(*messageArgs).empty()))
+                    {
+                        LogParseError status =
+                            fillEventLogMessage(eventMessage, *messageArgs);
+                        if (status != LogParseError::success)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    }
+                }
+
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
                 thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
@@ -1635,6 +1721,15 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 thisEntry["Name"] = "System Event Log Entry";
                 thisEntry["Id"] = std::to_string(*id);
                 thisEntry["Message"] = *message;
+                if ((messageId != nullptr) && (!(*messageId).empty()))
+                {
+                    thisEntry["Message"] = std::move(eventMessage);
+                    thisEntry["MessageId"] = *messageId;
+                    if ((messageArgs != nullptr) && (!(*messageArgs).empty()))
+                    {
+                        thisEntry["MessageArgs"] = *messageArgs;
+                    }
+                }
                 thisEntry["Resolved"] = resolved;
                 if ((resolution != nullptr) && (!(*resolution).empty()))
                 {
@@ -1695,7 +1790,6 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
         std::string entryID = param;
         dbus::utility::escapePathForDbus(entryID);
-
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         sdbusplus::asio::getAllProperties(
@@ -1720,7 +1814,10 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const uint64_t* timestamp = nullptr;
             const uint64_t* updateTimestamp = nullptr;
             const std::string* severity = nullptr;
+            std::string eventMessage;
             const std::string* message = nullptr;
+            const std::string* messageId = nullptr;
+            const std::vector<std::string>* messageArgs = nullptr;
             const std::string* filePath = nullptr;
             const std::string* resolution = nullptr;
             bool resolved = false;
@@ -1729,9 +1826,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
                 timestamp, "UpdateTimestamp", updateTimestamp, "Severity",
-                severity, "Message", message, "Resolved", resolved,
-                "Resolution", resolution, "Path", filePath,
-                "ServiceProviderNotify", notify);
+                severity, "Message", message, "MessageId", messageId,
+                "MessageArgs", messageArgs, "Resolved", resolved, "Resolution",
+                resolution, "Path", filePath, "ServiceProviderNotify", notify);
 
             if (!success)
             {
@@ -1747,6 +1844,29 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 return;
             }
 
+            if ((messageId != nullptr) && (!(*messageId).empty()))
+            {
+                const registries::Message* registryMessage =
+                    registries::getMessage(*messageId);
+                if (registryMessage == nullptr)
+                {
+                    BMCWEB_LOG_WARNING << "messageId not found in registry: "
+                                       << messageId;
+                    return;
+                }
+                eventMessage = registryMessage->message;
+                if ((messageArgs != nullptr) && (!(*messageArgs).empty()))
+                {
+                    LogParseError status =
+                        fillEventLogMessage(eventMessage, *messageArgs);
+                    if (status != LogParseError::success)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                }
+            }
+
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntry.v1_9_0.LogEntry";
             asyncResp->res.jsonValue["@odata.id"] =
@@ -1755,6 +1875,15 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             asyncResp->res.jsonValue["Name"] = "System Event Log Entry";
             asyncResp->res.jsonValue["Id"] = std::to_string(*id);
             asyncResp->res.jsonValue["Message"] = *message;
+            if ((messageId != nullptr) && (!(*messageId).empty()))
+            {
+                asyncResp->res.jsonValue["Message"] = std::move(eventMessage);
+                asyncResp->res.jsonValue["MessageId"] = *messageId;
+                if ((messageArgs != nullptr) && (!(*messageArgs).empty()))
+                {
+                    asyncResp->res.jsonValue["MessageArgs"] = *messageArgs;
+                }
+            }
             asyncResp->res.jsonValue["Resolved"] = resolved;
             std::optional<bool> notifyAction = getProviderNotifyAction(*notify);
             if (notifyAction)
