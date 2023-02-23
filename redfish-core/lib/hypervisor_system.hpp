@@ -856,7 +856,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                 return;
             }
             asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterface.v1_6_0.EthernetInterface";
+                "#EthernetInterface.v1_9_0.EthernetInterface";
             asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet Interface";
             asyncResp->res.jsonValue["Description"] =
                 "Hypervisor's Virtual Management Ethernet Interface";

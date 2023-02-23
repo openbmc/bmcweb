@@ -1779,10 +1779,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 return;
             }
 
-            // Keep using the v1.6.0 schema here as currently bmcweb have to use
-            // "VLANs" property deprecated in v1.7.0 for VLAN creation/deletion.
             asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterface.v1_6_0.EthernetInterface";
+                "#EthernetInterface.v1_9_0.EthernetInterface";
             asyncResp->res.jsonValue["Name"] = "Manager Ethernet Interface";
             asyncResp->res.jsonValue["Description"] =
                 "Management Network Interface";
