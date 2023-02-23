@@ -3020,30 +3020,6 @@
     <edmx:Reference Uri="/redfish/v1/schema/VirtualMediaCollection_v1.xml">
         <edmx:Include Namespace="VirtualMediaCollection"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/redfish/v1/schema/VLanNetworkInterface_v1.xml">
-        <edmx:Include Namespace="VLanNetworkInterface"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_0"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_1"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_2"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_3"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_4"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_5"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_6"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_7"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_8"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_0_9"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_1_0"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_1_1"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_1_2"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_1_3"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_1_4"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_1_5"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_2_0"/>
-        <edmx:Include Namespace="VLanNetworkInterface.v1_3_0"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="/redfish/v1/schema/VLanNetworkInterfaceCollection_v1.xml">
-        <edmx:Include Namespace="VLanNetworkInterfaceCollection"/>
-    </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Service">
             <EntityContainer Name="Service" Extends="ServiceRoot.v1_0_0.ServiceContainer"/>

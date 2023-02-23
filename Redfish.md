@@ -475,14 +475,6 @@ Fields common to all schemas
 - SpeedMbps
 - StaticNameServers
 - Status
-- VLANs
-
-### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/VLANs/
-
-#### VLanNetworkInterfaceCollection
-
-- Members
-- Members@odata.count
 
 ### /redfish/v1/Managers/bmc/LogServices/
 

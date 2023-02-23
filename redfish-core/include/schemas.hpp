@@ -122,7 +122,5 @@ namespace redfish
         "UpdateService",
         "VirtualMedia",
         "VirtualMediaCollection",
-        "VLanNetworkInterface",
-        "VLanNetworkInterfaceCollection",
     };
 }
