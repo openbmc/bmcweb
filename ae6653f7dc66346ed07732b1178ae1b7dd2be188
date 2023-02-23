@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da30d9bd_f3fa4603",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-02-23T00:02:56Z",
+      "side": 1,
+      "message": "I will rephrase the commit message.\nIdeally AsyncResp is needed before the Upgrade is performed.\n\nHave called out certain observations made in my other comment.\nI think that should solve this issue.",
+      "parentUuid": "5cffbf0d_aac3826e",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "ae6653f7dc66346ed07732b1178ae1b7dd2be188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abb067ef_319b9482",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-02-10T01:20:56Z",
       "side": 1,
       "message": "This is pretty impressive given that this endpoint is disabled.  Can you please verify that you\u0027re building and testing against THIS commit.\n\nFWIW, this bug that you\u0027re working around is one of the safety reasons why SSE was disabled.  It needs fixed.",
+      "range": {
+        "startLine": 33,
+        "startChar": 10,
+        "endLine": 33,
+        "endChar": 53
+      },
+      "revId": "ae6653f7dc66346ed07732b1178ae1b7dd2be188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c667273_176703e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-02-23T00:02:56Z",
+      "side": 1,
+      "message": "Umm.. My bad ! \nI had a downstream copy of SSE implementation (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41319).\nSo, happened to check SSE during my testing and hence added it here.\n\nI would be re-opening this commit soon.\n\nSince the current SSE is not in verifiable stage, i will go ahead and remove this from the tested section.",
+      "parentUuid": "abb067ef_319b9482",
       "range": {
         "startLine": 33,
         "startChar": 10,
@@ -64,6 +112,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e461d1_5eb35a8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-02-23T00:02:56Z",
+      "side": 1,
+      "message": "Ok.. so here is what I observed while I was trying to address the comments.\n\nFirstly, we wont be needing the extra Response constructor and also passing the Async response to the Start function of Websocket.\n\nWhen a request is made, an object of Connection (http_connection.hpp) is in place, which calls the handle/handleUpgrade of router class (router.hpp).\nAfter which the corresponding handle/handleUpgrade of the route will be called.\n\nWhen we look at the handleUpgrade flow, we do not have a privilege check in place like handle().\nHence the current code flow works as there is no async call involved.\n\nOnce Async call is introduced, we would need a AsyncResp to take up any possible error in the Async operation and respond back over the same connection.\nAll this happens before the upgrade is done.\n\n(The main use case being privilege check. This Privilege check change has been pushed at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46991\nBut, for this commit to work, we would need AsyncResp in place and hence this commit.)\n\n\nNow, when upgrade happens (https://github.com/openbmc/bmcweb/blob/master/http/routing.hpp#L366), i.e. when the object of ConnectionImpl of Websocket is created, the Adaptor gets moved to this new connection. Which implies, the Old connection object (from http_connection.hpp) would no longer posses the Adaptor to send any response.\n\nSo, the task of this AsyncResp is done as soon as the upgradation happens, and hence we do not need to send it over the start() function as it will not be able to respond either ways.\nAlso, capturing AsyncResp at https://github.com/openbmc/bmcweb/blob/master/http/websocket.hpp#L106 would disallow the AsyncResp object to go out of scope and leading to Connection Object still being in the memory (Which is not desired)\n\nThe \"boost::beast::websocket::response_type\u0026 m\" object at https://github.com/openbmc/bmcweb/blob/master/http/websocket.hpp#L107 takes care of returning 101 status and other details.\n\nIf we still want to have AsynResp in the WebSocket class and pass it on to openHandler etc, one programmatical approach around this is to make the Adaptor as shared object, or avoid std::move of the adaptor. But, this would totally disrupt the design as the ideal way would be that the adaptor be owned only by one connection.",
+      "revId": "ae6653f7dc66346ed07732b1178ae1b7dd2be188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc32f9a5_7217c1d5",
@@ -87,6 +152,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e4e345_1fb843fc",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-02-23T00:02:56Z",
+      "side": 1,
+      "message": "This Constructor is ideally not needed. This was added by Abhishek Patil in one of the Patchset and I continued it.\n\nIn the recent analysis, realized that this is not needed at all !\nMore on this in my other comment where i have explained my observation.\n\nRemoved this explicit constructor",
+      "parentUuid": "fc32f9a5_7217c1d5",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 6
+      },
+      "revId": "ae6653f7dc66346ed07732b1178ae1b7dd2be188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0d4d800_17addd08",
@@ -100,6 +189,30 @@
       "writtenOn": "2023-02-10T01:20:56Z",
       "side": 1,
       "message": "Please don\u0027t make a copy.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 41
+      },
+      "revId": "ae6653f7dc66346ed07732b1178ae1b7dd2be188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "949a22bc_547559cb",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-02-23T00:02:56Z",
+      "side": 1,
+      "message": "Removed this line altogether as it is not needed.",
+      "parentUuid": "e0d4d800_17addd08",
       "range": {
         "startLine": 137,
         "startChar": 0,
