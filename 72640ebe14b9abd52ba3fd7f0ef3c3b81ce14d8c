@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311cd37d_a11b57a7",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 115
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T17:32:15Z",
+      "side": 1,
+      "message": "This is hardcoding a dbus path that isn\u0027t a well defined name.",
+      "range": {
+        "startLine": 343,
+        "startChar": 56,
+        "endLine": 343,
+        "endChar": 74
+      },
+      "revId": "72640ebe14b9abd52ba3fd7f0ef3c3b81ce14d8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
