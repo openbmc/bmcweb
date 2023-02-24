@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bde1f116_36d3cbd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-24T18:59:14Z",
+      "side": 1,
+      "message": "\u003e Can they just... not share a connection pool? Connection pool sharing doesn\u0027t get us any performance benefits in practice. It\u0027s unlikely a server would implement both an EventService receiver, and a redfish server, and in that case, two connections might actually be better.\n\nIn my testing, connection pooling definitely improved throughput.  Increasing the pool size helped instances where the aggregator was dropping requests due to its request buffer getting filled.  \n\nI do agree though that it is unlikely you\u0027ll see overlap even if it is possible.  This is more of me trying to account for an edge case than a major concern.\n\n\u003e They\u0027re already arguably \"doubled\" this just splits them up more precisely.\nThey\u0027d get doubled again since you\u0027d be able to have 4 different configurations for a single IP:PORT:\n1) non-SSL, EventService\n2) non-SSL, Aggregation\n3) SSL, EventService\n4) SSL, Aggregation\n\nIn practice the actual number of connection pools won\u0027t increase since it\u0027s unlikely you\u0027ll have multiple configurations on a single IP:PORT.\n\n\u003e They\u0027re already arguably \"doubled\" this just splits them up more precisely. What is the worry in splitting them? Code complexity?\nProbably not that much more complex for this specific instance.  I could just add another argument to the sendData APIs which takes an enum specifying if the EventService or Aggregation connection pool should be used for the provided IP:PORT.\n\nLonger term I don\u0027t like adding new arguments to the APIs since that makes them look even more unwieldy.  That might just be something that\u0027s unavoidable.",
+      "parentUuid": "a2b47d10_ad916530",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56b822c2_dc48aafb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "IMO, at some point, we should refactor this code so that we can do: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/39409\n\nand we don\u0027t have to buffer the request in bmwcweb at all.  That way, it could be 4GB, and bmcweb would just happily stream it.  IMO, that\u0027s the long term answer.",
       "parentUuid": "00fcfe0c_8f369783",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c0073bb_a16d6a04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-24T18:59:14Z",
+      "side": 1,
+      "message": "Does it matter that we need to perform aggregation steps like prefix fixing on the response as well as adding satellite only links to Members arrays? \n (This third type will also be needed https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556).\n \n We could probably get by on operating on individual json objects instead of an entire json response.  I don\u0027t know if streaming itself supports that.  Would we need some sort of intermediary where we stream to the aggregation handler and the handler buffers just enough to perform operations before streaming it on to the client?\n\nI think the short term answer is creating a separate connection pool for aggregation and having its limit be effectively infinite.",
+      "parentUuid": "cdada2b1_0d76a71c",
       "range": {
         "startLine": 13,
         "startChar": 0,
