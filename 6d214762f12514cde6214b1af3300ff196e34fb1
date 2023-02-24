@@ -16,6 +16,24 @@
       "message": "I\u0027ve refactored this a bit to where I\u0027m happy with it.  If it works for you, this can merge.",
       "revId": "6d214762f12514cde6214b1af3300ff196e34fb1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cbc0aad_2bb08aa3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T19:38:34Z",
+      "side": 1,
+      "message": "Actually, this feature is already broken, lets just get this merged, and treat any other followup as another patch.",
+      "parentUuid": "060999e1_85f43fd4",
+      "revId": "6d214762f12514cde6214b1af3300ff196e34fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
