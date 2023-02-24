@@ -31,6 +31,56 @@
 
 namespace redfish
 {
+
+enum class VmMode
+{
+    Invalid,
+    Legacy,
+    Proxy
+};
+
+inline VmMode
+    parseObjectPathAndGetMode(const sdbusplus::message::object_path& itemPath,
+                              const std::string& resName)
+{
+    std::string thisPath = itemPath.filename();
+    BMCWEB_LOG_DEBUG << "Filename: " << itemPath.str
+                     << ", ThisPath: " << thisPath;
+
+    if (thisPath.empty())
+    {
+        return VmMode::Invalid;
+    }
+
+    if (thisPath != resName)
+    {
+        return VmMode::Invalid;
+    }
+
+    auto mode = itemPath.parent_path();
+    auto type = mode.parent_path();
+
+    if (mode.filename().empty() || type.filename().empty())
+    {
+        return VmMode::Invalid;
+    }
+
+    if (type.filename() != "VirtualMedia")
+    {
+        return VmMode::Invalid;
+    }
+    std::string modeStr = mode.filename();
+    if (modeStr == "Legacy")
+    {
+        return VmMode::Legacy;
+    }
+    if (modeStr == "Proxy")
+    {
+        return VmMode::Proxy;
+    }
+    return VmMode::Invalid;
+}
+
 /**
  * @brief Function extracts transfer protocol name from URI.
  */
@@ -229,27 +279,8 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
         for (const auto& item : subtree)
         {
-            std::string thispath = item.first.filename();
-            if (thispath.empty())
-            {
-                continue;
-            }
-
-            if (thispath != resName)
-            {
-                continue;
-            }
-
-            // "Legacy"/"Proxy"
-            auto mode = item.first.parent_path();
-            // "VirtualMedia"
-            auto type = mode.parent_path();
-            if (mode.filename().empty() || type.filename().empty())
-            {
-                continue;
-            }
-
-            if (type.filename() != "VirtualMedia")
+            VmMode mode = parseObjectPathAndGetMode(item.first, resName);
+            if (mode == VmMode::Invalid)
             {
                 continue;
             }
@@ -257,7 +288,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             aResp->res.jsonValue = vmItemTemplate(name, resName);
 
             // Check if dbus path is Legacy type
-            if (mode.filename() == "Legacy")
+            if (mode == VmMode::Legacy)
             {
                 aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                     ["target"] = crow::utility::urlFromPieces(
@@ -830,43 +861,9 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
             for (const auto& object : subtree)
             {
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
+                VmMode mode = parseObjectPathAndGetMode(object.first, resName);
+                if (mode == VmMode::Proxy)
                 {
-                    continue;
-                }
-
-                lastIndex += 1;
-
-                if (path.substr(lastIndex) == resName)
-                {
-                    lastIndex = path.rfind("Proxy");
-                    if (lastIndex != std::string::npos)
-                    {
-                        // Not possible in proxy mode
-                        BMCWEB_LOG_DEBUG << "InsertMedia not "
-                                            "allowed in proxy mode";
-                        messages::resourceNotFound(asyncResp->res,
-                                                   "VirtualMedia.InsertMedia",
-                                                   resName);
-
-                        return;
-                    }
-
-                    lastIndex = path.rfind("Legacy");
-                    if (lastIndex == std::string::npos)
-                    {
-                        continue;
-                    }
-
-                    if (!actionParams)
-                    {
-                        return;
-                    }
-
                     validateParams(asyncResp, service, resName, *actionParams);
 
                     return;
@@ -926,34 +923,12 @@ inline void handleManagersVirtualMediaActionEject(
 
             for (const auto& object : subtree)
             {
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
 
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
+                VmMode mode = parseObjectPathAndGetMode(object.first, resName);
+                if (mode != VmMode::Invalid)
                 {
-                    continue;
-                }
-
-                lastIndex += 1;
-
-                if (path.substr(lastIndex) == resName)
-                {
-                    lastIndex = path.rfind("Proxy");
-                    if (lastIndex != std::string::npos)
-                    {
-                        // Proxy mode
-                        doEjectAction(asyncResp, service, resName, false);
-                    }
-
-                    lastIndex = path.rfind("Legacy");
-                    if (lastIndex != std::string::npos)
-                    {
-                        // Legacy mode
-                        doEjectAction(asyncResp, service, resName, true);
-                    }
-
-                    return;
+                    doEjectAction(asyncResp, service, resName,
+                                  mode == VmMode::Legacy);
                 }
             }
             BMCWEB_LOG_DEBUG << "Parent item not found";
