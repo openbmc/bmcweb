@@ -18,6 +18,7 @@
 #include "account_service.hpp"
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/virtual_media.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
@@ -158,7 +159,8 @@ inline void
                         aResp->res.jsonValue["TransferProtocolType"] =
                             getTransferProtocolTypeFromUri(*imageUrlValue);
 
-                        aResp->res.jsonValue["ConnectedVia"] = "URI";
+                        aResp->res.jsonValue["ConnectedVia"] =
+                            virtual_media::ConnectedVia::URI;
                     }
                 }
                 if (property == "WriteProtected")
@@ -188,7 +190,8 @@ inline void
 
                     if (*activeValue)
                     {
-                        aResp->res.jsonValue["ConnectedVia"] = "Applet";
+                        aResp->res.jsonValue["ConnectedVia"] =
+                            virtual_media::ConnectedVia::Applet;
                     }
                 }
             }
@@ -210,6 +213,8 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["WriteProtected"] = true;
+    aResp->res.jsonValue["ConnectedVia"] =
+        virtual_media::ConnectedVia::NotConnected;
     item["MediaTypes"] = nlohmann::json::array_t({"CD", "USBStick"});
     item["TransferMethod"] = "Stream";
     item["Oem"]["OpenBMC"]["@odata.type"] =
