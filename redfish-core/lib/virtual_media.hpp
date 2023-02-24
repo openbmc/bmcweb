@@ -732,9 +732,9 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * All BMC state properties will be retrieved before sending reset request.
  */
-inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& service, const std::string& name,
-                       bool legacy)
+inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& service, const std::string& name,
+                          bool legacy)
 {
 
     // Legacy mount requires parameter with image
@@ -943,14 +943,14 @@ inline void handleManagersVirtualMediaActionEject(
                     if (lastIndex != std::string::npos)
                     {
                         // Proxy mode
-                        doVmAction(asyncResp, service, resName, false);
+                        doEjectAction(asyncResp, service, resName, false);
                     }
 
                     lastIndex = path.rfind("Legacy");
                     if (lastIndex != std::string::npos)
                     {
                         // Legacy mode
-                        doVmAction(asyncResp, service, resName, true);
+                        doEjectAction(asyncResp, service, resName, true);
                     }
 
                     return;
