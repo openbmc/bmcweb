@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2b47d10_ad916530",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T17:39:40Z",
+      "side": 1,
+      "message": "\u003e They share connection pools so there isn\u0027t a great way to decouple this.\n\nCan they just... not share a connection pool?  Connection pool sharing doesn\u0027t get us any performance benefits in practice.  It\u0027s unlikely a server would implement both an EventService receiver, and a redfish server, and in that case, two connections might actually be better.\n\n\u003e  We already have separate pools for SSL and non-SSL.  I want to avoid further doubling the number of potential pools based on the entity sending requests.\n\nThey\u0027re already arguably \"doubled\" this just splits them up more precisely.  What is the worry in splitting them?  Code complexity?\n\n\u003e \n\u003e I\u0027m fine with setting no limit for aggregation and tying that to its compiler option.  My thought was you may want to be able to set an upper bound as a weak attempt at preventing reading in a large enough response that we run out of memory.",
+      "parentUuid": "66cb0d8d_9e18457a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56b822c2_dc48aafb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I guess it depends on how you feel about EventService being able to read in enormous responses.  EventService doesn\u0027t do anything with the responses it receives so it really shouldn\u0027t need to read in that large of responses, or at least not anything near what the aggregator may read in.\n\nI don\u0027t think it hurts anything if EventService has a limit that is orders of magnitude larger than it actually needs.  I just wanted to preserve the option of keeping the limit low.",
       "parentUuid": "56b822c2_dc48aafb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdada2b1_0d76a71c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T17:39:40Z",
+      "side": 1,
+      "message": "IMO, at some point, we should refactor this code so that we can do: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/39409\n\nand we don\u0027t have to buffer the request in bmwcweb at all.  That way, it could be 4GB, and bmcweb would just happily stream it.  IMO, that\u0027s the long term answer.",
+      "parentUuid": "00fcfe0c_8f369783",
       "range": {
         "startLine": 13,
         "startChar": 0,
