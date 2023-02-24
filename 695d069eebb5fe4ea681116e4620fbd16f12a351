@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e72afe5_9f268b9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T19:23:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0757025_57eaeb68",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70fd5678_193fe3e1",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yes, I want regular 404 as this path is not listed in action list for \"proxy\" mode so shall not be serviced.\n\nLet\u0027s take a look at the \"real\" example:\nFirst GET on Proxy node:\ncurl -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request GET https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_0                                 \n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_0\",\n  \"@odata.type\": \"#VirtualMedia.v1_3_0.VirtualMedia\",\n  \"Actions\": {\n    \"#VirtualMedia.EjectMedia\": {\n      \"target\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_0/Actions/VirtualMedia.EjectMedia\"\n    }\n  },\n  \"ConnectedVia\": \"NotConnected\",\n  \"Id\": \"Slot_0\",\n  \"Inserted\": false,\n  \"MediaTypes\": [\n    \"CD\",\n    \"USBStick\"\n  ],\n  \"Name\": \"Virtual Removable Media\",\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"@odata.type\": \"#OemVirtualMedia.v1_0_0.VirtualMedia\",\n      \"WebSocketEndpoint\": \"/nbd/0\"\n    }\n  },\n  \"TransferMethod\": \"Stream\",\n  \"TransferProtocolType\": \"OEM\",\n  \"WriteProtected\": true\n}\n200\n\nBut somebody could use this action on an object representing proxy node and should get 404:\ncurl -o /dev/null -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request POST https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_0/Actions/VirtualMedia.InsertMedia --data \"{}\"\n404\n\nFor \"legacy\" http code is 200 or e.g. 502 when host is not recognized:\ncurl -o /dev/null -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request POST https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_2/Actions/VirtualMedia.InsertMedia --data \"{\\\"Image\\\": \\\"https://something\\\"}\"\n502\n\nFor completeness, GET on Slot_2 shows:\ncurl -w \u0027%{http_code}\\n\u0027 --header \"Content-Type: application/json\" --request GET https://host.name/redfish/v1/Managers/bmc/VirtualMedia/Slot_2\n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_2\",\n  \"@odata.type\": \"#VirtualMedia.v1_3_0.VirtualMedia\",\n  \"Actions\": {\n    \"#VirtualMedia.EjectMedia\": {\n      \"target\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_2/Actions/VirtualMedia.EjectMedia\"\n    },\n    \"#VirtualMedia.InsertMedia\": {\n      \"target\": \"/redfish/v1/Managers/bmc/VirtualMedia/Slot_2/Actions/VirtualMedia.InsertMedia\"\n    }\n  },\n  \"ConnectedVia\": \"NotConnected\",\n  \"Id\": \"Slot_2\",\n  \"Inserted\": false,\n  \"MediaTypes\": [\n    \"CD\",\n    \"USBStick\"\n  ],\n  \"Name\": \"Virtual Removable Media\",\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"@odata.type\": \"#OemVirtualMedia.v1_0_0.VirtualMedia\"\n    }\n  },\n  \"TransferMethod\": \"Stream\",\n  \"WriteProtected\": true\n}\n200\n\nHope this puts some more light on the issue.",
       "parentUuid": "70fd5678_193fe3e1",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "695d069eebb5fe4ea681116e4620fbd16f12a351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66ac19f0_20479743",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T19:23:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d72f622_9a2bcabc",
       "range": {
         "startLine": 12,
         "startChar": 15,
