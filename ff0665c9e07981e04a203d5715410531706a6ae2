@@ -189,6 +189,23 @@
       "message": "Is this patch still needed/being worked?",
       "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c71f4d5_ee193904",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-02-24T21:36:26Z",
+      "side": 1,
+      "message": "Ed, \nIMO no.\nThe underlying, and mandatory, phosphor-network code this relied upon was rejected by William.\n\nI also believe https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53959 is unlikely to work due to the removal of the phosphor-dbus-interfaces DHCP enumerations.\n\nI have been unwilling to abandon this code. However, at this point I think I will keep a personal pointer to it, and the drop this commit.",
+      "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
