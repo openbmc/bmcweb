@@ -70,6 +70,30 @@
       },
       "revId": "b64c62627d7a7473a590dcd97b7b50c57d599786",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de1cc921_51c803a2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-02-24T00:27:47Z",
+      "side": 0,
+      "message": "\u003e sure, but I guess the main question is\n\u003e \n\u003e - what is populated in those property if it is not valid.\n\nYeah, I see, I will update this patch again, thanks 😊",
+      "parentUuid": "a7e64e17_912da557",
+      "range": {
+        "startLine": 450,
+        "startChar": 16,
+        "endLine": 450,
+        "endChar": 37
+      },
+      "revId": "b64c62627d7a7473a590dcd97b7b50c57d599786",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
