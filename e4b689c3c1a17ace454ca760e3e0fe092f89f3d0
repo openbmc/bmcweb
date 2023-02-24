@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "862b1c95_b37136b2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-02-24T13:27:13Z",
+      "side": 1,
+      "message": "I\u0027m not sure the recommended coding style in upstream bmcweb.\nWouldn\u0027t this be better to be written as follows?\n\n1)\n```\n#ifndef BMCWEB_INSECURE_DISABLE_AUTHX\n            if (userSession !\u003d nullptr)\n#else\n            if(true)\n#endif // BMCWEB_INSECURE_DISABLE_AUTHX\n```\n \nOR\n2)\n```\n#ifndef BMCWEB_INSECURE_DISABLE_AUTHX\n            if (userSession !\u003d nullptr)\n            {\n                cancelDeadlineTimer();\n            }\n#else\n            cancelDeadlineTimer();\n#endif // BMCWEB_INSECURE_DISABLE_AUTHX\n```\n\nOR \n3) if cancelDeadlineTimer() can be called multiple times,\n```\n            if (userSession !\u003d nullptr)\n            {\n                cancelDeadlineTimer();\n            }\n\n#ifdef BMCWEB_INSECURE_DISABLE_AUTHX\n            // Ensure to cancel deadline timer under insecure auth \n            cancelDeadlineTimer();\n#endif // BMCWEB_INSECURE_DISABLE_AUTHX\n```",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 13
+      },
+      "revId": "e4b689c3c1a17ace454ca760e3e0fe092f89f3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
