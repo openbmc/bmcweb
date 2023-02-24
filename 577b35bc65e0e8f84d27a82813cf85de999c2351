@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df3e24cc_e6855c2b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T01:48:55Z",
+      "side": 1,
+      "message": "\u003e Why do we have to pass the io_context instead of just retrieving it when HttpClient is constructed like were were doing before?\n\nBecause the dns resolver needs an io context.  technically both resolvers do, but the Dbus resolver relies on the fact that the dbus connection is a global.\n\n\u003e  The compiler option should prevent the mismatch between resolver and context if I\u0027m understanding this correctly.",
+      "parentUuid": "d94234c2_da2cd371",
+      "range": {
+        "startLine": 879,
+        "startChar": 0,
+        "endLine": 882,
+        "endChar": 5
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09e10ad3_cc365f97",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
