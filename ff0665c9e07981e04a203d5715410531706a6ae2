@@ -172,6 +172,23 @@
       "parentUuid": "6c56905c_fd09e526",
       "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74281733_dc5a50aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-24T19:34:55Z",
+      "side": 1,
+      "message": "Is this patch still needed/being worked?",
+      "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
