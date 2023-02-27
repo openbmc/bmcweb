@@ -16,6 +16,24 @@
       "message": "WHat\u0027s the status on this?",
       "revId": "dfb78693d7828ea49327327871811a2859c7e87b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8b2da3_9ead1ffe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-27T20:26:55Z",
+      "side": 1,
+      "message": "When written it was able to detect when satellite configs were added or modified on dbus.  The use of the cache was handled in the earlier version of a the CL that actually got merged.  \n\nRight now the patch is effectively dormant until there\u0027s a need to cache the satellite configs.  Here\u0027s what would would be needed to enable this:\n* Fix merge conflicts\n* Create a satellite config cache\n* Replace calls to getSatelliteConfigs() with accessing the config cache\n* Delete configs from cache that are removed from D-Bus",
+      "parentUuid": "dbc69492_bce7c63c",
+      "revId": "dfb78693d7828ea49327327871811a2859c7e87b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
