@@ -645,7 +645,7 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
         }
         },
         "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "/xyz/openbmc_project/network/" + ifaceId + ipHash,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -746,7 +746,7 @@ inline void
             prefixLength, gateway);
         },
         "xyz.openbmc_project.Network",
-        +"/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + id,
+        "/xyz/openbmc_project/network/" + ifaceId + id,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -770,7 +770,7 @@ inline void deleteIPv6(const std::string& ifaceId, const std::string& ipHash,
         }
         },
         "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" + ipHash,
+        "/xyz/openbmc_project/network/" + ifaceId + ipHash,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -812,7 +812,7 @@ inline void
             prefixLength, "");
         },
         "xyz.openbmc_project.Network",
-        +"/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" + id,
+        "/xyz/openbmc_project/network/" + ifaceId + id,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
