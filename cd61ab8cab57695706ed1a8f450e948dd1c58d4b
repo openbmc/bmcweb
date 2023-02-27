@@ -34,6 +34,24 @@
       "parentUuid": "9fe6200b_5cf670d4",
       "revId": "cd61ab8cab57695706ed1a8f450e948dd1c58d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "790b3a56_400870ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T17:41:58Z",
+      "side": 1,
+      "message": "This doesn\u0027t look done.  Current patchset still wraps on \u003c72 char boundaries.",
+      "parentUuid": "2a72ee03_5cae3950",
+      "revId": "cd61ab8cab57695706ed1a8f450e948dd1c58d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
