@@ -20,12 +20,7 @@ namespace websocket
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& reqIn) :
-        req(reqIn.req), userdataPtr(nullptr)
-    {}
-
-    explicit Connection(const crow::Request& reqIn, std::string user) :
-        req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr)
+    explicit Connection(const crow::Request& reqIn) : req(reqIn.req)
     {}
 
     Connection(const Connection&) = delete;
@@ -41,26 +36,8 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
 
-    void userdata(void* u)
-    {
-        userdataPtr = u;
-    }
-    void* userdata()
-    {
-        return userdataPtr;
-    }
-
-    const std::string& getUserName() const
-    {
-        return userName;
-    }
-
     boost::beast::http::request<boost::beast::http::string_body> req;
     crow::Response res;
-
-  private:
-    std::string userName{};
-    void* userdataPtr;
 };
 
 template <typename Adaptor>
@@ -74,8 +51,7 @@ class ConnectionImpl : public Connection
             messageHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
         std::function<void(Connection&)> errorHandlerIn) :
-        Connection(reqIn, reqIn.session == nullptr ? std::string{}
-                                                   : reqIn.session->username),
+        Connection(reqIn),
         ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
