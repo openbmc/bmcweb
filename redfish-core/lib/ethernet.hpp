@@ -634,8 +634,9 @@ inline void
  *
  * @return None
  */
-inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void deleteIPAddress(const std::string& ifaceId,
+                            const std::string& ipHash,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
@@ -645,7 +646,7 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
         }
         },
         "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "/xyz/openbmc_project/network/" + ifaceId + ipHash,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -702,79 +703,6 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
 }
 
 /**
- * @brief Deletes the IPv4 entry for this interface and creates a replacement
- * static IPv4 entry
- *
- * @param[in] ifaceId      Id of interface upon which to create the IPv4 entry
- * @param[in] id           The unique hash entry identifying the DBus entry
- * @param[in] prefixLength IPv4 prefix syntax for the subnet mask
- * @param[in] gateway      IPv4 address of this interfaces gateway
- * @param[in] address      IPv4 address to assign to this interface
- * @param[io] asyncResp    Response object that will be returned to client
- *
- * @return None
- */
-inline void
-    deleteAndCreateIPv4(const std::string& ifaceId, const std::string& id,
-                        uint8_t prefixLength, const std::string& gateway,
-                        const std::string& address,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, ifaceId, address, prefixLength,
-         gateway](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, ifaceId,
-             gateway](const boost::system::error_code& ec2) {
-            if (ec2)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            updateIPv4DefaultGateway(ifaceId, gateway, asyncResp);
-            },
-            "xyz.openbmc_project.Network",
-            "/xyz/openbmc_project/network/" + ifaceId,
-            "xyz.openbmc_project.Network.IP.Create", "IP",
-            "xyz.openbmc_project.Network.IP.Protocol.IPv4", address,
-            prefixLength, gateway);
-        },
-        "xyz.openbmc_project.Network",
-        +"/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + id,
-        "xyz.openbmc_project.Object.Delete", "Delete");
-}
-
-/**
- * @brief Deletes given IPv6
- *
- * @param[in] ifaceId     Id of interface whose IP should be deleted
- * @param[in] ipHash      DBus Hash id of IP that should be deleted
- * @param[io] asyncResp   Response object that will be returned to client
- *
- * @return None
- */
-inline void deleteIPv6(const std::string& ifaceId, const std::string& ipHash,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-        },
-        "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" + ipHash,
-        "xyz.openbmc_project.Object.Delete", "Delete");
-}
-
-/**
  * @brief Deletes the IPv6 entry for this interface and creates a replacement
  * static IPv6 entry
  *
@@ -786,18 +714,28 @@ inline void deleteIPv6(const std::string& ifaceId, const std::string& ipHash,
  *
  * @return None
  */
-inline void
-    deleteAndCreateIPv6(const std::string& ifaceId, const std::string& id,
-                        uint8_t prefixLength, const std::string& address,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+
+enum class IpVersion
+{
+    IpV4,
+    IpV6
+};
+
+inline void deleteAndCreateIPAddress(
+    IpVersion version, const std::string& ifaceId, const std::string& id,
+    uint8_t prefixLength, const std::string& address,
+    const std::string& gateway,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, ifaceId, address,
-         prefixLength](const boost::system::error_code& ec) {
+        [asyncResp, version, ifaceId, address, prefixLength,
+         gateway](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
         }
+        std::string protocol = "xyz.openbmc_project.Network.IP.Protocol.";
+        protocol += version == IpVersion::IpV4 ? "IPv4" : "IPv6";
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
@@ -807,12 +745,11 @@ inline void
             },
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
-            "xyz.openbmc_project.Network.IP.Create", "IP",
-            "xyz.openbmc_project.Network.IP.Protocol.IPv6", address,
-            prefixLength, "");
+            "xyz.openbmc_project.Network.IP.Create", "IP", protocol, address,
+            prefixLength, gateway);
         },
         "xyz.openbmc_project.Network",
-        +"/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" + id,
+        "/xyz/openbmc_project/network/" + ifaceId + id,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -1439,8 +1376,9 @@ inline void handleIPv4StaticPatch(
 
             if (nicIpEntry != ipv4Data.cend())
             {
-                deleteAndCreateIPv4(ifaceId, nicIpEntry->id, prefixLength, *gw,
-                                    *addr, asyncResp);
+                deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
+                                         nicIpEntry->id, prefixLength, *gw,
+                                         *addr, asyncResp);
                 nicIpEntry =
                     getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }
@@ -1473,7 +1411,7 @@ inline void handleIPv4StaticPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPv4(ifaceId, nicIpEntry->id, asyncResp);
+                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
             }
             if (nicIpEntry != ipv4Data.cend())
             {
@@ -1581,8 +1519,9 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (nicIpEntry != ipv6Data.end())
             {
-                deleteAndCreateIPv6(ifaceId, nicIpEntry->id, prefix, *addr,
-                                    asyncResp);
+                deleteAndCreateIPAddress(IpVersion::IpV6, ifaceId,
+                                         nicIpEntry->id, prefix, "", *addr,
+                                         asyncResp);
                 nicIpEntry =
                     getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
             }
@@ -1614,7 +1553,7 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPv6(ifaceId, nicIpEntry->id, asyncResp);
+                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
             }
             if (nicIpEntry != ipv6Data.cend())
             {
