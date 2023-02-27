@@ -16,6 +16,23 @@
       "message": "Thanks for looking at this change",
       "revId": "03fd4eafac4de386aea08fb23149a41cf5d6a94b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68effbae_0e20fd6b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T18:30:15Z",
+      "side": 1,
+      "message": "properties are still pushed if the drive doesn\u0027t support encryption.",
+      "revId": "03fd4eafac4de386aea08fb23149a41cf5d6a94b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
