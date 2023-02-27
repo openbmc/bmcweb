@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "340eab22_c282c425",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T19:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6010a31_f9abfe2f",
+      "revId": "9cd057e4678508cca44b783be52a2287b7b34204",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b9efae9_e97c7ef5",
@@ -107,6 +125,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4baefa92_dd112ce9",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T19:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da7b0aa_7d4cb608",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 40
+      },
+      "revId": "9cd057e4678508cca44b783be52a2287b7b34204",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db35e6c2_813fc055",
@@ -120,6 +162,30 @@
       "writtenOn": "2022-07-31T04:33:47Z",
       "side": 1,
       "message": "Please don\u0027t make this a lambda.  Make it a normal function.",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 46
+      },
+      "revId": "9cd057e4678508cca44b783be52a2287b7b34204",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "720057eb_0321525f",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T19:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db35e6c2_813fc055",
       "range": {
         "startLine": 153,
         "startChar": 8,
@@ -161,6 +227,24 @@
       "side": 1,
       "message": "Considering that if that happened, this would\u0027ve broken the dbus contract, I don\u0027t think we need to check it.",
       "parentUuid": "2c236e57_36fb25ff",
+      "revId": "9cd057e4678508cca44b783be52a2287b7b34204",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f763ff4_0e5bf857",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T19:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac023ec_ec62a4b2",
       "revId": "9cd057e4678508cca44b783be52a2287b7b34204",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
