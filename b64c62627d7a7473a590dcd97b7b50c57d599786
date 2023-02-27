@@ -16,6 +16,24 @@
       "message": "I would be okay with this here since it is short but also good with a method because it matches the rest of the code",
       "revId": "b64c62627d7a7473a590dcd97b7b50c57d599786",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd9904e_4500df77",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T17:27:28Z",
+      "side": 0,
+      "message": "ACK",
+      "parentUuid": "3b91bbe3_292d17d2",
+      "revId": "b64c62627d7a7473a590dcd97b7b50c57d599786",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
