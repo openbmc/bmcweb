@@ -69,6 +69,24 @@
       "parentUuid": "a368a0b4_264cabcf",
       "revId": "8de6f04d56654bd40c2c57da16187a0ca2755a55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26225842_3e59e4e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-27T15:45:59Z",
+      "side": 1,
+      "message": "Can you add the link to the commit msg ?",
+      "parentUuid": "2522a21f_2019504f",
+      "revId": "8de6f04d56654bd40c2c57da16187a0ca2755a55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
