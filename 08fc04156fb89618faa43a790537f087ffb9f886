@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5128db_60be56b9",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T21:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f44fd3e_d5076035",
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e3f6e5f_686616a1",
@@ -54,6 +72,30 @@
       "writtenOn": "2022-04-11T15:51:22Z",
       "side": 1,
       "message": "So the old code had a memory leak?  Please do your best to split up the patch such that it\u0027s easy to review.  Moving a block of code, then making modifications to it in the same commit makes it very difficult to review.\n\nIn reviewing this, it\u0027s really difficult to understand why this change was made, because it\u0027s not mentioned in the commit message, and appears to violate:\nhttps://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-global-init",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52315b4d_93467f3f",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T21:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee9ad275_1630fa7a",
       "range": {
         "startLine": 15,
         "startChar": 0,
