@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dea81b9_cd6c98ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T16:11:24Z",
+      "side": 1,
+      "message": "Redfish does not put these in the sensor schema, it puts these in the various \"metrics\" schemas.",
+      "range": {
+        "startLine": 11,
+        "startChar": 31,
+        "endLine": 12,
+        "endChar": 23
+      },
+      "revId": "e80a7c65c287f295aa05d0ff688ce34d0ecae545",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0de45065_c5407ffa",
@@ -18,6 +41,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f65274_851dd244",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T16:11:24Z",
+      "side": 1,
+      "message": "As written, this disregards both Redfish and phosphor dbus interfaces.  Please work with both of those groups to determine how to define what you\u0027re looking for.\n\nThe reason \"count\" sensors are not allowed are because there\u0027s no way to interop between various implemententations.  One implementation might call a count \"Tx packets\" and another might call it \"transmitted packets\".  There\u0027s no way for one client to know that they both mean the same thing.  The solution to this is the various metrics definitions that are spread throughout the codebase.",
+      "revId": "e80a7c65c287f295aa05d0ff688ce34d0ecae545",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ab93b77_f436f6fa",
@@ -31,6 +71,29 @@
       "writtenOn": "2023-02-27T16:08:24Z",
       "side": 1,
       "message": "typo: couner -\u003e counter",
+      "revId": "e80a7c65c287f295aa05d0ff688ce34d0ecae545",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eee2ac3_be3b91ca",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T16:11:24Z",
+      "side": 1,
+      "message": "This does not exist in phosphor-dbus-interfaces, nor would it in this form.  Sensors represent a physical property, not a counter.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 41
+      },
       "revId": "e80a7c65c287f295aa05d0ff688ce34d0ecae545",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
