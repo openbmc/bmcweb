@@ -94,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9db9e7eb_588f6f6d",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-27T21:53:59Z",
+      "side": 1,
+      "message": "I think this is fixed when squashed with your fixes.  Please reopen if it\u0027s not.",
+      "parentUuid": "8e9f7ef1_610af4d3",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 57
+      },
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce4b4e7c_0df3ec7d",
