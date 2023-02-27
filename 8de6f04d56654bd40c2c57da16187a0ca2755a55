@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e6796f_03fe2d20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-02-27T15:37:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "563efe81_76f57916",
+      "revId": "8de6f04d56654bd40c2c57da16187a0ca2755a55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a368a0b4_264cabcf",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-27T15:27:41Z",
       "side": 1,
       "message": "Can you link to the commit that changes these networkd d-bus paths?",
+      "revId": "8de6f04d56654bd40c2c57da16187a0ca2755a55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2522a21f_2019504f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-02-27T15:37:37Z",
+      "side": 1,
+      "message": "these networkd changes already merged into master.",
+      "parentUuid": "a368a0b4_264cabcf",
       "revId": "8de6f04d56654bd40c2c57da16187a0ca2755a55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
