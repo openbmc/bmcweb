@@ -22,6 +22,30 @@
       },
       "revId": "e4b689c3c1a17ace454ca760e3e0fe092f89f3d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4516c6af_64476ee1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-02-28T14:48:34Z",
+      "side": 1,
+      "message": "I feel that current implementation is better as it has less code.\n1,2 - We need to add if else which is more code.\n3 - is not correct as we may end up calling cancel twice.",
+      "parentUuid": "862b1c95_b37136b2",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 13
+      },
+      "revId": "e4b689c3c1a17ace454ca760e3e0fe092f89f3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
