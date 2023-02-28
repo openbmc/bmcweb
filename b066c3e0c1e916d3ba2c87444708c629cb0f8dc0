@@ -211,6 +211,30 @@
       },
       "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f9e47d_fa87572e",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T02:55:04Z",
+      "side": 1,
+      "message": "These have been incorporated into the latest patch.",
+      "parentUuid": "4f574e11_2e9acea6",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 319,
+        "endChar": 5
+      },
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

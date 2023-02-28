@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5d1962_20403840",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T02:55:04Z",
+      "side": 1,
+      "message": "Michal, please take a look and let me know if this solves the buffering problem.  Basically, this method allows avoiding reading the socket until a time at which it can be buffered, so we avoid the crash.  This seems better than an arbitrary delay, which might cause problems if we have buffering issues.",
+      "range": {
+        "startLine": 344,
+        "startChar": 9,
+        "endLine": 344,
+        "endChar": 18
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
