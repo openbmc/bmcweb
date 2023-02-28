@@ -71,11 +71,6 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
     }
 
-    std::string getEndpointId() const
-    {
-        return endpointId;
-    }
-
     void run()
     {
         acceptor.async_accept(
@@ -289,8 +284,7 @@ inline void
             }
         }
 
-        if ((endpointValue != nullptr) && (socketValue != nullptr) &&
-            *endpointValue == conn.req.target())
+        if ((endpointValue != nullptr) && (socketValue != nullptr))
         {
             endpointObjectPath = &objectPath.str;
             break;
@@ -302,16 +296,6 @@ inline void
         BMCWEB_LOG_ERROR << "Cannot find requested EndpointId";
         conn.close("Failed to match EndpointId");
         return;
-    }
-
-    for (const auto& session : sessions)
-    {
-        if (session.second->getEndpointId() == conn.req.target())
-        {
-            BMCWEB_LOG_ERROR << "Cannot open new connection - socket is in use";
-            conn.close("Slot is in use");
-            return;
-        }
     }
 
     // If the socket file exists (i.e. after bmcweb crash),
