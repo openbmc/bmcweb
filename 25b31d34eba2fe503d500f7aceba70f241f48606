@@ -34,6 +34,24 @@
       "parentUuid": "833a0b2c_6fd710af",
       "revId": "25b31d34eba2fe503d500f7aceba70f241f48606",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "544c6def_c49d5556",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2023-02-28T01:12:32Z",
+      "side": 1,
+      "message": "For VLAN, I\u0027m going to propose a new patchset bumping to EthernetInterface 1.9.0 to remove current usage of VLanEthernetInterface schema",
+      "parentUuid": "d5905e6f_96e891b2",
+      "revId": "25b31d34eba2fe503d500f7aceba70f241f48606",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
