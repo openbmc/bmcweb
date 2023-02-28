@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25dd85f6_4dc1800a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-28T17:47:15Z",
+      "side": 1,
+      "message": "I can\u0027t directly add an / at the end because then I wouldn\u0027t match when the input is only \"/redfish/v1\" without the trailing /.\n\nI think /redfish/v11 will already be handled by this code since immediately after this we strip \"/redfish/v1\" from the start of the string when creating the url struck.  That would end up being something like \"1/{rest_of_uri}\" and that will fail the later check of the topCollections array.\n\nI\u0027ll at least add some test cases to confirm.  I may also change the code depending on how I address the other comments.",
+      "parentUuid": "9d784c64_fdf29db0",
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94e61000_b5eef00e",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 12
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-28T17:08:39Z",
       "side": 1,
       "message": "Is there a way to avoid this magic number and just strip the first two segments?  if not, size() works file, just declare /redfish/v1 as a constexpr string_view, then use .size() here.\n\nAlso, I\u0027m pretty sure this constructor throws on bar URIs, so we should be using https://www.boost.org/doc/libs/1_81_0/libs/url/doc/html/url/ref/boost__urls__parse_relative_ref.html",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c97a4a23_a5ca120a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-28T17:47:15Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s a good way to strip segments at the front of a segments_ref object.  The add and remove apis are like the ones for std::vector.  I\u0027ll use your suggestions to strip them from the initial string passed to the constructor and check on what you suggested in the link.",
+      "parentUuid": "94e61000_b5eef00e",
       "range": {
         "startLine": 64,
         "startChar": 35,
@@ -87,6 +129,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e60a20c_209f56af",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-28T17:47:15Z",
+      "side": 1,
+      "message": "It does.  It calls handleServiceRootGet().  That first calls handleServiceRootHead() and that in turn calls setupRedfishRoute() https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/service_root.hpp#L37",
+      "parentUuid": "a6872c28_fe81debb",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09f0a07a_7e3a8adb",
@@ -100,6 +166,30 @@
       "writtenOn": "2023-02-28T17:08:39Z",
       "side": 1,
       "message": "This isn\u0027t doing what you think it\u0027s doing.  std::lower_bound is going to give you where in the array this URI would be, even if it\u0027s not present.  You probably want something like\n\n\nconst auto it \u003d std::equals_range(....);\nif (it.first \u003d\u003d it.second){\n    return false;\n}\n\nas-written, your check will only return if the found URI is greater.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 35
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c0f83e_67e1c695",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-28T17:47:15Z",
+      "side": 1,
+      "message": "No that\u0027s doing what I expect it to do.  std::lower_bound points to the element in the array such that element \u003c target.\n\nThis initial check is just to catch the edge case where the target URI would alphabetically come before the first entry in the array. In that instance it points to the end of the array rather than an actual position. \n\nI\u0027ll add some comments to make it clearer.",
+      "parentUuid": "09f0a07a_7e3a8adb",
       "range": {
         "startLine": 86,
         "startChar": 0,

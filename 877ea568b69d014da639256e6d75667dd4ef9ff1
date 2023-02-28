@@ -22,6 +22,30 @@
       },
       "revId": "877ea568b69d014da639256e6d75667dd4ef9ff1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc0ef0c_12caf0aa",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-28T17:47:15Z",
+      "side": 1,
+      "message": "I remember seeing the patch where you went through an removed that from the codebase and I still missed this.  I\u0027ll remove it.",
+      "parentUuid": "e1cd3a25_ce202a6d",
+      "range": {
+        "startLine": 54,
+        "startChar": 35,
+        "endLine": 54,
+        "endChar": 40
+      },
+      "revId": "877ea568b69d014da639256e6d75667dd4ef9ff1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
