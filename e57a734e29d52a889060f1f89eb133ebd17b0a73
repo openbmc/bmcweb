@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829ac546_b77230ed",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-02-28T17:42:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure why the name check startup state was chosen from but if anything I\u0027d expect the startup progress to be here vs just the termination quiesce state check.   I\u0027m equally happy with a better name and no additional refactoring.",
+      "revId": "e57a734e29d52a889060f1f89eb133ebd17b0a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
