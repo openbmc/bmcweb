@@ -19,6 +19,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
+#include "hypervisor_system.hpp"
 #include "led.hpp"
 #include "pcie.hpp"
 #include "query.hpp"
@@ -2942,6 +2943,13 @@ inline void requestRoutesSystems(App& app)
         {
             return;
         }
+
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorSystemGet(asyncResp);
+            return;
+        }
+
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3231,6 +3239,13 @@ inline void requestRoutesSystemResetActionInfo(App& app)
         {
             return;
         }
+
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorResetActionGet(asyncResp);
+            return;
+        }
+
         if (systemName != "system")
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
