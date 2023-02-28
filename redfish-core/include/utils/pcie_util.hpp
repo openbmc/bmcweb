@@ -15,6 +15,7 @@
 #include <array>
 #include <memory>
 #include <optional>
+#include <ranges>
 #include <string>
 #include <string_view>
 
@@ -24,27 +25,99 @@ namespace pcie_util
 {
 
 /**
- * @brief Populate the PCIe Device list from a GetSubTreePaths search of
- *        inventory
+ * @brief Workaround to handle duplicate PCI device list
  *
- * @param[i,o] asyncResp  Async response object
- * @param[i]   Name   Key to store the list of PCIe devices in asyncResp
+ * retrieve PCI device endpoint information and if path is
+ * ~/chassisN/io_moduleN/slotN/adapterN then, replace redfish
+ * PCI device as "chassisN_io_moduleN_slotN_adapterN"
  *
- * @return void
+ * @param[i]   fullPath  object path of PCIe device
+ *
+ * @return string: unique PCIe device name
  */
+inline std::string buildPCIeUniquePath(const std::string& fullPath)
+{
+    sdbusplus::message::object_path path(fullPath);
 
+    // Start it with leaf
+    std::string devName = path.filename();
+
+    // walk-thru the parent path upto 3 levels
+    for (int depth = 0; depth < 3; depth++)
+    {
+        path = path.parent_path();
+
+        std::string filename = path.filename();
+        if (filename.empty())
+        {
+            break;
+        }
+        devName = std::format("{}_{}", filename, devName);
+    }
+    return devName;
+}
+
+inline void afterGetPCIeDeviceList(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    nlohmann::json::json_pointer jsonCountKeyName = jsonKeyName;
+    std::string back = jsonCountKeyName.back();
+    jsonCountKeyName.pop_back();
+    jsonCountKeyName /= back + "@odata.count";
+
+    nlohmann::json& members = asyncResp->res.jsonValue[jsonKeyName];
+    members = nlohmann::json::array();
+
+    if (ec)
+    {
+        // Not an error, system just doesn't have PCIe info
+        BMCWEB_LOG_DEBUG("no PCIe device paths found ec: {}", ec.value());
+        asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
+        return;
+    }
+
+    std::vector<std::string> pathNames;
+    for (const auto& pcieDevicePath : paths)
+    {
+        std::string devName = pcie_util::buildPCIeUniquePath(pcieDevicePath);
+        if (devName.empty())
+        {
+            BMCWEB_LOG_DEBUG("Invalid Name");
+            continue;
+        }
+        pathNames.emplace_back(std::move(devName));
+    }
+    std::ranges::sort(pathNames, AlphanumLess<std::string>());
+
+    for (const auto& devName : pathNames)
+    {
+        nlohmann::json::object_t pcieDevice;
+        pcieDevice["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/PCIeDevices/{}", devName);
+        members.emplace_back(std::move(pcieDevice));
+    }
+    asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
+}
+
+/**
+ * @brief get PCIeDeviceList to resp
+ *
+ * @param[in,out]   asyncResp   Async HTTP response.
+ * @param[in]      jsonKeyName
+ */
 inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const nlohmann::json::json_pointer& jsonKeyName)
 {
     static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
         "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
-    const boost::urls::url pcieDeviceUrl =
-        boost::urls::url("/redfish/v1/Systems/system/PCIeDevices");
 
-    collection_util::getCollectionToKey(
-        asyncResp, pcieDeviceUrl, pcieDeviceInterface,
-        "/xyz/openbmc_project/inventory", jsonKeyName);
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
+        std::bind_front(afterGetPCIeDeviceList, asyncResp, jsonKeyName));
 }
 
 inline std::optional<pcie_slots::SlotTypes>
