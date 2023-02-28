@@ -16,6 +16,58 @@
       "message": "What backend did this use in your testing?  Please help to review the backends that are in review that are pushing for this feature.  I wasn\u0027t aware any of the backends for this had merged yet.",
       "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ee9645_bca72265",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-28T18:21:25Z",
+      "side": 1,
+      "message": "I know openpower-vpd-parser, pldm has support for pcieSlot and it looks like smbios-mdr  and peci-pcie  do as well. \nhttps://github.com/search?q\u003dorg%3Aopenbmc+PCIeSlot\u0026type\u003dcode\nI\u0027ll let George answer what backend he is using to test but I suspect it is openpower-vpd-parser and pldm",
+      "parentUuid": "23848091_edfcab99",
+      "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f426184d_7c93bb16",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-28T18:21:25Z",
+      "side": 1,
+      "message": "Why undo this change?",
+      "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4be1559_f1b91b08",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-28T18:21:25Z",
+      "side": 1,
+      "message": "Can we use urlFromPieces here too?",
+      "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
