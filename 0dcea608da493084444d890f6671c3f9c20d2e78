@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d784c64_fdf29db0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T17:08:39Z",
+      "side": 1,
+      "message": "Add a / at the end of this.  It\u0027s unlikely that we\u0027d ever see /redfish/v11, but there\u0027s something to be said for precision.",
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e61000_b5eef00e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T17:08:39Z",
+      "side": 1,
+      "message": "Is there a way to avoid this magic number and just strip the first two segments?  if not, size() works file, just declare /redfish/v1 as a constexpr string_view, then use .size() here.\n\nAlso, I\u0027m pretty sure this constructor throws on bar URIs, so we should be using https://www.boost.org/doc/libs/1_81_0/libs/url/doc/html/url/ref/boost__urls__parse_relative_ref.html",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0625509e_ae692b78",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T17:08:39Z",
+      "side": 1,
+      "message": "Note to self for the thousandth time, solve this in the core.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 35
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6872c28_fe81debb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T17:08:39Z",
+      "side": 1,
+      "message": "Does this happen in practice?  /redfish/v1 doesn\u0027t have the setupRedfishRoute call I don\u0027t think.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f0a07a_7e3a8adb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T17:08:39Z",
+      "side": 1,
+      "message": "This isn\u0027t doing what you think it\u0027s doing.  std::lower_bound is going to give you where in the array this URI would be, even if it\u0027s not present.  You probably want something like\n\n\nconst auto it \u003d std::equals_range(....);\nif (it.first \u003d\u003d it.second){\n    return false;\n}\n\nas-written, your check will only return if the found URI is greater.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 35
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
