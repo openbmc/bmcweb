@@ -3976,6 +3976,10 @@
         <edmx:Include Namespace="OemServiceRoot"/>
         <edmx:Include Namespace="OemServiceRoot.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemPCIeDevice_v1.xml">
+        <edmx:Include Namespace="OemPCIeDevice"/>
+        <edmx:Include Namespace="OemPCIeDevice.v1_0_0"/>
+    </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Service">
             <EntityContainer Name="Service" Extends="ServiceRoot.v1_0_0.ServiceContainer"/>

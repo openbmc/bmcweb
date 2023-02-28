@@ -137,5 +137,6 @@ namespace redfish
         "OemPCIeSlots",
         "OemFabricAdapter",
         "OemServiceRoot",
+        "OemPCIeDevice",
     };
 }
