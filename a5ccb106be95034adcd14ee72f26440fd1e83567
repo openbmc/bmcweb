@@ -142,6 +142,30 @@
       },
       "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "850fd45f_20ca1e5f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-02-28T15:04:36Z",
+      "side": 1,
+      "message": "Change in phosphor-dbus-interfaces is merged.",
+      "parentUuid": "6e1af730_6a215f16",
+      "range": {
+        "startLine": 618,
+        "startChar": 60,
+        "endLine": 618,
+        "endChar": 69
+      },
+      "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
