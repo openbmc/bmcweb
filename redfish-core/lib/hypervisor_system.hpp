@@ -804,13 +804,8 @@ inline void handleHypervisorEthernetInterfaceGet(
 }
 
 inline void handleHypervisorSystemGet(
-    App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor",
@@ -958,13 +953,8 @@ inline void handleHypervisorEthernetInterfacePatch(
 }
 
 inline void handleHypervisorResetActionGet(
-    App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
     // Only return action info if hypervisor D-Bus object present
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.State.Host"};
@@ -1085,15 +1075,6 @@ inline void handleHypervisorSystemResetPost(
 inline void requestRoutesHypervisorSystems(App& app)
 {
     /**
-     * Hypervisor Systems derived class for delivering Computer Systems Schema.
-     */
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
-        .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleHypervisorSystemGet, std::ref(app)));
-
-    /**
      * HypervisorInterfaceCollection class to handle the GET and PATCH on
      * Hypervisor Interface
      */
@@ -1114,11 +1095,6 @@ inline void requestRoutesHypervisorSystems(App& app)
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(std::bind_front(
             handleHypervisorEthernetInterfacePatch, std::ref(app)));
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleHypervisorResetActionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
