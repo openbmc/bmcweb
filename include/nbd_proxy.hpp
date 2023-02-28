@@ -289,7 +289,7 @@ inline void
         }
 
         if ((endpointValue != nullptr) && (socketValue != nullptr) &&
-            *endpointValue == conn.req.target())
+            *endpointValue == conn.url().path())
         {
             endpointObjectPath = &objectPath.str;
             break;
@@ -305,7 +305,7 @@ inline void
 
     for (const auto& session : sessions)
     {
-        if (session.second->getEndpointId() == conn.req.target())
+        if (session.second->getEndpointId() == conn.url().path())
         {
             BMCWEB_LOG_ERROR("Cannot open new connection - socket is in use");
             conn.close("Slot is in use");
