@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5378166d_fe90a55b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2945,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T16:48:40Z",
+      "side": 0,
+      "message": "Please just add another conditional here, and check for another ID on hypervisor.\n\nWe moved to wildcards for a reason, that can be seen in the commit logs;  I\u0027d prefer not to backtrack.",
+      "range": {
+        "startLine": 2945,
+        "startChar": 0,
+        "endLine": 2945,
+        "endChar": 35
+      },
+      "revId": "b9d679d1ce64141342e8a845533ce6af9901aae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
