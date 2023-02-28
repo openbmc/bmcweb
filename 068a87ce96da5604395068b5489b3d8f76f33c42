@@ -22,6 +22,30 @@
       },
       "revId": "068a87ce96da5604395068b5489b3d8f76f33c42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69cea746_2409c91a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-02-28T18:33:04Z",
+      "side": 1,
+      "message": "We effectively make two ConnectionPool objects now since the key for the ConnectPool map is now \"destIP:destPort:RequestSource\" instead of just \"IP:PORT\".",
+      "parentUuid": "e1962353_c9180c8d",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 2
+      },
+      "revId": "068a87ce96da5604395068b5489b3d8f76f33c42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
