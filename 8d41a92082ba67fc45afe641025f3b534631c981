@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006301e7_0ab5be2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-02-28T19:19:20Z",
+      "side": 1,
+      "message": "But the limit according to the API 6, can you explain more about how we will display to the user what the actual limit is ?\nhttps://github.com/openbmc/bmcweb/blob/77665bdac1063ae547890a983daeab7f4320457d/test/redfish-core/lib/service_root_test.cpp#L94\nhttps://github.com/openbmc/bmcweb/blob/6c068982d54d20476fd04ae7ef893b153015762e/redfish-core/lib/service_root.hpp#L95",
+      "revId": "8d41a92082ba67fc45afe641025f3b534631c981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
