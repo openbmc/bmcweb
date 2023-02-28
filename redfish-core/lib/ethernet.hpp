@@ -27,11 +27,11 @@
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/container/flat_set.hpp>
 
 #include <array>
 #include <optional>
 #include <regex>
+#include <vector>
 #include <string_view>
 
 namespace redfish
@@ -56,11 +56,6 @@ struct IPv4AddressData
     std::string origin;
     LinkType linktype;
     bool isActive;
-
-    bool operator<(const IPv4AddressData& obj) const
-    {
-        return id < obj.id;
-    }
 };
 
 /**
@@ -72,11 +67,6 @@ struct IPv6AddressData
     std::string address;
     std::string origin;
     uint8_t prefixLength;
-
-    bool operator<(const IPv6AddressData& obj) const
-    {
-        return id < obj.id;
-    }
 };
 /**
  * Structure for keeping basic single Ethernet Interface information
@@ -424,10 +414,9 @@ inline bool extractEthernetInterfaceData(
 }
 
 // Helper function that extracts data for single ethernet ipv6 address
-inline void
-    extractIPV6Data(const std::string& ethifaceId,
-                    const dbus::utility::ManagedObjectType& dbusData,
-                    boost::container::flat_set<IPv6AddressData>& ipv6Config)
+inline void extractIPV6Data(const std::string& ethifaceId,
+                            const dbus::utility::ManagedObjectType& dbusData,
+                            std::vector<IPv6AddressData>& ipv6Config)
 {
     const std::string ipPathStart =
         "/xyz/openbmc_project/network/" + ethifaceId;
@@ -465,11 +454,7 @@ inline void
 
                     // Instance IPv6AddressData structure, and set as
                     // appropriate
-                    std::pair<
-                        boost::container::flat_set<IPv6AddressData>::iterator,
-                        bool>
-                        it = ipv6Config.insert(IPv6AddressData{});
-                    IPv6AddressData& ipv6Address = *it.first;
+                    IPv6AddressData& ipv6Address = ipv6Config.emplace_back();
                     ipv6Address.id =
                         objpath.first.str.substr(ipPathStart.size());
                     for (const auto& property : interface.second)
@@ -522,10 +507,9 @@ inline void
 }
 
 // Helper function that extracts data for single ethernet ipv4 address
-inline void
-    extractIPData(const std::string& ethifaceId,
-                  const dbus::utility::ManagedObjectType& dbusData,
-                  boost::container::flat_set<IPv4AddressData>& ipv4Config)
+inline void extractIPData(const std::string& ethifaceId,
+                          const dbus::utility::ManagedObjectType& dbusData,
+                          std::vector<IPv4AddressData>& ipv4Config)
 {
     const std::string ipPathStart =
         "/xyz/openbmc_project/network/" + ethifaceId;
@@ -563,11 +547,7 @@ inline void
 
                     // Instance IPv4AddressData structure, and set as
                     // appropriate
-                    std::pair<
-                        boost::container::flat_set<IPv4AddressData>::iterator,
-                        bool>
-                        it = ipv4Config.insert(IPv4AddressData{});
-                    IPv4AddressData& ipv4Address = *it.first;
+                    IPv4AddressData& ipv4Address = ipv4Config.emplace_back();
                     ipv4Address.id =
                         objpath.first.str.substr(ipPathStart.size());
                     for (const auto& property : interface.second)
@@ -864,8 +844,8 @@ void getEthernetIfaceData(const std::string& ethifaceId,
             const boost::system::error_code& errorCode,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
-        boost::container::flat_set<IPv4AddressData> ipv4Data;
-        boost::container::flat_set<IPv6AddressData> ipv6Data;
+        std::vector<IPv4AddressData> ipv4Data;
+        std::vector<IPv6AddressData> ipv6Data;
 
         if (errorCode)
         {
@@ -915,7 +895,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
             dbus::utility::ManagedObjectType& resp) {
         // Callback requires vector<string> to retrieve all available
         // ethernet interfaces
-        boost::container::flat_set<std::string> ifaceList;
+        std::vector<std::string> ifaceList;
         ifaceList.reserve(resp.size());
         if (errorCode)
         {
@@ -941,7 +921,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                         continue;
                     }
                     // and put it into output vector.
-                    ifaceList.emplace(ifaceId);
+                    ifaceList.emplace_back(ifaceId);
                 }
             }
         }
@@ -1282,30 +1262,28 @@ inline void handleDHCPPatch(const std::string& ifaceId,
     setDHCPv4Config("HostNameEnabled", nextUseDomain, asyncResp);
 }
 
-inline boost::container::flat_set<IPv4AddressData>::const_iterator
-    getNextStaticIpEntry(
-        const boost::container::flat_set<IPv4AddressData>::const_iterator& head,
-        const boost::container::flat_set<IPv4AddressData>::const_iterator& end)
+inline std::vector<IPv4AddressData>::const_iterator getNextStaticIpEntry(
+    const std::vector<IPv4AddressData>::const_iterator& head,
+    const std::vector<IPv4AddressData>::const_iterator& end)
 {
     return std::find_if(head, end, [](const IPv4AddressData& value) {
         return value.origin == "Static";
     });
 }
 
-inline boost::container::flat_set<IPv6AddressData>::const_iterator
-    getNextStaticIpEntry(
-        const boost::container::flat_set<IPv6AddressData>::const_iterator& head,
-        const boost::container::flat_set<IPv6AddressData>::const_iterator& end)
+inline std::vector<IPv6AddressData>::const_iterator getNextStaticIpEntry(
+    const std::vector<IPv6AddressData>::const_iterator& head,
+    const std::vector<IPv6AddressData>::const_iterator& end)
 {
     return std::find_if(head, end, [](const IPv6AddressData& value) {
         return value.origin == "Static";
     });
 }
 
-inline void handleIPv4StaticPatch(
-    const std::string& ifaceId, nlohmann::json& input,
-    const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleIPv4StaticPatch(const std::string& ifaceId, nlohmann::json& input,
+                          const std::vector<IPv4AddressData>& ipv4Data,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if ((!input.is_array()) || input.empty())
     {
@@ -1321,7 +1299,7 @@ inline void handleIPv4StaticPatch(
     // match it to the first JSON element in the IPv4StaticAddresses array.
     // Match each subsequent JSON element to the next static IP programmed
     // into the NIC.
-    boost::container::flat_set<IPv4AddressData>::const_iterator nicIpEntry =
+    std::vector<IPv4AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     for (nlohmann::json& thisJson : input)
@@ -1507,7 +1485,7 @@ inline void handleStaticNameServersPatch(
 
 inline void handleIPv6StaticAddressesPatch(
     const std::string& ifaceId, const nlohmann::json& input,
-    const boost::container::flat_set<IPv6AddressData>& ipv6Data,
+    const std::vector<IPv6AddressData>& ipv6Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!input.is_array() || input.empty())
@@ -1519,7 +1497,7 @@ inline void handleIPv6StaticAddressesPatch(
         return;
     }
     size_t entryIdx = 1;
-    boost::container::flat_set<IPv6AddressData>::const_iterator nicIpEntry =
+    std::vector<IPv6AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
     for (const nlohmann::json& thisJson : input)
     {
@@ -1626,11 +1604,12 @@ inline void handleIPv6StaticAddressesPatch(
     }
 }
 
-inline void parseInterfaceData(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& ifaceId, const EthernetInterfaceData& ethData,
-    const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-    const boost::container::flat_set<IPv6AddressData>& ipv6Data)
+inline void
+    parseInterfaceData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& ifaceId,
+                       const EthernetInterfaceData& ethData,
+                       const std::vector<IPv4AddressData>& ipv4Data,
+                       const std::vector<IPv6AddressData>& ipv6Data)
 {
     constexpr std::array<std::string_view, 1> inventoryForEthernet = {
         "xyz.openbmc_project.Inventory.Item.Ethernet"};
@@ -1793,9 +1772,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
-            [asyncResp](
-                const bool& success,
-                const boost::container::flat_set<std::string>& ifaceList) {
+            [asyncResp](const bool& success,
+                        const std::vector<std::string>& ifaceList) {
             if (!success)
             {
                 messages::internalError(asyncResp->res);
@@ -1836,10 +1814,10 @@ inline void requestEthernetInterfacesRoutes(App& app)
         }
         getEthernetIfaceData(
             ifaceId,
-            [asyncResp, ifaceId](
-                const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-                const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
+            [asyncResp, ifaceId](const bool& success,
+                                 const EthernetInterfaceData& ethData,
+                                 const std::vector<IPv4AddressData>& ipv4Data,
+                                 const std::vector<IPv6AddressData>& ipv6Data) {
             if (!success)
             {
                 // TODO(Pawel)consider distinguish between non
@@ -1934,8 +1912,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
              v4dhcpParms = std::move(v4dhcpParms),
              v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
                 const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>& ipv4Data,
-                const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
+                const std::vector<IPv4AddressData>& ipv4Data,
+                const std::vector<IPv6AddressData>& ipv6Data) {
             if (!success)
             {
                 // ... otherwise return error
@@ -2035,12 +2013,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
         // Get single eth interface data, and call the below callback
         // for JSON preparation
-        getEthernetIfaceData(
-            ifaceId,
-            [asyncResp, parentIfaceId,
-             ifaceId](const bool& success, const EthernetInterfaceData& ethData,
-                      const boost::container::flat_set<IPv4AddressData>&,
-                      const boost::container::flat_set<IPv6AddressData>&) {
+        getEthernetIfaceData(ifaceId, [asyncResp, parentIfaceId, ifaceId](
+                                          const bool& success,
+                                          const EthernetInterfaceData& ethData,
+                                          const std::vector<IPv4AddressData>&,
+                                          const std::vector<IPv6AddressData>&) {
             if (success && ethData.vlanId)
             {
                 asyncResp->res.jsonValue["Id"] = ifaceId;
@@ -2060,7 +2037,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 messages::resourceNotFound(asyncResp->res,
                                            "VLanNetworkInterface", ifaceId);
             }
-            });
+        });
         });
 
     BMCWEB_ROUTE(
@@ -2099,12 +2076,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
         // Get single eth interface data, and call the below callback
         // for JSON preparation
-        getEthernetIfaceData(
-            ifaceId,
-            [asyncResp, parentIfaceId, ifaceId, vlanEnable](
-                const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>&,
-                const boost::container::flat_set<IPv6AddressData>&) {
+        getEthernetIfaceData(ifaceId,
+                             [asyncResp, parentIfaceId, ifaceId,
+                              vlanEnable](const bool& success,
+                                          const EthernetInterfaceData& ethData,
+                                          const std::vector<IPv4AddressData>&,
+                                          const std::vector<IPv6AddressData>&) {
             if (success && ethData.vlanId)
             {
                 if (vlanEnable)
@@ -2133,7 +2110,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                            "VLanNetworkInterface", ifaceId);
                 return;
             }
-            });
+        });
         });
 
     BMCWEB_ROUTE(
@@ -2157,12 +2134,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
         // Get single eth interface data, and call the below callback
         // for JSON preparation
-        getEthernetIfaceData(
-            ifaceId,
-            [asyncResp, parentIfaceId,
-             ifaceId](const bool& success, const EthernetInterfaceData& ethData,
-                      const boost::container::flat_set<IPv4AddressData>&,
-                      const boost::container::flat_set<IPv6AddressData>&) {
+        getEthernetIfaceData(ifaceId, [asyncResp, parentIfaceId, ifaceId](
+                                          const bool& success,
+                                          const EthernetInterfaceData& ethData,
+                                          const std::vector<IPv4AddressData>&,
+                                          const std::vector<IPv6AddressData>&) {
             if (success && ethData.vlanId)
             {
                 auto callback =
@@ -2185,7 +2161,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 messages::resourceNotFound(asyncResp->res,
                                            "VLanNetworkInterface", ifaceId);
             }
-            });
+        });
         });
 
     BMCWEB_ROUTE(app,
@@ -2202,17 +2178,16 @@ inline void requestEthernetInterfacesRoutes(App& app)
         }
         // Get eth interface list, and call the below callback for JSON
         // preparation
-        getEthernetIfaceList(
-            [asyncResp, rootInterfaceName](
-                const bool& success,
-                const boost::container::flat_set<std::string>& ifaceList) {
+        getEthernetIfaceList([asyncResp, rootInterfaceName](
+                                 const bool& success,
+                                 const std::vector<std::string>& ifaceList) {
             if (!success)
             {
                 messages::internalError(asyncResp->res);
                 return;
             }
-
-            if (ifaceList.find(rootInterfaceName) == ifaceList.end())
+            if (std::find(ifaceList.begin(), ifaceList.end(),
+                          rootInterfaceName) == ifaceList.end())
             {
                 messages::resourceNotFound(asyncResp->res,
                                            "VLanNetworkInterfaceCollection",
