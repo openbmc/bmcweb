@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c720b744_de98b1c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T16:53:31Z",
+      "side": 1,
+      "message": "Pooling connections between EventService and Aggregation?  That makes no sense.  To clarify, we should keep the connection pooling, but each thing should have its own pool.\n\n\u003e Longer term I don\u0027t like adding new arguments to the APIs since that makes them look even more unwieldy. That might just be something that\u0027s unavoidable.\n\nThe \"fix\" for this is generally to put everything into a struct, then pass the struct.  Something to consider.",
+      "parentUuid": "bde1f116_36d3cbd8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56b822c2_dc48aafb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -181,6 +205,30 @@
       "side": 1,
       "message": "Does it matter that we need to perform aggregation steps like prefix fixing on the response as well as adding satellite only links to Members arrays? \n (This third type will also be needed https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556).\n \n We could probably get by on operating on individual json objects instead of an entire json response.  I don\u0027t know if streaming itself supports that.  Would we need some sort of intermediary where we stream to the aggregation handler and the handler buffers just enough to perform operations before streaming it on to the client?\n\nI think the short term answer is creating a separate connection pool for aggregation and having its limit be effectively infinite.",
       "parentUuid": "cdada2b1_0d76a71c",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "ad151de4cbfee63b4dd2c9c73583aa6d48c5e477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fccb605_58664985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T16:53:31Z",
+      "side": 1,
+      "message": "\u003e Does it matter that we need to perform aggregation steps like prefix fixing on the response as well as adding satellite only links to Members arrays? \n\nWe will still need to do that, we\u0027d just do it on the streaming response rather than in a single batch.\n\n\u003e  (This third type will also be needed https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556).\n\u003e  \n\u003e  We could probably get by on operating on individual json objects instead of an entire json response.  I don\u0027t know if streaming itself supports that.\n\nNeeds looked into if nlohmann supports it.  I know boost::json does, but that would be a pretty invasive change.  Alternatively, maybe aggregation uses boost::json, and core uses nlohmann.  IDK, something to consider.\n\n\u003e  Would we need some sort of intermediary where we stream to the aggregation handler and the handler buffers just enough to perform operations before streaming it on to the client?\n\nprecisely.  This is also roughly how the websocket stuff works.\n\n\u003e \n\u003e I think the short term answer is creating a separate connection pool for aggregation and having its limit be effectively infinite.\n\nAgreed.",
+      "parentUuid": "0c0073bb_a16d6a04",
       "range": {
         "startLine": 13,
         "startChar": 0,
