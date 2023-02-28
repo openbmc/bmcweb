@@ -27,7 +27,7 @@ enum class MessageType
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& reqIn) : req(reqIn.req) {}
+    Connection() = default;
 
     Connection(const Connection&) = delete;
     Connection(Connection&&) = delete;
@@ -46,7 +46,6 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
     virtual boost::urls::url_view url() = 0;
-    boost::beast::http::request<boost::beast::http::string_body> req;
 };
 
 template <typename Adaptor>
@@ -54,7 +53,9 @@ class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& reqIn, boost::urls::url_view urlViewIn,
+        const crow::Request& reqIn, const boost::urls::url_view& urlViewIn,
+        std::string_view protocolHeaderIn,
+        const std::shared_ptr<persistent_data::UserSession>& sessionIn,
         Adaptor adaptorIn, std::function<void(Connection&)> openHandlerIn,
         std::function<void(Connection&, const std::string&, bool)>
             messageHandlerIn,
@@ -64,13 +65,14 @@ class ConnectionImpl : public Connection
             messageExHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
         std::function<void(Connection&)> errorHandlerIn) :
-        Connection(reqIn),
-        uri(urlViewIn), ws(std::move(adaptorIn)), inBuffer(inString, 131088),
+        uri(urlViewIn),
+        ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
         messageExHandler(std::move(messageExHandlerIn)),
         closeHandler(std::move(closeHandlerIn)),
-        errorHandler(std::move(errorHandlerIn)), session(reqIn.session)
+        errorHandler(std::move(errorHandlerIn)), req(reqIn.req),
+        session(sessionIn), protocolHeader(protocolHeaderIn)
     {
         /* Turn on the timeouts on websocket stream to server role */
         ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(
@@ -90,10 +92,8 @@ class ConnectionImpl : public Connection
 
         using bf = boost::beast::http::field;
 
-        std::string_view protocol = req[bf::sec_websocket_protocol];
-
         ws.set_option(boost::beast::websocket::stream_base::decorator(
-            [session{session}, protocol{std::string(protocol)}](
+            [session{session}, protocolHeader{this->protocolHeader}](
                 boost::beast::websocket::response_type& m) {
 
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
@@ -101,7 +101,7 @@ class ConnectionImpl : public Connection
             {
                 // use protocol for csrf checking
                 if (!crow::utility::constantTimeStringCompare(
-                        protocol, session->csrfToken))
+                        protocolHeader, session->csrfToken))
                 {
                     BMCWEB_LOG_ERROR << "Websocket CSRF error";
                     m.result(boost::beast::http::status::unauthorized);
@@ -109,9 +109,9 @@ class ConnectionImpl : public Connection
                 }
             }
 #endif
-            if (!protocol.empty())
+            if (!protocolHeader.empty())
             {
-                m.insert(bf::sec_websocket_protocol, protocol);
+                m.insert(bf::sec_websocket_protocol, protocolHeader);
             }
 
             m.insert(bf::strict_transport_security, "max-age=31536000; "
@@ -365,9 +365,12 @@ class ConnectionImpl : public Connection
         messageExHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;
+
+    boost::beast::http::request<boost::beast::http::string_body> req;
     std::shared_ptr<persistent_data::UserSession> session;
 
     std::shared_ptr<Connection> selfOwned;
+    std::string protocolHeader;
 };
 } // namespace websocket
 } // namespace crow
