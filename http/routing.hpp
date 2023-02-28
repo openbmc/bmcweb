@@ -353,7 +353,8 @@ class WebSocketRule : public BaseRule
             crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
             myConnection = std::make_shared<
                 crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
-                req, std::move(adaptor), openHandler, messageHandler,
+                req.req[boost::beast::http::field::sec_websocket_protocol],
+                req.session, std::move(adaptor), openHandler, messageHandler,
                 messageExHandler, closeHandler, errorHandler);
         myConnection->start();
     }
@@ -367,7 +368,8 @@ class WebSocketRule : public BaseRule
             boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
             myConnection = std::make_shared<crow::websocket::ConnectionImpl<
                 boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
-                req, std::move(adaptor), openHandler, messageHandler,
+                req.req[boost::beast::http::field::sec_websocket_protocol],
+                req.session, std::move(adaptor), openHandler, messageHandler,
                 messageExHandler, closeHandler, errorHandler);
         myConnection->start();
     }
