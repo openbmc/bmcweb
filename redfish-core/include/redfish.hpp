@@ -223,7 +223,7 @@ class RedfishService
         requestRoutesFabricAdapterCollection(app);
         requestRoutesSubmitTestEvent(app);
 
-        hypervisor::requestRoutesHypervisorSystems(app);
+        requestRoutesHypervisorSystems(app);
 
         requestRoutesTelemetryService(app);
         requestRoutesMetricReportDefinitionCollection(app);

@@ -23,7 +23,7 @@
 // normal ethernet internfaces in ethernet.hpp.  For the moment, we'll put
 // hypervisor in a namespace to isolate it, but these methods eventually need
 // deduplicated
-namespace redfish::hypervisor
+namespace redfish
 {
 
 /**
@@ -677,9 +677,9 @@ inline void handleHypervisorIPv4StaticPatch(
     }
 }
 
-inline void
-    handleHostnamePatch(const std::string& hostName,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleHypervisorHostnamePatch(
+    const std::string& hostName,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!isHostnameValid(hostName))
     {
@@ -967,7 +967,7 @@ inline void requestRoutesHypervisorSystems(App& app)
 
             if (hostName)
             {
-                handleHostnamePatch(*hostName, asyncResp);
+                handleHypervisorHostnamePatch(*hostName, asyncResp);
             }
 
             if (dhcpv4)
@@ -1112,4 +1112,4 @@ inline void requestRoutesHypervisorSystems(App& app)
             dbus::utility::DbusVariantType{std::move(command)});
         });
 }
-} // namespace redfish::hypervisor
+} // namespace redfish
