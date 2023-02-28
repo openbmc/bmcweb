@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fc7b9b6_0550e0ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-02-28T00:26:32Z",
+      "side": 1,
+      "message": "\u003e  is using blocking call \n\nSo don\u0027t use a blocking call in the dbus handling thread?  That\u0027s a well trodden pattern in openbmc to use async calls, or spin long calls into their own thread.",
+      "parentUuid": "e3123eab_2b45184d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
