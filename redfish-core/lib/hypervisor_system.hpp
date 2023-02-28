@@ -1084,15 +1084,6 @@ inline void handleHypervisorSystemResetPost(
 inline void requestRoutesHypervisorSystems(App& app)
 {
     /**
-     * Hypervisor Systems derived class for delivering Computer Systems Schema.
-     */
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
-        .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleHypervisorSystemGet, std::ref(app)));
-
-    /**
      * HypervisorInterfaceCollection class to handle the GET and PATCH on
      * Hypervisor Interface
      */
@@ -1113,11 +1104,6 @@ inline void requestRoutesHypervisorSystems(App& app)
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(std::bind_front(
             handleHypervisorEthernetInterfacePatch, std::ref(app)));
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleHypervisorResetActionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
