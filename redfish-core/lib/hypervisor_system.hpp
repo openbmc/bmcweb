@@ -10,7 +10,6 @@
 #include "utils/ip_utils.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/container/flat_set.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 
@@ -151,8 +150,7 @@ inline void
 inline bool extractHypervisorInterfaceData(
     const std::string& ethIfaceId,
     const dbus::utility::ManagedObjectType& dbusData,
-    EthernetInterfaceData& ethData,
-    boost::container::flat_set<IPv4AddressData>& ipv4Config)
+    EthernetInterfaceData& ethData, std::vector<IPv4AddressData>& ipv4Config)
 {
     bool idFound = false;
     for (const auto& objpath : dbusData)
@@ -201,10 +199,7 @@ inline bool extractHypervisorInterfaceData(
             if (objpath.first == "/xyz/openbmc_project/network/hypervisor/" +
                                      ethIfaceId + "/ipv4/addr0")
             {
-                std::pair<boost::container::flat_set<IPv4AddressData>::iterator,
-                          bool>
-                    it = ipv4Config.insert(IPv4AddressData{});
-                IPv4AddressData& ipv4Address = *it.first;
+                IPv4AddressData& ipv4Address = ipv4Config.emplace_back();
                 if (ifacePair.first == "xyz.openbmc_project.Object.Enable")
                 {
                     for (const auto& property : ifacePair.second)
@@ -321,7 +316,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
             const boost::system::error_code& error,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
-        boost::container::flat_set<IPv4AddressData> ipv4Data;
+        std::vector<IPv4AddressData> ipv4Data;
         if (error)
         {
             callback(false, ethData, ipv4Data);
@@ -477,10 +472,10 @@ inline void
     setHypervisorIPv4Subnet(asyncResp, ifaceId, prefixLength);
 }
 
-inline void parseInterfaceData(
-    nlohmann::json& jsonResponse, const std::string& ifaceId,
-    const EthernetInterfaceData& ethData,
-    const boost::container::flat_set<IPv4AddressData>& ipv4Data)
+inline void parseInterfaceData(nlohmann::json& jsonResponse,
+                               const std::string& ifaceId,
+                               const EthernetInterfaceData& ethData,
+                               const std::vector<IPv4AddressData>& ipv4Data)
 {
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] = boost::urls::format(
@@ -515,8 +510,7 @@ inline void parseInterfaceData(
     }
 }
 
-inline void setDHCPEnabled(const std::string& ifaceId,
-                           const bool& ipv4DHCPEnabled,
+inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
@@ -699,7 +693,7 @@ inline void handleHypervisorHostnamePatch(
 }
 
 inline void
-    setIPv4InterfaceEnabled(const std::string& ifaceId, const bool& isActive,
+    setIPv4InterfaceEnabled(const std::string& ifaceId, bool isActive,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
@@ -779,8 +773,8 @@ inline void handleHypervisorEthernetInterfaceGet(
     }
     getHypervisorIfaceData(
         id, [asyncResp, ifaceId{std::string(id)}](
-                const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>& ipv4Data) {
+                bool success, const EthernetInterfaceData& ethData,
+                const std::vector<IPv4AddressData>& ipv4Data) {
             if (!success)
             {
                 messages::resourceNotFound(asyncResp->res, "EthernetInterface",
@@ -876,9 +870,9 @@ inline void handleHypervisorEthernetInterfacePatch(
         ifaceId,
         [asyncResp, ifaceId, hostName = std::move(hostName),
          ipv4StaticAddresses = std::move(ipv4StaticAddresses), ipv4DHCPEnabled,
-         dhcpv4 = std::move(dhcpv4)](
-            const bool& success, const EthernetInterfaceData& ethData,
-            const boost::container::flat_set<IPv4AddressData>&) {
+         dhcpv4 = std::move(dhcpv4)](bool success,
+                                     const EthernetInterfaceData& ethData,
+                                     const std::vector<IPv4AddressData>&) {
         if (!success)
         {
             messages::resourceNotFound(asyncResp->res, "EthernetInterface",
