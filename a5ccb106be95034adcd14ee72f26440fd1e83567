@@ -118,6 +118,30 @@
       },
       "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e1af730_6a215f16",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-02-28T12:40:27Z",
+      "side": 1,
+      "message": "Since it will be a big moment when this change is merged I wanted to be extra sure that everything works fine. So I was rebasing other patches in chain and testing if everything piece by piece and as a whole.\n\nI will whitespaces in phosphor dbus interfaces and it will be ready to go.",
+      "parentUuid": "2e529f88_0506683d",
+      "range": {
+        "startLine": 618,
+        "startChar": 60,
+        "endLine": 618,
+        "endChar": 69
+      },
+      "revId": "a5ccb106be95034adcd14ee72f26440fd1e83567",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
