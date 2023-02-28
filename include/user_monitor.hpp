@@ -9,7 +9,7 @@
 namespace bmcweb
 {
 
-inline void onUserRemoved(sdbusplus::message::message& msg)
+inline void onUserRemoved(sdbusplus::message_t& msg)
 {
     sdbusplus::message::object_path p;
     msg.read(p);
