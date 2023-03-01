@@ -37,6 +37,7 @@
 #include "oem/ibm/lamp_test.hpp"
 #include "oem/ibm/system_attention_indicator.hpp"
 #endif
+#include "oem/ibm/pcie_topology_refresh.hpp"
 
 #include <boost/asio/error.hpp>
 #include <boost/container/flat_map.hpp>
@@ -3588,10 +3589,14 @@ inline void handleComputerSystemPatch(
             std::optional<bool> lampTest;
             std::optional<bool> partitionSAI;
             std::optional<bool> platformSAI;
+            std::optional<bool> pcieTopologyRefresh;
+            std::optional<bool> savePCIeTopologyInfo;
             if (!json_util::readJson(
                     *ibmOem, asyncResp->res, "LampTest", lampTest,
                     "PartitionSystemAttentionIndicator", partitionSAI,
-                    "PlatformSystemAttentionIndicator", platformSAI))
+                    "PlatformSystemAttentionIndicator", platformSAI,
+                    "PCIeTopologyRefresh", pcieTopologyRefresh,
+                    "SavePCIeTopologyInfo", savePCIeTopologyInfo))
             {
                 return;
             }
@@ -3609,7 +3614,25 @@ inline void handleComputerSystemPatch(
                 setSAI(asyncResp, "PlatformSystemAttentionIndicator",
                        *platformSAI);
             }
+#else
+            std::optional<bool> pcieTopologyRefresh;
+            std::optional<bool> savePCIeTopologyInfo;
+            if (!json_util::readJson(*ibmOem, asyncResp->res,
+                                     "PCIeTopologyRefresh", pcieTopologyRefresh,
+                                     "SavePCIeTopologyInfo",
+                                     savePCIeTopologyInfo))
+            {
+                return;
+            }
 #endif
+            if (pcieTopologyRefresh)
+            {
+                setPCIeTopologyRefresh(req, asyncResp, *pcieTopologyRefresh);
+            }
+            if (savePCIeTopologyInfo)
+            {
+                setSavePCIeTopologyInfo(asyncResp, *savePCIeTopologyInfo);
+            }
         }
     }
 

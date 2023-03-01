@@ -15,7 +15,7 @@
 
 namespace redfish
 {
-    constexpr std::array<std::string_view,277> schemas {
+    constexpr std::array<std::string_view,279> schemas {
         "AccelerationFunction",
         "AccelerationFunctionCollection",
         "AccountService",
