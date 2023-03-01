@@ -46,6 +46,30 @@
       },
       "revId": "877ea568b69d014da639256e6d75667dd4ef9ff1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed505a4f_03461c1d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-01T23:12:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dc0ef0c_12caf0aa",
+      "range": {
+        "startLine": 54,
+        "startChar": 35,
+        "endLine": 54,
+        "endChar": 40
+      },
+      "revId": "877ea568b69d014da639256e6d75667dd4ef9ff1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

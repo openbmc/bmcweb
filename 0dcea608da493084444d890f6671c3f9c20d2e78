@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a49d7b_e48e79eb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-01T23:12:33Z",
+      "side": 1,
+      "message": "I added test cases to confirm that inputs like \"/redfish/v11\" are not accepted as valid URIs.",
+      "parentUuid": "25dd85f6_4dc1800a",
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94e61000_b5eef00e",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "I don\u0027t think there\u0027s a good way to strip segments at the front of a segments_ref object.  The add and remove apis are like the ones for std::vector.  I\u0027ll use your suggestions to strip them from the initial string passed to the constructor and check on what you suggested in the link.",
       "parentUuid": "94e61000_b5eef00e",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7300ac61_3b95cbab",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-01T23:12:33Z",
+      "side": 1,
+      "message": "I made the switch",
+      "parentUuid": "c97a4a23_a5ca120a",
       "range": {
         "startLine": 64,
         "startChar": 35,
@@ -190,6 +232,30 @@
       "side": 1,
       "message": "No that\u0027s doing what I expect it to do.  std::lower_bound points to the element in the array such that element \u003c target.\n\nThis initial check is just to catch the edge case where the target URI would alphabetically come before the first entry in the array. In that instance it points to the end of the array rather than an actual position. \n\nI\u0027ll add some comments to make it clearer.",
       "parentUuid": "09f0a07a_7e3a8adb",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 35
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f7a6497_9f342a03",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-01T23:12:33Z",
+      "side": 1,
+      "message": "Sorry, I meant to say this catches when the target URI is alphabetically AFTER the LAST entry in the array.\n\nI\u0027ve added a comment to clear it up.",
+      "parentUuid": "66c0f83e_67e1c695",
       "range": {
         "startLine": 86,
         "startChar": 0,
