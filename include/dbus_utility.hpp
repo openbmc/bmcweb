@@ -206,5 +206,20 @@ inline void getAssociationEndPoints(
         "xyz.openbmc_project.Association", "endpoints", std::move(callback));
 }
 
+inline void
+    getManagedObjects(const std::string& service,
+                      const sdbusplus::message::object_path& path,
+                      std::function<void(const boost::system::error_code&,
+                                         const ManagedObjectType&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code& ec,
+                                        const ManagedObjectType& objects) {
+        callback(ec, objects);
+        },
+        service, path, "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
+}
+
 } // namespace utility
 } // namespace dbus
