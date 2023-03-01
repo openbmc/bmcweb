@@ -65,8 +65,59 @@ inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
         return pcie_slots::SlotTypes::U2;
     }
 
-    // Unknown or others
-    return pcie_slots::SlotTypes::Invalid;
+    // Unspecified slotType needs return an internal error.
+    return std::nullopt;
+}
+
+
+inline void
+    linkAssociatedProcessor(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& pcieSlotPath, size_t index)
+{
+    dbus::utility::getAssociationEndPoints(
+        pcieSlotPath + "/upstream_processor",
+        [asyncResp, pcieSlotPath,
+         index](const boost::system::error_code& ec,
+                const dbus::utility::MapperEndPoints& endpoints) {
+        if (ec)
+        {
+            if (ec.value() == EBADR)
+            {
+                // This PCIeSlot have no processor association.
+                BMCWEB_LOG_DEBUG << "No processor association found";
+                return;
+            }
+            BMCWEB_LOG_ERROR << "DBUS response error" << ec.message();
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (endpoints.empty())
+        {
+            BMCWEB_LOG_DEBUG << "No association found for processor";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::string cpuName =
+            sdbusplus::message::object_path(endpoints[0]).filename();
+        std::string dcmName =
+            (sdbusplus::message::object_path(endpoints[0]).parent_path())
+                .filename();
+
+        std::string processorName = dcmName + '-' + cpuName;
+
+        nlohmann::json& processorArray =
+            asyncResp->res.jsonValue["Slots"][index]["Links"]["Processors"];
+        processorArray = nlohmann::json::array();
+
+        processorArray.push_back(
+            {{"@odata.id",
+              "/redfish/v1/Systems/system/Processors/" + processorName}});
+        asyncResp->res
+            .jsonValue["Slots"][index]["Links"]["Processors@odata.count"] =
+            processorArray.size();
+        });
 }
 
 inline void
@@ -145,6 +196,9 @@ inline void
     }
 
     slots.emplace_back(std::move(slot));
+
+    // Get processor link
+    linkAssociatedProcessor(asyncResp, pcieSlotPath, index);
 }
 
 inline void onMapperAssociationDone(
@@ -220,7 +274,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get properties for PCIeSlots associated to chassis = "
                      << chassisID;
 
-    asyncResp->res.jsonValue["@odata.type"] = "#PCIeSlots.v1_4_1.PCIeSlots";
+    asyncResp->res.jsonValue["@odata.type"] = "#PCIeSlots.v1_5_0.PCIeSlots";
     asyncResp->res.jsonValue["Name"] = "PCIe Slot Information";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Chassis", chassisID, "PCIeSlots");
