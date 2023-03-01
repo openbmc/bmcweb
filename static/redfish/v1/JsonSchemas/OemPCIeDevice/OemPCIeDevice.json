@@ -58,6 +58,12 @@
                     "longDescription": "A true value resets the PCIe Link.",
                     "readonly": false,
                     "type": "boolean"
+                },
+                "PCIeSlot": {
+                    "description": "PCIe Slot Link",
+                    "longDescription": "Represent PCIe Slot Link which has all PCIe device list.",
+                    "readonly": true,
+                    "type": "object"
                 }
             },
             "type": "object"

@@ -201,6 +201,37 @@ inline void fillPcieDeviceStatus(crow::Response& resp,
     }
 }
 
+inline void
+    addLinkToPCIeSlot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const boost::system::error_code& ec,
+                      const dbus::utility::MapperEndPoints& chassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            // This PCIeSlot has no chassis association.
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (chassisPaths.size() != 1)
+    {
+        BMCWEB_LOG_ERROR("PCIe Slot association error! ");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    sdbusplus::message::object_path path(chassisPaths[0]);
+    std::string chassisName = path.filename();
+
+    asyncResp->res.jsonValue["Links"]["Oem"]["IBM"]["@odata.type"] =
+        "#OemPCIeDevice.v1_0_0.PCIeLinks";
+    asyncResp->res.jsonValue["Links"]["Oem"]["IBM"]["PCIeSlot"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisName);
+}
+
 inline void addPCIeSlotProperties(
     crow::Response& res, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& pcieSlotProperties)
