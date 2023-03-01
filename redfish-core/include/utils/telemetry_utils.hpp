@@ -6,7 +6,6 @@
 #include "utility.hpp"
 
 #include <boost/container/flat_map.hpp>
-#include <boost/container/flat_set.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <string>
@@ -41,7 +40,7 @@ struct IncorrectMetricUri
 
 inline std::optional<IncorrectMetricUri> getChassisSensorNode(
     const std::vector<std::string>& uris,
-    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+    std::vector<std::pair<std::string, std::string>>& matched)
 {
     size_t uriIdx = 0;
     for (const std::string& uri : uris)
@@ -63,7 +62,7 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Chassis",
                                            std::ref(chassis), std::ref(node)))
         {
-            matched.emplace(std::move(chassis), std::move(node));
+            matched.emplace_back(std::move(chassis), std::move(node));
             uriIdx++;
             continue;
         }
@@ -76,7 +75,7 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
                                            std::ref(chassis), "Sensors",
                                            std::ref(ignoredSenorId)))
         {
-            matched.emplace(std::move(chassis), "Sensors");
+            matched.emplace_back(std::move(chassis), "Sensors");
             uriIdx++;
             continue;
         }
