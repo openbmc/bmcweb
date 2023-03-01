@@ -46,6 +46,30 @@
       },
       "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "182efe63_ab88d700",
+        "filename": "config/meson.build",
+        "patchSetId": 37
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-01T12:23:00Z",
+      "side": 1,
+      "message": "Forgot to mention, the default value for \u0027logging\u0027 is \u0027disabled\u0027.",
+      "parentUuid": "32142a7b_621085a5",
+      "range": {
+        "startLine": 17,
+        "startChar": 9,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
