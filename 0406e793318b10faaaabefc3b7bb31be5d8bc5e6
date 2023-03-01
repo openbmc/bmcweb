@@ -39,6 +39,30 @@
       },
       "revId": "0406e793318b10faaaabefc3b7bb31be5d8bc5e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d946bd9a_86924e2b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-03-01T21:26:39Z",
+      "side": 1,
+      "message": "good call, thank you.",
+      "parentUuid": "90398184_63e313d2",
+      "range": {
+        "startLine": 755,
+        "startChar": 8,
+        "endLine": 755,
+        "endChar": 44
+      },
+      "revId": "0406e793318b10faaaabefc3b7bb31be5d8bc5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
