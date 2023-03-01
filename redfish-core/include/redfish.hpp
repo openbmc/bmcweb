@@ -222,6 +222,7 @@ class RedfishService
         requestRoutesEventDestination(app);
         requestRoutesFabricAdapters(app);
         requestRoutesFabricAdapterCollection(app);
+        requestRoutesPort(app);
         requestRoutesPortCollection(app);
         requestRoutesSubmitTestEvent(app);
 
