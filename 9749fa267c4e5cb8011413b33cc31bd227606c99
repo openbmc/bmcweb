@@ -68,6 +68,23 @@
       "message": "Dear Gunnar,\n\nWe have run Redfish Service Validator for GET behavior of PowerMetrcis and test result is PASS as below.\n\nCould you help to review and merge it if there is no any concern? Thank you.\n\n\n*** /redfish/v1/Chassis/chassis/Power\n\t Type (Power.v1_5_2.Power), GET SUCCESS (time: 0:00:00.025895)\n\t PASS\n\n*** /redfish/v1/Chassis/chassis/Power#/PowerControl/0\n\t Type (Power.v1_0_0.PowerControl), GET SUCCESS (time: 0)\n\t PASS\n\n/redfish/v1/Chassis/chassis/Power#/PowerControl/0 (response time: 0) PowerControl\n/redfish/v1/Chassis/chassis/Power#/PowerControl/0\n(response time: 0)\nShow Results\nShow Payload\tContext: /redfish/v1/$metadata#Power.PowerControl\nFile Origin: Power_v1.xml\nResource Type: Power.v1_0_0.PowerControl\tGET Success HTTP Code (-1)\t\npass: 8\npassGet: 1\nskipOptional: 9\n\nProperty Name\t                  Value\tType\tExists\tResult\nPowerMetrics\t[JSON Object]\t  Power.v1_0_0.PowerMetric\tYes\tcomplex\n\nPowerMetrics.IntervalInMin\t  0\tnumber\tYes\tPASS\nPowerMetrics.MinConsumedWatts\t  0\tnumber\tYes\tPASS\nPowerMetrics.MaxConsumedWatts\t  0\tnumber\tYes\tPASS\nPowerMetrics.AverageConsumedWatts 0\tnumber\tYes\tPASS\n\n\nBest regards,\nTim",
       "revId": "9749fa267c4e5cb8011413b33cc31bd227606c99",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc671748_c1a33db4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-01T03:21:31Z",
+      "side": 1,
+      "message": "Just ping this commit friendly. Please help us to review the test result. Thanks.",
+      "revId": "9749fa267c4e5cb8011413b33cc31bd227606c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
