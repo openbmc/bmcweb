@@ -22,6 +22,23 @@
       },
       "revId": "3989878fdac90c846cc84154c79d4a7c83556a3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30763b9_45ca9858",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T01:25:05Z",
+      "side": 1,
+      "message": "Should it be checked under what circumstances to return internalError?",
+      "revId": "3989878fdac90c846cc84154c79d4a7c83556a3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
