@@ -93,6 +93,30 @@
       },
       "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a7fe79e_a81e1451",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-01T23:43:06Z",
+      "side": 1,
+      "message": "Your analysis doesn\u0027t track for me, because it\u0027s still removing the www-authenticate header from redfish.  When you reply next, please quote how you believe we\u0027re following section 8.1, because I\u0027m not understanding it.",
+      "parentUuid": "5fe34058_93c6666f",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
