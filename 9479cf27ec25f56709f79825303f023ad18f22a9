@@ -117,6 +117,30 @@
       },
       "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "490c32b7_2199470c",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-01T23:43:42Z",
+      "side": 1,
+      "message": "\u003e If WebUI is installed, we can redirect to the login page for basic authentication.\n\nNot all Redfish clients are browsers or support Redirect.",
+      "parentUuid": "5a7fe79e_a81e1451",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
