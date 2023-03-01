@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1687532_a5ef16c1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-01T22:12:37Z",
+      "side": 1,
+      "message": "I reference the README.md. \nWe could put this whole section in the README.md but the README.md seems bmcweb user focused, this developer focused. I am fine if we want to move this all to the README though.",
+      "parentUuid": "189d5506_be701059",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28d4ae92_8ec14682",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -83,6 +101,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "801e5fed_36e4d6de",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-01T22:12:37Z",
+      "side": 1,
+      "message": "I kept this just incase someone doesn\u0027t know.",
+      "parentUuid": "8ce55675_6ab1cad0",
+      "range": {
+        "startLine": 218,
+        "startChar": 51,
+        "endLine": 219,
+        "endChar": 9
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf07f66_58d94bf0",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-01T22:12:37Z",
+      "side": 1,
+      "message": "Done. I removed a single request has failed. \nI removed the \"not\". I agree not helpful. I think these read better.",
+      "parentUuid": "28d4ae92_8ec14682",
+      "range": {
+        "startLine": 219,
+        "startChar": 45,
+        "endLine": 219,
+        "endChar": 53
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c734af7c_7e82ab9b",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -94,6 +160,30 @@
       "writtenOn": "2023-02-22T20:53:12Z",
       "side": 1,
       "message": "This is another thing \"and above\" makes it subjective, which we shouldn\u0027t do (also, it\u0027s not clear which direction is \"above\" in this scenario.",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 19
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7edf867_ae25fa17",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-01T22:12:37Z",
+      "side": 1,
+      "message": "Done. I removed the and above.",
+      "parentUuid": "c734af7c_7e82ab9b",
       "range": {
         "startLine": 222,
         "startChar": 10,
@@ -117,6 +207,24 @@
       "writtenOn": "2023-02-22T20:53:12Z",
       "side": 1,
       "message": "Overall missing:\nDefining a \"user error\" more precisely so it can handle the broad case.\nTalking about behavior for use cases like fuzzing (do we expect a fuzzer to never trigger above a certain level)?",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44f1a58e_879a38f1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-01T22:12:37Z",
+      "side": 1,
+      "message": "Done. I got rid of user error, when do reference I reference as 4xx client error",
+      "parentUuid": "b040cd68_f606a71d",
       "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
