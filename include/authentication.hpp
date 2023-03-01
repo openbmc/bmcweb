@@ -8,8 +8,6 @@
 #include "pam_authenticate.hpp"
 #include "webroutes.hpp"
 
-#include <boost/container/flat_set.hpp>
-
 #include <random>
 #include <utility>
 
@@ -225,8 +223,9 @@ static std::shared_ptr<persistent_data::UserSession>
         {
             return true;
         }
-        if (crow::webroutes::routes.find(std::string(url)) !=
-            crow::webroutes::routes.end())
+        if (std::find(crow::webroutes::routes.begin(),
+                      crow::webroutes::routes.end(),
+                      url) != crow::webroutes::routes.end())
         {
             return true;
         }

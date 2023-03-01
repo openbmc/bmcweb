@@ -5,7 +5,6 @@
 #include "openbmc_dbus_rest.hpp"
 
 #include <boost/container/flat_map.hpp>
-#include <boost/container/flat_set.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 #include <websocket.hpp>
@@ -20,9 +19,7 @@ namespace dbus_monitor
 struct DbusWebsocketSession
 {
     std::vector<std::unique_ptr<sdbusplus::bus::match_t>> matches;
-    boost::container::flat_set<std::string, std::less<>,
-                               std::vector<std::string>>
-        interfaces;
+    std::vector<std::string> interfaces;
 };
 
 using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
@@ -89,7 +86,9 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         // data is type oa{sa{sv}} which is an array[2] of string, object
         for (const auto& entry : data[1].items())
         {
-            auto it = thisSession->second.interfaces.find(entry.key());
+            auto it =
+                std::find(thisSession->second.interfaces.begin(),
+                          thisSession->second.interfaces.end(), entry.key());
             if (it != thisSession->second.interfaces.end())
             {
                 json["interfaces"][entry.key()] = entry.value();
@@ -147,7 +146,7 @@ inline void requestRoutes(App& app)
                     interface.get_ptr<const std::string*>();
                 if (str != nullptr)
                 {
-                    thisSession.interfaces.insert(*str);
+                    thisSession.interfaces.emplace_back(*str);
                 }
             }
         }

@@ -227,7 +227,7 @@ inline bool getChassisSensorNodeFromMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::vector<std::pair<std::string, std::vector<std::string>>>&
         metrics,
-    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+    std::vector<std::pair<std::string, std::string>>& matched)
 {
     for (const auto& metric : metrics)
     {
@@ -388,8 +388,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
             return;
         }
 
-        boost::container::flat_set<std::pair<std::string, std::string>>
-            chassisSensors;
+        std::vector<std::pair<std::string, std::string>> chassisSensors;
         if (!telemetry::getChassisSensorNodeFromMetrics(asyncResp, args.metrics,
                                                         chassisSensors))
         {

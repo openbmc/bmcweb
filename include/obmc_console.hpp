@@ -22,7 +22,7 @@ static std::array<char, 4096> outputBuffer;
 static std::string inputBuffer;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static boost::container::flat_set<crow::websocket::Connection*> sessions;
+static std::vector<crow::websocket::Connection*> sessions;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static bool doingWrite = false;
@@ -127,7 +127,7 @@ inline void requestRoutes(App& app)
             [](crow::websocket::Connection& conn) {
         BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
-        sessions.insert(&conn);
+        sessions.emplace_back(&conn);
         if (hostSocket == nullptr)
         {
             const std::string consoleName("\0obmc-console", 13);
@@ -142,8 +142,7 @@ inline void requestRoutes(App& app)
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
             BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
-
-            sessions.erase(&conn);
+            std::remove(sessions.begin(), sessions.end(), &conn);
             if (sessions.empty())
             {
                 hostSocket = nullptr;

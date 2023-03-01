@@ -1,13 +1,13 @@
 #pragma once
 
-#include <boost/container/flat_set.hpp>
+#include <vector>
 namespace crow
 {
 namespace webroutes
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static boost::container::flat_set<std::string> routes;
+static std::vector<std::string> routes;
 
 } // namespace webroutes
 
