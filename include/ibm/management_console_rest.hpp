@@ -9,7 +9,6 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/container/flat_set.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/types.hpp>
 
