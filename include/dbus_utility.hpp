@@ -193,5 +193,19 @@ inline void
         "xyz.openbmc_project.ObjectMapper", "GetObject", path, interfaces);
 }
 
+inline void
+    getManagedObjects(const std::string& service, const std::string& path,
+                      std::function<void(const boost::system::error_code&,
+                                         const ManagedObjectType&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code& ec,
+                                        const ManagedObjectType& objects) {
+        callback(ec, objects);
+        },
+        service, path, "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
+}
+
 } // namespace utility
 } // namespace dbus
