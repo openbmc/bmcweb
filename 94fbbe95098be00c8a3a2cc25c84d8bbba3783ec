@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4ca0be2_df5f1d37",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-03-01T17:30:55Z",
+      "side": 1,
+      "message": "For this particular case, would it be resourceNotFound error?",
+      "parentUuid": "c7362190_691a7f70",
+      "range": {
+        "startLine": 115,
+        "startChar": 24,
+        "endLine": 115,
+        "endChar": 64
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8a81e74_fe893921",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 7
