@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44eee0f_4591025e",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T01:10:49Z",
+      "side": 1,
+      "message": "const \u0026",
+      "range": {
+        "startLine": 97,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 58
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d789ff_52425530",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T01:10:49Z",
+      "side": 1,
+      "message": "const \u0026",
+      "range": {
+        "startLine": 108,
+        "startChar": 38,
+        "endLine": 108,
+        "endChar": 70
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c6f752a_f3902d05",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T01:10:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 109,
+        "startChar": 38,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7362190_691a7f70",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T01:10:49Z",
+      "side": 1,
+      "message": "It should not return internalError if ec.value \u003d\u003d EBADR right?",
+      "range": {
+        "startLine": 115,
+        "startChar": 24,
+        "endLine": 115,
+        "endChar": 64
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a81e74_fe893921",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T01:10:49Z",
+      "side": 1,
+      "message": "Nit: please remove the blank line above.",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 72
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
