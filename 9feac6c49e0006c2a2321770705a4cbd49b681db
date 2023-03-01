@@ -46,6 +46,30 @@
       },
       "revId": "9feac6c49e0006c2a2321770705a4cbd49b681db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0efa37a_dec71421",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-01T22:06:18Z",
+      "side": 1,
+      "message": "Went with warning.",
+      "parentUuid": "8ea91421_3aaf3c82",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "9feac6c49e0006c2a2321770705a4cbd49b681db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
