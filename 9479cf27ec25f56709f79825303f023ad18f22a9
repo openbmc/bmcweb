@@ -45,6 +45,30 @@
       },
       "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe34058_93c6666f",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001682
+      },
+      "writtenOn": "2023-03-01T10:34:22Z",
+      "side": 1,
+      "message": "As per my further analysis, I have found that we are not allowing any Redfish API calls in the browser when the WebUI is not installed.\n\nIf WebUI is installed, we can redirect to the login page for basic authentication. So there is no need to add www-authenticate in the header and we can avoid the authentication pop-up when disconnecting the session.\n\nI hope the current patch is handling the above behavior.",
+      "parentUuid": "9785846b_1124a87a",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
