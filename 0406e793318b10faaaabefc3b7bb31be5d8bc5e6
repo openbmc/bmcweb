@@ -16,6 +16,29 @@
       "message": "Any testing?",
       "revId": "0406e793318b10faaaabefc3b7bb31be5d8bc5e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90398184_63e313d2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T00:54:37Z",
+      "side": 1,
+      "message": "constexpr std::array\u003cstd::string_view, 1\u003e iface",
+      "range": {
+        "startLine": 755,
+        "startChar": 8,
+        "endLine": 755,
+        "endChar": 44
+      },
+      "revId": "0406e793318b10faaaabefc3b7bb31be5d8bc5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
