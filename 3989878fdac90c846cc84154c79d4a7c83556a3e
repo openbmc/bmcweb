@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc555cf8_6a82b219",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-01T01:36:47Z",
+      "side": 1,
+      "message": "Fixed the commit message.  my original one didn\u0027t have \"seconds\" added.",
+      "parentUuid": "09dbee9d_91611992",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "3989878fdac90c846cc84154c79d4a7c83556a3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b30763b9_45ca9858",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-01T01:25:05Z",
       "side": 1,
       "message": "Should it be checked under what circumstances to return internalError?",
+      "revId": "3989878fdac90c846cc84154c79d4a7c83556a3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805cf06e_7383d3a3",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-01T01:36:47Z",
+      "side": 1,
+      "message": "I intentionally made it not an internal error, because the bmcweb might be running in development mode on port 18080, in which case, it\u0027s expected that this service call will error.",
+      "parentUuid": "b30763b9_45ca9858",
       "revId": "3989878fdac90c846cc84154c79d4a7c83556a3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
