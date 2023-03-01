@@ -7,7 +7,6 @@
 #include "webroutes.hpp"
 
 #include <boost/algorithm/string/replace.hpp>
-#include <boost/container/flat_set.hpp>
 
 #include <filesystem>
 #include <fstream>
@@ -105,21 +104,21 @@ inline void requestRoutes(App& app)
                 if (webpath.string().empty() || webpath.string().back() != '/')
                 {
                     // insert the non-directory version of this path
-                    webroutes::routes.insert(webpath);
+                    webroutes::routes.emplace_back(webpath);
                     webpath += "/";
                 }
             }
 
-            std::pair<boost::container::flat_set<std::string>::iterator, bool>
-                inserted = webroutes::routes.insert(webpath);
-
-            if (!inserted.second)
+            if (std::find(webroutes::routes.begin(), webroutes::routes.end(),
+                          webpath) != webroutes::routes.end())
             {
                 // Got a duplicated path.  This is expected in certain
                 // situations
                 BMCWEB_LOG_DEBUG << "Got duplicated path " << webpath.string();
                 continue;
             }
+
+            webroutes::routes.emplace_back(webpath);
             const char* contentType = nullptr;
 
             for (const std::pair<const char*, const char*>& ext : contentTypes)

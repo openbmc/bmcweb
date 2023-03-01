@@ -1285,15 +1285,14 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             std::string, std::string, std::less<>,
             std::vector<std::pair<std::string, std::string>>>
             objectMgrPaths;
-        boost::container::flat_set<std::string, std::less<>,
-                                   std::vector<std::string>>
-            calledConnections;
+        std::vector<std::string> calledConnections;
         for (const auto& pathGroup : completion.subtree)
         {
             for (const auto& connectionGroup : pathGroup.second)
             {
                 auto findConnection =
-                    calledConnections.find(connectionGroup.first);
+                    std::find(calledConnections.begin(),
+                              calledConnections.end(), connectionGroup.first);
                 if (findConnection != calledConnections.end())
                 {
                     break;
@@ -1319,7 +1318,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                             continue;
                         }
 
-                        calledConnections.insert(connectionGroup.first);
+                        calledConnections.push_back(connectionGroup.first);
 
                         asyncPopulatePid(findObjMgr->first, findObjMgr->second,
                                          completion.currentProfile,
