@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d091a133_9b01c123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T00:48:39Z",
+      "side": 1,
+      "message": "\u003e \u003e At least for now, it\u0027s DMTF compliant, and there are customers using it, so let\u0027s go on.\n\u003e \n\u003e I\u0027m not understanding.  Per the latest wording of the spec, it\u0027s not DMTF compliant.\n\nI double checked DSP0268_2022.3:\n```\n6.81 PCIeSlots 1.5.0\n```\n\ncould you please point out your link?\nIf you insist, do I need to abandon this change?\n\n\u003e \n\u003e \u003e Yes, I tested it, If PCIeSLots does not exist:\n\u003e \n\u003e \n\u003e Is this what broke last time?\n\nyes",
+      "parentUuid": "72a8d017_1477137d",
+      "revId": "6ebc711b97f7864b6d1449b0542b5e41a9f4b5d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d594349_4d54a86f",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 2

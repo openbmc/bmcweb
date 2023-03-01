@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6facf8b3_c01277f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T00:48:39Z",
+      "side": 1,
+      "message": "\u003e I know openpower-vpd-parser, pldm has support for pcieSlot and it looks like smbios-mdr  and peci-pcie  do as well. \n\u003e https://github.com/search?q\u003dorg%3Aopenbmc+PCIeSlot\u0026type\u003dcode\n\u003e I\u0027ll let George answer what backend he is using to test but I suspect it is openpower-vpd-parser and pldm\n\nyes, I use openpower-vpd-parser and pldm",
+      "parentUuid": "a2ee9645_bca72265",
+      "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f426184d_7c93bb16",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
@@ -49,6 +67,24 @@
       "writtenOn": "2023-02-28T18:21:25Z",
       "side": 1,
       "message": "Why undo this change?",
+      "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb022a12_88066c53",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T00:48:39Z",
+      "side": 1,
+      "message": "\u003e Why undo this change?\n\nWhen I resolved the conflict, here was the wrong change.",
+      "parentUuid": "f426184d_7c93bb16",
       "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +102,24 @@
       "writtenOn": "2023-02-28T18:21:25Z",
       "side": 1,
       "message": "Can we use urlFromPieces here too?",
+      "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff784a68_ff99d0f4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-01T00:48:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4be1559_f1b91b08",
       "revId": "07f2cf352f0dc3c61df04b82b81a13781089c544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
