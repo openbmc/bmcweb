@@ -795,7 +795,8 @@ template <typename CallbackFunc>
 void getEthernetIfaceData(const std::string& ethifaceId,
                           CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         [ethifaceId{std::string{ethifaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& errorCode,
@@ -832,9 +833,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         extractIPV6Data(ethifaceId, resp, ipv6Data);
         // Finally make a callback with useful data
         callback(true, ethData, ipv4Data, ipv6Data);
-        },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 /**
@@ -846,10 +845,11 @@ void getEthernetIfaceData(const std::string& ethifaceId,
 template <typename CallbackFunc>
 void getEthernetIfaceList(CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& errorCode,
-            dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) {
         // Callback requires vector<string> to retrieve all available
         // ethernet interfaces
         boost::container::flat_set<std::string> ifaceList;
@@ -884,9 +884,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
         }
         // Finally make a callback with useful data
         callback(true, ifaceList);
-        },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void
