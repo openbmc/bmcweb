@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1889bd2e_8ea43096",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-01T13:16:42Z",
+      "side": 1,
+      "message": "Thank You for working on this! I\u0027m having one minor issue related with current code. However, even with this resolved, the new mechanism doesn\u0027t seem to work as intended, as immediately after deferring the read, websocket object gets destroyed, which leads to bmcweb crash. \nI\u0027m figuring out what could be the cause of that, maybe it\u0027s something trivial that we both had missed.",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4324908a_97435720",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-01T13:16:42Z",
+      "side": 1,
+      "message": "I\u0027m assuming that here readingDefered is supposed to be set to \u0027true\u0027?",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5d1962_20403840",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 21
