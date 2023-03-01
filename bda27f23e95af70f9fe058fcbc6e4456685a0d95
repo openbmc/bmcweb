@@ -118,6 +118,30 @@
       },
       "revId": "bda27f23e95af70f9fe058fcbc6e4456685a0d95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ef6ce8_3b182f5b",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-01T22:21:26Z",
+      "side": 1,
+      "message": "I\u0027ve removed this for now, because it makes the code much worse, and the behavior previously is maintained.  We can follow up in another patch if we want to change the behavior.",
+      "parentUuid": "b2d29c77_b04712c1",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 27
+      },
+      "revId": "bda27f23e95af70f9fe058fcbc6e4456685a0d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
