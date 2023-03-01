@@ -22,6 +22,30 @@
       },
       "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32142a7b_621085a5",
+        "filename": "config/meson.build",
+        "patchSetId": 37
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-01T12:18:52Z",
+      "side": 1,
+      "message": "The meson option also allows \u0027enabled\u0027 or \u0027disabled\u0027 for the compatibility of the existing choices.  If it is not set, it is considered as \u0027disabled\u0027.\n\n\u0027enabled\u0027 is interpreted as \u0027debug\u0027 (i.e. current default).\n\nIf it is \u0027disabled\u0027, logging is disabled like how it is working as today.\nIf it is \u0027enabled\u0027, the log level is meaningful and used in the code.\n\nIf a certain level of logging is needed, the appropriate option needs to be specified - from one of log level choices, i.e. explicit log level setting is required.",
+      "parentUuid": "45b46e0a_7c0f8fdd",
+      "range": {
+        "startLine": 17,
+        "startChar": 9,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
