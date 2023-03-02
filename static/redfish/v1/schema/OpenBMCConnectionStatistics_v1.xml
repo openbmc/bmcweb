@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCConnectionStatistics">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <EntityType Name="ConnectionStatistics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+          <Annotation Term="OData.Description" String="OpenBMC OEM Extension for ManagerDiagnosticData."/>
+          <Annotation Term="OData.LongDescription" String="OpenBMC OEM Extension for ManagerDiagnosticData providing info about http connections."/>
+          <Annotation Term="Redfish.Uris">
+            <Collection>
+              <String>/redfish/v1/Managers/{manager_id}/ManagerDiagnosticData#/OpenBMC/OpenBMCConnectionStatistics</String>
+            </Collection>
+          </Annotation>
+      </EntityType>
+    </Schema>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCConnectionStatistics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+
+      <ComplexType Name="OpenBMCManagerDiagnosticData" BaseType="Resource.OemObject">
+        <Annotation Term="OData.Description" String="OpenBMC OEM Extension for ManagerDiagnosticData."/>
+        <Annotation Term="OData.LongDescription" String="OpenBMC OEM Extension for ManagerDiagnosticData providing info about http connections."/>
+
+        <NavigationProperty Name="ConnectionStatistics" Type="OpenBMCConnectionStatistics.v1_0_0.ConnectionStatistics">
+          <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
+          <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="ReturnCode">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="HTTP connection statistics since last reset."/>
+        <Annotation Term="OData.LongDescription" String="Object describing the HTTP connection statistics since last reset."/>
+
+        <Property Name="HttpCode" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The HTTP return code from rfc9110."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the http return code (200, 201, 500) that this statistic represents."/>
+        </Property>
+        <Property Name="Count" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A counter indicating the total number responses sent with this return code."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of responses sent with this return code since last reset."/>
+        </Property>
+      </ComplexType>
+
+      <EntityType Name="ConnectionStatistics" BaseType="OpenBMCConnectionStatistics.ConnectionStatistics">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="HTTP connection statistics since last reset."/>
+        <Annotation Term="OData.LongDescription" String="Object describing the HTTP connection statistics since last reset."/>
+
+        <Property Name="Opened" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A counter indicating the total number of connections opened."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of connections opened to this service root."/>
+        </Property>
+        <Property Name="Closed" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A counter indicating the total number of connections closed."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of connections closed to this service root."/>
+        </Property>
+        <Property Name="BytesSent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total number of bytes sent."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of bytes sent from this service root to clients."/>
+        </Property>
+        <Property Name="BytesReceived" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total number of bytes received."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of bytes received from clients to this service root."/>
+        </Property>
+        <Property Name="RequestsReceived" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total number of http requests received."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of http requests received from clients to this service root."/>
+        </Property>
+        <Property Name="ResponsesSent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total number of http responses sent."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of http responses sent to clients to this service root."/>
+        </Property>
+        <Property Name="ResponseCodes" Type="Collection(OpenBMCConnectionStatistics.v1_0_0.ReturnCode)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total count for each return code."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative number of http responses sent for each return code from this service root.  Return codes not present in the collection can assumed to have a count of zero."/>
+        </Property>
+        <Property Name="TLSHandshakeLatencyMs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total time taken for all connections to initiate a TLS session."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative time in milliseconds that any connection was initiating a TLS session."/>
+        </Property>
+        <Property Name="RequestReadLatencyMs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total time taken for all connections to read request data."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative time in milliseconds that any connection was reading a request."/>
+        </Property>
+        <Property Name="RequestProcessingLatencyMs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total time taken for all connections to generate response data."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative time in milliseconds that any connection was processing a request."/>
+        </Property>
+        <Property Name="ResponseWriteLatencyMs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A property indicating the total time taken for all connections to send response data."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total cumulative time in milliseconds that any connection was writing a response."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
