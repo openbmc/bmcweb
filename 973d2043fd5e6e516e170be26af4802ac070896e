@@ -46,6 +46,30 @@
       },
       "revId": "973d2043fd5e6e516e170be26af4802ac070896e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "514a1271_5b918e3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-02T14:42:26Z",
+      "side": 1,
+      "message": "\u003e Can you talk a little more about what you\u0027re trying to accomplish here? A functioning service/client should never 404 or 405 in Redfish, so I\u0027m not understanding why these would ever show up in the logs?\n\nHopefully the commit before explains what we are trying to accomplish, we want internalErrors printed to the journal but don\u0027t want to blown up by fuzz testing, or other 4xx. \nI put 4xx errors as Warning. Warning is hardly used and this seems a like a good fix, 4xx might be a server problem but could also be a client problem.",
+      "parentUuid": "dc86f999_89de7ff3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "973d2043fd5e6e516e170be26af4802ac070896e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
