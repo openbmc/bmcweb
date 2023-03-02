@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "563dc797_2b470ded",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-03-02T16:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d44eee0f_4591025e",
+      "range": {
+        "startLine": 97,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 58
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40d789ff_52425530",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0164df_7e9f10f8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-03-02T16:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d789ff_52425530",
+      "range": {
+        "startLine": 108,
+        "startChar": 38,
+        "endLine": 108,
+        "endChar": 70
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c6f752a_f3902d05",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-01T01:10:49Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 109,
+        "startChar": 38,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a47f1383_bc2e9669",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-03-02T16:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c6f752a_f3902d05",
       "range": {
         "startLine": 109,
         "startChar": 38,
@@ -141,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e886f1_48b99697",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-03-02T16:26:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "24129d77_349efb70",
+      "range": {
+        "startLine": 115,
+        "startChar": 24,
+        "endLine": 115,
+        "endChar": 64
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8a81e74_fe893921",
@@ -154,6 +250,30 @@
       "writtenOn": "2023-03-01T01:10:49Z",
       "side": 1,
       "message": "Nit: please remove the blank line above.",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 72
+      },
+      "revId": "94fbbe95098be00c8a3a2cc25c84d8bbba3783ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95aeaa1c_44c2defe",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001600
+      },
+      "writtenOn": "2023-03-02T16:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8a81e74_fe893921",
       "range": {
         "startLine": 180,
         "startChar": 16,
