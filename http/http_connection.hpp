@@ -3,6 +3,7 @@
 
 #include "async_resp.hpp"
 #include "authentication.hpp"
+#include "fast_monotonic_clock.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "json_html_serializer.hpp"
@@ -307,9 +308,6 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << keepAlive;
-
         addSecurityHeaders(*req, res);
 
         crow::authentication::cleanupTempSession(*req);
@@ -326,7 +324,6 @@ class Connection :
             res.setCompleteRequestHandler(nullptr);
             return;
         }
-
         res.setHashAndHandleNotModified();
 
         if (res.body().empty() && !res.jsonValue.empty())
@@ -376,6 +373,11 @@ class Connection :
 
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
+        std::chrono::duration<double> seconds =
+            fast_monotonic_clock::now() - lastByteTime;
+        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
+                        << res.resultInt() << " keepalive=" << keepAlive
+                        << "Took " << seconds << "S";
         doWrite(res);
 
         // delete lambda with self shared_ptr
@@ -513,6 +515,7 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " from read(1)";
                 return;
             }
+            lastByteTime = fast_monotonic_clock::now();
             handle();
         });
     }
@@ -623,6 +626,9 @@ class Connection :
         serializer;
 
     std::optional<crow::Request> req;
+
+    fast_monotonic_clock::time_point lastByteTime;
+
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
