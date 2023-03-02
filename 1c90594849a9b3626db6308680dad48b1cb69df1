@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c3c48ff_aa395649",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-02T20:44:25Z",
+      "side": 1,
+      "message": "Yep, this makes sense.  I think I know the fix, which is a member variable shared_ptr pointing to itself that gets filled when the reading has been defered.  I can try to make the changes.",
+      "parentUuid": "1889bd2e_8ea43096",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88691d2c_42a20603",
         "filename": "http/websocket.hpp",
         "patchSetId": 21
