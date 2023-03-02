@@ -3,6 +3,7 @@
 
 #include "async_resp.hpp"
 #include "authentication.hpp"
+#include "fast_monotonic_clock.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "json_html_serializer.hpp"
@@ -10,6 +11,7 @@
 #include "mutual_tls.hpp"
 #include "security_headers.hpp"
 #include "ssl_key_handler.hpp"
+#include "statistics.hpp"
 #include "utility.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
@@ -155,6 +157,7 @@ class Connection :
             return;
         }
 
+        bmcweb::stats().opened++;
         startDeadline();
 
         // TODO(ed) Abstract this to a more clever class with the idea of an
@@ -163,9 +166,17 @@ class Connection :
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
         {
+            lastByteTime = fast_monotonic_clock::now();
             adaptor.async_handshake(boost::asio::ssl::stream_base::server,
                                     [this, self(shared_from_this())](
                                         const boost::system::error_code& ec) {
+                fast_monotonic_clock::time_point now =
+                    fast_monotonic_clock::now();
+                bmcweb::stats().tlsHandshakeTotalMs +=
+                    std::chrono::duration_cast<bmcweb::int64_duration>(
+                        now - lastByteTime);
+                lastByteTime = now;
+
                 if (ec)
                 {
                     return;
@@ -308,6 +319,7 @@ class Connection :
         {
             adaptor.close();
         }
+        bmcweb::stats().closed++;
     }
 
     void completeRequest(crow::Response& thisRes)
@@ -339,7 +351,6 @@ class Connection :
             res.setCompleteRequestHandler(nullptr);
             return;
         }
-
         res.setHashAndHandleNotModified();
 
         if (res.body().empty() && !res.jsonValue.empty())
@@ -389,6 +400,15 @@ class Connection :
 
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
+        bmcweb::int64_duration milliseconds =
+            std::chrono::duration_cast<bmcweb::int64_duration>(
+                fast_monotonic_clock::now() - lastByteTime);
+        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url() << ' '
+                        << res.resultInt() << " keepalive=" << keepAlive
+                        << "Took " << milliseconds.count() << "S";
+        bmcweb::stats().responseCount++;
+        bmcweb::stats().processingLatencyTotalMs += milliseconds;
+        bmcweb::stats().appendResponseCode(res.result());
         doWrite(res);
 
         // delete lambda with self shared_ptr
@@ -439,6 +459,8 @@ class Connection :
                                        std::size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG << this << " async_read_header "
                              << bytesTransferred << " Bytes";
+            bmcweb::stats().bytesReceived +=
+                static_cast<int64_t>(bytesTransferred);
             bool errorWhileReading = false;
             if (ec)
             {
@@ -525,6 +547,8 @@ class Connection :
             BMCWEB_LOG_DEBUG << this << " async_read_some " << bytesTransferred
                              << " Bytes";
 
+            bmcweb::stats().bytesReceived +=
+                static_cast<int64_t>(bytesTransferred);
             if (ec)
             {
                 BMCWEB_LOG_ERROR << this
@@ -548,6 +572,13 @@ class Connection :
             }
 
             cancelDeadlineTimer();
+            fast_monotonic_clock::time_point now = fast_monotonic_clock::now();
+            bmcweb::stats().requestLatencyTotalMs +=
+                std::chrono::duration_cast<bmcweb::int64_duration>(
+                    now - lastByteTime);
+            lastByteTime = now;
+            bmcweb::stats().requestCount++;
+
             handle();
             });
     }
@@ -564,8 +595,12 @@ class Connection :
                                             std::size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG << this << " async_write " << bytesTransferred
                              << " bytes";
-
             cancelDeadlineTimer();
+            bmcweb::int64_duration milliseconds =
+                std::chrono::duration_cast<bmcweb::int64_duration>(
+                    fast_monotonic_clock::now() - lastByteTime);
+            bmcweb::stats().responseWriteLatencyTotalMs += milliseconds;
+            bmcweb::stats().bytesSent += static_cast<int64_t>(bytesTransferred);
 
             if (ec)
             {
@@ -659,6 +694,9 @@ class Connection :
         serializer;
 
     std::optional<crow::Request> req;
+
+    fast_monotonic_clock::time_point lastByteTime;
+
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
