@@ -310,7 +310,9 @@ WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
 CheckOptions:
   - { key: readability-identifier-naming.ClassCase,     value: CamelCase  }
+  - { key: readability-identifier-naming.ClassIgnoredRegexp,     value: fast_monotonic_clock  }
   - { key: readability-identifier-naming.VariableCase,  value: camelBack }
+  - { key: readability-identifier-naming.VariableIgnoredRegexp,  value: ((is_steady)|(get_resolution))}
   - { key: readability-identifier-naming.FunctionCase,  value: camelBack }
   - { key: readability-identifier-naming.ParameterCase, value: camelBack }
   - { key: readability-identifier-naming.NamespaceCase, value: lower_case }

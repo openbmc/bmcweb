@@ -359,6 +359,19 @@ with open(metadata_index_path, "w") as metadata_index:
     metadata_index.write("    </edmx:Reference>\n")
 
     metadata_index.write("</edmx:Edmx>\n")
+    metadata_index.write(
+        '    <edmx:Reference Uri="'
+        '/redfish/v1/schema/OpenBMCHttpStatistics_v1.xml">\n'
+    )
+    metadata_index.write(
+        '        <edmx:Include Namespace="OpenBMCHttpStatistics"/>\n'
+    )
+    metadata_index.write(
+        '        <edmx:Include Namespace="OpenBMCHttpStatistics.v1_0_0"/>\n'
+    )
+    metadata_index.write("    </edmx:Reference>\n")
+
+    metadata_index.write("</edmx:Edmx>\n")
 
 
 for schema, version in json_schema_files.items():
