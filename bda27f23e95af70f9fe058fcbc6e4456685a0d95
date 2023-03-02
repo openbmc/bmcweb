@@ -142,6 +142,30 @@
       },
       "revId": "bda27f23e95af70f9fe058fcbc6e4456685a0d95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "272b3dbf_069fc06e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-02T14:37:16Z",
+      "side": 1,
+      "message": "I am fine with that.",
+      "parentUuid": "a1ef6ce8_3b182f5b",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 27
+      },
+      "revId": "bda27f23e95af70f9fe058fcbc6e4456685a0d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
