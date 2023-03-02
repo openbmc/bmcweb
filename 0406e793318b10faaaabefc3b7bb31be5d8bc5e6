@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eef8d9f0_de7e45d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-02T04:33:12Z",
+      "side": 1,
+      "message": "\u003e blank line added.\n\nThanks\nGunnar suggests adding test cases.",
+      "parentUuid": "007b24d1_dcd11720",
+      "revId": "0406e793318b10faaaabefc3b7bb31be5d8bc5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90398184_63e313d2",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 6
