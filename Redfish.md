@@ -527,6 +527,23 @@ other.
 
 - ServiceRootUptimeSeconds
 
+### /redfish/v1/Managers/bmc/ManagerDiagnosticData/OpenBMCHttpStatistics
+
+#### HttpStatistics
+
+- Opened
+- Closed
+- BytesSent
+- BytesReceived
+- RequestsReceived
+- ResponsesSent
+- ResponseCodes
+- TLSHandshakeLatencyMs
+- RequestReadLatencyMs
+- ProcessingLatencyMs
+- RequestProcessingLatencyMs
+
+
 ### /redfish/v1/Managers/bmc/NetworkProtocol/
 
 #### ManagerNetworkProtocol
