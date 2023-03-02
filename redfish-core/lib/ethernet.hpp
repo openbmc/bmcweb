@@ -1218,15 +1218,17 @@ inline std::vector<IPv6AddressData>::const_iterator getNextStaticIpEntry(
 }
 
 inline void
-    handleIPv4StaticPatch(const std::string& ifaceId, nlohmann::json& input,
+    handleIPv4StaticPatch(const std::string& ifaceId,
+                          nlohmann::json::array_t& input,
                           const std::vector<IPv4AddressData>& ipv4Data,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if ((!input.is_array()) || input.empty())
+    if (input.empty())
     {
         messages::propertyValueTypeError(
             asyncResp->res,
-            input.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
+            nlohmann::json(input).dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace),
             "IPv4StaticAddresses");
         return;
     }
@@ -1422,15 +1424,16 @@ inline void handleStaticNameServersPatch(
 }
 
 inline void handleIPv6StaticAddressesPatch(
-    const std::string& ifaceId, const nlohmann::json& input,
+    const std::string& ifaceId, const nlohmann::json::array_t& input,
     const std::vector<IPv6AddressData>& ipv6Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!input.is_array() || input.empty())
+    if (input.empty())
     {
         messages::propertyValueTypeError(
             asyncResp->res,
-            input.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
+            nlohmann::json(input).dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace),
             "IPv6StaticAddresses");
         return;
     }
@@ -1792,8 +1795,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
         std::optional<std::string> ipv6DefaultGateway;
-        std::optional<nlohmann::json> ipv4StaticAddresses;
-        std::optional<nlohmann::json> ipv6StaticAddresses;
+        std::optional<nlohmann::json::array_t> ipv4StaticAddresses;
+        std::optional<nlohmann::json::array_t> ipv6StaticAddresses;
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<nlohmann::json> dhcpv4;
         std::optional<nlohmann::json> dhcpv6;
@@ -1893,7 +1896,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // out the intermedia nlohmann::json objects. This
                 // makes a copy of the structure, and operates on
                 // that, but could be done more efficiently
-                nlohmann::json ipv4Static = *ipv4StaticAddresses;
+                nlohmann::json::array_t ipv4Static = *ipv4StaticAddresses;
                 handleIPv4StaticPatch(ifaceId, ipv4Static, ipv4Data, asyncResp);
             }
 
@@ -1911,7 +1914,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (ipv6StaticAddresses)
             {
-                const nlohmann::json& ipv6Static = *ipv6StaticAddresses;
+                nlohmann::json::array_t ipv6Static = *ipv6StaticAddresses;
                 handleIPv6StaticAddressesPatch(ifaceId, ipv6Static, ipv6Data,
                                                asyncResp);
             }
