@@ -94,6 +94,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa996b44_ece38107",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-02T20:43:43Z",
+      "side": 1,
+      "message": "Yes, this should be true.",
+      "parentUuid": "4324908a_97435720",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77af170c_7d421b2e",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 21
@@ -140,6 +158,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77e61045_c92ba820",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-02T20:43:43Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "0bf06a23_13025f38",
+      "range": {
+        "startLine": 166,
+        "startChar": 19,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fda858d7_772cd2aa",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 21
@@ -151,6 +193,30 @@
       "writtenOn": "2023-03-02T16:47:28Z",
       "side": 1,
       "message": "Buffer sizes are inconsistent with \u0027nbdBufferSize\u0027 constant. Either increase their sizes, or decrease the constexpr. Otherwise we might get buffer overflow exceptions when calling buffers\u0027 prepare method.",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da76e7b_c0452806",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-02T20:43:43Z",
+      "side": 1,
+      "message": "ACK.  The thinking is that the bmcweb buffers themselves should always be small, and we should rely on backpressure on the socket.",
+      "parentUuid": "fda858d7_772cd2aa",
       "range": {
         "startLine": 226,
         "startChar": 4,
