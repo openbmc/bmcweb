@@ -18,6 +18,46 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d32a40c0_e783a99c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-02T11:11:11Z",
+      "side": 1,
+      "message": "Adding a couple comments after some debugging. Ed, please take a look and let me know what are Your thoughts on this.",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88691d2c_42a20603",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-02T11:11:11Z",
+      "side": 1,
+      "message": "In the current state, Websocket object gets destroyed right after leaving doRead() function (reading is being deferred). We\u0027d need to think of a way to prolong its lifespan. One thing that came to my mind is to pass shared_from_this into openHandler. That would require some refactoring though, besides I do not know if that would be safe at all.",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 17
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4324908a_97435720",
@@ -31,6 +71,29 @@
       "writtenOn": "2023-03-01T13:16:42Z",
       "side": 1,
       "message": "I\u0027m assuming that here readingDefered is supposed to be set to \u0027true\u0027?",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77af170c_7d421b2e",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-02T11:11:11Z",
+      "side": 1,
+      "message": "I think this also would need to be synchronized with the acceptor handler. In a case where D-Bus handler finishes earlier, socket will not be created yet, which will cause doRead to crash.",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 27
+      },
       "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
