@@ -119,6 +119,29 @@
       },
       "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe564e3_395c9685",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-02T11:45:14Z",
+      "side": 1,
+      "message": "Case similar to the one from NbdProxyServer::run; when peerSocket is not yet ready, this will fail (due to calling peerSocket.async_write_some).",
+      "range": {
+        "startLine": 374,
+        "startChar": 4,
+        "endLine": 374,
+        "endChar": 57
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
