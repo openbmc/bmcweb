@@ -22,6 +22,30 @@
       },
       "revId": "57059448257f20ff2af8c86e45120e6148f6f0ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d1591d_5dba2503",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-02T03:21:50Z",
+      "side": 1,
+      "message": "\u003e It seems that we should encapsulate the GetManagedOBbjects method into utils.hpp to call\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61257\nPlease to review this one 😊",
+      "parentUuid": "77c50a4b_a27348be",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 257,
+        "endChar": 26
+      },
+      "revId": "57059448257f20ff2af8c86e45120e6148f6f0ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
