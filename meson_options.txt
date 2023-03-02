@@ -224,6 +224,14 @@ option(
 )
 
 option(
+    'redfish-oem-openbmc-http-statistics',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enables Redfish OEM http statistics information under
+                    ManagerDiagnosticData.'''
+)
+
+option(
     'redfish-oem-manager-fan-data',
     type: 'feature',
     value: 'enabled',

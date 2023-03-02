@@ -3064,3 +3064,8 @@
         <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>
     </edmx:Reference>
 </edmx:Edmx>
+    <edmx:Reference Uri="/redfish/v1/schema/OpenBMCHttpStatistics_v1.xml">
+        <edmx:Include Namespace="OpenBMCHttpStatistics"/>
+        <edmx:Include Namespace="OpenBMCHttpStatistics.v1_0_0"/>
+    </edmx:Reference>
+</edmx:Edmx>
