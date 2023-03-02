@@ -63,6 +63,30 @@
       },
       "revId": "f57b2f17501222d48bc75dd7bfcd5c4759fe57a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d68322c_04a38711",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-02T02:31:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c1061e5_25430444",
+      "range": {
+        "startLine": 970,
+        "startChar": 16,
+        "endLine": 970,
+        "endChar": 45
+      },
+      "revId": "f57b2f17501222d48bc75dd7bfcd5c4759fe57a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
