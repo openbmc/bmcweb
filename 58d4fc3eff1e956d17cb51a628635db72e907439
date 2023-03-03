@@ -33,6 +33,69 @@
       "message": "Ed/Gunnar \ncan you please review this commit?",
       "revId": "58d4fc3eff1e956d17cb51a628635db72e907439",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c36c28e_848f75c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:29:34Z",
+      "side": 1,
+      "message": "Looks like we missed this.  Can you please rebase it if it\u0027s still needed?",
+      "revId": "58d4fc3eff1e956d17cb51a628635db72e907439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b471e650_91d39bca",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:29:34Z",
+      "side": 1,
+      "message": "constexpr please.  This will be flagged by clang in the future.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "58d4fc3eff1e956d17cb51a628635db72e907439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af2ab18_00a344f4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:29:34Z",
+      "side": 1,
+      "message": "Please follow the coding standard on this.  globals are not allowed.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 15
+      },
+      "revId": "58d4fc3eff1e956d17cb51a628635db72e907439",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
