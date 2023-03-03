@@ -1079,7 +1079,7 @@ inline void
                           const std::string& macAddress,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    static constexpr std::string_view dbusNotAllowedError =
+    constexpr std::string_view dbusNotAllowedError =
         "xyz.openbmc_project.Common.Error.NotAllowed";
 
     crow::connections::systemBus->async_method_call(

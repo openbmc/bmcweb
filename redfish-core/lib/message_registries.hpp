@@ -81,7 +81,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
     const registries::Header* header = nullptr;
     std::string dmtf = "DMTF ";
-    const char* url = nullptr;
+    std::string_view url;
 
     if (registry == "Base")
     {
@@ -128,7 +128,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     location["Language"] = "en";
     location["Uri"] = "/redfish/v1/Registries/" + registry + "/" + registry;
 
-    if (url != nullptr)
+    if (!url.empty())
     {
         location["PublicationUri"] = url;
     }

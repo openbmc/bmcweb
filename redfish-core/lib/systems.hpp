@@ -2721,11 +2721,10 @@ inline void requestRoutesSystemsCollection(App& app)
  */
 inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    constexpr char const* serviceName = "xyz.openbmc_project.Control.Host.NMI";
-    constexpr char const* objectPath = "/xyz/openbmc_project/control/host0/nmi";
-    constexpr char const* interfaceName =
-        "xyz.openbmc_project.Control.Host.NMI";
-    constexpr char const* method = "NMI";
+    const char* serviceName = "xyz.openbmc_project.Control.Host.NMI";
+    const char* objectPath = "/xyz/openbmc_project/control/host0/nmi";
+    const char* interfaceName = "xyz.openbmc_project.Control.Host.NMI";
+    const char* method = "NMI";
 
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {

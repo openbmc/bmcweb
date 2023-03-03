@@ -18,14 +18,14 @@
 namespace persistent_data
 {
 
+// todo(ed) should read this from a fixed location somewhere, not CWD
+const char* filename = "bmcweb_persistent_data.json";
+
 class ConfigFile
 {
     uint64_t jsonRevision = 1;
 
   public:
-    // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
-
     ConfigFile()
     {
         readData();

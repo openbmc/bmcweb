@@ -2,16 +2,17 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <string_view>
 
 // clang-format off
-constexpr const int bmcwebInsecureDisableXssPrevention =
+constexpr int bmcwebInsecureDisableXssPrevention =
     @BMCWEB_INSECURE_DISABLE_XSS_PREVENTION@;
 
-constexpr const bool bmcwebInsecureEnableQueryParams = @BMCWEB_INSECURE_ENABLE_QUERY_PARAMS@ == 1;
+constexpr bool bmcwebInsecureEnableQueryParams = @BMCWEB_INSECURE_ENABLE_QUERY_PARAMS@ == 1;
 
-constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
+constexpr size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
 
-constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
+constexpr std::string_view mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
 
-constexpr const bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
+constexpr bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
 // clang-format on

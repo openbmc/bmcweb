@@ -16,8 +16,8 @@ namespace redfish
 
 namespace telemetry
 {
-constexpr const char* service = "xyz.openbmc_project.Telemetry";
-constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
+const char* service = "xyz.openbmc_project.Telemetry";
+const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
 
 inline std::string getDbusReportPath(const std::string& id)
 {

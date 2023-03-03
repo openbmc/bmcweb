@@ -156,7 +156,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
         return false;
     }
 
-    constexpr const char* allowedCharactersInName =
+    constexpr std::string_view allowedCharactersInName =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
     if (args.name.empty() || args.name.find_first_not_of(
                                  allowedCharactersInName) != std::string::npos)
@@ -362,8 +362,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
         asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
-        constexpr std::array<std::string_view, 1> interfaces{
-            telemetry::reportInterface};
+        std::array<std::string_view, 1> interfaces{telemetry::reportInterface};
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url(

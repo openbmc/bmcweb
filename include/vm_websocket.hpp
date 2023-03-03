@@ -21,7 +21,7 @@ static crow::websocket::Connection* session = nullptr;
 // The max network block device buffer size is 128kb plus 16bytes
 // for the message header:
 // https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
-static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
+constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
 
 class Handler : public std::enable_shared_from_this<Handler>
 {

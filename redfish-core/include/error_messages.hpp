@@ -34,8 +34,8 @@ namespace redfish
 namespace messages
 {
 
-constexpr const char* messageVersionPrefix = "Base.1.11.0.";
-constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
+constexpr std::string_view messageVersionPrefix = "Base.1.11.0.";
+constexpr std::string_view messageAnnotation = "@Message.ExtendedInfo";
 
 /**
  * @brief Moves all error messages from the |source| JSON to |target|

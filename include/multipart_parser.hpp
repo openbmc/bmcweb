@@ -91,7 +91,7 @@ class MultipartParser
                 case State::START_BOUNDARY:
                     if (index == boundary.size() - 2)
                     {
-                        if (c != cr)
+                        if (c != '\r')
                         {
                             return ParserError::ERROR_BOUNDARY_CR;
                         }
@@ -100,7 +100,7 @@ class MultipartParser
                     }
                     else if (index - 1 == boundary.size() - 2)
                     {
-                        if (c != lf)
+                        if (c != '\n')
                         {
                             return ParserError::ERROR_BOUNDARY_LF;
                         }
@@ -122,7 +122,7 @@ class MultipartParser
                     index = 0;
                     [[fallthrough]];
                 case State::HEADER_FIELD:
-                    if (c == cr)
+                    if (c == '\r')
                     {
                         headerFieldMark = 0;
                         state = State::HEADERS_ALMOST_DONE;
@@ -130,12 +130,12 @@ class MultipartParser
                     }
 
                     index++;
-                    if (c == hyphen)
+                    if (c == '-')
                     {
                         break;
                     }
 
-                    if (c == colon)
+                    if (c == ':')
                     {
                         if (index == 1)
                         {
@@ -155,7 +155,7 @@ class MultipartParser
                     }
                     break;
                 case State::HEADER_VALUE_START:
-                    if (c == space)
+                    if (c == ' ')
                     {
                         break;
                     }
@@ -163,7 +163,7 @@ class MultipartParser
                     state = State::HEADER_VALUE;
                     [[fallthrough]];
                 case State::HEADER_VALUE:
-                    if (c == cr)
+                    if (c == '\r')
                     {
                         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         std::string_view value(buffer + headerValueMark,
@@ -174,14 +174,14 @@ class MultipartParser
                     }
                     break;
                 case State::HEADER_VALUE_ALMOST_DONE:
-                    if (c != lf)
+                    if (c != '\n')
                     {
                         return ParserError::ERROR_HEADER_VALUE;
                     }
                     state = State::HEADER_FIELD_START;
                     break;
                 case State::HEADERS_ALMOST_DONE:
-                    if (c != lf)
+                    if (c != '\n')
                     {
                         return ParserError::ERROR_HEADER_ENDING;
                     }
@@ -287,12 +287,12 @@ class MultipartParser
         else if (index == boundary.size())
         {
             index++;
-            if (c == cr)
+            if (c == '\r')
             {
                 // cr = part boundary
                 flags = Boundary::PART_BOUNDARY;
             }
-            else if (c == hyphen)
+            else if (c == '-')
             {
                 // hyphen = end boundary
                 flags = Boundary::END_BOUNDARY;
@@ -307,7 +307,7 @@ class MultipartParser
             if (flags == Boundary::PART_BOUNDARY)
             {
                 index = 0;
-                if (c == lf)
+                if (c == '\n')
                 {
                     // unset the PART_BOUNDARY flag
                     flags = Boundary::NON_BOUNDARY;
@@ -318,7 +318,7 @@ class MultipartParser
             }
             if (flags == Boundary::END_BOUNDARY)
             {
-                if (c == hyphen)
+                if (c == '-')
                 {
                     state = State::END;
                 }
@@ -356,12 +356,6 @@ class MultipartParser
 
     std::string currentHeaderName;
     std::string currentHeaderValue;
-
-    static constexpr char cr = '\r';
-    static constexpr char lf = '\n';
-    static constexpr char space = ' ';
-    static constexpr char hyphen = '-';
-    static constexpr char colon = ':';
 
     std::array<bool, 256> boundaryIndex{};
     std::string lookbehind;

@@ -15,7 +15,7 @@ namespace redfish
 
 inline void doPowerSubsystemCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId,
+    std::string_view chassisId,
     const std::optional<std::string>& validChassisPath)
 {
     if (!validChassisPath)

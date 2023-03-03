@@ -28,22 +28,21 @@
 namespace redfish
 {
 
-static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
+constexpr std::array<std::string_view, 2> supportedEvtFormatTypes = {
     eventFormatType, metricReportFormatType};
-static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
-    "Base", "OpenBMC", "TaskEvent"};
-static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
+constexpr std::array<const char*, 3> supportedRegPrefixes = {"Base", "OpenBMC",
+                                                             "TaskEvent"};
+constexpr std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-static constexpr const std::array<const char*, 2> supportedResourceTypes = {
-    "IBMConfigFile", "Task"};
+constexpr std::array<const char*, 2> supportedResourceTypes = {"IBMConfigFile",
+                                                               "Task"};
 #else
-static constexpr const std::array<const char*, 1> supportedResourceTypes = {
-    "Task"};
+constexpr std::array<const char*, 1> supportedResourceTypes = {"Task"};
 #endif
 
-static constexpr const uint8_t maxNoOfSubscriptions = 20;
+constexpr uint8_t maxNoOfSubscriptions = 20;
 
 inline void requestRoutesEventService(App& app)
 {

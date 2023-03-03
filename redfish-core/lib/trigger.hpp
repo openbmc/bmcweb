@@ -21,8 +21,7 @@ namespace redfish
 {
 namespace telemetry
 {
-constexpr const char* triggerInterface =
-    "xyz.openbmc_project.Telemetry.Trigger";
+const char* triggerInterface = "xyz.openbmc_project.Telemetry.Trigger";
 
 using NumericThresholdParams =
     std::tuple<std::string, uint64_t, std::string, double>;
@@ -307,8 +306,7 @@ inline void requestRoutesTriggerCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/Triggers";
         asyncResp->res.jsonValue["Name"] = "Triggers Collection";
-        constexpr std::array<std::string_view, 1> interfaces{
-            telemetry::triggerInterface};
+        std::array<std::string_view, 1> interfaces{telemetry::triggerInterface};
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url("/redfish/v1/TelemetryService/Triggers"),

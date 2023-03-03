@@ -28,10 +28,10 @@ namespace crow
 {
 namespace ibm_mc
 {
-constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
-constexpr const char* resourceNotFoundMsg = "Resource Not Found";
-constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
-constexpr const char* internalServerError = "Internal Server Error";
+constexpr std::string_view methodNotAllowedMsg = "Method Not Allowed";
+constexpr std::string_view resourceNotFoundMsg = "Resource Not Found";
+constexpr std::string_view contentNotAcceptableMsg = "Content Not Acceptable";
+constexpr std::string_view internalServerError = "Internal Server Error";
 
 constexpr size_t maxSaveareaDirSize =
     25000000; // Allow save area dir size to be max 25MB

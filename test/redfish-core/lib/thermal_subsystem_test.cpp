@@ -13,8 +13,8 @@ namespace redfish
 namespace
 {
 
-constexpr const char* chassisId = "ChassisId";
-constexpr const char* validChassisPath = "ChassisPath";
+constexpr std::string_view chassisId = "ChassisId";
+constexpr std::string_view validChassisPath = "ChassisPath";
 
 void assertThermalCollectionGet(crow::Response& res)
 {
