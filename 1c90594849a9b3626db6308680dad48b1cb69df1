@@ -247,6 +247,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eac18a27_c51ebbae",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-03T09:15:03Z",
+      "side": 1,
+      "message": "Unfortunately this idea doesn\u0027t seem to work. With this size (decreased constexpr to 8192) I get a buffer overflow exception in situation when incoming data is greater than buffer\u0027s size:\n\nMar 03 08:43:46 intel-obmc bmcweb[412]: (2023-03-03 08:43:46) [DEBUG \"nbd_proxy.hpp\":404] nbd-proxy.onMessage(len \u003d 16400)\nMar 03 08:43:46 intel-obmc bmcweb[412]: (2023-03-03 08:43:46) [CRITICAL \"webserver_main.cpp\":166] Threw exception to main: buffer overflow\n\nAfter increasing buffer sizes to the constexpr value (131088) the problem disappears.",
+      "parentUuid": "1da76e7b_c0452806",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5d1962_20403840",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 21
