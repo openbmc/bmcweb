@@ -353,12 +353,10 @@ inline void
     getSwUpdatableStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::shared_ptr<std::string>& swId)
 {
-    sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+    dbus::utility::getAssociationEndPoints(
         "/xyz/openbmc_project/software/updateable",
-        "xyz.openbmc_project.Association", "endpoints",
         [asyncResp, swId](const boost::system::error_code& ec,
-                          const std::vector<std::string>& objPaths) {
+                          const dbus::utility::MapperEndPoints& objPaths) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << " error_code = " << ec

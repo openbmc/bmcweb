@@ -702,12 +702,11 @@ inline void chassisDriveCollectionGet(
             asyncResp->res.jsonValue["Name"] = "Drive Collection";
 
             // Association lambda
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/drive",
-                "xyz.openbmc_project.Association", "endpoints",
-                [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                       const std::vector<std::string>& resp) {
+            dbus::utility::getAssociationEndPoints(
+                path + "/drive",
+                [asyncResp,
+                 chassisId](const boost::system::error_code& ec3,
+                            const dbus::utility::MapperEndPoints& resp) {
                 if (ec3)
                 {
                     BMCWEB_LOG_ERROR << "Error in chassis Drive association ";
@@ -867,13 +866,11 @@ inline void
                 continue;
             }
 
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/drive",
-                "xyz.openbmc_project.Association", "endpoints",
+            dbus::utility::getAssociationEndPoints(
+                path + "/drive",
                 [asyncResp, chassisId,
                  driveName](const boost::system::error_code& ec3,
-                            const std::vector<std::string>& resp) {
+                            const dbus::utility::MapperEndPoints& resp) {
                 if (ec3)
                 {
                     return; // no drives = no failures
