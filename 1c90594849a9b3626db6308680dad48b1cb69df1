@@ -269,6 +269,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9ab52a1_5a82c4db",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:16:01Z",
+      "side": 1,
+      "message": "\u003e Unfortunately this idea doesn\u0027t seem to work. With this size (decreased constexpr to 8192) I get a buffer overflow exception in situation when incoming data is greater than buffer\u0027s size:\n\n\nInteresting that nbd is sending individual websocket messages that are larger than 8K.  Something to improve in the future I guess.  I\u0027ve updated the size back to the 13M.\n\nI think the long term fix is to change to using async_read_SOME instead of async_read, so we can buffer\n\nhttps://www.boost.org/doc/libs/1_81_0/libs/beast/doc/html/beast/ref/boost__beast__websocket__stream/async_read_some.html\n\nBut that\u0027s a problem for another patch.\n\n\u003e \n\u003e Mar 03 08:43:46 intel-obmc bmcweb[412]: (2023-03-03 08:43:46) [DEBUG \"nbd_proxy.hpp\":404] nbd-proxy.onMessage(len \u003d 16400)\n\u003e Mar 03 08:43:46 intel-obmc bmcweb[412]: (2023-03-03 08:43:46) [CRITICAL \"webserver_main.cpp\":166] Threw exception to main: buffer overflow\n\u003e \n\u003e After increasing buffer sizes to the constexpr value (131088) the problem disappears.\n\nDone.",
+      "parentUuid": "eac18a27_c51ebbae",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b5d1962_20403840",
