@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5dbd72b_40b8d70a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:26:15Z",
+      "side": 1,
+      "message": "This looks very similar to other generic handlers we have in bmcweb, can they be combined?",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95db5af1_de23d101",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:26:15Z",
+      "side": 1,
+      "message": "const error_code\u0026 please.",
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e533004_cc9a88c9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:26:15Z",
+      "side": 1,
+      "message": "Please also put together a patch adding HEAD handling ahead of your patches.  It was missed in the initial series.",
+      "range": {
+        "startLine": 1316,
+        "startChar": 43,
+        "endLine": 1316,
+        "endChar": 46
+      },
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ad366ce_8e047db6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 36
