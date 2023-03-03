@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec0d9508_d9c92841",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:32:36Z",
+      "side": 1,
+      "message": "we have specialized uri classes.  Please use them.",
+      "parentUuid": "81de60f1_df464287",
+      "range": {
+        "startLine": 146,
+        "startChar": 33,
+        "endLine": 147,
+        "endChar": 51
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da98249c_2cb57a38",
         "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
         "patchSetId": 57
@@ -191,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb12e73b_4d3e8f22",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:32:36Z",
+      "side": 1,
+      "message": "See above.  urlFromPieces should be used in these cases.",
+      "parentUuid": "4a8cde42_9a6d37b0",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 79
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76b7743b_49862f0e",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 57
@@ -320,6 +368,30 @@
       "side": 1,
       "message": "Yes. For the snmptrap clients, We cannot use random IDs. Please see our previous discussion：\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/43/redfish-core/include/event_service_manager.hpp#851",
       "parentUuid": "aa1cb57a_a9b126d0",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 73
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f261f913_da4e85fe",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:32:36Z",
+      "side": 1,
+      "message": "\u003e Yes. For the snmptrap clients, We cannot use random IDs.\n\nWhy not?  User-generated IDs are dangerous for code safety.\n\n\u003e Please see our previous discussion：\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/43/redfish-core/include/event_service_manager.hpp#851\n\nI see that comment, which was about default params.  Not sure what this has to do with ignoring the ID.",
+      "parentUuid": "286d1ae5_c91c094c",
       "range": {
         "startLine": 536,
         "startChar": 0,
