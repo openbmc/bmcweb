@@ -203,6 +203,11 @@ class Connection :
             return;
         }
         thisReq.session = userSession;
+        using http_helpers::ContentType;
+        constexpr std::array<ContentType, 3> allowed{
+            ContentType::CBOR, ContentType::JSON, ContentType::HTML};
+        prefered =
+            getPreferedContentType(req->getHeaderValue("Accept"), allowed);
 
         // Fetch the client IP address
         readClientIp();
@@ -339,17 +344,11 @@ class Connection :
 
         if (res.body().empty() && !res.jsonValue.empty())
         {
-            using http_helpers::ContentType;
-            std::array<ContentType, 3> allowed{
-                ContentType::CBOR, ContentType::JSON, ContentType::HTML};
-            ContentType prefered =
-                getPreferedContentType(req->getHeaderValue("Accept"), allowed);
-
-            if (prefered == ContentType::HTML)
+            if (prefered == http_helpers::ContentType::HTML)
             {
                 prettyPrintJson(res);
             }
-            else if (prefered == ContentType::CBOR)
+            else if (prefered == http_helpers::ContentType::CBOR)
             {
                 res.addHeader(boost::beast::http::field::content_type,
                               "application/cbor");
@@ -678,6 +677,7 @@ class Connection :
         serializer;
 
     std::optional<crow::Request> req;
+    http_helpers::ContentType prefered{};
 
     fast_monotonic_clock::time_point lastByteTime;
 
