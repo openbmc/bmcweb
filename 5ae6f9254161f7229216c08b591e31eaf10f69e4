@@ -70,6 +70,24 @@
       "parentUuid": "4e12d597_ba884d35",
       "revId": "5ae6f9254161f7229216c08b591e31eaf10f69e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44851962_87865229",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:57:48Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "d3ce8cbd_6d5f0779",
+      "revId": "5ae6f9254161f7229216c08b591e31eaf10f69e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

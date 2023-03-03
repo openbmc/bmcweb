@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e3df13a_7501d65a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:57:48Z",
+      "side": 1,
+      "message": "Can we just do it in the same commit that introduced it?  It helps a lot in review if the code is clean from the start.",
+      "parentUuid": "e0f675c9_10a763a5",
+      "revId": "bf877f5fa37caf956c364a522878001dbc8ecc51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f242d666_e520b37a",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 85
