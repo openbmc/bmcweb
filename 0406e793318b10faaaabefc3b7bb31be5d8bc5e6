@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e036bd9d_a294d0bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-03-03T00:42:43Z",
+      "side": 1,
+      "message": "Tested section added.",
+      "parentUuid": "eef8d9f0_de7e45d7",
+      "revId": "0406e793318b10faaaabefc3b7bb31be5d8bc5e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90398184_63e313d2",
