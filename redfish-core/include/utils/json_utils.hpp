@@ -81,7 +81,7 @@ template <typename Type>
 struct IsStdArray : std::false_type
 {};
 
-template <typename Type, std::size_t size>
+template <typename Type, size_t size>
 struct IsStdArray<std::array<Type, size>> : std::true_type
 {};
 
@@ -526,7 +526,7 @@ template <typename FirstType, typename... UnpackTypes>
 bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
               std::string_view key, FirstType&& first, UnpackTypes&&... in)
 {
-    const std::size_t n = sizeof...(UnpackTypes) + 2;
+    constexpr size_t n = sizeof...(UnpackTypes) + 2;
     std::array<PerUnpack, n / 2> toUnpack2;
     packVariant(toUnpack2, key, first, std::forward<UnpackTypes&&>(in)...);
     return readJsonHelper(jsonRequest, res, toUnpack2);

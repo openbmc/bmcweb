@@ -209,7 +209,7 @@ class ConnectionImpl : public Connection
     {
         ws.async_read(inBuffer,
                       [this, self(shared_from_this())](
-                          boost::beast::error_code ec, std::size_t bytesRead) {
+                          boost::beast::error_code ec, size_t bytesRead) {
             if (ec)
             {
                 if (ec != boost::beast::websocket::error::closed)
@@ -250,7 +250,7 @@ class ConnectionImpl : public Connection
         doingWrite = true;
         ws.async_write(boost::asio::buffer(outBuffer.front()),
                        [this, self(shared_from_this())](
-                           boost::beast::error_code ec, std::size_t) {
+                           boost::beast::error_code ec, size_t) {
             doingWrite = false;
             outBuffer.erase(outBuffer.begin());
             if (ec == boost::beast::websocket::error::closed)

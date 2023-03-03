@@ -977,7 +977,7 @@ inline void
 }
 
 inline void
-    handleMTUSizePatch(const std::string& ifaceId, const size_t mtuSize,
+    handleMTUSizePatch(const std::string& ifaceId, size_t mtuSize,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path objPath =
@@ -1807,7 +1807,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             std::string tag = "_";
             for (const std::string& ifaceItem : ifaceList)
             {
-                std::size_t found = ifaceItem.find(tag);
+                size_t found = ifaceItem.find(tag);
                 if (found == std::string::npos)
                 {
                     nlohmann::json::object_t iface;

@@ -421,9 +421,8 @@ class Connection :
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
             adaptor, buffer, *parser,
-            [this,
-             self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytesTransferred) {
+            [this, self(shared_from_this())](
+                const boost::system::error_code& ec, size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG << this << " async_read_header "
                              << bytesTransferred << " Bytes";
             bool errorWhileReading = false;
@@ -506,9 +505,8 @@ class Connection :
         startDeadline();
         boost::beast::http::async_read_some(
             adaptor, buffer, *parser,
-            [this,
-             self(shared_from_this())](const boost::system::error_code& ec,
-                                       std::size_t bytesTransferred) {
+            [this, self(shared_from_this())](
+                const boost::system::error_code& ec, size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG << this << " async_read_some " << bytesTransferred
                              << " Bytes";
 
@@ -545,10 +543,10 @@ class Connection :
         thisRes.preparePayload();
         serializer.emplace(*thisRes.stringResponse);
         startDeadline();
-        boost::beast::http::async_write(adaptor, *serializer,
-                                        [this, self(shared_from_this())](
-                                            const boost::system::error_code& ec,
-                                            std::size_t bytesTransferred) {
+        boost::beast::http::async_write(
+            adaptor, *serializer,
+            [this, self(shared_from_this())](
+                const boost::system::error_code& ec, size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG << this << " async_write " << bytesTransferred
                              << " bytes";
 
@@ -579,7 +577,7 @@ class Connection :
             // Destroy the Request via the std::optional
             req.reset();
             doReadHeaders();
-        });
+            });
     }
 
     void cancelDeadlineTimer()

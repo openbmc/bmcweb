@@ -42,7 +42,7 @@ class Logger
   public:
     Logger([[maybe_unused]] const std::string& prefix,
            [[maybe_unused]] const std::string& filename,
-           [[maybe_unused]] const size_t line, LogLevel levelIn) :
+           [[maybe_unused]] size_t line, LogLevel levelIn) :
         level(levelIn)
     {
 #ifdef BMCWEB_ENABLE_LOGGING

@@ -52,7 +52,7 @@ static std::shared_ptr<persistent_data::UserSession>
     {
         return nullptr;
     }
-    std::size_t separator = authData.find(':');
+    size_t separator = authData.find(':');
     if (separator == std::string::npos)
     {
         return nullptr;

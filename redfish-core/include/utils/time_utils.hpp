@@ -406,8 +406,8 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
      * recevied dateTime string.
      */
     std::string timeOffset("Z00:00");
-    std::size_t lastPos = dateTime.size();
-    std::size_t len = timeOffset.size();
+    size_t lastPos = dateTime.size();
+    size_t len = timeOffset.size();
     if (lastPos > len)
     {
         timeOffset = dateTime.substr(lastPos - len);

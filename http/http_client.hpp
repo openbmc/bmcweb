@@ -346,8 +346,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     }
 
     void afterRead(const std::shared_ptr<ConnectionInfo>& /*self*/,
-                   const boost::beast::error_code& ec,
-                   const std::size_t& bytesTransferred)
+                   const boost::beast::error_code& ec, size_t bytesTransferred)
     {
         // The operation already timed out.  We don't want do continue down
         // this branch

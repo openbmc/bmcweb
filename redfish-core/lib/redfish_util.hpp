@@ -82,7 +82,7 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        std::size_t idPos = subtree[0].first.rfind('/');
+        size_t idPos = subtree[0].first.rfind('/');
         if (idPos == std::string::npos ||
             (idPos + 1) >= subtree[0].first.size())
         {

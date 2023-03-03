@@ -53,13 +53,13 @@ inline void dumpEscaped(std::string& out, const std::string& str)
     std::array<char, 512> stringBuffer{{}};
     uint32_t codePoint = 0;
     uint8_t state = utf8Accept;
-    std::size_t bytes = 0; // number of bytes written to string_buffer
+    size_t bytes = 0; // number of bytes written to string_buffer
 
     // number of bytes written at the point of the last valid byte
-    std::size_t bytesAfterLastAccept = 0;
-    std::size_t undumpedChars = 0;
+    size_t bytesAfterLastAccept = 0;
+    size_t undumpedChars = 0;
 
-    for (std::size_t i = 0; i < str.size(); ++i)
+    for (size_t i = 0; i < str.size(); ++i)
     {
         const uint8_t byte = static_cast<uint8_t>(str[i]);
 
@@ -418,7 +418,7 @@ inline void dumpfloat(std::string& out, double number,
     }
 
     // check if buffer was large enough
-    if (numberbuffer.size() < static_cast<std::size_t>(len))
+    if (numberbuffer.size() < static_cast<size_t>(len))
     {
         return;
     }
@@ -433,7 +433,7 @@ inline void dumpfloat(std::string& out, double number,
     }
     len = (end - numberbuffer.begin());
 
-    out.append(numberbuffer.data(), static_cast<std::size_t>(len));
+    out.append(numberbuffer.data(), static_cast<size_t>(len));
 
     // determine if need to append ".0"
     const bool valueIsIntLike =

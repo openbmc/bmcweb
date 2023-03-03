@@ -50,7 +50,7 @@ inline void doWrite()
     doingWrite = true;
     hostSocket->async_write_some(
         boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
-        [](boost::beast::error_code ec, std::size_t bytesWritten) {
+        [](boost::beast::error_code ec, size_t bytesWritten) {
         doingWrite = false;
         inputBuffer.erase(0, bytesWritten);
 
@@ -82,7 +82,7 @@ inline void doRead()
     BMCWEB_LOG_DEBUG << "Reading from socket";
     hostSocket->async_read_some(
         boost::asio::buffer(outputBuffer.data(), outputBuffer.size()),
-        [](const boost::system::error_code& ec, std::size_t bytesRead) {
+        [](const boost::system::error_code& ec, size_t bytesRead) {
         BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
         if (ec)
         {

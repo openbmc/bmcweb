@@ -114,7 +114,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
             boost::asio::buffer(outBuffer.data(), outBuffer.size()),
             [self(shared_from_this())](
                 boost::beast::error_code ec,
-                [[maybe_unused]] const std::size_t& bytesTransferred) {
+                [[maybe_unused]] size_t bytesTransferred) {
             self->outBuffer.erase(0, bytesTransferred);
 
             if (ec == boost::asio::error::eof)
@@ -171,7 +171,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
             *sseConn, *serializer,
             [this, response,
              serializer](const boost::beast::error_code& ec,
-                         [[maybe_unused]] const std::size_t& bytesTransferred) {
+                         [[maybe_unused]] size_t bytesTransferred) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Error sending header" << ec;
