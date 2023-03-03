@@ -482,7 +482,8 @@ class RedfishAggregator
         }
 
         // We didn't recognize the prefix and need to return a 404
-        std::string nameStr = req.urlView.segments().back();
+        std::string nameStr =
+            boost::urls::url_view(req.urlView).segments().back();
         messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
@@ -530,7 +531,7 @@ class RedfishAggregator
         }
 
         const boost::urls::segments_view urlSegments =
-            thisReq.urlView.segments();
+            boost::urls::url_view(thisReq.urlView).segments();
         boost::urls::url currentUrl("/");
         boost::urls::segments_view::iterator it = urlSegments.begin();
         const boost::urls::segments_view::const_iterator end =

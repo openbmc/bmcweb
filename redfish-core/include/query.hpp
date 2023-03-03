@@ -127,8 +127,8 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 
     asyncResp->res.addHeader("OData-Version", "4.0");
 
-    std::optional<query_param::Query> queryOpt =
-        query_param::parseParameters(req.urlView.params(), asyncResp->res);
+    std::optional<query_param::Query> queryOpt = query_param::parseParameters(
+        boost::urls::url_view(req.urlView).params(), asyncResp->res);
     if (queryOpt == std::nullopt)
     {
         return false;
