@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c413ae5_cf5c4710",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 2907,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-03-03T00:40:31Z",
+      "side": 1,
+      "message": "I thought we are using xyz.openbmc_project.Inventory.Item.System to model how many systems there are?",
+      "revId": "bc51ddefcf7c383caa713a6521974d5404eb369b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
