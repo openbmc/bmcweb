@@ -564,13 +564,12 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
-        sdbusplus::asio::getProperty<std::vector<std::string>>(
-            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
-            sensorPath, "xyz.openbmc_project.Association", "endpoints",
+        dbus::utility::getAssociationEndPoints(
+            sensorPath,
             [asyncResp, chassisSubNode, sensorTypes,
              callback{std::forward<const Callback>(callback)}](
                 const boost::system::error_code& e,
-                const std::vector<std::string>& nodeSensorList) {
+                const dbus::utility::MapperEndPoints& nodeSensorList) {
             if (e)
             {
                 if (e.value() != EBADR)
@@ -984,27 +983,22 @@ inline void populateFanRedundancy(
         {
             return; // don't have to have this interface
         }
-        for (const std::pair<
-                 std::string,
-                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
+        for (const std::pair<std::string, dbus::utility::MapperServiceMap>&
                  pathPair : resp)
         {
             const std::string& path = pathPair.first;
-            const std::vector<std::pair<std::string, std::vector<std::string>>>&
-                objDict = pathPair.second;
+            const dbus::utility::MapperServiceMap& objDict = pathPair.second;
             if (objDict.empty())
             {
                 continue; // this should be impossible
             }
 
             const std::string& owner = objDict.begin()->first;
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/chassis",
-                "xyz.openbmc_project.Association", "endpoints",
-                [path, owner,
-                 sensorsAsyncResp](const boost::system::error_code& e,
-                                   const std::vector<std::string>& endpoints) {
+            dbus::utility::getAssociationEndPoints(
+                path + "/chassis",
+                [path, owner, sensorsAsyncResp](
+                    const boost::system::error_code& e,
+                    const dbus::utility::MapperEndPoints& endpoints) {
                 if (e)
                 {
                     return; // if they don't have an association we
