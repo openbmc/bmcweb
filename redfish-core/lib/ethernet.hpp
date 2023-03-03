@@ -1565,6 +1565,12 @@ inline void handleIPv6StaticAddressesPatch(
     }
 }
 
+inline std::string extractParentInterfaceName(const std::string& ifaceId)
+{
+    std::size_t pos = ifaceId.find('_');
+    return ifaceId.substr(0, pos);
+}
+
 inline void parseInterfaceData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ifaceId, const EthernetInterfaceData& ethData,
@@ -1636,6 +1642,26 @@ inline void parseInterfaceData(
             fqdn += "." + ethData.domainnames[0];
         }
         jsonResponse["FQDN"] = fqdn;
+    }
+
+    if (ethData.vlanId)
+    {
+        jsonResponse["EthernetInterfaceType"] = "Virtual";
+        jsonResponse["VLAN"]["VLANEnable"] = true;
+        jsonResponse["VLAN"]["VLANId"] = *ethData.vlanId;
+        jsonResponse["VLAN"]["Tagged"] = true;
+
+        nlohmann::json::array_t relatedInterfaces;
+        nlohmann::json& parentInterface = relatedInterfaces.emplace_back();
+        parentInterface["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Managers", "bmc", "EthernetInterfaces",
+            extractParentInterfaceName(ifaceId));
+        jsonResponse["Links"]["RelatedInterfaces"] =
+            std::move(relatedInterfaces);
+    }
+    else
+    {
+        jsonResponse["EthernetInterfaceType"] = "Physical";
     }
 
     jsonResponse["NameServers"] = ethData.nameServers;
@@ -1734,18 +1760,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
             ifaceArray = nlohmann::json::array();
-            std::string tag = "_";
             for (const std::string& ifaceItem : ifaceList)
             {
-                std::size_t found = ifaceItem.find(tag);
-                if (found == std::string::npos)
-                {
-                    nlohmann::json::object_t iface;
-                    iface["@odata.id"] = crow::utility::urlFromPieces(
-                        "redfish", "v1", "Managers", "bmc",
-                        "EthernetInterfaces", ifaceItem);
-                    ifaceArray.push_back(std::move(iface));
-                }
+                nlohmann::json::object_t iface;
+                iface["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc", "EthernetInterfaces",
+                    ifaceItem);
+                ifaceArray.push_back(std::move(iface));
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
