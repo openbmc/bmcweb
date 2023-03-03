@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0259414f_b70b9de5",
+        "filename": ".clang-tidy",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T16:22:30Z",
+      "side": 1,
+      "message": "These are checked in in this commit, so I thought it made sense here;  If you\u0027d like me to break out the fast_monotonic_timer into its own commit, I can.",
+      "parentUuid": "b2a4d703_320d1554",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "722f3919_fbe4b774",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-03T06:14:47Z",
       "side": 1,
       "message": "Is there any performance hit to doing this?",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ba19000_29e9be08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T16:22:30Z",
+      "side": 1,
+      "message": "None that I can measure.",
+      "parentUuid": "722f3919_fbe4b774",
       "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7c493ee_6c245fad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T16:22:30Z",
+      "side": 1,
+      "message": "Good point, need to update Redfish.md.  Not sure a design is required in this case;  Aside from schemas its a hundred or so line patchset, with schema.  If you want me to write a design doc I will, but it\u0027s largely going to be \"Implement this schema\"",
+      "parentUuid": "2a96918f_9035022a",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9af818d2_4fa4d2ef",
         "filename": "meson_options.txt",
         "patchSetId": 7
@@ -65,6 +119,24 @@
       "writtenOn": "2023-03-03T06:14:47Z",
       "side": 1,
       "message": "Why enabled by default? \nThis is oem. I don\u0027t think redfish-oem-manager-fan-data should be enabled by default, feel the same here.",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "654b081b_ee61ae35",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T16:22:30Z",
+      "side": 1,
+      "message": "Generally we enable everything by default if it functions.  the only reason I would consider changing the default for OEM fan data is because of its quality.  It\u0027s easy enough to disable the features that a user doesn\u0027t want.",
+      "parentUuid": "9af818d2_4fa4d2ef",
       "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
