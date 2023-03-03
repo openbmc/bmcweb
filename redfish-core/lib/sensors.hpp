@@ -564,13 +564,12 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
-        sdbusplus::asio::getProperty<std::vector<std::string>>(
-            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
-            sensorPath, "xyz.openbmc_project.Association", "endpoints",
+        dbus::utility::getAssociationEndPoints(
+            sensorPath,
             [asyncResp, chassisSubNode, sensorTypes,
              callback{std::forward<const Callback>(callback)}](
                 const boost::system::error_code& e,
-                const std::vector<std::string>& nodeSensorList) {
+                const dbus::utility::MapperEndPoints& nodeSensorList) {
             if (e)
             {
                 if (e.value() != EBADR)
@@ -635,7 +634,7 @@ inline std::string getHealth(nlohmann::json& sensorJson,
         }
     }
 
-    // If current health in JSON object is already Critical, return that.  This
+    // If current health in JSON object is already Critical, return that. This
     // should override the sensor health, which might be less severe.
     if (currentHealth == "Critical")
     {
@@ -998,13 +997,11 @@ inline void populateFanRedundancy(
             }
 
             const std::string& owner = objDict.begin()->first;
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/chassis",
-                "xyz.openbmc_project.Association", "endpoints",
-                [path, owner,
-                 sensorsAsyncResp](const boost::system::error_code& e,
-                                   const std::vector<std::string>& endpoints) {
+            dbus::utility::getAssociationEndPoints(
+                path + "/chassis",
+                [path, owner, sensorsAsyncResp](
+                    const boost::system::error_code& e,
+                    const dbus::utility::MapperEndPoints& endpoints) {
                 if (e)
                 {
                     return; // if they don't have an association we

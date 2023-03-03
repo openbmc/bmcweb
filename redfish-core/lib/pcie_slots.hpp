@@ -151,7 +151,7 @@ inline void onMapperAssociationDone(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID, const std::string& pcieSlotPath,
     const std::string& connectionName, const boost::system::error_code& ec,
-    const std::variant<std::vector<std::string>>& endpoints)
+    const dbus::utility::MapperEndPoints& pcieSlotChassis)
 {
     if (ec)
     {
@@ -165,24 +165,14 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    const std::vector<std::string>* pcieSlotChassis =
-        std::get_if<std::vector<std::string>>(&(endpoints));
-
-    if (pcieSlotChassis == nullptr)
-    {
-        BMCWEB_LOG_ERROR << "Error getting PCIe Slot association!";
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    if (pcieSlotChassis->size() != 1)
+    if (pcieSlotChassis.size() != 1)
     {
         BMCWEB_LOG_ERROR << "PCIe Slot association error! ";
         messages::internalError(asyncResp->res);
         return;
     }
 
-    sdbusplus::message::object_path path((*pcieSlotChassis)[0]);
+    sdbusplus::message::object_path path(pcieSlotChassis[0]);
     std::string chassisName = path.filename();
     if (chassisName != chassisID)
     {
@@ -239,17 +229,14 @@ inline void
 
             // The association of this PCIeSlot is used to determine whether
             // it belongs to this ChassisID
-            crow::connections::systemBus->async_method_call(
+            dbus::utility::getAssociationEndPoints(
+                std::string{pcieSlotAssociationPath},
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
                     const boost::system::error_code& ec2,
-                    const std::variant<std::vector<std::string>>& endpoints) {
+                    const dbus::utility::MapperEndPoints& endpoints) {
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
                                         connectionName, ec2, endpoints);
-                },
-                "xyz.openbmc_project.ObjectMapper",
-                std::string{pcieSlotAssociationPath},
-                "org.freedesktop.DBus.Properties", "Get",
-                "xyz.openbmc_project.Association", "endpoints");
+                });
         }
     }
 }
