@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87ce7a39_100c1a04",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:41:43Z",
+      "side": 1,
+      "message": "I\u0027d rather we take the section in README and move it over here, or maybe we need a new LOGGING.md that we can reference from both?  Overall, my only strong opinion is that all the logging information should be in one spot, and not spread out.  However that\u0027s accomplished is fine with me.",
+      "parentUuid": "e1687532_a5ef16c1",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28d4ae92_8ec14682",
         "filename": "DEVELOPING.md",
         "patchSetId": 3
@@ -142,6 +160,30 @@
         "startChar": 45,
         "endLine": 219,
         "endChar": 53
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c62df15c_4cfc51eb",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:41:43Z",
+      "side": 1,
+      "message": "My worry is that people shouldn\u0027t be catching exceptions, and this implies that one should.  Maybe can we say \"bmcweb encountered a fatal error\" rather than the word exception?",
+      "parentUuid": "801e5fed_36e4d6de",
+      "range": {
+        "startLine": 218,
+        "startChar": 51,
+        "endLine": 219,
+        "endChar": 9
       },
       "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
