@@ -77,26 +77,26 @@ namespace crow
 {
 namespace openbmc_mapper
 {
-const constexpr char* notFoundMsg = "404 Not Found";
-const constexpr char* badReqMsg = "400 Bad Request";
-const constexpr char* methodNotAllowedMsg = "405 Method Not Allowed";
-const constexpr char* forbiddenMsg = "403 Forbidden";
-const constexpr char* unsupportedMediaMsg = "415 Unsupported Media Type";
-const constexpr char* methodFailedMsg = "500 Method Call Failed";
-const constexpr char* methodOutputFailedMsg = "500 Method Output Error";
-const constexpr char* notFoundDesc =
+constexpr std::string_view notFoundMsg = "404 Not Found";
+constexpr std::string_view badReqMsg = "400 Bad Request";
+constexpr std::string_view methodNotAllowedMsg = "405 Method Not Allowed";
+constexpr std::string_view forbiddenMsg = "403 Forbidden";
+constexpr std::string_view unsupportedMediaMsg = "415 Unsupported Media Type";
+constexpr std::string_view methodFailedMsg = "500 Method Call Failed";
+constexpr std::string_view methodOutputFailedMsg = "500 Method Output Error";
+constexpr std::string_view notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
-const constexpr char* propNotFoundDesc =
+constexpr std::string_view propNotFoundDesc =
     "The specified property cannot be found";
-const constexpr char* noJsonDesc = "No JSON object could be decoded";
-const constexpr char* invalidContentType =
+constexpr std::string_view noJsonDesc = "No JSON object could be decoded";
+constexpr std::string_view invalidContentType =
     "Content-type header is missing or invalid";
-const constexpr char* methodNotFoundDesc =
+constexpr std::string_view methodNotFoundDesc =
     "The specified method cannot be found";
-const constexpr char* methodNotAllowedDesc = "Method not allowed";
-const constexpr char* forbiddenPropDesc =
+constexpr std::string_view methodNotAllowedDesc = "Method not allowed";
+constexpr std::string_view forbiddenPropDesc =
     "The specified property cannot be created";
-const constexpr char* forbiddenResDesc =
+constexpr std::string_view forbiddenResDesc =
     "The specified resource cannot be created";
 
 inline bool validateFilename(const std::string& filename)
@@ -108,7 +108,7 @@ inline bool validateFilename(const std::string& filename)
 
 inline void setErrorResponse(crow::Response& res,
                              boost::beast::http::status result,
-                             const std::string& desc, std::string_view msg)
+                             std::string_view desc, std::string_view msg)
 {
     res.result(result);
     res.jsonValue["data"]["description"] = desc;
@@ -2043,13 +2043,12 @@ inline void handleDBusUrl(const crow::Request& req,
 
     if (req.method() == boost::beast::http::verb::post)
     {
-        constexpr const char* actionSeperator = "/action/";
+        constexpr std::string_view actionSeperator = "/action/";
         size_t actionPosition = objectPath.find(actionSeperator);
         if (actionPosition != std::string::npos)
         {
-            std::string postProperty =
-                objectPath.substr((actionPosition + strlen(actionSeperator)),
-                                  objectPath.length());
+            std::string postProperty = objectPath.substr(
+                (actionPosition + actionSeperator.size()), objectPath.length());
             objectPath.resize(actionPosition);
             handleAction(req, asyncResp, objectPath, postProperty);
             return;

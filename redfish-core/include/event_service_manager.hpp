@@ -49,11 +49,10 @@ namespace redfish
 using ReadingsObjType =
     std::vector<std::tuple<std::string, std::string, double, int32_t>>;
 
-static constexpr const char* eventFormatType = "Event";
-static constexpr const char* metricReportFormatType = "MetricReport";
+constexpr std::string_view eventFormatType = "Event";
+constexpr std::string_view metricReportFormatType = "MetricReport";
 
-static constexpr const char* eventServiceFile =
-    "/var/lib/bmcweb/eventservice_config.json";
+const char* eventServiceFile = "/var/lib/bmcweb/eventservice_config.json";
 
 namespace registries
 {
@@ -79,9 +78,9 @@ inline std::span<const MessageEntry>
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
-static constexpr const char* redfishEventLogDir = "/var/log";
-static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-static constexpr const size_t iEventSize = sizeof(inotify_event);
+const char* redfishEventLogDir = "/var/log";
+const char* redfishEventLogFile = "/var/log/redfish";
+constexpr size_t iEventSize = sizeof(inotify_event);
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int inotifyFd = -1;

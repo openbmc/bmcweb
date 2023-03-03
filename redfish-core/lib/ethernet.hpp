@@ -1079,7 +1079,7 @@ inline void
                           const std::string& macAddress,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    static constexpr std::string_view dbusNotAllowedError =
+    constexpr std::string_view dbusNotAllowedError =
         "xyz.openbmc_project.Common.Error.NotAllowed";
 
     crow::connections::systemBus->async_method_call(
@@ -1133,8 +1133,8 @@ inline void setDHCPEnabled(const std::string& ifaceId,
 }
 
 inline void setEthernetInterfaceBoolProperty(
-    const std::string& ifaceId, const std::string& propertyName,
-    const bool& value, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::string& ifaceId, const std::string& propertyName, bool value,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
@@ -1152,7 +1152,7 @@ inline void setEthernetInterfaceBoolProperty(
         dbus::utility::DbusVariantType{value});
 }
 
-inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
+inline void setDHCPv4Config(const std::string& propertyName, bool value,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << propertyName << " = " << value;
@@ -1794,7 +1794,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // preparation
         getEthernetIfaceList(
             [asyncResp](
-                const bool& success,
+                bool success,
                 const boost::container::flat_set<std::string>& ifaceList) {
             if (!success)
             {
@@ -1837,7 +1837,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         getEthernetIfaceData(
             ifaceId,
             [asyncResp, ifaceId](
-                const bool& success, const EthernetInterfaceData& ethData,
+                bool success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>& ipv4Data,
                 const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
             if (!success)
@@ -1933,7 +1933,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
              dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6), mtuSize,
              v4dhcpParms = std::move(v4dhcpParms),
              v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
-                const bool& success, const EthernetInterfaceData& ethData,
+                bool success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>& ipv4Data,
                 const boost::container::flat_set<IPv6AddressData>& ipv6Data) {
             if (!success)
@@ -2038,7 +2038,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         getEthernetIfaceData(
             ifaceId,
             [asyncResp, parentIfaceId,
-             ifaceId](const bool& success, const EthernetInterfaceData& ethData,
+             ifaceId](bool success, const EthernetInterfaceData& ethData,
                       const boost::container::flat_set<IPv4AddressData>&,
                       const boost::container::flat_set<IPv6AddressData>&) {
             if (success && ethData.vlanId)
@@ -2100,39 +2100,38 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // Get single eth interface data, and call the below callback
         // for JSON preparation
         getEthernetIfaceData(
-            ifaceId,
-            [asyncResp, parentIfaceId, ifaceId, vlanEnable](
-                const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>&,
-                const boost::container::flat_set<IPv6AddressData>&) {
-            if (success && ethData.vlanId)
-            {
-                if (vlanEnable)
+            ifaceId, [asyncResp, parentIfaceId, ifaceId, vlanEnable](
+                         bool success, const EthernetInterfaceData& ethData,
+                         const boost::container::flat_set<IPv4AddressData>&,
+                         const boost::container::flat_set<IPv6AddressData>&) {
+                if (success && ethData.vlanId)
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code& ec) {
+                    if (vlanEnable)
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](const boost::system::error_code& ec) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        },
-                        "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.EthernetInterface",
-                        "NICEnabled",
-                        dbus::utility::DbusVariantType(*vlanEnable));
+                            },
+                            "xyz.openbmc_project.Network",
+                            "/xyz/openbmc_project/network/" + ifaceId,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Network.EthernetInterface",
+                            "NICEnabled",
+                            dbus::utility::DbusVariantType(*vlanEnable));
+                    }
                 }
-            }
-            else
-            {
-                // TODO(Pawel)consider distinguish between non
-                // existing object, and other errors
-                messages::resourceNotFound(asyncResp->res,
-                                           "VLanNetworkInterface", ifaceId);
-                return;
-            }
+                else
+                {
+                    // TODO(Pawel)consider distinguish between non
+                    // existing object, and other errors
+                    messages::resourceNotFound(asyncResp->res,
+                                               "VLanNetworkInterface", ifaceId);
+                    return;
+                }
             });
         });
 
@@ -2158,33 +2157,32 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // Get single eth interface data, and call the below callback
         // for JSON preparation
         getEthernetIfaceData(
-            ifaceId,
-            [asyncResp, parentIfaceId,
-             ifaceId](const bool& success, const EthernetInterfaceData& ethData,
-                      const boost::container::flat_set<IPv4AddressData>&,
-                      const boost::container::flat_set<IPv6AddressData>&) {
-            if (success && ethData.vlanId)
-            {
-                auto callback =
-                    [asyncResp](const boost::system::error_code& ec) {
+            ifaceId, [asyncResp, parentIfaceId, ifaceId](
+                         bool success, const EthernetInterfaceData& ethData,
+                         const boost::container::flat_set<IPv4AddressData>&,
+                         const boost::container::flat_set<IPv6AddressData>&) {
+                if (success && ethData.vlanId)
+                {
+                    auto callback =
+                        [asyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
                         messages::internalError(asyncResp->res);
                     }
-                };
-                crow::connections::systemBus->async_method_call(
-                    std::move(callback), "xyz.openbmc_project.Network",
-                    std::string("/xyz/openbmc_project/network/") + ifaceId,
-                    "xyz.openbmc_project.Object.Delete", "Delete");
-            }
-            else
-            {
-                // ... otherwise return error
-                // TODO(Pawel)consider distinguish between non
-                // existing object, and other errors
-                messages::resourceNotFound(asyncResp->res,
-                                           "VLanNetworkInterface", ifaceId);
-            }
+                    };
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        std::string("/xyz/openbmc_project/network/") + ifaceId,
+                        "xyz.openbmc_project.Object.Delete", "Delete");
+                }
+                else
+                {
+                    // ... otherwise return error
+                    // TODO(Pawel)consider distinguish between non
+                    // existing object, and other errors
+                    messages::resourceNotFound(asyncResp->res,
+                                               "VLanNetworkInterface", ifaceId);
+                }
             });
         });
 
@@ -2204,7 +2202,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // preparation
         getEthernetIfaceList(
             [asyncResp, rootInterfaceName](
-                const bool& success,
+                bool success,
                 const boost::container::flat_set<std::string>& ifaceList) {
             if (!success)
             {

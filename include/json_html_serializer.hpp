@@ -5,8 +5,8 @@
 namespace json_html_util
 {
 
-static constexpr uint8_t utf8Accept = 0;
-static constexpr uint8_t utf8Reject = 1;
+constexpr uint8_t utf8Accept = 0;
+constexpr uint8_t utf8Reject = 1;
 
 inline uint8_t decode(uint8_t& state, uint32_t& codePoint,
                       const uint8_t byte) noexcept
@@ -297,7 +297,7 @@ void dumpInteger(std::string& out, NumberType number)
 {
     std::array<char, 64> numberbuffer{{}};
 
-    static constexpr std::array<std::array<char, 2>, 100> digitsTo99{{
+    constexpr std::array<std::array<char, 2>, 100> digitsTo99{{
         {'0', '0'}, {'0', '1'}, {'0', '2'}, {'0', '3'}, {'0', '4'}, {'0', '5'},
         {'0', '6'}, {'0', '7'}, {'0', '8'}, {'0', '9'}, {'1', '0'}, {'1', '1'},
         {'1', '2'}, {'1', '3'}, {'1', '4'}, {'1', '5'}, {'1', '6'}, {'1', '7'},
@@ -404,7 +404,7 @@ inline void dumpfloat(std::string& out, double number,
 {
     std::array<char, 64> numberbuffer{{}};
     // get number of digits for a float -> text -> float round-trip
-    static constexpr auto d = std::numeric_limits<double>::max_digits10;
+    constexpr auto d = std::numeric_limits<double>::max_digits10;
 
     // the actual conversion
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
@@ -460,7 +460,7 @@ inline void dumpfloat(std::string& out, double number)
     // guaranteed to round-trip, using strtof and strtod, resp.
     //
     // NB: The test below works if <long double> == <double>.
-    static constexpr bool isIeeeSingleOrDouble =
+    constexpr bool isIeeeSingleOrDouble =
         (std::numeric_limits<double>::is_iec559 and
          std::numeric_limits<double>::digits == 24 and
          std::numeric_limits<double>::max_exponent == 128) or

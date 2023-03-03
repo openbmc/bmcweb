@@ -21,11 +21,11 @@ namespace redfish
 namespace sw_util
 {
 /* @brief String that indicates a bios software instance */
-constexpr const char* biosPurpose =
+const char* biosPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.Host";
 
 /* @brief String that indicates a BMC software instance */
-constexpr const char* bmcPurpose =
+const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
 /**

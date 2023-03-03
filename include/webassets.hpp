@@ -18,17 +18,9 @@ namespace crow
 namespace webassets
 {
 
-struct CmpStr
-{
-    bool operator()(const char* a, const char* b) const
-    {
-        return std::strcmp(a, b) < 0;
-    }
-};
-
 inline void requestRoutes(App& app)
 {
-    constexpr static std::array<std::pair<const char*, const char*>, 17>
+    constexpr std::array<std::pair<std::string_view, std::string_view>, 17>
         contentTypes{
             {{".css", "text/css;charset=UTF-8"},
              {".html", "text/html;charset=UTF-8"},
@@ -89,7 +81,7 @@ inline void requestRoutes(App& app)
         {
             std::string extension = relativePath.extension();
             std::filesystem::path webpath = relativePath;
-            const char* contentEncoding = nullptr;
+            std::string_view contentEncoding;
 
             if (extension == ".gz")
             {
@@ -120,21 +112,18 @@ inline void requestRoutes(App& app)
                 BMCWEB_LOG_DEBUG << "Got duplicated path " << webpath.string();
                 continue;
             }
-            const char* contentType = nullptr;
+            std::string_view contentType;
 
-            for (const std::pair<const char*, const char*>& ext : contentTypes)
+            for (const std::pair<std::string_view, std::string_view>& ext :
+                 contentTypes)
             {
-                if (ext.first == nullptr || ext.second == nullptr)
-                {
-                    continue;
-                }
                 if (extension == ext.first)
                 {
                     contentType = ext.second;
                 }
             }
 
-            if (contentType == nullptr)
+            if (contentType.empty())
             {
                 BMCWEB_LOG_ERROR << "Cannot determine content-type for "
                                  << absolutePath.string() << " with extension "
@@ -150,13 +139,13 @@ inline void requestRoutes(App& app)
                 [absolutePath, contentType, contentEncoding](
                     const crow::Request&,
                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (contentType != nullptr)
+                if (!contentType.empty())
                 {
                     asyncResp->res.addHeader(
                         boost::beast::http::field::content_type, contentType);
                 }
 
-                if (contentEncoding != nullptr)
+                if (!contentEncoding.empty())
                 {
                     asyncResp->res.addHeader(
                         boost::beast::http::field::content_encoding,

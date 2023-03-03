@@ -24,24 +24,20 @@ namespace redfish
 {
 namespace certs
 {
-constexpr char const* certInstallIntf = "xyz.openbmc_project.Certs.Install";
-constexpr char const* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
-constexpr char const* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
-constexpr char const* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
-constexpr char const* dbusPropIntf = "org.freedesktop.DBus.Properties";
-constexpr char const* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
-constexpr char const* httpsServiceName =
-    "xyz.openbmc_project.Certs.Manager.Server.Https";
-constexpr char const* ldapServiceName =
-    "xyz.openbmc_project.Certs.Manager.Client.Ldap";
-constexpr char const* authorityServiceName =
+const char* certInstallIntf = "xyz.openbmc_project.Certs.Install";
+const char* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
+const char* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
+const char* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
+const char* dbusPropIntf = "org.freedesktop.DBus.Properties";
+const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
+const char* httpsServiceName = "xyz.openbmc_project.Certs.Manager.Server.Https";
+const char* ldapServiceName = "xyz.openbmc_project.Certs.Manager.Client.Ldap";
+const char* authorityServiceName =
     "xyz.openbmc_project.Certs.Manager.Authority.Ldap";
-constexpr char const* baseObjectPath = "/xyz/openbmc_project/certs";
-constexpr char const* httpsObjectPath =
-    "/xyz/openbmc_project/certs/server/https";
-constexpr char const* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
-constexpr char const* authorityObjectPath =
-    "/xyz/openbmc_project/certs/authority/ldap";
+const char* baseObjectPath = "/xyz/openbmc_project/certs";
+const char* httpsObjectPath = "/xyz/openbmc_project/certs/server/https";
+const char* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
+const char* authorityObjectPath = "/xyz/openbmc_project/certs/authority/ldap";
 } // namespace certs
 
 /**
@@ -218,8 +214,7 @@ static void
                        const nlohmann::json::json_pointer& listPtr,
                        const nlohmann::json::json_pointer& countPtr)
 {
-    constexpr std::array<std::string_view, 1> interfaces = {
-        certs::certPropIntf};
+    std::array<std::string_view, 1> interfaces = {certs::certPropIntf};
     dbus::utility::getSubTreePaths(
         basePath, 0, interfaces,
         [asyncResp, listPtr, countPtr](

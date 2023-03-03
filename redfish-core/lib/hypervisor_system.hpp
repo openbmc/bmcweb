@@ -520,8 +520,7 @@ inline void parseInterfaceData(
     }
 }
 
-inline void setDHCPEnabled(const std::string& ifaceId,
-                           const bool& ipv4DHCPEnabled,
+inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
@@ -704,7 +703,7 @@ inline void
 }
 
 inline void
-    setIPv4InterfaceEnabled(const std::string& ifaceId, const bool& isActive,
+    setIPv4InterfaceEnabled(const std::string& ifaceId, bool isActive,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
@@ -847,7 +846,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         getHypervisorIfaceData(
             id,
             [asyncResp, ifaceId{std::string(id)}](
-                const bool& success, const EthernetInterfaceData& ethData,
+                bool success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>& ipv4Data) {
             if (!success)
             {
@@ -906,79 +905,78 @@ inline void requestRoutesHypervisorSystems(App& app)
         }
 
         getHypervisorIfaceData(
-            ifaceId,
-            [asyncResp, ifaceId, hostName = std::move(hostName),
-             ipv4StaticAddresses = std::move(ipv4StaticAddresses),
-             ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
-                const bool& success, const EthernetInterfaceData& ethData,
-                const boost::container::flat_set<IPv4AddressData>&) {
-            if (!success)
-            {
-                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
-                                           ifaceId);
-                return;
-            }
-
-            if (ipv4StaticAddresses)
-            {
-                const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
-                if (ipv4Static.begin() == ipv4Static.end())
+            ifaceId, [asyncResp, ifaceId, hostName = std::move(hostName),
+                      ipv4StaticAddresses = std::move(ipv4StaticAddresses),
+                      ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
+                         bool success, const EthernetInterfaceData& ethData,
+                         const boost::container::flat_set<IPv4AddressData>&) {
+                if (!success)
                 {
-                    messages::propertyValueTypeError(
-                        asyncResp->res,
-                        ipv4Static.dump(
-                            2, ' ', true,
-                            nlohmann::json::error_handler_t::replace),
-                        "IPv4StaticAddresses");
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EthernetInterface", ifaceId);
                     return;
                 }
 
-                // One and only one hypervisor instance supported
-                if (ipv4Static.size() != 1)
+                if (ipv4StaticAddresses)
                 {
-                    messages::propertyValueFormatError(
-                        asyncResp->res,
-                        ipv4Static.dump(
-                            2, ' ', true,
-                            nlohmann::json::error_handler_t::replace),
-                        "IPv4StaticAddresses");
-                    return;
+                    const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
+                    if (ipv4Static.begin() == ipv4Static.end())
+                    {
+                        messages::propertyValueTypeError(
+                            asyncResp->res,
+                            ipv4Static.dump(
+                                2, ' ', true,
+                                nlohmann::json::error_handler_t::replace),
+                            "IPv4StaticAddresses");
+                        return;
+                    }
+
+                    // One and only one hypervisor instance supported
+                    if (ipv4Static.size() != 1)
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res,
+                            ipv4Static.dump(
+                                2, ' ', true,
+                                nlohmann::json::error_handler_t::replace),
+                            "IPv4StaticAddresses");
+                        return;
+                    }
+
+                    const nlohmann::json& ipv4Json = ipv4Static[0];
+                    // Check if the param is 'null'. If its null, it means
+                    // that user wants to delete the IP address. Deleting
+                    // the IP address is allowed only if its statically
+                    // configured. Deleting the address originated from DHCP
+                    // is not allowed.
+                    if ((ipv4Json.is_null()) &&
+                        (translateDhcpEnabledToBool(ethData.dhcpEnabled, true)))
+                    {
+                        BMCWEB_LOG_INFO
+                            << "Ignoring the delete on ipv4StaticAddresses "
+                               "as the interface is DHCP enabled";
+                    }
+                    else
+                    {
+                        handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
+                                                        asyncResp);
+                    }
                 }
 
-                const nlohmann::json& ipv4Json = ipv4Static[0];
-                // Check if the param is 'null'. If its null, it means
-                // that user wants to delete the IP address. Deleting
-                // the IP address is allowed only if its statically
-                // configured. Deleting the address originated from DHCP
-                // is not allowed.
-                if ((ipv4Json.is_null()) &&
-                    (translateDhcpEnabledToBool(ethData.dhcpEnabled, true)))
+                if (hostName)
                 {
-                    BMCWEB_LOG_INFO
-                        << "Ignoring the delete on ipv4StaticAddresses "
-                           "as the interface is DHCP enabled";
+                    handleHostnamePatch(*hostName, asyncResp);
                 }
-                else
+
+                if (dhcpv4)
                 {
-                    handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static,
-                                                    asyncResp);
+                    setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
                 }
-            }
 
-            if (hostName)
-            {
-                handleHostnamePatch(*hostName, asyncResp);
-            }
-
-            if (dhcpv4)
-            {
-                setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
-            }
-
-            // Set this interface to disabled/inactive. This will be set
-            // to enabled/active by the pldm once the hypervisor
-            // consumes the updated settings from the user.
-            setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
+                // Set this interface to disabled/inactive. This will be set
+                // to enabled/active by the pldm once the hypervisor
+                // consumes the updated settings from the user.
+                setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
             });
         asyncResp->res.result(boost::beast::http::status::accepted);
         });

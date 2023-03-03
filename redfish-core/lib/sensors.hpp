@@ -51,9 +51,9 @@ namespace sensors
 {
 namespace node
 {
-static constexpr std::string_view power = "Power";
-static constexpr std::string_view sensors = "Sensors";
-static constexpr std::string_view thermal = "Thermal";
+constexpr std::string_view power = "Power";
+constexpr std::string_view sensors = "Sensors";
+constexpr std::string_view thermal = "Thermal";
 } // namespace node
 
 // clang-format off
@@ -91,7 +91,7 @@ constexpr auto thermalPaths = std::to_array<std::string_view>({
 
 using sensorPair =
     std::pair<std::string_view, std::span<const std::string_view>>;
-static constexpr std::array<sensorPair, 3> paths = {
+constexpr std::array<sensorPair, 3> paths = {
     {{node::power, dbus::powerPaths},
      {node::sensors, dbus::sensorPaths},
      {node::thermal, dbus::thermalPaths}}};

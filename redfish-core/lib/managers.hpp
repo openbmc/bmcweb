@@ -271,16 +271,13 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         });
 }
 
-static constexpr const char* objectManagerIface =
-    "org.freedesktop.DBus.ObjectManager";
-static constexpr const char* pidConfigurationIface =
-    "xyz.openbmc_project.Configuration.Pid";
-static constexpr const char* pidZoneConfigurationIface =
+const char* objectManagerIface = "org.freedesktop.DBus.ObjectManager";
+const char* pidConfigurationIface = "xyz.openbmc_project.Configuration.Pid";
+const char* pidZoneConfigurationIface =
     "xyz.openbmc_project.Configuration.Pid.Zone";
-static constexpr const char* stepwiseConfigurationIface =
+const char* stepwiseConfigurationIface =
     "xyz.openbmc_project.Configuration.Stepwise";
-static constexpr const char* thermalModeIface =
-    "xyz.openbmc_project.Control.ThermalMode";
+const char* thermalModeIface = "xyz.openbmc_project.Control.ThermalMode";
 
 inline void
     asyncPopulatePid(const std::string& connection, const std::string& path,
@@ -1131,8 +1128,8 @@ inline CreatePIDRet createPidInterface(
         }
         if (direction)
         {
-            constexpr const std::array<const char*, 2> allowedDirections = {
-                "Ceiling", "Floor"};
+            constexpr std::array<const char*, 2> allowedDirections = {"Ceiling",
+                                                                      "Floor"};
             if (std::find(allowedDirections.begin(), allowedDirections.end(),
                           *direction) == allowedDirections.end())
             {
@@ -1171,7 +1168,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         std::shared_ptr<GetPIDValues> self = shared_from_this();
 
         // get all configurations
-        constexpr std::array<std::string_view, 4> interfaces = {
+        std::array<std::string_view, 4> interfaces = {
             pidConfigurationIface, pidZoneConfigurationIface,
             objectManagerIface, stepwiseConfigurationIface};
         dbus::utility::getSubTree(
@@ -1189,8 +1186,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             });
 
         // at the same time get the selected profile
-        constexpr std::array<std::string_view, 1> thermalModeIfaces = {
-            thermalModeIface};
+        std::array<std::string_view, 1> thermalModeIfaces = {thermalModeIface};
         dbus::utility::getSubTree(
             "/", 0, thermalModeIfaces,
             [self](
@@ -1401,8 +1397,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             "GetManagedObjects");
 
         // at the same time get the profile information
-        constexpr std::array<std::string_view, 1> thermalModeIfaces = {
-            thermalModeIface};
+        std::array<std::string_view, 1> thermalModeIfaces = {thermalModeIface};
         dbus::utility::getSubTree(
             "/", 0, thermalModeIfaces,
             [self](const boost::system::error_code& ec,
@@ -1581,7 +1576,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 BMCWEB_LOG_DEBUG << "Create new = " << createNewObject << "\n";
 
                 // arbitrary limit to avoid attacks
-                constexpr const size_t controllerLimit = 500;
+                size_t controllerLimit = 500;
                 if (createNewObject && objectCount >= controllerLimit)
                 {
                     messages::resourceExhaustion(response->res, type);
@@ -2064,7 +2059,7 @@ inline void requestRoutesManager(App& app)
                 });
         }
 
-        constexpr std::array<std::string_view, 1> interfaces = {
+        std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Bmc"};
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/inventory", 0, interfaces,
