@@ -48,10 +48,10 @@ constexpr std::array<const char*, 5> basePrivileges{
     "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
     "ConfigureUsers"};
 
-constexpr const size_t basePrivilegeCount = basePrivileges.size();
+constexpr size_t basePrivilegeCount = basePrivileges.size();
 
 /** @brief Max number of privileges per type  */
-constexpr const size_t maxPrivilegeCount = 32;
+constexpr size_t maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
 static const std::array<std::string, maxPrivilegeCount> privilegeNames{

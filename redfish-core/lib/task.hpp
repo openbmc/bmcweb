@@ -51,11 +51,11 @@ struct Payload
         httpHeaders(nlohmann::json::array())
     {
         using field_ns = boost::beast::http::field;
-        constexpr const std::array<boost::beast::http::field, 7>
-            headerWhitelist = {field_ns::accept,     field_ns::accept_encoding,
-                               field_ns::user_agent, field_ns::host,
-                               field_ns::connection, field_ns::content_length,
-                               field_ns::upgrade};
+        constexpr std::array<boost::beast::http::field, 7> headerWhitelist = {
+            field_ns::accept,     field_ns::accept_encoding,
+            field_ns::user_agent, field_ns::host,
+            field_ns::connection, field_ns::content_length,
+            field_ns::upgrade};
 
         JsonParseResult ret = parseRequestAsJson(req, jsonBody);
         if (ret != JsonParseResult::Success)

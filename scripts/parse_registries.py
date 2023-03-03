@@ -75,7 +75,7 @@ def update_registries(files):
                 '    "{json_dict[RegistryVersion]}",\n'
                 '    "{json_dict[OwningEntity]}",\n'
                 "}};\n"
-                "constexpr const char* url =\n"
+                "constexpr std::string_view url =\n"
                 '    "{url}";\n'
                 "\n"
                 "constexpr std::array registry =\n"

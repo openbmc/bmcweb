@@ -30,10 +30,9 @@
 namespace redfish
 {
 
-static constexpr char const* pcieService = "xyz.openbmc_project.PCIe";
-static constexpr char const* pciePath = "/xyz/openbmc_project/PCIe";
-static constexpr char const* pcieDeviceInterface =
-    "xyz.openbmc_project.PCIe.Device";
+const char* pcieService = "xyz.openbmc_project.PCIe";
+const char* pciePath = "/xyz/openbmc_project/PCIe";
+const char* pcieDeviceInterface = "xyz.openbmc_project.PCIe.Device";
 
 static inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -311,7 +310,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
             nlohmann::json& pcieFunctionList =
                 asyncResp->res.jsonValue["Members"];
             pcieFunctionList = nlohmann::json::array();
-            static constexpr const int maxPciFunctionNum = 8;
+            static constexpr int maxPciFunctionNum = 8;
             for (int functionNum = 0; functionNum < maxPciFunctionNum;
                  functionNum++)
             {

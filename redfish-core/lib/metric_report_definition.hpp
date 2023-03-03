@@ -156,7 +156,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
         return false;
     }
 
-    constexpr const char* allowedCharactersInName =
+    constexpr std::string_view allowedCharactersInName =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
     if (args.name.empty() || args.name.find_first_not_of(
                                  allowedCharactersInName) != std::string::npos)

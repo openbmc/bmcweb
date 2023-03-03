@@ -23,8 +23,8 @@ static constexpr size_t maxVerbIndex = static_cast<size_t>(HttpVerb::Max) - 1U;
 // MaxVerb + 1 is designated as the "not found" verb.  It is done this way
 // to keep the BaseRule as a single bitfield (thus keeping the struct small)
 // while still having a way to declare a route a "not found" route.
-static constexpr const size_t notFoundIndex = maxVerbIndex + 1;
-static constexpr const size_t methodNotAllowedIndex = notFoundIndex + 1;
+static constexpr size_t notFoundIndex = maxVerbIndex + 1;
+static constexpr size_t methodNotAllowedIndex = notFoundIndex + 1;
 
 inline std::optional<HttpVerb> httpVerbFromBoost(boost::beast::http::verb bv)
 {

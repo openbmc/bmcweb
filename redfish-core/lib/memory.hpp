@@ -326,8 +326,8 @@ inline void getPersistentMemoryProperties(
 
     if (allowedMemoryModes != nullptr)
     {
-        constexpr const std::array<const char*, 3> values{"Volatile", "PMEM",
-                                                          "Block"};
+        constexpr std::array<const char*, 3> values{"Volatile", "PMEM",
+                                                    "Block"};
 
         for (const char* v : values)
         {
@@ -342,8 +342,8 @@ inline void getPersistentMemoryProperties(
 
     if (memoryMedia != nullptr)
     {
-        constexpr const std::array<const char*, 3> values{"DRAM", "NAND",
-                                                          "Intel3DXPoint"};
+        constexpr std::array<const char*, 3> values{"DRAM", "NAND",
+                                                    "Intel3DXPoint"};
 
         for (const char* v : values)
         {
@@ -486,7 +486,7 @@ inline void
 
     if (ecc != nullptr)
     {
-        constexpr const std::array<const char*, 4> values{
+        constexpr std::array<const char*, 4> values{
             "NoECC", "SingleBitECC", "MultiBitECC", "AddressParity"};
 
         for (const char* v : values)
@@ -501,7 +501,7 @@ inline void
 
     if (formFactor != nullptr)
     {
-        constexpr const std::array<const char*, 11> values{
+        constexpr std::array<const char*, 11> values{
             "RDIMM",       "UDIMM",       "SO_DIMM",      "LRDIMM",
             "Mini_RDIMM",  "Mini_UDIMM",  "SO_RDIMM_72b", "SO_UDIMM_72b",
             "SO_DIMM_16b", "SO_DIMM_32b", "Die"};

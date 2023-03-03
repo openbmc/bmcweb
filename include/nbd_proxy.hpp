@@ -35,7 +35,7 @@ namespace nbd_proxy
 using boost::asio::local::stream_protocol;
 
 static constexpr auto nbdBufferSize = 131088;
-constexpr const char* requiredPrivilegeString = "ConfigureManager";
+constexpr char* requiredPrivilegeString = "ConfigureManager";
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {

@@ -38,23 +38,19 @@
 namespace redfish
 {
 
-constexpr const char* ldapConfigObjectName =
-    "/xyz/openbmc_project/user/ldap/openldap";
-constexpr const char* adConfigObject =
-    "/xyz/openbmc_project/user/ldap/active_directory";
+const char* ldapConfigObjectName = "/xyz/openbmc_project/user/ldap/openldap";
+const char* adConfigObject = "/xyz/openbmc_project/user/ldap/active_directory";
 
-constexpr const char* rootUserDbusPath = "/xyz/openbmc_project/user/";
-constexpr const char* ldapRootObject = "/xyz/openbmc_project/user/ldap";
-constexpr const char* ldapDbusService = "xyz.openbmc_project.Ldap.Config";
-constexpr const char* ldapConfigInterface =
-    "xyz.openbmc_project.User.Ldap.Config";
-constexpr const char* ldapCreateInterface =
-    "xyz.openbmc_project.User.Ldap.Create";
-constexpr const char* ldapEnableInterface = "xyz.openbmc_project.Object.Enable";
-constexpr const char* ldapPrivMapperInterface =
+const char* rootUserDbusPath = "/xyz/openbmc_project/user/";
+const char* ldapRootObject = "/xyz/openbmc_project/user/ldap";
+const char* ldapDbusService = "xyz.openbmc_project.Ldap.Config";
+const char* ldapConfigInterface = "xyz.openbmc_project.User.Ldap.Config";
+const char* ldapCreateInterface = "xyz.openbmc_project.User.Ldap.Create";
+const char* ldapEnableInterface = "xyz.openbmc_project.Object.Enable";
+const char* ldapPrivMapperInterface =
     "xyz.openbmc_project.User.PrivilegeMapper";
-constexpr const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
-constexpr const char* propertyInterface = "org.freedesktop.DBus.Properties";
+const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
+const char* propertyInterface = "org.freedesktop.DBus.Properties";
 
 struct LDAPRoleMapData
 {

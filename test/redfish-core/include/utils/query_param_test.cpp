@@ -491,7 +491,7 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorCode)
     propogateError(final, intermediate);
     EXPECT_EQ(final.jsonValue["error"][messages::messageAnnotation],
               error["error"][messages::messageAnnotation]);
-    std::string errorCode = messages::messageVersionPrefix;
+    std::string errorCode(messages::messageVersionPrefix);
     errorCode += "GeneralError";
     std::string errorMessage =
         "A general error has occurred. See Resolution for "

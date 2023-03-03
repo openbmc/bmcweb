@@ -271,16 +271,13 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         });
 }
 
-static constexpr const char* objectManagerIface =
-    "org.freedesktop.DBus.ObjectManager";
-static constexpr const char* pidConfigurationIface =
-    "xyz.openbmc_project.Configuration.Pid";
-static constexpr const char* pidZoneConfigurationIface =
+const char* objectManagerIface = "org.freedesktop.DBus.ObjectManager";
+const char* pidConfigurationIface = "xyz.openbmc_project.Configuration.Pid";
+const char* pidZoneConfigurationIface =
     "xyz.openbmc_project.Configuration.Pid.Zone";
-static constexpr const char* stepwiseConfigurationIface =
+const char* stepwiseConfigurationIface =
     "xyz.openbmc_project.Configuration.Stepwise";
-static constexpr const char* thermalModeIface =
-    "xyz.openbmc_project.Control.ThermalMode";
+const char* thermalModeIface = "xyz.openbmc_project.Control.ThermalMode";
 
 inline void
     asyncPopulatePid(const std::string& connection, const std::string& path,

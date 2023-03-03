@@ -271,7 +271,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
 
     ~ServerSentEvents() = default;
 
-    void sendData(const uint64_t& id, const std::string& data)
+    void sendData(uint64_t id, const std::string& data)
     {
         if (state == SseConnState::suspended)
         {

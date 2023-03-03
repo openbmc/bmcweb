@@ -28,7 +28,7 @@ const Header header = {
     "1.0.3",
     "DMTF",
 };
-constexpr const char* url =
+constexpr std::string_view url =
     "https://redfish.dmtf.org/registries/ResourceEvent.1.0.3.json";
 
 constexpr std::array registry =

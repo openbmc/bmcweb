@@ -55,15 +55,12 @@
 namespace redfish
 {
 
-constexpr char const* crashdumpObject = "com.intel.crashdump";
-constexpr char const* crashdumpPath = "/com/intel/crashdump";
-constexpr char const* crashdumpInterface = "com.intel.crashdump";
-constexpr char const* deleteAllInterface =
-    "xyz.openbmc_project.Collection.DeleteAll";
-constexpr char const* crashdumpOnDemandInterface =
-    "com.intel.crashdump.OnDemand";
-constexpr char const* crashdumpTelemetryInterface =
-    "com.intel.crashdump.Telemetry";
+const char* crashdumpObject = "com.intel.crashdump";
+const char* crashdumpPath = "/com/intel/crashdump";
+const char* crashdumpInterface = "com.intel.crashdump";
+const char* deleteAllInterface = "xyz.openbmc_project.Collection.DeleteAll";
+const char* crashdumpOnDemandInterface = "com.intel.crashdump.OnDemand";
+const char* crashdumpTelemetryInterface = "com.intel.crashdump.Telemetry";
 
 enum class DumpCreationProgress
 {
@@ -134,7 +131,7 @@ inline static int getJournalMetadata(sd_journal* journal,
 }
 
 inline static int getJournalMetadata(sd_journal* journal,
-                                     std::string_view field, const int& base,
+                                     std::string_view field, int base,
                                      long int& contents)
 {
     int ret = 0;
@@ -1939,10 +1936,10 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         });
 }
 
-constexpr const char* hostLoggerFolderPath = "/var/log/console";
+constexpr std::string_view hostLoggerFolderPath = "/var/log/console";
 
 inline bool
-    getHostLoggerFiles(const std::string& hostLoggerFilePath,
+    getHostLoggerFiles(std::string_view hostLoggerFilePath,
                        std::vector<std::filesystem::path>& hostLoggerFiles)
 {
     std::error_code ec;
