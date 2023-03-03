@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44996401_f2891794",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:38:26Z",
+      "side": 1,
+      "message": "Long term, I\u0027d really like to see us do the same thing we did on messages::internalError(), where we print to the console the line that caused the return code for any message, and obsolete this message entirely.\n\nOh well, problem for another day.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "001db1cd8e5e7173bb157343888d2e45c277cd9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
