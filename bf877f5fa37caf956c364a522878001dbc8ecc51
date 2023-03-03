@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0f675c9_10a763a5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-03T11:37:24Z",
+      "side": 1,
+      "message": "I\u0027m introducing split in another change (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/49796/35/redfish-core/lib/metric_report_definition.hpp#421). Is it okay with you if split is introduced later?",
+      "parentUuid": "4d5e29df_23bcf504",
+      "revId": "bf877f5fa37caf956c364a522878001dbc8ecc51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f242d666_e520b37a",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 85
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-01T07:41:17Z",
       "side": 1,
       "message": "why remove \u0026?",
+      "range": {
+        "startLine": 592,
+        "startChar": 48,
+        "endLine": 592,
+        "endChar": 50
+      },
+      "revId": "bf877f5fa37caf956c364a522878001dbc8ecc51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68522cf0_cfdde3f5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-03T11:37:24Z",
+      "side": 1,
+      "message": "It might be by accident. I restored it.",
+      "parentUuid": "f242d666_e520b37a",
       "range": {
         "startLine": 592,
         "startChar": 48,
@@ -54,6 +96,30 @@
       "writtenOn": "2023-03-01T07:41:17Z",
       "side": 1,
       "message": "why remove \u0026?",
+      "range": {
+        "startLine": 741,
+        "startChar": 49,
+        "endLine": 741,
+        "endChar": 51
+      },
+      "revId": "bf877f5fa37caf956c364a522878001dbc8ecc51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2551d39f_af43ed73",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-03T11:37:24Z",
+      "side": 1,
+      "message": "It might be by accident. I restored it.",
+      "parentUuid": "ad1847e9_ca9bedbc",
       "range": {
         "startLine": 741,
         "startChar": 49,
