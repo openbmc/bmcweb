@@ -91,7 +91,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         pipeIn.async_write_some(
             inputBuffer->data(),
             [this, self(shared_from_this())](boost::beast::error_code ec,
-                                             std::size_t bytesWritten) {
+                                             size_t bytesWritten) {
             BMCWEB_LOG_DEBUG << "Wrote " << bytesWritten << "bytes";
             doingWrite = false;
             inputBuffer->consume(bytesWritten);
@@ -117,12 +117,12 @@ class Handler : public std::enable_shared_from_this<Handler>
 
     void doRead()
     {
-        std::size_t bytes = outputBuffer->capacity() - outputBuffer->size();
+        size_t bytes = outputBuffer->capacity() - outputBuffer->size();
 
         pipeOut.async_read_some(
             outputBuffer->prepare(bytes),
             [this, self(shared_from_this())](
-                const boost::system::error_code& ec, std::size_t bytesRead) {
+                const boost::system::error_code& ec, size_t bytesRead) {
             BMCWEB_LOG_DEBUG << "Read done.  Read " << bytesRead << " bytes";
             if (ec)
             {

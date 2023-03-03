@@ -255,8 +255,8 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // Get the Created time from the timestamp. The log timestamp is in
     // RFC3339 format which matches the Redfish format except for the
     // fractional seconds between the '.' and the '+', so just remove them.
-    std::size_t dot = timestamp.find_first_of('.');
-    std::size_t plus = timestamp.find_first_of('+', dot);
+    size_t dot = timestamp.find_first_of('.');
+    size_t plus = timestamp.find_first_of('+', dot);
     if (dot != std::string::npos && plus != std::string::npos)
     {
         timestamp.erase(dot, plus - dot);
@@ -315,7 +315,7 @@ inline bool
         return false;
     }
 
-    for (std::size_t i = 0; i < result.size(); i += divisor)
+    for (size_t i = 0; i < result.size(); i += divisor)
     {
         const std::string& key = result[i];
         const std::string& op = result[i + 1];
@@ -1216,15 +1216,15 @@ class EventServiceManager
 
         static std::array<char, 1024> readBuffer;
 
-        inotifyConn->async_read_some(boost::asio::buffer(readBuffer),
-                                     [&](const boost::system::error_code& ec,
-                                         const std::size_t& bytesTransferred) {
+        inotifyConn->async_read_some(
+            boost::asio::buffer(readBuffer),
+            [&](const boost::system::error_code& ec, size_t bytesTransferred) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Callback Error: " << ec.message();
                 return;
             }
-            std::size_t index = 0;
+            size_t index = 0;
             while ((index + iEventSize) <= bytesTransferred)
             {
                 struct inotify_event event
@@ -1298,7 +1298,7 @@ class EventServiceManager
             }
 
             watchRedfishEventLogFile();
-        });
+            });
     }
 
     static int startEventLogMonitor(boost::asio::io_context& ioc)

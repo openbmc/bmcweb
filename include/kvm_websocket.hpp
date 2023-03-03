@@ -67,12 +67,12 @@ class KvmSession
   protected:
     void doRead()
     {
-        std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
+        size_t bytes = outputBuffer.capacity() - outputBuffer.size();
         BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Reading " << bytes
                          << " from kvm socket";
         hostSocket.async_read_some(
             outputBuffer.prepare(outputBuffer.capacity() - outputBuffer.size()),
-            [this](const boost::system::error_code& ec, std::size_t bytesRead) {
+            [this](const boost::system::error_code& ec, size_t bytesRead) {
             BMCWEB_LOG_DEBUG << "conn:" << &conn << ", read done.  Read "
                              << bytesRead << " bytes";
             if (ec)
@@ -116,9 +116,9 @@ class KvmSession
         }
 
         doingWrite = true;
-        hostSocket.async_write_some(inputBuffer.data(),
-                                    [this](const boost::system::error_code& ec,
-                                           std::size_t bytesWritten) {
+        hostSocket.async_write_some(
+            inputBuffer.data(),
+            [this](const boost::system::error_code& ec, size_t bytesWritten) {
             BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Wrote " << bytesWritten
                              << "bytes";
             doingWrite = false;
@@ -141,7 +141,7 @@ class KvmSession
             }
 
             doWrite();
-        });
+            });
     }
 
     crow::websocket::Connection& conn;

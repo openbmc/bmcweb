@@ -1811,7 +1811,7 @@ inline void
         {
             const std::string& path =
                 static_cast<const std::string&>(object.first);
-            std::size_t idPos2 = path.rfind('/');
+            size_t idPos2 = path.rfind('/');
 
             if (idPos2 == std::string::npos)
             {

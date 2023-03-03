@@ -661,7 +661,7 @@ inline bool isValidConfigFileName(const std::string& fileName,
 
     // ConfigFile name is allowed to take upper and lowercase letters,
     // numbers and hyphen
-    std::size_t found = fileName.find_first_not_of(
+    size_t found = fileName.find_first_not_of(
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-");
     if (found != std::string::npos)
     {

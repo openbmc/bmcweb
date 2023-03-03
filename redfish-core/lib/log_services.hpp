@@ -1218,7 +1218,7 @@ static LogParseError
     {
         std::string& messageArgsStart = logEntryFields[1];
         // If the first string is empty, assume there are no MessageArgs
-        std::size_t messageArgsSize = 0;
+        size_t messageArgsSize = 0;
         if (!messageArgsStart.empty())
         {
             messageArgsSize = logEntryFields.size() - 1;
@@ -1242,8 +1242,8 @@ static LogParseError
     // Get the Created time from the timestamp. The log timestamp is in RFC3339
     // format which matches the Redfish format except for the fractional seconds
     // between the '.' and the '+', so just remove them.
-    std::size_t dot = timestamp.find_first_of('.');
-    std::size_t plus = timestamp.find_first_of('+');
+    size_t dot = timestamp.find_first_of('.');
+    size_t plus = timestamp.find_first_of('+');
     if (dot != std::string::npos && plus != std::string::npos)
     {
         timestamp.erase(dot, plus - dot);

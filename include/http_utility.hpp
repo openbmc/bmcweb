@@ -61,7 +61,7 @@ inline ContentType
         }
         lastIndex = index + 1;
         // ignore any q-factor weighting (;q=)
-        std::size_t separator = encoding.find(";q=");
+        size_t separator = encoding.find(";q=");
 
         if (separator != std::string_view::npos)
         {

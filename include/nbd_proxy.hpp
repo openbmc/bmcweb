@@ -158,7 +158,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         peerSocket->async_read_some(
             ux2wsBuf.prepare(nbdBufferSize),
             [this, self(shared_from_this())](
-                const boost::system::error_code& ec, std::size_t bytesRead) {
+                const boost::system::error_code& ec, size_t bytesRead) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "UNIX socket: async_read_some error = "
@@ -209,7 +209,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         boost::asio::async_write(
             *peerSocket, ws2uxBuf.data(),
             [this, self(shared_from_this())](
-                const boost::system::error_code& ec, std::size_t bytesWritten) {
+                const boost::system::error_code& ec, size_t bytesWritten) {
             ws2uxBuf.consume(bytesWritten);
             uxWriteInProgress = false;
             if (ec)

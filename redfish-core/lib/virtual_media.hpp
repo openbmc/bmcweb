@@ -618,7 +618,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         // Pass secret over pipe
         secretPipe->asyncWrite(
-            [asyncResp](const boost::system::error_code& ec, std::size_t) {
+            [asyncResp](const boost::system::error_code& ec, size_t) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Failed to pass secret: " << ec;

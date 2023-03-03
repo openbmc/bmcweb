@@ -21,7 +21,7 @@ namespace persistent_data
 // entropy: 20 characters, 62 possibilities.  log2(62^20) = 119 bits of
 // entropy.  OWASP recommends at least 64
 // https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-entropy
-constexpr std::size_t sessionTokenSize = 20;
+constexpr size_t sessionTokenSize = 20;
 
 enum class PersistenceType
 {
