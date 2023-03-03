@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5091191_8ca7f0da",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:23:34Z",
+      "side": 1,
+      "message": "Nit, if you want an array, just declare as an nlohmann::json::array_t",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 19
+      },
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d77ee7_3ad3e999",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:23:34Z",
+      "side": 1,
+      "message": "emplace_back please.",
+      "range": {
+        "startLine": 196,
+        "startChar": 17,
+        "endLine": 196,
+        "endChar": 26
+      },
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6cdb754_ac93b134",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:23:34Z",
+      "side": 1,
+      "message": "Please don\u0027t brace construct nlohman::json objects.  it\u0027s slower and bloats our code size.  Please see elsewhere in bmcweb for examples of how to construct this with object_t",
+      "range": {
+        "startLine": 197,
+        "startChar": 12,
+        "endLine": 199,
+        "endChar": 58
+      },
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d509041_b506c045",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:23:34Z",
+      "side": 1,
+      "message": "nit, generally we just do brace construction here\n\nreturn {triggers}",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 203,
+        "endChar": 29
+      },
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a531f7_ad8691d6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T19:23:34Z",
+      "side": 1,
+      "message": "nit, std::move please.",
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
