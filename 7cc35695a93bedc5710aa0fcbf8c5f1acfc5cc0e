@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45942c75_e9c7a736",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "nit, capital",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 45
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f6b3c04_cefa4d3c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "nit: Maybe \"and\" here instead of semicolon would make this more readable?",
+      "range": {
+        "startLine": 219,
+        "startChar": 38,
+        "endLine": 219,
+        "endChar": 39
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "073a3e0f_53512765",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "encountered a fatal condition?  I don\u0027t want to use the word exception if we can avoid it.",
+      "range": {
+        "startLine": 221,
+        "startChar": 55,
+        "endLine": 222,
+        "endChar": 11
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91439ed5_12551f81",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "nit: remove to make this sentence more concise.  what \"it\" is in this isn\u0027t clear.",
+      "range": {
+        "startLine": 224,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 15
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1cfb175_154a97d1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "can we replace all of these with \"shall\"?  Seems better.",
+      "range": {
+        "startLine": 226,
+        "startChar": 10,
+        "endLine": 226,
+        "endChar": 16
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f91eb48_a494a314",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "This needs wordsmithed a little bit.  \"Odd\" isn\u0027t very well defined.  Maybe:\n\n\"A condition occurred that is outside the expected flows, but isn\u0027t necessarily an error in the webserver, or might only be an error in certain  scenarios.  For example, connection drops or 4XX errors.",
+      "range": {
+        "startLine": 227,
+        "startChar": 11,
+        "endLine": 227,
+        "endChar": 31
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1080062_a8232c5a",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "How about: Information that\u0027s overly verbose such that it shouldn\u0027t be printed in all debug scenarios, but might be useful in some debug contexts.",
+      "range": {
+        "startLine": 230,
+        "startChar": 9,
+        "endLine": 231,
+        "endChar": 16
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6ec7c5_b2f94f54",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "This isn\u0027t super helpful as a sentence.  What are the use cases?  Can we call out enabling error level logging + fuzzing as a use case?",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 24
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0b05837_66c8cca3",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-03T18:49:18Z",
+      "side": 1,
+      "message": "Yeah, this is the kind of split I don\u0027t want.  All the info on debug logging (enabling AND levels) should be in one spot.",
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
