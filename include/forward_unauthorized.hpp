@@ -34,7 +34,8 @@ inline void sendUnauthorized(std::string_view url,
         // If we don't have a webui installed, just return an unauthorized
         // body
         res.result(boost::beast::http::status::unauthorized);
-        res.body() = "Unauthorized";
+        res.body() =
+            "No authentication provided, and no login UI present to forward to.";
         return;
     }
 
