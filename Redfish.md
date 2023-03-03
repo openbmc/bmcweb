@@ -489,6 +489,7 @@ Fields common to all schemas
 - DHCPv4
 - DHCPv6
 - Description
+- EthernetInterfaceType
 - FQDN
 - HostName
 - IPv4Addresses
@@ -498,12 +499,16 @@ Fields common to all schemas
 - IPv6DefaultGateway
 - IPv6StaticAddresses
 - InterfaceEnabled
+- Links/RelatedInterfaces
 - LinkStatus
 - MACAddress
 - NameServers
 - SpeedMbps
 - StaticNameServers
 - Status
+- VLAN/VLANEnable
+- VLAN/VLANId
+- VLAN/Tagged
 
 ### /redfish/v1/Managers/bmc/LogServices/
 
