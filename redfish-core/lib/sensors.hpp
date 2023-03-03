@@ -564,13 +564,12 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
-        sdbusplus::asio::getProperty<std::vector<std::string>>(
-            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
-            sensorPath, "xyz.openbmc_project.Association", "endpoints",
+        dbus::utility::getAssociationEndPoints(
+            sensorPath,
             [asyncResp, chassisSubNode, sensorTypes,
              callback{std::forward<const Callback>(callback)}](
                 const boost::system::error_code& e,
-                const std::vector<std::string>& nodeSensorList) {
+                const dbus::utility::MapperEndPoints& nodeSensorList) {
             if (e)
             {
                 if (e.value() != EBADR)
@@ -617,9 +616,10 @@ inline std::string getHealth(nlohmann::json& sensorJson,
                              const dbus::utility::DBusPropertiesMap& valuesDict,
                              const InventoryItem* inventoryItem)
 {
-    // Get current health value (if any) in the sensor JSON object.  Some JSON
-    // objects contain multiple sensors (such as PowerSupplies).  We want to set
-    // the overall health to be the most severe of any of the sensors.
+    // Get current health value (if any) in the sensor JSON object.  Some
+    // JSON objects contain multiple sensors (such as PowerSupplies).  We
+    // want to set the overall health to be the most severe of any of the
+    // sensors.
     std::string currentHealth;
     auto statusIt = sensorJson.find("Status");
     if (statusIt != sensorJson.end())
@@ -635,8 +635,8 @@ inline std::string getHealth(nlohmann::json& sensorJson,
         }
     }
 
-    // If current health in JSON object is already Critical, return that.  This
-    // should override the sensor health, which might be less severe.
+    // If current health in JSON object is already Critical, return that.
+    // This should override the sensor health, which might be less severe.
     if (currentHealth == "Critical")
     {
         return "Critical";
@@ -669,8 +669,8 @@ inline std::string getHealth(nlohmann::json& sensorJson,
         return "Critical";
     }
 
-    // If current health in JSON object is already Warning, return that. This
-    // should override the sensor status, which might be less severe.
+    // If current health in JSON object is already Warning, return that.
+    // This should override the sensor status, which might be less severe.
     if (currentHealth == "Warning")
     {
         return "Warning";
@@ -748,9 +748,9 @@ inline void objectPropertiesToJson(
     }
     else if (sensorType != "power")
     {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
+        // Set MemberId and Name for non-power sensors.  For PowerSupplies
+        // and PowerControl, those properties have more general values
+        // because multiple sensors can be stored in the same JSON object.
         sensorJson["MemberId"] = sensorName;
         std::string sensorNameEs(sensorName);
         std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
@@ -761,9 +761,9 @@ inline void objectPropertiesToJson(
     sensorJson["Status"]["Health"] =
         getHealth(sensorJson, propertiesDict, inventoryItem);
 
-    // Parameter to set to override the type we get from dbus, and force it to
-    // int, regardless of what is available.  This is used for schemas like fan,
-    // that require integers, not floats.
+    // Parameter to set to override the type we get from dbus, and force it
+    // to int, regardless of what is available.  This is used for schemas
+    // like fan, that require integers, not floats.
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
@@ -846,7 +846,8 @@ inline void objectPropertiesToJson(
         BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
         return;
     }
-    // Map of dbus interface name, dbus property name and redfish property_name
+    // Map of dbus interface name, dbus property name and redfish
+    // property_name
     std::vector<
         std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
         properties;
@@ -961,7 +962,6 @@ inline void objectInterfacesToJson(
     const dbus::utility::DBusInteracesMap& interfacesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
-
     for (const auto& [interface, valuesDict] : interfacesDict)
     {
         objectPropertiesToJson(sensorName, sensorType, chassisSubNode,
@@ -998,13 +998,11 @@ inline void populateFanRedundancy(
             }
 
             const std::string& owner = objDict.begin()->first;
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/chassis",
-                "xyz.openbmc_project.Association", "endpoints",
-                [path, owner,
-                 sensorsAsyncResp](const boost::system::error_code& e,
-                                   const std::vector<std::string>& endpoints) {
+            dbus::utility::getAssociationEndPoints(
+                path + "/chassis",
+                [path, owner, sensorsAsyncResp](
+                    const boost::system::error_code& e,
+                    const dbus::utility::MapperEndPoints& endpoints) {
                 if (e)
                 {
                     return; // if they don't have an association we
@@ -1462,7 +1460,8 @@ static void getInventoryItemsData(
                 const std::string& objPath =
                     static_cast<const std::string&>(objDictEntry.first);
 
-                // If this object path is one of the specified inventory items
+                // If this object path is one of the specified inventory
+                // items
                 InventoryItem* inventoryItem =
                     findInventoryItem(inventoryItems, objPath);
                 if (inventoryItem != nullptr)
@@ -1624,7 +1623,8 @@ static void getInventoryItemAssociations(
             const std::string& objPath =
                 static_cast<const std::string&>(objDictEntry.first);
 
-            // If path is inventory association for one of the specified sensors
+            // If path is inventory association for one of the specified
+            // sensors
             for (const std::string& sensorName : *sensorNames)
             {
                 sensorAssocPath = sensorName;
@@ -1889,8 +1889,8 @@ void getInventoryLeds(
                  std::vector<std::pair<std::string, std::vector<std::string>>>>&
                  object : subtree)
         {
-            // Check if object path is LED for one of the specified inventory
-            // items
+            // Check if object path is LED for one of the specified
+            // inventory items
             const std::string& ledPath = object.first;
             if (findInventoryItemForLed(*inventoryItems, ledPath) != nullptr)
             {
@@ -2725,7 +2725,8 @@ inline void setSensorsOverride(
         getObjectsWithConnection(sensorAsyncResp, sensorNames,
                                  std::move(getObjectsWithConnectionCb));
     };
-    // get full sensor list for the given chassisId and cross verify the sensor.
+    // get full sensor list for the given chassisId and cross verify the
+    // sensor.
     getChassis(sensorAsyncResp->asyncResp, sensorAsyncResp->chassisId,
                sensorAsyncResp->chassisSubNode, sensorAsyncResp->types,
                std::move(getChassisSensorListCb));
@@ -2771,7 +2772,6 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
 
 namespace sensors
 {
-
 inline void getChassisCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::string_view chassisId, std::string_view chassisSubNode,
@@ -2793,8 +2793,8 @@ inline void getChassisCallback(
             return;
         }
         std::string type = path.parent_path().filename();
-        // fan_tach has an underscore in it, so remove it to "normalize" the
-        // type in the URI
+        // fan_tach has an underscore in it, so remove it to "normalize"
+        // the type in the URI
         type.erase(std::remove(type.begin(), type.end(), '_'), type.end());
 
         nlohmann::json::object_t member;
