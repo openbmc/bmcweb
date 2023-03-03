@@ -250,12 +250,10 @@ inline void
 
             auto health = std::make_shared<HealthPopulate>(asyncResp);
 
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/all_sensors",
-                "xyz.openbmc_project.Association", "endpoints",
+            dbus::utility::getAssociationEndPoints(
+                path + "/all_sensors",
                 [health](const boost::system::error_code& ec2,
-                         const std::vector<std::string>& resp) {
+                         const dbus::utility::MapperEndPoints& resp) {
                 if (ec2)
                 {
                     return; // no sensors = no failures
@@ -290,12 +288,11 @@ inline void
                 crow::utility::urlFromPieces("redfish", "v1", "Systems",
                                              "system", "PCIeDevices");
 
-            sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.ObjectMapper", path + "/drive",
-                "xyz.openbmc_project.Association", "endpoints",
-                [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                       const std::vector<std::string>& resp) {
+            dbus::utility::getAssociationEndPoints(
+                path + "/drive",
+                [asyncResp,
+                 chassisId](const boost::system::error_code& ec3,
+                            const dbus::utility::MapperEndPoints& resp) {
                 if (ec3 || resp.empty())
                 {
                     return; // no drives = no failures
