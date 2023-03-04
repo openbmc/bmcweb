@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "712df827_52580e81",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:24:57Z",
+      "side": 1,
+      "message": "I\u0027ll double check, but I don\u0027t think so.  Let\u0027s say we have this object in obj:\n{\n  \"@odata.id\": \"/redfish/v1\",\n  \"Chassis\": {\n    \"@odata.id\": \"/redfish/v1/Chassis\"\n}\n\nIf we don\u0027t include this skip then we\u0027d call findNavigationReferencesRecursive() on the \"@odata.id\": \"/redfish/v1\" element, as well as the \"Chassis\" element.  Then at the beginning of findNavigationReferencesRecursive() starting at 570 we\u0027d end up matching and add \"/redfish/v1\" as a URI that we should expand.\n\n\nNow let\u0027s say we\u0027re doing a single level expand and the original object is\n{\n  \"@odata.id\": \"/redfish/v1\",\n  \"Chassis\": {\n    \"@odata.id\": \"/redfish/v1/Chassis\",\n    \"Members\": [\n      {\n        \"@odata.id\": \"/redfish/v1/Chassis/Foo\"\n      }\n    ]\n  }\n}\n\nIn that scenario we shouldn\u0027t expand anything.  The check on 594 will decrement the depth to \"0\" when first parse the object.  594 later catches when obj becomes\n{\n  \"@odata.id\": \"/redfish/v1/Chassis\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/Foo\"\n    }\n  ]\n}\n\nIf we don\u0027t stop traversal at that point then we\u0027ll fall into the for loop on 602 and end up returning \"/redfish/v1/Chassis/Foo\" as a URI that needs to be expanded.",
+      "parentUuid": "d0cdaf08_248916cd",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 610,
+        "endChar": 9
+      },
+      "revId": "1a6224a5d52dac34d2d9836ba45efab791886f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2686184a_bebdd6eb",
@@ -77,6 +101,30 @@
       "writtenOn": "2023-03-04T01:23:50Z",
       "side": 1,
       "message": "Nit, can you either append to the existing string, or break apart the construction here?  Doing both makes this code hard to read.",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 659,
+        "endChar": 49
+      },
+      "revId": "1a6224a5d52dac34d2d9836ba45efab791886f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe9e491_cc9b627f",
+        "filename": "test/redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:24:57Z",
+      "side": 1,
+      "message": "Sure will do",
+      "parentUuid": "381058b8_be704e11",
       "range": {
         "startLine": 655,
         "startChar": 0,
