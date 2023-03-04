@@ -104,7 +104,7 @@ inline void findAndParseObject(const std::string& service,
             return;
         }
 
-        for (auto& item : subtree)
+        for (const auto& item : subtree)
         {
             VmMode mode = parseObjectPathAndGetMode(item.first, resName);
             if (mode != VmMode::Invalid)
@@ -300,12 +300,12 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
-inline void afterGetVmData(const std::string& name,
-                           const std::string& /*service*/,
-                           const std::string& resName,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           std::pair<sdbusplus::message::object_path,
-                                     dbus::utility::DBusInteracesMap>& item)
+inline void
+    afterGetVmData(const std::string& name, const std::string& /*service*/,
+                   const std::string& resName,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::pair<sdbusplus::message::object_path,
+                                   dbus::utility::DBusInteracesMap>& item)
 {
     VmMode mode = parseObjectPathAndGetMode(item.first, resName);
     if (mode == VmMode::Invalid)
@@ -343,7 +343,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Get Virtual Media resource data.";
 
     findAndParseObject(service, resName, aResp,
-                       std::bind_front(&afterGetVmData, name));
+                       std::bind_front(afterGetVmData, name));
 }
 
 /**
