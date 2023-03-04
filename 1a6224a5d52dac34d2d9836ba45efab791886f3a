@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7390dc6_2e4118b3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:42:58Z",
+      "side": 1,
+      "message": "The tests still passed after I commented it out.  I was confused until I realized what was going on. In the for loop we only pass element.second.  That means when the element is the resource identifier we\u0027ll only pass the URI which is a string.  That means we\u0027ll fail the check on 565 after attempting to read it as an nlohmann::json::object_t.  \n\nThis check on 604 then ends up just saving us an attempt at parsing a string as array_t and then object_t.  I\u0027ll go ahead and remove it so that we don\u0027t have to do this check on every single element.",
+      "parentUuid": "712df827_52580e81",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 610,
+        "endChar": 9
+      },
+      "revId": "1a6224a5d52dac34d2d9836ba45efab791886f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2686184a_bebdd6eb",
