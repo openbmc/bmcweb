@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2876bd6a_ec8ca2c1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:06:50Z",
+      "side": 1,
+      "message": "Marking resolved since incrementing that variable has been removed from the latest patchset.  We do now decrement newDepth for related reasons.  Comments have been added explaining why.",
+      "parentUuid": "ff2eced8_a9e82a24",
+      "range": {
+        "startLine": 610,
+        "startChar": 12,
+        "endLine": 610,
+        "endChar": 20
+      },
+      "revId": "13114d91a75e266488bd58ada38d81a8791242e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a861f8a0_073b1760",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yeah.  I just pushed what I had, which is a step backwards from what was there previously.  Will get it fixed.",
       "parentUuid": "a861f8a0_073b1760",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 71
+      },
+      "revId": "13114d91a75e266488bd58ada38d81a8791242e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2091249e_8ce5e516",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9e292fb_6bc62df5",
       "range": {
         "startLine": 612,
         "startChar": 0,

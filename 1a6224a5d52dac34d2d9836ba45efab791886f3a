@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f68cfda_dea1004a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:06:50Z",
+      "side": 1,
+      "message": "Note that I changed the approach to rely on the existence of the resource identifier \"@odata.id\" to denote when we\u0027ve stepped into a resource that was previously expanded.  I think that\u0027s fine because the former would not be recognized as valid json response so we shouldn\u0027t worry about trying to $expand it.\n\nFor the sake of consistency I also updated the existing $expand unit tests so that they also now include \"@odata.id\": \"{URI}\".  A test response that was previously:\n{\n  \"Foo\": {\n    \"/foobar\"\n  }\n}\n\nIs now:\n{\n  \"@odata.id\": \"/redfish/v1\",\n  \"Foo\": {\n    \"/foobar\"\n  }\n}\n\nNote that single level expand will still work correctly on non-aggregated responses that do not include \"@odata.id\".  It\u0027s when the response has already been expanded that our expand handler code can\u0027t figure out the appropriate depth without using \"@odata.id\".",
+      "revId": "1a6224a5d52dac34d2d9836ba45efab791886f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0cdaf08_248916cd",
@@ -19,6 +36,29 @@
         "startChar": 0,
         "endLine": 610,
         "endChar": 9
+      },
+      "revId": "1a6224a5d52dac34d2d9836ba45efab791886f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2686184a_bebdd6eb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-04T02:06:50Z",
+      "side": 1,
+      "message": "TLDR; I think https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556 won\u0027t play well with $expand and we should disable forwarding query params to satellite BMCs when the URI is up tree from a top level collection.  Think \u0027/redfish/v1?$expand\u003d.($levels\u003d1)\u0027, \u0027/redfish/v1/UpdateService?$expand\u003d.(levels\u003d2)\u0027, etc.\n\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nSomething to keep an eye on whenever that patch lands.  When it does then let\u0027s say we receive the request \u0027/redfish/v1/UpdateService?$expand\u003d.($levels\u003d2)\u0027, the satellite supports $expand, and we forward the request as-is.\n\nThe satellite response would be expanded such that the FirmwareInventory entries /redfish/v1/UpdateService/FirmwareInventory/{id} are expanded in the Members array of /redfish/v1/UpdateService/FirmwareInventory.\n\nThe initial response from the aggregating BMC would only be for /redfish/v1/UpdateService.\n\nThe aggregator has to combine them into a single response.  The processing code does not consider that the satellite response may have been expanded.  It only transfers properties from the satellite response if they do not already exist in the aggregator\u0027s response and have the form:\n\n\"Property\": {\n  \"@odata.id\": {top level collection URI}\n}\n\nMy guess is none of that would get copied over and thus the satellite performing $expand is wasted.  If the Property is associated with a resource that is only supported on the satellite then the link wouldn\u0027t get added at all.\n\nIt\u0027d be a major headache if we had to support selectively combining responses at differing levels of $expand.  In the example, the initial response will look like the multi-level $expand has been performed, but it will only contain FirmwareInventory entries from the satellite since the aggregating BMC has not actually had a chance to locally generate a response for /redfish/v1/UpdateService/FirmwareInventory.  It\u0027ll be even more difficult to do all of that whenever we add support for aggregating multiple satellite BMCs.\n\nIn the $expand code whenever we hit a top level collection we\u0027d have to make sure we have entries from all known satellites as well as the aggregating BMC.  If we don\u0027t then we\u0027d have to somehow query that top level collection, but only on whatever expected entities are not represented in the Members array since they potentially haven\u0027t had a chance to be expanded yet.\n\nI think the best approach by far would be to remove the query params from forwarded requests if the resource is uptree from a top level collection.  Once we reach a top level collection we\u0027ll begin including the query params since it\u0027ll work correctly from that point.",
+      "range": {
+        "startLine": 635,
+        "startChar": 0,
+        "endLine": 640,
+        "endChar": 26
       },
       "revId": "1a6224a5d52dac34d2d9836ba45efab791886f3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
