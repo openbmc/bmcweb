@@ -893,6 +893,7 @@ inline void
     handleHostnamePatch(const std::string& hostname,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    BMCWEB_LOG_DEBUG << "handleHostnamePatch";
     // SHOULD handle host names of up to 255 characters(RFC 1123)
     if (hostname.length() > 255)
     {
@@ -904,7 +905,9 @@ inline void
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
+            BMCWEB_LOG_DEBUG << "internalError";
             messages::internalError(asyncResp->res);
+            return;
         }
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/config",
