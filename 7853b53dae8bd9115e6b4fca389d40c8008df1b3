@@ -70,6 +70,30 @@
       },
       "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a94ce8c_ec5f6e42",
+        "filename": "config/meson.build",
+        "patchSetId": 37
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-06T01:03:38Z",
+      "side": 1,
+      "message": "\u003e \u0027enabled\u0027 is interpreted as \u0027debug\u0027 (i.e. current default).\n\nThis is the question I want to ask, why the default is debug, not error, is the previous logic debug?",
+      "parentUuid": "182efe63_ab88d700",
+      "range": {
+        "startLine": 17,
+        "startChar": 9,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
