@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7ed205_1e316a7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-06T16:57:45Z",
+      "side": 1,
+      "message": "What commit caused this?",
+      "revId": "17f2c9170282c1785fd14e4b596f28e59dd2faaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "804ea11d_6caee87a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-06T16:57:45Z",
+      "side": 1,
+      "message": "How is bmcweb CI passing, but \"local CI\" isn\u0027t ? Isn\u0027t local CI the same https://github.com/openbmc/openbmc-build-scripts scripts? Or what do you mean by local CI ?",
+      "revId": "17f2c9170282c1785fd14e4b596f28e59dd2faaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
