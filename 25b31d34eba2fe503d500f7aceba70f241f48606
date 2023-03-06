@@ -70,6 +70,24 @@
       "parentUuid": "544c6def_c49d5556",
       "revId": "25b31d34eba2fe503d500f7aceba70f241f48606",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cbf1960_3b3130e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-06T10:10:16Z",
+      "side": 1,
+      "message": "This commit was not being worked because there was a clash with the vlan feature schema version. \nNow that Jiaqing confirmed that vlan feature is getting reworked, we can go ahead with this commit for updating the IPv6 StatelessAddressAutoConfiguration as per latest schema and latest networkd design.",
+      "parentUuid": "f04b896b_ae1fb298",
+      "revId": "25b31d34eba2fe503d500f7aceba70f241f48606",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
