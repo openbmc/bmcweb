@@ -643,10 +643,10 @@ class UrlSegmentMatcherVisitor
     std::string_view segment;
 };
 
-inline bool readUrlSegments(const boost::urls::url_view& url,
+inline bool readUrlSegments(boost::urls::url_view url,
                             std::initializer_list<UrlSegment>&& segments)
 {
-    const boost::urls::segments_view& urlSegments = url.segments();
+    boost::urls::segments_view urlSegments = url.segments();
 
     if (!urlSegments.is_absolute())
     {
@@ -687,16 +687,16 @@ inline bool readUrlSegments(const boost::urls::url_view& url,
 } // namespace details
 
 template <typename... Args>
-inline bool readUrlSegments(const boost::urls::url_view& url, Args&&... args)
+inline bool readUrlSegments(boost::urls::url_view url, Args&&... args)
 {
     return details::readUrlSegments(url, {std::forward<Args>(args)...});
 }
 
-inline boost::urls::url replaceUrlSegment(const boost::urls::url_view& urlView,
+inline boost::urls::url replaceUrlSegment(boost::urls::url_view urlView,
                                           const uint replaceLoc,
                                           std::string_view newSegment)
 {
-    const boost::urls::segments_view& urlSegments = urlView.segments();
+    boost::urls::segments_view urlSegments = urlView.segments();
     boost::urls::url url("/");
 
     if (!urlSegments.is_absolute())
@@ -722,7 +722,7 @@ inline boost::urls::url replaceUrlSegment(const boost::urls::url_view& urlView,
     return url;
 }
 
-inline std::string setProtocolDefaults(const boost::urls::url_view& urlView)
+inline std::string setProtocolDefaults(boost::urls::url_view urlView)
 {
     if (urlView.scheme() == "https")
     {
@@ -739,7 +739,7 @@ inline std::string setProtocolDefaults(const boost::urls::url_view& urlView)
     return "";
 }
 
-inline uint16_t setPortDefaults(const boost::urls::url_view& url)
+inline uint16_t setPortDefaults(boost::urls::url_view url)
 {
     uint16_t port = url.port_number();
     if (port != 0)
@@ -821,7 +821,7 @@ template <>
 struct adl_serializer<boost::urls::url_view>
 {
     // NOLINTNEXTLINE(readability-identifier-naming)
-    static void to_json(json& j, const boost::urls::url_view& url)
+    static void to_json(json& j, boost::urls::url_view url)
     {
         j = url.buffer();
     }
