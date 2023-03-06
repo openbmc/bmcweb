@@ -34,12 +34,9 @@ struct Connection : std::enable_shared_from_this<Connection>
     Connection& operator=(const Connection&) = delete;
     Connection& operator=(const Connection&&) = delete;
 
-    virtual void sendBinary(std::string_view msg) = 0;
-    virtual void sendBinary(std::string&& msg) = 0;
     virtual void sendEx(MessageType type, std::string_view msg,
                         std::function<void()>&& onDone) = 0;
-    virtual void sendText(std::string_view msg) = 0;
-    virtual void sendText(std::string&& msg) = 0;
+
     virtual void close(std::string_view msg = "quit") = 0;
     virtual void deferRead() = 0;
     virtual void resumeRead() = 0;
@@ -58,17 +55,16 @@ class ConnectionImpl : public Connection
         const boost::urls::url_view& urlViewIn,
         const std::shared_ptr<persistent_data::UserSession>& sessionIn,
         Adaptor adaptorIn, std::function<void(Connection&)> openHandlerIn,
-        std::function<void(Connection&, const std::string&, bool)>
+        std::function<void(Connection&, std::string_view, bool)>
             messageHandlerIn,
         std::function<void(crow::websocket::Connection&, std::string_view,
-                           crow::websocket::MessageType type,
+                           crow::websocket::MessageType type, bool,
                            std::function<void()>&& whenComplete)>
             messageExHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
         std::function<void(Connection&)> errorHandlerIn) :
         uri(urlViewIn),
-        ws(std::move(adaptorIn)), inBuffer(inString, 131088),
-        openHandler(std::move(openHandlerIn)),
+        ws(std::move(adaptorIn)), openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
         messageExHandler(std::move(messageExHandlerIn)),
         closeHandler(std::move(closeHandlerIn)),
@@ -137,14 +133,6 @@ class ConnectionImpl : public Connection
                                         shared_from_this(), std::move(mobile)));
     }
 
-    void sendBinary(std::string_view msg) override
-    {
-        ws.binary(true);
-        outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),
-                                                  boost::asio::buffer(msg)));
-        doWrite();
-    }
-
     void sendEx(MessageType type, std::string_view msg,
                 std::function<void()>&& onDone) override
     {
@@ -177,30 +165,6 @@ class ConnectionImpl : public Connection
                 self->close("write error");
             }
         });
-    }
-
-    void sendBinary(std::string&& msg) override
-    {
-        ws.binary(true);
-        outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),
-                                                  boost::asio::buffer(msg)));
-        doWrite();
-    }
-
-    void sendText(std::string_view msg) override
-    {
-        ws.text(true);
-        outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),
-                                                  boost::asio::buffer(msg)));
-        doWrite();
-    }
-
-    void sendText(std::string&& msg) override
-    {
-        ws.text(true);
-        outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),
-                                                  boost::asio::buffer(msg)));
-        doWrite();
     }
 
     void close(std::string_view msg) override
@@ -269,26 +233,11 @@ class ConnectionImpl : public Connection
         {
             return;
         }
-        ws.async_read(inBuffer, [this, self(shared_from_this())](
-                                    const boost::beast::error_code& ec,
-                                    size_t bytesRead) {
-            if (ec)
-            {
-                if (ec != boost::beast::websocket::error::closed)
-                {
-                    BMCWEB_LOG_ERROR("doRead error {}", ec);
-                }
-                if (closeHandler)
-                {
-                    std::string reason{ws.reason().reason.c_str()};
-                    closeHandler(*this, reason);
-                }
-                return;
-            }
-
-            handleMessage(bytesRead);
-        });
+        ws.async_read_some(
+            boost::asio::buffer(inBuffer),
+            std::bind_front(&self_t::handleMessage, this, shared_from_this()));
     }
+
     void doWrite()
     {
         // If we're already doing a write, ignore the request, it will be picked
@@ -326,21 +275,35 @@ class ConnectionImpl : public Connection
     }
 
   private:
-    void handleMessage(size_t bytesRead)
+    void handleMessage(const std::shared_ptr<Connection>& /*self*/,
+                       const boost::beast::error_code& ec, size_t bytesRead)
     {
+        if (ec)
+        {
+            if (ec != boost::beast::websocket::error::closed)
+            {
+                BMCWEB_LOG_ERROR("doRead error {}", ec);
+            }
+            if (closeHandler)
+            {
+                std::string reason{ws.reason().reason.data(),
+                                   ws.reason().reason.size()};
+                closeHandler(*this, reason);
+            }
+            return;
+        }
+        std::string_view inString(inBuffer.data(), bytesRead);
         if (messageExHandler)
         {
             // Note, because of the interactions with the read buffers,
             // this message handler overrides the normal message handler
             messageExHandler(*this, inString, MessageType::Binary,
-                             [this, self(shared_from_this()), bytesRead]() {
+                             ws.is_message_done(),
+                             [this, self(shared_from_this())]() {
                 if (self == nullptr)
                 {
                     return;
                 }
-
-                inBuffer.consume(bytesRead);
-                inString.clear();
 
                 doRead();
             });
@@ -351,8 +314,6 @@ class ConnectionImpl : public Connection
         {
             messageHandler(*this, inString, ws.got_text());
         }
-        inBuffer.consume(bytesRead);
-        inString.clear();
         doRead();
     }
 
@@ -361,19 +322,15 @@ class ConnectionImpl : public Connection
     boost::beast::websocket::stream<Adaptor, false> ws;
 
     bool readingDefered = false;
-    std::string inString;
-    boost::asio::dynamic_string_buffer<std::string::value_type,
-                                       std::string::traits_type,
-                                       std::string::allocator_type>
-        inBuffer;
+    std::array<char, 8196> inBuffer{};
 
     boost::beast::multi_buffer outBuffer;
     bool doingWrite = false;
 
     std::function<void(Connection&)> openHandler;
-    std::function<void(Connection&, const std::string&, bool)> messageHandler;
+    std::function<void(Connection&, std::string_view, bool)> messageHandler;
     std::function<void(crow::websocket::Connection&, std::string_view,
-                       crow::websocket::MessageType type,
+                       crow::websocket::MessageType type, bool,
                        std::function<void()>&& whenComplete)>
         messageExHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
