@@ -120,12 +120,18 @@ inline void requestRoutes(App& app)
         .onclose([&](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
-        .onmessage([&](crow::websocket::Connection& conn,
-                       const std::string& data, bool) {
+        .onmessage([&](crow::websocket::Connection& conn, std::string_view data,
+                       bool done) {
             const auto sessionPair = sessions.find(&conn);
             if (sessionPair == sessions.end())
             {
                 conn.close("Internal error");
+                return;
+            }
+            if (!done)
+            {
+                conn.close("Data request too large");
+                return;
             }
             DbusWebsocketSession& thisSession = sessionPair->second;
             BMCWEB_LOG_DEBUG("Connection {} received {}", logPtr(&conn), data);
