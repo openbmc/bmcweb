@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5e6be1_53f5352c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-06T22:23:32Z",
+      "side": 1,
+      "message": "Looks like a lot of cases you replaced with std::vector ? Can you explain more why this was done vs going with flat_set https://en.cppreference.com/w/cpp/header/flat_set",
+      "revId": "bef8dbddf8023dcf789f3fefd4d158a13fd384c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
