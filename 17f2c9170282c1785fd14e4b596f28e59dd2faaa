@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aee5203_632fec93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-06T17:48:15Z",
+      "side": 1,
+      "message": "nvm, found the commit and added it to the commit message.",
+      "parentUuid": "5762a1b6_67fd623b",
+      "revId": "17f2c9170282c1785fd14e4b596f28e59dd2faaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbfcd801_eba630b0",
@@ -84,6 +102,30 @@
       "writtenOn": "2023-03-06T17:46:53Z",
       "side": 1,
       "message": "This also needs to be const now.  Done.",
+      "range": {
+        "startLine": 99,
+        "startChar": 18,
+        "endLine": 99,
+        "endChar": 51
+      },
+      "revId": "17f2c9170282c1785fd14e4b596f28e59dd2faaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a18fb1d7_32169b17",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-06T17:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbfcd801_eba630b0",
       "range": {
         "startLine": 99,
         "startChar": 18,
