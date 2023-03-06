@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "834ee950_7896f147",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-06T03:16:48Z",
+      "side": 1,
+      "message": "Which level is the default?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60212/37/config/meson.build#17",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 10
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45942c75_e9c7a736",
         "filename": "DEVELOPING.md",
         "patchSetId": 7
