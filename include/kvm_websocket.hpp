@@ -40,7 +40,7 @@ class KvmSession
             });
     }
 
-    void onMessage(const std::string& data)
+    void onMessage(std::string_view data)
     {
         if (data.length() > inputBuffer.capacity())
         {
@@ -177,12 +177,12 @@ inline void requestRoutes(App& app)
         .onclose([](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
-        .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool) {
-            if (sessions[&conn])
-            {
-                sessions[&conn]->onMessage(data);
-            }
+        .onmessage(
+            [](crow::websocket::Connection& conn, std::string_view data, bool) {
+        if (sessions[&conn])
+        {
+            sessions[&conn]->onMessage(data);
+        }
         });
 }
 

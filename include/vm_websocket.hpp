@@ -205,21 +205,21 @@ inline void requestRoutes(App& app)
             handler->outputBuffer->clear();
             handler.reset();
         })
-        .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool) {
-            if (data.length() >
-                handler->inputBuffer->capacity() - handler->inputBuffer->size())
-            {
-                BMCWEB_LOG_ERROR << "Buffer overrun when writing "
-                                 << data.length() << " bytes";
-                conn.close("Buffer overrun");
-                return;
-            }
+        .onmessage(
+            [](crow::websocket::Connection& conn, std::string_view data, bool) {
+        if (data.size() >
+            handler->inputBuffer->capacity() - handler->inputBuffer->size())
+        {
+            BMCWEB_LOG_ERROR << "Buffer overrun when writing " << data.length()
+                             << " bytes";
+            conn.close("Buffer overrun");
+            return;
+        }
 
-            boost::asio::buffer_copy(handler->inputBuffer->prepare(data.size()),
-                                     boost::asio::buffer(data));
-            handler->inputBuffer->commit(data.size());
-            handler->doWrite();
+        boost::asio::buffer_copy(handler->inputBuffer->prepare(data.size()),
+                                 boost::asio::buffer(data));
+        handler->inputBuffer->commit(data.size());
+        handler->doWrite();
         });
 }
 

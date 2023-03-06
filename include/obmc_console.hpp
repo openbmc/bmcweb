@@ -152,7 +152,7 @@ inline void requestRoutes(App& app)
             }
         })
         .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
-                      const std::string& data, [[maybe_unused]] bool isBinary) {
+                      std::string_view data, [[maybe_unused]] bool isBinary) {
             inputBuffer += data;
             doWrite();
         });
