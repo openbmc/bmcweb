@@ -279,8 +279,8 @@ inline void onOpen(crow::websocket::Connection& conn)
     }
     else
     {
-        // Get the console id from console router path and prepare the console
-        // object path and console service.
+        // Get the console id from console router path and prepare the
+        // console object path and console service.
         consoleLeaf = conn.url().segments().back();
     }
     std::string consolePath =
@@ -302,8 +302,8 @@ inline void onOpen(crow::websocket::Connection& conn)
     });
 }
 
-inline void onMessage(crow::websocket::Connection& conn,
-                      const std::string& data, bool /*isBinary*/)
+inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
+                      bool /*isBinary*/)
 {
     auto handler = getConsoleHandlerMap().find(&conn);
     if (handler == getConsoleHandlerMap().end())
