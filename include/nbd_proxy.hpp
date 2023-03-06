@@ -359,7 +359,7 @@ inline void onClose(crow::websocket::Connection& conn,
 }
 
 inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
-                      crow::websocket::MessageType /*type*/,
+                      crow::websocket::MessageType /*type*/, bool /*isDone*/,
                       std::function<void()>&& whenComplete)
 {
     BMCWEB_LOG_DEBUG << "nbd-proxy.onMessage(len = " << data.size() << ")";
