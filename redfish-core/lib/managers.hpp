@@ -749,8 +749,6 @@ inline const dbus::utility::ManagedObjectType::value_type*
     BMCWEB_LOG_DEBUG << "Find Chassis: " << value << "\n";
 
     std::string escaped = value;
-    std::replace(escaped.begin(), escaped.end(), '_', ' ');
-    escaped = "/" + escaped;
     auto it = std::find_if(managedObj.begin(), managedObj.end(),
                            [&escaped](const auto& obj) {
         if (boost::algorithm::ends_with(obj.first.str, escaped))
