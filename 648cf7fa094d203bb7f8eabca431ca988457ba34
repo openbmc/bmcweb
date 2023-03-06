@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c2da03_d7bb136d",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-06T22:55:15Z",
+      "side": 1,
+      "message": "Pass the error_code by reference",
+      "revId": "648cf7fa094d203bb7f8eabca431ca988457ba34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
