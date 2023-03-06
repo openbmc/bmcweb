@@ -95,7 +95,7 @@ inline void findAndParseObject(const std::string& service,
 {
     crow::connections::systemBus->async_method_call(
         [service, resName, aResp,
-         handler](const boost::system::error_code ec,
+         handler](const boost::system::error_code& ec,
                   dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
