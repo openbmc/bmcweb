@@ -316,3 +316,4 @@ CheckOptions:
   - { key: readability-identifier-naming.NamespaceCase, value: lower_case }
   - { key: readability-identifier-naming.StructCase,    value: CamelCase  }
   - { key: cppcoreguidelines-macro-usage.AllowedRegexp, value: DEBUG*|NLOHMANN_JSON_SERIALIZE_ENUM }
+  - { key: performance-unnecessary-value-param.AllowedTypes, value: ((segments_view)|(url_view)) }
