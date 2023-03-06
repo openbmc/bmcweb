@@ -749,8 +749,6 @@ inline const dbus::utility::ManagedObjectType::value_type*
     BMCWEB_LOG_DEBUG << "Find Chassis: " << value << "\n";
 
     std::string escaped = value;
-    std::replace(escaped.begin(), escaped.end(), '_', ' ');
-    escaped = "/" + escaped;
     auto it = std::find_if(managedObj.begin(), managedObj.end(),
                            [&escaped](const auto& obj) {
         if (boost::algorithm::ends_with(obj.first.str, escaped))
@@ -1588,7 +1586,6 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     continue;
                 }
                 std::string escaped = name;
-                std::replace(escaped.begin(), escaped.end(), '_', ' ');
                 output.emplace_back("Name", escaped);
 
                 std::string chassis;
