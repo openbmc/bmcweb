@@ -40,89 +40,63 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
         });
     }
 
-    void onMessage(const std::string& data)
+    void onMessage(std::string_view data)
     {
-        if (data.length() > inputBuffer.capacity())
-        {
-            BMCWEB_LOG_ERROR("conn:{}, Buffer overrun when writing {} bytes",
-                             logPtr(&conn), data.length());
-            conn.close("Buffer overrun");
-            return;
-        }
-
         BMCWEB_LOG_DEBUG("conn:{}, Read {} bytes from websocket", logPtr(&conn),
                          data.size());
-        boost::asio::buffer_copy(inputBuffer.prepare(data.size()),
-                                 boost::asio::buffer(data));
-        BMCWEB_LOG_DEBUG("conn:{}, Committing {} bytes from websocket",
-                         logPtr(&conn), data.size());
-        inputBuffer.commit(data.size());
 
-        BMCWEB_LOG_DEBUG("conn:{}, inputbuffer size {}", logPtr(&conn),
-                         inputBuffer.size());
-        doWrite();
+        conn.deferRead();
+        doWrite(data);
     }
 
   protected:
-    void doRead()
+    void afterDoRead(const std::weak_ptr<KvmSession>& weak,
+                     const boost::system::error_code& ec, std::size_t bytesRead)
     {
-        std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
-        BMCWEB_LOG_DEBUG("conn:{}, Reading {} from kvm socket", logPtr(&conn),
-                         bytes);
-        hostSocket.async_read_some(
-            outputBuffer.prepare(outputBuffer.capacity() - outputBuffer.size()),
-            [this, weak(weak_from_this())](const boost::system::error_code& ec,
-                                           std::size_t bytesRead) {
-            auto self = weak.lock();
-            if (self == nullptr)
+        auto self = weak.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        BMCWEB_LOG_DEBUG("conn:{}, read done.  Read {} bytes", logPtr(&conn),
+                         bytesRead);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("conn:{}, Couldn't read from KVM socket port: {}",
+                             logPtr(&conn), ec);
+            if (ec != boost::asio::error::operation_aborted)
+            {
+                conn.close("Error in connecting to KVM port");
+            }
+            return;
+        }
+
+        std::string_view payload(outputBuffer.data(), bytesRead);
+        BMCWEB_LOG_DEBUG("conn:{}, Sending payload size {}", logPtr(&conn),
+                         payload.size());
+        conn.sendEx(crow::websocket::MessageType::Binary, payload,
+                    [weak(weak_from_this())]() {
+            auto self2 = weak.lock();
+            if (self2 == nullptr)
             {
                 return;
             }
-            BMCWEB_LOG_DEBUG("conn:{}, read done.  Read {} bytes",
-                             logPtr(&conn), bytesRead);
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR(
-                    "conn:{}, Couldn't read from KVM socket port: {}",
-                    logPtr(&conn), ec);
-                if (ec != boost::asio::error::operation_aborted)
-                {
-                    conn.close("Error in connecting to KVM port");
-                }
-                return;
-            }
-
-            outputBuffer.commit(bytesRead);
-            std::string_view payload(
-                static_cast<const char*>(outputBuffer.data().data()),
-                bytesRead);
-            BMCWEB_LOG_DEBUG("conn:{}, Sending payload size {}", logPtr(&conn),
-                             payload.size());
-            conn.sendBinary(payload);
-            outputBuffer.consume(bytesRead);
-
-            doRead();
+            self2->doRead();
         });
     }
 
-    void doWrite()
+    void doRead()
     {
-        if (doingWrite)
-        {
-            BMCWEB_LOG_DEBUG("conn:{}, Already writing.  Bailing out",
-                             logPtr(&conn));
-            return;
-        }
-        if (inputBuffer.size() == 0)
-        {
-            BMCWEB_LOG_DEBUG("conn:{}, inputBuffer empty.  Bailing out",
-                             logPtr(&conn));
-            return;
-        }
+        BMCWEB_LOG_DEBUG("conn:{}, Reading from kvm socket", logPtr(&conn));
+        hostSocket.async_read_some(
+            boost::asio::buffer(outputBuffer),
+            std::bind_front(&KvmSession::afterDoRead, this, weak_from_this()));
+    }
 
-        doingWrite = true;
+    void doWrite(std::string_view data)
+    {
         hostSocket.async_write_some(
-            inputBuffer.data(),
+            boost::asio::buffer(data),
             [this, weak(weak_from_this())](const boost::system::error_code& ec,
                                            std::size_t bytesWritten) {
             auto self = weak.lock();
@@ -132,8 +106,6 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
             }
             BMCWEB_LOG_DEBUG("conn:{}, Wrote {}bytes", logPtr(&conn),
                              bytesWritten);
-            doingWrite = false;
-            inputBuffer.consume(bytesWritten);
 
             if (ec == boost::asio::error::eof)
             {
@@ -151,15 +123,13 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
                 return;
             }
 
-            doWrite();
+            conn.resumeRead();
         });
     }
 
     crow::websocket::Connection& conn;
     boost::asio::ip::tcp::socket hostSocket;
-    boost::beast::flat_static_buffer<1024UL * 50UL> outputBuffer;
-    boost::beast::flat_static_buffer<1024UL> inputBuffer;
-    bool doingWrite{false};
+    std::array<char, 1024UL * 50UL> outputBuffer{};
 };
 
 using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
@@ -188,8 +158,8 @@ inline void requestRoutes(App& app)
         .onclose([](crow::websocket::Connection& conn, const std::string&) {
         sessions.erase(&conn);
     })
-        .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool) {
+        .onmessage(
+            [](crow::websocket::Connection& conn, std::string_view data, bool) {
         if (sessions[&conn])
         {
             sessions[&conn]->onMessage(data);
