@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c97b0e_2b6869b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-06T14:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c3c48ff_aa395649",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88691d2c_42a20603",
@@ -83,6 +101,30 @@
       "writtenOn": "2023-03-02T11:11:11Z",
       "side": 1,
       "message": "In the current state, Websocket object gets destroyed right after leaving doRead() function (reading is being deferred). We\u0027d need to think of a way to prolong its lifespan. One thing that came to my mind is to pass shared_from_this into openHandler. That would require some refactoring though, besides I do not know if that would be safe at all.",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 17
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df0142db_1581dfad",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-06T14:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88691d2c_42a20603",
       "range": {
         "startLine": 224,
         "startChar": 8,
@@ -124,6 +166,24 @@
       "side": 1,
       "message": "Yes, this should be true.",
       "parentUuid": "4324908a_97435720",
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "155952e7_5a850bb9",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-06T14:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa996b44_ece38107",
       "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -306,6 +366,30 @@
       "writtenOn": "2023-02-28T02:55:04Z",
       "side": 1,
       "message": "Michal, please take a look and let me know if this solves the buffering problem.  Basically, this method allows avoiding reading the socket until a time at which it can be buffered, so we avoid the crash.  This seems better than an arbitrary delay, which might cause problems if we have buffering issues.",
+      "range": {
+        "startLine": 344,
+        "startChar": 9,
+        "endLine": 344,
+        "endChar": 18
+      },
+      "revId": "1c90594849a9b3626db6308680dad48b1cb69df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "854e739c_397d3b3c",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-03-06T14:53:30Z",
+      "side": 1,
+      "message": "Confirmed that the solution works at its fundation.",
+      "parentUuid": "7b5d1962_20403840",
       "range": {
         "startLine": 344,
         "startChar": 9,
