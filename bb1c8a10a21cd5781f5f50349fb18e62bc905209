@@ -16,6 +16,23 @@
       "message": "Redfish service valdiator?",
       "revId": "bb1c8a10a21cd5781f5f50349fb18e62bc905209",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c7720c8_bb175839",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-06T18:06:42Z",
+      "side": 1,
+      "message": "Best to run the Redfish service validator but looks reasonable to me",
+      "revId": "bb1c8a10a21cd5781f5f50349fb18e62bc905209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
