@@ -362,7 +362,7 @@ enum class TransferProtocol
  *
  */
 inline std::optional<TransferProtocol>
-    getTransferProtocolFromUri(const boost::urls::url_view& imageUri)
+    getTransferProtocolFromUri(boost::urls::url_view imageUri)
 {
     std::string_view scheme = imageUri.scheme();
     if (scheme == "smb")
