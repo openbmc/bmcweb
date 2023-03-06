@@ -23,6 +23,8 @@ struct DbusWebsocketSession
     boost::container::flat_set<std::string, std::less<>,
                                std::vector<std::string>>
         interfaces;
+    boost::beast::multi_buffer buffer;
+    bool isWriting = false;
 };
 
 using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
@@ -30,6 +32,30 @@ using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
+
+inline void writeData(crow::websocket::Connection& connection,
+                      DbusWebsocketSession& session)
+{
+    if (session.buffer.size() == 0)
+    {
+        return;
+    }
+
+    if (session.isWriting)
+    {
+        return;
+    }
+    auto front = boost::beast::buffers_front(session.buffer.data());
+    std::string_view dumpView(static_cast<const char*>(front.data()),
+                              front.size());
+    session.isWriting = true;
+    connection.sendEx(crow::websocket::MessageType::Text, dumpView,
+                      [&session, size{front.size()}, &connection]() {
+        session.isWriting = false;
+        session.buffer.consume(size);
+        writeData(connection, session);
+    });
+}
 
 inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
                             sd_bus_error* retError)
@@ -103,8 +129,18 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         return 0;
     }
 
-    connection->sendText(
-        json.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
+    std::string dump = json.dump(2, ' ', true,
+                                 nlohmann::json::error_handler_t::replace);
+    if (dump.size() + thisSession->second.buffer.size() > 1048576U)
+    {
+        thisSession->first->close("Buffer overflow");
+        return 0;
+    }
+
+    thisSession->second.buffer.commit(boost::asio::buffer_copy(
+        thisSession->second.buffer.prepare(dump.size()),
+        boost::asio::buffer(dump)));
+    writeData(*thisSession->first, thisSession->second);
     return 0;
 }
 
@@ -120,8 +156,8 @@ inline void requestRoutes(App& app)
         .onclose([&](crow::websocket::Connection& conn, const std::string&) {
         sessions.erase(&conn);
     })
-        .onmessage([&](crow::websocket::Connection& conn,
-                       const std::string& data, bool) {
+        .onmessage([&](crow::websocket::Connection& conn, std::string_view data,
+                       bool) {
         const auto sessionPair = sessions.find(&conn);
         if (sessionPair == sessions.end())
         {
