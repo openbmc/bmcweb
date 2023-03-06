@@ -16,6 +16,24 @@
       "message": "Test and get in?",
       "revId": "b2d68b300716b519fdcd7636744c472d4bb84bab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e81e02bc_587cf779",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-06T23:06:48Z",
+      "side": 1,
+      "message": "Yep.  Getting there.",
+      "parentUuid": "8cc35c1a_86dbbee0",
+      "revId": "b2d68b300716b519fdcd7636744c472d4bb84bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
