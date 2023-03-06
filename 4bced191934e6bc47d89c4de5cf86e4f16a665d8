@@ -16,6 +16,24 @@
       "message": "This seems reasonable. \nTested?",
       "revId": "4bced191934e6bc47d89c4de5cf86e4f16a665d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22919d3a_29a8c9f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-06T22:43:27Z",
+      "side": 1,
+      "message": "not yet.  Planning on squashing with the previous WIP commit, because they\u0027re so related.",
+      "parentUuid": "1dcff820_161b075e",
+      "revId": "4bced191934e6bc47d89c4de5cf86e4f16a665d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
