@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71cced22_c2105925",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2023-03-06T10:33:49Z",
+      "side": 1,
+      "message": "It\u0027s might be better to use thisReq.fields() here to keep code consistency",
+      "revId": "4f5546beb52a2a0ac475e15218b306075dc9fd30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
