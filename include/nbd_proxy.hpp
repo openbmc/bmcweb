@@ -123,13 +123,28 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             "xyz.openbmc_project.VirtualMedia.Proxy", "Mount");
     }
 
-    void send(std::string_view buffer, std::function<void()>&& onDone)
+    void doWrite(std::string_view data, std::function<void()>&& onDone)
     {
-        boost::asio::buffer_copy(ws2uxBuf.prepare(buffer.size()),
-                                 boost::asio::buffer(buffer));
-        ws2uxBuf.commit(buffer.size());
+        boost::asio::async_write(
+            peerSocket, boost::asio::buffer(data),
+            [weak(weak_from_this()),
+             onDone(std::move(onDone))](const boost::system::error_code& ec,
+                                        size_t /*bytesWritten*/) mutable {
+            std::shared_ptr<NbdProxyServer> self = weak.lock();
+            if (self == nullptr)
+            {
+                return;
+            }
 
-        doWrite(std::move(onDone));
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("UNIX: async_write error = {}", ec.message());
+                self->connection.close("Internal error");
+                return;
+            }
+            self->connection.resumeRead();
+            onDone();
+        });
     }
 
   private:
@@ -137,7 +152,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     {
         // Trigger async read
         peerSocket.async_read_some(
-            ux2wsBuf.prepare(nbdBufferSize),
+            boost::asio::buffer(ux2wsBuf),
             [weak(weak_from_this())](const boost::system::error_code& ec,
                                      size_t bytesRead) {
             if (ec)
@@ -153,64 +168,16 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             }
 
             // Send to websocket
-            self->ux2wsBuf.commit(bytesRead);
             self->connection.sendEx(
                 crow::websocket::MessageType::Binary,
-                boost::beast::buffers_to_string(self->ux2wsBuf.data()),
+                std::string_view(self->ux2wsBuf.data(), bytesRead),
                 [weak(self->weak_from_this())]() {
                 std::shared_ptr<NbdProxyServer> self2 = weak.lock();
                 if (self2 != nullptr)
                 {
-                    self2->ux2wsBuf.consume(self2->ux2wsBuf.size());
                     self2->doRead();
                 }
             });
-        });
-    }
-
-    void doWrite(std::function<void()>&& onDone)
-    {
-        if (uxWriteInProgress)
-        {
-            BMCWEB_LOG_ERROR("Write in progress");
-            return;
-        }
-
-        if (ws2uxBuf.size() == 0)
-        {
-            BMCWEB_LOG_ERROR("No data to write to UNIX socket");
-            return;
-        }
-
-        uxWriteInProgress = true;
-        peerSocket.async_write_some(
-            ws2uxBuf.data(),
-            [weak(weak_from_this()),
-             onDone(std::move(onDone))](const boost::system::error_code& ec,
-                                        size_t bytesWritten) mutable {
-            std::shared_ptr<NbdProxyServer> self = weak.lock();
-            if (self == nullptr)
-            {
-                return;
-            }
-
-            self->ws2uxBuf.consume(bytesWritten);
-            self->uxWriteInProgress = false;
-
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("UNIX: async_write error = {}", ec.message());
-                self->connection.close("Internal error");
-                return;
-            }
-
-            // Retrigger doWrite if there is something in buffer
-            if (self->ws2uxBuf.size() > 0)
-            {
-                self->doWrite(std::move(onDone));
-                return;
-            }
-            onDone();
         });
     }
 
@@ -219,13 +186,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     const std::string endpointId;
     const std::string path;
 
-    bool uxWriteInProgress = false;
-
     // UNIX => WebSocket buffer
-    boost::beast::flat_static_buffer<nbdBufferSize> ux2wsBuf;
-
-    // WebSocket => UNIX buffer
-    boost::beast::flat_static_buffer<nbdBufferSize> ws2uxBuf;
+    std::array<char, nbdBufferSize> ux2wsBuf{};
 
     // The socket used to communicate with the client.
     stream_protocol::socket peerSocket;
@@ -355,7 +317,7 @@ inline void onClose(crow::websocket::Connection& conn,
 }
 
 inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
-                      crow::websocket::MessageType /*type*/,
+                      crow::websocket::MessageType /*type*/, bool /*isDone*/,
                       std::function<void()>&& whenComplete)
 {
     BMCWEB_LOG_DEBUG("nbd-proxy.onMessage(len = {})", data.size());
@@ -367,8 +329,9 @@ inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
         whenComplete();
         return;
     }
+    conn.deferRead();
 
-    session->second->send(data, std::move(whenComplete));
+    session->second->doWrite(data, std::move(whenComplete));
 }
 
 inline void requestRoutes(App& app)

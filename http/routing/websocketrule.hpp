@@ -95,10 +95,10 @@ class WebSocketRule : public BaseRule
 
   protected:
     std::function<void(crow::websocket::Connection&)> openHandler;
-    std::function<void(crow::websocket::Connection&, const std::string&, bool)>
+    std::function<void(crow::websocket::Connection&, std::string_view, bool)>
         messageHandler;
     std::function<void(crow::websocket::Connection&, std::string_view,
-                       crow::websocket::MessageType type,
+                       crow::websocket::MessageType type, bool,
                        std::function<void()>&& whenComplete)>
         messageExHandler;
     std::function<void(crow::websocket::Connection&, const std::string&)>
