@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12ce960_17b2c08a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-06T23:21:08Z",
+      "side": 1,
+      "message": "Code looks good to me.\nCI failures are fixed in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61426",
+      "revId": "bc5d00ccd229f0b12b32f038d8877135515a86e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
