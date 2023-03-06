@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a2315a_fcfd5d7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-06T17:33:56Z",
+      "side": 1,
+      "message": "Some things to consider:\n\n1. Space can\u0027t be used in a Redfish odata.id or Id parameter\n2. The redfish specification calls out naming conventions.\n3. Any dbus lookups should be done by Id, not Name.\n\nAs written, this doesn\u0027t look like the right fix to me, and needs to handle escaping of values properly.",
+      "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
