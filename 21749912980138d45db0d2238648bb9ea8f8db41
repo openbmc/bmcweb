@@ -16,6 +16,138 @@
       "message": "Replied the comment given.",
       "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c7f62a4_34dafae3",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:32:44Z",
+      "side": 1,
+      "message": "\"bmcwebExtendTimer\" not giving correct meeting. You can rename it to \"uploadTaskKeepAliveTimeout\" or something similar.",
+      "range": {
+        "startLine": 14,
+        "startChar": 23,
+        "endLine": 14,
+        "endChar": 41
+      },
+      "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60dbffea_197423dc",
+        "filename": "config/meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:32:44Z",
+      "side": 1,
+      "message": "NIT: Why is this showing as change. Just check and revert, not in scope.",
+      "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef39f14_bf59f503",
+        "filename": "meson_options.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:32:44Z",
+      "side": 1,
+      "message": "Min \u0026 Max values doesn\u0027t seems to be appropriate.\nMin:0 - Doesn\u0027t make sense. Timer can\u0027t expire immediately. So make it something meaningful such as 30 seconds.\nMax: 60 - This is in minutes. So max can be restricted to 10 minutes.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 12
+      },
+      "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a43b05d8_d15d62e7",
+        "filename": "meson_options.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:32:44Z",
+      "side": 1,
+      "message": "Existing default timeout value is 5 minutes. So stick to existing value.",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 13
+      },
+      "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e7fd6f9_6cca63ab",
+        "filename": "meson_options.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:32:44Z",
+      "side": 1,
+      "message": "Raname the object from \"extend-timer\" to something meaningful. ex: upload-task-keepalive-timeout. Same in other places too.\n\nDescription also not appropriate. Please do change is accordingly..",
+      "range": {
+        "startLine": 204,
+        "startChar": 18,
+        "endLine": 204,
+        "endChar": 52
+      },
+      "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c7e5ef0_aa319b6d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:32:44Z",
+      "side": 1,
+      "message": "Currently its in minutes, But 5 minutes seems to be too high in normal scenario. There should be some process which should keep the task alive in periodic basis. So ideally it should be in seconds. So make it \"seconds\" instead of \"minutes\".",
+      "range": {
+        "startLine": 241,
+        "startChar": 45,
+        "endLine": 241,
+        "endChar": 52
+      },
+      "revId": "21749912980138d45db0d2238648bb9ea8f8db41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
