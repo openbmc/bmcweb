@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "406227e0_4f53ba48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-07T17:39:27Z",
+      "side": 1,
+      "message": "Agree Ed. Ideally this TaskID timer should be in 10-60 seconds interval. But unfortunely the current value is 5 Minutes which is too high.\n\nFrom Intel also, our current implementation is not updating the TaskID status periodically especially in large file updates. So we are working internally in changing implementation to periodically update taskID with status/percentage.\n\nCurrent commit makes the upload taskid keep alive timeout configurable via meson options. It makes a way for OEM\u0027s to finetune this numbers depending on the OEM specific configurations and implementation.",
+      "parentUuid": "b38fc0e9_dc02191c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
