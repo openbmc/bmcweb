@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15f8b5d9_3f29cb19",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T18:06:39Z",
+      "side": 1,
+      "message": "Why line 1899 instead of here? \nAlso then don\u0027t we have 2 checks in 2 different places? Can this length \u003e 255 just go in the isHostnameValid function?",
+      "revId": "fee282dbfba9ae4d3727607e700cc6c5e052f9ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
