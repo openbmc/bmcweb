@@ -118,6 +118,30 @@
       },
       "revId": "34c113be2322ad74d90c9b78aa4625afcaa1b8a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a097552_10ac93f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 69
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T23:24:28Z",
+      "side": 1,
+      "message": "\u003e Can we merge the current change before hand ?\n\nGenerally we don\u0027t merge dead code.  If the patches have been submitted and are working their way through the system, there are options, but if there is no implementation of this, then it\u0027s effectively dead.",
+      "parentUuid": "8cd5167a_e3f0218f",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "34c113be2322ad74d90c9b78aa4625afcaa1b8a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
