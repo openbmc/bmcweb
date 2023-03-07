@@ -34,6 +34,24 @@
       "parentUuid": "84148dd1_20b1f1ea",
       "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76066a4d_d9bd602b",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-07T01:46:39Z",
+      "side": 1,
+      "message": "I found two different approaches for solving this.  You can see them in patchsets 22 and 24.  My guess is patchset 24 has the correct approach, but I\u0027ll leave this open for confirmation.",
+      "parentUuid": "095fe944_80dee51f",
+      "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
