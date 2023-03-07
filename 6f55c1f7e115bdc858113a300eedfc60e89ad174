@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62914ab_1f4811dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T21:24:32Z",
+      "side": 1,
+      "message": "Can you give an example of these unique paths?  Based on current topology design, I didn\u0027t think that two devices with different stem names, but different hierarchies was possible.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 34
+      },
+      "revId": "6f55c1f7e115bdc858113a300eedfc60e89ad174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
