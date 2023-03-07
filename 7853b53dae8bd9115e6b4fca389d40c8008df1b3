@@ -94,6 +94,30 @@
       },
       "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e884e2e_790cc54e",
+        "filename": "config/meson.build",
+        "patchSetId": 37
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-07T20:16:38Z",
+      "side": 1,
+      "message": "I misstated.\nThe default is \u0027disabled\u0027 (no logging).\n\u0027enabled\u0027 is left as a compatibility as the current \u0027debug\u0027.",
+      "parentUuid": "9a94ce8c_ec5f6e42",
+      "range": {
+        "startLine": 17,
+        "startChar": 9,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7853b53dae8bd9115e6b4fca389d40c8008df1b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
