@@ -22,6 +22,30 @@
       },
       "revId": "b9d679d1ce64141342e8a845533ce6af9901aae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15db8515_a6d2e11a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2945,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T21:54:41Z",
+      "side": 0,
+      "message": "I think this is what you want?\nThese 2 are the only 2 that are broke.\n/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/\nline 2754 is still hard coded.\nIf this is the pattern we want, I can work on the remaining.",
+      "parentUuid": "5378166d_fe90a55b",
+      "range": {
+        "startLine": 2945,
+        "startChar": 0,
+        "endLine": 2945,
+        "endChar": 35
+      },
+      "revId": "b9d679d1ce64141342e8a845533ce6af9901aae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
