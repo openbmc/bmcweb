@@ -22,6 +22,30 @@
       },
       "revId": "a71c0a05712d248e3d7983782a51086aa067f982",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8942700_a509a89f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-07T01:02:03Z",
+      "side": 1,
+      "message": "\u003e Please test that you got the same result as previously in the ethernet schema.\n\nYes, We got the same result as previously in the ethernet schema.\nUpdated Tested.",
+      "parentUuid": "1b3fc8bf_d84600c3",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "a71c0a05712d248e3d7983782a51086aa067f982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
