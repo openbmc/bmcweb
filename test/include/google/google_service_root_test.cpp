@@ -26,13 +26,14 @@ void validateServiceRootGet(crow::Response& res)
 
 TEST(HandleGoogleV1Get, OnSuccess)
 {
+    App app;
     std::error_code ec;
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     asyncResp->res.setCompleteRequestHandler(validateServiceRootGet);
 
     crow::Request dummyRequest{{boost::beast::http::verb::get, "", 11}, ec};
-    handleGoogleV1Get(dummyRequest, asyncResp);
+    handleGoogleV1Get(app, dummyRequest, asyncResp);
 }
 
 } // namespace

@@ -4,6 +4,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "query.hpp"
 #include "utils/collection.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -21,9 +22,13 @@ namespace google_api
 {
 
 inline void
-    handleGoogleV1Get(const crow::Request& /*req*/,
+    handleGoogleV1Get(App& app, const crow::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
     asyncResp->res.jsonValue["@odata.type"] =
         "#GoogleServiceRoot.v1_0_0.GoogleServiceRoot";
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1";
@@ -35,9 +40,13 @@ inline void
 }
 
 inline void handleRootOfTrustCollectionGet(
-    const crow::Request& /*req*/,
+    App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
@@ -137,10 +146,14 @@ inline void populateRootOfTrustEntity(
 }
 
 inline void
-    handleRootOfTrustGet(const crow::Request& /*req*/,
+    handleRootOfTrustGet(App& app, const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& param)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
     std::string emptyCommand;
     resolveRoT(emptyCommand, asyncResp, param, populateRootOfTrustEntity);
 }
@@ -186,10 +199,14 @@ inline void
 }
 
 inline void handleRoTSendCommandPost(
-    const crow::Request& request,
+    App& app, const crow::Request& request,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& rotId)
 {
+    if (!redfish::setUpRedfishRoute(app, request, asyncResp))
+    {
+        return;
+    }
     std::string command;
     if (!redfish::json_util::readJsonAction(request, asyncResp->res, "Command",
                                             command))
@@ -206,21 +223,25 @@ inline void handleRoTSendCommandPost(
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/google/v1/")
-        .methods(boost::beast::http::verb::get)(handleGoogleV1Get);
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleGoogleV1Get, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(handleRootOfTrustCollectionGet);
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleRootOfTrustCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(handleRootOfTrustGet);
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleRootOfTrustGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::post)(handleRoTSendCommandPost);
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleRoTSendCommandPost, std::ref(app)));
 }
 
 } // namespace google_api
