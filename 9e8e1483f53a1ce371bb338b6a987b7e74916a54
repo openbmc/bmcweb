@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8a135c_57be08f1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "I am struggling to think we have enough for a LOGGING.md. \nREADME is pretty high level, struggling to think it belongs there, so went with this file but moved the Logging section from README.",
+      "parentUuid": "87ce7a39_100c1a04",
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28d4ae92_8ec14682",
@@ -179,6 +197,30 @@
       "side": 1,
       "message": "My worry is that people shouldn\u0027t be catching exceptions, and this implies that one should.  Maybe can we say \"bmcweb encountered a fatal error\" rather than the word exception?",
       "parentUuid": "801e5fed_36e4d6de",
+      "range": {
+        "startLine": 218,
+        "startChar": 51,
+        "endLine": 219,
+        "endChar": 9
+      },
+      "revId": "9e8e1483f53a1ce371bb338b6a987b7e74916a54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54d347b0_ac63df61",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "That seems reasonable. Done.",
+      "parentUuid": "c62df15c_4cfc51eb",
       "range": {
         "startLine": 218,
         "startChar": 51,

@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f26d8fcf_f839b468",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "\u003e Should \u0027disabled\u0027/\u0027enabled\u0027 be documented?\n\nIt is documented in the section I copied from README. Default is no logging.",
+      "parentUuid": "e5e56cc2_8871e16c",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 10
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45942c75_e9c7a736",
         "filename": "DEVELOPING.md",
         "patchSetId": 7
@@ -94,6 +118,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e3c459e_30470a71",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "8f6b3c04_cefa4d3c",
+      "range": {
+        "startLine": 219,
+        "startChar": 38,
+        "endLine": 219,
+        "endChar": 39
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a1031c9_32066e3d",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Went with and",
+      "parentUuid": "45942c75_e9c7a736",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 45
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "073a3e0f_53512765",
@@ -107,6 +179,30 @@
       "writtenOn": "2023-03-03T18:49:18Z",
       "side": 1,
       "message": "encountered a fatal condition?  I don\u0027t want to use the word exception if we can avoid it.",
+      "range": {
+        "startLine": 221,
+        "startChar": 55,
+        "endLine": 222,
+        "endChar": 11
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eafbea9_30947c79",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "073a3e0f_53512765",
       "range": {
         "startLine": 221,
         "startChar": 55,
@@ -140,6 +236,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ae37f7e_8a3be3b1",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91439ed5_12551f81",
+      "range": {
+        "startLine": 224,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 15
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1cfb175_154a97d1",
@@ -153,6 +273,30 @@
       "writtenOn": "2023-03-03T18:49:18Z",
       "side": 1,
       "message": "can we replace all of these with \"shall\"?  Seems better.",
+      "range": {
+        "startLine": 226,
+        "startChar": 10,
+        "endLine": 226,
+        "endChar": 16
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "545bd060_c81aa7d7",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done. shall is stronger.",
+      "parentUuid": "a1cfb175_154a97d1",
       "range": {
         "startLine": 226,
         "startChar": 10,
@@ -186,6 +330,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffafc18_cff55cc2",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f91eb48_a494a314",
+      "range": {
+        "startLine": 227,
+        "startChar": 11,
+        "endLine": 227,
+        "endChar": 31
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1080062_a8232c5a",
@@ -199,6 +367,30 @@
       "writtenOn": "2023-03-03T18:49:18Z",
       "side": 1,
       "message": "How about: Information that\u0027s overly verbose such that it shouldn\u0027t be printed in all debug scenarios, but might be useful in some debug contexts.",
+      "range": {
+        "startLine": 230,
+        "startChar": 9,
+        "endLine": 231,
+        "endChar": 16
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1968ec4_46f5bfcb",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1080062_a8232c5a",
       "range": {
         "startLine": 230,
         "startChar": 9,
@@ -234,6 +426,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cdc2293d_dab622a3",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "I typed something up for this, talking about the logging errors but no fuzzing but it just didn\u0027t seem to add much value so I just removed this sentence. \nAbove gives the facts, the logging levels and what they do.\nThe new section below talks about enabling it.\nIf you think we need a use cases sentence/section, let me know.",
+      "parentUuid": "5a6ec7c5_b2f94f54",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 24
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0b05837_66c8cca3",
         "filename": "DEVELOPING.md",
         "patchSetId": 7
@@ -245,6 +461,24 @@
       "writtenOn": "2023-03-03T18:49:18Z",
       "side": 1,
       "message": "Yeah, this is the kind of split I don\u0027t want.  All the info on debug logging (enabling AND levels) should be in one spot.",
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "126657df_f685b989",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T16:40:56Z",
+      "side": 1,
+      "message": "Done. Moved the README here.",
+      "parentUuid": "b0b05837_66c8cca3",
       "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
