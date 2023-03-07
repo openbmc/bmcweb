@@ -1893,6 +1893,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (hostname)
             {
+                if (!isHostnameValid(*hostname))
+                {
+                    messages::propertyValueFormatError(asyncResp->res,
+                                                       *hostname, "HostName");
+                    return;
+                }
                 handleHostnamePatch(*hostname, asyncResp);
             }
 
