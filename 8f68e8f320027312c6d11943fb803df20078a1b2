@@ -52,6 +52,24 @@
       "parentUuid": "095fe944_80dee51f",
       "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "873967e5_60e3341a",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T23:56:36Z",
+      "side": 1,
+      "message": "I look at the diff, and a see a bunch of commented out code in 22 that\u0027s missing in 24. .......  If you think you\u0027re in the right on the memory leak, I trust your judgement.",
+      "parentUuid": "76066a4d_d9bd602b",
+      "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
