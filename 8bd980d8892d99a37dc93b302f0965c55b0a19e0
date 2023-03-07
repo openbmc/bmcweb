@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c56880_7319d56e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-07T22:56:01Z",
+      "side": 1,
+      "message": "Note that this patch is intended to merged at the same time as the next patch in the chain.",
+      "revId": "8bd980d8892d99a37dc93b302f0965c55b0a19e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a03f8c8_552f0210",
+        "filename": "Redfish.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-07T22:56:01Z",
+      "side": 1,
+      "message": "Note that this should be AggregationSourceCollection and it should be moved up to before the \"- Members\" line.  It\u0027s been corrected in th next patch in the chain.",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "8bd980d8892d99a37dc93b302f0965c55b0a19e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
