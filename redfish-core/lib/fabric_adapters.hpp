@@ -6,6 +6,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/fabric_util.hpp"
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
@@ -197,15 +198,6 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     getFabricAdapterHealth(aResp, serviceName, fabricAdapterPath);
 }
 
-inline bool checkFabricAdapterId(const std::string& adapterPath,
-                                 const std::string& adapterId)
-{
-    std::string fabricAdapterName =
-        sdbusplus::message::object_path(adapterPath).filename();
-
-    return !(fabricAdapterName.empty() || fabricAdapterName != adapterId);
-}
-
 inline void getValidFabricAdapterPath(
     const std::string& adapterId, const std::string& systemName,
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -232,7 +224,9 @@ inline void getValidFabricAdapterPath(
         }
         for (const auto& [adapterPath, serviceMap] : subtree)
         {
-            if (checkFabricAdapterId(adapterPath, adapterId))
+            std::string adapterUniq =
+                fabric_util::buildFabricUniquePath(adapterPath);
+            if (fabric_util::checkFabricAdapterId(adapterId, adapterUniq))
             {
                 callback(adapterPath, serviceMap.begin()->first);
                 return;
@@ -287,11 +281,25 @@ inline void handleFabricAdapterCollectionGet(
     aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", systemName, "FabricAdapters");
 
+    auto getMembersFromPaths =
+        [](std::vector<std::string>& pathNames,
+           const dbus::utility::MapperGetSubTreePathsResponse& objects) {
+        for (const auto& object : objects)
+        {
+            std::string leaf = fabric_util::buildFabricUniquePath(object);
+            if (leaf.empty())
+            {
+                continue;
+            }
+            pathNames.push_back(leaf);
+        }
+    };
+
     constexpr std::array<std::string_view, 1> interfaces{
         "xyz.openbmc_project.Inventory.Item.FabricAdapter"};
-    collection_util::getCollectionMembers(
+    collection_util::getCollectionMembersWithPathConversion(
         aResp, boost::urls::url("/redfish/v1/Systems/system/FabricAdapters"),
-        interfaces);
+        interfaces, std::move(getMembersFromPaths));
 }
 
 inline void handleFabricAdapterCollectionHead(
