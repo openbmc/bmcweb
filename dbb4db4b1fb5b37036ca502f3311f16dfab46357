@@ -46,6 +46,30 @@
       },
       "revId": "dbb4db4b1fb5b37036ca502f3311f16dfab46357",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a9a02c7_6aa80832",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T23:38:48Z",
+      "side": 1,
+      "message": "Possibly, if the documentation for /google/v1 matches the redfish spec (which, so far as I\u0027m aware, there\u0027s no documentation for this stuff yet).  Given the implementation that\u0027s here, it\u0027s not clear why we would need expand for performance, but maybe there\u0027s a reason?",
+      "parentUuid": "1c117266_4eecc7e1",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "dbb4db4b1fb5b37036ca502f3311f16dfab46357",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
