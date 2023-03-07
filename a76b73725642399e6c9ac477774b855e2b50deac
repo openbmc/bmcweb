@@ -34,6 +34,24 @@
       "parentUuid": "50a2315a_fcfd5d7a",
       "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ccc0bf_ee21ae05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000847
+      },
+      "writtenOn": "2023-03-07T01:00:43Z",
+      "side": 1,
+      "message": "Sorry, odata.id still has under line, not space.",
+      "parentUuid": "3c87de1a_cb48e118",
+      "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
