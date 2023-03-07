@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b69d4d3f_2ca8f629",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T21:22:43Z",
+      "side": 1,
+      "message": "\u003e Agree Ed. Ideally this TaskID timer should be in 10-60 seconds interval. But unfortunely the current value is 5 Minutes which is too high.\n\u003e \n\u003e From Intel also, our current implementation is not updating the TaskID status periodically especially in large file updates. So we are working internally in changing implementation to periodically update taskID with status/percentage.\n\u003e \n\u003e Current commit makes the upload taskid keep alive timeout configurable via meson options. It makes a way for OEM\u0027s to finetune this numbers depending on the OEM specific configurations and implementation.\n\nGiven that we know this is the incorrect solution, and is largely just working around a bug in another component, I don\u0027t want to take on maintenance of a per-OEM option for this, especially given that component is in an Intel fork, and not part of openbmc/openbmc where it could be simply fixed.\n\nIf there are 3 or more companies that think this is the right solution in the long run, I\u0027m happy to discuss, but until that happens, this isn\u0027t something I think we want on master.\n\nThank you for the submission though.  Certainly an interesting problem.",
+      "parentUuid": "406227e0_4f53ba48",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
