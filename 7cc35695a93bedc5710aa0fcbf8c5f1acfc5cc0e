@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5e56cc2_8871e16c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-07T14:31:48Z",
+      "side": 1,
+      "message": "To make it working as today (e.g. disabled if option is not specified), meson.build would need to accept \u0027disabled\u0027 or \u0027enabled\u0027 (for the compatibility) and make \u0027disabled\u0027 as default.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60212 is implemented as such.\n\nShould \u0027disabled\u0027/\u0027enabled\u0027 be documented?",
+      "parentUuid": "834ee950_7896f147",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 10
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45942c75_e9c7a736",
         "filename": "DEVELOPING.md",
         "patchSetId": 7
