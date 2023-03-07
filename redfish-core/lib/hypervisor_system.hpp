@@ -723,6 +723,131 @@ inline void
         dbus::utility::DbusVariantType(isActive));
 }
 
+inline void handleHypervisorResetActionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    // Only return action info if hypervisor D-Bus object present
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.State.Host"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/state/hypervisor0", interfaces,
+        [asyncResp](
+            const boost::system::error_code& ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                objInfo) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+
+            // No hypervisor objects found by mapper
+            if (ec.value() == boost::system::errc::io_error)
+            {
+                messages::resourceNotFound(asyncResp->res, "hypervisor",
+                                           "ResetActionInfo");
+                return;
+            }
+
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // One and only one hypervisor instance supported
+        if (objInfo.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // The hypervisor object only support the ability to
+        // turn On The system object Action should be utilized
+        // for other operations
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#ActionInfo.v1_1_2.ActionInfo";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/hypervisor/ResetActionInfo";
+        asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+        asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+        nlohmann::json::array_t parameters;
+        nlohmann::json::object_t parameter;
+        parameter["Name"] = "ResetType";
+        parameter["Required"] = true;
+        parameter["DataType"] = "String";
+        nlohmann::json::array_t allowed;
+        allowed.push_back("On");
+        parameter["AllowableValues"] = std::move(allowed);
+        parameters.push_back(std::move(parameter));
+        asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
+        });
+}
+
+inline void handleHypervisorSystemResetPost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::optional<std::string> resetType;
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    {
+        // readJson adds appropriate error to response
+        return;
+    }
+
+    if (!resetType)
+    {
+        messages::actionParameterMissing(asyncResp->res, "ComputerSystem.Reset",
+                                         "ResetType");
+        return;
+    }
+
+    // Hypervisor object only support On operation
+    if (resetType != "On")
+    {
+        messages::propertyValueNotInList(asyncResp->res, *resetType,
+                                         "ResetType");
+        return;
+    }
+
+    std::string command = "xyz.openbmc_project.State.Host.Transition.On";
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, resetType](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+            if (ec.value() == boost::asio::error::invalid_argument)
+            {
+                messages::actionParameterNotSupported(asyncResp->res,
+                                                      *resetType, "Reset");
+                return;
+            }
+
+            if (ec.value() == boost::asio::error::host_unreachable)
+            {
+                messages::resourceNotFound(asyncResp->res, "Actions", "Reset");
+                return;
+            }
+
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+        },
+        "xyz.openbmc_project.State.Hypervisor",
+        "/xyz/openbmc_project/state/hypervisor0",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+        dbus::utility::DbusVariantType{std::move(command)});
+}
+
 inline void requestRoutesHypervisorSystems(App& app)
 {
     /**
@@ -986,130 +1111,12 @@ inline void requestRoutesHypervisorSystems(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        // Only return action info if hypervisor D-Bus object present
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.State.Host"};
-        dbus::utility::getDbusObject(
-            "/xyz/openbmc_project/state/hypervisor0", interfaces,
-            [asyncResp](const boost::system::error_code& ec,
-                        const std::vector<std::pair<
-                            std::string, std::vector<std::string>>>& objInfo) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-
-                // No hypervisor objects found by mapper
-                if (ec.value() == boost::system::errc::io_error)
-                {
-                    messages::resourceNotFound(asyncResp->res, "hypervisor",
-                                               "ResetActionInfo");
-                    return;
-                }
-
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // One and only one hypervisor instance supported
-            if (objInfo.size() != 1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // The hypervisor object only support the ability to
-            // turn On The system object Action should be utilized
-            // for other operations
-
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ActionInfo.v1_1_2.ActionInfo";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/hypervisor/ResetActionInfo";
-            asyncResp->res.jsonValue["Name"] = "Reset Action Info";
-            asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-            nlohmann::json::array_t parameters;
-            nlohmann::json::object_t parameter;
-            parameter["Name"] = "ResetType";
-            parameter["Required"] = true;
-            parameter["DataType"] = "String";
-            nlohmann::json::array_t allowed;
-            allowed.push_back("On");
-            parameter["AllowableValues"] = std::move(allowed);
-            parameters.push_back(std::move(parameter));
-            asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-            });
-        });
+            std::bind_front(handleHypervisorResetActionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
         .privileges(redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        std::optional<std::string> resetType;
-        if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
-                                       resetType))
-        {
-            // readJson adds appropriate error to response
-            return;
-        }
-
-        if (!resetType)
-        {
-            messages::actionParameterMissing(
-                asyncResp->res, "ComputerSystem.Reset", "ResetType");
-            return;
-        }
-
-        // Hypervisor object only support On operation
-        if (resetType != "On")
-        {
-            messages::propertyValueNotInList(asyncResp->res, *resetType,
-                                             "ResetType");
-            return;
-        }
-
-        std::string command = "xyz.openbmc_project.State.Host.Transition.On";
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, resetType](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                if (ec.value() == boost::asio::error::invalid_argument)
-                {
-                    messages::actionParameterNotSupported(asyncResp->res,
-                                                          *resetType, "Reset");
-                    return;
-                }
-
-                if (ec.value() == boost::asio::error::host_unreachable)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Actions",
-                                               "Reset");
-                    return;
-                }
-
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-            },
-            "xyz.openbmc_project.State.Hypervisor",
-            "/xyz/openbmc_project/state/hypervisor0",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            dbus::utility::DbusVariantType{std::move(command)});
-        });
+            std::bind_front(handleHypervisorSystemResetPost, std::ref(app)));
 }
 } // namespace redfish
