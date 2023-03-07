@@ -803,6 +803,48 @@ inline void handleHypervisorEthernetInterfaceGet(
         });
 }
 
+inline void handleHypervisorSystemGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor",
+        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& /*hostName*/) {
+        if (ec)
+        {
+            messages::resourceNotFound(asyncResp->res, "System", "hypervisor");
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "Hypervisor is available";
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#ComputerSystem.v1_6_0.ComputerSystem";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/hypervisor";
+        asyncResp->res.jsonValue["Description"] = "Hypervisor";
+        asyncResp->res.jsonValue["Name"] = "Hypervisor";
+        asyncResp->res.jsonValue["Id"] = "hypervisor";
+        asyncResp->res.jsonValue["SystemType"] = "OS";
+        nlohmann::json::array_t managedBy;
+        nlohmann::json::object_t manager;
+        manager["@odata.id"] = "/redfish/v1/Managers/bmc";
+        managedBy.push_back(std::move(manager));
+        asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
+        asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
+            "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
+        getHypervisorState(asyncResp);
+        getHypervisorActions(asyncResp);
+        // TODO: Add "SystemType" : "hypervisor"
+        });
+}
+
 inline void handleHypervisorEthernetInterfacePatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1049,47 +1091,7 @@ inline void requestRoutesHypervisorSystems(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
         .privileges(redfish::privileges::getComputerSystem)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-            "/xyz/openbmc_project/network/hypervisor",
-            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-            [asyncResp](const boost::system::error_code& ec,
-                        const std::string& /*hostName*/) {
-            if (ec)
-            {
-                messages::resourceNotFound(asyncResp->res, "System",
-                                           "hypervisor");
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "Hypervisor is available";
-
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_6_0.ComputerSystem";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/hypervisor";
-            asyncResp->res.jsonValue["Description"] = "Hypervisor";
-            asyncResp->res.jsonValue["Name"] = "Hypervisor";
-            asyncResp->res.jsonValue["Id"] = "hypervisor";
-            asyncResp->res.jsonValue["SystemType"] = "OS";
-            nlohmann::json::array_t managedBy;
-            nlohmann::json::object_t manager;
-            manager["@odata.id"] = "/redfish/v1/Managers/bmc";
-            managedBy.push_back(std::move(manager));
-            asyncResp->res.jsonValue["Links"]["ManagedBy"] =
-                std::move(managedBy);
-            asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
-                "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
-            getHypervisorState(asyncResp);
-            getHypervisorActions(asyncResp);
-            // TODO: Add "SystemType" : "hypervisor"
-            });
-        });
+            std::bind_front(handleHypervisorSystemGet, std::ref(app)));
 
     /**
      * HypervisorInterfaceCollection class to handle the GET and PATCH on
