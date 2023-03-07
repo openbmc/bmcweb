@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b38fc0e9_dc02191c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T16:16:40Z",
+      "side": 1,
+      "message": "please fix your backend implementation.  updates should be sent at 10-30 second intervals.  5 minutes is a very long time to wait for updates, and should be fine as a default for anyone with conforming implemntations.",
+      "parentUuid": "782a9287_b4531562",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
