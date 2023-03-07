@@ -16,6 +16,24 @@
       "message": "Some things to consider:\n\n1. Space can\u0027t be used in a Redfish odata.id or Id parameter\n2. The redfish specification calls out naming conventions.\n3. Any dbus lookups should be done by Id, not Name.\n\nAs written, this doesn\u0027t look like the right fix to me, and needs to handle escaping of values properly.",
       "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c87de1a_cb48e118",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000847
+      },
+      "writtenOn": "2023-03-07T00:59:47Z",
+      "side": 1,
+      "message": "Hi Ed, I\u0027m not really understanding your meaning. Do you mean there still have something that I need to modify?\n\nFor odata.id, it still has space. I haven\u0027t changed that part.\n```\n\"CPU0_PID\": {\n            \"@odata.id\": \"/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers/CPU0_PID\",\n            \"@odata.type\": \"#OemManager.PidController\",\n...\n...\n...\n```\n\nI only change the index string in setPIDValue Class. Index string is from cmd \"CPU0_PID\".\nBefore this change, it uses ```/CPU0 PID``` to find dbus path instead of ```CPU0_PID```, so findChassis function will return nullptr.\n\nAbout line 1591 change, if adding this std::replace, it will change the \"Name\" property value from ```CPU0_PID``` to ```CPU0 PID```. I think this shouldn\u0027t be changed.",
+      "parentUuid": "50a2315a_fcfd5d7a",
+      "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
