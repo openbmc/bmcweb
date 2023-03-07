@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f2fe964_e3e3d8ff",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-07T18:19:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f26d8fcf_f839b468",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 10
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45942c75_e9c7a736",
