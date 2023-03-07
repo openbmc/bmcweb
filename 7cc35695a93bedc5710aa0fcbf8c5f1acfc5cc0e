@@ -474,6 +474,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1120cf6_791d7f10",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T23:07:03Z",
+      "side": 1,
+      "message": "I think we need something that sets the expectation you\u0027re expecting, which is essentially \"random inputs from external users should not produce errors to the log\".  Otherwise, the rules are still fairly arbitrary.\n\nSaid another way, if I\u0027m able to craft a request that prints an error to the log, it is always a bug.  I think that\u0027s your expectation, but that\u0027s not very clear from what\u0027s written.  I\u0027m fine if there\u0027s no use case section, but the above needs to be made more clear so we have a hope of enforcing this.",
+      "parentUuid": "cdc2293d_dab622a3",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 24
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0b05837_66c8cca3",
         "filename": "DEVELOPING.md",
         "patchSetId": 7

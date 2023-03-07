@@ -16,6 +16,24 @@
       "message": "This is a straight copy from README but changed the title",
       "revId": "a8f908f438830192d2e44d24793a0b040cb73c3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75ad3283_6c178227",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T23:07:03Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "d893fee1_f81db7b8",
+      "revId": "a8f908f438830192d2e44d24793a0b040cb73c3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
