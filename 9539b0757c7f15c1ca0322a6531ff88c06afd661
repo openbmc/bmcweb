@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecfd8d79_d916cdda",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-07T07:47:39Z",
+      "side": 1,
+      "message": "It is not recommended to declare it as a global",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f08c33_bf4510ec",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-07T07:47:39Z",
+      "side": 1,
+      "message": "Please refer: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60384/10/COMMON_ERRORS.md#356",
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe9921f_b310b777",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3020,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-07T07:47:39Z",
+      "side": 1,
+      "message": "Nit: auto",
+      "range": {
+        "startLine": 3020,
+        "startChar": 23,
+        "endLine": 3020,
+        "endChar": 62
+      },
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8caf0a34_0ff0e7a6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3068,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-07T07:47:39Z",
+      "side": 1,
+      "message": "Can you separate out this logic?",
+      "range": {
+        "startLine": 3003,
+        "startChar": 8,
+        "endLine": 3068,
+        "endChar": 15
+      },
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
