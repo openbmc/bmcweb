@@ -52,6 +52,24 @@
       "parentUuid": "22919d3a_29a8c9f4",
       "revId": "4bced191934e6bc47d89c4de5cf86e4f16a665d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8f6de8_d4d9c6b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-07T04:13:19Z",
+      "side": 1,
+      "message": "I know https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61495/4 has validator passed but best to add it here too. ;) \nOh well",
+      "parentUuid": "4c0967c6_fe3fd40c",
+      "revId": "4bced191934e6bc47d89c4de5cf86e4f16a665d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
