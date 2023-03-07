@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f22cb8_cd1ffc28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-07T03:32:10Z",
+      "side": 1,
+      "message": "Dear All,\n\nThere are many build error messages seems not relate to sensors.hpp modification.\n\n199018 warnings and 2 errors generated.\nError while processing /data0/jenkins/workspace/ci-repository/openbmc/bmcweb/src/security_headers_middleware_test.cpp.\n/data0/jenkins/workspace/ci-repository/openbmc/bmcweb/src/security_headers_middleware_test.cpp:3:10: error: \u0027security_headers_middleware.hpp\u0027 file not found [clang-diagnostic-error]\n\nCould someone help to re-trigger CI to clarify this build error whether is relate to CI or the other environment issue? Thanks.\n\nBest regards,\nTim",
+      "revId": "4be4a7e6214fb9da5b2292478c695adad9174802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
