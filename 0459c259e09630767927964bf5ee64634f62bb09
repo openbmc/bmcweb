@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6dce85b_d80355f5",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-07T23:11:47Z",
+      "side": 1,
+      "message": "Changed these to match the syntax used by the other route handlers.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 54
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7377b83_15ed0f13",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-07T23:11:47Z",
+      "side": 1,
+      "message": "When we support multiple satellites the aggregation prefix may become something like \u003caggregationId\u003e_\u003csatelliteId\u003e whereas right now it is only \u003caggregationId\u003e.\n\nWe\u0027ll need to account for \u003caggregationId\u003e_\u003csatelliteId\u003e being a local AggregationSource and \u003caggregationId\u003e_\u003csatelliteId\u003e_\u003cAggregationSource\u003e being an AggregationSource from a satellite BMC.  We\u0027ll be able to derive the \u003caggregationId\u003e at runtime, but we won\u0027t know \u003csatelliteId\u003e until after we query dbus to get the satellite configs.  We currently can\u0027t do the latter until after we have determined whether or not we need to handle the request locally on the aggregating BMC.\n\nI don\u0027t think we need to deal with this right now.  It\u0027d be better implemented as part of adding support for multiple satellite BMC.  Please mark this as unresolved if you should we should deal with that now as part of this patch.",
+      "range": {
+        "startLine": 874,
+        "startChar": 0,
+        "endLine": 877,
+        "endChar": 66
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
