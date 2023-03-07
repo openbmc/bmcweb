@@ -94,6 +94,30 @@
       },
       "revId": "dbb4db4b1fb5b37036ca502f3311f16dfab46357",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a761e4bc_a2573078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-07T23:53:37Z",
+      "side": 1,
+      "message": "\u003e The main reason I used this method was to add the OData-Version header into all of the endpoints. Also if I understand correctly, query parameters do not work unless setUpRedfishRoute is run.\n\nWhy?  There\u0027s no documentation that requires odata-version exist for non redfish endpoints?\n\n/google/v1 has no query parameters.  \"query parameter\" is not a general implementation, but specific to a particular thing.\n\n\u003e Would you like me to manually code a separate function for these?\n\nWe need to understand the future of /google/v1.  This was initially added to avoid an OEM schema, but given where we\u0027re at today, it\u0027s not clear that it should be extended.  In google servers, if it\u0027s OEM and not redfish, we should be using grpc, because it\u0027s easier.  FWIW, I\u0027m not sure if /google/v1 has a future, and it hasn\u0027t been maintained since I merged it.",
+      "parentUuid": "12a5ab9d_26106ffc",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "dbb4db4b1fb5b37036ca502f3311f16dfab46357",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
