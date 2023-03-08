@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c3ec2ab_4a8db69f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-08T00:11:29Z",
+      "side": 1,
+      "message": "This is not a newly written code (but existed for a few years). \nIt is the rename of the original getCollectionMembers() so that a conversion function can be specified.\nAnyway, I will rewrite this function to fit the coding standard.",
+      "parentUuid": "adbfd3c6_4aa62634",
+      "revId": "6f55c1f7e115bdc858113a300eedfc60e89ad174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7bc770_2b8e2f9e",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 1
