@@ -46,6 +46,30 @@
       },
       "revId": "717835ecc81649b2add743ad8a2feed94e4feaed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce074073_f3532fb1",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T19:23:34Z",
+      "side": 1,
+      "message": "Ah, didn\u0027t read this initially;  You meant \"intended\" I assume?  This was intended, because http::request inherits from fields, this works, but you\u0027re right, fields() would be more specific and better.  Code fixed.",
+      "parentUuid": "66b5e82f_6cd8481e",
+      "range": {
+        "startLine": 66,
+        "startChar": 37,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "717835ecc81649b2add743ad8a2feed94e4feaed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
