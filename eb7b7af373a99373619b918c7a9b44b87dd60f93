@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec5e75b_fca08709",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T22:24:18Z",
+      "side": 1,
+      "message": "The doc you linked has no mention of /xyz/openbmc_project/bios_config/password",
+      "parentUuid": "903c6c8d_5a356c58",
+      "range": {
+        "startLine": 57,
+        "startChar": 42,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ea21f56_76771fec",
