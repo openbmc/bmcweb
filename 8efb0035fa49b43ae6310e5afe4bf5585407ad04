@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bf478b0_17c01103",
+        "filename": ".clang-tidy",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-08T18:09:29Z",
+      "side": 1,
+      "message": "anything to make this commit smaller / it sounds separate would be good but won\u0027t require it.",
+      "parentUuid": "0259414f_b70b9de5",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "722f3919_fbe4b774",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -173,6 +191,24 @@
       "side": 1,
       "message": "I\u0027d also mention that enabling all features by default is a form of advertising that they exist.  Folks that don\u0027t like things are free to disable features, that\u0027s why the option is there, but having it in the redfish tree by default, especially when it has basically no impact on performance is useful.",
       "parentUuid": "654b081b_ee61ae35",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7781ea2_b9250d2b",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-08T18:09:29Z",
+      "side": 1,
+      "message": "I feel that isn\u0027t what we have done elsewhere though and I struggle with OEM being enabled by default.\n\nOEM client ID: \nhttps://github.com/openbmc/bmcweb/commit/08bdcc71e5804db9b5c35361e8456e636d258b04\nshould have that been enabled by default?",
+      "parentUuid": "99534d2e_2f4013c9",
       "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
