@@ -146,6 +146,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fbb336f8_553a3928",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T22:26:43Z",
+      "side": 1,
+      "message": "Forwarding params on aggregated responses will not be an issue once https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727 gets merged.  I\u0027m going to close this thread as a result.\n\nNote however that even with that patch our $expand handling will cause an issue when https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556 also gets merged.  You can find a full explanation of the projected issue at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727/comment/2686184a_bebdd6eb/.\n\nWith that I think we\u0027ll need to selectively disable forwarding query params when the request is up tree from a top level collection.  I\u0027m going to change this patch to account for that.",
+      "parentUuid": "0268028f_dc44d012",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "744408ed_afe38ed0",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -175,6 +199,23 @@
       "side": 1,
       "message": "1. OEM parameters is an interesting case.  Selectively filtering params is probably the way to go.  Right now we don\u0027t a great way to verify if a param is supported by a satellite.  $expand for sure has issues so params that require making additional requests will probably see the same.\n\nWe don\u0027t have to strip any params if our handling code is able to detect that that operation has already occurred, or skip portions of the response that have been operated on.  To be safe for now we could block forwarding all schema defined params, but could that cause an issue with processing the params in the correct order if an OEM one should not be processed first?\n\n\n2. I think it\u0027s because that function is recursive so you end up parsing until you pass a json object that looks like\n{\n    \"@odata.id\": \"{Some_URI}\"\n}\n\nEven after expanding, the resulting json should still have links that fit that format at its lowest level.  It doesn\u0027t know if that object was added as the result of expanding a previous level.",
       "parentUuid": "744408ed_afe38ed0",
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14f1724a_3ea0e947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T22:26:43Z",
+      "side": 1,
+      "message": "Forwarding params on aggregated responses will not be an issue once https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727 gets merged.\n\nNote that even with that patch our $expand handling will cause an issue when https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556 also gets merged.  You can find a full explanation of the projected issue at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727/comment/2686184a_bebdd6eb/.\n\nWith that I think we\u0027ll need to selectively disable forwarding query params when the request is up tree from a top level collection. \n\nI\u0027m setting this as WIP until one those patches gets merged.  I\u0027ll then use this patch to address that issue.",
       "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
