@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "77a49a20_a3a26bdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T00:46:48Z",
+      "side": 1,
+      "message": "In the code if I use NULL instead of \"\" then the validator complains because that gets surfaced as\n\n\"Password\": 0,\n\nAnd the validator expects a string.",
+      "parentUuid": "eb4e5a77_d4679d20",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f6dce85b_d80355f5",
@@ -140,6 +164,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "508d7b25_2b299869",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T00:46:48Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure I tried that previously and clang complained about me passing the argument by value.  Using std::move() was the only alternative I found to having to do a copy.",
+      "parentUuid": "3eb1341b_93230667",
+      "range": {
+        "startLine": 603,
+        "startChar": 70,
+        "endLine": 603,
+        "endChar": 71
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51fb3caf_d2f288ee",
@@ -170,6 +218,30 @@
       "writtenOn": "2023-03-08T00:29:32Z",
       "side": 1,
       "message": "You need to pass the error back to the handler.",
+      "range": {
+        "startLine": 614,
+        "startChar": 16,
+        "endLine": 614,
+        "endChar": 22
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d535902c_88980c93",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T00:46:48Z",
+      "side": 1,
+      "message": "Alright, I should be able to make the handler take the error as an argument such that it becomes\n\nstd::function\u003cvoid(\n            const boost::system::error_code ec,\n            const std::unordered_map\u003cstd::string, boost::urls::url\u003e\u0026)\u003e\u0026 handler",
+      "parentUuid": "c909b6c2_67332bc1",
       "range": {
         "startLine": 614,
         "startChar": 16,

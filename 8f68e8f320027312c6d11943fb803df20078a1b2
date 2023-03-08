@@ -106,6 +106,24 @@
       "parentUuid": "e101a732_bd6e5fa4",
       "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbc0c3da_02bfce47",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T00:46:48Z",
+      "side": 1,
+      "message": "Cool that was my thought as well",
+      "parentUuid": "12f130f1_7c10d73a",
+      "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
