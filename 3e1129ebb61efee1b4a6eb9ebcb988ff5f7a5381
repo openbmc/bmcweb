@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e29f2a_fb9eccf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T19:38:18Z",
+      "side": 1,
+      "message": "I tested on the last series in the patchset.  Added that to the commit message.",
+      "parentUuid": "f7d1f2c8_324cb762",
+      "revId": "3e1129ebb61efee1b4a6eb9ebcb988ff5f7a5381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4828902_cc3b2ba2",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "341134d1_1ab3dcd5",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T19:38:18Z",
+      "side": 1,
+      "message": "I agree, this type of API isn\u0027t ideal, but it was allowed before, so without a bunch of unit test changes, we should continue to support it.",
+      "parentUuid": "a4828902_cc3b2ba2",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 21
+      },
+      "revId": "3e1129ebb61efee1b4a6eb9ebcb988ff5f7a5381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21a68b6f_13c7dae4",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-03-08T01:41:03Z",
       "side": 1,
       "message": "Can we construct the request from the string directly? Not set the mutable member.",
+      "range": {
+        "startLine": 274,
+        "startChar": 18,
+        "endLine": 274,
+        "endChar": 21
+      },
+      "revId": "3e1129ebb61efee1b4a6eb9ebcb988ff5f7a5381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51220722_dd35916c",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T19:38:18Z",
+      "side": 1,
+      "message": "That\u0027s a good idea.  Implemented suggestion in latest patch.",
+      "parentUuid": "21a68b6f_13c7dae4",
       "range": {
         "startLine": 274,
         "startChar": 18,
