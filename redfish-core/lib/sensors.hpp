@@ -1182,6 +1182,16 @@ inline void
                 if (value != nullptr)
                 {
                     *value += "/" + std::to_string(count);
+                    nlohmann::json::iterator memberId =
+                        sensorJson.find("MemberId");
+                    if (memberId != sensorJson.end())
+                    {
+                        std::string* id = memberId->get_ptr<std::string*>();
+                        if (id != nullptr)
+                        {
+                            *id = std::to_string(count);
+                        }
+                    }
                     count++;
                     sensorsAsyncResp->updateUri(sensorJson["Name"], *value);
                 }
