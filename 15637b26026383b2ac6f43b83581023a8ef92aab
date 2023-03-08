@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "242fe12a_bb71fed2",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T19:20:53Z",
+      "side": 1,
+      "message": "We currently don\u0027t store the Name since there isn\u0027t an obvious for it in the boost::urls::url object that holds the information.  We could do something like storing it as a param \"Name\u003d\u003cName\u003e\" or just as the path.  Or make the object a little more generic than just boost::urls::url so that we could utilize other types of aggregation instead of just HTTP/ethernet based connections.\n\nMy preference is to leave this to its own patch (especially if we opt for option 2).",
+      "revId": "15637b26026383b2ac6f43b83581023a8ef92aab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
