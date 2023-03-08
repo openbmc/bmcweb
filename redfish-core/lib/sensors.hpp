@@ -751,7 +751,6 @@ inline void objectPropertiesToJson(
         // Set MemberId and Name for non-power sensors.  For PowerSupplies and
         // PowerControl, those properties have more general values because
         // multiple sensors can be stored in the same JSON object.
-        sensorJson["MemberId"] = sensorName;
         std::string sensorNameEs(sensorName);
         std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
         sensorJson["Name"] = std::move(sensorNameEs);
@@ -1101,7 +1100,7 @@ inline void populateFanRedundancy(
                         auto schemaItem =
                             std::find_if(fanRedfish.begin(), fanRedfish.end(),
                                          [itemName](const nlohmann::json& fan) {
-                            return fan["MemberId"] == itemName;
+                            return fan["Name"] == itemName;
                             });
                         if (schemaItem != fanRedfish.end())
                         {
@@ -1136,7 +1135,6 @@ inline void populateFanRedundancy(
                     redundancy["@odata.id"] = std::move(url);
                     redundancy["@odata.type"] = "#Redundancy.v1_3_2.Redundancy";
                     redundancy["MinNumNeeded"] = minNumNeeded;
-                    redundancy["MemberId"] = name;
                     redundancy["Mode"] = "N+m";
                     redundancy["Name"] = name;
                     redundancy["RedundancySet"] = redfishCollection;
@@ -1182,6 +1180,7 @@ inline void
                 if (value != nullptr)
                 {
                     *value += "/" + std::to_string(count);
+                    sensorJson["MemberId"] = std::to_string(count);
                     count++;
                     sensorsAsyncResp->updateUri(sensorJson["Name"], *value);
                 }
@@ -2192,7 +2191,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     // Check if matching PowerSupply object already exists in JSON array
     for (nlohmann::json& powerSupply : powerSupplyArray)
     {
-        if (powerSupply["MemberId"] == inventoryItem.name)
+        if (powerSupply["Name"] == inventoryItem.name)
         {
             return powerSupply;
         }
@@ -2205,7 +2204,6 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
         "redfish", "v1", "Chassis", chassisId, "Power");
     url.set_fragment(("/PowerSupplies"_json_pointer).to_string());
     powerSupply["@odata.id"] = std::move(url);
-    powerSupply["MemberId"] = inventoryItem.name;
     powerSupply["Name"] = boost::replace_all_copy(inventoryItem.name, "_", " ");
     powerSupply["Manufacturer"] = inventoryItem.manufacturer;
     powerSupply["Model"] = inventoryItem.model;
