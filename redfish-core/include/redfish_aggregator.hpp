@@ -19,6 +19,29 @@ enum class Result
     NoLocalHandle
 };
 
+enum class ControllerType
+{
+    Http,
+};
+
+struct SatelliteConfig
+{
+    std::string name;
+    std::string hostname;
+    uint16_t port;
+    ControllerType type;
+    std::string authType;
+
+    void DumpSatelliteConfig()
+    {
+        BMCWEB_LOG_DEBUG << " name: " << name;
+        BMCWEB_LOG_DEBUG << " hostname: " << hostname;
+        BMCWEB_LOG_DEBUG << " port: " << port;
+        BMCWEB_LOG_DEBUG << " type: " << static_cast<int>(type);
+        BMCWEB_LOG_DEBUG << " authType: " << authType;
+    }
+};
+
 // clang-format off
 // These are all of the properties as of version 2022.2 of the Redfish Resource
 // and Schema Guide whose Type is "string (URI)" and the name does not end in a
@@ -239,7 +262,7 @@ class RedfishAggregator
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
     static void constructorCallback(
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         BMCWEB_LOG_DEBUG << "There were "
                          << std::to_string(satelliteInfo.size())
@@ -250,7 +273,7 @@ class RedfishAggregator
     // Expects a handler which interacts with the returned configs
     static void getSatelliteConfigs(
         const std::function<void(
-            const std::unordered_map<std::string, boost::urls::url>&)>& handler)
+            const std::unordered_map<std::string, SatelliteConfig>&)>& handler)
     {
         BMCWEB_LOG_DEBUG << "Gathering satellite configs";
         crow::connections::systemBus->async_method_call(
@@ -266,7 +289,7 @@ class RedfishAggregator
             // Maps a chosen alias representing a satellite BMC to a url
             // containing the information required to create a http
             // connection to the satellite
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+            std::unordered_map<std::string, SatelliteConfig> satelliteInfo;
 
             findSatelliteConfigs(objects, satelliteInfo);
 
@@ -292,7 +315,7 @@ class RedfishAggregator
     // information if valid
     static void findSatelliteConfigs(
         const dbus::utility::ManagedObjectType& objects,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         for (const auto& objectPath : objects)
         {
@@ -322,14 +345,37 @@ class RedfishAggregator
         }
     }
 
+    inline static bool
+        validateSatelliteConfig(const std::string& name,
+                                const SatelliteConfig& satelliteConfig)
+    {
+        // Make sure all required config information was made available
+        if (satelliteConfig.type == ControllerType::Http)
+        {
+            if (satelliteConfig.hostname.empty())
+            {
+                BMCWEB_LOG_ERROR << "Satellite config " << name
+                                 << " missing Host";
+                return false;
+            }
+
+            if (!satelliteConfig.port)
+            {
+                BMCWEB_LOG_ERROR << "Satellite config " << name
+                                 << " missing Port";
+                return false;
+            }
+        }
+        return true;
+    }
     // Parse the properties of a satellite config object and add the
     // configuration if the properties are valid
     static void addSatelliteConfig(
         const std::string& name,
         const dbus::utility::DBusPropertiesMap& properties,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
-        boost::urls::url url;
+        SatelliteConfig satelliteConfig;
 
         for (const auto& prop : properties)
         {
@@ -342,9 +388,8 @@ class RedfishAggregator
                     BMCWEB_LOG_ERROR << "Invalid Hostname value";
                     return;
                 }
-                url.set_host(*propVal);
+                satelliteConfig.hostname = std::move(*propVal);
             }
-
             else if (prop.first == "Port")
             {
                 const uint64_t* propVal = std::get_if<uint64_t>(&prop.second);
@@ -359,9 +404,8 @@ class RedfishAggregator
                     BMCWEB_LOG_ERROR << "Port value out of range";
                     return;
                 }
-                url.set_port(std::to_string(static_cast<uint16_t>(*propVal)));
+                satelliteConfig.port = static_cast<uint16_t>(*propVal);
             }
-
             else if (prop.first == "AuthType")
             {
                 const std::string* propVal =
@@ -381,32 +425,45 @@ class RedfishAggregator
                         << ", only \"none\" is supported";
                     return;
                 }
-                url.set_scheme("http");
+                satelliteConfig.authType = std::move(*propVal);
+            }
+            else if (prop.first == "Type")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid ControllerType value";
+                    return;
+                }
+                if (*propVal == "SatelliteController")
+                {
+                    satelliteConfig.type = ControllerType::Http;
+                }
+            }
+            else if (prop.first == "Name")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid Name value";
+                    return;
+                }
+                satelliteConfig.name = std::move(*propVal);
             }
         } // Finished reading properties
 
-        // Make sure all required config information was made available
-        if (url.host().empty())
+        if (!validateSatelliteConfig(name, satelliteConfig))
         {
-            BMCWEB_LOG_ERROR << "Satellite config " << name << " missing Host";
+            BMCWEB_LOG_ERROR << "Invalid config for " << name << " : ";
+            satelliteConfig.DumpSatelliteConfig();
             return;
         }
-
-        if (!url.has_port())
-        {
-            BMCWEB_LOG_ERROR << "Satellite config " << name << " missing Port";
-            return;
-        }
-
-        if (!url.has_scheme())
-        {
-            BMCWEB_LOG_ERROR << "Satellite config " << name
-                             << " missing AuthType";
-            return;
-        }
-
+        satelliteConfig.DumpSatelliteConfig();
         std::string resultString;
-        auto result = satelliteInfo.insert_or_assign(name, std::move(url));
+        auto result =
+            satelliteInfo.insert_or_assign(name, std::move(satelliteConfig));
         if (result.second)
         {
             resultString = "Added new satellite config ";
@@ -415,10 +472,6 @@ class RedfishAggregator
         {
             resultString = "Updated existing satellite config ";
         }
-
-        BMCWEB_LOG_DEBUG << resultString << name << " at "
-                         << result.first->second.scheme() << "://"
-                         << result.first->second.encoded_host_and_port();
     }
 
     enum AggregationType
@@ -460,7 +513,7 @@ class RedfishAggregator
     static void findSatellite(
         const crow::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo,
         std::string_view memberName)
     {
         // Determine if the resource ID begins with a known prefix
@@ -492,7 +545,7 @@ class RedfishAggregator
         AggregationType isCollection,
         const std::shared_ptr<crow::Request>& sharedReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         if (sharedReq == nullptr)
         {
@@ -564,7 +617,7 @@ class RedfishAggregator
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& prefix,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         const auto& sat = satelliteInfo.find(prefix);
         if (sat == satelliteInfo.end())
@@ -593,29 +646,39 @@ class RedfishAggregator
             std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.req.body();
-        crow::HttpClient::getInstance().sendDataWithCallback(
-            data, id, std::string(sat->second.host()),
-            sat->second.port_number(), targetURI, false /*useSSL*/,
-            thisReq.fields, thisReq.method(), retryPolicyName, cb);
+
+        if (sat->second.type == ControllerType::Http)
+        {
+            BMCWEB_LOG_DEBUG << "Sending the resource request to Http Client";
+            crow::HttpClient::getInstance().sendDataWithCallback(
+                data, id, sat->second.hostname, sat->second.port, targetURI,
+                false /*useSSL*/, thisReq.fields, thisReq.method(),
+                retryPolicyName, cb);
+        }
     }
 
     // Forward a request for a collection URI to each known satellite BMC
     void forwardCollectionRequests(
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
             std::function<void(crow::Response&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
 
-            std::string targetURI(thisReq.target());
-            std::string data = thisReq.req.body();
-            crow::HttpClient::getInstance().sendDataWithCallback(
-                data, id, std::string(sat.second.host()),
-                sat.second.port_number(), targetURI, false /*useSSL*/,
-                thisReq.fields, thisReq.method(), retryPolicyName, cb);
+            if (sat.second.type == ControllerType::Http)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Sending the Collection Request to Http Client";
+                std::string targetURI(thisReq.target());
+                std::string data = thisReq.req.body();
+                crow::HttpClient::getInstance().sendDataWithCallback(
+                    data, id, sat.second.hostname, sat.second.port, targetURI,
+                    false /*useSSL*/, thisReq.fields, thisReq.method(),
+                    retryPolicyName, cb);
+            }
         }
     }
 
