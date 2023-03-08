@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b581fd2_4090f77b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-08T00:11:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1892723e_10ddd326",
+      "range": {
+        "startLine": 1100,
+        "startChar": 4,
+        "endLine": 1100,
+        "endChar": 45
+      },
+      "revId": "ac8a763d4780fe519a22d1447ec924ff7fcabd02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b01c9e7_191879d0",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Removed the function.",
       "parentUuid": "6b01c9e7_191879d0",
+      "range": {
+        "startLine": 1208,
+        "startChar": 57,
+        "endLine": 1208,
+        "endChar": 61
+      },
+      "revId": "ac8a763d4780fe519a22d1447ec924ff7fcabd02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed9202bd_70b0fc6e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-08T00:11:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9e4a9aae_d2434109",
       "range": {
         "startLine": 1208,
         "startChar": 57,

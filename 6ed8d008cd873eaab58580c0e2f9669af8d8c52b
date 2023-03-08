@@ -16,6 +16,24 @@
       "message": "Why LOG_ERROR level but no InternalError?\n\nDoes \n\n            if (ec.value() !\u003d EBADR)\n            {\n                BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus responses error: \" \u003c\u003c ec;\n                messages::internalError(aResp-\u003eres);\n            }\nmake sense?",
       "revId": "6ed8d008cd873eaab58580c0e2f9669af8d8c52b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86120135_93f91189",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 82
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-08T00:11:23Z",
+      "side": 1,
+      "message": "I made changes, the code will fail if auto-reboot is supported and unable to retrieve the property.",
+      "parentUuid": "a863fc49_bb54bc3c",
+      "revId": "6ed8d008cd873eaab58580c0e2f9669af8d8c52b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
