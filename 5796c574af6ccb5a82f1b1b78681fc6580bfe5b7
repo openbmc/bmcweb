@@ -16,6 +16,29 @@
       "message": "Looks good",
       "revId": "5796c574af6ccb5a82f1b1b78681fc6580bfe5b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "105d8aa5_64c24356",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-08T09:23:05Z",
+      "side": 1,
+      "message": "setProperty?",
+      "range": {
+        "startLine": 821,
+        "startChar": 34,
+        "endLine": 821,
+        "endChar": 51
+      },
+      "revId": "5796c574af6ccb5a82f1b1b78681fc6580bfe5b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
