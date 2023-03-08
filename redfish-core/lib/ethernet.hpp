@@ -1960,6 +1960,53 @@ inline void requestEthernetInterfacesRoutes(App& app)
             }
             });
         });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
+        .privileges(redfish::privileges::deleteEthernetInterface)
+        .methods(boost::beast::http::verb::delete_)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& ifaceId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, ifaceId](const boost::system::error_code ec,
+                                 const sdbusplus::message_t& m) {
+            if (ec)
+            {
+                const sd_bus_error* dbusError = m.get_error();
+                if (dbusError == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "DBus error: " << dbusError->name;
+
+                if (std::string_view(
+                        "org.freedesktop.DBus.Error.UnknownObject") ==
+                    dbusError->name)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EthernetInterface", ifaceId);
+                }
+                if (std::string_view(
+                        "org.freedesktop.DBus.Error.UnknownMethod") ==
+                    dbusError->name)
+                {
+                    messages::resourceCannotBeDeleted(asyncResp->res);
+                    return;
+                }
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            },
+            "xyz.openbmc_project.Network",
+            std::string("/xyz/openbmc_project/network/") + ifaceId,
+            "xyz.openbmc_project.Object.Delete", "Delete");
+        });
 }
 
 } // namespace redfish
