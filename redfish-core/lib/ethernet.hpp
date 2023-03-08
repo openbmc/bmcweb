@@ -1960,6 +1960,51 @@ inline void requestEthernetInterfacesRoutes(App& app)
             }
             });
         });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
+        .privileges(redfish::privileges::deleteEthernetInterface)
+        .methods(boost::beast::http::verb::delete_)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& ifaceId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        getEthernetIfaceData(
+            ifaceId,
+            [asyncResp,
+             ifaceId](const bool& success, const EthernetInterfaceData& ethData,
+                      const boost::container::flat_set<IPv4AddressData>&,
+                      const boost::container::flat_set<IPv6AddressData>&) {
+            if (!success)
+            {
+                // TODO(Pawel)consider distinguish between non
+                // existing object, and other errors
+                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
+                                           ifaceId);
+                return;
+            }
+
+            if (!ethData.vlanId)
+            {
+                messages::resourceCannotBeDeleted(asyncResp->res);
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                },
+                "xyz.openbmc_project.Network",
+                std::string("/xyz/openbmc_project/network/") + ifaceId,
+                "xyz.openbmc_project.Object.Delete", "Delete");
+            });
+        });
 }
 
 } // namespace redfish
