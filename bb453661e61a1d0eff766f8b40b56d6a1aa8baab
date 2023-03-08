@@ -46,6 +46,30 @@
       },
       "revId": "bb453661e61a1d0eff766f8b40b56d6a1aa8baab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419c86b0_f29e7a33",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2946,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T21:18:11Z",
+      "side": 1,
+      "message": "ACK.  I forgot that\u0027s how that was done.  Any takers to clean it up and use the mapper?",
+      "parentUuid": "824f0693_91c74291",
+      "range": {
+        "startLine": 2946,
+        "startChar": 0,
+        "endLine": 2946,
+        "endChar": 39
+      },
+      "revId": "bb453661e61a1d0eff766f8b40b56d6a1aa8baab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
