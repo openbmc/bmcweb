@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3e41c1f_a4b52c06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000940
+      },
+      "writtenOn": "2023-03-08T03:10:21Z",
+      "side": 1,
+      "message": "Then should handleHostnamePatch() check output from dbus call? PATCH operation should return fail when not success.",
+      "parentUuid": "4449b8ae_6864d3a3",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "fee282dbfba9ae4d3727607e700cc6c5e052f9ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15f8b5d9_3f29cb19",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
