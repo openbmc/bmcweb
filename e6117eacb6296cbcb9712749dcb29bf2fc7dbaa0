@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "582bf837_a215d9cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-08T00:38:02Z",
+      "side": 1,
+      "message": "\u003e members property is in this commit but it is empty\n\nremoved members and implemented in the next commit.",
+      "parentUuid": "f76a198b_e94e4893",
+      "revId": "e6117eacb6296cbcb9712749dcb29bf2fc7dbaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "16e66195_813c6779",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 26
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-07T17:58:46Z",
       "side": 1,
       "message": "Could add a      BMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error\" \u003c\u003c ec.value();",
+      "revId": "e6117eacb6296cbcb9712749dcb29bf2fc7dbaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8956878a_008cd381",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-08T00:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c55d6dcd_8834e1d3",
       "revId": "e6117eacb6296cbcb9712749dcb29bf2fc7dbaa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
