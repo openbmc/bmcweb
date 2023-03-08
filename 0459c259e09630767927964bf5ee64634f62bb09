@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4e5a77_d4679d20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T00:29:32Z",
+      "side": 1,
+      "message": "Password is generally read-only in the spec (I\u0027ll be honest, I didn\u0027t check in this case) which would mean this needs to be null.",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f6dce85b_d80355f5",
@@ -19,6 +42,93 @@
         "startChar": 0,
         "endLine": 77,
         "endChar": 54
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a68daac4_52ada423",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T00:29:32Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "f6dce85b_d80355f5",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 54
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eb1341b_93230667",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T00:29:32Z",
+      "side": 1,
+      "message": "This is your problem.  You need to take this by value, because you need to take ownership of it.  Remove the \u0026 and you should be able to get rid of the copy previously.",
+      "range": {
+        "startLine": 603,
+        "startChar": 70,
+        "endLine": 603,
+        "endChar": 71
+      },
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51fb3caf_d2f288ee",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T00:29:32Z",
+      "side": 1,
+      "message": "long lambdas are now disallowed int the coding standard.  This came from previously, which is fine, but somethign to be aware of.",
+      "revId": "0459c259e09630767927964bf5ee64634f62bb09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c909b6c2_67332bc1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T00:29:32Z",
+      "side": 1,
+      "message": "You need to pass the error back to the handler.",
+      "range": {
+        "startLine": 614,
+        "startChar": 16,
+        "endLine": 614,
+        "endChar": 22
       },
       "revId": "0459c259e09630767927964bf5ee64634f62bb09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
