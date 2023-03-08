@@ -70,6 +70,24 @@
       "parentUuid": "76066a4d_d9bd602b",
       "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e101a732_bd6e5fa4",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-08T00:17:27Z",
+      "side": 1,
+      "message": "I think it\u0027s actually patchset 21 which has the first fix and 24 that has the second fix.  Patchset 22 should have the same fix as 24.  In 24 I just cleaned up the commented code that was present in 22 to make it more readable.  All of the commented code was just my previous attempts at getting a working solution.\n\nThe two approaches are how the handler argument is handled in the capture inside getSatelliteConfigs() from redfish_aggregator.hpp.  The approaches are essentially:\n\n1) [handler{handler}]\n2) [handler{std::move(handler)}]\n\nThe code is currently configured for the second option.",
+      "parentUuid": "873967e5_60e3341a",
+      "revId": "8f68e8f320027312c6d11943fb803df20078a1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
