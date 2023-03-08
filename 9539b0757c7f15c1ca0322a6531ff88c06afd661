@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccdb2fd1_9d138941",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-08T02:39:50Z",
+      "side": 1,
+      "message": "Thanks. I will move into getPowerMetricData() in next patchset.",
+      "parentUuid": "ecfd8d79_d916cdda",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52f08c33_bf4510ec",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-07T07:47:39Z",
       "side": 1,
       "message": "Please refer: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60384/10/COMMON_ERRORS.md#356",
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c58cafcf_39e45988",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-08T02:39:50Z",
+      "side": 1,
+      "message": "Do you means that I need to define another function like afterGetSubTree() then call getSubTree method with std::bind_front as below?\n\ndbus::utility::getSubTree(\"/xyz/openbmc_project/inventory\", interfaces,\n                         std::bind_front(afterGetSubTree, asyncResp));",
+      "parentUuid": "52f08c33_bf4510ec",
       "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93b9dd52_ee4283c5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3020,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-08T02:39:50Z",
+      "side": 1,
+      "message": "Thanks. I will change to const auto\u0026 in next patchset.",
+      "parentUuid": "6fe9921f_b310b777",
+      "range": {
+        "startLine": 3020,
+        "startChar": 23,
+        "endLine": 3020,
+        "endChar": 62
+      },
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8caf0a34_0ff0e7a6",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-03-07T07:47:39Z",
       "side": 1,
       "message": "Can you separate out this logic?",
+      "range": {
+        "startLine": 3003,
+        "startChar": 8,
+        "endLine": 3068,
+        "endChar": 15
+      },
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b168181f_733c8704",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3068,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-08T02:39:50Z",
+      "side": 1,
+      "message": "Do you means that from line 3003 to 3068 need to separate to another function then called by getPowerMetricData() function inside?",
+      "parentUuid": "8caf0a34_0ff0e7a6",
       "range": {
         "startLine": 3003,
         "startChar": 8,
