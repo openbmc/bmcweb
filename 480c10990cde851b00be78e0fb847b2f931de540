@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de41ab9_bcc48708",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T22:37:47Z",
+      "side": 1,
+      "message": "An internal error on its own is not a failure in bmcweb.  You\u0027ve changed the code to basically ignore the interface failures, which is not how we generally handle this.",
+      "revId": "480c10990cde851b00be78e0fb847b2f931de540",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
