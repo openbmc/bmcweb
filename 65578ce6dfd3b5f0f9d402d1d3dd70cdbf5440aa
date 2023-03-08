@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82a460bd_7b1bbd6b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-08T22:48:27Z",
+      "side": 1,
+      "message": "As a general rule, we should not be writing a parameter, then overwriting it later with a different value.  Doing so has caused untold bugs.\n\nIf we\u0027re writing the MemberId incorrectly earlier in the process, that\u0027s fine, remove it from the existing code, and add it directly here, instead of trying to replace a value.",
+      "range": {
+        "startLine": 1185,
+        "startChar": 0,
+        "endLine": 1195,
+        "endChar": 28
+      },
+      "revId": "65578ce6dfd3b5f0f9d402d1d3dd70cdbf5440aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
