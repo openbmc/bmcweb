@@ -1775,6 +1775,133 @@ inline void requestEthernetInterfacesRoutes(App& app)
         });
         });
 
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+        .privileges(redfish::privileges::postEthernetInterfaceCollection)
+        .methods(boost::beast::http::verb::post)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        bool vlanEnable = false;
+        uint32_t vlanId = 0;
+        nlohmann::json relatedInterfaces;
+
+        if (!json_util::readJsonPatch(req, asyncResp->res, "VLAN/VLANEnable",
+                                      vlanEnable, "VLAN/VLANId", vlanId,
+                                      "Links/RelatedInterfaces",
+                                      relatedInterfaces))
+        {
+            return;
+        }
+
+        if (!relatedInterfaces.is_array() || relatedInterfaces.size() != 1)
+        {
+            messages::propertyValueTypeError(
+                asyncResp->res,
+                relatedInterfaces.dump(
+                    2, ' ', true, nlohmann::json::error_handler_t::replace),
+                "Links/RelatedInterfaces");
+            return;
+        }
+
+        std::string parentInterfaceUri;
+        if (!json_util::readJson(relatedInterfaces[0], asyncResp->res,
+                                 "@odata.id", parentInterfaceUri))
+        {
+            messages::propertyMissing(asyncResp->res,
+                                      "Links/RelatedInterfaces/0/@odata.id");
+            return;
+        }
+        BMCWEB_LOG_INFO << "Parent Interface URI: " << parentInterfaceUri;
+
+        boost::urls::result<boost::urls::url_view> parsedUri =
+            boost::urls::parse_relative_ref(parentInterfaceUri);
+        if (!parsedUri)
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, parentInterfaceUri,
+                "Links/RelatedInterfaces/0/@odata.id");
+            return;
+        }
+
+        std::string parentInterface;
+        if (!crow::utility::readUrlSegments(
+                *parsedUri, "redfish", "v1", "Managers", "bmc",
+                "EthernetInterfaces", std::ref(parentInterface)))
+        {
+            messages::propertyValueNotInList(
+                asyncResp->res, parentInterfaceUri,
+                "Links/RelatedInterfaces/0/@odata.id");
+            return;
+        }
+
+        if (!vlanEnable)
+        {
+            // In OpenBMC implementation, VLANEnable cannot be false on
+            // create
+            messages::propertyValueIncorrect(asyncResp->res, "VLAN/VLANEnable",
+                                             "false");
+            return;
+        }
+        if (vlanId == 0 || vlanId >= 4095)
+        {
+            messages::propertyValueIncorrect(asyncResp->res, "VLAN/VLANId",
+                                             std::to_string(vlanId));
+            return;
+        }
+
+        std::string vlanInterface =
+            parentInterface + "_" + std::to_string(vlanId);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, parentInterfaceUri, vlanInterface](
+                const boost::system::error_code ec, sdbusplus::message_t& m) {
+            if (ec)
+            {
+                const sd_bus_error* dbusError = m.get_error();
+                if (dbusError == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "DBus error: " << dbusError->name;
+
+                if (std::string_view(
+                        "xyz.openbmc_project.Common.Error.ResourceNotFound") ==
+                    dbusError->name)
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, parentInterfaceUri,
+                        "Links/RelatedInterfaces/0/@odata.id");
+                    return;
+                }
+                if (std::string_view(
+                        "xyz.openbmc_project.Common.Error.InvalidArgument") ==
+                    dbusError->name)
+                {
+                    messages::resourceAlreadyExists(asyncResp->res,
+                                                    "EthernetInterface", "Id",
+                                                    vlanInterface);
+                    return;
+                }
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const boost::urls::url vlanInterfaceUri =
+                crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
+                                             "EthernetInterfaces",
+                                             vlanInterface);
+            asyncResp->res.addHeader("Location",
+                                     vlanInterfaceUri.encoded_path());
+            },
+            "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
+            "xyz.openbmc_project.Network.VLAN.Create", "VLAN", parentInterface,
+            vlanId);
+        });
+
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
