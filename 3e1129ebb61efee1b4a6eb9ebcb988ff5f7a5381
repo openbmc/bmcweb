@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04ec7c59_bdcd203e",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-09T18:01:26Z",
+      "side": 1,
+      "message": "I typed this comment before I read the other comment.  This has been changed in the latest patchset.",
+      "parentUuid": "341134d1_1ab3dcd5",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 21
+      },
+      "revId": "3e1129ebb61efee1b4a6eb9ebcb988ff5f7a5381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21a68b6f_13c7dae4",
