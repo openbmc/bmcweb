@@ -496,6 +496,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b40d6b6_5560476c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-09T02:22:10Z",
+      "side": 1,
+      "message": "Ack. Let me push something and we discuss that separately. This stands on its own.",
+      "parentUuid": "e1120cf6_791d7f10",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 24
+      },
+      "revId": "7cc35695a93bedc5710aa0fcbf8c5f1acfc5cc0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0b05837_66c8cca3",
