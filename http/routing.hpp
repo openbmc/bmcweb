@@ -1472,6 +1472,8 @@ class Router
                                             "redfish", "v1", "AccountService",
                                             "Accounts", req.session->username));
                 }
+                BMCWEB_LOG_DEBUG << "User '" << req.session->username
+                                 << "' is not privileged: forbidden.";
                 return;
             }
 
