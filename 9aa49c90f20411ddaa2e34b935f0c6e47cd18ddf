@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "091d46d4_f2abe270",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-09T19:01:48Z",
+      "side": 1,
+      "message": "Other commits need to go first",
+      "revId": "9aa49c90f20411ddaa2e34b935f0c6e47cd18ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33343352_3b7840ea",
+        "filename": "http/routing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-09T19:01:48Z",
+      "side": 1,
+      "message": "Not sure I see this being very helpful but it is a DEBUG trace so oh well.",
+      "revId": "9aa49c90f20411ddaa2e34b935f0c6e47cd18ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e5cb92_85af96f1",
+        "filename": "http/routing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1471,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-09T19:01:48Z",
+      "side": 1,
+      "message": "privileged",
+      "revId": "9aa49c90f20411ddaa2e34b935f0c6e47cd18ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f8b6e19_cad47ddc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-09T19:01:48Z",
+      "side": 1,
+      "message": "I think should be a separate commit, oh well.",
+      "revId": "9aa49c90f20411ddaa2e34b935f0c6e47cd18ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
