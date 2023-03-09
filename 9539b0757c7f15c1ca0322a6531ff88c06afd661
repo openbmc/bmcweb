@@ -101,6 +101,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3f0e73b_bfcbd0b9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2023-03-09T05:21:34Z",
+      "side": 1,
+      "message": "Thanks. Please help us to review the change in Patchset 27.",
+      "parentUuid": "137b7309_3236facc",
+      "revId": "9539b0757c7f15c1ca0322a6531ff88c06afd661",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fe9921f_b310b777",
