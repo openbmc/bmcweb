@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10ce4f7f_554b26ac",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-09T12:20:53Z",
+      "side": 1,
+      "message": "still not updated here.",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bfecdac_e6159850",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2955,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-09T12:20:53Z",
+      "side": 1,
+      "message": "still not updated here.",
+      "range": {
+        "startLine": 2950,
+        "startChar": 0,
+        "endLine": 2955,
+        "endChar": 22
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd6efe7_14ecf53e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 3071,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-09T12:20:53Z",
+      "side": 1,
+      "message": "This Log is redundant",
+      "range": {
+        "startLine": 3071,
+        "startChar": 4,
+        "endLine": 3071,
+        "endChar": 50
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
