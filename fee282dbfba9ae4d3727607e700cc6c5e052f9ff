@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15474d31_f2170437",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-03-09T02:26:52Z",
+      "side": 1,
+      "message": "Current implement for the handle Fqdn patch https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/ethernet.hpp#L1004.\nIt\u0027s should be the same for the HostName patch.",
+      "parentUuid": "e3e41c1f_a4b52c06",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "fee282dbfba9ae4d3727607e700cc6c5e052f9ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15f8b5d9_3f29cb19",
@@ -61,6 +85,24 @@
       "writtenOn": "2023-03-07T18:06:39Z",
       "side": 1,
       "message": "Why line 1899 instead of here? \nAlso then don\u0027t we have 2 checks in 2 different places? Can this length \u003e 255 just go in the isHostnameValid function?",
+      "revId": "fee282dbfba9ae4d3727607e700cc6c5e052f9ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea41797_0981ed3c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2023-03-09T02:26:52Z",
+      "side": 1,
+      "message": "Yes, I think so.",
+      "parentUuid": "15f8b5d9_3f29cb19",
       "revId": "fee282dbfba9ae4d3727607e700cc6c5e052f9ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
