@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "000fe8d0_57fa4b0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-09T19:41:26Z",
+      "side": 1,
+      "message": "\u003e Do we truly support newer protocols? \n\nYes.  I\u0027ve been monitoring the changes, and basically all of them are things we already implement.\n\n\u003e Are there features we support added in 1.10.0 - 1.17.0?\n\nLikely so, and I don\u0027 think it\u0027s worth the effort to go sort out every one of them.  We pass service validtor, and to my knowledge we support all of 1.17, I don\u0027t really see a reason to expose 1.15 unless we think there\u0027s something we dont\u0027 pass?\n\n\u003e I guess query parameters which were expanded in 1.15.\n\n+1",
+      "parentUuid": "15428b3f_2db6beef",
+      "revId": "1210f95d3ca7bf729336b7f135c0ba812588660b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38122314_22bd9f12",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
