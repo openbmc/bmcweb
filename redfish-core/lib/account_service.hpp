@@ -135,8 +135,12 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
         }
         else if (userGroup == "ssh")
         {
-            accountTypes.emplace_back("HostConsole");
             accountTypes.emplace_back("ManagerConsole");
+        }
+        else if (userGroup == "hostconsole")
+        {
+            // hostconsole group controls who can ssh to the host console port
+            accountTypes.emplace_back("HostConsole");
         }
         else if (userGroup == "web")
         {
