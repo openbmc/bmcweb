@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97d893d5_c3078411",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-09T01:51:37Z",
+      "side": 0,
+      "message": "\u003e THis code was correct before.\n\nIt has been updated according to the discussion on discord",
+      "parentUuid": "f84352d7_f5560e78",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 17
+      },
+      "revId": "7da1c58890e82194ff83ca6c8d55b5c327f2444a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "905c611d_5b74dbd5",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-08T22:37:47Z",
       "side": 0,
       "message": "THis code was correct before.",
+      "range": {
+        "startLine": 501,
+        "startChar": 7,
+        "endLine": 507,
+        "endChar": 17
+      },
+      "revId": "7da1c58890e82194ff83ca6c8d55b5c327f2444a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "643242ed_cc328970",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-09T01:51:37Z",
+      "side": 0,
+      "message": "\u003e THis code was correct before.\n\nIt has been updated according to the discussion on discord",
+      "parentUuid": "905c611d_5b74dbd5",
       "range": {
         "startLine": 501,
         "startChar": 7,
