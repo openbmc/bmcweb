@@ -70,6 +70,30 @@
       },
       "revId": "bb453661e61a1d0eff766f8b40b56d6a1aa8baab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2b0e475_40d57b9a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2946,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-09T02:16:11Z",
+      "side": 1,
+      "message": "Let me ask our team, it just seems lower priority, although I agree mapper would be better. \n\nI suspect this gets reworked in the future when DMTF comes out with a more complete OS/hypervisor model. I am looking at PR 4504 in the Redfish repo, although I don\u0027t see much progress there? The community has also talked about moving away from Mapper in the future, although we aren\u0027t near doing so.",
+      "parentUuid": "419c86b0_f29e7a33",
+      "range": {
+        "startLine": 2946,
+        "startChar": 0,
+        "endLine": 2946,
+        "endChar": 39
+      },
+      "revId": "bb453661e61a1d0eff766f8b40b56d6a1aa8baab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
