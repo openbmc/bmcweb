@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "778d8676_6a85682f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2023-03-09T06:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1458fedc_45a4eb16",
+      "revId": "da6e65d5736d4170851859cc4afa3047c9ad5ac8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "afb8136e_41d3cc14",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 13
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-07T04:04:18Z",
       "side": 1,
       "message": "This trace would be more useful if it included the interface name of the invalid interface ;)\nOh well.",
+      "revId": "da6e65d5736d4170851859cc4afa3047c9ad5ac8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ba3fd6_37bc6ff1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2023-03-09T06:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb8136e_41d3cc14",
       "revId": "da6e65d5736d4170851859cc4afa3047c9ad5ac8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
