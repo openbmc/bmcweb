@@ -118,14 +118,54 @@ inline void connectHandler(const boost::system::error_code& ec)
     doRead();
 }
 
-inline void requestRoutes(App& app)
+// Make sure that connection user is part of hostconsole group.
+inline void checkPermissionAndConnect(crow::websocket::Connection& conn)
 {
-    BMCWEB_ROUTE(app, "/console0")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .websocket()
-        .onopen(
-            [](crow::websocket::Connection& conn) {
-        BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+    // Ensure user is part of the hostconsole group
+    auto getUserInfoHandler =
+        [&conn](const boost::system::error_code ec,
+                const dbus::utility::DBusPropertiesMap& userInfo) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+            conn.close("Failed to get user information");
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Check if '" << conn.getUserName()
+                         << "' is part of hostconsole group";
+
+        auto userInfoIter =
+            std::find_if(userInfo.begin(), userInfo.end(),
+                         [](const auto& p) { return p.first == "UserGroups"; });
+
+        if (userInfoIter == userInfo.end())
+        {
+            BMCWEB_LOG_ERROR << "UserGroups not found...";
+            conn.close("Failed to find the user groups");
+            return;
+        }
+
+        const std::vector<std::string>* userGroups =
+            std::get_if<std::vector<std::string>>(&userInfoIter->second);
+        if (userGroups == nullptr)
+        {
+            BMCWEB_LOG_ERROR << "userGroups wasn't a string vector";
+            conn.close("Failed to check the user group");
+            return;
+        }
+
+        // Check if user is part of 'hostconsole' group
+        auto userGroupIter = std::find_if(
+            userGroups->begin(), userGroups->end(),
+            [](const auto& userGroup) { return userGroup == "hostconsole"; });
+
+        if (userGroupIter == userGroups->end())
+        {
+            BMCWEB_LOG_ERROR << "User is not part of hostconsole group.";
+            conn.close("User is not part of hostconsole group");
+            return;
+        }
 
         sessions.insert(&conn);
         if (hostSocket == nullptr)
@@ -138,6 +178,23 @@ inline void requestRoutes(App& app)
                     conn.getIoContext());
             hostSocket->async_connect(ep, connectHandler);
         }
+    };
+    crow::connections::systemBus->async_method_call(
+        std::move(getUserInfoHandler), "xyz.openbmc_project.User.Manager",
+        "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
+        "GetUserInfo", conn.getUserName());
+}
+
+inline void requestRoutes(App& app)
+{
+    BMCWEB_ROUTE(app, "/console0")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .websocket()
+        .onopen([](crow::websocket::Connection& conn) {
+            BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+
+            // Check user permissions and connect
+            checkPermissionAndConnect(conn);
         })
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
