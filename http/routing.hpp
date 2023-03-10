@@ -1388,28 +1388,8 @@ class Router
                          << "' " << static_cast<uint32_t>(*verb) << " / "
                          << rules[ruleIndex]->getMethods();
 
-        // any uncaught exceptions become 500s
-        try
-        {
-            rules[ruleIndex]->handleUpgrade(req, asyncResp,
-                                            std::forward<Adaptor>(adaptor));
-        }
-        catch (const std::exception& e)
-        {
-            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR
-                << "An uncaught exception occurred. The type was unknown "
-                   "so no information was available.";
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
+        rules[ruleIndex]->handleUpgrade(req, asyncResp,
+                                        std::forward<Adaptor>(adaptor));
     }
 
     void handle(Request& req,
