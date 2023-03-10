@@ -10,11 +10,13 @@
 #include "privileges.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
+#include "utils/dbus_utils.hpp"
 #include "verb.hpp"
 #include "websocket.hpp"
 
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <cerrno>
 #include <cstdint>
@@ -1253,38 +1255,29 @@ class Router
                 boost::beast::http::status::internal_server_error);
             return;
         }
-        std::string userRole{};
-        const bool* remoteUser = nullptr;
-        std::optional<bool> passwordExpired;
 
-        for (const auto& userInfo : userInfoMap)
+        std::string userRole{};
+        const std::string* userRolePtr = nullptr;
+        const bool* remoteUser = nullptr;
+        const bool* passwordExpired = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap,
+            "UserPrivilege", userRolePtr, "RemoteUser", remoteUser,
+            "UserPasswordExpired", passwordExpired);
+
+        if (!success)
         {
-            if (userInfo.first == "UserPrivilege")
-            {
-                const std::string* userRolePtr =
-                    std::get_if<std::string>(&userInfo.second);
-                if (userRolePtr == nullptr)
-                {
-                    continue;
-                }
-                userRole = *userRolePtr;
-                BMCWEB_LOG_DEBUG << "userName = " << req.session->username
-                                 << " userRole = " << *userRolePtr;
-            }
-            else if (userInfo.first == "RemoteUser")
-            {
-                remoteUser = std::get_if<bool>(&userInfo.second);
-            }
-            else if (userInfo.first == "UserPasswordExpired")
-            {
-                const bool* passwordExpiredPtr =
-                    std::get_if<bool>(&userInfo.second);
-                if (passwordExpiredPtr == nullptr)
-                {
-                    continue;
-                }
-                passwordExpired = *passwordExpiredPtr;
-            }
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        if (userRolePtr != nullptr)
+        {
+            userRole = *userRolePtr;
+            BMCWEB_LOG_DEBUG << "userName = " << req.session->username
+                             << " userRole = " << *userRolePtr;
         }
 
         if (remoteUser == nullptr)
@@ -1294,8 +1287,8 @@ class Router
                 boost::beast::http::status::internal_server_error);
             return;
         }
-
-        if (passwordExpired == std::nullopt)
+        bool expired = false;
+        if (passwordExpired == nullptr)
         {
             if (!*remoteUser)
             {
@@ -1306,7 +1299,10 @@ class Router
                     boost::beast::http::status::internal_server_error);
                 return;
             }
-            passwordExpired = false;
+        }
+        else
+        {
+            expired = *passwordExpired;
         }
 
         // Get the user's privileges from the role
@@ -1316,7 +1312,7 @@ class Router
         // Set isConfigureSelfOnly based on D-Bus results.  This
         // ignores the results from both pamAuthenticateUser and the
         // value from any previous use of this session.
-        req.session->isConfigureSelfOnly = *passwordExpired;
+        req.session->isConfigureSelfOnly = expired;
 
         // Modify privileges if isConfigureSelfOnly.
         if (req.session->isConfigureSelfOnly)
