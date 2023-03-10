@@ -196,6 +196,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b494e0f_8150acd3",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T22:43:32Z",
+      "side": 1,
+      "message": "\u003e Yeah, till the d-bus call finishes, authorization check completes inside call back, Its alive.\n\nBut, it\u0027s not.  If the connection drops, it\u0027s no longer alive.  With that said, this is no worse than what we have today.\n\n\u003e \n\u003e As said below, May be caching the user data locally to bmcweb will improve the performance and reduce the connection keep alive issue.\n\n+1.  Please review my patches for this.\n\n\u003e But this commit adds authorization check for upgrade routes and  bring both (normal \u0026 upgrade) routes on to same page.",
+      "parentUuid": "2dcdf38b_fcccf168",
+      "range": {
+        "startLine": 1210,
+        "startChar": 14,
+        "endLine": 1210,
+        "endChar": 17
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89eb4211_93de121c",
