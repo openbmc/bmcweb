@@ -17,6 +17,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/chassis.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "query.hpp"
@@ -209,6 +210,35 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline chassis::ThermalDirection
+    dbusToThermal(const std::string& thermalDirection)
+{
+    if (thermalDirection ==
+        "xyz.openbmc_project.Inventory.Decorator.ThermalDirection.Direction.BackToFront")
+    {
+        return chassis::ThermalDirection::BackToFront;
+    }
+    if (thermalDirection ==
+        "xyz.openbmc_project.Inventory.Decorator.ThermalDirection.Direction.FrontToBack")
+    {
+        return chassis::ThermalDirection::FrontToBack;
+    }
+    if (thermalDirection ==
+        "xyz.openbmc_project.Inventory.Decorator.ThermalDirection.Direction.Sealed")
+    {
+        return chassis::ThermalDirection::Sealed;
+    }
+    if (thermalDirection ==
+        "xyz.openbmc_project.Inventory.Decorator.ThermalDirection.Direction.TopExhaust")
+    {
+        return chassis::ThermalDirection::TopExhaust;
+    }
+
+    // Values like "Unknown" or "Other" will return Invalid
+    // so just leave off
+    return chassis::ThermalDirection::Invalid;
+}
+
 inline void
     handleChassisGet(App& app, const crow::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -270,7 +300,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Chassis.v1_16_0.Chassis";
+                "#Chassis.v1_22_0.Chassis";
             asyncResp->res.jsonValue["@odata.id"] =
                 crow::utility::urlFromPieces("redfish", "v1", "Chassis",
                                              chassisId);
@@ -342,6 +372,45 @@ inline void
                     getLocationIndicatorActive(asyncResp);
                     break;
                 }
+            }
+
+            const std::string thermalDirInterface =
+                "xyz.openbmc_project.Inventory.Decorator.ThermalDirection";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          thermalDirInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<std::string>(
+                    *crow::connections::systemBus, connectionName, path,
+                    thermalDirInterface, "Direction",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code& ec2,
+                        const std::string& property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "DBus response error for thermal Direction "
+                            << ec2;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    chassis::ThermalDirection thermalDirection =
+                        dbusToThermal(property);
+                    // Values like "Unknown" or "Other" will return Invalid
+                    // so just leave off
+
+                    if (thermalDirection == chassis::ThermalDirection::Invalid)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Redfish cannot map thermal direction for "
+                            << property;
+                    }
+                    else
+                    {
+                        asyncResp->res.jsonValue["ThermalDirection"] =
+                            thermalDirection;
+                    }
+                    });
             }
 
             sdbusplus::asio::getAllProperties(

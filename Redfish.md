@@ -203,6 +203,7 @@ Fields common to all schemas
 - Thermal
   - Shall be included if component contains temperature sensors, otherwise shall
     be omitted.
+- ThermalDirection
 
 ### /redfish/v1/Chassis/{ChassisId}/Drive/
 
