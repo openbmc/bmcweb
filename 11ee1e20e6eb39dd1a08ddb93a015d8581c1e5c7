@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aca5d8db_59ce152a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T23:38:33Z",
+      "side": 1,
+      "message": "Please read and understand how dbus enumerations work.  If your service implemented the dbus side of this correctly, I would expect redfish service validator to fail.",
+      "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
