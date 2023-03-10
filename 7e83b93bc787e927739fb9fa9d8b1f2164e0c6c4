@@ -88,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d160de_b8dfb6de",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T19:15:34Z",
+      "side": 1,
+      "message": "No longer in this patchset.   Please comment on\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61616",
+      "parentUuid": "50eb0ee4_3213d5a7",
+      "range": {
+        "startLine": 1274,
+        "startChar": 8,
+        "endLine": 1274,
+        "endChar": 34
+      },
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fa6f4c5_e6174020",
@@ -101,6 +125,30 @@
       "writtenOn": "2023-03-10T09:03:02Z",
       "side": 1,
       "message": "UnpackPropertiesNoThrow verifies type of the variable. If property had wrong type it will return false and UnpackErrorPrinter will print proper information. So in this log and one below it is only possible to have RemoteUser missing.\n\nYou should change log message to \"RemoteUser property missing.\"",
+      "range": {
+        "startLine": 1276,
+        "startChar": 33,
+        "endLine": 1276,
+        "endChar": 74
+      },
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3990af_d0e33165",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T19:15:34Z",
+      "side": 1,
+      "message": "No longer in this patchset, please comment on\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61616",
+      "parentUuid": "1fa6f4c5_e6174020",
       "range": {
         "startLine": 1276,
         "startChar": 33,
@@ -145,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f40f42f5_cfb5068f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T19:15:34Z",
+      "side": 1,
+      "message": "No longer in this patchset.",
+      "parentUuid": "8701ceae_a858110f",
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3290a4e_14b8df16",
@@ -158,6 +224,30 @@
       "writtenOn": "2023-03-10T09:03:02Z",
       "side": 1,
       "message": "it is advised to catch exceptions by const\u0026, it helps compiler with some optimizations",
+      "range": {
+        "startLine": 1406,
+        "startChar": 19,
+        "endLine": 1406,
+        "endChar": 36
+      },
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e0267e_86067b95",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T19:15:34Z",
+      "side": 1,
+      "message": "Catch has been removed in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61617\n\nIt is no longer required, and didn\u0027t make much sense.",
+      "parentUuid": "a3290a4e_14b8df16",
       "range": {
         "startLine": 1406,
         "startChar": 19,
