@@ -43,6 +43,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6d9e4e3_5726c4e7",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-10T09:03:02Z",
+      "side": 1,
+      "message": "nit: unpackPropertiesNoThrow has option to validate presence of mandatory properties. Then you could remove this check.\n\n```\n        const std::string* userRolePtr \u003d nullptr;\n        bool remoteUser \u003d false;\n        const bool* passwordExpired \u003d nullptr;\n\n        const bool success \u003d sdbusplus::unpackPropertiesNoThrow(\n            redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap,\n            \"UserPrivilege\", userRolePtr, \"RemoteUser\", remoteUser,\n            \"UserPasswordExpired\", passwordExpired);\n```\n\nit will return false and UnpackErrorPrinter will print proper error information when \"RemoteUser\" is missing or of course it has wrong type",
+      "range": {
+        "startLine": 1274,
+        "startChar": 8,
+        "endLine": 1274,
+        "endChar": 34
+      },
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fa6f4c5_e6174020",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-10T09:03:02Z",
+      "side": 1,
+      "message": "UnpackPropertiesNoThrow verifies type of the variable. If property had wrong type it will return false and UnpackErrorPrinter will print proper information. So in this log and one below it is only possible to have RemoteUser missing.\n\nYou should change log message to \"RemoteUser property missing.\"",
+      "range": {
+        "startLine": 1276,
+        "startChar": 33,
+        "endLine": 1276,
+        "endChar": 74
+      },
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34f51562_806dae33",
         "filename": "http/routing.hpp",
         "patchSetId": 13
@@ -54,6 +100,46 @@
       "writtenOn": "2023-03-10T05:44:36Z",
       "side": 1,
       "message": "For non-local user ( Where passwordExpired  is not present on d-Bus), You must set it to false before proceeding further, because this is used in 1302 line and where if passwordExpired nullptr, That will lead to crash.",
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8701ceae_a858110f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-10T09:03:02Z",
+      "side": 1,
+      "message": "Above is check for nullptr without return.\nThis line can dereference nullptr.",
+      "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3290a4e_14b8df16",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-10T09:03:02Z",
+      "side": 1,
+      "message": "it is advised to catch exceptions by const\u0026, it helps compiler with some optimizations",
+      "range": {
+        "startLine": 1406,
+        "startChar": 19,
+        "endLine": 1406,
+        "endChar": 36
+      },
       "revId": "7e83b93bc787e927739fb9fa9d8b1f2164e0c6c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
