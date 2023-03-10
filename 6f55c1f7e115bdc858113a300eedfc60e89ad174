@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b111a7_cad3f9b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-10T22:28:07Z",
+      "side": 1,
+      "message": "What I got from the team is:\n\n```\nThe problem is bmcweb attaches the leaf node in the dbus path \nand creates a redfish URI ...\nand that can go wrong when you have dbus objects with similar child \nbut to a different parent.\nFor example :\n- chassis1/io_module1\n- chassis2/io_module1\n\nHere assume that io_module1 is the fabric adapter..\nbut both dbus objects are unique as they are under different chassis. \nbut with earlier logic of bmcweb..it creates same URI for both io_modules.\n```",
+      "parentUuid": "3be87d9e_fd9f3f9a",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 34
+      },
+      "revId": "6f55c1f7e115bdc858113a300eedfc60e89ad174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9876dc19_9286f653",
