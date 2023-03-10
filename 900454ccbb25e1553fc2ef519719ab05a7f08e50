@@ -16,6 +16,23 @@
       "message": "NIT: Rephrase commit message a bit.",
       "revId": "900454ccbb25e1553fc2ef519719ab05a7f08e50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a64675_c17f472f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T16:14:16Z",
+      "side": 1,
+      "message": "This should be using sdbusplus::message::object_path to do its escaping/deescaping.",
+      "revId": "900454ccbb25e1553fc2ef519719ab05a7f08e50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
