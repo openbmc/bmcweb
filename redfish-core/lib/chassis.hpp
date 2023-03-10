@@ -347,6 +347,31 @@ inline void
                 }
             }
 
+            const std::string thermalDirInterface =
+                "xyz.openbmc_project.Inventory.Decorator.ThermalDirection";
+            if (std::find(interfaces2.begin(), interfaces2.end(),
+                          thermalDirInterface) != interfaces2.end())
+            {
+                sdbusplus::asio::getProperty<std::string>(
+                    *crow::connections::systemBus, connectionName, path,
+                    thermalDirInterface, "ThermalDirection",
+                    [asyncResp, chassisId(std::string(chassisId))](
+                        const boost::system::error_code ec2,
+                        const std::string& property) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBus response error for thermal Direction";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (!property.empty())
+                    {
+                        asyncResp->res.jsonValue["ThermalDirection"] = property;
+                    }
+                    });
+            }
+
             sdbusplus::asio::getAllProperties(
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
