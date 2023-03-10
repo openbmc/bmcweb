@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50cd82ba_ca189a5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T15:52:16Z",
+      "side": 1,
+      "message": "Thanks for your patch!  Lets get the cleanups done, get the interfaces documented in phosphor-dbus-interfaces, get the Redfish documentation updated with your new properties, and this should be good to go.",
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10ce4f7f_554b26ac",
@@ -26,6 +43,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7bb7de1_780b55c8",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T15:52:16Z",
+      "side": 1,
+      "message": "Please use the existing variant types.  SEnsors does not need its own variant type.",
+      "parentUuid": "10ce4f7f_554b26ac",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7724f78_28e8411a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2954,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T15:52:16Z",
+      "side": 1,
+      "message": "for objects only used in one place, please prefer to put them in the same scope as the implementation that uses them.",
+      "range": {
+        "startLine": 2954,
+        "startChar": 42,
+        "endLine": 2954,
+        "endChar": 59
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bfecdac_e6159850",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 27
@@ -42,6 +106,75 @@
         "startChar": 0,
         "endLine": 2955,
         "endChar": 22
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1feb19f7_7bd111ef",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 3016,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T15:52:16Z",
+      "side": 1,
+      "message": "Please use the helper functions for doing this kind of property reading.",
+      "range": {
+        "startLine": 3016,
+        "startChar": 0,
+        "endLine": 3016,
+        "endChar": 50
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8ce557c_72ea3df9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 3065,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T15:52:16Z",
+      "side": 1,
+      "message": "Please don\u0027t pass by SensorsAsyncResponse.  It is a data structure that does too much already, and is overused.  Looking at your code, it looks like you only need to pass sensorsAsyncResp.asyncResp (ie, the bmcweb::AsyncResp object).",
+      "range": {
+        "startLine": 3065,
+        "startChar": 26,
+        "endLine": 3065,
+        "endChar": 42
+      },
+      "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10dde3cd_c706d793",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 3069,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-10T15:52:16Z",
+      "side": 1,
+      "message": "Where is this namespace documented?\n\nAlso, as written, this is going to return the same power entries for all chassis, which is a bug.  You need to sort them into the chassis that the power metrics are assigned to, generally done by looking up an association, and matching up the ChassisId.",
+      "range": {
+        "startLine": 3069,
+        "startChar": 30,
+        "endLine": 3069,
+        "endChar": 35
       },
       "revId": "b24d30785e7e38b7a076f2cecf7b48342da8dbd7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
