@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5358c3d1_a0b5a5dc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 81
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:35:36Z",
+      "side": 1,
+      "message": "Don\u0027t pass primitives by reference.",
+      "range": {
+        "startLine": 1261,
+        "startChar": 30,
+        "endLine": 1261,
+        "endChar": 45
+      },
+      "revId": "41b4a773aefc0396405f26c3795af882f72f0b95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

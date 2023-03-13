@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "257a926f_31788206",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:35:36Z",
+      "side": 0,
+      "message": "Please put code moves in their own patch.",
+      "revId": "0e88cb374b42224753e78ea1a98b349511fbb9e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3f7b29_b02a3e1d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:35:36Z",
+      "side": 0,
+      "message": "This old default behavior looks removed, but I see no mention of backward compatibility in the commit message.  Please update your commit message to make sure there are no user-facing breakages.",
+      "range": {
+        "startLine": 1208,
+        "startChar": 0,
+        "endLine": 1208,
+        "endChar": 67
+      },
+      "revId": "0e88cb374b42224753e78ea1a98b349511fbb9e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

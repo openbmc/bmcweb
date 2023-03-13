@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbf27d8_26df68ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 84
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:35:36Z",
+      "side": 1,
+      "message": "Some minor changes needed, then this looks fine.",
+      "revId": "d93f58d6b5897062102b8c522e501604af4bcab9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c99c85f7_6dd5bdd5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:35:36Z",
+      "side": 1,
+      "message": "This whole error handling clause looks incorrect.  The old one looks closer to correct, please let me know what you were trying to accomplish here, and we can get this code block corrected, but as written, it effectively ignores all errors, which doesn\u0027t seem like what you intended.",
+      "range": {
+        "startLine": 1229,
+        "startChar": 0,
+        "endLine": 1234,
+        "endChar": 13
+      },
+      "revId": "d93f58d6b5897062102b8c522e501604af4bcab9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
