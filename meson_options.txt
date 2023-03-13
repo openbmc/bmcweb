@@ -29,16 +29,16 @@ option(
                     https://github.com/openbmc/jsnbd/blob/master/README.'''
 )
 
-# if you use this option and are seeing this comment, please comment here:
-# https://github.com/openbmc/bmcweb/issues/188 and put forward your intentions
-# for this code.  At this point, no daemon has been upstreamed that implements
-# this interface, so for the moment this appears to be dead code;  In leiu of
-# removing it, it has been disabled to try to give those that use it the
-# opportunity to upstream their backend implementation
+#if you use this option and are seeing this comment, please comment here:
+#https: // github.com/openbmc/bmcweb/issues/188 and put forward your intentions
+#for this code.At this point, no daemon has been upstreamed that implements
+#this interface, so for the moment this appears to be dead code; In leiu of
+#removing it, it has been disabled to try to give those that use it the
+#opportunity to upstream their backend implementation
 #option(
-#    'vm-nbdproxy',
-#    type: 'feature', value: 'disabled',
-#    description: 'Enable the Virtual Media WebSocket.'
+#'vm-nbdproxy',
+#type : 'feature', value : 'disabled',
+#description : 'Enable the Virtual Media WebSocket.'
 #)
 
 option(
@@ -196,6 +196,13 @@ option(
 )
 
 option(
+   'image-upload-dir',
+   type: 'string',
+   value: '/tmp/images/',
+   description: 'Directory where downloaded software images are placed.'
+)
+
+option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
     value: 'disabled',
@@ -248,10 +255,11 @@ option(
     description: 'Allows this BMC to aggregate resources from satellite BMCs'
 )
 
-# Insecure options. Every option that starts with a `insecure` flag should
-# not be enabled by default for any platform, unless the author fully comprehends
-# the implications of doing so.In general, enabling these options will cause security
-# problems of varying degrees
+#Insecure options.Every option that starts with a `insecure` flag should
+#not be enabled by default for any platform, unless the author fully comprehends
+#the implications of doing so.In general,                                      \
+    enabling these options will cause security
+#problems of varying degrees
 
 option(
     'insecure-disable-csrf',

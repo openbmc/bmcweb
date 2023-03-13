@@ -1,7 +1,8 @@
 #pragma once
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
+#include <string>
 
 // clang-format off
 constexpr const int bmcwebInsecureDisableXssPrevention =
@@ -14,4 +15,6 @@ constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB
 constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
 
 constexpr const bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
+
+constexpr const std::string imageUploadDir = "@IMAGE_UPLOAD_DIR@";
 // clang-format on

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
@@ -94,7 +96,7 @@ inline void
         callback);
 
     std::string filepath(
-        "/tmp/images/" +
+        imageUploadDir +
         boost::uuids::to_string(boost::uuids::random_generator()()));
     BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
