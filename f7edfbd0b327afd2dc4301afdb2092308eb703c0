@@ -51,6 +51,24 @@
       "parentUuid": "9621cb47_7c63ad0f",
       "revId": "f7edfbd0b327afd2dc4301afdb2092308eb703c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "568a5065_3408c07d",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-13T18:53:43Z",
+      "side": 1,
+      "message": "Trying to decide by these rules if it fits better with Error or Warning \nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels\n\nerror: Something went wrong, and we weren\u0027t able to give the expected response. Service is still operational. \"error\" should be used for unexpected conditions that prevented bmcweb from fulfilling the request. \"error\" shall be used for 5xx errors.\nwarning: A condition occurred that is outside the expected flows, but isn\u0027t necessarily an error in the webserver, or might only be an error in certain scenarios. For example, connection drops or 4xx errors.\n\nI am good with Error. The \"in theory\" I think, is enough for this to be Error.",
+      "parentUuid": "62bbe78a_faf2fa96",
+      "revId": "f7edfbd0b327afd2dc4301afdb2092308eb703c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
