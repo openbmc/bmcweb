@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a5684d7_4369a5a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-13T02:31:56Z",
+      "side": 1,
+      "message": "Need to run the redfish validator.",
+      "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f199a1b0_75f556c4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-13T02:31:56Z",
+      "side": 1,
+      "message": "Need to bump this (also anywhere else used in the file). The validator will fail. https://redfish.dmtf.org/schemas/v1/Chassis.v1_22_0.json \n\n                \"ThermalDirection\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/ThermalDirection\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"description\": \"Indicates the thermal management path through the chassis.\",\n                    \"longDescription\": \"This property shall indicate the general direction of the thermal management path through the chassis.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_20_0\"\n                },",
+      "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aca5d8db_59ce152a",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
