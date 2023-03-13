@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e35daa8b_5863ded7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 84
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-13T22:22:08Z",
+      "side": 1,
+      "message": "Thanks for reviewing. I will work on resolving other issues.",
+      "revId": "d93f58d6b5897062102b8c522e501604af4bcab9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c99c85f7_6dd5bdd5",
@@ -31,6 +48,30 @@
       "writtenOn": "2023-03-13T19:35:36Z",
       "side": 1,
       "message": "This whole error handling clause looks incorrect.  The old one looks closer to correct, please let me know what you were trying to accomplish here, and we can get this code block corrected, but as written, it effectively ignores all errors, which doesn\u0027t seem like what you intended.",
+      "range": {
+        "startLine": 1229,
+        "startChar": 0,
+        "endLine": 1234,
+        "endChar": 13
+      },
+      "revId": "d93f58d6b5897062102b8c522e501604af4bcab9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7681775e_96f76f05",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-13T22:22:08Z",
+      "side": 1,
+      "message": "Based on my understanding, if the AutoReboot property is not present, the getProperty function returns EBADR. \nThe function will continue retrieving other properties even if the AutoReboot property is not present. However, if any other error occurs, the function will fail with an internal error.",
+      "parentUuid": "c99c85f7_6dd5bdd5",
       "range": {
         "startLine": 1229,
         "startChar": 0,
