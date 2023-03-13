@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3647b27_b31b17fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T17:07:04Z",
+      "side": 1,
+      "message": "One minor change, then this should be fine.",
+      "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b44eaab_2bccd5d0",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T17:07:04Z",
+      "side": 1,
+      "message": "This should be using sdbusplus::message::object_path.",
+      "range": {
+        "startLine": 210,
+        "startChar": 50,
+        "endLine": 210,
+        "endChar": 73
+      },
+      "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
