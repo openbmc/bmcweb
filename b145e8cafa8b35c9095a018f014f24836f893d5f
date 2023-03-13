@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99ce4fc0_935d8132",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T20:15:16Z",
+      "side": 1,
+      "message": "Thanks for your patch!\n\nRight off the bat, this patch seems to be completely ignoring the Redfish PrivilegeRegistry that we base our authorization model on.  Given the lack of details in your commit message as to WHY this change is being made, it\u0027s difficult to make a suggestion for next steps.",
+      "revId": "b145e8cafa8b35c9095a018f014f24836f893d5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35eb684e_58f625b3",
