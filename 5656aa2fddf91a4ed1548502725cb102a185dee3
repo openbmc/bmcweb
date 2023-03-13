@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ac294d_44fefa7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T17:33:05Z",
+      "side": 1,
+      "message": "I suspect there\u0027s a misunderstanding in how EM config interfaces work, and how this needs to be represented in a config.  It should be coming up with it\u0027s own type, given that an RDE device has a completely different set of properties than an http satellite device.\n\nWith that said, putting some things into a common structure is still valuable even without that, so if you make the changes below, this patch can merge.",
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dac0377_8bb0c648",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T17:33:05Z",
+      "side": 1,
+      "message": "Please leave this off until we have another type.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 2
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208e8770_7ac22b0c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T17:33:05Z",
+      "side": 1,
+      "message": "Please use the type safe url type that was used for this previously.  As-written, this is less typesafe than what was there previously.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "504143c6_c1373060",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T17:33:05Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem in line with how we generally do EM interfaces.\n\nAdmittedly, this type should probably be called \"HttpSatteliteController\", and we need a new type for \"RdeSatelliteControleller\" because they are going to take completely different parameters.  an RDE device doesn\u0027t have a \"hostname\" a \"port\" nor an \"authtype\" so there\u0027s really no point in reusing this datastructure.",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 13
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
