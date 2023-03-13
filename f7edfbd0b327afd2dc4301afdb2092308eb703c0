@@ -69,6 +69,24 @@
       "parentUuid": "62bbe78a_faf2fa96",
       "revId": "f7edfbd0b327afd2dc4301afdb2092308eb703c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca4a7cb_0f62889d",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:41:02Z",
+      "side": 1,
+      "message": "If we get a dbus interface we don\u0027t expect, we were by definition not able to fulfill the request (because we wouldn\u0027t know how to parse it).",
+      "parentUuid": "568a5065_3408c07d",
+      "revId": "f7edfbd0b327afd2dc4301afdb2092308eb703c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
