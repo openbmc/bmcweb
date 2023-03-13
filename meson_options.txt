@@ -196,6 +196,14 @@ option(
 )
 
 option(
+    'image-upload-dir',
+    type: 'string',
+    value: '/tmp/images/',
+    description: 'Directory where downloaded software images are placed.'
+)
+
+
+option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
     value: 'disabled',
