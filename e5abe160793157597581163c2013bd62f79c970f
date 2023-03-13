@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61592ebd_401a2aea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-13T19:52:07Z",
+      "side": 1,
+      "message": "Please make sure you have read and understood the procedure in OEM_SCHEMAS.md.  If you need any clarification, the mailing list or discord would be happy to help clarify intent.",
+      "revId": "e5abe160793157597581163c2013bd62f79c970f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
