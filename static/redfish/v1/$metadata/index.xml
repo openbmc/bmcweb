@@ -3063,4 +3063,8 @@
         <edmx:Include Namespace="OpenBMCAccountService"/>
         <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemIPAddress.xml">
+        <edmx:Include Namespace="OemIPAddress"/>
+        <edmx:Include Namespace="OemIPAddress.v1_0_0"/>
+    </edmx:Reference>
 </edmx:Edmx>

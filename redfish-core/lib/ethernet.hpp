@@ -56,6 +56,7 @@ struct IPv4AddressData
     std::string origin;
     LinkType linktype;
     bool isActive;
+    uint32_t routeMetric;
 
     bool operator<(const IPv4AddressData& obj) const
     {
@@ -607,6 +608,19 @@ inline void
                         {
                             // Type & Gateway is not used
                         }
+                        else if (property.first == "RouteMetric")
+                        {
+                            if (const std::string* rm =
+                                    std::get_if<std::string>(&property.second))
+                            {
+                                ipv4Address.routeMetric =
+                                    static_cast<uint32_t>(std::stoul(*rm));
+                            }
+                            else
+                            {
+                                ipv4Address.routeMetric = 0;
+                            }
+                        }
                         else
                         {
                             BMCWEB_LOG_ERROR
@@ -682,6 +696,7 @@ inline void updateIPv4DefaultGateway(
  */
 inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
                        const std::string& gateway, const std::string& address,
+                       uint32_t routeMetric,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     auto createIpHandler =
@@ -699,7 +714,7 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP",
         "xyz.openbmc_project.Network.IP.Protocol.IPv4", address, prefixLength,
-        gateway);
+        gateway, routeMetric);
 }
 
 /**
@@ -725,11 +740,12 @@ inline void deleteAndCreateIPAddress(
     IpVersion version, const std::string& ifaceId, const std::string& id,
     uint8_t prefixLength, const std::string& address,
     const std::string& gateway,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    uint32_t routeMetric = 0)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, version, ifaceId, address, prefixLength,
-         gateway](const boost::system::error_code& ec) {
+        [asyncResp, version, ifaceId, address, prefixLength, gateway,
+         routeMetric](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
@@ -746,7 +762,7 @@ inline void deleteAndCreateIPAddress(
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
             "xyz.openbmc_project.Network.IP.Create", "IP", protocol, address,
-            prefixLength, gateway);
+            prefixLength, gateway, routeMetric);
         },
         "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId + id,
@@ -1271,10 +1287,11 @@ inline void handleIPv4StaticPatch(
             std::optional<std::string> address;
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
+            std::optional<std::string> routeMetric;
 
-            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                     address, "SubnetMask", subnetMask,
-                                     "Gateway", gateway))
+            if (!json_util::readJson(
+                    thisJson, asyncResp->res, "Address", address, "SubnetMask",
+                    subnetMask, "Gateway", gateway, "RouteMetric", routeMetric))
             {
                 messages::propertyValueFormatError(
                     asyncResp->res,
@@ -1292,6 +1309,7 @@ inline void handleIPv4StaticPatch(
             const std::string* gw = nullptr;
             uint8_t prefixLength = 0;
             bool errorInEntry = false;
+            uint32_t rm = 0;
             if (address)
             {
                 if (ip_util::ipv4VerifyIpAndGetBitcount(*address))
@@ -1368,6 +1386,10 @@ inline void handleIPv4StaticPatch(
                                           pathString + "/Gateway");
                 errorInEntry = true;
             }
+            if (routeMetric)
+            {
+                rm = static_cast<uint32_t>(std::stoul(*routeMetric));
+            }
 
             if (errorInEntry)
             {
@@ -1378,13 +1400,13 @@ inline void handleIPv4StaticPatch(
             {
                 deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
                                          nicIpEntry->id, prefixLength, *gw,
-                                         *addr, asyncResp);
+                                         *addr, asyncResp, rm);
                 nicIpEntry =
                     getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
             }
             else
             {
-                createIPv4(ifaceId, prefixLength, *gateway, *address,
+                createIPv4(ifaceId, prefixLength, *gateway, *address, rm,
                            asyncResp);
             }
             entryIdx++;
@@ -1661,6 +1683,12 @@ inline void parseInterfaceData(
         ipv4["SubnetMask"] = ipv4Config.netmask;
         ipv4["Address"] = ipv4Config.address;
         ipv4["Gateway"] = gatewayStr;
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+        ipv4["Oem"]["OpenBmc"]["@odata.type"] =
+            "#OemIPAddress.v1_0_0.RouteMetric";
+        ipv4["Oem"]["OpenBmc"]["RouteMetric"] = ipv4Config.routeMetric;
+#endif
 
         if (ipv4Config.origin == "Static")
         {
