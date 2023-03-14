@@ -16,6 +16,24 @@
       "message": "I really don\u0027t like that we\u0027re breaking an abstraction boundary here.  \"HttpClient\" as a class should have no knowlege of either of these use cases, it should be a generic, \"http client\"\n\nlet me see if I can put up a patchset for what I\u0027m thinking.",
       "revId": "60948a9f057c610ed0d8ec92a01d641bcac33f2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e0cb28_c73a7c84",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-14T19:35:56Z",
+      "side": 1,
+      "message": "You\u0027re talking about going back to like it was before the HTTP client refactor, right?  It\u0027d be undoing the switch to the singleton.  If reverting that portion of the refactor is the correct thing to do then it is what it is.\n\nIs your thought to give the RedfishAggregator and the EventServiceManager classes their own HttpClient members?  Then the constructor of HttpClient could in some way accept an argument for the response read limit and that will eventually propagate into the connection objects.",
+      "parentUuid": "71f6809c_13196665",
+      "revId": "60948a9f057c610ed0d8ec92a01d641bcac33f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
