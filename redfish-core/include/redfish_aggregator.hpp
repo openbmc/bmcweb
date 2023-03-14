@@ -5,6 +5,7 @@
 #include "error_messages.hpp"
 #include "http_client.hpp"
 #include "http_connection.hpp"
+#include "metric_store.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
 
@@ -655,6 +656,9 @@ class RedfishAggregator
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
+        MetricStore::getMetrics(prefix).incrementMetricRespCode(
+            resp.resultInt());
+
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
         if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
@@ -704,6 +708,9 @@ class RedfishAggregator
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         crow::Response& resp)
     {
+        MetricStore::getMetrics(prefix).incrementMetricRespCode(
+            resp.resultInt());
+
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
         if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
