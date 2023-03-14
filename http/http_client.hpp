@@ -706,6 +706,58 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
+    // Callback to be called once the request has been sent
+    static void afterSendData(const std::weak_ptr<ConnectionPool>& weakSelf,
+                              const std::function<void(Response&)>& resHandler,
+                              bool keepAlive, uint32_t connId, Response& res)
+    {
+        // Allow provided callback to perform additional processing of the
+        // request
+        resHandler(res);
+
+        // If requests remain in the queue then we want to reuse this
+        // connection to send the next request
+        std::shared_ptr<ConnectionPool> self = weakSelf.lock();
+        if (!self)
+        {
+            BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
+            return;
+        }
+
+        self->sendNext(keepAlive, connId);
+    }
+
+    std::shared_ptr<ConnectionInfo>& addConnection()
+    {
+        unsigned int newId = static_cast<unsigned int>(connections.size());
+
+        auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
+            ioc, id, connPolicy, destIP, destPort, useSSL, newId));
+
+        BMCWEB_LOG_DEBUG << "Added connection "
+                         << std::to_string(connections.size() - 1)
+                         << " to pool " << destIP << ":"
+                         << std::to_string(destPort);
+
+        return ret;
+    }
+
+  public:
+    explicit ConnectionPool(
+        boost::asio::io_context& iocIn, const std::string& idIn,
+        const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
+        const std::string& destIPIn, uint16_t destPortIn, bool useSSLIn) :
+        ioc(iocIn),
+        id(idIn), connPolicy(connPolicyIn), destIP(destIPIn),
+        destPort(destPortIn), useSSL(useSSLIn)
+    {
+        BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
+                         << std::to_string(destPort);
+
+        // Initialize the pool with a single connection
+        addConnection();
+    }
+
     void sendData(std::string& data, const std::string& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
@@ -776,58 +828,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             resHandler(dummyRes);
         }
     }
-
-    // Callback to be called once the request has been sent
-    static void afterSendData(const std::weak_ptr<ConnectionPool>& weakSelf,
-                              const std::function<void(Response&)>& resHandler,
-                              bool keepAlive, uint32_t connId, Response& res)
-    {
-        // Allow provided callback to perform additional processing of the
-        // request
-        resHandler(res);
-
-        // If requests remain in the queue then we want to reuse this
-        // connection to send the next request
-        std::shared_ptr<ConnectionPool> self = weakSelf.lock();
-        if (!self)
-        {
-            BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
-            return;
-        }
-
-        self->sendNext(keepAlive, connId);
-    }
-
-    std::shared_ptr<ConnectionInfo>& addConnection()
-    {
-        unsigned int newId = static_cast<unsigned int>(connections.size());
-
-        auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
-            ioc, id, connPolicy, destIP, destPort, useSSL, newId));
-
-        BMCWEB_LOG_DEBUG << "Added connection "
-                         << std::to_string(connections.size() - 1)
-                         << " to pool " << destIP << ":"
-                         << std::to_string(destPort);
-
-        return ret;
-    }
-
-  public:
-    explicit ConnectionPool(
-        boost::asio::io_context& iocIn, const std::string& idIn,
-        const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
-        const std::string& destIPIn, uint16_t destPortIn, bool useSSLIn) :
-        ioc(iocIn),
-        id(idIn), connPolicy(connPolicyIn), destIP(destIPIn),
-        destPort(destPortIn), useSSL(useSSLIn)
-    {
-        BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
-                         << std::to_string(destPort);
-
-        // Initialize the pool with a single connection
-        addConnection();
-    }
 };
 
 class HttpClient
@@ -838,6 +838,7 @@ class HttpClient
         crow::connections::systemBus->get_io_context();
     std::shared_ptr<ConnectionPolicy> connPolicy;
 
+  public:
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
     static void genericResHandler(const Response& res)
@@ -846,7 +847,6 @@ class HttpClient
                          << std::to_string(res.resultInt());
     }
 
-  public:
     HttpClient() = delete;
     HttpClient(const std::shared_ptr<ConnectionPolicy>& connPolicyIn) :
         connPolicy(connPolicyIn)

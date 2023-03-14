@@ -376,11 +376,13 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(const std::string& inHost, uint16_t inPort,
+    Subscription(const std::string& host, uint16_t port,
                  const std::string& inPath, const std::string& inUriProto) :
-        host(inHost),
-        port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(policy), path(inPath), uriProto(inUriProto)
+        policy(std::make_shared<crow::ConnectionPolicy>()),
+        client(crow::ConnectionPool{
+            crow::connections::systemBus->get_io_context(), "subscription",
+            policy, host, port, uriProtoIn == "https"}),
+        path(inPath), uriProto(inUriProto)
     {
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
@@ -389,7 +391,6 @@ class Subscription : public persistent_data::UserSubscription
     explicit Subscription(
         const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
         policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(policy),
         sseConn(std::make_shared<crow::ServerSentEvents>(adaptor))
     {}
 
@@ -405,10 +406,13 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        bool useSSL = (uriProto == "https");
-        // A connection pool will be created if one does not already exist
-        client.sendData(msg, host, port, path, useSSL, httpHeaders,
-                        boost::beast::http::verb::post);
+        if (client)
+        {
+            // A connection pool will be created if one does not already exist
+            client->sendData(msg, path, httpHeaders,
+                             boost::beast::http::verb::post,
+                             crow::HttpClient::genericResHandler);
+        }
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -568,10 +572,8 @@ class Subscription : public persistent_data::UserSubscription
 
   private:
     uint64_t eventSeqNum = 1;
-    std::string host;
-    uint16_t port = 0;
     std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::HttpClient client;
+    std::optional<crow::ConnectionPool> client;
     std::string path;
     std::string uriProto;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
