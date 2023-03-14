@@ -91,6 +91,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "11f5278f_ad086aa4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:45:08Z",
+      "side": 1,
+      "message": "TIL.  Fixed to just use boost::optional",
+      "parentUuid": "3e0021bc_d9b9498d",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b4958c1c_ad45c3f8",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
