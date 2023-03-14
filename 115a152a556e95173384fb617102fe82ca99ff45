@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99d98672_01a5d0ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T15:44:26Z",
+      "side": 1,
+      "message": "\u003e 1) This commit makes the taskID keepalive timeout as configurable value. So that OEM\u0027s can configure the value depending on processor speed. Also default value is set to 5 minutes, which doesn\u0027t change existing flow.\n\nyep.  I think we’re on the same page as what this patchset is proposing.\n\n\u003e \n\u003e 2) From design point of view, Leaving OEM\u0027s internal implementation, This enables to keep bmcweb design to be able to configure the keep alive timeout to lower(as default) which is ideal design as you also mentioned above.\n\nno, I did not mention this as ideal.  applications implementing the interface in a reasonable way, with incremental updates is the ideal.\n\n\u003e \n\u003e Considering above two points ( No change in existing flow, and enhances the design to configure ideal), Can we move with code change?\n\nno.  as written, it is proposing an incorrect and user hostile dbus interface with no incremental updates.  the right fix is to fix the backend, and considering this is oem, that would mean this can easily stay as a patch until the oem firmware update is upstreamed, but even then, my recommendation is to please fix the backend.  I’m not interesting in maintaining complexity in configuration values that only exist because of oem backends that have odd behavior that could easily be fixed.",
+      "parentUuid": "9feb8233_59d410da",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
