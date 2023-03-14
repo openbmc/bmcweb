@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4a8563_7d38c36f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T19:11:47Z",
+      "side": 1,
+      "message": "Please review the other two series for websockets that are in review, and rebase your patches on those.  Those series predate this patchset, and will likely merge first.",
+      "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
