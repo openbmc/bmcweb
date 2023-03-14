@@ -1085,6 +1085,24 @@
       "parentUuid": "3ee5d95d_40e35ccf",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce7431c_929c27fe",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:04:11Z",
+      "side": 1,
+      "message": "\u003e had issues with boost asio.\n\nBoost asio has no problems with bind_front, sdbusplus does, in which case, just make a lambda with a single line, that calls your method.",
+      "parentUuid": "ba487a22_f360941e",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
