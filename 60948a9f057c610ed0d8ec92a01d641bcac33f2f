@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f6809c_13196665",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T19:00:27Z",
+      "side": 1,
+      "message": "I really don\u0027t like that we\u0027re breaking an abstraction boundary here.  \"HttpClient\" as a class should have no knowlege of either of these use cases, it should be a generic, \"http client\"\n\nlet me see if I can put up a patchset for what I\u0027m thinking.",
+      "revId": "60948a9f057c610ed0d8ec92a01d641bcac33f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
