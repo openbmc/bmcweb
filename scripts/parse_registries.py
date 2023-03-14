@@ -244,6 +244,7 @@ def get_response_code(entry_id: str) -> str | None:
         "ResourceInStandby": "service_unavailable",
         "ResourceInUse": "service_unavailable",
         "ResourceNotFound": "not_found",
+        "RestrictedRole": "forbidden",
         "ServiceDisabled": "service_unavailable",
         "ServiceInUnknownState": "service_unavailable",
         "ServiceShuttingDown": "service_unavailable",
