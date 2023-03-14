@@ -16,6 +16,52 @@
       "message": "Please review the other two series for websockets that are in review, and rebase your patches on those.  Those series predate this patchset, and will likely merge first.",
       "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee66af7_792b72fd",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T19:15:39Z",
+      "side": 1,
+      "message": "error code by reference please.",
+      "range": {
+        "startLine": 192,
+        "startChar": 37,
+        "endLine": 192,
+        "endChar": 47
+      },
+      "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61fdbe20_486b9572",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T19:15:39Z",
+      "side": 1,
+      "message": "This is duplicating the check already done in http/routing.hpp.  Please don\u0027t duplicate code.",
+      "range": {
+        "startLine": 199,
+        "startChar": 9,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
