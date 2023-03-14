@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9feb8233_59d410da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-14T11:08:20Z",
+      "side": 1,
+      "message": "1) This commit makes the taskID keepalive timeout as configurable value. So that OEM\u0027s can configure the value depending on processor speed. Also default value is set to 5 minutes, which doesn\u0027t change existing flow.\n\n2) From design point of view, Leaving OEM\u0027s internal implementation, This enables to keep bmcweb design to be able to configure the keep alive timeout to lower(as default) which is ideal design as you also mentioned above.\n\nConsidering above two points ( No change in existing flow, and enhances the design to configure ideal), Can we move with code change?",
+      "parentUuid": "b69d4d3f_2ca8f629",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
