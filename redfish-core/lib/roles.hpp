@@ -66,6 +66,11 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     return true;
 }
 
+inline bool isRestrictedRole(const std::string& role)
+{
+    return (role == "Operator");
+}
+
 inline void requestRoutesRoles(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
