@@ -78,6 +78,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1134719c_dfe1bfca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:02:38Z",
+      "side": 1,
+      "message": "Can you please work with the gerrit admins to make sure your old account is disabled/deleted so this problem doesn\u0027t happen again?",
+      "parentUuid": "ec5141c3_da581390",
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8242466a_50ff7ea9",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 54
