@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25df143c_9e6436ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:24:56Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t realize you had started this.  I think this is further along, and we can use it as a starting point:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61373/11/static/redfish/v1/schema/OpenBMCConnectionStatistics_v1.xml",
+      "revId": "7a5c34f8d49ca3d8a066f211106e25ddc1f9a318",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
