@@ -23,6 +23,7 @@
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "roles.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
@@ -302,6 +303,13 @@ inline void handleRoleMapPatch(
                                      localRole))
             {
                 continue;
+            }
+
+            // Do not allow mapping to a Restricted LocalRole
+            if (localRole && redfish::isRestrictedRole(*localRole))
+            {
+                messages::restrictedRole(asyncResp->res, *localRole);
+                return;
             }
 
             // Update existing RoleMapping Object
@@ -1618,6 +1626,13 @@ inline void handleAccountCollectionPost(
         return;
     }
 
+    // Don't allow new accounts to have a Restricted Role.
+    if (redfish::isRestrictedRole(*roleId))
+    {
+        messages::restrictedRole(asyncResp->res, *roleId);
+        return;
+    }
+
     std::string priv = getPrivilegeFromRoleId(*roleId);
     if (priv.empty())
     {
@@ -1964,6 +1979,15 @@ inline void
                                       "RoleId", roleId, "Enabled", enabled,
                                       "Locked", locked))
         {
+            return;
+        }
+
+        // Don't allow PATCHing an account to have a Restricted role.
+        if (roleId && redfish::isRestrictedRole(*roleId))
+        {
+            BMCWEB_LOG_ERROR
+                << "Attempt to PATCH user to have a Restricted Role";
+            messages::restrictedRole(asyncResp->res, *roleId);
             return;
         }
     }

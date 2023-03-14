@@ -1809,6 +1809,24 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2)
     return ret;
 }
 
+/**
+ * @internal
+ * @brief Formats RestrictedRole into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json restrictedRole(const std::string& arg1)
+{
+    return getLog(redfish::registries::base::Index::restrictedRole,
+                  std::to_array<std::string_view>({arg1}));
+}
+
+void restrictedRole(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::forbidden);
+    addMessageToErrorJson(res.jsonValue, restrictedRole(arg1));
+}
 } // namespace messages
 
 } // namespace redfish
