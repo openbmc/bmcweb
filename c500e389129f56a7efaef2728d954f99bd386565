@@ -946,6 +946,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1eb2bb18_e21d7534",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b379315_d947f7bf",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07ba670f_175ddf3f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -1047,6 +1065,24 @@
       "side": 1,
       "message": "I\u0027ve pointed out the lambda that still exists above.",
       "parentUuid": "689f187d_b95dfd86",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba487a22_f360941e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Hi Ed, \n\nThanks for your comments.\nEarlier I had added a separate utility function to evaluate the computer system number using new_method_call() object mapper query in place of this lambda.\nAs per earlier review comments this large lambda was introduced to keep the code flow asynchronous. as an alternative you had suggested I had tried using bind_front as alternative and it had issues with boost asio.\nrightnow there are three such lambdas introduced in systems.hpp .\nAll of three has same purpose which is to evaluate computer system number asynchronously before performing computer system query.\n\nIn order to simplify this lambda some way of synchronization like conditional variables needs to be added. I\u0027m afraid that cannot be added in bmcweb or is it allowed. can you suggest any way to keep the code asynchronous and simplify this lamda?\n\nThanks.",
+      "parentUuid": "3ee5d95d_40e35ccf",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

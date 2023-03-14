@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b714e0f_75084915",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3263,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8242466a_50ff7ea9",
+      "range": {
+        "startLine": 3259,
+        "startChar": 0,
+        "endLine": 3263,
+        "endChar": 25
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60071e03_1f8e5687",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 54
@@ -112,6 +136,30 @@
       "writtenOn": "2023-03-14T16:06:39Z",
       "side": 1,
       "message": "Please don\u0027t brace construct objects.\n\nIn addition, common error #13\n\nThe old code was correct, so it isn\u0027t clear why these were regressed to the old version.",
+      "range": {
+        "startLine": 3477,
+        "startChar": 0,
+        "endLine": 3480,
+        "endChar": 38
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c38edfe1_25433cea",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3480,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60071e03_1f8e5687",
       "range": {
         "startLine": 3477,
         "startChar": 0,
@@ -141,6 +189,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34b7b2d8_6e8a0f4c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3534,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "66d49747_b0d0698f",
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d160945_01568199",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 54
@@ -158,6 +224,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "450ad53e_8f261f20",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3535,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d160945_01568199",
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77b67dd6_625ec389",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 54
@@ -169,6 +253,30 @@
       "writtenOn": "2023-03-14T16:06:39Z",
       "side": 1,
       "message": "common error #12.  Please read and understand the COMMON_ERRORS.md document.  This should be constructing using the purpose-built url objects.",
+      "range": {
+        "startLine": 3542,
+        "startChar": 8,
+        "endLine": 3542,
+        "endChar": 66
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a75a606f_64bd0487",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3542,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-14T17:07:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77b67dd6_625ec389",
       "range": {
         "startLine": 3542,
         "startChar": 8,
