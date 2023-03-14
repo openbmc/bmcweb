@@ -19,6 +19,12 @@ enum class Result
     NoLocalHandle
 };
 
+struct RdeSatelliteConfig
+{
+    std::string type;
+    uint64_t address = 0x0;
+};
+
 // clang-format off
 // These are all of the properties as of version 2022.2 of the Redfish Resource
 // and Schema Guide whose Type is "string (URI)" and the name does not end in a
@@ -239,18 +245,25 @@ class RedfishAggregator
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
     static void constructorCallback(
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const std::unordered_map<std::string, RdeSatelliteConfig>&
+            rdeSatelliteInfo)
     {
         BMCWEB_LOG_DEBUG << "There were "
                          << std::to_string(satelliteInfo.size())
                          << " satellite configs found at startup";
+        BMCWEB_LOG_DEBUG << "There were "
+                         << std::to_string(rdeSatelliteInfo.size())
+                         << " RDE Device configs found at startup";
     }
 
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
     static void getSatelliteConfigs(
-        const std::function<void(
-            const std::unordered_map<std::string, boost::urls::url>&)>& handler)
+        const std::function<
+            void(const std::unordered_map<std::string, boost::urls::url>&,
+                 const std::unordered_map<std::string, RdeSatelliteConfig>&)>&
+            handler)
     {
         BMCWEB_LOG_DEBUG << "Gathering satellite configs";
         crow::connections::systemBus->async_method_call(
@@ -268,7 +281,13 @@ class RedfishAggregator
             // connection to the satellite
             std::unordered_map<std::string, boost::urls::url> satelliteInfo;
 
-            findSatelliteConfigs(objects, satelliteInfo);
+            // Maps a unique prefix to RDE satellite config, the rde config
+            // contains the information required for RDE Daemon to issue a
+            // request to a particular RDE Device.
+            std::unordered_map<std::string, RdeSatelliteConfig>
+                rdeSatelliteInfo;
+
+            findSatelliteConfigs(objects, satelliteInfo, rdeSatelliteInfo);
 
             if (!satelliteInfo.empty())
             {
@@ -276,12 +295,18 @@ class RedfishAggregator
                                  << std::to_string(satelliteInfo.size())
                                  << " satellite BMCs";
             }
+            else if (!rdeSatelliteInfo.empty())
+            {
+                BMCWEB_LOG_DEBUG << "Redfish Aggregation enabled with "
+                                 << std::to_string(satelliteInfo.size())
+                                 << " RDE Device";
+            }
             else
             {
                 BMCWEB_LOG_DEBUG
                     << "No satellite BMCs detected.  Redfish Aggregation not enabled";
             }
-            handler(satelliteInfo);
+            handler(satelliteInfo, rdeSatelliteInfo);
             },
             "xyz.openbmc_project.EntityManager",
             "/xyz/openbmc_project/inventory",
@@ -292,7 +317,8 @@ class RedfishAggregator
     // information if valid
     static void findSatelliteConfigs(
         const dbus::utility::ManagedObjectType& objects,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        std::unordered_map<std::string, RdeSatelliteConfig>& rdeSatelliteInfo)
     {
         for (const auto& objectPath : objects)
         {
@@ -317,6 +343,18 @@ class RedfishAggregator
                     // Assign it the name/prefix "5B247A"
                     addSatelliteConfig("5B247A", interface.second,
                                        satelliteInfo);
+                }
+                else if (
+                    interface.first ==
+                    "xyz.openbmc_project.Configuration.RdeSatelliteController")
+                {
+                    BMCWEB_LOG_DEBUG << "Found RDE Satellite Controller at "
+                                     << objectPath.first.str;
+
+                    // Get unique prefix.(Ed)
+                    // Assign it the name/prefix "KRDE" for now.
+                    addRdeSatelliteConfig("KRDE", interface.second,
+                                          rdeSatelliteInfo);
                 }
             }
         }
@@ -421,6 +459,61 @@ class RedfishAggregator
                          << result.first->second.encoded_host_and_port();
     }
 
+    // Parse the properties of a RDE Device config object and add the
+    // configuration if the properties are valid
+    static void addRdeSatelliteConfig(
+        const std::string& name,
+        const dbus::utility::DBusPropertiesMap& properties,
+        std::unordered_map<std::string, RdeSatelliteConfig>& rdeSatelliteInfo)
+    {
+        RdeSatelliteConfig rdeConfig;
+        for (const auto& prop : properties)
+        {
+            if (prop.first == "Type")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid Type value";
+                    return;
+                }
+                rdeConfig.type = *propVal;
+            }
+
+            else if (prop.first == "Address")
+            {
+                const uint64_t* propVal = std::get_if<uint64_t>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid Address value";
+                    return;
+                }
+                rdeConfig.address = *propVal;
+            }
+        } // Finished reading properties
+
+        // Make sure all required config information was made available
+        if (rdeConfig.type != "RdeSatelliteController")
+        {
+            BMCWEB_LOG_ERROR << "Satellite config " << name
+                             << " has incorrect type";
+            return;
+        }
+
+        std::string resultString;
+        auto result =
+            rdeSatelliteInfo.insert_or_assign(name, std::move(rdeConfig));
+        if (result.second)
+        {
+            resultString = "Added new RDE Device config ";
+        }
+        else
+        {
+            resultString = "Updated existing RDE Device config ";
+        }
+    }
+
     enum AggregationType
     {
         Collection,
@@ -461,8 +554,11 @@ class RedfishAggregator
         const crow::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const std::unordered_map<std::string, RdeSatelliteConfig>&
+            rdeSatelliteInfo,
         std::string_view memberName)
     {
+        bool validPrefix = false;
         // Determine if the resource ID begins with a known prefix
         for (const auto& satellite : satelliteInfo)
         {
@@ -477,10 +573,31 @@ class RedfishAggregator
                 // then forward to the associated satellite BMC
                 getInstance().forwardRequest(req, asyncResp, satellite.first,
                                              satelliteInfo);
-                return;
+                validPrefix = true;
+            }
+        }
+        // Determine if the resource ID begins with a known prefix
+        for (const auto& rdeSatellite : rdeSatelliteInfo)
+        {
+            std::string targetPrefix = rdeSatellite.first;
+            targetPrefix += "_";
+            if (memberName.starts_with(targetPrefix))
+            {
+                BMCWEB_LOG_DEBUG << "\"" << rdeSatellite.first
+                                 << "\" is a known prefix";
+
+                // Remove the known prefix from the request's URI and
+                // then forward to RDE Daemon
+                getInstance().forwardRdeRequest(
+                    req, asyncResp, rdeSatellite.first, rdeSatelliteInfo);
+                validPrefix = true;
             }
         }
 
+        if (validPrefix)
+        {
+            return;
+        }
         // We didn't recognize the prefix and need to return a 404
         std::string nameStr = req.url().segments().back();
         messages::resourceNotFound(asyncResp->res, "", nameStr);
@@ -492,7 +609,9 @@ class RedfishAggregator
         AggregationType isCollection,
         const std::shared_ptr<crow::Request>& sharedReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const std::unordered_map<std::string, RdeSatelliteConfig>&
+            rdeSatelliteInfo)
     {
         if (sharedReq == nullptr)
         {
@@ -501,7 +620,7 @@ class RedfishAggregator
 
         // No satellite configs means we don't need to keep attempting to
         // aggregate
-        if (satelliteInfo.empty())
+        if (satelliteInfo.empty() && rdeSatelliteInfo.empty())
         {
             // For collections we'll also handle the request locally so we
             // don't need to write an error code
@@ -524,8 +643,8 @@ class RedfishAggregator
             BMCWEB_LOG_DEBUG << "Aggregating a collection";
             // We need to use a specific response handler and send the
             // request to all known satellites
-            getInstance().forwardCollectionRequests(thisReq, asyncResp,
-                                                    satelliteInfo);
+            getInstance().forwardCollectionRequests(
+                thisReq, asyncResp, satelliteInfo, rdeSatelliteInfo);
             return;
         }
 
@@ -545,7 +664,8 @@ class RedfishAggregator
             {
                 // We've matched a resource collection so this current segment
                 // must contain an aggregation prefix
-                findSatellite(thisReq, asyncResp, satelliteInfo, *it);
+                findSatellite(thisReq, asyncResp, satelliteInfo,
+                              rdeSatelliteInfo, *it);
                 return;
             }
 
@@ -598,11 +718,56 @@ class RedfishAggregator
             thisReq.fields(), thisReq.method(), retryPolicyName, cb);
     }
 
+    // Attempt to forward a request to the RDE Daemon associated with the
+    // prefix.
+    void forwardRdeRequest(
+        const crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& prefix,
+        const std::unordered_map<std::string, RdeSatelliteConfig>&
+            rdeSatelliteInfo)
+    {
+        const auto& sat = rdeSatelliteInfo.find(prefix);
+        if (sat == rdeSatelliteInfo.end())
+        {
+            // Realistically this shouldn't get called since we perform an
+            // earlier check to make sure the prefix exists
+            BMCWEB_LOG_ERROR << "Unrecognized RDE Device prefix \"" << prefix
+                             << "\"";
+            return;
+        }
+
+        // We need to strip the prefix from the request's path
+        std::string targetURI(thisReq.target());
+        size_t pos = targetURI.find(prefix + "_");
+        if (pos == std::string::npos)
+        {
+            // If this fails then something went wrong
+            BMCWEB_LOG_ERROR << "Error removing prefix \"" << prefix
+                             << "_\" from request URI";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        targetURI.erase(pos, prefix.size() + 1);
+
+        std::function<void(crow::Response&)> cb =
+            std::bind_front(processResponse, prefix, asyncResp);
+
+        std::string data = thisReq.req.body();
+
+        BMCWEB_LOG_DEBUG << " Resource Request: dbus call to RDE Daemon";
+        crow::HttpClient::getInstance().sendDataWithCallback(
+            data, id, "TEST", 1234, targetURI, false /*useSSL*/,
+            thisReq.fields(), thisReq.method(), retryPolicyName, cb);
+    }
+
     // Forward a request for a collection URI to each known satellite BMC
     void forwardCollectionRequests(
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const std::unordered_map<std::string, RdeSatelliteConfig>&
+            rdeSatelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
@@ -615,6 +780,12 @@ class RedfishAggregator
                 data, id, std::string(sat.second.host()),
                 sat.second.port_number(), targetURI, false /*useSSL*/,
                 thisReq.fields(), thisReq.method(), retryPolicyName, cb);
+        }
+        for (const auto& rsat : rdeSatelliteInfo)
+        {
+            std::function<void(crow::Response&)> cb = std::bind_front(
+                processCollectionResponse, rsat.first, asyncResp);
+            BMCWEB_LOG_DEBUG << " Collection Request: dbus call to RDE Daemon";
         }
     }
 
