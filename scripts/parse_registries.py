@@ -252,6 +252,7 @@ def get_response_code(entry_id: str) -> str | None:
         "PasswordChangeRequired": None,
         "ResourceInStandby": "service_unavailable",
         "GenerateSecretKeyRequired": "forbidden",
+        "RestrictedRole": "forbidden",
     }
 
     return codes.get(entry_id, "bad_request")
