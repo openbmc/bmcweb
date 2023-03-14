@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a9610a_c6d57018",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-14T18:32:54Z",
+      "side": 1,
+      "message": "Fixed. I used your example : https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61211/6/include/nbd_proxy.hpp#328",
+      "parentUuid": "ce64012a_8bcebdd7",
+      "range": {
+        "startLine": 125,
+        "startChar": 9,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "ddbf7f42e2e207594dca3fd6fe10f9a75c94dfcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fb086dd_b16266c1",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-13T20:19:50Z",
       "side": 1,
       "message": "Unsafe capture of the conn object.  This needs fixed to look up from the structures.",
+      "range": {
+        "startLine": 126,
+        "startChar": 10,
+        "endLine": 126,
+        "endChar": 14
+      },
+      "revId": "ddbf7f42e2e207594dca3fd6fe10f9a75c94dfcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "432b22ad_05756425",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-14T18:32:54Z",
+      "side": 1,
+      "message": "Is this fixed with my new changes? I used this example : https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61211/6/include/nbd_proxy.hpp#328",
+      "parentUuid": "3fb086dd_b16266c1",
       "range": {
         "startLine": 126,
         "startChar": 10,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9907ee6_fc8ed259",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-14T18:32:54Z",
+      "side": 1,
+      "message": "Once those changes are merged i will rebase.",
+      "parentUuid": "227d973b_42776a82",
+      "range": {
+        "startLine": 135,
+        "startChar": 49,
+        "endLine": 135,
+        "endChar": 60
+      },
+      "revId": "ddbf7f42e2e207594dca3fd6fe10f9a75c94dfcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b18e9f_fc880a83",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-13T20:19:50Z",
       "side": 1,
       "message": "There\u0027s no need for a lambda here.  Just call checkPermissionAndConnect directly.",
+      "range": {
+        "startLine": 193,
+        "startChar": 16,
+        "endLine": 193,
+        "endChar": 55
+      },
+      "revId": "ddbf7f42e2e207594dca3fd6fe10f9a75c94dfcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aeea0c4_947fc316",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-14T18:32:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92b18e9f_fc880a83",
       "range": {
         "startLine": 193,
         "startChar": 16,
