@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d119dd74_0ef40091",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "error_code shoudl be passed by const ref.",
+      "range": {
+        "startLine": 460,
+        "startChar": 29,
+        "endLine": 460,
+        "endChar": 39
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b397a25_d9e71736",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "by reference please.",
+      "range": {
+        "startLine": 617,
+        "startChar": 37,
+        "endLine": 617,
+        "endChar": 47
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86cfb85e_8a5aedfa",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "I realized you just moved code here, but lambdas over 15 lines are now banned.  This is probably ok, because it\u0027s no worse, but please keep that in mind.",
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975e5fab_ed673ed9",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "should be array_t",
+      "range": {
+        "startLine": 77,
+        "startChar": 18,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71357812_e3704328",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "Please also implement the HEAD handler for this.",
+      "range": {
+        "startLine": 116,
+        "startChar": 43,
+        "endLine": 116,
+        "endChar": 46
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80164763_18311876",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "THis needs to return.",
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09621e85_92aa38b4",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "Please just make this \"Aggregation source\"",
+      "range": {
+        "startLine": 152,
+        "startChar": 39,
+        "endLine": 152,
+        "endChar": 58
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9baf89_cef868ed",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "Can this be built with a url object instead of doing it by hand?",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "017db5ca_b4b7029a",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "Please do \u003d nullptr.",
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91792116_fda6ed03",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T17:42:03Z",
+      "side": 1,
+      "message": "We currently \"don\u0027t support\" this, so it should be omitted.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 41
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
