@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cd61222_cd2de004",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T22:56:38Z",
+      "side": 1,
+      "message": "Two tiered lambdas are definitely out.",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 64
+      },
+      "revId": "4d22be50a5ad37d2e26d8667eadb87d604219ce7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c682599e_e1228ba1",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 2
