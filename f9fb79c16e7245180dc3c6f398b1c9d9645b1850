@@ -39,6 +39,30 @@
       },
       "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1be987ca_d021acaa",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-14T00:15:49Z",
+      "side": 1,
+      "message": "\u003e This should be using sdbusplus::message::object_path.\n\nI do not think so, I checked the async_method_call method and it still requires a `std::string`.\nhttps://github.com/openbmc/sdbusplus/blob/ddc57bdf9d81819eac3c9fad762102894417cc69/include/sdbusplus/asio/connection.hpp#L115",
+      "parentUuid": "4b44eaab_2bccd5d0",
+      "range": {
+        "startLine": 210,
+        "startChar": 50,
+        "endLine": 210,
+        "endChar": 73
+      },
+      "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
