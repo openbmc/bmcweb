@@ -66,7 +66,8 @@ inline void requestRoutesAggregationService(App& app)
 inline void populateAggregationSourceCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code ec,
-    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+    const std::unordered_map<std::string, RdeSatelliteConfig>& rdeSatelliteInfo)
 {
     // Something went wrong while querying dbus
     if (ec)
@@ -75,6 +76,7 @@ inline void populateAggregationSourceCollection(
         return;
     }
     nlohmann::json::array_t members = nlohmann::json::array();
+    BMCWEB_LOG_DEBUG << " RDE Devices: " << rdeSatelliteInfo.size();
     for (const auto& sat : satelliteInfo)
     {
         nlohmann::json::object_t member;
@@ -139,7 +141,8 @@ inline void populateAggregationSource(
     const std::string& aggregationSourceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code ec,
-    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+    const std::unordered_map<std::string, RdeSatelliteConfig>& rdeSatelliteInfo)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -151,7 +154,7 @@ inline void populateAggregationSource(
         messages::internalError(asyncResp->res);
         return;
     }
-
+    BMCWEB_LOG_DEBUG << " RDE Devices: " << rdeSatelliteInfo.size();
     const auto& sat = satelliteInfo.find(aggregationSourceId);
     if (sat == satelliteInfo.end())
     {
