@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4052b898_cd9e7926",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-14T20:00:39Z",
+      "side": 1,
+      "message": "Before removing the WIP: Need a lot more in the commit msg, test tag. \nPlease explain why this is OEM.",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b0012d_4f060186",
+        "filename": "static/redfish/v1/schema/OemRouteMetric_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-14T20:00:39Z",
+      "side": 1,
+      "message": "This is new Oem, have we talked with Redfish here?\nSee https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
