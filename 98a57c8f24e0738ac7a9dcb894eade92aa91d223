@@ -332,6 +332,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ee53d43_ed22da4f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-03-14T10:37:29Z",
+      "side": 1,
+      "message": "userPrivileges information is overwritten and setting only to configureSelf. So I was asking for clarification on that change. But i did deep look at code and found answer ( As this is overwritten only when isConfigureSelfOnly is set and for changing the expired passwords). Please ignore the comment. \n\nuserPrivileges \u003d userPrivileges.intersection(\n                redfish::Privileges{\"ConfigureSelf\"});",
+      "parentUuid": "e193e349_e0fa4066",
+      "range": {
+        "startLine": 1307,
+        "startChar": 12,
+        "endLine": 1307,
+        "endChar": 56
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0273e17_cc83b7a2",
