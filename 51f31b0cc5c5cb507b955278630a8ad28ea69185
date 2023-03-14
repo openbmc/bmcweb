@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e0021bc_d9b9498d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-14T23:36:21Z",
+      "side": 1,
+      "message": "Actually, unlimited is not the default limit.  It is 1MB for requests and 8MB for responses https://1973.beastdocs.prtest.cppalliance.org/libs/beast/doc/html/beast/ref/boost__beast__http__parser/body_limit.html\n\nIf the passed value is 0 then you need to call \"parser-\u003ebody_limit(boost::none)\" to actually make the limit unlimited",
+      "parentUuid": "0566cd0b_708a6a81",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b4958c1c_ad45c3f8",
