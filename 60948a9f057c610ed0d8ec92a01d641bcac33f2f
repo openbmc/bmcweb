@@ -34,6 +34,24 @@
       "parentUuid": "71f6809c_13196665",
       "revId": "60948a9f057c610ed0d8ec92a01d641bcac33f2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa1c5bb4_560182fc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T22:42:38Z",
+      "side": 1,
+      "message": "Yep.  You got it.  Current patchset does this.  I\u0027m going to close out this comment for now, because the patchset that\u0027s up does this.  We\u0027ll treat any comments as new things.",
+      "parentUuid": "a7e0cb28_c73a7c84",
+      "revId": "60948a9f057c610ed0d8ec92a01d641bcac33f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
