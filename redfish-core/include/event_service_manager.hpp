@@ -386,11 +386,10 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(const std::string& inHost, uint16_t inPort,
                  const std::string& inPath, const std::string& inUriProto,
                  boost::asio::io_context& ioc) :
-        host(inHost),
-        port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        path(inPath), uriProto(inUriProto)
+        policy(std::make_shared<crow::ConnectionPolicy>()),
+        path(inPath)
     {
-        client.emplace(ioc, policy);
+        client.emplace(ioc, "subscription", policy, inHost, inPort, inUriProto == "https");
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
     }
@@ -411,12 +410,12 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
         if (client)
         {
-            client->sendData(std::move(msg), host, port, path, useSSL,
-                             httpHeaders, boost::beast::http::verb::post);
+            client->sendData(std::move(msg), path,
+                             httpHeaders, boost::beast::http::verb::post,
+                             crow::HttpClient::genericResHandler);
             return true;
         }
 
@@ -595,11 +594,9 @@ class Subscription : public persistent_data::UserSubscription
   private:
     std::string subId;
     uint64_t eventSeqNum = 1;
-    std::string host;
-    uint16_t port = 0;
     std::shared_ptr<crow::ConnectionPolicy> policy;
     crow::sse_socket::Connection* sseConn = nullptr;
-    std::optional<crow::HttpClient> client;
+    std::optional<crow::ConnectionPool> client;
     std::string path;
     std::string uriProto;
 

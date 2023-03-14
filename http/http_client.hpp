@@ -710,6 +710,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
+  public:
     void sendData(std::string&& data, const std::string& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
@@ -781,6 +782,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
+private:
     // Callback to be called once the request has been sent
     static void afterSendData(const std::weak_ptr<ConnectionPool>& weakSelf,
                               const std::function<void(Response&)>& resHandler,
@@ -832,6 +834,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         // Initialize the pool with a single connection
         addConnection();
     }
+
 };
 
 class HttpClient
@@ -842,6 +845,7 @@ class HttpClient
     boost::asio::io_context& ioc;
     std::shared_ptr<ConnectionPolicy> connPolicy;
 
+  public:
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
     static void genericResHandler(const Response& res)
@@ -850,7 +854,6 @@ class HttpClient
                          << std::to_string(res.resultInt());
     }
 
-  public:
     HttpClient() = delete;
     explicit HttpClient(boost::asio::io_context& iocIn,
                         const std::shared_ptr<ConnectionPolicy>& connPolicyIn) :
