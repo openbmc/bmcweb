@@ -549,6 +549,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "153c7fdd_1cfb2962",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "Great.  Let me know when you\u0027ve pushed the patch, and I will resolve this comment, but we don\u0027t check in code that knowingly regresses behavior.\n\nWhen you push the next patch, they can go in at the same time.",
+      "parentUuid": "97040979_c169a45c",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9c6ff74_6638f245",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -904,6 +928,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b379315_d947f7bf",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "Not done.  This is still a large lambda",
+      "parentUuid": "761c22b2_2b052ef4",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07ba670f_175ddf3f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 43
@@ -987,6 +1029,24 @@
       "side": 1,
       "message": "I have split the lambda code into small methods to simplify the lambda",
       "parentUuid": "7c42c7a5_2da5f61a",
+      "revId": "c500e389129f56a7efaef2728d954f99bd386565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee5d95d_40e35ccf",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 3564,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "I\u0027ve pointed out the lambda that still exists above.",
+      "parentUuid": "689f187d_b95dfd86",
       "revId": "c500e389129f56a7efaef2728d954f99bd386565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

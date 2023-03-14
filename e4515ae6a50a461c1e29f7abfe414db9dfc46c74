@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c8700b3_4a9300b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 54
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "The system you\u0027re working on has 4 systems, why are there 5 represented here?  Seems like a bug?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6895f118_421c9ba7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "This patchset still hasn\u0027t made the changes requested months ago.",
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8242466a_50ff7ea9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "The coment below is not done, this is still a large lambda.",
+      "range": {
+        "startLine": 3259,
+        "startChar": 0,
+        "endLine": 3263,
+        "endChar": 25
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60071e03_1f8e5687",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3480,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "Please don\u0027t brace construct objects.\n\nIn addition, common error #13\n\nThe old code was correct, so it isn\u0027t clear why these were regressed to the old version.",
+      "range": {
+        "startLine": 3477,
+        "startChar": 0,
+        "endLine": 3480,
+        "endChar": 38
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d49747_b0d0698f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3534,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "Please do refactorings in a different patchset than functional changes.  It makes it easier to review.",
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d160945_01568199",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3535,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "string_view for new code please.",
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b67dd6_625ec389",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3542,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "common error #12.  Please read and understand the COMMON_ERRORS.md document.  This should be constructing using the purpose-built url objects.",
+      "range": {
+        "startLine": 3542,
+        "startChar": 8,
+        "endLine": 3542,
+        "endChar": 66
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34c25e8b_b35c8cfa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3639,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:06:39Z",
+      "side": 1,
+      "message": "This is still a lambda.",
+      "range": {
+        "startLine": 3610,
+        "startChar": 12,
+        "endLine": 3639,
+        "endChar": 14
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
