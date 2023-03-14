@@ -63,6 +63,30 @@
       },
       "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24299b51_33e8861c",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T16:12:09Z",
+      "side": 1,
+      "message": "That\u0027s fine, async_method_call can take a string, this API needs to take an object_path, because that\u0027s what it is.",
+      "parentUuid": "1be987ca_d021acaa",
+      "range": {
+        "startLine": 210,
+        "startChar": 50,
+        "endLine": 210,
+        "endChar": 73
+      },
+      "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
