@@ -108,6 +108,103 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f19d07f_d9d5b384",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T00:55:15Z",
+      "side": 1,
+      "message": "Per the developing guide, please don\u0027t write lambdas that are more than a few lines of code.",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb3f573_c94a539e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T00:55:15Z",
+      "side": 1,
+      "message": "?.  This doesn\u0027t seem right.",
+      "range": {
+        "startLine": 921,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 65
+      },
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5337dd48_552338ae",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T00:55:15Z",
+      "side": 1,
+      "message": "especially don\u0027t declare two tiers of lambdas.",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda35c5f_ed6d0c91",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T00:55:15Z",
+      "side": 1,
+      "message": "please use the existing helper functions for this.  THey will remove most of your code below.",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75fddfed_cc65baf1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T00:55:15Z",
+      "side": 1,
+      "message": "You\u0027re pushing the \"raw\" value as hex, but is that correct for all systems?  There are a number of systems for which this is an ascii string, and hex wouldn\u0027t make sense.  I suspect we need another interface for this?",
+      "range": {
+        "startLine": 946,
+        "startChar": 35,
+        "endLine": 946,
+        "endChar": 44
+      },
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6cc07775_268e4152",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 8
@@ -143,6 +240,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "6cc07775_268e4152",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 17
+      },
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa949cfe_c19b5ef6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T00:55:15Z",
+      "side": 1,
+      "message": "+1.  This comment does not look done.  There is still significant business logic for determining and parsing an OemLastState parameter in bmcweb.",
+      "parentUuid": "f70411c1_e0e1dac8",
       "range": {
         "startLine": 938,
         "startChar": 0,
