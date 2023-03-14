@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b9d4171_df290c71",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-14T23:23:55Z",
+      "side": 0,
+      "message": "I don\u0027t think we currently use id so removing it should be fine.  However, note that if we add metric reporting to the HttpClient then we may wish to use it to differentiate if the request should be associated with a specific satellite BMC.\n\nAdd it back in the future shouldn\u0027t be that big of a deal, it\u0027s just something to consider.",
+      "range": {
+        "startLine": 888,
+        "startChar": 49,
+        "endLine": 888,
+        "endChar": 70
+      },
+      "revId": "5315c1b149b724d0395f42ca75d4660aaecdf351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

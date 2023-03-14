@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6850d6c_6c49c4cd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-14T23:23:55Z",
+      "side": 1,
+      "message": "Currently when we change the retry policy it only applies to requests sent after the update.  Should we be concerned that with this change any changes will retroactively apply to active or currently queued requests?",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0566cd0b_708a6a81",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-14T23:23:55Z",
+      "side": 1,
+      "message": "nit, add a comment here as well to indicate that 0 means the limit will be unlimited.",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4958c1c_ad45c3f8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-14T23:23:55Z",
+      "side": 1,
+      "message": "We\u0027re still using strings to indicate policy actions.  I think we talked before about making these enums, but that\u0027s probably a problem for another day.",
+      "range": {
+        "startLine": 439,
+        "startChar": 50,
+        "endLine": 439,
+        "endChar": 71
+      },
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
