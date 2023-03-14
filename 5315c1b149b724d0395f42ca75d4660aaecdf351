@@ -22,6 +22,30 @@
       },
       "revId": "5315c1b149b724d0395f42ca75d4660aaecdf351",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e9f9151_45dd0d92",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:35:13Z",
+      "side": 0,
+      "message": "\u003e with a specific satellite BMC.\n\nLets cross that bridge when we get there.  Agree, we might want to add this back, but I was getting \"unused variable\" warnings that I needed to squelch.",
+      "parentUuid": "8b9d4171_df290c71",
+      "range": {
+        "startLine": 888,
+        "startChar": 49,
+        "endLine": 888,
+        "endChar": 70
+      },
+      "revId": "5315c1b149b724d0395f42ca75d4660aaecdf351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

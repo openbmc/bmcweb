@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30b35469_5bf2feb5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:35:13Z",
+      "side": 1,
+      "message": "I don\u0027t think we should be worried, and arguably this behavior is better.  When you update a policy, you expect it to be applied as soon as possible.",
+      "parentUuid": "b6850d6c_6c49c4cd",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0566cd0b_708a6a81",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -37,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2bfc5737_a3da7222",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:35:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0566cd0b_708a6a81",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b4958c1c_ad45c3f8",
         "filename": "http/http_client.hpp",
         "patchSetId": 8
@@ -48,6 +84,30 @@
       "writtenOn": "2023-03-14T23:23:55Z",
       "side": 1,
       "message": "We\u0027re still using strings to indicate policy actions.  I think we talked before about making these enums, but that\u0027s probably a problem for another day.",
+      "range": {
+        "startLine": 439,
+        "startChar": 50,
+        "endLine": 439,
+        "endChar": 71
+      },
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd78a4d_83bcb463",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-14T23:35:13Z",
+      "side": 1,
+      "message": "I tried to do that as part of this change.  holy hell is it a mess, because we store the persistent data as strings not enums, so you still need to write to_string and from_string methods.  We can do it at some point, but not in this commit.",
+      "parentUuid": "b4958c1c_ad45c3f8",
       "range": {
         "startLine": 439,
         "startChar": 50,
