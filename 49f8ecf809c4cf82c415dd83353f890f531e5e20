@@ -134,6 +134,23 @@
       },
       "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0120f03_7ca236d3",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-03-15T19:34:24Z",
+      "side": 1,
+      "message": "I am not clear what the required permissions should be for a user to open URI /console0.  Tracing the code which appears in this review:\n1. Code in http/routing.hpp handleUpgrade() calls validatePrivilege() to check if the user has Redfish privileges ConfigureComponents and ConfigureManager.\n2. Code in this file, onOpen() \u0026 checkPermissionAndConnect(), checks if the user in in the hostconsole group.\nBoth checks must pass before the user is allowed to create the /console0 connection.\n\nHowever, I understand the intention in this set of commits is to move away from the Redfish permission system, and move toward the OpenBMC privilege system.  Thus, the correct set of Redfish privileges (above) should be: \"Login\".  If this is done: The set of users allowed to access /console0 includes any user who is allowed to Login *and* has the special hostconsole permission.",
+      "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30bc7b05_9fb127dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-03-15T19:34:24Z",
+      "side": 1,
+      "message": "I think the permissions required to use URI /console0 should be (1) Redfish permission \"Login\" and OpenBMC privilege group \"hostconsole\", as I explained in the comments.",
+      "revId": "471dbe1901c371874a015ae3f96efa9e3c530f40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
