@@ -111,6 +111,30 @@
       },
       "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680caec2_4e266166",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-15T00:11:58Z",
+      "side": 1,
+      "message": "\u003e inside the method it can conert it back to string.\n\nI still don\u0027t understand what\u0027s the point of doing this?\nBecause in other places where this method is called, a string is passed in.\nDoes it also need to be converted into object_path outside the call to this method, and then converted into a string inside?",
+      "parentUuid": "d19bfcee_7fee541d",
+      "range": {
+        "startLine": 210,
+        "startChar": 50,
+        "endLine": 210,
+        "endChar": 73
+      },
+      "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
