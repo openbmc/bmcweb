@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca28cce_705cfcfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T14:53:01Z",
+      "side": 1,
+      "message": "Tested ?",
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b98e0af8_41d3f09d",
+        "filename": "meson_options.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T14:53:01Z",
+      "side": 1,
+      "message": "Is this in minutes, can you add that ?\nSpecifies the code update task keep alive timer in minutes.",
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48434a1d_841e554d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T14:53:01Z",
+      "side": 1,
+      "message": "why + 1?",
+      "range": {
+        "startLine": 240,
+        "startChar": 60,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
