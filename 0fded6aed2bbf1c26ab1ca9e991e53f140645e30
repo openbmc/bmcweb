@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bef1542_47f2f294",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T20:50:32Z",
+      "side": 1,
+      "message": "Nit, this generally wouldn\u0027t get wrapped.",
+      "range": {
+        "startLine": 308,
+        "startChar": 62,
+        "endLine": 309,
+        "endChar": 26
+      },
+      "revId": "0fded6aed2bbf1c26ab1ca9e991e53f140645e30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
