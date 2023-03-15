@@ -80,6 +80,30 @@
       },
       "revId": "d93f58d6b5897062102b8c522e501604af4bcab9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b846ae0c_fc631408",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T20:02:07Z",
+      "side": 1,
+      "message": "If we get a  EBADR shouldn\u0027t we leave this property off? but just no error. \nHow do you know what the value of autoRebootEnabled is, if it can\u0027t be found?\n\nHow about \n```\n    if (ec)\n    {\n        if (ec.value() \u003d\u003d EBADR)\n        {\n            // No AutoReboot proeprty\n            return;\n        }\n        BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus responses error: \" \u003c\u003c ec;\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n\n```\n\nfrom like \n\nhttps://github.com/openbmc/bmcweb/blob/5e7e2dc585dc7a7e62d2b648b541e7f50c39ea5d/redfish-core/lib/pcie_slots.hpp#L158 and several other places",
+      "parentUuid": "7681775e_96f76f05",
+      "range": {
+        "startLine": 1229,
+        "startChar": 0,
+        "endLine": 1234,
+        "endChar": 13
+      },
+      "revId": "d93f58d6b5897062102b8c522e501604af4bcab9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
