@@ -16,6 +16,23 @@
       "message": "And I assume you saw the errors?",
       "revId": "8fa308a8cc87755dec48fd4f43495e456250bf9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fab5f69_6aa1ace7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T17:23:10Z",
+      "side": 1,
+      "message": "No response from submitter;  Code duplicates some stuff, but we\u0027re talking about error conditions here, so I can\u0027t see this patch doing any more harm.\n\nGetting this merged.",
+      "revId": "8fa308a8cc87755dec48fd4f43495e456250bf9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
