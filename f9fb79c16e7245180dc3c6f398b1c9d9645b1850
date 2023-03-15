@@ -135,6 +135,30 @@
       },
       "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d3b2d4_0722a4a8",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T15:19:46Z",
+      "side": 1,
+      "message": "type safety is the point.  folks should not be constructing paths via string concatenation, so this is a good hint to not do that.",
+      "parentUuid": "680caec2_4e266166",
+      "range": {
+        "startLine": 210,
+        "startChar": 50,
+        "endLine": 210,
+        "endChar": 73
+      },
+      "revId": "f9fb79c16e7245180dc3c6f398b1c9d9645b1850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
