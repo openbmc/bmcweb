@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f29c799_11579d64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-03-15T09:34:54Z",
+      "side": 1,
+      "message": "Redfish validator had picked up the property IPv4StaticAddresses[0].Oem.OpenBmc.RouteMetric",
+      "parentUuid": "a1ec7993_e0f13f18",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7a25fde_cf4df59a",
@@ -66,6 +84,24 @@
       "writtenOn": "2023-03-15T02:50:10Z",
       "side": 1,
       "message": "can we keep this as generic OemEthernetInterface schema?",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c5f9ca0_2bf2a05c",
+        "filename": "static/redfish/v1/JsonSchemas/OemRouteMetric/index.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-03-15T09:34:54Z",
+      "side": 1,
+      "message": "routeMetric property is implemented as part of the IPv4AddressData. As discussed updated the schema name to OemIPAddress",
+      "parentUuid": "b7a25fde_cf4df59a",
       "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
