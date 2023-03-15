@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1c96db_13cb633e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T20:20:31Z",
+      "side": 1,
+      "message": "Can you add a bit more here.. explain why this is deprecated/why you are doing this change/if anything is different. \n\nE.g. Starting in 1_13, the Storage schema moved storage controllers to their own resource and deprecated the StorageControllers property. A link to the new Controllers schemas has been added in Storage. \nThe StorageController and StorageControllerCollection are copied from the old code expect... \n\nfrom https://redfish.dmtf.org/schemas/v1/Storage.v1_14_0.json\n                    \"deprecated\": \"This property has been deprecated in favor of Controllers to allow for storage controllers to be represented as their own resources.\",\n...\n                    \"versionDeprecated\": \"v1_13_0\"",
+      "revId": "08770a107d3776af6d70b123074669568c020d3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8c72bc_f2fc0e8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T20:20:31Z",
+      "side": 1,
+      "message": "Please wrap at 50/72 https://cbea.ms/git-commit/",
+      "revId": "08770a107d3776af6d70b123074669568c020d3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c31e6b9_8ea44db5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T20:20:31Z",
+      "side": 1,
+      "message": "What is the customer impact here ?",
+      "revId": "08770a107d3776af6d70b123074669568c020d3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
