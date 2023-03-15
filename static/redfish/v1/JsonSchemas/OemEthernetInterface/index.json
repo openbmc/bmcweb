@@ -1,0 +1,93 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OemEthernetInterface.v1_0_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "EthernetInterface": {
+            "additionalProperties": false,
+            "description": "OEM Extension for EthernetInterface",
+            "longDescription": "OEM Extension for EthernetInterface providing info about TLS Auth.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "StaticRoutes": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/StaticRoute"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Network static route configuration.",
+                    "longDescription": "Collection of static routes Configuration."
+                }
+            },
+            "type": "object"
+        },
+        "StaticRoute": {
+            "additionalProperties": false,
+            "description": "Static Route configuration.",
+            "longDescription": "Configuration describing list of static routes",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Destination": {
+                    "description": "Indicates destination IP address of static route",
+                    "longDescription": "The value of this property shall be a string value of destination IP of static route",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Gateway": {
+                    "description": "Indicates gateway of static route",
+                    "longDescription": "The value of this property shall be a string indicating gateway of static route.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PrefixLength": {
+                    "description": "Indicates prefix length of static route address.",
+                    "longDescription": "The value of this property shall be a integer indicating prefix length of static route",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+	    },
+            "type": "object"
+        }
+    },
+    "owningEntity": "OpenBMC",
+    "release": "1.0",
+    "title": "#OemEthernetInterface.v1_0_0"
+}
