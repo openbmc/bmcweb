@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb4e78e_ae27e055",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T18:46:33Z",
+      "side": 1,
+      "message": "I\u0027m locally testing and I\u0027m seeing \"webserver_main.cpp\" produce this CRITICAL error: \"Threw exception to main: bad_function_call\".  Here is the lead-up in the logs:\n\n```\nrecvMessage() Header Response Code: 200\n0x85ac88 setting completion handler\n0x858998 Connection closed, total 1\nThrew exception to main: bad_function_call\n```\n\nI think it\u0027s being caused by the commented line.  For aggregation, the function getting called here should be RedfishAggregator::aggregationRetryHandler().  \n\nThat function when called prints \"Received \u003crespcode\u003e response from satellite\" to the log.  I do not see its message in the debug log before the exception occurs.",
+      "revId": "d46ef01dfc8505a47c8b488df4963a91b9e53599",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

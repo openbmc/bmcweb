@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59343e46_cae19828",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T18:46:33Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "30b35469_5bf2feb5",
+      "revId": "51f31b0cc5c5cb507b955278630a8ad28ea69185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0566cd0b_708a6a81",
