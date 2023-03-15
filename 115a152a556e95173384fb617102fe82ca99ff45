@@ -266,6 +266,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92cf2209_5490601d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T15:35:27Z",
+      "side": 1,
+      "message": "\u003e The Oem firmware update code upstreaming may be not acceptable if its not followed the generic firmware update methodology which OpenBMC is followed, IMO. But i am not right person to comment on those Oem Firmware update methodologies.\n\u003e \n\u003e W.r.t bmcweb: Looking at current scope of change and ideal design view, I feel this change(Making keepalive timeout as configurable) simplify the bmcweb maintenance and more adoptable. \n\nI don’t agree with you in this regard, and unless I see more folks requesting to publish broken backends, I’m still going to recommend fixing the bug in the firmware update daemon.\n\n\u003e \n\u003e If you still think, This change has hard dependency with oem update backend code(which i can\u0027t visualize), Then we can keep it as patch.\n\nrecommendation is still to fix your backend, but if you’d rather keep a patch, that’s up to you.\n\n\nplease don’t mark this done when the discussion has not concluded.  it had the appearance of shutting down discussion, which I’m sure you didn’t intend.",
+      "parentUuid": "a09ec710_b8cecfbb",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "115a152a556e95173384fb617102fe82ca99ff45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7f7163a_455380c2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
