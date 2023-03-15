@@ -39,6 +39,23 @@
       "message": "Which firmware update backend was this tested against?",
       "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d40b4e9d_790faa7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T20:04:09Z",
+      "side": 1,
+      "message": "Please use your full name here, not a username \nFrom https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages \n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)",
+      "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
