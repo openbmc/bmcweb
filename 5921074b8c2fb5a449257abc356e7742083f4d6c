@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657871dc_f7735ae4",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T20:51:54Z",
+      "side": 1,
+      "message": "This was changed from the old code.  Please try to separate your code moves and code refactorings into separate patches.",
+      "range": {
+        "startLine": 387,
+        "startChar": 12,
+        "endLine": 390,
+        "endChar": 62
+      },
+      "revId": "5921074b8c2fb5a449257abc356e7742083f4d6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
