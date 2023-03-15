@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5de3ebce_eecd028f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-03-15T20:50:04Z",
+      "side": 1,
+      "message": "oh. I guess you mean it should be 72 characters instead.",
+      "parentUuid": "36196378_0a36faa8",
+      "revId": "08770a107d3776af6d70b123074669568c020d3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c31e6b9_8ea44db5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
