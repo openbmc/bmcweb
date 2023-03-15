@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512d24fe_3b854a5e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T19:53:40Z",
+      "side": 1,
+      "message": "Can we move this to line 332 so it only logs on the internal Error ?",
+      "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e1ab04_6ce16b69",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T19:53:40Z",
+      "side": 1,
+      "message": "Can we move this to line 367 ?",
+      "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d6ed4e_4322df35",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T19:53:40Z",
+      "side": 1,
+      "message": "could make this match above, move to LOG_ERROR and put on line 708 but oh well.",
+      "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
