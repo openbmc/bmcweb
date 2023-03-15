@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b1c8d13_c6288cc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T14:50:36Z",
+      "side": 1,
+      "message": "Huh ? This commit seems to do a lot more than this",
+      "revId": "ef3b76f5224ea07a70d986f78fc8cdb216c33d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0e19d3_a0ffc888",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-15T14:50:36Z",
+      "side": 1,
+      "message": "Huh? Why are you restricting operator ?",
+      "revId": "ef3b76f5224ea07a70d986f78fc8cdb216c33d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
