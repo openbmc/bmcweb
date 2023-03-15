@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4db374d6_305ff603",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T15:59:32Z",
+      "side": 1,
+      "message": "Please add more details about this \"need\" and why the existing folder doesn\u0027t meet that need.\n\nGenerally, if we wanted to make this configurable, we would do this over a dbus file descriptor today, which gives the backend daemon complete control, and limits the possibility for bmcweb deadlocks.\n\nAs written, I don\u0027t think this patchset can go forward until it\u0027s either moved to a dbus file descriptor, or the write calls are using non-blocking calls, per the developing guide.\n\nTHe existing blocking calls are allowed because tmpfs is ram, and should never block.  If this is now configurable, the write might block, which would deadlock bmcweb, and be a safety issue.",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f465b14b_3f210a96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T15:59:32Z",
+      "side": 1,
+      "message": "Which firmware update backend was this tested against?",
+      "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
