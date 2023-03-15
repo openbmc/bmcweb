@@ -33,6 +33,24 @@
       "message": "Huh? Why are you restricting operator ?",
       "revId": "ef3b76f5224ea07a70d986f78fc8cdb216c33d1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc954dea_0d393d69",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-15T15:26:44Z",
+      "side": 1,
+      "message": "It is because of CI failure if we use\n  \n```\ninline bool isRestrictedRole(const std::string\u0026 role)\n{\n    if (role \u003d\u003d \"Operator\")\n    {\n        return true;\n    }\n    return false;\n}\n```\n\n```\n/data0/jenkins/workspace/ci-repository/openbmc/bmcweb/build3ekffq1l/../redfish-core/lib/roles.hpp:73:16: error: redundant boolean literal in conditional return statement [readability-simplify-boolean-expr,-warnings-as-errors]\n        return true;\n~~~~~~~~~~~~~~~^~~~~\n```\n\nThe explanation is\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability/simplify-boolean-expr.html\n\nAn example is like\n```\nThe conditional return if (i \u003c 0) return false; return true; becomes return i \u003e\u003d 0;.\n```\n\nIf there are more cases to compare, we can revive the code to use \u0027if()...\u0027.",
+      "parentUuid": "5c0e19d3_a0ffc888",
+      "revId": "ef3b76f5224ea07a70d986f78fc8cdb216c33d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
