@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58827b70_db747216",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-15T20:31:32Z",
+      "side": 1,
+      "message": "Simple, well defined code move.  No reason to hold up.",
+      "revId": "04810abd0e4a706594e698241f874aa66e0c00e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
