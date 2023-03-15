@@ -20,6 +20,58 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87fc0488_dcc65cce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-15T02:50:10Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4052b898_cd9e7926",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ec7993_e0f13f18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-15T02:50:10Z",
+      "side": 1,
+      "message": "have you run redish validator and make sure if this schema is getting picked up by validator?",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7a25fde_cf4df59a",
+        "filename": "static/redfish/v1/JsonSchemas/OemRouteMetric/index.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-15T02:50:10Z",
+      "side": 1,
+      "message": "can we keep this as generic OemEthernetInterface schema?",
+      "revId": "8ef1e150155f9441293919a2a156b3f2483aa4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7b0012d_4f060186",
         "filename": "static/redfish/v1/schema/OemRouteMetric_v1.xml",
         "patchSetId": 4
