@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe03751b_dfef20b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Note that after addressing the comments I reran the service validator and it still passed.",
+      "revId": "921f0f90c9d178789d1c42f885672c077d91e7d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

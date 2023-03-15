@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a10c16_3f301033",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d119dd74_0ef40091",
+      "range": {
+        "startLine": 460,
+        "startChar": 29,
+        "endLine": 460,
+        "endChar": 39
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b397a25_d9e71736",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-14T17:42:03Z",
       "side": 1,
       "message": "by reference please.",
+      "range": {
+        "startLine": 617,
+        "startChar": 37,
+        "endLine": 617,
+        "endChar": 47
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fadc3271_76ce6b9b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b397a25_d9e71736",
       "range": {
         "startLine": 617,
         "startChar": 37,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "900ff1f2_2b07839f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Ack.  I was aware of that change and didn\u0027t know if it applied in this situation.  I can go back in a later patch and clean this up after some of the other aggregation patches get sorted out",
+      "parentUuid": "86cfb85e_8a5aedfa",
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975e5fab_ed673ed9",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-03-14T17:42:03Z",
       "side": 1,
       "message": "should be array_t",
+      "range": {
+        "startLine": 77,
+        "startChar": 18,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c889cdd_df8ed262",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975e5fab_ed673ed9",
       "range": {
         "startLine": 77,
         "startChar": 18,
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "740edef6_8b03a9a4",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "I added one for both AggregationSources and AggregationSource.",
+      "parentUuid": "71357812_e3704328",
+      "range": {
+        "startLine": 116,
+        "startChar": 43,
+        "endLine": 116,
+        "endChar": 46
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80164763_18311876",
@@ -127,6 +241,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e58409_4448278e",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80164763_18311876",
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09621e85_92aa38b4",
@@ -140,6 +272,30 @@
       "writtenOn": "2023-03-14T17:42:03Z",
       "side": 1,
       "message": "Please just make this \"Aggregation source\"",
+      "range": {
+        "startLine": 152,
+        "startChar": 39,
+        "endLine": 152,
+        "endChar": 58
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4c88c90_2b2d21cf",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09621e85_92aa38b4",
       "range": {
         "startLine": 152,
         "startChar": 39,
@@ -173,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16025170_fcc81d4b",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "\"sat-\u003esecond\" is actually already a url object.  When I previously checked I was not able to find a url method which corresponds to \"scheme://host:port\".  After further digging I figured out that encoded_origin() does just that.  I\u0027ve made the change.",
+      "parentUuid": "bb9baf89_cef868ed",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "017db5ca_b4b7029a",
@@ -190,6 +370,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd997998_64e21f9c",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "017db5ca_b4b7029a",
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91792116_fda6ed03",
@@ -203,6 +401,30 @@
       "writtenOn": "2023-03-14T17:42:03Z",
       "side": 1,
       "message": "We currently \"don\u0027t support\" this, so it should be omitted.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 41
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3c0d858_bf34fdd9",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-15T04:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91792116_fda6ed03",
       "range": {
         "startLine": 162,
         "startChar": 0,
