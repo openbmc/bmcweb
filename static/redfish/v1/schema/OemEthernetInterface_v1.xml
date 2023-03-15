@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemEthernetInterface">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemEthernetInterface.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
+
+       <ComplexType Name="StaticRoute">
+         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+         <Annotation Term="OData.Description" String="An IPv4 static route assigned to an interface."/>
+         <Annotation Term="OData.LongDescription" String="This object shall contain an IPv4 static route address assigned to an interface."/>
+         <Property Name="Gateway" Type="Edm.String">
+           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+           <Annotation Term="OData.Description" String="The IPv4 address."/>
+           <Annotation Term="OData.LongDescription" String="This property shall contain next hop an IPv4 address assigned of static route of interface."/>
+           <Annotation Term="Validation.Pattern" String="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"/>
+         </Property>
+         <Property Name="Destination" Type="Edm.String">
+           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+           <Annotation Term="OData.Description" String="The destination address."/>
+           <Annotation Term="OData.LongDescription" String="This property shall contain a destination address of static route assigned to this interface."/>
+           <Annotation Term="Validation.Pattern" String="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"/>
+         </Property>
+         <Property Name="SubnetMask" Type="Edm.String">
+           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+           <Annotation Term="OData.Description" String="The IPv4 subnet mask."/>
+           <Annotation Term="OData.LongDescription" String="This property shall contain the subnet mask for this static route."/>
+           <Annotation Term="Validation.Pattern" String="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"/>
+         </Property>
+       </ComplexType>
+
+      <!--Base entity type for array members-->
+      <EntityType Name="EthernetInterface" BaseType="Resource.OemObject" Abstract="true">
+        <Annotation Term="OData.Description" String="OEM Extension for EthernetInterface"/>
+        <Annotation Term="OData.LongDescription" String="OEM Extension for EthernetInterface providing info about static route."/>
+
+        <Property Name="StaticRoutes" Type="Collection(OemEthernetInterface.v1_0_0.StaticRoute)">
+           <Annotation Term="OData.Description" String="static routes assigned to this interface."/>
+           <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent all IPv4 static route addresses assigned to, but not necessarily in use by, this interface."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
