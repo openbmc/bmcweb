@@ -88,6 +88,24 @@
       "parentUuid": "11ffcf5b_af217bb6",
       "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bd8f0af_0a6189f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000847
+      },
+      "writtenOn": "2023-03-16T01:34:56Z",
+      "side": 1,
+      "message": "fix in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61601",
+      "parentUuid": "70056a40_0f409557",
+      "revId": "a76b73725642399e6c9ac477774b855e2b50deac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
