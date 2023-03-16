@@ -34,6 +34,24 @@
       "parentUuid": "8a72aa2a_8130d177",
       "revId": "3f78b9fe952a4ffd2c78bf69dc1b9dc5aaa89509",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "196e3bf2_41691a36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-16T23:57:06Z",
+      "side": 1,
+      "message": "IMO, the long term solution here is to stream the sattelite responses, and rewrite on the fly, but that\u0027s hard.\n\n\u003e 50 MB make sense\n\nThat might be reasonable.  Carson, would 50MB fit all of your uses?\n\nAlternatively, maybe we could do something like \"20% of available bmc ram\".",
+      "parentUuid": "4881ae8b_ed58ba50",
+      "revId": "3f78b9fe952a4ffd2c78bf69dc1b9dc5aaa89509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
