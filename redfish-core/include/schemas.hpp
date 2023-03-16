@@ -30,6 +30,8 @@ namespace redfish
         "CertificateService",
         "Chassis",
         "ChassisCollection",
+        "ComponentIntegrity",
+        "ComponentIntegrityCollection",
         "ComputerSystem",
         "ComputerSystemCollection",
         "Drive",
