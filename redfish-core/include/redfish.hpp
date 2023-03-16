@@ -21,6 +21,7 @@
 #include "cable.hpp"
 #include "certificate_service.hpp"
 #include "chassis.hpp"
+#include "component_integrity.hpp"
 #include "environment_metrics.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
@@ -92,6 +93,7 @@ class RedfishService
         requestRoutesPowerSubsystem(app);
         requestRoutesThermalSubsystem(app);
 #endif
+        requestRoutesComponentIntegrity(app);
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
         requestRoutesManagerResetAction(app);

@@ -63,6 +63,8 @@ inline void handleServiceRootGetImpl(
         "/redfish/v1/AggregationService";
 #endif
     asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
+    asyncResp->res.jsonValue["ComponentIntegrity"]["@odata.id"] =
+        "/redfish/v1/ComponentIntegrity";
     asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
         "/redfish/v1/JsonSchemas";
     asyncResp->res.jsonValue["Managers"]["@odata.id"] = "/redfish/v1/Managers";
