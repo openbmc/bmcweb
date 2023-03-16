@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ef9725_747a83e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-16T23:33:47Z",
+      "side": 1,
+      "message": "Even though I\u0027m listed as the Owner, I\u0027m giving +1 because of how much the patch has deviated from the code that I actually pushed.",
+      "revId": "f05c98bc1a81c87b3c07750bf736c7b8e50f6f8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
