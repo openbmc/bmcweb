@@ -38,7 +38,7 @@ inline nlohmann::json resourceCreated()
 inline nlohmann::json resourceRemoved()
 {
     return getLogResourceEvent(
-        redfish::registries::resource_event::Index::resourceCreated, {});
+        redfish::registries::resource_event::Index::resourceRemoved, {});
 }
 
 } // namespace messages
