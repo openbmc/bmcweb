@@ -16,6 +16,24 @@
       "message": "I know I am late to the game here, apologies. We would have a similar use case for aggregation, large logging or binary payloads that exceed 128 KB. I just worry about not having a limit at all.. Would 5 MB or 10 MB or even 20 or 50 MB make sense? If the payload was 200 MB could that cause bmcweb to crash ? Can we talk about an insanely large payload and how that would work?",
       "revId": "3f78b9fe952a4ffd2c78bf69dc1b9dc5aaa89509",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4881ae8b_ed58ba50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-16T17:57:55Z",
+      "side": 1,
+      "message": "We keep getting burned on trying to set one size fits all limits.  I suspect this will become more noticeable now that merging https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727 means that we now correctly support offloading $expand to satellites and the resulting response can be quite large.\n\nIf a client wants to for instance try to $expand the entire tree of a satellite then I want them to be able to do so at their own risk.  Yes we will attempt to read in the entire payload even if it\u0027s enormous like 200MB.  If that is large enough to run out of memory then I think bmcweb would crash in the same way it would if it ran out of memory just from locally processing requests without using aggregation.  \n\nSetting a specific limit also won\u0027t provide the same protection when we get to multi-satellite BMC systems.  The true limit for an aggregated payload becomes N*LIMIT if the request includes a top level collection.  \n\nIf we must have some sort of limit for aggregation then my strong preference is to make it a compiler option and leave it up to users to decide what limit (if any) they want to set.  Otherwise, I think we\u0027ll keep finding use cases where we need to further increase the limit.",
+      "parentUuid": "8a72aa2a_8130d177",
+      "revId": "3f78b9fe952a4ffd2c78bf69dc1b9dc5aaa89509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
