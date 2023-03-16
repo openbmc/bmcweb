@@ -45,6 +45,52 @@
       },
       "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60c99a14_7455c86d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-16T03:44:37Z",
+      "side": 1,
+      "message": "\"StatelessAddressAutoConfiguration\" is the property.",
+      "range": {
+        "startLine": 1756,
+        "startChar": 18,
+        "endLine": 1756,
+        "endChar": 44
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa927718_5777a624",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-16T03:44:37Z",
+      "side": 1,
+      "message": "\"StatelessAddressAutoConfiguration\"",
+      "range": {
+        "startLine": 1966,
+        "startChar": 17,
+        "endLine": 1966,
+        "endChar": 43
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
