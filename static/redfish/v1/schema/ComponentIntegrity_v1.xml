@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  ComponentIntegrity v1.2.0                                           -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Certificate_v1.xml">
+    <edmx:Include Namespace="Certificate"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The ComponentIntegrity resource provides critical and pertinent security information about a specific device, system, software element, or other managed entity."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent critical and pertinent security information about a specific device, system, software element, or other managed entity."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/ComponentIntegrity/{ComponentIntegrityId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="SPDMGetSignedMeasurements" IsBound="true">
+        <Annotation Term="OData.Description" String="This action generates an SPDM cryptographic signed statement over the given nonce and measurements of the SPDM Responder."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate a cryptographic signed statement over the given nonce and measurements corresponding to the SPDM Responder.  This action shall not be present if the ComponentIntegrityType property does not contain the value `SPDM`.  The SPDM Requester shall issue one or more SPDM 'GET_MEASUREMENTS' requests for each of the requested measurement indices to the SPDM Responder.  When the SPDM 'GET_MEASUREMENTS' requests are made for version 1.2, the parameter 'RawBitStreamRequested' shall contain `0`.  The SPDM Requester shall provide the nonce for the action to the SPDM Responder in the last SPDM 'GET_MEASUREMENTS' request.  The SPDM Requester shall request a signature in the last SPDM 'GET_MEASUREMENTS' request."/>
+        <Parameter Name="ComponentIntegrity" Type="ComponentIntegrity.v1_0_0.Actions"/>
+        <Parameter Name="Nonce" Type="Edm.String">
+          <Annotation Term="OData.Description" String="A 32-byte hex-encoded string that is signed with the measurements.  The value should be unique."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a 32-byte hex-encoded string that is signed with the measurements.  If not provided by the client, the SPDM Requester shall generate the nonce.  The value should be unique and generated using a random or a pseudo-random generator.  The SPDM Requester shall send this value to the SPDM Responder in the SPDM 'GET_MEASUREMENTS' request."/>
+          <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]{64}$"/>
+        </Parameter>
+        <Parameter Name="SlotId" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The slot identifier for the certificate containing the private key to generate the signature over the measurements."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the SPDM slot identifier for the certificate containing the private key to generate the signature over the measurements.  If not provided by the client, the value shall be assumed to be `0`.  The SPDM Requester shall send this value to the SPDM Responder in the SPDM 'GET_MEASUREMENTS' request."/>
+        </Parameter>
+        <Parameter Name="MeasurementIndices" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Description" String="An array of indices that identify the measurement blocks to sign."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of indices that identify the measurement blocks to sign.  This array shall contain one or more unique values between `0` to `254`, inclusive, or contain a single value of `255`.  If not provided by the client, the value shall be assumed to be an array containing a single value of `255`."/>
+        </Parameter>
+        <ReturnType Type="ComponentIntegrity.v1_0_0.SPDMGetSignedMeasurementsResponse" Nullable="false"/>
+      </Action>
+
+      <Action Name="TPMGetSignedMeasurements" IsBound="true">
+        <Annotation Term="OData.Description" String="This action generates a TPM cryptographic signed statement over the given nonce and PCRs of the TPM for TPM 2.0 devices."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate a cryptographic signed statement over the given nonce and PCRs of the TPM for TPM 2.0 devices.  This action shall not be present if the ComponentIntegrityType property does not contain the value `TPM`."/>
+        <Parameter Name="ComponentIntegrity" Type="ComponentIntegrity.v1_0_0.Actions"/>
+        <Parameter Name="Nonce" Type="Edm.String">
+          <Annotation Term="OData.Description" String="A set of bytes as a hex-encoded string that is signed with the measurements.  The value should be unique."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a set of bytes as a hex-encoded string that is signed with the measurements.  Services shall reject the action request if the number of bytes provided is larger than the value specified by the NonceSizeBytesMaximum property in the TPM property.  If not provided by the client, the service shall generate the nonce.  The value should be unique and generated using a random or a pseudo-random generator.  The service shall send this value to the TPM in the 'qualifyingData' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+          <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]$"/>
+        </Parameter>
+        <Parameter Name="Certificate" Type="Certificate.Certificate" Nullable="false">
+          <Annotation Term="OData.Description" String="The URI for the certificate that represents the TPM attestation key."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the reference to the certificate installed on the TPM that represents the TPM's attestation key for the 'signHandle' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+        </Parameter>
+        <Parameter Name="Scheme" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The signing scheme to use for the TPM attestation key."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the Base64-encoded representation of the 'TPMT_SIG_SCHEME' object, as defined in the Trusted Platform Module Library Specification, that identifies the signing scheme to use for the TPM attestation key.  The service shall send this value to the TPM in the 'inScheme' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+        </Parameter>
+        <Parameter Name="PCRSelection" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="An object that identify the PCRs to sign."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the Base64-encoded representation of the 'TPML_PCR_SELECTION' object, as defined by the Trusted Platform Module Library Specification, that identifies the PCRs to sign.  The service shall send this value to the TPM in the 'PCRselect' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+        </Parameter>
+        <ReturnType Type="ComponentIntegrity.v1_2_0.TPMGetSignedMeasurementsResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.ComponentIntegrity">
+        <Property Name="Actions" Type="ComponentIntegrity.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="ComponentIntegrityType" Type="ComponentIntegrity.v1_0_0.ComponentIntegrityType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of security technology for the component."/>
+          <Annotation Term="OData.LongDescription" String="This value of this property shall contain the underlying security technology providing integrity information for the component."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="ComponentIntegrityTypeVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of the security technology."/>
+          <Annotation Term="OData.LongDescription" String="This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\d+\.\d+\.\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="ComponentIntegrityEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether security protocols are enabled for the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether security protocols are enabled for the component.  If ComponentIntegrityType contains `SPDM`, a value of `false` shall prohibit the SPDM Requester from using SPDM to communicate with the component identified by the TargetComponentURI property.  If ComponentIntegrityType contains `TPM`, a value of `false` shall disable the TPM component identified by the TargetComponentURI property entirely.  If `false`, services shall not provide the TPM and SPDM properties in response payloads for this resource.  If `false`, services shall reject action requests to this resource.  If `true`, services shall allow security protocols with the component identified by the TargetComponentURI property."/>
+        </Property>
+        <Property Name="TargetComponentURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the the component whose integrity that this resource reports."/>
+          <Annotation Term="OData.LongDescription" String="This value of this property shall contain a link to the resource whose integrity information is reported in this resource.  If ComponentIntegrityType contains `SPDM`, this property shall contain a URI to the resource that represents the SPDM Responder.  If ComponentIntegrityType contains `TPM`, this property shall contain a URI with RFC6901-defined JSON fragment notation to a member of the TrustedModules array in a ComputerSystem resource that represents the TPM or a resource of type TrustedComponent that represents the TPM."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Links" Type="ComponentIntegrity.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="LastUpdated" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when information for the component was last updated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when information for the component was last updated."/>
+        </Property>
+        <Property Name="SPDM" Type="ComponentIntegrity.v1_0_0.SPDMinfo" Nullable="false">
+          <Annotation Term="OData.Description" String="Integrity information about the SPDM Responder as reported by an SPDM Requester."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain integrity information about the SPDM Responder identified by the TargetComponentURI property as reported by an SPDM Requester.  This property shall be present if ComponentIntegrityType contains `SPDM` and `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."/>
+        </Property>
+        <Property Name="TPM" Type="ComponentIntegrity.v1_0_0.TPMinfo" Nullable="false">
+          <Annotation Term="OData.Description" String="Integrity information about the Trusted Platform Module (TPM)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain integrity information about the Trusted Platform Module (TPM) identified by the TargetComponentURI property,  This property shall be present if ComponentIntegrityType contains `TPM` and `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="ComponentIntegrity.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="ComponentIntegrityType">
+        <Member Name="SPDM">
+          <Annotation Term="OData.Description" String="Security Protocol and Data Model (SPDM) protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the integrity information is obtained through the Security Protocol and Data Model (SPDM) protocol as defined in DMTF DSP0274."/>
+        </Member>
+        <Member Name="TPM">
+          <Annotation Term="OData.Description" String="Trusted Platform Module (TPM)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the integrity information is related to a Trusted Platform Module (TPM) as defined by the Trusted Computing Group (TCG)."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM-specific."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the integrity information is OEM-specific and the OEM section may include additional information."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="ComponentsProtected" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to resources that the target component protects."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that the component identified by the TargetComponentURI property provides integrity protection.  This property shall not contain the value of the TargetComponentURI property."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="SPDMinfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Integrity information about an SPDM Responder as reported by an SPDM Requester."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain integrity information about an SPDM Responder as reported by an SPDM Requester."/>
+        <NavigationProperty Name="Requester" Type="Resource.Item" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the the component that is reporting the integrity information of the target component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource representing the SPDM Responder that is reporting the integrity of the SPDM Responder identified by the TargetComponentURI property."/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+        <Property Name="MeasurementSet" Type="ComponentIntegrity.v1_0_0.SPDMmeasurementSet">
+          <Annotation Term="OData.Description" String="Measurement information about the SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain measurement information for the SPDM Responder."/>
+        </Property>
+        <Property Name="IdentityAuthentication" Type="ComponentIntegrity.v1_0_0.SPDMidentity">
+          <Annotation Term="OData.Description" String="Identity authentication information about the SPDM Requester and SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain identity authentication information about the SPDM Requester and SPDM Responder."/>
+        </Property>
+        <Property Name="ComponentCommunication" Type="ComponentIntegrity.v1_0_0.SPDMcommunication">
+          <Annotation Term="OData.Description" String="Information about communication between the SPDM Requester and SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about communication between the SPDM Requester and SPDM Responder."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TPMinfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Integrity information about a Trusted Platform Module (TPM)."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain integrity information about a Trusted Platform Module (TPM)."/>
+        <Property Name="MeasurementSet" Type="ComponentIntegrity.v1_0_0.TPMmeasurementSet">
+          <Annotation Term="OData.Description" String="Measurement information from the TPM."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain measurement information from the TPM."/>
+        </Property>
+        <Property Name="IdentityAuthentication" Type="ComponentIntegrity.v1_0_0.TPMauth">
+          <Annotation Term="OData.Description" String="Identity authentication information about the TPM."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain identity authentication information about the TPM."/>
+        </Property>
+        <Property Name="ComponentCommunication" Type="ComponentIntegrity.v1_0_0.TPMcommunication">
+          <Annotation Term="OData.Description" String="Information about communication with the TPM."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about communication with the TPM."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SPDMmeasurementSet">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="SPDM Responder measurement information."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain SPDM Responder measurement information."/>
+        <Property Name="MeasurementSpecification" Type="ComponentIntegrity.v1_0_0.MeasurementSpecification">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The measurement specification negotiated between the SPDM Requester and SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the measurement specification negotiated between the SPDM Requester and SPDM Responder."/>
+        </Property>
+        <Property Name="Measurements" Type="Collection(ComponentIntegrity.v1_0_0.SPDMsingleMeasurement)">
+          <Annotation Term="OData.Description" String="Measurements from an SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain measurements from an SPDM Responder."/>
+        </Property>
+        <Property Name="MeasurementSummary" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The measurement summary data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded measurement summary using the hash algorithm indicated by the MeasurementSummaryHashAlgorithm property."/>
+          <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9+/]+={0,2}$"/>
+        </Property>
+        <Property Name="MeasurementSummaryHashAlgorithm" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hash algorithm used to compute the measurement summary."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hash algorithm used to compute the measurement summary.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`."/>
+        </Property>
+        <Property Name="MeasurementSummaryType" Type="ComponentIntegrity.v1_0_0.SPDMmeasurementSummaryType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of measurement summary."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of measurement summary."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="MeasurementSpecification">
+        <Member Name="DMTF">
+          <Annotation Term="OData.Description" String="DMTF."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement specification is defined by DMTF in DSP0274."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SPDMmeasurementSummaryType">
+        <Member Name="TCB">
+          <Annotation Term="OData.Description" String="The measurement summary covers the TCB."/>
+        </Member>
+        <Member Name="All">
+          <Annotation Term="OData.Description" String="The measurement summary covers all measurements in SPDM."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="SPDMsingleMeasurement">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A single SPDM measurement for an SPDM Responder."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain a single SPDM measurement for an SPDM Responder."/>
+        <Property Name="MeasurementIndex" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The index of the measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the index of the measurement."/>
+        </Property>
+        <Property Name="PartofSummaryHash" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether this measurement is part of the measurement summary."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if this measurement is part of the measurement summary in the MeasurementSummary property.  If this property is not present, it shall be assumed to be `false`."/>
+        </Property>
+        <Property Name="LastUpdated" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when information for the measurement was last updated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when information for the measurement was last updated."/>
+        </Property>
+        <Property Name="Measurement" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The measurement data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded measurement using the hash algorithm indicated by the MeasurementHashAlgorithm property.  This property shall not contain a raw bit stream as a measurement.  If the SPDM Responder provides a raw bit stream, the SPDM Requester may apply a hash algorithm to the raw bit stream in order to report the measurement."/>
+          <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9+/]+={0,2}$"/>
+        </Property>
+        <Property Name="MeasurementHashAlgorithm" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hash algorithm used to compute the measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hash algorithm used to compute the measurement.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.  This property shall not be present if MeasurementSpecification does not contain `DMTF`."/>
+        </Property>
+        <Property Name="MeasurementType" Type="ComponentIntegrity.v1_0_0.DMTFmeasurementTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type or characteristics of the data that this measurement represents."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type or characteristics of the data that this measurement represents.  This property shall not be present if MeasurementSpecification does not contain `DMTF`."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="DMTFmeasurementTypes">
+        <Member Name="ImmutableROM">
+          <Annotation Term="OData.Description" String="Immutable ROM."/>
+        </Member>
+        <Member Name="MutableFirmware">
+          <Annotation Term="OData.Description" String="Mutable firmware or any mutable code."/>
+        </Member>
+        <Member Name="HardwareConfiguration">
+          <Annotation Term="OData.Description" String="Hardware configuration, such as straps."/>
+        </Member>
+        <Member Name="FirmwareConfiguration">
+          <Annotation Term="OData.Description" String="Firmware configuration, such as configurable firmware policy."/>
+        </Member>
+        <Member Name="MutableFirmwareVersion">
+          <Annotation Term="OData.Description" String="Mutable firmware version."/>
+        </Member>
+        <Member Name="MutableFirmwareSecurityVersionNumber">
+          <Annotation Term="OData.Description" String="Mutable firmware security version number."/>
+        </Member>
+        <Member Name="MeasurementManifest">
+          <Annotation Term="OData.Description" String="Measurement Manifest."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="TPMmeasurementSet">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Trusted Computing Group TPM measurement information."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain Trusted Computing Group TPM measurement information."/>
+        <Property Name="Measurements" Type="Collection(ComponentIntegrity.v1_0_0.TPMsingleMeasurement)">
+          <Annotation Term="OData.Description" String="Measurements from a TPM."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain measurements from a TPM."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TPMsingleMeasurement">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A single Trusted Computing Group TPM measurement."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain a single Trusted Computing Group TPM measurement."/>
+        <Property Name="PCR" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Platform Configuration Register (PCR) bank of the measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Platform Configuration Register (PCR) bank of the measurement."/>
+        </Property>
+        <Property Name="Measurement" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The measurement data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded PCR digest using the hashing algorithm indicated by MeasurementHashAlgorithm property."/>
+          <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9+/]+={0,2}$"/>
+        </Property>
+        <Property Name="MeasurementHashAlgorithm" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hash algorithm used to compute the measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hash algorithm used to compute the measurement.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+        </Property>
+        <Property Name="LastUpdated" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when information for the measurement was last updated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when information for the measurement was last updated."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="VerificationStatus">
+        <Member Name="Success">
+          <Annotation Term="OData.Description" String="Successful verification."/>
+        </Member>
+        <Member Name="Failed">
+          <Annotation Term="OData.Description" String="Unsuccessful verification."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="CommonAuthInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Common Authentication information."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain common identity-related authentication information."/>
+        <NavigationProperty Name="ComponentCertificate" Type="Certificate.Certificate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the certificate that represents the identify of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property."/>
+        </NavigationProperty>
+        <Property Name="VerificationStatus" Type="ComponentIntegrity.v1_0_0.VerificationStatus">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The status of the verification of the identity of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property.."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SPDMresponderAuth" BaseType="ComponentIntegrity.v1_0_0.CommonAuthInfo"/>
+      <ComplexType Name="TPMauth" BaseType="ComponentIntegrity.v1_0_0.CommonAuthInfo"/>
+
+      <ComplexType Name="SPDMrequesterAuth">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Authentication information of the identity of the SPDM Requester."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain authentication information of the identity of the SPDM Requester."/>
+        <NavigationProperty Name="ProvidedCertificate" Type="Certificate.Certificate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the certificate that represents the identify of the SPDM Requester provided in mutual authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Certificate that represents the identify of the SPDM Requester provided in mutual authentication."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="SPDMidentity">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Identity authentication information about the SPDM Requester and SPDM Responder."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain identity authentication information about the SPDM Requester and SPDM Responder."/>
+        <Property Name="ResponderAuthentication" Type="ComponentIntegrity.v1_0_0.SPDMresponderAuth">
+          <Annotation Term="OData.Description" String="Authentication information of the identity of the SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain authentication information of the identity of the SPDM Responder."/>
+        </Property>
+        <Property Name="RequesterAuthentication" Type="ComponentIntegrity.v1_0_0.SPDMrequesterAuth">
+          <Annotation Term="OData.Description" String="Authentication information of the identity of the SPDM Requester."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain authentication information of the identity of the SPDM Requester."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SecureSessionType">
+        <Member Name="Plain">
+          <Annotation Term="OData.Description" String="A plain text session without any protection."/>
+        </Member>
+        <Member Name="EncryptedAuthenticated">
+          <Annotation Term="OData.Description" String="An established session where both encryption and authentication are protecting the communication."/>
+        </Member>
+        <Member Name="AuthenticatedOnly">
+          <Annotation Term="OData.Description" String="An established session where only authentication is protecting the communication."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="SingleSessionInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Information about a single communication channel or session between two components."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain information about a single communication channel or session between two components."/>
+        <Property Name="SessionId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier for an active session or communication channel between two components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the unique identifier for the active session or communication channel between two components."/>
+        </Property>
+        <Property Name="SessionType" Type="ComponentIntegrity.v1_0_0.SecureSessionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of session or communication channel between two components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of session or communication channel between two components."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CommunicationInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Information about communication between two components."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain information about communication between two components."/>
+        <Property Name="Sessions" Type="Collection(ComponentIntegrity.v1_0_0.SingleSessionInfo)">
+          <Annotation Term="OData.Description" String="The active sessions or communication channels between two components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SPDMcommunication" BaseType="ComponentIntegrity.v1_0_0.CommunicationInfo"/>
+      <ComplexType Name="TPMcommunication" BaseType="ComponentIntegrity.v1_0_0.CommunicationInfo"/>
+
+      <ComplexType Name="SPDMGetSignedMeasurementsResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The SPDM signed measurement from an SPDM Responder."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the SPDM signed measurements from an SPDM Responder."/>
+        <Property Name="SignedMeasurements" Type="Edm.String"  Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Base64 encoded cryptographic signed statement generated by the signer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the cryptographic signed statement over the given nonce and measurement blocks corresponding to the requested measurement indices.  If the SPDM version is 1.2, this value shall be a concatenation of SPDM 'VCA' and 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  If SPDM version is 1.0 or 1.1, this value shall be a concatenation of SPDM 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  The last 'MEASUREMENTS' response shall contain a signature generated over the 'L2' string by the SPDM Responder."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <NavigationProperty Name="Certificate" Type="Certificate.Certificate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the certificate corresponding to the SPDM slot identifier that can be used to validate the signature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Certificate that represents the certificate corresponding to the SPDM slot identifier that can be used to validate the signature.  This property shall not be present if the SlotId parameter contains the value `15`."/>
+        </NavigationProperty>
+        <Property Name="PublicKey" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded public key that can be used to validate the signature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Privacy Enhanced Mail (PEM)-encoded public key, as defined in section 13 of RFC7468, that can be used to validate the signature.  This property shall only be present when the SPDM Requester was pre-provisioned with the SPDM Responder's public key and the SlotId parameter contains the value `15`."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String"  Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The SPDM version used by the SPDM Responder to generate the cryptographic signed statement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SPDM version negotiated between the SPDM Requester and the SPDM Responder to generate the cryptographic signed statement.  For example, `1.0`, `1.1`, or `1.2`."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="HashingAlgorithm" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hashing algorithm used for generating the cryptographic signed statement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hashing algorithm negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="SigningAlgorithm" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The asymmetric signing algorithm used for generating the cryptographic signed statement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the asymmetric signing algorithm negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'BaseAsymAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for TPMs to reference TrustedComponent resources from the TargetComponentURI property.  It was also created to clarify the nonce provided in the SPDMGetSignedMeasurements action is sent to the SPDM Responder in the 'GET_MEASUREMENTS' request.  It was also created to add a regular expression pattern to ComponentIntegrityTypeVersion when ComponentIntegrityType contains `SPDM`."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_0.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_0.ComponentIntegrity"/>
+
+      <ComplexType Name="SPDMsingleMeasurement" BaseType="ComponentIntegrity.v1_0_0.SPDMsingleMeasurement">
+        <Property Name="SecurityVersionNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The security version number the measurement represents."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an 8-byte hex-encoded string of the security version number the measurement represents.  This property shall only be present if MeasurementType contains the value `MutableFirmwareSecurityVersionNumber`."/>
+          <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]{16}$"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for TPMs to reference TrustedComponent resources from the TargetComponentURI property.  It was also created to clarify the nonce provided in the SPDMGetSignedMeasurements action is sent to the SPDM Responder in the 'GET_MEASUREMENTS' request.  It was also created to add a regular expression pattern to ComponentIntegrityTypeVersion when ComponentIntegrityType contains `SPDM`."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_0.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the TPMGetSignedMeasurements action to allow for a TPM to return signed measurements."/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_1.ComponentIntegrity"/>
+
+      <ComplexType Name="TPMinfo" BaseType="ComponentIntegrity.v1_0_0.TPMinfo">
+        <Property Name="NonceSizeBytesMaximum" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of bytes that can be specified in the Nonce parameter of the TPMGetSignedMeasurements action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of bytes that can be specified in the Nonce parameter of the TPMGetSignedMeasurements action."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TPMGetSignedMeasurementsResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The TPM signed measurement from a TPM."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the TPM signed PCR measurements from an TPM."/>
+        <Property Name="SignedMeasurements" Type="Edm.String"  Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Base64-encoded cryptographic signed statement generated by the signer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded cryptographic signed statement generated by the signer.  This value shall be the concatenation of the 'quoted' and 'signature' response values of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
