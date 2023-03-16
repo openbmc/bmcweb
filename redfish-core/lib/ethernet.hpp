@@ -1691,7 +1691,9 @@ inline void parseInterfaceData(
         ipv6["Address"] = ipv6Config.address;
         ipv6["PrefixLength"] = ipv6Config.prefixLength;
         ipv6["AddressOrigin"] = ipv6Config.origin;
-        ipv6["AddressState"] = nullptr;
+        // TODO: Let this not display null until there is a network backend
+        // to fetch the valid enum value. The value null misleads the user.
+        // ipv6["AddressState"] = nullptr;
         ipv6Array.push_back(std::move(ipv6));
         if (ipv6Config.origin == "Static")
         {
