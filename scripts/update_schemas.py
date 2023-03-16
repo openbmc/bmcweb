@@ -43,6 +43,8 @@ include_list = [
     "ChassisCollection",
     "ComputerSystem",
     "ComputerSystemCollection",
+    "ComponentIntegrity",
+    "ComponentIntegrityCollection",
     "Drive",
     "DriveCollection",
     "EnvironmentMetrics",

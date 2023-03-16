@@ -1,0 +1,99 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrityCollection.json",
+    "$ref": "#/definitions/ComponentIntegrityCollection",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ComponentIntegrityCollection": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "additionalProperties": false,
+                    "description": "The collection of ComponentIntegrity resource instances.",
+                    "longDescription": "This resource shall represent a resource collection of ComponentIntegrity instances for a Redfish implementation.",
+                    "patternProperties": {
+                        "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                            "description": "This property shall specify a valid odata or Redfish property.",
+                            "type": [
+                                "array",
+                                "boolean",
+                                "integer",
+                                "number",
+                                "null",
+                                "object",
+                                "string"
+                            ]
+                        }
+                    },
+                    "properties": {
+                        "@odata.context": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                        },
+                        "@odata.etag": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                        },
+                        "@odata.id": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                        },
+                        "@odata.type": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                        },
+                        "Description": {
+                            "anyOf": [
+                                {
+                                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "readonly": true
+                        },
+                        "Members": {
+                            "description": "The members of this collection.",
+                            "items": {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.json#/definitions/ComponentIntegrity"
+                            },
+                            "longDescription": "This property shall contain an array of links to the members of this collection.",
+                            "readonly": true,
+                            "type": "array"
+                        },
+                        "Members@odata.count": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                        },
+                        "Members@odata.nextLink": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/nextLink"
+                        },
+                        "Name": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                            "readonly": true
+                        },
+                        "Oem": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                            "description": "The OEM extension property.",
+                            "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                        }
+                    },
+                    "required": [
+                        "Members",
+                        "Members@odata.count",
+                        "@odata.id",
+                        "@odata.type",
+                        "Name"
+                    ],
+                    "type": "object"
+                }
+            ],
+            "deletable": false,
+            "insertable": false,
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/ComponentIntegrity"
+            ]
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#ComponentIntegrityCollection.ComponentIntegrityCollection"
+}
