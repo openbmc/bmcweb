@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a72aa2a_8130d177",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-16T16:47:17Z",
+      "side": 1,
+      "message": "I know I am late to the game here, apologies. We would have a similar use case for aggregation, large logging or binary payloads that exceed 128 KB. I just worry about not having a limit at all.. Would 5 MB or 10 MB or even 20 or 50 MB make sense? If the payload was 200 MB could that cause bmcweb to crash ? Can we talk about an insanely large payload and how that would work?",
+      "revId": "3f78b9fe952a4ffd2c78bf69dc1b9dc5aaa89509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
