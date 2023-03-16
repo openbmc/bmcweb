@@ -18,6 +18,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "622b74bc_b4cad985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-03-16T08:09:09Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "4ca28cce_705cfcfa",
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2371da08_9cf091b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-03-16T08:09:09Z",
+      "side": 1,
+      "message": "replied the comments.",
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b98e0af8_41d3f09d",
@@ -35,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c6a0d9_4d67b57b",
+        "filename": "meson_options.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-03-16T08:09:09Z",
+      "side": 1,
+      "message": "yes, ok.",
+      "parentUuid": "b98e0af8_41d3f09d",
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48434a1d_841e554d",
@@ -48,6 +101,30 @@
       "writtenOn": "2023-03-15T14:53:01Z",
       "side": 1,
       "message": "why + 1?",
+      "range": {
+        "startLine": 240,
+        "startChar": 60,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "986d5b9d_6f1ca8b3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-03-16T08:09:09Z",
+      "side": 1,
+      "message": "As updateTaskKeepAliveTimeout is a constant with default value as 5 min.",
+      "parentUuid": "48434a1d_841e554d",
       "range": {
         "startLine": 240,
         "startChar": 60,
