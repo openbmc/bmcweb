@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb32e5fe_85392a11",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-16T15:45:28Z",
+      "side": 1,
+      "message": "How is this different from using \"xyz.openbmc_project.Inventory.Item.*\" which is also used in this code?\n\nWhen is the time to use the above definitions like\n\n```\n\n    dbus::utility::getSubTreePaths(\n        pciePath, 1, {},\n        [asyncResp, name](const boost::system::error_code\u0026 ec,\n```\n\nOr\n\n```\n    constexpr std::array\u003cstd::string_view, 1\u003e interfaces{\n        \"xyz.openbmc_project.Inventory.Item.PCIeDevice\"};\n        \n    dbus::utility::getSubTreePaths(\n        \"/xyz/openbmc_project/inventory\", 0, interfaces,\n        [pcieDeviceId, aResp,\n```",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "0bf89f5cd1172f02aabbcaa60789ac0fc6e224b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
