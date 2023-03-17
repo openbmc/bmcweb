@@ -175,6 +175,38 @@ static inline void addAggregatedHeaders(crow::Response& asyncResp,
     // TODO: we need special handling for Link Header Value
 }
 
+// Fix HTTP headers which appear in responses from Task resources among others
+static inline void addPrefixToHeadersInResp(nlohmann::json& json,
+                                            std::string_view prefix)
+{
+    // The passed in "HttpHeaders" should be an array of headers
+    nlohmann::json::array_t* array = json.get_ptr<nlohmann::json::array_t*>();
+    if (array == nullptr)
+    {
+        BMCWEB_LOG_ERROR << "Field wasn't an array_t????";
+        return;
+    }
+
+    for (nlohmann::json& item : *array)
+    {
+        // Each header is a single string with the form "<Field>: <Value>"
+        std::string* strHeader = item.get_ptr<std::string*>();
+        if (strHeader == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+            continue;
+        }
+
+        constexpr std::string_view location = "Location: ";
+        if (strHeader->starts_with(location))
+        {
+            std::string header = strHeader->substr(location.size());
+            addPrefixToStringItem(header, prefix);
+            *strHeader = std::string(location) + header;
+        }
+    }
+}
+
 // Search the json for all URIs and add the supplied prefix if the URI is for
 // an aggregated resource.
 static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
@@ -188,6 +220,14 @@ static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
             if (isPropertyUri(item.first))
             {
                 addPrefixToItem(item.second, prefix);
+                continue;
+            }
+
+            // "HttpHeaders" contains HTTP headers.  Among those we need to
+            // attempt to fix the "Location" header
+            if (item.first == "HttpHeaders")
+            {
+                addPrefixToHeadersInResp(item.second, prefix);
                 continue;
             }
 
