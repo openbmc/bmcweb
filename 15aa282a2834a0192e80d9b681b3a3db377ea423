@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce4d5b2_d521f1a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-17T17:40:01Z",
+      "side": 1,
+      "message": "Commit doesn\u0027t do a lot but seems reasonable",
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bf6312b_fbe9d9da",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-17T17:40:01Z",
+      "side": 1,
+      "message": "I don\u0027t see array used here. I guess it is in the commit above. It would be best if it was in that commit. Same with functional.",
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de321661_eb933eed",
@@ -32,6 +66,24 @@
       "side": 1,
       "message": "\u003e Don\u0027t you need checks for \n\u003e    if (systemName !\u003d \"system\")\n\u003e     {\n\u003e \n\u003e above ?\n\ncheck L: 60\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fabric_adapters.hpp#L215",
       "parentUuid": "de321661_eb933eed",
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aa95ec8_cac444f4",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-17T17:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "659a230d_335f86fe",
       "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
