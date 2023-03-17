@@ -16,6 +16,24 @@
       "message": "This seems still not working.\nIt fails on Redfish Validator.\n\n```\n(2023-03-17 14:24:00) [INFO \"http_connection.hpp\":347] Request:  0x1953c70 HTTP/1.1 GET /redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries 9.163.54.115\n(2023-03-17 14:24:00) [DEBUG \"http_connection.hpp\":376] Setting completion handler\n(2023-03-17 14:24:00) [DEBUG \"http_response.hpp\":208] 0x1960540 setting completion handler\n(2023-03-17 14:24:00) [DEBUG \"routing.hpp\":1493] Matched rule \u0027/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries\u0027 1 / 2\n(2023-03-17 14:24:00) [DEBUG \"routing.hpp\":1271] userName \u003d service userRole \u003d priv-oemibmserviceagent\n(2023-03-17 14:24:00) [DEBUG \"http_response.hpp\":193] 0x1960540 calling completion handler\n(2023-03-17 14:24:00) [DEBUG \"http_response.hpp\":196] 0x1960540 completion handler was valid\n(2023-03-17 14:24:00) [DEBUG \"http_response.hpp\":65] Moving response containers; this: 0x1955f38; other: 0x1960540\nSegmentation fault (core dumped)\n```\n\nI made a comment \nhttps://github.com/openbmc/bmcweb/commit/7e9093e625961f533250a6c193c1a474e98007c4#r104793012 for a suggested fix.\nIt worked for me.",
       "revId": "915d2d4e59be56958b04a79ba96e0242ef735f44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba4a5b0_50a0fa95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-17T23:10:19Z",
+      "side": 1,
+      "message": "I meant this commit is failing on Redfish Validator.",
+      "parentUuid": "644d9def_97421576",
+      "revId": "915d2d4e59be56958b04a79ba96e0242ef735f44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
