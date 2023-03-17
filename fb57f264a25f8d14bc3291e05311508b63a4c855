@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53985f21_82d461c4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-17T21:59:11Z",
+      "side": 1,
+      "message": "nit, for a split of two, you generally want to use find.\n\nAlso, I suspect you want to search on \":\", not \" \"",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 72
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d060fa_eb9632de",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-17T21:59:11Z",
+      "side": 1,
+      "message": "The only place these show up is in TaskService, and we don\u0027t aggregate TaskService?",
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "041b9074_bd189522",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-17T21:59:11Z",
+      "side": 1,
+      "message": "This needs to check the odata.type (or the URI, your choice) as well.  There are multiple HttpHeaders properties.",
+      "range": {
+        "startLine": 228,
+        "startChar": 31,
+        "endLine": 228,
+        "endChar": 42
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
