@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bb910c4_015d7feb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-17T07:18:03Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1e49dd08_763e21a1",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14b23db5_861ae83a",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 22
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "const bool should also be fine i think.",
       "parentUuid": "14b23db5_861ae83a",
+      "range": {
+        "startLine": 1184,
+        "startChar": 41,
+        "endLine": 1184,
+        "endChar": 52
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9a8149_184a4d61",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-17T07:18:03Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "21d31476_dbaef344",
       "range": {
         "startLine": 1184,
         "startChar": 41,
