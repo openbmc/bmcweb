@@ -477,7 +477,9 @@ inline void getObjectAndEnumerate(
 // Structure for storing data on an in progress action
 struct InProgressActionData
 {
-    explicit InProgressActionData(crow::Response& resIn) : res(resIn)
+    explicit InProgressActionData(
+        const std::shared_ptr<bmcweb::AsyncResp>& res) :
+        asyncResp(res)
     {}
     ~InProgressActionData()
     {
@@ -492,13 +494,14 @@ struct InProgressActionData
         //   * if output processing didn't fail, return the data
 
         // Only deal with method returns if nothing failed earlier
-        if (res.result() == boost::beast::http::status::ok)
+        if (asyncResp->res.result() == boost::beast::http::status::ok)
         {
             if (!methodPassed)
             {
                 if (!methodFailed)
                 {
-                    setErrorResponse(res, boost::beast::http::status::not_found,
+                    setErrorResponse(asyncResp->res,
+                                     boost::beast::http::status::not_found,
                                      methodNotFoundDesc, notFoundMsg);
                 }
             }
@@ -507,19 +510,18 @@ struct InProgressActionData
                 if (outputFailed)
                 {
                     setErrorResponse(
-                        res, boost::beast::http::status::internal_server_error,
+                        asyncResp->res,
+                        boost::beast::http::status::internal_server_error,
                         "Method output failure", methodOutputFailedMsg);
                 }
                 else
                 {
-                    res.jsonValue["status"] = "ok";
-                    res.jsonValue["message"] = "200 OK";
-                    res.jsonValue["data"] = methodResponse;
+                    asyncResp->res.jsonValue["status"] = "ok";
+                    asyncResp->res.jsonValue["message"] = "200 OK";
+                    asyncResp->res.jsonValue["data"] = methodResponse;
                 }
             }
         }
-
-        res.end();
     }
     InProgressActionData(const InProgressActionData&) = delete;
     InProgressActionData(InProgressActionData&&) = delete;
@@ -528,10 +530,11 @@ struct InProgressActionData
 
     void setErrorStatus(const std::string& desc)
     {
-        setErrorResponse(res, boost::beast::http::status::bad_request, desc,
+        setErrorResponse(asyncResp->res,
+                         boost::beast::http::status::bad_request, desc,
                          badReqMsg);
     }
-    crow::Response& res;
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::string path;
     std::string methodName;
     std::string interfaceName;
@@ -1505,14 +1508,14 @@ inline void findActionOnInterface(
                                 if (e != nullptr)
                                 {
                                     setErrorResponse(
-                                        transaction->res,
+                                        transaction->asyncResp->res,
                                         boost::beast::http::status::bad_request,
                                         e->name, e->message);
                                 }
                                 else
                                 {
                                     setErrorResponse(
-                                        transaction->res,
+                                        transaction->asyncResp->res,
                                         boost::beast::http::status::bad_request,
                                         "Method call failed", methodFailedMsg);
                                 }
@@ -1574,7 +1577,7 @@ inline void handleAction(const crow::Request& req,
                          badReqMsg);
         return;
     }
-    auto transaction = std::make_shared<InProgressActionData>(asyncResp->res);
+    auto transaction = std::make_shared<InProgressActionData>(asyncResp);
 
     transaction->path = objectPath;
     transaction->methodName = methodName;
@@ -1588,7 +1591,7 @@ inline void handleAction(const crow::Request& req,
         if (ec || interfaceNames.empty())
         {
             BMCWEB_LOG_ERROR << "Can't find object";
-            setErrorResponse(transaction->res,
+            setErrorResponse(transaction->asyncResp->res,
                              boost::beast::http::status::not_found,
                              notFoundDesc, notFoundMsg);
             return;
@@ -1625,8 +1628,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        auto transaction =
-            std::make_shared<InProgressActionData>(asyncResp->res);
+        auto transaction = std::make_shared<InProgressActionData>(asyncResp);
         transaction->path = objectPath;
         transaction->methodName = "Delete";
         transaction->interfaceName = "xyz.openbmc_project.Object.Delete";
@@ -2416,8 +2418,7 @@ inline void
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
-        auto transaction =
-            std::make_shared<InProgressActionData>(asyncResp->res);
+        auto transaction = std::make_shared<InProgressActionData>(asyncResp);
 
         transaction->path = objectPath;
         transaction->methodName = methodName;
