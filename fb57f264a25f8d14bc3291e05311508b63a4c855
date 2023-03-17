@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2a21716_089d4a28",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-17T22:47:58Z",
+      "side": 1,
+      "message": "The entire targeted string is going to be \"Location: /redfish/v1/{something}\".  I also wanted to make sure the split gave me the URI by itself so that I could correctly parse it as a url.",
+      "parentUuid": "53985f21_82d461c4",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 72
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72d060fa_eb9632de",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4345fea9_9a5ed52b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-17T22:47:58Z",
+      "side": 1,
+      "message": "At least from the schema, HttpHeaders appear under /redfish/v1/EventService/Subscriptions/{EventDestinationId}\n/redfish/v1/TaskService/Tasks/{TaskId}\n\nWhile we don\u0027t aggregate TaskService, we do aggregate Tasks",
+      "parentUuid": "72d060fa_eb9632de",
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "041b9074_bd189522",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -54,6 +96,30 @@
       "writtenOn": "2023-03-17T21:59:11Z",
       "side": 1,
       "message": "This needs to check the odata.type (or the URI, your choice) as well.  There are multiple HttpHeaders properties.",
+      "range": {
+        "startLine": 228,
+        "startChar": 31,
+        "endLine": 228,
+        "endChar": 42
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ebacffd_001e5302",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-17T22:47:58Z",
+      "side": 1,
+      "message": "In the schema I only see \"HttpHeaders\" being a property of EventDestination, Job, and Task.  If the current response is getting aggregated in the first place then we want to attempt to perform prefix fixing.\n\nIf you\u0027re instead referring to the individual HTTP headers contained by HttpHeaders then addPrefixToHeadersInResp() makes sure that the \"Location\" header is the only one we\u0027d attempt to fix.  This is consistent with how addAggregatedHeaders() only attempts to fix the \"Location\" header.",
+      "parentUuid": "041b9074_bd189522",
       "range": {
         "startLine": 228,
         "startChar": 31,
