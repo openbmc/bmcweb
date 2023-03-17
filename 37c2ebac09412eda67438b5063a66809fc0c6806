@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2ef5080_f32c05a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-17T20:19:21Z",
+      "side": 1,
+      "message": "Function LGTM.  Just needs code cleanup.",
+      "revId": "37c2ebac09412eda67438b5063a66809fc0c6806",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0c4cc4d_746685cf",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1696,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-17T20:19:21Z",
+      "side": 1,
+      "message": "Please just delete the code entirely, don\u0027t leave a comment with old code.",
+      "range": {
+        "startLine": 1694,
+        "startChar": 0,
+        "endLine": 1696,
+        "endChar": 42
+      },
+      "revId": "37c2ebac09412eda67438b5063a66809fc0c6806",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
