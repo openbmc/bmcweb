@@ -16,6 +16,24 @@
       "message": "Don\u0027t you need checks for \n   if (systemName !\u003d \"system\")\n    {\n\nabove ?",
       "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659a230d_335f86fe",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-17T00:31:08Z",
+      "side": 1,
+      "message": "\u003e Don\u0027t you need checks for \n\u003e    if (systemName !\u003d \"system\")\n\u003e     {\n\u003e \n\u003e above ?\n\ncheck L: 60\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fabric_adapters.hpp#L215",
+      "parentUuid": "de321661_eb933eed",
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
