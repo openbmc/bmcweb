@@ -7,6 +7,7 @@
 #include "http_connection.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/split.hpp>
 
 #include <array>
 
@@ -173,6 +174,39 @@ static inline void addAggregatedHeaders(crow::Response& asyncResp,
     // TODO: we need special handling for Link Header Value
 }
 
+// Fix HTTP headers which appear in responses from Task resources among others
+static inline void addPrefixToHeadersInResp(nlohmann::json& json,
+                                            std::string_view prefix)
+{
+    // The passed in "HttpHeaders" should be an array of headers
+    nlohmann::json::array_t* array = json.get_ptr<nlohmann::json::array_t*>();
+    if (array == nullptr)
+    {
+        return;
+    }
+
+    for (nlohmann::json& item : *array)
+    {
+        // Each header is a single string with the form "<Field>: <Value>"
+        std::string* strHeader = item.get_ptr<std::string*>();
+        if (strHeader == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+            continue;
+        }
+
+        std::vector<std::string> strHeaderSplit;
+        boost::split(strHeaderSplit, *strHeader, boost::is_any_of(" "));
+        if ((strHeaderSplit.size() != 2) || (strHeaderSplit[0] != "Location:"))
+        {
+            continue;
+        }
+
+        addPrefixToStringItem(strHeaderSplit[1], prefix);
+        *strHeader = strHeaderSplit[0] + " " + strHeaderSplit[1];
+    }
+}
+
 // Search the json for all URIs and add the supplied prefix if the URI is for
 // an aggregated resource.
 static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
@@ -186,6 +220,14 @@ static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
             if (isPropertyUri(item.first))
             {
                 addPrefixToItem(item.second, prefix);
+                continue;
+            }
+
+            // "HttpHeaders" contains HTTP headers.  Among those we need to
+            // attempt to fix the "Location" header
+            if (item.first == "HttpHeaders")
+            {
+                addPrefixToHeadersInResp(item.second, prefix);
                 continue;
             }
 

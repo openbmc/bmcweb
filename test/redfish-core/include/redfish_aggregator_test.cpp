@@ -206,6 +206,39 @@ TEST(addPrefixes, ParseJsonObjectNestedArray)
               "/redfish/v1/Chassis/5B42_TestChassis");
 }
 
+TEST(addPrefixes, FixHttpHeadersInResponseBody)
+{
+    nlohmann::json taskResp = nlohmann::json::parse(R"(
+    {
+      "@odata.id": "/redfish/v1/TaskService/Tasks/0",
+      "Name": "Task 0",
+      "Payload": {
+        "HttpHeaders": [
+          "User-Agent: curl/7.87.0",
+          "Accept: */*",
+          "Host: 127.127.12.7",
+          "Content-Length: 33",
+          "Location: /redfish/v1/Managers/bmc/LogServices/Dump/Entries/0"
+        ]
+      },
+      "PercentComplete": 100,
+      "TaskMonitor": "/redfish/v1/TaskService/Tasks/0/Monitor",
+      "TaskState": "Completed",
+      "TaskStatus": "OK"
+    }
+    )",
+                                                    nullptr, false);
+
+    addPrefixes(taskResp, "5B247A");
+    EXPECT_EQ(taskResp["@odata.id"], "/redfish/v1/TaskService/Tasks/5B247A_0");
+    EXPECT_EQ(taskResp["TaskMonitor"],
+              "/redfish/v1/TaskService/Tasks/5B247A_0/Monitor");
+    nlohmann::json& httpHeaders = taskResp["Payload"]["HttpHeaders"];
+    EXPECT_EQ(
+        httpHeaders[4],
+        "Location: /redfish/v1/Managers/5B247A_bmc/LogServices/Dump/Entries/0");
+}
+
 // Attempts to perform prefix fixing on a response with response code "result".
 // Fixing should always occur
 void assertProcessResponse(unsigned result)
