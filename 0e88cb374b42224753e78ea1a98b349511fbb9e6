@@ -81,6 +81,30 @@
       },
       "revId": "0e88cb374b42224753e78ea1a98b349511fbb9e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a377aa7_36ce32f6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-17T17:31:27Z",
+      "side": 0,
+      "message": "So all implementations (state management) have this. \nThis is hardcoded to state management (doesn\u0027t use mapper) like it was before, like the Progress codes and getHostState do as well. If this is okay here, I think it is fine to remove the old default.\nThis was also added to https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Control/Boot/RebootAttempts.interface.yaml so it would be an error if you had one property and not the other. I think we are good here.",
+      "parentUuid": "13b38a92_eb7b291a",
+      "range": {
+        "startLine": 1208,
+        "startChar": 0,
+        "endLine": 1208,
+        "endChar": 67
+      },
+      "revId": "0e88cb374b42224753e78ea1a98b349511fbb9e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

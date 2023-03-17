@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027dc0a1_24e84d61",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-17T17:31:27Z",
+      "side": 1,
+      "message": "Not sure why these have to be chained? \nWondering if this call could be on line 3141\n\nBefore we only showed RemainingAutomaticRetryAttempts when AutomaticRetryConfig was RetryAttempts but showed AutomaticRetryAttempts when AutomaticRetryConfig was either value... This moves to show both when you have AutomaticRetryConfig, regardless of the value, which I think makes sense. \n\nI guess this was here before.. If you don\u0027t have a AutomaticRetryConfig, don\u0027t show RemainingAutomaticRetryAttempts / AutomaticRetryAttempts I guess that is why these are chained?\n\nI am okay with this as is.",
+      "revId": "b1e781a80cadbb208ffc20e65f6dfd84a648dc40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
