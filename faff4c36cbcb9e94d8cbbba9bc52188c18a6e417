@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4402fd74_d97bb228",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-03-17T07:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a02cb40a_47f82e63",
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2371da08_9cf091b7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 12
@@ -167,6 +185,30 @@
       "side": 1,
       "message": "Still not clear, why +1? Default value should be the one which is getting configured and that should be applied as is. Please do correct ( Remove +1) the code.",
       "parentUuid": "986d5b9d_6f1ca8b3",
+      "range": {
+        "startLine": 240,
+        "startChar": 60,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "faff4c36cbcb9e94d8cbbba9bc52188c18a6e417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fc870dd_e292c00d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001642
+      },
+      "writtenOn": "2023-03-17T07:28:54Z",
+      "side": 1,
+      "message": "ok, removed + 1 and made the default value as 6 now. Though the existing value was 5 so had kept it as 5 only before.",
+      "parentUuid": "e186eb8b_4ffa3737",
       "range": {
         "startLine": 240,
         "startChar": 60,
