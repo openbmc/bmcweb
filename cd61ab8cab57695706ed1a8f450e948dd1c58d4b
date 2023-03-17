@@ -70,6 +70,24 @@
       "parentUuid": "790b3a56_400870ee",
       "revId": "cd61ab8cab57695706ed1a8f450e948dd1c58d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca8a051_c8c2e10a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-17T17:42:57Z",
+      "side": 1,
+      "message": "This commit is still not wrapped correctly. 50/72 please. https://cbea.ms/git-commit/\n\nPatchset 26: line 10 is wrapped at like 40 chars and then line 13 isn\u0027t wrapped at all (like 85 chars)",
+      "parentUuid": "7b1d6705_98e0f96a",
+      "revId": "cd61ab8cab57695706ed1a8f450e948dd1c58d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
