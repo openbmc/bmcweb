@@ -353,6 +353,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebe2d8da_66968c42",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-17T22:05:27Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "16025170_fcc81d4b",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "f2c55fae39d451604b18edb5efb9e749ff2b055a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "017db5ca_b4b7029a",
