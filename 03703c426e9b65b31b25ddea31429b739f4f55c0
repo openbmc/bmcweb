@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e49dd08_763e21a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-17T07:12:31Z",
+      "side": 1,
+      "message": "@Ravi https://github.com/openbmc/bmcweb/blob/master/Redfish.md needs to be updated to list that this property is supported at /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/",
+      "parentUuid": "93afb75d_0b13c303",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14b23db5_861ae83a",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 22
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-01T03:31:01Z",
       "side": 1,
       "message": "bool",
+      "range": {
+        "startLine": 1184,
+        "startChar": 41,
+        "endLine": 1184,
+        "endChar": 52
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d31476_dbaef344",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-17T07:12:31Z",
+      "side": 1,
+      "message": "const bool should also be fine i think.",
+      "parentUuid": "14b23db5_861ae83a",
       "range": {
         "startLine": 1184,
         "startChar": 41,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f70d4b7_6a91e226",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-17T07:12:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86eaee01_5c412ea5",
+      "range": {
+        "startLine": 1756,
+        "startChar": 18,
+        "endLine": 1756,
+        "endChar": 44
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa927718_5777a624",
@@ -131,6 +203,30 @@
       "side": 1,
       "message": "Property name StatelessAddressAutoConfig is as per schema",
       "parentUuid": "aa927718_5777a624",
+      "range": {
+        "startLine": 1966,
+        "startChar": 17,
+        "endLine": 1966,
+        "endChar": 43
+      },
+      "revId": "03703c426e9b65b31b25ddea31429b739f4f55c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a60c2745_4619bf74",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-03-17T07:12:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2b1a5e7_a89ede31",
       "range": {
         "startLine": 1966,
         "startChar": 17,
