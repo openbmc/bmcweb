@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a2f68f2_02258ae1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-17T09:04:14Z",
+      "side": 1,
+      "message": "no, v6 stateless setup DHCPv6 to false and sets Ipv6 AcceptRA.",
+      "parentUuid": "51e1c6da_97f3051b",
+      "revId": "3ce0f38157d1cc5ae76a509496ce7d95424a0222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37e63cef_d9930441",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 25
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-17T07:59:08Z",
       "side": 1,
       "message": "If dhcp is enabled both v4 and v6, then if slaac is disabled, then it should remain the same (as shown below)? \n\nif (inputDHCP \u003d\u003d \"xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both\")\n{\n    return \"xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both\";\n}",
+      "revId": "3ce0f38157d1cc5ae76a509496ce7d95424a0222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f29b35ad_dfe25c02",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-03-17T09:04:14Z",
+      "side": 1,
+      "message": "Yes, DHCPEnabled flag disabled then its still be same value \"xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both\"\n\nIPv6AcceptRA property will be disabled",
+      "parentUuid": "37e63cef_d9930441",
       "revId": "3ce0f38157d1cc5ae76a509496ce7d95424a0222",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
