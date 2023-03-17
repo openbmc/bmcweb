@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af3c3c6_d93a27fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001702
+      },
+      "writtenOn": "2023-03-17T22:06:15Z",
+      "side": 1,
+      "message": "Addressing the comments.",
+      "parentUuid": "b5ac294d_44fefa7b",
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dac0377_8bb0c648",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-13T17:33:05Z",
       "side": 1,
       "message": "Please leave this off until we have another type.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 2
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0fbac19_03aaa042",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001702
+      },
+      "writtenOn": "2023-03-17T22:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dac0377_8bb0c648",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5732f3c_9997dc77",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001702
+      },
+      "writtenOn": "2023-03-17T22:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "208e8770_7ac22b0c",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c121d0_eba794be",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-03-14T16:26:33Z",
       "side": 1,
       "message": "This chunk of code is responsible for making sure that the object passed to addSatelliteConfig() is in fact a satellite config.\n\nThat\u0027s why addSatelliteConfig() can assume that all of the required fields will be populated and bail out towards the end if anything is missing.\n\nInstead of adding validateSatelliteconfig(), I\u0027d prefer you change addSatelliteConfig() to something like addHttpSatelliteConfig().  It would remain mostly unchanged in the sense that it\u0027s responsible for populating and validating an HTTP satellite config.\n\nWhen adding RDE support in the future you\u0027d add a check after this one which sees if we have an RDE config and act accordingly.  Something like : \n\nif (interface.first \u003d\u003d \"xyz.openbmc_project.Configuration.RdeSatelliteController\")\n{\n    addRdeSatelliteConfig(rdePrefix, interface.second, satelliteInfo);\n}\n\nThe addRdeSatelliteConfig() would populate and validate the satelliteConfig struct for RDE instead of HTTP.",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 17
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "338bf146_9357556d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1001702
+      },
+      "writtenOn": "2023-03-17T22:06:15Z",
+      "side": 1,
+      "message": "Added a separate code flow for RDE devices by adding addRdeSatelliteConfig() and other RDE specific functions.",
+      "parentUuid": "13c121d0_eba794be",
       "range": {
         "startLine": 324,
         "startChar": 0,
@@ -124,6 +214,30 @@
       "side": 1,
       "message": "I agree on the type renaming.  Should that be introduced as part of https://gerrit.openbmc.org/c/openbmc/entity-manager/+/61103 to reduce the spread of the current type name?  Or does it need to be its own effort follow-up effort since it\u0027s going to require changes in bmcweb and phosphor-dbus-interfaces?",
       "parentUuid": "504143c6_c1373060",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 13
+      },
+      "revId": "5656aa2fddf91a4ed1548502725cb102a185dee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af2692bb_b4fd32f2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001702
+      },
+      "writtenOn": "2023-03-17T22:06:15Z",
+      "side": 1,
+      "message": "Added a separate code flow for RDE devices by adding addRdeSatelliteConfig() and other RDE specific functions. Now, RDE code does not reuse HTTP\u0027s data structures.",
+      "parentUuid": "ff99abc8_71f68b7c",
       "range": {
         "startLine": 430,
         "startChar": 0,
