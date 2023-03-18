@@ -34,6 +34,41 @@
       "parentUuid": "644d9def_97421576",
       "revId": "915d2d4e59be56958b04a79ba96e0242ef735f44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af00654_cd43d181",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-18T01:21:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0ba4a5b0_50a0fa95",
+      "revId": "915d2d4e59be56958b04a79ba96e0242ef735f44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6661037_bbc7ca4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-18T01:21:52Z",
+      "side": 1,
+      "message": "The error I got might be due to the bldenv setup issue.\nThe build with the latest code seems good.",
+      "revId": "915d2d4e59be56958b04a79ba96e0242ef735f44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
