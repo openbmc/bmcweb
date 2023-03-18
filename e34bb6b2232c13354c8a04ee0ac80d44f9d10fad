@@ -16,6 +16,24 @@
       "message": "What about the chassis association? How does it know which chassis these belong to?",
       "revId": "e34bb6b2232c13354c8a04ee0ac80d44f9d10fad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f727a41d_e63de8c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-18T00:56:20Z",
+      "side": 1,
+      "message": "If we have 2chassisId, like `chassis1`, `chassis2`:\n\nwhen we want to get the FanSpeedsPercent property via `/redfish/v1/Chassis/chassi1`, the validChassisPath property value is `/xyz/openbmc_project/inventory/system/chassis1`\n\nwhen we want to get the FanSpeedsPercent property via `/redfish/v1/Chassis/chassi2`, the validChassisPath property value is `/xyz/openbmc_project/inventory/system/chassis2`\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57715/11/redfish-core/lib/environment_metrics.hpp#176",
+      "parentUuid": "da14242b_ca968da9",
+      "revId": "e34bb6b2232c13354c8a04ee0ac80d44f9d10fad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
