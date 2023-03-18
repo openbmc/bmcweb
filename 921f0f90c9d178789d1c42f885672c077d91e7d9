@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a91337e8_70ecce23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-18T02:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52096c7_d800bc9d",
+      "revId": "921f0f90c9d178789d1c42f885672c077d91e7d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0c24e10_f7d6b0aa",
@@ -76,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2606e52_d2cf8a75",
+        "filename": "Redfish.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-18T02:53:00Z",
+      "side": 1,
+      "message": "Yup that was leftover from it being included in an earlier patchset.  Removed.",
+      "parentUuid": "d0c24e10_f7d6b0aa",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 10
+      },
+      "revId": "921f0f90c9d178789d1c42f885672c077d91e7d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08e08ddb_f2ae4f2a",
@@ -89,6 +131,30 @@
       "writtenOn": "2023-03-17T22:05:27Z",
       "side": 1,
       "message": "error code should always be passed by reference.",
+      "range": {
+        "startLine": 242,
+        "startChar": 29,
+        "endLine": 242,
+        "endChar": 39
+      },
+      "revId": "921f0f90c9d178789d1c42f885672c077d91e7d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "357d7965_a57951b4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-18T02:53:00Z",
+      "side": 1,
+      "message": "I fixed this one as well as another instance of it in this patch.",
+      "parentUuid": "08e08ddb_f2ae4f2a",
       "range": {
         "startLine": 242,
         "startChar": 29,
