@@ -863,6 +863,7 @@ other.
 - SerialNumber
 - Slot
   - Lanes
+  - Location
   - PCIeType
   - SlotType
 - SparePartNumber
