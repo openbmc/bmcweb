@@ -93,6 +93,30 @@
       },
       "revId": "25fca687e2748eff7c9e6c0d4de5b38b49cb44aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f82c04_c4959c9c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-20T19:21:51Z",
+      "side": 1,
+      "message": "But isn\u0027t that on us to fill out the backend?\nI don\u0027t see a check for empty on other resources with Manufacturer \nE.g.\nhttps://github.com/openbmc/bmcweb/blob/5e7e2dc585dc7a7e62d2b648b541e7f50c39ea5d/redfish-core/lib/storage.hpp#L230\n\nWe discussed in discord years ago (the gerrit commit was https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38044) and the direction was no empty checks except like SparePartNumber. \nWe can revisit this but let\u0027s be consistent",
+      "parentUuid": "24170e97_221d38c8",
+      "range": {
+        "startLine": 263,
+        "startChar": 36,
+        "endLine": 263,
+        "endChar": 61
+      },
+      "revId": "25fca687e2748eff7c9e6c0d4de5b38b49cb44aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
