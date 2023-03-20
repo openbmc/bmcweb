@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ccffe2_dde90923",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-20T19:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4e037e4_e9324a6b",
+      "range": {
+        "startLine": 240,
+        "startChar": 71,
+        "endLine": 240,
+        "endChar": 73
+      },
+      "revId": "25fca687e2748eff7c9e6c0d4de5b38b49cb44aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c43555ac_4131d551",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-20T18:33:23Z",
       "side": 1,
       "message": "do we do this empty check for manufacturer elsewhere? \nFor SparePartNumber, I know we do it because most companies don\u0027t support SparePartNumber",
+      "range": {
+        "startLine": 263,
+        "startChar": 36,
+        "endLine": 263,
+        "endChar": 61
+      },
+      "revId": "25fca687e2748eff7c9e6c0d4de5b38b49cb44aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24170e97_221d38c8",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-03-20T19:01:38Z",
+      "side": 1,
+      "message": "We didn\u0027t have that check. We are getting empty Manufacturer without that check,\n Patch #6 has the output\n\n\"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card10\",\n  \"@odata.type\": \"#PCIeDevice.v1_9_0.PCIeDevice\",\n  \"Id\": \"pcie_card10\",\n  \"Manufacturer\": \"\",\n  \"Model\": \"6B87\",\n  \"Name\": \"PCIe Device\",",
+      "parentUuid": "c43555ac_4131d551",
       "range": {
         "startLine": 263,
         "startChar": 36,
