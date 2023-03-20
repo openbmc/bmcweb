@@ -1113,6 +1113,7 @@ functions the same like the default implementation under the System resource.
 - SerialNumber
 - Slot
   - Lanes
+  - Location
   - PCIeType
   - SlotType
 - SparePartNumber
