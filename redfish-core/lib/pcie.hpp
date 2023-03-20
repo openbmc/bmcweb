@@ -24,10 +24,14 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/pcie_util.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+
+#include <memory>
+#include <string>
 
 namespace redfish
 {
@@ -273,6 +277,31 @@ inline void
 }
 
 inline void
+    getPCIeSlotLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& pcieDevicePath,
+                        const std::string& service)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& property) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error for Location {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        asyncResp->res.jsonValue["Slot"]["Location"]["PartLocation"]
+                                ["ServiceLabel"] = property;
+        });
+}
+
+inline void
     afterGetDbusObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& pcieDeviceSlot,
                        const boost::system::error_code& ec,
@@ -286,6 +315,7 @@ inline void
         return;
     }
     getPCIeSlotProperties(asyncResp, pcieDeviceSlot, object.begin()->first);
+    getPCIeSlotLocation(asyncResp, pcieDeviceSlot, object.begin()->first);
 }
 
 inline void afterGetPCIeDeviceSlotPath(
@@ -573,6 +603,7 @@ inline void afterGetValidPCieSlotPath(
 {
     addPCIeSlotCommonProperties(asyncResp, pcieSlotId);
     getPCIeSlotProperties(asyncResp, pcieSlotPath, service);
+    getPCIeSlotLocation(asyncResp, pcieSlotPath, service);
 }
 
 inline void afterGetValidPCieDevicePath(
