@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "724215c8_d0ae5e92",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-20T10:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1542f2e5_3f5c46aa",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 25
+      },
+      "revId": "55242088c6e4edfa69dc9bbb55100742be24937d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5b9ca35_bbe2e50c",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-14T16:13:24Z",
       "side": 1,
       "message": "I don\u0027t see handling of the \"else\" cases here.  If a user doesn\u0027t provide Id, won\u0027t this break, and send in an empty string?",
+      "revId": "55242088c6e4edfa69dc9bbb55100742be24937d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25cbc95d_bcf7580e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-20T10:09:23Z",
+      "side": 1,
+      "message": "As far as I know there is no clear documentation if Id which is mandatory in schema should also be mandatory during POST request. So we assumed that it might be empty in POST request and proper id will be generated in backend.\n\nIf you think that we should make it mandatory in POST I can change it.",
+      "parentUuid": "e5b9ca35_bbe2e50c",
       "revId": "55242088c6e4edfa69dc9bbb55100742be24937d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69d44f52_e4f45801",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-20T10:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfefc71a_a66e2707",
+      "range": {
+        "startLine": 574,
+        "startChar": 64,
+        "endLine": 574,
+        "endChar": 73
+      },
+      "revId": "55242088c6e4edfa69dc9bbb55100742be24937d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba427ab4_73bf38e4",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-03-14T16:13:24Z",
       "side": 1,
       "message": "Why does this property need to come from dbus?  Isn\u0027t it always fixed data and could just be hardcoded?",
+      "range": {
+        "startLine": 64,
+        "startChar": 41,
+        "endLine": 64,
+        "endChar": 64
+      },
+      "revId": "55242088c6e4edfa69dc9bbb55100742be24937d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9872c41_2fe288b4",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-20T10:09:23Z",
+      "side": 1,
+      "message": "Only reason that I can think of is if someone wishes to use different version of telemetry service backend that supports more or less types of collection functions.\n\nI changed it to hardcoded value.",
+      "parentUuid": "ba427ab4_73bf38e4",
       "range": {
         "startLine": 64,
         "startChar": 41,
