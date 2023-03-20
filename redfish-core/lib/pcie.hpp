@@ -223,6 +223,32 @@ inline std::optional<pcie_device::PCIeTypes>
     return std::nullopt;
 }
 
+inline void
+    getPCIeDeviceLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& pcieDevicePath,
+                          const std::string& service)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [aResp](const boost::system::error_code& ec,
+                const std::string& property) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Location"
+                                 << ec.value();
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+        aResp->res
+            .jsonValue["Slot"]["Location"]["PartLocation"]["ServiceLabel"] =
+            property;
+        });
+}
+
 inline void getPCIeDeviceAsset(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& pcieDevicePath,
                                const std::string& service)
@@ -409,6 +435,7 @@ inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
             addPCIeDeviceProperties(aResp->res, pcieDeviceId,
                                     pcieDevProperties);
             });
+        getPCIeDeviceLocation(aResp, pcieDevicePath, service);
     });
 }
 
