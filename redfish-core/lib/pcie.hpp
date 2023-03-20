@@ -236,6 +236,31 @@ inline void getPCIeDeviceSlotPath(
         });
 }
 
+inline void
+    getPCIeSlotLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& pcieDevicePath,
+                        const std::string& service)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp](const boost::system::error_code& ec,
+                const std::string& property) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Location"
+                                 << ec.value();
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        asyncResp->res.jsonValue["Slot"]["Location"]["PartLocation"]
+                                ["ServiceLabel"] = property;
+        });
+}
+
 inline void doSlotLocationAndProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieSlotPath, const std::string& service)
@@ -243,8 +268,9 @@ inline void doSlotLocationAndProperties(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code ec,
-                    const dbus::utility::DBusPropertiesMap& properties) {
+        [asyncResp, pcieSlotPath,
+         service](const boost::system::error_code ec,
+                  const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error for getAllProperties"
@@ -253,6 +279,7 @@ inline void doSlotLocationAndProperties(
             return;
         }
         addPCIeSlotProperties(asyncResp->res, properties);
+        getPCIeSlotLocation(asyncResp, pcieSlotPath, service);
         });
 }
 
