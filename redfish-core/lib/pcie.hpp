@@ -27,6 +27,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+// might need <boost/system/linux_error.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
@@ -335,10 +336,51 @@ inline void getPCIeDeviceSlotPath(
         });
 }
 
-inline void afterGetDbusObject(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& pcieDeviceSlot, const boost::system::error_code& ec,
-    const dbus::utility::MapperGetObject& object)
+inline void
+    getPCIeSlotProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& pcieDeviceSlot,
+                          const std::string& service)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, pcieDeviceSlot,
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
+        [asyncResp](
+            const boost::system::error_code& ec,
+            const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
+        addPCIeSlotProperties(asyncResp->res, ec, pcieSlotProperties);
+        });
+}
+
+inline void
+    getPCIeSlotLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& pcieDevicePath,
+                        const std::string& service)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& property) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error for Location {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        asyncResp->res.jsonValue["Slot"]["Location"]["PartLocation"]
+                                ["ServiceLabel"] = property;
+        });
+}
+
+inline void
+    afterGetDbusObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& pcieDeviceSlot,
+                       const boost::system::error_code& ec,
+                       const dbus::utility::MapperGetObject& object)
 {
     if (ec || object.empty())
     {
@@ -347,14 +389,8 @@ inline void afterGetDbusObject(
         messages::internalError(asyncResp->res);
         return;
     }
-    dbus::utility::getAllProperties(
-        object.begin()->first, pcieDeviceSlot,
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](
-            const boost::system::error_code& ec2,
-            const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
-            addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
-        });
+    getPCIeSlotProperties(asyncResp, pcieDeviceSlot, object.begin()->first);
+    getPCIeSlotLocation(asyncResp, pcieDeviceSlot, object.begin()->first);
 }
 
 inline void afterGetPCIeDeviceSlotPath(
@@ -583,6 +619,16 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.jsonValue["Id"] = pcieDeviceId;
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+}
+
+inline void afterGetValidPCieSlotPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieSlotId, const std::string& pcieSlotPath,
+    const std::string& service)
+{
+    addPCIeSlotCommonProperties(asyncResp, pcieSlotId);
+    getPCIeSlotProperties(asyncResp, pcieSlotPath, service);
+    getPCIeSlotLocation(asyncResp, pcieSlotPath, service);
 }
 
 inline void afterGetValidPcieDevicePath(
