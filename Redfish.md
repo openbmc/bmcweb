@@ -841,6 +841,11 @@ other.
 - PCIeInterface
   - LanesInUse
 
+### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
+
+- Slot
+  - Location
+
 ### /redfish/v1/Systems/system/Processors/
 
 #### ProcessorCollection
