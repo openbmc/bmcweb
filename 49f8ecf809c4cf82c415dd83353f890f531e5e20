@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f60247_a0df25d8",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-21T01:22:54Z",
+      "side": 1,
+      "message": "sorry, I fixed it. Please check and let me know.",
+      "parentUuid": "621fe75f_f6f8fe57",
+      "range": {
+        "startLine": 199,
+        "startChar": 9,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "49f8ecf809c4cf82c415dd83353f890f531e5e20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0120f03_7ca236d3",

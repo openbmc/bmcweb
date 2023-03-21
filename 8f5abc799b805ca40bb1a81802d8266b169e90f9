@@ -16,6 +16,24 @@
       "message": "translated?",
       "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d33c23c_5b7a37c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-21T01:22:54Z",
+      "side": 1,
+      "message": "yes, function translateUserGroup() translates unix group to the redfish group.",
+      "parentUuid": "49e668d4_697f9832",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
