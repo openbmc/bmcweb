@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "943ebf30_e0d2fe47",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-21T15:54:39Z",
+      "side": 1,
+      "message": "yep.  same advice applies.\n\nsize_t npos \u003d strHeader-\u003efind(\u0027 \u0027);\n\n\nAlthough looking at this again, this might be one of the few correct uses of starts_with.\nconstexpr std::string_view location \u003d \"Location: \";\nif (boost::starts_with(*strHeader, location){\n   std::string header \u003d strHeader.substr(location.size();\n   addPrefixToStringItme(header, prefix);\n   *strHeader \u003d location + header;\n}",
+      "parentUuid": "f2a21716_089d4a28",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 72
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72d060fa_eb9632de",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "At least from the schema, HttpHeaders appear under /redfish/v1/EventService/Subscriptions/{EventDestinationId}\n/redfish/v1/TaskService/Tasks/{TaskId}\n\nWhile we don\u0027t aggregate TaskService, we do aggregate Tasks",
       "parentUuid": "72d060fa_eb9632de",
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91f5350c_030fb388",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-21T15:54:39Z",
+      "side": 1,
+      "message": "hmmmmm.  I wonder if we should be aggregating tasks.  That ship has probably sailed though.",
+      "parentUuid": "4345fea9_9a5ed52b",
       "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +162,30 @@
       "side": 1,
       "message": "In the schema I only see \"HttpHeaders\" being a property of EventDestination, Job, and Task.  If the current response is getting aggregated in the first place then we want to attempt to perform prefix fixing.\n\nIf you\u0027re instead referring to the individual HTTP headers contained by HttpHeaders then addPrefixToHeadersInResp() makes sure that the \"Location\" header is the only one we\u0027d attempt to fix.  This is consistent with how addAggregatedHeaders() only attempts to fix the \"Location\" header.",
       "parentUuid": "041b9074_bd189522",
+      "range": {
+        "startLine": 228,
+        "startChar": 31,
+        "endLine": 228,
+        "endChar": 42
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af050391_76420a85",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-21T15:54:39Z",
+      "side": 1,
+      "message": "We shouldn\u0027t aggregate EventDestination headers for sure.  Job and task are debatable how an aggregator should handle them.\n\nI\u0027d still like some level of type check here before we mess with the value.",
+      "parentUuid": "1ebacffd_001e5302",
       "range": {
         "startLine": 228,
         "startChar": 31,
