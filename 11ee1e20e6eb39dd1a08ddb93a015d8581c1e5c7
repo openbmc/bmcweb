@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee36f3bd_dd905853",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-21T12:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a5684d7_4369a5a1",
+      "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f199a1b0_75f556c4",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e2071cd_1d84ab93",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-21T12:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f199a1b0_75f556c4",
+      "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aca5d8db_59ce152a",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-03-10T23:38:33Z",
       "side": 1,
       "message": "Please read and understand how dbus enumerations work.  If your service implemented the dbus side of this correctly, I would expect redfish service validator to fail.",
+      "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e7327e_8030b424",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-21T12:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aca5d8db_59ce152a",
       "revId": "11ee1e20e6eb39dd1a08ddb93a015d8581c1e5c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
