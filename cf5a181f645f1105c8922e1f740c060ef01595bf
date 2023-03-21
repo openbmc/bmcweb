@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "039e23f7_99f8dc5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-21T14:44:10Z",
+      "side": 1,
+      "message": "Hi Ed / Gunnar,\n\nPlease provide your suggestions/approval for this patch.\n\nThanks.",
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
