@@ -257,6 +257,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5a1e169_c10444f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-21T22:54:18Z",
+      "side": 1,
+      "message": "This ended up being a one line change to the still under review patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556.  For that reason I\u0027m just going to roll this change into that patch.\n\nThis patch will instead focus on improving processContainsSubordinateResponse() so that it can correctly process expanded response resources which are only supported by the satellite BMC.",
+      "parentUuid": "8c9ab452_d684a60c",
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76a84af1_8fb99a90",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -268,6 +286,24 @@
       "writtenOn": "2023-02-07T20:17:02Z",
       "side": 1,
       "message": "same here",
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0f4bb3b_70f1c5ec",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-21T22:54:18Z",
+      "side": 1,
+      "message": "Reverted this change since it\u0027s no longer needed.",
+      "parentUuid": "76a84af1_8fb99a90",
       "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -333,6 +369,30 @@
       "side": 1,
       "message": "Right, I saw this too. Please use urlView. It has everything you need I believe",
       "parentUuid": "762feb52_3f34b650",
+      "range": {
+        "startLine": 543,
+        "startChar": 30,
+        "endLine": 543,
+        "endChar": 41
+      },
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2057a882_d99d1f29",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-21T22:54:18Z",
+      "side": 1,
+      "message": "I reverted this change since it\u0027s no longer needed.  I did however follow your suggestion when modifying forwardContainsSubordinateRequests().",
+      "parentUuid": "1e237a6e_44ee96f5",
       "range": {
         "startLine": 543,
         "startChar": 30,
