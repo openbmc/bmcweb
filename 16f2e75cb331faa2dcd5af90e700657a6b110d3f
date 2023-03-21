@@ -106,6 +106,24 @@
       "parentUuid": "77b4d619_8fccfc7d",
       "revId": "16f2e75cb331faa2dcd5af90e700657a6b110d3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d193a372_cd886ba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-21T21:48:55Z",
+      "side": 1,
+      "message": "I have tested this patch and I was able to see the host console.",
+      "parentUuid": "f315a227_54abb00a",
+      "revId": "16f2e75cb331faa2dcd5af90e700657a6b110d3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
