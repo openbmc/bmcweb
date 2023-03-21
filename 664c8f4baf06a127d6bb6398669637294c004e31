@@ -237,6 +237,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c9ab452_d684a60c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-21T16:07:24Z",
+      "side": 1,
+      "message": "A form of it will be needed whenever https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556 gets merged.  See my previous comments from March 8 for explanations and links on why that\u0027s the case.\n\nMy plan is to rebase this patch on top of that patch and make the changes I outline in those comments.  At that point it should be clearer as to why this patch is still needed.  I was also waiting to rebase until https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61131 got merged since there is there is a sort of dependency on that patch as well.  That\u0027s now merged.",
+      "parentUuid": "639b41be_cd170307",
+      "revId": "664c8f4baf06a127d6bb6398669637294c004e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76a84af1_8fb99a90",
