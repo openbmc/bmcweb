@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc3fbf0_1bc5e5ce",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-21T18:50:21Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "78a49d7b_e48e79eb",
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94e61000_b5eef00e",
@@ -115,6 +133,30 @@
       "side": 1,
       "message": "I made the switch",
       "parentUuid": "c97a4a23_a5ca120a",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "0dcea608da493084444d890f6671c3f9c20d2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6021c287_a355d998",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-21T18:50:21Z",
+      "side": 1,
+      "message": "ACK.  As a general rule, magic number \u003d\u003d bad.",
+      "parentUuid": "7300ac61_3b95cbab",
       "range": {
         "startLine": 64,
         "startChar": 35,
