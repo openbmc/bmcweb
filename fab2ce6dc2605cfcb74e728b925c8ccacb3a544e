@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b7392d5_2f293c74",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-21T09:47:44Z",
+      "side": 1,
+      "message": "\u003e nit: value can be const reference since its a input argument\n\nNo, because value a POD",
+      "parentUuid": "08e25aa2_070866de",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "328bb7b7_47a31078",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 14
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-21T02:40:29Z",
       "side": 1,
       "message": "BMCWEB_LOG_ERROR please.\nhttps://github.com/openbmc/bmcweb/blob/0e88cb374b42224753e78ea1a98b349511fbb9e6/DEVELOPING.md#logging-levels",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3880ddba_22d77d7a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-21T09:47:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "328bb7b7_47a31078",
       "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,30 @@
       "writtenOn": "2023-03-21T02:40:29Z",
       "side": 1,
       "message": "BMCWEB_LOG_ERROR please",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 29
+      },
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f61add_bbda0b9a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-21T09:47:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dd6bfb5_cbb47a82",
       "range": {
         "startLine": 77,
         "startChar": 12,
@@ -93,6 +153,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a4086a_07af6467",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-21T09:47:44Z",
+      "side": 1,
+      "message": "Oops, my bad.\nUpdated",
+      "parentUuid": "d2d15915_07b40f53",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4c466de_8237fea5",
@@ -106,6 +184,24 @@
       "writtenOn": "2023-03-21T02:40:29Z",
       "side": 1,
       "message": "Same here, something more like \n\n```\nif (ec)\n{\n        if (ec.value() !\u003d EBADR)\n        {\n           BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus response error on assocation \" \u003c\u003c ec.message()\n           messages::internalError(asyncResp-\u003eres);\n        }\nreturn;\n}\n```\n?",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e86fd5_849b0898",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-21T09:47:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4c466de_8237fea5",
       "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
