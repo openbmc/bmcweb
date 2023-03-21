@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08e25aa2_070866de",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2023-03-21T04:02:03Z",
+      "side": 1,
+      "message": "nit: value can be const reference since its a input argument",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "328bb7b7_47a31078",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 14
@@ -54,6 +71,24 @@
       "writtenOn": "2023-03-21T02:40:29Z",
       "side": 1,
       "message": "Even if it is EBADR, don\u0027t you want to stop? something more like?\n```\nif (ec)\n{\n        if (ec.value() !\u003d EBADR)\n        {\n           BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus response error on Fan speed \" \u003c\u003c ec.message()\n           messages::internalError(asyncResp-\u003eres);\n        }\nreturn;\n}\n```",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d15915_07b40f53",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2023-03-21T04:02:03Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "70361d1c_515d2405",
       "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
