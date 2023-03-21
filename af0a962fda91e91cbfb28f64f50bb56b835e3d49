@@ -33,6 +33,29 @@
       "message": "Redfish.md update?",
       "revId": "af0a962fda91e91cbfb28f64f50bb56b835e3d49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9628b534_349ad22a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-21T02:40:59Z",
+      "side": 1,
+      "message": "ERROR please",
+      "range": {
+        "startLine": 228,
+        "startChar": 28,
+        "endLine": 228,
+        "endChar": 45
+      },
+      "revId": "af0a962fda91e91cbfb28f64f50bb56b835e3d49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
