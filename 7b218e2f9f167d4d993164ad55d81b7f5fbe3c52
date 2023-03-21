@@ -80,6 +80,23 @@
       "message": "Please use your full name here, not a username \nFrom https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages \n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)",
       "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e9af5ac_7c44a95a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-03-21T08:51:45Z",
+      "side": 1,
+      "message": "Hi Ed,\nThank you for the inputs.\nI will have internal discussion with the team and will get back to you on this.",
+      "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
