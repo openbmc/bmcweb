@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c364c6fe_3c3f10a3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-21T02:34:29Z",
+      "side": 1,
+      "message": "I don\u0027t understand the order of these, but I guess it doesn\u0027t matter. \n\n        addPCIeDeviceHeader(aResp, pcieDeviceId);\n        getPCIeDeviceAsset(aResp, pcieDevicePath, service);\n        getPCIeDeviceLocation(aResp, pcieDevicePath, service);\n\nseems the cleanest to me",
+      "revId": "e7637a3cf3f83390bb89589bb58c0a8c2a601925",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
