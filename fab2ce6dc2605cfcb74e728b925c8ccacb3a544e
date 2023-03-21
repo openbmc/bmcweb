@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "328bb7b7_47a31078",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-21T02:40:29Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_ERROR please.\nhttps://github.com/openbmc/bmcweb/blob/0e88cb374b42224753e78ea1a98b349511fbb9e6/DEVELOPING.md#logging-levels",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dd6bfb5_cbb47a82",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-21T02:40:29Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_ERROR please",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 29
+      },
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70361d1c_515d2405",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-21T02:40:29Z",
+      "side": 1,
+      "message": "Even if it is EBADR, don\u0027t you want to stop? something more like?\n```\nif (ec)\n{\n        if (ec.value() !\u003d EBADR)\n        {\n           BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus response error on Fan speed \" \u003c\u003c ec.message()\n           messages::internalError(asyncResp-\u003eres);\n        }\nreturn;\n}\n```",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c466de_8237fea5",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-21T02:40:29Z",
+      "side": 1,
+      "message": "Same here, something more like \n\n```\nif (ec)\n{\n        if (ec.value() !\u003d EBADR)\n        {\n           BMCWEB_LOG_ERROR \u003c\u003c \"D-Bus response error on assocation \" \u003c\u003c ec.message()\n           messages::internalError(asyncResp-\u003eres);\n        }\nreturn;\n}\n```\n?",
+      "revId": "fab2ce6dc2605cfcb74e728b925c8ccacb3a544e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
