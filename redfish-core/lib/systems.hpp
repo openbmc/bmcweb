@@ -21,12 +21,12 @@
 #include "health.hpp"
 #include "hypervisor_system.hpp"
 #include "led.hpp"
-#include "pcie.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -3135,7 +3135,7 @@ inline void requestRoutesSystems(App& app)
         getBootProperties(asyncResp);
         getBootProgress(asyncResp);
         getBootProgressLastStateTime(asyncResp);
-        getPCIeDeviceList(asyncResp, "PCIeDevices");
+        pcie_util::getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
         getAutomaticRetryPolicy(asyncResp);
