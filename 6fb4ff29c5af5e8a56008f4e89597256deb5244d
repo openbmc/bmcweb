@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b204abab_61d5b1a3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-22T00:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0d2343_e4a3425e",
+      "range": {
+        "startLine": 732,
+        "startChar": 34,
+        "endLine": 732,
+        "endChar": 50
+      },
+      "revId": "6fb4ff29c5af5e8a56008f4e89597256deb5244d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68be2ee9_0c9e1abb",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-21T22:19:33Z",
       "side": 1,
       "message": "This needs to be url.path().  url.buffer() will include the query params if they exist.",
+      "range": {
+        "startLine": 1218,
+        "startChar": 35,
+        "endLine": 1218,
+        "endChar": 47
+      },
+      "revId": "6fb4ff29c5af5e8a56008f4e89597256deb5244d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35054083_3013efb5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-22T00:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68be2ee9_0c9e1abb",
       "range": {
         "startLine": 1218,
         "startChar": 35,
