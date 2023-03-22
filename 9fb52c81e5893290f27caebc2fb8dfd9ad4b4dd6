@@ -16,6 +16,23 @@
       "message": "Hi all,\nGentle remainder, Please review on this patch if possible.",
       "revId": "9fb52c81e5893290f27caebc2fb8dfd9ad4b4dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e1f79c_8641faf1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T15:43:12Z",
+      "side": 1,
+      "message": "These LOG traces are more useful if you add the ec.\nOh well.",
+      "revId": "9fb52c81e5893290f27caebc2fb8dfd9ad4b4dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
