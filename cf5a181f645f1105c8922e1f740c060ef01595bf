@@ -16,6 +16,92 @@
       "message": "Hi Ed / Gunnar,\n\nPlease provide your suggestions/approval for this patch.\n\nThanks.",
       "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb24b602_91094d6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T15:25:34Z",
+      "side": 1,
+      "message": "Seems reasonable, a couple small things",
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa57a69_414366f9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T15:25:34Z",
+      "side": 1,
+      "message": "by reference please: \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "range": {
+        "startLine": 345,
+        "startChar": 45,
+        "endLine": 345,
+        "endChar": 55
+      },
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dcef70a_c7295791",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T15:25:34Z",
+      "side": 1,
+      "message": "LOG_ERROR here please\nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels",
+      "range": {
+        "startLine": 349,
+        "startChar": 35,
+        "endLine": 349,
+        "endChar": 40
+      },
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd2e4ec0_3348d606",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T15:25:34Z",
+      "side": 1,
+      "message": "always best if you include like the ec, makes the LOG Message a lot more useful",
+      "range": {
+        "startLine": 350,
+        "startChar": 67,
+        "endLine": 350,
+        "endChar": 69
+      },
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
