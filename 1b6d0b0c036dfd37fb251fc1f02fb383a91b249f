@@ -158,6 +158,24 @@
       "message": "Where is the targets being used?",
       "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df75ec9b_3cba3064",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 81
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-22T00:30:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like it\u0027s being used at all, which is also why the test accepted an incorrect target.\n\nthis has been fixed in the latest commit.",
+      "parentUuid": "3bfb9b34_5f226bca",
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
