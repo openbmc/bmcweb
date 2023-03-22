@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de965ef9_e0a5fb5b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-03-22T14:25:16Z",
+      "side": 1,
+      "message": "This is a change in behavior from the previous code. It\u0027s an optional property so I would agree with this change (and it was probably added based on the code review comments for 1177), but would have been best to put in a separate patch set and focus this one only on the new feature.",
+      "revId": "b1e781a80cadbb208ffc20e65f6dfd84a648dc40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "027dc0a1_24e84d61",
@@ -14,6 +31,24 @@
       "writtenOn": "2023-03-17T17:31:27Z",
       "side": 1,
       "message": "Not sure why these have to be chained? \nWondering if this call could be on line 3141\n\nBefore we only showed RemainingAutomaticRetryAttempts when AutomaticRetryConfig was RetryAttempts but showed AutomaticRetryAttempts when AutomaticRetryConfig was either value... This moves to show both when you have AutomaticRetryConfig, regardless of the value, which I think makes sense. \n\nI guess this was here before.. If you don\u0027t have a AutomaticRetryConfig, don\u0027t show RemainingAutomaticRetryAttempts / AutomaticRetryAttempts I guess that is why these are chained?\n\nI am okay with this as is.",
+      "revId": "b1e781a80cadbb208ffc20e65f6dfd84a648dc40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a15f006f_c918696f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-03-22T14:25:16Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t see any issues with always showing it, even when auto reboot is disabled. But, this is another change from the previous behavior which should have been a separate patch set IMO.",
+      "parentUuid": "027dc0a1_24e84d61",
       "revId": "b1e781a80cadbb208ffc20e65f6dfd84a648dc40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
