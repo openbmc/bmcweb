@@ -16,6 +16,24 @@
       "message": "I don\u0027t like the lack of code safety here (in any of these APIs) but this is no worse than what we had.",
       "revId": "dafa3647e4ec2ae3a64373cece391854a8897a85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1736b0d2_2185019b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-03-22T15:49:27Z",
+      "side": 1,
+      "message": "Yes, I started converting Request to a shared_ptr as you suggested in the previous commit but it was too big a change just to fix this bug.",
+      "parentUuid": "c105bada_dbfa4125",
+      "revId": "dafa3647e4ec2ae3a64373cece391854a8897a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
