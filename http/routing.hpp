@@ -1335,7 +1335,7 @@ class Router
     }
 
     template <typename CallbackFn>
-    void afterGetUserInfo(Request&& req,
+    void afterGetUserInfo(Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           BaseRule& rule, CallbackFn&& callback,
                           const boost::system::error_code& ec,
@@ -1356,11 +1356,11 @@ class Router
             asyncResp->res.result(boost::beast::http::status::forbidden);
             return;
         }
-        callback(std::move(req));
+        callback(req);
     }
 
     template <typename CallbackFn>
-    void validatePrivilege(Request&& req,
+    void validatePrivilege(Request& req,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            BaseRule& rule, CallbackFn&& callback)
     {
@@ -1370,11 +1370,11 @@ class Router
         }
         std::string username = req.session->username;
         crow::connections::systemBus->async_method_call(
-            [this, req{std::move(req)}, asyncResp, &rule,
+            [this, &req, asyncResp, &rule,
              callback(std::forward<CallbackFn>(callback))](
                 const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
-            afterGetUserInfo(std::move(req), asyncResp, rule,
+            afterGetUserInfo(req, asyncResp, rule,
                              std::forward<CallbackFn>(callback), ec,
                              userInfoMap);
             },
@@ -1431,9 +1431,9 @@ class Router
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
         validatePrivilege(
-            std::move(req), asyncResp, rule,
+            req, asyncResp, rule,
             [&rule, asyncResp, adaptor(std::forward<Adaptor>(adaptor))](
-                Request&& thisReq) mutable {
+                Request& thisReq) mutable {
             rule.handleUpgrade(thisReq, asyncResp, std::move(adaptor));
             });
     }
@@ -1504,8 +1504,8 @@ class Router
             return;
         }
         validatePrivilege(
-            std::move(req), asyncResp, rule,
-            [&rule, asyncResp, params](Request&& thisReq) mutable {
+            req, asyncResp, rule,
+            [&rule, asyncResp, params](Request& thisReq) mutable {
             rule.handle(thisReq, asyncResp, params);
             });
     }
