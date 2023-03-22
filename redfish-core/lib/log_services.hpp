@@ -946,12 +946,15 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::vector<std::pair<std::string, std::variant<std::string, uint64_t>>>
         createDumpParamVec;
 
-    createDumpParamVec.emplace_back(
-        "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorId",
-        req.session->clientIp);
-    createDumpParamVec.emplace_back(
-        "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorType",
-        "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client");
+    if (req.session != nullptr)
+    {
+        createDumpParamVec.emplace_back(
+            "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorId",
+            req.session->clientIp);
+        createDumpParamVec.emplace_back(
+            "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorType",
+            "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client");
+    }
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, payload(task::Payload(req)),
