@@ -16,6 +16,24 @@
       "message": "This commit is doing more than adding more inventory types..\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/39574 is a commit for assmeblies, is this supposed to go on top?",
       "revId": "9b3a4080f9dabf332df9ac269d89350b2e2f7b5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbc49f6f_1370e566",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-22T15:58:19Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4e185796_08279390",
+      "revId": "9b3a4080f9dabf332df9ac269d89350b2e2f7b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
