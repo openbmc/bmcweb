@@ -2358,9 +2358,9 @@ inline bool
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "Enabled", enabled,
-        "EnterUtilizationPercent", enterUtilizationPercent,
-        "ExitUtilizationPercent", exitUtilizationPercent, "ExitDwellTime",
-        exitDwellTime);
+        "EnterUtilizationPercent", enterUtilizationPercent, "EnterDwellTime",
+        enterDwellTime, "ExitUtilizationPercent", exitUtilizationPercent,
+        "ExitDwellTime", exitDwellTime);
 
     if (!success)
     {
