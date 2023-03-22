@@ -190,6 +190,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc0f4dd2_71fab7b0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3530,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2023-03-22T06:50:33Z",
+      "side": 1,
+      "message": "Just wondering that do thess functions also need to pass in `computerSystemIndex` to support multi-host?\n\nI am seeing some errors on bletchley when testing with this patch.\n```\n[DEBUG \"systems.hpp\":1393] DBUS response has more than 1 TPM Enable object:6\n[CRITICAL \"error_messages.cpp\":282] Internal Error ../../../../../../../../dev_src/bmcweb/redfish-core/lib/systems.hpp(1397:36) `redfish::getTrustedModuleRequiredToBoot(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026)::\u003clambda(const boost::system::error_code\u0026, const dbus::utility::MapperGetSubTreeResponse\u0026)\u003e`:\n```",
+      "range": {
+        "startLine": 3528,
+        "startChar": 0,
+        "endLine": 3530,
+        "endChar": 33
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66d49747_b0d0698f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 54
