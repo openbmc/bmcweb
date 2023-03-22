@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c105bada_dbfa4125",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-22T01:31:30Z",
+      "side": 1,
+      "message": "I don\u0027t like the lack of code safety here (in any of these APIs) but this is no worse than what we had.",
+      "revId": "dafa3647e4ec2ae3a64373cece391854a8897a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
