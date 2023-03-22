@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Ninad Palsule <ninadpalsule@us.ibm.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Michal Orzel <michalx.orzel@intel.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Wed, 22 Mar 2023 21:09:03 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/51428
+Project: openbmc/bmcweb
+Branch: refs/heads/master
