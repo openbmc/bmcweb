@@ -32,8 +32,9 @@ namespace redfish
 {
 
 static constexpr char const* pciePath = "/xyz/openbmc_project/inventory";
-constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
-    "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+constexpr std::array<std::string_view, 2> pcieDeviceInterface{
+    "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+    "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
 
 static inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
@@ -92,46 +93,6 @@ static inline void getValidPCIeDevicePath(
         }
         handlePCIeDevicePath(pcieDeviceId, aResp, pcieDevicePaths, callback);
         return;
-        });
-}
-
-static inline void
-    getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& name)
-{
-    dbus::utility::getSubTreePaths(
-        pciePath, 1, {},
-        [asyncResp, name](const boost::system::error_code& ec,
-                          const dbus::utility::MapperGetSubTreePathsResponse&
-                              pcieDevicePaths) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
-                             << ec.message();
-            // Not an error, system just doesn't have PCIe info
-            return;
-        }
-        nlohmann::json& pcieDeviceList = asyncResp->res.jsonValue[name];
-        pcieDeviceList = nlohmann::json::array();
-        for (const std::string& pcieDevicePath : pcieDevicePaths)
-        {
-            size_t devStart = pcieDevicePath.rfind('/');
-            if (devStart == std::string::npos)
-            {
-                continue;
-            }
-
-            std::string devName = pcieDevicePath.substr(devStart + 1);
-            if (devName.empty())
-            {
-                continue;
-            }
-            nlohmann::json::object_t pcieDevice;
-            pcieDevice["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "PCIeDevices", devName);
-            pcieDeviceList.push_back(std::move(pcieDevice));
-        }
-        asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
         });
 }
 
