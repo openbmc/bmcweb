@@ -16,6 +16,29 @@
       "message": "Gentle Reminder for review.",
       "revId": "216834a17463f934cb5b817d31d78bbc37f43375",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58e84d7_11488435",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T16:09:39Z",
+      "side": 1,
+      "message": "more useful if it included the ec. \noh well.",
+      "range": {
+        "startLine": 354,
+        "startChar": 76,
+        "endLine": 354,
+        "endChar": 78
+      },
+      "revId": "216834a17463f934cb5b817d31d78bbc37f43375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
