@@ -33,6 +33,29 @@
       "message": "These LOG traces are more useful if you add the ec.\nOh well.",
       "revId": "9fb52c81e5893290f27caebc2fb8dfd9ad4b4dd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6bc2c41_ef937839",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-22T15:43:59Z",
+      "side": 1,
+      "message": "More useful if you add what the interface is, that is invalid.\nOh well.",
+      "range": {
+        "startLine": 362,
+        "startChar": 57,
+        "endLine": 362,
+        "endChar": 60
+      },
+      "revId": "9fb52c81e5893290f27caebc2fb8dfd9ad4b4dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
