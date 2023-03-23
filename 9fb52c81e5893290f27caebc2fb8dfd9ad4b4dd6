@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9397fd_35b30aa0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2023-03-23T03:51:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "24e1f79c_8641faf1",
+      "revId": "9fb52c81e5893290f27caebc2fb8dfd9ad4b4dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6bc2c41_ef937839",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-03-22T15:43:59Z",
       "side": 1,
       "message": "More useful if you add what the interface is, that is invalid.\nOh well.",
+      "range": {
+        "startLine": 362,
+        "startChar": 57,
+        "endLine": 362,
+        "endChar": 60
+      },
+      "revId": "9fb52c81e5893290f27caebc2fb8dfd9ad4b4dd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81832e4e_8972f3e5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2023-03-23T03:51:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6bc2c41_ef937839",
       "range": {
         "startLine": 362,
         "startChar": 57,
