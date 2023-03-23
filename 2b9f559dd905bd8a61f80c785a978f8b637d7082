@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3274b2d1_48ead67d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "whether we need this WARNING msg in commit msg",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6579aab3_7725c3b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "917f7f06_fb354516",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3957d642_cff4fca3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "can we add some error msg here",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3717c0c_fdc3762e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "whether it is fine not to notify the failure msg for this if block",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9bd3f3d_d0766222",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f2a639_2a7c8bc6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c47ee01_0b8451b7",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc14e6f1_8b2a81ec",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "181b3b4c_22c30a6f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "can we add some more error msg here",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c0a1da_b17a3a40",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "can we add some error msg",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ec7c01_d864297b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "can we add some error msg",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b1ac572_730d4c68",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "can we add some error msg",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a86edd_a963e4d0",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb65334_39b1a57d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:18:39Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
