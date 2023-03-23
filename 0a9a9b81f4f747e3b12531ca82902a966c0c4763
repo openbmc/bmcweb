@@ -33,6 +33,23 @@
       "message": "earlier subtree pcie path is different pciePath \u003d \"/xyz/openbmc_project/PCIe\";\nwhether this change path is needed just for confirmation",
       "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f9e0e2_47dfa7a1",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:50:12Z",
+      "side": 1,
+      "message": "because you have not mentioned about this changes in commit msg",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
