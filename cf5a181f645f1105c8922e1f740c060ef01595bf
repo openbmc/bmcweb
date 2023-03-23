@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81e26543_fea267a6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-23T16:40:00Z",
+      "side": 1,
+      "message": "If is what I see elsewhere so I am okay with that.\n\nIt would be good if these could be enums thought like \nhttps://github.com/openbmc/bmcweb/blob/a90323367863533ae3456ed2ee1baa705439eea9/redfish-core/lib/sensors.hpp#L103",
+      "parentUuid": "95ee99de_acba8bde",
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fa67419_8c87d7fe",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 13
