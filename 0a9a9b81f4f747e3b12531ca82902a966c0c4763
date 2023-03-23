@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f580807_98e61414",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:48:42Z",
+      "side": 1,
+      "message": "line is efficient if the code with less function definition right",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fef630e1_986c2e95",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:48:42Z",
+      "side": 1,
+      "message": "earlier subtree pcie path is different pciePath \u003d \"/xyz/openbmc_project/PCIe\";\nwhether this change path is needed just for confirmation",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
