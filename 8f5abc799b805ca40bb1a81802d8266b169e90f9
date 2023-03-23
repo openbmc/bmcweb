@@ -34,6 +34,57 @@
       "parentUuid": "49e668d4_697f9832",
       "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a447d7f0_4ba2cd4d",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:04:18Z",
+      "side": 1,
+      "message": "How it can be Inline fun ?\nbecause i can see multiple lines in function definition",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d729cd6_e36b0aba",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:04:18Z",
+      "side": 1,
+      "message": "before moving this function are we checking previous function is handled or not",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5310768e_872ecd90",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:04:18Z",
+      "side": 1,
+      "message": "Before passing getUserInfoHandler can we add check whether handler Info\n is proper",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
