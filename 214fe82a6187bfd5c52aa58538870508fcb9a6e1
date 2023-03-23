@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a88b493_f92c09c4",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:01:13Z",
+      "side": 1,
+      "message": "instead of T can we add relevant Template names",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1af0755_36f00bc7",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:01:13Z",
+      "side": 1,
+      "message": "Same here also",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c8aa8c_761500aa",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:01:13Z",
+      "side": 1,
+      "message": "instead of Just T can we give specific variable here",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c735280_a5a8a4c4",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:01:13Z",
+      "side": 1,
+      "message": "update here also",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7a77e5_08340d53",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:01:13Z",
+      "side": 1,
+      "message": "update here also",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89eb9990_8d2c861d",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T06:01:13Z",
+      "side": 1,
+      "message": "why are removing above line",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
