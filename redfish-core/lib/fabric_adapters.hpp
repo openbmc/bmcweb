@@ -2,6 +2,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -196,6 +197,7 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     getFabricAdapterAsset(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterState(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterHealth(asyncResp, serviceName, fabricAdapterPath);
+    getLocationIndicatorActive(asyncResp, fabricAdapterPath);
 }
 
 inline bool checkFabricAdapterId(const std::string& adapterPath,
@@ -269,6 +271,50 @@ inline void
                                            const std::string& serviceName) {
         doAdapterGet(asyncResp, systemName, adapterId, fabricAdapterPath,
                      serviceName);
+    });
+}
+
+inline void handleFabricAdapterPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<bool> locationIndicatorActive;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "LocationIndicatorActive",
+                                  locationIndicatorActive))
+    {
+        return;
+    }
+
+    getValidFabricAdapterPath(
+        adapterId, systemName, asyncResp,
+        [asyncResp, locationIndicatorActive](
+            const std::string& fabricAdapterPath, const std::string&) {
+        if (locationIndicatorActive)
+        {
+            setLocationIndicatorActive(asyncResp, fabricAdapterPath,
+                                       *locationIndicatorActive);
+        }
     });
 }
 
@@ -390,5 +436,10 @@ inline void requestRoutesFabricAdapters(App& app)
         .privileges(redfish::privileges::headFabricAdapter)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleFabricAdapterHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/FabricAdapters/<str>/")
+        .privileges(redfish::privileges::patchFabricAdapter)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleFabricAdapterPatch, std::ref(app)));
 }
 } // namespace redfish
