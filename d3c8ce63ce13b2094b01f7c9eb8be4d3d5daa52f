@@ -16,6 +16,24 @@
       "message": "I got the failure by using this commit - on Websocket upgrade.\n\n```\n\n(2023-03-22 19:52:21) [DEBUG \"http_response.hpp\":208] 0x2185b40 setting completion handler\n(2023-03-22 19:52:21) [DEBUG \"http_connection.hpp\":85] 0x2183878 Connection closed, total 4\n(2023-03-22 19:52:21) [DEBUG \"systems.hpp\":296] Got 15 Dimm properties.\n(2023-03-22 19:52:21) [CRITICAL \"http_connection.hpp\":730] 0 Failed to capture connection\n(2023-03-22 19:52:21) [DEBUG \"systems.hpp\":296] Got 15 Dimm properties.\n(2023-03-22 19:52:21) [DEBUG \"systems.hpp\":296] Got 15 Dimm properties.\n(2023-03-22 19:52:21) [DEBUG \"http_connection.hpp\":75] 0x207d7b0 Connection open, total 5\n(2023-03-22 19:52:21) [DEBUG \"sw_utils.hpp\":50] populateSoftwareInformation enter\n(2023-03-22 19:52:21) [DEBUG \"http_connection.hpp\":748] 0x1f97fa0 timer started\n(2023-03-22 19:52:21) [DEBUG \"routing.hpp\":1271] userName \u003d admin userRole \u003d priv-admin\n(2023-03-22 19:52:21) [DEBUG \"routing.hpp\":372] Websocket handles upgrade\nSegmentation fault (core dumped)\n```",
       "revId": "d3c8ce63ce13b2094b01f7c9eb8be4d3d5daa52f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d22a23dc_e9d75496",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-03-23T00:08:05Z",
+      "side": 1,
+      "message": "I can\u0027t reproduce it. I used all the websocket features just fine without any crash.",
+      "parentUuid": "03880110_96ec7e26",
+      "revId": "d3c8ce63ce13b2094b01f7c9eb8be4d3d5daa52f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
