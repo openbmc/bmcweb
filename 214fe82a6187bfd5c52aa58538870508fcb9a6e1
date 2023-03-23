@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e00f07fd_90094a95",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-23T09:16:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a88b493_f92c09c4",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1af0755_36f00bc7",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-23T06:01:13Z",
       "side": 1,
       "message": "Same here also",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aab67c0_13350179",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-23T09:16:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1af0755_36f00bc7",
       "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2d04fe_df341690",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-23T09:16:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0c8aa8c_761500aa",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c735280_a5a8a4c4",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-03-23T06:01:13Z",
       "side": 1,
       "message": "update here also",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320ee823_be3f0a66",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-23T09:16:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c735280_a5a8a4c4",
       "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e931276_21a69c5c",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-23T09:16:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea7a77e5_08340d53",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89eb9990_8d2c861d",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-03-23T06:01:13Z",
       "side": 1,
       "message": "why are removing above line",
+      "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b20655_54db9569",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-23T09:16:28Z",
+      "side": 1,
+      "message": "Accidental change, I restored previously removed empty line.",
+      "parentUuid": "89eb9990_8d2c861d",
       "revId": "214fe82a6187bfd5c52aa58538870508fcb9a6e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
