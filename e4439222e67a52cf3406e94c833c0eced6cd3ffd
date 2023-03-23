@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87244763_18e77b1a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:30:07Z",
+      "side": 1,
+      "message": "whether it is required to add failure msg incase this if block is failed",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b1a5d5_1181cffa",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:30:07Z",
+      "side": 1,
+      "message": "here also",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0acea1b5_ae85b3be",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:30:07Z",
+      "side": 1,
+      "message": "same here also",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2ee7f2_86ff088b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1001343
+      },
+      "writtenOn": "2023-03-23T07:30:07Z",
+      "side": 1,
+      "message": "here also",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
