@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a24fedf6_9da4e0fd",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-24T20:23:36Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m not in love with that either.  Open to other options.\n\nMaybe we ask it to go into the first comment?  Maybe we just leave it as a doc with no enforcement?  My hope was that for WIP patches, they could push their commits with things unchecked to try to increase the speed.",
+      "parentUuid": "ddcda42b_bf86212d",
+      "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b45e749b_fcab1ed6",
         "filename": "REDFISH_CHECKLIST.md",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-24T19:54:30Z",
       "side": 1,
       "message": "This feels like too much.\nDevelopers working on bmcweb/OpenBMC should have at least an understanding of Open Source Development.. \nI also don\u0027t love this would be special to the bmcwbe repo",
+      "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64fed74b_89d8ac64",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-24T20:23:36Z",
+      "side": 1,
+      "message": "\u003e This feels like too much.\n\nToo much work to go check 5 boxes when submitting a commit?  Or do you think we should not require these things?\n\n\u003e Developers working on bmcweb/OpenBMC should have at least an understanding of Open Source Development.. \n\nHow do we ensure that?  And how do we handle the folks that have been taught the understanding, but continue to ignore it regularly?\n\n\u003e I also don\u0027t love this would be special to the bmcwbe repo\n\nBasically everything is specific to bmcweb.  Would any of these apply across the project?",
+      "parentUuid": "b45e749b_fcab1ed6",
       "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
