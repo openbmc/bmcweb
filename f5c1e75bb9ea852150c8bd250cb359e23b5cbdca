@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0a71633_48e5b094",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-24T20:02:13Z",
+      "side": 1,
+      "message": "The Default (Unknown) is going to hit here and log. \nI think that is okay. \nIf you implemented the interface, then it should have a value other than Unknown",
+      "revId": "f5c1e75bb9ea852150c8bd250cb359e23b5cbdca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
