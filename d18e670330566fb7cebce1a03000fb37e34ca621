@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e674e07_f103be89",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-24T20:04:02Z",
+      "side": 1,
+      "message": "I think this should be named replaceableInterface or hotPluggableInterface",
+      "range": {
+        "startLine": 320,
+        "startChar": 30,
+        "endLine": 320,
+        "endChar": 47
+      },
+      "revId": "d18e670330566fb7cebce1a03000fb37e34ca621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
