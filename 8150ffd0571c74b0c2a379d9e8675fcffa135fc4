@@ -69,6 +69,30 @@
       },
       "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c14fd59_e61cab0c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-24T16:48:24Z",
+      "side": 1,
+      "message": "From the schema targets is:\n\u0027\u0027\u0027\nAn array of URIs that indicate where to apply the update image.\n\u0027\u0027\u0027\n\n/redfish/v1/Managers/1 doesn\u0027t exist in bmcweb, so there\u0027s no way to apply an image there.",
+      "parentUuid": "9d42cd45_a08dbb85",
+      "range": {
+        "startLine": 638,
+        "startChar": 35,
+        "endLine": 638,
+        "endChar": 59
+      },
+      "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

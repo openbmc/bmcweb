@@ -63,6 +63,30 @@
       },
       "revId": "0ed80c8ce93a38eca6951ffad5c3143a3a720053",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71189389_235882a6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-24T16:48:24Z",
+      "side": 1,
+      "message": "What I\u0027m seeing for this property:\n\n\u0027\u0027\u0027\nThis property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image. The value of this property should not contain a URI of a Redfish resource. See the \u0027Redfish-defined URIs and relative reference rules\u0027 clause in the Redfish Specification.\n\u0027\u0027\u0027\n\nI think update is in compliance, and I prefer it in this case, because it reduces the total number of URIs that we have to support.",
+      "parentUuid": "6bf6b0aa_0f07a872",
+      "range": {
+        "startLine": 738,
+        "startChar": 39,
+        "endLine": 738,
+        "endChar": 45
+      },
+      "revId": "0ed80c8ce93a38eca6951ffad5c3143a3a720053",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
