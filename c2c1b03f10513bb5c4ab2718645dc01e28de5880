@@ -16,6 +16,23 @@
       "message": "So this gets copied into each commit msg ?\nI don\u0027t like this from a git history prospective..",
       "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45e749b_fcab1ed6",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-24T19:54:30Z",
+      "side": 1,
+      "message": "This feels like too much.\nDevelopers working on bmcweb/OpenBMC should have at least an understanding of Open Source Development.. \nI also don\u0027t love this would be special to the bmcwbe repo",
+      "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
