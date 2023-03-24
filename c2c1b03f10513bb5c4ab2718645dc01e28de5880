@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddcda42b_bf86212d",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-24T19:52:27Z",
+      "side": 1,
+      "message": "So this gets copied into each commit msg ?\nI don\u0027t like this from a git history prospective..",
+      "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
