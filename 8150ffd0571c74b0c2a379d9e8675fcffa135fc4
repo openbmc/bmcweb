@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a859d03_b7182cd1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-24T06:53:47Z",
+      "side": 1,
+      "message": "I don\u0027t know who updated here, I tested, this method is wrong, it will cause bmc coredump.",
+      "range": {
+        "startLine": 613,
+        "startChar": 8,
+        "endLine": 613,
+        "endChar": 63
+      },
+      "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "891b48ba_d9eaba2b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-24T06:53:47Z",
+      "side": 1,
+      "message": "In the Redfish specification, here should be `/redfish/v1/Managers/1`",
+      "range": {
+        "startLine": 638,
+        "startChar": 35,
+        "endLine": 638,
+        "endChar": 59
+      },
+      "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

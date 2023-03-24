@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8715cf3d_8731b0ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 86
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-24T06:53:47Z",
+      "side": 1,
+      "message": "I tested the latest patch and passes.",
+      "revId": "0ed80c8ce93a38eca6951ffad5c3143a3a720053",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bddfeda4_9550f794",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-24T06:53:47Z",
+      "side": 1,
+      "message": "@Ed\nIn the Redfish specification, this should be upload.",
+      "range": {
+        "startLine": 738,
+        "startChar": 39,
+        "endLine": 738,
+        "endChar": 45
+      },
+      "revId": "0ed80c8ce93a38eca6951ffad5c3143a3a720053",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
