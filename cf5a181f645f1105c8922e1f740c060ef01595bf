@@ -87,6 +87,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "748660a8_50a4b0c5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-24T12:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ff8fa7_ff4ff0cf",
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30ed5a59_81f132a8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-24T12:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81e26543_fea267a6",
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fa67419_8c87d7fe",
@@ -104,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b51e08e2_4100d830",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-24T12:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa67419_8c87d7fe",
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fa57a69_414366f9",
@@ -117,6 +171,30 @@
       "writtenOn": "2023-03-22T15:25:34Z",
       "side": 1,
       "message": "by reference please: \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "range": {
+        "startLine": 345,
+        "startChar": 45,
+        "endLine": 345,
+        "endChar": 55
+      },
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ee44eaf_59be2a3b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-24T12:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fa57a69_414366f9",
       "range": {
         "startLine": 345,
         "startChar": 45,
@@ -150,6 +228,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f3a42c7_3ff65e72",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-24T12:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dcef70a_c7295791",
+      "range": {
+        "startLine": 349,
+        "startChar": 35,
+        "endLine": 349,
+        "endChar": 40
+      },
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd2e4ec0_3348d606",
@@ -163,6 +265,30 @@
       "writtenOn": "2023-03-22T15:25:34Z",
       "side": 1,
       "message": "always best if you include like the ec, makes the LOG Message a lot more useful",
+      "range": {
+        "startLine": 350,
+        "startChar": 67,
+        "endLine": 350,
+        "endChar": 69
+      },
+      "revId": "cf5a181f645f1105c8922e1f740c060ef01595bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fdecd46_e318a7d1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-24T12:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd2e4ec0_3348d606",
       "range": {
         "startLine": 350,
         "startChar": 67,
