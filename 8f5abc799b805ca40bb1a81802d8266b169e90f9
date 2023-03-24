@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a4b10d8_83c770e4",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-24T13:22:58Z",
+      "side": 1,
+      "message": "In my latest patch I have removed this function.",
+      "parentUuid": "a447d7f0_4ba2cd4d",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d729cd6_e36b0aba",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 9
@@ -83,6 +101,42 @@
       "writtenOn": "2023-03-23T06:04:18Z",
       "side": 1,
       "message": "Before passing getUserInfoHandler can we add check whether handler Info\n is proper",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc5085a_fbae329e",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-24T13:22:58Z",
+      "side": 1,
+      "message": "In my latest patch, I have removed this function.",
+      "parentUuid": "5310768e_872ecd90",
+      "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "670d6a63_7f9c3bf1",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-24T13:22:58Z",
+      "side": 1,
+      "message": "In my latest patch, I have removed this function.",
+      "parentUuid": "9d729cd6_e36b0aba",
       "revId": "8f5abc799b805ca40bb1a81802d8266b169e90f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
