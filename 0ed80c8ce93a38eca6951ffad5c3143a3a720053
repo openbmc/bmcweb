@@ -87,6 +87,30 @@
       },
       "revId": "0ed80c8ce93a38eca6951ffad5c3143a3a720053",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e71b9b4b_07b3149d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-25T01:24:45Z",
+      "side": 1,
+      "message": "\u003e What I\u0027m seeing for this property:\n\u003e \n\u003e \u0027\u0027\u0027\n\u003e This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image. The value of this property should not contain a URI of a Redfish resource. See the \u0027Redfish-defined URIs and relative reference rules\u0027 clause in the Redfish Specification.\n\u003e \u0027\u0027\u0027\n\u003e \n\u003e I think update is in compliance, and I prefer it in this case, because it reduces the total number of URIs that we have to support.\n\nI just saw an example in Table 40 in DSP0266_1.17.0:\n```\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------d74496d66958873e\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n{\n  \"Targets\": [\"/redfish/v1/Managers/1\"],\n  \"@Redfish.OperationApplyTime\": \"OnReset\",\n  \"Oem\": {}\n}\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"flash.bin\"\nContent-Type: application/octet-stream\n\u003csoftware image binary\u003e\n```",
+      "parentUuid": "71189389_235882a6",
+      "range": {
+        "startLine": 738,
+        "startChar": 39,
+        "endLine": 738,
+        "endChar": 45
+      },
+      "revId": "0ed80c8ce93a38eca6951ffad5c3143a3a720053",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

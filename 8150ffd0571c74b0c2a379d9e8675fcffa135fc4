@@ -93,6 +93,30 @@
       },
       "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba99d4b_075d9e9f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-03-25T01:24:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9c14fd59_e61cab0c",
+      "range": {
+        "startLine": 638,
+        "startChar": 35,
+        "endLine": 638,
+        "endChar": 59
+      },
+      "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
