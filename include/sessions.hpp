@@ -40,6 +40,8 @@ struct UserSession
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence{PersistenceType::TIMEOUT};
     bool isConfigureSelfOnly = false;
+    std::string userRole{};
+    std::vector<std::string> userGroups{};
 
     // There are two sources of truth for isConfigureSelfOnly:
     //  1. When pamAuthenticateUser() returns PAM_NEW_AUTHTOK_REQD.
