@@ -404,6 +404,12 @@ inline void handleCertificateServiceGet(
         return;
     }
 
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     asyncResp->res.jsonValue["@odata.type"] =
         "#CertificateService.v1_0_0.CertificateService";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/CertificateService";
@@ -415,7 +421,7 @@ inline void handleCertificateServiceGet(
     // only ConfigureManager can access then only display when the user
     // has permissions ConfigureManager
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
     {
