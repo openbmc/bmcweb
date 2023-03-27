@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86219b62_ffffbbbe",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T16:53:19Z",
+      "side": 1,
+      "message": "Is this still a problem on the latest patchset?",
+      "parentUuid": "4a859d03_b7182cd1",
+      "range": {
+        "startLine": 613,
+        "startChar": 8,
+        "endLine": 613,
+        "endChar": 63
+      },
+      "revId": "8150ffd0571c74b0c2a379d9e8675fcffa135fc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "891b48ba_d9eaba2b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 85
