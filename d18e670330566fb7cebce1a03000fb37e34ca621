@@ -22,6 +22,29 @@
       },
       "revId": "d18e670330566fb7cebce1a03000fb37e34ca621",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1eb244_e4054221",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2023-03-27T01:54:40Z",
+      "side": 1,
+      "message": "Not in the list does not mean it\u0027s a invalid interface. This log is probably unneeded.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 364,
+        "endChar": 17
+      },
+      "revId": "d18e670330566fb7cebce1a03000fb37e34ca621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
