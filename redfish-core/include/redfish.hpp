@@ -135,6 +135,7 @@ class RedfishService
         requestRoutesBMCDumpService(app);
         requestRoutesBMCDumpEntryCollection(app);
         requestRoutesBMCDumpEntry(app);
+        requestRoutesBMCDumpEntryDownload(app);
         requestRoutesBMCDumpCreate(app);
         requestRoutesBMCDumpClear(app);
 

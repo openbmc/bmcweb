@@ -699,6 +699,113 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
+constexpr const char* dumpsFolderBasePath =
+    "/var/lib/phosphor-debug-collector/dumps";
+
+inline bool getDumpFiles(crow::Response& resp,
+                         const std::string& dumpFilePath,
+                         std::vector<std::filesystem::path>& dumpFiles)
+{
+    std::error_code ec;
+    std::filesystem::directory_iterator logPath(dumpFilePath, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << ec.message();
+        if (ec.value() == ENOENT)
+        {
+            // The directory didn't exist
+            messages::resourceNotFound(resp, "", "");
+        }
+        else
+        {
+            messages::internalError(resp);
+        }
+        return false;
+    }
+
+    for (const std::filesystem::directory_entry& it : logPath)
+    {
+        std::string filename = it.path().filename();
+        dumpFiles.emplace_back(it.path());
+    }
+
+    return true;
+}
+
+inline void
+    downloadDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& entryID, const std::string& dumpType)
+{
+    if (dumpType != "BMC")
+    {
+        // We don't know for sure what resource was originally queried
+        messages::resourceNotFound(asyncResp->res, "", "");
+        return;
+    }
+
+    std::string dumpFolderPath = dumpsFolderBasePath;
+    dumpFolderPath += "/" + entryID;
+    std::vector<std::filesystem::path> dumpFiles;
+    if (!getDumpFiles(asyncResp->res, dumpFolderPath, dumpFiles))
+    {
+        // getDumpFiles() will have already written the error to the response
+        BMCWEB_LOG_ERROR << "failed to get host log file path";
+        return;
+    }
+
+    if (dumpFiles.size() != 1)
+    {
+        BMCWEB_LOG_ERROR << "Expected 1 dump file, found " << dumpFiles.size()
+                         << " dump files";
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::string& dumpFile = dumpFiles.front().string();
+    int fd = open(dumpFile.c_str(), O_RDONLY);
+    if (fd < 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to open dump file!";
+        messages::internalError(asyncResp->res);
+    }
+
+    long long int size = lseek(fd, 0, SEEK_END);
+    if (size == -1)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Arbitrary max size of 8MB
+    constexpr int maxFileSize = 8 * 1024 * 1024;
+    if (size > maxFileSize)
+    {
+        BMCWEB_LOG_ERROR << "File size " << size
+                         << " exceeds maximum allowed size of " << maxFileSize;
+        messages::internalError(asyncResp->res);
+    }
+    std::vector<char> data(static_cast<size_t>(size));
+    long long int rc = lseek(fd, 0, SEEK_SET);
+    if (rc == -1)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    rc = read(fd, data.data(), data.size());
+    if ((rc == -1) || (rc != size))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    close(fd);
+
+    std::string_view strData(data.data(), data.size());
+    std::string output(strData);
+    asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                             "application/octet-stream");
+    asyncResp->res.body() = std::move(output);
+}
+
 inline DumpCreationProgress
     mapDbusStatusToDumpProgress(const std::string& status)
 {
@@ -2771,6 +2878,7 @@ inline void handleLogServicesDumpEntryGet(
     }
     getDumpEntryById(asyncResp, dumpId, dumpType);
 }
+
 inline void handleLogServicesDumpEntryComputerSystemGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2815,6 +2923,18 @@ inline void handleLogServicesDumpEntryComputerSystemDelete(
         return;
     }
     deleteDumpEntry(asyncResp, dumpId, "System");
+}
+
+inline void handleLogServicesDumpEntryDownloadGet(
+    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dumpId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    downloadDumpEntry(asyncResp, dumpId, dumpType);
 }
 
 inline void handleLogServicesDumpCollectDiagnosticDataPost(
@@ -2902,6 +3022,16 @@ inline void requestRoutesBMCDumpEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleLogServicesDumpEntryDelete, std::ref(app), "BMC"));
+}
+
+inline void requestRoutesBMCDumpEntryDownload(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/attachment")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleLogServicesDumpEntryDownloadGet, std::ref(app), "BMC"));
 }
 
 inline void requestRoutesBMCDumpCreate(App& app)
