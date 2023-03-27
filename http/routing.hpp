@@ -1028,22 +1028,25 @@ class Router
         return findRoute;
     }
 
-    static bool isUserPrivileged(
-        Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
+    // Populate session with user information.
+    static bool
+        populateUserInfo(Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const dbus::utility::DBusPropertiesMap& userInfoMap)
     {
-        std::string userRole{};
         const std::string* userRolePtr = nullptr;
         const bool* remoteUser = nullptr;
         const bool* passwordExpired = nullptr;
+        const std::vector<std::string>* userGroups = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap,
             "UserPrivilege", userRolePtr, "RemoteUser", remoteUser,
-            "UserPasswordExpired", passwordExpired);
+            "UserPasswordExpired", passwordExpired, "UserGroups", userGroups);
 
         if (!success)
         {
+            BMCWEB_LOG_ERROR << "Failed to unpack user properties.";
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             return false;
@@ -1051,7 +1054,7 @@ class Router
 
         if (userRolePtr != nullptr)
         {
-            userRole = *userRolePtr;
+            req.session->userRole = *userRolePtr;
             BMCWEB_LOG_DEBUG << "userName = " << req.session->username
                              << " userRole = " << *userRolePtr;
         }
@@ -1081,14 +1084,31 @@ class Router
             expired = *passwordExpired;
         }
 
-        // Get the user's privileges from the role
-        redfish::Privileges userPrivileges =
-            redfish::getUserPrivileges(userRole);
-
         // Set isConfigureSelfOnly based on D-Bus results.  This
         // ignores the results from both pamAuthenticateUser and the
         // value from any previous use of this session.
         req.session->isConfigureSelfOnly = expired;
+
+        if (userGroups != nullptr)
+        {
+            // Populate session with user groups.
+            for (const auto& userGroup : *userGroups)
+            {
+                req.session->userGroups.emplace_back(userGroup);
+            }
+        }
+
+        return true;
+    }
+
+    static bool
+        isUserPrivileged(Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         BaseRule& rule)
+    {
+        // Get the user's privileges from the role
+        redfish::Privileges userPrivileges =
+            redfish::getUserPrivileges(*req.session);
 
         // Modify privileges if isConfigureSelfOnly.
         if (req.session->isConfigureSelfOnly)
@@ -1112,8 +1132,7 @@ class Router
             return false;
         }
 
-        req.userRole = userRole;
-
+        req.userRole = req.session->userRole;
         return true;
     }
 
@@ -1132,7 +1151,15 @@ class Router
             return;
         }
 
-        if (!Router::isUserPrivileged(req, asyncResp, rule, userInfoMap))
+        if (!populateUserInfo(req, asyncResp, userInfoMap))
+        {
+            BMCWEB_LOG_ERROR << "Failed to populate user information";
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        if (!Router::isUserPrivileged(req, asyncResp, rule))
         {
             // User is not privileged
             BMCWEB_LOG_ERROR << "Insufficient Privilege";
