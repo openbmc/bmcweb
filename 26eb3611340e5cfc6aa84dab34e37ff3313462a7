@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc273e4a_72552d16",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "Updated with your wording.",
+      "parentUuid": "808c9aeb_61e5349c",
+      "range": {
+        "startLine": 11,
+        "startChar": 58,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6542f158_90ece429",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-14T18:57:50Z",
       "side": 1,
       "message": "\"open-source\" \"closed-source\" I believe",
+      "range": {
+        "startLine": 17,
+        "startChar": 38,
+        "endLine": 17,
+        "endChar": 50
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3af8973_a1ccda2c",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "6542f158_90ece429",
       "range": {
         "startLine": 17,
         "startChar": 38,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcda87ea_f37cf7b9",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "Changed to your wording.",
+      "parentUuid": "18188a6e_8c56a7bc",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9004563_9f95e317",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-02-14T18:57:50Z",
       "side": 1,
       "message": "Nitpick: workflow? is feature better? \"to be able\" can be removed and the sentence sounds more concise. \n\nIf a given feature eventually becomes standardized, OpenBMC OEM endpoints now have to break an API boundary to move to the standard implementation.",
+      "range": {
+        "startLine": 36,
+        "startChar": 30,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f724a110_d81592dc",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "I like feature better.  Changed.\n\nAlso removed \"to be able\"",
+      "parentUuid": "d9004563_9f95e317",
       "range": {
         "startLine": 36,
         "startChar": 30,
@@ -127,6 +223,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44892e14_c457f239",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "Removed \"amount of\"",
+      "parentUuid": "34a0b7cd_f1d5ec31",
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72a67126_74925516",
@@ -150,6 +264,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "522223aa_5e3cb458",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "72a67126_74925516",
+      "range": {
+        "startLine": 75,
+        "startChar": 51,
+        "endLine": 75,
+        "endChar": 54
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b08d5314_3ed5b517",
@@ -163,6 +301,30 @@
       "writtenOn": "2023-02-14T18:57:50Z",
       "side": 1,
       "message": "reads weird.. \nWe require OEM to have the same level of quality as non-OEM? \nWe require OEM to have the same level of quality as Standard Redfish.",
+      "range": {
+        "startLine": 81,
+        "startChar": 58,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "26eb3611340e5cfc6aa84dab34e37ff3313462a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f97349b_f4fbaa28",
+        "filename": "OEM_SCHEMAS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T18:47:52Z",
+      "side": 1,
+      "message": "went with your first suggestion.",
+      "parentUuid": "b08d5314_3ed5b517",
       "range": {
         "startLine": 81,
         "startChar": 58,
