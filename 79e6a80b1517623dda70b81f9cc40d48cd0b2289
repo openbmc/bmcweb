@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b1f2d94_b874c24f",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2023-03-27T20:14:17Z",
+      "side": 1,
+      "message": "Yes. I guess I should have put it in backticks. 😊\n```\nRequest URL: https://xxx.xxx.49.59/redfish/v1/SessionService/Sessions\nReferrer Policy: strict-origin-when-cross-origin\nAccept: application/json, text/plain, */*\nAccept-Encoding: gzip, deflate, br\nAccept-Language: en-US,en;q\u003d0.9\nConnection: keep-alive\nCookie: XSRF-TOKEN\u003dvkK2PxmpltjU3UvWQRAM; SESSION\u003dTYYxjaHPKfxo5FZGDGTo\nHost: xxx.xxx.49.59\nReferer: https://xxx.xxx.49.59/\nsec-ch-ua: \"Microsoft Edge\";v\u003d\"111\", \"Not(A:Brand\";v\u003d\"8\", \"Chromium\";v\u003d\"111\"\nsec-ch-ua-mobile: ?0\nsec-ch-ua-platform: \"Windows\"\nSec-Fetch-Dest: empty\nSec-Fetch-Mode: cors\nSec-Fetch-Site: same-origin\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.51\nX-XSRF-TOKEN: vkK2PxmpltjU3UvWQRAM\n```\n\nFrom what I could tell, it\u0027s the `*/*` that is causing `isContentTypeAllowed()` on line 19 to return false, but I couldn\u0027t ever figure out why it\u0027s added.",
+      "parentUuid": "b589dc81_a80ac18e",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2946bf5_eee968c5",
         "filename": "include/forward_unauthorized.hpp",
         "patchSetId": 8
