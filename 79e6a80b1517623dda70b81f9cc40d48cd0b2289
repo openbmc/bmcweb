@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dd13e2f_9ee695c3",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2023-03-27T19:37:21Z",
+      "side": 1,
+      "message": "When I reproduce this issue, the web UI sends a DELETE to the session, then sends this request which causes the pop-up box to appear:\nGeneral:\nRequest URL: https://xxx.xxx.49.59/redfish/v1/SessionService/Sessions\nReferrer Policy: strict-origin-when-cross-origin\n\nRequest Headers:\nAccept: application/json, text/plain, */*\nAccept-Encoding: gzip, deflate, br\nAccept-Language: en-US,en;q\u003d0.9\nConnection: keep-alive\nCookie: XSRF-TOKEN\u003dvkK2PxmpltjU3UvWQRAM; SESSION\u003dTYYxjaHPKfxo5FZGDGTo\nHost: xxx.xxx.49.59\nReferer: https://xxx.xxx.49.59/\nsec-ch-ua: \"Microsoft Edge\";v\u003d\"111\", \"Not(A:Brand\";v\u003d\"8\", \"Chromium\";v\u003d\"111\"\nsec-ch-ua-mobile: ?0\nsec-ch-ua-platform: \"Windows\"\nSec-Fetch-Dest: empty\nSec-Fetch-Mode: cors\nSec-Fetch-Site: same-origin\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.51\nX-XSRF-TOKEN: vkK2PxmpltjU3UvWQRAM\n\nAs a side note: refreshing the page continues to show the pop-up box, but pressing ESC on the pop-up box causes the web UI to redirect to the login page.",
+      "parentUuid": "5df0397e_c13a962c",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2946bf5_eee968c5",
         "filename": "include/forward_unauthorized.hpp",
         "patchSetId": 8
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-27T16:49:39Z",
       "side": 1,
       "message": "Can you please comment  in your commit message on why:\n\n1. This check is left in place in this patch.  This patch seems to be replacing this check, so it\u0027s not clear why it\u0027s left.\n\n2. Why the browser was not sending an X-Requested-With header during this bug?\n\nThis line of code is supposed to solve the problem you\u0027re solving.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eea1f10_9c2c6973",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2023-03-27T19:37:21Z",
+      "side": 1,
+      "message": "Does the web UI need to set this header manually?",
+      "parentUuid": "c2946bf5_eee968c5",
       "range": {
         "startLine": 49,
         "startChar": 0,
