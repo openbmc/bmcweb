@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a49312a_3ae4d54f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-27T23:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "943ebf30_e0d2fe47",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 72
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72d060fa_eb9632de",
@@ -121,6 +145,24 @@
       "side": 1,
       "message": "hmmmmm.  I wonder if we should be aggregating tasks.  That ship has probably sailed though.",
       "parentUuid": "4345fea9_9a5ed52b",
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b6ee10_99d0a74d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-27T23:40:57Z",
+      "side": 1,
+      "message": "I think we definitely want to aggregate tasks.  For instance, the LogService.CollectDiagnosticData Actions under LogServices spawn tasks.  If we don\u0027t aggregate tasks then we wouldn\u0027t be able to collect diagnostic dumps from satellite BMCs.",
+      "parentUuid": "91f5350c_030fb388",
       "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -186,6 +228,30 @@
       "side": 1,
       "message": "We shouldn\u0027t aggregate EventDestination headers for sure.  Job and task are debatable how an aggregator should handle them.\n\nI\u0027d still like some level of type check here before we mess with the value.",
       "parentUuid": "1ebacffd_001e5302",
+      "range": {
+        "startLine": 228,
+        "startChar": 31,
+        "endLine": 228,
+        "endChar": 42
+      },
+      "revId": "fb57f264a25f8d14bc3291e05311508b63a4c855",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "582b72bd_dcbde69c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-03-27T23:40:57Z",
+      "side": 1,
+      "message": "As it currently stands, all of the headers under the \"HttpHeaders\" property are going to be included as part of the response.  We\u0027re just talking about attempting to apply the aggregation prefix if there is a Location header and it is for a Redfish URI of an aggregated resource.\n\nThis makes it consistent with what we would already be returning in the actual Location header thanks to addAggregatedHeaders().  I\u0027m not understanding why we need some sort of type check here.  I feel like we already performed that check at the start of the aggregation flow when it was decided whether or not to aggregate the request.  If we\u0027re processing an aggregated response then we should want to attempt prefix fixing on any Redfish URI.",
+      "parentUuid": "af050391_76420a85",
       "range": {
         "startLine": 228,
         "startChar": 31,
