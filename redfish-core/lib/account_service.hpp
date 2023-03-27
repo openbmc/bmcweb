@@ -135,8 +135,13 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
         }
         else if (userGroup == "ssh")
         {
-            accountTypes.emplace_back("HostConsole");
             accountTypes.emplace_back("ManagerConsole");
+        }
+        else if (userGroup == "hostconsole")
+        {
+            // The hostconsole group controls who can access the host console
+            // port via ssh and websocket.
+            accountTypes.emplace_back("HostConsole");
         }
         else if (userGroup == "web")
         {
@@ -1293,6 +1298,13 @@ inline void
     {
         return;
     }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/AccountService/AccountService.json>; rel=describedby");
@@ -1327,7 +1339,7 @@ inline void
     // ConfigureManager can access then only display when the user has
     // permissions ConfigureManager
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
 
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
@@ -1526,6 +1538,13 @@ inline void handleAccountCollectionGet(
     {
         return;
     }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ManagerAccountCollection.json>; rel=describedby");
@@ -1538,7 +1557,7 @@ inline void handleAccountCollectionGet(
     asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
 
     std::string thisUser;
     if (req.session)
@@ -1736,7 +1755,7 @@ inline void
         // have permissions to modify other users, so re-run the auth
         // check with the same permissions, minus ConfigureSelf.
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(req.userRole);
+            redfish::getUserPrivileges(*req.session);
         Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
                                                          "ConfigureManager"};
         if (!effectiveUserPrivileges.isSupersetOf(
@@ -1947,7 +1966,7 @@ inline void
     }
 
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
     Privileges configureUsers = {"ConfigureUsers"};
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers);
