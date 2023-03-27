@@ -165,6 +165,30 @@
       },
       "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff687e59_a2d0ba1e",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001686
+      },
+      "writtenOn": "2023-03-27T13:49:50Z",
+      "side": 1,
+      "message": "Hi ed,\n\nWe are not trying to remove the \"www-authenticate\" header from redfish.\n\nSo I have updated the patchset to check the \"User-Agent\" and the \"Accept\" value from the API\u0027s request header. If an unauthorized request is made from the browser and the Accept header value contains JSON, then that unauthorized request will be set with a 401 status instead of adding the \"www-authenticate\" header. So the browser won\u0027t populate the authentication window, and Web UI will navigate to the login page since the API responded with a 401 status.\n\nThe reason I have used the Accept header value to validate is that if we call the redfish URL directly from the browser, the Accept header value will be HTML, while API calls from a web UI application will have the JSON value in the \"Accept\" header. And used the \"User-Agent\" header to confirm that request made from the browser. With these two, I am confident that an unauthorized request is sent from the web UI application.",
+      "parentUuid": "951271c8_3ba6eb3d",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
