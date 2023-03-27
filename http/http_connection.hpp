@@ -216,7 +216,7 @@ class Connection :
         }
         keepAlive = thisReq.keepAlive();
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-        if (!crow::authentication::isOnAllowlist(req->url().buffer(),
+        if (!crow::authentication::isOnAllowlist(req->url().path(),
                                                  req->method()) &&
             thisReq.session == nullptr)
         {
