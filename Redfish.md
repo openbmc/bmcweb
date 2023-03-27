@@ -460,6 +460,24 @@ Fields common to all schemas
 - Status
 - UUID
 
+### /redfish/v1/Managers/bmc/Certificates
+
+#### CertificateCollection
+
+- Description
+- Members
+- Members@odata.count
+
+### /redfish/v1/Managers/bmc/Certificates\{certid\}
+
+#### Certificate
+
+- Description
+- CertificateString
+- KeyUsage
+- ValidBefore
+- ValidAfter
+
 ### /redfish/v1/Managers/bmc/EthernetInterfaces/
 
 #### EthernetInterfaceCollection
