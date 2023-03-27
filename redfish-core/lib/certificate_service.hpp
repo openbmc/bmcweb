@@ -415,7 +415,7 @@ inline void handleCertificateServiceGet(
     // only ConfigureManager can access then only display when the user
     // has permissions ConfigureManager
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
     {
