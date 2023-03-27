@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc1cf775_733a7307",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-27T22:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78481cb6_b6daa2bf",
+      "range": {
+        "startLine": 18,
+        "startChar": 28,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "ecae491ae6b6ef24de47600fcfc7c1236cc19bcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa6732dd_17bba7c4",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-27T20:40:13Z",
       "side": 1,
       "message": "Nit: The isUserPrivileged function has been changed to validate the membership of the user. The request will be rejected if the user is not part of the \"hostconsole\" user group.",
+      "range": {
+        "startLine": 20,
+        "startChar": 46,
+        "endLine": 20,
+        "endChar": 56
+      },
+      "revId": "ecae491ae6b6ef24de47600fcfc7c1236cc19bcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "935aadd3_863469e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-27T22:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa6732dd_17bba7c4",
       "range": {
         "startLine": 20,
         "startChar": 46,
@@ -77,6 +125,24 @@
       "writtenOn": "2023-03-27T21:11:53Z",
       "side": 1,
       "message": "This empty line can be removed, as it continues to the next method .onclose().",
+      "revId": "ecae491ae6b6ef24de47600fcfc7c1236cc19bcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c76dc4_5a8da931",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-03-27T22:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72209c4b_a813053e",
       "revId": "ecae491ae6b6ef24de47600fcfc7c1236cc19bcb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
