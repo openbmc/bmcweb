@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5df0397e_c13a962c",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T16:50:52Z",
+      "side": 1,
+      "message": "This check is already effectively present on line 19.\n\nwhat values other than HTML or JSON get sent?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2946bf5_eee968c5",
         "filename": "include/forward_unauthorized.hpp",
         "patchSetId": 8
