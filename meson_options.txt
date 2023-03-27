@@ -244,7 +244,7 @@ option(
 option(
     'redfish-aggregation',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: 'Allows this BMC to aggregate resources from satellite BMCs'
 )
 
