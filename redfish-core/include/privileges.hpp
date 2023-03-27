@@ -16,6 +16,7 @@
 #pragma once
 
 #include "logging.hpp"
+#include "sessions.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
@@ -55,8 +56,8 @@ constexpr const size_t maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
 static const std::array<std::string, maxPrivilegeCount> privilegeNames{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+    "Login",         "ConfigureManager", "ConfigureComponents",
+    "ConfigureSelf", "ConfigureUsers",   "OEMOpenBmcHostConsole"};
 
 /**
  * @brief Redfish privileges
@@ -214,26 +215,68 @@ class Privileges
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 
-inline const Privileges& getUserPrivileges(const std::string& userRole)
+inline const Privileges&
+    getUserPrivileges(const persistent_data::UserSession& session)
 {
+    bool hasHostConsoleAccess = false;
+
+    // Check if user is member of hostconsole group
+    for (const auto& userGroup : session.userGroups)
+    {
+        if (userGroup == "hostconsole")
+        {
+            hasHostConsoleAccess = true;
+            break;
+        }
+    }
+
     // Redfish privilege : Administrator
-    if (userRole == "priv-admin")
+    if (session.userRole == "priv-admin")
     {
         static Privileges admin{"Login", "ConfigureManager", "ConfigureSelf",
                                 "ConfigureUsers", "ConfigureComponents"};
+        if (hasHostConsoleAccess)
+        {
+            admin.setSinglePrivilege("OEMOpenBmcHostConsole");
+        }
+        else
+        {
+            admin.resetSinglePrivilege("OEMOpenBmcHostConsole");
+        }
         return admin;
     }
-    if (userRole == "priv-operator")
+    if (session.userRole == "priv-operator")
     {
         // Redfish privilege : Operator
         static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
+        if (hasHostConsoleAccess)
+        {
+            op.setSinglePrivilege("OEMOpenBmcHostConsole");
+        }
+        else
+        {
+            op.resetSinglePrivilege("OEMOpenBmcHostConsole");
+        }
         return op;
     }
-    if (userRole == "priv-user")
+    if (session.userRole == "priv-user")
     {
         // Redfish privilege : Readonly
         static Privileges readOnly{"Login", "ConfigureSelf"};
+        if (hasHostConsoleAccess)
+        {
+            readOnly.setSinglePrivilege("OEMOpenBmcHostConsole");
+        }
+        else
+        {
+            readOnly.resetSinglePrivilege("OEMOpenBmcHostConsole");
+        }
         return readOnly;
+    }
+    if (hasHostConsoleAccess)
+    {
+        static Privileges hcAccess{"OEMOpenBmcHostConsole"};
+        return hcAccess;
     }
     // Redfish privilege : NoAccess
     static Privileges noaccess;
