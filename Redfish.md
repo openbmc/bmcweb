@@ -145,6 +145,9 @@ Fields common to all schemas
   - Will be set to true for all default roles. If the given role is non-default,
     or has been modified from default, will be marked as false.
 - OemPrivileges
+  - The privilege "OpenBMCHostConsole" is added to users who are members of the
+    "hostconsole" user group. This privilege is required to access the host
+    console.
 - RoleId
 
 ### /redfish/v1/Cables/
