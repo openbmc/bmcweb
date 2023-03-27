@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cc74744_94b5e8ec",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T20:06:36Z",
+      "side": 1,
+      "message": "\u003e Accept: application/json, text/plain, /\n\nAssuming that is the real header and not some encoding mistake, that\u0027s the problem,  the webui should not be accepting text/plain, and the \", /\" at the end looks completely wrong.  If it wants to accept anything, it should be setting */*.\n\nI suspect next steps are someone needs to triage webui-vue, and why it\u0027s setting that accepts header, especially on a redfish resource.",
+      "parentUuid": "4dd13e2f_9ee695c3",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2946bf5_eee968c5",
         "filename": "include/forward_unauthorized.hpp",
         "patchSetId": 8
