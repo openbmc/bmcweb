@@ -109,28 +109,4 @@ inline bool isContentTypeAllowed(std::string_view header, ContentType type,
     return type == allowed;
 }
 
-inline std::string urlEncode(std::string_view value)
-{
-    std::ostringstream escaped;
-    escaped.fill('0');
-    escaped << std::hex;
-
-    for (const char c : value)
-    {
-        // Keep alphanumeric and other accepted characters intact
-        if ((isalnum(c) != 0) || c == '-' || c == '_' || c == '.' || c == '~')
-        {
-            escaped << c;
-            continue;
-        }
-
-        // Any other characters are percent-encoded
-        escaped << std::uppercase;
-        escaped << '%' << std::setw(2)
-                << static_cast<int>(static_cast<unsigned char>(c));
-        escaped << std::nouppercase;
-    }
-
-    return escaped.str();
-}
 } // namespace http_helpers

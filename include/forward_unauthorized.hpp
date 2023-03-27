@@ -3,6 +3,8 @@
 #include "http_response.hpp"
 #include "http_utility.hpp"
 
+#include <boost/url/url.hpp>
+
 namespace forward_unauthorized
 {
 
@@ -21,9 +23,15 @@ inline void sendUnauthorized(std::string_view url,
         // If we have a webui installed, redirect to that login page
         if (hasWebuiRoute)
         {
+            boost::urls::url forward;
+            forward.set_path("/");
+            forward.set_fragment("/login");
+            std::string query("next=");
+            query += url;
+            forward.set_query(query);
             res.result(boost::beast::http::status::temporary_redirect);
             res.addHeader(boost::beast::http::field::location,
-                          "/#/login?next=" + http_helpers::urlEncode(url));
+                          forward.buffer());
             return;
         }
         // If we don't have a webui installed, just return an unauthorized
