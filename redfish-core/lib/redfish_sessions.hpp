@@ -112,7 +112,7 @@ inline void
         session->username != req.session->username)
     {
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(req.userRole);
+            redfish::getUserPrivileges(*req.session);
 
         if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
         {
