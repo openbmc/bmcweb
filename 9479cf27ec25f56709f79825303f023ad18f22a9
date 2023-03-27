@@ -189,6 +189,30 @@
       },
       "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf70f038_c54d0104",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T16:49:39Z",
+      "side": 1,
+      "message": "\u003e We are not trying to remove the \"www-authenticate\" header from redfish.\n\nUnderstood, but in the original patch, that\u0027s how the original patch behaved.\n\n\u003e  the Accept header value will be HTML,\n\nThis isn\u0027t true for browser XHR requests, although we already do this check in the existing code.",
+      "parentUuid": "ff687e59_a2d0ba1e",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "9479cf27ec25f56709f79825303f023ad18f22a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

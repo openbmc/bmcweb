@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2946bf5_eee968c5",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T16:49:39Z",
+      "side": 1,
+      "message": "Can you please comment  in your commit message on why:\n\n1. This check is left in place in this patch.  This patch seems to be replacing this check, so it\u0027s not clear why it\u0027s left.\n\n2. Why the browser was not sending an X-Requested-With header during this bug?\n\nThis line of code is supposed to solve the problem you\u0027re solving.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eabdc7dc_dfdf4d6f",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T16:49:39Z",
+      "side": 1,
+      "message": "Where is this list sourced from?  How do we verify this includes all browsers?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 2
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8b2fa8_76352efd",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T16:49:39Z",
+      "side": 1,
+      "message": "Please do not parse structured strings with find().  Please parse them using the appropriate functions. This is called out in COMMON_ERRORS.md",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
