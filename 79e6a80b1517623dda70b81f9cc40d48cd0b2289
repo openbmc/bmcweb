@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b589dc81_a80ac18e",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T20:08:44Z",
+      "side": 1,
+      "message": "oh, interesting, might be gerrit escaping.  Should\u0027ve been\n\n```\nshould be setting */*\n```",
+      "parentUuid": "7cc74744_94b5e8ec",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2946bf5_eee968c5",
         "filename": "include/forward_unauthorized.hpp",
         "patchSetId": 8
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "Does the web UI need to set this header manually?",
       "parentUuid": "c2946bf5_eee968c5",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a762026_8ca49ecb",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-27T20:08:44Z",
+      "side": 1,
+      "message": "I wasn\u0027t able to tell if it\u0027s set by default these days, although it was requested:\n\nAt the very least, it\u0027s a one line change to set it by default.\nhttps://github.com/axios/axios/issues/1322#issuecomment-449626391",
+      "parentUuid": "3eea1f10_9c2c6973",
       "range": {
         "startLine": 49,
         "startChar": 0,
