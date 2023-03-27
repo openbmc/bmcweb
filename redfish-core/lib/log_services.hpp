@@ -854,8 +854,12 @@ inline void createDumpTaskCallback(
             nlohmann::json retMessage = messages::success();
             taskData->messages.emplace_back(retMessage);
 
-            std::string headerLoc = "Location: " + dumpEntryPath +
-                                    http_helpers::urlEncode(dumpId);
+            boost::urls::url url = boost::urls::format(
+                "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/{}", dumpId);
+
+            std::string headerLoc = "Location: ";
+            headerLoc += url.buffer();
+
             taskData->payload->httpHeaders.emplace_back(std::move(headerLoc));
 
             BMCWEB_LOG_DEBUG << createdObjPath.str
