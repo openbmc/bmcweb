@@ -1938,6 +1938,9 @@ inline void requestRoutesManager(App& app)
             "/redfish/v1/Managers/bmc/VirtualMedia";
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 
+        asyncResp->res.jsonValue["Certificates"]["@odata.id"] =
+            "/redfish/v1/Managers/bmc/Certificates";
+
         // default oem data
         nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
@@ -1947,8 +1950,7 @@ inline void requestRoutesManager(App& app)
         oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
 
         nlohmann::json::object_t certificates;
-        certificates["@odata.id"] =
-            "/redfish/v1/Managers/bmc/Truststore/Certificates";
+        certificates["@odata.id"] = "/redfish/v1/Managers/bmc/Certificates";
         oemOpenbmc["Certificates"] = std::move(certificates);
 
         // Manager.Reset (an action) can be many values, OpenBMC only
