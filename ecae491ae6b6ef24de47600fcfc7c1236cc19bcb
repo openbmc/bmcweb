@@ -62,6 +62,23 @@
       "message": "Is clang-format added this empty lane?",
       "revId": "ecae491ae6b6ef24de47600fcfc7c1236cc19bcb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72209c4b_a813053e",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-27T21:11:53Z",
+      "side": 1,
+      "message": "This empty line can be removed, as it continues to the next method .onclose().",
+      "revId": "ecae491ae6b6ef24de47600fcfc7c1236cc19bcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
