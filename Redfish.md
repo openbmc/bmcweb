@@ -1,4 +1,4 @@
-# Redfish
+#Redfish
 
 bmcweb provides an implementation of the [Redfish][1] API. This document details
 the Redfish schemas supported by bmcweb. This document also discusses some of
@@ -83,7 +83,8 @@ Fields common to all schemas
 - Members
 - Members@odata.count
 
-### /redfish/v1/AggregationService/AggregationSources/{AggregationSourceId}
+### /redfish/v1/AggregationService/AggregationSources/{
+    AggregationSourceId}
 
 #### AggregationSource
 
@@ -145,6 +146,9 @@ Fields common to all schemas
   - Will be set to true for all default roles. If the given role is non-default,
     or has been modified from default, will be marked as false.
 - OemPrivileges
+  - The privilege "OpenBMCHostConsole" is added to users who are members of the
+    "hostconsole" user group. This privilege is required to access the host
+    console.
 - RoleId
 
 ### /redfish/v1/Cables/
