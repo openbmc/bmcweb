@@ -120,8 +120,10 @@ inline void connectHandler(const boost::system::error_code& ec)
 
 inline void requestRoutes(App& app)
 {
+    // The routing function check the host console access by making sure that
+    // user is part of hostconsole group. The bmcweb decided to stay away from
+    // redfish privileges for this access.
     BMCWEB_ROUTE(app, "/console0")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
         .onopen(
             [](crow::websocket::Connection& conn) {

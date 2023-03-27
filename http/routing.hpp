@@ -1256,6 +1256,46 @@ class Router
         return findRoute;
     }
 
+    // Check if user is member of the checkGroup.
+    static bool isUserInGroup(const Request& req, const char* checkGroup,
+                              const dbus::utility::DBusPropertiesMap& userInfo)
+    {
+        BMCWEB_LOG_DEBUG << "Check if '" << req.session->username
+                         << "' is part of " << checkGroup << " group";
+
+        auto userInfoIter =
+            std::find_if(userInfo.begin(), userInfo.end(),
+                         [](const auto& p) { return p.first == "UserGroups"; });
+        if (userInfoIter == userInfo.end())
+        {
+            BMCWEB_LOG_ERROR << "Failed to get UserGroups property.";
+            return false;
+        }
+
+        const std::vector<std::string>* userGroups =
+            std::get_if<std::vector<std::string>>(&userInfoIter->second);
+        if (userGroups == nullptr)
+        {
+            BMCWEB_LOG_ERROR << "userGroups wasn't a string vector";
+            return false;
+        }
+
+        // Check if user is part of checkGroup
+        auto userGroupIter =
+            std::find_if(userGroups->begin(), userGroups->end(),
+                         [&checkGroup](const auto& userGroup) {
+            return userGroup == checkGroup;
+            });
+        if (userGroupIter == userGroups->end())
+        {
+            BMCWEB_LOG_ERROR << "User is not part of " << checkGroup
+                             << " group.";
+            return false;
+        }
+
+        return true;
+    }
+
     static bool isUserPrivileged(
         Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
@@ -1272,6 +1312,7 @@ class Router
 
         if (!success)
         {
+            BMCWEB_LOG_ERROR << "Failed to unpack user properties.";
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             return false;
@@ -1307,6 +1348,16 @@ class Router
         else
         {
             expired = *passwordExpired;
+        }
+
+        // User must be member of hostconsole group to access host console.
+        if ((rule.rule == "/console0") &&
+            !isUserInGroup(req, "hostconsole", userInfoMap))
+        {
+            BMCWEB_LOG_WARNING << "User '" << req.session->username
+                               << "' is not part of 'hostconsole' group.";
+            asyncResp->res.result(boost::beast::http::status::forbidden);
+            return false;
         }
 
         // Get the user's privileges from the role
