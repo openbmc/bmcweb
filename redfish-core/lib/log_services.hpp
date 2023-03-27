@@ -853,9 +853,6 @@ inline void createDumpTaskCallback(
 
             nlohmann::json retMessage = messages::success();
             taskData->messages.emplace_back(retMessage);
-
-            std::string headerLoc =
-                "Location: " + dumpEntryPath + http_helpers::urlEncode(dumpId);
             taskData->payload->httpHeaders.emplace_back(std::move(headerLoc));
 
             BMCWEB_LOG_DEBUG << createdObjPath.str
