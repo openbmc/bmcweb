@@ -701,6 +701,161 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
+inline void downloadEntryCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryID,
+    const std::string& dumpType,
+    const boost::system::error_code& ec,
+    const sdbusplus::message::unix_fd& unixfd)
+{
+    if (ec.value() == EBADR)
+    {
+        messages::resourceNotFound(asyncResp->res, "DumpEntryAttachment",
+                                   entryID);
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Make sure we know how to process the retrieved dump
+    if ((dumpType != "BMC") && (dumpType != "System"))
+    {
+        BMCWEB_LOG_ERROR("downloadDumpEntryCallback() invalid dump type: {}",
+                         dumpType);
+        messages::internalError(asyncResp->res);
+    }
+
+    int fd = -1;
+    fd = dup(unixfd);
+    if (fd < 0)
+    {
+        BMCWEB_LOG_ERROR("Failed to open dump file");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    long long int size = lseek(fd, 0, SEEK_END);
+    if (size <= 0)
+    {
+        BMCWEB_LOG_ERROR("Failed to get size of dump file, lseek() returned {}",
+                         size);
+        messages::internalError(asyncResp->res);
+        close(fd);
+        return;
+    }
+
+    // Arbitrary max size of 20MB to accommodate BMC dumps
+    constexpr int maxFileSize = 20 * 1024 * 1024;
+    if (size > maxFileSize)
+    {
+        BMCWEB_LOG_ERROR("File size {} exceeds maximum allowed size of {}",
+                         size, maxFileSize);
+        messages::internalError(asyncResp->res);
+        close(fd);
+        return;
+    }
+    long long int rc = lseek(fd, 0, SEEK_SET);
+    if (rc < 0)
+    {
+        BMCWEB_LOG_ERROR("Failed to reset dump file offset to 0");
+        messages::internalError(asyncResp->res);
+        close(fd);
+        return;
+    }
+
+    asyncResp->res.body().resize(static_cast<size_t>(size), '\0');
+    rc = read(fd, asyncResp->res.body().data(), asyncResp->res.body().size());
+    if ((rc == -1) || (rc != size))
+    {
+        BMCWEB_LOG_ERROR("Failed to read in dump file");
+        messages::internalError(asyncResp->res);
+        close(fd);
+        return;
+    }
+    close(fd);
+
+    if (dumpType == "System")
+    {
+        // We need to encode the data.  Doing it this way saves the other paths
+        // from having to make a copy into a temporary variable.
+        asyncResp->res.body() =
+            crow::utility::base64encode(asyncResp->res.body());
+        asyncResp->res.addHeader(
+                boost::beast::http::field::content_transfer_encoding, "Base64");
+    }
+
+    asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                             "application/octet-stream");
+}
+
+inline void
+    downloadDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& entryID, const std::string& dumpType)
+{
+    if (dumpType != "BMC")
+    {
+        BMCWEB_LOG_WARNING("Can't find Dump Entry {}", entryID);
+        messages::resourceNotFound(asyncResp->res, dumpType + " dump", entryID);
+        return;
+    }
+
+    std::string dumpEntryPath =
+        sdbusplus::message::object_path("/xyz/openbmc_project/dump/") /
+        std::string(boost::algorithm::to_lower_copy(dumpType)) / "entry" /
+        entryID;
+
+    auto downloadDumpEntryHandler =
+        [asyncResp, entryID, dumpType](
+            const boost::system::error_code& ec,
+            const sdbusplus::message::unix_fd& unixfd) {
+        downloadEntryCallback(asyncResp, entryID, dumpType, ec, unixfd);
+    };
+
+    crow::connections::systemBus->async_method_call(
+        std::move(downloadDumpEntryHandler), "xyz.openbmc_project.Dump.Manager",
+        dumpEntryPath, "xyz.openbmc_project.Dump.Entry", "GetFileHandle");
+}
+
+inline void
+    downloadEventLogEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& systemName,
+                          const std::string& entryID,
+                          const std::string& dumpType)
+{
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::string entryPath =
+        sdbusplus::message::object_path("/xyz/openbmc_project/logging/entry") /
+        entryID;
+
+    auto downloadEventLogEntryHandler =
+        [asyncResp, entryID, dumpType](
+            const boost::system::error_code& ec,
+            const sdbusplus::message::unix_fd& unixfd) {
+        downloadEntryCallback(asyncResp, entryID, dumpType, ec, unixfd);
+    };
+
+    crow::connections::systemBus->async_method_call(
+        std::move(downloadEventLogEntryHandler), "xyz.openbmc_project.Logging",
+        entryPath, "xyz.openbmc_project.Logging.Entry", "GetEntry");
+}
+
 inline DumpCreationProgress
     mapDbusStatusToDumpProgress(const std::string& status)
 {
@@ -1960,114 +2115,6 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         });
 }
 
-inline void requestRoutesDBusEventLogEntryDownload(App& app)
-{
-    BMCWEB_ROUTE(
-        app,
-        "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        if (!http_helpers::isContentTypeAllowed(
-                req.getHeaderValue("Accept"),
-                http_helpers::ContentType::OctetStream, true))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        if constexpr (bmcwebEnableMultiHost)
-        {
-            // Option currently returns no systems.  TBD
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-        if (systemName != "system")
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-
-        std::string entryID = param;
-        dbus::utility::escapePathForDbus(entryID);
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, entryID](const boost::system::error_code& ec,
-                                 const sdbusplus::message::unix_fd& unixfd) {
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res, "EventLogAttachment",
-                                           entryID);
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            int fd = -1;
-            fd = dup(unixfd);
-            if (fd == -1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            long long int size = lseek(fd, 0, SEEK_END);
-            if (size == -1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Arbitrary max size of 64kb
-            constexpr int maxFileSize = 65536;
-            if (size > maxFileSize)
-            {
-                BMCWEB_LOG_ERROR("File size exceeds maximum allowed size of {}",
-                                 maxFileSize);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            std::vector<char> data(static_cast<size_t>(size));
-            long long int rc = lseek(fd, 0, SEEK_SET);
-            if (rc == -1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            rc = read(fd, data.data(), data.size());
-            if ((rc == -1) || (rc != size))
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            close(fd);
-
-            std::string_view strData(data.data(), data.size());
-            std::string output = crow::utility::base64encode(strData);
-
-            asyncResp->res.addHeader(boost::beast::http::field::content_type,
-                                     "application/octet-stream");
-            asyncResp->res.addHeader(
-                boost::beast::http::field::content_transfer_encoding, "Base64");
-            asyncResp->res.body() = std::move(output);
-            },
-            "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryID,
-            "xyz.openbmc_project.Logging.Entry", "GetEntry");
-        });
-}
-
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
 
 inline bool
@@ -2829,6 +2876,7 @@ inline void handleLogServicesDumpEntryGet(
     }
     getDumpEntryById(asyncResp, dumpId, dumpType);
 }
+
 inline void handleLogServicesDumpEntryComputerSystemGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2873,6 +2921,37 @@ inline void handleLogServicesDumpEntryComputerSystemDelete(
         return;
     }
     deleteDumpEntry(asyncResp, dumpId, "System");
+}
+
+inline void handleLogServicesDumpEntryDownloadGet(
+    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dumpId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    downloadDumpEntry(asyncResp, dumpId, dumpType);
+}
+
+inline void handleDBusEventLogEntryDownloadGet(
+    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& entryID)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (!http_helpers::isContentTypeAllowed(
+            req.getHeaderValue("Accept"),
+            http_helpers::ContentType::OctetStream, true))
+    {
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+    downloadEventLogEntry(asyncResp, systemName, entryID, dumpType);
 }
 
 inline void handleLogServicesDumpCollectDiagnosticDataPost(
@@ -2979,6 +3058,16 @@ inline void requestRoutesBMCDumpEntry(App& app)
             handleLogServicesDumpEntryDelete, std::ref(app), "BMC"));
 }
 
+inline void requestRoutesBMCDumpEntryDownload(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/attachment")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleLogServicesDumpEntryDownloadGet, std::ref(app), "BMC"));
+}
+
 inline void requestRoutesBMCDumpCreate(App& app)
 {
     BMCWEB_ROUTE(
@@ -2998,6 +3087,16 @@ inline void requestRoutesBMCDumpClear(App& app)
         .privileges(redfish::privileges::postLogService)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLogServicesDumpClearLogPost, std::ref(app), "BMC"));
+}
+
+inline void requestRoutesDBusEventLogEntryDownload(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleDBusEventLogEntryDownloadGet, std::ref(app), "System"));
 }
 
 inline void requestRoutesFaultLogDumpService(App& app)
