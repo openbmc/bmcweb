@@ -134,5 +134,14 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
                              expectedPrivileges[2], expectedPrivileges[3],
                              expectedPrivileges[4]));
 }
+
+TEST(PrivilegeTest, PrivilegeHostConsoleConstructor)
+{
+    Privileges privileges{"OEMOpenBmcHostConsole"};
+
+    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::OEM),
+                UnorderedElementsAre("OEMOpenBmcHostConsole"));
+}
+
 } // namespace
 } // namespace redfish
