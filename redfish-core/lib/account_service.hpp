@@ -135,8 +135,13 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
         }
         else if (userGroup == "ssh")
         {
-            accountTypes.emplace_back("HostConsole");
             accountTypes.emplace_back("ManagerConsole");
+        }
+        else if (userGroup == "hostconsole")
+        {
+            // The hostconsole group controls who can access the host console
+            // port via ssh and websocket.
+            accountTypes.emplace_back("HostConsole");
         }
         else if (userGroup == "web")
         {
@@ -1293,6 +1298,13 @@ inline void
     {
         return;
     }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/AccountService/AccountService.json>; rel=describedby");
@@ -1327,7 +1339,7 @@ inline void
     // ConfigureManager can access then only display when the user has
     // permissions ConfigureManager
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
 
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
@@ -1526,6 +1538,13 @@ inline void handleAccountCollectionGet(
     {
         return;
     }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ManagerAccountCollection.json>; rel=describedby");
@@ -1538,7 +1557,7 @@ inline void handleAccountCollectionGet(
     asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
 
     std::string thisUser;
     if (req.session)
@@ -1601,6 +1620,19 @@ inline void processAfterGetAllGroups(
     const std::vector<std::string>& allGroupsList)
 
 {
+    std::vector<std::string> userGroups;
+    for (const auto& grp : allGroupsList)
+    {
+        BMCWEB_LOG_DEBUG << "CreateUser: BEFORE group: " << grp;
+        // Console access is provided to the user who is a member of
+        // hostconsole group and has a administrator role. So, set
+        // hostconsole group only for the administrator.
+        if ((grp != "hostconsole") || (roleId == "priv-admin"))
+        {
+            userGroups.emplace_back(grp);
+        }
+    }
+
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
@@ -1644,8 +1676,8 @@ inline void processAfterGetAllGroups(
             "Location", "/redfish/v1/AccountService/Accounts/" + username);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "xyz.openbmc_project.User.Manager", "CreateUser", username,
-        allGroupsList, *roleId, *enabled);
+        "xyz.openbmc_project.User.Manager", "CreateUser", username, userGroups,
+        *roleId, *enabled);
 }
 
 inline void handleAccountCollectionPost(
@@ -1746,7 +1778,7 @@ inline void
         // have permissions to modify other users, so re-run the auth
         // check with the same permissions, minus ConfigureSelf.
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(req.userRole);
+            redfish::getUserPrivileges(*req.session);
         Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
                                                          "ConfigureManager"};
         if (!effectiveUserPrivileges.isSupersetOf(
@@ -1957,7 +1989,7 @@ inline void
     }
 
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(req.userRole);
+        redfish::getUserPrivileges(*req.session);
     Privileges configureUsers = {"ConfigureUsers"};
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers);
