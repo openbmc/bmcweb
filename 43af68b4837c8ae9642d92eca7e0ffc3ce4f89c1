@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0cc8ba2_cf87d3ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T18:07:47Z",
+      "side": 1,
+      "message": "Make sure the validator is happy?",
+      "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "15749ca7_dcd85010",
@@ -50,6 +67,29 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "98b28ef1_4ab1f226",
+      "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc76ac27_78364c5f",
+        "filename": "Redfish.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T18:07:47Z",
+      "side": 1,
+      "message": "I like this matching Redfish here.. \nSo CertificateId \nfrom https://redfish.dmtf.org/schemas/v1/Certificate_v1.xml\n\n/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}\n\nAlso why different than like \n```\n### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/ \n```\n\n/redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/ looks fine to me on https://github.com/openbmc/bmcweb/blob/master/Redfish.md#redfishv1managersbmcethernetinterfacesethernetinterfaceid",
+      "range": {
+        "startLine": 471,
+        "startChar": 43,
+        "endLine": 471,
+        "endChar": 49
+      },
       "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
