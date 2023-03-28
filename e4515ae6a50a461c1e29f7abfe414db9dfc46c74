@@ -213,6 +213,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26a8be0d_bc071a38",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 3530,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-28T12:28:28Z",
+      "side": 1,
+      "message": "There are some methods such as getPCIeDeviceList as discussed in review comments cannot fully tested with the platform that we have tested so this needs to be submitted as separate patch also. So it is better these changes can be taken as separate patch once the main patch is approved.",
+      "parentUuid": "cc0f4dd2_71fab7b0",
+      "range": {
+        "startLine": 3528,
+        "startChar": 0,
+        "endLine": 3530,
+        "endChar": 33
+      },
+      "revId": "e4515ae6a50a461c1e29f7abfe414db9dfc46c74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66d49747_b0d0698f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 54
