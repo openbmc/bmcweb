@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aec9d35_ed056759",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2023-03-28T04:47:15Z",
+      "side": 1,
+      "message": "Only `chassisId` in capture list should be sufficient. It will be only one copy constructor.",
+      "range": {
+        "startLine": 330,
+        "startChar": 1,
+        "endLine": 330,
+        "endChar": 71
+      },
+      "revId": "0923da184cc2eda5f616e49b4a880cdd87b3a688",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
