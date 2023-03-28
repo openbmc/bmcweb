@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ddb8212_496ca647",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T03:51:04Z",
+      "side": 1,
+      "message": "Added here: https://github.com/openbmc/bmcweb/commit/cfcd5f6bd9289c97e25d809068e579f7f3d45aeb\n\nHardcoded in test automation and webui-vue :/ \n\nhttps://github.com/openbmc/webui-vue/blob/6dba4be6125c10210bafa030ac17737d3a9b28b8/src/store/modules/SecurityAndAccess/CertificatesStore.js#L17\n\nhttps://github.com/openbmc/openbmc-test-automation/blob/c30e02a6a9fc86adc01f7596a988841ae66a4989/redfish/managers/test_certificate.robot#L242\n\n\nAlso need a doc change: \nhttps://github.com/openbmc/docs/blob/735d3187fead258ddc18d926a5f82c87871e513d/security/TLS-configuration.md#L357",
+      "revId": "0ff687a5b8a3dc5867eadaae6a9d7fdcf43c548b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
