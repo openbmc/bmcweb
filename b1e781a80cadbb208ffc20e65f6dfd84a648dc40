@@ -85,6 +85,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8e8c3148_5659ba54",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2023-03-28T08:00:08Z",
+      "side": 1,
+      "message": "As per my reading of sdbusplus, I think unpackPropertiesNoThrow makes these two pointer point to content inside propertiesList. Anyway my query resolved.",
+      "parentUuid": "020e21b0_7dc0cdb3",
+      "range": {
+        "startLine": 1185,
+        "startChar": 1,
+        "endLine": 1186,
+        "endChar": 48
+      },
+      "revId": "b1e781a80cadbb208ffc20e65f6dfd84a648dc40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "de965ef9_e0a5fb5b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 86
