@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3e2c5a5_a9eb2829",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T03:46:27Z",
+      "side": 1,
+      "message": "This was added here: \nhttps://github.com/openbmc/bmcweb/commit/a43be80f1b8f9f314e9e2fa2db0875fde1d5e8ba",
+      "revId": "776eb0c2c42fa0f53c6479913e89ca73e4a8105c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
