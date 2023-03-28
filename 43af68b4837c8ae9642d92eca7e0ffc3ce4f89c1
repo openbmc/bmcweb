@@ -16,6 +16,24 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/docs/+/61990 is the doc update",
       "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b28ef1_4ab1f226",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T17:59:44Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/openbmc-test-automation/+/61991 is the test one",
+      "parentUuid": "15749ca7_dcd85010",
+      "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
