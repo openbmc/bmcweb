@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21bb4572_b3bfbc35",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T14:32:37Z",
+      "side": 0,
+      "message": "Can we remove this? Looks like you moved to xyz.openbmc_project.Inventory.Item.PCIeDevice. This should really be a new commit (moving to the correct interface) and called out in the commit msg",
+      "revId": "e7637a3cf3f83390bb89589bb58c0a8c2a601925",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
