@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "022b1477_b4864199",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T19:26:07Z",
+      "side": 1,
+      "message": "have you seen https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md ?\n\nThis is going to require a lot more explanation than it currently has before this is going to get accepted into bmcweb. Why can\u0027t this be standard Redfish? Have you engaged the DMTF? What does this OEM do and why do we need it?",
+      "revId": "29ddfeb97f717484805084d4d3aabd8835ff4af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb7b9e1_7c84cf39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T19:26:07Z",
+      "side": 1,
+      "message": "Please wrap at 50/72. See https://cbea.ms/git-commit/. \nI have noticed I have made this comment in several of your commits (e.g. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53959). Maybe set your editor up so you don\u0027t have to manually do this? \n\nE.g. \n\n .vimrc for commit messages:\n\n  autocmd Filetype gitcommit  setlocal textwidth\u003d72 tabstop\u003d2 shiftwidth\u003d2 expandtab spell",
+      "revId": "29ddfeb97f717484805084d4d3aabd8835ff4af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
