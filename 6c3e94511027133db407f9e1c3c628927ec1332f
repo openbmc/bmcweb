@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43daf634_e5682893",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-03-28T05:23:33Z",
+      "side": 0,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61964/1/redfish-core/lib/log_services.hpp#759 The dumpEntryPath is the redfish URL of the created dump entry and not set to the dbus path.\n\nThe redfish response looks like:\n\"Payload\": {\n    \"HttpHeaders\": [\n      \"Host: 9.3.29.177\",\n      \"User-Agent: curl/7.86.0\",\n      \"Accept: */*\",\n      \"Content-Length: 32\",\n      \"Location: /redfish/v1/Managers/bmc/LogServices/Dump/Entries/26\"\n    ],\n    \nAnd, a connected client can use this location field to see the created dump entry object and do any operation on it (GET/DELETE).\nThis was the reason, the path was added in the location field.",
+      "range": {
+        "startLine": 857,
+        "startChar": 0,
+        "endLine": 858,
+        "endChar": 79
+      },
+      "revId": "6c3e94511027133db407f9e1c3c628927ec1332f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
