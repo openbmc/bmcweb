@@ -110,6 +110,23 @@
       },
       "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4919c7dc_c8ea8df4",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-28T19:19:16Z",
+      "side": 1,
+      "message": "Could add a Header warning to these but not sure it is worth the effort \n\nhttps://github.com/openbmc/bmcweb/blob/0ed80c8ce93a38eca6951ffad5c3143a3a720053/redfish-core/lib/update_service.hpp#L848",
+      "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
