@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e25aab9f_3e906dad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T16:24:36Z",
+      "side": 1,
+      "message": "This commit doesn\u0027t do a lot. Members is always empty. This is behind a flag which is disabled by default. I guess let\u0027s get https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57669 rebased on top (has merge conflict), then this can go with the plan being 57669 goes soon after.",
+      "revId": "e2c1f1ab660c2360f3358c215807ef08353cee01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
