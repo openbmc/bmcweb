@@ -16,6 +16,24 @@
       "message": "Add to Redfish.md?",
       "revId": "2379d6d82610bd88851ff1f4bf28e1e4185c18bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edff119a_fa83c90e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000869
+      },
+      "writtenOn": "2023-03-29T13:04:41Z",
+      "side": 1,
+      "message": "It already exists in Redfish.md\nhttps://github.com/openbmc/bmcweb/blob/master/Redfish.md#chassis",
+      "parentUuid": "5a65d3fc_97e67282",
+      "revId": "2379d6d82610bd88851ff1f4bf28e1e4185c18bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
