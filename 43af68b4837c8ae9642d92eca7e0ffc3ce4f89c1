@@ -91,6 +91,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b78d8c3_2fcdff64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2023-03-29T05:58:59Z",
+      "side": 1,
+      "message": "The spec says /redfish/v1/Managers/bmc/Certificates is \"The link to a collection of certificates for device identity and attestation.\" But the certificates previously in TrustStore is \"Certificates trusted by BMC\", they serves totally different purpose.\n\nRedfish 2022.2 spec adds SecurityPolicy schema and URIs like:\n/​redfish/​v1/​Managers/​{ManagerId}/​SecurityPolicy/​TLS/​Client/​RevokedCertificates -\u003e \"The revoked TLS server certificates.\"\n/​redfish/​v1/​Managers/​{ManagerId}/​SecurityPolicy/​TLS/​Client/​TrustedCertificates -\u003e \"The trusted TLS server certificates.\"\n\nProbably these URIs is the replacement for our TrustStore implementation. But it may take plenty of effort to implement SecurityPolicy in bmcweb.",
+      "revId": "43af68b4837c8ae9642d92eca7e0ffc3ce4f89c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc76ac27_78364c5f",
         "filename": "Redfish.md",
         "patchSetId": 4
