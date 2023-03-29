@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01524417_735f86e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 58
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2023-03-29T15:54:32Z",
+      "side": 1,
+      "message": "rebased and made this patch dependent over the patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59940\n\nAdded the multi-host computer system discovery part under meson option \"unstable-redfish-multi-computer-system\" so the single host discovery is same as earlier and unaffected by multi-host discovery logic unless this meson option is enabled.",
+      "revId": "6a0e9d5e4d1f8c82f69029b22eba4a0e79078977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
