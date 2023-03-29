@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41be70f6_77fa69b5",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-29T13:51:20Z",
+      "side": 1,
+      "message": "In case there is no Ports, the link will show the 0 Members.\nWould it be acceptable?\n\n```\n$ curl -k -X GET https://${bmc}/redfish/v1/Systems/system/FabricAdapters/pcie_card0\n{\n....\n  \"Ports\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/pcie_card0/Ports\"\n  },\n...\n}\n\ncurl -k -X GET https://${bmc}/redfish/v1/Systems/system/FabricAdapters/pcie_card0/Ports\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/pcie_card0/Ports\",\n  \"@odata.type\": \"#PortCollection.PortCollection\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,            \u003c\u003d\u003d 0 members\n  \"Name\": \"Port Collection\"\n}%\n```\n\nOr, should we check the existence of ports first and then disable this \"Ports\" link?",
+      "parentUuid": "8740b2e5_d8a49a52",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 75
+      },
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bf6312b_fbe9d9da",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 8

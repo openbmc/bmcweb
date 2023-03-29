@@ -97,6 +97,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "38bbf9de_cf3e227d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-29T13:51:20Z",
+      "side": 1,
+      "message": "Commit message is updated in pathset#10",
+      "parentUuid": "49a3dd1c_b80a36b1",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 27
+      },
+      "revId": "0d8e9598d0d6a4308da9642e3b492a51411e0de1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "109f64ba_92067f8d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
