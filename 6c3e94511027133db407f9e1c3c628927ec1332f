@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cfc6268_e90d3e3e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T16:17:26Z",
+      "side": 0,
+      "message": "We could keep the default in case this is set to \"Unknown\" or \"Other\" or the interface isn\u0027t implemented  but I am okay with this code as is.",
+      "revId": "6c3e94511027133db407f9e1c3c628927ec1332f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
