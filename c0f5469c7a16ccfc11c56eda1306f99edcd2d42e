@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e369ea6a_a5b5e815",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-29T14:08:05Z",
+      "side": 1,
+      "message": "Another comment.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61374 would be needed to make port schema working.\n\nFor example, \"/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\u003cstr\u003e/Ports/\u003cstr\u003e/\"",
+      "revId": "c0f5469c7a16ccfc11c56eda1306f99edcd2d42e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
