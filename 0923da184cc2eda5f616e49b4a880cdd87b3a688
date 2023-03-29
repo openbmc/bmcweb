@@ -22,6 +22,30 @@
       },
       "revId": "0923da184cc2eda5f616e49b4a880cdd87b3a688",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee295e2_b2614e1c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2023-03-29T07:44:53Z",
+      "side": 1,
+      "message": "When we remove asyncResp from capture list, getting \u0027asyncResp\u0027 is not captured error.",
+      "parentUuid": "2aec9d35_ed056759",
+      "range": {
+        "startLine": 330,
+        "startChar": 1,
+        "endLine": 330,
+        "endChar": 71
+      },
+      "revId": "0923da184cc2eda5f616e49b4a880cdd87b3a688",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
