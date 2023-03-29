@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "477714c9_f80edc96",
+        "filename": "http/routing.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T18:46:19Z",
+      "side": 1,
+      "message": "Could you make this generic? Pass the group name? Like isUserPartOfGroup similar to isUserPrivileged below",
+      "revId": "e89f948dbede8956e6ca6ecf262fa534694e193f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
