@@ -68,6 +68,12 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         // No If-Match header.  Nothing to do
         return true;
     }
+    if (ifMatch == "*")
+    {
+        // Representing any resource
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
+        return true;
+    }
     if (req.req.method() != boost::beast::http::verb::patch &&
         req.req.method() != boost::beast::http::verb::post &&
         req.req.method() != boost::beast::http::verb::delete_)
