@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fddb872_e99a1ea4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T17:42:32Z",
+      "side": 0,
+      "message": "I don\u0027t see MetricId in getUserMetrics/ getUserMetric ? Don\u0027t we still want that?",
+      "range": {
+        "startLine": 214,
+        "startChar": 42,
+        "endLine": 214,
+        "endChar": 50
+      },
+      "revId": "b9d679d1ce64141342e8a845533ce6af9901aae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
