@@ -16,6 +16,46 @@
       "message": "Can you update Redfish.md?",
       "revId": "6d2282a7cc013323d48d21194c1d9c1cb4a267b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d2f5018_7a890c47",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T20:02:14Z",
+      "side": 1,
+      "message": "pass by reference. \nSee https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "range": {
+        "startLine": 173,
+        "startChar": 37,
+        "endLine": 173,
+        "endChar": 47
+      },
+      "revId": "6d2282a7cc013323d48d21194c1d9c1cb4a267b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d559dab_c1b2b391",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T20:02:14Z",
+      "side": 1,
+      "message": "Pass by reference please https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "revId": "6d2282a7cc013323d48d21194c1d9c1cb4a267b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -185,6 +185,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffb6628a_a5fc1d40",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-29T20:02:14Z",
+      "side": 1,
+      "message": "Ideally, these would be documented in some document.. \nWell-known sensor names and what they do. Similar to how we document well known association names. I think the documentation should go in:\nhttps://github.com/openbmc/phosphor-dbus-interfaces\nor \nhttps://github.com/openbmc/docs",
+      "parentUuid": "e3245b2b_545d3d50",
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d07a651c_b6e5d1d8",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 30
