@@ -145,6 +145,54 @@
       },
       "revId": "1b4b3ff20aa2d42a1e52d520c4a012ea110471f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "187ab0b9_b2ec5130",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-29T17:19:13Z",
+      "side": 1,
+      "message": "In fact, the check is needed to filter out the invalid fabric adapter.\n\n```\ncurl -k https://${bmc}/redfish/v1/Systems/system/FabricAdapters/bad-fabric-adapter-id/Ports\n```\n\nWithout it, it will not return an error msg but show 0 member collection.",
+      "parentUuid": "bd808e86_2c8ff8db",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 29
+      },
+      "revId": "1b4b3ff20aa2d42a1e52d520c4a012ea110471f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1e7145_1b9c3c83",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-29T17:19:13Z",
+      "side": 1,
+      "message": "\u003e Updated in pathset#11",
+      "parentUuid": "bd808e86_2c8ff8db",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 29
+      },
+      "revId": "1b4b3ff20aa2d42a1e52d520c4a012ea110471f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
