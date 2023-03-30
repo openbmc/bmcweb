@@ -23,6 +23,78 @@ namespace redfish
 namespace pcie_util
 {
 
+static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+    "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
+    "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+
+inline void
+    handleGetEmptyPCIeSlots(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& pcieSlotName,
+                            const nlohmann::json::json_pointer& jsonKeyName,
+                            const boost::system::error_code& ec,
+                            const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error for getAssociationEndPoints: {}",
+                ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        /* No association subtreePaths indicate an empty PCIeSlot. */
+    }
+    if (subtreePaths.empty())
+    {
+        nlohmann::json& pcieDeviceList = asyncResp->res.jsonValue[jsonKeyName];
+        nlohmann::json::json_pointer jsonCountKeyName = jsonKeyName;
+        std::string back = jsonCountKeyName.back();
+        jsonCountKeyName.pop_back();
+        jsonCountKeyName /= back + "@odata.count";
+
+        nlohmann::json::object_t pcieDevice;
+        pcieDevice["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/PCIeDevices/{}", pcieSlotName);
+        pcieDeviceList.push_back(std::move(pcieDevice));
+        asyncResp->res.jsonValue[jsonCountKeyName] = pcieDeviceList.size();
+    }
+}
+
+inline void getEmptyPCIeSlots(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieSlotPaths)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("no PCIe Slot paths found ec: {}", ec.value());
+        return;
+    }
+
+    for (const std::string& pcieSlotPath : pcieSlotPaths)
+    {
+        std::string pcieSlotName =
+            sdbusplus::message::object_path(pcieSlotPath).filename();
+        if (pcieSlotName.empty())
+        {
+            continue;
+        }
+
+        std::string associationPath = pcieSlotPath + "/containing";
+
+        dbus::utility::getAssociatedSubTreePaths(
+            associationPath,
+            sdbusplus::message::object_path("/xyz/openbmc_project/inventory"),
+            0, pcieDeviceInterface,
+            std::bind_front(handleGetEmptyPCIeSlots, asyncResp, pcieSlotName,
+                            jsonKeyName));
+    }
+}
+
 /**
  * @brief Populate the PCIe Device list from a GetSubTreePaths search of
  *        inventory
@@ -37,14 +109,16 @@ inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const nlohmann::json::json_pointer& jsonKeyName)
 {
-    static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
-        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
     const boost::urls::url pcieDeviceUrl =
         boost::urls::url("/redfish/v1/Systems/system/PCIeDevices");
 
     collection_util::getCollectionToKey(
         asyncResp, pcieDeviceUrl, pcieDeviceInterface,
         "/xyz/openbmc_project/inventory", jsonKeyName);
+
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, pcieSlotInterface,
+        std::bind_front(getEmptyPCIeSlots, asyncResp, jsonKeyName));
 }
 
 inline std::optional<pcie_slots::SlotTypes>
