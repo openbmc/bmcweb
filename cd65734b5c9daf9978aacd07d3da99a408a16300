@@ -18,6 +18,46 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e1daf12_feeac62b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-30T14:26:30Z",
+      "side": 1,
+      "message": "Can we name handlePCIeDevicePath() like doAfterGetPCIeDevicePath() instead of handlePCIeDevicePath()\nas \"handleXXXX()\" is used in case via requestRoutes...() like fabric_adapters.hpp?",
+      "range": {
+        "startLine": 39,
+        "startChar": 19,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "cd65734b5c9daf9978aacd07d3da99a408a16300",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1efe72d4_4677aca6",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-03-30T14:26:30Z",
+      "side": 1,
+      "message": "It would be better to name getPCIeDevicePath() as \"getValidPCIeDevicePath()\" similar to the usage for FabricAdapter - getValidFabricAdapterPath()?",
+      "revId": "cd65734b5c9daf9978aacd07d3da99a408a16300",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fb37101e_7a9ea213",
