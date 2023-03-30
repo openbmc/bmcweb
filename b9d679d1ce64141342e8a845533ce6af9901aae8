@@ -22,6 +22,30 @@
       },
       "revId": "b9d679d1ce64141342e8a845533ce6af9901aae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf398210_24d607b2",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-03-30T06:45:13Z",
+      "side": 0,
+      "message": "This was something pointer out by Ed.\n\nWe had wrong understanding of MetricId according to this document: https://www.dmtf.org/sites/default/files/standards/documents/DSP2051_1.0.0.pdf it was just a label and we implemented it to work as a label.\n\nBut according to https://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_2.json it is something different and it is mutually exclusive with MetricProperties.\n\nSince we did not implement logic behind MetricId in backend and field itself is optional we decided to removed this field until it is fully clarified how it is supposed to work. Since we implemented it to work as a label it doesn\u0027t change any functionality in TelemetryService.",
+      "parentUuid": "4fddb872_e99a1ea4",
+      "range": {
+        "startLine": 214,
+        "startChar": 42,
+        "endLine": 214,
+        "endChar": 50
+      },
+      "revId": "b9d679d1ce64141342e8a845533ce6af9901aae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
