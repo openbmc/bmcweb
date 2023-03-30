@@ -72,7 +72,9 @@ inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
 inline void
     onPcieSlotGetAllDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::system::error_code& ec,
-                         const dbus::utility::DBusPropertiesMap& propertiesList)
+                         const dbus::utility::DBusPropertiesMap& propertiesList,
+                         const std::string& connectionName,
+                         const std::string& pcieSlotPath)
 {
     if (ec)
     {
@@ -144,7 +146,33 @@ inline void
         slot["HotPluggable"] = *hotPluggable;
     }
 
+    size_t index = slots.size();
     slots.emplace_back(std::move(slot));
+
+    // Get and set the location code
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, connectionName, pcieSlotPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp, index](const boost::system::error_code& ec1,
+                           const std::string& property) {
+        if (ec1)
+        {
+            BMCWEB_LOG_ERROR
+                << "Can't get location code property for PCIeSlot.";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (property.empty())
+        {
+            BMCWEB_LOG_ERROR << "PcieSlot location code value is empty.";
+            return;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["Slots"][index]["Location"]["PartLocation"]
+                                    ["ServiceLabel"] = property;
+        }
+        });
 }
 
 inline void onMapperAssociationDone(
@@ -183,9 +211,11 @@ inline void onMapperAssociationDone(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code& ec2,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
+        [asyncResp, connectionName,
+         pcieSlotPath](const boost::system::error_code& ec1,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
+        onPcieSlotGetAllDone(asyncResp, ec1, propertiesList, connectionName,
+                             pcieSlotPath);
         });
 }
 
