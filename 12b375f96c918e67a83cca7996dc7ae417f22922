@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c70bd41_18af0ca2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-03-30T21:03:38Z",
+      "side": 1,
+      "message": "Can something be spent to the email list?\nI know Ed said \"an email to the list would be good, but not required\" but let\u0027s do that. \n\nhttps://discord.com/channels/775381525260664832/855566794994221117/1086368966848553082\n\nIt could be as simple as \n\n\"Subject: Moving to correct PCIe Device Interface\n\nCommits: \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62064\n\u003cinsert https://github.com/openbmc/peci-pcie commit\u003e \nare moving to the correct PCIeDevice interface. Any forks or downstream code will also have to be moved. \n\nThanks,\"",
+      "revId": "12b375f96c918e67a83cca7996dc7ae417f22922",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a06889e1_c2e68000",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
