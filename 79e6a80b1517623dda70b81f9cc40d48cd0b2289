@@ -234,6 +234,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e2b555d_a726e8fa",
+        "filename": "include/forward_unauthorized.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001686
+      },
+      "writtenOn": "2023-03-30T11:58:29Z",
+      "side": 1,
+      "message": "\u003e This check is left in place in this patch. This patch seems to be replacing this check, so it\u0027s not clear why it\u0027s left.\n\nYes. I have added the header `X-Requested-With` in webui-vue and which is working as expected.\n\n\u003e Why the browser was not sending an X-Requested-With header during this bug?\n\nFrom the webui-vue, header `X-Requested-With` is not added for any API request. That is the reason why the browser popped up the authentication box.",
+      "parentUuid": "5a762026_8ca49ecb",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "79e6a80b1517623dda70b81f9cc40d48cd0b2289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eabdc7dc_dfdf4d6f",
         "filename": "include/http_utility.hpp",
         "patchSetId": 8
