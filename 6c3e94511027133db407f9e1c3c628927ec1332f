@@ -22,6 +22,30 @@
       },
       "revId": "6c3e94511027133db407f9e1c3c628927ec1332f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68e0208b_009e3525",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-03-30T16:09:01Z",
+      "side": 0,
+      "message": "Ah, apologies, I misread the code.  There are multiple dumpEntryPath variables, one refers to the dbus path.\n\nWill reopen with a new review to remove urlEncode.",
+      "parentUuid": "43daf634_e5682893",
+      "range": {
+        "startLine": 857,
+        "startChar": 0,
+        "endLine": 858,
+        "endChar": 79
+      },
+      "revId": "6c3e94511027133db407f9e1c3c628927ec1332f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
