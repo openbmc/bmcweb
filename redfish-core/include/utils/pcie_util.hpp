@@ -23,6 +23,107 @@ namespace redfish
 namespace pcie_util
 {
 
+inline bool checkPCIeSlotDevicePath(
+    const std::string& pcieDevicePath,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieDevicePaths)
+{
+    return std::find(pcieDevicePaths.begin(), pcieDevicePaths.end(),
+                     pcieDevicePath) != pcieDevicePaths.end();
+}
+
+inline void addEmptyPCIeSlot(
+    const dbus::utility::MapperEndPoints& endpoints,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieDevicePaths,
+    const std::string& pcieSlotName, nlohmann::json& pcieDeviceList)
+{
+    bool found = false;
+    /* There may be multiple different objects with the same
+     * association path. Walk through each object and check if the
+     * PCIeSlot contains a PCIe Device.*/
+    for (const auto& endpoint : endpoints)
+    {
+        if (checkPCIeSlotDevicePath(endpoint, pcieDevicePaths))
+        {
+            found = true;
+            break;
+        }
+    }
+    /* If the PCIeSlot doesn't contain any PCIeDevice then add the
+     * PCIeSlot to pcieDevice list */
+    if (!found)
+    {
+        nlohmann::json::object_t pcieDevice;
+        pcieDevice["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/PCIeDevices/{}", pcieSlotName);
+        pcieDeviceList.push_back(std::move(pcieDevice));
+    }
+}
+
+inline void handleGetEmptyPCIeSlots(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieDevicePaths,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieSlotPaths,
+    const std::string& name)
+{
+    nlohmann::json& pcieDeviceList = asyncResp->res.jsonValue[name];
+    for (const std::string& pcieSlotPath : pcieSlotPaths)
+    {
+        std::string slotName =
+            sdbusplus::message::object_path(pcieSlotPath).filename();
+        if (slotName.empty())
+        {
+            continue;
+        }
+
+        std::string associationPath = pcieSlotPath + "/containing";
+
+        dbus::utility::getAssociationEndPoints(
+            associationPath,
+            [asyncResp, pcieDevicePaths, slotName,
+             &pcieDeviceList](const boost::system::error_code& ec,
+                              const dbus::utility::MapperEndPoints& endpoints) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBUS response error for getAssociationEndPoints: {}",
+                        ec.value());
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                /* No association endpoints indicate an empty PCIeSlot. */
+            }
+
+            addEmptyPCIeSlot(endpoints, pcieDevicePaths, slotName,
+                             pcieDeviceList);
+            });
+    }
+    asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
+}
+
+inline void getEmptyPCIeSlots(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieDevicePaths,
+    const std::string& name)
+{
+    constexpr std::array<std::string_view, 1> pcieSlotInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, pcieSlotInterface,
+        [asyncResp, pcieDevicePaths, name](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& pcieSlotPaths) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("no PCIe Slot paths found ec: {}", ec.value());
+            return;
+        }
+        handleGetEmptyPCIeSlots(asyncResp, pcieDevicePaths, pcieSlotPaths,
+                                name);
+        });
+}
+
 /**
  * @brief Populate the PCIe Device list from a GetSubTreePaths search of
  *        inventory
@@ -42,6 +143,19 @@ inline void
     collection_util::getCollectionMembersArray(
         asyncResp, boost::urls::url("/redfish/v1/Systems/system/PCIeDevices"),
         pcieDeviceInterface, name, "/xyz/openbmc_project/inventory");
+
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
+        [asyncResp, name](const boost::system::error_code& ec,
+                          const dbus::utility::MapperGetSubTreePathsResponse&
+                              pcieDevicePaths) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("no PCIe device paths found ec: {}", ec.message());
+            // Not an error, system just doesn't have PCIe info
+        }
+        getEmptyPCIeSlots(asyncResp, pcieDevicePaths, name);
+        });
 }
 
 inline std::optional<pcie_slots::SlotTypes>
