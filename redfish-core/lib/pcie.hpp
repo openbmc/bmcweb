@@ -32,8 +32,9 @@ namespace redfish
 {
 
 static constexpr char const* pciePath = "/xyz/openbmc_project/inventory";
-constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
-	"xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+constexpr std::array<std::string_view, 2> pcieDeviceInterface{
+    "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+    "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
 
 static inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
