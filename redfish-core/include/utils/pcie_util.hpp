@@ -27,8 +27,9 @@ inline void
     getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& name)
 {
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    constexpr std::array<std::string_view, 2> interfaces{
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
 
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
