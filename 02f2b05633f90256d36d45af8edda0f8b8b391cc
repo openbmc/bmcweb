@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "87b4ebce_6cf19889",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-03T17:29:53Z",
+      "side": 1,
+      "message": "Overall, this is adding a significant feature, the ability to adjust the privileges of routes based on group membership, rather than only on the Role the user is in.\n\nWhile this is a great addition, it needs to be done in line with how the rest of the privilege system is constructed:\n\n1. This patch needs to decide on a name for the \"host console\" privilege.\n2. The routing code needs to add the \"host console\" privilege to the users session, likely using something like \"OEMOpenBmcHostConsole\".\n3. A decision needs to be made if we\u0027d like this privilege to show up in the redfish RolesCollection (probably not), and test to ensure that the desired behavior happens.\n3. The routes that conincide with this new privilege need to be updated to require only that privilege, removing their old privilege level.\n4. An analysis needs to be done of the possible impact to users.  If there is an impact, a meson option to retain the old behavior might be required for a period of time.\n\nOnce that is done, I see no reason to hold up this patch.",
+      "revId": "02f2b05633f90256d36d45af8edda0f8b8b391cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "51a8e88e_8f827f73",
         "filename": "http/routing.hpp",
         "patchSetId": 12
@@ -14,6 +31,52 @@
       "writtenOn": "2023-03-29T22:38:40Z",
       "side": 1,
       "message": "nit: a member",
+      "revId": "02f2b05633f90256d36d45af8edda0f8b8b391cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c8996a2_a0f01d30",
+        "filename": "http/routing.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-03T17:29:53Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode a single URI in the router.  Please add your feature to the registration fature.",
+      "range": {
+        "startLine": 1354,
+        "startChar": 28,
+        "endLine": 1354,
+        "endChar": 36
+      },
+      "revId": "02f2b05633f90256d36d45af8edda0f8b8b391cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "428e51c3_47fa4f81",
+        "filename": "http/routing.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-03T17:29:53Z",
+      "side": 1,
+      "message": "Please call the appropriate functions (forwardUnauthorized) for this.  As written this bypasses a significant number of checks, and returns an incorrect error message in most of them.",
+      "range": {
+        "startLine": 1359,
+        "startChar": 0,
+        "endLine": 1359,
+        "endChar": 73
+      },
       "revId": "02f2b05633f90256d36d45af8edda0f8b8b391cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
