@@ -33,6 +33,24 @@
       "message": "Is there a related change to https://github.com/openbmc/peci-pcie ?",
       "revId": "12b375f96c918e67a83cca7996dc7ae417f22922",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2817d6e9_a89315eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-03T20:17:28Z",
+      "side": 1,
+      "message": "Please add https://gerrit.openbmc.org/c/openbmc/peci-pcie/+/62100 to your commit msg",
+      "parentUuid": "a06889e1_c2e68000",
+      "revId": "12b375f96c918e67a83cca7996dc7ae417f22922",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
