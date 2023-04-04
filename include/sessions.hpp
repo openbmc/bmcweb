@@ -39,7 +39,6 @@ struct UserSession
     std::string clientIp;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence{PersistenceType::TIMEOUT};
-    bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
 
     // There are two sources of truth for isConfigureSelfOnly:
@@ -256,7 +255,7 @@ class SessionStore
         auto session = std::make_shared<UserSession>(UserSession{
             uniqueId, sessionToken, std::string(username), csrfToken, clientId,
             redfish::ip_util::toString(clientIp),
-            std::chrono::steady_clock::now(), persistence, false,
+            std::chrono::steady_clock::now(), persistence,
             isConfigureSelfOnly});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
