@@ -86,6 +86,42 @@
       "message": "I hit this too when added \n+    --buildtype\u003ddebug \\\nto meta-ibm/recipes-phosphor/interfaces/bmcweb_%.bbappend",
       "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68f34c46_fed481ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-04T17:42:36Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not sure how we can do it to the boost source code,\n\nThey accept patches just like openbmc does.\n\n\u003e Perhaps, would this need to report to \u0027boost\u0027 community?\n\nYep. I\u0027ve had quite a bit of luck with that.  They generally respond to issues VERY quickly.",
+      "parentUuid": "fe54c3ca_a3181ed5",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9679025_e786be2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-04T17:42:36Z",
+      "side": 1,
+      "message": "Generally in yocto you would do:\n\nDEBUG_BUILD:pn-bmcweb \u003d \"1\"\n\nin your local.conf.  Overriding yocto seems like a bad idea.",
+      "parentUuid": "541640f3_aca23e21",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
