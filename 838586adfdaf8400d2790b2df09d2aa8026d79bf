@@ -69,6 +69,23 @@
       "parentUuid": "a686ee58_2b39d4d2",
       "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "541640f3_aca23e21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-04T17:35:17Z",
+      "side": 1,
+      "message": "I hit this too when added \n+    --buildtype\u003ddebug \\\nto meta-ibm/recipes-phosphor/interfaces/bmcweb_%.bbappend",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
