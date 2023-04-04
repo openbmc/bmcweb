@@ -139,6 +139,24 @@
       "message": "My worry is that this is a real safety violation being reported, and we\u0027re just ignoring it with no triage.  If we have some amount of analysis that this is a false-positive, ideally with some followup from the boost authors, who are very active, then I\u0027m probably ok with with patch temporarily, but that analysis and that discussion will be hard prerequisites of this review being approved.",
       "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4fa6676_617a661d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-04T17:46:41Z",
+      "side": 1,
+      "message": "I would also mention that if there\u0027s a patch to boost in the meantime, I would rather hold that in meta-phosphor until boost 1.82 rather than keep a bmcweb-specific warning removal.",
+      "parentUuid": "8106177e_493cad71",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
