@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "759173eb_4b6aeb11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-04T17:53:30Z",
+      "side": 1,
+      "message": "Long term, the refactors I\u0027d like to see are:\n\n1. The session object caries an enum from where a login was authorized from, rather than the \"is cookie\" bool.\n2. The member is made to be correct.\n\n3. (more controversial) websocket sessions are given their own CSRF id, passed as part of the request that is unique to the websocket, rather than relying on a subprotocol foolery to avoid the problem.",
+      "revId": "01138f494bd261b80072e0259b3e233a3595ca2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
