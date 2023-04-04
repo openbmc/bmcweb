@@ -101,8 +101,7 @@ class ConnectionImpl : public Connection
             if (session != nullptr)
             {
                 // use protocol for csrf checking
-                if (session->cookieAuth &&
-                    !crow::utility::constantTimeStringCompare(
+                if (!crow::utility::constantTimeStringCompare(
                         protocol, session->csrfToken))
                 {
                     BMCWEB_LOG_ERROR << "Websocket CSRF error";

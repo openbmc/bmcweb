@@ -39,7 +39,6 @@ struct UserSession
     std::string clientIp;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence{PersistenceType::TIMEOUT};
-    bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
 
     // There are two sources of truth for isConfigureSelfOnly:
