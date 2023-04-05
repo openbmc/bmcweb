@@ -16,6 +16,24 @@
       "message": "Any plans to support the new PowerSubsystem/ThermalSubsytem schemas?",
       "revId": "473e14acfdc69ea784c27fe621db453b43e621b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e85c74_f02d6d20",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2023-04-05T08:05:32Z",
+      "side": 1,
+      "message": "We are currently assuming that all sensors will be available under Chassis/Sesnors including sensors present in PowerSubsystem/ThermalSubsystem.\n\nAbout the plans I cannot commit to anything, this change is almost 2 years old and there is few more in the queue. I hope that other changes will take less that this one, but I guess someone else will have to take care of them. Probably I will already leave openBmc project before any of this patches is merged.",
+      "parentUuid": "4f7ee9f0_b784156c",
+      "revId": "473e14acfdc69ea784c27fe621db453b43e621b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
