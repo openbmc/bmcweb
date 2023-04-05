@@ -31,10 +31,9 @@
 namespace redfish
 {
 
-static constexpr char const* pcieService = "xyz.openbmc_project.PCIe";
-static constexpr char const* pciePath = "/xyz/openbmc_project/PCIe";
-static constexpr char const* pcieDeviceInterface =
-    "xyz.openbmc_project.Inventory.Item.PCIeDevice";
+static constexpr char const* pciePath = "/xyz/openbmc_project/inventory";
+constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+    "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
 
 static inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
@@ -79,11 +78,8 @@ static inline void getValidPCIeDevicePath(
     const std::function<void(const std::string& pcieDevicePath,
                              const std::string& service)>& callback)
 {
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
-
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        pciePath, 0, pcieDeviceInterface,
         [pcieDeviceId, aResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse&
@@ -166,11 +162,9 @@ static inline void handlePCIeDeviceCollectionGet(
     aResp->res.jsonValue["Members"] = nlohmann::json::array();
     aResp->res.jsonValue["Members@odata.count"] = 0;
 
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
     collection_util::getCollectionMembers(
         aResp, boost::urls::url("/redfish/v1/Systems/system/PCIeDevices"),
-        interfaces);
+        pcieDeviceInterface);
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)
