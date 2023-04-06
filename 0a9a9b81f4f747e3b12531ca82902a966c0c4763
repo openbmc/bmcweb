@@ -104,6 +104,24 @@
       "parentUuid": "fef630e1_986c2e95",
       "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b43b4f3_71c0006f",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2023-04-06T14:57:57Z",
+      "side": 1,
+      "message": "Original function didn\u0027t constrain the search to \"interfaces\". So besides the move, you\u0027ve changed the function itself. It is hard to follow, I think the commit should be split in two:\n1)move\n2)change",
+      "parentUuid": "590c5a58_090086bb",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
