@@ -135,6 +135,17 @@ inline void afterNetworkPortRequest(
         const std::string& protocolName = get<1>(data);
         bool isProtocolEnabled = get<2>(data);
 
+        // If this protocol has already been found to be enabled then continue.
+        // It only takes one enabled systemd service to consider a protocol
+        // enabled.
+        if ((asyncResp->res.jsonValue.find(protocolName) !=
+             asyncResp->res.jsonValue.end()) &&
+            (asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] == true))
+        {
+            BMCWEB_LOG_DEBUG << "protocolName: " << protocolName
+                             << ", already found to be enabled so skip";
+            continue;
+        }
         asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
             isProtocolEnabled;
         asyncResp->res.jsonValue[protocolName]["Port"] = nullptr;
