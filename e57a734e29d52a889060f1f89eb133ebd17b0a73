@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ee00569_f18ff589",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-04-06T17:23:31Z",
+      "side": 1,
+      "message": "the logic is check for State starting (at call site, if progress\u003c 1.0), then check quiesced then declare healthy.   \n\nso I\u0027d call this check quiesced or merge with the prior test and call check State",
+      "parentUuid": "09bba05e_0269a5b9",
+      "revId": "e57a734e29d52a889060f1f89eb133ebd17b0a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3d6fda0_d3b2516e",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 4
