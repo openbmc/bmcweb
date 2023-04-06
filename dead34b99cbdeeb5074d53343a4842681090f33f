@@ -73,6 +73,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4f92b32_3363cc46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T19:21:40Z",
+      "side": 1,
+      "message": "unaddressed comments",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef8738ea_cf4bc8f8",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 8
@@ -102,6 +119,41 @@
       "side": 1,
       "message": "The OemLastState shall only be present if LastState is OEM.\nPlease check the Redfish Schema Supplement DSP0268_2021.2.pdf (6.23 ComputerSystem 1.16.0, BootProgress (v1.13+)).\nSo the purpose of this code is just to show the OemLastState if LastState is OEM.",
       "parentUuid": "ef8738ea_cf4bc8f8",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5421a7f5_153c0db5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T19:21:40Z",
+      "side": 1,
+      "message": "Why can\u0027t this same call on line 844, have if ( \u003d\u003d \"OEM\") like this code does?",
+      "parentUuid": "56b515f5_d8b2f873",
+      "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a0f6b6_6484abf3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T19:21:40Z",
+      "side": 1,
+      "message": "pass by reference please",
       "revId": "dead34b99cbdeeb5074d53343a4842681090f33f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
