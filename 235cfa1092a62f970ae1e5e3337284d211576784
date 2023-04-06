@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd3caebc_e6cc1d80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T19:40:33Z",
+      "side": 1,
+      "message": "This adds a lot of ifdefs to bmcweb. I am concerned about the support. I think this needs a larger discussion.😬\nWhat does bmcweb do?\nShould bmcweb be targeted for applications outside openbmc and therefore, should we support a non-dbus use case?\nHow do we ensure this doesn\u0027t break this new non-dbus use case? How does an openbmc developer test this use case? In June 2022, you mentioned, \"OCP team would have it\u0027s own CI to make sure that we\u0027re not breaking cross-system builds\" - is that still planned? It would be exciting to see bmcweb used outside openbmc, bringing in more users and hopefully more developers/reviewers but I am worried about this slowing down bmcweb development",
+      "revId": "235cfa1092a62f970ae1e5e3337284d211576784",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
