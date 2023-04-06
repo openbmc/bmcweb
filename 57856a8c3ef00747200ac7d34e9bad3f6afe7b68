@@ -221,6 +221,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6f52110_833028a4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-06T22:18:55Z",
+      "side": 1,
+      "message": "Shoot, missed this.  Sorry.  Yes, case-insensitive compares are required.  Technically the spec says that compares should be case insensitive.",
+      "parentUuid": "f5812083_d94b91d1",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 931,
+        "endChar": 70
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "955ce777_4e7ff419",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -604,6 +628,30 @@
       "side": 1,
       "message": "I think it would be in the sense that we are only parsing responses from URIs which are uptree from top level collections.  If something like /redfish/v1 or /redfish/v1/UpdateService on a satellite did not return a json then the aggregator can\u0027t do anything with it anyway.\n\nAdditionalDataURI should appear under a resource which is part of a top level collection so it should never show up when parsing a response as part of processContainsSubordinateResponse().",
       "parentUuid": "ca6ab706_0ec43cd8",
+      "range": {
+        "startLine": 1029,
+        "startChar": 0,
+        "endLine": 1029,
+        "endChar": 58
+      },
+      "revId": "57856a8c3ef00747200ac7d34e9bad3f6afe7b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2d75a4_e7f5be2c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-06T22:18:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ea71cec0_588c5f6f",
       "range": {
         "startLine": 1029,
         "startChar": 0,
