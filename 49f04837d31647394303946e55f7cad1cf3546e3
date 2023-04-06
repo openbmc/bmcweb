@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3932f01f_1ad9e635",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T18:26:28Z",
+      "side": 1,
+      "message": "From https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57925 \n\n```\nEd Tanous\nWe need to get this feature more fleshed out, and get this turned on by default.\n\nCarson\nOff the top of my head these are the remaining features:\n\n1.    Aggregate all top level resource collections\n2.    Add links to satellite only collections in responses from service root and other appropriate locations\n3.    Generate aggregation prefix from uuid\n4.    Contains/ContainedBy relationship between local and aggregated Chassis resource\n5.    Aggregate more than one satellite\n6.    Add Authentication (login with satellites)\n7.    Support HTTPS connection to satellite.\n\nThere are already various levels of WIP patches for a number of those features. How many are needed to turn it on by default? My guess is the first 3, maybe #5 as well.\n\n Gunnar Mills \nI think 7 as well because otherwise you have to have a bmcweb with insecure options (we don\u0027t recommend insecure options for production) as the Satellite. Without that, it still feels like a non-production / wip option\n```\n\nI still think some of those are needed before this becomes enabled by default",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
