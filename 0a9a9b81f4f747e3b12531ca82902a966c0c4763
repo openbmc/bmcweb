@@ -122,6 +122,24 @@
       "parentUuid": "590c5a58_090086bb",
       "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f4f80a0_70e9a5a2",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-06T15:02:56Z",
+      "side": 1,
+      "message": "I will update the commit message.",
+      "parentUuid": "2b43b4f3_71c0006f",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
