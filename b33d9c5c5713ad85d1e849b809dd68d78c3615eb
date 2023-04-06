@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce8bff58_e65bd03a",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-06T17:36:16Z",
+      "side": 1,
+      "message": "Can we do the deduplication on this data structure, rather than doing it on the json object after the fact?",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 39
+      },
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f59f5d6_7f7bba7e",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
