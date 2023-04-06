@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "054c0af1_316d106c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-06T21:33:17Z",
+      "side": 1,
+      "message": "I am seeing that /console0 privileges are not seen on the router side. I do not think that my changes caused this issue. It must be already there.",
+      "revId": "20e15a8bc4cef44a9b595a022d5b16bc6b71f187",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
