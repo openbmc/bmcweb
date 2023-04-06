@@ -2,21 +2,18 @@
 
 #include "async_resp.hpp"
 #include "common.hpp"
-#include "dbus_utility.hpp"
-#include "error_messages.hpp"
+#include "dbus_privileges.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
+#include "routing_baserule.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
-#include "utils/dbus_utils.hpp"
 #include "verb.hpp"
 #include "websocket.hpp"
 
-#include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
-#include <sdbusplus/unpack_properties.hpp>
 
 #include <cerrno>
 #include <cstdint>
@@ -30,91 +27,6 @@
 
 namespace crow
 {
-
-class BaseRule
-{
-  public:
-    explicit BaseRule(const std::string& thisRule) : rule(thisRule)
-    {}
-
-    virtual ~BaseRule() = default;
-
-    BaseRule(const BaseRule&) = delete;
-    BaseRule(BaseRule&&) = delete;
-    BaseRule& operator=(const BaseRule&) = delete;
-    BaseRule& operator=(const BaseRule&&) = delete;
-
-    virtual void validate() = 0;
-    std::unique_ptr<BaseRule> upgrade()
-    {
-        if (ruleToUpgrade)
-        {
-            return std::move(ruleToUpgrade);
-        }
-        return {};
-    }
-
-    virtual void handle(const Request& /*req*/,
-                        const std::shared_ptr<bmcweb::AsyncResp>&,
-                        const RoutingParams&) = 0;
-#ifndef BMCWEB_ENABLE_SSL
-    virtual void
-        handleUpgrade(const Request& /*req*/,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      boost::asio::ip::tcp::socket&& /*adaptor*/)
-    {
-        asyncResp->res.result(boost::beast::http::status::not_found);
-    }
-#else
-    virtual void handleUpgrade(
-        const Request& /*req*/,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&& /*adaptor*/)
-    {
-        asyncResp->res.result(boost::beast::http::status::not_found);
-    }
-#endif
-
-    size_t getMethods() const
-    {
-        return methodsBitfield;
-    }
-
-    bool checkPrivileges(const redfish::Privileges& userPrivileges)
-    {
-        // If there are no privileges assigned, assume no privileges
-        // required
-        if (privilegesSet.empty())
-        {
-            return true;
-        }
-
-        for (const redfish::Privileges& requiredPrivileges : privilegesSet)
-        {
-            if (userPrivileges.isSupersetOf(requiredPrivileges))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    size_t methodsBitfield{1 << static_cast<size_t>(HttpVerb::Get)};
-    static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
-                      methodNotAllowedIndex,
-                  "Not enough bits to store bitfield");
-
-    std::vector<redfish::Privileges> privilegesSet;
-
-    std::string rule;
-    std::string nameStr;
-
-    std::unique_ptr<BaseRule> ruleToUpgrade;
-
-    friend class Router;
-    template <typename T>
-    friend struct RuleParameterTraits;
-};
 
 namespace detail
 {
@@ -1254,143 +1166,6 @@ class Router
             }
         }
         return findRoute;
-    }
-
-    static bool isUserPrivileged(
-        Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
-    {
-        std::string userRole{};
-        const std::string* userRolePtr = nullptr;
-        const bool* remoteUser = nullptr;
-        const bool* passwordExpired = nullptr;
-
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap,
-            "UserPrivilege", userRolePtr, "RemoteUser", remoteUser,
-            "UserPasswordExpired", passwordExpired);
-
-        if (!success)
-        {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return false;
-        }
-
-        if (userRolePtr != nullptr)
-        {
-            userRole = *userRolePtr;
-            BMCWEB_LOG_DEBUG << "userName = " << req.session->username
-                             << " userRole = " << *userRolePtr;
-        }
-
-        if (remoteUser == nullptr)
-        {
-            BMCWEB_LOG_ERROR << "RemoteUser property missing or wrong type";
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return false;
-        }
-        bool expired = false;
-        if (passwordExpired == nullptr)
-        {
-            if (!*remoteUser)
-            {
-                BMCWEB_LOG_ERROR
-                    << "UserPasswordExpired property is expected for"
-                       " local user but is missing or wrong type";
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                return false;
-            }
-        }
-        else
-        {
-            expired = *passwordExpired;
-        }
-
-        // Get the user's privileges from the role
-        redfish::Privileges userPrivileges =
-            redfish::getUserPrivileges(userRole);
-
-        // Set isConfigureSelfOnly based on D-Bus results.  This
-        // ignores the results from both pamAuthenticateUser and the
-        // value from any previous use of this session.
-        req.session->isConfigureSelfOnly = expired;
-
-        // Modify privileges if isConfigureSelfOnly.
-        if (req.session->isConfigureSelfOnly)
-        {
-            // Remove all privileges except ConfigureSelf
-            userPrivileges = userPrivileges.intersection(
-                redfish::Privileges{"ConfigureSelf"});
-            BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
-        }
-
-        if (!rule.checkPrivileges(userPrivileges))
-        {
-            asyncResp->res.result(boost::beast::http::status::forbidden);
-            if (req.session->isConfigureSelfOnly)
-            {
-                redfish::messages::passwordChangeRequired(
-                    asyncResp->res, crow::utility::urlFromPieces(
-                                        "redfish", "v1", "AccountService",
-                                        "Accounts", req.session->username));
-            }
-            return false;
-        }
-
-        req.userRole = userRole;
-
-        return true;
-    }
-
-    template <typename CallbackFn>
-    void afterGetUserInfo(Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          BaseRule& rule, CallbackFn&& callback,
-                          const boost::system::error_code& ec,
-                          const dbus::utility::DBusPropertiesMap& userInfoMap)
-    {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "GetUserInfo failed...";
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
-
-        if (!Router::isUserPrivileged(req, asyncResp, rule, userInfoMap))
-        {
-            // User is not privileged
-            BMCWEB_LOG_ERROR << "Insufficient Privilege";
-            asyncResp->res.result(boost::beast::http::status::forbidden);
-            return;
-        }
-        callback(req);
-    }
-
-    template <typename CallbackFn>
-    void validatePrivilege(Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           BaseRule& rule, CallbackFn&& callback)
-    {
-        if (req.session == nullptr)
-        {
-            return;
-        }
-        std::string username = req.session->username;
-        crow::connections::systemBus->async_method_call(
-            [this, &req, asyncResp, &rule,
-             callback(std::forward<CallbackFn>(callback))](
-                const boost::system::error_code& ec,
-                const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
-            afterGetUserInfo(req, asyncResp, rule,
-                             std::forward<CallbackFn>(callback), ec,
-                             userInfoMap);
-            },
-            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
     }
 
     template <typename Adaptor>
