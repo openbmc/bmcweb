@@ -148,8 +148,8 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     bool needToCallHandlers = true;
 
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
-    needToCallHandlers = RedfishAggregator::getInstance().beginAggregation(
-                             req, asyncResp) == Result::LocalHandle;
+    needToCallHandlers = RedfishAggregator::beginAggregation(req, asyncResp) ==
+                         Result::LocalHandle;
 
     // If the request should be forwarded to a satellite BMC then we don't want
     // to write anything to the asyncResp since it will get overwritten later.
