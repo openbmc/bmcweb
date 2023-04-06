@@ -16,6 +16,24 @@
       "message": "This adds a lot of ifdefs to bmcweb. I am concerned about the support. I think this needs a larger discussion.😬\nWhat does bmcweb do?\nShould bmcweb be targeted for applications outside openbmc and therefore, should we support a non-dbus use case?\nHow do we ensure this doesn\u0027t break this new non-dbus use case? How does an openbmc developer test this use case? In June 2022, you mentioned, \"OCP team would have it\u0027s own CI to make sure that we\u0027re not breaking cross-system builds\" - is that still planned? It would be exciting to see bmcweb used outside openbmc, bringing in more users and hopefully more developers/reviewers but I am worried about this slowing down bmcweb development",
       "revId": "235cfa1092a62f970ae1e5e3337284d211576784",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b226e521_a7dce57d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-06T19:56:05Z",
+      "side": 1,
+      "message": "\u003e This adds a lot of ifdefs to bmcweb.\n\nOpen to other options if there\u0027s a better design pattern.\n\n\u003e I am concerned about the support. I think this needs a larger discussion.😬\n\nHappy to have it.\n\n\u003e What does bmcweb do?\n\u003e Should bmcweb be targeted for applications outside openbmc and therefore, should we support a non-dbus use case?\n\nIronically, bmcweb was originally targetted for non-OpenBMC use cases.  OpenBMC was added later.\n\n\u003e How do we ensure this doesn\u0027t break this new non-dbus use case?\n\nTesting, but today, we don\u0027t do much verification that we don\u0027t break the dbus use case, so I\u0027m not sure this is really a change.\n\n\u003e How does an openbmc developer test this use case?\n\nI\u0027m not sure why that matters?  Each side will do their testing and integration.\n\n\u003e In June 2022, you mentioned, \"OCP team would have it\u0027s own CI to make sure that we\u0027re not breaking cross-system builds\" - is that still planned?\n\nYep.\n\n\u003e It would be exciting to see bmcweb used outside openbmc, bringing in more users and hopefully more developers/reviewers but I am worried about this slowing down bmcweb development\n\nCan you say more about this?  How do you think it will slow down bmcweb development?  Is it just the ifdefs?  Or something more?",
+      "parentUuid": "cd3caebc_e6cc1d80",
+      "revId": "235cfa1092a62f970ae1e5e3337284d211576784",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

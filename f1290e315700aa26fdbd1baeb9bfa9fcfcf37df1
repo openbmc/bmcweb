@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea359669_71b60b63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-06T19:56:05Z",
+      "side": 1,
+      "message": "if I moved the #ifdef BMCWEB_ENABLE_DBUS_REST into the individual header files, would that be better?  Trying to think of solutions.\n\nThis is the opposite we\u0027ve been moving, but if a user doesn\u0027t link in sdbusplus, I\u0027m not sure what options there are aside from completely removing the code.  Open to suggestions here.",
+      "parentUuid": "f1684df5_36a912b5",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d795331d_33b99870",
         "filename": "http/http_client.hpp",
         "patchSetId": 3
