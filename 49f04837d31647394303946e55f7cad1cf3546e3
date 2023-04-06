@@ -34,6 +34,24 @@
       "parentUuid": "3932f01f_1ad9e635",
       "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cf6698d_94cdda42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-06T19:01:23Z",
+      "side": 1,
+      "message": "\u003e I think 7 as well because otherwise you have to have a bmcweb with insecure options (we don\u0027t recommend insecure options for production) as the Satellite. Without that, it still feels like a non-production / wip option\n\nThere are many use cases where the satellite connection is used within the box, where https is not required to provide security.  It should be noted, this is perfectly secure until people add an EM config that\u0027s insecure, which we should use the individual EM configs as the checkpoint, not bmcweb itself.\n\nAlso..... this is only defaults.",
+      "parentUuid": "58e4ac88_81674bef",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
