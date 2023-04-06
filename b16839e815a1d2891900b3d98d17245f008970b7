@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d91d97d7_d2d9a6a9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T19:17:22Z",
+      "side": 1,
+      "message": "Why not sparePartNumber too ?",
+      "revId": "b16839e815a1d2891900b3d98d17245f008970b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
