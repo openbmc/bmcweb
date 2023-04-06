@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ce2a002_81fad830",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-06T17:40:45Z",
+      "side": 1,
+      "message": "Don\u0027t have a good setup to test aggregation. Change seems good to me.",
+      "revId": "95cc53317f968cdcc5bd8765a21eb6e204006f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
