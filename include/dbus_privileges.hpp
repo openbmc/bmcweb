@@ -1,11 +1,18 @@
 #pragma once
 
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "routing_baserule.hpp"
+#include "utils/dbus_utils.hpp"
 
+#include <sdbusplus/unpack_properties.hpp>
+namespace crow
+{
 inline bool isUserPrivileged(
-    Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
 {
     std::string userRole{};
@@ -106,7 +113,7 @@ void afterGetUserInfo(Request& req,
         return;
     }
 
-    if (!Router::isUserPrivileged(req, asyncResp, rule, userInfoMap))
+    if (!isUserPrivileged(req, asyncResp, rule, userInfoMap))
     {
         // User is not privileged
         BMCWEB_LOG_ERROR << "Insufficient Privilege";
@@ -127,8 +134,7 @@ void validatePrivilege(Request& req,
     }
     std::string username = req.session->username;
     crow::connections::systemBus->async_method_call(
-        [this, &req, asyncResp, &rule,
-         callback(std::forward<CallbackFn>(callback))](
+        [&req, asyncResp, &rule, callback(std::forward<CallbackFn>(callback))](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
         afterGetUserInfo(req, asyncResp, rule,
@@ -137,3 +143,4 @@ void validatePrivilege(Request& req,
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
 }
+} // namespace crow
