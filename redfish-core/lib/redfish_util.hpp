@@ -163,6 +163,34 @@ void getPortStatusAndPath(
                 bool isProtocolEnabled = ((unitState == "running") ||
                                           (unitState == "listening"));
 
+                // Some protocols may have multiple services associated with
+                // them (for example IPMI). Look to see if we've already added
+                // an entry for the current protocol.
+                auto find = std::find_if(
+                    socketData.begin(), socketData.end(),
+                    [&kv](const std::tuple<std::string, std::string, bool>& i) {
+                    return std::get<1>(i) == kv.first;
+                    });
+                if (find != socketData.end())
+                {
+                    // It only takes one enabled systemd service to consider a
+                    // protocol enabled so if the current entry already has it
+                    // enabled (or the new one is disabled) then just continue,
+                    // otherwise remove the current one and add this new one.
+                    if (std::get<2>(*find) || !isProtocolEnabled)
+                    {
+                        // Already registered as enabled or current one is not
+                        // enabled, nothing to do
+                        BMCWEB_LOG_DEBUG
+                            << "protocolName: " << kv.first
+                            << ", already true or current one is false: "
+                            << isProtocolEnabled;
+                        break;
+                    }
+                    // Remove existing entry and replace with new one (below)
+                    socketData.erase(find);
+                }
+
                 socketData.emplace_back(socketPath, std::string(kv.first),
                                         isProtocolEnabled);
                 // We found service, return from inner loop.
