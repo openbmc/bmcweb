@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60332f24_82453776",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-04-07T04:34:28Z",
+      "side": 1,
+      "message": "Ack. So, whoever needs to use the dbus way (existing one), then they have to enable this compiler flag.",
+      "parentUuid": "3335464b_063fe461",
+      "range": {
+        "startLine": 151,
+        "startChar": 7,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46e489d1_937e0613",
