@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d045a596_035d7ecf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-07T16:19:03Z",
+      "side": 1,
+      "message": "Redfish deprecated the Processor/Memory Summary Status (state, health, healthrollup)\n\nWould it just be better to remove these?\n\n\n\n                 \"Status\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status\",\n                    \"deprecated\": \"This property has been deprecated in favor of the Conditions property within Status in the root of this resource.\",\n                    \"description\": \"The status and health of the resource and its subordinate or dependent resources.\",\n                    \"longDescription\": \"This property shall contain any status or health properties of the resource.\",\n                    \"versionDeprecated\": \"v1_16_0\"\n                },",
+      "revId": "9ec2f9f269267999a09b62281abc856a841991a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9137ed0e_8ab12b86",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-07T16:19:03Z",
+      "side": 1,
+      "message": "Should you also move this?",
+      "revId": "9ec2f9f269267999a09b62281abc856a841991a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
