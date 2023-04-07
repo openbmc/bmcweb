@@ -245,7 +245,6 @@ inline void addPCIeDeviceProperties(
     crow::Response& resp, const std::string& pcieDeviceId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
-    const std::string* manufacturer = nullptr;
     const std::string* deviceType = nullptr;
     const std::string* generationInUse = nullptr;
     const int64_t* lanesInUse = nullptr;
@@ -253,7 +252,7 @@ inline void addPCIeDeviceProperties(
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "DeviceType",
         deviceType, "GenerationInUse", generationInUse, "LanesInUse",
-        lanesInUse, "Manufacturer", manufacturer);
+        lanesInUse);
 
     if (!success)
     {
@@ -288,11 +287,6 @@ inline void addPCIeDeviceProperties(
     if (lanesInUse != nullptr && *lanesInUse != 0)
     {
         resp.jsonValue["PCIeInterface"]["LanesInUse"] = *lanesInUse;
-    }
-
-    if (manufacturer != nullptr)
-    {
-        resp.jsonValue["PCIeInterface"]["Manufacturer"] = *manufacturer;
     }
 
     resp.jsonValue["PCIeFunctions"]["@odata.id"] = crow::utility::urlFromPieces(
