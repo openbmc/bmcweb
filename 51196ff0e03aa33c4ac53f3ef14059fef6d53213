@@ -104,6 +104,29 @@
       "parentUuid": "51a36a7b_2407b8c8",
       "revId": "51196ff0e03aa33c4ac53f3ef14059fef6d53213",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e37f3e8_bb282f24",
+        "filename": "static/redfish/v1/schema/OpenBMCConnectionStatistics_v1.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000052
+      },
+      "writtenOn": "2023-04-07T22:59:14Z",
+      "side": 1,
+      "message": "This description doesn\u0027t match what this property is.",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 118
+      },
+      "revId": "51196ff0e03aa33c4ac53f3ef14059fef6d53213",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
