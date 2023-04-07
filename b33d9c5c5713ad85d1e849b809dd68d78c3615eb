@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb5120c_a11f7189",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-07T19:05:47Z",
+      "side": 1,
+      "message": "Added some more detail to the commit message. The systemd service files in question are tied to the ethernet interfaces.",
+      "parentUuid": "4e64a49e_f39093b7",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce8bff58_e65bd03a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-06T17:36:16Z",
       "side": 1,
       "message": "Can we do the deduplication on this data structure, rather than doing it on the json object after the fact?",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 39
+      },
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21237c03_0a4fd88f",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-07T19:05:47Z",
+      "side": 1,
+      "message": "Yeah, I think I like this better. Feels a bit messy with the vector look up find_if code but I think it\u0027s a bit more efficient and nice to handle at the source.",
+      "parentUuid": "ce8bff58_e65bd03a",
       "range": {
         "startLine": 132,
         "startChar": 0,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c81155e_13496629",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-07T19:05:47Z",
+      "side": 1,
+      "message": "I don\u0027t think we\u0027ve got an issue here. The handleProtocolEnabled() function queries service-config-manager for all services and looks for anything starting with target string (i.e. \"phosphor-ipmi-net\") and sets the Enable property on them. Let me know if I\u0027m not understanding the issue (or maybe moving this logic helps?).",
+      "parentUuid": "1f59f5d6_7f7bba7e",
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dea4284_1218f5fb",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2023-04-06T17:29:11Z",
       "side": 1,
       "message": "Please don\u0027t duplicate this hash lookup.  You do the find, then operator[] on the same thing that just got found.",
+      "range": {
+        "startLine": 141,
+        "startChar": 13,
+        "endLine": 143,
+        "endChar": 51
+      },
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc5f574_008739eb",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-07T19:05:47Z",
+      "side": 1,
+      "message": "Moved logic to different function to do this at the source.",
+      "parentUuid": "0dea4284_1218f5fb",
       "range": {
         "startLine": 141,
         "startChar": 13,
@@ -100,6 +190,30 @@
       "writtenOn": "2023-04-06T17:29:11Z",
       "side": 1,
       "message": "Can this just be oldValue OR newValue to reduce the duplication of code?",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 150,
+        "endChar": 29
+      },
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac78d20d_da950c25",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-07T19:05:47Z",
+      "side": 1,
+      "message": "Let me know what you think about moving this to getPortStatusAndPath().",
+      "parentUuid": "6585cf85_c1359c3e",
       "range": {
         "startLine": 150,
         "startChar": 12,
