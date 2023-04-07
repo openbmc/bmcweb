@@ -97,6 +97,7 @@ struct EthernetInterfaceData
     std::string hostName;
     std::string defaultGateway;
     std::string ipv6DefaultGateway;
+    std::string ipv6StaticDefaultGateway;
     std::string macAddress;
     std::optional<uint32_t> vlanId;
     std::vector<std::string> nameServers;
@@ -781,6 +782,75 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
         "xyz.openbmc_project.Network.IP.Create", "IP",
         "xyz.openbmc_project.Network.IP.Protocol.IPv6", address, prefixLength,
         "");
+}
+
+/**
+ * @brief Sets IPv6 default gateway with given data
+ *
+ * @param[in] ifaceId      Id of interface whose gateway should be added
+ * @param[in] input        Contains address that needs to be added
+ * @param[io] asyncResp    Response object that will be returned to client
+ *
+ * @return None
+ */
+
+inline void handleIPv6DefaultGateway(
+    const std::string& ifaceId, const nlohmann::json::array_t& input,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (input.empty())
+    {
+        BMCWEB_LOG_WARNING << "Not array";
+        messages::propertyValueTypeError(
+            asyncResp->res,
+            nlohmann::json(input).dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace),
+            "IPv6StaticDefaultGateways");
+        return;
+    }
+
+    size_t entryIdx = 1;
+    std::string address;
+    std::optional<uint8_t> prefixLength;
+
+    for (const nlohmann::json& thisJson : input)
+    {
+        std::string pathString =
+            "IPv6StaticDefaultGateways/" + std::to_string(entryIdx);
+        if (!thisJson.is_null() && !thisJson.empty())
+        {
+            nlohmann::json thisJsonCopy = thisJson;
+            if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
+                                     address, "PrefixLength", prefixLength))
+            {
+                messages::propertyValueFormatError(
+                    asyncResp->res,
+                    thisJson.dump(2, ' ', true,
+                                  nlohmann::json::error_handler_t::replace),
+                    pathString);
+                return;
+            }
+        }
+    }
+    BMCWEB_LOG_DEBUG << "IPv6 Static Gateway to set: " << address;
+
+    // TODO: Backend currently supports single DefaultGateway6 as a string.
+    // This needs a change when backend implements this as an array
+    // of multiple IPv6 default gateway addresses.
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.result(boost::beast::http::status::no_content);
+        },
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway6",
+        dbus::utility::DbusVariantType(address));
 }
 
 /**
@@ -1678,6 +1748,16 @@ inline void parseInterfaceData(
 
     jsonResponse["IPv6DefaultGateway"] = ipv6GatewayStr;
 
+    // TODO: Change this to show the ipv6StaticDefaultGateway in this array and
+    // support prefix length. Currently backend supports only
+    // ipv6DefaultGateway to hold the gateway address.
+    nlohmann::json::array_t ipv6StaticGatewayArray;
+    nlohmann::json::object_t ipv6GatewayMember;
+    ipv6GatewayMember["Address"] = ethData.ipv6DefaultGateway;
+    ipv6StaticGatewayArray.emplace_back(ipv6GatewayMember);
+    jsonResponse["IPv6StaticDefaultGateways"] =
+        std::move(ipv6StaticGatewayArray);
+
     nlohmann::json& ipv6Array = jsonResponse["IPv6Addresses"];
     nlohmann::json& ipv6StaticArray = jsonResponse["IPv6StaticAddresses"];
     ipv6Array = nlohmann::json::array();
@@ -1816,6 +1896,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::string> ipv6DefaultGateway;
         std::optional<nlohmann::json> ipv4StaticAddresses;
         std::optional<nlohmann::json> ipv6StaticAddresses;
+        std::optional<nlohmann::json::array_t> ipv6StaticDefaultGateways;
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<nlohmann::json> dhcpv4;
         std::optional<nlohmann::json> dhcpv6;
@@ -1828,6 +1909,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 req, asyncResp->res, "HostName", hostname, "FQDN", fqdn,
                 "IPv4StaticAddresses", ipv4StaticAddresses, "MACAddress",
                 macAddress, "StaticNameServers", staticNameServers,
+                "IPv6StaticDefaultGateways", ipv6StaticDefaultGateways,
                 "IPv6DefaultGateway", ipv6DefaultGateway, "IPv6StaticAddresses",
                 ipv6StaticAddresses, "DHCPv4", dhcpv4, "DHCPv6", dhcpv6,
                 "MTUSize", mtuSize, "InterfaceEnabled", interfaceEnabled))
@@ -1868,6 +1950,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
              ipv4StaticAddresses = std::move(ipv4StaticAddresses),
              ipv6DefaultGateway = std::move(ipv6DefaultGateway),
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
+             ipv6StaticDefaultGateway = std::move(ipv6StaticDefaultGateways),
              staticNameServers = std::move(staticNameServers),
              dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6), mtuSize,
              v4dhcpParms = std::move(v4dhcpParms),
@@ -1936,6 +2019,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 const nlohmann::json& ipv6Static = *ipv6StaticAddresses;
                 handleIPv6StaticAddressesPatch(ifaceId, ipv6Static, ipv6Data,
                                                asyncResp);
+            }
+
+            if (ipv6StaticDefaultGateway)
+            {
+                handleIPv6DefaultGateway(ifaceId, *ipv6StaticDefaultGateway,
+                                         asyncResp);
             }
 
             if (interfaceEnabled)
