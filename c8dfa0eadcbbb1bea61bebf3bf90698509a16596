@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29b8c515_650df946",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-07T16:13:41Z",
+      "side": 1,
+      "message": "I don\u0027t understand why people wouldn\u0027t be using phoshor-state-manager. I personally would rather bmcweb go to D-Bus for this. I think of bmcweb\u0027s Redfish implementation as a D-Bus \u003c-\u003e Redfish translation. Anytime bmcweb goes to systemd directly makes the bmcweb Redfish architecture more complex. It feels like we are putting phosphor-state-manager logic into bmcweb. That said, I guess since people aren\u0027t using phoshor-state-manager or a completing app that could implement the D-Bus for this, this is as good as it gets today maybe. I do want this function into Redfish.\nI personally think https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50318 is a better direction. If people don\u0027t use phosphor-state-manager, they get some default. If  phosphor-state-manager isn\u0027t started, some default is returned.",
+      "revId": "c8dfa0eadcbbb1bea61bebf3bf90698509a16596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e282bf1_a9c26dbc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -31,6 +48,23 @@
       "writtenOn": "2023-04-06T16:40:03Z",
       "side": 1,
       "message": "Waiting for Gunnars OK, then this can go in.",
+      "revId": "c8dfa0eadcbbb1bea61bebf3bf90698509a16596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf95f74f_4c00cdfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-07T16:13:41Z",
+      "side": 1,
+      "message": "Reluctantly +1ed. \nMy performances would be: \n1. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50318\n2. This patch \n3. Not having this funciton",
       "revId": "c8dfa0eadcbbb1bea61bebf3bf90698509a16596",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
