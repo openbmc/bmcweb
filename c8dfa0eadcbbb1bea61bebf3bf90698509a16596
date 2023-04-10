@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8498906d_c4623aff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:31:00Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t understand why people wouldn\u0027t be using phoshor-state-manager.\n\nWe are talking about bmc-state-manager here, which happened to get checked into the phosphor-state-manager repository.  Was anyone outside of IBM included in the design process for bmc-state-manager?  If so, can you point them to this review?  If there are folks outside of a single company asking for this, that changes the math a little, and I\u0027m happy to be swayed by community input if bmc-state-manager is desired widely.\n\n\u003e I personally would rather bmcweb go to D-Bus for this.\n\nI don\u0027t understand.  It\u0027s going to dbus, just going to systemd rather than an OpenBMC specific interface.  Doing so reduces the amount of code that OpenBMC has that\u0027s different that normal systems, and doing it this way reduces the bmcweb code as wel.\n\n\u003e I think of bmcweb\u0027s Redfish implementation as a D-Bus \u003c-\u003e Redfish translation. Anytime bmcweb goes to systemd directly makes the bmcweb Redfish architecture more complex.\n\nDisagree here.  There\u0027s less code overall in bmcweb.\n\n\u003e It feels like we are putting phosphor-state-manager logic into bmcweb. That said, I guess since people aren\u0027t using phoshor-state-manager or a completing app that could implement the D-Bus for this, this is as good as it gets today maybe. I do want this function into Redfish.\n\u003e I personally think https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50318 is a better direction. If people don\u0027t use phosphor-state-manager, they get some default. If  phosphor-state-manager isn\u0027t started, some default is returned.\n\nDoes the user facing behavior change with this patch?",
+      "parentUuid": "29b8c515_650df946",
+      "revId": "c8dfa0eadcbbb1bea61bebf3bf90698509a16596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e282bf1_a9c26dbc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
