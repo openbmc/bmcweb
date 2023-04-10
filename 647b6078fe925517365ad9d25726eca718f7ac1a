@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "494b5d57_71e83788",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T21:25:21Z",
+      "side": 1,
+      "message": "\u003e This seems reasonable to me. \n\u003e Can you add more to the commit msg? Did this break or did this ever work?\n\nNever worked.\n\n\u003e \n\u003e Can you add Ninad\u0027s testing statement? \n\u003e \n\nYep\n\n\u003e Can you add the link to https://github.com/openbmc/bmcweb/issues/249\n\nYep",
+      "parentUuid": "a1676762_a26ef668",
+      "revId": "647b6078fe925517365ad9d25726eca718f7ac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0f069011_c7cd0200",
