@@ -175,6 +175,17 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HTTP"]["Port"] = nullptr;
     asyncResp->res.jsonValue["HTTP"]["ProtocolEnabled"] = false;
 
+    // The ProtocolEnabled of the following protocols is determined by
+    // inspecting the state of associated systemd sockets. If these protocols
+    // have been disabled, then the systemd socket unit files will not be found
+    // and the protocols will not be returned in this Redfish query. Set some
+    // defaults to ensure something is always returned.
+    for (const auto& nwkProtocol : networkProtocolToDbus)
+    {
+        asyncResp->res.jsonValue[nwkProtocol.first]["Port"] = nullptr;
+        asyncResp->res.jsonValue[nwkProtocol.first]["ProtocolEnabled"] = false;
+    }
+
     std::string hostName = getHostName();
 
     asyncResp->res.jsonValue["HostName"] = hostName;
