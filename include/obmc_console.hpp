@@ -114,8 +114,171 @@ inline void connectHandler(const boost::system::error_code& ec)
         return;
     }
 
+    for (crow::websocket::Connection* connection : sessions)
+    {
+        connection->resumeRead();
+    }
+
     doWrite();
     doRead();
+}
+
+// Return true if connection is still active.
+inline bool connectionActive(crow::websocket::Connection& conn)
+{
+    return !(sessions.find(&conn) == sessions.end());
+}
+
+// If connection is active then remove it from the connection map
+inline bool removeConnection(crow::websocket::Connection& conn)
+{
+    if (!connectionActive(conn))
+    {
+        BMCWEB_LOG_ERROR << "Couldn't find the connection";
+        return false;
+    }
+
+    sessions.erase(&conn);
+    if (sessions.empty())
+    {
+        hostSocket = nullptr;
+        inputBuffer.clear();
+        inputBuffer.shrink_to_fit();
+    }
+    return true;
+}
+
+inline void connectConsoleSocket(crow::websocket::Connection& conn,
+                                 const boost::system::error_code& ec,
+                                 const std::vector<uint8_t>& socketNameBytes)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "Failed to get socketName property of the console."
+                         << " DBUS error: " << ec.message();
+        if (removeConnection(conn))
+        {
+            conn.close("Failed to get socketName property of the console");
+        }
+        return;
+    }
+
+    // Make sure that connection is still open.
+    if (!connectionActive(conn))
+    {
+        return;
+    }
+
+    std::string consoleSocketName(socketNameBytes.begin(),
+                                  socketNameBytes.end());
+
+    // Console socket name starts with null character
+    BMCWEB_LOG_DEBUG << "Console web socket path: " << conn.req.target()
+                     << " Console socketName: " << consoleSocketName.substr(1);
+
+    if (hostSocket == nullptr)
+    {
+        boost::asio::local::stream_protocol::endpoint ep(consoleSocketName);
+
+        hostSocket =
+            std::make_unique<boost::asio::local::stream_protocol::socket>(
+                conn.getIoContext());
+        hostSocket->async_connect(ep, connectHandler);
+    }
+    else
+    {
+        // Connection is not from same endpoint so don't allow to shared it
+        if (consoleSocketName != hostSocket->remote_endpoint().path())
+        {
+            if (removeConnection(conn))
+            {
+                conn.close("Connection from different enpoint is not allowed.");
+            }
+        }
+    }
+}
+
+inline void
+    processConsoleObject(crow::websocket::Connection& conn,
+                         const std::string& consoleObjPath,
+                         const boost::system::error_code& ec,
+                         const ::dbus::utility::MapperGetObject& objInfo)
+{
+    // Make sure that connection is still open.
+    if (!connectionActive(conn))
+    {
+        return;
+    }
+
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING << "getDbusObject() for consoles failed. DBUS error:"
+                           << ec.message();
+        if (removeConnection(conn))
+        {
+            conn.close("getDbusObject() for consoles failed.");
+        }
+        return;
+    }
+
+    if (objInfo.size() != 1)
+    {
+        BMCWEB_LOG_WARNING << "getDbusObject() returned unexpected size: "
+                           << objInfo.size();
+        if (removeConnection(conn))
+        {
+            conn.close("getDbusObject() returned unexpected size");
+        }
+        return;
+    }
+
+    const auto& valueIface = *objInfo.begin();
+    const std::string& consoleService = valueIface.first;
+    BMCWEB_LOG_DEBUG << "Looking up SocketName for Service " << consoleService
+                     << " Path " << consoleObjPath;
+
+    // This Socket name propery returns stream of bytes as
+    // it can have valid null characters.
+    sdbusplus::asio::getProperty<std::vector<uint8_t>>(
+        *crow::connections::systemBus, consoleService, consoleObjPath,
+        "xyz.openbmc_project.Console.Access", "SocketName",
+        [&conn](const boost::system::error_code& ec1,
+                const std::vector<uint8_t>& socketNameBytes) {
+        connectConsoleSocket(conn, ec1, socketNameBytes);
+        });
+}
+
+// Query consoles from DBUS and find the matching to the
+// rules string.
+inline void onOpen(crow::websocket::Connection& conn)
+{
+    BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+
+    // Save the connection in the map
+    sessions.insert(&conn);
+
+    // mapper call lambda
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Console.Access"};
+
+    sdbusplus::message::object_path objPath(conn.req.target());
+    std::string consolePath("/xyz/openbmc_project/console/" +
+                            objPath.filename());
+
+    BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
+                     << " Request target = " << conn.req.target();
+
+    dbus::utility::getDbusObject(
+        consolePath, interfaces,
+        [&conn, consolePath](const boost::system::error_code& ec,
+                             const ::dbus::utility::MapperGetObject& objInfo) {
+        processConsoleObject(conn, consolePath, ec, objInfo);
+        });
+
+    // We need to wait for dbus and the websockets to hook up before data is
+    // sent/received.  Tell the core to hold off messages until the sockets are
+    // up
+    conn.deferRead();
 }
 
 inline void requestRoutes(App& app)
@@ -123,33 +286,12 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/console0")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
-        .onopen(
-            [](crow::websocket::Connection& conn) {
-        BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
-
-        sessions.insert(&conn);
-        if (hostSocket == nullptr)
-        {
-            const std::string consoleName("\0obmc-console", 13);
-            boost::asio::local::stream_protocol::endpoint ep(consoleName);
-
-            hostSocket =
-                std::make_unique<boost::asio::local::stream_protocol::socket>(
-                    conn.getIoContext());
-            hostSocket->async_connect(ep, connectHandler);
-        }
-        })
+        .onopen(onOpen)
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
             BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
 
-            sessions.erase(&conn);
-            if (sessions.empty())
-            {
-                hostSocket = nullptr;
-                inputBuffer.clear();
-                inputBuffer.shrink_to_fit();
-            }
+            removeConnection(conn);
         })
         .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
                       const std::string& data, [[maybe_unused]] bool isBinary) {
