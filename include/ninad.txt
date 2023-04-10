@@ -1,0 +1,104 @@
+    inline void afterConsoleQueryProperty(const boost::system::error_code& ec,
+                                          const std::vector<uint8_t>& socketNameBytes)
+    {
+        unsigned int i;
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "NINAD: getProperty failed ec: " << ec;
+        }
+        else
+        {
+            std::string socketName(socketNameBytes.begin(), socketNameBytes.end());
+
+            BMCWEB_LOG_DEBUG << "NINAD: socketName: " << socketName
+                             << " num bytes: " << socketNameBytes.size()
+                             << " string size: " << socketName.size();
+
+            for (i = 0; i < socketName.size(); i++)
+            {
+                BMCWEB_LOG_DEBUG  << "[" << i << "]:" << socketName[i];
+                if (i && socketName[i] == '\0')
+                    break;
+            }
+        }
+        BMCWEB_LOG_DEBUG << "NINAD: exit. " << __LINE__;
+    }
+
+    inline void afterQueryConsoles(
+        const boost::system::error_code& ec,
+        const dbus::utility::MapperGetSubTreeResponse& subtree)
+    {
+        BMCWEB_LOG_DEBUG << "NINAD: enter. " << __LINE__;
+        // NINAD
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "NINAD: getSubTree() faild. ec=" << ec;
+        }
+        else
+        {
+            // Iterate over all retrieved ObjectPaths.
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                const std::string& path = object.first;
+                sdbusplus::message::object_path objPath(object.first);
+
+                BMCWEB_LOG_DEBUG << "NINAD: Object path = " << path
+                                 << " leaf = " << objPath.filename();
+
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+                if (connectionNames.empty())
+                {
+                    continue;
+                }
+
+                for (const auto& connection : connectionNames)
+                {
+                    const std::string& service = connection.first;
+                  
+                    BMCWEB_LOG_DEBUG << "NINAD: connection.first(service) = "
+                                     << service;
+
+                    // Skip other console services
+                    if (service.find("xyz.openbmc_project.Console.") == std::string::npos)
+                        continue;
+                     
+                    // This Socket name propery returns stream of bytes as
+                    // it can have valid null characters.
+                    sdbusplus::asio::getProperty<std::vector<uint8_t>>(
+                        *crow::connections::systemBus, connection.first,
+                        path, "xyz.openbmc_project.Console.Access",
+                        "SocketName",
+                        [this](const boost::system::error_code& ec1,
+                                const std::vector<uint8_t>& socketNameBytes) {
+                        afterConsoleQueryProperty(ec1, socketNameBytes);
+                        });
+                }
+            }
+        }
+        BMCWEB_LOG_DEBUG << "NINAD: exit. " << __LINE__;
+    }
+
+    // Get all consoles from dbus which are exported by
+    // openbmc console.
+    inline void connectOpenBmcConsoles()
+    {
+        BMCWEB_LOG_DEBUG << "NINAD: Entered. " << __LINE__;
+
+        // mapper call lambda
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Console.Access"};
+
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/console", 0, interfaces,
+            [&](const boost::system::error_code& ec,
+               const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            afterQueryConsoles(ec, subtree);
+            });
+        BMCWEB_LOG_DEBUG << "NINAD: exit. " << __LINE__;
+    }

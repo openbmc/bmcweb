@@ -1,0 +1,102 @@
+inline void afterConsoleQueryProperty(App &app, const std::string& objPath, 
+                                      const boost::system::error_code& ec,
+                                      const std::string& socketName)
+{
+    BMCWEB_LOG_ERROR << "NINAD: enter. " << __FUNCTION__;
+    app.debugPrint();
+
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "NINAD: getProperty failed ec: " << ec;
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "NINAD: objPath: " << objPath
+                         << " socketName: " << socketName;
+
+#ifdef NINAD
+    int i;
+        BMCWEB_LOG_ERROR << "NINAD: Socket Name String : ";
+        for (i = 1; i < 14; i++)
+            BMCWEB_LOG_ERROR  << " NINAD: " << (uint32_t)socketName[i];
+#endif 
+
+        // Move this later.
+        // if (objPath == "/xyz/openbmc_project/console/host")
+        //  requestRoutes(app);
+    }
+    BMCWEB_LOG_ERROR << "NINAD: exit. " << __FUNCTION__;
+}
+
+inline void
+    afterQueryConsoles(App& app, const boost::system::error_code& ec,
+                       const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    BMCWEB_LOG_ERROR << "NINAD: enter. " << __FUNCTION__;
+    // NINAD
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "NINAD: getSubTree() faild. ec=" << ec;
+    }
+    else
+    {
+        // Iterate over all retrieved ObjectPaths.
+        for (const std::pair<
+                 std::string,
+                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
+                 object : subtree)
+        {
+            const std::string& path = object.first;
+            BMCWEB_LOG_ERROR << "NINAD: Object path = " << path;
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                connectionNames = object.second;
+            if (connectionNames.empty())
+            {
+                continue;
+            }
+
+            for (const auto& connection : connectionNames)
+            {
+                BMCWEB_LOG_ERROR << "NINAD: connection.first(service) = "
+                                 << connection.first;
+
+                for (const auto& interfaceName : connection.second)
+                {
+                    BMCWEB_LOG_ERROR << "NINAD: interfaceName = "
+                                     << interfaceName;
+
+                    if (interfaceName == "xyz.openbmc_project.Console.Access")
+                    {
+                        sdbusplus::asio::getProperty<std::string>(
+                            *crow::connections::systemBus, connection.first,
+                            path, interfaceName, "SocketName",
+                            [&app, &path](const boost::system::error_code& ec1,
+                                  const std::string& socketName) {
+                            afterConsoleQueryProperty(app, path, ec1, socketName);
+                            });
+                    }
+                }
+            }
+        }
+    }
+    BMCWEB_LOG_ERROR << "NINAD: exit. " << __FUNCTION__;
+}
+
+// Get all consoles from dbus which are exported by
+// openbmc console.
+inline void connectOpenBmcConsoles(App& app)
+{
+    BMCWEB_LOG_ERROR << "NINAD: Entered. " << __FUNCTION__;
+
+    // mapper call lambda
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Console.Access"};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/console", 0, interfaces,
+        [&app](const boost::system::error_code& ec,
+           const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        afterQueryConsoles(app, ec, subtree);
+    });
+    BMCWEB_LOG_ERROR << "NINAD: exit. " << __FUNCTION__;
+}
