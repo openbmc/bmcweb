@@ -118,27 +118,127 @@ inline void connectHandler(const boost::system::error_code& ec)
     doRead();
 }
 
-inline void requestRoutes(App& app)
+inline void afterConsoleGetProperty(crow::websocket::Connection& conn,
+                                    const boost::system::error_code& ec,
+                                    const std::vector<uint8_t>& socketNameBytes)
 {
-    BMCWEB_ROUTE(app, "/console0")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .websocket()
-        .onopen(
-            [](crow::websocket::Connection& conn) {
-        BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING << "Failed to get socketName property of the console"
+                           << " ec: " << ec;
+    }
+    else
+    {
+        std::string consoleSocketName(socketNameBytes.begin(),
+                                      socketNameBytes.end());
+
+        // Console socket name starts with null character
+        BMCWEB_LOG_DEBUG << "Console web socket path: " << conn.req.target()
+                         << " Console socketName: " << &consoleSocketName[1];
 
         sessions.insert(&conn);
         if (hostSocket == nullptr)
         {
-            const std::string consoleName("\0obmc-console", 13);
-            boost::asio::local::stream_protocol::endpoint ep(consoleName);
+            boost::asio::local::stream_protocol::endpoint ep(consoleSocketName);
 
             hostSocket =
                 std::make_unique<boost::asio::local::stream_protocol::socket>(
                     conn.getIoContext());
             hostSocket->async_connect(ep, connectHandler);
         }
-        })
+    }
+}
+
+inline void
+    afterQueryConsoles(crow::websocket::Connection& conn,
+                       const boost::system::error_code& ec,
+                       const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    BMCWEB_LOG_DEBUG << "Web socket path: " << conn.req.target();
+
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING << "getSubTree() for consoles failed. ec=" << ec;
+    }
+    else
+    {
+        // Iterate over all retrieved ObjectPaths.
+        for (const std::pair<
+                 std::string,
+                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
+                 object : subtree)
+        {
+            const std::string& path = object.first;
+            sdbusplus::message::object_path objPath(object.first);
+            std::string webSocketPath("/" + objPath.filename());
+
+            BMCWEB_LOG_DEBUG << "Console Object path = " << path
+                             << " webSocketPath = " << webSocketPath;
+
+            // Look for matching rules string for the console
+            if (conn.req.target() != webSocketPath)
+            {
+                continue;
+            }
+
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                connectionNames = object.second;
+            if (connectionNames.empty())
+            {
+                continue;
+            }
+
+            for (const auto& connection : connectionNames)
+            {
+                const std::string& service = connection.first;
+
+                BMCWEB_LOG_DEBUG << "Console connection service: " << service;
+
+                // Skip other console services
+                if (service.find("xyz.openbmc_project.Console.") ==
+                    std::string::npos)
+                {
+                    continue;
+                }
+
+                // This Socket name propery returns stream of bytes as
+                // it can have valid null characters.
+                sdbusplus::asio::getProperty<std::vector<uint8_t>>(
+                    *crow::connections::systemBus, connection.first, path,
+                    "xyz.openbmc_project.Console.Access", "SocketName",
+                    [&conn](const boost::system::error_code& ec1,
+                            const std::vector<uint8_t>& socketNameBytes) {
+                    afterConsoleGetProperty(conn, ec1, socketNameBytes);
+                    });
+            }
+        }
+    }
+}
+
+// Query consoles from DBUS and find the matching to the
+// rules string.
+inline void onOpen(crow::websocket::Connection& conn)
+{
+    BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+
+    // mapper call lambda
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Console.Access"};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/console", 0, interfaces,
+        [&conn](const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        afterQueryConsoles(conn, ec, subtree);
+        });
+}
+
+inline void requestRoutes(App& app)
+{
+    BMCWEB_ROUTE(app, "/<str>")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .websocket()
+        .onopen(onOpen)
         .onclose([](crow::websocket::Connection& conn,
                     [[maybe_unused]] const std::string& reason) {
             BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
