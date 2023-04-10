@@ -107,7 +107,6 @@ class BaseRule
     std::vector<redfish::Privileges> privilegesSet;
 
     std::string rule;
-    std::string nameStr;
 
     std::unique_ptr<BaseRule> ruleToUpgrade;
 
@@ -441,13 +440,6 @@ struct RuleParameterTraits
         return *p;
     }
 
-    self_t& name(std::string_view name) noexcept
-    {
-        self_t* self = static_cast<self_t*>(this);
-        self->nameStr = name;
-        return *self;
-    }
-
     self_t& methods(boost::beast::http::verb method)
     {
         self_t* self = static_cast<self_t*>(this);
@@ -519,8 +511,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     {
         if (!erasedHandler)
         {
-            throw std::runtime_error(nameStr + (!nameStr.empty() ? ": " : "") +
-                                     "no handler for url " + rule);
+            throw std::runtime_error("no handler for url " + rule);
         }
     }
 
@@ -568,13 +559,6 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         return ret;
     }
 
-    template <typename Func>
-    void operator()(std::string name, Func&& f)
-    {
-        nameStr = std::move(name);
-        (*this).template operator()<Func>(std::forward(f));
-    }
-
   private:
     std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
@@ -597,8 +581,7 @@ class TaggedRule :
     {
         if (!handler)
         {
-            throw std::runtime_error(nameStr + (!nameStr.empty() ? ": " : "") +
-                                     "no handler for url " + rule);
+            throw std::runtime_error("no handler for url " + rule);
         }
     }
 
@@ -679,13 +662,6 @@ class TaggedRule :
             "type");
 
         handler = std::forward<Func>(f);
-    }
-
-    template <typename Func>
-    void operator()(std::string_view name, Func&& f)
-    {
-        nameStr = name;
-        (*this).template operator()<Func>(std::forward(f));
     }
 
     void handle(const Request& req,
