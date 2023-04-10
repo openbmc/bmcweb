@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c99cdc1_a40a9827",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-10T21:00:25Z",
+      "side": 1,
+      "message": "\u003e We are talking about bmc-state-manager here, which happened to get checked into the phosphor-state-manager repository. Was anyone outside of IBM included in the design process for bmc-state-manager? If so, can you point them to this review? If there are folks outside of a single company asking for this, that changes the math a little, and I\u0027m happy to be swayed by community input if bmc-state-manager is desired widely.\n\n*bmc* state manager dates back to Jan 2017, 14 months before OpenBMC became a Linux Foundation project. When it was created, very few companies were working on the project. Since it has been created, I do see several other companies contributing, e.g. Nuvoton at https://github.com/openbmc/phosphor-state-manager/commit/2bfb1efc4bc7e781224e19c05b51e6675f13a488 and Intel at https://github.com/openbmc/phosphor-dbus-interfaces/commit/e77b423de8831a10b4b071a5c7c87ebec1ffdd91 and https://github.com/openbmc/phosphor-dbus-interfaces/commit/4610bace070eb17c6e4ee015210dac44284c53a7\n\nhttps://github.com/openbmc/phosphor-state-manager/commits/master/bmc_state_manager.cpp\n\n\u003e  don\u0027t understand. It\u0027s going to dbus, just going to systemd rather than an OpenBMC specific interface. Doing so reduces the amount of code that OpenBMC has that\u0027s different that normal systems, and doing it this way reduces the bmcweb code as wel.\n\nThat is a fair point\n\n\u003e Does the user facing behavior change with this patch?\n\nYes, you don\u0027t have states like UpdateInProgress vs https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50318\n\nI added AppaRao since he added the PDI interface for UpdateInProgress",
+      "parentUuid": "8498906d_c4623aff",
+      "revId": "c8dfa0eadcbbb1bea61bebf3bf90698509a16596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e282bf1_a9c26dbc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
