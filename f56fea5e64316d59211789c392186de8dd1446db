@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e314d899_5ba4bfa4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:17:17Z",
+      "side": 1,
+      "message": "Pass by nlohmann::json::array_t",
+      "range": {
+        "startLine": 798,
+        "startChar": 38,
+        "endLine": 798,
+        "endChar": 52
+      },
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60a0c992_6ea53a83",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -14,6 +37,109 @@
       "writtenOn": "2023-04-10T13:47:38Z",
       "side": 1,
       "message": "WARNING here please since client error \nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels",
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2221e1f1_b522a80d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:17:17Z",
+      "side": 1,
+      "message": "Entry id is never incremented?",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 24
+      },
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c8ae3ef_520a01a1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:17:17Z",
+      "side": 1,
+      "message": "If address is required, don\u0027t use an optional, and the core will handle this for you.",
+      "range": {
+        "startLine": 833,
+        "startChar": 0,
+        "endLine": 834,
+        "endChar": 13
+      },
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf56fc64_4cfe7ed6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:17:17Z",
+      "side": 1,
+      "message": "The above loop is not correct to the Redfish spec.  Namely:\n\n1. It doesn\u0027t appear to support setting multiple gateways.\n2. It doesn\u0027t support modification of the gateway array, through things like null and {}.\n\nPlease take a look at the code for ipv4 static, which handles all the conditions properly.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/ethernet.hpp#L1242",
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d62b43_0ed7d4fe",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1766,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:17:17Z",
+      "side": 1,
+      "message": "Please write this as\n\nnlohmann::json::array_t ipv6StaticGatewayArray;\nipv6StaticGatewayArray.emplace_back(...);\njsonResponse[\"IPv6StaticDefaultGateways\"] \u003d std::move(ipv6StaticGatewayArray);",
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a513e460_7a7f1a0b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:17:17Z",
+      "side": 1,
+      "message": "For new code, please read out as a nlohmann::json::array_t.\n\nPlease also help to review: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61372",
+      "range": {
+        "startLine": 1905,
+        "startChar": 22,
+        "endLine": 1905,
+        "endChar": 36
+      },
       "revId": "f56fea5e64316d59211789c392186de8dd1446db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
