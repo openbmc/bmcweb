@@ -34,6 +34,23 @@
       "parentUuid": "054c0af1_316d106c",
       "revId": "20e15a8bc4cef44a9b595a022d5b16bc6b71f187",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e51de0a_4efb6d62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-10T22:04:55Z",
+      "side": 1,
+      "message": "I have tested my changes with fix by Ed (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62275) and it is working as expected. When I remove the admin user from hostconsole group. console access was denied.\n\n\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [INFO \"http_connection.hpp\":209] Request:  0x1e7a448 HTTP/1.1 GET /console0 ::ffff:10.0.2.1\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"http_connection.hpp\":241] Setting completion handler\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"http_response.hpp\":208] 0x1f50e68 setting completion handler\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"http_response.hpp\":208] 0x1f50e68 setting completion handler\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1510] Matched rule (upgrade) \u0027/console0\u0027 1 / 2\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [INFO \"chassis.hpp\":124] DBUS error: no matched iface generic:5\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1301] userName \u003d admin userRole \u003d priv-admin\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1379] isUserPrivileged: Active BASE priv: Login\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1379] isUserPrivileged: Active BASE priv: ConfigureManager\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1379] isUserPrivileged: Active BASE priv: ConfigureComponents\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1379] isUserPrivileged: Active BASE priv: ConfigureSelf\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":1379] isUserPrivileged: Active BASE priv: ConfigureUsers\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"routing.hpp\":106] checkPrivileges: Required OEM priv: OEMOpenBmcHostConsole\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [ERROR \"routing.hpp\":1437] Insufficient Privilege\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"http_response.hpp\":193] 0x1f50e68 calling completion handler\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"http_response.hpp\":196] 0x1f50e68 completion handler was valid\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [DEBUG \"http_response.hpp\":65] Moving response containers; this: 0x1e7c708; other: 0x1f50e68\nApr 10 21:55:19 p10bmc bmcweb[751]: (2023-04-10 21:55:19) [INFO \"http_connection.hpp\":322] Response: 0x1e7a448 /console0 403 keepalive\u003d1",
+      "revId": "20e15a8bc4cef44a9b595a022d5b16bc6b71f187",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
