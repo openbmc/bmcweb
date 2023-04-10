@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d630341c_18231af3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-10T16:46:47Z",
+      "side": 1,
+      "message": "The dbus resolver is the default.  Whoever wants to use the dbus way doesn\u0027t have to make any changes.",
+      "parentUuid": "60332f24_82453776",
+      "range": {
+        "startLine": 151,
+        "startChar": 7,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46e489d1_937e0613",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
