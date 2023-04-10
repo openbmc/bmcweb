@@ -436,6 +436,7 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         WebSocketRule* p = new WebSocketRule(self->rule);
+        p->privilegesSet = self->privilegesSet;
         self->ruleToUpgrade.reset(p);
         return *p;
     }
