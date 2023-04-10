@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47045f53_6e298e02",
+        "filename": "static/redfish/v1/schema/OemEthernetInterface_v1.xml",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-10T15:49:33Z",
+      "side": 1,
+      "message": "Also this doesn\u0027t look like it matches the latest OEM formatting \nhttps://github.com/openbmc/bmcweb/commit/5b5574ace856c7f787528ab8f5e5352a90f2a6cb",
+      "revId": "3f593838d9d1d9315b3133f5a566a918703d2035",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
