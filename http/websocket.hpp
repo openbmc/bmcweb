@@ -131,7 +131,7 @@ class ConnectionImpl : public Connection
                                  const boost::system::error_code& ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in ws.async_accept " << ec;
+                BMCWEB_LOG_ERROR << "Error in ws.async_accept " << ec.message();
                 return;
             }
             acceptDone();
@@ -169,7 +169,7 @@ class ConnectionImpl : public Connection
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec;
+                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec.message();
                 self->close("write error");
             }
         });
@@ -210,7 +210,7 @@ class ConnectionImpl : public Connection
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
+                BMCWEB_LOG_ERROR << "Error closing websocket " << ec.message();
                 return;
             }
             });
@@ -257,9 +257,14 @@ class ConnectionImpl : public Connection
                                     size_t bytesRead) {
             if (ec)
             {
+                BMCWEB_LOG_ERROR << "doRead error " << ec;
                 if (ec != boost::beast::websocket::error::closed)
                 {
-                    BMCWEB_LOG_ERROR << "doRead error " << ec;
+                    BMCWEB_LOG_ERROR << "doRead error " << ec.message();
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "doRead error " << ec.message();
                 }
                 if (closeHandler)
                 {
@@ -301,7 +306,7 @@ class ConnectionImpl : public Connection
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec;
+                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec.message();
                 return;
             }
             doWrite();
