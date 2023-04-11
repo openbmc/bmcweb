@@ -44,6 +44,8 @@ inline void
                                      "PowerSubsystem", "PowerSupplies");
     asyncResp->res.jsonValue["Description"] =
         "The collection of PowerSupply resource instances.";
+    asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+    asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
     std::string powerPath = *validChassisPath + "/powered_by";
     dbus::utility::getAssociationEndPoints(
