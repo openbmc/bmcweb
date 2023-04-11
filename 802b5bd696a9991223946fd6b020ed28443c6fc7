@@ -16,6 +16,24 @@
       "message": "The code in question is changing to:\n\n/xyz/openbmc_project/Chassis/Intrusion\n\nwhich is incorrect in naming (chassis and intrusion should be snake case).\n\nplease work to get a change into PDI for this new interface definition, and that will drive the bmcweb changes required.",
       "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7063c2_f753e792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-04-11T06:33:40Z",
+      "side": 1,
+      "message": "Hi, an \"xyz.openbmc_project.Chassis.Intrusion\" interface is defined under the xyz/openbmc_project/Chassis folder in PDI which inspired me to use *Chassis* as the prefix path (there might also be a fan intrusion sensor which can take another prefix) and *Intrusion* as the name of the sensor (because I saw some object paths like \"/xyz/openbmc_project/Chassis/Control/NMISource\" to hold the interface \"xyz.openbmc_project.Chassis.Control.NMISource\" which is a reasonable relation).  I\u0027m not sure about how to add a new interface definition to better fit the new object path. Can you please help clarify a bit and correct my understanding if it\u0027s wrong?",
+      "parentUuid": "8fda5b0f_2c27cc15",
+      "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
