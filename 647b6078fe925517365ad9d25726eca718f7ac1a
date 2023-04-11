@@ -51,6 +51,23 @@
       "message": "I tested the fix and it is working. Code looks good.\n\n# With Ed fix we are seeing the privileges\nApr 10 20:26:35 p10bmc bmcweb[745]: (2023-04-10 20:26:35) [INFO \"http_connection.hpp\":209] Request:  0x11e3248 HTTP/1.1 GET /console0 ::ffff:X.XX.XX.XXX\n                                                                |\nApr 10 20:26:35 p10bmc bmcweb[745]: (2023-04-10 20:26:35) [DEBUG \"routing.hpp\":1460] Matched rule (upgrade) \u0027/console0\u0027 1 / 2\nApr 10 20:26:36 p10bmc bmcweb[745]: (2023-04-10 20:26:36) [DEBUG \"routing.hpp\":1299] userName \u003d admin userRole \u003d priv-admin\nApr 10 20:26:36 p10bmc bmcweb[745]: (2023-04-10 20:26:36) [DEBUG \"routing.hpp\":101] checkPrivileges: Active BASE priv: ConfigureManager       \u003c\u003c\u003c\u003c\u003c\u003c\nApr 10 20:26:36 p10bmc bmcweb[745]: (2023-04-10 20:26:36) [DEBUG \"routing.hpp\":101] checkPrivileges: Active BASE priv: ConfigureComponents    \u003c\u003c\u003c\u003c\u003c\u003c\nApr 10 20:26:36 p10bmc bmcweb[745]: (2023-04-10 20:26:36) [ERROR \"routing.hpp\":1361] isUserPrivileged: URL: /console0 IsPrivelegeSetEmpty: 0 Username: admin\n\n# Before fix.\nApr 10 20:05:37 p10bmc bmcweb[755]: (2023-04-10 20:05:37) [INFO \"http_connection.hpp\":209] Request:  0x1a1c500 HTTP/1.1 GET /console0 ::ffff:X.XX.XX.XXX\n                                                                |\nApr 10 20:05:37 p10bmc bmcweb[755]: (2023-04-10 20:05:37) [DEBUG \"routing.hpp\":1459] Matched rule (upgrade) \u0027/console0\u0027 1 / 2\nApr 10 20:05:37 p10bmc bmcweb[755]: (2023-04-10 20:05:37) [DEBUG \"routing.hpp\":1298] userName \u003d admin userRole \u003d priv-admin\nApr 10 20:05:37 p10bmc bmcweb[755]: (2023-04-10 20:05:37) [DEBUG \"routing.hpp\":89] checkPrivileges: Privilege set is empty\nApr 10 20:05:37 p10bmc bmcweb[755]: (2023-04-10 20:05:37) [ERROR \"routing.hpp\":1360] isUserPrivileged: URL: /console0 IsPrivelegeSetEmpty: 1 Username: admin\nApr 10 20:05:37 p10bmc bmcweb[755]: (2023-04-10 20:05:37) [DEBUG \"routing.hpp\":387] Websocket handles upgrade",
       "revId": "647b6078fe925517365ad9d25726eca718f7ac1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd27d60_da0da7d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-11T11:29:12Z",
+      "side": 1,
+      "message": "The change explains why it did not work for me before.\nIt looks good to me.",
+      "revId": "647b6078fe925517365ad9d25726eca718f7ac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
