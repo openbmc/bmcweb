@@ -16,6 +16,23 @@
       "message": "Members should be here right?",
       "revId": "a60f635f69130cbe27924313d04d717e1bb736e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28ff43c2_543dd568",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-11T17:23:03Z",
+      "side": 1,
+      "message": "You need to initialize here before you return \n asyncResp-\u003eres.jsonValue[\"Members\"] \u003d nlohmann::json::array();\n asyncResp-\u003eres.jsonValue[\"Members@odata.count\"] \u003d 0;\n\nI see you are initializing in new commit\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62282",
+      "revId": "a60f635f69130cbe27924313d04d717e1bb736e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
