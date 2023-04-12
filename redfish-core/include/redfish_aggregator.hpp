@@ -9,6 +9,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 #include <array>
+#include <random>
 
 namespace redfish
 {
@@ -32,6 +33,10 @@ enum class SearchType
 struct RdeSatelliteConfig
 {
     std::string name;
+    std::string vid;
+    std::string udevid;
+    std::string usbport;
+    std::string objectpath;
 };
 
 // clang-format off
@@ -254,6 +259,15 @@ static inline void addPrefixToItem(nlohmann::json& item,
     }
     addPrefixToStringItem(*strValue, prefix);
     item = *strValue;
+}
+
+static inline int generateRandomInt()
+{
+    std::random_device randomDevice;
+    std::mt19937 generator(randomDevice());
+    std::uniform_int_distribution<> distribution(1, 999);
+    int randomNumber = distribution(generator);
+    return randomNumber;
 }
 
 static inline void addAggregatedHeaders(crow::Response& asyncResp,
@@ -570,7 +584,49 @@ class RedfishAggregator
                 }
                 rdeConfig.name = *propVal;
             }
+            if (prop.first == "VID")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid VID value";
+                    return;
+                }
+                rdeConfig.vid = *propVal;
+            }
+            if (prop.first == "UDEVID")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid UDEVID value";
+                    return;
+                }
+                rdeConfig.udevid = *propVal;
+            }
+            if (prop.first == "USBPORT")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid USBPORT value";
+                    return;
+                }
+                rdeConfig.usbport = *propVal;
+            }
         } // Finished reading properties
+
+        if (rdeConfig.udevid.empty())
+        {
+            BMCWEB_LOG_ERROR << "Empty udevid";
+            return;
+        }
+        rdeConfig.objectpath =
+            "/xyz/openbmc_project/rde_devices/" + rdeConfig.udevid;
+
 
         // Set the prefix to a random string 'E0SB8D'
         // (TODO) Generate a unique random prefix for each RDE Device
@@ -843,8 +899,9 @@ class RedfishAggregator
             }
             processRdeResponse(prefix, asyncResp, jsonString);
             },
-            "xyz.openbmc_project.rdeService", "/xyz/openbmc_project/rdeObject",
-            "xyz.openbmc_project.rdeInterface", "getResource", targetURI);
+            "xyz.openbmc_project.rdeoperation1", sat->second.objectpath,
+            "xyz.openbmc_project.RdeDevice", "execute_rde", generateRandomInt(),
+            1, targetURI, sat->second.udevid);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -883,9 +940,9 @@ class RedfishAggregator
                 }
                 processRdeCollectionResponse(rsat.first, asyncResp, jsonString);
                 },
-                "xyz.openbmc_project.rdeService",
-                "/xyz/openbmc_project/rdeObject",
-                "xyz.openbmc_project.rdeInterface", "getCollection", targetURI);
+                "xyz.openbmc_project.rdeoperation1", rsat.second.objectpath,
+                "xyz.openbmc_project.RdeDevice", "execute_rde",
+                generateRandomInt(), 1, targetURI, rsat.second.udevid);
         }
     }
 
