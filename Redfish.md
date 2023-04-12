@@ -847,6 +847,7 @@ other.
 
 - PCIeInterface
   - LanesInUse
+- Status
 
 ### /redfish/v1/Systems/system/Processors/
 
