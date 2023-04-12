@@ -177,6 +177,30 @@ inline std::optional<pcie_device::PCIeTypes>
     return std::nullopt;
 }
 
+inline void getPCIeDeviceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& pcieDevicePath,
+                               const std::string& service)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [aResp](const boost::system::error_code& ec, const bool value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (!value)
+        {
+            aResp->res.jsonValue["Status"]["State"] = "Absent";
+        }
+        });
+}
+
 inline void
     getPCIeDeviceLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                           const std::string& pcieDevicePath,
@@ -357,6 +381,7 @@ inline void addPCIeDeviceCommonProperties(
         "redfish", "v1", "Systems", "system", "PCIeDevices", pcieDeviceId);
     aResp->res.jsonValue["Name"] = "PCIe Device";
     aResp->res.jsonValue["Id"] = pcieDeviceId;
+    aResp->res.jsonValue["Status"]["State"] = "Enabled";
 }
 
 inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
@@ -381,6 +406,7 @@ inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
         addPCIeDeviceCommonProperties(aResp, pcieDeviceId);
         getPCIeDeviceAsset(aResp, pcieDevicePath, service);
         getPCIeDeviceLocation(aResp, pcieDevicePath, service);
+        getPCIeDeviceState(aResp, pcieDevicePath, service);
         getPCIeDeviceProperties(
             aResp, pcieDevicePath, service,
             [aResp, pcieDeviceId](
