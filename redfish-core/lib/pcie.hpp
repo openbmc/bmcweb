@@ -177,6 +177,31 @@ inline std::optional<pcie_device::PCIeTypes>
     return std::nullopt;
 }
 
+inline void getPCIeDeviceHealth(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& pcieDevicePath,
+                                const std::string& service)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [aResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Health";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (!value)
+        {
+            aResp->res.jsonValue["Status"]["Health"] = "Critical";
+        }
+        });
+}
+
 inline void getPCIeDeviceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& pcieDevicePath,
                                const std::string& service)
@@ -357,6 +382,7 @@ inline void addPCIeDeviceCommonProperties(
     aResp->res.jsonValue["Name"] = "PCIe Device";
     aResp->res.jsonValue["Id"] = pcieDeviceId;
     aResp->res.jsonValue["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue["Status"]["Health"] = "OK";
 }
 
 inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
@@ -381,6 +407,7 @@ inline void handlePCIeDeviceGet(App& app, const crow::Request& req,
         addPCIeDeviceCommonProperties(aResp, pcieDeviceId);
         getPCIeDeviceAsset(aResp, pcieDevicePath, service);
         getPCIeDeviceState(aResp, pcieDevicePath, service);
+        getPCIeDeviceHealth(aResp, pcieDevicePath, service);
         getPCIeDeviceProperties(
             aResp, pcieDevicePath, service,
             [aResp, pcieDeviceId](
