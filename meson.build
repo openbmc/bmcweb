@@ -305,7 +305,7 @@ if get_option('tests').enabled()
   gmock = gmock.as_system('system')
 endif
 
-systemd_system_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
+systemd_system_unit_dir = systemd.get_variable('systemdsystemunitdir')
 
 bindir = get_option('prefix') + '/' +get_option('bindir')
 
