@@ -105,6 +105,11 @@ class App
         router.validate();
     }
 
+    bool isSseRoute(Request& req)
+    {
+        return router.isSseRoute(req);
+    }
+
     void run()
     {
         validate();

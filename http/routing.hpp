@@ -8,6 +8,7 @@
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
+#include "server_sent_event.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
 #include "utils/dbus_utils.hpp"
@@ -428,6 +429,75 @@ class WebSocketRule : public BaseRule
     std::function<void(crow::websocket::Connection&)> errorHandler;
 };
 
+class SseSocketRule : public BaseRule
+// public PrivilegeParameterTraits<SseSocketRule>
+{
+    using self_t = SseSocketRule;
+
+  public:
+    explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    {}
+
+    void validate() override
+    {}
+
+    void handle(const Request& /*req*/,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const RoutingParams& /*params*/) override
+    {
+        asyncResp->res.result(boost::beast::http::status::not_found);
+    }
+
+#ifndef BMCWEB_ENABLE_SSL
+    void handleUpgrade(const Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+                       boost::asio::ip::tcp::socket&& adaptor) override
+    {
+        std::shared_ptr<
+            crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+            myConnection = std::make_shared<
+                crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+                req, std::move(adaptor), openHandler, closeHandler);
+        myConnection->start();
+    }
+#else
+    void handleUpgrade(const Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+                       boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
+                           adaptor) override
+    {
+        std::shared_ptr<crow::sse_socket::ConnectionImpl<
+            boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
+            myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
+                boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
+                req, std::move(adaptor), openHandler, closeHandler);
+        myConnection->start();
+    }
+#endif
+
+    template <typename Func>
+    self_t& onopen(Func f)
+    {
+        openHandler = f;
+        return *this;
+    }
+
+    template <typename Func>
+    self_t& onclose(Func f)
+    {
+        closeHandler = f;
+        return *this;
+    }
+
+  private:
+    std::function<void(std::shared_ptr<crow::sse_socket::Connection>&,
+                       const crow::Request&,
+                       const std::shared_ptr<bmcweb::AsyncResp>&)>
+        openHandler;
+    std::function<void(std::shared_ptr<crow::sse_socket::Connection>&)>
+        closeHandler;
+};
+
 template <typename T>
 struct RuleParameterTraits
 {
@@ -436,6 +506,14 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         WebSocketRule* p = new WebSocketRule(self->rule);
+        self->ruleToUpgrade.reset(p);
+        return *p;
+    }
+
+    SseSocketRule& serverSentEvent()
+    {
+        self_t* self = static_cast<self_t*>(this);
+        SseSocketRule* p = new SseSocketRule(self->rule);
         self->ruleToUpgrade.reset(p);
         return *p;
     }
@@ -1254,6 +1332,15 @@ class Router
             }
         }
         return findRoute;
+    }
+
+    bool isSseRoute(Request& req)
+    {
+        return std::any_of(sse_socket::sseRoutes.begin(),
+                           sse_socket::sseRoutes.end(),
+                           [&req](const char* sseRoute) {
+            return (req.url().encoded_path() == sseRoute);
+        });
     }
 
     static bool isUserPrivileged(
