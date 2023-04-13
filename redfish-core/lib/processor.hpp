@@ -291,6 +291,57 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+inline void
+    getThrottleProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& service,
+                          const std::string& objectPath)
+{
+    BMCWEB_LOG_DEBUG << "Get processor throttle resources";
+
+    // Read Throttle Status
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objectPath,
+        "xyz.openbmc_project.Control.Power.Throttle",
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::DBusPropertiesMap& properties) {
+        if (ec)
+        {
+            // power manager service not available, no error, return no data
+            BMCWEB_LOG_DEBUG << "Processor power manager service not available"
+                             << ec;
+            return;
+        }
+
+        const bool* status = nullptr;
+        const std::vector<std::string>* causes = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Throttled", status,
+            "ThrottleCauses", causes);
+
+        if (!success)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (status != nullptr)
+        {
+            if (*status)
+            {
+                if (causes != nullptr)
+                {
+                    aResp->res.jsonValue["ThrottleCause"] = *causes;
+                }
+            }
+            aResp->res.jsonValue["Throttled"] = *status;
+        }
+        });
+
+    return;
+}
+
 inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             const std::string& service,
                             const std::string& objPath)
@@ -683,7 +734,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
     BMCWEB_LOG_DEBUG << "Get available system processor resources.";
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 8> interfaces = {
+    constexpr std::array<std::string_view, 9> interfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         "xyz.openbmc_project.Inventory.Decorator.Revision",
@@ -691,7 +742,8 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
         "xyz.openbmc_project.Inventory.Item.Accelerator",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"};
+        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
+        "xyz.openbmc_project.Control.Power.Throttle"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [resp, processorId, handler = std::forward<Handler>(handler)](
@@ -792,6 +844,10 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                      "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier")
             {
                 getCpuUniqueId(aResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Control.Power.Throttle")
+            {
+                getThrottleProperties(aResp, serviceName, objectPath);
             }
         }
     }
@@ -1259,7 +1315,7 @@ inline void requestRoutesProcessor(App& app)
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/Processor/Processor.json>; rel=describedby");
         asyncResp->res.jsonValue["@odata.type"] =
-            "#Processor.v1_11_0.Processor";
+            "#Processor.v1_16_0.Processor";
         asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "Systems", "system", "Processors", processorId);
 
