@@ -22,6 +22,30 @@
       },
       "revId": "d0d98ee3bd0c17d1f08f232c8b144c661e1f946d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6660f547_b02d763b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-13T16:59:41Z",
+      "side": 1,
+      "message": "Even though it is set to Enabled, the request is going to fail. \nThis is how implemented other places too, FabricAdapaters, Cable, PowerSuuply\n\nThis is the error if it fails\n\ncurl -k https://$bmc/redfish/v1/Systems/system/PCIeDevices/pcie_card12\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card12\",\n  \"@odata.type\": \"#PCIeDevice.v1_9_0.PCIeDevice\",\n  \"Id\": \"pcie_card12\",\n  \"Name\": \"PCIe Device\",\n  \"PCIeFunctions\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card12/PCIeFunctions\"\n  },\n  \"PCIeInterface\": {\n    \"LanesInUse\": 1,\n    \"PCIeType\": \"Gen2\"\n  },\n  \"Slot\": {\n    \"Location\": {\n      \"PartLocation\": {\n        \"ServiceLabel\": \"U78DA.ND0.WZS003T-P0-T18\"\n      }\n    }\n  },\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  },\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The request failed due to an internal service error.  The service is still operational.\",\n        \"MessageArgs\": [],\n        \"MessageId\": \"Base.1.13.0.InternalError\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Resubmit the request.  If the problem persists, consider resetting the service.\"\n      }\n    ],\n    \"code\": \"Base.1.13.0.InternalError\",\n    \"message\": \"The request failed due to an internal service error.  The service is still operational.\"\n  }\n}",
+      "parentUuid": "7ae7cad8_d6743973",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 9
+      },
+      "revId": "d0d98ee3bd0c17d1f08f232c8b144c661e1f946d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
