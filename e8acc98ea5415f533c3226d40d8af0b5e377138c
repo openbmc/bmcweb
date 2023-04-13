@@ -22,6 +22,30 @@
       },
       "revId": "e8acc98ea5415f533c3226d40d8af0b5e377138c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee137743_dea30b3e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-13T13:54:15Z",
+      "side": 1,
+      "message": "This is not related to this commit. I am just doing the refactor of SystemPCIeDevice. \nWithout specifying the interface should work too. I made the changes to getPCIeDeviceList\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61786",
+      "parentUuid": "1d796172_70fbab84",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 30
+      },
+      "revId": "e8acc98ea5415f533c3226d40d8af0b5e377138c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
