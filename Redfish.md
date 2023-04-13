@@ -880,6 +880,8 @@ other.
 - Socket
 - SparePartNumber
 - Status
+- ThrottleCauses
+- Throttled
 - TotalCores
 - TotalThreads
 - Version
