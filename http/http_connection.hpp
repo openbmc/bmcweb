@@ -244,10 +244,11 @@ class Connection :
             self->completeRequest(thisRes);
         });
 
-        if (thisReq.isUpgrade() &&
-            boost::iequals(
-                thisReq.getHeaderValue(boost::beast::http::field::upgrade),
-                "websocket"))
+        if ((thisReq.isUpgrade() &&
+             boost::iequals(
+                 thisReq.getHeaderValue(boost::beast::http::field::upgrade),
+                 "websocket")) ||
+            (Handler::isSseRoute(*req)))
         {
             asyncResp->res.setCompleteRequestHandler(
                 [self(shared_from_this())](crow::Response& thisRes) {
