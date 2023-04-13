@@ -16,10 +16,18 @@ namespace crow
 template <typename Adaptor, typename Handler>
 class Connection;
 
+namespace sse_Socket
+{
+template <typename Adaptor>
+class ConnectionImpl;
+} // namespace sse_Socket
+
 struct Response
 {
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
+    template <typename Adaptor>
+    friend class crow::sse_Socket::ConnectionImpl;
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
 
