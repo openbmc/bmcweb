@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1c96ed4_d3299e7e",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-13T09:30:55Z",
+      "side": 1,
+      "message": "This can be simplified as\n\n```\nstd::string devName \u003d sdbusplus::message::object_path(pcieDevicePath).filename();\n```",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 70
+      },
+      "revId": "991ccfd4f7495b44fee872fa2d7acf90a09fff29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
