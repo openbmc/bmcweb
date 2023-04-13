@@ -22,6 +22,30 @@
       },
       "revId": "991ccfd4f7495b44fee872fa2d7acf90a09fff29",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620901f6_df4484c1",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-13T14:09:45Z",
+      "side": 1,
+      "message": "I just made the changes described in the commit message. \nThis would be a new commit.",
+      "parentUuid": "f1c96ed4_d3299e7e",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 70
+      },
+      "revId": "991ccfd4f7495b44fee872fa2d7acf90a09fff29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
