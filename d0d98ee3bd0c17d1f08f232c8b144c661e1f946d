@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae7cad8_d6743973",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-13T09:22:14Z",
+      "side": 1,
+      "message": "In the current flow, \"State\" is initialized as \"Enabled\" at L384 in addPCIeDeviceCommonProperties().\n\nNow if getProperty() for \"Present\" is errored (e.g. ec !\u003d 0), the state is still left to \"Enabled\".\n\nIs it expected?\n\n---\n\nIf so, can we change to set \"Enabled\" here by removing L384?\n\n```\n     if(ec) {\n        aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n        ...\n     }\n```\n\nAnd remove L384?",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 9
+      },
+      "revId": "d0d98ee3bd0c17d1f08f232c8b144c661e1f946d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
