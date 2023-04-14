@@ -106,7 +106,7 @@ static inline void handlePCIeDeviceCollectionGet(
         "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
     collection_util::getCollectionMembers(
         aResp, boost::urls::url("/redfish/v1/Systems/system/PCIeDevices"),
-        interfaces);
+        interfaces, pciePath);
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)
