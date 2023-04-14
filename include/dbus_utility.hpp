@@ -189,6 +189,42 @@ inline void getSubTreePaths(
         interfaces);
 }
 
+inline void getAssociatedSubTree(
+    const sdbusplus::message::object_path& associatedPath,
+    const sdbusplus::message::object_path& path, int32_t depth,
+    std::span<const std::string_view> interfaces,
+    std::function<void(const boost::system::error_code&,
+                       const MapperGetSubTreeResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetAssociatedSubTree",
+        associatedPath, path, depth, interfaces);
+}
+
+inline void getAssociatedSubTreePaths(
+    const sdbusplus::message::object_path& associatedPath,
+    const sdbusplus::message::object_path& path, int32_t depth,
+    std::span<const std::string_view> interfaces,
+    std::function<void(const boost::system::error_code&,
+                       const MapperGetSubTreePathsResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const MapperGetSubTreePathsResponse& subtreePaths) {
+        callback(ec, subtreePaths);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetAssociatedSubTreePaths",
+        associatedPath, path, depth, interfaces);
+}
+
 inline void
     getDbusObject(const std::string& path,
                   std::span<const std::string_view> interfaces,
