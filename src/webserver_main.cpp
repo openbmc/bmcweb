@@ -4,6 +4,7 @@
 #include "cors_preflight.hpp"
 #include "dbus_monitor.hpp"
 #include "dbus_singleton.hpp"
+#include "eventservice_sse.hpp"
 #include "hostname_monitor.hpp"
 #include "ibm/management_console_rest.hpp"
 #include "image_upload.hpp"
@@ -82,6 +83,9 @@ static int run()
 #ifdef BMCWEB_ENABLE_KVM
     crow::obmc_kvm::requestRoutes(app);
 #endif
+
+    // Register the EventService SSE routes
+    redfish::eventservice_sse::requestRoutes(app);
 
 #ifdef BMCWEB_ENABLE_REDFISH
     redfish::RedfishService redfish(app);
