@@ -25,12 +25,13 @@
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
-#include "server_sent_events.hpp"
+#include "server_sent_event.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
 #include "utils/json_utils.hpp"
 
 #include <sys/inotify.h>
+#include <systemd/sd-journal.h>
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/asio/io_context.hpp>
@@ -52,8 +53,12 @@ using ReadingsObjType =
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
 
+static constexpr const char* subscriptionTypeSSE = "SSE";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
+
+static constexpr const uint8_t maxNoOfSubscriptions = 20;
+static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 
 namespace registries
 {
@@ -387,10 +392,9 @@ class Subscription : public persistent_data::UserSubscription
     }
 
     explicit Subscription(
-        const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
-        policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(policy),
-        sseConn(std::make_shared<crow::ServerSentEvents>(adaptor))
+        const std::shared_ptr<crow::sse_socket::Connection>& adaptor) :
+        sseConn(adaptor),
+        policy(std::make_shared<crow::ConnectionPolicy>()), client(policy)
     {}
 
     ~Subscription() = default;
@@ -413,8 +417,11 @@ class Subscription : public persistent_data::UserSubscription
 
         if (sseConn != nullptr)
         {
-            sseConn->sendData(eventSeqNum, msg);
+            sseConn->sendEvent(std::to_string(eventSeqNum), msg);
+            eventSeqNum++;
+            return true;
         }
+
         return true;
     }
 
@@ -566,7 +573,32 @@ class Subscription : public persistent_data::UserSubscription
         return eventSeqNum;
     }
 
+    void setSubscriptionId(const std::string& idIn)
+    {
+        BMCWEB_LOG_DEBUG << "Subscription ID: " << idIn;
+        subId = idIn;
+    }
+
+    std::string getSubscriptionId()
+    {
+        return subId;
+    }
+
+    std::optional<std::string> getSubscriptionId(
+        const std::shared_ptr<crow::sse_socket::Connection>& connPtr)
+    {
+        if (sseConn != nullptr && connPtr == sseConn)
+        {
+            BMCWEB_LOG_DEBUG << __FUNCTION__
+                             << " conn matched, subId: " << subId;
+            return subId;
+        }
+
+        return std::nullopt;
+    }
+
   private:
+    std::shared_ptr<crow::sse_socket::Connection> sseConn = nullptr;
     uint64_t eventSeqNum = 1;
     std::string host;
     uint16_t port = 0;
@@ -574,7 +606,7 @@ class Subscription : public persistent_data::UserSubscription
     crow::HttpClient client;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
+    std::string subId;
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
@@ -944,6 +976,11 @@ class EventServiceManager
 #endif
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+        /* Log event for subscription addition */
+        sd_journal_send("MESSAGE=Event subscription added(Id: %s)", id.c_str(),
+                        "PRIORITY=%i", LOG_INFO, "REDFISH_MESSAGE_ID=%s",
+                        "OpenBMC.0.1.EventSubscriptionAdded",
+                        "REDFISH_MESSAGE_ARGS=%s", id.c_str(), NULL);
 
         return id;
     }
@@ -966,7 +1003,42 @@ class EventServiceManager
                 .subscriptionsConfigMap.erase(obj2);
             updateNoOfSubscribersCount();
             updateSubscriptionData();
+            sd_journal_send("MESSAGE=Event subscription removed.(Id = %s)",
+                            id.c_str(), "PRIORITY=%i", LOG_INFO,
+                            "REDFISH_MESSAGE_ID=%s",
+                            "OpenBMC.0.1.EventSubscriptionRemoved",
+                            "REDFISH_MESSAGE_ARGS=%s", id.c_str(), NULL);
         }
+    }
+
+    void deleteSubscription(
+        const std::shared_ptr<crow::sse_socket::Connection>& connPtr)
+    {
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            if (entry->subscriptionType == subscriptionTypeSSE)
+            {
+                std::optional<std::string> id =
+                    entry->getSubscriptionId(connPtr);
+                if (id)
+                {
+                    deleteSubscription(*id);
+                    return;
+                }
+            }
+        }
+    }
+    void updateSubscription(const std::string& id) const
+    {
+        updateSubscriptionData();
+
+        /* Log event for subscription update. */
+        sd_journal_send("MESSAGE=Event subscription updated.(Id = %s)",
+                        id.c_str(), "PRIORITY=%i", LOG_INFO,
+                        "REDFISH_MESSAGE_ID=%s",
+                        "OpenBMC.0.1.EventSubscriptionUpdated",
+                        "REDFISH_MESSAGE_ARGS=%s", id.c_str(), NULL);
     }
 
     size_t getNumberOfSubscriptions()
@@ -974,6 +1046,16 @@ class EventServiceManager
         return subscriptionsMap.size();
     }
 
+    size_t getNumberOfSSESubscriptions() const
+    {
+        auto count = std::count_if(
+            subscriptionsMap.begin(), subscriptionsMap.end(),
+            [](const std::pair<std::string, std::shared_ptr<Subscription>>&
+                   entry) {
+            return (entry.second->subscriptionType == subscriptionTypeSSE);
+            });
+        return static_cast<size_t>(count);
+    }
     std::vector<std::string> getAllIDs()
     {
         std::vector<std::string> idList;
