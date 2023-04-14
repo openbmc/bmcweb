@@ -881,7 +881,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             for (const auto& object : subtree)
             {
                 VmMode mode = parseObjectPathAndGetMode(object.first, resName);
-                if (mode == VmMode::Proxy)
+                if (mode == VmMode::Legacy)
                 {
                     validateParams(asyncResp, service, resName, actionParams);
 
@@ -948,6 +948,7 @@ inline void handleManagersVirtualMediaActionEject(
                 {
                     doEjectAction(asyncResp, service, resName,
                                   mode == VmMode::Legacy);
+                    return;
                 }
             }
             BMCWEB_LOG_DEBUG << "Parent item not found";
