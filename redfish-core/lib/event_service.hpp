@@ -43,8 +43,6 @@ static constexpr const std::array<const char*, 1> supportedResourceTypes = {
     "Task"};
 #endif
 
-static constexpr const uint8_t maxNoOfSubscriptions = 20;
-
 inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
@@ -62,6 +60,8 @@ inline void requestRoutesEventService(App& app)
             "#EventService.v1_5_0.EventService";
         asyncResp->res.jsonValue["Id"] = "EventService";
         asyncResp->res.jsonValue["Name"] = "Event Service";
+        asyncResp->res.jsonValue["ServerSentEventUri"] =
+            "/redfish/v1/EventService/SSE";
         asyncResp->res.jsonValue["Subscriptions"]["@odata.id"] =
             "/redfish/v1/EventService/Subscriptions";
         asyncResp->res
