@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "650ee9ce_0e540d41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 37
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-04-14T16:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3b0fe06_249caea5",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "6bd8df3da470ba2251cb8dc036af46c50ce77e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89a4392a_0142cdac",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-15T20:43:14Z",
       "side": 1,
       "message": "should we fail the response when the property is just missing? also, can it get combined into one of the property GetAll dbus call rather than make a new dbus call to just get a single string property?",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "6bd8df3da470ba2251cb8dc036af46c50ce77e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e1f8f58_833ab504",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-04-14T16:52:10Z",
+      "side": 1,
+      "message": "We should be calling this function only if `xyz.openbmc_project.Inventory.Decorator.LocationCode` already exists on the dbus object, so it will be expected to pass.\n\nAs for using GetAll, it won\u0027t make a difference since the interface only have one property in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/LocationCode.interface.yaml",
+      "parentUuid": "89a4392a_0142cdac",
       "range": {
         "startLine": 59,
         "startChar": 12,
