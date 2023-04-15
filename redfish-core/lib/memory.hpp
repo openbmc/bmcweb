@@ -445,6 +445,48 @@ inline void getPersistentMemoryProperties(
 }
 
 inline void
+    getProcessorLinks(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& objectPath,
+                      const nlohmann::json::json_pointer& jsonPtr)
+{
+    BMCWEB_LOG_DEBUG << "Get Memory -- Processor association";
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objectPath + "/processor", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp, jsonPtr](const boost::system::error_code ec,
+                             const std::vector<std::string>& processorList) {
+        if (ec)
+        {
+            return;
+        }
+        if (processorList.empty())
+        {
+            return;
+        }
+        nlohmann::json::array_t processorLinks;
+        for (const auto& processor : processorList)
+        {
+            sdbusplus::message::object_path processorPath(processor);
+            std::string processorName = processorPath.filename();
+            if (processorName.empty())
+            {
+                BMCWEB_LOG_ERROR << "filename() is empty in "
+                                 << processorPath.str;
+                return;
+            }
+            nlohmann::json::object_t processorObject;
+            processorObject["@odata.id"] =
+                "/redfish/v1/Systems/system/Processor/" + processorName;
+            processorLinks.push_back(processorObject);
+        }
+        asyncResp->res.jsonValue[jsonPtr]["Links"]["Processors"] =
+            std::move(processorLinks);
+    });
+}
+
+inline void
     assembleDimmProperties(std::string_view dimmId,
                            const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                            const dbus::utility::DBusPropertiesMap& properties,
@@ -1023,6 +1065,8 @@ inline void getAllDimmsCallback(
                     "Embeded";
             }
         }
+        getProcessorLinks(healthAndPartition->asyncResponse, objectPath,
+                          healthAndPartition->dimmToPtr[thisDimmID]);
     }
     if (!dimmId)
     {
