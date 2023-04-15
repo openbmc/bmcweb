@@ -686,6 +686,52 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 }
 
 /**
+ * @brief Fill out the links to associated memory of a processor
+ * by looking up its D-Bus association.
+ *
+ * @param[in,out]   aResp       Async HTTP response.
+ * @param[in]       objPath     D-Bus object to query.
+ */
+inline void getMemoryLinks(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& objectPath,
+                           const nlohmann::json::json_pointer& jsonPtr)
+{
+    BMCWEB_LOG_DEBUG << "Get Processor -- Memory association";
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objectPath + "/memory", "xyz.openbmc_project.Association", "endpoints",
+        [asyncResp, jsonPtr](const boost::system::error_code ec,
+                             const std::vector<std::string>& memoryList) {
+        if (ec)
+        {
+            return;
+        }
+        if (memoryList.empty())
+        {
+            return;
+        }
+        nlohmann::json::array_t memoryLinks;
+        for (const auto& memory : memoryList)
+        {
+            sdbusplus::message::object_path memoryPath(memory);
+            std::string memoryName = memoryPath.filename();
+            if (memoryName.empty())
+            {
+                BMCWEB_LOG_ERROR << "filename() is empty in " << memoryPath.str;
+                return;
+            }
+            nlohmann::json::object_t memoryObject;
+            memoryObject["@odata.id"] =
+                "/redfish/v1/Systems/system/Memory/" + memoryName;
+            memoryLinks.push_back(memoryObject);
+        }
+        asyncResp->res.jsonValue[jsonPtr]["Links"]["Memory"] =
+            std::move(memoryLinks);
+        });
+}
+
+/**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
  * response and don't call the handler.
@@ -832,6 +878,7 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
         }
     }
+    getMemoryLinks(aResp, objectPath, jsonPtr);
 }
 
 template <typename Handler>
