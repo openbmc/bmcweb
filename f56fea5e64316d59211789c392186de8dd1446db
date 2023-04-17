@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c233f3f_d39f0f8b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:38:10Z",
+      "side": 1,
+      "message": "\u003e Yes. This is the current backend limitation. I added that as a TODO in the comments. There is no backend to add multiple gateways now.\n\nThat\u0027s fine, but the code needs to correctly handle setting only a single gateway.\n\n\u003e Once we have that, then this can be an input with multiple IPv6 gateways as an array, and we can iterate through the list and create them one by one.\n\u003e Sent out an email in the community to know if there are other views. We will push those changes soon at the backend and update this bmcweb part according to that as well.",
+      "parentUuid": "73e3698d_005ea5b4",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 24
+      },
+      "revId": "f56fea5e64316d59211789c392186de8dd1446db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c8ae3ef_520a01a1",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
