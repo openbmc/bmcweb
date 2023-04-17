@@ -1,0 +1,550 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7191587_532a3967",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Glad to see someone finally picking this up again.",
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71521b40_bb634335",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Please rearrange your code such that forward declarations like this aren\u0027t required.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 25
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee71264f_8e17f03c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe863d3f_0142f69e",
+        "filename": "http/routing.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "This is pulling a redfish dependency into the router, which should have no knowledge of redfish.",
+      "range": {
+        "startLine": 1339,
+        "startChar": 39,
+        "endLine": 1339,
+        "endChar": 48
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d563261_2cac3063",
+        "filename": "http/routing.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "This is not an appropriate check.  Registering a route like:\n\n/mysse/\u003cstr\u003e will fail this check.\n\nYou need to use something like find()",
+      "range": {
+        "startLine": 1342,
+        "startChar": 20,
+        "endLine": 1342,
+        "endChar": 56
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2faae559_d12089fa",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "this-\u003e not required here.  Please take a look at the declaration in http connection to make this template available.",
+      "range": {
+        "startLine": 108,
+        "startChar": 47,
+        "endLine": 108,
+        "endChar": 51
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a7a786_7b9b736b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "We generally don\u0027t set the server header.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 67
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "963017c7_2464b7a6",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Aren\u0027t these the defaults?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 34
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c91925_48ed39d5",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Please make this a method rather than a lambda.  Please do this with all your lambdas.",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 145,
+        "endChar": 24
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e29ff99_29000b23",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "This should be async_wait?  You don\u0027t need to start a read, just wait for the socket to error.",
+      "range": {
+        "startLine": 151,
+        "startChar": 28,
+        "endLine": 151,
+        "endChar": 43
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29fd0f2c_45a7894d",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "std::size_t should be size_t",
+      "range": {
+        "startLine": 153,
+        "startChar": 56,
+        "endLine": 153,
+        "endChar": 59
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aab53af_77305c42",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "This capture is unsafe.",
+      "range": {
+        "startLine": 153,
+        "startChar": 13,
+        "endLine": 153,
+        "endChar": 17
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b064e8f_7330e8a7",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "We\u0027re erroring out and closing here.  THere\u0027s no need to commit or consume.",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 0
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6362592_c2d37b41",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "This return is redundant.",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 19
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6606b32_9055e548",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "const boost::system::error_code\u0026",
+      "range": {
+        "startLine": 187,
+        "startChar": 37,
+        "endLine": 187,
+        "endChar": 61
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67320830_5f290c7b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "size_t",
+      "range": {
+        "startLine": 188,
+        "startChar": 37,
+        "endLine": 188,
+        "endChar": 55
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "537b4787_a566f7bc",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Please use the boost::beast::http::field enum rather than a string.",
+      "range": {
+        "startLine": 220,
+        "startChar": 37,
+        "endLine": 220,
+        "endChar": 51
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "443f844c_5d03b5c3",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "For SSE, why is this required?  This is also duplicating some code.",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 9
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87ce1e91_ff7015e0",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Please make this a variable on the SSE class, so lifetime is easier.",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 25
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f58aa075_1d32866b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "I believe this needs to be async_write_some?\n\nOtherwise the connection will be completed.",
+      "range": {
+        "startLine": 231,
+        "startChar": 28,
+        "endLine": 231,
+        "endChar": 39
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcbf32f2_9705a1c3",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "string_view doesn\u0027t need to be const.",
+      "range": {
+        "startLine": 254,
+        "startChar": 19,
+        "endLine": 254,
+        "endChar": 24
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7028d7f_6b8220d0",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Please wrap this into a separate function and unit test it.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 0
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63e50f0_c35b878c",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "Please make this a std::unique_ptr so that the memory can be reclaimed once  the connection is opened.\n\nFor these two, multi_buffer might be a better choice?",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 63
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e193d2_741954c4",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:01:17Z",
+      "side": 1,
+      "message": "None of these should be passing by shared_ptr.  the openHandler is not taking ownership of the connection.",
+      "range": {
+        "startLine": 299,
+        "startChar": 23,
+        "endLine": 299,
+        "endChar": 50
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
