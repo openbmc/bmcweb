@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7b22504_2292b5ab",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-17T21:37:50Z",
+      "side": 1,
+      "message": "I don\u0027t think so.  The satellite should include these properties, but at no point in aggregation do we take special actions like dropping the response if those properties do not exist.  \n\nOne of these checks failing would be surfaced anyway in the overall response when that property is missing.",
+      "parentUuid": "87244763_18e77b1a",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9b1a5d5_1181cffa",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-23T07:30:07Z",
       "side": 1,
       "message": "here also",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff9ba904_3e1a48eb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-17T21:37:50Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "f9b1a5d5_1181cffa",
       "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7120eec_901cf14b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-17T21:37:50Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "0acea1b5_ae85b3be",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf2ee7f2_86ff088b",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-03-23T07:30:07Z",
       "side": 1,
       "message": "here also",
+      "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fdc4ab7_83ec998b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-17T21:37:50Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "bf2ee7f2_86ff088b",
       "revId": "e4439222e67a52cf3406e94c833c0eced6cd3ffd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
