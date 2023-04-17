@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eabd541_fc86f890",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "This is going to allow bmcweb to open ANY file path on the system.  Do we need some more checks here to make sure that this file path is sane before we open it?",
+      "range": {
+        "startLine": 142,
+        "startChar": 61,
+        "endLine": 142,
+        "endChar": 78
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695fd2ea_652a4832",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "please prefer to return early, to save horizontal space.\n\nThis should also be closing the connection.",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 26
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9706135_33416782",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "please read and understand common errors.",
+      "range": {
+        "startLine": 198,
+        "startChar": 34,
+        "endLine": 198,
+        "endChar": 62
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49c9b57_38cba38a",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "Why is socket name an array of bytes?  string seems like it would be more correct?",
+      "range": {
+        "startLine": 210,
+        "startChar": 28,
+        "endLine": 210,
+        "endChar": 55
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "284e3ed4_6045bf2f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "Should be depth 1, right?",
+      "range": {
+        "startLine": 229,
+        "startChar": 40,
+        "endLine": 229,
+        "endChar": 41
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358b834f_da862f33",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "Unsafe capture.  Please follow what the other modules do, by keeping sessions in a singleton object, then looking up by that object when complete.\n\nAs written, if you get\n\nonOpen()\nonClose()\ngetSubTreeReturns()\n\nyour code will seg fault.",
+      "range": {
+        "startLine": 230,
+        "startChar": 10,
+        "endLine": 230,
+        "endChar": 14
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ce23860_b5c3abeb",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "This route will conflict with every other route in the system.  I\u0027m surprised that any tests passed with this.",
+      "range": {
+        "startLine": 238,
+        "startChar": 24,
+        "endLine": 238,
+        "endChar": 30
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d9d3d6_1dabf063",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-17T17:42:43Z",
+      "side": 1,
+      "message": "Given that we\u0027re moving this to its own privilege, please register it as its own privilege, not a Redfish privilege.",
+      "range": {
+        "startLine": 239,
+        "startChar": 22,
+        "endLine": 239,
+        "endChar": 63
+      },
+      "revId": "d9ef5da18ec09132771ab25ddb9dad13a37d7d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
