@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43a658a_39464671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-17T19:42:17Z",
+      "side": 1,
+      "message": "I tested the change and aggregation seems to still work correctly.",
+      "revId": "30806a2b2696124771dc72be3f2712b7a39b9d64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
