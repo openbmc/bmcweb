@@ -430,8 +430,8 @@ inline std::string
 struct InsertMediaActionParams
 {
     std::optional<std::string> imageUrl;
-    std::optional<std::string> userName;
-    std::optional<std::string> password;
+    std::optional<std::string> userName{""};
+    std::optional<std::string> password{""};
     std::optional<std::string> transferMethod;
     std::optional<std::string> transferProtocolType;
     std::optional<bool> writeProtected = true;
