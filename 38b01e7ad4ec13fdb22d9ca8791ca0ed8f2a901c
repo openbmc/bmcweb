@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43017a65_79537275",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-18T17:12:21Z",
+      "side": 1,
+      "message": "Today bmcweb does not have capability to create user with specific groups. Hence new user gets added in all groups. I have added the comment.",
+      "parentUuid": "cb4599e2_76bb6c40",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 44
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dff6018_4187c3e9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-18T00:03:19Z",
       "side": 1,
       "message": "Please use the unpackPropertiesNoThrow call as it was intended to be used for pulling in this property.",
+      "range": {
+        "startLine": 1319,
+        "startChar": 0,
+        "endLine": 1324,
+        "endChar": 9
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d371c344_d673d0d6",
+        "filename": "http/routing.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1324,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-18T17:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dff6018_4187c3e9",
       "range": {
         "startLine": 1319,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ccb2e8a_85ca6a5e",
+        "filename": "http/routing.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-18T17:12:21Z",
+      "side": 1,
+      "message": "I was trying to be more safe. I removed it.",
+      "parentUuid": "ae83d0dc_2510ad85",
+      "range": {
+        "startLine": 1339,
+        "startChar": 0,
+        "endLine": 1339,
+        "endChar": 40
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae869c46_007fbc77",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-04-18T00:03:19Z",
       "side": 1,
       "message": "I think we can JUST put OpenBMCHostConsole?",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f24ff1_8aef7b9d",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-18T17:12:21Z",
+      "side": 1,
+      "message": "sure. Done",
+      "parentUuid": "ae869c46_007fbc77",
       "range": {
         "startLine": 124,
         "startChar": 23,
@@ -110,6 +206,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc9fb4e_637646fb",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-18T17:12:21Z",
+      "side": 1,
+      "message": "I am not seeing new privilege in the schem. \n+ curl -k -H \u0027X-Auth-Token: YYYYYYYYYY\u0027 -X GET https://admin:0penBmc0@${bmc}:443/redfish/v1/AccountService\n{\n  \"@odata.id\": \"/redfish/v1/AccountService\",\n  \"@odata.type\": \"#AccountService.v1_10_0.AccountService\",\n  \"AccountLockoutDuration\": 0,\n  \"AccountLockoutThreshold\": 0,\n  \"Accounts\": {\n    \"@odata.id\": \"/redfish/v1/AccountService/Accounts\"\n  },\n  \"ActiveDirectory\": {\n    \"Authentication\": {\n      \"AuthenticationType\": \"UsernameAndPassword\",\n      \"Password\": null,\n      \"Username\": \"\"\n    },\n    \"LDAPService\": {\n      \"SearchSettings\": {\n        \"BaseDistinguishedNames\": [\n          \"\"\n        ],\n        \"GroupsAttribute\": \"\",\n        \"UsernameAttribute\": \"\"\n      }\n    },\n    \"RemoteRoleMapping\": [],\n    \"ServiceAddresses\": [\n      \"\"\n    ],\n    \"ServiceEnabled\": false\n  },\n  \"Description\": \"Account Service\",\n  \"Id\": \"AccountService\",\n  \"LDAP\": {\n    \"Authentication\": {\n      \"AuthenticationType\": \"UsernameAndPassword\",\n      \"Password\": null,\n      \"Username\": \"cn\u003dAdministrator,dc\u003dldap,dc\u003dcom\"\n    },\n    \"Certificates\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/LDAP/Certificates\"\n    },\n    \"LDAPService\": {\n      \"SearchSettings\": {\n        \"BaseDistinguishedNames\": [\n          \"dc\u003dldap,dc\u003dcom\"\n        ],\n        \"GroupsAttribute\": \"gidNumber\",\n        \"UsernameAttribute\": \"cn\"\n      }\n    },\n    \"RemoteRoleMapping\": [\n      {\n        \"LocalRole\": \"Administrator\",\n        \"RemoteGroup\": \"openldapgroup\"\n      }\n    ],\n    \"ServiceAddresses\": [\n      \"ldap://9.126.172.69\"\n    ],\n    \"ServiceEnabled\": true\n  },\n  \"MaxPasswordLength\": 20,\n  \"MinPasswordLength\": 8,\n  \"Name\": \"Account Service\",\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"@odata.id\": \"/redfish/v1/AccountService#/Oem/OpenBMC\",\n      \"@odata.type\": \"#OpenBMCAccountService.v1_0_0.AccountService\",\n      \"AuthMethods\": {\n        \"BasicAuth\": true,\n        \"Cookie\": true,\n        \"SessionToken\": true,\n        \"TLS\": false,\n        \"XToken\": true\n      }\n    }\n  },\n  \"Roles\": {\n    \"@odata.id\": \"/redfish/v1/AccountService/Roles\"\n  },\n  \"ServiceEnabled\": true\n}+ curl -k -H \u0027X-Auth-Token: YYYYYYYYY\u0027 -X GET https://admin:0penBmc0@${bmc}:443/redfish/v1/AccountService/Roles\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Roles\",\n  \"@odata.type\": \"#RoleCollection.RoleCollection\",\n  \"Description\": \"BMC User Roles\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Administrator\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Operator\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/ReadOnly\"\n    }\n  ],\n  \"Members@odata.count\": 3,\n  \"Name\": \"Roles Collection\"\n}+ curl -k -H \u0027X-Auth-Token: 2dgCXH3T49SUP9qjDFLP\u0027 -X GET https://admin:0penBmc0@${bmc}:443/redfish/v1/AccountService/Roles/Administrator\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Roles/Administrator\",\n  \"@odata.type\": \"#Role.v1_2_2.Role\",\n  \"AssignedPrivileges\": [\n    \"Login\",\n    \"ConfigureManager\",\n    \"ConfigureUsers\",\n    \"ConfigureSelf\",\n    \"ConfigureComponents\"\n  ],\n  \"Description\": \"Administrator User Role\",\n  \"Id\": \"Administrator\",\n  \"IsPredefined\": true,\n  \"Name\": \"User Role\",\n  \"OemPrivileges\": [],\n  \"RoleId\": \"Administrator\"\n}+ curl -k -H \u0027X-Auth-Token: 2dgCXH3T49SUP9qjDFLP\u0027 -X GET https://admin:0penBmc0@${bmc}:443/redfish/v1/AccountService/Roles/ReadOnly\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Roles/ReadOnly\",\n  \"@odata.type\": \"#Role.v1_2_2.Role\",\n  \"AssignedPrivileges\": [\n    \"Login\",\n    \"ConfigureSelf\"\n  ],\n  \"Description\": \"ReadOnly User Role\",\n  \"Id\": \"ReadOnly\",\n  \"IsPredefined\": true,\n  \"Name\": \"User Role\",\n  \"OemPrivileges\": [],\n  \"RoleId\": \"ReadOnly\"\n}+ curl -k -H \u0027X-Auth-Token: 2dgCXH3T49SUP9qjDFLP\u0027 -X GET https://admin:0penBmc0@${bmc}:443/redfish/v1/AccountService/Roles/Operator\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Roles/Operator\",\n  \"@odata.type\": \"#Role.v1_2_2.Role\",\n  \"AssignedPrivileges\": [\n    \"Login\",\n    \"ConfigureSelf\",\n    \"ConfigureComponents\"\n  ],\n  \"Description\": \"Operator User Role\",\n  \"Id\": \"Operator\",\n  \"IsPredefined\": true,\n  \"Name\": \"User Role\",\n  \"OemPrivileges\": [],\n  \"RoleId\": \"Operator\"",
+      "parentUuid": "505608db_f09f4cab",
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bd90092_1aa95d1e",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-04-18T00:05:51Z",
       "side": 1,
       "message": "2 things with this block.\n\n1. It\u0027s duplicated 3 times in this funciton.  Please don\u0027t.\n2. there\u0027s no need to reset a privilege in the negative case.  resetSinglePrivilege actually isn\u0027t used in the codebase anywhere, and could be removed these days (TODO me).",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 9
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "108564ad_b5eee05b",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-18T17:12:21Z",
+      "side": 1,
+      "message": "I had to do it because the original variables were defined as static. Now I changed it.",
+      "parentUuid": "4bd90092_1aa95d1e",
       "range": {
         "startLine": 238,
         "startChar": 0,
