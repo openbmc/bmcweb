@@ -769,6 +769,16 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             *actionParams.imageUrl, *paramTransferProtocolType);
     }
 
+    if (!actionParams.userName)
+    {
+        actionParams.userName = "";
+    }
+
+    if (!actionParams.password)
+    {
+        actionParams.password = "";
+    }
+
     doMountVmLegacy(asyncResp, service, resName, *actionParams.imageUrl,
                     !(*actionParams.writeProtected),
                     std::move(*actionParams.userName),
