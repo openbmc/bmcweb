@@ -769,6 +769,28 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             *actionParams.imageUrl, *paramTransferProtocolType);
     }
 
+    // required param userName must not be empty
+    if (actionParams.userName == std::nullopt)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter Username is empty.";
+
+        messages::actionParameterNotSupported(asyncResp->res, "<empty>",
+                                              "Username");
+
+        return;
+    }
+
+    // required param Password must not be empty
+    if (actionParams.password == std::nullopt)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter Password is empty.";
+
+        messages::actionParameterNotSupported(asyncResp->res, "<empty>",
+                                              "Password");
+
+        return;
+    }
+
     doMountVmLegacy(asyncResp, service, resName, *actionParams.imageUrl,
                     !(*actionParams.writeProtected),
                     std::move(*actionParams.userName),
