@@ -16,6 +16,69 @@
       "message": "Unaddressed commments, e.g. Redfish.md",
       "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5905764_81a18981",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-04-18T21:35:54Z",
+      "side": 1,
+      "message": "I would rather not see this commit approved. I don\u0027t think the functionality is accurate.",
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf8a735_119ecdac",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-04-18T21:35:54Z",
+      "side": 1,
+      "message": "I don\u0027t agree with this.\nSLAAC during its discovery phase sends a Router Solicitation.\nA router, on the current network segment, responds with a Router Advertisement.\nIf you have set IPv6AcceptRA\u003dfalse, systemd.networkd will no longer respond to the RA being returned from the router.\nSLAAC needs RA in order to function.\nWhat needs to be disabled is the DHCPv6Client entry.\nThis was the crux of my now abandoned code changes from over a year ago.\nStateful Address assignment relies on both IPv6AcceptRA\u003dtrue AND DHCPv6Client\u003dtrue to operate correctly.\nStateless only requires the Routing Advertisement to be active. It is up to the Routing Advertisement packet to asert the M or the O bit in order to complete DNS functionality. Those bits are not controlled by the BMC, but by the routers IPv6 configuration.",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1142,
+        "endChar": 0
+      },
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231acb89_baef7c5a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-04-18T21:35:54Z",
+      "side": 1,
+      "message": "I also really don\u0027t understand how there is now a schism in the DHCPv6 space.\n\"Stateful\" meant something. Specifically it meant IPv6AcceptRA\u003dtrue, DHCPv6Client\u003dtrue, assuming systemd.networkd configuration file nomenclature.\n\"Stateless\" meant IPv6AcceptRA\u003dtrue, DHCPv6Client\u003dfalse.\n\"Disabled\" indicated both of these controls would be set false.\n\nFollowing the above paradigm eliminates the need for the \"WithoutRA\u003dsolicit\" commit I have -1\u0027d for phosphor-network.\n\nNow I have no idea what \"Enabled\" means here. In addition, according to the Redfish schema there is no \"Enabled\" DHCPv6OperatingMode entry.\n\nI also don\u0027t understand why StatelessAddressAutoConfiguration was added to the schema. It only has an \"enabled\"/\"disabled\" mode. Again, SLAAC should only be toggling DHCPv6Client in the systemd.networkd config file. We already had that ability in the \"Stateless\" DHCPv6OperatingMode  part of the schema.",
+      "range": {
+        "startLine": 1158,
+        "startChar": 1,
+        "endLine": 1167,
+        "endChar": 2
+      },
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
