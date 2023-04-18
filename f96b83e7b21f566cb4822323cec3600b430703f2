@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67695c6d_ee1fa3a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-04-18T03:37:28Z",
+      "side": 1,
+      "message": "Yeah, I do not know why Ed wants to abandon my patch 😞",
+      "parentUuid": "06c00c74_d1bc771e",
+      "revId": "f96b83e7b21f566cb4822323cec3600b430703f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa04302f_7c9c2f12",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 2
