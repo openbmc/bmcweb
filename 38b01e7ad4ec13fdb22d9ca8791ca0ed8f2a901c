@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb4599e2_76bb6c40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-18T00:07:13Z",
+      "side": 1,
+      "message": "By default?  That seems wrong?  Shouldn\u0027t it be based on whether or not the user is added to that group on creation?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 44
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9dff6018_4187c3e9",
         "filename": "http/routing.hpp",
         "patchSetId": 15
@@ -66,6 +89,23 @@
         "endLine": 124,
         "endChar": 26
       },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "505608db_f09f4cab",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-18T00:07:13Z",
+      "side": 1,
+      "message": "in your testing, please verify this doesn\u0027t show up in the Redfish Roles schema.",
       "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
