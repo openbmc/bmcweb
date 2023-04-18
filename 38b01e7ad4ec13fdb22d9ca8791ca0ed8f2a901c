@@ -68,6 +68,29 @@
       },
       "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd90092_1aa95d1e",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-18T00:05:51Z",
+      "side": 1,
+      "message": "2 things with this block.\n\n1. It\u0027s duplicated 3 times in this funciton.  Please don\u0027t.\n2. there\u0027s no need to reset a privilege in the negative case.  resetSinglePrivilege actually isn\u0027t used in the codebase anywhere, and could be removed these days (TODO me).",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 9
+      },
+      "revId": "38b01e7ad4ec13fdb22d9ca8791ca0ed8f2a901c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
