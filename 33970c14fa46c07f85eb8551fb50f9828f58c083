@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6916cd_b0250cbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-18T00:31:28Z",
+      "side": 1,
+      "message": "Haven\u0027t reviewed this very closely, because it\u0027s tough to validate things with no backend.  Will give Krzysztof some time to review, because he seems like the expert here, if not, it seems fine.",
+      "revId": "33970c14fa46c07f85eb8551fb50f9828f58c083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
