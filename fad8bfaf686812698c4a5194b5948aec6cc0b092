@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f083d797_1d6c5b40",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-04-19T19:42:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3eac280b_4e7686e6",
+      "range": {
+        "startLine": 433,
+        "startChar": 4,
+        "endLine": 433,
+        "endChar": 17
+      },
+      "revId": "fad8bfaf686812698c4a5194b5948aec6cc0b092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afce7000_f1480925",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-04-18T23:58:35Z",
       "side": 1,
       "message": "This is where the bug should be fixed, not by default-initing an argument above.  This needs checked before dereferencing.  If you want it to default to empty string if those args are not presented, this is the place to enforce that.",
+      "range": {
+        "startLine": 774,
+        "startChar": 30,
+        "endLine": 774,
+        "endChar": 52
+      },
+      "revId": "fad8bfaf686812698c4a5194b5948aec6cc0b092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04ae10e_5a048d65",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-04-19T19:42:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "afce7000_f1480925",
       "range": {
         "startLine": 774,
         "startChar": 30,
