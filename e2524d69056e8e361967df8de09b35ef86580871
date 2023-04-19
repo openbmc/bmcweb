@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6faccc5e_17753a53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-19T22:53:21Z",
+      "side": 1,
+      "message": "To be clear, the reason I\u0027m asking is because I don\u0027t think we have any.  Most will return at least one key in all cases, and there are no cases I\u0027m aware of where it returns an array.  If that\u0027s not true, I\u0027d like to know where for my understanding.",
+      "parentUuid": "60343962_df939c72",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 16
+      },
+      "revId": "e2524d69056e8e361967df8de09b35ef86580871",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2b588a8_5afa98e7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
