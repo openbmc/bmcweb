@@ -19,6 +19,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_slots.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -136,6 +137,55 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
         .privileges(redfish::privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeDeviceCollectionGet, std::ref(app)));
+}
+
+inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
+{
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
+    {
+        return pcie_slots::SlotTypes::FullLength;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.HalfLength")
+    {
+        return pcie_slots::SlotTypes::HalfLength;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.LowProfile")
+    {
+        return pcie_slots::SlotTypes::LowProfile;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Mini")
+    {
+        return pcie_slots::SlotTypes::Mini;
+    }
+    if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.M_2")
+    {
+        return pcie_slots::SlotTypes::M2;
+    }
+    if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OEM")
+    {
+        return pcie_slots::SlotTypes::OEM;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Small")
+    {
+        return pcie_slots::SlotTypes::OCP3Small;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Large")
+    {
+        return pcie_slots::SlotTypes::OCP3Large;
+    }
+    if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2")
+    {
+        return pcie_slots::SlotTypes::U2;
+    }
+
+    // Unknown or others
+    return pcie_slots::SlotTypes::Invalid;
 }
 
 inline std::optional<pcie_device::PCIeTypes>
