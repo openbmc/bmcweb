@@ -37,8 +37,7 @@ inline void doFanCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Sensor.Value"};
 
     constexpr auto fanSensorPaths =
-        std::array<const char*, 2>{"/xyz/openbmc_project/sensors/fan_tach",
-                                   "/xyz/openbmc_project/sensors/fan_pwm"};
+        std::array<const char*, 1>{"/xyz/openbmc_project/sensors/fan_tach"};
 
     for (const char* subtree : fanSensorPaths)
     {
@@ -123,9 +122,7 @@ inline void getValidfanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        // Set the default value to resourceNotFound, and if we confirm that
-        // fanId is correct, the error response will be cleared.
-        messages::resourceNotFound(asyncResp->res, "fan", fanId);
+        bool resourceFound = false;
         for (const auto& [fanPath, serviceMap] : subtree)
         {
 
@@ -133,11 +130,14 @@ inline void getValidfanId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             {
                 if (checkFanId(fanPath, fanId))
                 {
-                    // Clear resourceNotFound response
-                    asyncResp->res.clear();
+                    resourceFound = true;
                     callback(service, fanPath, interfaces);
                 }
             }
+        }
+        if (!resourceFound)
+        {
+            messages::resourceNotFound(asyncResp->res, "fan", fanId);
         }
     };
 
@@ -220,9 +220,9 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                  const std::string& chassisId, const std::string& fanId,
-                  const std::optional<std::string>& validChassisPath)
+inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisId, const std::string& fanId,
+                     const std::optional<std::string>& validChassisPath)
 {
     if (!validChassisPath)
     {
@@ -242,6 +242,10 @@ inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["@odata.id"] =
             crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
                                          "ThermalSubsystem", "Fans", fanId);
+
+        asyncResp->res.jsonValue["SpeedPercent"]["DataSourceUri"] =
+            crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
+                                         "Sensors", "fantach_" + fanId);
 
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
@@ -295,7 +299,7 @@ inline void handleFanGet(App& app, const crow::Request& req,
 
     redfish::chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
-        std::bind_front(doFan, asyncResp, chassisId, fanId));
+        std::bind_front(doFanGet, asyncResp, chassisId, fanId));
 }
 
 inline void requestRoutesFanCollection(App& app)
