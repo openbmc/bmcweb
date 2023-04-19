@@ -342,7 +342,7 @@ class Connection :
 
         res.setHashAndHandleNotModified();
 
-        if (res.body().empty() && !res.jsonValue.empty())
+        if (res.body().empty() && !res.jsonValue.is_null())
         {
             using http_helpers::ContentType;
             std::array<ContentType, 3> allowed{
