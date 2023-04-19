@@ -3,6 +3,8 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_slots.hpp"
 #include "http/utility.hpp"
 
 #include <array>
@@ -64,6 +66,100 @@ inline void
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
         });
+}
+
+inline std::optional<pcie_slots::SlotTypes>
+    dbusSlotTypeToRf(const std::string& slotType)
+{
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
+    {
+        return pcie_slots::SlotTypes::FullLength;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.HalfLength")
+    {
+        return pcie_slots::SlotTypes::HalfLength;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.LowProfile")
+    {
+        return pcie_slots::SlotTypes::LowProfile;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Mini")
+    {
+        return pcie_slots::SlotTypes::Mini;
+    }
+    if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.M_2")
+    {
+        return pcie_slots::SlotTypes::M2;
+    }
+    if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OEM")
+    {
+        return pcie_slots::SlotTypes::OEM;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Small")
+    {
+        return pcie_slots::SlotTypes::OCP3Small;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OCP3Large")
+    {
+        return pcie_slots::SlotTypes::OCP3Large;
+    }
+    if (slotType == "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2")
+    {
+        return pcie_slots::SlotTypes::U2;
+    }
+    if (slotType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown")
+    {
+        return pcie_slots::SlotTypes::Invalid;
+    }
+
+    // Unspecified slotType needs return an internal error.
+    return std::nullopt;
+}
+
+inline std::optional<pcie_device::PCIeTypes>
+    redfishPcieGenerationFromDbus(const std::string& generationInUse)
+{
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1")
+    {
+        return pcie_device::PCIeTypes::Gen1;
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen2")
+    {
+        return pcie_device::PCIeTypes::Gen2;
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen3")
+    {
+        return pcie_device::PCIeTypes::Gen3;
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen4")
+    {
+        return pcie_device::PCIeTypes::Gen4;
+    }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen5")
+    {
+        return pcie_device::PCIeTypes::Gen5;
+    }
+    if (generationInUse.empty() ||
+        generationInUse ==
+            "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
+    {
+        return pcie_device::PCIeTypes::Invalid;
+    }
+
+    // The value is not unknown or Gen1-5, need return an internal error.
+    return std::nullopt;
 }
 
 } // namespace pcie_util
