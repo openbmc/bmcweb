@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c197508_5f4986ae",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-04-19T12:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa04302f_7c9c2f12",
+      "range": {
+        "startLine": 41,
+        "startChar": 36,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "f96b83e7b21f566cb4822323cec3600b430703f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b9a32f0_fe3f3c34",
@@ -72,6 +96,30 @@
       "writtenOn": "2023-04-17T09:30:34Z",
       "side": 1,
       "message": "Why to set the \"resourceNotFound\" error and then clear later. You can check for presence, If notFound, Then fill in this.",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 65
+      },
+      "revId": "f96b83e7b21f566cb4822323cec3600b430703f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c81a28cf_6585946d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-04-19T12:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b9a32f0_fe3f3c34",
       "range": {
         "startLine": 126,
         "startChar": 8,
@@ -105,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aafd6335_4f7836f2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-04-19T12:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8acc0a1e_d2d553e9",
+      "range": {
+        "startLine": 178,
+        "startChar": 42,
+        "endLine": 178,
+        "endChar": 54
+      },
+      "revId": "f96b83e7b21f566cb4822323cec3600b430703f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f38fe22_d19d216c",
@@ -118,6 +190,30 @@
       "writtenOn": "2023-04-17T09:30:34Z",
       "side": 1,
       "message": "rename to doFanGet",
+      "range": {
+        "startLine": 298,
+        "startChar": 24,
+        "endLine": 298,
+        "endChar": 29
+      },
+      "revId": "f96b83e7b21f566cb4822323cec3600b430703f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb90d70_3b6834bb",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-04-19T12:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f38fe22_d19d216c",
       "range": {
         "startLine": 298,
         "startChar": 24,
