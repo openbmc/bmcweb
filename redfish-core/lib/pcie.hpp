@@ -18,11 +18,11 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
-#include "generated/enums/pcie_device.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
@@ -139,45 +139,6 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
         .privileges(redfish::privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeDeviceCollectionGet, std::ref(app)));
-}
-
-inline std::optional<pcie_device::PCIeTypes>
-    redfishPcieGenerationFromDbus(const std::string& generationInUse)
-{
-    if (generationInUse ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1")
-    {
-        return pcie_device::PCIeTypes::Gen1;
-    }
-    if (generationInUse ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen2")
-    {
-        return pcie_device::PCIeTypes::Gen2;
-    }
-    if (generationInUse ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen3")
-    {
-        return pcie_device::PCIeTypes::Gen3;
-    }
-    if (generationInUse ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen4")
-    {
-        return pcie_device::PCIeTypes::Gen4;
-    }
-    if (generationInUse ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen5")
-    {
-        return pcie_device::PCIeTypes::Gen5;
-    }
-    if (generationInUse.empty() ||
-        generationInUse ==
-            "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
-    {
-        return pcie_device::PCIeTypes::Invalid;
-    }
-
-    // The value is not unknown or Gen1-5, need return an internal error.
-    return std::nullopt;
 }
 
 inline void
@@ -298,7 +259,7 @@ inline void addPCIeDeviceProperties(
     if (generationInUse != nullptr)
     {
         std::optional<pcie_device::PCIeTypes> redfishGenerationInUse =
-            redfishPcieGenerationFromDbus(*generationInUse);
+            pcie_util::redfishPcieGenerationFromDbus(*generationInUse);
 
         if (!redfishGenerationInUse)
         {
