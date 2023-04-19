@@ -92,6 +92,29 @@
       },
       "revId": "e2524d69056e8e361967df8de09b35ef86580871",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad084eb_0cfcfd4f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-19T23:50:20Z",
+      "side": 1,
+      "message": "I think this can be is_object()\n\nWe should never be returning a non-object from this API.  At one point I tried to enforce that in a typesafe way, but didn\u0027t get very far.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/52570",
+      "range": {
+        "startLine": 345,
+        "startChar": 49,
+        "endLine": 345,
+        "endChar": 56
+      },
+      "revId": "e2524d69056e8e361967df8de09b35ef86580871",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
