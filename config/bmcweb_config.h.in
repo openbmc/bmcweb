@@ -19,4 +19,5 @@ constexpr const char* bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
 
 constexpr const bool bmcwebEnableHealthPopulate = @BMCWEB_ENABLE_HEALTH_POPULATE@ == 1;
 
+constexpr const bool bmcwebEnableProcMemStatus = @BMCWEB_ENABLE_PROC_MEM_STATUS@ == 1;
 // clang-format on
