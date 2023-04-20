@@ -63,14 +63,14 @@
 namespace redfish::registries::openbmc
 {
 const Header header = {
-    "Copyright 2022 OpenBMC. All rights reserved.",
+    "Copyright 2023 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.4.0",
+    "OpenBMC.0.5.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.4.0",
+    "0.5.0",
     "OpenBMC",
 };
 constexpr std::array registry = {
@@ -2291,6 +2291,36 @@ constexpr std::array registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{
+        "TotalPowerConsumptionDropBelowTheLimit",
+        {
+            "Indicate that the total power consumption dropped below the power "
+            "limit.",
+            "Total power consumption dropped below the power limit. "
+            "The total power consumption is %1, the power limit is %2.",
+            "OK",
+            2,
+            {
+                "number",
+                "number",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "TotalPowerConsumptionExceedTheLimit",
+        {
+            "Indicate that the total power consumption exceeded the power "
+            "limit.",
+            "Total power consumption exceeded the power limit. "
+            "The total power consumption is %1, the power limit is %2.",
+            "Critical",
+            2,
+            {
+                "number",
+                "number",
+            },
+            "None.",
+        }},
     MessageEntry{
         "VoltageRegulatorOverheated",
         {
