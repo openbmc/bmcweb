@@ -52,6 +52,24 @@
       "parentUuid": "58e4ac88_81674bef",
       "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ff6854_244eea31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-20T20:42:13Z",
+      "side": 1,
+      "message": "\u003e There are many use cases where the satellite connection is used within the box, where https is not required to provide security. It should be noted, this is perfectly secure until people add an EM config that\u0027s insecure, which we should use the individual EM configs as the checkpoint, not bmcweb itself.\n\nThat is fair. \n\n\n\u003e Also..... this is only defaults.\n\nTrue and other opinions I hold about OpenBMC, I definitely feel stronger about. I agree this doesn\u0027t matter that much. One day this should be enabled by default and if today is the day, oh well. \n\nI still feel it isn\u0027t ready based on my thinking of to be enabled by default in bmcweb the meson option should be a production-ready, flushed-out feature and this isn\u0027t quite yet there. \n\nThe new powersubsystem/thermalsubsystem  https://github.com/openbmc/bmcweb/blob/master/meson_options.txt#L201 isn\u0027t production-ready, flushed-out (the powersubsystem/thermalsubsystem is missing critical pieces like powersupply and fans). \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/59940 is a new option for multi host, I wouldn\u0027t expect it to be enabled by default (or probably just go way in its case) until it supports multiple hosts across all existing endpoints (what I would consider production-ready, flushed-out)\n\nI feel this is still missing some important pieces like\n1.    Aggregate all top level resource collections\n2.    Add links to satellite only collections in responses from service root and other appropriate locations\n3.    Generate aggregation prefix from uuid\n\n\n5.    Aggregate more than one satellite\n\nYou convinced me that we don\u0027t need \"7. Support HTTPS connection to satellite.\" but I still feel getting some of the others in is needed for what I consider a production-ready, flushed-out feature. Maybe I\u0027m too strict on what should be enabled by default?\n\nCommits like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60905/ and above help get us there.\n\nAnd yeah, this is \"Also..... this is only defaults.\" so i\u0027m not upset if this goes today but would prefer another month and get a few more of those resolved like was discussed on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57925",
+      "parentUuid": "6cf6698d_94cdda42",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
