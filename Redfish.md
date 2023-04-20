@@ -854,6 +854,10 @@ other.
   - LanesInUse
   - PCIeType
 - SerialNumber
+- Slot
+  - Lanes
+  - PCIeType
+  - SlotType
 - SparePartNumber
 - Status
 
