@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35612447_d905161b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-20T21:40:40Z",
+      "side": 1,
+      "message": "Is it guaranteed to also end with a null terminator? Is there a risk the `DEBUG \u003c\u003c \u0026name[1]` will go out of bounds?",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 53
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9e8185_ba83a253",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-20T21:40:40Z",
+      "side": 1,
+      "message": "So what happens if you try to connect to two different consoles simultaneously? Won\u0027t they both just connect to the same backend unix socket that was opened first? You\u0027ll need to either block simultaneously access or fully support it.",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 30
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee57fe09_ade94cda",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-20T21:40:40Z",
+      "side": 1,
+      "message": "Recommend `const auto\u0026 [path, serviceMap]`",
+      "range": {
+        "startLine": 206,
+        "startChar": 9,
+        "endLine": 209,
+        "endChar": 19
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d2acea_d29f98c9",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-20T21:40:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be a loop since we just use the first entry and break.",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 9
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51989e8d_69b0a49b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-20T21:40:40Z",
+      "side": 1,
+      "message": "`service`",
+      "range": {
+        "startLine": 242,
+        "startChar": 47,
+        "endLine": 242,
+        "endChar": 63
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
