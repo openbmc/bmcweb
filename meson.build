@@ -83,6 +83,7 @@ feature_map = {
   'redfish-new-powersubsystem-thermalsubsystem' : '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM',
   'redfish-oem-manager-fan-data'                : '-DBMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA',
   'redfish-provisioning-feature'                : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
+  'redfish-allow-deprecated-proc-mem-status'    : '-DBMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS',
   'redfish'                                     : '-DBMCWEB_ENABLE_REDFISH',
   'rest'                                        : '-DBMCWEB_ENABLE_DBUS_REST',
   'session-auth'                                : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
