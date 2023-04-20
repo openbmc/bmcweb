@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b71570_aec14cfc",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-04-20T18:12:39Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "f083d797_1d6c5b40",
+      "range": {
+        "startLine": 433,
+        "startChar": 4,
+        "endLine": 433,
+        "endChar": 17
+      },
+      "revId": "fad8bfaf686812698c4a5194b5948aec6cc0b092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afce7000_f1480925",
