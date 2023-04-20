@@ -47,6 +47,7 @@ const static std::array<std::pair<std::string_view, std::string_view>, 2>
     protocolToDBusForSystems{
         {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -72,34 +73,6 @@ inline void
         {
             aResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
                 "Enabled";
-        }
-    }
-}
-
-/*
- * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
- *
- * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] cpuPresenceState CPU present or not
- *
- * @return None.
- */
-inline void
-    modifyCpuPresenceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                           bool isCpuPresent)
-{
-    BMCWEB_LOG_DEBUG << "Cpu Present: " << isCpuPresent;
-
-    if (isCpuPresent)
-    {
-        nlohmann::json& procCount =
-            aResp->res.jsonValue["ProcessorSummary"]["Count"];
-        auto* procCountPtr =
-            procCount.get_ptr<nlohmann::json::number_integer_t*>();
-        if (procCountPtr != nullptr)
-        {
-            // shouldn't be possible to be nullptr
-            *procCountPtr += 1;
         }
     }
 }
@@ -131,6 +104,35 @@ inline void
         {
             aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
                 "Enabled";
+        }
+    }
+}
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
+
+/*
+ * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] cpuPresenceState CPU present or not
+ *
+ * @return None.
+ */
+inline void
+    modifyCpuPresenceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           bool isCpuPresent)
+{
+    BMCWEB_LOG_DEBUG << "Cpu Present: " << isCpuPresent;
+
+    if (isCpuPresent)
+    {
+        nlohmann::json& procCount =
+            aResp->res.jsonValue["ProcessorSummary"]["Count"];
+        auto* procCountPtr =
+            procCount.get_ptr<nlohmann::json::number_integer_t*>();
+        if (procCountPtr != nullptr)
+        {
+            // shouldn't be possible to be nullptr
+            *procCountPtr += 1;
         }
     }
 }
@@ -195,6 +197,13 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         modifyCpuPresenceState(aResp, cpuPresenceCheck);
     };
 
+    // Get the Presence of CPU
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        std::move(getCpuPresenceState));
+
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
     auto getCpuFunctionalState = [aResp](const boost::system::error_code& ec3,
                                          const bool cpuFunctionalCheck) {
         if (ec3)
@@ -205,17 +214,12 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
     };
 
-    // Get the Presence of CPU
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Inventory.Item", "Present",
-        std::move(getCpuPresenceState));
-
     // Get the Functional State
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         std::move(getCpuFunctionalState));
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, path,
@@ -279,6 +283,7 @@ inline void
                 continue;
             }
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
             auto memoryHealth = std::make_shared<HealthPopulate>(
                 aResp, "/MemorySummary/Status"_json_pointer);
 
@@ -287,6 +292,7 @@ inline void
 
             systemHealth->children.emplace_back(memoryHealth);
             systemHealth->children.emplace_back(cpuHealth);
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
 
             // This is not system, so check if it's cpu, dimm, UUID or
             // BiosVer
@@ -317,6 +323,7 @@ inline void
                             BMCWEB_LOG_DEBUG << "Got " << properties.size()
                                              << " Dimm properties.";
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                             if (properties.empty())
                             {
                                 sdbusplus::asio::getProperty<bool>(
@@ -338,6 +345,7 @@ inline void
                                     });
                                 return;
                             }
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
 
                             const uint32_t* memorySizeInKB = nullptr;
 
@@ -376,12 +384,16 @@ inline void
                                         *memorySizeInKB / (1024 * 1024) +
                                         *preValue;
                                 }
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                                 aResp->res.jsonValue["MemorySummary"]["Status"]
                                                     ["State"] = "Enabled";
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                             }
                             });
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                         memoryHealth->inventory.emplace_back(path);
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                     }
                     else if (interfaceName ==
                              "xyz.openbmc_project.Inventory.Item.Cpu")
@@ -391,7 +403,9 @@ inline void
 
                         getProcessorSummary(aResp, connection.first, path);
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                         cpuHealth->inventory.emplace_back(path);
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
                     }
                     else if (interfaceName == "xyz.openbmc_project.Common.UUID")
                     {
@@ -3033,12 +3047,14 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.jsonValue["SystemType"] = "Physical";
         asyncResp->res.jsonValue["Description"] = "Computer System";
         asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
         asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
             "Disabled";
-        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-            uint64_t(0);
         asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
             "Disabled";
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_STATUS
+        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+            uint64_t(0);
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
         asyncResp->res.jsonValue["Processors"]["@odata.id"] =
