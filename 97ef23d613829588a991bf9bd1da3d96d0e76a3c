@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c49f6304_552f6468",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-20T13:28:06Z",
+      "side": 1,
+      "message": "This seems different than ibm-downstream which seems derived from PCIeSlots linkStatus.\nWe may need to try this with downstream and see whether they are okay?",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 78
+      },
+      "revId": "97ef23d613829588a991bf9bd1da3d96d0e76a3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
