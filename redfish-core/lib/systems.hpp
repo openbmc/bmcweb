@@ -46,6 +46,7 @@ const static std::array<std::pair<std::string_view, std::string_view>, 2>
     protocolToDBusForSystems{
         {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -74,6 +75,7 @@ inline void
         }
     }
 }
+#endif  // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
 
 /*
  * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
@@ -103,6 +105,7 @@ inline void
     }
 }
 
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
 /*
  * @brief Update "ProcessorSummary" "Status" "State" based on
  *        CPU Functional State
@@ -133,6 +136,7 @@ inline void
         }
     }
 }
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
 
 inline void getProcessorProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -377,8 +381,10 @@ inline void
                                         *memorySizeInKB / (1024 * 1024) +
                                         *preValue;
                                 }
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
                                 aResp->res.jsonValue["MemorySummary"]["Status"]
                                                     ["State"] = "Enabled";
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
                             }
                             });
 
@@ -3036,12 +3042,14 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.jsonValue["SystemType"] = "Physical";
         asyncResp->res.jsonValue["Description"] = "Computer System";
         asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+#ifdef BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
         asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
             "Disabled";
-        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-            uint64_t(0);
         asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
             "Disabled";
+#endif // BMCWEB_ALLOW_DEPRECATED_PROC_MEM_SUMARY_STATE
+        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+            uint64_t(0);
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
         asyncResp->res.jsonValue["Processors"]["@odata.id"] =
