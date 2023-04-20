@@ -320,3 +320,13 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'redfish-allow-deprecated-proc-mem-status',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable/disable the deprecated processor and memory summary
+                    status. The default condition is disabling the processor
+                    and memory summary status. This option will be removed in
+                    1Q 2024.'''
+)
