@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
@@ -201,21 +203,25 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "xyz.openbmc_project.Inventory.Item", "Present",
         std::move(getCpuPresenceState));
 
-    auto getCpuFunctionalState = [aResp](const boost::system::error_code& ec3,
-                                         const bool cpuFunctionalCheck) {
-        if (ec3)
-        {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
-            return;
-        }
-        modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
-    };
+    if constexpr (bmcwebEnableProcMemStatus)
+    {
+        auto getCpuFunctionalState =
+            [aResp](const boost::system::error_code& ec3,
+                    const bool cpuFunctionalCheck) {
+            if (ec3)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
+                return;
+            }
+            modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
+        };
 
-    // Get the Functional State
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        std::move(getCpuFunctionalState));
+        // Get the Functional State
+        sdbusplus::asio::getProperty<bool>(
+            *crow::connections::systemBus, service, path,
+            "xyz.openbmc_project.State.Decorator.OperationalStatus",
+            "Functional", std::move(getCpuFunctionalState));
+    }
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, path,
@@ -245,26 +251,30 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  */
 inline void
     processMemoryProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                            const std::string& service, const std::string& path,
+                            [[maybe_unused]] const std::string& service,
+                            [[maybe_unused]] const std::string& path,
                             const dbus::utility::DBusPropertiesMap& properties)
 {
     BMCWEB_LOG_DEBUG << "Got " << properties.size() << " Dimm properties.";
 
     if (properties.empty())
     {
-        sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, service, path,
-            "xyz.openbmc_project.State."
-            "Decorator.OperationalStatus",
-            "Functional",
-            [aResp](const boost::system::error_code& ec3, bool dimmState) {
-            if (ec3)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
-                return;
-            }
-            updateDimmProperties(aResp, dimmState);
-            });
+        if constexpr (bmcwebEnableProcMemStatus)
+        {
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.State."
+                "Decorator.OperationalStatus",
+                "Functional",
+                [aResp](const boost::system::error_code& ec3, bool dimmState) {
+                if (ec3)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
+                    return;
+                }
+                updateDimmProperties(aResp, dimmState);
+                });
+        }
         return;
     }
 
@@ -295,7 +305,11 @@ inline void
             aResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
                 *memorySizeInKB / static_cast<size_t>(1024 * 1024) + *preValue;
         }
-        aResp->res.jsonValue["MemorySummary"]["Status"]["State"] = "Enabled";
+        if constexpr (bmcwebEnableProcMemStatus)
+        {
+            aResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
+                "Enabled";
+        }
     }
 }
 
@@ -374,14 +388,20 @@ inline void
                 continue;
             }
 
-            auto memoryHealth = std::make_shared<HealthPopulate>(
-                aResp, "/MemorySummary/Status"_json_pointer);
+            std::shared_ptr<HealthPopulate> memoryHealth = nullptr;
+            std::shared_ptr<HealthPopulate> cpuHealth = nullptr;
 
-            auto cpuHealth = std::make_shared<HealthPopulate>(
-                aResp, "/ProcessorSummary/Status"_json_pointer);
+            if constexpr (bmcwebEnableProcMemStatus)
+            {
+                memoryHealth = std::make_shared<HealthPopulate>(
+                    aResp, "/MemorySummary/Status"_json_pointer);
 
-            systemHealth->children.emplace_back(memoryHealth);
-            systemHealth->children.emplace_back(cpuHealth);
+                cpuHealth = std::make_shared<HealthPopulate>(
+                    aResp, "/ProcessorSummary/Status"_json_pointer);
+
+                systemHealth->children.emplace_back(memoryHealth);
+                systemHealth->children.emplace_back(cpuHealth);
+            }
 
             // This is not system, so check if it's cpu, dimm, UUID or
             // BiosVer
@@ -397,7 +417,10 @@ inline void
 
                         getMemorySummary(aResp, connection.first, path);
 
-                        memoryHealth->inventory.emplace_back(path);
+                        if constexpr (bmcwebEnableProcMemStatus)
+                        {
+                            memoryHealth->inventory.emplace_back(path);
+                        }
                     }
                     else if (interfaceName ==
                              "xyz.openbmc_project.Inventory.Item.Cpu")
@@ -407,7 +430,10 @@ inline void
 
                         getProcessorSummary(aResp, connection.first, path);
 
-                        cpuHealth->inventory.emplace_back(path);
+                        if constexpr (bmcwebEnableProcMemStatus)
+                        {
+                            cpuHealth->inventory.emplace_back(path);
+                        }
                     }
                     else if (interfaceName == "xyz.openbmc_project.Common.UUID")
                     {
@@ -3049,10 +3075,13 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.jsonValue["SystemType"] = "Physical";
         asyncResp->res.jsonValue["Description"] = "Computer System";
         asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
-        asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
-            "Disabled";
-        asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
-            "Disabled";
+        if constexpr (bmcwebEnableProcMemStatus)
+        {
+            asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
+                "Disabled";
+            asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
+                "Disabled";
+        }
         asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
             uint64_t(0);
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";

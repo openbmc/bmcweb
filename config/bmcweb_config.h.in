@@ -16,4 +16,6 @@ constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
 constexpr const bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
 
 constexpr const char* bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
+
+constexpr const bool bmcwebEnableProcMemStatus = @BMCWEB_ENABLE_PROC_MEM_STATUS@ == 1;
 // clang-format on
