@@ -2292,6 +2292,34 @@ constexpr std::array registry = {
                      "None.",
                  }},
     MessageEntry{
+        "TotalPowerConsumptionDropBelowTheLimit",
+        {
+            "Indicate the total power consumption drops below the power limit",
+            "Total power consumption drops below power limit. "
+            "The total power consumption is %1, the power limit is %2.",
+            "OK",
+            2,
+            {
+                "number",
+                "number",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "TotalPowerConsumptionExceedTheLimit",
+        {
+            "Indicate the total power consumption exceeds the power limit",
+            "Total power consumption exeeds power limit. "
+            "The total power consumption is %1, the power limit is %2.",
+            "Critical",
+            2,
+            {
+                "number",
+                "number",
+            },
+            "None.",
+        }},
+    MessageEntry{
         "VoltageRegulatorOverheated",
         {
             "Indicates that the specified voltage regulator overheated.",
