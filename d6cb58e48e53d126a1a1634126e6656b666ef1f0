@@ -26,6 +26,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91623ee1_8b8925dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-20T20:04:38Z",
+      "side": 1,
+      "message": "Redfish validator is happy with this?",
+      "revId": "d6cb58e48e53d126a1a1634126e6656b666ef1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a984973_b9837d12",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-20T20:04:38Z",
+      "side": 1,
+      "message": "Where is this documented?",
+      "revId": "d6cb58e48e53d126a1a1634126e6656b666ef1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88d23908_720bf532",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 8
