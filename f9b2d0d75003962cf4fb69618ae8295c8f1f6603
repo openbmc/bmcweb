@@ -33,6 +33,24 @@
       "message": "I don\u0027t see this at \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/3b861bb73a34b23d94083ca796085d44c2538dd6/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml#L90\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/3b861bb73a34b23d94083ca796085d44c2538dd6/yaml/xyz/openbmc_project/Inventory/Item/Dimm.interface.yaml \n\nor up for review. \nhttps://gerrit.openbmc.org/q/project:openbmc/phosphor-dbus-interfaces+processor\n\nThe PDI documentation needs to come first",
       "revId": "f9b2d0d75003962cf4fb69618ae8295c8f1f6603",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f96e8aa_2d4db0a1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1001162
+      },
+      "writtenOn": "2023-04-20T22:33:52Z",
+      "side": 1,
+      "message": "I sent out https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/62736.\nwill update this CL with the final definition once that is approved",
+      "parentUuid": "a9e88001_9b961a73",
+      "revId": "f9b2d0d75003962cf4fb69618ae8295c8f1f6603",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
