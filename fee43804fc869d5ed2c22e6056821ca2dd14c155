@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e69f0dd8_f7b4ebd0",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-20T13:07:28Z",
+      "side": 1,
+      "message": "How about this?\n\n```\n    aResp-\u003eres.jsonValue[\"@odata.id\"] \u003d crow::utility::urlFromPieces(\n        \"redfish\", \"v1\", \"Systems\", \"system\", \"PCIeDevices\", pcieDeviceId,\n        \"PCIeFunctions\");\n```",
+      "range": {
+        "startLine": 413,
+        "startChar": 1,
+        "endLine": 415,
+        "endChar": 25
+      },
+      "revId": "fee43804fc869d5ed2c22e6056821ca2dd14c155",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
