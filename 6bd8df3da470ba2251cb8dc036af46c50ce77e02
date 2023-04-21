@@ -93,6 +93,30 @@
       },
       "revId": "6bd8df3da470ba2251cb8dc036af46c50ce77e02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e5cc588_1c345e5a",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:38:20Z",
+      "side": 1,
+      "message": "Do we need to check the ec value so to not throw an internal error when not found?\nE.g. https://github.com/openbmc/bmcweb/blob/746c5b8aef98bf1d221a0a0d33c3f62edcb43572/redfish-core/lib/fabric_adapters.hpp#L52",
+      "parentUuid": "7e1f8f58_833ab504",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "6bd8df3da470ba2251cb8dc036af46c50ce77e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

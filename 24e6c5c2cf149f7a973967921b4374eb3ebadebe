@@ -16,6 +16,46 @@
       "message": "Friendly ping",
       "revId": "24e6c5c2cf149f7a973967921b4374eb3ebadebe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22237e0_7b9a4b63",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:38:20Z",
+      "side": 1,
+      "message": "Don\u0027t see a asyncResp",
+      "revId": "24e6c5c2cf149f7a973967921b4374eb3ebadebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "931ce49f_b3f58d6d",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:38:20Z",
+      "side": 1,
+      "message": "LOG_ERROR since internal error ?",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 29
+      },
+      "revId": "24e6c5c2cf149f7a973967921b4374eb3ebadebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
