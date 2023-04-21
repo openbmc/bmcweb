@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "313b49d4_e3c66f22",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T22:48:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01ce533c_d5756121",
+      "range": {
+        "startLine": 167,
+        "startChar": 25,
+        "endLine": 168,
+        "endChar": 64
+      },
+      "revId": "fa345b05637d741a06abb47c12a9ec01519d7733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d8ce31d_8bb3dd20",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-21T20:08:40Z",
       "side": 1,
       "message": "Need to check that this object is still valid.",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 16
+      },
+      "revId": "fa345b05637d741a06abb47c12a9ec01519d7733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1237f973_071a904c",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T22:48:56Z",
+      "side": 1,
+      "message": "We are checking it later just before connecting a socket.",
+      "parentUuid": "5d8ce31d_8bb3dd20",
       "range": {
         "startLine": 218,
         "startChar": 12,

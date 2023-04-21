@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8604a434_36ea8209",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T22:48:56Z",
+      "side": 1,
+      "message": "Added the check.",
+      "parentUuid": "06de1cbb_90fd60fb",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 30
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee57fe09_ade94cda",
