@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5caa8b_6ff847bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:46:18Z",
+      "side": 1,
+      "message": "Trying to add reviewers who have touched this. \nWas not able to find David (original author) https://github.com/openbmc/bmcweb/commit/c5b2abe0d218d0decd7f1617f870ec67c6b7dd5f",
+      "revId": "61ff13aa4d0b4bc2edfcf4844bce66cebfc7d5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41c3ba30_68b62a0c",
