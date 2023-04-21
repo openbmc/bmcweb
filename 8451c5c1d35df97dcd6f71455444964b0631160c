@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d26d5ad_2c6db82c",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T02:40:12Z",
+      "side": 1,
+      "message": "I am not sure whether constructor adds null character but I don\u0027t want to add it as it may not match the socket name hence print substring.",
+      "parentUuid": "35612447_d905161b",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 53
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b9e8185_ba83a253",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-20T21:40:40Z",
       "side": 1,
       "message": "So what happens if you try to connect to two different consoles simultaneously? Won\u0027t they both just connect to the same backend unix socket that was opened first? You\u0027ll need to either block simultaneously access or fully support it.",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 30
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2236fb5_97db7225",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T02:40:12Z",
+      "side": 1,
+      "message": "The other console type support will come after this. Currently there is no other console used in upstream.",
+      "parentUuid": "1b9e8185_ba83a253",
       "range": {
         "startLine": 168,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ffee2e_3f44b360",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T02:40:12Z",
+      "side": 1,
+      "message": "I have simplified the for loop.",
+      "parentUuid": "ee57fe09_ade94cda",
+      "range": {
+        "startLine": 206,
+        "startChar": 9,
+        "endLine": 209,
+        "endChar": 19
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d2acea_d29f98c9",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de182bc_2c5c0e96",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T02:40:12Z",
+      "side": 1,
+      "message": "Removed a for loop",
+      "parentUuid": "a9d2acea_d29f98c9",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 9
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51989e8d_69b0a49b",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-04-20T21:40:40Z",
       "side": 1,
       "message": "`service`",
+      "range": {
+        "startLine": 242,
+        "startChar": 47,
+        "endLine": 242,
+        "endChar": 63
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abfbf562_3cb85b52",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-21T02:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51989e8d_69b0a49b",
       "range": {
         "startLine": 242,
         "startChar": 47,
