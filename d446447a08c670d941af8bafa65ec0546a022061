@@ -16,6 +16,98 @@
       "message": "Hi all, I am trying to implement https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Control/Power/Cap.interface.yaml#L81 interface. I have to log 2 power limit events, therefore, I create this commit to provide 2 new message registries.\n\nPlease help me review this commit.\n\nThank",
       "revId": "d446447a08c670d941af8bafa65ec0546a022061",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb3d764d_9f8678b8",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:55:11Z",
+      "side": 1,
+      "message": ". to end this sentence like the others?\nDoes something like \n\"Indicates the total power consumption is now below the power limit.\"\n\"Indicates the total power consumption has fallen below the power limit.\" read better?",
+      "range": {
+        "startLine": 2297,
+        "startChar": 77,
+        "endLine": 2297,
+        "endChar": 78
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d98777d_173057c5",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:55:11Z",
+      "side": 1,
+      "message": "Does something like \"Total power consumption has fallen below the power limit.\" read better?",
+      "range": {
+        "startLine": 2298,
+        "startChar": 13,
+        "endLine": 2298,
+        "endChar": 61
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "093710ea_49b64741",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:55:11Z",
+      "side": 1,
+      "message": "\"exceeds the power limit\" ?",
+      "range": {
+        "startLine": 2312,
+        "startChar": 44,
+        "endLine": 2312,
+        "endChar": 50
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe1c190_d1a96970",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-21T17:55:11Z",
+      "side": 1,
+      "message": "spelling exceeds",
+      "range": {
+        "startLine": 2312,
+        "startChar": 37,
+        "endLine": 2312,
+        "endChar": 44
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
