@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33e09e0_da57f046",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-21T19:12:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7224d043_b5f2f2d0",
+      "range": {
+        "startLine": 777,
+        "startChar": 18,
+        "endLine": 777,
+        "endChar": 45
+      },
+      "revId": "6142d50f116e60cce04873ac496a11034a1ac2b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7e4bf53_4db84659",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "Fixed first comment. So deleted this part of code. Please confirm on this change.",
       "parentUuid": "e7e4bf53_4db84659",
+      "range": {
+        "startLine": 778,
+        "startChar": 47,
+        "endLine": 778,
+        "endChar": 55
+      },
+      "revId": "6142d50f116e60cce04873ac496a11034a1ac2b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab40791_313baefe",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-21T19:12:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5112fdfc_e216d6d1",
       "range": {
         "startLine": 778,
         "startChar": 47,
