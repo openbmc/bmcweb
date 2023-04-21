@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06de1cbb_90fd60fb",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-21T20:08:40Z",
+      "side": 1,
+      "message": "Okay, that\u0027s fine if this is only half of the full feature, but I think we should not commit the code in a half-baked state like this where it does something very unexpected. We can just add a simple check that the `consoleSocketName \u003d\u003d hostSocket-\u003eremote_endpoint().path()`, or check earlier that the new connection url is the same as the existing connection urls, and reject simultaneous connections to different consoles because it\u0027s not supported.",
+      "parentUuid": "d2236fb5_97db7225",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 30
+      },
+      "revId": "8451c5c1d35df97dcd6f71455444964b0631160c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee57fe09_ade94cda",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 6
