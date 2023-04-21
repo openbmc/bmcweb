@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2eef84b_8d29227e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-21T00:01:05Z",
+      "side": 1,
+      "message": "Not sure this is the right direction. `doMountVmLegacy` is built to handle an empty username or password. And the parameters are not marked as required in the VirtualMedia schema. We just need to pass an empty string if it wasn\u0027t part of the request.",
+      "revId": "6142d50f116e60cce04873ac496a11034a1ac2b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab934ca_9d712502",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-21T00:01:05Z",
+      "side": 1,
+      "message": "`actionParameterMissing` might be more appropriate?",
+      "range": {
+        "startLine": 777,
+        "startChar": 18,
+        "endLine": 777,
+        "endChar": 45
+      },
+      "revId": "6142d50f116e60cce04873ac496a11034a1ac2b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7e4bf53_4db84659",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-21T00:01:05Z",
+      "side": 1,
+      "message": "The parameter is called \"UserName\"",
+      "range": {
+        "startLine": 778,
+        "startChar": 47,
+        "endLine": 778,
+        "endChar": 55
+      },
+      "revId": "6142d50f116e60cce04873ac496a11034a1ac2b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
