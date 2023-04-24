@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "963459fa_a58706a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T21:10:24Z",
+      "side": 1,
+      "message": "The logic is doing\n\n1) check the valid FabricAdater path.\n```\n    handlePortCollectionGet(App\u0026 app, const crow::Request\u0026 req,\n                            const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 aResp,\n                            const std::string\u0026 systemName,\n                            const std::string\u0026 adapterId)\n{\n...\n    getValidFabricAdapterPath(\n        adapterId, systemName, aResp,\n        [aResp{std::move(aResp)}, systemName,\n         adapterId](const std::string\u0026 fabricAdapterPath, const std::string\u0026) {\n        doPortCollectionGet(aResp, systemName, fabricAdapterPath, adapterId);\n        });\n}\n\n```\n\n2) With the valid fabricAdapterPath, get the connector item under the fabric adapter path.\n\n```\n    constexpr std::array\u003cstd::string_view, 1\u003e interfaces \u003d {\n        \"xyz.openbmc_project.Inventory.Item.Connector\"};\n        \n    dbus::utility::getSubTreePaths(\n        fabricAdapterPath, 0, interfaces,\n        [aResp{std::move(aResp)}, systemName,\n         adapterId](const boost::system::error_code\u0026 ec,\n                    const dbus::utility::MapperGetSubTreePathsResponse\u0026 paths) {\n         ...\n        for (const auto\u0026 path : paths)\n        {\n            std::string adapterPath \u003d\n                sdbusplus::message::object_path(path).parent_path();\n            if (!checkFabricAdapterId(adapterPath, adapterId))\n            {\n                continue;\n            }\n\n            std::string portId \u003d\n                sdbusplus::message::object_path(path).filename();\n....\n        }\n                   \n\n```\n\nI think this way is to ensure that the related ports (connectors) are with the give fabric adapter.",
+      "parentUuid": "c6e43857_eb541fd4",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "378e682e_b28ba355",
         "filename": "/COMMIT_MSG",
         "patchSetId": 17
@@ -53,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9079f2b3_0b7898e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T21:10:24Z",
+      "side": 1,
+      "message": "I\u0027ve modified the commit msg stating the excluded/failed validator errors.",
+      "parentUuid": "f3d847fa_9866af9b",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b516594d_cca66c8f",
@@ -70,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ebededc_b3f693da",
+        "filename": "Redfish.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T21:10:24Z",
+      "side": 1,
+      "message": "Yes, the output is essentially the same like getCollectionMembers() but the output needs to insert \"/Ports/.",
+      "parentUuid": "b516594d_cca66c8f",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "255d9a1c_15732fea",
@@ -83,6 +137,30 @@
       "writtenOn": "2023-04-24T16:55:20Z",
       "side": 1,
       "message": "why not portId?",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5294876d_b99be750",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T21:10:24Z",
+      "side": 1,
+      "message": "Changed in the latest patchset.",
+      "parentUuid": "255d9a1c_15732fea",
       "range": {
         "startLine": 39,
         "startChar": 20,
