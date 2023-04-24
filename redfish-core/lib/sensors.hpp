@@ -32,6 +32,7 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -559,8 +560,8 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         populateChassisNode(asyncResp->res.jsonValue, chassisSubNode);
 
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Chassis", chassisIdStr, chassisSubNode);
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/{}", chassisIdStr, chassisSubNode);
 
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
@@ -1121,9 +1122,10 @@ inline void populateFanRedundancy(
                                                 .jsonValue["Redundancy"];
 
                     nlohmann::json::object_t redundancy;
-                    boost::urls::url url = crow::utility::urlFromPieces(
-                        "redfish", "v1", "Chassis", sensorsAsyncResp->chassisId,
-                        sensorsAsyncResp->chassisSubNode);
+                    boost::urls::url url =
+                        boost::urls::format("/redfish/v1/Chassis/{}/{}",
+                                            sensorsAsyncResp->chassisId,
+                                            sensorsAsyncResp->chassisSubNode);
                     url.set_fragment(("/Redundancy"_json_pointer / jResp.size())
                                          .to_string());
                     redundancy["@odata.id"] = std::move(url);
@@ -2195,8 +2197,8 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     // Add new PowerSupply object to JSON array
     powerSupplyArray.push_back({});
     nlohmann::json& powerSupply = powerSupplyArray.back();
-    boost::urls::url url = crow::utility::urlFromPieces(
-        "redfish", "v1", "Chassis", chassisId, "Power");
+    boost::urls::url url =
+        boost::urls::format("/redfish/v1/Chassis/{}/Power", chassisId);
     url.set_fragment(("/PowerSupplies"_json_pointer).to_string());
     powerSupply["@odata.id"] = std::move(url);
     powerSupply["Name"] = boost::replace_all_copy(inventoryItem.name, "_", " ");
@@ -2320,10 +2322,10 @@ inline void getSensorData(
                     sensorId += sensorName;
 
                     sensorsAsyncResp->asyncResp->res.jsonValue["@odata.id"] =
-                        crow::utility::urlFromPieces(
-                            "redfish", "v1", "Chassis",
-                            sensorsAsyncResp->chassisId,
-                            sensorsAsyncResp->chassisSubNode, sensorId);
+                        boost::urls::format("/redfish/v1/Chassis/{}/{}/{}",
+                                            sensorsAsyncResp->chassisId,
+                                            sensorsAsyncResp->chassisSubNode,
+                                            sensorId);
                     sensorJson = &(sensorsAsyncResp->asyncResp->res.jsonValue);
                 }
                 else
@@ -2380,8 +2382,8 @@ inline void getSensorData(
                             // PowerControl. Follows MemberId naming and
                             // naming in power.hpp.
                             nlohmann::json::object_t power;
-                            boost::urls::url url = crow::utility::urlFromPieces(
-                                "redfish", "v1", "Chassis",
+                            boost::urls::url url = boost::urls::format(
+                                "/redfish/v1/Chassis/{}/{}",
                                 sensorsAsyncResp->chassisId,
                                 sensorsAsyncResp->chassisSubNode);
                             url.set_fragment((""_json_pointer / fieldName / "0")
@@ -2412,8 +2414,8 @@ inline void getSensorData(
                         sensorId += sensorName;
 
                         nlohmann::json::object_t member;
-                        member["@odata.id"] = crow::utility::urlFromPieces(
-                            "redfish", "v1", "Chassis",
+                        member["@odata.id"] = boost::urls::format(
+                            "/redfish/v1/Chassis/{}/{}/{}",
                             sensorsAsyncResp->chassisId,
                             sensorsAsyncResp->chassisSubNode, sensorId);
                         tempArray.push_back(std::move(member));
@@ -2422,8 +2424,8 @@ inline void getSensorData(
                     else
                     {
                         nlohmann::json::object_t member;
-                        boost::urls::url url = crow::utility::urlFromPieces(
-                            "redfish", "v1", "Chassis",
+                        boost::urls::url url = boost::urls::format(
+                            "/redfish/v1/Chassis/{}/{}",
                             sensorsAsyncResp->chassisId,
                             sensorsAsyncResp->chassisSubNode);
                         url.set_fragment(
@@ -2794,8 +2796,8 @@ inline void getChassisCallback(
         std::string id = type;
         id += "_";
         id += sensorName;
-        member["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Chassis", chassisId, chassisSubNode, id);
+        member["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/{}/{}", chassisId, chassisSubNode, id);
 
         entriesArray.push_back(std::move(member));
     }
@@ -2891,8 +2893,8 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Chassis", chassisId, "Sensors", sensorId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorId);
 
     BMCWEB_LOG_DEBUG << "Sensor doGet enter";
 

@@ -35,6 +35,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <cstdlib>
@@ -518,9 +519,9 @@ class Subscription : public persistent_data::UserSubscription
     void filterAndSendReports(const std::string& reportId,
                               const telemetry::TimestampReadings& var)
     {
-        boost::urls::url mrdUri =
-            crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                         "MetricReportDefinitions", reportId);
+        boost::urls::url mrdUri = boost::urls::format(
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/{}",
+            reportId);
 
         // Empty list means no filter. Send everything.
         if (!metricReportDefinitions.empty())

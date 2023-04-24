@@ -25,6 +25,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/process/async_pipe.hpp>
+#include <boost/url/format.hpp>
 #include <boost/url/url_view.hpp>
 
 #include <array>
@@ -245,8 +246,8 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
                                      const std::string& resName)
 {
     nlohmann::json item;
-    item["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Managers", name, "VirtualMedia", resName);
+    item["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/VirtualMedia/{}", name, resName);
 
     item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
     item["Name"] = "Virtual Removable Media";
@@ -290,8 +291,8 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 continue;
             }
 
-            item["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Managers", name, "VirtualMedia", path);
+            item["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Managers/{}/VirtualMedia/{}", name, path);
             members.emplace_back(std::move(item));
         }
         aResp->res.jsonValue["Members@odata.count"] = members.size();
@@ -318,19 +319,18 @@ inline void
     // Check if dbus path is Legacy type
     if (mode == VmMode::Legacy)
     {
-        asyncResp->res
-            .jsonValue["Actions"]["#VirtualMedia.InsertMedia"]["target"] =
-            crow::utility::urlFromPieces("redfish", "v1", "Managers", name,
-                                         "VirtualMedia", resName, "Actions",
-                                         "VirtualMedia.InsertMedia");
+        asyncResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
+                                ["target"] = boost::urls::format(
+            "/redfish/v1/Managers/{}/VirtualMedia/{}/Actions/VirtualMedia.InsertMedia",
+            name, resName);
     }
 
     vmParseInterfaceObject(item.second, asyncResp);
 
-    asyncResp->res.jsonValue["Actions"]["#VirtualMedia.EjectMedia"]["target"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Managers", name,
-                                     "VirtualMedia", resName, "Actions",
-                                     "VirtualMedia.EjectMedia");
+    asyncResp->res.jsonValue["Actions"]["#VirtualMedia.EjectMedia"]
+                            ["target"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/VirtualMedia/{}/Actions/VirtualMedia.EjectMedia",
+        name, resName);
 }
 
 /**
@@ -988,8 +988,8 @@ inline void handleManagersVirtualMediaCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#VirtualMediaCollection.VirtualMediaCollection";
     asyncResp->res.jsonValue["Name"] = "Virtual Media Services";
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Managers", name, "VirtualMedia");
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/VirtualMedia", name);
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},

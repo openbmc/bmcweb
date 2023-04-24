@@ -6,6 +6,7 @@
 // You may obtain a copy of the License at
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
+#include <boost/url/format.hpp>
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -553,9 +554,9 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         {
             const std::string& dbusPath = appliedConfig->str;
             nlohmann::json::object_t operatingConfig;
-            operatingConfig["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "Processors", cpuId,
-                "OperatingConfigs");
+            operatingConfig["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Processors/{}/OperatingConfigs",
+                cpuId);
             json["OperatingConfigs"] = std::move(operatingConfig);
 
             // Reuse the D-Bus config object name for the Redfish
@@ -571,9 +572,9 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 return;
             }
             nlohmann::json::object_t appliedOperatingConfig;
-            appliedOperatingConfig["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "Processors", cpuId,
-                "OperatingConfigs", dbusPath.substr(baseNamePos + 1));
+            appliedOperatingConfig["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Processors/{}/OperatingConfigs/{}",
+                cpuId, dbusPath.substr(baseNamePos + 1));
             json["AppliedOperatingConfig"] = std::move(appliedOperatingConfig);
 
             // Once we found the current applied config, queue another
@@ -1072,9 +1073,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
         }
         asyncResp->res.jsonValue["@odata.type"] =
             "#OperatingConfigCollection.OperatingConfigCollection";
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "Processors", cpuName,
-            "OperatingConfigs");
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/Processors/{}/OperatingConfigs",
+            cpuName);
         asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
 
         // First find the matching CPU object so we know how to
@@ -1112,9 +1113,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                 };
                 collection_util::getCollectionMembers(
                     asyncResp,
-                    crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                                 "system", "Processors",
-                                                 cpuName, "OperatingConfigs"),
+                    boost::urls::format(
+                        "/redfish/v1/Systems/system/Processors/{}/OperatingConfigs",
+                        cpuName),
                     interface, object.c_str());
                 return;
             }
@@ -1163,9 +1164,9 @@ inline void requestRoutesOperatingConfig(App& app)
 
                 nlohmann::json& json = asyncResp->res.jsonValue;
                 json["@odata.type"] = "#OperatingConfig.v1_0_0.OperatingConfig";
-                json["@odata.id"] = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Systems", "system", "Processors", cpuName,
-                    "OperatingConfigs", configName);
+                json["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Systems/system/Processors/{}/OperatingConfigs/{}",
+                    cpuName, configName);
                 json["Name"] = "Processor Profile";
                 json["Id"] = configName;
 
@@ -1261,8 +1262,8 @@ inline void requestRoutesProcessor(App& app)
             "</redfish/v1/JsonSchemas/Processor/Processor.json>; rel=describedby");
         asyncResp->res.jsonValue["@odata.type"] =
             "#Processor.v1_11_0.Processor";
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "Processors", processorId);
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/Processors/{}", processorId);
 
         getProcessorObject(
             asyncResp, processorId,

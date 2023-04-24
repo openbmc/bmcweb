@@ -6,6 +6,8 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <memory>
 #include <optional>
 #include <string>
@@ -39,9 +41,8 @@ inline void
     asyncResp->res.jsonValue["@odata.type"] =
         "#PowerSupplyCollection.PowerSupplyCollection";
     asyncResp->res.jsonValue["Name"] = "Power Supply Collection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
-                                     "PowerSubsystem", "PowerSupplies");
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);
     asyncResp->res.jsonValue["Description"] =
         "The collection of PowerSupply resource instances.";
     asyncResp->res.jsonValue["Members"] = nlohmann::json::array();

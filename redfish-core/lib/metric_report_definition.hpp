@@ -11,6 +11,7 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -37,13 +38,12 @@ inline void
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "TelemetryService", "MetricReportDefinitions", id);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/TelemetryService/MetricReportDefinitions/{}", id);
     asyncResp->res.jsonValue["Id"] = id;
     asyncResp->res.jsonValue["Name"] = id;
-    asyncResp->res.jsonValue["MetricReport"]["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReports", id);
+    asyncResp->res.jsonValue["MetricReport"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/TelemetryService/MetricReports/{}", id);
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["ReportUpdates"] = "Overwrite";
 
