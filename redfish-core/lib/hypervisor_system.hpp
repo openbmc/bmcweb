@@ -11,6 +11,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/container/flat_set.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 #include <array>
@@ -482,9 +483,8 @@ inline void parseInterfaceData(
     const boost::container::flat_set<IPv4AddressData>& ipv4Data)
 {
     jsonResponse["Id"] = ifaceId;
-    jsonResponse["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Systems", "hypervisor",
-                                     "EthernetInterfaces", ifaceId);
+    jsonResponse["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/hypervisor/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = true;
     jsonResponse["MACAddress"] = ethData.macAddress;
 
@@ -761,10 +761,9 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
                 continue;
             }
             nlohmann::json::object_t ethIface;
-            ethIface["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "hypervisor", "EthernetInterfaces",
-                name);
-            ifaceArray.emplace_back(std::move(ethIface));
+            ethIface["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/hypervisor/EthernetInterfaces/{}", name);
+            ifaceArray.push_back(std::move(ethIface));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
         });

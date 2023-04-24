@@ -28,6 +28,7 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -392,8 +393,7 @@ inline void
                     }
                 }
 
-                boost::urls::url url = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Managers", "bmc");
+                boost::urls::url url("/redfish/v1/Managers/bmc");
                 if (intfPair.first == pidZoneConfigurationIface)
                 {
                     std::string chassis;
@@ -403,8 +403,8 @@ inline void
                         chassis = "#IllegalValue";
                     }
                     nlohmann::json& zone = zones[name];
-                    zone["Chassis"]["@odata.id"] = crow::utility::urlFromPieces(
-                        "redfish", "v1", "Chassis", chassis);
+                    zone["Chassis"]["@odata.id"] =
+                        boost::urls::format("/redfish/v1/Chassis/{}", chassis);
                     url.set_fragment(
                         ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
                             .to_string());
@@ -584,10 +584,8 @@ inline void
                             {
                                 dbus::utility::escapePathForDbus(itemCopy);
                                 nlohmann::json::object_t input;
-                                boost::urls::url managerUrl =
-                                    crow::utility::urlFromPieces(
-                                        "redfish", "v1", "Managers", "bmc");
-                                managerUrl.set_fragment(
+                                boost::urls::url managerUrl = boost::urls::format(
+                                    "/redfish/v1/Managers/bmc#{}",
                                     ("/Oem/OpenBmc/Fan/FanZones"_json_pointer /
                                      itemCopy)
                                         .to_string());
@@ -826,9 +824,9 @@ inline CreatePIDRet createPidInterface(
         if (managedItem == nullptr)
         {
             BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-            messages::invalidObject(response->res,
-                                    crow::utility::urlFromPieces(
-                                        "redfish", "v1", "Chassis", chassis));
+            messages::invalidObject(
+                response->res,
+                boost::urls::format("/redfish/v1/Chassis/{}", chassis));
             return CreatePIDRet::fail;
         }
     }
@@ -939,8 +937,8 @@ inline CreatePIDRet createPidInterface(
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
                 messages::invalidObject(
-                    response->res, crow::utility::urlFromPieces(
-                                       "redfish", "v1", "Chassis", chassis));
+                    response->res,
+                    boost::urls::format("/redfish/v1/Chassis/{}", chassis));
                 return CreatePIDRet::fail;
             }
             output.emplace_back("Zones", std::move(zonesStr));
@@ -1034,8 +1032,8 @@ inline CreatePIDRet createPidInterface(
             {
                 BMCWEB_LOG_ERROR << "Got invalid path " << chassisId;
                 messages::invalidObject(
-                    response->res, crow::utility::urlFromPieces(
-                                       "redfish", "v1", "Chassis", chassisId));
+                    response->res,
+                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId));
                 return CreatePIDRet::fail;
             }
         }
@@ -1080,8 +1078,8 @@ inline CreatePIDRet createPidInterface(
             {
                 BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
                 messages::invalidObject(
-                    response->res, crow::utility::urlFromPieces(
-                                       "redfish", "v1", "Chassis", chassis));
+                    response->res,
+                    boost::urls::format("/redfish/v1/Chassis/{}", chassis));
                 return CreatePIDRet::fail;
             }
             output.emplace_back("Zones", std::move(zonesStrs));
@@ -1643,8 +1641,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         BMCWEB_LOG_ERROR << "Failed to find chassis on dbus";
                         messages::resourceMissingAtURI(
                             response->res,
-                            crow::utility::urlFromPieces("redfish", "v1",
-                                                         "Chassis", chassis));
+                            boost::urls::format("/redfish/v1/Chassis/{}",
+                                                chassis));
                         return;
                     }
 
@@ -2023,8 +2021,8 @@ inline void requestRoutesManager(App& app)
             aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
             nlohmann::json::array_t managerForChassis;
             nlohmann::json::object_t managerObj;
-            boost::urls::url chassiUrl = crow::utility::urlFromPieces(
-                "redfish", "v1", "Chassis", chassisId);
+            boost::urls::url chassiUrl =
+                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
             managerObj["@odata.id"] = chassiUrl;
             managerForChassis.emplace_back(std::move(managerObj));
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] =

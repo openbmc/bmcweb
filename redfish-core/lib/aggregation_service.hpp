@@ -8,6 +8,7 @@
 #include "redfish_aggregator.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <functional>
@@ -78,10 +79,9 @@ inline void populateAggregationSourceCollection(
     for (const auto& sat : satelliteInfo)
     {
         nlohmann::json::object_t member;
-        member["@odata.id"] =
-            crow::utility::urlFromPieces("redfish", "v1", "AggregationService",
-                                         "AggregationSources", sat.first);
-        members.emplace_back(std::move(member));
+        member["@odata.id"] = boost::urls::format(
+            "/redfish/v1/AggregationService/AggregationSources/{}", sat.first);
+        members.push_back(std::move(member));
     }
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
     asyncResp->res.jsonValue["Members"] = std::move(members);
@@ -160,9 +160,9 @@ inline void populateAggregationSource(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "AggregationService",
-                                     "AggregationSources", aggregationSourceId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/AggregationService/AggregationSources/{}",
+        aggregationSourceId);
     asyncResp->res.jsonValue["@odata.type"] =
         "#AggregationSource.v1_3_1.AggregationSource";
     asyncResp->res.jsonValue["Id"] = aggregationSourceId;
