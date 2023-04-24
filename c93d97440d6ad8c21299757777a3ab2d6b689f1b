@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d5c832_8f33713a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-04-24T19:37:39Z",
+      "side": 1,
+      "message": "Hi Ed, requesting you to confirm on this changes.",
+      "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "822f7715_90ad4199",
@@ -14,6 +31,30 @@
       "writtenOn": "2023-04-21T19:12:12Z",
       "side": 1,
       "message": "I think this is functionally correct now. But just to reduce duplication of typing out other parameters, I would prefer to structure this as\n```\nif (!actionParams.userName)\n{\n    actionParams.username \u003d \"\";\n}\nif (!actionParams.password)\n{\n    actionParams.password \u003d \"\";\n}\ndoMountVmLegacy(...)\n```\nBut I\u0027ll leave that up to maintainers if they want this refactored.",
+      "range": {
+        "startLine": 782,
+        "startChar": 7,
+        "endLine": 783,
+        "endChar": 65
+      },
+      "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b566d7d_75f5c2fe",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-04-24T19:37:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "822f7715_90ad4199",
       "range": {
         "startLine": 782,
         "startChar": 7,
