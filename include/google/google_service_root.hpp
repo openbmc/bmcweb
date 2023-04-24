@@ -9,6 +9,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
@@ -118,8 +119,8 @@ inline void populateRootOfTrustEntity(
     const ResolvedEntity& resolvedEntity)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#RootOfTrust.v1_0_0.RootOfTrust";
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "google", "v1", "RootOfTrustCollection", resolvedEntity.id);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/google/v1/RootOfTrustCollection/{}", resolvedEntity.id);
 
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Id"] = resolvedEntity.id;

@@ -573,23 +573,10 @@ inline boost::urls::url
     return url;
 }
 
-inline boost::urls::url
-    urlFromPiecesDetail(const std::initializer_list<std::string_view> args)
-{
-    boost::urls::url url("/");
-    appendUrlPieces(url, args);
-    return url;
-}
 } // namespace details
 
 class OrMorePaths
 {};
-
-template <typename... AV>
-inline boost::urls::url urlFromPieces(const AV... args)
-{
-    return details::urlFromPiecesDetail({args...});
-}
 
 template <typename... AV>
 inline void appendUrlPieces(boost::urls::url& url, const AV... args)

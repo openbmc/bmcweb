@@ -6,6 +6,7 @@
 // You may obtain a copy of the License at
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
+#include <boost/url/format.hpp>
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -93,8 +94,8 @@ inline void requestRoutesRoles(App& app)
         asyncResp->res.jsonValue["IsPredefined"] = true;
         asyncResp->res.jsonValue["Id"] = roleId;
         asyncResp->res.jsonValue["RoleId"] = roleId;
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "AccountService", "Roles", roleId);
+        asyncResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/AccountService/Roles/{}", roleId);
         asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
         });
 }
@@ -137,8 +138,8 @@ inline void requestRoutesRoleCollection(App& app)
                 if (!role.empty())
                 {
                     nlohmann::json::object_t member;
-                    member["@odata.id"] = crow::utility::urlFromPieces(
-                        "redfish", "v1", "AccountService", "Roles", role);
+                    member["@odata.id"] = boost::urls::format(
+                        "/redfish/v1/AccountService/Roles/{}", role);
                     memberArray.push_back(std::move(member));
                 }
             }

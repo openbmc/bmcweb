@@ -81,39 +81,6 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_EQ(data, decoded);
 }
 
-TEST(Utility, UrlFromPieces)
-{
-    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
-    EXPECT_EQ(url.buffer(), "/redfish/v1/foo");
-
-    url = urlFromPieces("/", "badString");
-    EXPECT_EQ(url.buffer(), "/%2F/badString");
-
-    url = urlFromPieces("bad?tring");
-    EXPECT_EQ(url.buffer(), "/bad%3Ftring");
-
-    url = urlFromPieces("/", "bad&tring");
-    EXPECT_EQ(url.buffer(), "/%2F/bad&tring");
-
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2F/bad&tring");
-
-    url = urlFromPieces("my-user");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my-user");
-
-    url = urlFromPieces("my_user");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_user");
-
-    url = urlFromPieces("my_93user");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_93user");
-
-    // The following characters will be converted to ASCII number
-    // `[{]}\|"<>/?#%^
-    url =
-        urlFromPieces("~1234567890-_=+qwertyuiopasdfghjklzxcvbnm;:',.!@$&*()");
-    EXPECT_EQ(std::string_view(url.data(), url.size()),
-              "/~1234567890-_=+qwertyuiopasdfghjklzxcvbnm;:',.!@$&*()");
-}
-
 TEST(Utility, readUrlSegments)
 {
     boost::urls::result<boost::urls::url_view> parsed =
@@ -242,7 +209,7 @@ TEST(URL, JsonEncoding)
 
 TEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)
 {
-    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
+    boost::urls::url url("/redfish/v1/foo");
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo");
 
     appendUrlPieces(url, "bar");

@@ -16,6 +16,7 @@
 
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <cerrno>
@@ -1334,9 +1335,10 @@ class Router
             if (req.session->isConfigureSelfOnly)
             {
                 redfish::messages::passwordChangeRequired(
-                    asyncResp->res, crow::utility::urlFromPieces(
-                                        "redfish", "v1", "AccountService",
-                                        "Accounts", req.session->username));
+                    asyncResp->res,
+                    boost::urls::format(
+                        "/redfish/v1/AccountService/Accounts/{}",
+                        req.session->username));
             }
             return false;
         }

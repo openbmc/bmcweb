@@ -7,6 +7,8 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <optional>
 #include <string>
 
@@ -33,8 +35,8 @@ inline void doThermalSubsystemCollection(
     asyncResp->res.jsonValue["Name"] = "Thermal Subsystem";
     asyncResp->res.jsonValue["Id"] = "ThermalSubsystem";
 
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Chassis", chassisId, "ThermalSubsystem");
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/ThermalSubsystem", chassisId);
 
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";

@@ -26,6 +26,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -272,21 +273,18 @@ inline void
             asyncResp->res.jsonValue["@odata.type"] =
                 "#Chassis.v1_22_0.Chassis";
             asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                             chassisId);
+                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
             asyncResp->res.jsonValue["ChassisType"] = "RackMount";
             asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                             chassisId, "Actions",
-                                             "Chassis.Reset");
+                boost::urls::format(
+                    "/redfish/v1/Chassis/{}/Actions/Chassis.Reset", chassisId);
             asyncResp->res
                 .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                             chassisId, "ResetActionInfo");
+                boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
+                                    chassisId);
             asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "PCIeDevices");
+                "/redfish/v1/Systems/system/PCIeDevices";
 
             dbus::utility::getAssociationEndPoints(
                 path + "/drive",
@@ -299,8 +297,8 @@ inline void
                 }
 
                 nlohmann::json reference;
-                reference["@odata.id"] = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Chassis", chassisId, "Drives");
+                reference["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Chassis/{}/Drives", chassisId);
                 asyncResp->res.jsonValue["Drives"] = std::move(reference);
                 });
 
@@ -424,29 +422,28 @@ inline void
                 asyncResp->res.jsonValue["Id"] = chassisId;
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                 asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                 chassisId, "Thermal");
+                    boost::urls::format("/redfish/v1/Chassis/{}/Thermal",
+                                        chassisId);
                 // Power object
                 asyncResp->res.jsonValue["Power"]["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                 chassisId, "Power");
+                    boost::urls::format("/redfish/v1/Chassis/{}/Power",
+                                        chassisId);
 #endif
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
                 asyncResp->res.jsonValue["ThermalSubsystem"]["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                 chassisId, "ThermalSubsystem");
+                    boost::urls::format(
+                        "/redfish/v1/Chassis/{}/ThermalSubsystem", chassisId);
                 asyncResp->res.jsonValue["PowerSubsystem"]["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                 chassisId, "PowerSubsystem");
+                    boost::urls::format("/redfish/v1/Chassis/{}/PowerSubsystem",
+                                        chassisId);
                 asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                 chassisId,
-                                                 "EnvironmentMetrics");
+                    boost::urls::format(
+                        "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);
 #endif
                 // SensorCollection
                 asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                 chassisId, "Sensors");
+                    boost::urls::format("/redfish/v1/Chassis/{}/Sensors",
+                                        chassisId);
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
                 nlohmann::json::array_t computerSystems;
@@ -736,8 +733,8 @@ inline void handleChassisResetActionInfoGet(
         return;
     }
     asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Chassis", chassisId, "ResetActionInfo");
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/ResetActionInfo", chassisId);
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
 
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";

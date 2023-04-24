@@ -25,6 +25,7 @@
 #include "utils/dbus_utils.hpp"
 
 #include <boost/system/linux_error.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -68,8 +69,8 @@ static inline void
                 continue;
             }
             nlohmann::json::object_t pcieDevice;
-            pcieDevice["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "PCIeDevices", devName);
+            pcieDevice["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/PCIeDevices/{}", devName);
             pcieDeviceList.push_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
@@ -252,16 +253,15 @@ inline void requestRoutesSystemPCIeDevice(App& app)
 
             asyncResp->res.jsonValue["@odata.type"] =
                 "#PCIeDevice.v1_4_0.PCIeDevice";
-            asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "PCIeDevices", device);
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/PCIeDevices/{}", device);
             asyncResp->res.jsonValue["Name"] = "PCIe Device";
             asyncResp->res.jsonValue["Id"] = device;
 
             asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "PCIeDevices", device,
-                                             "PCIeFunctions");
+                boost::urls::format(
+                    "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions",
+                    device);
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
@@ -290,9 +290,8 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#PCIeFunctionCollection.PCIeFunctionCollection";
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "PCIeDevices", device,
-            "PCIeFunctions");
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions", device);
         asyncResp->res.jsonValue["Name"] = "PCIe Function Collection";
         asyncResp->res.jsonValue["Description"] =
             "Collection of PCIe Functions for PCIe Device " + device;
@@ -343,9 +342,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                     continue;
                 }
                 nlohmann::json::object_t pcieFunction;
-                pcieFunction["@odata.id"] = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Systems", "system", "PCIeDevices", device,
-                    "PCIeFunctions", std::to_string(functionNum));
+                pcieFunction["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions/{}",
+                    device, std::to_string(functionNum));
                 pcieFunctionList.push_back(std::move(pcieFunction));
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -418,16 +417,15 @@ inline void requestRoutesSystemPCIeFunction(App& app)
 
             asyncResp->res.jsonValue["@odata.type"] =
                 "#PCIeFunction.v1_2_0.PCIeFunction";
-            asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "PCIeDevices", device,
-                                             "PCIeFunctions", function);
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions/{}",
+                device, function);
             asyncResp->res.jsonValue["Name"] = "PCIe Function";
             asyncResp->res.jsonValue["Id"] = function;
             asyncResp->res.jsonValue["FunctionId"] = std::stoi(function);
             asyncResp->res.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "PCIeDevices", device);
+                boost::urls::format("/redfish/v1/Systems/system/PCIeDevices/{}",
+                                    device);
 
             for (const auto& property : pcieDevProperties)
             {
