@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8e7948d_63db3a4f",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-24T03:41:50Z",
+      "side": 1,
+      "message": "I added \".\" at the end of the sentence, but I keep the description \"Indicate the total power consumption drops below the power limit.\", in the table 6-18 of DCMI specification v1.5, it is using \"drops below\" https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/dcmi-v1-5-rev-spec.pdf",
+      "parentUuid": "fb3d764d_9f8678b8",
+      "range": {
+        "startLine": 2297,
+        "startChar": 77,
+        "endLine": 2297,
+        "endChar": 78
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d98777d_173057c5",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-04-21T17:55:11Z",
       "side": 1,
       "message": "Does something like \"Total power consumption has fallen below the power limit.\" read better?",
+      "range": {
+        "startLine": 2298,
+        "startChar": 13,
+        "endLine": 2298,
+        "endChar": 61
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "217d76cb_ecb80b30",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-24T03:41:50Z",
+      "side": 1,
+      "message": "As above",
+      "parentUuid": "4d98777d_173057c5",
       "range": {
         "startLine": 2298,
         "startChar": 13,
@@ -105,6 +153,54 @@
         "startChar": 37,
         "endLine": 2312,
         "endChar": 44
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4213487b_5b2b266a",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-24T03:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efe1c190_d1a96970",
+      "range": {
+        "startLine": 2312,
+        "startChar": 37,
+        "endLine": 2312,
+        "endChar": 44
+      },
+      "revId": "d446447a08c670d941af8bafa65ec0546a022061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ba5b0d_62fc8e8a",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-24T03:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "093710ea_49b64741",
+      "range": {
+        "startLine": 2312,
+        "startChar": 44,
+        "endLine": 2312,
+        "endChar": 50
       },
       "revId": "d446447a08c670d941af8bafa65ec0546a022061",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"

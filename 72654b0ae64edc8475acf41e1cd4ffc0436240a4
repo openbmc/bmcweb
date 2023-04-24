@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf15e612_8cb6da5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-24T03:41:50Z",
+      "side": 1,
+      "message": "Hi Gunnar, Thank for your comments. I updated this commit, please help me check again.",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
