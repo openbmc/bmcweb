@@ -8,6 +8,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -151,8 +152,7 @@ inline void requestRoutesCable(App& app)
 
                 asyncResp->res.jsonValue["@odata.type"] = "#Cable.v1_0_0.Cable";
                 asyncResp->res.jsonValue["@odata.id"] =
-                    crow::utility::urlFromPieces("redfish", "v1", "Cables",
-                                                 cableId);
+                    boost::urls::format("/redfish/v1/Cables/{}", cableId);
                 asyncResp->res.jsonValue["Id"] = cableId;
                 asyncResp->res.jsonValue["Name"] = "Cable";
 
