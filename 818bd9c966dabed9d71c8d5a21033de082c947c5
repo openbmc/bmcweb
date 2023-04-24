@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65ff86c_6e394f1a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T20:51:41Z",
+      "side": 1,
+      "message": "But this isn\u0027t correct. Why can\u0027t we fix this to be the correct path? \nDoesn\u0027t https://gerrit.openbmc.org/c/openbmc/peci-pcie/+/62100/4/include/peci_pcie.hpp also fix this?",
+      "revId": "818bd9c966dabed9d71c8d5a21033de082c947c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaddcd43_0544ba88",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T20:51:41Z",
+      "side": 1,
+      "message": "It does seem odd / error prone that https://github.com/openbmc/bmcweb/blob/3ccb3adb9a14783f6bef601506de9f8bcae22d51/redfish-core/include/utils/collection.hpp#L38 searches by default at \"/xyz/openbmc_project/inventory\", I guess most of the collections are inventory but I can think of several that aren\u0027t",
+      "revId": "818bd9c966dabed9d71c8d5a21033de082c947c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
