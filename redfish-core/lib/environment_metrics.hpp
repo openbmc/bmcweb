@@ -5,6 +5,8 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <memory>
 #include <optional>
 #include <string>
@@ -64,8 +66,8 @@ inline void handleEnvironmentMetricsGet(
             "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
         asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
         asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Chassis", chassisId, "EnvironmentMetrics");
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);
     };
 
     redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,

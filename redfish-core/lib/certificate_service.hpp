@@ -12,6 +12,7 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/system/linux_error.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -247,21 +248,20 @@ static void
             boost::urls::url certURL;
             if (objPath.parent_path() == certs::httpsObjectPath)
             {
-                certURL = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Managers", "bmc", "NetworkProtocol",
-                    "HTTPS", "Certificates", certId);
+                certURL = boost::urls::format(
+                    "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{}",
+                    certId);
             }
             else if (objPath.parent_path() == certs::ldapObjectPath)
             {
-                certURL = crow::utility::urlFromPieces("redfish", "v1",
-                                                       "AccountService", "LDAP",
-                                                       "Certificates", certId);
+                certURL = boost::urls::format(
+                    "/redfish/v1/AccountService/LDAP/Certificates/{}", certId);
             }
             else if (objPath.parent_path() == certs::authorityObjectPath)
             {
-                certURL = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Managers", "bmc", "Truststore",
-                    "Certificates", certId);
+                certURL = boost::urls::format(
+                    "/redfish/v1/Managers/bmc/Truststore/Certificates/{}",
+                    certId);
             }
             else
             {
@@ -932,9 +932,9 @@ inline void handleHTTPSCertificateCollectionPost(
 
         sdbusplus::message::object_path path(objectPath);
         std::string certId = path.filename();
-        const boost::urls::url certURL = crow::utility::urlFromPieces(
-            "redfish", "v1", "Managers", "bmc", "NetworkProtocol", "HTTPS",
-            "Certificates", certId);
+        const boost::urls::url certURL = boost::urls::format(
+            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{}",
+            certId);
         getCertificateProperties(asyncResp, objectPath, certs::httpsServiceName,
                                  certId, certURL, "HTTPS Certificate");
         BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
@@ -954,9 +954,8 @@ inline void handleHTTPSCertificateGet(
     }
 
     BMCWEB_LOG_DEBUG << "HTTPS Certificate ID=" << id;
-    const boost::urls::url certURL = crow::utility::urlFromPieces(
-        "redfish", "v1", "Managers", "bmc", "NetworkProtocol", "HTTPS",
-        "Certificates", id);
+    const boost::urls::url certURL = boost::urls::format(
+        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{}", id);
     std::string objPath =
         sdbusplus::message::object_path(certs::httpsObjectPath) / id;
     getCertificateProperties(asyncResp, objPath, certs::httpsServiceName, id,
@@ -1039,8 +1038,8 @@ inline void handleLDAPCertificateCollectionPost(
 
         sdbusplus::message::object_path path(objectPath);
         std::string certId = path.filename();
-        const boost::urls::url certURL = crow::utility::urlFromPieces(
-            "redfish", "v1", "AccountService", "LDAP", "Certificates", certId);
+        const boost::urls::url certURL = boost::urls::format(
+            "/redfish/v1/AccountService/LDAP/Certificates/{}", certId);
         getCertificateProperties(asyncResp, objectPath, certs::ldapServiceName,
                                  certId, certURL, "LDAP Certificate");
         BMCWEB_LOG_DEBUG << "LDAP certificate install file="
@@ -1060,8 +1059,8 @@ inline void handleLDAPCertificateGet(
     }
 
     BMCWEB_LOG_DEBUG << "LDAP Certificate ID=" << id;
-    const boost::urls::url certURL = crow::utility::urlFromPieces(
-        "redfish", "v1", "AccountService", "LDAP", "Certificates", id);
+    const boost::urls::url certURL = boost::urls::format(
+        "/redfish/v1/AccountService/LDAP/Certificates/{}", id);
     std::string objPath =
         sdbusplus::message::object_path(certs::ldapObjectPath) / id;
     getCertificateProperties(asyncResp, objPath, certs::ldapServiceName, id,
@@ -1160,9 +1159,8 @@ inline void handleTrustStoreCertificateCollectionPost(
 
         sdbusplus::message::object_path path(objectPath);
         std::string certId = path.filename();
-        const boost::urls::url certURL =
-            crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
-                                         "Truststore", "Certificates", certId);
+        const boost::urls::url certURL = boost::urls::format(
+            "/redfish/v1/Managers/bmc/Truststore/Certificates/{}", certId);
         getCertificateProperties(asyncResp, objectPath,
                                  certs::authorityServiceName, certId, certURL,
                                  "TrustStore Certificate");
@@ -1183,8 +1181,8 @@ inline void handleTrustStoreCertificateGet(
     }
 
     BMCWEB_LOG_DEBUG << "Truststore Certificate ID=" << id;
-    const boost::urls::url certURL = crow::utility::urlFromPieces(
-        "redfish", "v1", "Managers", "bmc", "Truststore", "Certificates", id);
+    const boost::urls::url certURL = boost::urls::format(
+        "/redfish/v1/Managers/bmc/Truststore/Certificates/{}", id);
     std::string objPath =
         sdbusplus::message::object_path(certs::authorityObjectPath) / id;
     getCertificateProperties(asyncResp, objPath, certs::authorityServiceName,
