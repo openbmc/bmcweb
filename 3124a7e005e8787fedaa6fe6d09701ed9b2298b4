@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b516594d_cca66c8f",
+        "filename": "Redfish.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T16:48:17Z",
+      "side": 1,
+      "message": "- Members\n- Members@odata.count \n\nLike other collections?",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
