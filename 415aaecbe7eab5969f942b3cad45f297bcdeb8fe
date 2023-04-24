@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdf8a4ae_5aa865fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T19:05:23Z",
+      "side": 1,
+      "message": "No, This was a old behavior too.",
+      "parentUuid": "0d2eaaa8_a7467a31",
+      "range": {
+        "startLine": 34,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e8278f5_75fb49e5",
@@ -168,6 +192,24 @@
       "side": 1,
       "message": "Maybe just add that bullet to your tested statement?\n- HostConsole is in AccountType when hostconsole group is present in UserGroups  D-Bus property",
       "parentUuid": "ca7e9d0a_77fdc44c",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "550c5c70_cf0bd109",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T19:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "287e20a8_a76870c6",
       "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
