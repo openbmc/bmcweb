@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b72ae09_59461291",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T17:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "241513e9_9372c9f5",
+      "range": {
+        "startLine": 26,
+        "startChar": 63,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42f9f2cb_c7135d83",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "183b2b8f_d7159b33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T17:35:46Z",
+      "side": 1,
+      "message": "yes, Even readonly user get the permissions. \n\n```+ curl -k -X POST https://${bmc}/redfish/v1/AccountService/Accounts -d \u0027{\"UserName\": \"user99\", \"Password\": \"0penBmc0\", \"RoleId\": \"Administrator\"}\u0027\n\n+ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n                    |\n                    |\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"user99\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Administrator\"\n    }\n  },\n\ncurl -k -X POST https://${bmc}/redfish/v1/AccountService/Accounts -d \u0027{\"UserName\": \"user99\", \"Password\": \"0penBmc0\", \"RoleId\": \"ReadOnly\"}\u0027\n\n+ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{ \n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n                    |\n                    |\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"RoleId\": \"ReadOnly\",\n  \"UserName\": \"user99\"\n\n\n+ curl -k -X POST https://${bmc}/redfish/v1/AccountService/Accounts -d \u0027{\"UserName\": \"user99\", \"Password\": \"0penBmc0\", \"RoleId\": \"Operator\"\n\n+ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n                    |\n                    |\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"RoleId\": \"Operator\",\n  \"UserName\": \"user99\"\n```",
+      "parentUuid": "42f9f2cb_c7135d83",
+      "range": {
+        "startLine": 34,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e8278f5_75fb49e5",
@@ -60,6 +108,24 @@
       "writtenOn": "2023-04-24T15:58:07Z",
       "side": 1,
       "message": "And I assume the AccountTypes property looks good too? E.g. there when you expect \"hostconsole\" and not when you don\u0027t",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7e9d0a_77fdc44c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T17:35:46Z",
+      "side": 1,
+      "message": "yes, Please check the below data.\n\n```# The user99 is a member of hostconsole user group\n$ busctl get-property xyz.openbmc_project.User.Manager /xyz/openbmc_project/user/user99 xyz.openbmc_project.User.Attributes UserGroups\nas 5 \"hostconsole\" \"ipmi\" \"redfish\" \"ssh\" \"web\"\n\n# AccountType contains HostConsole\n$ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n\n# Removed the user from hostconsole group.\n$ busctl set-property xyz.openbmc_project.User.Manager /xyz/openbmc_project/user/user99 xyz.openbmc_project.User.Attributes UserGroups as 3 \"redfish\" \"ssh\" \"web\"\n\n# User is updated\n$ busctl get-property xyz.openbmc_project.User.Manager /xyz/openbmc_project/user/user99 xyz.openbmc_project.User.Attributes UserGroups\nas 3 \"redfish\" \"ssh\" \"web\"\n\n# AccountType does not contain HostConsole\n$ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n```",
+      "parentUuid": "8e8278f5_75fb49e5",
       "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -116,6 +182,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a15e09_357ada00",
+        "filename": "Redfish.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T17:35:46Z",
+      "side": 1,
+      "message": "yes, It doesn\u0027t show up in the Roles resource. I have updated the privileges.hpp and removed this.",
+      "parentUuid": "2cc830d5_ae53aef9",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0254ef60_a75220bf",
@@ -133,6 +217,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03feecf_f0efca80",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T17:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0254ef60_a75220bf",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ff16ad_4c2e6688",
@@ -146,6 +248,30 @@
       "writtenOn": "2023-04-24T15:48:45Z",
       "side": 1,
       "message": "not just ssh but also access via websocket correct? Can you update?",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a9db70a_3eace792",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T17:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ff16ad_4c2e6688",
       "range": {
         "startLine": 142,
         "startChar": 50,
