@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc4dba4_393c2cf9",
+        "filename": "Redfish.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:40:44Z",
+      "side": 1,
+      "message": "Not sure why this is needed? \nA OemOpenBMCHostConsole doesn\u0027t show up in the Role resource correct?\n\nOpenBMCHostConsole is tried to Redfish\u0027s \"hostconsole\" AccountTypes. \nThis Redfish.md feels like a client document and this OpenBMCHostConsole is an internal detail, not exposed to the user other than AccountTypes (on line 105 already)",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
