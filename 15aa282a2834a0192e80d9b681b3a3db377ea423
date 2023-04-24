@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cda1ce19_05164140",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T17:32:59Z",
+      "side": 1,
+      "message": "Sorry, I haven\u0027t mentioned.\n\nI made the change to detect the the existence of Ports.\nThe new update should show it only when Ports exists.",
+      "parentUuid": "84ee9e8a_23a7fc13",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 75
+      },
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bf6312b_fbe9d9da",

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3d847fa_9866af9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T17:32:59Z",
+      "side": 1,
+      "message": "Right, I\u0027ve tested with combined ones - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61374\n\nI\u0027ll restate the commit message.",
+      "parentUuid": "378e682e_b28ba355",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b516594d_cca66c8f",
         "filename": "Redfish.md",
         "patchSetId": 17
