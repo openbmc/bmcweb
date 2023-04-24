@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84ee9e8a_23a7fc13",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T16:46:26Z",
+      "side": 1,
+      "message": "Showing an empty Members array / a Members@odata.count of 0 is what we do other places. There was a email on the list about this (\"Re: [Help Required]Unsupported routes and properties present on Redfish Interface\") but haven\u0027t seen any more discussion after I replied to the initial email. Until/If we change direction, I feel the current patch is reasonable in this regard.",
+      "parentUuid": "41be70f6_77fa69b5",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 75
+      },
+      "revId": "15aa282a2834a0192e80d9b681b3a3db377ea423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bf6312b_fbe9d9da",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 8
