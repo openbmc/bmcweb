@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a9f0b8_d7f4713c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T16:59:45Z",
+      "side": 1,
+      "message": "What backend will use this?",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bf15e612_8cb6da5e",
@@ -14,6 +31,23 @@
       "writtenOn": "2023-04-24T03:41:50Z",
       "side": 1,
       "message": "Hi Gunnar, Thank for your comments. I updated this commit, please help me check again.",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b34cd6_fdbb3bfc",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T16:59:45Z",
+      "side": 1,
+      "message": "Haven\u0027t we been bumping this when adding new errors. I think we need to here as well.",
       "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
