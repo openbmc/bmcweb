@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d181d75f_1251a9bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-24T15:25:17Z",
+      "side": 1,
+      "message": "1. Privilege name is \"OpenBMCHostConsole\".\n2. Changed the routing code to use new privilege.\n3. It was decided that this privilege should not be seen on redfish roles collection.\n4. Changed BMCWEB_ROUTE for obmc console to check only new privilege.\n5. There is no impact for the user as new group is created and all priv-admin users are added in this new group.",
+      "parentUuid": "87b4ebce_6cf19889",
+      "revId": "02f2b05633f90256d36d45af8edda0f8b8b391cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "51a8e88e_8f827f73",
         "filename": "http/routing.hpp",
         "patchSetId": 12
