@@ -32,6 +32,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -3118,8 +3119,8 @@ inline void requestRoutesSystems(App& app)
                             const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
             nlohmann::json::array_t chassisArray;
             nlohmann::json& chassis = chassisArray.emplace_back();
-            chassis["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Chassis", chassisId);
+            chassis["@odata.id"] = boost::urls::format("/redfish/v1/Chassis/{}",
+                                                       chassisId);
             aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
         });
 

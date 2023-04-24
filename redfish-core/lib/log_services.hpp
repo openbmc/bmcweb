@@ -42,6 +42,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -1339,9 +1340,9 @@ static LogParseError
 
     // Fill in the log entry with the gathered data
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-    logEntryJson["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Systems", "system", "LogServices", "EventLog",
-        "Entries", logEntryID);
+    logEntryJson["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}",
+        logEntryID);
     logEntryJson["Name"] = "System Event Log Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
@@ -1674,9 +1675,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 entriesArray.push_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
                 thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-                thisEntry["@odata.id"] = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Systems", "system", "LogServices",
-                    "EventLog", "Entries", std::to_string(*id));
+                thisEntry["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}",
+                    std::to_string(*id));
                 thisEntry["Name"] = "System Event Log Entry";
                 thisEntry["Id"] = std::to_string(*id);
                 thisEntry["Message"] = *message;
@@ -1794,10 +1795,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntry.v1_9_0.LogEntry";
-            asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces(
-                    "redfish", "v1", "Systems", "system", "LogServices",
-                    "EventLog", "Entries", std::to_string(*id));
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}",
+                std::to_string(*id));
             asyncResp->res.jsonValue["Name"] = "System Event Log Entry";
             asyncResp->res.jsonValue["Id"] = std::to_string(*id);
             asyncResp->res.jsonValue["Message"] = *message;
@@ -2093,9 +2093,9 @@ inline void fillHostLoggerEntryJson(const std::string& logEntryID,
 {
     // Fill in the log entry with the gathered data.
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-    logEntryJson["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Systems", "system", "LogServices", "HostLogger",
-        "Entries", logEntryID);
+    logEntryJson["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/{}",
+        logEntryID);
     logEntryJson["Name"] = "Host Logger Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = msg;
@@ -2441,8 +2441,8 @@ static int
 
     // Fill in the log entry with the gathered data
     bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-    bmcJournalLogEntryJson["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Managers", "bmc", "LogServices", "Journal", "Entries",
+    bmcJournalLogEntryJson["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/{}",
         bmcJournalLogEntryID);
     bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Id"] = bmcJournalLogEntryID;
@@ -3062,8 +3062,7 @@ inline void requestRoutesCrashdumpService(App& app)
             redfishDateTimeOffset.second;
 
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
-            crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
-                                         "LogServices", "Crashdump", "Entries");
+            "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
         asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/LogService.ClearLog";
         asyncResp->res.jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
@@ -3147,9 +3146,9 @@ static void
             logID + "/" + filename;
         nlohmann::json::object_t logEntry;
         logEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-        logEntry["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "LogServices", "Crashdump",
-            "Entries", logID);
+        logEntry["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/{}",
+            logID);
         logEntry["Name"] = "CPU Crashdump";
         logEntry["Id"] = logID;
         logEntry["EntryType"] = "Oem";
@@ -3783,9 +3782,9 @@ static bool fillPostCodeEntry(
         // Format entry
         nlohmann::json::object_t bmcLogEntry;
         bmcLogEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-        bmcLogEntry["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "LogServices", "PostCodes",
-            "Entries", postcodeEntryID);
+        bmcLogEntry["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/{}",
+            postcodeEntryID);
         bmcLogEntry["Name"] = "POST Code Log Entry";
         bmcLogEntry["Id"] = postcodeEntryID;
         bmcLogEntry["Message"] = std::move(msg);
