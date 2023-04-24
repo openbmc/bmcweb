@@ -6,6 +6,7 @@
 // You may obtain a copy of the License at
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
+#include <boost/url/format.hpp>
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -53,8 +54,8 @@ inline void handleMessageRegistryFileCollectionGet(
          std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC"}))
     {
         nlohmann::json::object_t member;
-        member["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Registries", memberName);
+        member["@odata.id"] = boost::urls::format("/redfish/v1/Registries/{}",
+                                                  memberName);
         members.emplace_back(std::move(member));
     }
 }
@@ -111,7 +112,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
 
     asyncResp->res.jsonValue["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Registries", registry);
+        boost::urls::format("/redfish/v1/Registries/{}", registry);
     asyncResp->res.jsonValue["@odata.type"] =
         "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
     asyncResp->res.jsonValue["Name"] = registry + " Message Registry File";

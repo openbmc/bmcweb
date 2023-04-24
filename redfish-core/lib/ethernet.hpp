@@ -28,6 +28,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_set.hpp>
+#include <boost/url/format.hpp>
 
 #include <array>
 #include <optional>
@@ -1576,8 +1577,8 @@ inline void parseInterfaceData(
 
     nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
-    jsonResponse["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Managers", "bmc", "EthernetInterfaces", ifaceId);
+    jsonResponse["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/bmc/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
     auto health = std::make_shared<HealthPopulate>(asyncResp);
@@ -1638,9 +1639,8 @@ inline void parseInterfaceData(
         jsonResponse["FQDN"] = fqdn;
     }
 
-    jsonResponse["VLANs"]["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
-                                     "EthernetInterfaces", ifaceId, "VLANs");
+    jsonResponse["VLANs"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/bmc/EthernetInterfaces/{}/VLANs", ifaceId);
 
     jsonResponse["NameServers"] = ethData.nameServers;
     jsonResponse["StaticNameServers"] = ethData.staticNameServers;
@@ -1750,9 +1750,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 if (found == std::string::npos)
                 {
                     nlohmann::json::object_t iface;
-                    iface["@odata.id"] = crow::utility::urlFromPieces(
-                        "redfish", "v1", "Managers", "bmc",
-                        "EthernetInterfaces", ifaceItem);
+                    iface["@odata.id"] = boost::urls::format(
+                        "/redfish/v1/Managers/bmc/EthernetInterfaces/{}",
+                        ifaceItem);
                     ifaceArray.emplace_back(std::move(iface));
                 }
             }
@@ -1983,10 +1983,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
             if (success && ethData.vlanId)
             {
                 asyncResp->res.jsonValue["Id"] = ifaceId;
-                asyncResp->res.jsonValue["@odata.id"] =
-                    crow::utility::urlFromPieces(
-                        "redfish", "v1", "Managers", "bmc",
-                        "EthernetInterfaces", parentIfaceId, "VLANs", ifaceId);
+                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Managers/bmc/EthernetInterfaces/{}/VLANs/{}",
+                    parentIfaceId, ifaceId);
 
                 asyncResp->res.jsonValue["VLANEnable"] = ethData.nicEnabled;
                 asyncResp->res.jsonValue["VLANId"] = *ethData.vlanId;
@@ -2172,20 +2171,26 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 if (ifaceItem.starts_with(rootInterfaceName + "_"))
                 {
                     nlohmann::json::object_t iface;
+<<<<<<< HEAD
                     iface["@odata.id"] = crow::utility::urlFromPieces(
                         "redfish", "v1", "Managers", "bmc",
                         "EthernetInterfaces", rootInterfaceName, "VLANs",
                         ifaceItem);
                     ifaceArray.emplace_back(std::move(iface));
+=======
+                    iface["@odata.id"] = boost::urls::format(
+                        "/redfish/v1/Managers/bmc/EthernetInterfaces/{}/VLANs/{}",
+                        rootInterfaceName, ifaceItem);
+                    ifaceArray.push_back(std::move(iface));
+>>>>>>> 3e0dc19c (Boost::urls::format)
                 }
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
             asyncResp->res.jsonValue["Members"] = std::move(ifaceArray);
-            asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
-                                             "EthernetInterfaces",
-                                             rootInterfaceName, "VLANs");
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Managers/bmc/EthernetInterfaces/{}/VLANs",
+                rootInterfaceName);
         });
         });
 

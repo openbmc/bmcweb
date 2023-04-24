@@ -6,6 +6,7 @@
 // You may obtain a copy of the License at
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
+#include <boost/url/format.hpp>
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -754,8 +755,8 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         }
         // Set @odata only if object is found
         aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "Memory", dimmId);
+        aResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/system/Memory/{}", dimmId);
         return;
         });
 }
