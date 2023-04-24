@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "241513e9_9372c9f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:58:07Z",
+      "side": 1,
+      "message": "instead",
+      "range": {
+        "startLine": 26,
+        "startChar": 63,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42f9f2cb_c7135d83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:58:07Z",
+      "side": 1,
+      "message": "Is this what the old behavior was? All groups are assigned to all new users? \nI thought ssh was only assigned to Operator/Admin. I know that is controlled by https://github.com/openbmc/phosphor-user-manager, just wondering if ReadOnly user gained permission",
+      "range": {
+        "startLine": 34,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8278f5_75fb49e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:58:07Z",
+      "side": 1,
+      "message": "And I assume the AccountTypes property looks good too? E.g. there when you expect \"hostconsole\" and not when you don\u0027t",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcc4dba4_393c2cf9",
         "filename": "Redfish.md",
         "patchSetId": 20
