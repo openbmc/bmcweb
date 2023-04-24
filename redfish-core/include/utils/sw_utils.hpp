@@ -7,6 +7,7 @@
 #include "utils/dbus_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -207,10 +208,9 @@ inline void
                         if (runningImage)
                         {
                             nlohmann::json::object_t runningMember;
-                            runningMember["@odata.id"] =
-                                crow::utility::urlFromPieces(
-                                    "redfish", "v1", "UpdateService",
-                                    "FirmwareInventory", swId);
+                            runningMember["@odata.id"] = boost::urls::format(
+                                "/redfish/v1/UpdateService/FirmwareInventory/{}",
+                                swId);
                             // Create the link to the running image
                             aResp->res
                                 .jsonValue["Links"]["ActiveSoftwareImage"] =

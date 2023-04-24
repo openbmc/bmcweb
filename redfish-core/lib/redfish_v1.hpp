@@ -9,6 +9,8 @@
 #include "schemas.hpp"
 #include "utility.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <string>
 
 namespace redfish

@@ -20,6 +20,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 #include <variant>
@@ -93,8 +94,8 @@ inline void requestRoutesRoles(App& app)
         asyncResp->res.jsonValue["IsPredefined"] = true;
         asyncResp->res.jsonValue["Id"] = roleId;
         asyncResp->res.jsonValue["RoleId"] = roleId;
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "AccountService", "Roles", roleId);
+        asyncResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/AccountService/Roles/{}", roleId);
         asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
         });
 }

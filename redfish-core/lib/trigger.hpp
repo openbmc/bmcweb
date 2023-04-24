@@ -8,6 +8,7 @@
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -282,8 +283,8 @@ inline bool fillTrigger(
     }
 
     json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
-    json["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "TelemetryService", "Triggers", id);
+    json["@odata.id"] =
+        boost::urls::format("/redfish/v1/TelemetryService/Triggers/{}", id);
     json["Id"] = id;
 
     return true;
