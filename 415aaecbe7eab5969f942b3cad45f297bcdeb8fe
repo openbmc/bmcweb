@@ -64,6 +64,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfdfd8da_6ceff01a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-24T16:26:26Z",
+      "side": 1,
+      "message": "In terms of coding (besides the architecture of AccountTypes), it looks good to me.",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcc4dba4_393c2cf9",
