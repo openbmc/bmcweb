@@ -11,6 +11,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -212,8 +213,8 @@ inline void
 
     asyncResp->res.jsonValue["@odata.type"] = "#PCIeSlots.v1_4_1.PCIeSlots";
     asyncResp->res.jsonValue["Name"] = "PCIe Slot Information";
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Chassis", chassisID, "PCIeSlots");
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisID);
     asyncResp->res.jsonValue["Id"] = "1";
     asyncResp->res.jsonValue["Slots"] = nlohmann::json::array();
 
