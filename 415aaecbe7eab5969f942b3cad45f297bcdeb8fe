@@ -16,6 +16,64 @@
       "message": "Not sure why this is needed? \nA OemOpenBMCHostConsole doesn\u0027t show up in the Role resource correct?\n\nOpenBMCHostConsole is tried to Redfish\u0027s \"hostconsole\" AccountTypes. \nThis Redfish.md feels like a client document and this OpenBMCHostConsole is an internal detail, not exposed to the user other than AccountTypes (on line 105 already)",
       "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cc830d5_ae53aef9",
+        "filename": "Redfish.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:48:45Z",
+      "side": 1,
+      "message": "I think adding OpenBMCHostConsole to OemPrivileges isn\u0027t needed because we already have a knob to control this ( Redfish\u0027s \"hostconsole\" AccountTypes ). \nI don\u0027t see another place we document the privileges, maybe just add a comment in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61580/20/redfish-core/include/privileges.hpp and remove this",
+      "parentUuid": "bcc4dba4_393c2cf9",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0254ef60_a75220bf",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:48:45Z",
+      "side": 1,
+      "message": "Maybe this is where you could document the OpenBMCHostConsole \nE.g. take that bullet from Redfish.md and add here \n  - The privilege \"OpenBMCHostConsole\" is added to users who are members of the\n    \"hostconsole\" user group. This privilege is required to access the host\n    console.",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ff16ad_4c2e6688",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T15:48:45Z",
+      "side": 1,
+      "message": "not just ssh but also access via websocket correct? Can you update?",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
