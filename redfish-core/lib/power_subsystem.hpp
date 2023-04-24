@@ -6,6 +6,8 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <memory>
 #include <optional>
 #include <string>
@@ -31,13 +33,13 @@ inline void doPowerSubsystemCollection(
         "#PowerSubsystem.v1_1_0.PowerSubsystem";
     asyncResp->res.jsonValue["Name"] = "Power Subsystem";
     asyncResp->res.jsonValue["Id"] = "PowerSubsystem";
-    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Chassis", chassisId, "PowerSubsystem");
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/PowerSubsystem", chassisId);
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";
     asyncResp->res.jsonValue["PowerSupplies"]["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
-                                     "PowerSubsystem", "PowerSupplies");
+        boost::urls::format(
+            "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);
 }
 
 inline void handlePowerSubsystemCollectionHead(

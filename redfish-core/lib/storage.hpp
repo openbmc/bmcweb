@@ -26,6 +26,7 @@
 #include "utils/dbus_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -102,8 +103,8 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
 
             nlohmann::json::object_t driveJson;
-            driveJson["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "Storage", "1", "Drives",
+            driveJson["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Storage/1/Drives/{}",
                 object.filename());
             driveArray.emplace_back(std::move(driveJson));
         }
@@ -157,11 +158,9 @@ inline void
 
             storageController["@odata.type"] =
                 "#Storage.v1_7_0.StorageController";
-            storageController["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "Storage", "1")
-                    .set_fragment(("/StorageControllers"_json_pointer / index)
-                                      .to_string());
+            storageController["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Storage/1#{}",
+                ("/StorageControllers"_json_pointer / index).to_string());
             storageController["Name"] = id;
             storageController["MemberId"] = id;
             storageController["Status"]["State"] = "Enabled";
@@ -608,10 +607,8 @@ inline void requestRoutesDrive(App& app)
                 drive->second;
 
             asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
-            asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "Storage", "1", "Drives",
-                                             driveId);
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Storage/1/Drives/{}", driveId);
             asyncResp->res.jsonValue["Name"] = driveId;
             asyncResp->res.jsonValue["Id"] = driveId;
 
@@ -624,11 +621,11 @@ inline void requestRoutesDrive(App& app)
             }
 
             getMainChassisId(
-                asyncResp, [](const std::string& chassisId,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-                        crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                     chassisId);
+                asyncResp,
+                [](const std::string& chassisId,
+                   const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
                 });
 
             // default it to Enabled
@@ -697,8 +694,7 @@ inline void chassisDriveCollectionGet(
             asyncResp->res.jsonValue["@odata.type"] =
                 "#DriveCollection.DriveCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                             chassisId, "Drives");
+                boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId);
             asyncResp->res.jsonValue["Name"] = "Drive Collection";
 
             // Association lambda
@@ -728,9 +724,9 @@ inline void chassisDriveCollectionGet(
                 for (const auto& leafName : leafNames)
                 {
                     nlohmann::json::object_t member;
-                    member["@odata.id"] = crow::utility::urlFromPieces(
-                        "redfish", "v1", "Chassis", chassisId, "Drives",
-                        leafName);
+                    member["@odata.id"] =
+                        boost::urls::format("/redfish/v1/Chassis/{}/Drives/{}",
+                                            chassisId, leafName);
                     members.emplace_back(std::move(member));
                     // navigation links will be registered in next patch set
                 }
@@ -777,8 +773,8 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             continue;
         }
 
-        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Chassis", chassisId, "Drives", driveName);
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/Drives/{}", chassisId, driveName);
 
         asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
         asyncResp->res.jsonValue["Name"] = driveName;
@@ -788,7 +784,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         nlohmann::json::object_t linkChassisNav;
         linkChassisNav["@odata.id"] =
-            crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId);
+            boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
         asyncResp->res.jsonValue["Links"]["Chassis"] = linkChassisNav;
 
         addAllDriveInfo(asyncResp, connectionNames[0].first, path,

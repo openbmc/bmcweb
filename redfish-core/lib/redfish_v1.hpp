@@ -9,6 +9,8 @@
 #include "schemas.hpp"
 #include "utility.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <string>
 
 namespace redfish
@@ -86,8 +88,8 @@ inline void
     for (std::string_view schema : schemas)
     {
         nlohmann::json::object_t member;
-        member["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "JsonSchemas", schema);
+        member["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
+                                                  schema);
         members.emplace_back(std::move(member));
     }
     json["Members"] = std::move(members);
@@ -110,8 +112,8 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
     }
 
     nlohmann::json& json = asyncResp->res.jsonValue;
-    json["@odata.id"] = crow::utility::urlFromPieces("redfish", "v1",
-                                                     "JsonSchemas", schema);
+    json["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
+                                            schema);
     json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
     json["Name"] = schema + " Schema File";
     json["Description"] = schema + " Schema File Location";
@@ -130,8 +132,8 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
     locationEntry["Language"] = "en";
     locationEntry["PublicationUri"] = "http://redfish.dmtf.org/schemas/v1/" +
                                       schema + ".json";
-    locationEntry["Uri"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "JsonSchemas", schema, std::string(schema) + ".json");
+    locationEntry["Uri"] = boost::urls::format(
+        "/redfish/v1/JsonSchemas/{}/{}", schema, std::string(schema) + ".json");
 
     locationArray.emplace_back(locationEntry);
 
