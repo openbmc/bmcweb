@@ -9,6 +9,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -184,8 +185,8 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     aResp->res.jsonValue["@odata.type"] = "#FabricAdapter.v1_4_0.FabricAdapter";
     aResp->res.jsonValue["Name"] = "Fabric Adapter";
     aResp->res.jsonValue["Id"] = adapterId;
-    aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Systems", systemName, "FabricAdapters", adapterId);
+    aResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/FabricAdapters/{}", systemName, adapterId);
 
     aResp->res.jsonValue["Status"]["State"] = "Enabled";
     aResp->res.jsonValue["Status"]["Health"] = "OK";
@@ -283,8 +284,8 @@ inline void handleFabricAdapterCollectionGet(
     aResp->res.jsonValue["@odata.type"] =
         "#FabricAdapterCollection.FabricAdapterCollection";
     aResp->res.jsonValue["Name"] = "Fabric Adapter Collection";
-    aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-        "redfish", "v1", "Systems", systemName, "FabricAdapters");
+    aResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/FabricAdapters", systemName);
 
     constexpr std::array<std::string_view, 1> interfaces{
         "xyz.openbmc_project.Inventory.Item.FabricAdapter"};

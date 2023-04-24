@@ -24,6 +24,8 @@
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 
+#include <boost/url/format.hpp>
+
 #include <array>
 
 namespace redfish
@@ -53,8 +55,8 @@ inline void handleMessageRegistryFileCollectionGet(
          std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC"}))
     {
         nlohmann::json::object_t member;
-        member["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Registries", memberName);
+        member["@odata.id"] = boost::urls::format("/redfish/v1/Registries/{}",
+                                                  memberName);
         members.emplace_back(std::move(member));
     }
 }
@@ -111,7 +113,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
 
     asyncResp->res.jsonValue["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Registries", registry);
+        boost::urls::format("/redfish/v1/Registries/{}", registry);
     asyncResp->res.jsonValue["@odata.type"] =
         "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
     asyncResp->res.jsonValue["Name"] = registry + " Message Registry File";

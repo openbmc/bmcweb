@@ -26,6 +26,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -754,8 +755,8 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         }
         // Set @odata only if object is found
         aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Systems", "system", "Memory", dimmId);
+        aResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/system/Memory/{}", dimmId);
         return;
         });
 }
