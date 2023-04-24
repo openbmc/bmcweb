@@ -93,6 +93,30 @@
       },
       "revId": "fa345b05637d741a06abb47c12a9ec01519d7733",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598274a5_0802e654",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-04-24T16:44:13Z",
+      "side": 1,
+      "message": "After any asynchronous operation you\u0027ll need to recheck the pointer is still valid before dereferencing it at all (including `conn.req`). In fact, you\u0027ll need to add a check before the first BMCWEB_LOG_DEBUG in this function which also dereferences `conn`.",
+      "parentUuid": "1237f973_071a904c",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 16
+      },
+      "revId": "fa345b05637d741a06abb47c12a9ec01519d7733",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
