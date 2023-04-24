@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "378e682e_b28ba355",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T16:55:20Z",
+      "side": 1,
+      "message": "How does the validator pass if we put the Port out as a link without a implementation \n\n        item[\"@odata.id\"] \u003d crow::utility::urlFromPieces(\n            \"redfish\", \"v1\", \"Systems\", systemName, \"FabricAdapters\", adapterId,\n            \"Ports\", connectorId);\n\nThis code puts out the link, but the commit above has the ROUTE\n\n    BMCWEB_ROUTE(app,\n                 \"/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\u003cstr\u003e/Ports/\u003cstr\u003e/\")\n        .privileges(redfish::privileges::getPort)\n\nThese have to merge together I assume? Can you state that ?",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b516594d_cca66c8f",
         "filename": "Redfish.md",
         "patchSetId": 17
@@ -31,6 +48,29 @@
       "writtenOn": "2023-04-24T16:48:17Z",
       "side": 1,
       "message": "- Members\n- Members@odata.count \n\nLike other collections?",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "255d9a1c_15732fea",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T16:55:20Z",
+      "side": 1,
+      "message": "why not portId?",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 32
+      },
       "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
