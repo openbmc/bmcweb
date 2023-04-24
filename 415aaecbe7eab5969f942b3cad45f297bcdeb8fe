@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d2eaaa8_a7467a31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T18:28:47Z",
+      "side": 1,
+      "message": "Was this the old behavior as well or did something change?",
+      "parentUuid": "183b2b8f_d7159b33",
+      "range": {
+        "startLine": 34,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e8278f5_75fb49e5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 20
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "yes, Please check the below data.\n\n```# The user99 is a member of hostconsole user group\n$ busctl get-property xyz.openbmc_project.User.Manager /xyz/openbmc_project/user/user99 xyz.openbmc_project.User.Attributes UserGroups\nas 5 \"hostconsole\" \"ipmi\" \"redfish\" \"ssh\" \"web\"\n\n# AccountType contains HostConsole\n$ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n\n# Removed the user from hostconsole group.\n$ busctl set-property xyz.openbmc_project.User.Manager /xyz/openbmc_project/user/user99 xyz.openbmc_project.User.Attributes UserGroups as 3 \"redfish\" \"ssh\" \"web\"\n\n# User is updated\n$ busctl get-property xyz.openbmc_project.User.Manager /xyz/openbmc_project/user/user99 xyz.openbmc_project.User.Attributes UserGroups\nas 3 \"redfish\" \"ssh\" \"web\"\n\n# AccountType does not contain HostConsole\n$ curl -k https://${bmc}/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n```",
       "parentUuid": "8e8278f5_75fb49e5",
+      "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "287e20a8_a76870c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-24T18:28:47Z",
+      "side": 1,
+      "message": "Maybe just add that bullet to your tested statement?\n- HostConsole is in AccountType when hostconsole group is present in UserGroups  D-Bus property",
+      "parentUuid": "ca7e9d0a_77fdc44c",
       "revId": "415aaecbe7eab5969f942b3cad45f297bcdeb8fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
