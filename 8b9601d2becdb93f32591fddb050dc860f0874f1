@@ -16,6 +16,23 @@
       "message": "My comments still stand but this is better than not having this.",
       "revId": "8b9601d2becdb93f32591fddb050dc860f0874f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "860be93c_b094049e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-25T16:14:04Z",
+      "side": 1,
+      "message": "I think this can go in, and lets track the \"lets use bmc-state-monitor\" instead as a different patch.  I would like to understand why I\u0027m not seeing UpdateInProgress, when it seems to be an important feature to folks.",
+      "revId": "8b9601d2becdb93f32591fddb050dc860f0874f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
