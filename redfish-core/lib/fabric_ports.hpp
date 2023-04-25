@@ -6,6 +6,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
@@ -14,10 +15,13 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <algorithm>
 #include <array>
@@ -36,10 +40,38 @@ static constexpr std::array<std::string_view, 1> fabricInterfaces{
 static constexpr std::array<std::string_view, 1> portInterfaces{
     "xyz.openbmc_project.Inventory.Connector.Port"};
 
+inline void afterGetFabricPortLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        value;
+}
+
+inline void getFabricPortLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath, const std::string& serviceName)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        std::bind_front(afterGetFabricPortLocation, asyncResp));
+}
+
 inline void getFabricPortProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId,
-    const std::string& portId, const std::string& portPath)
+    const std::string& portId, const std::string& portPath,
+    const std::string& serviceName)
 {
     if (portPath.empty())
     {
@@ -58,12 +90,14 @@ inline void getFabricPortProperties(
                             systemName, adapterId, portId);
     asyncResp->res.jsonValue["Id"] = portId;
     asyncResp->res.jsonValue["Name"] = "Fabric Port";
+    getFabricPortLocation(asyncResp, portPath, serviceName);
 }
 
 inline void afterGetValidFabricPortPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& portId,
-    std::function<void(const std::string&)>& callback,
+    std::function<void(const std::string& portPath,
+                       const std::string& portServiceName)>& callback,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& portSubTreePaths)
 {
@@ -76,7 +110,7 @@ inline void afterGetValidFabricPortPath(
             return;
         }
         // Port not found
-        callback(std::string());
+        callback(std::string(), std::string());
         return;
     }
     const auto& it =
@@ -87,7 +121,7 @@ inline void afterGetValidFabricPortPath(
     if (it == portSubTreePaths.end())
     {
         // Port not found
-        callback(std::string());
+        callback(std::string(), std::string());
         return;
     }
 
@@ -104,14 +138,15 @@ inline void afterGetValidFabricPortPath(
                 messages::internalError(asyncResp->res);
                 return;
             }
-            callback(portPath);
+            callback(portPath, object.begin()->first);
         });
 }
 
 inline void getValidFabricPortPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& adapterId, const std::string& portId,
-    std::function<void(const std::string&)>&& callback)
+    std::function<void(const std::string& portPath,
+                       const std::string& portServiceName)>&& callback)
 {
     dbus::utility::getAssociatedSubTreePathsById(
         adapterId, "/xyz/openbmc_project/inventory", fabricInterfaces,
@@ -146,7 +181,7 @@ inline void handleFabricPortHead(
 
     getValidFabricPortPath(
         asyncResp, adapterId, portId,
-        [asyncResp, portId](const std::string& portPath) {
+        [asyncResp, portId](const std::string& portPath, const std::string&) {
             if (portPath.empty())
             {
                 BMCWEB_LOG_WARNING("Port not found");
