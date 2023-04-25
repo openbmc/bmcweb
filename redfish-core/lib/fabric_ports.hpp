@@ -23,12 +23,39 @@
 
 namespace redfish
 {
+inline void afterGetFabricPortLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error ", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        value;
+}
 
 inline void
-    getFabricPortProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName,
-                            const std::string& adapterId,
-                            const std::string& portId)
+    getFabricPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& portPath,
+                          const std::string& serviceName)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        std::bind_front(afterGetFabricPortLocation, asyncResp));
+}
+
+inline void getFabricPortProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId,
+    const std::string& portId, const std::string& portPath,
+    const std::string& serviceName)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -40,6 +67,7 @@ inline void
                             systemName, adapterId, portId);
     asyncResp->res.jsonValue["Id"] = portId;
     asyncResp->res.jsonValue["Name"] = "Fabric Port";
+    getFabricPortLocation(asyncResp, portPath, serviceName);
 }
 
 inline void afterGetAssociatedFabricPortSubTree(
@@ -184,7 +212,8 @@ inline void
 inline void afterHandleFabricPortGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId,
-    const std::string& portId, const boost::system::error_code& ec)
+    const std::string& portId, const boost::system::error_code& ec,
+    const std::string& portPath, const std::string& portServiceName)
 {
     if (ec)
     {
@@ -198,7 +227,8 @@ inline void afterHandleFabricPortGet(
         messages::resourceNotFound(asyncResp->res, "Port", portId);
         return;
     }
-    getFabricPortProperties(asyncResp, systemName, adapterId, portId);
+    getFabricPortProperties(asyncResp, systemName, adapterId, portId, portPath,
+                            portServiceName);
 }
 
 inline void
@@ -225,12 +255,8 @@ inline void
         return;
     }
     getValidFabricPortPath(adapterId, portId,
-                           [asyncResp, systemName, adapterId,
-                            portId](const boost::system::error_code& ec,
-                                    const std::string& /*unused*/,
-                                    const std::string& /*unused*/) {
-        afterHandleFabricPortGet(asyncResp, systemName, adapterId, portId, ec);
-    });
+                           std::bind_front(afterHandleFabricPortGet, asyncResp,
+                                           systemName, adapterId, portId));
 }
 
 inline void afterHandleFarbicPortCollectionHead(
