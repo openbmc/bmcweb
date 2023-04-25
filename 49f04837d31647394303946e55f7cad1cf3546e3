@@ -70,6 +70,24 @@
       "parentUuid": "6cf6698d_94cdda42",
       "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685f1678_bda35153",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-25T16:20:17Z",
+      "side": 1,
+      "message": "\u003e I still feel it isn\u0027t ready based on my thinking of to be enabled by default in bmcweb the meson option should be a production-ready, flushed-out feature and this isn\u0027t quite yet there.\n\nBut it\u0027s still controlled by entity-manager configurations.  If you don\u0027t feel like its production ready, just don\u0027t enable it on your system?  Having two options that do the same thing makes features harder to maintain.\n\n\u003e The new powersubsystem/thermalsubsystem\n\nMy opinion differs here a little.  the new powersubsystem/thermalsubsystem isn\u0027t enabled by default because it arguably needs to be enabled while the power/thermal schemas are disabled, and so enabling it has user-facing impact of duplicating information in the Redfish tree.  It has nothing to do with whether it\u0027s fleshed out as a feature, and everything to do with it conflicting with other features.  If it didn\u0027t conflict, I would enable it by default as well.\n\n\u003e I feel this is still missing some important pieces like\n\nMy previous point still stands, if this is missing features, don\u0027t enable it in the systems EM config.\n\n\u003e  but would prefer another month\n\nWith all the above said, a month seems totally reasonable in terms of a timeframe.  One month it is.",
+      "parentUuid": "12ff6854_244eea31",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
