@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "79324220_3f8a1d87",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-25T18:36:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2692577b_8cdb2422",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 1
+      },
+      "revId": "ee7864a2115a77ecb5b572df0841ca145bcc9ce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "af9036a0_db61e753",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
