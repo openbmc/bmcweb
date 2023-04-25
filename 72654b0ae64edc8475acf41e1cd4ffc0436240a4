@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e8b4f23_625e314e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-25T02:21:17Z",
+      "side": 1,
+      "message": "In the https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Control/Power/Cap.interface.yaml#L72 interface, when the total power consumption exceeds the power limit then BMC shall log event to Redfish to notify that event for users (if the exception action is HardPowerOff or LogEventOnly).\n\nCurrently, I am trying to develop an application to handle this interface, this application shall use those registries.",
+      "parentUuid": "51a9f0b8_d7f4713c",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bf15e612_8cb6da5e",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-04-24T16:59:45Z",
       "side": 1,
       "message": "Haven\u0027t we been bumping this when adding new errors. I think we need to here as well.",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b3175df_4ec81657",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-25T02:21:17Z",
+      "side": 1,
+      "message": "Do you have any suggestions for new version? \n\nBut I think this change is unnecessary. Do we have to update this information?",
+      "parentUuid": "46b34cd6_fdbb3bfc",
       "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
