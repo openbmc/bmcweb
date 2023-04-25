@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efee6d93_a9ff0e68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-25T18:05:03Z",
+      "side": 1,
+      "message": "I think even 6 months and 4Q23 would be fine but I think this is fine.",
+      "revId": "ee7864a2115a77ecb5b572df0841ca145bcc9ce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc2b6b78_94182584",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-25T18:05:03Z",
+      "side": 1,
+      "message": "8 or 9 ifdefs :/ \nThey are only temporary and I don\u0027t have a better idea.",
+      "revId": "ee7864a2115a77ecb5b572df0841ca145bcc9ce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2692577b_8cdb2422",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-25T18:05:03Z",
+      "side": 1,
+      "message": "You could move this down and have 1 less ifdef",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 1
+      },
+      "revId": "ee7864a2115a77ecb5b572df0841ca145bcc9ce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af9036a0_db61e753",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-25T18:05:03Z",
+      "side": 1,
+      "message": "Needed because using this for the\n[\"ProcessorSummary\"][\"Count\"];\n\nAck.",
+      "revId": "ee7864a2115a77ecb5b572df0841ca145bcc9ce9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
