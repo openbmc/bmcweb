@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bc3b13e_1c392ce9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-25T16:26:35Z",
+      "side": 1,
+      "message": "I\u0027m not prepared to stand in the way on the below issue.  Please consider my discussion points, but I think this can merge.",
+      "revId": "08e70289f20f2feb8dc60dff2c283005654dbf24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

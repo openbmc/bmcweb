@@ -211,6 +211,30 @@
       },
       "revId": "e2524d69056e8e361967df8de09b35ef86580871",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae0a8815_a366c0dc",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-25T16:26:35Z",
+      "side": 1,
+      "message": "\u003e In case (I am not sure if such case exists or not) the json value contains a value (a string, number, boolean, etc), are we going to output empty body?\n\nYes, and this is fine.  We should never be returning a raw value as a json object.\n\n\u003e \n\u003e From my perspective, it may not be appropriate because http_xxx classes in bmcweb are meant to be an http server, and it should return whatever the handler returns.\n\nThey\u0027re meant to be a generic REST server, and there is no rest server I\u0027m aware of that return unstructured objects from APIs.  If there are examples of restful interfaces that return a raw value, I\u0027m happy to discuss.\n\n\u003e \n\u003e If a handler does want to return a simple json value, it\u0027s better for the http server to output the value, instead of an empty body.\n\nIf the handler wants to return a simple value (if it\u0027s a string, bool, ect) it\u0027s no longer really json, and should be arguably writing it to body directly.",
+      "parentUuid": "0fb1b66e_ac704e38",
+      "range": {
+        "startLine": 345,
+        "startChar": 49,
+        "endLine": 345,
+        "endChar": 56
+      },
+      "revId": "e2524d69056e8e361967df8de09b35ef86580871",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
