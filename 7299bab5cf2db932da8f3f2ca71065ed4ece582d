@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5adcb029_a6bd3542",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-25T02:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1789736e_3927885e",
+      "range": {
+        "startLine": 37,
+        "startChar": 28,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "7299bab5cf2db932da8f3f2ca71065ed4ece582d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d4c816e7_a5d84463",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 22
@@ -54,6 +78,24 @@
       "writtenOn": "2023-04-24T20:25:14Z",
       "side": 1,
       "message": "This is kind of messy.. I don\u0027t like this hasHostConsoleAccess / if (hasHostConsoleAccess) * 2 \n\nDoes something like below work?\n\n```\ninline Privileges getUserPrivileges(const persistent_data::UserSession\u0026 session)\n{\n    // default to noaccess \n    Privileges privs;\n    // Check if user is member of hostconsole group\n    for (const auto\u0026 userGroup : session.userGroups)\n    {\n        if (userGroup \u003d\u003d \"hostconsole\")\n        {\n            // Redfish privilege : host console access\n            privs.setSinglePrivilege(\"OpenBMCHostConsole\");  \n            break;\n        }\n    }\n    if (session.userRole \u003d\u003d \"priv-admin\")\n    {\n        // Redfish privilege : Administrator\n        privs.setSinglePrivilege(\"Login\");\n        privs.setSinglePrivilege(\"ConfigureManager\");\n        privs.setSinglePrivilege(\"ConfigureSelf\");\n        privs.setSinglePrivilege(\"ConfigureUsers\");\n        privs.setSinglePrivilege(\"ConfigureComponents\");\n    }\n    else if (session.userRole \u003d\u003d \"priv-operator\")\n    {\n        // Redfish privilege : Operator\n        privs.setSinglePrivilege(\"Login\");\n        privs.setSinglePrivilege(\"ConfigureSelf\");\n        privs.setSinglePrivilege(\"ConfigureComponents\");\n    }\n    else if (session.userRole \u003d\u003d \"priv-user\")\n    {\n        // Redfish privilege : Readonly\n        privs.setSinglePrivilege(\"Login\");\n        privs.setSinglePrivilege(\"ConfigureSelf\");\n    }\n\n    return privs;\n\n```\n\n\nOR  (but prefer the top) \n\n```\ninline Privileges getUserPrivileges(const persistent_data::UserSession\u0026 session)\n{\n    Privileges privs;\n    // Check if user is member of hostconsole group\n    for (const auto\u0026 userGroup : session.userGroups)\n    {\n        if (userGroup \u003d\u003d \"hostconsole\")\n        {\n            // Redfish privilege : host console access\n            privs.setSinglePrivilege(\"OpenBMCHostConsole\");  \n            break;\n        }\n    }\n    if (session.userRole \u003d\u003d \"priv-admin\")\n    {\n        // Redfish privilege : Administrator\n        privs.setSinglePrivilege(\"Login\");\n        privs.setSinglePrivilege(\"ConfigureManager\");\n        privs.setSinglePrivilege(\"ConfigureSelf\");\n        privs.setSinglePrivilege(\"ConfigureUsers\");\n        privs.setSinglePrivilege(\"ConfigureComponents\");\n    }\n    else if (session.userRole \u003d\u003d \"priv-operator\")\n    {\n        // Redfish privilege : Operator\n        privs.setSinglePrivilege(\"Login\");\n        privs.setSinglePrivilege(\"ConfigureSelf\");\n        privs.setSinglePrivilege(\"ConfigureComponents\");\n    }\n    else if (session.userRole \u003d\u003d \"priv-user\")\n    {\n        // Redfish privilege : Readonly\n        privs.setSinglePrivilege(\"Login\");\n        privs.setSinglePrivilege(\"ConfigureSelf\");\n    }\n    else\n    {\n           // Redfish privilege : NoAccess \n           static Privileges noaccess;\n           return noaccess;\n\n    }\n\n    return privs;\n\n\n\n```",
+      "revId": "7299bab5cf2db932da8f3f2ca71065ed4ece582d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a63740_dc83a2e9",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-25T02:13:45Z",
+      "side": 1,
+      "message": "Make sense. I was over thinking of the case where there are no roles but user is part of hostconsole group. I changed it to as per first suggestion.",
+      "parentUuid": "32054be5_7b3a5d34",
       "revId": "7299bab5cf2db932da8f3f2ca71065ed4ece582d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
