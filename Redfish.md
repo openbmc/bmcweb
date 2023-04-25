@@ -851,7 +851,7 @@ other.
 
 #### Port
 
-- no properties
+- Location
 
 ### /redfish/v1/Systems/system/LogServices/
 
