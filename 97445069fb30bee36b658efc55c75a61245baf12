@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0621770_f1319bae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-25T15:40:01Z",
+      "side": 1,
+      "message": "nit: A few lines in here exceed 72 char limit",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 10,
+        "endChar": 73
+      },
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2dc376b_a4dcbbff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-25T15:40:01Z",
+      "side": 1,
+      "message": "nit: \"with the\"",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba2f324_4eed3aa6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-25T15:40:01Z",
+      "side": 1,
+      "message": "Directly looking at the filesystem seems problematic if PDC were to change this some day. Why not use the mapper interface to find the dumps and read their Path property?\n\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/dump/bmc\" 0 1 xyz.openbmc_project.Dump.Entry.BMC\n\nand then read the file path\n\nbusctl get-property xyz.openbmc_project.Dump.Manager /xyz/openbmc_project/dump/bmc/entry/1 xyz.openbmc_project.Common.FilePath Path",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aecb6c5_11201598",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-25T15:40:01Z",
+      "side": 1,
+      "message": "After dealing with a few too many weird errors, I\u0027m always a fan of a \"BMCWEB_LOG_ERROR\" in these paths.",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f810c88_f508949e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-25T15:40:01Z",
+      "side": 1,
+      "message": "Out in meta-ibm, we have a 20MB max (https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/dump/phosphor-debug-collector_%25.bbappend#L13). Could we make this configurable via a meson config option?",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
