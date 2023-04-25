@@ -53,6 +53,56 @@ inline void getPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             value;
         });
 }
+
+inline void getPortState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                         const std::string& serviceName,
+                         const std::string& portPath)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [aResp](const boost::system::error_code ec, const bool present) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for State";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (!present)
+        {
+            aResp->res.jsonValue["Status"]["State"] = "Absent";
+        }
+        });
+}
+
+inline void getPortHealth(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          const std::string& serviceName,
+                          const std::string& portPath)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [aResp](const boost::system::error_code& ec, const bool functional) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Health";
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        if (!functional)
+        {
+            aResp->res.jsonValue["Status"]["Health"] = "Critical";
+        }
+        });
+}
 /**
  * @brief Api to get Port properties.
  * @param[in,out]   aResp       Async HTTP response.
@@ -78,7 +128,12 @@ inline void getPortProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     aResp->res.jsonValue["Id"] = portId;
     aResp->res.jsonValue["Name"] = portId;
 
+    aResp->res.jsonValue["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue["Status"]["Health"] = "OK";
+
     getPortLocation(aResp, serviceName, portPath);
+    getPortState(aResp, serviceName, portPath);
+    getPortHealth(aResp, serviceName, portPath);
 }
 
 inline void getValidPortPath(
