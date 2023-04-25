@@ -22,6 +22,30 @@
       },
       "revId": "ee4cca1d13cc6171302ccc351c0827cb66723467",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfce8a05_ac9c3052",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-25T12:48:45Z",
+      "side": 1,
+      "message": "By moving it to a more general utility file, it becomes more accessible and reusable. Originally, the function was in pcie.hpp because it was called by PCIeDeviceCollection and systems.hpp. However, since it is now only used by systems.hpp, I decided to move it to a utility function for better usability and to accommodate the possibility of adding more utility functions in the future. In downstream, we have few other utility functions that may need to add later. We are also adding more functions later when integrating PCIeSlot in PCIeDevice.",
+      "parentUuid": "b362c6a0_ff4b2464",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "ee4cca1d13cc6171302ccc351c0827cb66723467",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
