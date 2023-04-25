@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55988624_f4803b61",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-25T12:55:12Z",
+      "side": 1,
+      "message": "It looks like - previous code does not do this check.\nDoes it mean that the previous code also fails Validator?",
+      "parentUuid": "6922026f_eca87595",
+      "revId": "6fe9645e7b7c6ca8e76856a418073f01bb9cd8f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0380f850_0f4d81fc",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 18
