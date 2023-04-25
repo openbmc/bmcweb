@@ -28,12 +28,35 @@ inline bool checkPortId(const std::string& portPath, const std::string& portId)
     return !(portName.empty() || portName != portId);
 }
 
+inline void getPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& serviceName,
+                            const std::string& portPath)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error ", ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+            value;
+    });
+}
+
 inline void
     getPortProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& systemName,
                       const std::string& adapterId, const std::string& portId,
-                      const std::string& /*serviceName*/,
-                      const std::string& /*portPath*/)
+                      const std::string& serviceName,
+                      const std::string& portPath)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -45,6 +68,7 @@ inline void
                             systemName, adapterId, portId);
     asyncResp->res.jsonValue["Id"] = portId;
     asyncResp->res.jsonValue["Name"] = portId;
+    getPortLocation(asyncResp, serviceName, portPath);
 }
 
 inline void getValidPortPath(
