@@ -22,12 +22,40 @@
 namespace redfish
 {
 
+inline void
+    doGetFabricPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const boost::system::error_code& ec,
+                            const std::string& value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error ", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        value;
+}
+
+inline void
+    getFabricPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& portPath,
+                          const std::string& serviceName)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        std::bind_front(doGetFabricPortLocation, asyncResp));
+}
+
 inline void getFabricPortProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId,
-    const std::string& portId, const std::string& /*portPath*/,
-    const std::string& /*serviceName*/
-)
+    const std::string& portId, const std::string& portPath,
+    const std::string& serviceName)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -39,6 +67,7 @@ inline void getFabricPortProperties(
                             systemName, adapterId, portId);
     asyncResp->res.jsonValue["Id"] = portId;
     asyncResp->res.jsonValue["Name"] = portId;
+    getFabricPortLocation(asyncResp, portPath, serviceName);
 }
 
 inline void getFabricAssociatedPortSubTree(
