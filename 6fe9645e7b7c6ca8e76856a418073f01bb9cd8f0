@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71d34df1_b8b6b8f4",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T15:48:43Z",
+      "side": 1,
+      "message": "This is taking a string D-Bus property and putting out straight as a Redfish enum. :( \nCan you add a comment here for these?\n// TODO: FunctionType and DeviceClass are Redfish enums. The D-Bus property strings should be mapped correctly to ensure these strings are Redfish enum values. For now just check for empty.",
+      "parentUuid": "1c263ee7_67c2154c",
+      "revId": "6fe9645e7b7c6ca8e76856a418073f01bb9cd8f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0380f850_0f4d81fc",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 18
