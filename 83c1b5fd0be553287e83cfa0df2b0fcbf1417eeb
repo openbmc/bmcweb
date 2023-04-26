@@ -69,6 +69,24 @@
       "parentUuid": "ec0c6559_865107d4",
       "revId": "83c1b5fd0be553287e83cfa0df2b0fcbf1417eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e0d912_d510644d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T15:58:36Z",
+      "side": 1,
+      "message": "I see it now. There is no Location under the PCIe Device root, only under the slot complex. :/ \nhttps://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_11_0.json\n\nBe careful talking about downstream forks.\n\nWhy wouldn\u0027t we go to the Slot Inventory Item for this information, since it is on the slot complex? In the future, if someone needs the location information for the device, that could be added to Redfish and fetched like it is here. \n\nIt sounds like we don\u0027t need both (you mentioned they were the same) and only 1 is okay? Anyone else need both? I can open an issue with Redfish if so.",
+      "parentUuid": "5997b8f1_0b3c66c1",
+      "revId": "83c1b5fd0be553287e83cfa0df2b0fcbf1417eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
