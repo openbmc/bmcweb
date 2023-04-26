@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c94b20e_a51c869a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T15:41:01Z",
+      "side": 1,
+      "message": "Can we use an association?",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e64cf126_b53852a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T15:41:01Z",
+      "side": 1,
+      "message": "How did you test?",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4300bde3_ff9649f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T15:41:01Z",
+      "side": 1,
+      "message": "There was a note on the mailing list about  this, \"[Help Required]Unsupported routes and properties present on Redfish Interface\": \n\n\"\n\u003e *For problem #2*\n\n\u003e We have a use case where certain platform supports multiple redfish Chassis resource and only on few of redfish Chassis resource we want to populate Links.ComputerSystems . As per redfish schema Links.ComputerSystems is not mandatory property as for Chassis resource these are the only required fields which we are adhering to.\n\nYeah, I think we should use associations for Redfish Links. We have been documenting associations in PDI. I think that is a great place to start.\n\nE.g. https://github.com/openbmc/phosphor-dbus-interfaces/commit/36b527af49cf87d0bc7097ea6faba4904fbf8878\n\"\n\nI think we should use associations and start by documenting them in phosphor-dbus-interfaces. \nAlthough showing all the chassis is maybe more correct, as shown by the email we have implementations that want to be able to show chassis that belong to the system and that might not be all of the chassis. This also sets us up much better for multiple system support",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
