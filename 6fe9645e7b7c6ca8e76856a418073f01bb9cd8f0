@@ -108,6 +108,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f442fcaa_125400cf",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-26T20:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71d34df1_b8b6b8f4",
+      "revId": "6fe9645e7b7c6ca8e76856a418073f01bb9cd8f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0380f850_0f4d81fc",
@@ -139,6 +157,24 @@
       "side": 1,
       "message": "RedFish Validator without this check is failing  -\nFunctionType\t\tstring (enum)\tYes\tFAIL\nDeviceClass\t\tstring (enum)\tYes\tFAIL",
       "parentUuid": "0380f850_0f4d81fc",
+      "revId": "6fe9645e7b7c6ca8e76856a418073f01bb9cd8f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b17a1a_ca3b19f0",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-04-26T20:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18af6a2d_122ddc72",
       "revId": "6fe9645e7b7c6ca8e76856a418073f01bb9cd8f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
