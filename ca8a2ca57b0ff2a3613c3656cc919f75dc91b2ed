@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f266601_c2c3545a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T15:43:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5c695b7_ad4f390e",
+      "revId": "ca8a2ca57b0ff2a3613c3656cc919f75dc91b2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa3b171f_11fe76bc",
