@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ed760aa_343d76ef",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:22:28Z",
+      "side": 1,
+      "message": "shouldn\u0027t these be the same depth (this line and line 82)? Maybe 0 which is unlimited?",
+      "range": {
+        "startLine": 103,
+        "startChar": 23,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "df0cf00e653b5d49f95fd162cccb5c388f0617b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
