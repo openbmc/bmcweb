@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f32d82_ca0ce0a4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:33:59Z",
+      "side": 1,
+      "message": "empty seems like an internal error, unknown seems like something we should leave off. I.e. just check for Unknown",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 20
+      },
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "063e3751_add26c4b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:33:59Z",
+      "side": 1,
+      "message": "I am looking at \n\n                \"MediaType\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/MediaType\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\nI don\u0027t see Unknown as a valid type \n\n        \"MediaType\": {\n            \"enum\": [\n                \"HDD\",\n                \"SSD\",\n                \"SMR\"\n            ],",
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f162857f_db74062b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:33:59Z",
+      "side": 1,
+      "message": "empty seems like an internal error, unknown seems like something we should leave off. I.e. just check for Unknown",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 21
+      },
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f93e45_e73b0d75",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:33:59Z",
+      "side": 1,
+      "message": "Same here, I don\u0027t see Unknown in the list, this is going to fail the validator if Unknown\n\nhttp://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol\n\n            \"enum\": [\n                \"PCIe\",\n                \"AHCI\",\n                \"UHCI\",\n                \"SAS\",\n                \"SATA\",\n                \"USB\",\n                \"NVMe\",\n                \"FC\",\n                \"iSCSI\",\n                \"FCoE\",\n                \"FCP\",\n                \"FICON\",\n                \"NVMeOverFabrics\",\n                \"SMB\",\n                \"NFSv3\",\n                \"NFSv4\",\n                \"HTTP\",\n                \"HTTPS\",\n                \"FTP\",\n                \"SFTP\",\n                \"iWARP\",\n                \"RoCE\",\n                \"RoCEv2\",\n                \"I2C\",\n                \"TCP\",\n                \"UDP\",\n                \"TFTP\",\n                \"GenZ\",\n                \"MultiProtocol\",\n                \"InfiniBand\",\n                \"Ethernet\",\n                \"NVLink\",\n                \"OEM\",\n                \"DisplayPort\",\n                \"HDMI\",\n                \"VGA\",\n                \"DVI\",\n                \"CXL\"\n            ],\n            \"enumDescriptions\": {\n                \"AHCI\": \"Advanced Host Controller Interface (AHCI).\",\n                \"CXL\": \"Compute Express Link.\",\n                \"DVI\": \"DVI.\",\n                \"DisplayPort\": \"DisplayPort.\",\n                \"Ethernet\": \"Ethernet.\",\n                \"FC\": \"Fibre Channel.\",\n                \"FCP\": \"Fibre Channel Protocol for SCSI.\",\n                \"FCoE\": \"Fibre Channel over Ethernet (FCoE).\",\n                \"FICON\": \"FIbre CONnection (FICON).\",\n                \"FTP\": \"File Transfer Protocol (FTP).\",\n                \"GenZ\": \"GenZ.\",\n                \"HDMI\": \"HDMI.\",\n                \"HTTP\": \"Hypertext Transport Protocol (HTTP).\",\n                \"HTTPS\": \"Hypertext Transfer Protocol Secure (HTTPS).\",\n                \"I2C\": \"Inter-Integrated Circuit Bus.\",\n                \"InfiniBand\": \"InfiniBand.\",\n                \"MultiProtocol\": \"Multiple Protocols.\",\n                \"NFSv3\": \"Network File System (NFS) version 3.\",\n                \"NFSv4\": \"Network File System (NFS) version 4.\",\n                \"NVLink\": \"NVLink.\",\n                \"NVMe\": \"Non-Volatile Memory Express (NVMe).\",\n                \"NVMeOverFabrics\": \"NVMe over Fabrics.\",\n                \"OEM\": \"OEM-specific.\",\n                \"PCIe\": \"PCI Express.\",\n                \"RoCE\": \"RDMA over Converged Ethernet Protocol.\",\n                \"RoCEv2\": \"RDMA over Converged Ethernet Protocol Version 2.\",\n                \"SAS\": \"Serial Attached SCSI.\",\n                \"SATA\": \"Serial AT Attachment.\",\n                \"SFTP\": \"SSH File Transfer Protocol (SFTP).\",\n                \"SMB\": \"Server Message Block (SMB).  Also known as the Common Internet File System (CIFS).\",\n                \"TCP\": \"Transmission Control Protocol (TCP).\",\n                \"TFTP\": \"Trivial File Transfer Protocol (TFTP).\",\n                \"UDP\": \"User Datagram Protocol (UDP).\",\n                \"UHCI\": \"Universal Host Controller Interface (UHCI).\",\n                \"USB\": \"Universal Serial Bus (USB).\",\n                \"VGA\": \"VGA.\",\n                \"iSCSI\": \"Internet SCSI.\",\n                \"iWARP\": \"Internet Wide Area RDMA Protocol (iWARP).\"\n            },",
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3987c862_8d1b0f5a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:33:59Z",
+      "side": 1,
+      "message": "Check for unknown?",
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "913861c2_9a362569",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-04-26T20:33:59Z",
+      "side": 1,
+      "message": "Check for unknown?\n```\n// If the D-Bus property is unknown leave off.\nif (*proto !\u003d \"Unknown\")\n{\n       asyncResp-\u003eres.jsonValue[\"Protocol\"] \u003d *proto;      \n\n}\n```",
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
