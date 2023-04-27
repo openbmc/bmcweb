@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d20d2b51_e019ccdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-27T16:52:18Z",
+      "side": 1,
+      "message": "Oops can\u0027t believe I missed that",
+      "parentUuid": "f0621770_f1319bae",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 10,
+        "endChar": 73
+      },
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2dc376b_a4dcbbff",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-04-25T15:40:01Z",
       "side": 1,
       "message": "nit: \"with the\"",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09fb605_9df36f65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-27T16:52:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2dc376b_a4dcbbff",
       "revId": "97445069fb30bee36b658efc55c75a61245baf12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -78,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c29aaf1c_4df983cc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-27T16:52:18Z",
+      "side": 1,
+      "message": "My preference would have been to do something like that. As far as I can tell PDC does not implement the Path property so I thought hardcoding was my only option.\n\n```\nbusctl introspect xyz.openbmc_project.Dump.Manager /xyz/openbmc_project/dump/bmc/entry/2\nNAME                                    TYPE      SIGNATURE RESULT/VALUE                             FLAGS\norg.freedesktop.DBus.Introspectable     interface -         -                                        -\n.Introspect                             method    -         s                                        -\norg.freedesktop.DBus.Peer               interface -         -                                        -\n.GetMachineId                           method    -         s                                        -\n.Ping                                   method    -         -                                        -\norg.freedesktop.DBus.Properties         interface -         -                                        -\n.Get                                    method    ss        v                                        -\n.GetAll                                 method    s         a{sv}                                    -\n.Set                                    method    ssv       -                                        -\n.PropertiesChanged                      signal    sa{sv}as  -                                        -\nxyz.openbmc_project.Common.OriginatedBy interface -         -                                        -\n.OriginatorId                           property  s         \"\"                                       emits-change writable\n.OriginatorType                         property  s         \"xyz.openbmc_project.Common.Originate... emits-change writable\nxyz.openbmc_project.Common.Progress     interface -         -                                        -\n.CompletedTime                          property  t         1682545314000000                         emits-change writable\n.StartTime                              property  t         1682545313999245                         emits-change writable\n.Status                                 property  s         \"xyz.openbmc_project.Common.Progress.... emits-change writable\nxyz.openbmc_project.Dump.Entry          interface -         -                                        -\n.InitiateOffload                        method    s         -                                        -\n.OffloadUri                             property  s         \"\"                                       emits-change writable\n.Offloaded                              property  b         false                                    emits-change writable\n.Size                                   property  t         356                                      emits-change writable\nxyz.openbmc_project.Dump.Entry.BMC      interface -         -                                        -\nxyz.openbmc_project.Object.Delete       interface -         -                                        -\n.Delete                                 method    -         -                                        -\nxyz.openbmc_project.Time.EpochTime      interface -         -                                        -\n.Elapsed                                property  t         1682545314000000                         emits-change writable\n```",
+      "parentUuid": "8ba2f324_4eed3aa6",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3aecb6c5_11201598",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -89,6 +149,24 @@
       "writtenOn": "2023-04-25T15:40:01Z",
       "side": 1,
       "message": "After dealing with a few too many weird errors, I\u0027m always a fan of a \"BMCWEB_LOG_ERROR\" in these paths.",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "170b6a6a_d36f9c0c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-27T16:52:18Z",
+      "side": 1,
+      "message": "Fair point, I\u0027ve added logs to the parts where we returned a 500 Internal Error from lseek() or read() fails.",
+      "parentUuid": "3aecb6c5_11201598",
       "revId": "97445069fb30bee36b658efc55c75a61245baf12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +184,24 @@
       "writtenOn": "2023-04-25T15:40:01Z",
       "side": 1,
       "message": "Out in meta-ibm, we have a 20MB max (https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/dump/phosphor-debug-collector_%25.bbappend#L13). Could we make this configurable via a meson config option?",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71788971_51004801",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-04-27T16:52:18Z",
+      "side": 1,
+      "message": "The size is arbitrary so I\u0027m fine with upping it to 20MB.  \n\nI don\u0027t know about making it a compiler option.  I\u0027m trying to keep it in line with the existing dump flow used for /redfish/v1/Systems/\u003cstr\u003e/LogServices/EventLog/Entries/\u003cstr\u003e/attachment and that one is hardcoded.\n\nBased on previous efforts like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61131, allowing limits to be tuned via a compiler option seems like an approach that is discouraged.  If the maintainers are alright with a compiler option then I think that\u0027d be better left to its own CL.  In that case we should add a compiler option for the existing type of dump as well.",
+      "parentUuid": "5f810c88_f508949e",
       "revId": "97445069fb30bee36b658efc55c75a61245baf12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
