@@ -16,6 +16,24 @@
       "message": "Please include a \"Tested\" section in your commit message explaining how you tested this fix. https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#testing",
       "revId": "c43196ebfa7eec1998728aff59c633ad0691f018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5510cebe_3cb98596",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-04-27T14:50:52Z",
+      "side": 1,
+      "message": "Done. i tested it manually",
+      "parentUuid": "10f7ade1_78976ae2",
+      "revId": "c43196ebfa7eec1998728aff59c633ad0691f018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
