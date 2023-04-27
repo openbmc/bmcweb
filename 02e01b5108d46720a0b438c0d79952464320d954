@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243bd593_5d9d1134",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T15:41:13Z",
+      "side": 0,
+      "message": "I suspect the fix is a little more subtle here.  Rather than searching on \"Name\", I think we should be searching on \"Id\" and leaving the value escaped, because chassisId is the ID of the chassis, not the Name of the chassis (even though they\u0027re similar).\n\nIf you do that, does the work for your use case?",
+      "range": {
+        "startLine": 2188,
+        "startChar": 25,
+        "endLine": 2188,
+        "endChar": 29
+      },
+      "revId": "02e01b5108d46720a0b438c0d79952464320d954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
