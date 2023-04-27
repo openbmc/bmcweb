@@ -2185,7 +2185,8 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     // Check if matching PowerSupply object already exists in JSON array
     for (nlohmann::json& powerSupply : powerSupplyArray)
     {
-        if (powerSupply["Name"] == inventoryItem.name)
+        if (powerSupply["Name"] ==
+            boost::replace_all_copy(inventoryItem.name, "_", " "))
         {
             return powerSupply;
         }
