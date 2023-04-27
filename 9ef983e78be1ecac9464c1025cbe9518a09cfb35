@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9b8bdc5_28d41412",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:51:47Z",
+      "side": 1,
+      "message": "This whole section has per connection globals.  If you want to support multiple consoles, most of these fields will need moved into the session object.\n\nPlease test connecting to multiple consoles simulatneously.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1022f982_19190dba",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 12
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "1022f982_19190dba",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 80
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db0d16a9_36990861",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:51:47Z",
+      "side": 1,
+      "message": "Doesn\u0027t look done.  DId you forget to push a patchset?",
+      "parentUuid": "e5315929_5bc066a7",
       "range": {
         "startLine": 123,
         "startChar": 0,
@@ -95,6 +142,53 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d26b50f5_bb2dcb08",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:51:47Z",
+      "side": 1,
+      "message": "Both are correct in this case, and there\u0027s no coding standard or reason why one is better than the other.  bmcweb has examples of both.",
+      "parentUuid": "aa0cf192_d0a8860a",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d35b01c1_17cb3a32",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:51:47Z",
+      "side": 1,
+      "message": "Can this be put into the session object rather than passing a",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 37
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf825b92_8054fa4f",
@@ -137,6 +231,52 @@
         "startChar": 0,
         "endLine": 280,
         "endChar": 60
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a98a33b_f263327f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:51:47Z",
+      "side": 1,
+      "message": "Why not getObject here?",
+      "range": {
+        "startLine": 289,
+        "startChar": 19,
+        "endLine": 289,
+        "endChar": 29
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ec7a5ed_98e3096f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:51:47Z",
+      "side": 1,
+      "message": "you need to defer packets here until the dbus call is complete.  Please look at nbd_proxy as an example.  As written, if a user connects and immediately sends characters, your code can crash.",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 11
       },
       "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
