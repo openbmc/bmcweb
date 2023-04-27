@@ -71,7 +71,6 @@ owners:
 # included on code reviews to stay informed of progress.
 
 reviewers:
-- krzysztof.grobelny@intel.com
 - nanzhoumails@gmail.com
 
 matchers:
@@ -99,17 +98,3 @@ matchers:
 - exact: redfish-core/lib/sensors.hpp
   owners:
       - nanzhoumails@gmail.com
-      - krzysztof.grobelny@intel.com
-- exact: redfish-core/lib/event_service.hpp
-  owners:
-      - krzysztof.grobelny@intel.com
-- exact: redfish-core/lib/power.hpp
-  owners:
-      - krzysztof.grobelny@intel.com
-- exact: redfish-core/lib/thermal.hpp
-  owners:
-      - krzysztof.grobelny@intel.com
-- exact: redfish-core/lib/virtual_media.hpp
-  owners:
-      - krzysztof.grobelny@intel.com
-
