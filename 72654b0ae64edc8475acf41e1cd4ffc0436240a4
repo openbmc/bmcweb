@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "74b0c25a_e147f148",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-27T04:22:28Z",
+      "side": 1,
+      "message": "I will inform you when it is ready.",
+      "parentUuid": "9e5ac13f_db6096b7",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bf15e612_8cb6da5e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "The instructions for updating this are at the top of the file.  If you have questions, please reference the text above in your question.",
       "parentUuid": "1b3175df_4ec81657",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3edca57_d4ee8a5f",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-04-27T04:22:28Z",
+      "side": 1,
+      "message": "Thank you for your information. I updated this field. Please help me check again.",
+      "parentUuid": "c6269b7a_fe3203be",
       "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
