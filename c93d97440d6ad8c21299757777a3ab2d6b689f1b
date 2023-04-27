@@ -87,6 +87,29 @@
       },
       "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afcab66e_6e0a3cb6",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T00:21:27Z",
+      "side": 1,
+      "message": "Doesn\u0027t writeProtected have this same problem?",
+      "range": {
+        "startLine": 783,
+        "startChar": 26,
+        "endLine": 783,
+        "endChar": 54
+      },
+      "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
