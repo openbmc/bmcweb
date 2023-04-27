@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5315929_5bc066a7",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-27T18:40:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1022f982_19190dba",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 80
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f8045e3_0b579c54",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-27T14:29:38Z",
       "side": 1,
       "message": "I think - https://en.cppreference.com/w/cpp/memory/unique_ptr says that the correct method for unique_ptr\u003c\u003e is to use \"reset()\".\n`hostSocket.reset()`",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa0cf192_d0a8860a",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-27T18:40:33Z",
+      "side": 1,
+      "message": "This is from the original code so I don\u0027t want to change it in this patch. We will have to change it separately.",
+      "parentUuid": "5f8045e3_0b579c54",
       "range": {
         "startLine": 137,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1946c0b7_b81785c7",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-27T18:40:33Z",
+      "side": 1,
+      "message": "I have done it based on the other websocket codes like nbd_proxy.hpp \u0026 obmc_console.hpp",
+      "parentUuid": "cf825b92_8054fa4f",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 60
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a835c05f_63070351",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-04-27T14:29:38Z",
       "side": 1,
       "message": "Perhaps, similar to .onclose() case.\nwhat if a trace goes inside lambda here like\n\n```\n.onopen([](crow::websocket::Connection\u0026 conn) {\n        BMCWEB_LOG_DEBUG \u003c\u003c \"Connection \" \u003c\u003c \u0026conn \u003c\u003c \" opened\";\n        openConnection(conn);\n        })\n```",
+      "range": {
+        "startLine": 302,
+        "startChar": 8,
+        "endLine": 302,
+        "endChar": 23
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3f5666_c9a44732",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-27T18:40:33Z",
+      "side": 1,
+      "message": "I have done it based on the other websocket codes like nbd_proxy.hpp \u0026 obmc_console.hpp",
+      "parentUuid": "a835c05f_63070351",
       "range": {
         "startLine": 302,
         "startChar": 8,
