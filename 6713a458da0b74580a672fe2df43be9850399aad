@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c9aadd_6a76bdce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-04-27T06:47:25Z",
+      "side": 1,
+      "message": "g",
+      "revId": "6713a458da0b74580a672fe2df43be9850399aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371de8c1_27ee950e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-04-27T06:47:25Z",
+      "side": 1,
+      "message": "Does this mean there will be \u0027n\u0027 number of files in a dump path -- \u0027/var/lib/phosphor-debug-collector/dumps/1\u0027 ?\n\nI assume the dump data will be packaged into 1 single tar file.\n\nIf there are n number of files, instead of appending to dumpFiles, should we return error?",
+      "revId": "6713a458da0b74580a672fe2df43be9850399aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

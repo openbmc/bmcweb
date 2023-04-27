@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61b39314_c796315e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-04-27T06:47:25Z",
+      "side": 1,
+      "message": "I agree. +1",
+      "parentUuid": "8ba2f324_4eed3aa6",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3aecb6c5_11201598",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
