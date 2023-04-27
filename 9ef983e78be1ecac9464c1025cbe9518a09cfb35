@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1022f982_19190dba",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-27T14:29:38Z",
+      "side": 1,
+      "message": "I think this function usage seems overloaded, and can be divided into 2 functions, and use them accordingly.\n\n1)\n```\n// Check whether conn is active\ninline bool checkConnection(crow::websocket::Connection\u0026 conn)\n{\n   return !(sessions.find(\u0026conn)\u003d\u003d sessions.end());\n}\n\n```\n\n2)\n```\n// remove the connection if it is connected\ninline bool eraseConnection(crow::websocket::Connection\u0026 conn)\n{\n  if(!checkConnection(conn))\n  {\n          BMCWEB_LOG_ERROR \u003c\u003c \"Couldn\u0027t find the connection\";\n  }\n  else       \n  {\n          sessions.erase(\u0026conn);\n        if (sessions.empty())\n        {\n            hostSocket \u003d nullptr;\n            inputBuffer.clear();\n            inputBuffer.shrink_to_fit();\n        }\n   }\n}\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 80
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8045e3_0b579c54",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-27T14:29:38Z",
+      "side": 1,
+      "message": "I think - https://en.cppreference.com/w/cpp/memory/unique_ptr says that the correct method for unique_ptr\u003c\u003e is to use \"reset()\".\n`hostSocket.reset()`",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf825b92_8054fa4f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-27T14:29:38Z",
+      "side": 1,
+      "message": "See below my comment like\n\n```\ninline void openConnection(crow::websocket::Connection\u0026 conn)\n{\n```",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 60
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a835c05f_63070351",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-04-27T14:29:38Z",
+      "side": 1,
+      "message": "Perhaps, similar to .onclose() case.\nwhat if a trace goes inside lambda here like\n\n```\n.onopen([](crow::websocket::Connection\u0026 conn) {\n        BMCWEB_LOG_DEBUG \u003c\u003c \"Connection \" \u003c\u003c \u0026conn \u003c\u003c \" opened\";\n        openConnection(conn);\n        })\n```",
+      "range": {
+        "startLine": 302,
+        "startChar": 8,
+        "endLine": 302,
+        "endChar": 23
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
