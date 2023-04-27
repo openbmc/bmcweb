@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb0c03b0_d7f0764d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-27T18:14:42Z",
+      "side": 1,
+      "message": "Spelled it out.",
+      "parentUuid": "e1a741fd_05a2844a",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "aa8b8d6cd590443360ecf8721370b0ecee9c0602",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abee1952_871d9495",
