@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83ef8311_292a35b7",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T20:20:17Z",
+      "side": 1,
+      "message": "That\u0027s fine, but the project should not check in code that can be trivially crashed from a socket.  The old code was correct, because there could only ever be one unix socket, so these buffers could always be shared.  I\u0027m happy to discuss other options, but assuming we agree on the first principle, this patch series can:\n1. Wait in review until patches are submitted for \"full multi-console support\".\n2. Add checks to ensure that there is only one unique console running at a time.\n\nUp to you, and happy to discuss if you see another option.",
+      "parentUuid": "989ec268_cb060ff6",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1022f982_19190dba",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 12
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "What do you want to save in the session object? Can this be done in the next step where we actually support multiple consoles?",
       "parentUuid": "d35b01c1_17cb3a32",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 37
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4f91eab_4b06133f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T20:20:17Z",
+      "side": 1,
+      "message": "\u003e What do you want to save in the session object? \n\nboost::asio::local::stream_protocol::socket\n\n\u003e Can this be done in the next step where we actually support multiple consoles?\n\nSure, let me know when you have that patchset up.",
+      "parentUuid": "5e611fb3_65adf5db",
       "range": {
         "startLine": 178,
         "startChar": 0,
