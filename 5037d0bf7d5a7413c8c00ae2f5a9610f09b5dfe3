@@ -190,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "50dbf202_d7d1e189",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T20:34:29Z",
+      "side": 1,
+      "message": "Apologies, I mistyped, I meant 52/70, which is documented here if you have any questions:\nhttps://github.com/openbmc/docs/blob/1e09b3cbdb223e2885bc6ba83e84a5cd5a728776/CONTRIBUTING.md?plain\u003d1#L231",
+      "parentUuid": "46a54ac4_d4582672",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "5037d0bf7d5a7413c8c00ae2f5a9610f09b5dfe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aed476d2_82eadcb8",
