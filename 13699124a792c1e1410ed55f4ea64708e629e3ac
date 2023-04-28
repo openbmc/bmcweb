@@ -16,6 +16,24 @@
       "message": "Can you have your CI admin add you to your CI approval list ?\n\nUser not approved, see admin, no CI",
       "revId": "13699124a792c1e1410ed55f4ea64708e629e3ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad9623f0_28a82cd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-04-28T11:13:32Z",
+      "side": 1,
+      "message": "yes, I got access",
+      "parentUuid": "88595e8a_1b5aa403",
+      "revId": "13699124a792c1e1410ed55f4ea64708e629e3ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
