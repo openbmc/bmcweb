@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4522cd21_c4dba7f7",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T21:36:00Z",
+      "side": 1,
+      "message": "Can you please check if check on line 191 handles your option 2? https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62525/14/include/obmc_console.hpp#191",
+      "parentUuid": "83ef8311_292a35b7",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "9ef983e78be1ecac9464c1025cbe9518a09cfb35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1022f982_19190dba",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 12
