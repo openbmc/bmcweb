@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b428fd3e_09187b93",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:14:13Z",
+      "side": 1,
+      "message": "Indicates that the total power......",
+      "range": {
+        "startLine": 2297,
+        "startChar": 22,
+        "endLine": 2297,
+        "endChar": 25
+      },
+      "revId": "96ca59bae88d2ab8839cb0b415dc126c74ad3fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0ee822f_8f7e852b",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:14:13Z",
+      "side": 1,
+      "message": "drops \u003d dropped ??",
+      "revId": "96ca59bae88d2ab8839cb0b415dc126c74ad3fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe79a7e_777f5edd",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2311,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:14:13Z",
+      "side": 1,
+      "message": "Indicates that the total....",
+      "revId": "96ca59bae88d2ab8839cb0b415dc126c74ad3fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "898ef9ef_8c77c2b1",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:14:13Z",
+      "side": 1,
+      "message": "exceeds \u003d exceeded ???",
+      "range": {
+        "startLine": 2312,
+        "startChar": 37,
+        "endLine": 2312,
+        "endChar": 44
+      },
+      "revId": "96ca59bae88d2ab8839cb0b415dc126c74ad3fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
