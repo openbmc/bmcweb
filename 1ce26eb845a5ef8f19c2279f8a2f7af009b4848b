@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167aee67_37016647",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "Please add DEBUG error message.",
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578f4c5a_9c01b1cd",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "Please add debug error message.",
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53032d41_bfce55be",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "Same, debug error message.",
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d69f17e6_e4f565b3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "Need to mention which operation failed.",
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d89ebcb_8af7b268",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "Is it possible to have size greater than 1?",
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9723d07c_15e9ed1a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "To understand error log properly we need to mention which operation failed.",
+      "range": {
+        "startLine": 338,
+        "startChar": 51,
+        "endLine": 338,
+        "endChar": 56
+      },
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30da4144_6763645b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-04-28T14:06:14Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 351,
+        "startChar": 44,
+        "endLine": 351,
+        "endChar": 49
+      },
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
