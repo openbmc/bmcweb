@@ -106,6 +106,24 @@
       "parentUuid": "685f1678_bda35153",
       "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df97da8c_ecd5e0d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T23:33:57Z",
+      "side": 1,
+      "message": "\u003e \u003e  If you don\u0027t feel like its production ready, just don\u0027t enable it on your system?\n\u003e \n\u003e This is the default that most people will use (I am getting this data by going to https://github.com/openbmc/openbmc?search\u003d1 and looking for bmcweb_bbappend, just not that many options that are changed from the default)\n\nJust to make sure we\u0027re on the same page with the fundamentals here (because I fear we\u0027re not, or I might be wrong):\n\nEnabling the aggregation has no functional effect on systems without an EM config\nEnabling aggregation is separate enough in code that it\u0027s unlikely to cause validator problems on systems that don\u0027t have an EM config.\n\n\u003e \n\u003e \u003e Having two options that do the same thing makes features harder to maintain\n\u003e \n\u003e Sure, solid point. \n\u003e \n\u003e \u003e  the new powersubsystem/thermalsubsystem isn\u0027t enabled by default because it arguably needs to be enabled while the power/thermal schemas are disabled, and so enabling it has user-facing impact of duplicating information in the Redfish tree. It has nothing to do with whether it\u0027s fleshed out as a feature, and everything to do with it conflicting with other features. If it didn\u0027t conflict, I would enable it by default as well.\n\u003e \n\u003e But that is how Redfish advised moving to the new powersubsystem/thermalsubsystem, they advised having both for some period. I still think the new powersubsystem/thermalsubsystem https://github.com/openbmc/bmcweb/blob/master/meson_options.txt#L201 isn\u0027t production-ready, flushed-out so that is why shouldn\u0027t be enabled by it, not because we need a hard switch.\n\nThat\u0027s a fair argument.........  I would be ok with enabling thermal subsystem by default;  I think a number of forks have enabled it already.  Let me put that patch together.\n\n\u003e \n\u003e \u003e With all the above said, a month seems totally reasonable in terms of a timeframe. One month it is.\n\u003e \n\u003e Haha. I came here to +1 this (and did). We are arguing about whether something should be the default now or in 1 or 2 months with some more development.\n\u003e If you wait 1 month, I am more happy but I am fine with this going today too. Note: I think this was all good discussion, we might in the future need more of a concrete what should be enabled by default ( I think we have slightly different views)\n\nACK",
+      "parentUuid": "fcdf69a6_78834582",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
