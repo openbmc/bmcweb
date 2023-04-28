@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fae5c7c_8312f7a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-04-28T17:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79975895_efe1e66d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "5037d0bf7d5a7413c8c00ae2f5a9610f09b5dfe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b4fbe2f_1d465806",
@@ -60,6 +84,54 @@
       "writtenOn": "2023-04-27T15:41:13Z",
       "side": 1,
       "message": "Is there any chance that this could cause regressions on existing systems?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "5037d0bf7d5a7413c8c00ae2f5a9610f09b5dfe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c513c4_7b7168f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-04-28T17:24:30Z",
+      "side": 1,
+      "message": "reason for change needs to be explained for understanding. i try to keep it short.",
+      "parentUuid": "6b4fbe2f_1d465806",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "5037d0bf7d5a7413c8c00ae2f5a9610f09b5dfe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "784772df_78984436",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-04-28T17:24:30Z",
+      "side": 1,
+      "message": "of course. \nWithout a CI which tests this commit against various board with different configurations regarding the power supplies and their sensors,\nit is likely that it\u0027s going to cause regressions. Especially if there are workarounds in other places. \n\nI don\u0027t have 10s of boards to test this on. I just created a patch because as it currently stands there\u0027s a bug in the bmcweb which is very obvious and easy to fix.",
+      "parentUuid": "b530b87a_43f33470",
       "range": {
         "startLine": 17,
         "startChar": 0,
