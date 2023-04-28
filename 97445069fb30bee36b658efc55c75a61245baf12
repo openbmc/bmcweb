@@ -136,6 +136,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f043d627_fa333305",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-28T17:05:16Z",
+      "side": 1,
+      "message": "Ahh yep, sorry my system I was looking at had https://gerrit.openbmc.org/c/openbmc/phosphor-debug-collector/+/49466 on it. Once that gets in we could look into making this code utilize that. For now hard coding the path is as good as we\u0027re going to get.",
+      "parentUuid": "c29aaf1c_4df983cc",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3aecb6c5_11201598",
@@ -202,6 +220,24 @@
       "side": 1,
       "message": "The size is arbitrary so I\u0027m fine with upping it to 20MB.  \n\nI don\u0027t know about making it a compiler option.  I\u0027m trying to keep it in line with the existing dump flow used for /redfish/v1/Systems/\u003cstr\u003e/LogServices/EventLog/Entries/\u003cstr\u003e/attachment and that one is hardcoded.\n\nBased on previous efforts like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61131, allowing limits to be tuned via a compiler option seems like an approach that is discouraged.  If the maintainers are alright with a compiler option then I think that\u0027d be better left to its own CL.  In that case we should add a compiler option for the existing type of dump as well.",
       "parentUuid": "5f810c88_f508949e",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "700ca83f_0ddfbbc1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-04-28T17:05:16Z",
+      "side": 1,
+      "message": "Works for me",
+      "parentUuid": "71788971_51004801",
       "revId": "97445069fb30bee36b658efc55c75a61245baf12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
