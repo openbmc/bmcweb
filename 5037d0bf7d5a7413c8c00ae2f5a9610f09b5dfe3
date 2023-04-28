@@ -142,6 +142,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a54ac4_d4582672",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T20:33:11Z",
+      "side": 1,
+      "message": "Unfortunately I\u0027m not sure I understand your answer.  My issue is not with the length of your commit message, but in the way you\u0027ve wrapped the text (which appears to have been done by hand).\n\nPlease make sure your commit title is less than 52 lines, and that your prose is wrapped on 70 character boundaries, per the coding standard.  If you need help with how to get your text editing tool of choice to do that for you, there\u0027s always folks in discord that can be helpful.",
+      "parentUuid": "94c513c4_7b7168f2",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "5037d0bf7d5a7413c8c00ae2f5a9610f09b5dfe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ea7492_d9f44b47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T20:33:11Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t have 10s of boards to test this on.\n\nNobody expects you to, and agree with everythign you said, this complicates testing, which is why I\u0027m trying to make sure we have some discussion about whether or not this is going to break folks.\n\n\u003e very obvious and easy to fix.\n\nI\u0027m confused, if it\u0027s \"very obvious and easy to fix\", why is it possible for it to cause regressions?  I\u0027m just looking here for some amount of documentation on what this is changing, and what systems might see regressions, so that we\u0027ve thought about it before changing a public interface.",
+      "parentUuid": "784772df_78984436",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "5037d0bf7d5a7413c8c00ae2f5a9610f09b5dfe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aed476d2_82eadcb8",

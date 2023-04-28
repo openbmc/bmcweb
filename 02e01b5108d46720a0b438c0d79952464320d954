@@ -46,6 +46,30 @@
       },
       "revId": "02e01b5108d46720a0b438c0d79952464320d954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7663e36b_0f77762a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-04-28T20:33:11Z",
+      "side": 0,
+      "message": "I\u0027m not sure I agree that\u0027s a different change.  inventoryItem.name in this case is comparing an Id.  You\u0027re duplicating the \"convert ID to Name\" code when you do the replace.  I\u0027m not asking for a rewrite, i\u0027m asking if you change one string, in a simpler change than what is proposed in this patch, does it fix the issue?\n\nSpecifically i\u0027m asking if you put:\n\nif (powerSupply[\"Id\"] \u003d\u003d inventoryItem.name)\n\nwould that also solve the bug, and be much simpler?  If not, that\u0027s ok, we can work on the patch you proposed.",
+      "parentUuid": "63711e1f_659fd216",
+      "range": {
+        "startLine": 2188,
+        "startChar": 25,
+        "endLine": 2188,
+        "endChar": 29
+      },
+      "revId": "02e01b5108d46720a0b438c0d79952464320d954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
