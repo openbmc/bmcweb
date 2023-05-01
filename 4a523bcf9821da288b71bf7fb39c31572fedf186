@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b06d2cb3_834ce307",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-01T21:34:06Z",
+      "side": 1,
+      "message": "why not associate the obmc-console-server connection with the session and maintain N connections for N sessions across the M obmc-console-server instances? sticking this in a global makes it needlessly fragile and in effect reintroduces and forces you to re-solve the problems that obmc-console-server already solves.",
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
