@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eafd1489_38b87507",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2023-05-01T21:24:29Z",
+      "side": 1,
+      "message": "In the Redfish schema index it shows this for `SpeedPercent`:\n\n\u003e \"This property shall contain the fan speed, in percent units, for this resource. The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.\"\n\nHowever, the fan_tach value is in RPM. Should this get fan_pwm to get the percent value instead?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 76
+      },
+      "revId": "e106f58c6ada153f46f6ffe6ecd5bcfc577a16c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
