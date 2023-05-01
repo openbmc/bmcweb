@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5998b4a_8ede59f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-01T15:42:36Z",
+      "side": 1,
+      "message": "Can you explain more. Why is this failing, why does this help? What commit caused this validator fail?",
+      "revId": "19a099eae44db462078cefb8ca2f6f15c5a926c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
