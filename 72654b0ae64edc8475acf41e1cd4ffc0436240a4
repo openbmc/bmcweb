@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "58de3e15_2f1030a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-05-01T14:34:24Z",
+      "side": 1,
+      "message": "Currently, I am trying to develop an application to handle Power.Cap interface ( https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Control/Power/Cap.interface.yaml ). I need those registries to log Redfish events. I just tested on my local repo, this application shall be updated later when it is ready.",
+      "parentUuid": "fc27b82f_8e2cfa8d",
+      "revId": "72654b0ae64edc8475acf41e1cd4ffc0436240a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bf15e612_8cb6da5e",
