@@ -100,7 +100,7 @@ static inline void
                       const std::string& name)
 {
     dbus::utility::getSubTreePaths(
-        inventoryPath, 1, {},
+        inventoryPath, 1, pcieDeviceInterface, 
         [asyncResp, name](const boost::system::error_code& ec,
                           const dbus::utility::MapperGetSubTreePathsResponse&
                               pcieDevicePaths) {
