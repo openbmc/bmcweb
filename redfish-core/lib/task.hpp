@@ -417,6 +417,9 @@ inline void requestRoutesTask(App& app)
             asyncResp->res.jsonValue["TaskMonitor"] =
                 "/redfish/v1/TaskService/Tasks/" + strParam + "/Monitor";
         }
+
+        asyncResp->res.jsonValue["HidePayload"] = !ptr->payload;
+
         if (ptr->payload)
         {
             const task::Payload& p = *(ptr->payload);
