@@ -110,6 +110,54 @@
       },
       "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2a460c7_bad45a80",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-05-02T18:54:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "afcab66e_6e0a3cb6",
+      "range": {
+        "startLine": 783,
+        "startChar": 26,
+        "endLine": 783,
+        "endChar": 54
+      },
+      "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a9aea4_5b6b6ade",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-05-02T18:54:08Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "3eec417a_7ffe594d",
+      "range": {
+        "startLine": 782,
+        "startChar": 7,
+        "endLine": 783,
+        "endChar": 65
+      },
+      "revId": "c93d97440d6ad8c21299757777a3ab2d6b689f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
