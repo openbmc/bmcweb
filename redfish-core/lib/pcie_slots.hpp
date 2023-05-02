@@ -119,7 +119,10 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        slot["PCIeType"] = !pcieType;
+        if (*pcieType != pcie_device::PCIeTypes::Invalid)
+        {
+            slot["PCIeType"] = *pcieType;
+        }
     }
 
     if (lanes != nullptr)
