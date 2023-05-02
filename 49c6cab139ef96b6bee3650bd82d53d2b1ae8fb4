@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21793b6_2758d079",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-02T18:29:40Z",
+      "side": 1,
+      "message": "I confirmed that the patch still works in its current form after rebasing.  No changes to the code were needed to resolve the merge conflict.",
+      "revId": "49c6cab139ef96b6bee3650bd82d53d2b1ae8fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
