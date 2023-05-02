@@ -22,6 +22,30 @@
       },
       "revId": "e106f58c6ada153f46f6ffe6ecd5bcfc577a16c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b752f3_5b041810",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-05-02T14:54:34Z",
+      "side": 1,
+      "message": "yes, fan_pwm will get percent value. I will update to fan_pwm instead of fan_tach.",
+      "parentUuid": "eafd1489_38b87507",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 76
+      },
+      "revId": "e106f58c6ada153f46f6ffe6ecd5bcfc577a16c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
