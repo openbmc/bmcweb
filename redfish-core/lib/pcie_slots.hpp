@@ -20,7 +20,8 @@
 namespace redfish
 {
 
-inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
+inline std::optional<pcie_slots::SlotTypes>
+    dbusSlotTypeToRf(const std::string& slotType)
 {
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
@@ -64,9 +65,15 @@ inline pcie_slots::SlotTypes dbusSlotTypeToRf(const std::string& slotType)
     {
         return pcie_slots::SlotTypes::U2;
     }
+    if (slotType.empty() ||
+        slotType ==
+            "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown")
+    {
+        return pcie_slots::SlotTypes::Invalid;
+    }
 
-    // Unknown or others
-    return pcie_slots::SlotTypes::Invalid;
+    // Unspecified slotType needs return an internal error.
+    return std::nullopt;
 }
 
 inline void
@@ -132,13 +139,17 @@ inline void
 
     if (slotType != nullptr)
     {
-        pcie_slots::SlotTypes redfishSlotType = dbusSlotTypeToRf(*slotType);
-        if (redfishSlotType == pcie_slots::SlotTypes::Invalid)
+        std::optional<pcie_slots::SlotTypes> redfishSlotType =
+            dbusSlotTypeToRf(*slotType);
+        if (!redfishSlotType)
         {
             messages::internalError(asyncResp->res);
             return;
         }
-        slot["SlotType"] = redfishSlotType;
+        if (*redfishSlotType != pcie_slots::SlotTypes::Invalid)
+        {
+            slot["SlotType"] = *redfishSlotType;
+        }
     }
 
     if (hotPluggable != nullptr)
