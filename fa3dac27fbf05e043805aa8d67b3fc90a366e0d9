@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c58e6d8f_bb0779f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-02T21:25:17Z",
+      "side": 1,
+      "message": "Needs to go with https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/61738 and https://gerrit.openbmc.org/c/openbmc/peci-pcie/+/62256 I assume ?",
+      "revId": "fa3dac27fbf05e043805aa8d67b3fc90a366e0d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
