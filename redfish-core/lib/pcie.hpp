@@ -23,6 +23,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
@@ -125,9 +126,7 @@ static inline void handlePCIeDeviceCollectionGet(
     asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-    collection_util::getCollectionMembers(
-        asyncResp, boost::urls::url("/redfish/v1/Systems/system/PCIeDevices"),
-        pcieDeviceInterface);
+    pcie_util::getPCIeDeviceList(asyncResp, "Members");
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)
