@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f5e201_83f36ba4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-02T14:52:01Z",
+      "side": 1,
+      "message": "Looks like you need to get added to Intel CLA (and then added to gerrit group that will allow CI)",
+      "revId": "6745b4fd5db6cc0958154c8a94e586689a7b6d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168414d7_52be6a61",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-02T14:52:01Z",
+      "side": 1,
+      "message": "No tabs please",
+      "revId": "6745b4fd5db6cc0958154c8a94e586689a7b6d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
