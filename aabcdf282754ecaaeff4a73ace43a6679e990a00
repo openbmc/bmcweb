@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7baecfa7_0322c194",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-02T21:21:07Z",
+      "side": 1,
+      "message": "It is 0 here for the valid path.. Maybe call that out too in the commit msg? The valid path and the collection should be the same call",
+      "revId": "aabcdf282754ecaaeff4a73ace43a6679e990a00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
