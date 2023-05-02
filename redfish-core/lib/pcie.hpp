@@ -125,9 +125,7 @@ static inline void handlePCIeDeviceCollectionGet(
     asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-    collection_util::getCollectionMembers(
-        asyncResp, boost::urls::url("/redfish/v1/Systems/system/PCIeDevices"),
-        pcieDeviceInterface);
+    pcie_util::getPCIeDeviceList(asyncResp, "Members");
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)
