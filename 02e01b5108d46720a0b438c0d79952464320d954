@@ -70,6 +70,30 @@
       },
       "revId": "02e01b5108d46720a0b438c0d79952464320d954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad08663_0f86800c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-05-02T09:10:16Z",
+      "side": 0,
+      "message": "where would that field powerSupply[\"Id\"] be coming from? it is not filled in this function as far as i can see. I provide a substring of a json that i receive:\n\n  \"PowerSupplies\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/chassis/Power#/PowerSupplies/0\",\n      \"EfficiencyPercent\": 90,\n      \"Manufacturer\": \"SUPERMICRO\",\n      \"MemberId\": \"0\",\n      \"Model\": \"PWS-920P-SQ\",\n      \"Name\": \"Supermicro PWS 920P SQ 0\",\n      \"PartNumber\": \"PWS-920P-SQ\",\n      \"PowerInputWatts\": 74.0,\n      \"PowerOutputWatts\": 39.0,\n      \"SerialNumber\": \"P9212CK04EN1230\",\n      \"Status\": {\n        \"Health\": \"OK\",\n        \"State\": \"Enabled\"\n      }\n    },",
+      "parentUuid": "7663e36b_0f77762a",
+      "range": {
+        "startLine": 2188,
+        "startChar": 25,
+        "endLine": 2188,
+        "endChar": 29
+      },
+      "revId": "02e01b5108d46720a0b438c0d79952464320d954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
