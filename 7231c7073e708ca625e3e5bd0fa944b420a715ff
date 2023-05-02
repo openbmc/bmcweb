@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5198cc_7eb6c810",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-02T20:15:06Z",
+      "side": 1,
+      "message": "One nit, and one missing coding standard violation.",
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b144808_2c48a75b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-02T20:15:06Z",
+      "side": 1,
+      "message": "Braces aren\u0027t needed here;  Please be consistent with the other code.",
+      "range": {
+        "startLine": 43,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 26
+      },
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8e5d87_6d67d92d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-02T20:15:06Z",
+      "side": 1,
+      "message": "Missing nullptr check.  There\u0027s already a pointer check on line 1554, you just put this code ahead of it.",
+      "range": {
+        "startLine": 1551,
+        "startChar": 35,
+        "endLine": 1551,
+        "endChar": 47
+      },
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
