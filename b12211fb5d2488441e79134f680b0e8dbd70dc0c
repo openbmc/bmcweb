@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3980cf73_3f7233a5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-05-02T09:25:41Z",
+      "side": 1,
+      "message": "use std::ifstream ?",
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90037416_63c6d00f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-05-02T09:25:41Z",
+      "side": 1,
+      "message": "return?",
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
