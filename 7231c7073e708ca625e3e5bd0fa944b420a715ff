@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2a74a034_5423d306",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-02T23:36:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2061b59b_07302ac5",
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4d5198cc_7eb6c810",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 24
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e940ca_e9d2d93b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-02T23:36:20Z",
+      "side": 1,
+      "message": "I had to do it because I was getting following warnings.\n\n| ../../../../../../../../../bmcweb_hostconsole_group/bmcweb/include/sessions.hpp: In member function \u0027std::shared_ptr\u003cpersistent_data::UserSession\u003e persistent_data::SessionStore::generateUserSession(std::string_view, const boost::asio::ip::address\u0026, const std::optional\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e\u0026, persistent_data::PersistenceType, bool)\u0027:\n| ../../../../../../../../../bmcweb_hostconsole_group/bmcweb/include/sessions.hpp:261:32: error: missing initializer for member \u0027persistent_data::UserSession::userRole\u0027 [-Werror\u003dmissing-field-initializers]\n|   261 |             isConfigureSelfOnly});",
+      "parentUuid": "3b144808_2c48a75b",
+      "range": {
+        "startLine": 43,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 26
+      },
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c8e5d87_6d67d92d",
@@ -71,6 +113,30 @@
       "writtenOn": "2023-05-02T20:15:06Z",
       "side": 1,
       "message": "Missing nullptr check.  There\u0027s already a pointer check on line 1554, you just put this code ahead of it.",
+      "range": {
+        "startLine": 1551,
+        "startChar": 35,
+        "endLine": 1551,
+        "endChar": 47
+      },
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abe7be3e_29643b74",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-02T23:36:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c8e5d87_6d67d92d",
       "range": {
         "startLine": 1551,
         "startChar": 35,
