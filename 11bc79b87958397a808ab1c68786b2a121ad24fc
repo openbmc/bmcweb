@@ -254,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "442905b2_dc03b44d",
+        "filename": "http/logging.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T18:17:20Z",
+      "side": 1,
+      "message": "In the original code, the currentLogLevel variable was defined as a variable and it was set by \u0027setLogLevel()\u0027.\n\n```\n    static void setLogLevel(LogLevel level)\n    {\n        getLogLevelRef() \u003d level;\n    }\n\n    static LogLevel getCurrentLogLevel()\n    {\n        return getLogLevelRef();\n    }\n    \n  static LogLevel\u0026 getLogLevelRef()\n    {\n        static auto currentLevel \u003d static_cast\u003cLogLevel\u003e(1);\n        return currentLevel;\n    }\n```\n\nAs the result, checkingLoggingLevel() is comparing with a variable (rather than const) and thus it could be used as a constexpr.\n\nNow, I modified the code so that getCurrentLogLevel() is directly to use the compile-time evaluated value.\n\nThe latest patchset is now making it as \u0027constexpr\u0027.\n\n```\n    constexpr static LogLevel getCurrentLogLevel()\n    {\n        return static_cast\u003cLogLevel\u003e(bmcwebLoggingLevel);\n    }\n```",
+      "parentUuid": "898a8388_2bdb2f6d",
+      "range": {
+        "startLine": 137,
+        "startChar": 7,
+        "endLine": 137,
+        "endChar": 16
+      },
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56cfd34c_78d212cd",
