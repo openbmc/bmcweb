@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee62c215_5e205062",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 41
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T02:23:13Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "1f235fcf_0785f063",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2caab7c3_953af62a",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-05-01T17:32:48Z",
       "side": 1,
       "message": "nit, please remove newlines in between these list entries.",
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86b20f84_4fa23855",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 41
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T02:23:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2caab7c3_953af62a",
       "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1b3ad2_126256c5",
+        "filename": "http/logging.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T02:23:13Z",
+      "side": 1,
+      "message": "I\u0027d prefer to use constexpr and get rid of #ifdef BMCWEB_ENABLE_LOGGING.\n(In fact, it was my original approach in the early patchsets).\n\nI\u0027ll redo this part in using constexpr.",
+      "parentUuid": "5f5fa4c3_247e069f",
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1289745b_1afc30c7",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-05-01T17:32:48Z",
       "side": 1,
       "message": "Why did this ifdef move?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eebe4bb9_6b8ebfa3",
+        "filename": "http/logging.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T02:23:13Z",
+      "side": 1,
+      "message": "If #ifdef is false, the the previous code is doing no-op inside if() clause like\n```\nif (level \u003e\u003d getCurrentLogLevel())\n{\n   // no-open\n}\n```\n\nThis is essentially equivalent to no-op, and thus move #ifdef to above if().\n\nHowever, going toward the direction of constexpr, it will become a mute point.",
+      "parentUuid": "1289745b_1afc30c7",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -104,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5717af58_59800fa0",
+        "filename": "http/logging.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T02:23:13Z",
+      "side": 1,
+      "message": "isLoggingEnabled() can be a constexpr as all necessary values are available at compile-time.\nHowever, checkLoggingLevel() can not be evaluated at a time, as the input \u0027loglevel\u0027 to Logger (current implementation) is not a constant.\n\nBecause of that, I first check isLoggingEnabled() as constexpr.  This approach will reduce the binary output size in case debugging is not enabled.\n\nI\u0027ll also look more to see whether isLoggingEnabled() and checkLoggingLevel() can be combined as constexpr.",
+      "parentUuid": "ee04aeb8_cd1f5d7f",
+      "range": {
+        "startLine": 137,
+        "startChar": 7,
+        "endLine": 137,
+        "endChar": 16
+      },
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56cfd34c_78d212cd",
@@ -117,6 +225,30 @@
       "writtenOn": "2023-05-01T17:32:48Z",
       "side": 1,
       "message": "Please put relative links.",
+      "range": {
+        "startLine": 138,
+        "startChar": 23,
+        "endLine": 138,
+        "endChar": 86
+      },
+      "revId": "11bc79b87958397a808ab1c68786b2a121ad24fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa489cc5_adf14dab",
+        "filename": "meson_options.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-03T02:23:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56cfd34c_78d212cd",
       "range": {
         "startLine": 138,
         "startChar": 23,
