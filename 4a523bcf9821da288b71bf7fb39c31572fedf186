@@ -118,6 +118,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "758f78fa_ae0cb5e7",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-03T22:19:21Z",
+      "side": 1,
+      "message": "Right, but simultaneous connections to multiple consoles just falls out naturally from doing the right thing (one obmc-console connection per session), rather than doing what we\u0027re doing here.",
+      "parentUuid": "2c1b9085_6bcc00a2",
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a5b5341_def18cf3",
