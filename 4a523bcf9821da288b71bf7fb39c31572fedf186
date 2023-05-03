@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a11f257_ed24f27d",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-03T20:52:41Z",
+      "side": 1,
+      "message": "Not sure this is in the right place. If we have multiple connections, connectHandler is still only called once when the console socket is first connected. The second websocket connection will find that `hostSocket` already exists. So probably we should just put `conn.resumeRead();` at the end of `connectConsoleSocket`.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aacb29b2_8c37c134",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-03T20:52:41Z",
+      "side": 1,
+      "message": "`sessions.contains(\u0026conn)`\nMaybe this doesn\u0027t even need to be a function.",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b06d2cb3_834ce307",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 15
@@ -50,6 +96,47 @@
       "side": 1,
       "message": "Okay, well so long as it\u0027s actively being reworked to be less bonkers...",
       "parentUuid": "ca952d01_a701122a",
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c1b9085_6bcc00a2",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-03T20:52:41Z",
+      "side": 1,
+      "message": "IMO it\u0027s pretty close to reasonable in the current state. Simultaneous connections to different consoles are not allowed so we don\u0027t need all the extra global state yet. This commit just sets up the D-Bus lookups.",
+      "parentUuid": "678c0928_48bf5698",
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a5b5341_def18cf3",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-03T20:52:41Z",
+      "side": 1,
+      "message": "typo: endpoint",
+      "range": {
+        "startLine": 195,
+        "startChar": 54,
+        "endLine": 195,
+        "endChar": 61
+      },
       "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
