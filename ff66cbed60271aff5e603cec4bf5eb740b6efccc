@@ -3,6 +3,236 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df7f3f50_03cb9700",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "This is an example.  Please just put the highest level which is what enabled did before.",
+      "range": {
+        "startLine": 240,
+        "startChar": 11,
+        "endLine": 240,
+        "endChar": 22
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b276e94_5b74eaad",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 247,
+        "startChar": 57,
+        "endLine": 247,
+        "endChar": 62
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66993c1_babd0f2c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "This needs better combined.  Referencing the section above tells me that this information can just be included in the section previos.",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 33
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f888ed5_3d210cba",
+        "filename": "config/meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "Is this a change in behavior?  I didn\u0027t think DEBUG was tied to logging before?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "516d9608_4c677630",
+        "filename": "config/meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "Does it make more sense to put this map in a constexpr function, and just have this code write the string?  THis seems like it\u0027s mixing code with configure logic.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 3
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56dc7c4_0dddc59e",
+        "filename": "config/meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "Missing else here?  should be raising an error if the map entry doesnt exist.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 7
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63050706_c221d0bd",
+        "filename": "http/logging.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "Why was this added?",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64e3e04_b1db8746",
+        "filename": "http/logging.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "Pretty sure this needs to be if constexpr so the code gets deleted.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e90a6942_5d078767",
+        "filename": "meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need removed now?",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 29
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f267c0dd_f0fd575c",
+        "filename": "meson_options.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-03T21:22:43Z",
+      "side": 1,
+      "message": "unrelated change?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "066e16f6_404b6967",
         "filename": "meson_options.txt",
         "patchSetId": 43
