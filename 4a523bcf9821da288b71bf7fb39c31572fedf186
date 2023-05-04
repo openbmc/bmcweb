@@ -154,6 +154,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb6ab974_ad7e5292",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T21:46:35Z",
+      "side": 1,
+      "message": "Ninad, You\u0027re looking at boost::compute::flat_set which is not the same structure here.  Johathans link is correct, and does include contains().",
+      "parentUuid": "d027b1fc_562dae87",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0040bac4_7dd661ca",
@@ -514,6 +538,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c04bf796_cc2baa76",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T21:46:35Z",
+      "side": 1,
+      "message": "sdbusplus::message::object_path is called out in COMMON_ERRORS.md as the solution to this problem.  Please read all of the common errors.",
+      "parentUuid": "ba699129_6cae6a15",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 14
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5efbf6c8_6dc4dfe0",
@@ -551,6 +599,30 @@
       "side": 1,
       "message": "I have fixed this in my previous patch.",
       "parentUuid": "5efbf6c8_6dc4dfe0",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 21
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad393cb9_e40ac7ce",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T21:46:35Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "cadc96c7_6c86b610",
       "range": {
         "startLine": 277,
         "startChar": 0,
