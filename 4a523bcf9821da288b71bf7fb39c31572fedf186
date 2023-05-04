@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "518ca370_10dca6fa",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-04T05:13:03Z",
+      "side": 1,
+      "message": "Good catch. I am actually setting the defer read only if host socket is null. We only need protection during first socket connect. Please check.",
+      "parentUuid": "5a11f257_ed24f27d",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aacb29b2_8c37c134",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-03T20:52:41Z",
       "side": 1,
       "message": "`sessions.contains(\u0026conn)`\nMaybe this doesn\u0027t even need to be a function.",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a70a687_861bd19a",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-04T05:13:03Z",
+      "side": 1,
+      "message": "I don\u0027t find contains() method in the boost::container::flat_set\nRef: https://boostorg.github.io/compute/boost/compute/flat_set.html",
+      "parentUuid": "aacb29b2_8c37c134",
       "range": {
         "startLine": 129,
         "startChar": 11,
@@ -185,6 +233,30 @@
       "writtenOn": "2023-05-03T20:52:41Z",
       "side": 1,
       "message": "typo: endpoint",
+      "range": {
+        "startLine": 195,
+        "startChar": 54,
+        "endLine": 195,
+        "endChar": 61
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78daab4f_ddf1a976",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-04T05:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a5b5341_def18cf3",
       "range": {
         "startLine": 195,
         "startChar": 54,
