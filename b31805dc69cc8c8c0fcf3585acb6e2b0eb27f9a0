@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a934d7f_ed074414",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-04T00:15:02Z",
+      "side": 1,
+      "message": "nit, Similar to my later comment I think this needs to be downgraded to an INFO or WARNING message.",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 28
+      },
+      "revId": "b31805dc69cc8c8c0fcf3585acb6e2b0eb27f9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e353f6fe_2f6d8ae3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-04T00:15:02Z",
+      "side": 1,
+      "message": "We should return early if upstreamChassis is empty.  Otherwise we\u0027ll write to the response that the current is contained by \"/redfish/v1/Chassis/\"",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 9
+      },
+      "revId": "b31805dc69cc8c8c0fcf3585acb6e2b0eb27f9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e729be9_41b405db",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-04T00:15:02Z",
+      "side": 1,
+      "message": "nit, downgrade this to an INFO or WARNING message if we\u0027re not immediately returning a 500 Internal Error.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 25
+      },
+      "revId": "b31805dc69cc8c8c0fcf3585acb6e2b0eb27f9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
