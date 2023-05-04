@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd83df85_d458e8f0",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Changed to -Dlogging\u003ddebug\u0027",
+      "parentUuid": "df7f3f50_03cb9700",
+      "range": {
+        "startLine": 240,
+        "startChar": 11,
+        "endLine": 240,
+        "endChar": 22
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b276e94_5b74eaad",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-03T21:22:43Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 247,
+        "startChar": 57,
+        "endLine": 247,
+        "endChar": 62
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab16326_b8a2fe2b",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Changed to \"-Dbmcweb-logging\u003ddebug\"",
+      "parentUuid": "1b276e94_5b74eaad",
       "range": {
         "startLine": 247,
         "startChar": 57,
@@ -111,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "653dd2ca_1e8b5509",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "I removed those sentences as the log level is already described in the previous section.",
+      "parentUuid": "0d315842_e033cf8a",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 33
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f888ed5_3d210cba",
@@ -124,6 +196,30 @@
       "writtenOn": "2023-05-03T21:22:43Z",
       "side": 1,
       "message": "Is this a change in behavior?  I didn\u0027t think DEBUG was tied to logging before?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab1add6_61103ad5",
+        "filename": "config/meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "It does not change the behavior.\nPreviously, if \u0027buildtype\u003ddebug\u0027, it also enables logging and it uses the coded level (i.e. debug level)\n\nPrevious meson.build:\n\n```\nif( get_option(\u0027bmcweb-logging\u0027).enabled() or \\\n    get_option(\u0027buildtype\u0027).startswith(\u0027debug\u0027))\n add_project_arguments([\n   \u0027-DBMCWEB_ENABLE_LOGGING\u0027,\n   \u0027-DBMCWEB_ENABLE_DEBUG\u0027\n   ],\n\n\nsrc/webserver_main.cpp:\n\nstatic int run()\n{\n    crow::Logger::setLogLevel(crow::LogLevel::Debug);\n...\n}\n\n```\n\nWhat I\u0027ll do is to separate those options but set logging level as min. of \u0027debug\u0027 under buildtype\u003ddebug like\n\n```\n# Logging level\nloglvlopt \u003d get_option(\u0027bmcweb-logging\u0027)\nif get_option(\u0027buildtype\u0027).startswith(\u0027debug\u0027) and loglvlopt \u003d\u003d \u0027disabled\u0027\n   # Override logging level as \u0027debug\u0027 if \u0027bmcweb-logging\u0027 is set as \u0027dsiabled\u0027\n   loglvlopt \u003d \u0027debug\u0027\nendif\nconf_data.set(\u0027BMCWEB_LOGGING_LEVEL\u0027, loglvlopt)\n```",
+      "parentUuid": "3f888ed5_3d210cba",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -157,6 +253,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2969b3f5_e2aa0726",
+        "filename": "config/meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Changed to pass logging level string directly and the code will convert the string to log level (constexpr) using std::array\u003c\u003e.\nNote: constexpr std::map is not yet to be supported in c++20.",
+      "parentUuid": "516d9608_4c677630",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 3
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d56dc7c4_0dddc59e",
@@ -170,6 +290,30 @@
       "writtenOn": "2023-05-03T21:22:43Z",
       "side": 1,
       "message": "Missing else here?  should be raising an error if the map entry doesnt exist.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 7
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b4e3de_a2f728c2",
+        "filename": "config/meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "d56dc7c4_0dddc59e",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -203,6 +347,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "517bcd91_49398c1d",
+        "filename": "http/logging.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Fixed.  In fact, levelIn would not be needed.",
+      "parentUuid": "63050706_c221d0bd",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a64e3e04_b1db8746",
@@ -216,6 +384,30 @@
       "writtenOn": "2023-05-03T21:22:43Z",
       "side": 1,
       "message": "Pretty sure this needs to be if constexpr so the code gets deleted.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6787968_3e5a928b",
+        "filename": "http/logging.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "The previous code saves log level as a member variable and then it is used to check again in Logger destructor.\n\nBut, as you pointed out, the \u0027log level\u0027 is not needed into the class, as Logger will be compiled into the binary only if needed based on the caller\u0027s side.\n\nSo, it will be like:\n\n```\n    Logger([[maybe_unused]] const std::string\u0026 prefix,\n           [[maybe_unused]] const std::string\u0026 filename,\n           [[maybe_unused]] const size_t line)\n     {\n           stringstream \u003c\u003c ....;\n     }\n     \n    ~Logger()\n    {\n           stringstream \u003c\u003c std::endl;\n           std::cerr \u003c\u003c stringstream.str();\n    }\n    \n    template \u003ctypename T\u003e\n    Logger\u0026 operator\u003c\u003c([[maybe_unused]] T const\u0026 value)\n    {\n        // Somewhere in the code we\u0027re implicitly casting an array to a\n        // pointer in logging code. It\u0027s non-trivial to find,\n        // so disable the check here for now\n        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)\n        stringstream \u003c\u003c value;\n        return *this;\n    }\n    \n    And then\n    \n    #define BMCWEB_LOG_CRITICAL                                                \\\n    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))   \\\n    crow::Logger(\"CRITICAL\", __FILE__, __LINE__)\n\n    \n```",
+      "parentUuid": "a64e3e04_b1db8746",
       "range": {
         "startLine": 51,
         "startChar": 8,
@@ -249,6 +441,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f870c04_20ae1bb6",
+        "filename": "meson.build",
+        "patchSetId": 43
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "e90a6942_5d078767",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 29
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f267c0dd_f0fd575c",
@@ -262,6 +478,30 @@
       "writtenOn": "2023-05-03T21:22:43Z",
       "side": 1,
       "message": "unrelated change?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cfdd83c_5e4bd81e",
+        "filename": "meson_options.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-04T22:26:33Z",
+      "side": 1,
+      "message": "Sorry. Fixed",
+      "parentUuid": "f267c0dd_f0fd575c",
       "range": {
         "startLine": 58,
         "startChar": 0,
