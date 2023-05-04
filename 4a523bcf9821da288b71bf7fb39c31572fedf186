@@ -154,6 +154,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67978333_66555829",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-04T01:42:25Z",
+      "side": 1,
+      "message": "\u003e But I\u0027m also interested in getting this change merged ASAP because Redfish SOL is currently broken. bmcweb assumes a hardcoded unix socket name of @obmc-console but there is no way to configure obmc-console to listen at that path.\n\nYep, that\u0027s fair enough. Hopefully we can stage the changes better in the future. I discussed that on Discord with Ninad:\n\nhttps://discord.com/channels/775381525260664832/1083551792094249051/1103105227386781707",
+      "parentUuid": "59aa250f_1a430fcf",
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a5b5341_def18cf3",
