@@ -94,6 +94,30 @@
       },
       "revId": "02e01b5108d46720a0b438c0d79952464320d954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de6c3565_f336d774",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T19:06:02Z",
+      "side": 0,
+      "message": "Ah, you\u0027re right, this is in a Collection, not a raw element.  That explains my confusion.  Thanks for enlightening me.",
+      "parentUuid": "bad08663_0f86800c",
+      "range": {
+        "startLine": 2188,
+        "startChar": 25,
+        "endLine": 2188,
+        "endChar": 29
+      },
+      "revId": "02e01b5108d46720a0b438c0d79952464320d954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
