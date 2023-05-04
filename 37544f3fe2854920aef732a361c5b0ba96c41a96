@@ -16,6 +16,24 @@
       "message": "Let\u0027s hold this for a moment as I think we can improve the obmc-console DBus interface based on a suggestion from Jeremy:\n\nhttps://discord.com/channels/775381525260664832/1083551792094249051/1103570006610038834",
       "revId": "37544f3fe2854920aef732a361c5b0ba96c41a96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90babd89_ee4714ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "Agree with the discussion there;  The socketpair approach is better.",
+      "parentUuid": "ddfdd721_2eedef1c",
+      "revId": "37544f3fe2854920aef732a361c5b0ba96c41a96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

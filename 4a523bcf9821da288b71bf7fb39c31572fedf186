@@ -97,6 +97,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1953bfd6_f1582a0c",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "Please use sessions.contains(), at which point, this helper function seems pretty unnecessary.",
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0040bac4_7dd661ca",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "There\u0027s no need to call this.  erase() will return the count of the number of entries erased.",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 5
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6078e660_8bd4c3ed",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "Not sure this is needed?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 5
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b06d2cb3_834ce307",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 15
@@ -222,6 +285,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3eb54295_8f4f36e6",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "Can this even happen in this patch?  There\u0027s only one URI, so I\u0027m not sure how this branch could ever be hit?",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 70
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a5b5341_def18cf3",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 15
@@ -262,6 +348,52 @@
         "startChar": 54,
         "endLine": 195,
         "endChar": 61
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e99d9cd5_88071313",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "Per the developing guide, please do not do string concatenations like this for dbus paths.  Please use the provided classes.",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 14
+      },
+      "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5efbf6c8_6dc4dfe0",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-04T16:08:09Z",
+      "side": 1,
+      "message": "This looks wrong, and will break multiple connected clients.  We only need to defer if the hostsocket isn\u0027t already hooked up.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 21
       },
       "revId": "4a523bcf9821da288b71bf7fb39c31572fedf186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
