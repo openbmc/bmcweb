@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4870aeba_76d40445",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-05T17:05:03Z",
+      "side": 1,
+      "message": "I have add WIP as I am working on replacing socket name by FD.",
+      "revId": "e8af13d28bc340bacadbd04fd127d779a5e6ab41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0929d049_d86d91d1",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "In theory that can\u0027t happen.  removeConnection should only ever be called once in the lifecycle of a connection, and in the case where it happens more than once, I still think it\u0027s important that these things are called.  None of them should have any effect if run twice.\n\nWhether or not to return a failure.   I\u0027m not really of the opinion that a removal can ever really fail, so my personal preference would be for this to return void, but I\u0027m just as ok with what was done in this patch, because it\u0027s still correct as written.",
       "parentUuid": "0929d049_d86d91d1",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 16
+      },
+      "revId": "e8af13d28bc340bacadbd04fd127d779a5e6ab41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a954acb2_5c0b2e6d",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-05T17:05:03Z",
+      "side": 1,
+      "message": "Fixed. I am checking the return of erase() and return true if we really removed it.",
+      "parentUuid": "292fed1c_c8ac28ff",
       "range": {
         "startLine": 129,
         "startChar": 0,
