@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0929d049_d86d91d1",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-05T15:36:44Z",
+      "side": 1,
+      "message": "Is this always returning \u0027true\u0027?\nWhat if \u0027conn\u0027 was already removed before removeConnection() is called?\n\nShould it be like?\n\n```\n if( sessions.erase(\u0026conn) \u003d\u003d sessions.end() )\n { \n    return false;\n }\n ...\n```",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 16
+      },
+      "revId": "e8af13d28bc340bacadbd04fd127d779a5e6ab41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
