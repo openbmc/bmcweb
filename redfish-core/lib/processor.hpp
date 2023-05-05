@@ -25,6 +25,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
@@ -783,6 +784,8 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
                 getCpuLocationCode(aResp, serviceName, objectPath);
+                location_utils::getPartLocationContext(
+                    aResp, "/Location"_json_pointer, objectPath + "/chassis");
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
