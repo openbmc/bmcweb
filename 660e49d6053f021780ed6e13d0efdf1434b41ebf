@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efff42dd_3a8b8770",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 48
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-05T17:07:08Z",
+      "side": 1,
+      "message": "All comments addressed;  I see several +1s already for this, LGTM.",
+      "revId": "660e49d6053f021780ed6e13d0efdf1434b41ebf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
