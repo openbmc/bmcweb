@@ -258,6 +258,21 @@ inline void getPCIeDeviceSlotPath(
 }
 
 inline void
+    getPCIeSlotProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& pcieDeviceSlot,
+                          const std::string& service)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, pcieDeviceSlot,
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
+        [asyncResp](
+            const boost::system::error_code& ec,
+            const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
+        addPCIeSlotProperties(asyncResp->res, ec, pcieSlotProperties);
+        });
+}
+
+inline void
     afterGetDbusObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& pcieDeviceSlot,
                        const boost::system::error_code& ec,
@@ -270,14 +285,7 @@ inline void
         messages::internalError(asyncResp->res);
         return;
     }
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, object.begin()->first, pcieDeviceSlot,
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](
-            const boost::system::error_code& ec2,
-            const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
-        addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
-        });
+    getPCIeSlotProperties(asyncResp, pcieDeviceSlot, object.begin()->first);
 }
 
 inline void afterGetPCIeDeviceSlotPath(
@@ -524,6 +532,24 @@ inline void getPCIeDeviceProperties(
         });
 }
 
+inline void addPCIeSlotCommonProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/PCIeDevice/PCIeDevice.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] = "#PCIeDevice.v1_9_0.PCIeDevice";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/PCIeDevices/{}", pcieDeviceId);
+    asyncResp->res.jsonValue["Name"] = "Empty PCIe Slot";
+    asyncResp->res.jsonValue["Id"] = pcieDeviceId;
+
+    // This is an empty PCIe Slot, its state is always absent
+    asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+}
+
 inline void addPCIeDeviceCommonProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceId)
@@ -540,7 +566,16 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";
 }
 
-inline void afterGetValidPcieDevicePath(
+inline void afterGetValidPCieSlotPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieSlotId, const std::string& pcieSlotPath,
+    const std::string& service)
+{
+    addPCIeSlotCommonProperties(asyncResp, pcieSlotId);
+    getPCIeSlotProperties(asyncResp, pcieSlotPath, service);
+}
+
+inline void afterGetValidPCieDevicePath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceId, const std::string& pcieDevicePath,
     const std::string& service)
@@ -555,6 +590,71 @@ inline void afterGetValidPcieDevicePath(
     getPCIeDeviceSlotPath(
         pcieDevicePath, asyncResp,
         std::bind_front(afterGetPCIeDeviceSlotPath, asyncResp));
+}
+
+static inline void findValidPCIePath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieId,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::function<void(const std::string& pciePath,
+                             const std::string& service,
+                             const bool isPCIeDevice)>& callback)
+{
+    for (const auto& [rawPath, object] : subtree)
+    {
+        sdbusplus::message::object_path path(rawPath);
+        if (path.filename() != pcieId)
+        {
+            continue;
+        }
+        for (const auto& [service, interfaces] : object)
+        {
+            for (const auto& interface : interfaces)
+            {
+                if (interface ==
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice")
+                {
+                    callback(path, service, true);
+                    return;
+                }
+                if (interface == "xyz.openbmc_project.Inventory.Item.PCIeSlot")
+                {
+                    callback(path, service, false);
+                    return;
+                }
+            }
+        }
+    }
+
+    // Object not found
+    messages::resourceNotFound(asyncResp->res, "PCIe", pcieId);
+}
+
+static inline void getValidPCIePath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieId,
+    const std::function<void(const std::string& pciePath,
+                             const std::string& service,
+                             const bool isPCIeDevice)>& callback)
+{
+    constexpr std::array<std::string_view, 2> pcieInterface{
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+
+    dbus::utility::getSubTree(
+        inventoryPath, 0, pcieInterface,
+        [asyncResp, pcieId,
+         callback](const boost::system::error_code& ec,
+                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        findValidPCIePath(asyncResp, pcieId, subtree, callback);
+        });
 }
 
 inline void
@@ -581,9 +681,21 @@ inline void
         return;
     }
 
-    getValidPCIeDevicePath(
-        pcieDeviceId, asyncResp,
-        std::bind_front(afterGetValidPcieDevicePath, asyncResp, pcieDeviceId));
+    getValidPCIePath(asyncResp, pcieDeviceId,
+                     [asyncResp, pcieDeviceId](const std::string& pciePath,
+                                               const std::string& service,
+                                               const bool isPCIeDevice) {
+        if (isPCIeDevice)
+        {
+            afterGetValidPCieDevicePath(asyncResp, pcieDeviceId, pciePath,
+                                        service);
+        }
+        else
+        {
+            afterGetValidPCieSlotPath(asyncResp, pcieDeviceId, pciePath,
+                                      service);
+        }
+    });
 }
 
 inline void requestRoutesSystemPCIeDevice(App& app)
