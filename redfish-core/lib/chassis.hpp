@@ -24,6 +24,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -475,6 +476,9 @@ inline void
                          "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                 {
                     getChassisLocationCode(asyncResp, connectionName, path);
+                    location_utils::getPartLocationContext(
+                        asyncResp, "/Location"_json_pointer,
+                        path + "/containedby");
                 }
             }
 
