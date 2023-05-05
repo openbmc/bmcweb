@@ -1074,23 +1074,6 @@ class EventServiceManager
             }
         }
     }
-    void sendBroadcastMsg(const std::string& broadcastMsg)
-    {
-        for (const auto& it : this->subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            nlohmann::json msgJson;
-            msgJson["Timestamp"] =
-                redfish::time_utils::getDateTimeOffsetNow().first;
-            msgJson["OriginOfCondition"] = "/ibm/v1/HMC/BroadcastService";
-            msgJson["Name"] = "Broadcast Message";
-            msgJson["Message"] = broadcastMsg;
-
-            std::string strMsg = msgJson.dump(
-                2, ' ', true, nlohmann::json::error_handler_t::replace);
-            entry->sendEvent(strMsg);
-        }
-    }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 
