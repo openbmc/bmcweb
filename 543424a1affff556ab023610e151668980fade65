@@ -46,6 +46,29 @@
       },
       "revId": "543424a1affff556ab023610e151668980fade65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "722fcb4f_5025272b",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2023-05-05T05:42:43Z",
+      "side": 1,
+      "message": "Redfish spec v1.17.0, 9.8.6 \"OEM URIs\" indicates a URI format of `\u003cBaseUri\u003e/Oem/\u003cOemIdentifier\u003e/\u003cResourcePath\u003e`. So I\u0027m thinking here we\u0027d have something like /redfish/v1/Managers/bmc/ManagerDiagnosticData/Oem/OpenBMC/HttpStatistics",
+      "range": {
+        "startLine": 89,
+        "startChar": 9,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "543424a1affff556ab023610e151668980fade65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
