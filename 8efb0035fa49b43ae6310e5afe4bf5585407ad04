@@ -247,6 +247,24 @@
       "parentUuid": "a7781ea2_b9250d2b",
       "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeffc0a9_123727cf",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-05T20:15:28Z",
+      "side": 1,
+      "message": "I am still struggling a bit with this and all openbmc oem being enabled by default. \nJust like Oem client Id, do a majority of companies want this ?\nI guess you are saying the only performance hit is a slight increase in binary size. In openbmc/openbmc we typically enable new features by default? E.g. when LDAP was added  it was added here: https://github.com/openbmc/openbmc/blob/ed7346e3a02e40eeb6357d466513d537897e592a/meta-phosphor/recipes-phosphor/images/obmc-phosphor-image.bb#L39\n\nThen later companies can disable it if they choose: \nhttps://github.com/openbmc/openbmc/commit/374d8ae19c6261fdb46f6355fa0526163160499a\n\nIs that still standard for openbmc/openbmc?",
+      "parentUuid": "91b872e6_9fd03720",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
