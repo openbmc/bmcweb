@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371cbc99_b2b246ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-05T14:31:44Z",
+      "side": 1,
+      "message": "2023.1 isn\u0027t out yet.. How does this pass?",
+      "revId": "fc94f8d986cc8971ed29ee86edd3d5ddeebe09ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
