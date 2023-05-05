@@ -69,6 +69,30 @@
       },
       "revId": "543424a1affff556ab023610e151668980fade65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d197dcf6_56908563",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-05T16:41:18Z",
+      "side": 1,
+      "message": "Yep.  Nancy and I were just talking about this yesterday and I think I got that wrong.  Will fix.\n\nJust FYI, it sounds like this patch is going to make it into the standard before it gets merged as-is.",
+      "parentUuid": "722fcb4f_5025272b",
+      "range": {
+        "startLine": 89,
+        "startChar": 9,
+        "endLine": 89,
+        "endChar": 77
+      },
+      "revId": "543424a1affff556ab023610e151668980fade65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
