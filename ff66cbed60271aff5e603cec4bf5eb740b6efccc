@@ -677,6 +677,30 @@
       },
       "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd09d73_d72c3b5c",
+        "filename": "meson_options.txt",
+        "patchSetId": 43
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-05T15:19:22Z",
+      "side": 1,
+      "message": "Just for the clarification, in upstream, error/critical messages are also disabled by default.\n\nThis commit does not change the default behavior (i.e.  it remains as \u0027disabled\u0027).\n\nIt is up to downstream which logging levels are to be enabled.",
+      "parentUuid": "a379748a_c2ca30a6",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "ff66cbed60271aff5e603cec4bf5eb740b6efccc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
