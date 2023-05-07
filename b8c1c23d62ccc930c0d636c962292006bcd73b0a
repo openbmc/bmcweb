@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec62f494_34cc4237",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-05-07T15:38:00Z",
+      "side": 1,
+      "message": "Can you please give an example command that you used to test it?",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 46
+      },
+      "revId": "b8c1c23d62ccc930c0d636c962292006bcd73b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "972fe99d_8c9c9a16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-05-07T15:38:00Z",
+      "side": 1,
+      "message": "Please resolve the merge conflict.",
+      "revId": "b8c1c23d62ccc930c0d636c962292006bcd73b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9feea63b_ab25f82c",
+        "filename": "test/include/ibm/configfile_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2023-05-07T15:38:00Z",
+      "side": 1,
+      "message": "I feel this data can be cut down short like the other test case below",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 0
+      },
+      "revId": "b8c1c23d62ccc930c0d636c962292006bcd73b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
