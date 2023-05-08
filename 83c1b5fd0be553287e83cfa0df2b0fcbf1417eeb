@@ -87,6 +87,24 @@
       "parentUuid": "5997b8f1_0b3c66c1",
       "revId": "83c1b5fd0be553287e83cfa0df2b0fcbf1417eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b505663c_a503b477",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-08T04:01:30Z",
+      "side": 1,
+      "message": "Changed the code to get Location from Slot.",
+      "parentUuid": "b5e0d912_d510644d",
+      "revId": "83c1b5fd0be553287e83cfa0df2b0fcbf1417eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

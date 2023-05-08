@@ -16,6 +16,24 @@
       "message": "If we continue in this direction, can you expand on this? This is unexpected.  E.g. \n\nThe Redfish PCIeDevice schema includes a Location property under Slot since one doesn\u0027t exist on the PCIe Device root object.... This commit fetches the Location information from the PCIeDevice interface though..",
       "revId": "f3f24f8373728a670ccb8dc144f251e414ab510c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b71539_a28e46e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-08T04:01:30Z",
+      "side": 1,
+      "message": "Changed the code to get Location from PCIeSlot.",
+      "parentUuid": "34c669bb_c44cf18a",
+      "revId": "f3f24f8373728a670ccb8dc144f251e414ab510c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
