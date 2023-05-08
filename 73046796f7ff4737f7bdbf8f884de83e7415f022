@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0d7453_7c567b00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "Need a lot more here.. I thought there was an association added for chassis \u003c--\u003e fan ?\n\nSee https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57533/8",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b4540e5d_b5625814",
@@ -14,6 +31,402 @@
       "writtenOn": "2023-05-03T20:37:11Z",
       "side": 1,
       "message": "Looks good on my system.  Thanks!",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c42eeb97_2076d0de",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "#include \u003cmemory\u003e ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 49
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8598911a_914c6217",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "warning please",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278ef5ad_ddd19d7e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "sensorInterface might be a better name",
+      "range": {
+        "startLine": 36,
+        "startChar": 46,
+        "endLine": 36,
+        "endChar": 56
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353196e9_e90ae86f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "I don\u0027t see this hierarchy listed\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L4",
+      "range": {
+        "startLine": 40,
+        "startChar": 65,
+        "endLine": 40,
+        "endChar": 72
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b6fd7b_e2f5162e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "#include \u003cboost/system/error_code.hpp\u003e ?",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce123325_507ebe56",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "by reference please https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "range": {
+        "startLine": 109,
+        "startChar": 37,
+        "endLine": 109,
+        "endChar": 47
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a542634_0b904723",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "Can you use dbus::utility::getSubTree ?",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb75a4fa_424767f1",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "don\u0027t you have this defined above?",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 70
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62527e6_212da28e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "by reference please",
+      "range": {
+        "startLine": 151,
+        "startChar": 41,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b6cdc82_63d7291d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "error_code by reference please https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "range": {
+        "startLine": 184,
+        "startChar": 26,
+        "endLine": 184,
+        "endChar": 51
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d8a68b5_899b88f7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "ERROR probably makes more sense here see https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels",
+      "range": {
+        "startLine": 187,
+        "startChar": 23,
+        "endLine": 187,
+        "endChar": 28
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a43c7ecb_81d905d7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "we typically don\u0027t use the ternary operator in bmcweb. \nI think you already have a default of \"Enabled\" in case this interface doesn\u0027t exist on D-Bus... so not sure why this can\u0027t just be\n\nif (!value) { aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\"; }",
+      "range": {
+        "startLine": 193,
+        "startChar": 18,
+        "endLine": 193,
+        "endChar": 19
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab70f2da_efcf5686",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "error_code by reference please https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61013",
+      "range": {
+        "startLine": 203,
+        "startChar": 26,
+        "endLine": 203,
+        "endChar": 51
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243830df_c95291fa",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "ERROR probably makes more sense here see https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels",
+      "range": {
+        "startLine": 206,
+        "startChar": 23,
+        "endLine": 206,
+        "endChar": 28
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09e41d9_c7f51b8f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "We typically don\u0027t use the ternary operator in bmcweb. I think you already have a default, so can you just do like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62446 ?",
+      "range": {
+        "startLine": 212,
+        "startChar": 18,
+        "endLine": 212,
+        "endChar": 19
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b8aea2b_f7eb5fe9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "Warning here please",
+      "range": {
+        "startLine": 222,
+        "startChar": 19,
+        "endLine": 222,
+        "endChar": 24
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8806c814_7746c7c5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e ? Might want to run https://include-what-you-use.org/",
+      "range": {
+        "startLine": 296,
+        "startChar": 8,
+        "endLine": 296,
+        "endChar": 23
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377d9cdd_74c6dd75",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T20:18:41Z",
+      "side": 1,
+      "message": "What about head methods?",
       "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
