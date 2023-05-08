@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff8af825_eab7e28a",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-08T23:20:58Z",
+      "side": 1,
+      "message": "need to check if `asyncResp-\u003eres.jsonValue[jsonPtr]` is valid first before accessing `\"PartLocationContext\"`?",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 41
+      },
+      "revId": "a997fc2dea8860475e7031e9794e590fbb29f72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
