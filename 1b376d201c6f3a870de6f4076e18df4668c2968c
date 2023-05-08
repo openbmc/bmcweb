@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79611297_90d28296",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001767
+      },
+      "writtenOn": "2023-05-08T20:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b311cc_267791d2",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 40
+      },
+      "revId": "1b376d201c6f3a870de6f4076e18df4668c2968c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28811a68_829f488f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91842128_c11891ed",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001767
+      },
+      "writtenOn": "2023-05-08T20:28:58Z",
+      "side": 1,
+      "message": "Passing by value should work here as we are not backtracking to explore multiple upstream paths.",
+      "parentUuid": "28811a68_829f488f",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 25
+      },
+      "revId": "1b376d201c6f3a870de6f4076e18df4668c2968c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bc52670_6c41b811",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-08T16:01:18Z",
       "side": 1,
       "message": "emplace?",
+      "range": {
+        "startLine": 160,
+        "startChar": 30,
+        "endLine": 160,
+        "endChar": 36
+      },
+      "revId": "1b376d201c6f3a870de6f4076e18df4668c2968c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "616d88b1_38a92c21",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001767
+      },
+      "writtenOn": "2023-05-08T20:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc52670_6c41b811",
       "range": {
         "startLine": 160,
         "startChar": 30,
