@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b311cc_267791d2",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-08T16:01:18Z",
+      "side": 1,
+      "message": "Can probably move this to `chassis_utils.hpp`.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 40
+      },
+      "revId": "1b376d201c6f3a870de6f4076e18df4668c2968c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28811a68_829f488f",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-08T16:01:18Z",
+      "side": 1,
+      "message": "`unordered_set` or boost::hash_set\n\nI believe boost::hash_set is prefered.\n\nAlso, need to pass by reference? or else the elements from different paths won\u0027t get detected.\n\nUm, I guess you are enforcing that there is only one path upstream, then this should be fine.",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 25
+      },
+      "revId": "1b376d201c6f3a870de6f4076e18df4668c2968c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc52670_6c41b811",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-08T16:01:18Z",
+      "side": 1,
+      "message": "emplace?",
+      "range": {
+        "startLine": 160,
+        "startChar": 30,
+        "endLine": 160,
+        "endChar": 36
+      },
+      "revId": "1b376d201c6f3a870de6f4076e18df4668c2968c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
