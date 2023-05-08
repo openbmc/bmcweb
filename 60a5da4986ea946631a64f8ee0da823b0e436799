@@ -46,6 +46,30 @@
       },
       "revId": "60a5da4986ea946631a64f8ee0da823b0e436799",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23ea5b73_d15ea6a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-08T16:36:50Z",
+      "side": 1,
+      "message": "\u003e In the DCMI, it only mentions SEL log, but I saw that in the bmcweb repo, it defined \"PowerLimitException\", therefore, we need to add Redfish log also\n\nI\u0027m not understanding why having one log defined would require us to define another?  Lets get your commit message updated with what you\u0027re trying to accomplish, WITHOUT mentioning specifications that don\u0027t apply to Redfish, and we can work on finding a solution.",
+      "parentUuid": "153b76e1_6b2cffb8",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "60a5da4986ea946631a64f8ee0da823b0e436799",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
