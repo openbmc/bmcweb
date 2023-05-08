@@ -458,6 +458,9 @@ inline void
                     location_util::getLocationCode(asyncResp, connectionName,
                                                    path,
                                                    "/Location"_json_pointer);
+                    location_util::getPartLocationContext(
+                        asyncResp, "/Location"_json_pointer,
+                        path + "/contained_by");
                 }
                 else
                 {
