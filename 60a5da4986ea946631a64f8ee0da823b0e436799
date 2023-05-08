@@ -22,6 +22,30 @@
       },
       "revId": "60a5da4986ea946631a64f8ee0da823b0e436799",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "153b76e1_6b2cffb8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-05-08T02:30:23Z",
+      "side": 1,
+      "message": "\u003e What does the DCMI specification have to do with this?  This is Redfish, which isn\u0027t governed by that specification.\n\u003e \nIn the DCMI, it only mentions SEL log, but I saw that in the bmcweb repo, it defined \"PowerLimitException\", therefore, we need to add Redfish log also (https://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/JsonSchemas/Power/Power.json#L586)\n\n\u003e Also, I\u0027m looking at table 6-18, and I see no such mention of logging into Redfish.  In section 6.3 I do see\n\u003e ```\n\u003e System Event Logging (SEL) provides the necessary logging for DCMI. SEL can be uploaded,\n\u003e cleared by the in-band and out-of-band agents using the defined IPMI commands.\n\u003e ```\n\u003e \n\u003e Maybe you intended to commit this to IPMI?\n\u003e \nBoth SEL (IPMI) and Redfish logs shall be handled.\n\u003e \n\u003e If your intent was to commit this to Redfish, please take a look at the Power registry, that I believe covers this use case for the Redfish spec.\n\u003e \nThank you for your suggestion, I checked the \"Power\" registries, but I did not find out any registry for Power Limit events.\n\u003e \n\u003e Please note, a lot more detail in this commit message is needed if it\u0027s to proceed.  One sentence is rarely enough for a full new feature.\n\u003e\nI added more information about the reason why Redfish log is needed in this case.",
+      "parentUuid": "8f1a650e_baf6c91f",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "60a5da4986ea946631a64f8ee0da823b0e436799",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
