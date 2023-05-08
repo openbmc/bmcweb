@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b05f95e5_5a7ff4f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T19:50:14Z",
+      "side": 1,
+      "message": "Can you add more here? You appear to be fixing a bug in bmcweb, a Redfish validator error but from this commit msg, I would have no idea. You mention Asset interface (D-Bus interface) but I don\u0027t see much for what this actually does in Redfish/why we need this. interface is used for both a D-Bus interface and a Redfish property in your commit msg? Best to call it something like PCIeDevice PCIeInterface if talking about the Redfish\u0027s PCIeInterface complex. \n\nMaybe something more like:\n\n```\nRemove \"Manufacturer\" from PCIeDevice PCIeInterface\n\nRemove Manufacturer from the PCIeDevice\u0027s PCIeInterface and fix the following Redfish validator error: \n\u003cinsert validator error\u003e \n\nThis error is because there is no [\"PCIeInterface\"][\"Manufacturer\"] at https://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_11_0.json. \n\n\"Manufacturer\" is already part of the root PCIeDevice and is implemented on line 219.\n\nOn the backend \"Manufacturer\" is already part of Asset interface so remove it from PCIeDevice interface in peci-pcie and phosphor-dbus-interface.\n\nphosphor-dbus-interfaces commit:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/61738\n\npeci-pcie commit:\nhttps://gerrit.openbmc.org/c/openbmc/peci-pcie/+/62256\n\nTested:\n...\n```",
+      "revId": "e349b5ae5d740d50559235d04b8be75fcdbd6266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4479a515_87b60f79",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T19:50:14Z",
+      "side": 1,
+      "message": "This is the PCIe Device\u0027s Manufacturer. It stays, makes sense.",
+      "revId": "e349b5ae5d740d50559235d04b8be75fcdbd6266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dde328b_906d015c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-08T19:50:14Z",
+      "side": 0,
+      "message": "This is the PCIeInterface Manufacturer; I don\u0027t see it in Redfish\nhttps://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_11_0.json",
+      "revId": "c8350ac1b7fa8df3dec5883b7ab3cb09da1a25b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
