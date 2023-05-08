@@ -755,6 +755,8 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             {
                 location_util::getLocationCode(aResp, serviceName, objectPath,
                                                "/Location"_json_pointer);
+                location_util::getPartLocationContext(
+                    aResp, "/Location"_json_pointer, objectPath + "/chassis");
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
