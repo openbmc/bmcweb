@@ -124,6 +124,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f96c2e5_3e4625a3",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-08T14:14:43Z",
+      "side": 1,
+      "message": "The userRole and userGroups are set during the runtime in the routing function. Hence don\u0027t need to send it through the constructor hence we are initializing it. If I don\u0027t initialize then it gives a compilation error in the generateUserSession() the constructor for UserSession is invoked. Other strings are assigned value in the constructor hence they don\u0027t need initialization.",
+      "parentUuid": "4fe3c759_7c103759",
+      "range": {
+        "startLine": 43,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 26
+      },
+      "revId": "7231c7073e708ca625e3e5bd0fa944b420a715ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c8e5d87_6d67d92d",
