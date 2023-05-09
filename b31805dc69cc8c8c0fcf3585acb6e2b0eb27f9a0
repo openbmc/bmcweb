@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbfcf143_76541738",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-09T06:56:59Z",
+      "side": 1,
+      "message": "Done. Also rephrased the warning message to be clearer",
+      "parentUuid": "2a934d7f_ed074414",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 28
+      },
+      "revId": "b31805dc69cc8c8c0fcf3585acb6e2b0eb27f9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e353f6fe_2f6d8ae3",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53aa7686_50c6b9df",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-09T06:56:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e353f6fe_2f6d8ae3",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 9
+      },
+      "revId": "b31805dc69cc8c8c0fcf3585acb6e2b0eb27f9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e729be9_41b405db",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-04T00:15:02Z",
       "side": 1,
       "message": "nit, downgrade this to an INFO or WARNING message if we\u0027re not immediately returning a 500 Internal Error.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 25
+      },
+      "revId": "b31805dc69cc8c8c0fcf3585acb6e2b0eb27f9a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c0a960_e4e19ff5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-09T06:56:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e729be9_41b405db",
       "range": {
         "startLine": 222,
         "startChar": 0,
