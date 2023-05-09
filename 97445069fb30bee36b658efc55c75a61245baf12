@@ -258,6 +258,24 @@
       "parentUuid": "700ca83f_0ddfbbc1",
       "revId": "97445069fb30bee36b658efc55c75a61245baf12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c308b36_c0a2865b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-09T22:46:21Z",
+      "side": 1,
+      "message": "Implementing that would be a lot of extra work and involve repos outside of bmcweb.  You\u0027d need to create a new daemon that puts the max sizes on dbus or you\u0027d have to modify an existing daemon to add them.  If that\u0027s a direction you want to pursue then it should be a separate effort instead of part of this patch.\n\nI think it\u0027s possible, but what is the use case for something like that?  If you need a different max size then a compiler option seems like a more reasonable direction.  You could also directly modify the value via a downstream patch if upstream doesn\u0027t approve of adding a compiler option.",
+      "parentUuid": "21e666ca_562e0eb7",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
