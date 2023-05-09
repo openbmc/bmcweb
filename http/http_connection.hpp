@@ -271,8 +271,8 @@ class Connection :
                         req->methodString(), req->target(),
                         req->ipAddress.to_string());
 
-        req->ioService = static_cast<decltype(req->ioService)>(
-            &adaptor.get_executor().context());
+        req->ioService =
+            adaptor.get_executor().template target<boost::asio::io_context>();
 
         if (res.completed)
         {

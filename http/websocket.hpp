@@ -78,8 +78,7 @@ class ConnectionImpl : public Connection
 
     boost::asio::io_context& getIoContext() override
     {
-        return static_cast<boost::asio::io_context&>(
-            ws.get_executor().context());
+        return *ws.get_executor().template target<boost::asio::io_context>();
     }
 
     void start(const crow::Request& req)

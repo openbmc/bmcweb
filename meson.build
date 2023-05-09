@@ -175,6 +175,7 @@ add_project_arguments(
         [
             '-DBOOST_ALL_NO_LIB',
             '-DBOOST_ALLOW_DEPRECATED_HEADERS',
+            '-DBOOST_ASIO_HAS_IO_URING',
             '-DBOOST_ASIO_DISABLE_THREADS',
             '-DBOOST_ASIO_NO_DEPRECATED',
             '-DBOOST_ASIO_SEPARATE_COMPILATION',
@@ -312,6 +313,14 @@ else
         bmcweb_dependencies += [boost_lib_instance]
         bmcweb_cli_dependencies += [boost_lib_instance]
     endforeach
+
+    uring = dependency('liburing', required: false, include_type: 'system')
+    if not uring.found()
+        uring_proj = subproject('liburing', required: true)
+        uring = uring_proj.get_variable('uring')
+        uring = uring.as_system('system')
+    endif
+    bmcweb_dependencies += uring
 endif
 
 systemd_system_unit_dir = systemd.get_variable('systemdsystemunitdir')
