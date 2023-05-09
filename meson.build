@@ -239,6 +239,8 @@ add_project_arguments(
 cxx.get_supported_arguments([
   '-DBOOST_ALL_NO_LIB',
   '-DBOOST_ALLOW_DEPRECATED_HEADERS',
+  '-DBOOST_ASIO_HAS_IO_URING',
+  '-DBOOST_ASIO_DISABLE_EPOLL',
   '-DBOOST_ASIO_DISABLE_THREADS',
   '-DBOOST_ASIO_NO_DEPRECATED',
   '-DBOOST_ASIO_SEPARATE_COMPILATION',
@@ -312,6 +314,14 @@ if not boost.found()
   boost = boost.as_system('system')
 endif
 bmcweb_dependencies += boost
+
+uring = dependency('liburing', required : false, include_type: 'system')
+if not uring.found()
+  uring_proj = subproject('liburing', required: true)
+  uring = uring_proj.get_variable('uring')
+  uring = uring.as_system('system')
+endif
+bmcweb_dependencies += uring
 
 if get_option('tests').enabled()
   gtest = dependency('gtest', main: true, disabler: true, required : false)

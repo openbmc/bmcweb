@@ -241,8 +241,8 @@ class Connection :
 
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
-        thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
-            &adaptor.get_executor().context());
+        thisReq.ioService =
+            adaptor.get_executor().template target<boost::asio::io_context>();
 
         if (res.completed)
         {
