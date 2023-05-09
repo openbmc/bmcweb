@@ -18,6 +18,60 @@
 namespace crow
 {
 
+inline void nlohmannToBoostJson(const nlohmann::json& jsonIn,
+                                boost::json::value& value)
+{
+    const nlohmann::json::object_t* objIn =
+        jsonIn.get_ptr<const nlohmann::json::object_t*>();
+    if (objIn != nullptr)
+    {
+        boost::json::object& jsonOut = value.emplace_object();
+        for (const auto& [key, mappedValue] : *objIn)
+        {
+            std::pair<boost::json::object::iterator, bool> it =
+                jsonOut.emplace(std::string_view(key), nullptr);
+            nlohmannToBoostJson(mappedValue, it.first->value());
+        }
+    }
+    const nlohmann::json::array_t* arrIn =
+        jsonIn.get_ptr<const nlohmann::json::array_t*>();
+    if (arrIn != nullptr)
+    {
+        boost::json::array& jsonArrOut = value.emplace_array();
+        jsonArrOut.reserve(arrIn->size());
+        for (const auto& arrValue : *objIn)
+        {
+            boost::json::value& val = jsonArrOut.emplace_back(nullptr);
+            nlohmannToBoostJson(arrValue, val);
+        }
+    }
+    const uint64_t* uint64In = jsonIn.get_ptr<const uint64_t*>();
+    if (uint64In != nullptr)
+    {
+        value.emplace_uint64() = *uint64In;
+    }
+    const int64_t* int64In = jsonIn.get_ptr<const int64_t*>();
+    if (int64In != nullptr)
+    {
+        value.emplace_int64() = *int64In;
+    }
+    const double* doubleIn = jsonIn.get_ptr<const double*>();
+    if (doubleIn != nullptr)
+    {
+        value.emplace_double() = *doubleIn;
+    }
+    const std::string* strIn = jsonIn.get_ptr<const std::string*>();
+    if (strIn != nullptr)
+    {
+        value.emplace_string() = *strIn;
+    }
+    const bool* boolIn = jsonIn.get_ptr<const bool*>();
+    if (boolIn != nullptr)
+    {
+        value.emplace_bool() = *boolIn;
+    }
+}
+
 inline void completeResponseFields(std::string_view accepts, Response& res)
 {
     BMCWEB_LOG_INFO("Response: {}", res.resultInt());
@@ -50,9 +104,9 @@ inline void completeResponseFields(std::string_view accepts, Response& res)
             // backward compatibility.
             res.addHeader(boost::beast::http::field::content_type,
                           "application/json");
-            res.write(res.jsonValue.dump(
-                2, ' ', true, nlohmann::json::error_handler_t::replace));
+            nlohmannToBoostJson(res.jsonValue, res.response.body().jsonValue2);
         }
+        res.jsonValue.clear();
     }
 }
 } // namespace crow

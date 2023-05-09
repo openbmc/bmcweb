@@ -2012,13 +2012,15 @@ inline void
                                            accountName);
                 return;
             }
+            boost::json::value& jsonValue2 = asyncResp->res.response.body().jsonValue2;
+            boost::json::object& jsonValue = jsonValue2.emplace_object();
 
-            asyncResp->res.jsonValue["@odata.type"] =
+            jsonValue["@odata.type"] =
                 "#ManagerAccount.v1_7_0.ManagerAccount";
-            asyncResp->res.jsonValue["Name"] = "User Account";
-            asyncResp->res.jsonValue["Description"] = "User Account";
-            asyncResp->res.jsonValue["Password"] = nullptr;
-            asyncResp->res.jsonValue["StrictAccountTypes"] = true;
+            jsonValue["Name"] = "User Account";
+            jsonValue["Description"] = "User Account";
+            jsonValue["Password"] = nullptr;
+            jsonValue["StrictAccountTypes"] = true;
 
             for (const auto& interface : userIt->second)
             {
@@ -2036,7 +2038,7 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["Enabled"] = *userEnabled;
+                            jsonValue["Enabled"] = *userEnabled;
                         }
                         else if (property.first == "UserLockedForFailedAttempt")
                         {
@@ -2050,7 +2052,7 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["Locked"] = *userLocked;
+                            jsonValue["Locked"] = *userLocked;
                             nlohmann::json::array_t allowed;
                             // can only unlock accounts
                             allowed.emplace_back("false");
@@ -2077,12 +2079,12 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["RoleId"] = role;
+                            jsonValue["RoleId"] = role;
 
-                            nlohmann::json& roleEntry =
-                                asyncResp->res.jsonValue["Links"]["Role"];
+                            boost::json::object& roleEntry =
+                                jsonValue["Links"].emplace_object()["Role"].emplace_object();
                             roleEntry["@odata.id"] = boost::urls::format(
-                                "/redfish/v1/AccountService/Roles/{}", role);
+                                "/redfish/v1/AccountService/Roles/{}", role).buffer();
                         }
                         else if (property.first == "UserPasswordExpired")
                         {
@@ -2095,7 +2097,7 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["PasswordChangeRequired"] =
+                            jsonValue["PasswordChangeRequired"] =
                                 *userPasswordExpired;
                         }
                         else if (property.first == "UserGroups")
@@ -2122,10 +2124,10 @@ inline void
                 }
             }
 
-            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                "/redfish/v1/AccountService/Accounts/{}", accountName);
-            asyncResp->res.jsonValue["Id"] = accountName;
-            asyncResp->res.jsonValue["UserName"] = accountName;
+            jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/AccountService/Accounts/{}", accountName).buffer();
+            jsonValue["Id"] = accountName;
+            jsonValue["UserName"] = accountName;
         });
 }
 
