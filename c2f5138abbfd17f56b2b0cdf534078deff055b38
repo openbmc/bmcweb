@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fed90c92_b8bd1a77",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-09T17:50:35Z",
+      "side": 1,
+      "message": "Isn\u0027t this only getting the \"contained_by\" association for a single Chassis?  In that case we want to fail if we find multiple \"contained_by\" associations since the Redfish spec does not allow a given Chassis to be contained by more than one Chassis.\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2022.3.pdf#page\u003d185",
+      "parentUuid": "e125563b_da839523",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e5cf470_c788204b",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
