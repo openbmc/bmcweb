@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f89ce445_e1578332",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-09T19:41:59Z",
+      "side": 1,
+      "message": "Add BMCWEB_LOG_ERROR.",
+      "revId": "2e4ede986977e88a0acc82296edf8d32e8a7cdae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a4dd316_d9371beb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-09T19:41:59Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "2e4ede986977e88a0acc82296edf8d32e8a7cdae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
