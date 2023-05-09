@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace privileges
@@ -34,6 +35,22 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PrivilegeType, {
     {PrivilegeType::AdministrateStorage, "AdministrateStorage"},
     {PrivilegeType::OperateStorageBackup, "OperateStorageBackup"},
 });
+
+BOOST_DESCRIBE_ENUM(PrivilegeType,
+
+    Invalid,
+    Login,
+    ConfigureManager,
+    ConfigureUsers,
+    ConfigureSelf,
+    ConfigureComponents,
+    NoAuth,
+    ConfigureCompositionInfrastructure,
+    AdministrateSystems,
+    OperateSystems,
+    AdministrateStorage,
+    OperateStorageBackup,
+);
 
 }
 // clang-format on

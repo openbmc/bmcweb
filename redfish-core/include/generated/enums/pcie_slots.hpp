@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace pcie_slots
@@ -30,6 +31,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SlotTypes, {
     {SlotTypes::OCP3Large, "OCP3Large"},
     {SlotTypes::U2, "U2"},
 });
+
+BOOST_DESCRIBE_ENUM(SlotTypes,
+
+    Invalid,
+    FullLength,
+    HalfLength,
+    LowProfile,
+    Mini,
+    M2,
+    OEM,
+    OCP3Small,
+    OCP3Large,
+    U2,
+);
 
 }
 // clang-format on

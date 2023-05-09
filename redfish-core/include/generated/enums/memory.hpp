@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace memory
@@ -118,6 +119,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryType, {
     {MemoryType::Cache, "Cache"},
 });
 
+BOOST_DESCRIBE_ENUM(MemoryType,
+
+    Invalid,
+    DRAM,
+    NVDIMM_N,
+    NVDIMM_F,
+    NVDIMM_P,
+    IntelOptane,
+    Cache,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MemoryDeviceType, {
     {MemoryDeviceType::Invalid, "Invalid"},
     {MemoryDeviceType::DDR, "DDR"},
@@ -156,6 +168,45 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryDeviceType, {
     {MemoryDeviceType::LPDDR5_SDRAM, "LPDDR5_SDRAM"},
 });
 
+BOOST_DESCRIBE_ENUM(MemoryDeviceType,
+
+    Invalid,
+    DDR,
+    DDR2,
+    DDR3,
+    DDR4,
+    DDR4_SDRAM,
+    DDR4E_SDRAM,
+    LPDDR4_SDRAM,
+    DDR3_SDRAM,
+    LPDDR3_SDRAM,
+    DDR2_SDRAM,
+    DDR2_SDRAM_FB_DIMM,
+    DDR2_SDRAM_FB_DIMM_PROBE,
+    DDR_SGRAM,
+    DDR_SDRAM,
+    ROM,
+    SDRAM,
+    EDO,
+    FastPageMode,
+    PipelinedNibble,
+    Logical,
+    HBM,
+    HBM2,
+    HBM2E,
+    HBM3,
+    GDDR,
+    GDDR2,
+    GDDR3,
+    GDDR4,
+    GDDR5,
+    GDDR5X,
+    GDDR6,
+    DDR5,
+    OEM,
+    LPDDR5_SDRAM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BaseModuleType, {
     {BaseModuleType::Invalid, "Invalid"},
     {BaseModuleType::RDIMM, "RDIMM"},
@@ -171,6 +222,22 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BaseModuleType, {
     {BaseModuleType::Die, "Die"},
 });
 
+BOOST_DESCRIBE_ENUM(BaseModuleType,
+
+    Invalid,
+    RDIMM,
+    UDIMM,
+    SO_DIMM,
+    LRDIMM,
+    Mini_RDIMM,
+    Mini_UDIMM,
+    SO_RDIMM_72b,
+    SO_UDIMM_72b,
+    SO_DIMM_16b,
+    SO_DIMM_32b,
+    Die,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MemoryMedia, {
     {MemoryMedia::Invalid, "Invalid"},
     {MemoryMedia::DRAM, "DRAM"},
@@ -178,6 +245,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryMedia, {
     {MemoryMedia::Intel3DXPoint, "Intel3DXPoint"},
     {MemoryMedia::Proprietary, "Proprietary"},
 });
+
+BOOST_DESCRIBE_ENUM(MemoryMedia,
+
+    Invalid,
+    DRAM,
+    NAND,
+    Intel3DXPoint,
+    Proprietary,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SecurityStates, {
     {SecurityStates::Invalid, "Invalid"},
@@ -189,6 +265,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecurityStates, {
     {SecurityStates::Passphraselimit, "Passphraselimit"},
 });
 
+BOOST_DESCRIBE_ENUM(SecurityStates,
+
+    Invalid,
+    Enabled,
+    Disabled,
+    Unlocked,
+    Locked,
+    Frozen,
+    Passphraselimit,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ErrorCorrection, {
     {ErrorCorrection::Invalid, "Invalid"},
     {ErrorCorrection::NoECC, "NoECC"},
@@ -197,6 +284,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ErrorCorrection, {
     {ErrorCorrection::AddressParity, "AddressParity"},
 });
 
+BOOST_DESCRIBE_ENUM(ErrorCorrection,
+
+    Invalid,
+    NoECC,
+    SingleBitECC,
+    MultiBitECC,
+    AddressParity,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MemoryClassification, {
     {MemoryClassification::Invalid, "Invalid"},
     {MemoryClassification::Volatile, "Volatile"},
@@ -204,12 +300,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryClassification, {
     {MemoryClassification::Block, "Block"},
 });
 
+BOOST_DESCRIBE_ENUM(MemoryClassification,
+
+    Invalid,
+    Volatile,
+    ByteAccessiblePersistent,
+    Block,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OperatingMemoryModes, {
     {OperatingMemoryModes::Invalid, "Invalid"},
     {OperatingMemoryModes::Volatile, "Volatile"},
     {OperatingMemoryModes::PMEM, "PMEM"},
     {OperatingMemoryModes::Block, "Block"},
 });
+
+BOOST_DESCRIBE_ENUM(OperatingMemoryModes,
+
+    Invalid,
+    Volatile,
+    PMEM,
+    Block,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace trusted_component
@@ -16,6 +17,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TrustedComponentType, {
     {TrustedComponentType::Discrete, "Discrete"},
     {TrustedComponentType::Integrated, "Integrated"},
 });
+
+BOOST_DESCRIBE_ENUM(TrustedComponentType,
+
+    Invalid,
+    Discrete,
+    Integrated,
+);
 
 }
 // clang-format on

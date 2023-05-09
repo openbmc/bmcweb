@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace log_service
@@ -108,6 +109,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::NeverOverWrites, "NeverOverWrites"},
 });
 
+BOOST_DESCRIBE_ENUM(OverWritePolicy,
+
+    Invalid,
+    Unknown,
+    WrapsWhenFull,
+    NeverOverWrites,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LogEntryTypes, {
     {LogEntryTypes::Invalid, "Invalid"},
     {LogEntryTypes::Event, "Event"},
@@ -116,6 +125,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogEntryTypes, {
     {LogEntryTypes::OEM, "OEM"},
     {LogEntryTypes::CXL, "CXL"},
 });
+
+BOOST_DESCRIBE_ENUM(LogEntryTypes,
+
+    Invalid,
+    Event,
+    SEL,
+    Multiple,
+    OEM,
+    CXL,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SyslogSeverity, {
     {SyslogSeverity::Invalid, "Invalid"},
@@ -129,6 +148,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogSeverity, {
     {SyslogSeverity::Debug, "Debug"},
     {SyslogSeverity::All, "All"},
 });
+
+BOOST_DESCRIBE_ENUM(SyslogSeverity,
+
+    Invalid,
+    Emergency,
+    Alert,
+    Critical,
+    Error,
+    Warning,
+    Notice,
+    Informational,
+    Debug,
+    All,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Invalid, "Invalid"},
@@ -158,6 +191,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Local7, "Local7"},
 });
 
+BOOST_DESCRIBE_ENUM(SyslogFacility,
+
+    Invalid,
+    Kern,
+    User,
+    Mail,
+    Daemon,
+    Auth,
+    Syslog,
+    LPR,
+    News,
+    UUCP,
+    Cron,
+    Authpriv,
+    FTP,
+    NTP,
+    Security,
+    Console,
+    SolarisCron,
+    Local0,
+    Local1,
+    Local2,
+    Local3,
+    Local4,
+    Local5,
+    Local6,
+    Local7,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LogDiagnosticDataTypes, {
     {LogDiagnosticDataTypes::Invalid, "Invalid"},
     {LogDiagnosticDataTypes::Manager, "Manager"},
@@ -165,6 +227,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogDiagnosticDataTypes, {
     {LogDiagnosticDataTypes::OS, "OS"},
     {LogDiagnosticDataTypes::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(LogDiagnosticDataTypes,
+
+    Invalid,
+    Manager,
+    PreOS,
+    OS,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LogPurpose, {
     {LogPurpose::Invalid, "Invalid"},
@@ -175,6 +246,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogPurpose, {
     {LogPurpose::ExternalEntity, "ExternalEntity"},
     {LogPurpose::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(LogPurpose,
+
+    Invalid,
+    Diagnostic,
+    Operations,
+    Security,
+    Telemetry,
+    ExternalEntity,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::Invalid, "Invalid"},
@@ -189,6 +271,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(TransferProtocolType,
+
+    Invalid,
+    CIFS,
+    FTP,
+    SFTP,
+    HTTP,
+    HTTPS,
+    NFS,
+    SCP,
+    TFTP,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AutoClearResolvedEntries, {
     {AutoClearResolvedEntries::Invalid, "Invalid"},
     {AutoClearResolvedEntries::ClearEventGroup, "ClearEventGroup"},
@@ -196,6 +292,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutoClearResolvedEntries, {
     {AutoClearResolvedEntries::UpdateCauseEntry, "UpdateCauseEntry"},
     {AutoClearResolvedEntries::None, "None"},
 });
+
+BOOST_DESCRIBE_ENUM(AutoClearResolvedEntries,
+
+    Invalid,
+    ClearEventGroup,
+    RetainCauseResolutionEntries,
+    UpdateCauseEntry,
+    None,
+);
 
 }
 // clang-format on

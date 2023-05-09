@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace event_service
@@ -30,6 +31,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SMTPConnectionProtocol, {
     {SMTPConnectionProtocol::TLS_SSL, "TLS_SSL"},
 });
 
+BOOST_DESCRIBE_ENUM(SMTPConnectionProtocol,
+
+    Invalid,
+    None,
+    AutoDetect,
+    StartTLS,
+    TLS_SSL,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SMTPAuthenticationMethods, {
     {SMTPAuthenticationMethods::Invalid, "Invalid"},
     {SMTPAuthenticationMethods::None, "None"},
@@ -38,6 +48,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SMTPAuthenticationMethods, {
     {SMTPAuthenticationMethods::Login, "Login"},
     {SMTPAuthenticationMethods::CRAM_MD5, "CRAM_MD5"},
 });
+
+BOOST_DESCRIBE_ENUM(SMTPAuthenticationMethods,
+
+    Invalid,
+    None,
+    AutoDetect,
+    Plain,
+    Login,
+    CRAM_MD5,
+);
 
 }
 // clang-format on

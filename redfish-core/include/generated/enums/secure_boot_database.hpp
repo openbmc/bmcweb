@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace secure_boot_database
@@ -16,6 +17,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::ResetAllKeysToDefault, "ResetAllKeysToDefault"},
     {ResetKeysType::DeleteAllKeys, "DeleteAllKeys"},
 });
+
+BOOST_DESCRIBE_ENUM(ResetKeysType,
+
+    Invalid,
+    ResetAllKeysToDefault,
+    DeleteAllKeys,
+);
 
 }
 // clang-format on

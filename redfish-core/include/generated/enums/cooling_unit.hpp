@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace cooling_unit
@@ -18,6 +19,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolingEquipmentType, {
     {CoolingEquipmentType::HeatExchanger, "HeatExchanger"},
     {CoolingEquipmentType::ImmersionUnit, "ImmersionUnit"},
 });
+
+BOOST_DESCRIBE_ENUM(CoolingEquipmentType,
+
+    Invalid,
+    CDU,
+    HeatExchanger,
+    ImmersionUnit,
+);
 
 }
 // clang-format on

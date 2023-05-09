@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace account_service
@@ -84,6 +85,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MFABypassType, {
     {MFABypassType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(MFABypassType,
+
+    Invalid,
+    All,
+    SecurID,
+    GoogleAuthenticator,
+    MicrosoftAuthenticator,
+    ClientCertificate,
+    OneTimePasscode,
+    TimeBasedOneTimePassword,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LocalAccountAuth, {
     {LocalAccountAuth::Invalid, "Invalid"},
     {LocalAccountAuth::Enabled, "Enabled"},
@@ -91,6 +105,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LocalAccountAuth, {
     {LocalAccountAuth::Fallback, "Fallback"},
     {LocalAccountAuth::LocalFirst, "LocalFirst"},
 });
+
+BOOST_DESCRIBE_ENUM(LocalAccountAuth,
+
+    Invalid,
+    Enabled,
+    Disabled,
+    Fallback,
+    LocalFirst,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AccountProviderTypes, {
     {AccountProviderTypes::Invalid, "Invalid"},
@@ -102,6 +125,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccountProviderTypes, {
     {AccountProviderTypes::OAuth2, "OAuth2"},
 });
 
+BOOST_DESCRIBE_ENUM(AccountProviderTypes,
+
+    Invalid,
+    RedfishService,
+    ActiveDirectoryService,
+    LDAPService,
+    OEM,
+    TACACSplus,
+    OAuth2,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationTypes, {
     {AuthenticationTypes::Invalid, "Invalid"},
     {AuthenticationTypes::Token, "Token"},
@@ -109,6 +143,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationTypes, {
     {AuthenticationTypes::UsernameAndPassword, "UsernameAndPassword"},
     {AuthenticationTypes::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(AuthenticationTypes,
+
+    Invalid,
+    Token,
+    KerberosKeytab,
+    UsernameAndPassword,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TACACSplusPasswordExchangeProtocol, {
     {TACACSplusPasswordExchangeProtocol::Invalid, "Invalid"},
@@ -119,11 +162,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TACACSplusPasswordExchangeProtocol, {
     {TACACSplusPasswordExchangeProtocol::MSCHAPv2, "MSCHAPv2"},
 });
 
+BOOST_DESCRIBE_ENUM(TACACSplusPasswordExchangeProtocol,
+
+    Invalid,
+    ASCII,
+    PAP,
+    CHAP,
+    MSCHAPv1,
+    MSCHAPv2,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OAuth2Mode, {
     {OAuth2Mode::Invalid, "Invalid"},
     {OAuth2Mode::Discovery, "Discovery"},
     {OAuth2Mode::Offline, "Offline"},
 });
+
+BOOST_DESCRIBE_ENUM(OAuth2Mode,
+
+    Invalid,
+    Discovery,
+    Offline,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CertificateMappingAttribute, {
     {CertificateMappingAttribute::Invalid, "Invalid"},
@@ -132,12 +192,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CertificateMappingAttribute, {
     {CertificateMappingAttribute::UserPrincipalName, "UserPrincipalName"},
 });
 
+BOOST_DESCRIBE_ENUM(CertificateMappingAttribute,
+
+    Invalid,
+    Whole,
+    CommonName,
+    UserPrincipalName,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BasicAuthState, {
     {BasicAuthState::Invalid, "Invalid"},
     {BasicAuthState::Enabled, "Enabled"},
     {BasicAuthState::Unadvertised, "Unadvertised"},
     {BasicAuthState::Disabled, "Disabled"},
 });
+
+BOOST_DESCRIBE_ENUM(BasicAuthState,
+
+    Invalid,
+    Enabled,
+    Unadvertised,
+    Disabled,
+);
 
 }
 // clang-format on

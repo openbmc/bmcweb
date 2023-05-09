@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace key_policy
@@ -50,12 +51,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KeyPolicyType, {
     {KeyPolicyType::NVMeoF, "NVMeoF"},
 });
 
+BOOST_DESCRIBE_ENUM(KeyPolicyType,
+
+    Invalid,
+    NVMeoF,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecurityProtocolType, {
     {NVMeoFSecurityProtocolType::Invalid, "Invalid"},
     {NVMeoFSecurityProtocolType::DHHC, "DHHC"},
     {NVMeoFSecurityProtocolType::TLS_PSK, "TLS_PSK"},
     {NVMeoFSecurityProtocolType::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(NVMeoFSecurityProtocolType,
+
+    Invalid,
+    DHHC,
+    TLS_PSK,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecureHashType, {
     {NVMeoFSecureHashType::Invalid, "Invalid"},
@@ -64,17 +79,39 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecureHashType, {
     {NVMeoFSecureHashType::SHA512, "SHA512"},
 });
 
+BOOST_DESCRIBE_ENUM(NVMeoFSecureHashType,
+
+    Invalid,
+    SHA256,
+    SHA384,
+    SHA512,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecurityTransportType, {
     {NVMeoFSecurityTransportType::Invalid, "Invalid"},
     {NVMeoFSecurityTransportType::TLSv2, "TLSv2"},
     {NVMeoFSecurityTransportType::TLSv3, "TLSv3"},
 });
 
+BOOST_DESCRIBE_ENUM(NVMeoFSecurityTransportType,
+
+    Invalid,
+    TLSv2,
+    TLSv3,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFCipherSuiteType, {
     {NVMeoFCipherSuiteType::Invalid, "Invalid"},
     {NVMeoFCipherSuiteType::TLS_AES_128_GCM_SHA256, "TLS_AES_128_GCM_SHA256"},
     {NVMeoFCipherSuiteType::TLS_AES_256_GCM_SHA384, "TLS_AES_256_GCM_SHA384"},
 });
+
+BOOST_DESCRIBE_ENUM(NVMeoFCipherSuiteType,
+
+    Invalid,
+    TLS_AES_128_GCM_SHA256,
+    TLS_AES_256_GCM_SHA384,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFDHGroupType, {
     {NVMeoFDHGroupType::Invalid, "Invalid"},
@@ -84,6 +121,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFDHGroupType, {
     {NVMeoFDHGroupType::FFDHE6144, "FFDHE6144"},
     {NVMeoFDHGroupType::FFDHE8192, "FFDHE8192"},
 });
+
+BOOST_DESCRIBE_ENUM(NVMeoFDHGroupType,
+
+    Invalid,
+    FFDHE2048,
+    FFDHE3072,
+    FFDHE4096,
+    FFDHE6144,
+    FFDHE8192,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace outlet
@@ -43,6 +44,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::PowerCycle, "PowerCycle"},
 });
 
+BOOST_DESCRIBE_ENUM(PowerState,
+
+    Invalid,
+    On,
+    Off,
+    PowerCycle,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ReceptacleType, {
     {ReceptacleType::Invalid, "Invalid"},
     {ReceptacleType::NEMA_5_15R, "NEMA_5_15R"},
@@ -61,11 +70,37 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReceptacleType, {
     {ReceptacleType::BusConnection, "BusConnection"},
 });
 
+BOOST_DESCRIBE_ENUM(ReceptacleType,
+
+    Invalid,
+    NEMA_5_15R,
+    NEMA_5_20R,
+    NEMA_L5_20R,
+    NEMA_L5_30R,
+    NEMA_L6_20R,
+    NEMA_L6_30R,
+    IEC_60320_C13,
+    IEC_60320_C19,
+    CEE_7_Type_E,
+    CEE_7_Type_F,
+    SEV_1011_TYPE_12,
+    SEV_1011_TYPE_23,
+    BS_1363_Type_G,
+    BusConnection,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::Invalid, "Invalid"},
     {VoltageType::AC, "AC"},
     {VoltageType::DC, "DC"},
 });
+
+BOOST_DESCRIBE_ENUM(VoltageType,
+
+    Invalid,
+    AC,
+    DC,
+);
 
 }
 // clang-format on

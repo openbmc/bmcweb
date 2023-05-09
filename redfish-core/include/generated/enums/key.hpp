@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace key
@@ -57,6 +58,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SSHKeyType, {
     {SSHKeyType::Ed25519, "Ed25519"},
 });
 
+BOOST_DESCRIBE_ENUM(SSHKeyType,
+
+    Invalid,
+    RSA,
+    DSA,
+    ECDSA,
+    Ed25519,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ECDSACurveType, {
     {ECDSACurveType::Invalid, "Invalid"},
     {ECDSACurveType::NISTP256, "NISTP256"},
@@ -73,11 +83,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ECDSACurveType, {
     {ECDSACurveType::NISTT571, "NISTT571"},
 });
 
+BOOST_DESCRIBE_ENUM(ECDSACurveType,
+
+    Invalid,
+    NISTP256,
+    NISTP384,
+    NISTP521,
+    NISTK163,
+    NISTP192,
+    NISTP224,
+    NISTK233,
+    NISTB233,
+    NISTK283,
+    NISTK409,
+    NISTB409,
+    NISTT571,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(KeyType, {
     {KeyType::Invalid, "Invalid"},
     {KeyType::NVMeoF, "NVMeoF"},
     {KeyType::SSH, "SSH"},
 });
+
+BOOST_DESCRIBE_ENUM(KeyType,
+
+    Invalid,
+    NVMeoF,
+    SSH,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecurityProtocolType, {
     {NVMeoFSecurityProtocolType::Invalid, "Invalid"},
@@ -86,12 +120,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecurityProtocolType, {
     {NVMeoFSecurityProtocolType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(NVMeoFSecurityProtocolType,
+
+    Invalid,
+    DHHC,
+    TLS_PSK,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecureHashType, {
     {NVMeoFSecureHashType::Invalid, "Invalid"},
     {NVMeoFSecureHashType::SHA256, "SHA256"},
     {NVMeoFSecureHashType::SHA384, "SHA384"},
     {NVMeoFSecureHashType::SHA512, "SHA512"},
 });
+
+BOOST_DESCRIBE_ENUM(NVMeoFSecureHashType,
+
+    Invalid,
+    SHA256,
+    SHA384,
+    SHA512,
+);
 
 }
 // clang-format on

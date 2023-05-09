@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace serial_interface
@@ -40,6 +41,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SignalType, {
     {SignalType::Rs485, "Rs485"},
 });
 
+BOOST_DESCRIBE_ENUM(SignalType,
+
+    Invalid,
+    Rs232,
+    Rs485,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Parity, {
     {Parity::Invalid, "Invalid"},
     {Parity::None, "None"},
@@ -49,6 +57,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Parity, {
     {Parity::Space, "Space"},
 });
 
+BOOST_DESCRIBE_ENUM(Parity,
+
+    Invalid,
+    None,
+    Even,
+    Odd,
+    Mark,
+    Space,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(FlowControl, {
     {FlowControl::Invalid, "Invalid"},
     {FlowControl::None, "None"},
@@ -56,12 +74,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FlowControl, {
     {FlowControl::Hardware, "Hardware"},
 });
 
+BOOST_DESCRIBE_ENUM(FlowControl,
+
+    Invalid,
+    None,
+    Software,
+    Hardware,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PinOut, {
     {PinOut::Invalid, "Invalid"},
     {PinOut::Cisco, "Cisco"},
     {PinOut::Cyclades, "Cyclades"},
     {PinOut::Digi, "Digi"},
 });
+
+BOOST_DESCRIBE_ENUM(PinOut,
+
+    Invalid,
+    Cisco,
+    Cyclades,
+    Digi,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace thermal
@@ -16,6 +17,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingUnits, {
     {ReadingUnits::RPM, "RPM"},
     {ReadingUnits::Percent, "Percent"},
 });
+
+BOOST_DESCRIBE_ENUM(ReadingUnits,
+
+    Invalid,
+    RPM,
+    Percent,
+);
 
 }
 // clang-format on

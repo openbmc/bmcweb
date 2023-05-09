@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace metric_definition
@@ -58,6 +59,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MetricType, {
     {MetricType::String, "String"},
 });
 
+BOOST_DESCRIBE_ENUM(MetricType,
+
+    Invalid,
+    Numeric,
+    Discrete,
+    Gauge,
+    Counter,
+    Countdown,
+    String,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::Invalid, "Invalid"},
     {ImplementationType::PhysicalSensor, "PhysicalSensor"},
@@ -65,6 +77,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::Synthesized, "Synthesized"},
     {ImplementationType::DigitalMeter, "DigitalMeter"},
 });
+
+BOOST_DESCRIBE_ENUM(ImplementationType,
+
+    Invalid,
+    PhysicalSensor,
+    Calculated,
+    Synthesized,
+    DigitalMeter,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MetricDataType, {
     {MetricDataType::Invalid, "Invalid"},
@@ -76,12 +97,31 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MetricDataType, {
     {MetricDataType::Enumeration, "Enumeration"},
 });
 
+BOOST_DESCRIBE_ENUM(MetricDataType,
+
+    Invalid,
+    Boolean,
+    DateTime,
+    Decimal,
+    Integer,
+    String,
+    Enumeration,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Calculable, {
     {Calculable::Invalid, "Invalid"},
     {Calculable::NonCalculatable, "NonCalculatable"},
     {Calculable::Summable, "Summable"},
     {Calculable::NonSummable, "NonSummable"},
 });
+
+BOOST_DESCRIBE_ENUM(Calculable,
+
+    Invalid,
+    NonCalculatable,
+    Summable,
+    NonSummable,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CalculationAlgorithmEnum, {
     {CalculationAlgorithmEnum::Invalid, "Invalid"},
@@ -90,6 +130,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CalculationAlgorithmEnum, {
     {CalculationAlgorithmEnum::Minimum, "Minimum"},
     {CalculationAlgorithmEnum::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(CalculationAlgorithmEnum,
+
+    Invalid,
+    Average,
+    Maximum,
+    Minimum,
+    OEM,
+);
 
 }
 // clang-format on

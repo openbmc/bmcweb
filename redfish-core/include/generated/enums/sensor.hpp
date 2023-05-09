@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace sensor
@@ -88,6 +89,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::DC, "DC"},
 });
 
+BOOST_DESCRIBE_ENUM(VoltageType,
+
+    Invalid,
+    AC,
+    DC,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ElectricalContext, {
     {ElectricalContext::Invalid, "Invalid"},
     {ElectricalContext::Line1, "Line1"},
@@ -109,6 +117,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ElectricalContext, {
     {ElectricalContext::Total, "Total"},
 });
 
+BOOST_DESCRIBE_ENUM(ElectricalContext,
+
+    Invalid,
+    Line1,
+    Line2,
+    Line3,
+    Neutral,
+    LineToLine,
+    Line1ToLine2,
+    Line2ToLine3,
+    Line3ToLine1,
+    LineToNeutral,
+    Line1ToNeutral,
+    Line2ToNeutral,
+    Line3ToNeutral,
+    Line1ToNeutralAndL1L2,
+    Line2ToNeutralAndL1L2,
+    Line2ToNeutralAndL2L3,
+    Line3ToNeutralAndL3L1,
+    Total,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ThresholdActivation, {
     {ThresholdActivation::Invalid, "Invalid"},
     {ThresholdActivation::Increasing, "Increasing"},
@@ -116,6 +146,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThresholdActivation, {
     {ThresholdActivation::Either, "Either"},
     {ThresholdActivation::Disabled, "Disabled"},
 });
+
+BOOST_DESCRIBE_ENUM(ThresholdActivation,
+
+    Invalid,
+    Increasing,
+    Decreasing,
+    Either,
+    Disabled,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ReadingType, {
     {ReadingType::Invalid, "Invalid"},
@@ -145,6 +184,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingType, {
     {ReadingType::Heat, "Heat"},
 });
 
+BOOST_DESCRIBE_ENUM(ReadingType,
+
+    Invalid,
+    Temperature,
+    Humidity,
+    Power,
+    EnergykWh,
+    EnergyJoules,
+    EnergyWh,
+    ChargeAh,
+    Voltage,
+    Current,
+    Frequency,
+    Pressure,
+    PressurekPa,
+    PressurePa,
+    LiquidLevel,
+    Rotational,
+    AirFlow,
+    AirFlowCMM,
+    LiquidFlow,
+    LiquidFlowLPM,
+    Barometric,
+    Altitude,
+    Percent,
+    AbsoluteHumidity,
+    Heat,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::Invalid, "Invalid"},
     {ImplementationType::PhysicalSensor, "PhysicalSensor"},
@@ -152,12 +220,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::Reported, "Reported"},
 });
 
+BOOST_DESCRIBE_ENUM(ImplementationType,
+
+    Invalid,
+    PhysicalSensor,
+    Synthesized,
+    Reported,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ReadingBasisType, {
     {ReadingBasisType::Invalid, "Invalid"},
     {ReadingBasisType::Zero, "Zero"},
     {ReadingBasisType::Delta, "Delta"},
     {ReadingBasisType::Headroom, "Headroom"},
 });
+
+BOOST_DESCRIBE_ENUM(ReadingBasisType,
+
+    Invalid,
+    Zero,
+    Delta,
+    Headroom,
+);
 
 }
 // clang-format on

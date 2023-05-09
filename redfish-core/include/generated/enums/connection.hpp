@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace connection
@@ -32,11 +33,25 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectionType, {
     {ConnectionType::Memory, "Memory"},
 });
 
+BOOST_DESCRIBE_ENUM(ConnectionType,
+
+    Invalid,
+    Storage,
+    Memory,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AccessCapability, {
     {AccessCapability::Invalid, "Invalid"},
     {AccessCapability::Read, "Read"},
     {AccessCapability::Write, "Write"},
 });
+
+BOOST_DESCRIBE_ENUM(AccessCapability,
+
+    Invalid,
+    Read,
+    Write,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AccessState, {
     {AccessState::Invalid, "Invalid"},
@@ -46,6 +61,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccessState, {
     {AccessState::Unavailable, "Unavailable"},
     {AccessState::Transitioning, "Transitioning"},
 });
+
+BOOST_DESCRIBE_ENUM(AccessState,
+
+    Invalid,
+    Optimized,
+    NonOptimized,
+    Standby,
+    Unavailable,
+    Transitioning,
+);
 
 }
 // clang-format on

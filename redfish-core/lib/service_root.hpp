@@ -52,68 +52,76 @@ inline void handleServiceRootGetImpl(
         "</redfish/v1/JsonSchemas/ServiceRoot/ServiceRoot.json>; rel=describedby");
 
     std::string uuid = persistent_data::getConfig().systemUuid;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ServiceRoot.v1_15_0.ServiceRoot";
-    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
-    asyncResp->res.jsonValue["Id"] = "RootService";
-    asyncResp->res.jsonValue["Name"] = "Root Service";
-    asyncResp->res.jsonValue["RedfishVersion"] = "1.17.0";
-    asyncResp->res.jsonValue["Links"]["Sessions"]["@odata.id"] =
-        "/redfish/v1/SessionService/Sessions";
-    asyncResp->res.jsonValue["AccountService"]["@odata.id"] =
+    boost::json::object& jsonValue = asyncResp->res.response.body().jsonValue2;
+
+    jsonValue["@odata.type"] = "#ServiceRoot.v1_15_0.ServiceRoot";
+    jsonValue["@odata.id"] = "/redfish/v1";
+    jsonValue["Id"] = "RootService";
+    jsonValue["Name"] = "Root Service";
+    jsonValue["RedfishVersion"] = "1.17.0";
+
+    jsonValue["AccountService"].emplace_object()["@odata.id"] =
         "/redfish/v1/AccountService";
+
     if constexpr (BMCWEB_REDFISH_AGGREGATION)
     {
-        asyncResp->res.jsonValue["AggregationService"]["@odata.id"] =
+        jsonValue["AggregationService"].emplace_object()["@odata.id"] =
             "/redfish/v1/AggregationService";
     }
-    asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
-    asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
+    jsonValue["Chassis"].emplace_object()["@odata.id"] = "/redfish/v1/Chassis";
+    jsonValue["JsonSchemas"].emplace_object()["@odata.id"] =
         "/redfish/v1/JsonSchemas";
-    asyncResp->res.jsonValue["Managers"]["@odata.id"] = "/redfish/v1/Managers";
-    asyncResp->res.jsonValue["SessionService"]["@odata.id"] =
+    jsonValue["Managers"].emplace_object()["@odata.id"] =
+        "/redfish/v1/Managers";
+    jsonValue["SessionService"].emplace_object()["@odata.id"] =
         "/redfish/v1/SessionService";
-    asyncResp->res.jsonValue["Systems"]["@odata.id"] = "/redfish/v1/Systems";
-    asyncResp->res.jsonValue["Registries"]["@odata.id"] =
+    jsonValue["Systems"].emplace_object()["@odata.id"] = "/redfish/v1/Systems";
+    jsonValue["Registries"].emplace_object()["@odata.id"] =
         "/redfish/v1/Registries";
-    asyncResp->res.jsonValue["UpdateService"]["@odata.id"] =
+    jsonValue["UpdateService"].emplace_object()["@odata.id"] =
         "/redfish/v1/UpdateService";
-    asyncResp->res.jsonValue["UUID"] = uuid;
-    asyncResp->res.jsonValue["CertificateService"]["@odata.id"] =
+    jsonValue["UUID"] = uuid;
+    jsonValue["CertificateService"].emplace_object()["@odata.id"] =
         "/redfish/v1/CertificateService";
-    asyncResp->res.jsonValue["Tasks"]["@odata.id"] = "/redfish/v1/TaskService";
-    asyncResp->res.jsonValue["EventService"]["@odata.id"] =
+    jsonValue["Tasks"].emplace_object()["@odata.id"] =
+        "/redfish/v1/TaskService";
+    jsonValue["EventService"].emplace_object()["@odata.id"] =
         "/redfish/v1/EventService";
-    asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
+    jsonValue["TelemetryService"].emplace_object()["@odata.id"] =
         "/redfish/v1/TelemetryService";
-    asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
+    jsonValue["Cables"].emplace_object()["@odata.id"] = "/redfish/v1/Cables";
 
-    asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
+    boost::json::object& links = jsonValue["Links"].emplace_object();
+    links["ManagerProvidingService"].emplace_object()["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}",
-                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+                            BMCWEB_REDFISH_MANAGER_URI_NAME)
+            .buffer();
 
-    nlohmann::json& protocolFeatures =
-        asyncResp->res.jsonValue["ProtocolFeaturesSupported"];
+    links["Sessions"].emplace_object()["@odata.id"] =
+        "/redfish/v1/SessionService/Sessions";
+
+    boost::json::object& protocolFeatures =
+        jsonValue["ProtocolFeaturesSupported"].emplace_object();
     protocolFeatures["ExcerptQuery"] = false;
 
-    protocolFeatures["ExpandQuery"]["ExpandAll"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    boost::json::object& expandQuery =
+        protocolFeatures["ExpandQuery"].emplace_object();
+    expandQuery["ExpandAll"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     // This is the maximum level defined in ServiceRoot.v1_13_0.json
     if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
     {
-        protocolFeatures["ExpandQuery"]["MaxLevels"] = 6;
+        expandQuery["MaxLevels"] = 6;
     }
-    protocolFeatures["ExpandQuery"]["Levels"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    protocolFeatures["ExpandQuery"]["Links"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    protocolFeatures["ExpandQuery"]["NoLinks"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    expandQuery["Levels"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    expandQuery["Links"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    expandQuery["NoLinks"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["FilterQuery"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["OnlyMemberQuery"] = true;
     protocolFeatures["SelectQuery"] = true;
-    protocolFeatures["DeepOperations"]["DeepPOST"] = false;
-    protocolFeatures["DeepOperations"]["DeepPATCH"] = false;
+    boost::json::object& deepOps =
+        protocolFeatures["DeepOperations"].emplace_object();
+    deepOps["DeepPOST"] = false;
+    deepOps["DeepPATCH"] = false;
 }
 inline void
     handleServiceRootGet(App& app, const crow::Request& req,

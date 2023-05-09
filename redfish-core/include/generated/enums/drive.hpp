@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace drive
@@ -109,6 +110,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MediaType, {
     {MediaType::SMR, "SMR"},
 });
 
+BOOST_DESCRIBE_ENUM(MediaType,
+
+    Invalid,
+    HDD,
+    SSD,
+    SMR,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(HotspareType, {
     {HotspareType::Invalid, "Invalid"},
     {HotspareType::None, "None"},
@@ -117,12 +126,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HotspareType, {
     {HotspareType::Dedicated, "Dedicated"},
 });
 
+BOOST_DESCRIBE_ENUM(HotspareType,
+
+    Invalid,
+    None,
+    Global,
+    Chassis,
+    Dedicated,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionAbility, {
     {EncryptionAbility::Invalid, "Invalid"},
     {EncryptionAbility::None, "None"},
     {EncryptionAbility::SelfEncryptingDrive, "SelfEncryptingDrive"},
     {EncryptionAbility::Other, "Other"},
 });
+
+BOOST_DESCRIBE_ENUM(EncryptionAbility,
+
+    Invalid,
+    None,
+    SelfEncryptingDrive,
+    Other,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionStatus, {
     {EncryptionStatus::Invalid, "Invalid"},
@@ -132,6 +158,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionStatus, {
     {EncryptionStatus::Foreign, "Foreign"},
     {EncryptionStatus::Unencrypted, "Unencrypted"},
 });
+
+BOOST_DESCRIBE_ENUM(EncryptionStatus,
+
+    Invalid,
+    Unecrypted,
+    Unlocked,
+    Locked,
+    Foreign,
+    Unencrypted,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(StatusIndicator, {
     {StatusIndicator::Invalid, "Invalid"},
@@ -144,11 +180,30 @@ NLOHMANN_JSON_SERIALIZE_ENUM(StatusIndicator, {
     {StatusIndicator::InAFailedArray, "InAFailedArray"},
 });
 
+BOOST_DESCRIBE_ENUM(StatusIndicator,
+
+    Invalid,
+    OK,
+    Fail,
+    Rebuild,
+    PredictiveFailureAnalysis,
+    Hotspare,
+    InACriticalArray,
+    InAFailedArray,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(HotspareReplacementModeType, {
     {HotspareReplacementModeType::Invalid, "Invalid"},
     {HotspareReplacementModeType::Revertible, "Revertible"},
     {HotspareReplacementModeType::NonRevertible, "NonRevertible"},
 });
+
+BOOST_DESCRIBE_ENUM(HotspareReplacementModeType,
+
+    Invalid,
+    Revertible,
+    NonRevertible,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DataSanitizationType, {
     {DataSanitizationType::Invalid, "Invalid"},
@@ -156,6 +211,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataSanitizationType, {
     {DataSanitizationType::CryptographicErase, "CryptographicErase"},
     {DataSanitizationType::Overwrite, "Overwrite"},
 });
+
+BOOST_DESCRIBE_ENUM(DataSanitizationType,
+
+    Invalid,
+    BlockErase,
+    CryptographicErase,
+    Overwrite,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(FormFactor, {
     {FormFactor::Invalid, "Invalid"},
@@ -179,6 +242,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FormFactor, {
     {FormFactor::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(FormFactor,
+
+    Invalid,
+    Drive3_5,
+    Drive2_5,
+    EDSFF,
+    EDSFF_1U_Long,
+    EDSFF_1U_Short,
+    EDSFF_E3_Short,
+    EDSFF_E3_Long,
+    M2,
+    M2_2230,
+    M2_2242,
+    M2_2260,
+    M2_2280,
+    M2_22110,
+    U2,
+    PCIeSlotFullLength,
+    PCIeSlotLowProfile,
+    PCIeHalfLength,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
     {ConfigurationLock::Invalid, "Invalid"},
     {ConfigurationLock::Enabled, "Enabled"},
@@ -186,10 +272,24 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
     {ConfigurationLock::Partial, "Partial"},
 });
 
+BOOST_DESCRIBE_ENUM(ConfigurationLock,
+
+    Invalid,
+    Enabled,
+    Disabled,
+    Partial,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TargetConfigurationLockLevel, {
     {TargetConfigurationLockLevel::Invalid, "Invalid"},
     {TargetConfigurationLockLevel::Baseline, "Baseline"},
 });
+
+BOOST_DESCRIBE_ENUM(TargetConfigurationLockLevel,
+
+    Invalid,
+    Baseline,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::Invalid, "Invalid"},
@@ -198,6 +298,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::LockdownUnsupported, "LockdownUnsupported"},
     {ConfigLockOptions::CommandUnsupported, "CommandUnsupported"},
 });
+
+BOOST_DESCRIBE_ENUM(ConfigLockOptions,
+
+    Invalid,
+    Unlocked,
+    Locked,
+    LockdownUnsupported,
+    CommandUnsupported,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace event_destination
@@ -112,6 +113,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EventFormatType, {
     {EventFormatType::MetricReport, "MetricReport"},
 });
 
+BOOST_DESCRIBE_ENUM(EventFormatType,
+
+    Invalid,
+    Event,
+    MetricReport,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EventDestinationProtocol, {
     {EventDestinationProtocol::Invalid, "Invalid"},
     {EventDestinationProtocol::Redfish, "Redfish"},
@@ -127,6 +135,22 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EventDestinationProtocol, {
     {EventDestinationProtocol::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(EventDestinationProtocol,
+
+    Invalid,
+    Redfish,
+    Kafka,
+    SNMPv1,
+    SNMPv2c,
+    SNMPv3,
+    SMTP,
+    SyslogTLS,
+    SyslogTCP,
+    SyslogUDP,
+    SyslogRELP,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SubscriptionType, {
     {SubscriptionType::Invalid, "Invalid"},
     {SubscriptionType::RedfishEvent, "RedfishEvent"},
@@ -137,6 +161,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SubscriptionType, {
     {SubscriptionType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(SubscriptionType,
+
+    Invalid,
+    RedfishEvent,
+    SSE,
+    SNMPTrap,
+    SNMPInform,
+    Syslog,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DeliveryRetryPolicy, {
     {DeliveryRetryPolicy::Invalid, "Invalid"},
     {DeliveryRetryPolicy::TerminateAfterRetries, "TerminateAfterRetries"},
@@ -144,6 +179,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DeliveryRetryPolicy, {
     {DeliveryRetryPolicy::RetryForever, "RetryForever"},
     {DeliveryRetryPolicy::RetryForeverWithBackoff, "RetryForeverWithBackoff"},
 });
+
+BOOST_DESCRIBE_ENUM(DeliveryRetryPolicy,
+
+    Invalid,
+    TerminateAfterRetries,
+    SuspendRetries,
+    RetryForever,
+    RetryForeverWithBackoff,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SNMPAuthenticationProtocols, {
     {SNMPAuthenticationProtocols::Invalid, "Invalid"},
@@ -157,6 +201,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPAuthenticationProtocols, {
     {SNMPAuthenticationProtocols::HMAC384_SHA512, "HMAC384_SHA512"},
 });
 
+BOOST_DESCRIBE_ENUM(SNMPAuthenticationProtocols,
+
+    Invalid,
+    None,
+    CommunityString,
+    HMAC_MD5,
+    HMAC_SHA96,
+    HMAC128_SHA224,
+    HMAC192_SHA256,
+    HMAC256_SHA384,
+    HMAC384_SHA512,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::Invalid, "Invalid"},
     {SNMPEncryptionProtocols::None, "None"},
@@ -165,6 +222,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::CFB128_AES192, "CFB128_AES192"},
     {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
+
+BOOST_DESCRIBE_ENUM(SNMPEncryptionProtocols,
+
+    Invalid,
+    None,
+    CBC_DES,
+    CFB128_AES128,
+    CFB128_AES192,
+    CFB128_AES256,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SyslogSeverity, {
     {SyslogSeverity::Invalid, "Invalid"},
@@ -178,6 +245,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogSeverity, {
     {SyslogSeverity::Debug, "Debug"},
     {SyslogSeverity::All, "All"},
 });
+
+BOOST_DESCRIBE_ENUM(SyslogSeverity,
+
+    Invalid,
+    Emergency,
+    Alert,
+    Critical,
+    Error,
+    Warning,
+    Notice,
+    Informational,
+    Debug,
+    All,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Invalid, "Invalid"},
@@ -206,6 +287,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Local6, "Local6"},
     {SyslogFacility::Local7, "Local7"},
 });
+
+BOOST_DESCRIBE_ENUM(SyslogFacility,
+
+    Invalid,
+    Kern,
+    User,
+    Mail,
+    Daemon,
+    Auth,
+    Syslog,
+    LPR,
+    News,
+    UUCP,
+    Cron,
+    Authpriv,
+    FTP,
+    NTP,
+    Security,
+    Console,
+    SolarisCron,
+    Local0,
+    Local1,
+    Local2,
+    Local3,
+    Local4,
+    Local5,
+    Local6,
+    Local7,
+);
 
 }
 // clang-format on

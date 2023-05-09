@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace storage
@@ -62,12 +63,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::PreserveVolumes, "PreserveVolumes"},
 });
 
+BOOST_DESCRIBE_ENUM(ResetToDefaultsType,
+
+    Invalid,
+    ResetAll,
+    PreserveVolumes,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(HotspareActivationPolicy, {
     {HotspareActivationPolicy::Invalid, "Invalid"},
     {HotspareActivationPolicy::OnDriveFailure, "OnDriveFailure"},
     {HotspareActivationPolicy::OnDrivePredictedFailure, "OnDrivePredictedFailure"},
     {HotspareActivationPolicy::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(HotspareActivationPolicy,
+
+    Invalid,
+    OnDriveFailure,
+    OnDrivePredictedFailure,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionMode, {
     {EncryptionMode::Invalid, "Invalid"},
@@ -79,6 +95,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionMode, {
     {EncryptionMode::PasswordWithLocalKey, "PasswordWithLocalKey"},
 });
 
+BOOST_DESCRIBE_ENUM(EncryptionMode,
+
+    Invalid,
+    Disabled,
+    UseExternalKey,
+    UseLocalKey,
+    PasswordOnly,
+    PasswordWithExternalKey,
+    PasswordWithLocalKey,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AutoVolumeCreate, {
     {AutoVolumeCreate::Invalid, "Invalid"},
     {AutoVolumeCreate::Disabled, "Disabled"},
@@ -87,6 +114,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutoVolumeCreate, {
     {AutoVolumeCreate::RAID1, "RAID1"},
 });
 
+BOOST_DESCRIBE_ENUM(AutoVolumeCreate,
+
+    Invalid,
+    Disabled,
+    NonRAID,
+    RAID0,
+    RAID1,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
     {ConfigurationLock::Invalid, "Invalid"},
     {ConfigurationLock::Enabled, "Enabled"},
@@ -94,10 +130,24 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
     {ConfigurationLock::Partial, "Partial"},
 });
 
+BOOST_DESCRIBE_ENUM(ConfigurationLock,
+
+    Invalid,
+    Enabled,
+    Disabled,
+    Partial,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TargetConfigurationLockLevel, {
     {TargetConfigurationLockLevel::Invalid, "Invalid"},
     {TargetConfigurationLockLevel::Baseline, "Baseline"},
 });
+
+BOOST_DESCRIBE_ENUM(TargetConfigurationLockLevel,
+
+    Invalid,
+    Baseline,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::Invalid, "Invalid"},
@@ -106,6 +156,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::LockdownUnsupported, "LockdownUnsupported"},
     {ConfigLockOptions::CommandUnsupported, "CommandUnsupported"},
 });
+
+BOOST_DESCRIBE_ENUM(ConfigLockOptions,
+
+    Invalid,
+    Unlocked,
+    Locked,
+    LockdownUnsupported,
+    CommandUnsupported,
+);
 
 }
 // clang-format on

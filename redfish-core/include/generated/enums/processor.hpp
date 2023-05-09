@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace processor
@@ -104,6 +105,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorType, {
     {ProcessorType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(ProcessorType,
+
+    Invalid,
+    CPU,
+    GPU,
+    FPGA,
+    DSP,
+    Accelerator,
+    Core,
+    Thread,
+    Partition,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorMemoryType, {
     {ProcessorMemoryType::Invalid, "Invalid"},
     {ProcessorMemoryType::Cache, "Cache"},
@@ -137,11 +152,52 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorMemoryType, {
     {ProcessorMemoryType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(ProcessorMemoryType,
+
+    Invalid,
+    Cache,
+    L1Cache,
+    L2Cache,
+    L3Cache,
+    L4Cache,
+    L5Cache,
+    L6Cache,
+    L7Cache,
+    HBM1,
+    HBM2,
+    HBM2E,
+    HBM3,
+    SGRAM,
+    GDDR,
+    GDDR2,
+    GDDR3,
+    GDDR4,
+    GDDR5,
+    GDDR5X,
+    GDDR6,
+    DDR,
+    DDR2,
+    DDR3,
+    DDR4,
+    DDR5,
+    SDRAM,
+    SRAM,
+    Flash,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(FpgaType, {
     {FpgaType::Invalid, "Invalid"},
     {FpgaType::Integrated, "Integrated"},
     {FpgaType::Discrete, "Discrete"},
 });
+
+BOOST_DESCRIBE_ENUM(FpgaType,
+
+    Invalid,
+    Integrated,
+    Discrete,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SystemInterfaceType, {
     {SystemInterfaceType::Invalid, "Invalid"},
@@ -155,17 +211,44 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SystemInterfaceType, {
     {SystemInterfaceType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(SystemInterfaceType,
+
+    Invalid,
+    QPI,
+    UPI,
+    PCIe,
+    Ethernet,
+    AMBA,
+    CCIX,
+    CXL,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TurboState, {
     {TurboState::Invalid, "Invalid"},
     {TurboState::Enabled, "Enabled"},
     {TurboState::Disabled, "Disabled"},
 });
 
+BOOST_DESCRIBE_ENUM(TurboState,
+
+    Invalid,
+    Enabled,
+    Disabled,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BaseSpeedPriorityState, {
     {BaseSpeedPriorityState::Invalid, "Invalid"},
     {BaseSpeedPriorityState::Enabled, "Enabled"},
     {BaseSpeedPriorityState::Disabled, "Disabled"},
 });
+
+BOOST_DESCRIBE_ENUM(BaseSpeedPriorityState,
+
+    Invalid,
+    Enabled,
+    Disabled,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ThrottleCause, {
     {ThrottleCause::Invalid, "Invalid"},
@@ -176,6 +259,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThrottleCause, {
     {ThrottleCause::Unknown, "Unknown"},
     {ThrottleCause::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(ThrottleCause,
+
+    Invalid,
+    PowerLimit,
+    ThermalLimit,
+    ClockLimit,
+    ManagementDetectedFault,
+    Unknown,
+    OEM,
+);
 
 }
 // clang-format on

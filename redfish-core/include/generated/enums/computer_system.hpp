@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace computer_system
@@ -232,6 +233,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Recovery, "Recovery"},
 });
 
+BOOST_DESCRIBE_ENUM(BootSource,
+
+    Invalid,
+    None,
+    Pxe,
+    Floppy,
+    Cd,
+    Usb,
+    Hdd,
+    BiosSetup,
+    Utilities,
+    Diags,
+    UefiShell,
+    UefiTarget,
+    SDCard,
+    UefiHttp,
+    RemoteDrive,
+    UefiBootNext,
+    Recovery,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SystemType, {
     {SystemType::Invalid, "Invalid"},
     {SystemType::Physical, "Physical"},
@@ -243,6 +265,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SystemType, {
     {SystemType::DPU, "DPU"},
 });
 
+BOOST_DESCRIBE_ENUM(SystemType,
+
+    Invalid,
+    Physical,
+    Virtual,
+    OS,
+    PhysicallyPartitioned,
+    VirtuallyPartitioned,
+    Composed,
+    DPU,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Invalid, "Invalid"},
     {IndicatorLED::Unknown, "Unknown"},
@@ -251,12 +285,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Off, "Off"},
 });
 
+BOOST_DESCRIBE_ENUM(IndicatorLED,
+
+    Invalid,
+    Unknown,
+    Lit,
+    Blinking,
+    Off,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSourceOverrideEnabled, {
     {BootSourceOverrideEnabled::Invalid, "Invalid"},
     {BootSourceOverrideEnabled::Disabled, "Disabled"},
     {BootSourceOverrideEnabled::Once, "Once"},
     {BootSourceOverrideEnabled::Continuous, "Continuous"},
 });
+
+BOOST_DESCRIBE_ENUM(BootSourceOverrideEnabled,
+
+    Invalid,
+    Disabled,
+    Once,
+    Continuous,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MemoryMirroring, {
     {MemoryMirroring::Invalid, "Invalid"},
@@ -266,11 +317,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryMirroring, {
     {MemoryMirroring::None, "None"},
 });
 
+BOOST_DESCRIBE_ENUM(MemoryMirroring,
+
+    Invalid,
+    System,
+    DIMM,
+    Hybrid,
+    None,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSourceOverrideMode, {
     {BootSourceOverrideMode::Invalid, "Invalid"},
     {BootSourceOverrideMode::Legacy, "Legacy"},
     {BootSourceOverrideMode::UEFI, "UEFI"},
 });
+
+BOOST_DESCRIBE_ENUM(BootSourceOverrideMode,
+
+    Invalid,
+    Legacy,
+    UEFI,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(InterfaceType, {
     {InterfaceType::Invalid, "Invalid"},
@@ -278,6 +345,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(InterfaceType, {
     {InterfaceType::TPM2_0, "TPM2_0"},
     {InterfaceType::TCM1_0, "TCM1_0"},
 });
+
+BOOST_DESCRIBE_ENUM(InterfaceType,
+
+    Invalid,
+    TPM1_2,
+    TPM2_0,
+    TCM1_0,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(HostingRole, {
     {HostingRole::Invalid, "Invalid"},
@@ -290,6 +365,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HostingRole, {
     {HostingRole::ContainerServer, "ContainerServer"},
 });
 
+BOOST_DESCRIBE_ENUM(HostingRole,
+
+    Invalid,
+    ApplicationServer,
+    StorageServer,
+    Switch,
+    Appliance,
+    BareMetalServer,
+    VirtualMachineServer,
+    ContainerServer,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(InterfaceTypeSelection, {
     {InterfaceTypeSelection::Invalid, "Invalid"},
     {InterfaceTypeSelection::None, "None"},
@@ -297,6 +384,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(InterfaceTypeSelection, {
     {InterfaceTypeSelection::BiosSetting, "BiosSetting"},
     {InterfaceTypeSelection::OemMethod, "OemMethod"},
 });
+
+BOOST_DESCRIBE_ENUM(InterfaceTypeSelection,
+
+    Invalid,
+    None,
+    FirmwareUpdate,
+    BiosSetting,
+    OemMethod,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(WatchdogWarningActions, {
     {WatchdogWarningActions::Invalid, "Invalid"},
@@ -308,6 +404,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(WatchdogWarningActions, {
     {WatchdogWarningActions::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(WatchdogWarningActions,
+
+    Invalid,
+    None,
+    DiagnosticInterrupt,
+    SMI,
+    MessagingInterrupt,
+    SCI,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(WatchdogTimeoutActions, {
     {WatchdogTimeoutActions::Invalid, "Invalid"},
     {WatchdogTimeoutActions::None, "None"},
@@ -317,6 +424,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(WatchdogTimeoutActions, {
     {WatchdogTimeoutActions::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(WatchdogTimeoutActions,
+
+    Invalid,
+    None,
+    ResetSystem,
+    PowerCycle,
+    PowerDown,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerRestorePolicyTypes, {
     {PowerRestorePolicyTypes::Invalid, "Invalid"},
     {PowerRestorePolicyTypes::AlwaysOn, "AlwaysOn"},
@@ -324,11 +441,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerRestorePolicyTypes, {
     {PowerRestorePolicyTypes::LastState, "LastState"},
 });
 
+BOOST_DESCRIBE_ENUM(PowerRestorePolicyTypes,
+
+    Invalid,
+    AlwaysOn,
+    AlwaysOff,
+    LastState,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootOrderTypes, {
     {BootOrderTypes::Invalid, "Invalid"},
     {BootOrderTypes::BootOrder, "BootOrder"},
     {BootOrderTypes::AliasBootOrder, "AliasBootOrder"},
 });
+
+BOOST_DESCRIBE_ENUM(BootOrderTypes,
+
+    Invalid,
+    BootOrder,
+    AliasBootOrder,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AutomaticRetryConfig, {
     {AutomaticRetryConfig::Invalid, "Invalid"},
@@ -336,6 +468,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutomaticRetryConfig, {
     {AutomaticRetryConfig::RetryAttempts, "RetryAttempts"},
     {AutomaticRetryConfig::RetryAlways, "RetryAlways"},
 });
+
+BOOST_DESCRIBE_ENUM(AutomaticRetryConfig,
+
+    Invalid,
+    Disabled,
+    RetryAttempts,
+    RetryAlways,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(BootProgressTypes, {
     {BootProgressTypes::Invalid, "Invalid"},
@@ -352,11 +492,34 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BootProgressTypes, {
     {BootProgressTypes::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(BootProgressTypes,
+
+    Invalid,
+    None,
+    PrimaryProcessorInitializationStarted,
+    BusInitializationStarted,
+    MemoryInitializationStarted,
+    SecondaryProcessorInitializationStarted,
+    PCIResourceConfigStarted,
+    SystemHardwareInitializationComplete,
+    SetupEntered,
+    OSBootStarted,
+    OSRunning,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(GraphicalConnectTypesSupported, {
     {GraphicalConnectTypesSupported::Invalid, "Invalid"},
     {GraphicalConnectTypesSupported::KVMIP, "KVMIP"},
     {GraphicalConnectTypesSupported::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(GraphicalConnectTypesSupported,
+
+    Invalid,
+    KVMIP,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TrustedModuleRequiredToBoot, {
     {TrustedModuleRequiredToBoot::Invalid, "Invalid"},
@@ -364,11 +527,25 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TrustedModuleRequiredToBoot, {
     {TrustedModuleRequiredToBoot::Required, "Required"},
 });
 
+BOOST_DESCRIBE_ENUM(TrustedModuleRequiredToBoot,
+
+    Invalid,
+    Disabled,
+    Required,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(StopBootOnFault, {
     {StopBootOnFault::Invalid, "Invalid"},
     {StopBootOnFault::Never, "Never"},
     {StopBootOnFault::AnyFault, "AnyFault"},
 });
+
+BOOST_DESCRIBE_ENUM(StopBootOnFault,
+
+    Invalid,
+    Never,
+    AnyFault,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerMode, {
     {PowerMode::Invalid, "Invalid"},
@@ -382,17 +559,44 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerMode, {
     {PowerMode::EfficiencyFavorPerformance, "EfficiencyFavorPerformance"},
 });
 
+BOOST_DESCRIBE_ENUM(PowerMode,
+
+    Invalid,
+    MaximumPerformance,
+    BalancedPerformance,
+    PowerSaving,
+    Static,
+    OSControlled,
+    OEM,
+    EfficiencyFavorPower,
+    EfficiencyFavorPerformance,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CompositionUseCase, {
     {CompositionUseCase::Invalid, "Invalid"},
     {CompositionUseCase::ResourceBlockCapable, "ResourceBlockCapable"},
     {CompositionUseCase::ExpandableSystem, "ExpandableSystem"},
 });
 
+BOOST_DESCRIBE_ENUM(CompositionUseCase,
+
+    Invalid,
+    ResourceBlockCapable,
+    ExpandableSystem,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(KMIPCachePolicy, {
     {KMIPCachePolicy::Invalid, "Invalid"},
     {KMIPCachePolicy::None, "None"},
     {KMIPCachePolicy::AfterFirstUse, "AfterFirstUse"},
 });
+
+BOOST_DESCRIBE_ENUM(KMIPCachePolicy,
+
+    Invalid,
+    None,
+    AfterFirstUse,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DecommissionType, {
     {DecommissionType::Invalid, "Invalid"},
@@ -404,6 +608,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DecommissionType, {
     {DecommissionType::StorageConfig, "StorageConfig"},
     {DecommissionType::Logs, "Logs"},
 });
+
+BOOST_DESCRIBE_ENUM(DecommissionType,
+
+    Invalid,
+    All,
+    UserData,
+    ManagerConfig,
+    BIOSConfig,
+    NetworkConfig,
+    StorageConfig,
+    Logs,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LastResetCauses, {
     {LastResetCauses::Invalid, "Invalid"},
@@ -418,6 +634,21 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LastResetCauses, {
     {LastResetCauses::PowerEvent, "PowerEvent"},
     {LastResetCauses::Unknown, "Unknown"},
 });
+
+BOOST_DESCRIBE_ENUM(LastResetCauses,
+
+    Invalid,
+    PowerButtonPress,
+    ManagementCommand,
+    PowerRestorePolicy,
+    RTCWakeup,
+    WatchdogExpiration,
+    OSSoftRestart,
+    SystemCrash,
+    ThermalEvent,
+    PowerEvent,
+    Unknown,
+);
 
 }
 // clang-format on

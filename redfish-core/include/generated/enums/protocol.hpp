@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace protocol
@@ -94,6 +95,52 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::QPI, "QPI"},
     {Protocol::eMMC, "eMMC"},
 });
+
+BOOST_DESCRIBE_ENUM(Protocol,
+
+    Invalid,
+    PCIe,
+    AHCI,
+    UHCI,
+    SAS,
+    SATA,
+    USB,
+    NVMe,
+    FC,
+    iSCSI,
+    FCoE,
+    FCP,
+    FICON,
+    NVMeOverFabrics,
+    SMB,
+    NFSv3,
+    NFSv4,
+    HTTP,
+    HTTPS,
+    FTP,
+    SFTP,
+    iWARP,
+    RoCE,
+    RoCEv2,
+    I2C,
+    TCP,
+    UDP,
+    TFTP,
+    GenZ,
+    MultiProtocol,
+    InfiniBand,
+    Ethernet,
+    NVLink,
+    OEM,
+    DisplayPort,
+    HDMI,
+    VGA,
+    DVI,
+    CXL,
+    UPI,
+    QPI,
+    eMMC,
+);
 
 }
 // clang-format on

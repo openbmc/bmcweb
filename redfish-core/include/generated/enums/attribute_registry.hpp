@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace attribute_registry
@@ -80,10 +81,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AttributeType, {
     {AttributeType::Password, "Password"},
 });
 
+BOOST_DESCRIBE_ENUM(AttributeType,
+
+    Invalid,
+    Enumeration,
+    String,
+    Integer,
+    Boolean,
+    Password,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DependencyType, {
     {DependencyType::Invalid, "Invalid"},
     {DependencyType::Map, "Map"},
 });
+
+BOOST_DESCRIBE_ENUM(DependencyType,
+
+    Invalid,
+    Map,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MapFromCondition, {
     {MapFromCondition::Invalid, "Invalid"},
@@ -94,6 +111,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapFromCondition, {
     {MapFromCondition::LSS, "LSS"},
     {MapFromCondition::LEQ, "LEQ"},
 });
+
+BOOST_DESCRIBE_ENUM(MapFromCondition,
+
+    Invalid,
+    EQU,
+    NEQ,
+    GTR,
+    GEQ,
+    LSS,
+    LEQ,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MapFromProperty, {
     {MapFromProperty::Invalid, "Invalid"},
@@ -110,11 +138,34 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapFromProperty, {
     {MapFromProperty::ScalarIncrement, "ScalarIncrement"},
 });
 
+BOOST_DESCRIBE_ENUM(MapFromProperty,
+
+    Invalid,
+    CurrentValue,
+    DefaultValue,
+    ReadOnly,
+    WriteOnly,
+    GrayOut,
+    Hidden,
+    LowerBound,
+    UpperBound,
+    MinLength,
+    MaxLength,
+    ScalarIncrement,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MapTerms, {
     {MapTerms::Invalid, "Invalid"},
     {MapTerms::AND, "AND"},
     {MapTerms::OR, "OR"},
 });
+
+BOOST_DESCRIBE_ENUM(MapTerms,
+
+    Invalid,
+    AND,
+    OR,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MapToProperty, {
     {MapToProperty::Invalid, "Invalid"},
@@ -136,6 +187,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapToProperty, {
     {MapToProperty::ScalarIncrement, "ScalarIncrement"},
     {MapToProperty::ValueExpression, "ValueExpression"},
 });
+
+BOOST_DESCRIBE_ENUM(MapToProperty,
+
+    Invalid,
+    CurrentValue,
+    DefaultValue,
+    ReadOnly,
+    WriteOnly,
+    GrayOut,
+    Hidden,
+    Immutable,
+    HelpText,
+    WarningText,
+    DisplayName,
+    DisplayOrder,
+    LowerBound,
+    UpperBound,
+    MinLength,
+    MaxLength,
+    ScalarIncrement,
+    ValueExpression,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace external_account_provider
@@ -48,6 +49,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccountProviderTypes, {
     {AccountProviderTypes::OAuth2, "OAuth2"},
 });
 
+BOOST_DESCRIBE_ENUM(AccountProviderTypes,
+
+    Invalid,
+    RedfishService,
+    ActiveDirectoryService,
+    LDAPService,
+    OEM,
+    TACACSplus,
+    OAuth2,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationTypes, {
     {AuthenticationTypes::Invalid, "Invalid"},
     {AuthenticationTypes::Token, "Token"},
@@ -55,6 +67,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationTypes, {
     {AuthenticationTypes::UsernameAndPassword, "UsernameAndPassword"},
     {AuthenticationTypes::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(AuthenticationTypes,
+
+    Invalid,
+    Token,
+    KerberosKeytab,
+    UsernameAndPassword,
+    OEM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TACACSplusPasswordExchangeProtocol, {
     {TACACSplusPasswordExchangeProtocol::Invalid, "Invalid"},
@@ -65,11 +86,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TACACSplusPasswordExchangeProtocol, {
     {TACACSplusPasswordExchangeProtocol::MSCHAPv2, "MSCHAPv2"},
 });
 
+BOOST_DESCRIBE_ENUM(TACACSplusPasswordExchangeProtocol,
+
+    Invalid,
+    ASCII,
+    PAP,
+    CHAP,
+    MSCHAPv1,
+    MSCHAPv2,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OAuth2Mode, {
     {OAuth2Mode::Invalid, "Invalid"},
     {OAuth2Mode::Discovery, "Discovery"},
     {OAuth2Mode::Offline, "Offline"},
 });
+
+BOOST_DESCRIBE_ENUM(OAuth2Mode,
+
+    Invalid,
+    Discovery,
+    Offline,
+);
 
 }
 // clang-format on

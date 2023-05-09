@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace chassis
@@ -106,6 +107,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ChassisType, {
     {ChassisType::Other, "Other"},
 });
 
+BOOST_DESCRIBE_ENUM(ChassisType,
+
+    Invalid,
+    Rack,
+    Blade,
+    Enclosure,
+    StandAlone,
+    RackMount,
+    Card,
+    Cartridge,
+    Row,
+    Pod,
+    Expansion,
+    Sidecar,
+    Zone,
+    Sled,
+    Shelf,
+    Drawer,
+    Module,
+    Component,
+    IPBasedDrive,
+    RackGroup,
+    StorageEnclosure,
+    ImmersionTank,
+    HeatExchanger,
+    PowerStrip,
+    Other,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Invalid, "Invalid"},
     {IndicatorLED::Unknown, "Unknown"},
@@ -114,6 +144,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Off, "Off"},
 });
 
+BOOST_DESCRIBE_ENUM(IndicatorLED,
+
+    Invalid,
+    Unknown,
+    Lit,
+    Blinking,
+    Off,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(IntrusionSensor, {
     {IntrusionSensor::Invalid, "Invalid"},
     {IntrusionSensor::Normal, "Normal"},
@@ -121,11 +160,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(IntrusionSensor, {
     {IntrusionSensor::TamperingDetected, "TamperingDetected"},
 });
 
+BOOST_DESCRIBE_ENUM(IntrusionSensor,
+
+    Invalid,
+    Normal,
+    HardwareIntrusion,
+    TamperingDetected,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(IntrusionSensorReArm, {
     {IntrusionSensorReArm::Invalid, "Invalid"},
     {IntrusionSensorReArm::Manual, "Manual"},
     {IntrusionSensorReArm::Automatic, "Automatic"},
 });
+
+BOOST_DESCRIBE_ENUM(IntrusionSensorReArm,
+
+    Invalid,
+    Manual,
+    Automatic,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(EnvironmentalClass, {
     {EnvironmentalClass::Invalid, "Invalid"},
@@ -135,6 +189,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EnvironmentalClass, {
     {EnvironmentalClass::A4, "A4"},
 });
 
+BOOST_DESCRIBE_ENUM(EnvironmentalClass,
+
+    Invalid,
+    A1,
+    A2,
+    A3,
+    A4,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ThermalDirection, {
     {ThermalDirection::Invalid, "Invalid"},
     {ThermalDirection::FrontToBack, "FrontToBack"},
@@ -143,6 +206,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThermalDirection, {
     {ThermalDirection::Sealed, "Sealed"},
 });
 
+BOOST_DESCRIBE_ENUM(ThermalDirection,
+
+    Invalid,
+    FrontToBack,
+    BackToFront,
+    TopExhaust,
+    Sealed,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DoorState, {
     {DoorState::Invalid, "Invalid"},
     {DoorState::Locked, "Locked"},
@@ -150,6 +222,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DoorState, {
     {DoorState::LockedAndOpen, "LockedAndOpen"},
     {DoorState::Open, "Open"},
 });
+
+BOOST_DESCRIBE_ENUM(DoorState,
+
+    Invalid,
+    Locked,
+    Closed,
+    LockedAndOpen,
+    Open,
+);
 
 }
 // clang-format on

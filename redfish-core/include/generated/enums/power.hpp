@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace power
@@ -51,6 +52,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerLimitException, {
     {PowerLimitException::Oem, "Oem"},
 });
 
+BOOST_DESCRIBE_ENUM(PowerLimitException,
+
+    Invalid,
+    NoAction,
+    HardPowerOff,
+    LogEventOnly,
+    Oem,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerSupplyType, {
     {PowerSupplyType::Invalid, "Invalid"},
     {PowerSupplyType::Unknown, "Unknown"},
@@ -58,6 +68,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerSupplyType, {
     {PowerSupplyType::DC, "DC"},
     {PowerSupplyType::ACorDC, "ACorDC"},
 });
+
+BOOST_DESCRIBE_ENUM(PowerSupplyType,
+
+    Invalid,
+    Unknown,
+    AC,
+    DC,
+    ACorDC,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LineInputVoltageType, {
     {LineInputVoltageType::Invalid, "Invalid"},
@@ -75,11 +94,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LineInputVoltageType, {
     {LineInputVoltageType::DC240V, "DC240V"},
 });
 
+BOOST_DESCRIBE_ENUM(LineInputVoltageType,
+
+    Invalid,
+    Unknown,
+    ACLowLine,
+    ACMidLine,
+    ACHighLine,
+    DCNeg48V,
+    DC380V,
+    AC120V,
+    AC240V,
+    AC277V,
+    ACandDCWideRange,
+    ACWideRange,
+    DC240V,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(InputType, {
     {InputType::Invalid, "Invalid"},
     {InputType::AC, "AC"},
     {InputType::DC, "DC"},
 });
+
+BOOST_DESCRIBE_ENUM(InputType,
+
+    Invalid,
+    AC,
+    DC,
+);
 
 }
 // clang-format on

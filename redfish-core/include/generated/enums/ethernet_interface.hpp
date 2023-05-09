@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace ethernet_interface
@@ -60,6 +61,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LinkStatus, {
     {LinkStatus::LinkDown, "LinkDown"},
 });
 
+BOOST_DESCRIBE_ENUM(LinkStatus,
+
+    Invalid,
+    LinkUp,
+    NoLink,
+    LinkDown,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DHCPv6OperatingMode, {
     {DHCPv6OperatingMode::Invalid, "Invalid"},
     {DHCPv6OperatingMode::Stateful, "Stateful"},
@@ -68,6 +77,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DHCPv6OperatingMode, {
     {DHCPv6OperatingMode::Enabled, "Enabled"},
 });
 
+BOOST_DESCRIBE_ENUM(DHCPv6OperatingMode,
+
+    Invalid,
+    Stateful,
+    Stateless,
+    Disabled,
+    Enabled,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DHCPFallback, {
     {DHCPFallback::Invalid, "Invalid"},
     {DHCPFallback::Static, "Static"},
@@ -75,11 +93,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DHCPFallback, {
     {DHCPFallback::None, "None"},
 });
 
+BOOST_DESCRIBE_ENUM(DHCPFallback,
+
+    Invalid,
+    Static,
+    AutoConfig,
+    None,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EthernetDeviceType, {
     {EthernetDeviceType::Invalid, "Invalid"},
     {EthernetDeviceType::Physical, "Physical"},
     {EthernetDeviceType::Virtual, "Virtual"},
 });
+
+BOOST_DESCRIBE_ENUM(EthernetDeviceType,
+
+    Invalid,
+    Physical,
+    Virtual,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TeamMode, {
     {TeamMode::Invalid, "Invalid"},
@@ -93,6 +126,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TeamMode, {
     {TeamMode::AdaptiveLoadBalancing, "AdaptiveLoadBalancing"},
 });
 
+BOOST_DESCRIBE_ENUM(TeamMode,
+
+    Invalid,
+    None,
+    RoundRobin,
+    ActiveBackup,
+    XOR,
+    Broadcast,
+    IEEE802_3ad,
+    AdaptiveTransmitLoadBalancing,
+    AdaptiveLoadBalancing,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(RoutingScope, {
     {RoutingScope::Invalid, "Invalid"},
     {RoutingScope::External, "External"},
@@ -100,6 +146,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RoutingScope, {
     {RoutingScope::Internal, "Internal"},
     {RoutingScope::Limited, "Limited"},
 });
+
+BOOST_DESCRIBE_ENUM(RoutingScope,
+
+    Invalid,
+    External,
+    HostOnly,
+    Internal,
+    Limited,
+);
 
 }
 // clang-format on

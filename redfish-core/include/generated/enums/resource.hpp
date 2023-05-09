@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace resource
@@ -129,12 +130,38 @@ NLOHMANN_JSON_SERIALIZE_ENUM(State, {
     {State::Degraded, "Degraded"},
 });
 
+BOOST_DESCRIBE_ENUM(State,
+
+    Invalid,
+    Enabled,
+    Disabled,
+    StandbyOffline,
+    StandbySpare,
+    InTest,
+    Starting,
+    Absent,
+    UnavailableOffline,
+    Deferring,
+    Quiesced,
+    Updating,
+    Qualified,
+    Degraded,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Health, {
     {Health::Invalid, "Invalid"},
     {Health::OK, "OK"},
     {Health::Warning, "Warning"},
     {Health::Critical, "Critical"},
 });
+
+BOOST_DESCRIBE_ENUM(Health,
+
+    Invalid,
+    OK,
+    Warning,
+    Critical,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetType, {
     {ResetType::Invalid, "Invalid"},
@@ -152,12 +179,37 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetType, {
     {ResetType::Resume, "Resume"},
 });
 
+BOOST_DESCRIBE_ENUM(ResetType,
+
+    Invalid,
+    On,
+    ForceOff,
+    GracefulShutdown,
+    GracefulRestart,
+    ForceRestart,
+    Nmi,
+    ForceOn,
+    PushPowerButton,
+    PowerCycle,
+    Suspend,
+    Pause,
+    Resume,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
     {IndicatorLED::Invalid, "Invalid"},
     {IndicatorLED::Lit, "Lit"},
     {IndicatorLED::Blinking, "Blinking"},
     {IndicatorLED::Off, "Off"},
 });
+
+BOOST_DESCRIBE_ENUM(IndicatorLED,
+
+    Invalid,
+    Lit,
+    Blinking,
+    Off,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::Invalid, "Invalid"},
@@ -167,6 +219,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::PoweringOff, "PoweringOff"},
     {PowerState::Paused, "Paused"},
 });
+
+BOOST_DESCRIBE_ENUM(PowerState,
+
+    Invalid,
+    On,
+    Off,
+    PoweringOn,
+    PoweringOff,
+    Paused,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DurableNameFormat, {
     {DurableNameFormat::Invalid, "Invalid"},
@@ -182,11 +244,33 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DurableNameFormat, {
     {DurableNameFormat::GCXLID, "GCXLID"},
 });
 
+BOOST_DESCRIBE_ENUM(DurableNameFormat,
+
+    Invalid,
+    NAA,
+    iQN,
+    FC_WWN,
+    UUID,
+    EUI,
+    NQN,
+    NSID,
+    NGUID,
+    MACAddress,
+    GCXLID,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(RackUnits, {
     {RackUnits::Invalid, "Invalid"},
     {RackUnits::OpenU, "OpenU"},
     {RackUnits::EIA_310, "EIA_310"},
 });
+
+BOOST_DESCRIBE_ENUM(RackUnits,
+
+    Invalid,
+    OpenU,
+    EIA_310,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LocationType, {
     {LocationType::Invalid, "Invalid"},
@@ -197,6 +281,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LocationType, {
     {LocationType::Backplane, "Backplane"},
     {LocationType::Embedded, "Embedded"},
 });
+
+BOOST_DESCRIBE_ENUM(LocationType,
+
+    Invalid,
+    Slot,
+    Bay,
+    Connector,
+    Socket,
+    Backplane,
+    Embedded,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(Reference, {
     {Reference::Invalid, "Invalid"},
@@ -209,6 +304,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Reference, {
     {Reference::Middle, "Middle"},
 });
 
+BOOST_DESCRIBE_ENUM(Reference,
+
+    Invalid,
+    Top,
+    Bottom,
+    Front,
+    Rear,
+    Left,
+    Right,
+    Middle,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Orientation, {
     {Orientation::Invalid, "Invalid"},
     {Orientation::FrontToBack, "FrontToBack"},
@@ -218,6 +325,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Orientation, {
     {Orientation::LeftToRight, "LeftToRight"},
     {Orientation::RightToLeft, "RightToLeft"},
 });
+
+BOOST_DESCRIBE_ENUM(Orientation,
+
+    Invalid,
+    FrontToBack,
+    BackToFront,
+    TopToBottom,
+    BottomToTop,
+    LeftToRight,
+    RightToLeft,
+);
 
 }
 // clang-format on

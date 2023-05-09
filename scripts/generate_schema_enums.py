@@ -71,6 +71,7 @@ def camel_to_snake(name):
 def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
     redfish_defs_file.write(
         "#pragma once\n"
+        "#include <boost/describe/enum.hpp>\n\n"
         "#include <nlohmann/json.hpp>\n\n"
         "namespace {}\n"
         "{{\n"
@@ -105,6 +106,15 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
             )
 
         redfish_defs_file.write("});\n\n")
+
+        redfish_defs_file.write(
+            "BOOST_DESCRIBE_ENUM({},\n".format(element.name)
+        )
+        for value in values:
+            redfish_defs_file.write(
+                '\n    {},'.format(value)
+            )
+        redfish_defs_file.write("\n);\n\n")
 
         print(element.name)
 

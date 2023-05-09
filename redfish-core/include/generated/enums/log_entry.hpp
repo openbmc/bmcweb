@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace log_entry
@@ -53,6 +54,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EventSeverity, {
     {EventSeverity::Critical, "Critical"},
 });
 
+BOOST_DESCRIBE_ENUM(EventSeverity,
+
+    Invalid,
+    OK,
+    Warning,
+    Critical,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LogEntryType, {
     {LogEntryType::Invalid, "Invalid"},
     {LogEntryType::Event, "Event"},
@@ -60,6 +69,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogEntryType, {
     {LogEntryType::Oem, "Oem"},
     {LogEntryType::CXL, "CXL"},
 });
+
+BOOST_DESCRIBE_ENUM(LogEntryType,
+
+    Invalid,
+    Event,
+    SEL,
+    Oem,
+    CXL,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LogDiagnosticDataTypes, {
     {LogDiagnosticDataTypes::Invalid, "Invalid"},
@@ -71,12 +89,31 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogDiagnosticDataTypes, {
     {LogDiagnosticDataTypes::CPERSection, "CPERSection"},
 });
 
+BOOST_DESCRIBE_ENUM(LogDiagnosticDataTypes,
+
+    Invalid,
+    Manager,
+    PreOS,
+    OS,
+    OEM,
+    CPER,
+    CPERSection,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OriginatorTypes, {
     {OriginatorTypes::Invalid, "Invalid"},
     {OriginatorTypes::Client, "Client"},
     {OriginatorTypes::Internal, "Internal"},
     {OriginatorTypes::SupportingService, "SupportingService"},
 });
+
+BOOST_DESCRIBE_ENUM(OriginatorTypes,
+
+    Invalid,
+    Client,
+    Internal,
+    SupportingService,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CXLEntryType, {
     {CXLEntryType::Invalid, "Invalid"},
@@ -86,6 +123,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLEntryType, {
     {CXLEntryType::Failure, "Failure"},
     {CXLEntryType::Fatal, "Fatal"},
 });
+
+BOOST_DESCRIBE_ENUM(CXLEntryType,
+
+    Invalid,
+    DynamicCapacity,
+    Informational,
+    Warning,
+    Failure,
+    Fatal,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace license_service
@@ -30,6 +31,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::OEM, "OEM"},
     {TransferProtocolType::NFS, "NFS"},
 });
+
+BOOST_DESCRIBE_ENUM(TransferProtocolType,
+
+    Invalid,
+    CIFS,
+    FTP,
+    SFTP,
+    HTTP,
+    HTTPS,
+    SCP,
+    TFTP,
+    OEM,
+    NFS,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace facility
@@ -20,6 +21,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FacilityType, {
     {FacilityType::Building, "Building"},
     {FacilityType::Site, "Site"},
 });
+
+BOOST_DESCRIBE_ENUM(FacilityType,
+
+    Invalid,
+    Room,
+    Floor,
+    Building,
+    Site,
+);
 
 }
 // clang-format on

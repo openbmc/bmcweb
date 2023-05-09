@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace cooling_loop
@@ -20,6 +21,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolantType, {
     {CoolantType::Fluorocarbon, "Fluorocarbon"},
     {CoolantType::Dielectric, "Dielectric"},
 });
+
+BOOST_DESCRIBE_ENUM(CoolantType,
+
+    Invalid,
+    Water,
+    Hydrocarbon,
+    Fluorocarbon,
+    Dielectric,
+);
 
 }
 // clang-format on

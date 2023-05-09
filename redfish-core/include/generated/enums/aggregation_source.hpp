@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace aggregation_source
@@ -50,6 +51,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPAuthenticationProtocols, {
     {SNMPAuthenticationProtocols::HMAC384_SHA512, "HMAC384_SHA512"},
 });
 
+BOOST_DESCRIBE_ENUM(SNMPAuthenticationProtocols,
+
+    Invalid,
+    None,
+    CommunityString,
+    HMAC_MD5,
+    HMAC_SHA96,
+    HMAC128_SHA224,
+    HMAC192_SHA256,
+    HMAC256_SHA384,
+    HMAC384_SHA512,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::Invalid, "Invalid"},
     {SNMPEncryptionProtocols::None, "None"},
@@ -59,17 +73,41 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
 
+BOOST_DESCRIBE_ENUM(SNMPEncryptionProtocols,
+
+    Invalid,
+    None,
+    CBC_DES,
+    CFB128_AES128,
+    CFB128_AES192,
+    CFB128_AES256,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AggregationType, {
     {AggregationType::Invalid, "Invalid"},
     {AggregationType::NotificationsOnly, "NotificationsOnly"},
     {AggregationType::Full, "Full"},
 });
 
+BOOST_DESCRIBE_ENUM(AggregationType,
+
+    Invalid,
+    NotificationsOnly,
+    Full,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(UserAuthenticationMethod, {
     {UserAuthenticationMethod::Invalid, "Invalid"},
     {UserAuthenticationMethod::PublicKey, "PublicKey"},
     {UserAuthenticationMethod::Password, "Password"},
 });
+
+BOOST_DESCRIBE_ENUM(UserAuthenticationMethod,
+
+    Invalid,
+    PublicKey,
+    Password,
+);
 
 }
 // clang-format on

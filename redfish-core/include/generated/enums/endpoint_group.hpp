@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace endpoint_group
@@ -31,6 +32,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccessState, {
     {AccessState::Transitioning, "Transitioning"},
 });
 
+BOOST_DESCRIBE_ENUM(AccessState,
+
+    Invalid,
+    Optimized,
+    NonOptimized,
+    Standby,
+    Unavailable,
+    Transitioning,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(GroupType, {
     {GroupType::Invalid, "Invalid"},
     {GroupType::Client, "Client"},
@@ -38,6 +49,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(GroupType, {
     {GroupType::Initiator, "Initiator"},
     {GroupType::Target, "Target"},
 });
+
+BOOST_DESCRIBE_ENUM(GroupType,
+
+    Invalid,
+    Client,
+    Server,
+    Initiator,
+    Target,
+);
 
 }
 // clang-format on

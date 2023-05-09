@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace event
@@ -37,6 +38,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EventType, {
     {EventType::Other, "Other"},
 });
 
+BOOST_DESCRIBE_ENUM(EventType,
+
+    Invalid,
+    StatusChange,
+    ResourceUpdated,
+    ResourceAdded,
+    ResourceRemoved,
+    Alert,
+    MetricReport,
+    Other,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DiagnosticDataTypes, {
     {DiagnosticDataTypes::Invalid, "Invalid"},
     {DiagnosticDataTypes::Manager, "Manager"},
@@ -46,6 +59,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DiagnosticDataTypes, {
     {DiagnosticDataTypes::CPER, "CPER"},
     {DiagnosticDataTypes::CPERSection, "CPERSection"},
 });
+
+BOOST_DESCRIBE_ENUM(DiagnosticDataTypes,
+
+    Invalid,
+    Manager,
+    PreOS,
+    OS,
+    OEM,
+    CPER,
+    CPERSection,
+);
 
 }
 // clang-format on

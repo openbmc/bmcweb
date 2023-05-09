@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace zone
@@ -29,6 +30,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExternalAccessibility, {
     {ExternalAccessibility::NoInternalRouting, "NoInternalRouting"},
 });
 
+BOOST_DESCRIBE_ENUM(ExternalAccessibility,
+
+    Invalid,
+    GloballyAccessible,
+    NonZonedAccessible,
+    ZoneOnly,
+    NoInternalRouting,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ZoneType, {
     {ZoneType::Invalid, "Invalid"},
     {ZoneType::Default, "Default"},
@@ -36,6 +46,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ZoneType, {
     {ZoneType::ZoneOfZones, "ZoneOfZones"},
     {ZoneType::ZoneOfResourceBlocks, "ZoneOfResourceBlocks"},
 });
+
+BOOST_DESCRIBE_ENUM(ZoneType,
+
+    Invalid,
+    Default,
+    ZoneOfEndpoints,
+    ZoneOfZones,
+    ZoneOfResourceBlocks,
+);
 
 }
 // clang-format on

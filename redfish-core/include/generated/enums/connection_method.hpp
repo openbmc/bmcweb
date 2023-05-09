@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace connection_method
@@ -31,11 +32,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectionMethodType, {
     {ConnectionMethodType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(ConnectionMethodType,
+
+    Invalid,
+    Redfish,
+    SNMP,
+    IPMI15,
+    IPMI20,
+    NETCONF,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TunnelingProtocolType, {
     {TunnelingProtocolType::Invalid, "Invalid"},
     {TunnelingProtocolType::SSH, "SSH"},
     {TunnelingProtocolType::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(TunnelingProtocolType,
+
+    Invalid,
+    SSH,
+    OEM,
+);
 
 }
 // clang-format on

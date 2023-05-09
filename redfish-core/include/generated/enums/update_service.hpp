@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace update_service
@@ -53,6 +54,21 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::NFS, "NFS"},
 });
 
+BOOST_DESCRIBE_ENUM(TransferProtocolType,
+
+    Invalid,
+    CIFS,
+    FTP,
+    SFTP,
+    HTTP,
+    HTTPS,
+    NSF,
+    SCP,
+    TFTP,
+    OEM,
+    NFS,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::Invalid, "Invalid"},
     {ApplyTime::Immediate, "Immediate"},
@@ -63,6 +79,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::OnTargetReset, "OnTargetReset"},
 });
 
+BOOST_DESCRIBE_ENUM(ApplyTime,
+
+    Invalid,
+    Immediate,
+    OnReset,
+    AtMaintenanceWindowStart,
+    InMaintenanceWindowOnReset,
+    OnStartUpdateRequest,
+    OnTargetReset,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SupportedUpdateImageFormatType, {
     {SupportedUpdateImageFormatType::Invalid, "Invalid"},
     {SupportedUpdateImageFormatType::PLDMv1_0, "PLDMv1_0"},
@@ -72,6 +99,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SupportedUpdateImageFormatType, {
     {SupportedUpdateImageFormatType::UEFICapsule, "UEFICapsule"},
     {SupportedUpdateImageFormatType::VendorDefined, "VendorDefined"},
 });
+
+BOOST_DESCRIBE_ENUM(SupportedUpdateImageFormatType,
+
+    Invalid,
+    PLDMv1_0,
+    PLDMv1_1,
+    PLDMv1_2,
+    PLDMv1_3,
+    UEFICapsule,
+    VendorDefined,
+);
 
 }
 // clang-format on

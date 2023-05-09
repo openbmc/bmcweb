@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace network_device_function
@@ -61,11 +62,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NetworkDeviceTechnology, {
     {NetworkDeviceTechnology::InfiniBand, "InfiniBand"},
 });
 
+BOOST_DESCRIBE_ENUM(NetworkDeviceTechnology,
+
+    Invalid,
+    Disabled,
+    Ethernet,
+    FibreChannel,
+    iSCSI,
+    FibreChannelOverEthernet,
+    InfiniBand,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(IPAddressType, {
     {IPAddressType::Invalid, "Invalid"},
     {IPAddressType::IPv4, "IPv4"},
     {IPAddressType::IPv6, "IPv6"},
 });
+
+BOOST_DESCRIBE_ENUM(IPAddressType,
+
+    Invalid,
+    IPv4,
+    IPv6,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationMethod, {
     {AuthenticationMethod::Invalid, "Invalid"},
@@ -74,11 +93,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationMethod, {
     {AuthenticationMethod::MutualCHAP, "MutualCHAP"},
 });
 
+BOOST_DESCRIBE_ENUM(AuthenticationMethod,
+
+    Invalid,
+    None,
+    CHAP,
+    MutualCHAP,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(WWNSource, {
     {WWNSource::Invalid, "Invalid"},
     {WWNSource::ConfiguredLocally, "ConfiguredLocally"},
     {WWNSource::ProvidedByFabric, "ProvidedByFabric"},
 });
+
+BOOST_DESCRIBE_ENUM(WWNSource,
+
+    Invalid,
+    ConfiguredLocally,
+    ProvidedByFabric,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(BootMode, {
     {BootMode::Invalid, "Invalid"},
@@ -90,12 +124,31 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BootMode, {
     {BootMode::HTTP, "HTTP"},
 });
 
+BOOST_DESCRIBE_ENUM(BootMode,
+
+    Invalid,
+    Disabled,
+    PXE,
+    iSCSI,
+    FibreChannel,
+    FibreChannelOverEthernet,
+    HTTP,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DataDirection, {
     {DataDirection::Invalid, "Invalid"},
     {DataDirection::None, "None"},
     {DataDirection::Ingress, "Ingress"},
     {DataDirection::Egress, "Egress"},
 });
+
+BOOST_DESCRIBE_ENUM(DataDirection,
+
+    Invalid,
+    None,
+    Ingress,
+    Egress,
+);
 
 }
 // clang-format on

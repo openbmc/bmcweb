@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace coolant_connector
@@ -22,6 +23,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolantConnectorType, {
     {CoolantConnectorType::Inline, "Inline"},
     {CoolantConnectorType::Closed, "Closed"},
 });
+
+BOOST_DESCRIBE_ENUM(CoolantConnectorType,
+
+    Invalid,
+    Pair,
+    Supply,
+    Return,
+    Inline,
+    Closed,
+);
 
 }
 // clang-format on

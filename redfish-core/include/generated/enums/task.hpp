@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace task
@@ -38,6 +39,24 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TaskState, {
     {TaskState::Cancelling, "Cancelling"},
     {TaskState::Cancelled, "Cancelled"},
 });
+
+BOOST_DESCRIBE_ENUM(TaskState,
+
+    Invalid,
+    New,
+    Starting,
+    Running,
+    Suspended,
+    Interrupted,
+    Pending,
+    Stopping,
+    Completed,
+    Killed,
+    Exception,
+    Service,
+    Cancelling,
+    Cancelled,
+);
 
 }
 // clang-format on

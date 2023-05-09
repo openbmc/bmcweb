@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace host_interface
@@ -23,6 +24,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HostInterfaceType, {
     {HostInterfaceType::NetworkHostInterface, "NetworkHostInterface"},
 });
 
+BOOST_DESCRIBE_ENUM(HostInterfaceType,
+
+    Invalid,
+    NetworkHostInterface,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationMode, {
     {AuthenticationMode::Invalid, "Invalid"},
     {AuthenticationMode::AuthNone, "AuthNone"},
@@ -30,6 +37,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationMode, {
     {AuthenticationMode::RedfishSessionAuth, "RedfishSessionAuth"},
     {AuthenticationMode::OemAuth, "OemAuth"},
 });
+
+BOOST_DESCRIBE_ENUM(AuthenticationMode,
+
+    Invalid,
+    AuthNone,
+    BasicAuth,
+    RedfishSessionAuth,
+    OemAuth,
+);
 
 }
 // clang-format on

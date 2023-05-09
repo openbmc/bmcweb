@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace redundancy
@@ -22,6 +23,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RedundancyType, {
     {RedundancyType::Sparing, "Sparing"},
     {RedundancyType::NotRedundant, "NotRedundant"},
 });
+
+BOOST_DESCRIBE_ENUM(RedundancyType,
+
+    Invalid,
+    Failover,
+    NPlusM,
+    Sharing,
+    Sparing,
+    NotRedundant,
+);
 
 }
 // clang-format on

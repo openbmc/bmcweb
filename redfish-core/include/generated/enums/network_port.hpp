@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace network_port
@@ -53,6 +54,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LinkStatus, {
     {LinkStatus::Training, "Training"},
 });
 
+BOOST_DESCRIBE_ENUM(LinkStatus,
+
+    Invalid,
+    Down,
+    Up,
+    Starting,
+    Training,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LinkNetworkTechnology, {
     {LinkNetworkTechnology::Invalid, "Invalid"},
     {LinkNetworkTechnology::Ethernet, "Ethernet"},
@@ -60,11 +70,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LinkNetworkTechnology, {
     {LinkNetworkTechnology::FibreChannel, "FibreChannel"},
 });
 
+BOOST_DESCRIBE_ENUM(LinkNetworkTechnology,
+
+    Invalid,
+    Ethernet,
+    InfiniBand,
+    FibreChannel,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SupportedEthernetCapabilities, {
     {SupportedEthernetCapabilities::Invalid, "Invalid"},
     {SupportedEthernetCapabilities::WakeOnLAN, "WakeOnLAN"},
     {SupportedEthernetCapabilities::EEE, "EEE"},
 });
+
+BOOST_DESCRIBE_ENUM(SupportedEthernetCapabilities,
+
+    Invalid,
+    WakeOnLAN,
+    EEE,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(FlowControl, {
     {FlowControl::Invalid, "Invalid"},
@@ -73,6 +98,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FlowControl, {
     {FlowControl::RX, "RX"},
     {FlowControl::TX_RX, "TX_RX"},
 });
+
+BOOST_DESCRIBE_ENUM(FlowControl,
+
+    Invalid,
+    None,
+    TX,
+    RX,
+    TX_RX,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PortConnectionType, {
     {PortConnectionType::Invalid, "Invalid"},
@@ -84,6 +118,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PortConnectionType, {
     {PortConnectionType::Generic, "Generic"},
     {PortConnectionType::ExtenderFabric, "ExtenderFabric"},
 });
+
+BOOST_DESCRIBE_ENUM(PortConnectionType,
+
+    Invalid,
+    NotConnected,
+    NPort,
+    PointToPoint,
+    PrivateLoop,
+    PublicLoop,
+    Generic,
+    ExtenderFabric,
+);
 
 }
 // clang-format on

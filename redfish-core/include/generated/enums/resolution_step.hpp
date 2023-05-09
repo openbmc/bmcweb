@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace resolution_step
@@ -28,6 +29,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResolutionType, {
     {ResolutionType::CollectDiagnosticData, "CollectDiagnosticData"},
     {ResolutionType::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(ResolutionType,
+
+    Invalid,
+    ContactVendor,
+    ReplaceComponent,
+    FirmwareUpdate,
+    Reset,
+    PowerCycle,
+    ResetToDefaults,
+    CollectDiagnosticData,
+    OEM,
+);
 
 }
 // clang-format on

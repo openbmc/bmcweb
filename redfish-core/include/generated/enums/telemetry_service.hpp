@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace telemetry_service
@@ -20,6 +21,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CollectionFunction, {
     {CollectionFunction::Minimum, "Minimum"},
     {CollectionFunction::Summation, "Summation"},
 });
+
+BOOST_DESCRIBE_ENUM(CollectionFunction,
+
+    Invalid,
+    Average,
+    Maximum,
+    Minimum,
+    Summation,
+);
 
 }
 // clang-format on

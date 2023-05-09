@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace circuit
@@ -122,6 +123,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::PowerCycle, "PowerCycle"},
 });
 
+BOOST_DESCRIBE_ENUM(PowerState,
+
+    Invalid,
+    On,
+    Off,
+    PowerCycle,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BreakerStates, {
     {BreakerStates::Invalid, "Invalid"},
     {BreakerStates::Normal, "Normal"},
@@ -129,12 +138,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BreakerStates, {
     {BreakerStates::Off, "Off"},
 });
 
+BOOST_DESCRIBE_ENUM(BreakerStates,
+
+    Invalid,
+    Normal,
+    Tripped,
+    Off,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerRestorePolicyTypes, {
     {PowerRestorePolicyTypes::Invalid, "Invalid"},
     {PowerRestorePolicyTypes::AlwaysOn, "AlwaysOn"},
     {PowerRestorePolicyTypes::AlwaysOff, "AlwaysOff"},
     {PowerRestorePolicyTypes::LastState, "LastState"},
 });
+
+BOOST_DESCRIBE_ENUM(PowerRestorePolicyTypes,
+
+    Invalid,
+    AlwaysOn,
+    AlwaysOff,
+    LastState,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PhaseWiringType, {
     {PhaseWiringType::Invalid, "Invalid"},
@@ -145,6 +170,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PhaseWiringType, {
     {PhaseWiringType::ThreePhase4Wire, "ThreePhase4Wire"},
     {PhaseWiringType::ThreePhase5Wire, "ThreePhase5Wire"},
 });
+
+BOOST_DESCRIBE_ENUM(PhaseWiringType,
+
+    Invalid,
+    OnePhase3Wire,
+    TwoPhase3Wire,
+    OneOrTwoPhase3Wire,
+    TwoPhase4Wire,
+    ThreePhase4Wire,
+    ThreePhase5Wire,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(NominalVoltageType, {
     {NominalVoltageType::Invalid, "Invalid"},
@@ -173,6 +209,35 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NominalVoltageType, {
     {NominalVoltageType::DC3_3V, "DC3_3V"},
     {NominalVoltageType::DC1_8V, "DC1_8V"},
 });
+
+BOOST_DESCRIBE_ENUM(NominalVoltageType,
+
+    Invalid,
+    AC100To127V,
+    AC100To240V,
+    AC100To277V,
+    AC120V,
+    AC200To240V,
+    AC200To277V,
+    AC208V,
+    AC230V,
+    AC240V,
+    AC240AndDC380V,
+    AC277V,
+    AC277AndDC380V,
+    AC400V,
+    AC480V,
+    DC48V,
+    DC240V,
+    DC380V,
+    DCNeg48V,
+    DC16V,
+    DC12V,
+    DC9V,
+    DC5V,
+    DC3_3V,
+    DC1_8V,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PlugType, {
     {PlugType::Invalid, "Invalid"},
@@ -210,6 +275,43 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PlugType, {
     {PlugType::Field_400V_3P5W_32A, "Field_400V_3P5W_32A"},
 });
 
+BOOST_DESCRIBE_ENUM(PlugType,
+
+    Invalid,
+    NEMA_5_15P,
+    NEMA_L5_15P,
+    NEMA_5_20P,
+    NEMA_L5_20P,
+    NEMA_L5_30P,
+    NEMA_6_15P,
+    NEMA_L6_15P,
+    NEMA_6_20P,
+    NEMA_L6_20P,
+    NEMA_L6_30P,
+    NEMA_L14_20P,
+    NEMA_L14_30P,
+    NEMA_L15_20P,
+    NEMA_L15_30P,
+    NEMA_L21_20P,
+    NEMA_L21_30P,
+    NEMA_L22_20P,
+    NEMA_L22_30P,
+    California_CS8265,
+    California_CS8365,
+    IEC_60320_C14,
+    IEC_60320_C20,
+    IEC_60309_316P6,
+    IEC_60309_332P6,
+    IEC_60309_363P6,
+    IEC_60309_516P6,
+    IEC_60309_532P6,
+    IEC_60309_563P6,
+    IEC_60309_460P9,
+    IEC_60309_560P9,
+    Field_208V_3P4W_60A,
+    Field_400V_3P5W_32A,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CircuitType, {
     {CircuitType::Invalid, "Invalid"},
     {CircuitType::Mains, "Mains"},
@@ -219,11 +321,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CircuitType, {
     {CircuitType::Bus, "Bus"},
 });
 
+BOOST_DESCRIBE_ENUM(CircuitType,
+
+    Invalid,
+    Mains,
+    Branch,
+    Subfeed,
+    Feeder,
+    Bus,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::Invalid, "Invalid"},
     {VoltageType::AC, "AC"},
     {VoltageType::DC, "DC"},
 });
+
+BOOST_DESCRIBE_ENUM(VoltageType,
+
+    Invalid,
+    AC,
+    DC,
+);
 
 }
 // clang-format on

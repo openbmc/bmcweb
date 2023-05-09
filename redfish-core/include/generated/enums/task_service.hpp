@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace task_service
@@ -16,6 +17,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Manual, "Manual"},
     {OverWritePolicy::Oldest, "Oldest"},
 });
+
+BOOST_DESCRIBE_ENUM(OverWritePolicy,
+
+    Invalid,
+    Manual,
+    Oldest,
+);
 
 }
 // clang-format on

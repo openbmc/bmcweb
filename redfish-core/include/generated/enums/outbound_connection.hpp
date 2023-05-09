@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace outbound_connection
@@ -27,6 +28,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OutboundConnectionRetryPolicyType, {
     {OutboundConnectionRetryPolicyType::RetryCount, "RetryCount"},
 });
 
+BOOST_DESCRIBE_ENUM(OutboundConnectionRetryPolicyType,
+
+    Invalid,
+    None,
+    RetryForever,
+    RetryCount,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationType, {
     {AuthenticationType::Invalid, "Invalid"},
     {AuthenticationType::MTLS, "MTLS"},
@@ -34,6 +43,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationType, {
     {AuthenticationType::None, "None"},
     {AuthenticationType::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(AuthenticationType,
+
+    Invalid,
+    MTLS,
+    JWT,
+    None,
+    OEM,
+);
 
 }
 // clang-format on

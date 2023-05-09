@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace acceleration_function
@@ -28,6 +29,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccelerationFunctionType, {
     {AccelerationFunctionType::VideoProcessing, "VideoProcessing"},
     {AccelerationFunctionType::OEM, "OEM"},
 });
+
+BOOST_DESCRIBE_ENUM(AccelerationFunctionType,
+
+    Invalid,
+    Encryption,
+    Compression,
+    PacketInspection,
+    PacketSwitch,
+    Scheduler,
+    AudioProcessing,
+    VideoProcessing,
+    OEM,
+);
 
 }
 // clang-format on

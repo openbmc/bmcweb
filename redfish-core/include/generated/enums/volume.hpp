@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace volume
@@ -155,12 +156,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(InitializeType, {
     {InitializeType::Slow, "Slow"},
 });
 
+BOOST_DESCRIBE_ENUM(InitializeType,
+
+    Invalid,
+    Fast,
+    Slow,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(InitializeMethod, {
     {InitializeMethod::Invalid, "Invalid"},
     {InitializeMethod::Skip, "Skip"},
     {InitializeMethod::Background, "Background"},
     {InitializeMethod::Foreground, "Foreground"},
 });
+
+BOOST_DESCRIBE_ENUM(InitializeMethod,
+
+    Invalid,
+    Skip,
+    Background,
+    Foreground,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(RAIDType, {
     {RAIDType::Invalid, "Invalid"},
@@ -183,6 +199,28 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RAIDType, {
     {RAIDType::None, "None"},
 });
 
+BOOST_DESCRIBE_ENUM(RAIDType,
+
+    Invalid,
+    RAID0,
+    RAID1,
+    RAID3,
+    RAID4,
+    RAID5,
+    RAID6,
+    RAID10,
+    RAID01,
+    RAID6TP,
+    RAID1E,
+    RAID50,
+    RAID60,
+    RAID00,
+    RAID10E,
+    RAID1Triple,
+    RAID10Triple,
+    None,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(VolumeType, {
     {VolumeType::Invalid, "Invalid"},
     {VolumeType::RawDevice, "RawDevice"},
@@ -193,12 +231,31 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VolumeType, {
     {VolumeType::SpannedStripesWithParity, "SpannedStripesWithParity"},
 });
 
+BOOST_DESCRIBE_ENUM(VolumeType,
+
+    Invalid,
+    RawDevice,
+    NonRedundant,
+    Mirrored,
+    StripedWithParity,
+    SpannedMirrors,
+    SpannedStripesWithParity,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionTypes, {
     {EncryptionTypes::Invalid, "Invalid"},
     {EncryptionTypes::NativeDriveEncryption, "NativeDriveEncryption"},
     {EncryptionTypes::ControllerAssisted, "ControllerAssisted"},
     {EncryptionTypes::SoftwareAssisted, "SoftwareAssisted"},
 });
+
+BOOST_DESCRIBE_ENUM(EncryptionTypes,
+
+    Invalid,
+    NativeDriveEncryption,
+    ControllerAssisted,
+    SoftwareAssisted,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(WriteHoleProtectionPolicyType, {
     {WriteHoleProtectionPolicyType::Invalid, "Invalid"},
@@ -207,6 +264,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(WriteHoleProtectionPolicyType, {
     {WriteHoleProtectionPolicyType::DistributedLog, "DistributedLog"},
     {WriteHoleProtectionPolicyType::Oem, "Oem"},
 });
+
+BOOST_DESCRIBE_ENUM(WriteHoleProtectionPolicyType,
+
+    Invalid,
+    Off,
+    Journaling,
+    DistributedLog,
+    Oem,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(VolumeUsageType, {
     {VolumeUsageType::Invalid, "Invalid"},
@@ -217,12 +283,30 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VolumeUsageType, {
     {VolumeUsageType::ReplicationReserve, "ReplicationReserve"},
 });
 
+BOOST_DESCRIBE_ENUM(VolumeUsageType,
+
+    Invalid,
+    Data,
+    SystemData,
+    CacheOnly,
+    SystemReserve,
+    ReplicationReserve,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ReadCachePolicyType, {
     {ReadCachePolicyType::Invalid, "Invalid"},
     {ReadCachePolicyType::ReadAhead, "ReadAhead"},
     {ReadCachePolicyType::AdaptiveReadAhead, "AdaptiveReadAhead"},
     {ReadCachePolicyType::Off, "Off"},
 });
+
+BOOST_DESCRIBE_ENUM(ReadCachePolicyType,
+
+    Invalid,
+    ReadAhead,
+    AdaptiveReadAhead,
+    Off,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(WriteCachePolicyType, {
     {WriteCachePolicyType::Invalid, "Invalid"},
@@ -232,12 +316,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(WriteCachePolicyType, {
     {WriteCachePolicyType::Off, "Off"},
 });
 
+BOOST_DESCRIBE_ENUM(WriteCachePolicyType,
+
+    Invalid,
+    WriteThrough,
+    ProtectedWriteBack,
+    UnprotectedWriteBack,
+    Off,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(WriteCacheStateType, {
     {WriteCacheStateType::Invalid, "Invalid"},
     {WriteCacheStateType::Unprotected, "Unprotected"},
     {WriteCacheStateType::Protected, "Protected"},
     {WriteCacheStateType::Degraded, "Degraded"},
 });
+
+BOOST_DESCRIBE_ENUM(WriteCacheStateType,
+
+    Invalid,
+    Unprotected,
+    Protected,
+    Degraded,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LBAFormatType, {
     {LBAFormatType::Invalid, "Invalid"},
@@ -259,6 +360,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBAFormatType, {
     {LBAFormatType::LBAFormat15, "LBAFormat15"},
 });
 
+BOOST_DESCRIBE_ENUM(LBAFormatType,
+
+    Invalid,
+    LBAFormat0,
+    LBAFormat1,
+    LBAFormat2,
+    LBAFormat3,
+    LBAFormat4,
+    LBAFormat5,
+    LBAFormat6,
+    LBAFormat7,
+    LBAFormat8,
+    LBAFormat9,
+    LBAFormat10,
+    LBAFormat11,
+    LBAFormat12,
+    LBAFormat13,
+    LBAFormat14,
+    LBAFormat15,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(NamespaceType, {
     {NamespaceType::Invalid, "Invalid"},
     {NamespaceType::Block, "Block"},
@@ -266,6 +388,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NamespaceType, {
     {NamespaceType::ZNS, "ZNS"},
     {NamespaceType::Computational, "Computational"},
 });
+
+BOOST_DESCRIBE_ENUM(NamespaceType,
+
+    Invalid,
+    Block,
+    KeyValue,
+    ZNS,
+    Computational,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(OperationType, {
     {OperationType::Invalid, "Invalid"},
@@ -285,6 +416,25 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperationType, {
     {OperationType::ChangeStripSize, "ChangeStripSize"},
 });
 
+BOOST_DESCRIBE_ENUM(OperationType,
+
+    Invalid,
+    Deduplicate,
+    CheckConsistency,
+    Initialize,
+    Replicate,
+    Delete,
+    ChangeRAIDType,
+    Rebuild,
+    Encrypt,
+    Decrypt,
+    Resize,
+    Compress,
+    Sanitize,
+    Format,
+    ChangeStripSize,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
     {LBARelativePerformanceType::Invalid, "Invalid"},
     {LBARelativePerformanceType::Best, "Best"},
@@ -292,6 +442,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
     {LBARelativePerformanceType::Good, "Good"},
     {LBARelativePerformanceType::Degraded, "Degraded"},
 });
+
+BOOST_DESCRIBE_ENUM(LBARelativePerformanceType,
+
+    Invalid,
+    Best,
+    Better,
+    Good,
+    Degraded,
+);
 
 }
 // clang-format on

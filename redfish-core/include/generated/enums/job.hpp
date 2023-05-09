@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace job
@@ -38,6 +39,24 @@ NLOHMANN_JSON_SERIALIZE_ENUM(JobState, {
     {JobState::UserIntervention, "UserIntervention"},
     {JobState::Continue, "Continue"},
 });
+
+BOOST_DESCRIBE_ENUM(JobState,
+
+    Invalid,
+    New,
+    Starting,
+    Running,
+    Suspended,
+    Interrupted,
+    Pending,
+    Stopping,
+    Completed,
+    Cancelled,
+    Exception,
+    Service,
+    UserIntervention,
+    Continue,
+);
 
 }
 // clang-format on

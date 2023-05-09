@@ -29,6 +29,9 @@ limitations under the License.
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/describe/enum_to_string.hpp>
+#include <boost/describe/enumerators.hpp>
+#include <boost/json/value_from.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -42,6 +45,15 @@ limitations under the License.
 #include <string_view>
 #include <utility>
 #include <vector>
+
+template <class E, class = std::enable_if_t<
+                       boost::describe::has_describe_enumerators<E>::value>>
+void tag_invoke(const boost::json::value_from_tag&, boost::json::value& v,
+                const E& e)
+{
+    auto s = boost::describe::enum_to_string(e, 0);
+    v = s ? s : std::to_string(static_cast<std::underlying_type_t<E>>(e));
+}
 
 namespace redfish
 {
@@ -127,7 +139,8 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
 inline bool translateUserGroup(const std::vector<std::string>& userGroups,
                                crow::Response& res)
 {
-    std::vector<std::string> accountTypes;
+    boost::json::array& accountTypes =
+        res.response.body().jsonValue2["AccountTypes"].emplace_array();
     for (const auto& userGroup : userGroups)
     {
         if (userGroup == "redfish")
@@ -163,8 +176,6 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
             return false;
         }
     }
-
-    res.jsonValue["AccountTypes"] = std::move(accountTypes);
     return true;
 }
 
@@ -390,9 +401,10 @@ inline void handleRoleMapPatch(
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        asyncResp->res
-                            .jsonValue[serverType]["RemoteRoleMapping"][index] =
-                            nullptr;
+                        asyncResp->res.response.body()
+                            .jsonValue2[serverType]
+                            .emplace_object()["RemoteRoleMapping"]
+                            .emplace_array()[index] = nullptr;
                     },
                     ldapDbusService, roleMapObjData[index].first,
                     "xyz.openbmc_project.Object.Delete", "Delete");
@@ -504,10 +516,12 @@ inline void handleRoleMapPatch(
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        nlohmann::json& remoteRoleJson =
-                            asyncResp->res
-                                .jsonValue[serverType]["RemoteRoleMapping"];
-                        nlohmann::json::object_t roleMapEntry;
+                        boost::json::array& remoteRoleJson =
+                            asyncResp->res.response.body()
+                                .jsonValue2[serverType]
+                                .emplace_object()["RemoteRoleMapping"]
+                                .emplace_array();
+                        boost::json::object roleMapEntry;
                         roleMapEntry["LocalRole"] = *localRole;
                         roleMapEntry["RemoteGroup"] = *remoteGroup;
                         remoteRoleJson.emplace_back(std::move(roleMapEntry));
@@ -1343,7 +1357,7 @@ inline void
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/AccountService/AccountService.json>; rel=describedby");
 
-    nlohmann::json& json = asyncResp->res.jsonValue;
+    boost::json::object& json = asyncResp->res.response.body().jsonValue2;
     json["@odata.id"] = "/redfish/v1/AccountService";
     json["@odata.type"] = "#AccountService.v1_15_0.AccountService";
     json["Id"] = "AccountService";
@@ -1351,18 +1365,22 @@ inline void
     json["Description"] = "Account Service";
     json["ServiceEnabled"] = true;
     json["MaxPasswordLength"] = 20;
-    json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
-    json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
-    json["HTTPBasicAuth"] = authMethodsConfig.basic
-                                ? account_service::BasicAuthState::Enabled
-                                : account_service::BasicAuthState::Disabled;
+    json["Accounts"].emplace_object()["@odata.id"] =
+        "/redfish/v1/AccountService/Accounts";
+    json["Roles"].emplace_object()["@odata.id"] =
+        "/redfish/v1/AccountService/Roles";
+    json["HTTPBasicAuth"] = boost::json::value_from(
+        authMethodsConfig.basic ? account_service::BasicAuthState::Enabled
+                                : account_service::BasicAuthState::Disabled);
 
-    nlohmann::json::array_t allowed;
-    allowed.emplace_back(account_service::BasicAuthState::Enabled);
-    allowed.emplace_back(account_service::BasicAuthState::Disabled);
-    json["HTTPBasicAuth@AllowableValues"] = std::move(allowed);
+    boost::json::array& allowed =
+        json["HTTPBasicAuth@AllowableValues"].emplace_array();
+    allowed.emplace_back(
+        boost::json::value_from(account_service::BasicAuthState::Enabled));
+    allowed.emplace_back(
+        boost::json::value_from(account_service::BasicAuthState::Disabled));
 
-    nlohmann::json::object_t clientCertificate;
+    boost::json::object clientCertificate;
     clientCertificate["Enabled"] = authMethodsConfig.tls;
     clientCertificate["RespondToUnauthenticatedClients"] =
         !authMethodsConfig.tlsStrict;
@@ -1377,31 +1395,35 @@ inline void
     }
     else
     {
-        clientCertificate["CertificateMappingAttribute"] = mapping;
+        clientCertificate["CertificateMappingAttribute"] =
+            boost::json::value_from(mapping);
     }
-    nlohmann::json::object_t certificates;
+    boost::json::object certificates;
     certificates["@odata.id"] =
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates";
     certificates["@odata.type"] =
         "#CertificateCollection.CertificateCollection";
     clientCertificate["Certificates"] = std::move(certificates);
-    json["MultiFactorAuth"]["ClientCertificate"] = std::move(clientCertificate);
+    json["MultiFactorAuth"].emplace_object()["ClientCertificate"] =
+        std::move(clientCertificate);
 
     getClientCertificates(
         asyncResp,
         "/MultiFactorAuth/ClientCertificate/Certificates/Members"_json_pointer);
 
-    json["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OpenBMCAccountService.v1_0_0.AccountService";
-    json["Oem"]["OpenBMC"]["@odata.id"] =
-        "/redfish/v1/AccountService#/Oem/OpenBMC";
-    json["Oem"]["OpenBMC"]["AuthMethods"]["BasicAuth"] =
-        authMethodsConfig.basic;
-    json["Oem"]["OpenBMC"]["AuthMethods"]["SessionToken"] =
-        authMethodsConfig.sessionToken;
-    json["Oem"]["OpenBMC"]["AuthMethods"]["XToken"] = authMethodsConfig.xtoken;
-    json["Oem"]["OpenBMC"]["AuthMethods"]["Cookie"] = authMethodsConfig.cookie;
-    json["Oem"]["OpenBMC"]["AuthMethods"]["TLS"] = authMethodsConfig.tls;
+    boost::json::object& oem = json["Oem"].emplace_object();
+    boost::json::object& openbmc = oem["OpenBMC"].emplace_object();
+
+    openbmc["@odata.type"] = "#OpenBMCAccountService.v1_0_0.AccountService";
+    openbmc["@odata.id"] = "/redfish/v1/AccountService#/Oem/OpenBMC";
+
+    boost::json::object& authMethods = openbmc["AuthMethods"].emplace_object();
+
+    authMethods["BasicAuth"] = authMethodsConfig.basic;
+    authMethods["SessionToken"] = authMethodsConfig.sessionToken;
+    authMethods["XToken"] = authMethodsConfig.xtoken;
+    authMethods["Cookie"] = authMethodsConfig.cookie;
+    authMethods["TLS"] = authMethodsConfig.tls;
 
     // /redfish/v1/AccountService/LDAP/Certificates is something only
     // ConfigureManager can access then only display when the user has
@@ -1412,7 +1434,9 @@ inline void
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
     {
-        asyncResp->res.jsonValue["LDAP"]["Certificates"]["@odata.id"] =
+        json["LDAP"]
+            .emplace_object()["Certificates"]
+            .emplace_object()["@odata.id"] =
             "/redfish/v1/AccountService/LDAP/Certificates";
     }
     sdbusplus::asio::getAllProperties(
@@ -2032,13 +2056,14 @@ inline void
                                            accountName);
                 return;
             }
+            boost::json::object& jsonValue =
+                asyncResp->res.response.body().jsonValue2;
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ManagerAccount.v1_7_0.ManagerAccount";
-            asyncResp->res.jsonValue["Name"] = "User Account";
-            asyncResp->res.jsonValue["Description"] = "User Account";
-            asyncResp->res.jsonValue["Password"] = nullptr;
-            asyncResp->res.jsonValue["StrictAccountTypes"] = true;
+            jsonValue["@odata.type"] = "#ManagerAccount.v1_7_0.ManagerAccount";
+            jsonValue["Name"] = "User Account";
+            jsonValue["Description"] = "User Account";
+            jsonValue["Password"] = nullptr;
+            jsonValue["StrictAccountTypes"] = true;
 
             for (const auto& interface : userIt->second)
             {
@@ -2056,7 +2081,7 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["Enabled"] = *userEnabled;
+                            jsonValue["Enabled"] = *userEnabled;
                         }
                         else if (property.first == "UserLockedForFailedAttempt")
                         {
@@ -2070,13 +2095,12 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["Locked"] = *userLocked;
-                            nlohmann::json::array_t allowed;
+                            jsonValue["Locked"] = *userLocked;
                             // can only unlock accounts
+                            boost::json::array& allowed =
+                                jsonValue["Locked@Redfish.AllowableValues"]
+                                    .emplace_array();
                             allowed.emplace_back("false");
-                            asyncResp->res
-                                .jsonValue["Locked@Redfish.AllowableValues"] =
-                                std::move(allowed);
                         }
                         else if (property.first == "UserPrivilege")
                         {
@@ -2097,12 +2121,16 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["RoleId"] = role;
+                            jsonValue["RoleId"] = role;
 
-                            nlohmann::json& roleEntry =
-                                asyncResp->res.jsonValue["Links"]["Role"];
-                            roleEntry["@odata.id"] = boost::urls::format(
-                                "/redfish/v1/AccountService/Roles/{}", role);
+                            boost::json::object& roleEntry =
+                                jsonValue["Links"]
+                                    .emplace_object()["Role"]
+                                    .emplace_object();
+                            roleEntry["@odata.id"] =
+                                boost::urls::format(
+                                    "/redfish/v1/AccountService/Roles/{}", role)
+                                    .buffer();
                         }
                         else if (property.first == "UserPasswordExpired")
                         {
@@ -2115,7 +2143,7 @@ inline void
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            asyncResp->res.jsonValue["PasswordChangeRequired"] =
+                            jsonValue["PasswordChangeRequired"] =
                                 *userPasswordExpired;
                         }
                         else if (property.first == "UserGroups")
@@ -2142,10 +2170,12 @@ inline void
                 }
             }
 
-            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                "/redfish/v1/AccountService/Accounts/{}", accountName);
-            asyncResp->res.jsonValue["Id"] = accountName;
-            asyncResp->res.jsonValue["UserName"] = accountName;
+            jsonValue["@odata.id"] =
+                boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
+                                    accountName)
+                    .buffer();
+            jsonValue["Id"] = accountName;
+            jsonValue["UserName"] = accountName;
         });
 }
 

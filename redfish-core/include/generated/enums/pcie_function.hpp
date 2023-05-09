@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace pcie_function
@@ -71,17 +72,59 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DeviceClass, {
     {DeviceClass::Other, "Other"},
 });
 
+BOOST_DESCRIBE_ENUM(DeviceClass,
+
+    Invalid,
+    UnclassifiedDevice,
+    MassStorageController,
+    NetworkController,
+    DisplayController,
+    MultimediaController,
+    MemoryController,
+    Bridge,
+    CommunicationController,
+    GenericSystemPeripheral,
+    InputDeviceController,
+    DockingStation,
+    Processor,
+    SerialBusController,
+    WirelessController,
+    IntelligentController,
+    SatelliteCommunicationsController,
+    EncryptionController,
+    SignalProcessingController,
+    ProcessingAccelerators,
+    NonEssentialInstrumentation,
+    Coprocessor,
+    UnassignedClass,
+    Other,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(FunctionType, {
     {FunctionType::Invalid, "Invalid"},
     {FunctionType::Physical, "Physical"},
     {FunctionType::Virtual, "Virtual"},
 });
 
+BOOST_DESCRIBE_ENUM(FunctionType,
+
+    Invalid,
+    Physical,
+    Virtual,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(FunctionProtocol, {
     {FunctionProtocol::Invalid, "Invalid"},
     {FunctionProtocol::PCIe, "PCIe"},
     {FunctionProtocol::CXL, "CXL"},
 });
+
+BOOST_DESCRIBE_ENUM(FunctionProtocol,
+
+    Invalid,
+    PCIe,
+    CXL,
+);
 
 }
 // clang-format on

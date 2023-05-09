@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace secure_boot
@@ -32,6 +33,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecureBootCurrentBootType, {
     {SecureBootCurrentBootType::Disabled, "Disabled"},
 });
 
+BOOST_DESCRIBE_ENUM(SecureBootCurrentBootType,
+
+    Invalid,
+    Enabled,
+    Disabled,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SecureBootModeType, {
     {SecureBootModeType::Invalid, "Invalid"},
     {SecureBootModeType::SetupMode, "SetupMode"},
@@ -40,12 +48,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecureBootModeType, {
     {SecureBootModeType::DeployedMode, "DeployedMode"},
 });
 
+BOOST_DESCRIBE_ENUM(SecureBootModeType,
+
+    Invalid,
+    SetupMode,
+    UserMode,
+    AuditMode,
+    DeployedMode,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::Invalid, "Invalid"},
     {ResetKeysType::ResetAllKeysToDefault, "ResetAllKeysToDefault"},
     {ResetKeysType::DeleteAllKeys, "DeleteAllKeys"},
     {ResetKeysType::DeletePK, "DeletePK"},
 });
+
+BOOST_DESCRIBE_ENUM(ResetKeysType,
+
+    Invalid,
+    ResetAllKeysToDefault,
+    DeleteAllKeys,
+    DeletePK,
+);
 
 }
 // clang-format on

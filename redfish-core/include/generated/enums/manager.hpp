@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace manager
@@ -54,6 +55,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ManagerType, {
     {ManagerType::Service, "Service"},
 });
 
+BOOST_DESCRIBE_ENUM(ManagerType,
+
+    Invalid,
+    ManagementController,
+    EnclosureManager,
+    BMC,
+    RackManager,
+    AuxiliaryController,
+    Service,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SerialConnectTypesSupported, {
     {SerialConnectTypesSupported::Invalid, "Invalid"},
     {SerialConnectTypesSupported::SSH, "SSH"},
@@ -61,6 +73,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SerialConnectTypesSupported, {
     {SerialConnectTypesSupported::IPMI, "IPMI"},
     {SerialConnectTypesSupported::Oem, "Oem"},
 });
+
+BOOST_DESCRIBE_ENUM(SerialConnectTypesSupported,
+
+    Invalid,
+    SSH,
+    Telnet,
+    IPMI,
+    Oem,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CommandConnectTypesSupported, {
     {CommandConnectTypesSupported::Invalid, "Invalid"},
@@ -70,11 +91,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CommandConnectTypesSupported, {
     {CommandConnectTypesSupported::Oem, "Oem"},
 });
 
+BOOST_DESCRIBE_ENUM(CommandConnectTypesSupported,
+
+    Invalid,
+    SSH,
+    Telnet,
+    IPMI,
+    Oem,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(GraphicalConnectTypesSupported, {
     {GraphicalConnectTypesSupported::Invalid, "Invalid"},
     {GraphicalConnectTypesSupported::KVMIP, "KVMIP"},
     {GraphicalConnectTypesSupported::Oem, "Oem"},
 });
+
+BOOST_DESCRIBE_ENUM(GraphicalConnectTypesSupported,
+
+    Invalid,
+    KVMIP,
+    Oem,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::Invalid, "Invalid"},
@@ -82,6 +119,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::PreserveNetworkAndUsers, "PreserveNetworkAndUsers"},
     {ResetToDefaultsType::PreserveNetwork, "PreserveNetwork"},
 });
+
+BOOST_DESCRIBE_ENUM(ResetToDefaultsType,
+
+    Invalid,
+    ResetAll,
+    PreserveNetworkAndUsers,
+    PreserveNetwork,
+);
 
 }
 // clang-format on

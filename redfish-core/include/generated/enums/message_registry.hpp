@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace message_registry
@@ -22,10 +23,23 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ParamType, {
     {ParamType::number, "number"},
 });
 
+BOOST_DESCRIBE_ENUM(ParamType,
+
+    Invalid,
+    string,
+    number,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ClearingType, {
     {ClearingType::Invalid, "Invalid"},
     {ClearingType::SameOriginOfCondition, "SameOriginOfCondition"},
 });
+
+BOOST_DESCRIBE_ENUM(ClearingType,
+
+    Invalid,
+    SameOriginOfCondition,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace certificate
@@ -53,6 +54,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CertificateType, {
     {CertificateType::PKCS7, "PKCS7"},
 });
 
+BOOST_DESCRIBE_ENUM(CertificateType,
+
+    Invalid,
+    PEM,
+    PEMchain,
+    PKCS7,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
     {KeyUsage::Invalid, "Invalid"},
     {KeyUsage::DigitalSignature, "DigitalSignature"},
@@ -72,6 +81,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
     {KeyUsage::OCSPSigning, "OCSPSigning"},
 });
 
+BOOST_DESCRIBE_ENUM(KeyUsage,
+
+    Invalid,
+    DigitalSignature,
+    NonRepudiation,
+    KeyEncipherment,
+    DataEncipherment,
+    KeyAgreement,
+    KeyCertSign,
+    CRLSigning,
+    EncipherOnly,
+    DecipherOnly,
+    ServerAuthentication,
+    ClientAuthentication,
+    CodeSigning,
+    EmailProtection,
+    Timestamping,
+    OCSPSigning,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CertificateUsageType, {
     {CertificateUsageType::Invalid, "Invalid"},
     {CertificateUsageType::User, "User"},
@@ -86,6 +115,22 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CertificateUsageType, {
     {CertificateUsageType::LAK, "LAK"},
     {CertificateUsageType::EK, "EK"},
 });
+
+BOOST_DESCRIBE_ENUM(CertificateUsageType,
+
+    Invalid,
+    User,
+    Web,
+    SSH,
+    Device,
+    Platform,
+    BIOS,
+    IDevID,
+    LDevID,
+    IAK,
+    LAK,
+    EK,
+);
 
 }
 // clang-format on

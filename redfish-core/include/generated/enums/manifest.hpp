@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace manifest
@@ -29,6 +30,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Expand, {
     {Expand::Relevant, "Relevant"},
 });
 
+BOOST_DESCRIBE_ENUM(Expand,
+
+    Invalid,
+    None,
+    All,
+    Relevant,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(StanzaType, {
     {StanzaType::Invalid, "Invalid"},
     {StanzaType::ComposeSystem, "ComposeSystem"},
@@ -38,6 +47,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(StanzaType, {
     {StanzaType::OEM, "OEM"},
     {StanzaType::RegisterResourceBlock, "RegisterResourceBlock"},
 });
+
+BOOST_DESCRIBE_ENUM(StanzaType,
+
+    Invalid,
+    ComposeSystem,
+    DecomposeSystem,
+    ComposeResource,
+    DecomposeResource,
+    OEM,
+    RegisterResourceBlock,
+);
 
 }
 // clang-format on

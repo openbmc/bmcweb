@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace pump
@@ -16,6 +17,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PumpType, {
     {PumpType::Liquid, "Liquid"},
     {PumpType::Compressor, "Compressor"},
 });
+
+BOOST_DESCRIBE_ENUM(PumpType,
+
+    Invalid,
+    Liquid,
+    Compressor,
+);
 
 }
 // clang-format on

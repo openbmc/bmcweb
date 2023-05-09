@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace license
@@ -32,6 +33,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LicenseType, {
     {LicenseType::Trial, "Trial"},
 });
 
+BOOST_DESCRIBE_ENUM(LicenseType,
+
+    Invalid,
+    Production,
+    Prototype,
+    Trial,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(AuthorizationScope, {
     {AuthorizationScope::Invalid, "Invalid"},
     {AuthorizationScope::Device, "Device"},
@@ -39,11 +48,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthorizationScope, {
     {AuthorizationScope::Service, "Service"},
 });
 
+BOOST_DESCRIBE_ENUM(AuthorizationScope,
+
+    Invalid,
+    Device,
+    Capacity,
+    Service,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LicenseOrigin, {
     {LicenseOrigin::Invalid, "Invalid"},
     {LicenseOrigin::BuiltIn, "BuiltIn"},
     {LicenseOrigin::Installed, "Installed"},
 });
+
+BOOST_DESCRIBE_ENUM(LicenseOrigin,
+
+    Invalid,
+    BuiltIn,
+    Installed,
+);
 
 }
 // clang-format on

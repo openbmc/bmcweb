@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace endpoint
@@ -56,12 +57,43 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EntityType, {
     {EntityType::CXLDevice, "CXLDevice"},
 });
 
+BOOST_DESCRIBE_ENUM(EntityType,
+
+    Invalid,
+    StorageInitiator,
+    RootComplex,
+    NetworkController,
+    Drive,
+    StorageExpander,
+    DisplayController,
+    Bridge,
+    Processor,
+    Volume,
+    AccelerationFunction,
+    MediaController,
+    MemoryChunk,
+    Switch,
+    FabricBridge,
+    Manager,
+    StorageSubsystem,
+    Memory,
+    CXLDevice,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EntityRole, {
     {EntityRole::Invalid, "Invalid"},
     {EntityRole::Initiator, "Initiator"},
     {EntityRole::Target, "Target"},
     {EntityRole::Both, "Both"},
 });
+
+BOOST_DESCRIBE_ENUM(EntityRole,
+
+    Invalid,
+    Initiator,
+    Target,
+    Both,
+);
 
 }
 // clang-format on

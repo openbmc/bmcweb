@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace collection_capabilities
@@ -24,6 +25,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UseCase, {
     {UseCase::ResourceBlockConstrainedComposition, "ResourceBlockConstrainedComposition"},
     {UseCase::RegisterResourceBlock, "RegisterResourceBlock"},
 });
+
+BOOST_DESCRIBE_ENUM(UseCase,
+
+    Invalid,
+    ComputerSystemComposition,
+    ComputerSystemConstrainedComposition,
+    VolumeCreation,
+    ResourceBlockComposition,
+    ResourceBlockConstrainedComposition,
+    RegisterResourceBlock,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace cable
@@ -67,6 +68,21 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CableClass, {
     {CableClass::General, "General"},
 });
 
+BOOST_DESCRIBE_ENUM(CableClass,
+
+    Invalid,
+    Power,
+    Network,
+    Storage,
+    Fan,
+    PCIe,
+    USB,
+    Video,
+    Fabric,
+    Serial,
+    General,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ConnectorType, {
     {ConnectorType::Invalid, "Invalid"},
     {ConnectorType::ACPower, "ACPower"},
@@ -91,6 +107,31 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectorType, {
     {ConnectorType::OSFP, "OSFP"},
 });
 
+BOOST_DESCRIBE_ENUM(ConnectorType,
+
+    Invalid,
+    ACPower,
+    DB9,
+    DCPower,
+    DisplayPort,
+    HDMI,
+    ICI,
+    IPASS,
+    PCIe,
+    Proprietary,
+    RJ45,
+    SATA,
+    SCSI,
+    SlimSAS,
+    SFP,
+    SFPPlus,
+    USBA,
+    USBC,
+    QSFP,
+    CDFP,
+    OSFP,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CableStatus, {
     {CableStatus::Invalid, "Invalid"},
     {CableStatus::Normal, "Normal"},
@@ -100,6 +141,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CableStatus, {
     {CableStatus::Disabled, "Disabled"},
     {CableStatus::SetByService, "SetByService"},
 });
+
+BOOST_DESCRIBE_ENUM(CableStatus,
+
+    Invalid,
+    Normal,
+    Degraded,
+    Failed,
+    Testing,
+    Disabled,
+    SetByService,
+);
 
 }
 // clang-format on

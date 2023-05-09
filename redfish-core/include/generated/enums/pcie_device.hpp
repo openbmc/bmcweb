@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace pcie_device
@@ -68,6 +69,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Gen6, "Gen6"},
 });
 
+BOOST_DESCRIBE_ENUM(PCIeTypes,
+
+    Invalid,
+    Gen1,
+    Gen2,
+    Gen3,
+    Gen4,
+    Gen5,
+    Gen6,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DeviceType, {
     {DeviceType::Invalid, "Invalid"},
     {DeviceType::SingleFunction, "SingleFunction"},
@@ -75,6 +87,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DeviceType, {
     {DeviceType::Simulated, "Simulated"},
     {DeviceType::Retimer, "Retimer"},
 });
+
+BOOST_DESCRIBE_ENUM(DeviceType,
+
+    Invalid,
+    SingleFunction,
+    MultiFunction,
+    Simulated,
+    Retimer,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SlotType, {
     {SlotType::Invalid, "Invalid"},
@@ -89,12 +110,34 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SlotType, {
     {SlotType::U2, "U2"},
 });
 
+BOOST_DESCRIBE_ENUM(SlotType,
+
+    Invalid,
+    FullLength,
+    HalfLength,
+    LowProfile,
+    Mini,
+    M2,
+    OEM,
+    OCP3Small,
+    OCP3Large,
+    U2,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LaneSplittingType, {
     {LaneSplittingType::Invalid, "Invalid"},
     {LaneSplittingType::None, "None"},
     {LaneSplittingType::Bridged, "Bridged"},
     {LaneSplittingType::Bifurcated, "Bifurcated"},
 });
+
+BOOST_DESCRIBE_ENUM(LaneSplittingType,
+
+    Invalid,
+    None,
+    Bridged,
+    Bifurcated,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CXLDeviceType, {
     {CXLDeviceType::Invalid, "Invalid"},
@@ -103,6 +146,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLDeviceType, {
     {CXLDeviceType::Type3, "Type3"},
 });
 
+BOOST_DESCRIBE_ENUM(CXLDeviceType,
+
+    Invalid,
+    Type1,
+    Type2,
+    Type3,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CXLDynamicCapacityPolicies, {
     {CXLDynamicCapacityPolicies::Invalid, "Invalid"},
     {CXLDynamicCapacityPolicies::Free, "Free"},
@@ -110,6 +161,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLDynamicCapacityPolicies, {
     {CXLDynamicCapacityPolicies::Prescriptive, "Prescriptive"},
     {CXLDynamicCapacityPolicies::TagBased, "TagBased"},
 });
+
+BOOST_DESCRIBE_ENUM(CXLDynamicCapacityPolicies,
+
+    Invalid,
+    Free,
+    Contiguous,
+    Prescriptive,
+    TagBased,
+);
 
 }
 // clang-format on

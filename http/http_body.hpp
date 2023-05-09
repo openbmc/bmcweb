@@ -10,6 +10,8 @@
 #include <boost/beast/core/buffers_range.hpp>
 #include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/json/serializer.hpp>
+#include <boost/json/value.hpp>
 #include <boost/system/error_code.hpp>
 
 #include <cstdint>
@@ -38,9 +40,11 @@ enum class EncodingType
 
 class HttpBody::value_type
 {
+  public:
     DuplicatableFileHandle fileHandle;
     std::optional<size_t> fileSize;
     std::string strBody;
+    boost::json::object jsonValue2;
 
   public:
     value_type() = default;
@@ -65,6 +69,18 @@ class HttpBody::value_type
 
     std::optional<size_t> payloadSize() const
     {
+        if (!jsonValue2.empty())
+        {
+            boost::json::serializer ser;
+            ser.reset(&jsonValue2);
+            std::array<char, 4096> buf{};
+            size_t size = 0;
+            while (!ser.done())
+            {
+                size += ser.read(buf.data(), buf.size()).size();
+            }
+            return size;
+        }
         if (!fileHandle.fileHandle.is_open())
         {
             return strBody.size();
@@ -142,6 +158,7 @@ class HttpBody::writer
   private:
     std::string buf;
     crow::utility::Base64Encoder encoder;
+    std::optional<boost::json::serializer> jsonserializer;
 
     value_type& body;
     size_t sent = 0;
@@ -150,13 +167,19 @@ class HttpBody::writer
     // Nginx uses 16-32KB here, so we're in the range of what other webservers
     // do.
     constexpr static size_t readBufSize = 1024UL * 64UL;
-    std::array<char, readBufSize> fileReadBuf{};
+    std::array<char, readBufSize> readBuf{};
 
   public:
     template <bool IsRequest, class Fields>
     writer(boost::beast::http::header<IsRequest, Fields>& /*header*/,
            value_type& bodyIn) : body(bodyIn)
-    {}
+    {
+        if (!body.jsonValue2.empty())
+        {
+            auto& ser = jsonserializer.emplace();
+            ser.reset(&body.jsonValue2);
+        }
+    }
 
     static void init(boost::beast::error_code& ec)
     {
@@ -173,6 +196,15 @@ class HttpBody::writer
         getWithMaxSize(boost::beast::error_code& ec, size_t maxSize)
     {
         std::pair<const_buffers_type, bool> ret;
+        if (jsonserializer)
+        {
+            std::string_view out =
+                jsonserializer->read(readBuf.data(), readBuf.size());
+            ret.first = boost::asio::buffer(out);
+            ret.second = !jsonserializer->done();
+            return ret;
+        }
+
         if (!body.file().is_open())
         {
             size_t remain = body.str().size() - sent;
@@ -185,10 +217,10 @@ class HttpBody::writer
                             ret.second);
             return ret;
         }
-        size_t readReq = std::min(fileReadBuf.size(), maxSize);
+        size_t readReq = std::min(readBuf.size(), maxSize);
         BMCWEB_LOG_INFO("Reading {}", readReq);
         boost::system::error_code readEc;
-        size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
+        size_t read = body.file().read(readBuf.data(), readReq, readEc);
         if (readEc)
         {
             if (readEc != boost::system::errc::operation_would_block &&
@@ -201,7 +233,7 @@ class HttpBody::writer
             }
         }
 
-        std::string_view chunkView(fileReadBuf.data(), read);
+        std::string_view chunkView(readBuf.data(), read);
         BMCWEB_LOG_INFO("Read {} bytes from file", read);
         // If the number of bytes read equals the amount requested, we haven't
         // reached EOF yet

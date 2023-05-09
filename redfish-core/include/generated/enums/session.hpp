@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace session
@@ -30,6 +31,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
     {SessionTypes::WebUI, "WebUI"},
     {SessionTypes::OutboundConnection, "OutboundConnection"},
 });
+
+BOOST_DESCRIBE_ENUM(SessionTypes,
+
+    Invalid,
+    HostConsole,
+    ManagerConsole,
+    IPMI,
+    KVMIP,
+    OEM,
+    Redfish,
+    VirtualMedia,
+    WebUI,
+    OutboundConnection,
+);
 
 }
 // clang-format on

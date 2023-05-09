@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace operating_system
@@ -61,6 +62,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperatingSystemTypes, {
     {OperatingSystemTypes::Hypervisor, "Hypervisor"},
 });
 
+BOOST_DESCRIBE_ENUM(OperatingSystemTypes,
+
+    Invalid,
+    Linux,
+    Windows,
+    Solaris,
+    HPUX,
+    AIX,
+    BSD,
+    macOS,
+    IBMi,
+    Hypervisor,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(VirtualMachineEngineTypes, {
     {VirtualMachineEngineTypes::Invalid, "Invalid"},
     {VirtualMachineEngineTypes::VMwareESX, "VMwareESX"},
@@ -71,6 +86,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VirtualMachineEngineTypes, {
     {VirtualMachineEngineTypes::VirtualBox, "VirtualBox"},
     {VirtualMachineEngineTypes::PowerVM, "PowerVM"},
 });
+
+BOOST_DESCRIBE_ENUM(VirtualMachineEngineTypes,
+
+    Invalid,
+    VMwareESX,
+    HyperV,
+    Xen,
+    KVM,
+    QEMU,
+    VirtualBox,
+    PowerVM,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(VirtualMachineImageTypes, {
     {VirtualMachineImageTypes::Invalid, "Invalid"},
@@ -84,12 +111,33 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VirtualMachineImageTypes, {
     {VirtualMachineImageTypes::QCOW2, "QCOW2"},
 });
 
+BOOST_DESCRIBE_ENUM(VirtualMachineImageTypes,
+
+    Invalid,
+    Raw,
+    OVF,
+    OVA,
+    VHD,
+    VMDK,
+    VDI,
+    QCOW,
+    QCOW2,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ContainerEngineTypes, {
     {ContainerEngineTypes::Invalid, "Invalid"},
     {ContainerEngineTypes::Docker, "Docker"},
     {ContainerEngineTypes::containerd, "containerd"},
     {ContainerEngineTypes::CRIO, "CRIO"},
 });
+
+BOOST_DESCRIBE_ENUM(ContainerEngineTypes,
+
+    Invalid,
+    Docker,
+    containerd,
+    CRIO,
+);
 
 }
 // clang-format on

@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace virtual_media
@@ -57,6 +58,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MediaType, {
     {MediaType::DVD, "DVD"},
 });
 
+BOOST_DESCRIBE_ENUM(MediaType,
+
+    Invalid,
+    CD,
+    Floppy,
+    USBStick,
+    DVD,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ConnectedVia, {
     {ConnectedVia::Invalid, "Invalid"},
     {ConnectedVia::NotConnected, "NotConnected"},
@@ -64,6 +74,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectedVia, {
     {ConnectedVia::Applet, "Applet"},
     {ConnectedVia::Oem, "Oem"},
 });
+
+BOOST_DESCRIBE_ENUM(ConnectedVia,
+
+    Invalid,
+    NotConnected,
+    URI,
+    Applet,
+    Oem,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::Invalid, "Invalid"},
@@ -78,11 +97,32 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::OEM, "OEM"},
 });
 
+BOOST_DESCRIBE_ENUM(TransferProtocolType,
+
+    Invalid,
+    CIFS,
+    FTP,
+    SFTP,
+    HTTP,
+    HTTPS,
+    NFS,
+    SCP,
+    TFTP,
+    OEM,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TransferMethod, {
     {TransferMethod::Invalid, "Invalid"},
     {TransferMethod::Stream, "Stream"},
     {TransferMethod::Upload, "Upload"},
 });
+
+BOOST_DESCRIBE_ENUM(TransferMethod,
+
+    Invalid,
+    Stream,
+    Upload,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(EjectPolicy, {
     {EjectPolicy::Invalid, "Invalid"},
@@ -92,6 +132,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EjectPolicy, {
     {EjectPolicy::AfterUse, "AfterUse"},
     {EjectPolicy::Persistent, "Persistent"},
 });
+
+BOOST_DESCRIBE_ENUM(EjectPolicy,
+
+    Invalid,
+    OnPowerOff,
+    Session,
+    Timed,
+    AfterUse,
+    Persistent,
+);
 
 }
 // clang-format on

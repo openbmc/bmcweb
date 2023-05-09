@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace triggers
@@ -51,6 +52,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MetricTypeEnum, {
     {MetricTypeEnum::Discrete, "Discrete"},
 });
 
+BOOST_DESCRIBE_ENUM(MetricTypeEnum,
+
+    Invalid,
+    Numeric,
+    Discrete,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionEnum, {
     {TriggerActionEnum::Invalid, "Invalid"},
     {TriggerActionEnum::LogToLogService, "LogToLogService"},
@@ -58,11 +66,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionEnum, {
     {TriggerActionEnum::RedfishMetricReport, "RedfishMetricReport"},
 });
 
+BOOST_DESCRIBE_ENUM(TriggerActionEnum,
+
+    Invalid,
+    LogToLogService,
+    RedfishEvent,
+    RedfishMetricReport,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DiscreteTriggerConditionEnum, {
     {DiscreteTriggerConditionEnum::Invalid, "Invalid"},
     {DiscreteTriggerConditionEnum::Specified, "Specified"},
     {DiscreteTriggerConditionEnum::Changed, "Changed"},
 });
+
+BOOST_DESCRIBE_ENUM(DiscreteTriggerConditionEnum,
+
+    Invalid,
+    Specified,
+    Changed,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ThresholdActivation, {
     {ThresholdActivation::Invalid, "Invalid"},
@@ -72,11 +95,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThresholdActivation, {
     {ThresholdActivation::Disabled, "Disabled"},
 });
 
+BOOST_DESCRIBE_ENUM(ThresholdActivation,
+
+    Invalid,
+    Increasing,
+    Decreasing,
+    Either,
+    Disabled,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(DirectionOfCrossingEnum, {
     {DirectionOfCrossingEnum::Invalid, "Invalid"},
     {DirectionOfCrossingEnum::Increasing, "Increasing"},
     {DirectionOfCrossingEnum::Decreasing, "Decreasing"},
 });
+
+BOOST_DESCRIBE_ENUM(DirectionOfCrossingEnum,
+
+    Invalid,
+    Increasing,
+    Decreasing,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionMessage, {
     {TriggerActionMessage::Invalid, "Invalid"},
@@ -84,6 +123,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionMessage, {
     {TriggerActionMessage::DriveMediaLife, "DriveMediaLife"},
     {TriggerActionMessage::ConnectionSpeed, "ConnectionSpeed"},
 });
+
+BOOST_DESCRIBE_ENUM(TriggerActionMessage,
+
+    Invalid,
+    Telemetry,
+    DriveMediaLife,
+    ConnectionSpeed,
+);
 
 }
 // clang-format on

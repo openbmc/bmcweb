@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace settings
@@ -33,6 +34,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperationApplyTime, {
     {OperationApplyTime::OnTargetReset, "OnTargetReset"},
 });
 
+BOOST_DESCRIBE_ENUM(OperationApplyTime,
+
+    Invalid,
+    Immediate,
+    OnReset,
+    AtMaintenanceWindowStart,
+    InMaintenanceWindowOnReset,
+    OnStartUpdateRequest,
+    OnTargetReset,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::Invalid, "Invalid"},
     {ApplyTime::Immediate, "Immediate"},
@@ -40,6 +52,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::AtMaintenanceWindowStart, "AtMaintenanceWindowStart"},
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
 });
+
+BOOST_DESCRIBE_ENUM(ApplyTime,
+
+    Invalid,
+    Immediate,
+    OnReset,
+    AtMaintenanceWindowStart,
+    InMaintenanceWindowOnReset,
+);
 
 }
 // clang-format on

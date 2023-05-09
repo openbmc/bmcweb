@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace memory_chunks
@@ -32,6 +33,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AddressRangeType, {
     {AddressRangeType::Block, "Block"},
 });
 
+BOOST_DESCRIBE_ENUM(AddressRangeType,
+
+    Invalid,
+    Volatile,
+    PMEM,
+    Block,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MediaLocation, {
     {MediaLocation::Invalid, "Invalid"},
     {MediaLocation::Local, "Local"},
@@ -39,11 +48,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MediaLocation, {
     {MediaLocation::Mixed, "Mixed"},
 });
 
+BOOST_DESCRIBE_ENUM(MediaLocation,
+
+    Invalid,
+    Local,
+    Remote,
+    Mixed,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OperationalState, {
     {OperationalState::Invalid, "Invalid"},
     {OperationalState::Online, "Online"},
     {OperationalState::Offline, "Offline"},
 });
+
+BOOST_DESCRIBE_ENUM(OperationalState,
+
+    Invalid,
+    Online,
+    Offline,
+);
 
 }
 // clang-format on

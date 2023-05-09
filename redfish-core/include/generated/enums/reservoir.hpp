@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace reservoir
@@ -20,6 +21,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReservoirType, {
     {ReservoirType::Inline, "Inline"},
     {ReservoirType::Immersion, "Immersion"},
 });
+
+BOOST_DESCRIBE_ENUM(ReservoirType,
+
+    Invalid,
+    Reserve,
+    Overflow,
+    Inline,
+    Immersion,
+);
 
 }
 // clang-format on

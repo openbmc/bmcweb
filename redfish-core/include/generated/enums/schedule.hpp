@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace schedule
@@ -46,6 +47,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DayOfWeek, {
     {DayOfWeek::Every, "Every"},
 });
 
+BOOST_DESCRIBE_ENUM(DayOfWeek,
+
+    Invalid,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+    Every,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MonthOfYear, {
     {MonthOfYear::Invalid, "Invalid"},
     {MonthOfYear::January, "January"},
@@ -62,6 +76,24 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MonthOfYear, {
     {MonthOfYear::December, "December"},
     {MonthOfYear::Every, "Every"},
 });
+
+BOOST_DESCRIBE_ENUM(MonthOfYear,
+
+    Invalid,
+    January,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December,
+    Every,
+);
 
 }
 // clang-format on

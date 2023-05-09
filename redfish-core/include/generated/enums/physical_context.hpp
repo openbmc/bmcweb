@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe/enum.hpp>
 #include <nlohmann/json.hpp>
 
 namespace physical_context
@@ -137,11 +138,77 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PhysicalContext, {
     {PhysicalContext::Manager, "Manager"},
 });
 
+BOOST_DESCRIBE_ENUM(PhysicalContext,
+
+    Invalid,
+    Room,
+    Intake,
+    Exhaust,
+    LiquidInlet,
+    LiquidOutlet,
+    Front,
+    Back,
+    Upper,
+    Lower,
+    CPU,
+    CPUSubsystem,
+    GPU,
+    GPUSubsystem,
+    FPGA,
+    Accelerator,
+    ASIC,
+    Backplane,
+    SystemBoard,
+    PowerSupply,
+    PowerSubsystem,
+    VoltageRegulator,
+    Rectifier,
+    StorageDevice,
+    StorageSubsystem,
+    NetworkingDevice,
+    ExpansionSubsystem,
+    ComputeBay,
+    StorageBay,
+    NetworkBay,
+    ExpansionBay,
+    PowerSupplyBay,
+    Memory,
+    MemorySubsystem,
+    Chassis,
+    Fan,
+    CoolingSubsystem,
+    Motor,
+    Transformer,
+    ACUtilityInput,
+    ACStaticBypassInput,
+    ACMaintenanceBypassInput,
+    DCBus,
+    ACOutput,
+    ACInput,
+    PowerOutlet,
+    TrustedModule,
+    Board,
+    Transceiver,
+    Battery,
+    Pump,
+    Filter,
+    Reservoir,
+    Switch,
+    Manager,
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PhysicalSubContext, {
     {PhysicalSubContext::Invalid, "Invalid"},
     {PhysicalSubContext::Input, "Input"},
     {PhysicalSubContext::Output, "Output"},
 });
+
+BOOST_DESCRIBE_ENUM(PhysicalSubContext,
+
+    Invalid,
+    Input,
+    Output,
+);
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LogicalContext, {
     {LogicalContext::Invalid, "Invalid"},
@@ -152,6 +219,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogicalContext, {
     {LogicalContext::Security, "Security"},
     {LogicalContext::Storage, "Storage"},
 });
+
+BOOST_DESCRIBE_ENUM(LogicalContext,
+
+    Invalid,
+    Capacity,
+    Environment,
+    Network,
+    Performance,
+    Security,
+    Storage,
+);
 
 }
 // clang-format on
