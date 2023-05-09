@@ -35,6 +35,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "311e26dd_830a730c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-09T00:22:15Z",
+      "side": 1,
+      "message": "This is not working in our system. It is returning 0 Fans.\n\ncurl -k https://${bmc}/redfish/v1/Chassis/chassis/ThermalSubsystem/Fans\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/chassis/ThermalSubsystem/Fans\",\n  \"@odata.type\": \"#FanCollection.FanCollection\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"Fans Collection\"\n}\n\nI don\u0027t see path \"/xyz/openbmc_project/sensors/fan_pwm\" in our system\n\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/sensors/fan_pwm\" 0 1 \"xyz.openbmc_project.Sensor.Value\"\nCall failed: The resource is not found.\n\nWe have fans in the path \"/xyz/openbmc_project/inventory\" and the interface is xyz.openbmc_project.Inventory.Item.Fan\n\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/inventory\" 0 1 xyz.openbmc_project.Inventory.Item.Fan \nas 6 \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0\" \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1\" \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2\" \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan3\" \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan4\" \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan5\"\n\nFor each fan we have an association:\nbusctl get-property -j xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/system/chassis/motherboard/fan0 xyz.openbmc_project.Association.Definitions Associations sensors\n{\n\t“type” : “a(sss)“,\n\t“data” : [\n\t\t[\n\t\t\t“sensors”,\n\t\t\t“inventory”,\n\t\t\t“/xyz/openbmc_project/sensors/fan_tach/fan0_0\"\n\t\t],\n\nThis association is described at\nhttps://github.com/openbmc/docs/blob/master/architecture/sensor-architecture.md#association-names-1",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c42eeb97_2076d0de",
