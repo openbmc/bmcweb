@@ -160,8 +160,8 @@ void getPortStatusAndPath(
                 const std::string& unitState =
                     std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
 
-                bool isProtocolEnabled =
-                    ((unitState == "running") || (unitState == "listening"));
+                bool isProtocolEnabled = ((unitState == "running") ||
+                                          (unitState == "listening"));
 
                 socketData.emplace_back(socketPath, std::string(kv.first),
                                         isProtocolEnabled);

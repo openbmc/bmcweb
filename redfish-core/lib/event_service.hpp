@@ -162,7 +162,6 @@ inline void requestRoutesEventService(App& app)
 
 inline void requestRoutesSubmitTestEvent(App& app)
 {
-
     BMCWEB_ROUTE(
         app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
         .privileges(redfish::privileges::postEventService)
@@ -210,8 +209,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
         for (const std::string& id : subscripIds)
         {
             nlohmann::json::object_t member;
-            member["@odata.id"] =
-                "/redfish/v1/EventService/Subscriptions/" + id;
+            member["@odata.id"] = "/redfish/v1/EventService/Subscriptions/" +
+                                  id;
             memberArray.push_back(std::move(member));
         }
         });

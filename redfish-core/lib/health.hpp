@@ -82,7 +82,6 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             // managers inventory is all the inventory, don't skip any
             if (!isManagersHealth && !isSelf)
             {
-
                 // We only want to look at this association if either the path
                 // of this association is an inventory item, or one of the
                 // endpoints in this association is a child

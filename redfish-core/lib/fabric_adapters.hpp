@@ -25,7 +25,6 @@ inline void handleAdapterError(const boost::system::error_code& ec,
                                crow::Response& res,
                                const std::string& adapterId)
 {
-
     if (ec.value() == boost::system::errc::io_error)
     {
         messages::resourceNotFound(res, "#FabricAdapter.v1_4_0.FabricAdapter",

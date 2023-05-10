@@ -37,8 +37,7 @@ struct Response
         stringResponse->set(key, value);
     }
 
-    Response() : stringResponse(response_type{})
-    {}
+    Response() : stringResponse(response_type{}) {}
 
     Response(Response&& res) noexcept :
         stringResponse(std::move(res.stringResponse)),

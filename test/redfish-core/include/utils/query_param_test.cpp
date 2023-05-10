@@ -232,7 +232,7 @@ TEST(GetSelectParam, TrieNodesRespectAllProperties)
 SelectTrie getTrie(std::span<std::string_view> properties)
 {
     SelectTrie trie;
-    for (auto const& property : properties)
+    for (const auto& property : properties)
     {
         EXPECT_TRUE(trie.insertNode(property));
     }

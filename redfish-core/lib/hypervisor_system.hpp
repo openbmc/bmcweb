@@ -327,8 +327,8 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
             return;
         }
 
-        bool found =
-            extractHypervisorInterfaceData(ethIfaceId, resp, ethData, ipv4Data);
+        bool found = extractHypervisorInterfaceData(ethIfaceId, resp, ethData,
+                                                    ipv4Data);
         if (!found)
         {
             BMCWEB_LOG_INFO << "Hypervisor Interface not found";

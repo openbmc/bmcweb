@@ -204,8 +204,8 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
                                 const LDAPConfigData& confData,
                                 const std::string& ldapType)
 {
-    std::string service =
-        (ldapType == "LDAP") ? "LDAPService" : "ActiveDirectoryService";
+    std::string service = (ldapType == "LDAP") ? "LDAPService"
+                                               : "ActiveDirectoryService";
 
     nlohmann::json& ldap = jsonResponse[ldapType];
 
@@ -265,9 +265,8 @@ inline void handleRoleMapPatch(
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    asyncResp->res
-                        .jsonValue[serverType]["RemoteRoleMapping"][index] =
-                        nullptr;
+                    asyncResp->res.jsonValue[serverType]["RemoteRoleMapping"]
+                                            [index] = nullptr;
                     },
                     ldapDbusService, roleMapObjData[index].first,
                     "xyz.openbmc_project.Object.Delete", "Delete");
@@ -361,8 +360,8 @@ inline void handleRoleMapPatch(
             {
                 BMCWEB_LOG_DEBUG
                     << "setRoleMappingProperties: Creating new Object";
-                std::string pathString =
-                    "RemoteRoleMapping/" + std::to_string(index);
+                std::string pathString = "RemoteRoleMapping/" +
+                                         std::to_string(index);
 
                 if (!localRole)
                 {
@@ -423,7 +422,6 @@ template <typename CallbackFunc>
 inline void getLDAPConfigData(const std::string& ldapType,
                               CallbackFunc&& callback)
 {
-
     constexpr std::array<std::string_view, 2> interfaces = {
         ldapEnableInterface, ldapConfigInterface};
 
@@ -509,7 +507,6 @@ inline void getLDAPConfigData(const std::string& ldapType,
                     }
                     else if (interface.first == ldapConfigInterfaceStr)
                     {
-
                         for (const auto& property : interface.second)
                         {
                             const std::string* strValue =
@@ -712,9 +709,8 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        asyncResp->res
-            .jsonValue[ldapServerElementName]["Authentication"]["Username"] =
-            username;
+        asyncResp->res.jsonValue[ldapServerElementName]["Authentication"]
+                                ["Username"] = username;
         BMCWEB_LOG_DEBUG << "Updated the username";
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -745,9 +741,8 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        asyncResp->res
-            .jsonValue[ldapServerElementName]["Authentication"]["Password"] =
-            "";
+        asyncResp->res.jsonValue[ldapServerElementName]["Authentication"]
+                                ["Password"] = "";
         BMCWEB_LOG_DEBUG << "Updated the password";
         },
         ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -1588,8 +1583,8 @@ inline void handleAccountCollectionGet(
             if (userCanSeeAllAccounts || (thisUser == user && userCanSeeSelf))
             {
                 nlohmann::json::object_t member;
-                member["@odata.id"] =
-                    "/redfish/v1/AccountService/Accounts/" + user;
+                member["@odata.id"] = "/redfish/v1/AccountService/Accounts/" +
+                                      user;
                 memberArray.push_back(std::move(member));
             }
         }
@@ -2016,7 +2011,6 @@ inline void
 
 inline void requestAccountServiceRoutes(App& app)
 {
-
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges(redfish::privileges::headAccountService)
         .methods(boost::beast::http::verb::head)(

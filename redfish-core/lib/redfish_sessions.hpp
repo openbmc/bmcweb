@@ -48,7 +48,6 @@ inline void
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& /*sessionId*/)
 {
-
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
@@ -138,7 +137,6 @@ inline void handleSessionCollectionHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
@@ -246,7 +244,6 @@ inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;

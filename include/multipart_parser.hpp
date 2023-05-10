@@ -274,8 +274,8 @@ class MultipartParser
                     // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                     const char* start = buffer + partDataMark;
                     size_t size = i - partDataMark;
-                    mime_fields.rbegin()->content +=
-                        std::string_view(start, size);
+                    mime_fields.rbegin()->content += std::string_view(start,
+                                                                      size);
                 }
                 index++;
             }

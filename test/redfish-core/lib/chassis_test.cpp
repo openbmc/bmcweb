@@ -42,7 +42,6 @@ void assertChassisResetActionInfoGet(const std::string& chassisId,
 
 TEST(HandleChassisResetActionInfoGet, StaticAttributesAreExpected)
 {
-
     auto response = std::make_shared<bmcweb::AsyncResp>();
     std::error_code err;
     crow::Request request{{boost::beast::http::verb::get, "/whatever", 11},

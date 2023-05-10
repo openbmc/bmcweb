@@ -56,14 +56,14 @@
 namespace redfish
 {
 
-constexpr char const* crashdumpObject = "com.intel.crashdump";
-constexpr char const* crashdumpPath = "/com/intel/crashdump";
-constexpr char const* crashdumpInterface = "com.intel.crashdump";
-constexpr char const* deleteAllInterface =
+constexpr const char* crashdumpObject = "com.intel.crashdump";
+constexpr const char* crashdumpPath = "/com/intel/crashdump";
+constexpr const char* crashdumpInterface = "com.intel.crashdump";
+constexpr const char* deleteAllInterface =
     "xyz.openbmc_project.Collection.DeleteAll";
-constexpr char const* crashdumpOnDemandInterface =
+constexpr const char* crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
-constexpr char const* crashdumpTelemetryInterface =
+constexpr const char* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
 enum class DumpCreationProgress
@@ -274,8 +274,8 @@ inline static bool
         }
     }
     // Timestamp has no index
-    auto [ptr, ec] =
-        std::from_chars(tsStr.data(), tsStr.data() + tsStr.size(), timestamp);
+    auto [ptr, ec] = std::from_chars(tsStr.data(), tsStr.data() + tsStr.size(),
+                                     timestamp);
     if (ec != std::errc())
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
@@ -489,8 +489,8 @@ inline void
             "#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] = std::move(odataIdStr);
         asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entries";
-        asyncResp->res.jsonValue["Description"] =
-            "Collection of " + dumpType + " Dump Entries";
+        asyncResp->res.jsonValue["Description"] = "Collection of " + dumpType +
+                                                  " Dump Entries";
 
         nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
         entriesArray = nlohmann::json::array();
@@ -552,16 +552,16 @@ inline void
             if (dumpType == "BMC")
             {
                 thisEntry["DiagnosticDataType"] = "Manager";
-                thisEntry["AdditionalDataURI"] =
-                    entriesPath + entryID + "/attachment";
+                thisEntry["AdditionalDataURI"] = entriesPath + entryID +
+                                                 "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
             else if (dumpType == "System")
             {
                 thisEntry["DiagnosticDataType"] = "OEM";
                 thisEntry["OEMDiagnosticDataType"] = "System";
-                thisEntry["AdditionalDataURI"] =
-                    entriesPath + entryID + "/attachment";
+                thisEntry["AdditionalDataURI"] = entriesPath + entryID +
+                                                 "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
             entriesArray.push_back(std::move(thisEntry));
@@ -854,8 +854,8 @@ inline void createDumpTaskCallback(
             nlohmann::json retMessage = messages::success();
             taskData->messages.emplace_back(retMessage);
 
-            std::string headerLoc =
-                "Location: " + dumpEntryPath + http_helpers::urlEncode(dumpId);
+            std::string headerLoc = "Location: " + dumpEntryPath +
+                                    http_helpers::urlEncode(dumpId);
             taskData->payload->httpHeaders.emplace_back(std::move(headerLoc));
 
             BMCWEB_LOG_DEBUG << createdObjPath.str
@@ -1424,8 +1424,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 firstEntry = false;
 
                 nlohmann::json::object_t bmcLogEntry;
-                LogParseError status =
-                    fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                LogParseError status = fillEventLogEntryJson(idStr, logEntry,
+                                                             bmcLogEntry);
                 if (status == LogParseError::messageIdNotInRegistry)
                 {
                     continue;
@@ -3898,9 +3898,9 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             endCount = entryCount + postcode.size();
             if (skip < endCount && (top + skip) > entryCount)
             {
-                uint64_t thisBootSkip =
-                    std::max(static_cast<uint64_t>(skip), entryCount) -
-                    entryCount;
+                uint64_t thisBootSkip = std::max(static_cast<uint64_t>(skip),
+                                                 entryCount) -
+                                        entryCount;
                 uint64_t thisBootTop =
                     std::min(static_cast<uint64_t>(top + skip), endCount) -
                     entryCount;

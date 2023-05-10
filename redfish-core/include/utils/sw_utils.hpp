@@ -110,7 +110,6 @@ inline void
                                      std::string, std::vector<std::string>>>>&
                      obj : subtree)
             {
-
                 sdbusplus::message::object_path path(obj.first);
                 std::string swId = path.filename();
                 if (swId.empty())

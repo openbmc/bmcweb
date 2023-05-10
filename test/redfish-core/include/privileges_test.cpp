@@ -60,8 +60,8 @@ TEST(PrivilegeTest, PrivilegeCheckForSingleCaseFailure)
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess)
 {
-    auto userPrivileges =
-        Privileges{"Login", "ConfigureManager", "ConfigureSelf"};
+    auto userPrivileges = Privileges{"Login", "ConfigureManager",
+                                     "ConfigureSelf"};
     OperationMap entityPrivileges{
         {boost::beast::http::verb::get,
          {{"Login", "ConfigureManager", "ConfigureSelf"}}}};

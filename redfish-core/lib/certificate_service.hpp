@@ -24,23 +24,23 @@ namespace redfish
 {
 namespace certs
 {
-constexpr char const* certInstallIntf = "xyz.openbmc_project.Certs.Install";
-constexpr char const* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
-constexpr char const* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
-constexpr char const* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
-constexpr char const* dbusPropIntf = "org.freedesktop.DBus.Properties";
-constexpr char const* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
-constexpr char const* httpsServiceName =
+constexpr const char* certInstallIntf = "xyz.openbmc_project.Certs.Install";
+constexpr const char* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
+constexpr const char* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
+constexpr const char* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
+constexpr const char* dbusPropIntf = "org.freedesktop.DBus.Properties";
+constexpr const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
+constexpr const char* httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
-constexpr char const* ldapServiceName =
+constexpr const char* ldapServiceName =
     "xyz.openbmc_project.Certs.Manager.Client.Ldap";
-constexpr char const* authorityServiceName =
+constexpr const char* authorityServiceName =
     "xyz.openbmc_project.Certs.Manager.Authority.Ldap";
-constexpr char const* baseObjectPath = "/xyz/openbmc_project/certs";
-constexpr char const* httpsObjectPath =
+constexpr const char* baseObjectPath = "/xyz/openbmc_project/certs";
+constexpr const char* httpsObjectPath =
     "/xyz/openbmc_project/certs/server/https";
-constexpr char const* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
-constexpr char const* authorityObjectPath =
+constexpr const char* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
+constexpr const char* authorityObjectPath =
     "/xyz/openbmc_project/certs/authority/ldap";
 } // namespace certs
 
@@ -517,8 +517,8 @@ inline void handleReplaceCertificateAction(
                                        "bmc", "NetworkProtocol", "HTTPS",
                                        "Certificates", std::ref(id)))
     {
-        objectPath =
-            sdbusplus::message::object_path(certs::httpsObjectPath) / id;
+        objectPath = sdbusplus::message::object_path(certs::httpsObjectPath) /
+                     id;
         name = "HTTPS certificate";
         service = certs::httpsServiceName;
     }
@@ -526,8 +526,8 @@ inline void handleReplaceCertificateAction(
                                             "AccountService", "LDAP",
                                             "Certificates", std::ref(id)))
     {
-        objectPath =
-            sdbusplus::message::object_path(certs::ldapObjectPath) / id;
+        objectPath = sdbusplus::message::object_path(certs::ldapObjectPath) /
+                     id;
         name = "LDAP certificate";
         service = certs::ldapServiceName;
     }

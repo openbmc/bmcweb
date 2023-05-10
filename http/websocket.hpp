@@ -27,8 +27,7 @@ enum class MessageType
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& reqIn) : req(reqIn.req)
-    {}
+    explicit Connection(const crow::Request& reqIn) : req(reqIn.req) {}
 
     Connection(const Connection&) = delete;
     Connection(Connection&&) = delete;

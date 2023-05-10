@@ -110,8 +110,8 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
     }
 
     nlohmann::json& json = asyncResp->res.jsonValue;
-    json["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "JsonSchemas", schema);
+    json["@odata.id"] = crow::utility::urlFromPieces("redfish", "v1",
+                                                     "JsonSchemas", schema);
     json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
     json["Name"] = schema + " Schema File";
     json["Description"] = schema + " Schema File Location";
@@ -128,8 +128,8 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
     nlohmann::json::array_t locationArray;
     nlohmann::json::object_t locationEntry;
     locationEntry["Language"] = "en";
-    locationEntry["PublicationUri"] =
-        "http://redfish.dmtf.org/schemas/v1/" + schema + ".json";
+    locationEntry["PublicationUri"] = "http://redfish.dmtf.org/schemas/v1/" +
+                                      schema + ".json";
     locationEntry["Uri"] = crow::utility::urlFromPieces(
         "redfish", "v1", "JsonSchemas", schema, std::string(schema) + ".json");
 
