@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29dbfdf1_b0a15fee",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-10T14:10:57Z",
+      "side": 1,
+      "message": "Should we return if ec is EBADR?",
+      "revId": "289c24913c1e1cefa04074da090990dc437a1333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
