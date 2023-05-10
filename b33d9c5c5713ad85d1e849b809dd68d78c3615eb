@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3936d41_78b80c94",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:42:33Z",
+      "side": 1,
+      "message": "Yeah, agreed. I like doing this in getPortStatusAndPath, in the data structure",
+      "parentUuid": "21237c03_0a4fd88f",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 39
+      },
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f59f5d6_7f7bba7e",
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "I don\u0027t think we\u0027ve got an issue here. The handleProtocolEnabled() function queries service-config-manager for all services and looks for anything starting with target string (i.e. \"phosphor-ipmi-net\") and sets the Enable property on them. Let me know if I\u0027m not understanding the issue (or maybe moving this logic helps?).",
       "parentUuid": "1f59f5d6_7f7bba7e",
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b034371c_20a24898",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:42:33Z",
+      "side": 1,
+      "message": "So a ```https://${bmc}/redfish/v1/Managers/bmc/NetworkProtocol -d \u0027{\"IPMI\":{\"ProtocolEnabled\": true}}\u0027``` causes any target starting with phosphor-ipmi-net (e.g.   phosphor-ipmi-net@eth0.service                                                                          \nphosphor-ipmi-net@eth1.service)                                                                to be set to Enable. Doesn\u0027t that cause problems with your \"Some OpenBMC systems may have multiple ethernet interfaces available but choose to only enable a subset of them.\"? How is it not a problem that now all of these ethernet interfaces are being Enabled?",
+      "parentUuid": "3c81155e_13496629",
       "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

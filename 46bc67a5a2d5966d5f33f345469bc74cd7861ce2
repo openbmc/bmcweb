@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07460dff_74e89677",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:42:33Z",
+      "side": 1,
+      "message": "You need this otherwise, the old and new would both show up? Ack. I guess the other choice would be you set the old to true, but this is simple, I\u0027m good.",
+      "revId": "46bc67a5a2d5966d5f33f345469bc74cd7861ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
