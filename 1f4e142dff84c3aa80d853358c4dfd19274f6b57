@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "432c76ba_9f130694",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-10T16:19:18Z",
+      "side": 1,
+      "message": "In the error paths of this function, the file descriptor \u0027fd\u0027 is not being closed.",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47541b20_15f5f788",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-10T16:19:18Z",
+      "side": 1,
+      "message": "Consider using fstat() to get the file size instead of lseek(). While other parts of this file use lseek(), it may be more robust to use fstat() instead.",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
