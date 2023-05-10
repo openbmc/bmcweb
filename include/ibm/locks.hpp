@@ -515,9 +515,19 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 // are same, then the last comparison would be to check for the respective
 // bytes in the resourceid based on the segment length.
 
-inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
-                            uint32_t position)
+inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
+                            uint32_t /*position*/)
 {
+    BMCWEB_LOG_ERROR
+        << "This code is complete garbage and needs to be fixed. Someone "
+           "decided it was best to just shut up the linter rather than fix "
+           "the problems posed by the linter and now newer versions of Clang "
+           "won't even let us continue.";
+    std::terminate();
+
+    return false;
+
+#if 0
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     uint8_t* p = reinterpret_cast<uint8_t*>(&resourceId1);
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
@@ -531,6 +541,7 @@ inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
     BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(pPosition) << ","
                      << std::to_string(qPosition);
     return pPosition == qPosition;
+#endif
 }
 
 inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
