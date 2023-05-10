@@ -24,8 +24,8 @@ enum class ModeType
 
 inline int alphanumComp(std::string_view left, std::string_view right)
 {
-    std::string_view::const_iterator l = left.begin();
-    std::string_view::const_iterator r = right.begin();
+    std::string_view::const_iterator l = left.cbegin();
+    std::string_view::const_iterator r = right.cbegin();
 
     details::ModeType mode = details::ModeType::STRING;
 
@@ -59,20 +59,20 @@ inline int alphanumComp(std::string_view left, std::string_view right)
                 return diff;
             }
             // otherwise process the next characters
-            l++;
-            r++;
+            std::advance(l, 1);
+            std::advance(r, 1);
         }
         else // mode==NUMBER
         {
             // get the left number
             int lInt = 0;
             auto fc = std::from_chars(&(*l), &(*left.end()), lInt);
-            l += std::distance(l, fc.ptr);
+            std::advance(l, std::distance(l, fc.ptr));
 
             // get the right number
             int rInt = 0;
             fc = std::from_chars(&(*r), &(*right.end()), rInt);
-            r += std::distance(r, fc.ptr);
+            std::advance(r, std::distance(r, fc.ptr));
 
             // if the difference is not equal to zero, we have a comparison
             // result
