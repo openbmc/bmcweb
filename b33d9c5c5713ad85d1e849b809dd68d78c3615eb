@@ -192,6 +192,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a45750c_c629aaa6",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T20:14:01Z",
+      "side": 1,
+      "message": "Okay so on ```NetworkProtocol -d \u0027{\"IPMI\":{\"ProtocolEnabled\": true}}\u0027``` bmcweb goes out to  phosphor-ipmi-net@ethx.service and Enables it. But it might not actually start because the service has a check to make sure the device is actually in the kernel sysfs tree. \n\nThe other services we look for enable\n\nstatic constexpr std::string_view sshServiceName \u003d \"dropbear\";\nstatic constexpr std::string_view httpsServiceName \u003d \"bmcweb\";\nstatic constexpr std::string_view ipmiServiceName \u003d \"phosphor-ipmi-net\";\n\ndon\u0027t have multiple copies.\n\nAck. I am good.",
+      "parentUuid": "49d5ff04_7a1f877c",
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dea4284_1218f5fb",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
