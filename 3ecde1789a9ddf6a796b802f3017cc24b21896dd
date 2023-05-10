@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac76923_3a3b20e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T18:39:16Z",
+      "side": 1,
+      "message": "This first, then rebase https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63288?\nlooks like we still have CI failing ?",
+      "revId": "3ecde1789a9ddf6a796b802f3017cc24b21896dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
