@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e108367_1a078b81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T18:42:45Z",
+      "side": 1,
+      "message": "And the collection works (redfish/v1/Chassis/{chassisId}/PowerSubsystem/\nPowerSupplies/) with no associated power supplies and with associated power supplies (e.g. members in the collection)?",
+      "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ef19f4aa_00c872ec",
@@ -48,6 +65,24 @@
       "writtenOn": "2023-05-09T20:55:15Z",
       "side": 1,
       "message": "should we print DEBUG error for cases where error is EBADR?",
+      "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2780cc9_acfcf452",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T18:42:45Z",
+      "side": 1,
+      "message": "Can. Not required",
+      "parentUuid": "acafc4c6_c5a9f8d4",
       "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
