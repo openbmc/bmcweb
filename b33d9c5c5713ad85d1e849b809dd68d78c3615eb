@@ -174,6 +174,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49d5ff04_7a1f877c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-10T20:04:40Z",
+      "side": 1,
+      "message": "Yeah, so before https://gerrit.openbmc.org/c/openbmc/phosphor-net-ipmid/+/62189, the service would go into an error state but with the phosphor-net-ipmid change, the service will \"start\" but not actually be running. Querying the state of a service like this would indicate it is not running so we need to be sure to look to see if any other IPMI service is running and return based on that.",
+      "parentUuid": "b034371c_20a24898",
+      "revId": "b33d9c5c5713ad85d1e849b809dd68d78c3615eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dea4284_1218f5fb",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
