@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d6a3d6_f6bb51ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-10T21:34:52Z",
+      "side": 1,
+      "message": "With the associations:\ncurl -k https://${bmc}/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies\n{\n \"@odata.id\": \"/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies\",\n \"@odata.type\": \"#PowerSupplyCollection.PowerSupplyCollection\",\n \"Description\": \"The collection of PowerSupply resource instances.\",\n \"Members\": [\n  {\n   \"@odata.id\": \"/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies/powersupply3\"\n  },\n  {\n   \"@odata.id\": \"/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies/powersupply2\"\n  },\n  {\n   \"@odata.id\": \"/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies/powersupply1\"\n  },\n  {\n   \"@odata.id\": \"/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies/powersupply0\"\n  }\n ],\n \"Members@odata.count\": 4,\n \"Name\": \"Power Supply Collection\"\n}",
+      "parentUuid": "5eaab9d9_74f25103",
+      "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ef19f4aa_00c872ec",
