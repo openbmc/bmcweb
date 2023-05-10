@@ -423,7 +423,7 @@ inline void dumpfloat(std::string& out, double number,
         return;
     }
 
-    const std::array<char, 64>::iterator end =
+    std::array<char, 64>::iterator end =
         std::remove(numberbuffer.begin(), numberbuffer.begin() + len, ',');
     std::fill(end, numberbuffer.end(), '\0');
 
