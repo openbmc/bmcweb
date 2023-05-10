@@ -34,6 +34,148 @@
       "parentUuid": "f7a0771c_42c9a16a",
       "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d12d6d3_35210b50",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "Wonder if you can remove utility.hpp from any of these. Oh well. Unless a tool can find it, don\u0027t worry about it.",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7144a99_6d37be8e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "Ack. \nIf it doesn\u0027t have a parameter, you don\u0027t use boost::urls::format just set  to a string. You did the same thing in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62818/3/redfish-core/lib/log_services.hpp\nMakes sense",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1c78410_e2b98b38",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "Huh?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2baa70f8_41e942f8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5817fcf4_9f31cabc",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6de74e7_00d7f8fb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "Move down?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8a5f3a_861bd16c",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "Huh why here?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32b1acb7_51f16ccb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T19:03:58Z",
+      "side": 1,
+      "message": "have to manually enter the fragment, not sure I like that as much but oh well, I think this is still better",
+      "range": {
+        "startLine": 162,
+        "startChar": 52,
+        "endLine": 162,
+        "endChar": 54
+      },
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
