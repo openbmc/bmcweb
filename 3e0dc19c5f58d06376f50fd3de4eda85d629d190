@@ -16,6 +16,24 @@
       "message": "Tested in my system, LGTM.",
       "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8308f42d_4eabaed7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-10T17:17:25Z",
+      "side": 1,
+      "message": "Thank you.",
+      "parentUuid": "f7a0771c_42c9a16a",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
