@@ -162,7 +162,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                             if (codePoint <= 0xFFFF)
                             {
                                 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-                                std::snprintf(stringBuffer.data() + bytes, 7,
+                                std::snprintf(&stringBuffer[bytes], 7,
                                               "\\u%04x",
                                               static_cast<uint16_t>(codePoint));
                                 bytes += 6;
@@ -171,8 +171,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                             {
                                 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
                                 std::snprintf(
-                                    stringBuffer.data() + bytes, 13,
-                                    "\\u%04x\\u%04x",
+                                    &stringBuffer[bytes], 13, "\\u%04x\\u%04x",
                                     static_cast<uint16_t>(0xD7C0 +
                                                           (codePoint >> 10)),
                                     static_cast<uint16_t>(0xDC00 +
@@ -423,7 +422,7 @@ inline void dumpfloat(std::string& out, double number,
         return;
     }
 
-    const std::array<char, 64>::iterator end =
+    std::array<char, 64>::iterator end =
         std::remove(numberbuffer.begin(), numberbuffer.begin() + len, ',');
     std::fill(end, numberbuffer.end(), '\0');
 
