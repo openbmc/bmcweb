@@ -162,7 +162,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                             if (codePoint <= 0xFFFF)
                             {
                                 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-                                std::snprintf(stringBuffer.data() + bytes, 7,
+                                std::snprintf(&stringBuffer[bytes], 7,
                                               "\\u%04x",
                                               static_cast<uint16_t>(codePoint));
                                 bytes += 6;
@@ -171,8 +171,7 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                             {
                                 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
                                 std::snprintf(
-                                    stringBuffer.data() + bytes, 13,
-                                    "\\u%04x\\u%04x",
+                                    &stringBuffer[bytes], 13, "\\u%04x\\u%04x",
                                     static_cast<uint16_t>(0xD7C0 +
                                                           (codePoint >> 10)),
                                     static_cast<uint16_t>(0xDC00 +
@@ -325,7 +324,7 @@ void dumpInteger(std::string& out, NumberType number)
     }
 
     // use a pointer to fill the buffer
-    auto* bufferPtr = begin(numberbuffer);
+    auto bufferPtr = numberbuffer.begin();
 
     const bool isNegative = std::is_same<NumberType, int64_t>::value &&
                             !(number >= 0); // see issue #755
@@ -355,8 +354,7 @@ void dumpInteger(std::string& out, NumberType number)
 
     // jump to the end to generate the string from backward
     // so we later avoid reversing the result
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    bufferPtr += nChars;
+    std::advance(bufferPtr, nChars);
 
     // Fast int2ascii implementation inspired by "Fastware" talk by Andrei
     // Alexandrescu See: https://www.youtube.com/watch?v=o4-CwDo2zpg
@@ -364,24 +362,24 @@ void dumpInteger(std::string& out, NumberType number)
     {
         const auto digitsIndex = static_cast<unsigned>((absValue % 100));
         absValue /= 100;
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        *(--bufferPtr) = digitsTo99[digitsIndex][1];
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        *(--bufferPtr) = digitsTo99[digitsIndex][0];
+        *bufferPtr = digitsTo99[digitsIndex][1];
+        bufferPtr = std::prev(bufferPtr);
+        *bufferPtr = digitsTo99[digitsIndex][0];
+        bufferPtr = std::prev(bufferPtr);
     }
 
     if (absValue >= 10)
     {
         const auto digitsIndex = static_cast<unsigned>(absValue);
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        *(--bufferPtr) = digitsTo99[digitsIndex][1];
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        *(--bufferPtr) = digitsTo99[digitsIndex][0];
+        *bufferPtr = digitsTo99[digitsIndex][1];
+        bufferPtr = std::prev(bufferPtr);
+        *bufferPtr = digitsTo99[digitsIndex][0];
+        // assignment never used: bufferPtr = std::prev(bufferPtr);
     }
     else
     {
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        *(--bufferPtr) = static_cast<char>('0' + absValue);
+        *bufferPtr = static_cast<char>('0' + absValue);
+        // assignment never used: bufferPtr = std::prev(bufferPtr);
     }
 
     out.append(numberbuffer.data(), nChars);
@@ -391,12 +389,11 @@ inline void dumpfloat(std::string& out, double number,
                       std::true_type /*isIeeeSingleOrDouble*/)
 {
     std::array<char, 64> numberbuffer{{}};
-    char* begin = numberbuffer.data();
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    ::nlohmann::detail::to_chars(begin, begin + numberbuffer.size(), number);
+    ::nlohmann::detail::to_chars(numberbuffer.begin(), numberbuffer.end(),
+                                 number);
 
-    out += begin;
+    out += numberbuffer.data();
 }
 
 inline void dumpfloat(std::string& out, double number,
@@ -423,21 +420,25 @@ inline void dumpfloat(std::string& out, double number,
         return;
     }
 
-    const std::array<char, 64>::iterator end =
-        std::remove(numberbuffer.begin(), numberbuffer.begin() + len, ',');
+    auto end = numberbuffer.begin();
+    std::advance(end, len);
+    end = std::remove(numberbuffer.begin(), end, ',');
     std::fill(end, numberbuffer.end(), '\0');
 
-    if ((end - numberbuffer.begin()) > len)
+    if (std::distance(numberbuffer.begin(), end) > len)
     {
         return;
     }
-    len = (end - numberbuffer.begin());
+    len = std::distance(numberbuffer.begin(), end);
 
     out.append(numberbuffer.data(), static_cast<std::size_t>(len));
 
     // determine if need to append ".0"
+    auto newEnd = numberbuffer.begin();
+    std::advance(newEnd, len + 1);
+
     const bool valueIsIntLike =
-        std::none_of(numberbuffer.begin(), numberbuffer.begin() + len + 1,
+        std::none_of(numberbuffer.begin(), newEnd,
                      [](char c) { return (c == '.' or c == 'e'); });
 
     if (valueIsIntLike)
