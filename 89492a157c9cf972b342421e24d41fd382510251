@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa26b0d_a92d14cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-10T21:50:52Z",
+      "side": 1,
+      "message": "Overriding CI because it is broken anyhow.  Going to be follow up commits for clang-tidy issues, but we might as well get this in.",
+      "revId": "89492a157c9cf972b342421e24d41fd382510251",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
