@@ -33,6 +33,40 @@
       "message": "Consider using fstat() to get the file size instead of lseek(). While other parts of this file use lseek(), it may be more robust to use fstat() instead.",
       "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76bf1359_9fc16bd2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-10T17:04:48Z",
+      "side": 1,
+      "message": "Should this be part of meson tuning?",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870010a4_15b20565",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-10T17:04:48Z",
+      "side": 1,
+      "message": "Should the privilege be getLogEntryCollection?",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
