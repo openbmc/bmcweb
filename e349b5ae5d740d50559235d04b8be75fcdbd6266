@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "26ba852d_32bf28a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-10T13:21:58Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "b05f95e5_5a7ff4f7",
+      "revId": "e349b5ae5d740d50559235d04b8be75fcdbd6266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4479a515_87b60f79",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 9
