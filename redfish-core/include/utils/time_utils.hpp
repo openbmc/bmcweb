@@ -64,11 +64,11 @@ bool fromDurationItem(std::string_view& fmt, const char postfix,
     std::chrono::milliseconds::rep ticks = 0;
     if constexpr (std::is_same_v<FromTime, std::chrono::milliseconds>)
     {
-        end = fmt.data() + std::min<size_t>(pos, 3U);
+        end = &fmt[std::min<size_t>(pos, 3U)];
     }
     else
     {
-        end = fmt.data() + pos;
+        end = &fmt[pos];
     }
 
     auto [ptr, ec] = std::from_chars(fmt.data(), end, ticks);
