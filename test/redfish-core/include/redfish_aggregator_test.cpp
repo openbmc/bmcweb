@@ -248,8 +248,8 @@ void assertProcessResponse(unsigned result)
     jsonResp["Name"] = "Test";
 
     crow::Response resp;
-    resp.body() =
-        jsonResp.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+    resp.body() = jsonResp.dump(2, ' ', true,
+                                nlohmann::json::error_handler_t::replace);
     resp.addHeader("Content-Type", "application/json");
     resp.addHeader("Allow", "GET");
     resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
@@ -658,8 +658,8 @@ TEST(processContainsSubordinateResponse, addLinks)
     jsonValue["Test"]["@odata.id"] = "/redfish/v1/Test";
     jsonValue["TelemetryService"]["@odata.id"] = "/redfish/v1/TelemetryService";
     jsonValue["UpdateService"]["@odata.id"] = "/redfish/v1/UpdateService";
-    resp.body() =
-        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+    resp.body() = jsonValue.dump(2, ' ', true,
+                                 nlohmann::json::error_handler_t::replace);
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     asyncResp->res.result(200);
@@ -701,8 +701,8 @@ TEST(processContainsSubordinateResponse, localNotOK)
     jsonValue["Test"]["@odata.id"] = "/redfish/v1/Test";
     jsonValue["TelemetryService"]["@odata.id"] = "/redfish/v1/TelemetryService";
     jsonValue["UpdateService"]["@odata.id"] = "/redfish/v1/UpdateService";
-    resp.body() =
-        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+    resp.body() = jsonValue.dump(2, ' ', true,
+                                 nlohmann::json::error_handler_t::replace);
 
     RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
                                                           resp);
@@ -769,8 +769,8 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     nlohmann::json jsonValue;
     resp.addHeader("Content-Type", "application/json");
     jsonValue["@odata.id"] = "/redfish/v1";
-    resp.body() =
-        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+    resp.body() = jsonValue.dump(2, ' ', true,
+                                 nlohmann::json::error_handler_t::replace);
 
     RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
                                                           resp);
@@ -788,8 +788,8 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     jsonValue["Test"]["@odata.id"] = "/redfish/v1/Test";
     jsonValue["TelemetryService"]["@odata.id"] = "/redfish/v1/TelemetryService";
     jsonValue["UpdateService"]["@odata.id"] = "/redfish/v1/UpdateService";
-    resp.body() =
-        jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+    resp.body() = jsonValue.dump(2, ' ', true,
+                                 nlohmann::json::error_handler_t::replace);
 
     RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
                                                           resp);

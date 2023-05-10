@@ -233,8 +233,8 @@ inline bool getChassisSensorNodeFromMetrics(
     {
         const std::vector<std::string>& uris = metric.second;
 
-        std::optional<IncorrectMetricUri> error =
-            getChassisSensorNode(uris, matched);
+        std::optional<IncorrectMetricUri> error = getChassisSensorNode(uris,
+                                                                       matched);
         if (error)
         {
             messages::propertyValueIncorrect(asyncResp->res, error->uri,

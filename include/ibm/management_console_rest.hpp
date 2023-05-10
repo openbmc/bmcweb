@@ -36,11 +36,11 @@ constexpr const char* internalServerError = "Internal Server Error";
 constexpr size_t maxSaveareaDirSize =
     25000000; // Allow save area dir size to be max 25MB
 constexpr size_t minSaveareaFileSize =
-    100; // Allow save area file size of minimum 100B
+    100;      // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
-    500000; // Allow save area file size upto 500KB
+    500000;   // Allow save area file size upto 500KB
 constexpr size_t maxBroadcastMsgSize =
-    1000; // Allow Broadcast message size upto 1KB
+    1000;     // Allow Broadcast message size upto 1KB
 
 inline void handleFilePut(const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -323,8 +323,8 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    std::string contentDispositionParam =
-        "attachment; filename=\"" + fileID + "\"";
+    std::string contentDispositionParam = "attachment; filename=\"" + fileID +
+                                          "\"";
     asyncResp->res.addHeader(boost::beast::http::field::content_disposition,
                              contentDispositionParam);
     std::string fileData;
@@ -685,7 +685,6 @@ inline bool isValidConfigFileName(const std::string& fileName,
 
 inline void requestRoutes(App& app)
 {
-
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})

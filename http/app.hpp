@@ -116,8 +116,8 @@ class App
         }
         else
         {
-            sslServer =
-                std::make_unique<ssl_server_t>(this, socketFd, sslContext, io);
+            sslServer = std::make_unique<ssl_server_t>(this, socketFd,
+                                                       sslContext, io);
         }
         sslServer->run();
 

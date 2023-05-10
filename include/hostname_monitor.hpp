@@ -75,9 +75,9 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
     const int maxKeySize = 256;
     std::array<char, maxKeySize> cnBuffer{};
 
-    int cnLength =
-        X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName,
-                                  cnBuffer.data(), cnBuffer.size());
+    int cnLength = X509_NAME_get_text_by_NID(X509_get_subject_name(cert),
+                                             NID_commonName, cnBuffer.data(),
+                                             cnBuffer.size());
     if (cnLength == -1)
     {
         BMCWEB_LOG_ERROR << "Failed to read NID_commonName";

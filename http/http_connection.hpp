@@ -45,8 +45,8 @@ inline void prettyPrintJson(crow::Response& res)
 static int connectionCount = 0;
 
 // request body limit size set by the bmcwebHttpReqBodyLimitMb option
-constexpr uint64_t httpReqBodyLimit =
-    1024UL * 1024UL * bmcwebHttpReqBodyLimitMb;
+constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL *
+                                      bmcwebHttpReqBodyLimitMb;
 
 constexpr uint64_t loggedOutPostBodyLimit = 4096;
 

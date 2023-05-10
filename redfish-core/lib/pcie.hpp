@@ -31,7 +31,7 @@
 namespace redfish
 {
 
-static constexpr char const* inventoryPath = "/xyz/openbmc_project/inventory";
+static constexpr const char* inventoryPath = "/xyz/openbmc_project/inventory";
 static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
     "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
 
@@ -430,8 +430,8 @@ inline void addPCIeFunctionList(
     {
         // Check if this function exists by
         // looking for a device ID
-        std::string devIDProperty =
-            "Function" + std::to_string(functionNum) + "DeviceId";
+        std::string devIDProperty = "Function" + std::to_string(functionNum) +
+                                    "DeviceId";
         const std::string* property = nullptr;
         for (const auto& propEntry : pcieDevProperties)
         {

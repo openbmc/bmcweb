@@ -794,7 +794,6 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& service, const std::string& name,
                           bool legacy)
 {
-
     // Legacy mount requires parameter with image
     if (legacy)
     {
@@ -952,7 +951,6 @@ inline void handleManagersVirtualMediaActionEject(
 
             for (const auto& object : subtree)
             {
-
                 VmMode mode = parseObjectPathAndGetMode(object.first, resName);
                 if (mode != VmMode::Invalid)
                 {

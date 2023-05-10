@@ -146,8 +146,8 @@ static std::shared_ptr<persistent_data::UserSession>
     {
         endIndex = cookieValue.size();
     }
-    std::string_view authKey =
-        cookieValue.substr(startIndex, endIndex - startIndex);
+    std::string_view authKey = cookieValue.substr(startIndex,
+                                                  endIndex - startIndex);
 
     std::shared_ptr<persistent_data::UserSession> sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(

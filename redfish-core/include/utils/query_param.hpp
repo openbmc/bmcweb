@@ -916,9 +916,9 @@ inline void recursiveSelect(nlohmann::json& currRoot,
             constexpr std::array<std::string_view, 5> reservedProperties = {
                 "@odata.id", "@odata.type", "@odata.context", "@odata.etag",
                 "error"};
-            bool reserved =
-                std::find(reservedProperties.begin(), reservedProperties.end(),
-                          it.key()) != reservedProperties.end();
+            bool reserved = std::find(reservedProperties.begin(),
+                                      reservedProperties.end(),
+                                      it.key()) != reservedProperties.end();
             if (reserved || (nextNode != nullptr && nextNode->isSelected()))
             {
                 it = nextIt;

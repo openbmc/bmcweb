@@ -67,8 +67,8 @@ class Server
         gmtime_r(&lastTimeT, &myTm);
 
         dateStr.resize(100);
-        size_t dateStrSz =
-            strftime(&dateStr[0], 99, "%a, %d %b %Y %H:%M:%S GMT", &myTm);
+        size_t dateStrSz = strftime(&dateStr[0], 99,
+                                    "%a, %d %b %Y %H:%M:%S GMT", &myTm);
         dateStr.resize(dateStrSz);
     }
 

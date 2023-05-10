@@ -536,7 +536,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void afterSslShutdown(const std::shared_ptr<ConnectionInfo>& /*self*/,
                           bool retry, const boost::system::error_code& ec)
     {
-
         if (ec)
         {
             BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)

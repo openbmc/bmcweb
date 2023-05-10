@@ -163,7 +163,6 @@ inline void requestRoutesManagerResetAction(App& app)
  */
 inline void requestRoutesManagerResetToDefaultsAction(App& app)
 {
-
     /**
      * Function handles ResetToDefaults POST method request.
      *
@@ -288,7 +287,6 @@ inline void
                      const std::vector<std::string>& supportedProfiles,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-
     crow::connections::systemBus->async_method_call(
         [asyncResp, currentProfile, supportedProfiles](
             const boost::system::error_code& ec,
@@ -440,7 +438,6 @@ inline void
                 // pid and fans are off the same configuration
                 else if (intfPair.first == pidConfigurationIface)
                 {
-
                     if (classPtr == nullptr)
                     {
                         BMCWEB_LOG_ERROR << "Pid Class Field illegal";
@@ -569,7 +566,6 @@ inline void
                     if (intfPair.first == pidConfigurationIface ||
                         intfPair.first == stepwiseConfigurationIface)
                     {
-
                         if (propertyPair.first == "Zones")
                         {
                             const std::vector<std::string>* inputs =
@@ -782,7 +778,6 @@ inline CreatePIDRet createPidInterface(
     dbus::utility::DBusPropertiesMap& output, std::string& chassis,
     const std::string& profile)
 {
-
     // common deleter
     if (it.value() == nullptr)
     {
@@ -1027,7 +1022,6 @@ inline CreatePIDRet createPidInterface(
 
         if (chassisContainer)
         {
-
             std::string chassisId;
             if (!redfish::json_util::readJson(*chassisContainer, response->res,
                                               "@odata.id", chassisId))
@@ -1116,7 +1110,6 @@ inline CreatePIDRet createPidInterface(
         {
             for (std::string& value : *inputs)
             {
-
                 std::replace(value.begin(), value.end(), '_', ' ');
             }
             output.emplace_back("Inputs", std::move(*inputs));
@@ -1328,12 +1321,10 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
 struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 {
-
     SetPIDValues(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                  nlohmann::json& data) :
         asyncResp(asyncRespIn)
     {
-
         std::optional<nlohmann::json> pidControllers;
         std::optional<nlohmann::json> fanControllers;
         std::optional<nlohmann::json> fanZones;
@@ -1508,12 +1499,12 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 std::replace(dbusObjName.begin(), dbusObjName.end(), ' ', '_');
                 BMCWEB_LOG_DEBUG << "looking for " << name;
 
-                auto pathItr =
-                    std::find_if(managedObj.begin(), managedObj.end(),
-                                 [&dbusObjName](const auto& obj) {
+                auto pathItr = std::find_if(managedObj.begin(),
+                                            managedObj.end(),
+                                            [&dbusObjName](const auto& obj) {
                     return boost::algorithm::ends_with(obj.first.str,
                                                        "/" + dbusObjName);
-                    });
+                });
                 dbus::utility::DBusPropertiesMap output;
 
                 output.reserve(16); // The pid interface length
@@ -2107,7 +2098,6 @@ inline void requestRoutesManager(App& app)
                 if (interfaceName ==
                     "xyz.openbmc_project.Inventory.Decorator.Asset")
                 {
-
                     sdbusplus::asio::getAllProperties(
                         *crow::connections::systemBus, connectionName, path,
                         "xyz.openbmc_project.Inventory.Decorator.Asset",

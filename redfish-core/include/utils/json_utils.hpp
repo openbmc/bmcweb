@@ -505,8 +505,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
     return result;
 }
 
-inline void packVariant(std::span<PerUnpack> /*toPack*/)
-{}
+inline void packVariant(std::span<PerUnpack> /*toPack*/) {}
 
 template <typename FirstType, typename... UnpackTypes>
 void packVariant(std::span<PerUnpack> toPack, std::string_view key,

@@ -212,7 +212,6 @@ static void
                             iface ==
                             "xyz.openbmc_project.Software.ActivationProgress")
                         {
-
                             const uint8_t* progress = nullptr;
                             for (const auto& property : values)
                             {
@@ -538,8 +537,8 @@ inline void uploadImageFile(crow::Response& res, std::string_view body)
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
     // set the permission of the file to 640
-    std::filesystem::perms permission =
-        std::filesystem::perms::owner_read | std::filesystem::perms::group_read;
+    std::filesystem::perms permission = std::filesystem::perms::owner_read |
+                                        std::filesystem::perms::group_read;
     std::filesystem::permissions(filepath, permission);
     out << body;
 
@@ -616,7 +615,7 @@ inline void
             continue;
         }
 
-        for (auto const& param :
+        for (const auto& param :
              boost::beast::http::param_list{it->value().substr(index)})
         {
             if (param.first != "name" || param.second.empty())

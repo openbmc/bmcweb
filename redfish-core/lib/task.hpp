@@ -198,8 +198,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
     static void sendTaskEvent(std::string_view state, size_t index)
     {
-        std::string origin =
-            "/redfish/v1/TaskService/Tasks/" + std::to_string(index);
+        std::string origin = "/redfish/v1/TaskService/Tasks/" +
+                             std::to_string(index);
         std::string resType = "Task";
         // TaskState enums which should send out an event are:
         // "Starting" = taskResumed
