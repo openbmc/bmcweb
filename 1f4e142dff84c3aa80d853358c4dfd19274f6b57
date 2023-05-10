@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "56d28625_e33d709a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-10T17:33:43Z",
+      "side": 1,
+      "message": "I\u0027ve added close() to the error paths",
+      "parentUuid": "432c76ba_9f130694",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "47541b20_15f5f788",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-10T16:19:18Z",
       "side": 1,
       "message": "Consider using fstat() to get the file size instead of lseek(). While other parts of this file use lseek(), it may be more robust to use fstat() instead.",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "994e6677_157a80eb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-10T17:33:43Z",
+      "side": 1,
+      "message": "My preference is to have all parts of this file use the same approach.  I don\u0027t know if one should be preferred over the other.  If fstate() is preferrable to lseek() then I\u0027d rather have that be a separate patch that replaces all instances.",
+      "parentUuid": "47541b20_15f5f788",
       "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36813252_f42a58d1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-10T17:33:43Z",
+      "side": 1,
+      "message": "That was discussed as part of this thread https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61957/comment/5f810c88_f508949e/\n\nPlease refer to that discussion and follow up there if you have further concerns.",
+      "parentUuid": "76bf1359_9fc16bd2",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "870010a4_15b20565",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-05-10T17:04:48Z",
       "side": 1,
       "message": "Should the privilege be getLogEntryCollection?",
+      "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc5d635_0c2d26c3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-10T17:33:43Z",
+      "side": 1,
+      "message": "No, getLogEntryCollection is for /redfish/v1/Managers/bmc/LogServices/Dump/Entries which is a collection of LogEntry resources.  We are retrieving the attachment for a singular LogEntry.\n\nNote that the is the same way other privileges for other /attachments are handled in this file:\n\ninline void requestRoutesDBusEventLogEntryDownload(App\u0026 app)\n{\n    BMCWEB_ROUTE(\n        app,\n        \"/redfish/v1/Systems/\u003cstr\u003e/LogServices/EventLog/Entries/\u003cstr\u003e/attachment\")\n        .privileges(redfish::privileges::getLogEntry)\n        \n        \ninline void requestRoutesPostCodesEntryAdditionalData(App\u0026 app)\n{\n    BMCWEB_ROUTE(\n        app,\n        \"/redfish/v1/Systems/\u003cstr\u003e/LogServices/PostCodes/Entries/\u003cstr\u003e/attachment/\")\n        .privileges(redfish::privileges::getLogEntry)",
+      "parentUuid": "870010a4_15b20565",
       "revId": "1f4e142dff84c3aa80d853358c4dfd19274f6b57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
