@@ -1,6 +1,74 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f154c33_d12e0846",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T20:43:43Z",
+      "side": 1,
+      "message": "easier to read if you do \nbusctl get-property -j xyz.openbmc_project.Inventory.Manager \\ \n/xyz/openbmc_project/inventory/system/chassis/motherboard/disk_backplane0/nvme0 \\\n xyz.openbmc_project.Inventory.Item.PCIeSlot Generation\n\noh well.",
+      "revId": "cb174c48e9878a6c25fab92ef5a8c6eb87276ae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36d1f51a_bc0fe109",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T20:43:43Z",
+      "side": 1,
+      "message": "This is data you are copying in but better if you don\u0027t have tabs, oh well.",
+      "revId": "cb174c48e9878a6c25fab92ef5a8c6eb87276ae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be471a30_f386c2ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T20:43:43Z",
+      "side": 1,
+      "message": "So PCIeType is left off. Ack.",
+      "revId": "cb174c48e9878a6c25fab92ef5a8c6eb87276ae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939e6f56_d69dab56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-10T20:43:43Z",
+      "side": 1,
+      "message": "Same here, easier to read if you use \\",
+      "revId": "cb174c48e9878a6c25fab92ef5a8c6eb87276ae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0608e104_fe19a3e8",
