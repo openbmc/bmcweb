@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eaab9d9_74f25103",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-10T21:18:30Z",
+      "side": 1,
+      "message": "If there are no association then it returns 0 power supplies\n\ncurl -k https://${bmc}/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/chassis/PowerSubsystem/PowerSupplies\",\n  \"@odata.type\": \"#PowerSupplyCollection.PowerSupplyCollection\",\n  \"Description\": \"The collection of PowerSupply resource instances.\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"Power Supply Collection\"\n}",
+      "parentUuid": "5e108367_1a078b81",
+      "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ef19f4aa_00c872ec",
