@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f5b44c6_6b641156",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-05-11T17:17:43Z",
+      "side": 1,
+      "message": "Hi Ed, Sure. \nLet this code be commented out to get the clang moving. One of our team members will either refactor/remove this code based on the conclusion which we will arrive this weekend.",
+      "parentUuid": "58b01718_9546b7f7",
+      "revId": "a23432014b3cc2c9d8f7a26938f1c572b431370b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe277342_cbb6a03c",
         "filename": "include/ibm/locks.hpp",
         "patchSetId": 1
