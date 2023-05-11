@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4380dec5_21578da5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-11T03:03:46Z",
+      "side": 1,
+      "message": "The NOLINTNEXTLINE calls came later \nhttps://github.com/openbmc/bmcweb/commit/ca45aa3c416e55027b8d17078bac6493e81d564f",
+      "revId": "73b3cf23a2d310206587401142e07285d87622fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
