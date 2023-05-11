@@ -10,6 +10,7 @@
 #include <boost/asio/ssl/verify_context.hpp>
 
 #include <memory>
+#include <span>
 
 inline std::shared_ptr<persistent_data::UserSession>
     verifyMtlsUser(const boost::asio::ip::address& clientIp,
@@ -65,16 +66,15 @@ inline std::shared_ptr<persistent_data::UserSession>
     ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
         X509_get_ext_d2i(peerCert, NID_key_usage, nullptr, nullptr));
 
-    if (usage == nullptr)
+    if ((usage == nullptr) || (usage->data == nullptr))
     {
         BMCWEB_LOG_DEBUG << "TLS usage is null";
         return nullptr;
     }
 
-    for (int i = 0; i < usage->length; i++)
+    for (auto usageChar :
+         std::span(usage->data, static_cast<size_t>(usage->length)))
     {
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        unsigned char usageChar = usage->data[i];
         if (KU_DIGITAL_SIGNATURE & usageChar)
         {
             isKeyUsageDigitalSignature = true;
