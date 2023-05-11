@@ -233,8 +233,6 @@ inline void dumpEscaped(std::string& out, const std::string& str)
                 // continue processing the string
                 state = utf8Accept;
                 break;
-
-                break;
             }
 
             default: // decode found yet incomplete multi-byte code point
@@ -324,7 +322,7 @@ void dumpInteger(std::string& out, NumberType number)
     }
 
     // use a pointer to fill the buffer
-    auto bufferPtr = numberbuffer.begin();
+    auto* bufferPtr = numberbuffer.begin();
 
     const bool isNegative = std::is_same<NumberType, int64_t>::value &&
                             !(number >= 0); // see issue #755
@@ -420,7 +418,7 @@ inline void dumpfloat(std::string& out, double number,
         return;
     }
 
-    auto end = numberbuffer.begin();
+    auto* end = numberbuffer.begin();
     std::advance(end, len);
     end = std::remove(numberbuffer.begin(), end, ',');
     std::fill(end, numberbuffer.end(), '\0');
@@ -434,7 +432,7 @@ inline void dumpfloat(std::string& out, double number,
     out.append(numberbuffer.data(), static_cast<std::size_t>(len));
 
     // determine if need to append ".0"
-    auto newEnd = numberbuffer.begin();
+    auto* newEnd = numberbuffer.begin();
     std::advance(newEnd, len + 1);
 
     const bool valueIsIntLike =

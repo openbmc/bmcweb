@@ -265,8 +265,8 @@ inline static bool
         tsStr.remove_suffix(tsStr.size() - underscorePos);
         std::string_view indexStr(entryID);
         indexStr.remove_prefix(underscorePos + 1);
-        auto [ptr, ec] = std::from_chars(
-            indexStr.data(), indexStr.data() + indexStr.size(), index);
+        auto [ptr, ec] = std::from_chars(indexStr.begin(), indexStr.end(),
+                                         index);
         if (ec != std::errc())
         {
             messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
@@ -274,8 +274,7 @@ inline static bool
         }
     }
     // Timestamp has no index
-    auto [ptr, ec] = std::from_chars(tsStr.data(), tsStr.data() + tsStr.size(),
-                                     timestamp);
+    auto [ptr, ec] = std::from_chars(tsStr.begin(), tsStr.end(), timestamp);
     if (ec != std::errc())
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
@@ -2241,10 +2240,8 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 
         uint64_t idInt = 0;
 
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        const char* end = targetID.data() + targetID.size();
-
-        auto [ptr, ec] = std::from_chars(targetID.data(), end, idInt);
+        auto [ptr, ec] = std::from_chars(&*targetID.begin(), &*targetID.end(),
+                                         idInt);
         if (ec == std::errc::invalid_argument ||
             ec == std::errc::result_out_of_range)
         {
@@ -3668,24 +3665,21 @@ inline static bool parsePostCode(const std::string& postCodeID,
         return false;
     }
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    const char* start = split[0].data() + 1;
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    const char* end = split[0].data() + split[0].size();
-    auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
+    auto start = std::next(split[0].begin());
+    auto end = split[0].end();
+    auto [ptrIndex, ecIndex] = std::from_chars(&*start, &*end, index);
 
-    if (ptrIndex != end || ecIndex != std::errc())
+    if (ptrIndex != &*end || ecIndex != std::errc())
     {
         return false;
     }
 
-    start = split[1].data();
+    start = split[1].begin();
+    end = split[1].end();
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    end = split[1].data() + split[1].size();
-    auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
+    auto [ptrValue, ecValue] = std::from_chars(&*start, &*end, currentValue);
 
-    return ptrValue == end && ecValue == std::errc();
+    return ptrValue == &*end && ecValue == std::errc();
 }
 
 static bool fillPostCodeEntry(
