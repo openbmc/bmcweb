@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e95ff33d_3f933ea3",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-11T20:27:57Z",
+      "side": 1,
+      "message": "I don\u0027t see this for all our Oem. E.g. \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L1934\nDo you know more of why the validator wants this?",
+      "revId": "e5942c00c39dddd7f2a2df65659b0af7f417670e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
