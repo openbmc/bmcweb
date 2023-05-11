@@ -74,13 +74,12 @@ class MultipartParser
         lookbehind.resize(boundary.size() + 8);
         state = State::START;
 
-        const char* buffer = req.body().data();
-        size_t len = req.body().size();
+        const std::string& buffer = req.body();
+        size_t len = buffer.size();
         char cl = 0;
 
         for (size_t i = 0; i < len; i++)
         {
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
             char c = buffer[i];
             switch (state)
             {
@@ -142,8 +141,7 @@ class MultipartParser
                             return ParserError::ERROR_EMPTY_HEADER;
                         }
 
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                        currentHeaderName.append(buffer + headerFieldMark,
+                        currentHeaderName.append(&buffer[headerFieldMark],
                                                  i - headerFieldMark);
                         state = State::HEADER_VALUE_START;
                         break;
@@ -165,8 +163,7 @@ class MultipartParser
                 case State::HEADER_VALUE:
                     if (c == cr)
                     {
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                        std::string_view value(buffer + headerValueMark,
+                        std::string_view value(&buffer[headerValueMark],
                                                i - headerValueMark);
                         mime_fields.rbegin()->fields.set(currentHeaderName,
                                                          value);
@@ -199,12 +196,12 @@ class MultipartParser
                 {
                     if (index == 0)
                     {
-                        skipNonBoundary(buffer, len, boundary.size() - 1, i);
+                        skipNonBoundary(buffer.data(), len, boundary.size() - 1,
+                                        i);
 
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         c = buffer[i];
                     }
-                    const ParserError ec = processPartData(buffer, i, c);
+                    const ParserError ec = processPartData(buffer.data(), i, c);
                     if (ec != ParserError::PARSER_SUCCESS)
                     {
                         return ec;
