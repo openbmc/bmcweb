@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820d4fb2_288c6765",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-11T03:25:10Z",
+      "side": 1,
+      "message": "There are still a few clang-tidy issues in json-html-serializer.  Suggest we hold off merging that just yet.",
+      "revId": "c6fba61c0903bd9a36acb22063d1ed13c303acc9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
