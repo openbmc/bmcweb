@@ -101,7 +101,7 @@ using MapperEndPoints = std::vector<std::string>;
 
 inline void escapePathForDbus(std::string& path)
 {
-    const std::regex reg("[^A-Za-z0-9_/]");
+    const static std::regex reg("[^A-Za-z0-9_/]");
     std::regex_replace(path.begin(), path.begin(), path.end(), reg, "_");
 }
 

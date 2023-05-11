@@ -963,7 +963,7 @@ inline bool isHostnameValid(const std::string& hostname)
     // MUST handle host names of up to 63 characters (RFC 1123)
     // labels cannot start or end with hyphens (RFC 952)
     // labels can start with numbers (RFC 1123)
-    const std::regex pattern(
+    const static std::regex pattern(
         "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
 
     return std::regex_match(hostname, pattern);
@@ -973,7 +973,7 @@ inline bool isDomainnameValid(const std::string& domainname)
 {
     // Can have multiple subdomains
     // Top Level Domain's min length is 2 character
-    const std::regex pattern(
+    const static std::regex pattern(
         "^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]{1,30}\\.)*[a-zA-Z]{2,}$");
 
     return std::regex_match(domainname, pattern);
