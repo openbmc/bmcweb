@@ -6,12 +6,13 @@
 
 #include <cstring>
 #include <memory>
+#include <span>
 
 // function used to get user input
 inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
                                    struct pam_response** resp, void* appdataPtr)
 {
-    if (appdataPtr == nullptr)
+    if ((appdataPtr == nullptr) || (msg == nullptr) || (resp == nullptr))
     {
         return PAM_CONV_ERR;
     }
@@ -21,11 +22,14 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         return PAM_CONV_ERR;
     }
 
-    for (int i = 0; i < numMsg; ++i)
+    auto msgCount = static_cast<size_t>(numMsg);
+    auto messages = std::span(msg, msgCount);
+    auto responses = std::span(resp, msgCount);
+
+    for (size_t i = 0; i < msgCount; ++i)
     {
         /* Ignore all PAM messages except prompting for hidden input */
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        if (msg[i]->msg_style != PAM_PROMPT_ECHO_OFF)
+        if (messages[i]->msg_style != PAM_PROMPT_ECHO_OFF)
         {
             continue;
         }
@@ -69,8 +73,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         *resp = reinterpret_cast<pam_response*>(ptr);
 
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        resp[i]->resp = pass;
+        responses[i]->resp = pass;
 
         return PAM_SUCCESS;
     }
