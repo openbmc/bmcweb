@@ -74,13 +74,12 @@ class MultipartParser
         lookbehind.resize(boundary.size() + 8);
         state = State::START;
 
-        const char* buffer = req.body().data();
-        size_t len = req.body().size();
+        const std::string& buffer = req.body();
+        size_t len = buffer.size();
         char cl = 0;
 
         for (size_t i = 0; i < len; i++)
         {
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
             char c = buffer[i];
             switch (state)
             {
@@ -142,8 +141,7 @@ class MultipartParser
                             return ParserError::ERROR_EMPTY_HEADER;
                         }
 
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                        currentHeaderName.append(buffer + headerFieldMark,
+                        currentHeaderName.append(&buffer[headerFieldMark],
                                                  i - headerFieldMark);
                         state = State::HEADER_VALUE_START;
                         break;
@@ -165,8 +163,7 @@ class MultipartParser
                 case State::HEADER_VALUE:
                     if (c == cr)
                     {
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                        std::string_view value(buffer + headerValueMark,
+                        std::string_view value(&buffer[headerValueMark],
                                                i - headerValueMark);
                         mime_fields.rbegin()->fields.set(currentHeaderName,
                                                          value);
@@ -199,13 +196,17 @@ class MultipartParser
                 {
                     if (index == 0)
                     {
-                        skipNonBoundary(buffer, len, boundary.size() - 1, i);
+                        if (auto ec = skipNonBoundary(buffer.data(), len,
+                                                      boundary.size() - 1, i);
+                            ec != ParserError::PARSER_SUCCESS)
+                        {
+                            return ec;
+                        }
 
-                        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         c = buffer[i];
                     }
-                    const ParserError ec = processPartData(buffer, i, c);
-                    if (ec != ParserError::PARSER_SUCCESS)
+                    if (auto ec = processPartData(buffer.data(), i, c);
+                        ec != ParserError::PARSER_SUCCESS)
                     {
                         return ec;
                     }
@@ -246,9 +247,13 @@ class MultipartParser
         return boundaryIndex[static_cast<unsigned char>(c)];
     }
 
-    void skipNonBoundary(const char* buffer, size_t len, size_t boundaryEnd,
-                         size_t& i)
+    ParserError skipNonBoundary(const char* buffer, size_t len,
+                                size_t boundaryEnd, size_t& i)
     {
+        if (buffer == nullptr)
+        {
+            return ParserError::ERROR_OUT_OF_RANGE;
+        }
         // boyer-moore derived algorithm to safely skip non-boundary data
         while (i + boundary.size() <= len)
         {
@@ -259,6 +264,7 @@ class MultipartParser
             }
             i += boundary.size();
         }
+        return ParserError::PARSER_SUCCESS;
     }
 
     ParserError processPartData(const char* buffer, size_t& i, char c)
