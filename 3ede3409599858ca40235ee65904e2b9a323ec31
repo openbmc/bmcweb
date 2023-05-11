@@ -22,6 +22,30 @@
       },
       "revId": "3ede3409599858ca40235ee65904e2b9a323ec31",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f54b0fc_6fe7e925",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-11T11:06:40Z",
+      "side": 1,
+      "message": "I don’t have time to fix everyone’s code on this project. Please suggest a reasonable fix, either in comments or by sending up your own patch set. I cannot invest the brain cells on this code to come up with one on my own because the code is not reasonable to begin with and this is IBM’s OEM code. \n\nIf no one at IBM proposes a fix, something along these lines will be merged for the sake of the project as a whole. \n\nSure, I could tone down the words here and probably will if this is what we go with.",
+      "parentUuid": "7f5fee8a_16c2be76",
+      "range": {
+        "startLine": 522,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 41
+      },
+      "revId": "3ede3409599858ca40235ee65904e2b9a323ec31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
