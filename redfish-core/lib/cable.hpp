@@ -124,6 +124,9 @@ inline void
                 location_util::getLocationCode(asyncResp, service,
                                                cableObjectPath,
                                                "/Location"_json_pointer);
+                location_util::getPartLocationContext(
+                    asyncResp, "/Location"_json_pointer,
+                    cableObjectPath + "/upstream_chassis");
             }
             else if (isConnector(interface))
             {
