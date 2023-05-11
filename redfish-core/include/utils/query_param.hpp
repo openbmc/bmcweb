@@ -284,13 +284,13 @@ inline bool getExpandType(std::string_view value, Query& query)
     }
     value.remove_prefix(levels.size());
 
-    auto it = std::from_chars(value.data(), value.data() + value.size(),
-                              query.expandLevel);
+    auto it = std::from_chars(value.begin(), value.end(), query.expandLevel);
     if (it.ec != std::errc())
     {
         return false;
     }
-    value.remove_prefix(static_cast<size_t>(it.ptr - value.data()));
+    value.remove_prefix(
+        static_cast<size_t>(std::distance(value.begin(), it.ptr)));
     return value == ")";
 }
 
@@ -303,8 +303,8 @@ enum class QueryError
 
 inline QueryError getNumericParam(std::string_view value, size_t& param)
 {
-    std::from_chars_result r =
-        std::from_chars(value.data(), value.data() + value.size(), param);
+    std::from_chars_result r = std::from_chars(value.begin(), value.end(),
+                                               param);
 
     // If the number wasn't representable in the type, it's out of range
     if (r.ec == std::errc::result_out_of_range)
