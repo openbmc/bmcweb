@@ -11,7 +11,7 @@
 inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
                                    struct pam_response** resp, void* appdataPtr)
 {
-    if (appdataPtr == nullptr)
+    if ((appdataPtr == nullptr) || (msg == nullptr) || (resp == nullptr))
     {
         return PAM_CONV_ERR;
     }
