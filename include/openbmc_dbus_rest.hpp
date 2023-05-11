@@ -101,7 +101,7 @@ const constexpr char* forbiddenResDesc =
 
 inline bool validateFilename(const std::string& filename)
 {
-    std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
+    static std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
 
     return std::regex_match(filename, validFilename);
 }
@@ -2565,7 +2565,7 @@ inline void requestRoutes(App& app)
             // Filename should be in alphanumeric, dot and underscore
             // Its based on phosphor-debug-collector application
             // dumpfile format
-            std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
+            static std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
             if (!std::regex_match(dumpFileName, dumpFileRegex))
             {
                 BMCWEB_LOG_ERROR << "Invalid dump filename " << dumpFileName;
