@@ -139,6 +139,24 @@
       "parentUuid": "d2780cc9_acfcf452",
       "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5014768_9a20a258",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-11T17:47:34Z",
+      "side": 1,
+      "message": "getAssociationEndPoints returns 0 when there are no associations. At line 280, we are checking if the endpoints vector is empty, and logging an error in that case.",
+      "parentUuid": "3e9d6af7_568a53f7",
+      "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
