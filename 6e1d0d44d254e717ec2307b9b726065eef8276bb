@@ -33,6 +33,24 @@
       "message": "Why is empty not an error?",
       "revId": "6e1d0d44d254e717ec2307b9b726065eef8276bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "990ed8bb_9ae9b884",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-11T03:48:30Z",
+      "side": 1,
+      "message": "Similar to other properties, Slot.SlotType is an optional property. If it is empty, we do not display that property.",
+      "parentUuid": "090f42d3_157c62bf",
+      "revId": "6e1d0d44d254e717ec2307b9b726065eef8276bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
