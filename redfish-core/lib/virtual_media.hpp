@@ -257,6 +257,8 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["TransferMethod"] = "Stream";
     item["Oem"]["OpenBMC"]["@odata.type"] =
         "#OemVirtualMedia.v1_0_0.VirtualMedia";
+    item["Oem"]["OpenBMC"]["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Managers", name, "VirtualMedia", resName);
 
     return item;
 }
