@@ -81,9 +81,12 @@ struct EthernetInterfaceData
     uint32_t speed;
     size_t mtuSize;
     bool autoNeg;
-    bool dnsEnabled;
-    bool ntpEnabled;
-    bool hostNameEnabled;
+    bool dnsv4Enabled;
+    bool dnsv6Enabled;
+    bool ntpv4Enabled;
+    bool ntpv6Enabled;
+    bool hostNamev4Enabled;
+    bool hostNamev6Enabled;
     bool linkUp;
     bool nicEnabled;
     bool ipv6AcceptRa;
@@ -367,7 +370,12 @@ inline bool extractEthernetInterfaceData(
                 }
             }
 
-            if (objpath.first == "/xyz/openbmc_project/network/dhcp")
+            sdbusplus::message::object_path path(
+                "/xyz/openbmc_project/network");
+            sdbusplus::message::object_path dhcp4Path = path / ethifaceId /
+                                                        "dhcp4";
+
+            if (objpath.first.str.starts_with(dhcp4Path.str))
             {
                 if (ifacePair.first ==
                     "xyz.openbmc_project.Network.DHCPConfiguration")
@@ -380,7 +388,7 @@ inline bool extractEthernetInterfaceData(
                                 std::get_if<bool>(&propertyPair.second);
                             if (dnsEnabled != nullptr)
                             {
-                                ethData.dnsEnabled = *dnsEnabled;
+                                ethData.dnsv4Enabled = *dnsEnabled;
                             }
                         }
                         else if (propertyPair.first == "NTPEnabled")
@@ -389,7 +397,7 @@ inline bool extractEthernetInterfaceData(
                                 std::get_if<bool>(&propertyPair.second);
                             if (ntpEnabled != nullptr)
                             {
-                                ethData.ntpEnabled = *ntpEnabled;
+                                ethData.ntpv4Enabled = *ntpEnabled;
                             }
                         }
                         else if (propertyPair.first == "HostNameEnabled")
@@ -398,7 +406,48 @@ inline bool extractEthernetInterfaceData(
                                 std::get_if<bool>(&propertyPair.second);
                             if (hostNameEnabled != nullptr)
                             {
-                                ethData.hostNameEnabled = *hostNameEnabled;
+                                ethData.hostNamev4Enabled = *hostNameEnabled;
+                            }
+                        }
+                    }
+                }
+            }
+
+            sdbusplus::message::object_path dhcp6Path = path / ethifaceId /
+                                                        "dhcp6";
+
+            if (objpath.first.str.starts_with(dhcp6Path.str))
+            {
+                if (ifacePair.first ==
+                    "xyz.openbmc_project.Network.DHCPConfiguration")
+                {
+                    for (const auto& propertyPair : ifacePair.second)
+                    {
+                        if (propertyPair.first == "DNSEnabled")
+                        {
+                            const bool* dnsEnabled =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (dnsEnabled != nullptr)
+                            {
+                                ethData.dnsv6Enabled = *dnsEnabled;
+                            }
+                        }
+                        else if (propertyPair.first == "NTPEnabled")
+                        {
+                            const bool* ntpEnabled =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (ntpEnabled != nullptr)
+                            {
+                                ethData.ntpv6Enabled = *ntpEnabled;
+                            }
+                        }
+                        else if (propertyPair.first == "HostNameEnabled")
+                        {
+                            const bool* hostNameEnabled =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (hostNameEnabled != nullptr)
+                            {
+                                ethData.hostNamev6Enabled = *hostNameEnabled;
                             }
                         }
                     }
@@ -1083,13 +1132,30 @@ inline void setEthernetInterfaceBoolProperty(
         });
 }
 
-inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+enum class NetworkType : int
+{
+    dhcp4 = 0,
+    dhcp6 = 1
+};
+
+inline void setDHCPConfig(const std::string& propertyName, const bool& value,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& ethifaceId, const NetworkType type)
 {
     BMCWEB_LOG_DEBUG("{} = {}", propertyName, value);
+    sdbusplus::message::object_path path = "/xyz/openbmc_project/network/" +
+                                           ethifaceId;
+    if (type == NetworkType::dhcp4)
+    {
+        path /= "dhcp4";
+    }
+    else
+    {
+        path /= "dhcp6";
+    }
+
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/dhcp",
+        *crow::connections::systemBus, "xyz.openbmc_project.Network", path,
         "xyz.openbmc_project.Network.DHCPConfiguration", propertyName, value,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
@@ -1152,84 +1218,60 @@ inline void handleDHCPPatch(const std::string& ifaceId,
         nextv6DHCPState = ipv6Active;
     }
 
-    bool nextDNS{};
-    if (v4dhcpParms.useDnsServers && v6dhcpParms.useDnsServers)
+    bool nextDNSv4 = ethData.dnsv4Enabled;
+    bool nextDNSv6 = ethData.dnsv6Enabled;
+    if (v4dhcpParms.useDnsServers)
     {
-        if (*v4dhcpParms.useDnsServers != *v6dhcpParms.useDnsServers)
-        {
-            messages::generalError(asyncResp->res);
-            return;
-        }
-        nextDNS = *v4dhcpParms.useDnsServers;
+        nextDNSv4 = *v4dhcpParms.useDnsServers;
     }
-    else if (v4dhcpParms.useDnsServers)
+    if (v6dhcpParms.useDnsServers)
     {
-        nextDNS = *v4dhcpParms.useDnsServers;
-    }
-    else if (v6dhcpParms.useDnsServers)
-    {
-        nextDNS = *v6dhcpParms.useDnsServers;
-    }
-    else
-    {
-        nextDNS = ethData.dnsEnabled;
+        nextDNSv6 = *v6dhcpParms.useDnsServers;
     }
 
-    bool nextNTP{};
-    if (v4dhcpParms.useNtpServers && v6dhcpParms.useNtpServers)
+    bool nextNTPv4 = ethData.ntpv4Enabled;
+    bool nextNTPv6 = ethData.ntpv6Enabled;
+    if (v4dhcpParms.useNtpServers)
     {
-        if (*v4dhcpParms.useNtpServers != *v6dhcpParms.useNtpServers)
-        {
-            messages::generalError(asyncResp->res);
-            return;
-        }
-        nextNTP = *v4dhcpParms.useNtpServers;
+        nextNTPv4 = *v4dhcpParms.useNtpServers;
     }
-    else if (v4dhcpParms.useNtpServers)
+    if (v6dhcpParms.useNtpServers)
     {
-        nextNTP = *v4dhcpParms.useNtpServers;
-    }
-    else if (v6dhcpParms.useNtpServers)
-    {
-        nextNTP = *v6dhcpParms.useNtpServers;
-    }
-    else
-    {
-        nextNTP = ethData.ntpEnabled;
+        nextNTPv6 = *v6dhcpParms.useNtpServers;
     }
 
-    bool nextUseDomain{};
-    if (v4dhcpParms.useDomainName && v6dhcpParms.useDomainName)
+    bool nextUsev4Domain = ethData.hostNamev4Enabled;
+    bool nextUsev6Domain = ethData.hostNamev6Enabled;
+    if (v4dhcpParms.useDomainName)
     {
-        if (*v4dhcpParms.useDomainName != *v6dhcpParms.useDomainName)
-        {
-            messages::generalError(asyncResp->res);
-            return;
-        }
-        nextUseDomain = *v4dhcpParms.useDomainName;
+        nextUsev4Domain = *v4dhcpParms.useDomainName;
     }
-    else if (v4dhcpParms.useDomainName)
+    if (v6dhcpParms.useDomainName)
     {
-        nextUseDomain = *v4dhcpParms.useDomainName;
-    }
-    else if (v6dhcpParms.useDomainName)
-    {
-        nextUseDomain = *v6dhcpParms.useDomainName;
-    }
-    else
-    {
-        nextUseDomain = ethData.hostNameEnabled;
+        nextUsev6Domain = *v6dhcpParms.useDomainName;
     }
 
     BMCWEB_LOG_DEBUG("set DHCPEnabled...");
     setDHCPEnabled(ifaceId, "DHCPEnabled", nextv4DHCPState, nextv6DHCPState,
                    asyncResp);
     BMCWEB_LOG_DEBUG("set DNSEnabled...");
-    setDHCPv4Config("DNSEnabled", nextDNS, asyncResp);
+    setDHCPConfig("DNSEnabled", nextDNSv4, asyncResp, ifaceId,
+                  NetworkType::dhcp4);
     BMCWEB_LOG_DEBUG("set NTPEnabled...");
-    setDHCPv4Config("NTPEnabled", nextNTP, asyncResp);
+    setDHCPConfig("NTPEnabled", nextNTPv4, asyncResp, ifaceId,
+                  NetworkType::dhcp4);
     BMCWEB_LOG_DEBUG("set HostNameEnabled...");
-    setDHCPv4Config("HostNameEnabled", nextUseDomain, asyncResp);
+    setDHCPConfig("HostNameEnabled", nextUsev4Domain, asyncResp, ifaceId,
+                  NetworkType::dhcp4);
+    BMCWEB_LOG_DEBUG("set DNSEnabled for dhcp6...");
+    setDHCPConfig("DNSEnabled", nextDNSv6, asyncResp, ifaceId,
+                  NetworkType::dhcp6);
+    BMCWEB_LOG_DEBUG("set NTPEnabled for dhcp6...");
+    setDHCPConfig("NTPEnabled", nextNTPv6, asyncResp, ifaceId,
+                  NetworkType::dhcp6);
+    BMCWEB_LOG_DEBUG("set HostNameEnabled for dhcp6...");
+    setDHCPConfig("HostNameEnabled", nextUsev6Domain, asyncResp, ifaceId,
+                  NetworkType::dhcp6);
 }
 
 inline std::vector<IPv4AddressData>::const_iterator getNextStaticIpEntry(
@@ -1615,16 +1657,15 @@ inline void
     jsonResponse["MACAddress"] = ethData.macAddress;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
-    jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.ntpEnabled;
-    jsonResponse["DHCPv4"]["UseDNSServers"] = ethData.dnsEnabled;
-    jsonResponse["DHCPv4"]["UseDomainName"] = ethData.hostNameEnabled;
-
+    jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.ntpv4Enabled;
+    jsonResponse["DHCPv4"]["UseDNSServers"] = ethData.dnsv4Enabled;
+    jsonResponse["DHCPv4"]["UseDomainName"] = ethData.hostNamev4Enabled;
     jsonResponse["DHCPv6"]["OperatingMode"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, false) ? "Enabled"
                                                                : "Disabled";
-    jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.ntpEnabled;
-    jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.dnsEnabled;
-    jsonResponse["DHCPv6"]["UseDomainName"] = ethData.hostNameEnabled;
+    jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.ntpv6Enabled;
+    jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.dnsv6Enabled;
+    jsonResponse["DHCPv6"]["UseDomainName"] = ethData.hostNamev6Enabled;
     jsonResponse["StatelessAddressAutoConfig"]["IPv6AutoConfigEnabled"] =
         ethData.ipv6AcceptRa;
 
