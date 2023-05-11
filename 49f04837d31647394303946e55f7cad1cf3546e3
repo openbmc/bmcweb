@@ -124,6 +124,24 @@
       "parentUuid": "fcdf69a6_78834582",
       "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddc337a3_7841ef96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-11T20:24:34Z",
+      "side": 1,
+      "message": "\u003e Enabling the aggregation has no functional effect on systems without an EM config\nEnabling aggregation is separate enough in code that it\u0027s unlikely to cause validator problems on systems that don\u0027t have an EM config.\n\nAgreed and ack. But I think \"no functional effect on systems without an EM config\" would be the case for most bmcweb Redfish feature options \n\nFor example, \nEven if you enable /redfish/v1/Managers/bmc/LogServices/Dump, need a backend, otherwise just an empty collection.\nOr if you don\u0027t have a multi-host backend that flag shouldn\u0027t impact you.\nOr if don\u0027t have fans/powersupplies, new-powersubsystem-thermalsubsystem shound\u0027t impact you. I am over simpling a bit, my examples would be a bit more messy than aggregation if enabled without a backend (e.g. Posts to create a dump without a dump backend probably return internal error..?).",
+      "parentUuid": "df97da8c_ecd5e0d5",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
