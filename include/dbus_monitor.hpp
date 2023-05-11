@@ -173,8 +173,8 @@ inline void requestRoutes(App& app)
 
         // These regexes derived on the rules here:
         // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
-        std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
-        std::regex validInterface(
+        static std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
+        static std::regex validInterface(
             "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
 
         for (const auto& thisPath : *paths)
