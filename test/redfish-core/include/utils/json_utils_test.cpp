@@ -121,7 +121,8 @@ TEST(ReadJson, JsonArrayAreUnpackedCorrectly)
     ASSERT_TRUE(readJson(jsonRequest, res, "TestJson", jsonVec));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
-    EXPECT_EQ(jsonVec, R"([{"hello": "yes"}, [{"there": "no"}, "nice"]])"_json);
+    EXPECT_THAT(jsonVec, ElementsAre(R"({"hello": "yes"})"_json,
+                                     R"([{"there": "no"}, "nice"])"_json));
 }
 
 TEST(ReadJson, JsonSubElementValueAreUnpackedCorrectly)
