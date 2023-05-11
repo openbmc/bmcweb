@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utils/json_utils.hpp>
+#include <utils/location_utils.hpp>
 
 #include <variant>
 
@@ -142,39 +143,13 @@ inline void
                     else if (interface == "xyz.openbmc_project.Inventory."
                                           "Decorator.LocationCode")
                     {
-                        crow::connections::systemBus->async_method_call(
-                            [aResp, assemblyIndex](
-                                const boost::system::error_code ec3,
-                                const std::variant<std::string>& property) {
-                            if (ec3)
-                            {
-                                BMCWEB_LOG_DEBUG << "DBUS response error";
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-
-                            nlohmann::json& assemblyArray =
-                                aResp->res.jsonValue["Assemblies"];
-                            nlohmann::json& assemblyData =
-                                assemblyArray.at(assemblyIndex);
-
-                            const std::string* value =
-                                std::get_if<std::string>(&property);
-
-                            if (value == nullptr)
-                            {
-                                // illegal value
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-                            assemblyData["Location"]["PartLocation"]
-                                        ["ServiceLabel"] = *value;
-                            },
-                            serviceName, assembly,
-                            "org.freedesktop.DBus.Properties", "Get",
-                            "xyz.openbmc_project.Inventory.Decorator."
-                            "LocationCode",
-                            "LocationCode");
+                        nlohmann::json::json_pointer locationPtr =
+                            "/Assemblies"_json_pointer / assemblyIndex /
+                                "Location";
+                        location_util::getLocationCode(
+                            aResp, serviceName, assembly, locationPtr);
+                        location_util::getPartLocationContext(
+                            aResp, locationPtr, assembly + "/chassis");
                     }
                 }
             }
