@@ -30,6 +30,10 @@ inline void addLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
+    location_util::getPartLocationContext(
+        asyncResp, "/Slots"_json_pointer / index / "Location",
+        pcieSlotPath + "/chassis");
+
     crow::connections::systemBus->async_method_call(
         [asyncResp, index](const boost::system::error_code ec,
                            const std::variant<std::string>& property) {
