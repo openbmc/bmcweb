@@ -33,6 +33,24 @@
       "message": "LGTM, but I admittedly didn\u0027t look very closely.  Looking for other reviewers to explain if they care more about this kind of stuff.",
       "revId": "89492a157c9cf972b342421e24d41fd382510251",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e769f77_a7f01355",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-11T03:13:53Z",
+      "side": 1,
+      "message": "Agree. Don\u0027t see clang-format failing like it did on other bmcweb commits",
+      "parentUuid": "afa26b0d_a92d14cc",
+      "revId": "89492a157c9cf972b342421e24d41fd382510251",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
