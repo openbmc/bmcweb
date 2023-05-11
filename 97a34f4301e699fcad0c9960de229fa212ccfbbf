@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f4a7cce_677d25c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-11T21:08:11Z",
+      "side": 1,
+      "message": "No problem, it\u0027s a pretty minor bug fix.",
+      "parentUuid": "1473e878_898a84de",
+      "revId": "97a34f4301e699fcad0c9960de229fa212ccfbbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "548e2186_084f3fb4",
@@ -64,6 +82,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19f04cc_f8f2174c",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-11T21:08:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "548e2186_084f3fb4",
+      "range": {
+        "startLine": 170,
+        "startChar": 42,
+        "endLine": 170,
+        "endChar": 44
+      },
+      "revId": "97a34f4301e699fcad0c9960de229fa212ccfbbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c46ff9d1_07adbb9a",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-11T21:08:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dade6c37_346363e0",
+      "range": {
+        "startLine": 170,
+        "startChar": 52,
+        "endLine": 170,
+        "endChar": 56
+      },
+      "revId": "97a34f4301e699fcad0c9960de229fa212ccfbbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f670ce43_395f9b6b",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-10T23:17:25Z",
       "side": 1,
       "message": "This is also a copy.  string_view, or remove entirely?",
+      "range": {
+        "startLine": 171,
+        "startChar": 45,
+        "endLine": 171,
+        "endChar": 56
+      },
+      "revId": "97a34f4301e699fcad0c9960de229fa212ccfbbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "603956d3_38c4d528",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-11T21:08:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f670ce43_395f9b6b",
       "range": {
         "startLine": 171,
         "startChar": 45,
