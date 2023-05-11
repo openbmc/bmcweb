@@ -121,6 +121,24 @@
       "parentUuid": "acafc4c6_c5a9f8d4",
       "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e9d6af7_568a53f7",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-11T14:52:07Z",
+      "side": 1,
+      "message": "On 2nd look, I think this needs to be ResourceNotFound here because what if you don\u0027t have any /powered_by but the user requested to /redfish/v1/Chassis/\u003cstr\u003e/PowerSubsystem/PowerSupplies/\u003cstr\u003e/, that should be a resourceNotFound",
+      "parentUuid": "d2780cc9_acfcf452",
+      "revId": "fb050fabf5f74fac98f6c6abebc41e42225c141f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
