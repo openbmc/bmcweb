@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "786c0f93_eaf03c92",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T18:51:32Z",
+      "side": 1,
+      "message": "LOG_ERROR shouldn\u0027t be here since it will LOG for the resourceNotFound. Put in the if !\u003d EBADR? \n\nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels",
+      "revId": "f0b91d6ee5a35441ed2422f6e487091bde9b20ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc1ae1ef_beb80630",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T18:51:32Z",
+      "side": 1,
+      "message": "more common I see this as (no else). \nUp to you. \n\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR   \u003c\u003c \"DBUS response error for getAssociationEndPoints\"      \n                    messages::internalError(asyncResp-\u003eres);\n                    return;\n                }\n                messages::resourceNotFound(asyncResp-\u003eres, \"PowerSupplies\",\n                                               powerSupplyId);\n                return;",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 17
+      },
+      "revId": "f0b91d6ee5a35441ed2422f6e487091bde9b20ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
