@@ -96,7 +96,6 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
         a /= toUnderlying(TypeCode::Max);
         b /= toUnderlying(TypeCode::Max);
     }
-    return false;
 }
 
 constexpr inline uint64_t getParameterTag(std::string_view url)

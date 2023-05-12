@@ -47,8 +47,6 @@ inline std::optional<HttpVerb> httpVerbFromBoost(boost::beast::http::verb bv)
         default:
             return std::nullopt;
     }
-
-    return std::nullopt;
 }
 
 inline std::string_view httpVerbToString(HttpVerb verb)

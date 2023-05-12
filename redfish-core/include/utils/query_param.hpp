@@ -268,8 +268,6 @@ inline bool getExpandType(std::string_view value, Query& query)
             break;
         default:
             return false;
-
-            break;
     }
     value.remove_prefix(1);
     if (value.empty())
