@@ -280,7 +280,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
 
         if (requestDataQueue.size() <= maxReqQueueSize)
         {
-            requestDataQueue.push(std::pair(id, data));
+            requestDataQueue.emplace(std::pair(id, data));
             checkQueue(true);
         }
         else

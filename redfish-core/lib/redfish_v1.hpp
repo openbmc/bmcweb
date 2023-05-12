@@ -88,7 +88,7 @@ inline void
         nlohmann::json::object_t member;
         member["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "JsonSchemas", schema);
-        members.push_back(std::move(member));
+        members.emplace_back(std::move(member));
     }
     json["Members"] = std::move(members);
     json["Members@odata.count"] = schemas.size();

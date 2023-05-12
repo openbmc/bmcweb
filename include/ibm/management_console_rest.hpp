@@ -450,10 +450,10 @@ inline void
             BMCWEB_LOG_DEBUG << "Lockflag : " << lockFlags;
             BMCWEB_LOG_DEBUG << "SegmentLength : " << segmentLength;
 
-            segInfo.push_back(std::make_pair(lockFlags, segmentLength));
+            segInfo.emplace_back(std::make_pair(lockFlags, segmentLength));
         }
 
-        lockRequestStructure.push_back(make_tuple(
+        lockRequestStructure.emplace_back(make_tuple(
             req.session->uniqueId, req.session->clientId.value_or(""), lockType,
             resourceId, segInfo));
     }
