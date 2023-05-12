@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca5d1b3_03fadc63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-12T17:56:06Z",
+      "side": 1,
+      "message": "Noticed a small issue while testing a related feature.",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e125563b_da839523",
@@ -100,6 +117,40 @@
       "writtenOn": "2023-05-09T16:47:17Z",
       "side": 1,
       "message": "Check if ec is not EBADR and return internal error.",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf91569_38414000",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-12T17:56:06Z",
+      "side": 1,
+      "message": "This is going to always create an empty Contains array and overwrite the array if it already exists.  That\u0027s fine while this is the only way to generate that array.  It won\u0027t play well when we add other methods for adding a Contains/ContainedBy relationship.  One example is adding them via Redfish Aggregation (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57006).  In that scenario it would overwrite the Contains array that holds a satellite Chassis.\n\nCan you change this line to something like?\n\nif (!jValue.is_array()) { jvalue \u003d nlohmann::json::array();}\n\nThat way it won\u0027t create a Contains relationship that\u0027s been generated elsewhere.",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ea0ea0_75e73607",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-12T17:56:06Z",
+      "side": 1,
+      "message": "Change to jValue.size().\n\nThis is related to my earlier comment, but I think needs to happen regardless.  In the previous for loop you won\u0027t add a given downstreamChassis if it\u0027s empty.  When that happens the size of Contains will not be the same as the size of downstreamChassisPath.",
       "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
