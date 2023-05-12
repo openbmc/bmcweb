@@ -35,7 +35,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
         metricReport["MetricValue"] = std::to_string(sensorValue);
         metricReport["Timestamp"] =
             redfish::time_utils::getDateTimeUintMs(timestamp);
-        metricValues.push_back(std::move(metricReport));
+        metricValues.emplace_back(std::move(metricReport));
     }
 
     return metricValues;

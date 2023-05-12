@@ -953,7 +953,7 @@ class RedfishAggregator
                 auto& satMembers = jsonVal["Members"];
                 for (auto& satMem : satMembers)
                 {
-                    members.push_back(std::move(satMem));
+                    members.emplace_back(std::move(satMem));
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     members.size();

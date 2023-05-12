@@ -246,8 +246,8 @@ inline void
             const std::filesystem::path& pathObj = file.path();
             if (std::filesystem::is_regular_file(pathObj))
             {
-                pathObjList.push_back("/ibm/v1/Host/ConfigFiles/" +
-                                      pathObj.filename().string());
+                pathObjList.emplace_back("/ibm/v1/Host/ConfigFiles/" +
+                                         pathObj.filename().string());
             }
         }
     }

@@ -243,7 +243,7 @@ class ConfigFile
                 {
                     session["client_id"] = *p.second->clientId;
                 }
-                sessions.push_back(std::move(session));
+                sessions.emplace_back(std::move(session));
             }
         }
         nlohmann::json& subscriptions = data["subscriptions"];
@@ -286,7 +286,7 @@ class ConfigFile
             subscription["MetricReportDefinitions"] =
                 subValue->metricReportDefinitions;
 
-            subscriptions.push_back(std::move(subscription));
+            subscriptions.emplace_back(std::move(subscription));
         }
         persistentFile << data;
     }

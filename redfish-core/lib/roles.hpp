@@ -139,7 +139,7 @@ inline void requestRoutesRoleCollection(App& app)
                     nlohmann::json::object_t member;
                     member["@odata.id"] = crow::utility::urlFromPieces(
                         "redfish", "v1", "AccountService", "Roles", role);
-                    memberArray.push_back(std::move(member));
+                    memberArray.emplace_back(std::move(member));
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] =

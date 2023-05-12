@@ -1667,7 +1667,7 @@ inline void parseInterfaceData(
             ipv4StaticArray.push_back(ipv4);
         }
 
-        ipv4Array.push_back(std::move(ipv4));
+        ipv4Array.emplace_back(std::move(ipv4));
     }
 
     std::string ipv6GatewayStr = ethData.ipv6DefaultGateway;
@@ -1692,13 +1692,13 @@ inline void parseInterfaceData(
         ipv6["PrefixLength"] = ipv6Config.prefixLength;
         ipv6["AddressOrigin"] = ipv6Config.origin;
 
-        ipv6Array.push_back(std::move(ipv6));
+        ipv6Array.emplace_back(std::move(ipv6));
         if (ipv6Config.origin == "Static")
         {
             nlohmann::json::object_t ipv6Static;
             ipv6Static["Address"] = ipv6Config.address;
             ipv6Static["PrefixLength"] = ipv6Config.prefixLength;
-            ipv6StaticArray.push_back(std::move(ipv6Static));
+            ipv6StaticArray.emplace_back(std::move(ipv6Static));
         }
     }
 }
@@ -1753,7 +1753,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     iface["@odata.id"] = crow::utility::urlFromPieces(
                         "redfish", "v1", "Managers", "bmc",
                         "EthernetInterfaces", ifaceItem);
-                    ifaceArray.push_back(std::move(iface));
+                    ifaceArray.emplace_back(std::move(iface));
                 }
             }
 
@@ -2176,7 +2176,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         "redfish", "v1", "Managers", "bmc",
                         "EthernetInterfaces", rootInterfaceName, "VLANs",
                         ifaceItem);
-                    ifaceArray.push_back(std::move(iface));
+                    ifaceArray.emplace_back(std::move(iface));
                 }
             }
 

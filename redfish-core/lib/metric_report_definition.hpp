@@ -87,7 +87,7 @@ inline void
             nlohmann::json::object_t metric;
             metric["MetricId"] = metricId;
             metric["MetricProperties"] = nlohmann::json::array_t({metadata});
-            metrics.push_back(std::move(metric));
+            metrics.emplace_back(std::move(metric));
         }
     }
 

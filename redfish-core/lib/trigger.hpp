@@ -164,7 +164,7 @@ inline std::optional<nlohmann::json> getMetricReportDefinitions(
         report["@odata.id"] =
             crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
                                          "MetricReportDefinitions", reportId);
-        reports.push_back(std::move(report));
+        reports.emplace_back(std::move(report));
     }
 
     return {std::move(reports)};
