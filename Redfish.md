@@ -837,16 +837,18 @@ other.
 - Description
 - Members
 - Members@odata.count
-- Manufacturer
-- Model
-- PartNumber
-- SerialNumber
-- SparePartNumber
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
+- Manufacturer
+- Model
+- PartNumber
 - PCIeInterface
+  - DeviceType
   - LanesInUse
+  - PCIeType
+- SerialNumber
+- SparePartNumber
 - Status
 
 ### /redfish/v1/Systems/system/Processors/
