@@ -79,6 +79,30 @@
       },
       "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f03e84_241fc92e",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-12T18:36:49Z",
+      "side": 1,
+      "message": "I don\u0027t think so.  Refered is only used for directing cross-origin links, which the BMC should NEVER have.",
+      "parentUuid": "172216e7_c88a7cd6",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
