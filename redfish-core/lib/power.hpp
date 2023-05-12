@@ -221,7 +221,7 @@ inline void requestRoutesPower(App& app)
                                                 "/Power#/PowerControl/0";
                     powerControl["Name"] = "Chassis Power Control";
                     powerControl["MemberId"] = "0";
-                    tempArray.push_back(std::move(powerControl));
+                    tempArray.emplace_back(std::move(powerControl));
                 }
 
                 nlohmann::json& sensorJson = tempArray.back();

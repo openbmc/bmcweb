@@ -105,7 +105,7 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             driveJson["@odata.id"] = crow::utility::urlFromPieces(
                 "redfish", "v1", "Systems", "system", "Storage", "1", "Drives",
                 object.filename());
-            driveArray.push_back(std::move(driveJson));
+            driveArray.emplace_back(std::move(driveJson));
         }
 
         count = driveArray.size();
@@ -731,7 +731,7 @@ inline void chassisDriveCollectionGet(
                     member["@odata.id"] = crow::utility::urlFromPieces(
                         "redfish", "v1", "Chassis", chassisId, "Drives",
                         leafName);
-                    members.push_back(std::move(member));
+                    members.emplace_back(std::move(member));
                     // navigation links will be registered in next patch set
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] = resp.size();

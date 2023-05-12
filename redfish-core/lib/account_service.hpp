@@ -404,7 +404,7 @@ inline void handleRoleMapPatch(
                     nlohmann::json::object_t roleMapEntry;
                     roleMapEntry["LocalRole"] = *localRole;
                     roleMapEntry["RemoteGroup"] = *remoteGroup;
-                    remoteRoleJson.push_back(std::move(roleMapEntry));
+                    remoteRoleJson.emplace_back(std::move(roleMapEntry));
                     },
                     ldapDbusService, dbusObjectPath, ldapPrivMapperInterface,
                     "Create", *remoteGroup,
@@ -1585,7 +1585,7 @@ inline void handleAccountCollectionGet(
                 nlohmann::json::object_t member;
                 member["@odata.id"] = "/redfish/v1/AccountService/Accounts/" +
                                       user;
-                memberArray.push_back(std::move(member));
+                memberArray.emplace_back(std::move(member));
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();

@@ -908,7 +908,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
                 member["@odata.id"] = crow::utility::urlFromPieces(
                     "redfish", "v1", "UpdateService", "FirmwareInventory",
                     swId);
-                members.push_back(std::move(member));
+                members.emplace_back(std::move(member));
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     members.size();
             }
@@ -925,7 +925,7 @@ inline static void
         nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
         item["@odata.id"] = "/redfish/v1/Managers/bmc";
-        relatedItem.push_back(std::move(item));
+        relatedItem.emplace_back(std::move(item));
         aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
     else if (purpose == sw_util::biosPurpose)
@@ -933,7 +933,7 @@ inline static void
         nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
         item["@odata.id"] = "/redfish/v1/Systems/system/Bios";
-        relatedItem.push_back(std::move(item));
+        relatedItem.emplace_back(std::move(item));
         aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
     else

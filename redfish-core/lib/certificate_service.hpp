@@ -725,7 +725,7 @@ inline void
     {
         if (optKeyUsage->empty())
         {
-            optKeyUsage->push_back("ServerAuthentication");
+            optKeyUsage->emplace_back("ServerAuthentication");
         }
         else if (optKeyUsage->size() == 1)
         {
@@ -748,7 +748,7 @@ inline void
     {
         if (optKeyUsage->empty())
         {
-            optKeyUsage->push_back("ClientAuthentication");
+            optKeyUsage->emplace_back("ClientAuthentication");
         }
         else if (optKeyUsage->size() == 1)
         {

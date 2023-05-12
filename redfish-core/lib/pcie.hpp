@@ -129,7 +129,7 @@ static inline void
             nlohmann::json::object_t pcieDevice;
             pcieDevice["@odata.id"] = crow::utility::urlFromPieces(
                 "redfish", "v1", "Systems", "system", "PCIeDevices", devName);
-            pcieDeviceList.push_back(std::move(pcieDevice));
+            pcieDeviceList.emplace_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
         });
@@ -450,7 +450,7 @@ inline void addPCIeFunctionList(
         pcieFunction["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "Systems", "system", "PCIeDevices", pcieDeviceId,
             "PCIeFunctions", std::to_string(functionNum));
-        pcieFunctionList.push_back(std::move(pcieFunction));
+        pcieFunctionList.emplace_back(std::move(pcieFunction));
     }
     res.jsonValue["PCIeFunctions@odata.count"] = pcieFunctionList.size();
 }
