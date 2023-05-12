@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0bb682f_d10dc252",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-12T15:39:58Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "2a872a52_9d1dc291",
+      "revId": "e71644653471d20d4da2224c6b6ee538779a2372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deb4a2f5_261dc26f",
@@ -53,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "028404ba_b8eab66c",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-12T15:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e576e47c_d2ea7136",
+      "revId": "e71644653471d20d4da2224c6b6ee538779a2372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4c209b4_f2bd3ecc",
@@ -66,6 +102,24 @@
       "writtenOn": "2023-04-07T21:03:40Z",
       "side": 1,
       "message": "Pass the ec by reference",
+      "revId": "e71644653471d20d4da2224c6b6ee538779a2372",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "577c9b46_364f365d",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-12T15:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4c209b4_f2bd3ecc",
       "revId": "e71644653471d20d4da2224c6b6ee538779a2372",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
