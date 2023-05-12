@@ -533,7 +533,6 @@ inline void
                             });
                     }
                 }
-                break;
             }
         }
         });
