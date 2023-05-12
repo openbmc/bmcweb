@@ -26,6 +26,10 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                       "mode=block");
     res.addHeader("X-Content-Type-Options", "nosniff");
 
+    // Recommendations from https://owasp.org/www-project-secure-headers/
+    res.addHeader("Referrer-Policy", "no-referrer");
+    res.addHeader("Permissions-Policy", "microphone=(),camera=()");
+
     if (bmcwebInsecureDisableXssPrevention == 0)
     {
         res.addHeader("Content-Security-Policy", "default-src 'none'; "
