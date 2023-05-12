@@ -51,6 +51,23 @@
       "message": "Code seems fine, looking more for why we want this change and why 1.17 (vs 1.15)",
       "revId": "1210f95d3ca7bf729336b7f135c0ba812588660b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e43ec17_99dbdea2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:40:35Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63458 is this same change so more than 1 person wants it",
+      "revId": "1210f95d3ca7bf729336b7f135c0ba812588660b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
