@@ -127,8 +127,9 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
         // Iterate over all retrieved ObjectPaths.
         for (const auto& object : subtree)
         {
-            for (const auto& service : object.second)
+            if (!object.second.empty())
             {
+                const auto service = object.second.front();
                 getIntrusionByService(aResp, service.first, object.first);
                 return;
             }
