@@ -16,6 +16,24 @@
       "message": "Update Redfish.md?",
       "revId": "74378c33caf27d91f0696ee56f00e9d2861eedfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "249badd0_78894359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T19:31:57Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c69bca36_ad8cdfac",
+      "revId": "74378c33caf27d91f0696ee56f00e9d2861eedfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
