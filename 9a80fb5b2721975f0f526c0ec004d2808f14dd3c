@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae610327_b1b6b10a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:50:07Z",
+      "side": 1,
+      "message": "can you add a bit more about what these properties are?",
+      "revId": "9a80fb5b2721975f0f526c0ec004d2808f14dd3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8ee7a8_d9aa4c78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:50:07Z",
+      "side": 1,
+      "message": "Can you link the D-Bus interface review for this?",
+      "revId": "9a80fb5b2721975f0f526c0ec004d2808f14dd3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f933c58_0e73261e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:50:07Z",
+      "side": 1,
+      "message": "But I don\u0027t think all the values pass.\n\nLooking at \n        \"ThrottleCause\": {\n            \"enum\": [\n                \"PowerLimit\",\n                \"ThermalLimit\",\n                \"ClockLimit\",\n                \"Unknown\",\n                \"OEM\"\n            ],",
+      "revId": "9a80fb5b2721975f0f526c0ec004d2808f14dd3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d005fb_b6f2441d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:50:07Z",
+      "side": 1,
+      "message": "Don\u0027t you need to map these from D-Bus to Redfish like https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L620 (and a lot of other places?)",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 36
+      },
+      "revId": "9a80fb5b2721975f0f526c0ec004d2808f14dd3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c266dd08_20a38688",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:50:07Z",
+      "side": 1,
+      "message": "Isn\u0027t this going to have to go to 1_18 for ManagementDetectedFault ?",
+      "revId": "9a80fb5b2721975f0f526c0ec004d2808f14dd3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
