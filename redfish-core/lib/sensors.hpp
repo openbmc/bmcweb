@@ -1134,7 +1134,7 @@ inline void populateFanRedundancy(
                     redundancy["Status"]["Health"] = health;
                     redundancy["Status"]["State"] = "Enabled";
 
-                    jResp.push_back(std::move(redundancy));
+                    jResp.emplace_back(std::move(redundancy));
                     });
                 });
         }
@@ -2386,7 +2386,7 @@ inline void getSensorData(
                             url.set_fragment((""_json_pointer / fieldName / "0")
                                                  .to_string());
                             power["@odata.id"] = std::move(url);
-                            tempArray.push_back(std::move(power));
+                            tempArray.emplace_back(std::move(power));
                         }
                         sensorJson = &(tempArray.back());
                     }
@@ -2415,7 +2415,7 @@ inline void getSensorData(
                             "redfish", "v1", "Chassis",
                             sensorsAsyncResp->chassisId,
                             sensorsAsyncResp->chassisSubNode, sensorId);
-                        tempArray.push_back(std::move(member));
+                        tempArray.emplace_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
                     else
@@ -2428,7 +2428,7 @@ inline void getSensorData(
                         url.set_fragment(
                             (""_json_pointer / fieldName).to_string());
                         member["@odata.id"] = std::move(url);
-                        tempArray.push_back(std::move(member));
+                        tempArray.emplace_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
                 }
@@ -2796,7 +2796,7 @@ inline void getChassisCallback(
         member["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "Chassis", chassisId, chassisSubNode, id);
 
-        entriesArray.push_back(std::move(member));
+        entriesArray.emplace_back(std::move(member));
     }
 
     asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();

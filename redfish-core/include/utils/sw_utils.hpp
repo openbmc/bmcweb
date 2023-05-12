@@ -199,7 +199,7 @@ inline void
                         member["@odata.id"] = crow::utility::urlFromPieces(
                             "redfish", "v1", "UpdateService",
                             "FirmwareInventory", swId);
-                        softwareImageMembers.push_back(std::move(member));
+                        softwareImageMembers.emplace_back(std::move(member));
                         aResp->res
                             .jsonValue["Links"]["SoftwareImages@odata.count"] =
                             softwareImageMembers.size();

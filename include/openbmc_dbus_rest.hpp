@@ -144,7 +144,7 @@ inline void
         nlohmann::json::object_t object;
         object["path"] = objectPath;
 
-        transaction->res.jsonValue["objects"].push_back(std::move(object));
+        transaction->res.jsonValue["objects"].emplace_back(std::move(object));
 
         tinyxml2::XMLDocument doc;
 
@@ -1356,7 +1356,7 @@ inline void handleMethodResponse(
     {
         for (auto& obj : data)
         {
-            transaction->methodResponse.push_back(std::move(obj));
+            transaction->methodResponse.emplace_back(std::move(obj));
         }
         return;
     }
@@ -1366,13 +1366,13 @@ inline void handleMethodResponse(
         // They are different types. May as well turn them into an array
         nlohmann::json j = std::move(transaction->methodResponse);
         transaction->methodResponse = nlohmann::json::array();
-        transaction->methodResponse.push_back(std::move(j));
-        transaction->methodResponse.push_back(std::move(data));
+        transaction->methodResponse.emplace_back(std::move(j));
+        transaction->methodResponse.emplace_back(std::move(data));
         transaction->convertedToArray = true;
     }
     else
     {
-        transaction->methodResponse.push_back(std::move(data));
+        transaction->methodResponse.emplace_back(std::move(data));
     }
 }
 
@@ -2199,7 +2199,7 @@ inline void
                 {
                     nlohmann::json::object_t interfaceObj;
                     interfaceObj["name"] = ifaceName;
-                    interfacesArray.push_back(std::move(interfaceObj));
+                    interfacesArray.emplace_back(std::move(interfaceObj));
                 }
 
                 interface = interface->NextSiblingElement("interface");
@@ -2291,7 +2291,7 @@ inline void
                             thisArg[fieldName] = fieldValue;
                         }
                     }
-                    argsArray.push_back(std::move(thisArg));
+                    argsArray.emplace_back(std::move(thisArg));
                     arg = arg->NextSiblingElement("arg");
                 }
 
@@ -2314,7 +2314,7 @@ inline void
                     object["uri"] = std::move(uri);
                     object["args"] = argsArray;
 
-                    methodsArray.push_back(std::move(object));
+                    methodsArray.emplace_back(std::move(object));
                 }
                 methods = methods->NextSiblingElement("method");
             }
@@ -2344,7 +2344,7 @@ inline void
                     nlohmann::json::object_t object;
                     object["name"] = name;
                     object["args"] = argsArray;
-                    signalsArray.push_back(std::move(object));
+                    signalsArray.emplace_back(std::move(object));
                 }
 
                 signals = signals->NextSiblingElement("signal");
@@ -2461,7 +2461,7 @@ inline void requestRoutes(App& app)
                 {
                     nlohmann::json::object_t object;
                     object["name"] = name;
-                    objectsSub.push_back(std::move(object));
+                    objectsSub.emplace_back(std::move(object));
                 }
             }
         };

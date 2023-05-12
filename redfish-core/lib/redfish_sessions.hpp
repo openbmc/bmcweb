@@ -128,7 +128,7 @@ inline nlohmann::json getSessionCollectionMembers()
         nlohmann::json::object_t session;
         session["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "SessionService", "Sessions", *uid);
-        ret.push_back(std::move(session));
+        ret.emplace_back(std::move(session));
     }
     return ret;
 }

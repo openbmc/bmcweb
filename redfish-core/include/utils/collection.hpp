@@ -80,7 +80,7 @@ inline void
             crow::utility::appendUrlPieces(url, leaf);
             nlohmann::json::object_t member;
             member["@odata.id"] = std::move(url);
-            members.push_back(std::move(member));
+            members.emplace_back(std::move(member));
         }
         aResp->res.jsonValue["Members@odata.count"] = members.size();
         });
