@@ -124,31 +124,30 @@ class Logger
 };
 } // namespace crow
 
+// Disable clang-tidy warnings about unused macros.
+// NOLINTBEGIN(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
+
 // The logging functions currently use macros.  Now that we have c++20, ideally
 // they'd use source_location with fixed functions, but for the moment, disable
 // the check.
-
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_CRITICAL                                                    \
     if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))   \
     crow::Logger("CRITICAL", __FILE__, __LINE__)
 
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_ERROR                                                       \
     if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Error))      \
     crow::Logger("ERROR", __FILE__, __LINE__)
 
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_WARNING                                                     \
     if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Warning))    \
     crow::Logger("WARNING", __FILE__, __LINE__)
 
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_INFO                                                        \
     if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Info))       \
     crow::Logger("INFO", __FILE__, __LINE__)
 
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BMCWEB_LOG_DEBUG                                                       \
     if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Debug))      \
     crow::Logger("DEBUG", __FILE__, __LINE__)
+
+// NOLINTEND(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
