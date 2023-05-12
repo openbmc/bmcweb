@@ -82,12 +82,15 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
  * @brief Attempt username/password authentication via PAM.
  * @param username The provided username aka account name.
  * @param password The provided password.
+ * @param rhost The name of the remote host.
  * @returns PAM error code or PAM_SUCCESS for success. */
 inline int pamAuthenticateUser(std::string_view username,
-                               std::string_view password)
+                               std::string_view password,
+                               std::string_view rhost)
 {
     std::string userStr(username);
     std::string passStr(password);
+    std::string rhostStr(rhost);
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     char* passStrNoConst = const_cast<char*>(passStr.c_str());
@@ -97,6 +100,13 @@ inline int pamAuthenticateUser(std::string_view username,
 
     int retval = pam_start("webserver", userStr.c_str(), &localConversation,
                            &localAuthHandle);
+    if (retval != PAM_SUCCESS)
+    {
+        return retval;
+    }
+
+    retval = pam_set_item(localAuthHandle, PAM_RHOST,
+                          reinterpret_cast<const void *>(rhostStr.c_str()));
     if (retval != PAM_SUCCESS)
     {
         return retval;

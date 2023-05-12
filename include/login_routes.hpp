@@ -169,7 +169,8 @@ inline void requestRoutes(App& app)
 
         if (!username.empty() && !password.empty())
         {
-            int pamrc = pamAuthenticateUser(username, password);
+            int pamrc = pamAuthenticateUser(username, password,
+                                            req.ipAddress.to_string());
             bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
             if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
             {

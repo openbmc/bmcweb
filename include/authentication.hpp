@@ -70,7 +70,7 @@ static std::shared_ptr<persistent_data::UserSession>
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] User IPAddress: "
                      << clientIp.to_string();
 
-    int pamrc = pamAuthenticateUser(user, pass);
+    int pamrc = pamAuthenticateUser(user, pass, clientIp.to_string());
     bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
     if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
     {
