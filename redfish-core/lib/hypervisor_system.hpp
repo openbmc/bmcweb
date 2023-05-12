@@ -825,7 +825,7 @@ inline void handleHypervisorSystemGet(
         nlohmann::json::array_t managedBy;
         nlohmann::json::object_t manager;
         manager["@odata.id"] = "/redfish/v1/Managers/bmc";
-        managedBy.push_back(std::move(manager));
+        managedBy.emplace_back(std::move(manager));
         asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
         asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
             "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
@@ -998,9 +998,9 @@ inline void handleHypervisorResetActionGet(
         parameter["Required"] = true;
         parameter["DataType"] = "String";
         nlohmann::json::array_t allowed;
-        allowed.push_back("On");
+        allowed.emplace_back("On");
         parameter["AllowableValues"] = std::move(allowed);
-        parameters.push_back(std::move(parameter));
+        parameters.emplace_back(std::move(parameter));
         asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
         });
 }

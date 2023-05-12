@@ -434,8 +434,7 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
         // Lock table is empty, so we are safe to add the lockrecords
         // as there will be no conflict
         BMCWEB_LOG_DEBUG << "Lock table is empty, so adding the lockrecords";
-        lockTable.emplace(std::pair<uint32_t, LockRequests>(
-            thisTransactionId, refLockRequestStructure));
+        lockTable.emplace(thisTransactionId, refLockRequestStructure);
 
         return std::make_pair(false, thisTransactionId);
     }

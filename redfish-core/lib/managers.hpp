@@ -259,12 +259,12 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         parameter["DataType"] = "String";
 
         nlohmann::json::array_t allowableValues;
-        allowableValues.push_back("GracefulRestart");
-        allowableValues.push_back("ForceRestart");
+        allowableValues.emplace_back("GracefulRestart");
+        allowableValues.emplace_back("ForceRestart");
         parameter["AllowableValues"] = std::move(allowableValues);
 
         nlohmann::json::array_t parameters;
-        parameters.push_back(std::move(parameter));
+        parameters.emplace_back(std::move(parameter));
 
         asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
         });
@@ -1992,7 +1992,7 @@ inline void requestRoutesManager(App& app)
         nlohmann::json::array_t managerForServers;
         nlohmann::json::object_t manager;
         manager["@odata.id"] = "/redfish/v1/Systems/system";
-        managerForServers.push_back(std::move(manager));
+        managerForServers.emplace_back(std::move(manager));
 
         asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
             std::move(managerForServers);
@@ -2026,7 +2026,7 @@ inline void requestRoutesManager(App& app)
             boost::urls::url chassiUrl = crow::utility::urlFromPieces(
                 "redfish", "v1", "Chassis", chassisId);
             managerObj["@odata.id"] = chassiUrl;
-            managerForChassis.push_back(std::move(managerObj));
+            managerForChassis.emplace_back(std::move(managerObj));
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
                 std::move(managerForChassis);
             aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =

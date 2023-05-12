@@ -81,7 +81,7 @@ inline void populateAggregationSourceCollection(
         member["@odata.id"] =
             crow::utility::urlFromPieces("redfish", "v1", "AggregationService",
                                          "AggregationSources", sat.first);
-        members.push_back(std::move(member));
+        members.emplace_back(std::move(member));
     }
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
     asyncResp->res.jsonValue["Members"] = std::move(members);

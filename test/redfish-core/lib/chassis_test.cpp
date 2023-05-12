@@ -33,9 +33,9 @@ void assertChassisResetActionInfoGet(const std::string& chassisId,
     parameter["Required"] = true;
     parameter["DataType"] = "String";
     nlohmann::json::array_t allowed;
-    allowed.push_back("PowerCycle");
+    allowed.emplace_back("PowerCycle");
     parameter["AllowableValues"] = std::move(allowed);
-    parameters.push_back(std::move(parameter));
+    parameters.emplace_back(std::move(parameter));
 
     EXPECT_EQ(res.jsonValue["Parameters"], parameters);
 }

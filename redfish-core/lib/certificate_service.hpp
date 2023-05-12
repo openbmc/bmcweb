@@ -427,7 +427,7 @@ inline void handleCertificateServiceGet(
     replace["target"] =
         "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate";
     nlohmann::json::array_t allowed;
-    allowed.push_back("PEM");
+    allowed.emplace_back("PEM");
     replace["CertificateType@Redfish.AllowableValues"] = std::move(allowed);
     actions["#CertificateService.GenerateCSR"]["target"] =
         "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR";
