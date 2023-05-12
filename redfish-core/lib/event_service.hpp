@@ -211,7 +211,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
             nlohmann::json::object_t member;
             member["@odata.id"] = "/redfish/v1/EventService/Subscriptions/" +
                                   id;
-            memberArray.push_back(std::move(member));
+            memberArray.emplace_back(std::move(member));
         }
         });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")

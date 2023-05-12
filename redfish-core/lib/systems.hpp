@@ -2770,14 +2770,14 @@ inline void requestRoutesSystemsCollection(App& app)
 
             nlohmann::json::object_t system;
             system["@odata.id"] = "/redfish/v1/Systems/system";
-            ifaceArray.push_back(std::move(system));
+            ifaceArray.emplace_back(std::move(system));
             count = ifaceArray.size();
             if (!ec2)
             {
                 BMCWEB_LOG_DEBUG << "Hypervisor is available";
                 nlohmann::json::object_t hypervisor;
                 hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
-                ifaceArray.push_back(std::move(hypervisor));
+                ifaceArray.emplace_back(std::move(hypervisor));
                 count = ifaceArray.size();
             }
             });

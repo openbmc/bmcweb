@@ -510,7 +510,7 @@ inline void parseInterfaceData(
             {
                 ipv4StaticArray.push_back(ipv4);
             }
-            ipv4Array.push_back(std::move(ipv4));
+            ipv4Array.emplace_back(std::move(ipv4));
         }
     }
 }
@@ -764,7 +764,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
             ethIface["@odata.id"] = crow::utility::urlFromPieces(
                 "redfish", "v1", "Systems", "hypervisor", "EthernetInterfaces",
                 name);
-            ifaceArray.push_back(std::move(ethIface));
+            ifaceArray.emplace_back(std::move(ethIface));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
         });

@@ -542,7 +542,7 @@ inline void
                                     nlohmann::json::object_t step;
                                     step["Target"] = (*keys)[ii];
                                     step["Output"] = (*values)[ii];
-                                    steps.push_back(std::move(step));
+                                    steps.emplace_back(std::move(step));
                                 }
                             }
                         }
@@ -592,7 +592,7 @@ inline void
                                      itemCopy)
                                         .to_string());
                                 input["@odata.id"] = std::move(managerUrl);
-                                data.push_back(std::move(input));
+                                data.emplace_back(std::move(input));
                             }
                         }
                         // todo(james): may never happen, but this

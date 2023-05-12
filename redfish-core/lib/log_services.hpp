@@ -563,7 +563,7 @@ inline void
                                                  "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
-            entriesArray.push_back(std::move(thisEntry));
+            entriesArray.emplace_back(std::move(thisEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
         },
@@ -1102,25 +1102,25 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
         nlohmann::json::object_t eventLog;
         eventLog["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog";
-        logServiceArray.push_back(std::move(eventLog));
+        logServiceArray.emplace_back(std::move(eventLog));
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
         nlohmann::json::object_t dumpLog;
         dumpLog["@odata.id"] = "/redfish/v1/Systems/system/LogServices/Dump";
-        logServiceArray.push_back(std::move(dumpLog));
+        logServiceArray.emplace_back(std::move(dumpLog));
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         nlohmann::json::object_t crashdump;
         crashdump["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump";
-        logServiceArray.push_back(std::move(crashdump));
+        logServiceArray.emplace_back(std::move(crashdump));
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
         nlohmann::json::object_t hostlogger;
         hostlogger["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/HostLogger";
-        logServiceArray.push_back(std::move(hostlogger));
+        logServiceArray.emplace_back(std::move(hostlogger));
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -1148,7 +1148,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                     member["@odata.id"] =
                         "/redfish/v1/Systems/system/LogServices/PostCodes";
 
-                    logServiceArrayLocal.push_back(std::move(member));
+                    logServiceArrayLocal.emplace_back(std::move(member));
 
                     asyncResp->res.jsonValue["Members@odata.count"] =
                         logServiceArrayLocal.size();
@@ -1443,7 +1443,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                     continue;
                 }
 
-                logEntryArray.push_back(std::move(bmcLogEntry));
+                logEntryArray.emplace_back(std::move(bmcLogEntry));
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
@@ -2203,7 +2203,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                 nlohmann::json::object_t hostLogEntry;
                 fillHostLoggerEntryJson(std::to_string(skip + i), logEntries[i],
                                         hostLogEntry);
-                logEntryArray.push_back(std::move(hostLogEntry));
+                logEntryArray.emplace_back(std::move(hostLogEntry));
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = logCount;
@@ -2305,7 +2305,7 @@ inline void handleBMCLogServicesCollectionGet(
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
     nlohmann::json::object_t journal;
     journal["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/Journal";
-    logServiceArray.push_back(std::move(journal));
+    logServiceArray.emplace_back(std::move(journal));
 #endif
 
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
@@ -2338,14 +2338,14 @@ inline void handleBMCLogServicesCollectionGet(
                 nlohmann::json::object_t member;
                 member["@odata.id"] =
                     "/redfish/v1/Managers/bmc/LogServices/Dump";
-                logServiceArrayLocal.push_back(std::move(member));
+                logServiceArrayLocal.emplace_back(std::move(member));
             }
             else if (path == "/xyz/openbmc_project/dump/faultlog")
             {
                 nlohmann::json::object_t member;
                 member["@odata.id"] =
                     "/redfish/v1/Managers/bmc/LogServices/FaultLog";
-                logServiceArrayLocal.push_back(std::move(member));
+                logServiceArrayLocal.emplace_back(std::move(member));
             }
         }
 
@@ -2529,7 +2529,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            logEntryArray.push_back(std::move(bmcJournalLogEntry));
+            logEntryArray.emplace_back(std::move(bmcJournalLogEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
         if (skip + top < entryCount)
@@ -3810,7 +3810,7 @@ static bool fillPostCodeEntry(
         }
 
         nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
-        logEntryArray.push_back(std::move(bmcLogEntry));
+        logEntryArray.emplace_back(std::move(bmcLogEntry));
     }
 
     // Return value is always false when querying multiple entries

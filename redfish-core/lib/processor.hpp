@@ -880,7 +880,7 @@ inline void
                 nlohmann::json::object_t turbo;
                 turbo["ActiveCoreCount"] = coreCount;
                 turbo["MaxSpeedMHz"] = turboSpeed;
-                turboArray.push_back(std::move(turbo));
+                turboArray.emplace_back(std::move(turbo));
             }
         }
 
@@ -895,7 +895,7 @@ inline void
                 speed["CoreCount"] = coreList.size();
                 speed["CoreIDs"] = coreList;
                 speed["BaseSpeedMHz"] = baseSpeedMhz;
-                baseSpeedArray.push_back(std::move(speed));
+                baseSpeedArray.emplace_back(std::move(speed));
             }
         }
         });
