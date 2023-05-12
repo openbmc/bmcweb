@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aff5b471_9f2c571e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T01:08:33Z",
+      "side": 1,
+      "message": "I am good reverting this.\nI have seen this core dump but was not able to verify this is the commit that caused it. Patrick1 reported in discord this commit is causing the core.",
+      "revId": "8e83a8bc00e8419b82421671dd155ba417983af5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
