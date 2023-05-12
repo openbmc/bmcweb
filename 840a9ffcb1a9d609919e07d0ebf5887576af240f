@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2cd0d2_cb7af48a",
+        "filename": "http/verb.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-12T17:38:34Z",
+      "side": 0,
+      "message": "Every damn version clang is schizophrenic about what it wants in these types of cases.  This was definitely added at one point to make clang happy.  Oh well.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "840a9ffcb1a9d609919e07d0ebf5887576af240f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
