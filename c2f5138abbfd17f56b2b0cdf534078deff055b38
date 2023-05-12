@@ -140,6 +140,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60ad15b5_38a105d6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-12T18:01:45Z",
+      "side": 1,
+      "message": "That last line was supposed to read \"...it won\u0027t delete a Contains relationship...\".",
+      "parentUuid": "cbf91569_38414000",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0ea0ea0_75e73607",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
