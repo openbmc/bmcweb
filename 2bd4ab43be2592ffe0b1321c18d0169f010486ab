@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7981225f_f00a2c44",
+        "filename": "include/json_html_serializer.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-12T17:32:16Z",
+      "side": 0,
+      "message": "Gotta love nlohmann......",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 22
+      },
+      "revId": "2bd4ab43be2592ffe0b1321c18d0169f010486ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
