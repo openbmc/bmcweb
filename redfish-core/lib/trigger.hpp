@@ -107,7 +107,7 @@ inline std::optional<nlohmann::json::array_t>
         trigger["Severity"] = severity;
         trigger["DwellTime"] = *duration;
         trigger["Value"] = value;
-        triggers.push_back(std::move(trigger));
+        triggers.emplace_back(std::move(trigger));
     }
 
     return {std::move(triggers)};

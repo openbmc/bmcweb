@@ -1796,8 +1796,8 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2)
     ret["MessageId"] = "OpenBMC.0.2.InvalidUpload";
     ret["Message"] = std::move(msg);
     nlohmann::json::array_t args;
-    args.push_back(arg1);
-    args.push_back(arg2);
+    args.emplace_back(arg1);
+    args.emplace_back(arg2);
     ret["MessageArgs"] = std::move(args);
     ret["MessageSeverity"] = "Warning";
     ret["Resolution"] = "None.";

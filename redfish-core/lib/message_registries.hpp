@@ -120,7 +120,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     asyncResp->res.jsonValue["Id"] = header->registryPrefix;
     asyncResp->res.jsonValue["Registry"] = header->id;
     nlohmann::json::array_t languages;
-    languages.push_back("en");
+    languages.emplace_back("en");
     asyncResp->res.jsonValue["Languages@odata.count"] = languages.size();
     asyncResp->res.jsonValue["Languages"] = std::move(languages);
     nlohmann::json::array_t locationMembers;
