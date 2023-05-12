@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a620f38_f07b1c90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T17:39:57Z",
+      "side": 1,
+      "message": "Let\u0027s go with Ed\u0027s patch since it was first. \nThis one needs a unit test change \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55420",
+      "revId": "6baba9be7b22be0fc09a1c1cae5f169f426402a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
