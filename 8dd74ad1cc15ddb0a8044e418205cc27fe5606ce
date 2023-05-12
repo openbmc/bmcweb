@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a95799_6665e440",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T16:48:09Z",
+      "side": 1,
+      "message": "There are a lot more Permission-Policy values, you just figured, start here?\nhttps://www.permissionspolicy.com/",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 13,
+        "endChar": 73
+      },
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "081a355e_ba20d84e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T16:48:09Z",
+      "side": 1,
+      "message": "Did you test on webui-vue?",
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c6fb294_1c6beeba",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T16:48:09Z",
+      "side": 1,
+      "message": "Okay, so this is overwriting the defaults with something more strict. \n```\nIf no referrer policy is set, the browser\u0027s default policy will be used.\nBrowser\tDefault Referrer-Policy / Behavior\n\nChrome\tThe default is strict-origin-when-cross-origin.\n\nFirefox\tThe default is strict-origin-when-cross-origin.\nStarting from version 93, for Strict Tracking Protection and Private Browsing users: the less restrictive referrer policies no-referrer-when-downgrade, origin-when-cross-origin, and unsafe-url are ignored for cross-site requests, meaning that the referrer is always trimmed for cross-site requests, regardless of the website\u0027s policy.\n\nEdge\tThe default is strict-origin-when-cross-origin.\n\nSafari\tThe default is similar to strict-origin-when-cross-origin, with some specificities. See Preventing Tracking Prevention Tracking for details.\n```",
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172216e7_c88a7cd6",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-12T16:48:09Z",
+      "side": 1,
+      "message": "We don\u0027t need Referrer-Policy for links or subresources?",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
