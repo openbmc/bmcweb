@@ -20,6 +20,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "health.hpp"
+#include "human_sort.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/ip_utils.hpp"
@@ -864,6 +865,10 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                 }
             }
         }
+
+        std::sort(ifaceList.begin(), ifaceList.end(),
+                  AlphanumLess<std::string>());
+
         // Finally make a callback with useful data
         callback(true, ifaceList);
         });
