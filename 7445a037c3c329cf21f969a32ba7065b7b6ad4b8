@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "093a2f48_43f67494",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "Please try to fill these out correctly.",
+      "range": {
+        "startLine": 748,
+        "startChar": 51,
+        "endLine": 748,
+        "endChar": 56
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceee7114_09a8340a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "Please use std::filesystem::path::operator\\ for this so that we don\u0027t have problems in the case of unescapable paths.",
+      "range": {
+        "startLine": 753,
+        "startChar": 4,
+        "endLine": 753,
+        "endChar": 36
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9180dde9_286ebe25",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "Missing range check.",
+      "range": {
+        "startLine": 762,
+        "startChar": 44,
+        "endLine": 762,
+        "endChar": 49
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9add2e6f_ed589cd6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "Technically this will never have a problem, but you\u0027re taking a reference to an rvalue, which is non-intuitive.  Please remove the \u0026",
+      "range": {
+        "startLine": 762,
+        "startChar": 21,
+        "endLine": 762,
+        "endChar": 22
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb971d92_655a2ae0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "This is fine as written, because we do this everywhere, but at some point I\u0027d like to see this rewritten with an RAII object like:\nhttps://www.boost.org/doc/libs/master/libs/beast/doc/html/beast/ref/boost__beast__http__file_body.html",
+      "range": {
+        "startLine": 764,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 46
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3510b177_91b353cf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "Not sure how pedantic I want to be here, but technically this is off_t",
+      "range": {
+        "startLine": 772,
+        "startChar": 4,
+        "endLine": 772,
+        "endChar": 17
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e228b3_ff67fb7e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "secure coding guidelines would say this needs to be \u003c 0 to avoid an underflow condition.",
+      "range": {
+        "startLine": 773,
+        "startChar": 8,
+        "endLine": 773,
+        "endChar": 18
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46f2b2df_97f69714",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "nit (change if you want).  This can be deduplicated with line 805;  Once the read is done, you can close it.",
+      "range": {
+        "startLine": 808,
+        "startChar": 0,
+        "endLine": 808,
+        "endChar": 14
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d857f491_63376a49",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "We\u0027re making several copies here.  Why aren\u0027t we just reading it directly into body?\n\nsomething like:\nres.body().resize(\u0027\\0\u0027, size);\nread(fd, res.body().data(), res.body().size());",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 32
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc3910e0_ce9fdc86",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:28:04Z",
+      "side": 1,
+      "message": "If this is the only use, why do we even have the arg?  Are we planning on reusing this method later?",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
