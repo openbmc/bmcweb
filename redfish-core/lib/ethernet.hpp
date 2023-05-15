@@ -864,6 +864,10 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                 }
             }
         }
+
+        std::sort(ifaceList.begin(), ifaceList.end(),
+                  AlphanumLess<std::string>());
+
         // Finally make a callback with useful data
         callback(true, ifaceList);
         });
