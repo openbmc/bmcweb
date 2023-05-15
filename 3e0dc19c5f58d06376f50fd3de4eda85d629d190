@@ -105,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd31a7a_f860d3c3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T16:45:53Z",
+      "side": 1,
+      "message": "I auto generated this change for adding includes, and it did a poor job in some cases, which I fixed by hand, but then accidentally got reverted.  My bad.",
+      "parentUuid": "e1c78410_e2b98b38",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2baa70f8_41e942f8",
@@ -118,6 +136,24 @@
       "writtenOn": "2023-05-10T19:03:58Z",
       "side": 1,
       "message": "?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "836d73b7_d80141b6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T16:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2baa70f8_41e942f8",
       "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +175,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c496fea_4bfd8842",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T16:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5817fcf4_9f31cabc",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6de74e7_00d7f8fb",
@@ -156,6 +210,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "add175cf_9a8f894a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T16:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6de74e7_00d7f8fb",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f8a5f3a_861bd16c",
@@ -169,6 +241,24 @@
       "writtenOn": "2023-05-10T19:03:58Z",
       "side": 1,
       "message": "Huh why here?",
+      "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "765d5f98_6dc34338",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T16:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f8a5f3a_861bd16c",
       "revId": "3e0dc19c5f58d06376f50fd3de4eda85d629d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
