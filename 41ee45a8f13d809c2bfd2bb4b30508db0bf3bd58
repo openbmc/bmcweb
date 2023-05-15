@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0e7cc87_c165cdfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-15T17:55:48Z",
+      "side": 1,
+      "message": "I guess I would prefer you call these commits out. I think it helps with history. https://github.com/openbmc/bmcweb/commit/913e773241d66646eb7d292bc39e2067c08f11b1 added these in the wrong spot. https://github.com/openbmc/bmcweb/commit/62cd45af311e7741064c114581ba34186d6e508c missed the pcietype\nhttps://github.com/openbmc/bmcweb/commit/f5c9f8bda365b90c978a95738b66419ad21df27f missed DeviceType but maybe that was before it was a requirement\nI think all you need is:\n```\n913e7732 added the asset properties in the wrong spot.\n62cd45af added the pcietype property\nf5c9f8bd added the deviceType\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "41ee45a8f13d809c2bfd2bb4b30508db0bf3bd58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
