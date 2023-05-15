@@ -33,6 +33,24 @@
       "message": "should be warning here",
       "revId": "c28865bd8c4c5e1b61ce0701c4ecfa082327efe3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "333f99c0_bb2551cb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-15T12:55:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac11f5b9_62be28bd",
+      "revId": "c28865bd8c4c5e1b61ce0701c4ecfa082327efe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
