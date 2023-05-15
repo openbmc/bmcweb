@@ -69,6 +69,24 @@
       "parentUuid": "090f42d3_157c62bf",
       "revId": "6e1d0d44d254e717ec2307b9b726065eef8276bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b401d857_fc2fa80c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-15T13:46:24Z",
+      "side": 1,
+      "message": "But this is an enum out on D-Bus, it should really never be empty.. If it is empty, I think that is an error",
+      "parentUuid": "990ed8bb_9ae9b884",
+      "revId": "6e1d0d44d254e717ec2307b9b726065eef8276bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
