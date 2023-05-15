@@ -16,6 +16,24 @@
       "message": "So https://gerrit.openbmc.org/c/openbmc/openbmc/+/61582/15/meta-phosphor/recipes-phosphor/users/phosphor-user-manager/upgrade_hostconsole_group.sh runs, so all old users should maintain access? I.e. there is not impacts to existing users",
       "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "587e9a61_a87b8a02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-15T17:36:40Z",
+      "side": 1,
+      "message": "correct. The upgrade script will all existing user from priv-admin group to this new group.",
+      "parentUuid": "fff92e95_c77d33b6",
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
