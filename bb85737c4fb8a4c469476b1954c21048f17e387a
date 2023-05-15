@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "482e50ce_5c64bd6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-15T18:56:29Z",
+      "side": 1,
+      "message": "Always like to see us moving more towards C++ Standard Library!",
+      "revId": "bb85737c4fb8a4c469476b1954c21048f17e387a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "444b4d2e_0a07e15f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-15T18:56:29Z",
+      "side": 1,
+      "message": "This is just a lot cleaner too",
+      "revId": "bb85737c4fb8a4c469476b1954c21048f17e387a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
