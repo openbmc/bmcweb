@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cd9638d_62f9b8e6",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-15T20:20:08Z",
+      "side": 1,
+      "message": "why change this to push_back? Is it because of clang-format-16?\n\nHow it worked in other places like\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62818/8/redfish-core/lib/redfish_v1.hpp#93",
+      "revId": "df6ae0fb537b0c775ec7de9a54599b2c70ff22c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
