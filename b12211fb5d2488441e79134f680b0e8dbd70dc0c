@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1e52fe4_4a7e6e0b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-15T17:15:29Z",
+      "side": 1,
+      "message": "Why is this path hardcoded?  It should be coming from dbus.",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 46
+      },
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3980cf73_3f7233a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
