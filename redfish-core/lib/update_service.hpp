@@ -722,15 +722,6 @@ inline void requestRoutesUpdateService(App& app)
         asyncResp->res.jsonValue["Description"] = "Service for Software Update";
         asyncResp->res.jsonValue["Name"] = "Update Service";
 
-#ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_OLD_POST_URL
-        // See note about later on in this file about why this is neccesary
-        // This is "Wrong" per the standard, but is done temporarily to
-        // avoid noise in failing tests as people transition to having this
-        // option disabled
-        asyncResp->res.addHeader(boost::beast::http::field::allow,
-                                 "GET, PATCH, HEAD");
-#endif
-
         asyncResp->res.jsonValue["HttpPushUri"] =
             "/redfish/v1/UpdateService/update";
         asyncResp->res.jsonValue["MultipartHttpPushUri"] =
@@ -828,27 +819,6 @@ inline void requestRoutesUpdateService(App& app)
         }
         });
 
-// The "old" behavior of the update service URI causes redfish-service validator
-// failures when the Allow header is supported, given that in the spec,
-// UpdateService does not allow POST.  in openbmc, we unfortunately reused that
-// resource as our HttpPushUri as well.  A number of services, including the
-// openbmc tests, and documentation have hardcoded that erroneous API, instead
-// of relying on HttpPushUri as the spec requires.  This option will exist
-// temporarily to allow the old behavior until Q4 2022, at which time it will be
-// removed.
-#ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_OLD_POST_URL
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::postUpdateService)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.addHeader(
-            boost::beast::http::field::warning,
-            "299 - \"POST to /redfish/v1/UpdateService is deprecated. Use "
-            "the value contained within HttpPushUri.\"");
-        handleUpdateServicePost(app, req, asyncResp);
-        });
-#endif
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
