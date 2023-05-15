@@ -143,7 +143,25 @@ struct Response
 
     void preparePayload()
     {
-        stringResponse->prepare_payload();
+        // This code is a throw-free equivalent to
+        // beast::http::message::prepare_payload
+        boost::optional<uint64_t> n = stringResponse->payload_size();
+        using boost::beast::http::status;
+        using boost::beast::http::status_class;
+        using boost::beast::http::to_status_class;
+        if ((!n || *n > 0) &&
+            ((to_status_class(stringResponse->result()) ==
+                  status_class::informational ||
+              stringResponse->result() == status::no_content ||
+              stringResponse->result() == status::not_modified)))
+        {
+            BMCWEB_LOG_CRITICAL
+                << this
+                << " Response content provided but code was no-content or not_modified, which aren't allowed to have a body";
+            n = 0;
+            body().clear();
+        }
+        stringResponse->content_length(*n);
     }
 
     void clear()
