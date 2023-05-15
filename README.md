@@ -55,7 +55,7 @@ options are documented in `meson_options.txt`
 ## Compile bmcweb with default options
 
 ```ascii
-meson builddir
+meson setup builddir
 ninja -C builddir
 ```
 
