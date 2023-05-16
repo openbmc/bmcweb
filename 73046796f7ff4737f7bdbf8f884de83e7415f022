@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "145d7358_1edc12d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-16T22:21:17Z",
+      "side": 1,
+      "message": "Any update on this commit?\n\nI was reviewing the old commit at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57533\nand noticed that it retrieves the fans collection by looking at the associations of {cooling, cooled_by} and {sensors, inventory}. This approach doesn\u0027t rely on a specific path, which is more flexible than this implementation. \n\nI\u0027m considering reopening the old commit and continuing the work on the association based approach. I would like to suggest that you enhance the inventory to include associations if they are currently missing.\n\nPlease let me know if you have any concerns or alternative suggestions.",
+      "parentUuid": "311e26dd_830a730c",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
