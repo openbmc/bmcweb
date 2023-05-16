@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eb9dcec_38442266",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-16T01:05:54Z",
+      "side": 1,
+      "message": "Assigning all groups for new user exist before this work. I did not change it. I am just noting it here because Gunnar had comment about it.",
+      "parentUuid": "2c6f741f_d147465e",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2e852a4_4cda2fbb",
@@ -82,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17da6761_0a58275d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-16T01:05:54Z",
+      "side": 1,
+      "message": "I used a simics simulator. That support accessing through web GUI.",
+      "parentUuid": "a2e852a4_4cda2fbb",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6df44ae8_31ffb1b6",
@@ -95,6 +143,30 @@
       "writtenOn": "2023-05-15T23:46:29Z",
       "side": 1,
       "message": "Are these required to merge before this one?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db8c06c6_79935152",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-16T01:05:54Z",
+      "side": 1,
+      "message": "docs, openbmc and obmc-console is already merged. phosphor-user-manager is ready to merge so I will merge it along with bmcweb.",
+      "parentUuid": "6df44ae8_31ffb1b6",
       "range": {
         "startLine": 86,
         "startChar": 0,
