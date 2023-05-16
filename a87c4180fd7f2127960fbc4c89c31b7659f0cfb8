@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "387a9de9_5358cf7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-16T16:03:33Z",
+      "side": 1,
+      "message": "Seems trivially correct to me.",
+      "revId": "a87c4180fd7f2127960fbc4c89c31b7659f0cfb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8f56a317_3b52dc7d",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
