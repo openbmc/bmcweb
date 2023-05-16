@@ -16,6 +16,40 @@
       "message": "inline lambda should not be longer than 10 lines.",
       "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d00b6b43_e47db91f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-16T00:55:35Z",
+      "side": 1,
+      "message": "Check if (ec.value() !\u003d EBADR) and return internal error like we do other places.\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fabric_adapters.hpp#L77",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8406d0f4_3d34f260",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-16T00:55:35Z",
+      "side": 1,
+      "message": "rfCause.empty() will always evaluate to true because the dbusToRfThrottleCause function does not return an empty string.\n\ndbusauseToRfThrottleCause is returning unknown if it is invalid type, shouldn\u0027t we return error for invalid type?\n\nShould we ignore if it is unknown type? \nI am working on similar change in PCIeSlot, I am not sure which is right way.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63041",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
