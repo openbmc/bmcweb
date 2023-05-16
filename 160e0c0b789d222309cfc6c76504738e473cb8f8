@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa22281_0638d526",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-16T02:30:45Z",
+      "side": 1,
+      "message": "https://en.wikipedia.org/wiki/Simics is anyone is curious.",
+      "range": {
+        "startLine": 41,
+        "startChar": 46,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "160e0c0b789d222309cfc6c76504738e473cb8f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
