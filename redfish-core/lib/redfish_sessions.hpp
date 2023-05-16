@@ -64,7 +64,13 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& sessionId)
 {
-    handleSessionHead(app, req, asyncResp, sessionId);
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Session/Session.json>; rel=describedby");
 
     // Note that control also reaches here via doPost and doDelete.
     auto session =
