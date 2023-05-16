@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfb99062_e77eecb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-16T19:15:03Z",
+      "side": 1,
+      "message": "no, but you’re changing the behavior of the host console itself.  To be clear the bevavior you\u0027re changing:\n\nbefore: Create a user with ReadOnly access, user doesn\u0027t have access to console.\nAfter: Create a user with ReadOnly access, User has access to console because host console is applied to all users by default.  Did you test the read-only users use cases?",
+      "parentUuid": "9eb9dcec_38442266",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2e852a4_4cda2fbb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
