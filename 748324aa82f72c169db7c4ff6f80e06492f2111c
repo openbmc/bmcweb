@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83bd9a9_582bdf20",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2023-05-16T22:29:44Z",
+      "side": 1,
+      "message": "This commit will not be merged until the schema has been released.",
+      "parentUuid": "70e8351e_b4542f73",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8860f2ce_9cee4e4c",
