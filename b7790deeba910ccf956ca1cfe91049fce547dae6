@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6180544_43920c51",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-16T15:36:13Z",
+      "side": 0,
+      "message": "Yeah, This is what we do other places. \n\nhttps://github.com/openbmc/bmcweb/blob/b7790deeba910ccf956ca1cfe91049fce547dae6/redfish-core/lib/chassis.hpp#L700",
+      "revId": "b7790deeba910ccf956ca1cfe91049fce547dae6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
