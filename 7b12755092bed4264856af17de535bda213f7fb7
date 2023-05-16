@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d04c7c_b6dcea44",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-16T11:35:36Z",
+      "side": 1,
+      "message": "If fd assignment is failed, should this \u0027fd\u0027 be closed here?\nOtherwise, it seems that \u0027fd\u0027 may be leaked.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "7b12755092bed4264856af17de535bda213f7fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
