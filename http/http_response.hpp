@@ -168,7 +168,7 @@ struct Response
     {
         BMCWEB_LOG_DEBUG << this << " Clearing response containers";
         stringResponse.emplace(response_type{});
-        jsonValue.clear();
+        jsonValue = nullptr;
         completed = false;
         expectedHash = std::nullopt;
     }
@@ -264,7 +264,7 @@ struct Response
         addHeader(boost::beast::http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {
-            jsonValue.clear();
+            jsonValue = nullptr;
             result(boost::beast::http::status::not_modified);
         }
     }
