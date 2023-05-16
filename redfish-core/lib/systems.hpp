@@ -3073,7 +3073,6 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] =
             true;
 
-        // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
         asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] =
             true;
         asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
