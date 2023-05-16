@@ -157,6 +157,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39d2881e_b6b1e841",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-16T23:54:02Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t even see the console button.\n\nConsidering that this is a security interface, the webui is not an appropriate test that the privileges have been applied correctly.\n\nDo we agree that read only users shouldn\u0027t be allowed to access the console?",
+      "parentUuid": "1aeee0a0_011c6d9d",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2e852a4_4cda2fbb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
