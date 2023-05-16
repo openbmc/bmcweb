@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bef4a04_e146870d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-16T18:16:45Z",
+      "side": 1,
+      "message": "why replace getAllProperties with async_method_call? there is no mention in commit message. Should be a separate commit.",
+      "revId": "a67a958994e680fd90b324ac4f50419aa62e5913",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "151182b3_cfcec675",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-16T18:16:45Z",
+      "side": 1,
+      "message": "ec should be passed by reference.",
+      "revId": "a67a958994e680fd90b324ac4f50419aa62e5913",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
