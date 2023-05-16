@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a653bf9c_e128f7d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-16T19:01:37Z",
+      "side": 1,
+      "message": "I don\u0027t see this used in openbmc/openbmc, this was originally slated to be removed in 4Q22. \nGeorge, I still see https://github.com/openbmc/openbmc-test-automation/blob/e01ee587388c1b1ed3ce1fd29247144a0fa6dffb/redfish/update_service/test_redfish_host_code_update.robot#L95 \nand \nhttps://github.com/openbmc/openbmc-test-automation/blob/e01ee587388c1b1ed3ce1fd29247144a0fa6dffb/oem/nuvoton/test_redfish_mcu_fw_update.robot#L96\nand \nhttps://github.com/openbmc/openbmc-test-automation/blob/e01ee587388c1b1ed3ce1fd29247144a0fa6dffb/redfish/update_service/test_redfish_signed_image_update.robot#L97\n\nCleanup needed?\n\nI do see the new one being used\nhttps://github.com/openbmc/openbmc-test-automation/blob/e01ee587388c1b1ed3ce1fd29247144a0fa6dffb/redfish/update_service/test_redfish_bmc_code_update.robot#L198",
+      "revId": "32bd8e788f9b6f5f517898966aa915c9e4ebec56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
