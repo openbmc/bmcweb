@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d88eb3c8_9a45c723",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-16T21:15:15Z",
+      "side": 1,
+      "message": "Updated code is based on the association between FabricAdapter and Ports.\nIt is defined by https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/62881\n\n```\n\n    dbus::utility::getAssociationEndPoints(\n        fabricAdapterPath + \"/connecting\",\n        [aResp, systemName,\n         adapterId](const boost::system::error_code\u0026 ec,\n                    const dbus::utility::MapperEndPoints\u0026 endpoints) {\n        if (ec)\n        ...\n```",
+      "parentUuid": "963459fa_a58706a1",
+      "revId": "3124a7e005e8787fedaa6fe6d09701ed9b2298b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "378e682e_b28ba355",
