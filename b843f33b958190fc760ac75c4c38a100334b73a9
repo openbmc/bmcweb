@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1aeee0a0_011c6d9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-16T22:23:39Z",
+      "side": 1,
+      "message": "# Admin user has console access.\n+ curl -k https://admin:0penBmc0@localhost:2444/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"user99\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Administrator\"\n    }\n  },\n  \"Locked\": false,\n  \"Locked@Redfish.AllowableValues\": [\n    \"false\"\n  ],\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"RoleId\": \"Administrator\",\n  \"UserName\": \"user99\"\n\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [INFO \"http_connection.hpp\":209] Request:  0x26e9408 HTTP/1.1 GET /console0 ::ffff:10.0.2.1\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"routing.hpp\":1238] Matched rule (upgrade) \u0027/console0\u0027 1 / 2\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"routing.hpp\":1058] userName \u003d user99 userRole \u003d priv-admin\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"routing.hpp\":1058] userName \u003d user99 userRole \u003d priv-admin\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"websocket.hpp\":78] Creating new connection 0x25dbb54\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"websocket.hpp\":89] starting connection 0x25dbb54\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"websocket.hpp\":220] Websocket accepted connection\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"obmc_console.hpp\":128] Connection 0x25dbb54 opened\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"routing.hpp\":1058] userName \u003d user99 userRole \u003d priv-admin\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"obmc_console.hpp\":40] Outbuffer empty.  Bailing out\nMay 16 21:21:13 p10bmc bmcweb[762]: (2023-05-16 21:21:13) [DEBUG \"obmc_console.hpp\":82] Reading from socket\n\n# For readonly or operator user I don\u0027t see the console button on GUI.\n+ curl -k https://admin:0penBmc0@localhost:2444/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"user99\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/ReadOnly\"\n    }\n  },\n  \"Locked\": false,\n  \"Locked@Redfish.AllowableValues\": [\n    \"false\"\n  ],\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"RoleId\": \"ReadOnly\",\n  \"UserName\": \"user99\"\n\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n+ curl -k https://admin:0penBmc0@localhost:2444/redfish/v1/AccountService/Accounts/user99\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/user99\",\n  \"@odata.type\": \"#ManagerAccount.v1_4_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"user99\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Operator\"\n    }\n  },\n  \"Locked\": false,\n  \"Locked@Redfish.AllowableValues\": [\n    \"false\"\n  ],\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"RoleId\": \"Operator\",\n  \"UserName\": \"user99\"",
+      "parentUuid": "c39af105_900b8e52",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2e852a4_4cda2fbb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
