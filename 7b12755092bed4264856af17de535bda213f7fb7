@@ -46,6 +46,30 @@
       },
       "revId": "7b12755092bed4264856af17de535bda213f7fb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ffab1f_5a49ec32",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-16T14:02:58Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "176619fc_fa514d04",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "7b12755092bed4264856af17de535bda213f7fb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
