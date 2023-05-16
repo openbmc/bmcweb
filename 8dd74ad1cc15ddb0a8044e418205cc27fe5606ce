@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbe40d66_0bd8cd0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "I added features which are supported on most browsers and the BMC should change away from the default.  My primary goal was to set a sane value.  But I will be happy to set a stricter policy.",
+      "parentUuid": "89a95799_6665e440",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 13,
+        "endChar": 73
+      },
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "081a355e_ba20d84e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2023-05-12T16:48:09Z",
       "side": 1,
       "message": "Did you test on webui-vue?",
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e81e853_40ba23a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "No.  I am setting this to Work-In-Progress so we can test.",
+      "parentUuid": "081a355e_ba20d84e",
       "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -95,6 +137,30 @@
       "side": 1,
       "message": "I don\u0027t think so.  Refered is only used for directing cross-origin links, which the BMC should NEVER have.",
       "parentUuid": "172216e7_c88a7cd6",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a138bd8_f2fc8057",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "Agreed.  My notes for this are:\nRef: https://owasp.org/www-project-secure-headers/index.html#referrer-policy\n - Referrer-Policy: no-referrer\n - This changes away from the default of: strict-origin-when-cross-origin\n - Analysis: Most browsers add the Referer (sic) header which neither the webui-vue web application nor the BMC use.  The no-referrer setting will prevent browsers from adding the Referer header, which should have no effect on the BMC.",
+      "parentUuid": "59f03e84_241fc92e",
       "range": {
         "startLine": 30,
         "startChar": 38,

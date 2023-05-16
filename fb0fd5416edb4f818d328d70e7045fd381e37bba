@@ -20,6 +20,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4354df9f_0ecaab7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "Yes, I will ask my test team to cover those interfaces.",
+      "parentUuid": "3b6b1744_1dccbf2b",
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3b1c80_59f86a6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "I\u0027ll add more permission features and test the web application webui-vue.\nI\u0027ll add permission policy for all of the \"standard features\", but do we need and proposed or experimental?  I guess we should leave those out.",
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fb34309_4d6a99bb",
         "filename": "include/security_headers.hpp",
         "patchSetId": 2
@@ -37,6 +72,47 @@
         "endLine": 31,
         "endChar": 64
       },
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1402372_72a1af20",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "Yes, I will look at all the \"standardized features\".\n\nMy notes are:\nRef: https://owasp.org/www-project-secure-headers/index.html#permissions-policy\n \nThe OWASP recommendations are \"working draft\" because the spec still under development.\nReferences here: https://github.com/w3c/webappsec-permissions-policy/blob/main/features.md \n\nWhich features should be specified on the BMC\u0027s Permissions-Policy header?\n - The Permissions-Policy is WIP, so browsers don\u0027t support all proposed features (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy#browser_compatibility) and I don\u0027t want the browser to complain about \"unrecognized features\", so only features supported on most browsers are selected.  (Alternate: Who cares about browser \"unrecognized features\" warnings?  Should we set policy for all approved features?)\n - I added features which are supported on most browsers and the BMC should change away from the default.\n\nPermissions-Policy: microphone\u003d(),camera()\n - This changes away from the defaults of: microphone\u003dself, camera\u003dself\n - Analysis: the BMCWeb web application does not need to use the browser\u0027s microphone or camera, yet the defaults allow their use, so the Permissions-Policy above disallows their use.",
+      "parentUuid": "9fb34309_4d6a99bb",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "469edcd8_bfd06604",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-16T19:58:17Z",
+      "side": 1,
+      "message": "I mean to simply\nI will try to get sane defaults for all \"standardized features\".",
       "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
