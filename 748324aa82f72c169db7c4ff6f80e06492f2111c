@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e8351e_b4542f73",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2023-05-16T14:01:05Z",
+      "side": 1,
+      "message": "ManagementDetectedFault was added as part of the Processor v18.0 schema which should be releasing shortly.  https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2023.1WIP99.pdf",
+      "parentUuid": "390d06f5_a0c124a0",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8860f2ce_9cee4e4c",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-05-16T00:55:35Z",
       "side": 1,
       "message": "rfCause.empty() will always evaluate to true because the dbusToRfThrottleCause function does not return an empty string.\n\ndbusauseToRfThrottleCause is returning unknown if it is invalid type, shouldn\u0027t we return error for invalid type?\n\nShould we ignore if it is unknown type? \nI am working on similar change in PCIeSlot, I am not sure which is right way.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63041",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73f7a1f_923cbbdb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2023-05-16T14:01:05Z",
+      "side": 1,
+      "message": "Good point on empty call. Since Unknown is a valid Redfish throttle cause, I think it makes sense to return that value (instead of an error).  We know the processor is throttled at this point, but just not able to determine why.\nI can remove empty check.",
+      "parentUuid": "8406d0f4_3d34f260",
       "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
