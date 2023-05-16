@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59853a23_56585b4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-16T21:17:44Z",
+      "side": 1,
+      "message": "Open to other suggestions about how to handle.",
+      "revId": "7690a379bea01be4638ec711dba35886e6937d41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "075b20b0_4da53455",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2963,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-16T21:17:44Z",
+      "side": 1,
+      "message": "Open to other suggestions here about how we should handle this. \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54274 is a similar commit",
+      "revId": "7690a379bea01be4638ec711dba35886e6937d41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
