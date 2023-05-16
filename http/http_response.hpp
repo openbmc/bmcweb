@@ -264,7 +264,7 @@ struct Response
         addHeader(boost::beast::http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {
-            jsonValue.clear();
+            jsonValue = nullptr;
             result(boost::beast::http::status::not_modified);
         }
     }
