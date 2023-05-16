@@ -474,7 +474,6 @@ inline void handleReplaceCertificateAction(
                                    certificateType))
     {
         BMCWEB_LOG_ERROR << "Required parameters are missing";
-        messages::internalError(asyncResp->res);
         return;
     }
 
