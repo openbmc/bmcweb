@@ -33,6 +33,24 @@
       "message": "Note the Referrer-Policy and Permissions-Policy headers are not in the latest boost beast headers, so the code uses string literals. https://www.boost.org/doc/libs/1_82_0/boost/beast/http/field.hpp",
       "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855d8bc4_1fb6b573",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:36:39Z",
+      "side": 1,
+      "message": "That\u0027s perfectly fine.  There is no rule that requires using the enum, it\u0027s just more efficient in the cases where there is an enumeration for it.",
+      "parentUuid": "12723e1f_d5f01dcb",
+      "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

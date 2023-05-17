@@ -133,6 +133,24 @@
       "parentUuid": "469edcd8_bfd06604",
       "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b09898d_e1a85f09",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:36:39Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong preference.  Would you prefer to include proposed and experimental, or omit them?",
+      "parentUuid": "07b013b0_cc91ddbc",
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
