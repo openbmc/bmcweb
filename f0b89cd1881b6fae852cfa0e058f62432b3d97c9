@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "472a329e_819a8238",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-05-17T08:50:32Z",
+      "side": 1,
+      "message": "yes i agree Stateless only requires the Routing Advertisement to be active.\nStatelessAddressAutoConfig parameter is to allow configuration to accept RA packet \nplease try configuration StatelessAddressAutoConfiguration with this patch",
+      "parentUuid": "abf8a735_119ecdac",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1142,
+        "endChar": 0
+      },
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "231acb89_baef7c5a",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 34
@@ -71,6 +95,30 @@
       "writtenOn": "2023-04-18T21:35:54Z",
       "side": 1,
       "message": "I also really don\u0027t understand how there is now a schism in the DHCPv6 space.\n\"Stateful\" meant something. Specifically it meant IPv6AcceptRA\u003dtrue, DHCPv6Client\u003dtrue, assuming systemd.networkd configuration file nomenclature.\n\"Stateless\" meant IPv6AcceptRA\u003dtrue, DHCPv6Client\u003dfalse.\n\"Disabled\" indicated both of these controls would be set false.\n\nFollowing the above paradigm eliminates the need for the \"WithoutRA\u003dsolicit\" commit I have -1\u0027d for phosphor-network.\n\nNow I have no idea what \"Enabled\" means here. In addition, according to the Redfish schema there is no \"Enabled\" DHCPv6OperatingMode entry.\n\nI also don\u0027t understand why StatelessAddressAutoConfiguration was added to the schema. It only has an \"enabled\"/\"disabled\" mode. Again, SLAAC should only be toggling DHCPv6Client in the systemd.networkd config file. We already had that ability in the \"Stateless\" DHCPv6OperatingMode  part of the schema.",
+      "range": {
+        "startLine": 1158,
+        "startChar": 1,
+        "endLine": 1167,
+        "endChar": 2
+      },
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20f6775_7a7f0d72",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-05-17T08:50:32Z",
+      "side": 1,
+      "message": "I feel StatelessAddressAutoConfiguration property rightly added to schema to allow configuration independent of DHCPv6 configuration",
+      "parentUuid": "231acb89_baef7c5a",
       "range": {
         "startLine": 1158,
         "startChar": 1,
