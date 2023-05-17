@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "265d7d6d_e1f755c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T01:50:30Z",
+      "side": 1,
+      "message": "\u003e Maybe we say instead of a change like this, we\u0027re just going to address resource abuse issues as they come.\n\nThis would be my strong preference if it\u0027s possible.  IMO, the behavior that was there previously was correct, the data couldn\u0027t be acquired, so bmcweb returns an error.\n\n\u003e Our redfish client is very fickle, one InternalError response at the right time and they go completely \"no-connect\" requiring customer intervention\n\n\num..... don\u0027t do that in the client then?  \"one error then turn into a brick\" is rarely a good strategy.\n\n\u003e https://github.com/openbmc/service-config-manager/issues/7\n\nWell, that\u0027s unfortunate.  I wonder if we can find a way in these scenarios to make sure that service-config-manager crashes out first, before it effects other clients.",
+      "parentUuid": "3806dac1_69a67b3b",
+      "revId": "7690a379bea01be4638ec711dba35886e6937d41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "075b20b0_4da53455",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
