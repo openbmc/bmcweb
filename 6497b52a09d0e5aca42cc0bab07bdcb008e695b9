@@ -16,6 +16,24 @@
       "message": "Could also do it here. \nSeparate commit. :) \nI\u0027ll push something",
       "revId": "6497b52a09d0e5aca42cc0bab07bdcb008e695b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a4cec36_88fed36e",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-17T17:00:26Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63563",
+      "parentUuid": "38b92903_73971387",
+      "revId": "6497b52a09d0e5aca42cc0bab07bdcb008e695b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
