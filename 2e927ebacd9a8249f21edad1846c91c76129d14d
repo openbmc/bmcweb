@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7d61d8_05c90936",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:24:10Z",
+      "side": 1,
+      "message": "Patchset doesn\u0027t build, and appears abandoned, with multiple comments not responded to.",
+      "revId": "2e927ebacd9a8249f21edad1846c91c76129d14d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
