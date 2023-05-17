@@ -265,7 +265,14 @@ inline void
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 {
-    handleSessionServiceHead(app, req, asyncResp);
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/SessionService/SessionService.json>; rel=describedby");
+
     asyncResp->res.jsonValue["@odata.type"] =
         "#SessionService.v1_0_2.SessionService";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
