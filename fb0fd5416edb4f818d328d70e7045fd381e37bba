@@ -115,6 +115,24 @@
       "message": "I mean to simply\nI will try to get sane defaults for all \"standardized features\".",
       "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07b013b0_cc91ddbc",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-17T21:34:36Z",
+      "side": 1,
+      "message": "I\u0027ve set policies from the list here https://github.com/w3c/webappsec-permissions-policy\nShould we also have policies for proposed or experimental features?",
+      "parentUuid": "469edcd8_bfd06604",
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
