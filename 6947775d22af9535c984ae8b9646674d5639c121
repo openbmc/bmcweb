@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40f67d96_6c20c293",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2023-05-17T06:34:42Z",
+      "side": 1,
+      "message": "The boost code has check of `if(n)` and sets `this-\u003echunked()`\nWhy is it missing here?",
+      "revId": "6947775d22af9535c984ae8b9646674d5639c121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
