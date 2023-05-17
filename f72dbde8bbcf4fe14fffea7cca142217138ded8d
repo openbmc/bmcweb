@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff2f3d9_83557b0f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-17T16:43:54Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we return resourceNotFound error? Is this an optional association?",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c35426a_6466aef1",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-17T16:43:54Z",
+      "side": 1,
+      "message": "what if the fabric adapter supports multiple ports?",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d8860dd_4361ac03",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-17T16:43:54Z",
+      "side": 1,
+      "message": "Allocate of Members and initialize of \"Members@odata.count\" to 0 before return otherwise validator will fail. May be initialize in doPortCollectionGet.",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
