@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "44abcf5f_7b538a63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:38:27Z",
+      "side": 1,
+      "message": "Thank you.",
+      "parentUuid": "4354df9f_0ecaab7f",
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5a3b1c80_59f86a6a",
@@ -149,6 +167,30 @@
       "side": 1,
       "message": "I don\u0027t have a strong preference.  Would you prefer to include proposed and experimental, or omit them?",
       "parentUuid": "07b013b0_cc91ddbc",
+      "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f82de56c_9e95fc71",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:38:27Z",
+      "side": 1,
+      "message": "\u003e The OWASP recommendations are \"working draft\" because the spec still under development.\n\nThats fine.  I\u0027m happy to implement the working draft, then revisit when the final draft is available.\n\n\u003e The Permissions-Policy is WIP, so browsers don\u0027t support all proposed features\n\nThat\u0027s fine, in the case of features that they don\u0027t understand, the browsers will simply ignore them.  Lets do our best to make this as complete as we can with where the standards are at.",
+      "parentUuid": "f1402372_72a1af20",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 64
+      },
       "revId": "fb0fd5416edb4f818d328d70e7045fd381e37bba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
