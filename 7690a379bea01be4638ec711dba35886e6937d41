@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3806dac1_69a67b3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-17T00:30:01Z",
+      "side": 1,
+      "message": "This feels a lot like https://gerrit.openbmc.org/c/openbmc/phosphor-state-manager/+/61018. In the case of the issue Gunnar is working around, we appeared to have hit https://github.com/openbmc/service-config-manager/issues/7. And at the same time a redfish client was querying the systems/system endpoint, the srvcfg-manager was going to town on systemd querying the status of 100\u0027s of dropbear services (that were no longer running).\n\nMaybe we say instead of a change like this, we\u0027re just going to address resource abuse issues as they come. Our redfish client is very fickle, one InternalError response at the right time and they go completely \"no-connect\" requiring customer intervention which is why our preference is to always just not return the data (and no error) but as noted, ignoring errors also has drawbacks.",
+      "parentUuid": "ef13a9db_bf6bd5a7",
+      "revId": "7690a379bea01be4638ec711dba35886e6937d41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "075b20b0_4da53455",
