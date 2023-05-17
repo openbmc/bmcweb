@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05741223_cd00a0c6",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-17T20:52:18Z",
+      "side": 1,
+      "message": "Instead of checking if the fabric adapter has ports, shouldn\u0027t we directly provide the link to the ports and have the port collection handle the task of listing the ports?  what is the reasoning behind the current approach of checking for port existence at this level? \nwe don\u0027t have this kind of checking for other links ex: PCIeCard-\u003e PCIeFunctions",
+      "parentUuid": "1fe42db3_9c89f292",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d8860dd_4361ac03",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 26
