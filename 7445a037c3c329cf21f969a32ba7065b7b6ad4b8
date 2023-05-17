@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "857933c7_9176cdd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-17T16:45:54Z",
+      "side": 1,
+      "message": "Posting responses to a couple of questions.  I\u0027ll work on making the other changes",
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "093a2f48_43f67494",
@@ -221,6 +238,30 @@
       "writtenOn": "2023-05-15T17:28:04Z",
       "side": 1,
       "message": "If this is the only use, why do we even have the arg?  Are we planning on reusing this method later?",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed0b93e7_42381830",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-17T16:45:54Z",
+      "side": 1,
+      "message": "In part I wanted handleLogServicesDumpEntryDownGet() to mirror the format we use for related uptree functions like handleLogServicesDumpEntryGet().\n\nWe have two existing URIs for downloading attachments:\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1933\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L3993\n\nThose handlers have long lambda functions that we\u0027d want to get rid of anyway.  We\u0027re adding a third URI for downloading attachments.  The flows are similar enough that they should be able to reuse some of the same code.  I don\u0027t want to combine refactoring on top of adding new functionality so my thought was to lay some of the groundwork now to make future refactoring easier.  \n\nIs that alright?  If not then I can remove this for now to streamline the patch a bit.",
+      "parentUuid": "dc3910e0_ce9fdc86",
       "range": {
         "startLine": 3040,
         "startChar": 67,

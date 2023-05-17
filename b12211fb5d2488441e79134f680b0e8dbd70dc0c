@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7e122d3_db1cdfb6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-17T16:45:54Z",
+      "side": 1,
+      "message": "See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61957/comment/8ba2f324_4eed3aa6/\n\nPhosphor-debug-collector does not yet expose that path on dbus so this is the only way to know the folder location.  It can be replaced with a dbus lookup once support for that is added to phosphor-debug-collector.",
+      "parentUuid": "f1e52fe4_4a7e6e0b",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 46
+      },
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3980cf73_3f7233a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
