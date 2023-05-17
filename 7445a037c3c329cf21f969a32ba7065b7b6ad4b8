@@ -270,6 +270,30 @@
       },
       "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c77932fb_2cc3b0ce",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T18:33:50Z",
+      "side": 1,
+      "message": "\u003e In part I wanted handleLogServicesDumpEntryDownGet() to mirror the format we use for related uptree functions like handleLogServicesDumpEntryGet().\n\nIf we\u0027re duplicating code, there\u0027s no reason for it to be identical.\n\n\u003e \n\u003e We have two existing URIs for downloading attachments:\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1933\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L3993\n\u003e \n\u003e Those handlers have long lambda functions that we\u0027d want to get rid of anyway.  \n\n+ 1 million to shortening our long lambda methods.\n\n\u003e We\u0027re adding a third URI for downloading attachments.  The flows are similar enough that they should be able to reuse some of the same code.  I don\u0027t want to combine refactoring on top of adding new functionality so my thought was to lay some of the groundwork now to make future refactoring easier.\n\nI\u0027m not quite following, let me make sure I understand:\n1. This method is identical to the other method that does the same thing.\n2. At some point in the future, you\u0027ll move over those other two lambdas to use this method, so the arg will be neccesary then.\n\nIf my understanding is correct, then yes, it\u0027s fine.  Thank you for cleaning things up.\n\n\u003e \n\u003e Is that alright?  If not then I can remove this for now to streamline the patch a bit.\n\nNope, don\u0027t worry about it;  Now that I understand the plan, it\u0027s fine.",
+      "parentUuid": "ed0b93e7_42381830",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
