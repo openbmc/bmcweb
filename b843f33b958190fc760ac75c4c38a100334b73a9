@@ -299,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b2677e6_f7ccf9e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-17T20:27:33Z",
+      "side": 1,
+      "message": "Fixed. Do not add hostconsole group membership for users which are operator and readonly. I have now also tested it on system.",
+      "parentUuid": "6d13e5d4_0723c2e8",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2e852a4_4cda2fbb",
