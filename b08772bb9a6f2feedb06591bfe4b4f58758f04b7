@@ -16,6 +16,24 @@
       "message": "Should add `asyncResp-\u003eres.jsonValue \u003d nullptr;`",
       "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea35ebf_5be585de",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T15:51:28Z",
+      "side": 0,
+      "message": "this clear goes against our policy of returning as much data as we can along with the return code, hence why it was removed",
+      "parentUuid": "7aa7f1a7_15b54a96",
+      "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
