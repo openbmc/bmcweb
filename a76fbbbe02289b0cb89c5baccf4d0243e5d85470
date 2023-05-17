@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3835fc50_43bd19de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T17:07:51Z",
+      "side": 1,
+      "message": "I\u0027m ok with not testing this because:\n\n1. It\u0027s a pattern we use everywhere.\n2. The only test we\u0027d probably run is redfish service validator.\n3. This is coming from a maintainer, that if it breaks, is very likely to follow up.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "a76fbbbe02289b0cb89c5baccf4d0243e5d85470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
