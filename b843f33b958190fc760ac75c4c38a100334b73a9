@@ -277,6 +277,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d13e5d4_0723c2e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-17T02:04:04Z",
+      "side": 1,
+      "message": "I think initial requirement was to provide access if user is part of the hostconsole group but it is complicated by assigning all groups to each user as we don\u0027t have way to select group while adding the user.\n\nIs it ok to allow console access to the operator?",
+      "parentUuid": "6e03d0b8_8f5d28b7",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "b843f33b958190fc760ac75c4c38a100334b73a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2e852a4_4cda2fbb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
