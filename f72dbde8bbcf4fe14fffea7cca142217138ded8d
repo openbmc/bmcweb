@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "290f7ca7_0fc92112",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-17T20:37:38Z",
+      "side": 1,
+      "message": "The intention of this logic is to detect whether there are the associated ports for the given fabric adapter.\nNot all fabric adapters are required to have the ports, and fabric adapter without ports are not treated as an error case.\n\nIf there are port(s), it will show like \n```\ncurl -k -X GET https://${bmc}:18080/redfish/v1/Systems/system/FabricAdapters/disk_backplane0\n...\n  \"Ports\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/disk_backplane0/Ports\"\n  },\n  ```\n  \nIf not, the above output should not be shown.",
+      "parentUuid": "cff2f3d9_83557b0f",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c35426a_6466aef1",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe42db3_9c89f292",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-17T20:37:38Z",
+      "side": 1,
+      "message": "This part is handling the query to fabric adapter, not the fabric adapter\u0027s Ports.\nHere are the check is the existence of one or more ports.\nIf there are port(s), it will show the link, not the list of ports.",
+      "parentUuid": "7c35426a_6466aef1",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d8860dd_4361ac03",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-05-17T16:43:54Z",
       "side": 1,
       "message": "Allocate of Members and initialize of \"Members@odata.count\" to 0 before return otherwise validator will fail. May be initialize in doPortCollectionGet.",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f84efcb_c3f35be5",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-17T20:37:38Z",
+      "side": 1,
+      "message": "You\u0027re right.\nFor the safer \u0026 clearer approach, I\u0027ll initialize it in doPortCollectionGet().\nFixed in the next patchset.",
+      "parentUuid": "0d8860dd_4361ac03",
       "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
