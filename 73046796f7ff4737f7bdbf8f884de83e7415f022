@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be328401_3db78cbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-05-17T10:47:59Z",
+      "side": 1,
+      "message": "As Fru information of Fans is not present in Fan inventory so I am using Sensor value to show Fans\n\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/inventory\" 0 1 xyz.openbmc_project.Inventory.Item.Fan\nas 0\n\nWe have fans in the path \"/xyz/openbmc_project/sensors\" and the interfance is xyz.openbmc_project.Sensor.Value\n\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/sensors/fan_pwm\" 0 1 \"xyz.openbmc_project.Sensor.Value\"\nas 6 \"/xyz/openbmc_project/sensors/fan_pwm/Pwm_11_12\" \n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_1_2\" \n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_3_4\" \n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_5_6\" \n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_7_8\" \n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_9_10\"\n\nFor each Fan association is:\n\nbusctl get-property xyz.openbmc_project.FanSensor /xyz/openbmc_project/sensors/fan_pwm/Pwm_1_2 xyz.openbmc_project.Association.Definitions Associations\na(sss) 1 \"chassis\" \"all_sensors\" \"/xyz/openbmc_project/inventory/system/board/Board\n\nThe Associations is not implemented here I will update that in later\n\nThe commit https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57533 is only for FanCollection but this commit is for both Fan Collection and instance\n\nIn Sensors code, ref link is https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L77. I Referred from this and get fan_pwm from xyz.openbmc_project.Sensor.Value\n\nNote: If Fan fru information is populated into Fan Inventory try to update xyz.openbmc_project.Sensor.Value into xyz.openbmc_project.Inventory.Item.Fan and then check the fans (only fan_pwm will show)",
+      "parentUuid": "145d7358_1edc12d6",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
