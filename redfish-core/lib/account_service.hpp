@@ -1594,6 +1594,60 @@ inline void handleAccountCollectionGet(
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+inline void processAfterGetAllGroups(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const std::string& password,
+    const std::optional<std::string>& roleId, std::optional<bool> enabled,
+    const std::vector<std::string>& allGroupsList)
+
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username, password](const boost::system::error_code& ec2,
+                                        sdbusplus::message_t& m) {
+        if (ec2)
+        {
+            userErrorMessageHandler(m.get_error(), asyncResp, username, "");
+            return;
+        }
+
+        if (pamUpdatePassword(username, password) != PAM_SUCCESS)
+        {
+            // At this point we have a user that's been
+            // created, but the password set
+            // failed.Something is wrong, so delete the user
+            // that we've already created
+            sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+            tempObjPath /= username;
+            const std::string userPath(tempObjPath);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, password](const boost::system::error_code& ec3) {
+                if (ec3)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                // If password is invalid
+                messages::propertyValueFormatError(asyncResp->res, password,
+                                                   "Password");
+                },
+                "xyz.openbmc_project.User.Manager", userPath,
+                "xyz.openbmc_project.Object.Delete", "Delete");
+
+            BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+            return;
+        }
+
+        messages::created(asyncResp->res);
+        asyncResp->res.addHeader(
+            "Location", "/redfish/v1/AccountService/Accounts/" + username);
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "CreateUser", username,
+        allGroupsList, *roleId, *enabled);
+}
+
 inline void handleAccountCollectionPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1642,52 +1696,8 @@ inline void handleAccountCollectionPost(
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, username, password](
-                const boost::system::error_code& ec2, sdbusplus::message_t& m) {
-            if (ec2)
-            {
-                userErrorMessageHandler(m.get_error(), asyncResp, username, "");
-                return;
-            }
-
-            if (pamUpdatePassword(username, password) != PAM_SUCCESS)
-            {
-                // At this point we have a user that's been
-                // created, but the password set
-                // failed.Something is wrong, so delete the user
-                // that we've already created
-                sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
-                tempObjPath /= username;
-                const std::string userPath(tempObjPath);
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp,
-                     password](const boost::system::error_code& ec3) {
-                    if (ec3)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    // If password is invalid
-                    messages::propertyValueFormatError(asyncResp->res, password,
-                                                       "Password");
-                    },
-                    "xyz.openbmc_project.User.Manager", userPath,
-                    "xyz.openbmc_project.Object.Delete", "Delete");
-
-                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                return;
-            }
-
-            messages::created(asyncResp->res);
-            asyncResp->res.addHeader(
-                "Location", "/redfish/v1/AccountService/Accounts/" + username);
-            },
-            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "CreateUser", username,
-            allGroupsList, *roleId, *enabled);
+        processAfterGetAllGroups(asyncResp, username, password, roleId, enabled,
+                                 allGroupsList);
         });
 }
 
