@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf4d17e1_3d669e3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:40:24Z",
+      "side": 1,
+      "message": "As soon as the testing is done on this and filled out, I think it can merge.",
+      "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12723e1f_d5f01dcb",
@@ -49,6 +66,29 @@
       "side": 1,
       "message": "That\u0027s perfectly fine.  There is no rule that requires using the enum, it\u0027s just more efficient in the cases where there is an enumeration for it.",
       "parentUuid": "12723e1f_d5f01dcb",
+      "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10512480_53496da0",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T21:40:24Z",
+      "side": 1,
+      "message": "nit, I would\u0027ve like to have seen this as a multi-line string that\u0027s more readable, similar to line 17.  Up to you if you want to do that.",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 46,
+        "endChar": 42
+      },
       "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
