@@ -33,6 +33,24 @@
       "message": "What if the jsonValue is a json string/number/boolean?\nShould we only return json response for object and array?\n\nAlso according to https://json.nlohmann.me/api/basic_json/is_structured/, this could be simplified to `res.jsonValue.is_structured()`",
       "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ab2ab7_28778603",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T17:11:21Z",
+      "side": 1,
+      "message": "\u003e What if the jsonValue is a json string/number/boolean?\n\u003e Should we only return json response for object and array?\n\nstring/number/boolean are not supported.  I cannot think of a reason to return those as json values where it would be the correct thing to do, and not have surprising encoding problems.  If the goal is to return a string/number/value directly, it can be directly written to the body(), because it\u0027s not really a \"json\" response at that point.\n\nIf there\u0027s a use case that requires this, I\u0027m happy to discuss, but given that this use case is currently only for downstream code, it\u0027s hard to hypothesize.",
+      "parentUuid": "d47ef632_13bbaddb",
+      "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
