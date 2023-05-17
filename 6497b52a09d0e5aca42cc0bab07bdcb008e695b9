@@ -34,6 +34,24 @@
       "parentUuid": "38b92903_73971387",
       "revId": "6497b52a09d0e5aca42cc0bab07bdcb008e695b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16d557bd_16f7bb60",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-17T17:08:29Z",
+      "side": 1,
+      "message": "Agreed.  Thanks for the patch.",
+      "parentUuid": "8a4cec36_88fed36e",
+      "revId": "6497b52a09d0e5aca42cc0bab07bdcb008e695b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
