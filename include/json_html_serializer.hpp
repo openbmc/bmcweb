@@ -352,7 +352,7 @@ void dumpInteger(std::string& out, NumberType number)
 
     // jump to the end to generate the string from backward
     // so we later avoid reversing the result
-    std::advance(bufferPtr, nChars);
+    std::advance(bufferPtr, nChars - 1);
 
     // Fast int2ascii implementation inspired by "Fastware" talk by Andrei
     // Alexandrescu See: https://www.youtube.com/watch?v=o4-CwDo2zpg
