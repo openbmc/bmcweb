@@ -48,6 +48,7 @@
         <edmx:Include Namespace="AccountService.v1_3_8"/>
         <edmx:Include Namespace="AccountService.v1_3_9"/>
         <edmx:Include Namespace="AccountService.v1_3_10"/>
+        <edmx:Include Namespace="AccountService.v1_3_11"/>
         <edmx:Include Namespace="AccountService.v1_4_0"/>
         <edmx:Include Namespace="AccountService.v1_4_1"/>
         <edmx:Include Namespace="AccountService.v1_4_2"/>
@@ -57,6 +58,7 @@
         <edmx:Include Namespace="AccountService.v1_4_6"/>
         <edmx:Include Namespace="AccountService.v1_4_7"/>
         <edmx:Include Namespace="AccountService.v1_4_8"/>
+        <edmx:Include Namespace="AccountService.v1_4_9"/>
         <edmx:Include Namespace="AccountService.v1_5_0"/>
         <edmx:Include Namespace="AccountService.v1_5_1"/>
         <edmx:Include Namespace="AccountService.v1_5_2"/>
@@ -65,6 +67,7 @@
         <edmx:Include Namespace="AccountService.v1_5_5"/>
         <edmx:Include Namespace="AccountService.v1_5_6"/>
         <edmx:Include Namespace="AccountService.v1_5_7"/>
+        <edmx:Include Namespace="AccountService.v1_5_8"/>
         <edmx:Include Namespace="AccountService.v1_6_0"/>
         <edmx:Include Namespace="AccountService.v1_6_1"/>
         <edmx:Include Namespace="AccountService.v1_6_2"/>
@@ -72,6 +75,7 @@
         <edmx:Include Namespace="AccountService.v1_6_4"/>
         <edmx:Include Namespace="AccountService.v1_6_5"/>
         <edmx:Include Namespace="AccountService.v1_6_6"/>
+        <edmx:Include Namespace="AccountService.v1_6_7"/>
         <edmx:Include Namespace="AccountService.v1_7_0"/>
         <edmx:Include Namespace="AccountService.v1_7_1"/>
         <edmx:Include Namespace="AccountService.v1_7_2"/>
@@ -79,22 +83,29 @@
         <edmx:Include Namespace="AccountService.v1_7_4"/>
         <edmx:Include Namespace="AccountService.v1_7_5"/>
         <edmx:Include Namespace="AccountService.v1_7_6"/>
+        <edmx:Include Namespace="AccountService.v1_7_7"/>
         <edmx:Include Namespace="AccountService.v1_8_0"/>
         <edmx:Include Namespace="AccountService.v1_8_1"/>
         <edmx:Include Namespace="AccountService.v1_8_2"/>
         <edmx:Include Namespace="AccountService.v1_8_3"/>
+        <edmx:Include Namespace="AccountService.v1_8_4"/>
         <edmx:Include Namespace="AccountService.v1_9_0"/>
         <edmx:Include Namespace="AccountService.v1_9_1"/>
         <edmx:Include Namespace="AccountService.v1_9_2"/>
+        <edmx:Include Namespace="AccountService.v1_9_3"/>
         <edmx:Include Namespace="AccountService.v1_10_0"/>
         <edmx:Include Namespace="AccountService.v1_10_1"/>
         <edmx:Include Namespace="AccountService.v1_10_2"/>
         <edmx:Include Namespace="AccountService.v1_10_3"/>
+        <edmx:Include Namespace="AccountService.v1_10_4"/>
         <edmx:Include Namespace="AccountService.v1_11_0"/>
         <edmx:Include Namespace="AccountService.v1_11_1"/>
         <edmx:Include Namespace="AccountService.v1_11_2"/>
         <edmx:Include Namespace="AccountService.v1_11_3"/>
+        <edmx:Include Namespace="AccountService.v1_11_4"/>
         <edmx:Include Namespace="AccountService.v1_12_0"/>
+        <edmx:Include Namespace="AccountService.v1_12_1"/>
+        <edmx:Include Namespace="AccountService.v1_13_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ActionInfo_v1.xml">
         <edmx:Include Namespace="ActionInfo"/>
@@ -117,6 +128,7 @@
         <edmx:Include Namespace="AggregationService"/>
         <edmx:Include Namespace="AggregationService.v1_0_0"/>
         <edmx:Include Namespace="AggregationService.v1_0_1"/>
+        <edmx:Include Namespace="AggregationService.v1_0_2"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/AggregationSource_v1.xml">
         <edmx:Include Namespace="AggregationSource"/>
@@ -205,16 +217,22 @@
         <edmx:Include Namespace="Bios.v1_0_7"/>
         <edmx:Include Namespace="Bios.v1_0_8"/>
         <edmx:Include Namespace="Bios.v1_0_9"/>
+        <edmx:Include Namespace="Bios.v1_0_10"/>
         <edmx:Include Namespace="Bios.v1_1_0"/>
         <edmx:Include Namespace="Bios.v1_1_1"/>
         <edmx:Include Namespace="Bios.v1_1_2"/>
+        <edmx:Include Namespace="Bios.v1_1_3"/>
         <edmx:Include Namespace="Bios.v1_2_0"/>
+        <edmx:Include Namespace="Bios.v1_2_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Cable_v1.xml">
         <edmx:Include Namespace="Cable"/>
         <edmx:Include Namespace="Cable.v1_0_0"/>
+        <edmx:Include Namespace="Cable.v1_0_1"/>
         <edmx:Include Namespace="Cable.v1_1_0"/>
+        <edmx:Include Namespace="Cable.v1_1_1"/>
         <edmx:Include Namespace="Cable.v1_2_0"/>
+        <edmx:Include Namespace="Cable.v1_2_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/CableCollection_v1.xml">
         <edmx:Include Namespace="CableCollection"/>
@@ -244,6 +262,7 @@
         <edmx:Include Namespace="Certificate.v1_5_0"/>
         <edmx:Include Namespace="Certificate.v1_5_1"/>
         <edmx:Include Namespace="Certificate.v1_6_0"/>
+        <edmx:Include Namespace="Certificate.v1_7_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/CertificateCollection_v1.xml">
         <edmx:Include Namespace="CertificateCollection"/>
@@ -280,6 +299,7 @@
         <edmx:Include Namespace="Chassis.v1_0_13"/>
         <edmx:Include Namespace="Chassis.v1_0_14"/>
         <edmx:Include Namespace="Chassis.v1_0_15"/>
+        <edmx:Include Namespace="Chassis.v1_0_16"/>
         <edmx:Include Namespace="Chassis.v1_1_0"/>
         <edmx:Include Namespace="Chassis.v1_1_2"/>
         <edmx:Include Namespace="Chassis.v1_1_3"/>
@@ -295,6 +315,7 @@
         <edmx:Include Namespace="Chassis.v1_1_13"/>
         <edmx:Include Namespace="Chassis.v1_1_14"/>
         <edmx:Include Namespace="Chassis.v1_1_15"/>
+        <edmx:Include Namespace="Chassis.v1_1_16"/>
         <edmx:Include Namespace="Chassis.v1_2_0"/>
         <edmx:Include Namespace="Chassis.v1_2_1"/>
         <edmx:Include Namespace="Chassis.v1_2_2"/>
@@ -309,6 +330,7 @@
         <edmx:Include Namespace="Chassis.v1_2_11"/>
         <edmx:Include Namespace="Chassis.v1_2_12"/>
         <edmx:Include Namespace="Chassis.v1_2_13"/>
+        <edmx:Include Namespace="Chassis.v1_2_14"/>
         <edmx:Include Namespace="Chassis.v1_3_0"/>
         <edmx:Include Namespace="Chassis.v1_3_1"/>
         <edmx:Include Namespace="Chassis.v1_3_2"/>
@@ -323,6 +345,7 @@
         <edmx:Include Namespace="Chassis.v1_3_11"/>
         <edmx:Include Namespace="Chassis.v1_3_12"/>
         <edmx:Include Namespace="Chassis.v1_3_13"/>
+        <edmx:Include Namespace="Chassis.v1_3_14"/>
         <edmx:Include Namespace="Chassis.v1_4_0"/>
         <edmx:Include Namespace="Chassis.v1_4_1"/>
         <edmx:Include Namespace="Chassis.v1_4_2"/>
@@ -336,6 +359,7 @@
         <edmx:Include Namespace="Chassis.v1_4_10"/>
         <edmx:Include Namespace="Chassis.v1_4_11"/>
         <edmx:Include Namespace="Chassis.v1_4_12"/>
+        <edmx:Include Namespace="Chassis.v1_4_13"/>
         <edmx:Include Namespace="Chassis.v1_5_0"/>
         <edmx:Include Namespace="Chassis.v1_5_1"/>
         <edmx:Include Namespace="Chassis.v1_5_2"/>
@@ -348,6 +372,7 @@
         <edmx:Include Namespace="Chassis.v1_5_9"/>
         <edmx:Include Namespace="Chassis.v1_5_10"/>
         <edmx:Include Namespace="Chassis.v1_5_11"/>
+        <edmx:Include Namespace="Chassis.v1_5_12"/>
         <edmx:Include Namespace="Chassis.v1_6_0"/>
         <edmx:Include Namespace="Chassis.v1_6_1"/>
         <edmx:Include Namespace="Chassis.v1_6_2"/>
@@ -358,6 +383,7 @@
         <edmx:Include Namespace="Chassis.v1_6_7"/>
         <edmx:Include Namespace="Chassis.v1_6_8"/>
         <edmx:Include Namespace="Chassis.v1_6_9"/>
+        <edmx:Include Namespace="Chassis.v1_6_10"/>
         <edmx:Include Namespace="Chassis.v1_7_0"/>
         <edmx:Include Namespace="Chassis.v1_7_1"/>
         <edmx:Include Namespace="Chassis.v1_7_2"/>
@@ -368,6 +394,7 @@
         <edmx:Include Namespace="Chassis.v1_7_7"/>
         <edmx:Include Namespace="Chassis.v1_7_8"/>
         <edmx:Include Namespace="Chassis.v1_7_9"/>
+        <edmx:Include Namespace="Chassis.v1_7_10"/>
         <edmx:Include Namespace="Chassis.v1_8_0"/>
         <edmx:Include Namespace="Chassis.v1_8_1"/>
         <edmx:Include Namespace="Chassis.v1_8_2"/>
@@ -377,6 +404,7 @@
         <edmx:Include Namespace="Chassis.v1_8_6"/>
         <edmx:Include Namespace="Chassis.v1_8_7"/>
         <edmx:Include Namespace="Chassis.v1_8_8"/>
+        <edmx:Include Namespace="Chassis.v1_8_9"/>
         <edmx:Include Namespace="Chassis.v1_9_0"/>
         <edmx:Include Namespace="Chassis.v1_9_1"/>
         <edmx:Include Namespace="Chassis.v1_9_2"/>
@@ -386,6 +414,7 @@
         <edmx:Include Namespace="Chassis.v1_9_6"/>
         <edmx:Include Namespace="Chassis.v1_9_7"/>
         <edmx:Include Namespace="Chassis.v1_9_8"/>
+        <edmx:Include Namespace="Chassis.v1_9_9"/>
         <edmx:Include Namespace="Chassis.v1_10_0"/>
         <edmx:Include Namespace="Chassis.v1_10_1"/>
         <edmx:Include Namespace="Chassis.v1_10_2"/>
@@ -393,6 +422,7 @@
         <edmx:Include Namespace="Chassis.v1_10_4"/>
         <edmx:Include Namespace="Chassis.v1_10_5"/>
         <edmx:Include Namespace="Chassis.v1_10_6"/>
+        <edmx:Include Namespace="Chassis.v1_10_7"/>
         <edmx:Include Namespace="Chassis.v1_11_0"/>
         <edmx:Include Namespace="Chassis.v1_11_1"/>
         <edmx:Include Namespace="Chassis.v1_11_2"/>
@@ -400,42 +430,55 @@
         <edmx:Include Namespace="Chassis.v1_11_4"/>
         <edmx:Include Namespace="Chassis.v1_11_5"/>
         <edmx:Include Namespace="Chassis.v1_11_6"/>
+        <edmx:Include Namespace="Chassis.v1_11_7"/>
         <edmx:Include Namespace="Chassis.v1_12_0"/>
         <edmx:Include Namespace="Chassis.v1_12_1"/>
         <edmx:Include Namespace="Chassis.v1_12_2"/>
         <edmx:Include Namespace="Chassis.v1_12_3"/>
         <edmx:Include Namespace="Chassis.v1_12_4"/>
         <edmx:Include Namespace="Chassis.v1_12_5"/>
+        <edmx:Include Namespace="Chassis.v1_12_6"/>
         <edmx:Include Namespace="Chassis.v1_13_0"/>
         <edmx:Include Namespace="Chassis.v1_13_1"/>
         <edmx:Include Namespace="Chassis.v1_13_2"/>
         <edmx:Include Namespace="Chassis.v1_13_3"/>
         <edmx:Include Namespace="Chassis.v1_13_4"/>
+        <edmx:Include Namespace="Chassis.v1_13_5"/>
         <edmx:Include Namespace="Chassis.v1_14_0"/>
         <edmx:Include Namespace="Chassis.v1_14_1"/>
         <edmx:Include Namespace="Chassis.v1_14_2"/>
         <edmx:Include Namespace="Chassis.v1_14_3"/>
+        <edmx:Include Namespace="Chassis.v1_14_4"/>
         <edmx:Include Namespace="Chassis.v1_15_0"/>
         <edmx:Include Namespace="Chassis.v1_15_1"/>
         <edmx:Include Namespace="Chassis.v1_15_2"/>
         <edmx:Include Namespace="Chassis.v1_15_3"/>
+        <edmx:Include Namespace="Chassis.v1_15_4"/>
         <edmx:Include Namespace="Chassis.v1_16_0"/>
         <edmx:Include Namespace="Chassis.v1_16_1"/>
         <edmx:Include Namespace="Chassis.v1_16_2"/>
+        <edmx:Include Namespace="Chassis.v1_16_3"/>
         <edmx:Include Namespace="Chassis.v1_17_0"/>
         <edmx:Include Namespace="Chassis.v1_17_1"/>
         <edmx:Include Namespace="Chassis.v1_17_2"/>
+        <edmx:Include Namespace="Chassis.v1_17_3"/>
         <edmx:Include Namespace="Chassis.v1_18_0"/>
         <edmx:Include Namespace="Chassis.v1_18_1"/>
         <edmx:Include Namespace="Chassis.v1_18_2"/>
+        <edmx:Include Namespace="Chassis.v1_18_3"/>
         <edmx:Include Namespace="Chassis.v1_19_0"/>
         <edmx:Include Namespace="Chassis.v1_19_1"/>
         <edmx:Include Namespace="Chassis.v1_19_2"/>
+        <edmx:Include Namespace="Chassis.v1_19_3"/>
         <edmx:Include Namespace="Chassis.v1_20_0"/>
         <edmx:Include Namespace="Chassis.v1_20_1"/>
+        <edmx:Include Namespace="Chassis.v1_20_2"/>
         <edmx:Include Namespace="Chassis.v1_21_0"/>
         <edmx:Include Namespace="Chassis.v1_21_1"/>
+        <edmx:Include Namespace="Chassis.v1_21_2"/>
         <edmx:Include Namespace="Chassis.v1_22_0"/>
+        <edmx:Include Namespace="Chassis.v1_22_1"/>
+        <edmx:Include Namespace="Chassis.v1_23_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ChassisCollection_v1.xml">
         <edmx:Include Namespace="ChassisCollection"/>
@@ -444,9 +487,12 @@
         <edmx:Include Namespace="ComponentIntegrity"/>
         <edmx:Include Namespace="ComponentIntegrity.v1_0_0"/>
         <edmx:Include Namespace="ComponentIntegrity.v1_0_1"/>
+        <edmx:Include Namespace="ComponentIntegrity.v1_0_2"/>
         <edmx:Include Namespace="ComponentIntegrity.v1_1_0"/>
         <edmx:Include Namespace="ComponentIntegrity.v1_1_1"/>
+        <edmx:Include Namespace="ComponentIntegrity.v1_1_2"/>
         <edmx:Include Namespace="ComponentIntegrity.v1_2_0"/>
+        <edmx:Include Namespace="ComponentIntegrity.v1_2_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ComponentIntegrityCollection_v1.xml">
         <edmx:Include Namespace="ComponentIntegrityCollection"/>
@@ -473,6 +519,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_0_17"/>
         <edmx:Include Namespace="ComputerSystem.v1_0_18"/>
         <edmx:Include Namespace="ComputerSystem.v1_0_19"/>
+        <edmx:Include Namespace="ComputerSystem.v1_0_20"/>
         <edmx:Include Namespace="ComputerSystem.v1_1_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_1_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_1_2"/>
@@ -491,6 +538,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_1_15"/>
         <edmx:Include Namespace="ComputerSystem.v1_1_16"/>
         <edmx:Include Namespace="ComputerSystem.v1_1_17"/>
+        <edmx:Include Namespace="ComputerSystem.v1_1_18"/>
         <edmx:Include Namespace="ComputerSystem.v1_2_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_2_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_2_2"/>
@@ -508,6 +556,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_2_14"/>
         <edmx:Include Namespace="ComputerSystem.v1_2_15"/>
         <edmx:Include Namespace="ComputerSystem.v1_2_16"/>
+        <edmx:Include Namespace="ComputerSystem.v1_2_17"/>
         <edmx:Include Namespace="ComputerSystem.v1_3_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_3_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_3_2"/>
@@ -524,6 +573,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_3_13"/>
         <edmx:Include Namespace="ComputerSystem.v1_3_14"/>
         <edmx:Include Namespace="ComputerSystem.v1_3_15"/>
+        <edmx:Include Namespace="ComputerSystem.v1_3_16"/>
         <edmx:Include Namespace="ComputerSystem.v1_4_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_4_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_4_2"/>
@@ -539,6 +589,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_4_12"/>
         <edmx:Include Namespace="ComputerSystem.v1_4_13"/>
         <edmx:Include Namespace="ComputerSystem.v1_4_14"/>
+        <edmx:Include Namespace="ComputerSystem.v1_4_15"/>
         <edmx:Include Namespace="ComputerSystem.v1_5_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_5_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_5_2"/>
@@ -553,6 +604,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_5_11"/>
         <edmx:Include Namespace="ComputerSystem.v1_5_12"/>
         <edmx:Include Namespace="ComputerSystem.v1_5_13"/>
+        <edmx:Include Namespace="ComputerSystem.v1_5_14"/>
         <edmx:Include Namespace="ComputerSystem.v1_6_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_6_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_6_2"/>
@@ -565,6 +617,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_6_9"/>
         <edmx:Include Namespace="ComputerSystem.v1_6_10"/>
         <edmx:Include Namespace="ComputerSystem.v1_6_11"/>
+        <edmx:Include Namespace="ComputerSystem.v1_6_12"/>
         <edmx:Include Namespace="ComputerSystem.v1_7_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_7_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_7_2"/>
@@ -576,6 +629,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_7_8"/>
         <edmx:Include Namespace="ComputerSystem.v1_7_9"/>
         <edmx:Include Namespace="ComputerSystem.v1_7_10"/>
+        <edmx:Include Namespace="ComputerSystem.v1_7_11"/>
         <edmx:Include Namespace="ComputerSystem.v1_8_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_8_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_8_2"/>
@@ -586,6 +640,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_8_7"/>
         <edmx:Include Namespace="ComputerSystem.v1_8_8"/>
         <edmx:Include Namespace="ComputerSystem.v1_8_9"/>
+        <edmx:Include Namespace="ComputerSystem.v1_8_10"/>
         <edmx:Include Namespace="ComputerSystem.v1_9_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_9_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_9_2"/>
@@ -596,6 +651,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_9_7"/>
         <edmx:Include Namespace="ComputerSystem.v1_9_8"/>
         <edmx:Include Namespace="ComputerSystem.v1_9_9"/>
+        <edmx:Include Namespace="ComputerSystem.v1_9_10"/>
         <edmx:Include Namespace="ComputerSystem.v1_10_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_10_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_10_2"/>
@@ -605,6 +661,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_10_6"/>
         <edmx:Include Namespace="ComputerSystem.v1_10_7"/>
         <edmx:Include Namespace="ComputerSystem.v1_10_8"/>
+        <edmx:Include Namespace="ComputerSystem.v1_10_9"/>
         <edmx:Include Namespace="ComputerSystem.v1_11_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_11_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_11_2"/>
@@ -613,6 +670,7 @@
         <edmx:Include Namespace="ComputerSystem.v1_11_5"/>
         <edmx:Include Namespace="ComputerSystem.v1_11_6"/>
         <edmx:Include Namespace="ComputerSystem.v1_11_7"/>
+        <edmx:Include Namespace="ComputerSystem.v1_11_8"/>
         <edmx:Include Namespace="ComputerSystem.v1_12_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_12_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_12_2"/>
@@ -620,33 +678,42 @@
         <edmx:Include Namespace="ComputerSystem.v1_12_4"/>
         <edmx:Include Namespace="ComputerSystem.v1_12_5"/>
         <edmx:Include Namespace="ComputerSystem.v1_12_6"/>
+        <edmx:Include Namespace="ComputerSystem.v1_12_7"/>
         <edmx:Include Namespace="ComputerSystem.v1_13_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_13_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_13_2"/>
         <edmx:Include Namespace="ComputerSystem.v1_13_3"/>
         <edmx:Include Namespace="ComputerSystem.v1_13_4"/>
         <edmx:Include Namespace="ComputerSystem.v1_13_5"/>
+        <edmx:Include Namespace="ComputerSystem.v1_13_6"/>
         <edmx:Include Namespace="ComputerSystem.v1_14_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_14_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_14_2"/>
         <edmx:Include Namespace="ComputerSystem.v1_14_3"/>
         <edmx:Include Namespace="ComputerSystem.v1_14_4"/>
+        <edmx:Include Namespace="ComputerSystem.v1_14_5"/>
         <edmx:Include Namespace="ComputerSystem.v1_15_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_15_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_15_2"/>
         <edmx:Include Namespace="ComputerSystem.v1_15_3"/>
+        <edmx:Include Namespace="ComputerSystem.v1_15_4"/>
         <edmx:Include Namespace="ComputerSystem.v1_16_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_16_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_16_2"/>
         <edmx:Include Namespace="ComputerSystem.v1_16_3"/>
+        <edmx:Include Namespace="ComputerSystem.v1_16_4"/>
         <edmx:Include Namespace="ComputerSystem.v1_17_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_17_1"/>
         <edmx:Include Namespace="ComputerSystem.v1_17_2"/>
+        <edmx:Include Namespace="ComputerSystem.v1_17_3"/>
         <edmx:Include Namespace="ComputerSystem.v1_18_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_18_1"/>
+        <edmx:Include Namespace="ComputerSystem.v1_18_2"/>
         <edmx:Include Namespace="ComputerSystem.v1_19_0"/>
         <edmx:Include Namespace="ComputerSystem.v1_19_1"/>
+        <edmx:Include Namespace="ComputerSystem.v1_19_2"/>
         <edmx:Include Namespace="ComputerSystem.v1_20_0"/>
+        <edmx:Include Namespace="ComputerSystem.v1_20_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ComputerSystemCollection_v1.xml">
         <edmx:Include Namespace="ComputerSystemCollection"/>
@@ -668,6 +735,7 @@
         <edmx:Include Namespace="Drive.v1_0_12"/>
         <edmx:Include Namespace="Drive.v1_0_13"/>
         <edmx:Include Namespace="Drive.v1_0_14"/>
+        <edmx:Include Namespace="Drive.v1_0_15"/>
         <edmx:Include Namespace="Drive.v1_1_0"/>
         <edmx:Include Namespace="Drive.v1_1_1"/>
         <edmx:Include Namespace="Drive.v1_1_2"/>
@@ -682,6 +750,7 @@
         <edmx:Include Namespace="Drive.v1_1_11"/>
         <edmx:Include Namespace="Drive.v1_1_12"/>
         <edmx:Include Namespace="Drive.v1_1_13"/>
+        <edmx:Include Namespace="Drive.v1_1_14"/>
         <edmx:Include Namespace="Drive.v1_2_0"/>
         <edmx:Include Namespace="Drive.v1_2_1"/>
         <edmx:Include Namespace="Drive.v1_2_2"/>
@@ -694,6 +763,7 @@
         <edmx:Include Namespace="Drive.v1_2_9"/>
         <edmx:Include Namespace="Drive.v1_2_10"/>
         <edmx:Include Namespace="Drive.v1_2_11"/>
+        <edmx:Include Namespace="Drive.v1_2_12"/>
         <edmx:Include Namespace="Drive.v1_3_0"/>
         <edmx:Include Namespace="Drive.v1_3_1"/>
         <edmx:Include Namespace="Drive.v1_3_2"/>
@@ -705,6 +775,7 @@
         <edmx:Include Namespace="Drive.v1_3_8"/>
         <edmx:Include Namespace="Drive.v1_3_9"/>
         <edmx:Include Namespace="Drive.v1_3_10"/>
+        <edmx:Include Namespace="Drive.v1_3_11"/>
         <edmx:Include Namespace="Drive.v1_4_0"/>
         <edmx:Include Namespace="Drive.v1_4_1"/>
         <edmx:Include Namespace="Drive.v1_4_2"/>
@@ -716,6 +787,7 @@
         <edmx:Include Namespace="Drive.v1_4_8"/>
         <edmx:Include Namespace="Drive.v1_4_9"/>
         <edmx:Include Namespace="Drive.v1_4_10"/>
+        <edmx:Include Namespace="Drive.v1_4_11"/>
         <edmx:Include Namespace="Drive.v1_5_0"/>
         <edmx:Include Namespace="Drive.v1_5_1"/>
         <edmx:Include Namespace="Drive.v1_5_2"/>
@@ -726,6 +798,7 @@
         <edmx:Include Namespace="Drive.v1_5_7"/>
         <edmx:Include Namespace="Drive.v1_5_8"/>
         <edmx:Include Namespace="Drive.v1_5_9"/>
+        <edmx:Include Namespace="Drive.v1_5_10"/>
         <edmx:Include Namespace="Drive.v1_6_0"/>
         <edmx:Include Namespace="Drive.v1_6_1"/>
         <edmx:Include Namespace="Drive.v1_6_2"/>
@@ -734,6 +807,7 @@
         <edmx:Include Namespace="Drive.v1_6_5"/>
         <edmx:Include Namespace="Drive.v1_6_6"/>
         <edmx:Include Namespace="Drive.v1_6_7"/>
+        <edmx:Include Namespace="Drive.v1_6_8"/>
         <edmx:Include Namespace="Drive.v1_7_0"/>
         <edmx:Include Namespace="Drive.v1_7_1"/>
         <edmx:Include Namespace="Drive.v1_7_2"/>
@@ -741,6 +815,7 @@
         <edmx:Include Namespace="Drive.v1_7_4"/>
         <edmx:Include Namespace="Drive.v1_7_5"/>
         <edmx:Include Namespace="Drive.v1_7_6"/>
+        <edmx:Include Namespace="Drive.v1_7_7"/>
         <edmx:Include Namespace="Drive.v1_8_0"/>
         <edmx:Include Namespace="Drive.v1_8_1"/>
         <edmx:Include Namespace="Drive.v1_8_2"/>
@@ -748,6 +823,7 @@
         <edmx:Include Namespace="Drive.v1_8_4"/>
         <edmx:Include Namespace="Drive.v1_8_5"/>
         <edmx:Include Namespace="Drive.v1_8_6"/>
+        <edmx:Include Namespace="Drive.v1_8_7"/>
         <edmx:Include Namespace="Drive.v1_9_0"/>
         <edmx:Include Namespace="Drive.v1_9_1"/>
         <edmx:Include Namespace="Drive.v1_9_2"/>
@@ -755,25 +831,34 @@
         <edmx:Include Namespace="Drive.v1_9_4"/>
         <edmx:Include Namespace="Drive.v1_9_5"/>
         <edmx:Include Namespace="Drive.v1_9_6"/>
+        <edmx:Include Namespace="Drive.v1_9_7"/>
         <edmx:Include Namespace="Drive.v1_10_0"/>
         <edmx:Include Namespace="Drive.v1_10_1"/>
         <edmx:Include Namespace="Drive.v1_10_2"/>
         <edmx:Include Namespace="Drive.v1_10_3"/>
         <edmx:Include Namespace="Drive.v1_10_4"/>
+        <edmx:Include Namespace="Drive.v1_10_5"/>
         <edmx:Include Namespace="Drive.v1_11_0"/>
         <edmx:Include Namespace="Drive.v1_11_1"/>
         <edmx:Include Namespace="Drive.v1_11_2"/>
         <edmx:Include Namespace="Drive.v1_11_3"/>
         <edmx:Include Namespace="Drive.v1_11_4"/>
+        <edmx:Include Namespace="Drive.v1_11_5"/>
         <edmx:Include Namespace="Drive.v1_12_0"/>
         <edmx:Include Namespace="Drive.v1_12_1"/>
         <edmx:Include Namespace="Drive.v1_12_2"/>
         <edmx:Include Namespace="Drive.v1_12_3"/>
+        <edmx:Include Namespace="Drive.v1_12_4"/>
         <edmx:Include Namespace="Drive.v1_13_0"/>
         <edmx:Include Namespace="Drive.v1_13_1"/>
+        <edmx:Include Namespace="Drive.v1_13_2"/>
         <edmx:Include Namespace="Drive.v1_14_0"/>
+        <edmx:Include Namespace="Drive.v1_14_1"/>
         <edmx:Include Namespace="Drive.v1_15_0"/>
+        <edmx:Include Namespace="Drive.v1_15_1"/>
         <edmx:Include Namespace="Drive.v1_16_0"/>
+        <edmx:Include Namespace="Drive.v1_16_1"/>
+        <edmx:Include Namespace="Drive.v1_17_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/DriveCollection_v1.xml">
         <edmx:Include Namespace="DriveCollection"/>
@@ -802,6 +887,7 @@
         <edmx:Include Namespace="EthernetInterface.v1_0_11"/>
         <edmx:Include Namespace="EthernetInterface.v1_0_12"/>
         <edmx:Include Namespace="EthernetInterface.v1_0_13"/>
+        <edmx:Include Namespace="EthernetInterface.v1_0_14"/>
         <edmx:Include Namespace="EthernetInterface.v1_1_0"/>
         <edmx:Include Namespace="EthernetInterface.v1_1_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_1_2"/>
@@ -814,6 +900,7 @@
         <edmx:Include Namespace="EthernetInterface.v1_1_9"/>
         <edmx:Include Namespace="EthernetInterface.v1_1_10"/>
         <edmx:Include Namespace="EthernetInterface.v1_1_11"/>
+        <edmx:Include Namespace="EthernetInterface.v1_1_12"/>
         <edmx:Include Namespace="EthernetInterface.v1_2_0"/>
         <edmx:Include Namespace="EthernetInterface.v1_2_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_2_2"/>
@@ -825,6 +912,7 @@
         <edmx:Include Namespace="EthernetInterface.v1_2_8"/>
         <edmx:Include Namespace="EthernetInterface.v1_2_9"/>
         <edmx:Include Namespace="EthernetInterface.v1_2_10"/>
+        <edmx:Include Namespace="EthernetInterface.v1_2_11"/>
         <edmx:Include Namespace="EthernetInterface.v1_3_0"/>
         <edmx:Include Namespace="EthernetInterface.v1_3_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_3_2"/>
@@ -835,6 +923,7 @@
         <edmx:Include Namespace="EthernetInterface.v1_3_7"/>
         <edmx:Include Namespace="EthernetInterface.v1_3_8"/>
         <edmx:Include Namespace="EthernetInterface.v1_3_9"/>
+        <edmx:Include Namespace="EthernetInterface.v1_3_10"/>
         <edmx:Include Namespace="EthernetInterface.v1_4_0"/>
         <edmx:Include Namespace="EthernetInterface.v1_4_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_4_2"/>
@@ -844,6 +933,7 @@
         <edmx:Include Namespace="EthernetInterface.v1_4_6"/>
         <edmx:Include Namespace="EthernetInterface.v1_4_7"/>
         <edmx:Include Namespace="EthernetInterface.v1_4_8"/>
+        <edmx:Include Namespace="EthernetInterface.v1_4_9"/>
         <edmx:Include Namespace="EthernetInterface.v1_5_0"/>
         <edmx:Include Namespace="EthernetInterface.v1_5_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_5_2"/>
@@ -851,14 +941,20 @@
         <edmx:Include Namespace="EthernetInterface.v1_5_4"/>
         <edmx:Include Namespace="EthernetInterface.v1_5_5"/>
         <edmx:Include Namespace="EthernetInterface.v1_5_6"/>
+        <edmx:Include Namespace="EthernetInterface.v1_5_7"/>
         <edmx:Include Namespace="EthernetInterface.v1_6_0"/>
         <edmx:Include Namespace="EthernetInterface.v1_6_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_6_2"/>
         <edmx:Include Namespace="EthernetInterface.v1_6_3"/>
         <edmx:Include Namespace="EthernetInterface.v1_6_4"/>
+        <edmx:Include Namespace="EthernetInterface.v1_6_5"/>
         <edmx:Include Namespace="EthernetInterface.v1_7_0"/>
+        <edmx:Include Namespace="EthernetInterface.v1_7_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_8_0"/>
+        <edmx:Include Namespace="EthernetInterface.v1_8_1"/>
         <edmx:Include Namespace="EthernetInterface.v1_9_0"/>
+        <edmx:Include Namespace="EthernetInterface.v1_9_1"/>
+        <edmx:Include Namespace="EthernetInterface.v1_10_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/EthernetInterfaceCollection_v1.xml">
         <edmx:Include Namespace="EthernetInterfaceCollection"/>
@@ -925,6 +1021,7 @@
         <edmx:Include Namespace="Event.v1_6_2"/>
         <edmx:Include Namespace="Event.v1_7_0"/>
         <edmx:Include Namespace="Event.v1_7_1"/>
+        <edmx:Include Namespace="Event.v1_8_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/EventDestination_v1.xml">
         <edmx:Include Namespace="EventDestination"/>
@@ -1025,7 +1122,9 @@
         <edmx:Include Namespace="EventDestination.v1_11_4"/>
         <edmx:Include Namespace="EventDestination.v1_12_0"/>
         <edmx:Include Namespace="EventDestination.v1_12_1"/>
+        <edmx:Include Namespace="EventDestination.v1_12_2"/>
         <edmx:Include Namespace="EventDestination.v1_13_0"/>
+        <edmx:Include Namespace="EventDestination.v1_13_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/EventDestinationCollection_v1.xml">
         <edmx:Include Namespace="EventDestinationCollection"/>
@@ -1046,6 +1145,7 @@
         <edmx:Include Namespace="EventService.v1_0_12"/>
         <edmx:Include Namespace="EventService.v1_0_13"/>
         <edmx:Include Namespace="EventService.v1_0_14"/>
+        <edmx:Include Namespace="EventService.v1_0_15"/>
         <edmx:Include Namespace="EventService.v1_1_0"/>
         <edmx:Include Namespace="EventService.v1_1_1"/>
         <edmx:Include Namespace="EventService.v1_1_2"/>
@@ -1054,6 +1154,7 @@
         <edmx:Include Namespace="EventService.v1_1_5"/>
         <edmx:Include Namespace="EventService.v1_1_6"/>
         <edmx:Include Namespace="EventService.v1_1_7"/>
+        <edmx:Include Namespace="EventService.v1_1_8"/>
         <edmx:Include Namespace="EventService.v1_2_0"/>
         <edmx:Include Namespace="EventService.v1_2_1"/>
         <edmx:Include Namespace="EventService.v1_2_2"/>
@@ -1062,6 +1163,7 @@
         <edmx:Include Namespace="EventService.v1_2_5"/>
         <edmx:Include Namespace="EventService.v1_2_6"/>
         <edmx:Include Namespace="EventService.v1_2_7"/>
+        <edmx:Include Namespace="EventService.v1_2_8"/>
         <edmx:Include Namespace="EventService.v1_3_0"/>
         <edmx:Include Namespace="EventService.v1_3_1"/>
         <edmx:Include Namespace="EventService.v1_3_2"/>
@@ -1069,12 +1171,14 @@
         <edmx:Include Namespace="EventService.v1_3_4"/>
         <edmx:Include Namespace="EventService.v1_3_5"/>
         <edmx:Include Namespace="EventService.v1_3_6"/>
+        <edmx:Include Namespace="EventService.v1_3_7"/>
         <edmx:Include Namespace="EventService.v1_4_0"/>
         <edmx:Include Namespace="EventService.v1_4_1"/>
         <edmx:Include Namespace="EventService.v1_4_2"/>
         <edmx:Include Namespace="EventService.v1_4_3"/>
         <edmx:Include Namespace="EventService.v1_4_5"/>
         <edmx:Include Namespace="EventService.v1_4_6"/>
+        <edmx:Include Namespace="EventService.v1_4_7"/>
         <edmx:Include Namespace="EventService.v1_5_0"/>
         <edmx:Include Namespace="EventService.v1_5_1"/>
         <edmx:Include Namespace="EventService.v1_5_2"/>
@@ -1082,29 +1186,41 @@
         <edmx:Include Namespace="EventService.v1_5_4"/>
         <edmx:Include Namespace="EventService.v1_5_5"/>
         <edmx:Include Namespace="EventService.v1_5_6"/>
+        <edmx:Include Namespace="EventService.v1_5_7"/>
         <edmx:Include Namespace="EventService.v1_6_0"/>
         <edmx:Include Namespace="EventService.v1_6_1"/>
         <edmx:Include Namespace="EventService.v1_6_2"/>
         <edmx:Include Namespace="EventService.v1_6_3"/>
         <edmx:Include Namespace="EventService.v1_6_4"/>
         <edmx:Include Namespace="EventService.v1_6_5"/>
+        <edmx:Include Namespace="EventService.v1_6_6"/>
         <edmx:Include Namespace="EventService.v1_7_0"/>
         <edmx:Include Namespace="EventService.v1_7_1"/>
         <edmx:Include Namespace="EventService.v1_7_2"/>
         <edmx:Include Namespace="EventService.v1_7_3"/>
         <edmx:Include Namespace="EventService.v1_7_4"/>
+        <edmx:Include Namespace="EventService.v1_7_5"/>
         <edmx:Include Namespace="EventService.v1_8_0"/>
         <edmx:Include Namespace="EventService.v1_8_1"/>
+        <edmx:Include Namespace="EventService.v1_8_2"/>
         <edmx:Include Namespace="EventService.v1_9_0"/>
+        <edmx:Include Namespace="EventService.v1_9_1"/>
+        <edmx:Include Namespace="EventService.v1_10_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/FabricAdapter_v1.xml">
         <edmx:Include Namespace="FabricAdapter"/>
         <edmx:Include Namespace="FabricAdapter.v1_0_0"/>
+        <edmx:Include Namespace="FabricAdapter.v1_0_1"/>
         <edmx:Include Namespace="FabricAdapter.v1_1_0"/>
+        <edmx:Include Namespace="FabricAdapter.v1_1_1"/>
         <edmx:Include Namespace="FabricAdapter.v1_2_0"/>
+        <edmx:Include Namespace="FabricAdapter.v1_2_1"/>
         <edmx:Include Namespace="FabricAdapter.v1_3_0"/>
+        <edmx:Include Namespace="FabricAdapter.v1_3_1"/>
         <edmx:Include Namespace="FabricAdapter.v1_4_0"/>
+        <edmx:Include Namespace="FabricAdapter.v1_4_1"/>
         <edmx:Include Namespace="FabricAdapter.v1_5_0"/>
+        <edmx:Include Namespace="FabricAdapter.v1_5_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/FabricAdapterCollection_v1.xml">
         <edmx:Include Namespace="FabricAdapterCollection"/>
@@ -1114,10 +1230,15 @@
         <edmx:Include Namespace="Fan.v1_0_0"/>
         <edmx:Include Namespace="Fan.v1_0_1"/>
         <edmx:Include Namespace="Fan.v1_0_2"/>
+        <edmx:Include Namespace="Fan.v1_0_3"/>
         <edmx:Include Namespace="Fan.v1_1_0"/>
         <edmx:Include Namespace="Fan.v1_1_1"/>
+        <edmx:Include Namespace="Fan.v1_1_2"/>
         <edmx:Include Namespace="Fan.v1_2_0"/>
+        <edmx:Include Namespace="Fan.v1_2_1"/>
         <edmx:Include Namespace="Fan.v1_3_0"/>
+        <edmx:Include Namespace="Fan.v1_3_1"/>
+        <edmx:Include Namespace="Fan.v1_4_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/FanCollection_v1.xml">
         <edmx:Include Namespace="FanCollection"/>
@@ -1176,6 +1297,7 @@
         <edmx:Include Namespace="LogEntry.v1_0_14"/>
         <edmx:Include Namespace="LogEntry.v1_0_15"/>
         <edmx:Include Namespace="LogEntry.v1_1_16"/>
+        <edmx:Include Namespace="LogEntry.v1_1_17"/>
         <edmx:Include Namespace="LogEntry.v1_1_0"/>
         <edmx:Include Namespace="LogEntry.v1_1_1"/>
         <edmx:Include Namespace="LogEntry.v1_1_2"/>
@@ -1191,6 +1313,7 @@
         <edmx:Include Namespace="LogEntry.v1_1_12"/>
         <edmx:Include Namespace="LogEntry.v1_1_13"/>
         <edmx:Include Namespace="LogEntry.v1_1_14"/>
+        <edmx:Include Namespace="LogEntry.v1_1_15"/>
         <edmx:Include Namespace="LogEntry.v1_2_0"/>
         <edmx:Include Namespace="LogEntry.v1_2_1"/>
         <edmx:Include Namespace="LogEntry.v1_2_2"/>
@@ -1204,6 +1327,7 @@
         <edmx:Include Namespace="LogEntry.v1_2_10"/>
         <edmx:Include Namespace="LogEntry.v1_2_11"/>
         <edmx:Include Namespace="LogEntry.v1_2_12"/>
+        <edmx:Include Namespace="LogEntry.v1_2_13"/>
         <edmx:Include Namespace="LogEntry.v1_3_0"/>
         <edmx:Include Namespace="LogEntry.v1_3_1"/>
         <edmx:Include Namespace="LogEntry.v1_3_2"/>
@@ -1216,6 +1340,7 @@
         <edmx:Include Namespace="LogEntry.v1_3_9"/>
         <edmx:Include Namespace="LogEntry.v1_3_10"/>
         <edmx:Include Namespace="LogEntry.v1_3_11"/>
+        <edmx:Include Namespace="LogEntry.v1_3_12"/>
         <edmx:Include Namespace="LogEntry.v1_4_0"/>
         <edmx:Include Namespace="LogEntry.v1_4_1"/>
         <edmx:Include Namespace="LogEntry.v1_4_2"/>
@@ -1227,6 +1352,7 @@
         <edmx:Include Namespace="LogEntry.v1_4_8"/>
         <edmx:Include Namespace="LogEntry.v1_4_9"/>
         <edmx:Include Namespace="LogEntry.v1_4_10"/>
+        <edmx:Include Namespace="LogEntry.v1_4_11"/>
         <edmx:Include Namespace="LogEntry.v1_5_0"/>
         <edmx:Include Namespace="LogEntry.v1_5_1"/>
         <edmx:Include Namespace="LogEntry.v1_5_2"/>
@@ -1234,35 +1360,46 @@
         <edmx:Include Namespace="LogEntry.v1_5_4"/>
         <edmx:Include Namespace="LogEntry.v1_5_5"/>
         <edmx:Include Namespace="LogEntry.v1_5_6"/>
+        <edmx:Include Namespace="LogEntry.v1_5_7"/>
         <edmx:Include Namespace="LogEntry.v1_6_0"/>
         <edmx:Include Namespace="LogEntry.v1_6_1"/>
         <edmx:Include Namespace="LogEntry.v1_6_2"/>
         <edmx:Include Namespace="LogEntry.v1_6_3"/>
         <edmx:Include Namespace="LogEntry.v1_6_4"/>
         <edmx:Include Namespace="LogEntry.v1_6_5"/>
+        <edmx:Include Namespace="LogEntry.v1_6_6"/>
         <edmx:Include Namespace="LogEntry.v1_7_0"/>
         <edmx:Include Namespace="LogEntry.v1_7_1"/>
         <edmx:Include Namespace="LogEntry.v1_7_2"/>
         <edmx:Include Namespace="LogEntry.v1_7_3"/>
+        <edmx:Include Namespace="LogEntry.v1_7_4"/>
         <edmx:Include Namespace="LogEntry.v1_8_0"/>
         <edmx:Include Namespace="LogEntry.v1_8_1"/>
         <edmx:Include Namespace="LogEntry.v1_8_2"/>
+        <edmx:Include Namespace="LogEntry.v1_8_3"/>
         <edmx:Include Namespace="LogEntry.v1_9_0"/>
         <edmx:Include Namespace="LogEntry.v1_9_1"/>
         <edmx:Include Namespace="LogEntry.v1_9_2"/>
         <edmx:Include Namespace="LogEntry.v1_9_3"/>
+        <edmx:Include Namespace="LogEntry.v1_9_4"/>
         <edmx:Include Namespace="LogEntry.v1_10_0"/>
         <edmx:Include Namespace="LogEntry.v1_10_1"/>
         <edmx:Include Namespace="LogEntry.v1_10_2"/>
         <edmx:Include Namespace="LogEntry.v1_10_3"/>
+        <edmx:Include Namespace="LogEntry.v1_10_4"/>
         <edmx:Include Namespace="LogEntry.v1_11_0"/>
         <edmx:Include Namespace="LogEntry.v1_11_1"/>
         <edmx:Include Namespace="LogEntry.v1_11_2"/>
+        <edmx:Include Namespace="LogEntry.v1_11_3"/>
         <edmx:Include Namespace="LogEntry.v1_12_0"/>
         <edmx:Include Namespace="LogEntry.v1_12_1"/>
+        <edmx:Include Namespace="LogEntry.v1_12_2"/>
         <edmx:Include Namespace="LogEntry.v1_13_0"/>
         <edmx:Include Namespace="LogEntry.v1_13_1"/>
+        <edmx:Include Namespace="LogEntry.v1_13_2"/>
         <edmx:Include Namespace="LogEntry.v1_14_0"/>
+        <edmx:Include Namespace="LogEntry.v1_14_1"/>
+        <edmx:Include Namespace="LogEntry.v1_15_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/LogEntryCollection_v1.xml">
         <edmx:Include Namespace="LogEntryCollection"/>
@@ -1416,6 +1553,7 @@
         <edmx:Include Namespace="Manager.v1_15_0"/>
         <edmx:Include Namespace="Manager.v1_16_0"/>
         <edmx:Include Namespace="Manager.v1_17_0"/>
+        <edmx:Include Namespace="Manager.v1_18_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ManagerAccount_v1.xml">
         <edmx:Include Namespace="ManagerAccount"/>
@@ -1564,6 +1702,7 @@
         <edmx:Include Namespace="Memory.v1_0_9"/>
         <edmx:Include Namespace="Memory.v1_0_10"/>
         <edmx:Include Namespace="Memory.v1_0_11"/>
+        <edmx:Include Namespace="Memory.v1_0_12"/>
         <edmx:Include Namespace="Memory.v1_1_0"/>
         <edmx:Include Namespace="Memory.v1_1_1"/>
         <edmx:Include Namespace="Memory.v1_1_2"/>
@@ -1575,6 +1714,7 @@
         <edmx:Include Namespace="Memory.v1_1_8"/>
         <edmx:Include Namespace="Memory.v1_1_9"/>
         <edmx:Include Namespace="Memory.v1_1_10"/>
+        <edmx:Include Namespace="Memory.v1_1_11"/>
         <edmx:Include Namespace="Memory.v1_2_0"/>
         <edmx:Include Namespace="Memory.v1_2_1"/>
         <edmx:Include Namespace="Memory.v1_2_2"/>
@@ -1585,6 +1725,7 @@
         <edmx:Include Namespace="Memory.v1_2_7"/>
         <edmx:Include Namespace="Memory.v1_2_8"/>
         <edmx:Include Namespace="Memory.v1_2_9"/>
+        <edmx:Include Namespace="Memory.v1_2_10"/>
         <edmx:Include Namespace="Memory.v1_3_0"/>
         <edmx:Include Namespace="Memory.v1_3_1"/>
         <edmx:Include Namespace="Memory.v1_3_2"/>
@@ -1595,6 +1736,7 @@
         <edmx:Include Namespace="Memory.v1_3_7"/>
         <edmx:Include Namespace="Memory.v1_3_8"/>
         <edmx:Include Namespace="Memory.v1_3_9"/>
+        <edmx:Include Namespace="Memory.v1_3_10"/>
         <edmx:Include Namespace="Memory.v1_4_0"/>
         <edmx:Include Namespace="Memory.v1_4_1"/>
         <edmx:Include Namespace="Memory.v1_4_2"/>
@@ -1605,6 +1747,7 @@
         <edmx:Include Namespace="Memory.v1_4_7"/>
         <edmx:Include Namespace="Memory.v1_4_8"/>
         <edmx:Include Namespace="Memory.v1_4_9"/>
+        <edmx:Include Namespace="Memory.v1_4_10"/>
         <edmx:Include Namespace="Memory.v1_5_0"/>
         <edmx:Include Namespace="Memory.v1_5_1"/>
         <edmx:Include Namespace="Memory.v1_5_2"/>
@@ -1614,6 +1757,7 @@
         <edmx:Include Namespace="Memory.v1_5_6"/>
         <edmx:Include Namespace="Memory.v1_5_7"/>
         <edmx:Include Namespace="Memory.v1_5_8"/>
+        <edmx:Include Namespace="Memory.v1_5_9"/>
         <edmx:Include Namespace="Memory.v1_6_0"/>
         <edmx:Include Namespace="Memory.v1_6_1"/>
         <edmx:Include Namespace="Memory.v1_6_2"/>
@@ -1622,6 +1766,7 @@
         <edmx:Include Namespace="Memory.v1_6_5"/>
         <edmx:Include Namespace="Memory.v1_6_6"/>
         <edmx:Include Namespace="Memory.v1_6_7"/>
+        <edmx:Include Namespace="Memory.v1_6_8"/>
         <edmx:Include Namespace="Memory.v1_7_0"/>
         <edmx:Include Namespace="Memory.v1_7_1"/>
         <edmx:Include Namespace="Memory.v1_7_2"/>
@@ -1629,26 +1774,37 @@
         <edmx:Include Namespace="Memory.v1_7_4"/>
         <edmx:Include Namespace="Memory.v1_7_5"/>
         <edmx:Include Namespace="Memory.v1_7_6"/>
+        <edmx:Include Namespace="Memory.v1_7_7"/>
         <edmx:Include Namespace="Memory.v1_8_0"/>
         <edmx:Include Namespace="Memory.v1_8_1"/>
         <edmx:Include Namespace="Memory.v1_8_2"/>
         <edmx:Include Namespace="Memory.v1_8_3"/>
         <edmx:Include Namespace="Memory.v1_8_4"/>
+        <edmx:Include Namespace="Memory.v1_8_5"/>
         <edmx:Include Namespace="Memory.v1_9_0"/>
         <edmx:Include Namespace="Memory.v1_9_1"/>
         <edmx:Include Namespace="Memory.v1_9_2"/>
         <edmx:Include Namespace="Memory.v1_9_3"/>
         <edmx:Include Namespace="Memory.v1_9_4"/>
+        <edmx:Include Namespace="Memory.v1_9_5"/>
         <edmx:Include Namespace="Memory.v1_10_0"/>
         <edmx:Include Namespace="Memory.v1_10_1"/>
+        <edmx:Include Namespace="Memory.v1_10_2"/>
         <edmx:Include Namespace="Memory.v1_11_0"/>
+        <edmx:Include Namespace="Memory.v1_11_1"/>
         <edmx:Include Namespace="Memory.v1_12_0"/>
+        <edmx:Include Namespace="Memory.v1_12_1"/>
         <edmx:Include Namespace="Memory.v1_13_0"/>
         <edmx:Include Namespace="Memory.v1_13_1"/>
+        <edmx:Include Namespace="Memory.v1_13_2"/>
         <edmx:Include Namespace="Memory.v1_14_0"/>
+        <edmx:Include Namespace="Memory.v1_14_1"/>
         <edmx:Include Namespace="Memory.v1_15_0"/>
+        <edmx:Include Namespace="Memory.v1_15_1"/>
         <edmx:Include Namespace="Memory.v1_16_0"/>
+        <edmx:Include Namespace="Memory.v1_16_1"/>
         <edmx:Include Namespace="Memory.v1_17_0"/>
+        <edmx:Include Namespace="Memory.v1_17_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/MemoryCollection_v1.xml">
         <edmx:Include Namespace="MemoryCollection"/>
@@ -1735,16 +1891,20 @@
         <edmx:Include Namespace="MetricDefinition.v1_0_7"/>
         <edmx:Include Namespace="MetricDefinition.v1_0_8"/>
         <edmx:Include Namespace="MetricDefinition.v1_0_9"/>
+        <edmx:Include Namespace="MetricDefinition.v1_0_10"/>
         <edmx:Include Namespace="MetricDefinition.v1_1_0"/>
         <edmx:Include Namespace="MetricDefinition.v1_1_1"/>
         <edmx:Include Namespace="MetricDefinition.v1_1_2"/>
         <edmx:Include Namespace="MetricDefinition.v1_1_3"/>
         <edmx:Include Namespace="MetricDefinition.v1_1_4"/>
+        <edmx:Include Namespace="MetricDefinition.v1_1_5"/>
         <edmx:Include Namespace="MetricDefinition.v1_2_0"/>
         <edmx:Include Namespace="MetricDefinition.v1_2_1"/>
         <edmx:Include Namespace="MetricDefinition.v1_2_2"/>
+        <edmx:Include Namespace="MetricDefinition.v1_2_3"/>
         <edmx:Include Namespace="MetricDefinition.v1_3_0"/>
         <edmx:Include Namespace="MetricDefinition.v1_3_1"/>
+        <edmx:Include Namespace="MetricDefinition.v1_3_2"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/MetricDefinitionCollection_v1.xml">
         <edmx:Include Namespace="MetricDefinitionCollection"/>
@@ -1800,6 +1960,7 @@
         <edmx:Include Namespace="MetricReportDefinition.v1_0_7"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_0_8"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_0_9"/>
+        <edmx:Include Namespace="MetricReportDefinition.v1_0_10"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_1_0"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_1_1"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_1_2"/>
@@ -1809,6 +1970,7 @@
         <edmx:Include Namespace="MetricReportDefinition.v1_1_6"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_1_7"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_1_8"/>
+        <edmx:Include Namespace="MetricReportDefinition.v1_1_9"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_2_0"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_2_1"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_2_2"/>
@@ -1817,6 +1979,7 @@
         <edmx:Include Namespace="MetricReportDefinition.v1_2_5"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_2_6"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_2_7"/>
+        <edmx:Include Namespace="MetricReportDefinition.v1_2_8"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_3_0"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_3_1"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_3_2"/>
@@ -1824,9 +1987,11 @@
         <edmx:Include Namespace="MetricReportDefinition.v1_3_4"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_3_5"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_3_6"/>
+        <edmx:Include Namespace="MetricReportDefinition.v1_3_7"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_4_0"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_4_1"/>
         <edmx:Include Namespace="MetricReportDefinition.v1_4_2"/>
+        <edmx:Include Namespace="MetricReportDefinition.v1_4_3"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/MetricReportDefinitionCollection_v1.xml">
         <edmx:Include Namespace="MetricReportDefinitionCollection"/>
@@ -1849,31 +2014,43 @@
         <edmx:Include Namespace="PCIeDevice.v1_0_4"/>
         <edmx:Include Namespace="PCIeDevice.v1_0_5"/>
         <edmx:Include Namespace="PCIeDevice.v1_0_6"/>
+        <edmx:Include Namespace="PCIeDevice.v1_0_7"/>
         <edmx:Include Namespace="PCIeDevice.v1_1_0"/>
         <edmx:Include Namespace="PCIeDevice.v1_1_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_1_2"/>
         <edmx:Include Namespace="PCIeDevice.v1_1_3"/>
         <edmx:Include Namespace="PCIeDevice.v1_1_4"/>
+        <edmx:Include Namespace="PCIeDevice.v1_1_5"/>
         <edmx:Include Namespace="PCIeDevice.v1_2_0"/>
         <edmx:Include Namespace="PCIeDevice.v1_2_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_2_2"/>
         <edmx:Include Namespace="PCIeDevice.v1_2_3"/>
         <edmx:Include Namespace="PCIeDevice.v1_2_4"/>
+        <edmx:Include Namespace="PCIeDevice.v1_2_5"/>
         <edmx:Include Namespace="PCIeDevice.v1_3_0"/>
         <edmx:Include Namespace="PCIeDevice.v1_3_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_3_2"/>
         <edmx:Include Namespace="PCIeDevice.v1_3_3"/>
+        <edmx:Include Namespace="PCIeDevice.v1_3_4"/>
         <edmx:Include Namespace="PCIeDevice.v1_4_0"/>
         <edmx:Include Namespace="PCIeDevice.v1_4_1"/>
+        <edmx:Include Namespace="PCIeDevice.v1_4_2"/>
         <edmx:Include Namespace="PCIeDevice.v1_5_0"/>
         <edmx:Include Namespace="PCIeDevice.v1_5_1"/>
+        <edmx:Include Namespace="PCIeDevice.v1_5_2"/>
         <edmx:Include Namespace="PCIeDevice.v1_6_0"/>
         <edmx:Include Namespace="PCIeDevice.v1_6_1"/>
+        <edmx:Include Namespace="PCIeDevice.v1_6_2"/>
         <edmx:Include Namespace="PCIeDevice.v1_7_0"/>
+        <edmx:Include Namespace="PCIeDevice.v1_7_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_8_0"/>
+        <edmx:Include Namespace="PCIeDevice.v1_8_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_9_0"/>
+        <edmx:Include Namespace="PCIeDevice.v1_9_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_10_0"/>
+        <edmx:Include Namespace="PCIeDevice.v1_10_1"/>
         <edmx:Include Namespace="PCIeDevice.v1_11_0"/>
+        <edmx:Include Namespace="PCIeDevice.v1_11_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/PCIeDeviceCollection_v1.xml">
         <edmx:Include Namespace="PCIeDeviceCollection"/>
@@ -1971,6 +2148,7 @@
         <edmx:Include Namespace="Port.v1_6_2"/>
         <edmx:Include Namespace="Port.v1_7_0"/>
         <edmx:Include Namespace="Port.v1_8_0"/>
+        <edmx:Include Namespace="Port.v1_9_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/PortCollection_v1.xml">
         <edmx:Include Namespace="PortCollection"/>
@@ -2058,11 +2236,17 @@
         <edmx:Include Namespace="PowerSupply"/>
         <edmx:Include Namespace="PowerSupply.v1_0_0"/>
         <edmx:Include Namespace="PowerSupply.v1_0_1"/>
+        <edmx:Include Namespace="PowerSupply.v1_0_2"/>
         <edmx:Include Namespace="PowerSupply.v1_1_0"/>
+        <edmx:Include Namespace="PowerSupply.v1_1_1"/>
         <edmx:Include Namespace="PowerSupply.v1_2_0"/>
+        <edmx:Include Namespace="PowerSupply.v1_2_1"/>
         <edmx:Include Namespace="PowerSupply.v1_3_0"/>
+        <edmx:Include Namespace="PowerSupply.v1_3_1"/>
         <edmx:Include Namespace="PowerSupply.v1_4_0"/>
+        <edmx:Include Namespace="PowerSupply.v1_4_1"/>
         <edmx:Include Namespace="PowerSupply.v1_5_0"/>
+        <edmx:Include Namespace="PowerSupply.v1_5_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/PowerSupplyCollection_v1.xml">
         <edmx:Include Namespace="PowerSupplyCollection"/>
@@ -2089,6 +2273,7 @@
         <edmx:Include Namespace="Processor.v1_0_10"/>
         <edmx:Include Namespace="Processor.v1_0_11"/>
         <edmx:Include Namespace="Processor.v1_0_12"/>
+        <edmx:Include Namespace="Processor.v1_0_13"/>
         <edmx:Include Namespace="Processor.v1_1_0"/>
         <edmx:Include Namespace="Processor.v1_1_1"/>
         <edmx:Include Namespace="Processor.v1_1_2"/>
@@ -2098,6 +2283,7 @@
         <edmx:Include Namespace="Processor.v1_1_6"/>
         <edmx:Include Namespace="Processor.v1_1_7"/>
         <edmx:Include Namespace="Processor.v1_1_8"/>
+        <edmx:Include Namespace="Processor.v1_1_9"/>
         <edmx:Include Namespace="Processor.v1_2_0"/>
         <edmx:Include Namespace="Processor.v1_2_1"/>
         <edmx:Include Namespace="Processor.v1_2_2"/>
@@ -2107,6 +2293,7 @@
         <edmx:Include Namespace="Processor.v1_2_6"/>
         <edmx:Include Namespace="Processor.v1_2_7"/>
         <edmx:Include Namespace="Processor.v1_2_8"/>
+        <edmx:Include Namespace="Processor.v1_2_9"/>
         <edmx:Include Namespace="Processor.v1_3_0"/>
         <edmx:Include Namespace="Processor.v1_3_1"/>
         <edmx:Include Namespace="Processor.v1_3_2"/>
@@ -2117,6 +2304,7 @@
         <edmx:Include Namespace="Processor.v1_3_7"/>
         <edmx:Include Namespace="Processor.v1_3_8"/>
         <edmx:Include Namespace="Processor.v1_3_9"/>
+        <edmx:Include Namespace="Processor.v1_3_10"/>
         <edmx:Include Namespace="Processor.v1_4_0"/>
         <edmx:Include Namespace="Processor.v1_4_1"/>
         <edmx:Include Namespace="Processor.v1_4_2"/>
@@ -2127,6 +2315,7 @@
         <edmx:Include Namespace="Processor.v1_4_7"/>
         <edmx:Include Namespace="Processor.v1_4_8"/>
         <edmx:Include Namespace="Processor.v1_4_9"/>
+        <edmx:Include Namespace="Processor.v1_4_10"/>
         <edmx:Include Namespace="Processor.v1_5_0"/>
         <edmx:Include Namespace="Processor.v1_5_1"/>
         <edmx:Include Namespace="Processor.v1_5_2"/>
@@ -2136,6 +2325,7 @@
         <edmx:Include Namespace="Processor.v1_5_6"/>
         <edmx:Include Namespace="Processor.v1_5_7"/>
         <edmx:Include Namespace="Processor.v1_5_8"/>
+        <edmx:Include Namespace="Processor.v1_5_9"/>
         <edmx:Include Namespace="Processor.v1_6_0"/>
         <edmx:Include Namespace="Processor.v1_6_1"/>
         <edmx:Include Namespace="Processor.v1_6_2"/>
@@ -2143,44 +2333,57 @@
         <edmx:Include Namespace="Processor.v1_6_4"/>
         <edmx:Include Namespace="Processor.v1_6_5"/>
         <edmx:Include Namespace="Processor.v1_6_6"/>
+        <edmx:Include Namespace="Processor.v1_6_7"/>
         <edmx:Include Namespace="Processor.v1_7_0"/>
         <edmx:Include Namespace="Processor.v1_7_1"/>
         <edmx:Include Namespace="Processor.v1_7_2"/>
         <edmx:Include Namespace="Processor.v1_7_3"/>
         <edmx:Include Namespace="Processor.v1_7_4"/>
         <edmx:Include Namespace="Processor.v1_7_5"/>
+        <edmx:Include Namespace="Processor.v1_7_6"/>
         <edmx:Include Namespace="Processor.v1_8_0"/>
         <edmx:Include Namespace="Processor.v1_8_1"/>
         <edmx:Include Namespace="Processor.v1_8_2"/>
         <edmx:Include Namespace="Processor.v1_8_3"/>
         <edmx:Include Namespace="Processor.v1_8_4"/>
+        <edmx:Include Namespace="Processor.v1_8_5"/>
         <edmx:Include Namespace="Processor.v1_9_0"/>
         <edmx:Include Namespace="Processor.v1_9_1"/>
         <edmx:Include Namespace="Processor.v1_9_2"/>
         <edmx:Include Namespace="Processor.v1_9_3"/>
+        <edmx:Include Namespace="Processor.v1_9_4"/>
         <edmx:Include Namespace="Processor.v1_10_0"/>
         <edmx:Include Namespace="Processor.v1_10_1"/>
         <edmx:Include Namespace="Processor.v1_10_2"/>
         <edmx:Include Namespace="Processor.v1_10_3"/>
+        <edmx:Include Namespace="Processor.v1_10_4"/>
         <edmx:Include Namespace="Processor.v1_11_0"/>
         <edmx:Include Namespace="Processor.v1_11_1"/>
         <edmx:Include Namespace="Processor.v1_11_2"/>
         <edmx:Include Namespace="Processor.v1_11_3"/>
+        <edmx:Include Namespace="Processor.v1_11_4"/>
         <edmx:Include Namespace="Processor.v1_12_0"/>
         <edmx:Include Namespace="Processor.v1_12_1"/>
         <edmx:Include Namespace="Processor.v1_12_2"/>
+        <edmx:Include Namespace="Processor.v1_12_3"/>
         <edmx:Include Namespace="Processor.v1_13_0"/>
         <edmx:Include Namespace="Processor.v1_13_1"/>
         <edmx:Include Namespace="Processor.v1_13_2"/>
         <edmx:Include Namespace="Processor.v1_13_3"/>
+        <edmx:Include Namespace="Processor.v1_13_4"/>
         <edmx:Include Namespace="Processor.v1_14_0"/>
         <edmx:Include Namespace="Processor.v1_14_1"/>
         <edmx:Include Namespace="Processor.v1_14_2"/>
+        <edmx:Include Namespace="Processor.v1_14_3"/>
         <edmx:Include Namespace="Processor.v1_15_0"/>
         <edmx:Include Namespace="Processor.v1_15_1"/>
+        <edmx:Include Namespace="Processor.v1_15_2"/>
         <edmx:Include Namespace="Processor.v1_16_0"/>
         <edmx:Include Namespace="Processor.v1_16_1"/>
+        <edmx:Include Namespace="Processor.v1_16_2"/>
         <edmx:Include Namespace="Processor.v1_17_0"/>
+        <edmx:Include Namespace="Processor.v1_17_1"/>
+        <edmx:Include Namespace="Processor.v1_18_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ProcessorCollection_v1.xml">
         <edmx:Include Namespace="ProcessorCollection"/>
@@ -2381,6 +2584,7 @@
         <edmx:Include Namespace="Resource.v1_14_0"/>
         <edmx:Include Namespace="Resource.v1_14_1"/>
         <edmx:Include Namespace="Resource.v1_15_0"/>
+        <edmx:Include Namespace="Resource.v1_16_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Role_v1.xml">
         <edmx:Include Namespace="Role"/>
@@ -2423,21 +2627,29 @@
         <edmx:Include Namespace="Sensor.v1_0_6"/>
         <edmx:Include Namespace="Sensor.v1_0_7"/>
         <edmx:Include Namespace="Sensor.v1_0_8"/>
+        <edmx:Include Namespace="Sensor.v1_0_9"/>
         <edmx:Include Namespace="Sensor.v1_1_0"/>
         <edmx:Include Namespace="Sensor.v1_1_1"/>
         <edmx:Include Namespace="Sensor.v1_1_2"/>
         <edmx:Include Namespace="Sensor.v1_1_3"/>
         <edmx:Include Namespace="Sensor.v1_1_4"/>
+        <edmx:Include Namespace="Sensor.v1_1_5"/>
         <edmx:Include Namespace="Sensor.v1_2_0"/>
         <edmx:Include Namespace="Sensor.v1_2_1"/>
         <edmx:Include Namespace="Sensor.v1_2_2"/>
+        <edmx:Include Namespace="Sensor.v1_2_3"/>
         <edmx:Include Namespace="Sensor.v1_3_0"/>
         <edmx:Include Namespace="Sensor.v1_3_1"/>
         <edmx:Include Namespace="Sensor.v1_3_2"/>
+        <edmx:Include Namespace="Sensor.v1_3_3"/>
         <edmx:Include Namespace="Sensor.v1_4_0"/>
         <edmx:Include Namespace="Sensor.v1_4_1"/>
+        <edmx:Include Namespace="Sensor.v1_4_2"/>
         <edmx:Include Namespace="Sensor.v1_5_0"/>
+        <edmx:Include Namespace="Sensor.v1_5_1"/>
         <edmx:Include Namespace="Sensor.v1_6_0"/>
+        <edmx:Include Namespace="Sensor.v1_6_1"/>
+        <edmx:Include Namespace="Sensor.v1_7_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/SensorCollection_v1.xml">
         <edmx:Include Namespace="SensorCollection"/>
@@ -2454,6 +2666,7 @@
         <edmx:Include Namespace="ServiceRoot.v1_0_8"/>
         <edmx:Include Namespace="ServiceRoot.v1_0_9"/>
         <edmx:Include Namespace="ServiceRoot.v1_0_10"/>
+        <edmx:Include Namespace="ServiceRoot.v1_0_11"/>
         <edmx:Include Namespace="ServiceRoot.v1_1_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_1_1"/>
         <edmx:Include Namespace="ServiceRoot.v1_1_2"/>
@@ -2462,12 +2675,14 @@
         <edmx:Include Namespace="ServiceRoot.v1_1_5"/>
         <edmx:Include Namespace="ServiceRoot.v1_1_6"/>
         <edmx:Include Namespace="ServiceRoot.v1_1_7"/>
+        <edmx:Include Namespace="ServiceRoot.v1_1_8"/>
         <edmx:Include Namespace="ServiceRoot.v1_2_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_2_1"/>
         <edmx:Include Namespace="ServiceRoot.v1_2_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_2_3"/>
         <edmx:Include Namespace="ServiceRoot.v1_2_4"/>
         <edmx:Include Namespace="ServiceRoot.v1_2_5"/>
+        <edmx:Include Namespace="ServiceRoot.v1_2_6"/>
         <edmx:Include Namespace="ServiceRoot.v1_3_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_3_1"/>
         <edmx:Include Namespace="ServiceRoot.v1_3_2"/>
@@ -2475,34 +2690,48 @@
         <edmx:Include Namespace="ServiceRoot.v1_3_4"/>
         <edmx:Include Namespace="ServiceRoot.v1_3_5"/>
         <edmx:Include Namespace="ServiceRoot.v1_3_6"/>
+        <edmx:Include Namespace="ServiceRoot.v1_3_7"/>
         <edmx:Include Namespace="ServiceRoot.v1_4_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_4_1"/>
         <edmx:Include Namespace="ServiceRoot.v1_4_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_4_3"/>
         <edmx:Include Namespace="ServiceRoot.v1_4_6"/>
+        <edmx:Include Namespace="ServiceRoot.v1_4_7"/>
         <edmx:Include Namespace="ServiceRoot.v1_5_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_5_1"/>
         <edmx:Include Namespace="ServiceRoot.v1_5_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_5_3"/>
+        <edmx:Include Namespace="ServiceRoot.v1_5_4"/>
         <edmx:Include Namespace="ServiceRoot.v1_6_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_6_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_6_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_7_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_7_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_7_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_8_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_8_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_8_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_9_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_9_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_9_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_10_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_10_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_10_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_11_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_11_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_11_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_12_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_12_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_12_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_13_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_13_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_13_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_14_0"/>
         <edmx:Include Namespace="ServiceRoot.v1_14_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_14_2"/>
         <edmx:Include Namespace="ServiceRoot.v1_15_0"/>
+        <edmx:Include Namespace="ServiceRoot.v1_15_1"/>
+        <edmx:Include Namespace="ServiceRoot.v1_16_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Session_v1.xml">
         <edmx:Include Namespace="Session"/>
@@ -2699,6 +2928,7 @@
         <edmx:Include Namespace="Storage.v1_12_0"/>
         <edmx:Include Namespace="Storage.v1_13_0"/>
         <edmx:Include Namespace="Storage.v1_14_0"/>
+        <edmx:Include Namespace="Storage.v1_15_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/StorageCollection_v1.xml">
         <edmx:Include Namespace="StorageCollection"/>
@@ -2715,6 +2945,7 @@
         <edmx:Include Namespace="StorageController.v1_4_0"/>
         <edmx:Include Namespace="StorageController.v1_5_0"/>
         <edmx:Include Namespace="StorageController.v1_6_0"/>
+        <edmx:Include Namespace="StorageController.v1_7_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/StorageControllerCollection_v1.xml">
         <edmx:Include Namespace="StorageControllerCollection"/>
@@ -2768,7 +2999,9 @@
         <edmx:Include Namespace="Task.v1_6_0"/>
         <edmx:Include Namespace="Task.v1_6_1"/>
         <edmx:Include Namespace="Task.v1_6_2"/>
+        <edmx:Include Namespace="Task.v1_6_3"/>
         <edmx:Include Namespace="Task.v1_7_0"/>
+        <edmx:Include Namespace="Task.v1_7_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/TaskCollection_v1.xml">
         <edmx:Include Namespace="TaskCollection"/>
@@ -2801,18 +3034,22 @@
         <edmx:Include Namespace="TelemetryService.v1_0_3"/>
         <edmx:Include Namespace="TelemetryService.v1_0_4"/>
         <edmx:Include Namespace="TelemetryService.v1_0_5"/>
+        <edmx:Include Namespace="TelemetryService.v1_0_6"/>
         <edmx:Include Namespace="TelemetryService.v1_1_0"/>
         <edmx:Include Namespace="TelemetryService.v1_1_1"/>
         <edmx:Include Namespace="TelemetryService.v1_1_2"/>
         <edmx:Include Namespace="TelemetryService.v1_1_3"/>
         <edmx:Include Namespace="TelemetryService.v1_1_4"/>
         <edmx:Include Namespace="TelemetryService.v1_1_5"/>
+        <edmx:Include Namespace="TelemetryService.v1_1_6"/>
         <edmx:Include Namespace="TelemetryService.v1_2_0"/>
         <edmx:Include Namespace="TelemetryService.v1_2_1"/>
         <edmx:Include Namespace="TelemetryService.v1_2_2"/>
         <edmx:Include Namespace="TelemetryService.v1_2_3"/>
+        <edmx:Include Namespace="TelemetryService.v1_2_4"/>
         <edmx:Include Namespace="TelemetryService.v1_3_0"/>
         <edmx:Include Namespace="TelemetryService.v1_3_1"/>
+        <edmx:Include Namespace="TelemetryService.v1_3_2"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Thermal_v1.xml">
         <edmx:Include Namespace="Thermal"/>
@@ -2886,11 +3123,13 @@
         <edmx:Include Namespace="ThermalMetrics.v1_0_0"/>
         <edmx:Include Namespace="ThermalMetrics.v1_0_1"/>
         <edmx:Include Namespace="ThermalMetrics.v1_1_0"/>
+        <edmx:Include Namespace="ThermalMetrics.v1_2_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/ThermalSubsystem_v1.xml">
         <edmx:Include Namespace="ThermalSubsystem"/>
         <edmx:Include Namespace="ThermalSubsystem.v1_0_0"/>
         <edmx:Include Namespace="ThermalSubsystem.v1_1_0"/>
+        <edmx:Include Namespace="ThermalSubsystem.v1_2_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Triggers_v1.xml">
         <edmx:Include Namespace="Triggers"/>
@@ -2901,12 +3140,17 @@
         <edmx:Include Namespace="Triggers.v1_0_4"/>
         <edmx:Include Namespace="Triggers.v1_0_5"/>
         <edmx:Include Namespace="Triggers.v1_0_6"/>
+        <edmx:Include Namespace="Triggers.v1_0_7"/>
         <edmx:Include Namespace="Triggers.v1_1_0"/>
         <edmx:Include Namespace="Triggers.v1_1_1"/>
         <edmx:Include Namespace="Triggers.v1_1_2"/>
         <edmx:Include Namespace="Triggers.v1_1_3"/>
         <edmx:Include Namespace="Triggers.v1_1_4"/>
+        <edmx:Include Namespace="Triggers.v1_1_5"/>
         <edmx:Include Namespace="Triggers.v1_2_0"/>
+        <edmx:Include Namespace="Triggers.v1_2_1"/>
+        <edmx:Include Namespace="Triggers.v1_3_0"/>
+        <edmx:Include Namespace="Triggers.v1_3_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/TriggersCollection_v1.xml">
         <edmx:Include Namespace="TriggersCollection"/>
@@ -2947,6 +3191,7 @@
         <edmx:Include Namespace="UpdateService.v1_2_8"/>
         <edmx:Include Namespace="UpdateService.v1_2_9"/>
         <edmx:Include Namespace="UpdateService.v1_2_10"/>
+        <edmx:Include Namespace="UpdateService.v1_2_11"/>
         <edmx:Include Namespace="UpdateService.v1_3_0"/>
         <edmx:Include Namespace="UpdateService.v1_3_1"/>
         <edmx:Include Namespace="UpdateService.v1_3_2"/>
@@ -2956,6 +3201,7 @@
         <edmx:Include Namespace="UpdateService.v1_3_6"/>
         <edmx:Include Namespace="UpdateService.v1_3_7"/>
         <edmx:Include Namespace="UpdateService.v1_3_8"/>
+        <edmx:Include Namespace="UpdateService.v1_3_9"/>
         <edmx:Include Namespace="UpdateService.v1_4_0"/>
         <edmx:Include Namespace="UpdateService.v1_4_1"/>
         <edmx:Include Namespace="UpdateService.v1_4_2"/>
@@ -2965,6 +3211,7 @@
         <edmx:Include Namespace="UpdateService.v1_4_6"/>
         <edmx:Include Namespace="UpdateService.v1_4_7"/>
         <edmx:Include Namespace="UpdateService.v1_4_8"/>
+        <edmx:Include Namespace="UpdateService.v1_4_9"/>
         <edmx:Include Namespace="UpdateService.v1_5_0"/>
         <edmx:Include Namespace="UpdateService.v1_5_1"/>
         <edmx:Include Namespace="UpdateService.v1_5_2"/>
@@ -2973,6 +3220,7 @@
         <edmx:Include Namespace="UpdateService.v1_5_5"/>
         <edmx:Include Namespace="UpdateService.v1_5_6"/>
         <edmx:Include Namespace="UpdateService.v1_5_7"/>
+        <edmx:Include Namespace="UpdateService.v1_5_8"/>
         <edmx:Include Namespace="UpdateService.v1_6_0"/>
         <edmx:Include Namespace="UpdateService.v1_6_1"/>
         <edmx:Include Namespace="UpdateService.v1_6_2"/>
@@ -2980,6 +3228,7 @@
         <edmx:Include Namespace="UpdateService.v1_6_4"/>
         <edmx:Include Namespace="UpdateService.v1_6_7"/>
         <edmx:Include Namespace="UpdateService.v1_6_8"/>
+        <edmx:Include Namespace="UpdateService.v1_6_9"/>
         <edmx:Include Namespace="UpdateService.v1_7_0"/>
         <edmx:Include Namespace="UpdateService.v1_7_1"/>
         <edmx:Include Namespace="UpdateService.v1_7_2"/>
@@ -2987,6 +3236,7 @@
         <edmx:Include Namespace="UpdateService.v1_7_4"/>
         <edmx:Include Namespace="UpdateService.v1_7_5"/>
         <edmx:Include Namespace="UpdateService.v1_7_6"/>
+        <edmx:Include Namespace="UpdateService.v1_7_7"/>
         <edmx:Include Namespace="UpdateService.v1_8_0"/>
         <edmx:Include Namespace="UpdateService.v1_8_1"/>
         <edmx:Include Namespace="UpdateService.v1_8_2"/>
@@ -2994,17 +3244,21 @@
         <edmx:Include Namespace="UpdateService.v1_8_4"/>
         <edmx:Include Namespace="UpdateService.v1_8_5"/>
         <edmx:Include Namespace="UpdateService.v1_8_6"/>
+        <edmx:Include Namespace="UpdateService.v1_8_7"/>
         <edmx:Include Namespace="UpdateService.v1_9_0"/>
         <edmx:Include Namespace="UpdateService.v1_9_1"/>
         <edmx:Include Namespace="UpdateService.v1_9_2"/>
         <edmx:Include Namespace="UpdateService.v1_9_3"/>
+        <edmx:Include Namespace="UpdateService.v1_9_4"/>
         <edmx:Include Namespace="UpdateService.v1_10_0"/>
         <edmx:Include Namespace="UpdateService.v1_10_1"/>
         <edmx:Include Namespace="UpdateService.v1_10_2"/>
         <edmx:Include Namespace="UpdateService.v1_10_3"/>
+        <edmx:Include Namespace="UpdateService.v1_10_4"/>
         <edmx:Include Namespace="UpdateService.v1_11_0"/>
         <edmx:Include Namespace="UpdateService.v1_11_1"/>
         <edmx:Include Namespace="UpdateService.v1_11_2"/>
+        <edmx:Include Namespace="UpdateService.v1_11_3"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/VirtualMedia_v1.xml">
         <edmx:Include Namespace="VirtualMedia"/>
@@ -3041,6 +3295,7 @@
         <edmx:Include Namespace="VirtualMedia.v1_5_1"/>
         <edmx:Include Namespace="VirtualMedia.v1_5_2"/>
         <edmx:Include Namespace="VirtualMedia.v1_6_0"/>
+        <edmx:Include Namespace="VirtualMedia.v1_6_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/VirtualMediaCollection_v1.xml">
         <edmx:Include Namespace="VirtualMediaCollection"/>

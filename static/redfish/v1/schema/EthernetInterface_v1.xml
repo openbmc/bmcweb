@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.9.0                                            -->
+<!--# Redfish Schema:  EthernetInterface v1.10.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -144,7 +144,7 @@
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The DNS host name, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain DNS host name for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain DNS host name for this interface.  Modifying this property may modify the HostName in one or more EthernetInterface resources that belong to the same system, manager, or other device.  If this interface is subordinate to a ComputerSystem resource, modifying this property may modify the HostName of the ComputerSystem resource that contains this interface.  If this interface is subordinate to a Manager resource, modifying this property may modify the HostName of the ManagerNetworkProtocol resource of the Manager resource that contains this interface."/>
         </Property>
         <Property Name="FQDN" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -307,6 +307,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_12.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_13.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -414,6 +420,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_10.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_11.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -488,6 +500,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_9.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_10.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
@@ -579,6 +597,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_8.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_9.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
@@ -790,6 +814,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_7.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_8.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -854,6 +884,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_5.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_6.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
@@ -922,6 +958,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_3.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_4.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -939,12 +981,24 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_0.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate the `Stateless` and `Stateful` values for DHCPv6 OperatingMode and add `Enabled` to DHCPv6 OperatingMode."/>
 
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_0.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_0">
@@ -1001,6 +1055,28 @@
           <Annotation Term="OData.Description" String="Packets are transmitted and received based upon the current load of each interface in the team."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_1.EthernetInterface"/>
+
+      <ComplexType Name="Links" BaseType="EthernetInterface.v1_9_0.Links">
+        <NavigationProperty Name="AffiliatedInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the Ethernet interfaces that are affiliated with this interface, such as a VLAN or a team that uses this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface that represent Ethernet interfaces that are affiliated with this interface.  EthernetInterface resources referenced in this property shall reference this resource in their RelatedInterfaces property."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

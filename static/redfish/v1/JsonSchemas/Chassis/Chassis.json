@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_22_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_23_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -36,8 +36,8 @@
         },
         "Chassis": {
             "additionalProperties": false,
-            "description": "The Chassis schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system.",
-            "longDescription": "This resource shall represent a chassis or other physical enclosure for a Redfish implementation.",
+            "description": "The Chassis schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present.",
+            "longDescription": "This resource shall represent a chassis or other physical enclosure for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -79,7 +79,7 @@
                 },
                 "AssetTag": {
                     "description": "The user-assigned asset tag of this chassis.",
-                    "longDescription": "This property shall contain an identifying string that tracks the chassis for inventory purposes.",
+                    "longDescription": "This property shall contain an identifying string that tracks the chassis for inventory purposes.  Modifying this property may modify the AssetTag in the resource that represents the functional view of this Chassis, such as a ComputerSystem resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -244,7 +244,7 @@
                 },
                 "LocationIndicatorActive": {
                     "description": "An indicator allowing an operator to physically locate this resource.",
-                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.  Modifying this property may modify the LocationIndicatorActive in the resource that represents the functional view of this Chassis, such as a ComputerSystem resource.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -599,6 +599,8 @@
                 "IPBasedDrive",
                 "RackGroup",
                 "StorageEnclosure",
+                "ImmersionTank",
+                "HeatExchanger",
                 "Other"
             ],
             "enumDescriptions": {
@@ -609,7 +611,9 @@
                 "Drawer": "An enclosed or semi-enclosed, typically horizontally-oriented, system chassis that can be slid into a multi-system chassis.",
                 "Enclosure": "A generic term for a chassis that does not fit any other description.",
                 "Expansion": "A chassis that expands the capabilities or capacity of another chassis.",
+                "HeatExchanger": "A heat exchanger.",
                 "IPBasedDrive": "A chassis in a drive form factor with IP-based network connections.",
+                "ImmersionTank": "An immersion cooling tank.",
                 "Module": "A small, typically removable, chassis or card that contains devices for a particular subsystem or function.",
                 "Other": "A chassis that does not fit any of these definitions.",
                 "Pod": "A collection of equipment racks in a large, likely transportable, container.",
@@ -625,7 +629,9 @@
                 "Zone": "A logical division or portion of a physical chassis that contains multiple devices or systems that cannot be physically separated."
             },
             "enumVersionAdded": {
+                "HeatExchanger": "v1_23_0",
                 "IPBasedDrive": "v1_3_0",
+                "ImmersionTank": "v1_23_0",
                 "RackGroup": "v1_4_0",
                 "StorageEnclosure": "v1_6_0"
             },
@@ -681,7 +687,7 @@
             ],
             "enumDescriptions": {
                 "HardwareIntrusion": "A door, lock, or other mechanism protecting the internal system hardware from being accessed is detected to be in an insecure state.",
-                "Normal": "No abnormal physical security condition is detected at this time.",
+                "Normal": "No physical security condition is detected at this time.",
                 "TamperingDetected": "Physical tampering of the monitored entity is detected."
             },
             "type": "string"
@@ -745,6 +751,19 @@
                 "ComputerSystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "ConnectedCoolingLoops": {
+                    "description": "An array of links to cooling loops connected to this chassis.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/CoolingLoop.json#/definitions/CoolingLoop"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type CoolingLoop that represent the cooling loops connected to this chassis.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_23_0"
+                },
+                "ConnectedCoolingLoops@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "ContainedBy": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this chassis.",
@@ -775,6 +794,19 @@
                     "versionDeprecated": "v1_20_0"
                 },
                 "CooledBy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "CoolingUnits": {
+                    "description": "An arrays of links to cooling unit functionality contained in this chassis.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/CoolingUnit.json#/definitions/CoolingUnit"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type CoolingUnit that represent the cooling unit functionality contained within this chassis.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_23_0"
+                },
+                "CoolingUnits@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Drives": {
@@ -1049,8 +1081,8 @@
         },
         "Reset": {
             "additionalProperties": false,
-            "description": "This action resets the chassis but does not reset systems or other contained resources, although side effects can occur that affect those resources.",
-            "longDescription": "This action shall reset the chassis but shall not reset systems or other contained resources, although side effects can occur that affect those resources.",
+            "description": "This action resets the chassis.  Additionally, it could reset systems or other contained resources depending on the ResetType used to invoke this action.",
+            "longDescription": "This action shall reset the chassis.  Additionally, it may reset systems or other contained resources depending on the ResetType used to invoke this action.",
             "parameters": {
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
@@ -1108,6 +1140,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#Chassis.v1_22_0.Chassis"
+    "release": "2023.1",
+    "title": "#Chassis.v1_23_0.Chassis"
 }

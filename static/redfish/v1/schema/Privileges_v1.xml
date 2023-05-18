@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -25,7 +25,7 @@
 
       <EnumType Name="PrivilegeType">
         <Member Name="Login">
-          <Annotation Term="OData.Description" String="Can log in to the service and read Resources."/>
+          <Annotation Term="OData.Description" String="Can log in to the service and read resources."/>
         </Member>
         <Member Name="ConfigureManager">
           <Annotation Term="OData.Description" String="Can configure managers."/>
@@ -34,14 +34,14 @@
           <Annotation Term="OData.Description" String="Can configure users and their accounts."/>
         </Member>
         <Member Name="ConfigureSelf">
-          <Annotation Term="OData.Description" String="Can change the password for the current user account and log out of their own sessions."/>
+          <Annotation Term="OData.Description" String="Can change the password for the current user account, log out of their own sessions, and perform operations on resources they created.  Services will need to be aware of resource ownership to map this privilege to an operation from a particular user."/>
         </Member>
         <Member Name="ConfigureComponents">
           <Annotation Term="OData.Description" String="Can configure components that this service manages."/>
         </Member>
         <Member Name="NoAuth">
           <Annotation Term="OData.Description" String="Authentication is not required."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate an operation does not require authentication.  This privilege shall not be used in Redfish Roles."/>
+          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate an operation does not require authentication.  This privilege shall not be used in Redfish roles."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>

@@ -27,6 +27,8 @@ enum class ChassisType{
     IPBasedDrive,
     RackGroup,
     StorageEnclosure,
+    ImmersionTank,
+    HeatExchanger,
     Other,
 };
 
@@ -89,6 +91,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ChassisType, {
     {ChassisType::IPBasedDrive, "IPBasedDrive"},
     {ChassisType::RackGroup, "RackGroup"},
     {ChassisType::StorageEnclosure, "StorageEnclosure"},
+    {ChassisType::ImmersionTank, "ImmersionTank"},
+    {ChassisType::HeatExchanger, "HeatExchanger"},
     {ChassisType::Other, "Other"},
 });
 

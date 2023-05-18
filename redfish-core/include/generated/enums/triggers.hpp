@@ -29,6 +29,7 @@ enum class ThresholdActivation{
     Increasing,
     Decreasing,
     Either,
+    Disabled,
 };
 
 enum class DirectionOfCrossingEnum{
@@ -61,6 +62,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThresholdActivation, {
     {ThresholdActivation::Increasing, "Increasing"},
     {ThresholdActivation::Decreasing, "Decreasing"},
     {ThresholdActivation::Either, "Either"},
+    {ThresholdActivation::Disabled, "Disabled"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DirectionOfCrossingEnum, {

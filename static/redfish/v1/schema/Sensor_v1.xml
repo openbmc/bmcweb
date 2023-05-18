@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.6.0                                                       -->
+<!--# Redfish Schema:  Sensor v1.7.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -65,6 +65,15 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Chassis/{ChassisId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Sensors/{SensorId}</String>
+            <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Sensors/{SensorId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
             <String>/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors/{SensorId}</String>
             <String>/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors/{SensorId}</String>
@@ -439,32 +448,44 @@
           <Annotation Term="OData.Description" String="Value crosses the threshold in either direction."/>
           <Annotation Term="OData.LongDescription" String="This threshold is activated when either the increasing or decreasing conditions are met."/>
         </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="The threshold is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the threshold is disabled and no actions shall be taken as a result of the reading crossing the threshold value."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="ReadingType">
         <Member Name="Temperature">
           <Annotation Term="OData.Description" String="Temperature (C)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a temperature measurement, in degrees Celsius units, and the ReadingUnits value shall be 'Cel'."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a temperature measurement, in degrees Celsius units.  The ReadingUnits property shall contain `Cel`."/>
         </Member>
         <Member Name="Humidity">
           <Annotation Term="OData.Description" String="Relative humidity (percent)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a relative humidity measurement, in percent units, and the ReadingUnits value shall be '%'."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a relative humidity measurement, in percent units.  The ReadingUnits property shall contain `%`."/>
         </Member>
         <Member Name="Power">
           <Annotation Term="OData.Description" String="Power (W)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units, and the ReadingUnits value shall be 'W'."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units.  The ReadingUnits property shall contain `W`."/>
         </Member>
         <Member Name="EnergykWh">
           <Annotation Term="OData.Description" String="Energy (kWh)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules and EnergyWh are used for device-level consumption measurements."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits property shall contain `kW.h`.  This value is used for large-scale energy consumption measurements, while `EnergyJoules` and `EnergyWh` are used for device-level consumption measurements."/>
         </Member>
         <Member Name="EnergyJoules">
           <Annotation Term="OData.Description" String="Energy (J)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in joule units and the ReadingUnits property shall contain `J`.  This value is used for device-level energy consumption measurements, while `EnergykWh` is used for large-scale consumption measurements."/>
         </Member>
         <Member Name="EnergyWh">
           <Annotation Term="OData.Description" String="Energy (Wh)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits value shall be `W.h`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits property shall contain `W.h`.  This value is used for device-level energy consumption measurements, while `EnergykWh` is used for large-scale consumption measurements."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -476,7 +497,7 @@
         </Member>
         <Member Name="ChargeAh">
           <Annotation Term="OData.Description" String="Charge (Ah)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits value shall be `A.h`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits property shall contain `A.h`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -488,23 +509,32 @@
         </Member>
         <Member Name="Voltage">
           <Annotation Term="OData.Description" String="Voltage (VAC or VDC)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in volt units and the ReadingUnits value shall be `V`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in volt units and the ReadingUnits property shall contain `V`."/>
         </Member>
         <Member Name="Current">
           <Annotation Term="OData.Description" String="Current (A)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in ampere units and the ReadingUnits value shall be `A`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in ampere units and the ReadingUnits property shall contain `A`."/>
         </Member>
         <Member Name="Frequency">
           <Annotation Term="OData.Description" String="Frequency (Hz)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a frequency measurement, in hertz units, and the ReadingUnits value shall be `Hz`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a frequency measurement, in hertz units.  The ReadingUnits property shall contain `Hz`."/>
         </Member>
         <Member Name="Pressure">
           <Annotation Term="OData.Description" String="Pressure (Pa)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits property shall contain `Pa`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `PressurePa` or `PressurekPa` for consistency of units between Sensor and Control resources."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="PressurekPa">
           <Annotation Term="OData.Description" String="Pressure (kPa)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of pressure, in kilopascal units, relative to atmospheric pressure.  The ReadingUnits value shall be `kPa`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of pressure, in kilopascal units, relative to atmospheric pressure.  The ReadingUnits property shall contain `kPa`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -514,33 +544,87 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="PressurePa">
+          <Annotation Term="OData.Description" String="Pressure (Pa)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of pressure, in pascal units, relative to atmospheric pressure.  The ReadingUnits property shall contain `Pa`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="LiquidLevel">
           <Annotation Term="OData.Description" String="Liquid level (cm)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits value shall be `cm`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits property shall contain `cm`."/>
         </Member>
         <Member Name="Rotational">
           <Annotation Term="OData.Description" String="Rotational (RPM)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute unit.  The ReadingUnits property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value."/>
         </Member>
         <Member Name="AirFlow">
-          <Annotation Term="OData.Description" String="Airflow (cu ft/min)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of gas per unit of time, in cubic feet per minute units, that flows through a particular junction.  The ReadingUnits shall be `[ft_i]3/min`."/>
+          <Annotation Term="OData.Description" String="Air flow (cu ft/min)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of gas per unit of time, in cubic feet per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `[ft_i]3/min`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `AirFlowCMM` for consistent use of SI units."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="AirFlowCMM">
+          <Annotation Term="OData.Description" String="Air flow (m^3/min)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of gas per unit of time, in cubic meters per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `m3/min`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="LiquidFlow">
           <Annotation Term="OData.Description" String="Liquid flow (L/s)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits shall be `L/s`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits property shall contain `L/s`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `LiquidFlowLPM` for consistency of units typically expected or reported by Sensor and Control resources."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LiquidFlowLPM">
+          <Annotation Term="OData.Description" String="Liquid flow (L/min)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of a volume of liquid per unit of time, in liters per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `L/min`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Barometric">
           <Annotation Term="OData.Description" String="Barometric pressure (mm)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of barometric pressure, in millimeters of a mercury column, and the ReadingUnits value shall be `mm[Hg]`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of barometric pressure, in millimeters of a mercury column.  The ReadingUnits property shall contain `mm[Hg]`."/>
         </Member>
         <Member Name="Altitude">
           <Annotation Term="OData.Description" String="Altitude (m)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of altitude, in meter units, defined as the elevation above sea level.  The ReadingUnits value shall be `m`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of altitude, in meter units, defined as the elevation above sea level.  The ReadingUnits property shall contain `m`."/>
         </Member>
         <Member Name="Percent">
           <Annotation Term="OData.Description" String="Percent (%)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a percentage measurement, in percent units, and the ReadingUnits value shall be `%`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a percentage measurement, in percent units.  The ReadingUnits property shall contain `%`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -552,12 +636,24 @@
         </Member>
         <Member Name="AbsoluteHumidity">
           <Annotation Term="OData.Description" String="Absolute humidity (g/cu m)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units, and the ReadingUnits value shall be `g/m3`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units.  The ReadingUnits property shall contain `g/m3`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Heat">
+          <Annotation Term="OData.Description" String="Heat (kW)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a heat measurement, in kilowatt units.  The ReadingUnits property shall contain `kW`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -611,6 +707,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_7.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_8.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
@@ -691,6 +793,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_3.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_4.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -708,7 +816,7 @@
           <Annotation Term="OData.Description" String="The rotational speed."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units."/>
           <Annotation Term="Measures.Unit" String="{rev}/min"/>
-          <Annotation Term="Redfish.Excerpt" String="Fan,FanArray"/>
+          <Annotation Term="Redfish.Excerpt" String="Fan,FanArray,Pump"/>
         </Property>
         <Property Name="DeviceName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -721,20 +829,20 @@
 
       <ComplexType Name="Thresholds" BaseType="Sensor.v1_0_0.Thresholds">
         <Property Name="UpperCautionUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
-          <Annotation Term="OData.Description" String="The value at which the reading is above normal range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is above the normal range.  The value of the property shall use the same units as the Reading property."/>
+          <Annotation Term="OData.Description" String="A user-defined value at which the reading is considered above normal range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-defined value at which the Reading property is considered above the normal range.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered above normal range if either the UpperCaution or UpperCautionUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the UpperCaution threshold is implemented as read-only to reflect a service-defined value that cannot be changed."/>
         </Property>
         <Property Name="UpperCriticalUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
-          <Annotation Term="OData.Description" String="The value at which the reading is above normal range but not yet fatal."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property."/>
+          <Annotation Term="OData.Description" String="A user-defined value at which the reading is considered above normal range but not yet fatal."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-defined value at which the Reading property is considered above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered above normal range if either the UpperCritical or UpperCriticalUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the UpperCritical threshold is implemented as read-only to reflect a service-defined value that cannot be changed."/>
         </Property>
         <Property Name="LowerCautionUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
-          <Annotation Term="OData.Description" String="The value at which the reading is below normal range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is below normal range.  The value of the property shall use the same units as the Reading property."/>
+          <Annotation Term="OData.Description" String="A user-defined value at which the reading is considered below normal range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-defined value at which the Reading property is considered below the normal range.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered below normal range if either the LowerCaution or LowerCautionUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the LowerCaution threshold is implemented as read-only to reflect a service-defined value that cannot be changed."/>
         </Property>
         <Property Name="LowerCriticalUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
-          <Annotation Term="OData.Description" String="The value at which the reading is below normal range but not yet fatal."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the Reading property is below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property."/>
+          <Annotation Term="OData.Description" String="A user-defined value at which the reading is considered below normal range but not yet fatal."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-defined value at which the Reading property is considered below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered below normal range if either the LowerCritical or LowerCriticalUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the LowerCritical threshold is implemented as read-only to reflect a service-defined value that cannot be changed."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -749,6 +857,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_2_1.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of Threshold properties and their usage.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_2.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_0">
@@ -778,6 +892,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add units to ReadingType descriptions.  It was also created to update the units of AirFlow to remove the deprecated format and the units of SpeedRPM to use the available UCUM format.  It was also created to correct various typographical errors.  It was also created to correct the minimum value for PowerFactor."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_3_1.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of Threshold properties and their usage.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_2.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_0">
@@ -842,6 +962,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_4_0.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of Threshold properties and their usage.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_4_1.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -873,12 +999,66 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of Threshold properties and their usage.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_5_0.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
       <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
 
       <EntityType Name="Sensor" BaseType="Sensor.v1_5_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions of Threshold properties and their usage.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_6_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Heat` and `PressurePa` to ReadingType, and to deprecate `Pressure` for consistency with the definition for an equivalent Control resource's ControlType.  It was also created to add `Disabled` to Activation within Threshold."/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_6_1.Sensor">
+        <Property Name="ReadingBasis" Type="Sensor.v1_7_0.ReadingBasisType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The basis for the reading of this sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the basis or frame of reference for the value of the Reading property.  If this property is not present, the value shall be assumed to be `Zero`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ReadingBasisType">
+        <Member Name="Zero">
+          <Annotation Term="OData.Description" String="A zero-based reading."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a reading with zero as its reference point."/>
+        </Member>
+        <Member Name="Delta">
+          <Annotation Term="OData.Description" String="A reading that reports the difference between two measurements."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a reading that reports the difference between two measurements."/>
+        </Member>
+        <Member Name="Headroom">
+          <Annotation Term="OData.Description" String="A reading that decreases as it approaches a defined reference point."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a reading that decreases in value as it approaches the reference point.  If the value crosses the reference point, the value may be reported as a negative number, or may report a value of zero."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Threshold" BaseType="Sensor.v1_0_0.Threshold">
+        <Property Name="HysteresisReading" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The reading offset from the threshold value required to clear the threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the offset from the reading for this sensor and the threshold value that deactivates the threshold.  For example, a value of `-2` indicates the sensor reading shall fall 2 units below an upper threshold value to deactivate the threshold.  The value of the property shall use the same units as the Reading property.  A value of `0`, or if the property is not present in the resource, shall indicate the threshold is deactivated when the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
+        </Property>
+        <Property Name="HysteresisDuration" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The duration the sensor value must not violate the threshold before the threshold is deactivated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_7_1.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -205,7 +205,7 @@
                 "EstimatedDuration": {
                     "description": "The estimated total time required to complete the task.",
                     "longDescription": "This property shall indicate the estimated total time needed to complete the task.  The value is not expected to change while the task is in progress, but the service may update the value if it obtains new information that significantly changes the expected duration.  Services should be conservative in the reported estimate and clients should treat this value as an estimate.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -368,5 +368,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#Task.v1_7_0.Task"
+    "title": "#Task.v1_7_1.Task"
 }

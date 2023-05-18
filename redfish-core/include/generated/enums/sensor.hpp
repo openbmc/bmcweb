@@ -37,6 +37,7 @@ enum class ThresholdActivation{
     Increasing,
     Decreasing,
     Either,
+    Disabled,
 };
 
 enum class ReadingType{
@@ -53,14 +54,18 @@ enum class ReadingType{
     Frequency,
     Pressure,
     PressurekPa,
+    PressurePa,
     LiquidLevel,
     Rotational,
     AirFlow,
+    AirFlowCMM,
     LiquidFlow,
+    LiquidFlowLPM,
     Barometric,
     Altitude,
     Percent,
     AbsoluteHumidity,
+    Heat,
 };
 
 enum class ImplementationType{
@@ -68,6 +73,13 @@ enum class ImplementationType{
     PhysicalSensor,
     Synthesized,
     Reported,
+};
+
+enum class ReadingBasisType{
+    Invalid,
+    Zero,
+    Delta,
+    Headroom,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
@@ -102,6 +114,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThresholdActivation, {
     {ThresholdActivation::Increasing, "Increasing"},
     {ThresholdActivation::Decreasing, "Decreasing"},
     {ThresholdActivation::Either, "Either"},
+    {ThresholdActivation::Disabled, "Disabled"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ReadingType, {
@@ -118,14 +131,18 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingType, {
     {ReadingType::Frequency, "Frequency"},
     {ReadingType::Pressure, "Pressure"},
     {ReadingType::PressurekPa, "PressurekPa"},
+    {ReadingType::PressurePa, "PressurePa"},
     {ReadingType::LiquidLevel, "LiquidLevel"},
     {ReadingType::Rotational, "Rotational"},
     {ReadingType::AirFlow, "AirFlow"},
+    {ReadingType::AirFlowCMM, "AirFlowCMM"},
     {ReadingType::LiquidFlow, "LiquidFlow"},
+    {ReadingType::LiquidFlowLPM, "LiquidFlowLPM"},
     {ReadingType::Barometric, "Barometric"},
     {ReadingType::Altitude, "Altitude"},
     {ReadingType::Percent, "Percent"},
     {ReadingType::AbsoluteHumidity, "AbsoluteHumidity"},
+    {ReadingType::Heat, "Heat"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
@@ -133,6 +150,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::PhysicalSensor, "PhysicalSensor"},
     {ImplementationType::Synthesized, "Synthesized"},
     {ImplementationType::Reported, "Reported"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ReadingBasisType, {
+    {ReadingBasisType::Invalid, "Invalid"},
+    {ReadingBasisType::Zero, "Zero"},
+    {ReadingBasisType::Delta, "Delta"},
+    {ReadingBasisType::Headroom, "Headroom"},
 });
 
 }

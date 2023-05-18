@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.15.0                                                    -->
+<!--# Redfish Schema:  Resource v1.16.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -207,7 +207,7 @@
           <Annotation Term="OData.Description" String="This function or resource is starting."/>
         </Member>
         <Member Name="Absent">
-          <Annotation Term="OData.Description" String="This function or resource is either not present or detected."/>
+          <Annotation Term="OData.Description" String="This function or device is not currently present or detected.  This resource represents a capability or an available location where a device can be installed."/>
         </Member>
         <Member Name="UnavailableOffline">
           <Annotation Term="OData.Description" String="This function or resource is present but cannot be used."/>
@@ -1788,6 +1788,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
       <Annotation Term="OData.Description" String="This version was created to add `GCXLID` to DurableNameFormat."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <ComplexType Name="Location" BaseType="Resource.v1_7_0.Location">
+        <Property Name="PartLocationContext" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Human readable string to enable differentiation between PartLocation value for parts in the same enclosure, which might include hierarchical information of containing PartLocation values for the part."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a human readable string to enable differentiation between PartLocation value for parts in the same enclosure, which may include hierarchical information of containing PartLocation values for the part.  The value of this property shall not include values of the PartLocation properties for the part itself.  The purpose of this value, in conjunction with the PartLocation of the part itself, is to allow clients to determine the physical location of the part without tracing through the PartLocation of multiple resources."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

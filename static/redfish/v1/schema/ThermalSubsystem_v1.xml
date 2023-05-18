@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalSubsystem v1.1.0                                             -->
+<!--# Redfish Schema:  ThermalSubsystem v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -36,6 +36,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/HeaterCollection_v1.xml">
     <edmx:Include Namespace="HeaterCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection_v1.xml">
+    <edmx:Include Namespace="CoolantConnectorCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -127,6 +130,20 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of heaters within this subsystem."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type HeaterCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_1_0.ThermalSubsystem">
+        <NavigationProperty Name="CoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the coolant connectors for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>

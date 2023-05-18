@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -108,10 +108,27 @@
             <String>/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}/Assembly</String>
             <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/Batteries/{BatteryId}/Assembly</String>
             <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Heaters/{HeaderId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Reservoirs/{ReservoirId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs/{ReservoirId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Pumps/{PumpId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Pumps/{PumpId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Pumps/{PumpId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Pumps/{PumpId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters/{FilterId}/Assembly</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}/Filters/{FilterId}/Assembly</String>
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_0">

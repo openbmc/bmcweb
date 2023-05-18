@@ -10,7 +10,7 @@ import generate_schema_enums
 import requests
 from generate_schema_collections import generate_top_collections
 
-VERSION = "DSP8010_2022.3"
+VERSION = "DSP8010_2023.1WIP99"
 
 WARNING = """/****************************************************************
  *                 READ THIS WARNING FIRST
@@ -237,18 +237,18 @@ json_schema_files = defaultdict(list)
 for zip_file in zip_ref.infolist():
     if zip_file.is_dir():
         continue
-    if zip_file.filename.startswith("csdl/"):
+    if zip_file.filename.startswith(VERSION + "/csdl/"):
         csdl_filenames.append(os.path.basename(zip_file.filename))
-    elif zip_file.filename.startswith("json-schema/"):
+    elif zip_file.filename.startswith(VERSION + "/json-schema/"):
         filename = os.path.basename(zip_file.filename)
         filenamesplit = filename.split(".")
         # exclude schemas again to save flash space
         if filenamesplit[0] not in include_list:
             continue
         json_schema_files[filenamesplit[0]].append(filename)
-    elif zip_file.filename.startswith("openapi/"):
+    elif zip_file.filename.startswith(VERSION + "/openapi/"):
         pass
-    elif zip_file.filename.startswith("dictionaries/"):
+    elif zip_file.filename.startswith(VERSION + "/dictionaries/"):
         pass
 
 # sort the json files by version
@@ -272,7 +272,7 @@ with open(metadata_index_path, "w") as metadata_index:
     for filename in csdl_filenames:
         # filename looks like Zone_v1.xml
         with open(os.path.join(schema_path, filename), "wb") as schema_out:
-            content = zip_ref.read(os.path.join("csdl", filename))
+            content = zip_ref.read(os.path.join(VERSION, "csdl", filename))
             content = content.replace(b"\r\n", b"\n")
 
             schema_out.write(content)
@@ -366,7 +366,7 @@ with open(metadata_index_path, "w") as metadata_index:
 
 
 for schema, version in json_schema_files.items():
-    zip_filepath = os.path.join("json-schema", version[0])
+    zip_filepath = os.path.join(VERSION, "json-schema", version[0])
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
 

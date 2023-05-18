@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition v1.4.2                                       -->
+<!--# Redfish Schema:  MetricReportDefinition v1.4.3                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -342,6 +342,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_8.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_9.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_0">
       <Annotation Term="OData.Description" String="This version was created to add the Values property to the Wildcard property."/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -404,6 +410,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_7.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_8.MetricReportDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_0">
@@ -486,6 +498,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_6.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_7.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -535,6 +553,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_5.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_6.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -559,6 +583,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_1.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_2.MetricReportDefinition"/>
     </Schema>
 
   </edmx:DataServices>

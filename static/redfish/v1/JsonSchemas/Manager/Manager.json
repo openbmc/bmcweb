@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_18_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -296,6 +296,20 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "SelectedNetworkPort": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The network port currently used by this manager.  This allows selection of shared or dedicated ports for managers that support one or the other.  For managers that always have their dedicated port enabled this allows the selection of which shared port to use.",
+                    "longDescription": "This property shall contain a link to a resource of type Port that represents the current network port used by this manager.",
+                    "readonly": false,
+                    "versionAdded": "v1_18_0"
                 },
                 "SoftwareImages": {
                     "description": "The images that are associated with this manager.",
@@ -1008,6 +1022,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#Manager.v1_17_0.Manager"
+    "release": "2023.1",
+    "title": "#Manager.v1_18_0.Manager"
 }

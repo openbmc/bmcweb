@@ -16,6 +16,16 @@ enum class EventType{
     Other,
 };
 
+enum class DiagnosticDataTypes{
+    Invalid,
+    Manager,
+    PreOS,
+    OS,
+    OEM,
+    CPER,
+    CPERSection,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(EventType, {
     {EventType::Invalid, "Invalid"},
     {EventType::StatusChange, "StatusChange"},
@@ -25,6 +35,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EventType, {
     {EventType::Alert, "Alert"},
     {EventType::MetricReport, "MetricReport"},
     {EventType::Other, "Other"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(DiagnosticDataTypes, {
+    {DiagnosticDataTypes::Invalid, "Invalid"},
+    {DiagnosticDataTypes::Manager, "Manager"},
+    {DiagnosticDataTypes::PreOS, "PreOS"},
+    {DiagnosticDataTypes::OS, "OS"},
+    {DiagnosticDataTypes::OEM, "OEM"},
+    {DiagnosticDataTypes::CPER, "CPER"},
+    {DiagnosticDataTypes::CPERSection, "CPERSection"},
 });
 
 }

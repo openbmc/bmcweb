@@ -2,7 +2,7 @@
     "$id": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json",
     "$ref": "#/definitions/CertificateCollection",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "CertificateCollection": {
             "anyOf": [
@@ -165,7 +165,8 @@
                 "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/TrustedCertificates",
                 "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates",
                 "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates",
-                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates"
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates",
+                "/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates"
             ]
         }
     },

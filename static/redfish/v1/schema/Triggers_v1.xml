@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Triggers v1.2.0                                                     -->
+<!--# Redfish Schema:  Triggers v1.3.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -231,6 +231,18 @@
           <Annotation Term="OData.Description" String="Value crosses the threshold in either direction."/>
           <Annotation Term="OData.LongDescription" String="This threshold is activated when either the Increasing or Decreasing conditions are met."/>
         </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="The threshold is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the threshold is disabled and no actions shall be taken as a result of the reading crossing the threshold value."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="DirectionOfCrossingEnum">
@@ -323,6 +335,12 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_0_5.Triggers"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_0_6.Triggers"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -376,6 +394,12 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_1_3.Triggers"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_1_4.Triggers"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -387,6 +411,37 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the labels for the metric definitions that contain the property identifiers for this trigger.  This property shall match the value of the Id property of the corresponding metric definitions."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_2_0.Triggers"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Disabled` to Activation within Threshold."/>
+
+      <EntityType Name="Triggers" BaseType="Triggers.v1_2_0.Triggers">
+        <Property Name="HysteresisReading" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The reading offset from the threshold value required to clear the threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the offset from the reading for this sensor and the threshold value that deactivates the threshold.  For example, a value of `-2` indicates the sensor reading shall fall 2 units below an upper threshold value to deactivate the threshold.  The value of the property shall use the same units as the Reading property.  A value of `0`, or if the property is not present in the resource, shall indicate the threshold is deactivated when the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
+        </Property>
+        <Property Name="HysteresisDuration" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The duration the sensor value must not violate the threshold before the threshold is deactivated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_3_0.Triggers"/>
     </Schema>
 
   </edmx:DataServices>

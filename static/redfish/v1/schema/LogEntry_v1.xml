@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.14.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.15.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -80,7 +80,7 @@
         <Property Name="Severity" Type="LogEntry.v1_0_0.EventSeverity">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the condition that created the log entry, as defined in the Status section of the Redfish Specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the condition that created the log entry.  If EntryType contains `Event`, services can replace the value defined in the message registry with a value more applicable to the implementation."/>
         </Property>
         <Property Name="Created" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -718,6 +718,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_15.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_16.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -834,6 +840,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_13.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_14.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -934,6 +946,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_11.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_12.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1019,6 +1037,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_10.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_11.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1093,6 +1117,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_9.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_10.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1144,6 +1174,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_5.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_6.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1188,6 +1224,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_4.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_5.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1196,25 +1238,25 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_2.LogEntry">
         <Property Name="AdditionalDataSizeBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The size of the additional data for the log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the additional data referenced by the AdditionalDataURI property for the log entry."/>
+          <Annotation Term="OData.Description" String="The size of the additional data for this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the additional data retrieved from the URI specified by the AdditionalDataURI property for this log entry."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="AdditionalDataURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The URI at which to access the additional data for the log entry, such as diagnostic data, image captures, or other files."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the additional data for the log entry, using the Redfish protocol and authentication methods."/>
+          <Annotation Term="OData.Description" String="The URI at which to access the additional data for this log entry, such as diagnostic data, image captures, or other files."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the additional data for this log entry, using the Redfish protocol and authentication methods.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="DiagnosticDataType" Type="LogEntry.v1_7_0.LogDiagnosticDataTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of diagnostic data available at the AdditionalDataURI location."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of diagnostic data contained at the URI referenced by AdditionalDataURI."/>
+          <Annotation Term="OData.Description" String="The type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property."/>
         </Property>
         <Property Name="OEMDiagnosticDataType" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The OEM-defined type of diagnostic data at the AdditionalDataURI location."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined type of diagnostic data contained at the URI referenced by AdditionalDataURI.  This property shall be present if DiagnosticDataType is `OEM`."/>
+          <Annotation Term="OData.Description" String="The OEM-defined type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property.  This property shall be present if DiagnosticDataType is `OEM`."/>
         </Property>
       </EntityType>
 
@@ -1276,6 +1318,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_2.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_3.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1300,6 +1348,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_1.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_2.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_0">
@@ -1339,6 +1393,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_2.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_3.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -1363,6 +1423,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_2.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_3.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_0">
@@ -1407,6 +1473,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_1.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_2.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1435,6 +1507,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_0.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_1.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1452,6 +1530,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_1.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_0">
@@ -1504,6 +1588,49 @@
           <Annotation Term="OData.Description" String="A CXL fatal log entry."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_1.LogEntry">
+        <Property Name="CPER" Type="LogEntry.v1_15_0.CPER" Nullable="false">
+          <Annotation Term="OData.Description" String="Details for a CPER section or record associated with this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the details for a CPER section or record that is the source of this log entry."/>
+        </Property>
+        <Property Name="DiagnosticData" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A Base64-encoded set of diagnostic data associated with this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the DiagnosticDataType property.  The length of the value should not exceed 4KB.  Larger diagnostic data payloads should omit this property and use the AdditionalDataURI property to reference the data.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CPER">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Details for a CPER section or record associated with a log entry."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the details for a CPER section or record that is the source of a log entry."/>
+        <Property Name="NotificationType" Type="Edm.Guid">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CPER Notification Type for a CPER record."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CPER Notification Type for a CPER record that corresponds to the contents of the DiagnosticData property or data retrieved from the URI specified by the AdditionalDataURI property.  This property shall only be present if DiagnosticDataType contains `CPER`."/>
+        </Property>
+        <Property Name="SectionType" Type="Edm.Guid">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CPER Section Type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CPER Section Type for a CPER section that corresponds to the contents of the DiagnosticData property or data retrieved from the URI specified by the AdditionalDataURI property.  This property shall only be present if DiagnosticDataType contains `CPERSection`."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_2_1.json",
     "$ref": "#/definitions/ComponentIntegrity",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -165,7 +165,7 @@
                 },
                 "ComponentIntegrityTypeVersion": {
                     "description": "The version of the security technology.",
-                    "longDescription": "This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\\d+\\.\\d+\\.\\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM.",
+                    "longDescription": "This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If the service has not established secure communication with the device or security protocols are disabled, this property shall contain an empty string.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\\d+\\.\\d+\\.\\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -1305,5 +1305,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.2",
-    "title": "#ComponentIntegrity.v1_2_0.ComponentIntegrity"
+    "title": "#ComponentIntegrity.v1_2_1.ComponentIntegrity"
 }

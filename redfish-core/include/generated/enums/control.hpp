@@ -12,6 +12,8 @@ enum class ControlType{
     Frequency,
     FrequencyMHz,
     Pressure,
+    PressurekPa,
+    Valve,
 };
 
 enum class SetPointType{
@@ -42,6 +44,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ControlType, {
     {ControlType::Frequency, "Frequency"},
     {ControlType::FrequencyMHz, "FrequencyMHz"},
     {ControlType::Pressure, "Pressure"},
+    {ControlType::PressurekPa, "PressurekPa"},
+    {ControlType::Valve, "Valve"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SetPointType, {

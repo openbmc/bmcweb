@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_7_0.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ANAAccessState": {
             "enum": [
@@ -79,6 +79,18 @@
                 }
             },
             "properties": {
+                "#StorageController.AttachNamespaces": {
+                    "$ref": "#/definitions/AttachNamespaces"
+                },
+                "#StorageController.DetachNamespaces": {
+                    "$ref": "#/definitions/DetachNamespaces"
+                },
+                "#StorageController.SecurityReceive": {
+                    "$ref": "#/definitions/SecurityReceive"
+                },
+                "#StorageController.SecuritySend": {
+                    "$ref": "#/definitions/SecuritySend"
+                },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this resource.",
@@ -86,6 +98,90 @@
                 }
             },
             "type": "object"
+        },
+        "AttachDetachNamespacesResponse": {
+            "additionalProperties": false,
+            "description": "The response body for the AttachNamespaces and DetachNamespaces actions.",
+            "longDescription": "This type shall contain the properties found in the response body for the AttachNamespaces and DetachNamespaces actions.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AttachedVolumes": {
+                    "description": "An array of links to volumes that are attached to this controller instance.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Volume that are attached to this instance of storage controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "AttachedVolumes@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "required": [
+                "AttachedVolumes"
+            ],
+            "type": "object"
+        },
+        "AttachNamespaces": {
+            "actionResponse": {
+                "$ref": "#/definitions/AttachDetachNamespacesResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action attaches referenced namespaces to the storage controller.  Attached namespaces are added to the AttachedVolumes property in Links.",
+            "longDescription": "This action shall attach referenced namespaces to the storage controller.  Services shall add the attached namespaces to the AttachedVolumes property in Links.",
+            "parameters": {
+                "Namespaces": {
+                    "description": "The namespaces to attach to the storage controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                    },
+                    "longDescription": "This parameter shall contain an array of links to resources of type Volume that represent the namespaces to attach to the storage controller.",
+                    "requiredParameter": true,
+                    "type": "array"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_7_0"
         },
         "CacheSummary": {
             "additionalProperties": false,
@@ -138,6 +234,52 @@
                 "TotalCacheSizeMiB"
             ],
             "type": "object"
+        },
+        "DetachNamespaces": {
+            "actionResponse": {
+                "$ref": "#/definitions/AttachDetachNamespacesResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action detaches referenced namespaces from the storage controller.  Detached namespaces are removed from the AttachedVolumes property in Links.",
+            "longDescription": "This action shall detach referenced namespaces from the storage controller.  Services shall remove the detached namespaces from the AttachedVolumes property in Links.",
+            "parameters": {
+                "Namespaces": {
+                    "description": "The namespaces to detach from the storage controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                    },
+                    "longDescription": "This parameter shall contain an array of links to resources of type Volume that represent the namespaces to detach from the storage controller.",
+                    "requiredParameter": true,
+                    "type": "array"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_7_0"
         },
         "Links": {
             "additionalProperties": false,
@@ -193,6 +335,19 @@
                     "type": "array"
                 },
                 "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "NVMeDiscoveredSubsystems": {
+                    "description": "The NVMe subsystems discovered by this discovery controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Storage that represent the NVMe subsystems discovered by this discovery controller.  This property shall only be present if ControllerType in NVMeControllerProperties contains `Discovery`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "NVMeDiscoveredSubsystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "NetworkDeviceFunctions": {
@@ -618,6 +773,142 @@
             },
             "type": "object"
         },
+        "SecurityReceive": {
+            "actionResponse": {
+                "$ref": "#/definitions/SecurityReceiveResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action transfers security protocol data from the controller.  The data transferred from the controller contains the status and data result of one or more SecuritySend action requests that were previously submitted to the controller.",
+            "longDescription": "This action shall transfer security protocol data from the controller.  The contents of the request are specified by the 'SECURITY PROTOCOL IN command' section of the SPC-5 Specification.",
+            "parameters": {
+                "AllocationLength": {
+                    "description": "Allocated size for received data.",
+                    "longDescription": "This parameter shall contain the allocated size of the received data, which imposes a maximum length of the data.  The response may contain padding to meet this length.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                },
+                "SecurityProtocol": {
+                    "description": "The security protocol number.",
+                    "longDescription": "This parameter shall contain the numeric identifier of the security protocol, as defined by the 'SECURITY PROTOCOL field in SECURITY PROTOCOL IN command' table of the SPC-5 Specification, and possibly extended by transport-specific standards.  Services shall only accept the values `0`, `1`, or `2`.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                },
+                "SecurityProtocolSpecific": {
+                    "description": "The security protocol-specific parameter.",
+                    "longDescription": "This parameter shall contain the security protocol-specific data for the transfer operation.  The value is defined by the protocol specified by the SecurityProtocolSpecific parameter.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_7_0"
+        },
+        "SecurityReceiveResponse": {
+            "additionalProperties": false,
+            "description": "The security data transferred from a controller.",
+            "longDescription": "This object shall contain the security data transferred from a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Data": {
+                    "description": "The Base64-encoded security protocol data.",
+                    "longDescription": "This property shall contain a Base64-encoded string of the security protocol data transferred from a controller.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_7_0"
+                }
+            },
+            "type": "object"
+        },
+        "SecuritySend": {
+            "additionalProperties": false,
+            "description": "This action transfers security protocol data to the controller.  The data transferred to the controller contains security protocol-specific commands to be performed by the controller.",
+            "longDescription": "This action shall transfer security protocol data to the controller.  The contents of the request are specified by the 'SECURITY PROTOCOL OUT command' section of the SPC-5 Specification.",
+            "parameters": {
+                "Data": {
+                    "description": "The data to transfer.",
+                    "longDescription": "This parameter shall contain a Base64-encoded string of the security protocol data to transfer.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "SecurityProtocol": {
+                    "description": "The security protocol number.",
+                    "longDescription": "This parameter shall contain the numeric identifier of the security protocol, as defined by the 'SECURITY PROTOCOL field in SECURITY PROTOCOL OUT command' table of the SPC-5 Specification, and possibly extended by transport-specific standards.  Services shall only accept the values `1` or `2`.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                },
+                "SecurityProtocolSpecific": {
+                    "description": "The security protocol-specific parameter.",
+                    "longDescription": "This parameter shall contain the security protocol-specific data for the transfer operation.  The value is defined by the protocol specified by the SecurityProtocolSpecific parameter.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_7_0"
+        },
         "StorageController": {
             "additionalProperties": false,
             "description": "The StorageController schema describes a storage controller and its properties.  A storage controller represents a physical or virtual storage device that produces volumes.",
@@ -755,6 +1046,20 @@
                     "versionAdded": "v1_1_0",
                     "versionDeprecated": "v1_5_0"
                 },
+                "Metrics": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/StorageControllerMetrics.json#/definitions/StorageControllerMetrics"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the metrics associated with this storage controller.",
+                    "longDescription": "This property shall contain a link to the metrics associated with this storage controller.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
                 "Model": {
                     "description": "The model number for the storage controller.",
                     "longDescription": "This property shall contain the name by which the manufacturer generally refers to the storage controller.",
@@ -877,6 +1182,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#StorageController.v1_6_0.StorageController"
+    "release": "2023.1",
+    "title": "#StorageController.v1_7_0.StorageController"
 }

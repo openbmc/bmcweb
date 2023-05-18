@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_15_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_16_0.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "DeepOperations": {
             "additionalProperties": false,
@@ -486,7 +486,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TaskService.json#/definitions/TaskService",
                     "description": "The link to the task service.",
                     "longDescription": "This property shall contain a link to a resource of type TaskService.",
-                    "readonly": true
+                    "readonly": true,
+                    "uriSegment": "TaskService"
                 },
                 "TelemetryService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TelemetryService.json#/definitions/TelemetryService",
@@ -495,10 +496,17 @@
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
+                "ThermalEquipment": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ThermalEquipment.json#/definitions/ThermalEquipment",
+                    "description": "The link to a set of cooling equipment.",
+                    "longDescription": "This property shall contain a link to a resource of type ThermalEquipment.",
+                    "readonly": true,
+                    "versionAdded": "v1_16_0"
+                },
                 "UUID": {
                     "description": "Unique identifier for a service instance.  When SSDP is used, this value contains the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.",
                     "longDescription": "This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
-                    "pattern": "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})",
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -534,6 +542,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#ServiceRoot.v1_15_0.ServiceRoot"
+    "release": "2023.1",
+    "title": "#ServiceRoot.v1_16_0.ServiceRoot"
 }

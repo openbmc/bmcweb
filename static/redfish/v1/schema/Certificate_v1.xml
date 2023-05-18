@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.6.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.7.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -118,7 +118,7 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/UpdateService/RemoteServerCertificates/{CertificateId}</String>
             <String>/redfish/v1/UpdateService/ClientCertificates/{CertificateId}</String>
-            <String>/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}</String>            
+            <String>/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
@@ -128,6 +128,7 @@
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -544,7 +545,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The types or purposes for this certificate."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array describing the types or purposes for this certificate."/>
-        </Property>        
+        </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
@@ -647,6 +648,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Additional organizational units of the entity."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of additional organizational units for the entity, as defined by the RFC5280 'organizationalUnitName' attribute, in array order as they appear in the certificate.  This property shall not be present if only one organizational unit is found.  The first organizational unit shall not appear in this property."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_6_0.Certificate"/>
+
+      <ComplexType Name="Identifier" BaseType="Certificate.v1_6_0.Identifier">
+        <Property Name="AlternativeNames" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The additional host names of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the additional host names of the entity, as defined by the RFC5280 'subjectAltName' attribute.  This property shall not be present in the Issuer property."/>
         </Property>
       </ComplexType>
     </Schema>

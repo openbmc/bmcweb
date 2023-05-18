@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_9_0.json",
     "$ref": "#/definitions/Port",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -728,7 +728,7 @@
                 "IfAlias": "Interface alias, based on the ifAlias MIB object.",
                 "IfName": "Interface name, based on the ifName MIB object.",
                 "LocalAssign": "Locally assigned, based on a alpha-numeric value locally assigned.",
-                "MacAddr": "MAC address, based on an agent detected unicast source address as defined in IEEE Std. 802.",
+                "MacAddr": "MAC address, based on an agent detected unicast source address as defined in IEEE standard 802.",
                 "NetworkAddr": "Network address, based on an agent detected network address.",
                 "NotTransmitted": "No data to be sent to/received from remote partner.",
                 "PortComp": "Port component, based in the value of entPhysicalAlias in RFC4133."
@@ -2123,20 +2123,28 @@
                 "QSFP14",
                 "QSFP28",
                 "QSFP56",
-                "MiniSASHD"
+                "MiniSASHD",
+                "QSFPDD",
+                "OSFP"
             ],
             "enumDescriptions": {
                 "MiniSASHD": "The SFP conforms to the SFF Specification SFF-8644.",
+                "OSFP": "The SFP conforms to the OSFP Specification.",
                 "QSFP": "The SFP conforms to the SFF Specification for QSFP.",
                 "QSFP14": "The SFP conforms to the SFF Specification for QSFP14.",
                 "QSFP28": "The SFP conforms to the SFF Specification for QSFP28.",
                 "QSFP56": "The SFP conforms to the SFF Specification for QSFP56.",
+                "QSFPDD": "The SFP conforms to the QSFP Double Density Specification.",
                 "QSFPPlus": "The SFP conforms to the SFF Specification for QSFP+.",
                 "SFP": "The SFP conforms to the SFF Specification for SFP.",
                 "SFP28": "The SFP conforms to the SFF Specification for SFP+ and IEEE 802.3by Specification.",
                 "SFPDD": "The SFP conforms to the SFP-DD MSA Specification.",
                 "SFPPlus": "The SFP conforms to the SFF Specification for SFP+.",
                 "cSFP": "The SFP conforms to the CSFP MSA Specification."
+            },
+            "enumVersionAdded": {
+                "OSFP": "v1_9_0",
+                "QSFPDD": "v1_9_0"
             },
             "type": "string"
         },
@@ -2153,6 +2161,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#Port.v1_8_0.Port"
+    "release": "2023.1",
+    "title": "#Port.v1_9_0.Port"
 }

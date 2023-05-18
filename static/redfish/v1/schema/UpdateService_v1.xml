@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.11.2                                               -->
+<!--# Redfish Schema:  UpdateService v1.11.3                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -82,7 +82,7 @@
         </Parameter>
         <Parameter Name="Targets" Type="Collection(Edm.String)">
           <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
-          <Annotation Term="OData.LongDescription" String="This array property shall contain zero or more URIs that indicate where to apply the update image.  These targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain zero or more URIs that indicate where to apply the update image.  These targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If the target specifies a device resource, the software image file shall be applied to the specified device.  If the target specifies a resource collection, the software image shall be applied to each applicable member of the specified collection.  If the target resource specifies an Aggregate resource, the software image file shall be applied to each applicable element of the specified aggregate.  If the target resource specifies a ComputerSystem resource, the software image file shall be applied to the applicable components within the specified computer system."/>
           <Annotation Term="OData.IsURL"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -401,7 +401,7 @@
         <Property Name="HttpPushUriTargets" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the HttpPushUri property to push a software image.  These targets should correspond to SoftwareInventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the HttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If the target specifies a device resource, the software image file shall be applied to the specified device.  If the target specifies a resource collection, the software image shall be applied to each applicable member of the specified collection.  If the target resource specifies an Aggregate resource, the software image file shall be applied to each applicable element of the specified aggregate.  If the target resource specifies a ComputerSystem resource, the software image file shall be applied to the applicable components within the specified computer system."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="HttpPushUriTargetsBusy" Type="Edm.Boolean">
@@ -472,6 +472,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_9.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_10.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -526,6 +532,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_7.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_8.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_0">
@@ -658,6 +670,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_7.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_8.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -714,6 +732,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_6.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_7.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -734,7 +758,7 @@
         <Property Name="Targets" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If the target specifies a device resource, the software image file shall be applied to the specified device.  If the target specifies a resource collection, the software image shall be applied to each applicable member of the specified collection.  If the target resource specifies an Aggregate resource, the software image file shall be applied to each applicable element of the specified aggregate.  If the target resource specifies a ComputerSystem resource, the software image file shall be applied to the applicable components within the specified computer system."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
       </ComplexType>
@@ -774,6 +798,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_7.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_8.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_0">
@@ -818,6 +848,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_5.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_6.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_0">
@@ -870,6 +906,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_5.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_8_6.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -907,6 +949,12 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_9_2.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_9_3.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -937,6 +985,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification.  It was also created to clarify that other certificate verification might be performed by the service due to other policies in the service."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_10_2.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_10_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_10_3.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_11_0">
@@ -973,6 +1027,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update non-resource URI description to reference URI rules in the specification.  It was also created to clarify that other certificate verification might be performed by the service due to other policies in the service."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_11_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_11_2.UpdateService"/>
     </Schema>
 
   </edmx:DataServices>

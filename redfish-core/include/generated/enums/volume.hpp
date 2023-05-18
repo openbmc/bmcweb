@@ -115,6 +115,39 @@ enum class LBAFormatType{
     LBAFormat15,
 };
 
+enum class NamespaceType{
+    Invalid,
+    Block,
+    KeyValue,
+    ZNS,
+    Computational,
+};
+
+enum class OperationType{
+    Invalid,
+    Deduplicate,
+    CheckConsistency,
+    Initialize,
+    Replicate,
+    Delete,
+    ChangeRAIDType,
+    Rebuild,
+    Encrypt,
+    Decrypt,
+    Resize,
+    Compress,
+    Sanitize,
+    Format,
+};
+
+enum class LBARelativePerformanceType{
+    Invalid,
+    Best,
+    Better,
+    Good,
+    Degraded,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(InitializeType, {
     {InitializeType::Invalid, "Invalid"},
     {InitializeType::Fast, "Fast"},
@@ -223,6 +256,39 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBAFormatType, {
     {LBAFormatType::LBAFormat13, "LBAFormat13"},
     {LBAFormatType::LBAFormat14, "LBAFormat14"},
     {LBAFormatType::LBAFormat15, "LBAFormat15"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(NamespaceType, {
+    {NamespaceType::Invalid, "Invalid"},
+    {NamespaceType::Block, "Block"},
+    {NamespaceType::KeyValue, "KeyValue"},
+    {NamespaceType::ZNS, "ZNS"},
+    {NamespaceType::Computational, "Computational"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(OperationType, {
+    {OperationType::Invalid, "Invalid"},
+    {OperationType::Deduplicate, "Deduplicate"},
+    {OperationType::CheckConsistency, "CheckConsistency"},
+    {OperationType::Initialize, "Initialize"},
+    {OperationType::Replicate, "Replicate"},
+    {OperationType::Delete, "Delete"},
+    {OperationType::ChangeRAIDType, "ChangeRAIDType"},
+    {OperationType::Rebuild, "Rebuild"},
+    {OperationType::Encrypt, "Encrypt"},
+    {OperationType::Decrypt, "Decrypt"},
+    {OperationType::Resize, "Resize"},
+    {OperationType::Compress, "Compress"},
+    {OperationType::Sanitize, "Sanitize"},
+    {OperationType::Format, "Format"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
+    {LBARelativePerformanceType::Invalid, "Invalid"},
+    {LBARelativePerformanceType::Best, "Best"},
+    {LBARelativePerformanceType::Better, "Better"},
+    {LBARelativePerformanceType::Good, "Good"},
+    {LBARelativePerformanceType::Degraded, "Degraded"},
 });
 
 }

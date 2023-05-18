@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TelemetryService v1.3.1                                             -->
+<!--# Redfish Schema:  TelemetryService v1.3.2                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -172,7 +172,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the minimum time interval between gathering metric data that this service allows."/>
         </Property>
         <Property Name="SupportedCollectionFunctions" Type="Collection(TelemetryService.v1_0_0.CollectionFunction)">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The functions that can be performed over each metric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the function to apply over the collection duration."/>
         </Property>
@@ -277,6 +277,12 @@
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_0_4.TelemetryService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions of the SupportedCollectionFunctions property to show it's read-only.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_0_5.TelemetryService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_1_0">
       <Annotation Term="OData.Description" String="This version was created to add the GeneratedMetricReportValues property to the SubmitTestMetricReport action."/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -348,6 +354,12 @@
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_4.TelemetryService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions of the SupportedCollectionFunctions property to show it's read-only.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_5.TelemetryService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -379,6 +391,12 @@
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_2_2.TelemetryService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions of the SupportedCollectionFunctions property to show it's read-only.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_2_3.TelemetryService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -391,6 +409,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_3_0.TelemetryService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions of the SupportedCollectionFunctions property to show it's read-only.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_3_1.TelemetryService"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSupply v1.5.0                                                  -->
+<!--# Redfish Schema:  PowerSupply v1.5.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -56,8 +56,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="PowerSupply" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The PowerSupply schema describes a power supply unit."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a power supply for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The PowerSupply schema describes a power supply unit.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a power supply unit for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -156,7 +156,7 @@
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information for this power supply.  For a resource in the `Absent` state, this property   describes the empty location, such as a slot, socket, or bay, to represent the available  capacity."/>
         </Property>
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -335,6 +335,12 @@
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_0_0.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_0_1.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -351,7 +357,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for this power supply."/>
         </Property>
       </EntityType>
+    </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_1_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_2_0">
@@ -382,6 +393,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_2_0.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -407,6 +424,12 @@
       </EnumType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_3_0.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -422,6 +445,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_4_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_5_0">
@@ -441,6 +470,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the nominal voltage type of the single output line of this power supply.  This property is intended to describe power supply types that connect to additional power infrastructure components, such as a rectifier component in a modular power system.  This property shall not be present for power supplies not intended to connect to additional power infrastructure components."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_5_0.PowerSupply"/>
     </Schema>
 
   </edmx:DataServices>

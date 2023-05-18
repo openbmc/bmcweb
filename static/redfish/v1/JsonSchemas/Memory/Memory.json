@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_17_1.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -446,8 +446,8 @@
         },
         "Memory": {
             "additionalProperties": false,
-            "description": "The Memory schema represents a memory device, such as a DIMM, and its configuration.",
-            "longDescription": "This resource shall represent a memory device in a Redfish implementation.",
+            "description": "The Memory schema represents a memory device, such as a DIMM, and its configuration.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present.",
+            "longDescription": "This resource shall represent a memory device in a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -738,6 +738,7 @@
                     "description": "The link to the log service associated with this memory.",
                     "longDescription": "This property shall contain a link to a resource of type LogService.",
                     "readonly": true,
+                    "uriSegment": "DeviceLog",
                     "versionAdded": "v1_13_0"
                 },
                 "LogicalSizeMiB": {
@@ -847,7 +848,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json#/definitions/MemoryMetrics",
                     "description": "The link to the metrics associated with this memory device.",
                     "longDescription": "The link to the metrics associated with this memory device.",
-                    "readonly": true
+                    "readonly": true,
+                    "uriSegment": "MemoryMetrics"
                 },
                 "Model": {
                     "description": "The product model number of this device.",
@@ -2062,5 +2064,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#Memory.v1_17_0.Memory"
+    "title": "#Memory.v1_17_1.Memory"
 }

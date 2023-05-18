@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -40,7 +40,6 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Cable" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="The Cable schema contains properties that describe a cable connecting endpoints of a chassis, port, or any other cable-compatible endpoint."/>
         <Annotation Term="OData.LongDescription" String="This resource contains a simple cable for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -372,6 +371,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the additional properties term in the root of the resource, which was incorrectly set to `true`."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_0_0.Cable"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -385,12 +390,24 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the additional properties term in the root of the resource, which was incorrectly set to `true`."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_1_0.Cable"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
       <Annotation Term="OData.Description" String="This version was created to add `CDFP` and `OSFP` to ConnectorType."/>
 
       <EntityType Name="Cable" BaseType="Cable.v1_1_0.Cable"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the additional properties term in the root of the resource, which was incorrectly set to `true`."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_2_0.Cable"/>
     </Schema>
 
   </edmx:DataServices>

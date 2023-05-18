@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.13.0                                            -->
+<!--# Redfish Schema:  EventDestination v1.13.1                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -80,7 +80,7 @@
           </Collection>
         </Annotation>
       </Action>
-	  
+
       <Action Name="ResumeSubscription" IsBound="true">
         <Annotation Term="OData.Description" String="This action resumes a suspended event subscription."/>
         <Annotation Term="OData.LongDescription" String="This action shall resume a suspended event subscription, which affects the subscription status.  The service may deliver buffered events when the subscription is resumed."/>
@@ -1379,6 +1379,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_0.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_1.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1391,6 +1397,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of severities that are the allowable values for the MessageSeverity property within an event sent to the subscriber.  If this property is an empty array or is absent, no filtering based upon the MessageSeverity of an event is performed."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_13_0.EventDestination"/>
     </Schema>
 
   </edmx:DataServices>

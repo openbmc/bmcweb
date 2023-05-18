@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_18_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -475,6 +475,7 @@
                     "description": "The link to the memory metrics associated with all memory of this processor.",
                     "longDescription": "This property shall contain a link to a resource of type MemoryMetrics that contains the metrics associated with all memory of this processor.",
                     "readonly": true,
+                    "uriSegment": "MemorySummary/MemoryMetrics",
                     "versionAdded": "v1_11_0"
                 },
                 "TotalCacheSizeMiB": {
@@ -489,8 +490,8 @@
                     "versionAdded": "v1_11_0"
                 },
                 "TotalMemorySizeMiB": {
-                    "description": "Total size of volatile memory attached to this processor.",
-                    "longDescription": "This property shall contain the total size of non-cache, volatile memory attached to this processor.  This value indicates the size of memory directly attached or with strong affinity to this processor, not the total memory accessible by the processor.  This property shall not be present for implementations where all processors have equal memory performance or access characteristics, such as hop count, for all system memory.",
+                    "description": "Total size of non-cache, volatile or non-volatile memory attached to this processor.  Examples include DRAMs and NV-DIMMs that are not configured as block storage.",
+                    "longDescription": "This property shall contain the total size of non-cache, volatile or non-volatile memory attached to this processor.  Examples include DRAMs and NV-DIMMs that are not configured as block storage.  This value indicates the size of memory directly attached or with strong affinity to this processor, not the total memory accessible by the processor.  This property shall not be present for implementations where all processors have equal memory performance or access characteristics, such as hop count, for all system memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -525,8 +526,8 @@
         },
         "Processor": {
             "additionalProperties": false,
-            "description": "The Processor schema describes the information about a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.",
-            "longDescription": "This resource shall represent a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.",
+            "description": "The Processor schema describes the information about a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present.",
+            "longDescription": "This resource shall represent a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -772,6 +773,7 @@
                     "description": "The link to the metrics associated with this processor.",
                     "longDescription": "This property shall contain a link to a resource of type ProcessorMetrics that contains the metrics associated with this processor.",
                     "readonly": true,
+                    "uriSegment": "ProcessorMetrics",
                     "versionAdded": "v1_4_0"
                 },
                 "MinSpeedMHz": {
@@ -896,7 +898,7 @@
                     "versionAdded": "v1_16_0"
                 },
                 "ProcessorMemory": {
-                    "description": "The memory directly attached or integrated within this processor.",
+                    "description": "The memory directly attached or integrated within this processor.  Examples include internal cache, dedicated memory for the processor, and system memory.",
                     "items": {
                         "$ref": "#/definitions/ProcessorMemory"
                     },
@@ -1152,7 +1154,7 @@
             "properties": {
                 "EffectiveFamily": {
                     "description": "The effective family for this processor.",
-                    "longDescription": "This property shall indicate the effective Family information as provided by the manufacturer of this processor.",
+                    "longDescription": "This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1161,7 +1163,7 @@
                 },
                 "EffectiveModel": {
                     "description": "The effective model for this processor.",
-                    "longDescription": "This property shall indicate the effective Model information as provided by the manufacturer of this processor.",
+                    "longDescription": "This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1171,6 +1173,7 @@
                 "IdentificationRegisters": {
                     "description": "The raw manufacturer-provided processor identification registers for this processor.",
                     "longDescription": "This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features.",
+                    "pattern": "^0x[0-9A-Fa-f]+$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1179,7 +1182,7 @@
                 },
                 "MicrocodeInfo": {
                     "description": "The microcode information for this processor.",
-                    "longDescription": "This property shall indicate the microcode information as provided by the manufacturer of this processor.",
+                    "longDescription": "This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1198,7 +1201,7 @@
                 },
                 "Step": {
                     "description": "The step value for this processor.",
-                    "longDescription": "This property shall indicate the Step or revision string information as provided by the manufacturer of this processor.",
+                    "longDescription": "This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1207,7 +1210,7 @@
                 },
                 "VendorId": {
                     "description": "The vendor identification for this processor.",
-                    "longDescription": "This property shall indicate the vendor Identification string information as provided by the manufacturer of this processor.",
+                    "longDescription": "This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1533,15 +1536,20 @@
                 "PowerLimit",
                 "ThermalLimit",
                 "ClockLimit",
+                "ManagementDetectedFault",
                 "Unknown",
                 "OEM"
             ],
             "enumDescriptions": {
                 "ClockLimit": "The cause of the processor being throttled is a clock limit.",
+                "ManagementDetectedFault": "The cause of the processor being throttled is a fault detected by management hardware or firmware.",
                 "OEM": "The cause of the processor being throttled is OEM-specific.",
                 "PowerLimit": "The cause of the processor being throttled is a power limit.",
                 "ThermalLimit": "The cause of the processor being throttled is a thermal limit.",
                 "Unknown": "The cause of the processor being throttled is not known."
+            },
+            "enumVersionAdded": {
+                "ManagementDetectedFault": "v1_18_0"
             },
             "type": "string"
         },
@@ -1558,6 +1566,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#Processor.v1_17_0.Processor"
+    "release": "2023.1",
+    "title": "#Processor.v1_18_0.Processor"
 }

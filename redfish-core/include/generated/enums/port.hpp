@@ -106,6 +106,8 @@ enum class SFPType{
     QSFP28,
     QSFP56,
     MiniSASHD,
+    QSFPDD,
+    OSFP,
 };
 
 enum class MediumType{
@@ -264,6 +266,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SFPType, {
     {SFPType::QSFP28, "QSFP28"},
     {SFPType::QSFP56, "QSFP56"},
     {SFPType::MiniSASHD, "MiniSASHD"},
+    {SFPType::QSFPDD, "QSFPDD"},
+    {SFPType::OSFP, "OSFP"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MediumType, {

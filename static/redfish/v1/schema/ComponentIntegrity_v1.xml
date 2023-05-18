@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComponentIntegrity v1.2.0                                           -->
+<!--# Redfish Schema:  ComponentIntegrity v1.2.1                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -134,7 +134,7 @@
         <Property Name="ComponentIntegrityTypeVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The version of the security technology."/>
-          <Annotation Term="OData.LongDescription" String="This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\d+\.\d+\.\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM."/>
+          <Annotation Term="OData.LongDescription" String="This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If the service has not established secure communication with the device or security protocols are disabled, this property shall contain an empty string.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\d+\.\d+\.\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="ComponentIntegrityEnabled" Type="Edm.Boolean" Nullable="false">
@@ -548,6 +548,12 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_0.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of ComponentIntegrityTypeVersion when security protocols are disabled."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_1.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -568,6 +574,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to allow for TPMs to reference TrustedComponent resources from the TargetComponentURI property.  It was also created to clarify the nonce provided in the SPDMGetSignedMeasurements action is sent to the SPDM Responder in the 'GET_MEASUREMENTS' request.  It was also created to add a regular expression pattern to ComponentIntegrityTypeVersion when ComponentIntegrityType contains `SPDM`."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_0.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of ComponentIntegrityTypeVersion when security protocols are disabled."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_1.ComponentIntegrity"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_0">
@@ -601,6 +613,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of ComponentIntegrityTypeVersion when security protocols are disabled."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_0.ComponentIntegrity"/>
     </Schema>
 
   </edmx:DataServices>

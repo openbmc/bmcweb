@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_11_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_11_3.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -195,7 +195,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This array property shall contain zero or more URIs that indicate where to apply the update image.  These targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
+                    "longDescription": "This parameter shall contain zero or more URIs that indicate where to apply the update image.  These targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If the target specifies a device resource, the software image file shall be applied to the specified device.  If the target specifies a resource collection, the software image shall be applied to each applicable member of the specified collection.  If the target resource specifies an Aggregate resource, the software image file shall be applied to each applicable element of the specified aggregate.  If the target resource specifies a ComputerSystem resource, the software image file shall be applied to the applicable components within the specified computer system.",
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
@@ -349,7 +349,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
+                    "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If the target specifies a device resource, the software image file shall be applied to the specified device.  If the target specifies a resource collection, the software image shall be applied to each applicable member of the specified collection.  If the target resource specifies an Aggregate resource, the software image file shall be applied to each applicable element of the specified aggregate.  If the target resource specifies a ComputerSystem resource, the software image file shall be applied to the applicable components within the specified computer system.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_6_0"
@@ -450,7 +450,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the HttpPushUri property to push a software image.  These targets should correspond to SoftwareInventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.",
+                    "longDescription": "This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the HttpPushUri property to push a software image.  These targets should correspond to software inventory instances or their related items.  If this property is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If the target specifies a device resource, the software image file shall be applied to the specified device.  If the target specifies a resource collection, the software image shall be applied to each applicable member of the specified collection.  If the target resource specifies an Aggregate resource, the software image file shall be applied to each applicable element of the specified aggregate.  If the target resource specifies a ComputerSystem resource, the software image file shall be applied to the applicable components within the specified computer system.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_2_0"
@@ -546,5 +546,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2021.4",
-    "title": "#UpdateService.v1_11_2.UpdateService"
+    "title": "#UpdateService.v1_11_3.UpdateService"
 }
