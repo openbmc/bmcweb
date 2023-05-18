@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa727c6_3fdd7b2c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2023-05-18T13:07:33Z",
+      "side": 1,
+      "message": "Okay. The only required change in the new schema was this one enum value and it was already approved.  I am just waiting for them to release 2023.1 which is supposed to be released very soon. There are no additional code changes expected here (unless there are additional review comments).",
+      "parentUuid": "1f733cc3_d054ef72",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8860f2ce_9cee4e4c",
