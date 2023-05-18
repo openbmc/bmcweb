@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75b8723c_57b80d5f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2023-05-18T17:31:39Z",
+      "side": 1,
+      "message": "\u003e\u003e The changes required here would be to move this over to the Redfish enum for this property\n\nThis function is translating the dbus value to the approved Redfish enum values (including the one new value from processor schema 1.18.0: ManagementDetectedFault). Are you saying this translation is not correct or needs to change?",
+      "parentUuid": "dfc09fae_fdc83fde",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8860f2ce_9cee4e4c",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 8

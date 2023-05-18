@@ -22,6 +22,30 @@
       },
       "revId": "5ada35551e52e35b296655e60136e5271a837e67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe043c95_11a55f86",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1363,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2023-05-18T17:31:39Z",
+      "side": 1,
+      "message": "This is the correct schema version that contains the enum ManagementDetectedFault (Processor 1.18.0) from https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2023.1WIP99.pdf",
+      "parentUuid": "f2d5335c_422c0c13",
+      "range": {
+        "startLine": 1363,
+        "startChar": 27,
+        "endLine": 1363,
+        "endChar": 29
+      },
+      "revId": "5ada35551e52e35b296655e60136e5271a837e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
