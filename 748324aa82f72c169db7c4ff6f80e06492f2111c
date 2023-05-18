@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfc09fae_fdc83fde",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T15:57:46Z",
+      "side": 1,
+      "message": "To be more clear, once bmcweb has been updated the schemas for 2023.1, your enumeration will show up here: https://github.com/openbmc/bmcweb/blob/00ef5dc6d410ab83302529f23919b3d91a35b5e3/redfish-core/include/generated/enums/processor.hpp#L83",
+      "parentUuid": "8341451e_6c75468b",
+      "revId": "748324aa82f72c169db7c4ff6f80e06492f2111c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8860f2ce_9cee4e4c",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 8
