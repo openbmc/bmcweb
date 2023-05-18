@@ -51,6 +51,24 @@
       "parentUuid": "d47ef632_13bbaddb",
       "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f94ce1f_38e58209",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-18T17:00:34Z",
+      "side": 1,
+      "message": "\u003e Also according to https://json.nlohmann.me/api/basic_json/is_structured/, this could be simplified to res.jsonValue.is_structured()\n\nI agree it can simplified to is_structured() but I find this current code easier to read.(I would have to google is_structured). \nI am fine either way.",
+      "parentUuid": "e0ab2ab7_28778603",
+      "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
