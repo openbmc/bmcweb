@@ -77,34 +77,6 @@ inline void
 }
 
 /*
- * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
- *
- * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] cpuPresenceState CPU present or not
- *
- * @return None.
- */
-inline void
-    modifyCpuPresenceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                           bool isCpuPresent)
-{
-    BMCWEB_LOG_DEBUG << "Cpu Present: " << isCpuPresent;
-
-    if (isCpuPresent)
-    {
-        nlohmann::json& procCount =
-            aResp->res.jsonValue["ProcessorSummary"]["Count"];
-        auto* procCountPtr =
-            procCount.get_ptr<nlohmann::json::number_integer_t*>();
-        if (procCountPtr != nullptr)
-        {
-            // shouldn't be possible to be nullptr
-            *procCountPtr += 1;
-        }
-    }
-}
-
-/*
  * @brief Update "ProcessorSummary" "Status" "State" based on
  *        CPU Functional State
  *
@@ -131,6 +103,34 @@ inline void
         {
             aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
                 "Enabled";
+        }
+    }
+}
+
+/*
+ * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] cpuPresenceState CPU present or not
+ *
+ * @return None.
+ */
+inline void
+    modifyCpuPresenceState(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           bool isCpuPresent)
+{
+    BMCWEB_LOG_DEBUG << "Cpu Present: " << isCpuPresent;
+
+    if (isCpuPresent)
+    {
+        nlohmann::json& procCount =
+            aResp->res.jsonValue["ProcessorSummary"]["Count"];
+        auto* procCountPtr =
+            procCount.get_ptr<nlohmann::json::number_integer_t*>();
+        if (procCountPtr != nullptr)
+        {
+            // shouldn't be possible to be nullptr
+            *procCountPtr += 1;
         }
     }
 }
@@ -195,27 +195,11 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         modifyCpuPresenceState(aResp, cpuPresenceCheck);
     };
 
-    auto getCpuFunctionalState = [aResp](const boost::system::error_code& ec3,
-                                         const bool cpuFunctionalCheck) {
-        if (ec3)
-        {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
-            return;
-        }
-        modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
-    };
-
     // Get the Presence of CPU
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         std::move(getCpuPresenceState));
-
-    // Get the Functional State
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        std::move(getCpuFunctionalState));
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, path,
@@ -230,6 +214,117 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
         getProcessorProperties(aResp, properties);
+        });
+
+    auto getCpuFunctionalState = [aResp](const boost::system::error_code& ec3,
+                                         const bool cpuFunctionalCheck) {
+        if (ec3)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
+            return;
+        }
+        modifyCpuFunctionalState(aResp, cpuFunctionalCheck);
+    };
+
+    // Get the Functional State
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        std::move(getCpuFunctionalState));
+}
+
+/*
+ * @brief processMemoryProperties fields
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] service dbus service for memory Information
+ * @param[in] path dbus path for Memory
+ * @param[in] DBUS properties for memory
+ *
+ * @return None.
+ */
+inline void
+    processMemoryProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            const std::string& service, const std::string& path,
+                            const dbus::utility::DBusPropertiesMap& properties)
+{
+    BMCWEB_LOG_DEBUG << "Got " << properties.size() << " Dimm properties.";
+
+    if (properties.empty())
+    {
+        sdbusplus::asio::getProperty<bool>(
+            *crow::connections::systemBus, service, path,
+            "xyz.openbmc_project.State."
+            "Decorator.OperationalStatus",
+            "Functional",
+            [aResp](const boost::system::error_code& ec3, bool dimmState) {
+            if (ec3)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec3;
+                return;
+            }
+            updateDimmProperties(aResp, dimmState);
+            });
+        return;
+    }
+
+    const uint32_t* memorySizeInKB = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "MemorySizeInKB",
+        memorySizeInKB);
+
+    if (!success)
+    {
+        messages::internalError(aResp->res);
+        return;
+    }
+
+    if (memorySizeInKB != nullptr)
+    {
+        nlohmann::json& totalMemory =
+            aResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"];
+        const uint64_t* preValue = totalMemory.get_ptr<const uint64_t*>();
+        if (preValue == nullptr)
+        {
+            aResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+                *memorySizeInKB / (1024 * 1024);
+        }
+        else
+        {
+            aResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+                *memorySizeInKB / (1024 * 1024) + *preValue;
+        }
+        aResp->res.jsonValue["MemorySummary"]["Status"]["State"] = "Enabled";
+    }
+}
+
+/*
+ * @brief Get getMemorySummary fields
+ *
+ * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] service dbus service for memory Information
+ * @param[in] path dbus path for memory
+ *
+ * @return None.
+ */
+inline void getMemorySummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& service,
+                             const std::string& path)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        [aResp, service,
+         path](const boost::system::error_code& ec2,
+               const dbus::utility::DBusPropertiesMap& properties) {
+        if (ec2)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec2;
+            messages::internalError(aResp->res);
+            return;
+        }
+        processMemoryProperties(aResp, service, path, properties);
         });
 }
 
@@ -300,86 +395,7 @@ inline void
                         BMCWEB_LOG_DEBUG
                             << "Found Dimm, now get its properties.";
 
-                        sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, connection.first,
-                            path, "xyz.openbmc_project.Inventory.Item.Dimm",
-                            [aResp, service{connection.first},
-                             path](const boost::system::error_code& ec2,
-                                   const dbus::utility::DBusPropertiesMap&
-                                       properties) {
-                            if (ec2)
-                            {
-                                BMCWEB_LOG_ERROR << "DBUS response error "
-                                                 << ec2;
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-                            BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                                             << " Dimm properties.";
-
-                            if (properties.empty())
-                            {
-                                sdbusplus::asio::getProperty<bool>(
-                                    *crow::connections::systemBus, service,
-                                    path,
-                                    "xyz.openbmc_project.State."
-                                    "Decorator.OperationalStatus",
-                                    "Functional",
-                                    [aResp](
-                                        const boost::system::error_code& ec3,
-                                        bool dimmState) {
-                                    if (ec3)
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec3;
-                                        return;
-                                    }
-                                    updateDimmProperties(aResp, dimmState);
-                                    });
-                                return;
-                            }
-
-                            const uint32_t* memorySizeInKB = nullptr;
-
-                            const bool success =
-                                sdbusplus::unpackPropertiesNoThrow(
-                                    dbus_utils::UnpackErrorPrinter(),
-                                    properties, "MemorySizeInKB",
-                                    memorySizeInKB);
-
-                            if (!success)
-                            {
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-
-                            if (memorySizeInKB != nullptr)
-                            {
-                                nlohmann::json& totalMemory =
-                                    aResp->res
-                                        .jsonValue["MemorySummary"]
-                                                  ["TotalSystemMemoryGiB"];
-                                const uint64_t* preValue =
-                                    totalMemory.get_ptr<const uint64_t*>();
-                                if (preValue == nullptr)
-                                {
-                                    aResp->res
-                                        .jsonValue["MemorySummary"]
-                                                  ["TotalSystemMemoryGiB"] =
-                                        *memorySizeInKB / (1024 * 1024);
-                                }
-                                else
-                                {
-                                    aResp->res
-                                        .jsonValue["MemorySummary"]
-                                                  ["TotalSystemMemoryGiB"] =
-                                        *memorySizeInKB / (1024 * 1024) +
-                                        *preValue;
-                                }
-                                aResp->res.jsonValue["MemorySummary"]["Status"]
-                                                    ["State"] = "Enabled";
-                            }
-                            });
+                        getMemorySummary(aResp, connection.first, path);
 
                         memoryHealth->inventory.emplace_back(path);
                     }
@@ -3035,10 +3051,10 @@ inline void requestRoutesSystems(App& app)
         asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
         asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
             "Disabled";
-        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-            uint64_t(0);
         asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
             "Disabled";
+        asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
+            uint64_t(0);
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
         asyncResp->res.jsonValue["Processors"]["@odata.id"] =
