@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49444377_e79ce122",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-18T16:55:51Z",
+      "side": 1,
+      "message": "would prefer you used more than 1 char var name. size? \npayloadSize? contentLength?",
+      "range": {
+        "startLine": 148,
+        "startChar": 34,
+        "endLine": 148,
+        "endChar": 35
+      },
+      "revId": "13d6f00c7b6b80917a37af097234bc47e91bfde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
