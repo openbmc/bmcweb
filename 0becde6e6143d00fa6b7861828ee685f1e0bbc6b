@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure this is better.",
       "revId": "0becde6e6143d00fa6b7861828ee685f1e0bbc6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "647ca608_06e62652",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-18T18:15:52Z",
+      "side": 1,
+      "message": "getPCIeDeviceList is currently duplicating the functionality of getCollectionMembers.\n\nThe purpose of this change is to modify the getPCIeDeviceList function to include empty PCIeSlots in the PCIeDevice Collection in  \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62073",
+      "parentUuid": "889284ee_9cb55457",
+      "revId": "0becde6e6143d00fa6b7861828ee685f1e0bbc6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
