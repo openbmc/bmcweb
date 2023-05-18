@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec60c22_33390689",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-18T13:29:29Z",
+      "side": 1,
+      "message": "Changed to invoke this from getValidPortPath()",
+      "parentUuid": "193925b3_b1ee80d4",
+      "revId": "e4f8107b0e72ae74debf90772855429854cc0681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d4b5598_5f43ce49",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-18T03:38:30Z",
       "side": 1,
       "message": "If there is no association, we are currently returning no data without raising an error. how does users interpret this absence of output?",
+      "revId": "e4f8107b0e72ae74debf90772855429854cc0681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6c89409_59a6e872",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-18T13:29:29Z",
+      "side": 1,
+      "message": "Fixed to call handlePortError()",
+      "parentUuid": "1d4b5598_5f43ce49",
       "revId": "e4f8107b0e72ae74debf90772855429854cc0681",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
