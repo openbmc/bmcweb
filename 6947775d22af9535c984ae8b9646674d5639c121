@@ -34,6 +34,24 @@
       "parentUuid": "40f67d96_6c20c293",
       "revId": "6947775d22af9535c984ae8b9646674d5639c121",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7739b1_1121ea1d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T16:51:40Z",
+      "side": 1,
+      "message": "I cleaned up the logic to make it more obvious that this can never be nulllopt.  Hopefully that works for you.",
+      "parentUuid": "8ae3a5a8_d09e4545",
+      "revId": "6947775d22af9535c984ae8b9646674d5639c121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
