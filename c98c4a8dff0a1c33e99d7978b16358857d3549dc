@@ -16,6 +16,24 @@
       "message": "Redfish.md changes missing.",
       "revId": "c98c4a8dff0a1c33e99d7978b16358857d3549dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d16090d_c5555422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-18T22:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e5bd45b_7c6544dc",
+      "revId": "c98c4a8dff0a1c33e99d7978b16358857d3549dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

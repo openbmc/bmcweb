@@ -176,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bafe580d_14ab2c89",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-18T22:17:24Z",
+      "side": 1,
+      "message": "getAssociatedSubTreePaths fails if there are more than one PCIeSlot.",
+      "parentUuid": "c8272e35_78c4a6cc",
+      "revId": "1ce26eb845a5ef8f19c2279f8a2f7af009b4848b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9723d07c_15e9ed1a",
