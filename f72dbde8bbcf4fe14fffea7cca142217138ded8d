@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d2e643_1733f379",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-18T11:37:25Z",
+      "side": 1,
+      "message": "I originally wrote it as always showing the link and then the link may give \u00270\u0027 members like in many places.\n\nThis change is to respond Ed\u0027s comment here.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61097/comment/8740b2e5_d8a49a52/",
+      "parentUuid": "05741223_cd00a0c6",
+      "revId": "f72dbde8bbcf4fe14fffea7cca142217138ded8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d8860dd_4361ac03",
