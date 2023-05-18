@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d5335c_422c0c13",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T15:58:47Z",
+      "side": 1,
+      "message": "Also, considering you\u0027re using an enum that wasn\u0027t available on this Redfish version, you\u0027ll need to rev this.",
+      "range": {
+        "startLine": 1363,
+        "startChar": 27,
+        "endLine": 1363,
+        "endChar": 29
+      },
+      "revId": "5ada35551e52e35b296655e60136e5271a837e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
