@@ -113,7 +113,7 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
         sseConn->async_write_some(
             boost::asio::buffer(outBuffer.data(), outBuffer.size()),
             [self(shared_from_this())](
-                boost::beast::error_code ec,
+                const boost::beast::error_code& ec,
                 [[maybe_unused]] const std::size_t& bytesTransferred) {
             self->outBuffer.erase(0, bytesTransferred);
 

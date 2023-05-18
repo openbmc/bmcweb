@@ -50,7 +50,7 @@ inline void doWrite()
     doingWrite = true;
     hostSocket->async_write_some(
         boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
-        [](boost::beast::error_code ec, std::size_t bytesWritten) {
+        [](const boost::beast::error_code& ec, std::size_t bytesWritten) {
         doingWrite = false;
         inputBuffer.erase(0, bytesWritten);
 

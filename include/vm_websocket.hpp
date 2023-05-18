@@ -90,7 +90,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         doingWrite = true;
         pipeIn.async_write_some(
             inputBuffer->data(),
-            [this, self(shared_from_this())](boost::beast::error_code ec,
+            [this, self(shared_from_this())](const boost::beast::error_code& ec,
                                              std::size_t bytesWritten) {
             BMCWEB_LOG_DEBUG << "Wrote " << bytesWritten << "bytes";
             doingWrite = false;

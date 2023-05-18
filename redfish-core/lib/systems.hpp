@@ -2974,7 +2974,7 @@ inline void afterPortRequest(
         if (protocolName == "SSH")
         {
             getPortNumber(socketPath, [asyncResp, protocolName](
-                                          const boost::system::error_code ec1,
+                                          const boost::system::error_code& ec1,
                                           int portNumber) {
                 if (ec1)
                 {

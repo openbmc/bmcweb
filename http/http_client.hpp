@@ -169,7 +169,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void afterResolve(
         const std::shared_ptr<ConnectionInfo>& /*self*/,
-        const boost::beast::error_code ec,
+        const boost::beast::error_code& ec,
         const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
     {
         if (ec || (endpointList.empty()))
@@ -197,7 +197,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     }
 
     void afterConnect(const std::shared_ptr<ConnectionInfo>& /*self*/,
-                      boost::beast::error_code ec,
+                      const boost::beast::error_code& ec,
                       const boost::asio::ip::tcp::endpoint& endpoint)
     {
         // The operation already timed out.  We don't want do continue down
@@ -246,7 +246,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     }
 
     void afterSslHandshake(const std::shared_ptr<ConnectionInfo>& /*self*/,
-                           boost::beast::error_code ec)
+                           const boost::beast::error_code& ec)
     {
         // The operation already timed out.  We don't want do continue down
         // this branch

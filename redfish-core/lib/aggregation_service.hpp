@@ -66,7 +66,7 @@ inline void requestRoutesAggregationService(App& app)
 
 inline void populateAggregationSourceCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code ec,
+    const boost::system::error_code& ec,
     const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
 {
     // Something went wrong while querying dbus
@@ -138,7 +138,7 @@ inline void requestRoutesAggregationSourceCollection(App& app)
 inline void populateAggregationSource(
     const std::string& aggregationSourceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code ec,
+    const boost::system::error_code& ec,
     const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
 {
     asyncResp->res.addHeader(
