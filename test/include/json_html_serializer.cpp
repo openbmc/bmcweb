@@ -15,6 +15,20 @@ namespace json_html_util
 namespace
 {
 
+const std::string boilerplateStart =
+    "<html>\n"
+    "<head>\n"
+    "<title>Redfish API</title>\n"
+    "<link href=\"/redfish.css\" rel=\"stylesheet\">\n"
+    "</head>\n"
+    "<body>\n"
+    "<div class=\"container\">\n"
+    "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" height=\"406px\" width=\"576px\">\n";
+
+const std::string boilerplateEnd = "</div>\n"
+                                   "</body>\n"
+                                   "</html>\n";
+
 TEST(JsonHtmlSerializer, dumpHtmlLink)
 {
     std::string out;
@@ -23,19 +37,29 @@ TEST(JsonHtmlSerializer, dumpHtmlLink)
     dumpHtml(out, j);
     EXPECT_EQ(
         out,
-        "<html>\n"
-        "<head>\n"
-        "<title>Redfish API</title>\n"
-        "<link href=\"/redfish.css\" rel=\"stylesheet\">\n"
-        "</head>\n"
-        "<body>\n"
-        "<div class=\"container\">\n"
-        "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" height=\"406px\" width=\"576px\">\n"
-        "<div class=\"content\">\n"
-        "{<div class=tab>&quot@odata.id&quot: <a href=\"/redfish/v1\">\"/redfish/v1\"</a><br></div>}</div>\n"
-        "</div>\n"
-        "</body>\n"
-        "</html>\n");
+        boilerplateStart +
+            "<div class=\"content\">\n"
+            "{<div class=tab>&quot@odata.id&quot: <a href=\"/redfish/v1\">\"/redfish/v1\"</a><br></div>}</div>\n" +
+            boilerplateEnd);
+}
+
+TEST(JsonHtmlSerializer, dumpint)
+{
+    std::string out;
+    nlohmann::json j = 42;
+    dumpHtml(out, j);
+    EXPECT_EQ(out, boilerplateStart + "<div class=\"content\">\n42</div>\n" +
+                       boilerplateEnd);
+}
+
+TEST(JsonHtmlSerializer, dumpstring)
+{
+    std::string out;
+    nlohmann::json j = "foobar";
+    dumpHtml(out, j);
+    EXPECT_EQ(out, boilerplateStart +
+                       "<div class=\"content\">\n\"foobar\"</div>\n" +
+                       boilerplateEnd);
 }
 } // namespace
 } // namespace json_html_util
