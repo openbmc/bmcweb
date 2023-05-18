@@ -189,6 +189,30 @@
       },
       "revId": "a9140b427ebc95f32905a77ea6ae63dc7aba6583",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d09cec70_c1c82688",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T20:03:20Z",
+      "side": 1,
+      "message": "Lets discuss this holistically, not in the context of one patch.  If we want to change the clang-format behavior, that needs to be in a different patchset anyway.",
+      "parentUuid": "bdda1b0b_2eb684ac",
+      "range": {
+        "startLine": 167,
+        "startChar": 42,
+        "endLine": 167,
+        "endChar": 50
+      },
+      "revId": "a9140b427ebc95f32905a77ea6ae63dc7aba6583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
