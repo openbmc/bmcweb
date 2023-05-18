@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19eb1514_eac9b1c0",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-18T18:09:14Z",
+      "side": 1,
+      "message": "This is the CI fail, please use https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62818",
+      "range": {
+        "startLine": 261,
+        "startChar": 57,
+        "endLine": 261,
+        "endChar": 70
+      },
+      "revId": "32fca331be70e5036e511f17460364a8858cb5d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
