@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d2981cf_b523c0ee",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-18T19:37:04Z",
+      "side": 1,
+      "message": "It is not clear whether pSize is pointer or not. Here pSize is already zero and then we are setting it to zero. Also below we are de-referencing so I am not clear.",
+      "parentUuid": "06691b58_d699d61f",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 19
+      },
+      "revId": "a9140b427ebc95f32905a77ea6ae63dc7aba6583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc181fc3_fdfc1d2f",
         "filename": "http/http_response.hpp",
         "patchSetId": 7
