@@ -358,6 +358,7 @@ srcfiles_unittest = files(
   'test/http/verb_test.cpp',
   'test/include/dbus_utility_test.cpp',
   'test/include/google/google_service_root_test.cpp',
+  'test/include/json_html_serializer.cpp',
   'test/include/http_utility_test.cpp',
   'test/include/human_sort_test.cpp',
   'test/include/ibm/configfile_test.cpp',
