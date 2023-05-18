@@ -16,6 +16,24 @@
       "message": "Fix confirmed by cherry-picking on top of d87fdd9 and then used firefox 111 to test if the login works again and bmcweb doesn\u0027t crash any more.",
       "revId": "f02e8ef7965315af580ab435f4889b73e7a6a814",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "280ff49b_e2a02f80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T19:37:05Z",
+      "side": 1,
+      "message": "Thank you for testing.  I appreciate it.",
+      "parentUuid": "91032b9b_71932148",
+      "revId": "f02e8ef7965315af580ab435f4889b73e7a6a814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
