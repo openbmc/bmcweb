@@ -69,6 +69,24 @@
       "parentUuid": "e0ab2ab7_28778603",
       "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b072f6_76807eb6",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T17:10:36Z",
+      "side": 1,
+      "message": "Shoot, I missed that suggestion, and I think it\u0027s a good one.  Fixing now.",
+      "parentUuid": "4f94ce1f_38e58209",
+      "revId": "b08772bb9a6f2feedb06591bfe4b4f58758f04b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
