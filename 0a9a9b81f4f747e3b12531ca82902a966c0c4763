@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c75eadce_3bb2f2ef",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-18T22:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9bf6d41_e1ae19e5",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fef630e1_986c2e95",
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "I will update the commit message.",
       "parentUuid": "2b43b4f3_71c0006f",
+      "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a59d50_7dac767c",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-18T22:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f4f80a0_70e9a5a2",
       "revId": "0a9a9b81f4f747e3b12531ca82902a966c0c4763",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
