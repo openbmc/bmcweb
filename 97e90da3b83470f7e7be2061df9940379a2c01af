@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "898237c3_f530e0d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-18T16:04:41Z",
+      "side": 1,
+      "message": "This patch appears to be a trivially correct cleanup that we\u0027ve done elsewhere.  There\u0027s no reason to hold it up.",
+      "revId": "97e90da3b83470f7e7be2061df9940379a2c01af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
