@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b719494e_365a77d9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-18T19:38:23Z",
+      "side": 1,
+      "message": "ok. thx",
+      "parentUuid": "9d2981cf_b523c0ee",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 19
+      },
+      "revId": "a9140b427ebc95f32905a77ea6ae63dc7aba6583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc181fc3_fdfc1d2f",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "\u003e Not sure why formatting did not handle longer than 80 characters.\n\nThe formatting allows for lines longer than 80 characters\n\n\u003e Should we just have two strings on different line.\n\nThat\u0027s not what the formatter rules say, but I\u0027m happy to have that discussion outside this patch.",
       "parentUuid": "dc181fc3_fdfc1d2f",
+      "range": {
+        "startLine": 167,
+        "startChar": 42,
+        "endLine": 167,
+        "endChar": 50
+      },
+      "revId": "a9140b427ebc95f32905a77ea6ae63dc7aba6583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baec5bf4_6e2fc5ad",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-18T19:38:23Z",
+      "side": 1,
+      "message": "I mean should we manually make it within 80 characters?",
+      "parentUuid": "eefe20b1_c72c685a",
       "range": {
         "startLine": 167,
         "startChar": 42,
