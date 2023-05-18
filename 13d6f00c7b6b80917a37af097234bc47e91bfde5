@@ -22,6 +22,23 @@
       },
       "revId": "13d6f00c7b6b80917a37af097234bc47e91bfde5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83e03f83_85ae4e5f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-18T17:05:49Z",
+      "side": 1,
+      "message": "body is a std::string. Ack.",
+      "revId": "13d6f00c7b6b80917a37af097234bc47e91bfde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
