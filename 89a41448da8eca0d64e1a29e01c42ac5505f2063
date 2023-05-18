@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f640ab43_b7b16ebf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-05-18T06:43:31Z",
+      "side": 1,
+      "message": "Seems like it misses #include \"query.hpp\" to pass CI. And does your patch now mean it will only show the physical fans, not the rotors/tachs under Fans Members, I see you eliminated the get /sensors endpoint part? Is there any place that has specified this? Because we are also confused about which way of display is more correct?",
+      "revId": "89a41448da8eca0d64e1a29e01c42ac5505f2063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
