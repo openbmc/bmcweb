@@ -11,12 +11,14 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_tree_parser.hpp>
 
 #include <array>
 #include <string_view>
 
 namespace redfish
 {
+
 /**
  * @brief Fill cable specific properties.
  * @param[in,out]   resp        HTTP response.
@@ -34,41 +36,28 @@ inline void
         messages::internalError(resp);
         return;
     }
+    using namespace dbus::utility;
+    DbusBaseMapper mapper;
+    mapper.addMap("CableTypeDescription",
+                  mapToKeyOrError<std::string>("CableType"));
+    mapper.addMap("Length",
+                  mapToKeyOrError<double>("LengthMeters", [](auto length) {
+                      if (!std::isfinite(length) && !std::isnan(length))
+                      {
+                          return std::optional<double>();
+                      }
+                      return std::optional(length);
+                  }));
 
-    const std::string* cableTypeDescription = nullptr;
-    const double* length = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "CableTypeDescription",
-        cableTypeDescription, "Length", length);
-
-    if (!success)
-    {
-        messages::internalError(resp);
-        return;
-    }
-
-    if (cableTypeDescription != nullptr)
-    {
-        resp.jsonValue["CableType"] = *cableTypeDescription;
-    }
-
-    if (length != nullptr)
-    {
-        if (!std::isfinite(*length))
+    DbusTreeParser(mapper, true)
+        .parse(properties,
+               [&resp](DbusParserStatus status, const auto& target) {
+        if (status == DbusParserStatus::Failed)
         {
-            // Cable length is NaN by default, do not throw an error
-            if (!std::isnan(*length))
-            {
-                messages::internalError(resp);
-                return;
-            }
+            resp.result(boost::beast::http::status::internal_server_error);
         }
-        else
-        {
-            resp.jsonValue["LengthMeters"] = *length;
-        }
-    }
+        resp.jsonValue.merge_patch(target);
+        });
 }
 
 /**
