@@ -36,7 +36,7 @@ struct DbusTreeParser
     On_SuccessType on_success_;
     bool ignore_unknown{false};
     DbusTreeParser(const ManagedObjectType& o, Extraction_Handlers& h,
-                   bool ignore_unk= false) :
+                   bool ignore_unk = false) :
         objects(o),
         handlers(&h), ignore_unknown(ignore_unk)
     {}

@@ -110,8 +110,6 @@ using handler_pair =
 template <typename Range>
 inline auto& At(const Range& cont, std::string_view name)
 {
-   
-
     auto iter = std::ranges::find_if(cont,
                                      [&](auto& e) { return e.first == name; });
     if (iter != cont.end())
