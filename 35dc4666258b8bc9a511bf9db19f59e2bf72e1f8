@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a31515e_1de1cfc8",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T16:03:42Z",
+      "side": 1,
+      "message": "This wasn\u0027t my understanding of how that worked.  They should be in ListUnits, but disabled, right?\n\nMy problem here is that for systems that don\u0027t support ssh or IPMI, and don\u0027t have those services present, this changes the behavior such that now the user-facing tree looks like those services are supported.",
+      "range": {
+        "startLine": 180,
+        "startChar": 27,
+        "endLine": 180,
+        "endChar": 79
+      },
+      "revId": "35dc4666258b8bc9a511bf9db19f59e2bf72e1f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
