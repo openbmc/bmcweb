@@ -285,6 +285,15 @@ void internalError(crow::Response& res, const bmcweb::source_location location)
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, internalError());
 }
+void internalError(nlohmann::json& jsonValue,
+                   const bmcweb::source_location location)
+{
+    BMCWEB_LOG_CRITICAL << "Internal Error " << location.file_name() << "("
+                        << location.line() << ":" << location.column() << ") `"
+                        << location.function_name() << "`: ";
+
+    addMessageToErrorJson(jsonValue, internalError());
+}
 
 /**
  * @internal
