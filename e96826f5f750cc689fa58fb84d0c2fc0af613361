@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c9e809_6129f1b9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-19T15:07:02Z",
+      "side": 1,
+      "message": "Okay, so non-admin roles, they don\u0027t get added to this group. \nThis seems reasonable to me. \nThere could be a case operator also has this privilege but I think it is less messy if they don\u0027t because an operator might be able to log into the system and run bmc commands through in-band.",
+      "revId": "e96826f5f750cc689fa58fb84d0c2fc0af613361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
