@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1b41787_be8bf5c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-19T20:33:44Z",
+      "side": 1,
+      "message": "Updated the comment.",
+      "parentUuid": "0c22077a_2b067efc",
+      "revId": "1ea6c8d0ec2d432a5ab1356943ec2d671f0efc9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2472157b_b6f19b71",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-19T19:00:40Z",
       "side": 1,
       "message": "I am not sure about this code move. As per our documentation, the Redfish Status consists of both the State and Health. It is right to get both state and health before fetching properties.",
+      "revId": "1ea6c8d0ec2d432a5ab1356943ec2d671f0efc9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f2874b_af3d332a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-19T20:33:44Z",
+      "side": 1,
+      "message": "I did not get the comment. You mean getProperty on line 230 should be called before getAllProperties() on line 204?",
+      "parentUuid": "2472157b_b6f19b71",
       "revId": "1ea6c8d0ec2d432a5ab1356943ec2d671f0efc9f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
