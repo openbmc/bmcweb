@@ -63,7 +63,7 @@ TEST(TestParserPositive, PositiveCaseWithSuccess)
     bool errorfound = false;
     json result;
     parser.on_error_message(
-              [&](auto&& ) {
+              [&](auto&&) {
         errorfound = true;
     }).on_success([&](auto&& summary) {
           result = summary;
@@ -124,7 +124,8 @@ TEST(TestParserPositive, PositiveCaseWithSuccess)
     ASSERT_EQ(expected, result);
 }
 
-TEST(TestParserNegative, ParsetWithErrorMessage) {
+TEST(TestParserNegative, ParsetWithErrorMessage)
+{
     auto entry1 = make_entries("/xyz/openbmc_project/license/entry1/");
     auto entry2 = make_entries("/xyz/openbmc_project/license/entry2/");
     ManagedObjectType resp = {entry1, entry2};
@@ -138,19 +139,16 @@ TEST(TestParserNegative, ParsetWithErrorMessage) {
             LicenseExtractor.emplace_back("Name", uint32_t_node_mapper());
             handlers.emplace("xyz.openbmc_project.License.Entry.LicenseEntry",
                              make_extractor(LicenseExtractor));
-
-            
         }
     };
     Extraction_Handlers extraction_handlers;
     DbusTreeParser parser(resp, extraction_handlers);
     bool errorfound = false;
-    parser.on_error_message(
-              [&](auto&& ) {
-        errorfound = true;
-    }).on_success([&](auto&& ) {
-          
-      }).parse();
+    parser.on_error_message([&](auto&&) { errorfound = true; })
+        .on_success([&](auto&&) {
+
+        })
+        .parse();
     ASSERT_EQ(errorfound, true);
 }
 } // namespace
