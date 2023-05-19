@@ -91,6 +91,30 @@
       },
       "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "426bddee_88161980",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-05-19T04:23:07Z",
+      "side": 1,
+      "message": "Thanks.  I was trying to follow clang-format rules.  Anyway this failed CI testing, so I\u0027ll have to push a fix anyway.  Would you like one policy per line?",
+      "parentUuid": "10512480_53496da0",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "49623c305a620b70e2d2a328e349e7f419e0a123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
