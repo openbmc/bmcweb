@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20d45a48_ab372dc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-19T20:38:46Z",
+      "side": 1,
+      "message": "The code I was looking at was https://gerrit.openbmc.org/c/openbmc/bmcweb/+/44438/19/redfish-core/lib/network_protocol.hpp#b191 (// If the service is not installed, that is not an error). We\u0027d put a default in for these if the service wasn\u0027t found.",
+      "parentUuid": "7a10c310_c36f0d0f",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 29,
+        "endChar": 8
+      },
+      "revId": "35dc4666258b8bc9a511bf9db19f59e2bf72e1f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a31515e_1de1cfc8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-19T16:03:42Z",
       "side": 1,
       "message": "This wasn\u0027t my understanding of how that worked.  They should be in ListUnits, but disabled, right?\n\nMy problem here is that for systems that don\u0027t support ssh or IPMI, and don\u0027t have those services present, this changes the behavior such that now the user-facing tree looks like those services are supported.",
+      "range": {
+        "startLine": 180,
+        "startChar": 27,
+        "endLine": 180,
+        "endChar": 79
+      },
+      "revId": "35dc4666258b8bc9a511bf9db19f59e2bf72e1f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71a3ce0a_9471fcf9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-19T20:38:46Z",
+      "side": 1,
+      "message": "I did some quick tests on my witherspoon. The service-config manager appears to do a \"systemctl stop\" and a \"systemctl disable\" on the service and socket (using the systemd d-bus api). After the disable is done, a \"busctl --json\u003dpretty call org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager ListUnits\" will not return the IPMI service or socket in it\u0027s data.\n\nFor the ListUnitFiles API it notes \"ListUnitFiles() returns an array of unit names plus their enablement status. Note that ListUnit() returns a list of units currently loaded into memory, while ListUnitFiles() returns a list of unit files that could be found on disk.\" So calling \"ListUnitFiles()\" may work but in both QEMU and on my witherspoon I get a \"Call failed: Connection timed out\" before it can return.\n\nI think addressing your concern here about people that don\u0027t have the feature installed at all would require a re-thinking of how this logic works. Maybe a more specific d-bus call like \"GetUnitFileState\" but then you\u0027d need to know the ethX info. I\u0027m not sure but I do think per my other comment that the default used to be that we would always return something.",
+      "parentUuid": "6a31515e_1de1cfc8",
       "range": {
         "startLine": 180,
         "startChar": 27,
