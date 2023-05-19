@@ -104,6 +104,29 @@
       "parentUuid": "57196f04_b6ea13a4",
       "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0de0a9_eab12ec0",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-19T21:35:40Z",
+      "side": 1,
+      "message": "Is it possible to have the success with the empty object from getDbusObject()?\nWould this case be resulted with ec!\u003d0?",
+      "range": {
+        "startLine": 278,
+        "startChar": 22,
+        "endLine": 278,
+        "endChar": 36
+      },
+      "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
