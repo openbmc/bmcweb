@@ -265,6 +265,24 @@
       "parentUuid": "91b872e6_9fd03720",
       "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2175026f_80af777d",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T22:44:10Z",
+      "side": 1,
+      "message": "\u003e Just like Oem client Id, do a majority of companies want this ?\n\nYour point about it being OEM was well taken, but once it\u0027s not OEM, here\u0027s my thinking:\n1. Every developer using it needs to debug bmcweb at some point\n2. Every client accessing bmcweb will need to debug errors at some point, and enabling this by default helps them to do it.\n3. There\u0027s no downside to a service exposing it.\n\n\u003e Is that still standard for openbmc/openbmc?\n\nIMO, given the input we have, I don\u0027t see how we can do different at this point.  FWIW, in my configuration document, LDAP would be considered \"user opt in\", so there\u0027s not really any reason to not have it enabled by default, and I agree, it should be there in the defaults.  That\u0027s the same thing as this feature.  If you never access the telemetry, it has nearly zero effect, but when you need it, it\u0027s important it\u0027s there.\n\nAdmittedly, some of this is me trying to make a judgement call.",
+      "parentUuid": "aeffc0a9_123727cf",
+      "revId": "8efb0035fa49b43ae6310e5afe4bf5585407ad04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
