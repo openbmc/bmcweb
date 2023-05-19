@@ -123,6 +123,10 @@ nlohmann::json internalError();
 void internalError(crow::Response& res, bmcweb::source_location location =
                                             bmcweb::source_location::current());
 
+void setInternalError(
+    nlohmann::json& jsonValue,
+    bmcweb::source_location location = bmcweb::source_location::current());
+
 /**
  * @brief Formats UnrecognizedRequestBody message into JSON
  * Message body: "The service detected a malformed request body that it was
