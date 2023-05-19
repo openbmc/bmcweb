@@ -33,6 +33,24 @@
       "message": "be careful about extra lines",
       "revId": "5c5fc56745b0c8ef9923278e73a860a2b307f61f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e49a246c_59f339f2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-19T20:33:21Z",
+      "side": 1,
+      "message": "Removed the extra line.",
+      "parentUuid": "84d50a22_4c1a2cc6",
+      "revId": "5c5fc56745b0c8ef9923278e73a860a2b307f61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
