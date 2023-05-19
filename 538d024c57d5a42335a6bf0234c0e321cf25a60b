@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27586d7_30d743ce",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T20:52:56Z",
+      "side": 1,
+      "message": "yes, If the \"xyz.openbmc_project.Inventory.Item\" is not supported then we set state to enabled.",
+      "parentUuid": "e4f17b80_f5fe9e9a",
+      "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91b04ce6_2d89c5b8",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d71788fd_338cc3cd",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T20:52:56Z",
+      "side": 1,
+      "message": "correct.",
+      "parentUuid": "91b04ce6_2d89c5b8",
+      "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57196f04_b6ea13a4",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-05-19T20:16:09Z",
       "side": 1,
       "message": "Why do we return internal error if we couldn\u0027t find the object?",
+      "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "279e1762_90773712",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T20:52:56Z",
+      "side": 1,
+      "message": "Returning an internal error if the object cannot be found indicates that there was an issue accessing or locating the object for the specified power supply path. The D-Bus service name is necessary to retrieve the properties of the power supply.",
+      "parentUuid": "57196f04_b6ea13a4",
       "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
