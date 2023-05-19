@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f57cda0_c828bb22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T21:25:17Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "20d45a48_ab372dc7",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 29,
+        "endChar": 8
+      },
+      "revId": "35dc4666258b8bc9a511bf9db19f59e2bf72e1f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a31515e_1de1cfc8",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I did some quick tests on my witherspoon. The service-config manager appears to do a \"systemctl stop\" and a \"systemctl disable\" on the service and socket (using the systemd d-bus api). After the disable is done, a \"busctl --json\u003dpretty call org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager ListUnits\" will not return the IPMI service or socket in it\u0027s data.\n\nFor the ListUnitFiles API it notes \"ListUnitFiles() returns an array of unit names plus their enablement status. Note that ListUnit() returns a list of units currently loaded into memory, while ListUnitFiles() returns a list of unit files that could be found on disk.\" So calling \"ListUnitFiles()\" may work but in both QEMU and on my witherspoon I get a \"Call failed: Connection timed out\" before it can return.\n\nI think addressing your concern here about people that don\u0027t have the feature installed at all would require a re-thinking of how this logic works. Maybe a more specific d-bus call like \"GetUnitFileState\" but then you\u0027d need to know the ethX info. I\u0027m not sure but I do think per my other comment that the default used to be that we would always return something.",
       "parentUuid": "6a31515e_1de1cfc8",
+      "range": {
+        "startLine": 180,
+        "startChar": 27,
+        "endLine": 180,
+        "endChar": 79
+      },
+      "revId": "35dc4666258b8bc9a511bf9db19f59e2bf72e1f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a94b1f_40f28966",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T21:25:17Z",
+      "side": 1,
+      "message": "\u003e I did some quick tests on my witherspoon. The service-config manager appears to do a \"systemctl stop\" and a \"systemctl disable\" on the service and socket (using the systemd d-bus api). After the disable is done, a \"busctl --json\u003dpretty call org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager ListUnits\" will not return the IPMI service or socket in it\u0027s data.\n\nThis is unexpected.  Thank you for running this test.\n\n\u003e \n\u003e For the ListUnitFiles API it notes \"ListUnitFiles() returns an array of unit names plus their enablement status. Note that ListUnit() returns a list of units currently loaded into memory, while ListUnitFiles() returns a list of unit files that could be found on disk.\" So calling \"ListUnitFiles()\" may work but in both QEMU and on my witherspoon I get a \"Call failed: Connection timed out\" before it can return.\n\nACK.\n\n\u003e \n\u003e I think addressing your concern here about people that don\u0027t have the feature installed at all would require a re-thinking of how this logic works. Maybe a more specific d-bus call like \"GetUnitFileState\" but then you\u0027d need to know the ethX info. I\u0027m not sure but I do think per my other comment that the default used to be that we would always return something.\n\nYep, agreed.  My thinking was based on an incorrect understanding of how ListUnits worked.  Thanks for looking into it.",
+      "parentUuid": "71a3ce0a_9471fcf9",
       "range": {
         "startLine": 180,
         "startChar": 27,
