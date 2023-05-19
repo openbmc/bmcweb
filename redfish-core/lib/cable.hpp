@@ -11,66 +11,32 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_tree_parser.hpp>
 
 #include <array>
 #include <string_view>
 
 namespace redfish
 {
-/**
- * @brief Fill cable specific properties.
- * @param[in,out]   resp        HTTP response.
- * @param[in]       ec          Error code corresponding to Async method call.
- * @param[in]       properties  List of Cable Properties key/value pairs.
- */
-inline void
-    fillCableProperties(crow::Response& resp,
-                        const boost::system::error_code& ec,
-                        const dbus::utility::DBusPropertiesMap& properties)
+struct CablePropertieMappers : dbus::utility::DbusBaseHandler
 {
-    if (ec)
+    CablePropertieMappers()
     {
-        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-        messages::internalError(resp);
-        return;
+        using namespace dbus::utility;
+        addInterfaceHandler("xyz.openbmc_project.Inventory.Item.Cable",
+                            "CableTypeDescription",
+                            mapToKeyOrError<std::string>("CableType"));
+        addInterfaceHandler(
+            "xyz.openbmc_project.Inventory.Item.Cable", "Length",
+            mapToKeyOrError<double, double>("LengthMeters", [](auto length) {
+                if (!std::isfinite(length) && !std::isnan(length))
+                {
+                    return std::optional<double>();
+                }
+                return std::optional(length);
+            }));
     }
-
-    const std::string* cableTypeDescription = nullptr;
-    const double* length = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "CableTypeDescription",
-        cableTypeDescription, "Length", length);
-
-    if (!success)
-    {
-        messages::internalError(resp);
-        return;
-    }
-
-    if (cableTypeDescription != nullptr)
-    {
-        resp.jsonValue["CableType"] = *cableTypeDescription;
-    }
-
-    if (length != nullptr)
-    {
-        if (!std::isfinite(*length))
-        {
-            // Cable length is NaN by default, do not throw an error
-            if (!std::isnan(*length))
-            {
-                messages::internalError(resp);
-                return;
-            }
-        }
-        else
-        {
-            resp.jsonValue["LengthMeters"] = *length;
-        }
-    }
-}
-
+};
 /**
  * @brief Api to get Cable properties.
  * @param[in,out]   asyncResp       Async HTTP response.
@@ -100,7 +66,26 @@ inline void
                 [asyncResp](
                     const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
-                fillCableProperties(asyncResp->res, ec, properties);
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                using namespace dbus::utility;
+                CablePropertieMappers cableMappers;
+                DbusTreeParser(cableMappers, true)
+                    .parse(properties,
+                           [&asyncResp](DbusParserStatus /*unused*/,
+                                        const auto& target) {
+                    auto& error = target["error"];
+                    if (error.is_object())
+                    {
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                    }
+                    asyncResp->res.jsonValue = target;
+                    });
                 });
         }
     }
