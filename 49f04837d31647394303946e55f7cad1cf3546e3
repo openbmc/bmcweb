@@ -142,6 +142,24 @@
       "parentUuid": "df97da8c_ecd5e0d5",
       "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92f35bb1_b29a7713",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T18:20:04Z",
+      "side": 1,
+      "message": "\u003e \u003e Enabling the aggregation has no functional effect on systems without an EM config\n\u003e Enabling aggregation is separate enough in code that it\u0027s unlikely to cause validator problems on systems that don\u0027t have an EM config.\n\u003e \n\u003e Agreed and ack. But I think \"no functional effect on systems without an EM config\" would be the case for most bmcweb Redfish feature options \n\u003e \n\u003e For example, \n\u003e Even if you enable /redfish/v1/Managers/bmc/LogServices/Dump, need a backend, otherwise just an empty collection.\n\nhttps://github.com/openbmc/bmcweb/blob/81c4e3305281b2cfece8822f7c7114200ce4e12c/redfish-core/lib/log_services.hpp#L1107\n\nChanges the behavior, regardless of whether or not the backend is present.  The LogServiceCollection isn\u0027t empty if that option is enabled.  If that code instead were looking to the mapper (like I wish ALL of the log service stuff had done) then I\u0027d agree with you, we couldn\u0027t need the option at all.\n\n\n\u003e Or if you don\u0027t have a multi-host backend that flag shouldn\u0027t impact you.\n\nThe multi-host backend flag EXISTS because folks couldn\u0027t figure out how to build it out without impacting the single-host systems.  FWIW, I still think it could be figured out, but the build option just lets folks get stuff done.\n\n\u003e Or if don\u0027t have fans/powersupplies, new-powersubsystem-thermalsubsystem shound\u0027t impact you.\n\nThermalSubsystem would now exist on systems where it didn\u0027t, because of the code here:\n\nhttps://github.com/openbmc/bmcweb/blob/81c4e3305281b2cfece8822f7c7114200ce4e12c/redfish-core/lib/chassis.hpp#LL433C21-L433C21\n\n\u003e I am over simpling a bit, my examples would be a bit more messy than aggregation if enabled without a backend (e.g. Posts to create a dump without a dump backend probably return internal error..?).",
+      "parentUuid": "ddc337a3_7841ef96",
+      "revId": "49f04837d31647394303946e55f7cad1cf3546e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
