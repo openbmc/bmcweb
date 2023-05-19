@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a10c310_c36f0d0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T16:23:21Z",
+      "side": 1,
+      "message": "I\u0027m looking at the code, and I\u0027m not seeing where it works the way you described:\n\nhttps://github.com/openbmc/bmcweb/blob/e6feae518c5a153af2dc64d3810fd029f0875366/redfish-core/lib/redfish_util.hpp#L194\n\nit looks like it loops over the protocols, and adds them to the list regardless of whether \"find\" was set or not, find just determined whether the protocol was enabled.",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 29,
+        "endChar": 8
+      },
+      "revId": "35dc4666258b8bc9a511bf9db19f59e2bf72e1f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a31515e_1de1cfc8",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 4
