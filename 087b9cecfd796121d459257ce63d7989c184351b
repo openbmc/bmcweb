@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5c0103_2cccff13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T21:16:48Z",
+      "side": 1,
+      "message": "I have updated the commit to retrieve all fans associated with the chassis by utilizing the \u0027cooled_by\u0027 association.",
+      "parentUuid": "7c7e1bcf_dd8fe936",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35763bf5_fcc5ff07",
@@ -135,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8682c2e8_6b6d3038",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T21:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "902e2617_a6c07c98",
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6a9bfa3_d602da3d",
@@ -172,6 +214,30 @@
       "side": 1,
       "message": "\u003e Seems like dead code to me but it is used in the next commit so 🤷\n\nYes, these codes should logically belong in the current commit, but in order for the validator to pass, I recommend keeping these.",
       "parentUuid": "b6a9bfa3_d602da3d",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 1
+      },
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e7f6c00_f8342576",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T21:16:48Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "61617a9d_bf31926e",
       "range": {
         "startLine": 15,
         "startChar": 0,
