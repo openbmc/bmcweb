@@ -34,6 +34,24 @@
       "parentUuid": "e95ff33d_3f933ea3",
       "revId": "e5942c00c39dddd7f2a2df65659b0af7f417670e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d552cfe6_c8c570d2",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T22:34:48Z",
+      "side": 1,
+      "message": "I want to get this off the stack.  Gunnar, if you still think this is wrong, ping me and I\u0027ll follow up with you directly.",
+      "parentUuid": "eafa6179_80e7048c",
+      "revId": "e5942c00c39dddd7f2a2df65659b0af7f417670e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
