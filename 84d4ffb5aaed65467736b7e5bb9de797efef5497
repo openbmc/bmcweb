@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "52d4fd73_e4f721a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Please follow the commit message rules documented.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0836d5cb_293fece2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Please include detail on what the intent of this is.  \"Converting dbus properties to redfish json in a declarative style\" then pointing at the commit itself isn\u0027t very descriptive.  What are you trying to accomplish?  The best thing to do is to try to answer the \"why\".",
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8af1e407_98be6d15",
@@ -14,6 +54,201 @@
       "writtenOn": "2023-05-19T12:40:11Z",
       "side": 1,
       "message": "suni",
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7acf0ca3_bd68009b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Welcome to the project.  Please familiarize yourself with the developing guides, both at project level and within the root of BMCWEB.  If you have any questions about the coding standards or rules, please ask them on discord or the mailing list BEFORE sending your patch, to avoid rework.\n\nI stopped reviewing after 10 comments for things that are documented in the above.\n\n\nOverall, reading through he code, this seems like it\u0027s proposing a significant change to how we write Redfish to DBus conversion handlers.  I love the experimental nature of this work and want to foster its development, so if you need any help in understanding the code, please don\u0027t hesitate to ask.\n\nPlease keep in mind that as a general rule, bmcweb aims for consistency in implementation, so any wide-sweeping changes would ideally need to come with accompanying patches to make at least a significant portion of the codebase consistent with any new philosophy, or prove that the efficiency of having two mechanisms for doing conversions is worth the added complexity.  Please work that into your plans for this feature.",
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0457f210_65c91814",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Please don\u0027t use \"using namespace\".  It can cause collisions in the future that are hard to fix.  This is documented in cpp core guidelines.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7022cf64_e7b527eb",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Throwing in bmcweb results in a full crash, which I\u0027m fairly certain wasn\u0027t your intent.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 69
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0caf317d_bdbada7c",
+        "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "macros are disallowed in the coding standard and lint rules.",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cd170c9_4f45384c",
+        "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "This method is disallowed by name in COMMON_ERRORS.md",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf38d71_fb4b3b44",
+        "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Because of the danger of throwing to io_context and crashing all of bmcweb, exceptions in non-critical paths (like this parsing error) are disallowed.  Please rework your code to not use exceptions.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 9
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8670e10_781b8b8d",
+        "filename": "test/redfish-core/include/utils/dbus_tree_parser_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "I think it would help your effort considerably if you used a real example of an existing phosphor dbus interface here.  Dbus-\u003eredfish conversions are rarely 1:1, and copy/paste conversions are the only things you\u0027re showing here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 1
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "942dd683_4755df46",
+        "filename": "test/redfish-core/include/utils/dbus_tree_parser_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "1, wildcard captures are banned, because they cause lifetime problems.\n2. please don\u0027t structure your callbacks with on_error/on_success handlers.  they prevent utilizing move-only objects in the captures (because both callbacks would need a copy of the capture.)",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bafb81e_edfbeec2",
+        "filename": "test/redfish-core/include/utils/dbus_tree_parser_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T17:04:13Z",
+      "side": 1,
+      "message": "Please run your code through the formatter before pushing.  These kinds of violations are likely why your build failed.",
       "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
