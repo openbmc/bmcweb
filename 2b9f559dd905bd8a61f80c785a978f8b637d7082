@@ -176,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59edfabf_26957218",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T22:13:00Z",
+      "side": 1,
+      "message": "@vasuvgithub We generally don\u0027t have a policy on whether or not to log for missing properties.",
+      "parentUuid": "c0ce479f_3f343d24",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9bd3f3d_d0766222",
@@ -189,6 +207,24 @@
       "writtenOn": "2023-03-23T07:18:39Z",
       "side": 1,
       "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a3e051_bb13c3a6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T22:13:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9bd3f3d_d0766222",
       "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -210,6 +246,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a027a63c_5f26eca8",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T22:13:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f2a639_2a7c8bc6",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c47ee01_0b8451b7",
@@ -223,6 +277,24 @@
       "writtenOn": "2023-03-23T07:18:39Z",
       "side": 1,
       "message": "same here also",
+      "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e45effed_f3e951b6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T22:13:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c47ee01_0b8451b7",
       "revId": "2b9f559dd905bd8a61f80c785a978f8b637d7082",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
