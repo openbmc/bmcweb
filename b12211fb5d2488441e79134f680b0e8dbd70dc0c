@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48bda2c6_dcd01dce",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-19T16:06:15Z",
+      "side": 1,
+      "message": "\u003e It can be replaced with a dbus lookup once support for that is added to phosphor-debug-collector.\n\nThis is going to be required before the patchset can be merged.  In parallel, there\u0027s discussions going on about moving bmcweb to non-root, for which this would immediately break.\n\nEspecially considering there\u0027s patchsets in review to do this already the expected way, I don\u0027t think it makes sense to merge this as-written.",
+      "parentUuid": "c7e122d3_db1cdfb6",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 46
+      },
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3980cf73_3f7233a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
