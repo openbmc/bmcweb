@@ -11,18 +11,33 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_tree_parser.hpp>
 
 #include <array>
 #include <string_view>
 
 namespace redfish
 {
+
 /**
  * @brief Fill cable specific properties.
  * @param[in,out]   resp        HTTP response.
  * @param[in]       ec          Error code corresponding to Async method call.
  * @param[in]       properties  List of Cable Properties key/value pairs.
  */
+inline auto getLength(double length)
+{
+    if (!std::isfinite(length) && !std::isnan(length))
+    {
+        return std::optional<nlohmann::json>();
+    }
+    nlohmann::json ret;
+    if (std::isfinite(length))
+    {
+        ret["LengthMeters"] = length;
+    }
+    return std::optional(ret);
+}
 inline void
     fillCableProperties(crow::Response& resp,
                         const boost::system::error_code& ec,
@@ -34,41 +49,22 @@ inline void
         messages::internalError(resp);
         return;
     }
+    namespace DU = dbus::utility;
+    DU::DbusBaseMapper mapper;
+    mapper.addMap("CableTypeDescription",
+                  DU::mapToKeyOrError<std::string>("CableType"));
+    mapper.addMap("Length",
+                  DU::mapToKeyOrError<double, nlohmann::json>("", getLength));
 
-    const std::string* cableTypeDescription = nullptr;
-    const double* length = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "CableTypeDescription",
-        cableTypeDescription, "Length", length);
-
-    if (!success)
-    {
-        messages::internalError(resp);
-        return;
-    }
-
-    if (cableTypeDescription != nullptr)
-    {
-        resp.jsonValue["CableType"] = *cableTypeDescription;
-    }
-
-    if (length != nullptr)
-    {
-        if (!std::isfinite(*length))
+    DU::DbusTreeParser(mapper, true)
+        .parse(properties,
+               [&resp](DU::DbusParserStatus status, const auto& target) {
+        if (status == DU::DbusParserStatus::Failed)
         {
-            // Cable length is NaN by default, do not throw an error
-            if (!std::isnan(*length))
-            {
-                messages::internalError(resp);
-                return;
-            }
+            resp.result(boost::beast::http::status::internal_server_error);
         }
-        else
-        {
-            resp.jsonValue["LengthMeters"] = *length;
-        }
-    }
+        resp.jsonValue.merge_patch(target);
+        });
 }
 
 /**
