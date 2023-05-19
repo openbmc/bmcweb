@@ -87,6 +87,24 @@
       "parentUuid": "2472157b_b6f19b71",
       "revId": "1ea6c8d0ec2d432a5ab1356943ec2d671f0efc9f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a632da64_216a9c31",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-19T20:37:45Z",
+      "side": 1,
+      "message": "Status \u003d state + health. We get them together, moving Heath to different location doesn\u0027t make sense.",
+      "parentUuid": "09f2874b_af3d332a",
+      "revId": "1ea6c8d0ec2d432a5ab1356943ec2d671f0efc9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
