@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c6083f_a4df71f4",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-20T01:20:04Z",
+      "side": 1,
+      "message": "We could check that hostSocket already exists immediately on connection instead of waiting until this point after two D-Bus calls.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08aaa378_1c2dea43",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-20T01:20:04Z",
+      "side": 1,
+      "message": "Seems like mutable should not be required here.",
+      "range": {
+        "startLine": 239,
+        "startChar": 59,
+        "endLine": 239,
+        "endChar": 66
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e9ea805_90339e4b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-20T01:20:04Z",
+      "side": 1,
+      "message": "Not sure I understand the need for an ObjectMapper lookup here. We know exactly the service/object/interface/method we want to call, so why not just try to call it? It will eliminate a D-Bus round trip.",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
