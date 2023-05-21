@@ -54,7 +54,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 
     ~HealthPopulate()
     {
-        nlohmann::json& jsonStatus = asyncResp->res.jsonValue[statusPtr];
+        nlohmann::json& jsonStatus =
+            asyncResp->res.jsonValue[jsonPtr][statusPtr];
         nlohmann::json& health = jsonStatus["Health"];
         nlohmann::json& rollup = jsonStatus["HealthRollup"];
 
@@ -254,5 +255,6 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     dbus::utility::ManagedObjectType statuses;
     std::string globalInventoryPath = "-"; // default to illegal dbus path
     bool populated = false;
+    nlohmann::json::json_pointer jsonPtr = ""_json_pointer;
 };
 } // namespace redfish

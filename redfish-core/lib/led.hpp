@@ -28,19 +28,22 @@ namespace redfish
  * @brief Retrieves identify led group properties over dbus
  *
  * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] jsonPtr   Json pointer to the resource
  *
  * @return None.
  */
 // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-inline void
-    getIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+inline void getIndicatorLedState(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr = ""_json_pointer)
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        [aResp](const boost::system::error_code& ec, const bool blinking) {
+        [aResp, jsonPtr](const boost::system::error_code& ec,
+                         const bool blinking) {
         // Some systems may not have enclosure_identify_blink object so
         // proceed to get enclosure_identify state.
         if (ec == boost::system::errc::invalid_argument)
@@ -54,7 +57,7 @@ inline void
         // Blinking ON, no need to check enclosure_identify assert.
         if (!ec && blinking)
         {
-            aResp->res.jsonValue["IndicatorLED"] = "Blinking";
+            aResp->res.jsonValue[jsonPtr]["IndicatorLED"] = "Blinking";
             return;
         }
 
@@ -63,7 +66,8 @@ inline void
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
             "xyz.openbmc_project.Led.Group", "Asserted",
-            [aResp](const boost::system::error_code& ec2, const bool ledOn) {
+            [aResp, jsonPtr](const boost::system::error_code& ec2,
+                             const bool ledOn) {
             if (ec2 == boost::system::errc::invalid_argument)
             {
                 BMCWEB_LOG_DEBUG
@@ -79,11 +83,11 @@ inline void
 
             if (ledOn)
             {
-                aResp->res.jsonValue["IndicatorLED"] = "Lit";
+                aResp->res.jsonValue[jsonPtr]["IndicatorLED"] = "Lit";
             }
             else
             {
-                aResp->res.jsonValue["IndicatorLED"] = "Off";
+                aResp->res.jsonValue[jsonPtr]["IndicatorLED"] = "Off";
             }
             });
         });
@@ -160,18 +164,21 @@ inline void
  * @brief Retrieves identify led group properties over dbus
  *
  * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] jsonPtr   Json pointer to the resource
  *
  * @return None.
  */
-inline void
-    getLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+inline void getLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr = ""_json_pointer)
 {
     BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
-        [aResp](const boost::system::error_code& ec, const bool blinking) {
+        [aResp, jsonPtr](const boost::system::error_code& ec,
+                         const bool blinking) {
         // Some systems may not have enclosure_identify_blink object so
         // proceed to get enclosure_identify state.
         if (ec == boost::system::errc::invalid_argument)
@@ -185,7 +192,7 @@ inline void
         // Blinking ON, no need to check enclosure_identify assert.
         if (!ec && blinking)
         {
-            aResp->res.jsonValue["LocationIndicatorActive"] = true;
+            aResp->res.jsonValue[jsonPtr]["LocationIndicatorActive"] = true;
             return;
         }
 
@@ -194,7 +201,8 @@ inline void
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
             "xyz.openbmc_project.Led.Group", "Asserted",
-            [aResp](const boost::system::error_code& ec2, const bool ledOn) {
+            [aResp, jsonPtr](const boost::system::error_code& ec2,
+                             const bool ledOn) {
             if (ec2 == boost::system::errc::invalid_argument)
             {
                 BMCWEB_LOG_DEBUG
@@ -208,7 +216,7 @@ inline void
                 return;
             }
 
-            aResp->res.jsonValue["LocationIndicatorActive"] = ledOn;
+            aResp->res.jsonValue[jsonPtr]["LocationIndicatorActive"] = ledOn;
             });
         });
 }
