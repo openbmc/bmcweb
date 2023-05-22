@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922a8e1e_a107089f",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-22T15:23:11Z",
+      "side": 1,
+      "message": "Is there a situation that LocationCode exists, but fails to getAllProperties()?\nThis code seems getting LocationCode only if getAllProperties() is successful?\n\nShould we separate them like\n\n```\ngetSlotLocationAndProperties()\n{\n...\n        getPCIeDeviceSlotPath(\n            pciePath, aResp,\n            [aResp, pciePath](const std::string\u0026 pcieDeviceSlot) {\n            dbus::utility::getDbusObject(\n                pcieDeviceSlot, pcieDeviceInterface,\n                [aResp,\n                 pcieDeviceSlot](const boost::system::error_code\u0026 ec,\n                                 const dbus::utility::MapperGetObject\u0026 object) {\n                if (ec || object.empty())\n                {\n                    BMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error for getDbusObject \"\n                                     \u003c\u003c ec.message();\n                    messages::internalError(aResp-\u003eres);\n                    return;\n                }\n                \n -              doSlotLocationAndProperties()\n                --\u003e                       \n +              doPCIeSlotLocation();\n +              doPCIeSlotProperties();                          \n                                            \n                });\n            });\n            \n```",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 58
+      },
+      "revId": "5669be876c3b4117a837146d0b0280645b2588ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
