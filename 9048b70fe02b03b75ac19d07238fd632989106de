@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a6d7909_ddb0038c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T21:29:54Z",
+      "side": 1,
+      "message": "I have a minor preference for this one, because \"invalid\" means that the input was invalid, nullopt means there\u0027s no output.\n\nInvalid is different than not present.  But my preference here isn\u0027t strong;  The only thing that\u0027s important is that we follow DBUS_USAGE.md as far as the user is concerned.",
+      "parentUuid": "8ba0858a_90d50137",
+      "revId": "9048b70fe02b03b75ac19d07238fd632989106de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1b32c4b_a5e173bd",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 7
