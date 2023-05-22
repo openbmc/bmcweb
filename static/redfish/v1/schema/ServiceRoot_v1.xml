@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.15.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.16.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -103,6 +103,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/NVMeDomainCollection_v1.xml">
     <edmx:Include Namespace="NVMeDomainCollection"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ThermalEquipment_v1.xml">
+    <edmx:Include Namespace="ThermalEquipment"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/KeyService_v1.xml">
     <edmx:Include Namespace="KeyService"/>
   </edmx:Reference>
@@ -118,6 +121,7 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RegisteredClientCollection_v1.xml">
     <edmx:Include Namespace="RegisteredClientCollection"/>
   </edmx:Reference>
+
 
   <edmx:DataServices>
 
@@ -204,6 +208,7 @@
           <Annotation Term="OData.Description" String="The link to the task service."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type TaskService."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.URISegment" String="TaskService"/>
         </NavigationProperty>
         <NavigationProperty Name="SessionService" Type="SessionService.SessionService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -309,6 +314,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_9.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_10.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -387,6 +398,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_6.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_7.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -433,6 +450,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_4.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_5.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_0">
@@ -538,6 +561,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_5.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_6.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -601,6 +630,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_3.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_6.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -649,6 +684,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_5_2.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_5_3.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -677,6 +718,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_6_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_6_1.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_7_0">
@@ -721,6 +768,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_7_0.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_7_1.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -743,6 +796,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_8_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_8_1.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_9_0">
@@ -769,6 +828,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_9_0.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_9_1.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -791,6 +856,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_10_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_10_1.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_11_0">
@@ -823,6 +894,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_11_0.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_11_1.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -845,6 +922,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the MaxLevels property."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_12_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_12_1.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_13_0">
@@ -882,6 +965,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_13_0.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_13_1.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -909,6 +998,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_14_0.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_14_1.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -922,6 +1017,30 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Manager that represents the manager providing this Redfish service."/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_15_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_15_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_13_0.ServiceContainer">
+        <Singleton Name="ThermalEquipment" Type="ThermalEquipment.ThermalEquipment"/>
+      </EntityContainer>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_15_1.ServiceRoot">
+        <NavigationProperty Name="ThermalEquipment" Type="ThermalEquipment.ThermalEquipment" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a set of cooling equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ThermalEquipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

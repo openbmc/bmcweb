@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.12.0                                              -->
+<!--# Redfish Schema:  AccountService v1.13.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -447,6 +447,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The additional external account providers that this account service uses."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ExternalAccountProviderCollection that represents the additional external account providers that this account service uses."/>
+          <Annotation Term="Redfish.URISegment" String="ExternalAccountProviders"/>
         </NavigationProperty>
       </EntityType>
 
@@ -732,6 +733,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_9.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_3_10.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -796,6 +803,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_7.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_4_8.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -852,6 +865,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_6.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_5_7.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -894,6 +913,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_6_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_0">
@@ -945,6 +970,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_7_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_0">
@@ -1064,6 +1095,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_8_2.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_8_3.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_0">
       <Annotation Term="Redfish.Release" String="2021.1"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1087,7 +1124,13 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
-      <EntityType Name="AccountService" BaseType="AccountService.v1_9_0.AccountService"/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_9_1.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_9_2.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_0">
@@ -1164,6 +1207,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_10_2.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_10_3.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1195,6 +1244,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_11_2.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_11_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_11_3.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_0">
@@ -1364,6 +1419,51 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The types of multi-factor authentication this account or role mapping is allowed to bypass."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the types of multi-factor authentication this account or role mapping is allowed to bypass.  An empty array shall indicate this account or role mapping cannot bypass any multi-factor authentication types that are currently enabled."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to AdditionalExternalAccountProviders."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_12_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_0">
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_12_1.AccountService"/>
+
+      <ComplexType Name="ExternalAccountProvider" BaseType="AccountService.v1_10_0.ExternalAccountProvider">
+        <Property Name="Retries" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of times to retry connecting to an address in the ServiceAddresses property before attempting the next address in the array."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of retries to attempt a connection to an address in the ServiceAddresses property before attempting a connection to the next address in the array or giving up.  If this property is not present, the service has internal policies for handling retries."/>
+        </Property>
+        <Property Name="TimeoutSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The period of time, in seconds, this account service will wait for a response from an address of a user account provider before timing out."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the period of time, in seconds, this account service will wait for a response from an address of a user account provider before timing out.  If this property is not present, the service has internal policies for handling timeouts."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TACACSplusService" BaseType="AccountService.v1_8_0.TACACSplusService">
+        <Property Name="AuthorizationService" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The TACACS+ service authorization argument."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TACACS+ service authorization argument as defined by section 8.2 of RFC8907.  If this property is not present, the service defines the value to provide to the TACACS+ server."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OAuth2Service" BaseType="AccountService.v1_10_0.OAuth2Service">
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
     </Schema>

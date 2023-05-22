@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalMetrics v1.1.0                                               -->
+<!--# Redfish Schema:  ThermalMetrics v1.2.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -130,7 +130,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control. It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control.  It was also created to correct various typographical errors."/>
       <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_0_0.ThermalMetrics"/>
     </Schema>
 
@@ -160,6 +160,26 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the total number of seconds all the heaters in the thermal subsystem were active while the respective devices they heat were powered on."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_1_0.ThermalMetrics">
+        <NavigationProperty Name="DeltaPressurekPa" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The differential pressure (kPa)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the difference in pressure between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="AirFlowCubicMetersPerMinute" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The air flow through the chassis (m^3/min)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rate of air flow, in cubic meters per minute units, between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AirFlowCMM`."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

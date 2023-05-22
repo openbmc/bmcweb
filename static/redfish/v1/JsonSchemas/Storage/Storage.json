@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_15_0.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -36,6 +36,21 @@
                 }
             },
             "type": "object"
+        },
+        "AutoVolumeCreate": {
+            "enum": [
+                "Disabled",
+                "NonRAID",
+                "RAID0",
+                "RAID1"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Do not automatically create volumes.",
+                "NonRAID": "Automatically create non-RAID volumes.",
+                "RAID0": "Automatically create RAID0 volumes.",
+                "RAID1": "Automatically create RAID1 volumes."
+            },
+            "type": "string"
         },
         "CacheSummary": {
             "additionalProperties": false,
@@ -160,6 +175,19 @@
                     "versionAdded": "v1_11_0"
                 },
                 "HostingStorageSystems@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "NVMeoFDiscoverySubysystems": {
+                    "description": "An array of links to the discovery subsystems that discovered this subsystem in an NVMe-oF environment.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Storage that represent the discovery subsystems that discovered this subsystem in an NVMe-oF environment.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_15_0"
+                },
+                "NVMeoFDiscoverySubysystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Oem": {
@@ -407,6 +435,27 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource."
                 },
+                "AutoVolumeCreate": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AutoVolumeCreate"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates if this storage subsystem automatically create new volumes for unassigned drives.",
+                    "longDescription": "This property shall indicate if volumes are created automatically for each unassigned drive attached to this storage subsystem.",
+                    "readonly": false,
+                    "versionAdded": "v1_15_0"
+                },
+                "Connections": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ConnectionCollection.json#/definitions/ConnectionCollection",
+                    "description": "The collection of links to the connections that this storage subsystem contains.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ConnectionCollection.  The members of this collection shall reference Connection resources subordinate to Fabric resources.",
+                    "readonly": true,
+                    "versionAdded": "v1_15_0"
+                },
                 "ConsistencyGroups": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroupCollection.json#/definitions/ConsistencyGroupCollection",
                     "description": "The consistency groups, each of which contains a set of volumes that are treated by an application or set of applications as a single resource, that are managed by this storage subsystem.",
@@ -557,10 +606,12 @@
                 },
                 "StorageGroups": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection.json#/definitions/StorageGroupCollection",
+                    "deprecated": "This property was deprecated in favor of the Connections property.",
                     "description": "All of the storage groups, each of which contains a set of volumes and endpoints that are managed as a group for mapping and masking, that belong to this storage subsystem.",
                     "longDescription": "This property shall contain a link to a resource collection of type StorageGroupsCollection.  This property shall be used when implementing mapping and masking.",
                     "readonly": true,
-                    "versionAdded": "v1_8_0"
+                    "versionAdded": "v1_8_0",
+                    "versionDeprecated": "v1_15_0"
                 },
                 "StoragePools": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection.json#/definitions/StoragePoolCollection",
@@ -940,6 +991,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#Storage.v1_14_0.Storage"
+    "release": "2023.1",
+    "title": "#Storage.v1_15_0.Storage"
 }

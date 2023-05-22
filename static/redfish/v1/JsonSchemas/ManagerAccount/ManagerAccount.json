@@ -226,7 +226,7 @@
                         "string",
                         "null"
                     ],
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "PasswordChangeRequired": {
                     "description": "An indication of whether the service requires that the password for this account be changed before further access to the account is allowed.",
@@ -403,7 +403,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_4_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "AuthenticationKeySet": {
                     "description": "Indicates if the AuthenticationKey property is set.",
@@ -436,7 +436,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_4_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "EncryptionKeySet": {
                     "description": "Indicates if the EncryptionKey property is set.",

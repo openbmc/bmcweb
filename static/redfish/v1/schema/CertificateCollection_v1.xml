@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -119,7 +119,7 @@
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates</String>
             <String>/redfish/v1/UpdateService/RemoteServerCertificates</String>
             <String>/redfish/v1/UpdateService/ClientCertificates</String>
-            <String>/redfish/v1/Managers/{ManagerId}/Certificates</String>                   
+            <String>/redfish/v1/Managers/{ManagerId}/Certificates</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
@@ -129,6 +129,7 @@
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Certificate.Certificate)">

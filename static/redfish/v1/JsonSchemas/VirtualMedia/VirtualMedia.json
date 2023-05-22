@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_1.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -341,7 +341,7 @@
                 "EjectTimeout": {
                     "description": "Timeout value before the virtual media is automatically ejected.",
                     "longDescription": "This property shall indicate the amount of time before virtual media is automatically ejected when EjectPolicy contains `Timed`.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -484,5 +484,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#VirtualMedia.v1_6_0.VirtualMedia"
+    "title": "#VirtualMedia.v1_6_1.VirtualMedia"
 }

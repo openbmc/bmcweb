@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,6 +35,15 @@
 
       <Term Name="AllowableValues" Type="Collection(Edm.String)" Nullable="false">
         <Annotation Term="OData.Description" String="The set of allowable values for an action parameter or property."/>
+      </Term>
+      <Term Name="AllowableNumbers" Type="Collection(Edm.String)" Nullable="false">
+        <Annotation Term="OData.Description" String="The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification."/>
+      </Term>
+      <Term Name="AllowablePattern" Type="Collection(Edm.String)" Nullable="false">
+        <Annotation Term="OData.Description" String="The term specifies a regular expression that describes the allowable values for a read-write property as supported by the service."/>
+      </Term>
+      <Term Name="WriteableProperties" Type="Collection(Edm.String)" Nullable="false">
+        <Annotation Term="OData.Description" String="The term specifies the properties supported as read-write.  The values contained shall be the names of the writable properties as defined in the Redfish schema that are available as read-write given the implementation, current configuration, and state of the resource.  This term may appear at the root level of a resource, or within an object.  For arrays of objects, the term may only appear in the first element of the array to indicate identical capabilities for every element in the array."/>
       </Term>
       <Term Name="Required" Type="Edm.Boolean" DefaultValue="true">
         <Annotation Term="OData.Description" String="This term specifies that a property is required to be supported by services.  Properties not annotated as required are optional."/>
@@ -150,6 +159,9 @@
       </Term>
       <Term Name="License" Type="Edm.String">
         <Annotation Term="OData.Description" String="The term specifies licensing information for a Redfish schema or registry."/>
+      </Term>
+      <Term Name="URISegment" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies the segment appended to the URI of the resource when constructing the URI of a subordinate resource if the segment differs from the property name."/>
       </Term>
 
       <EnumType Name="ReleaseStatusType">

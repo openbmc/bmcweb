@@ -163,7 +163,7 @@
                         "string",
                         "null"
                     ],
-                    "writeOnly ": false
+                    "writeOnly": false
                 },
                 "SessionType": {
                     "anyOf": [
@@ -188,7 +188,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_6_0",
-                    "writeOnly ": false
+                    "writeOnly": false
                 },
                 "UserName": {
                     "description": "The username for the account for this session.",

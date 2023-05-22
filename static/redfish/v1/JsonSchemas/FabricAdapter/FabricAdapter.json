@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_1.json",
     "$ref": "#/definitions/FabricAdapter",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,16 +25,16 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "FabricAdapter": {
             "additionalProperties": false,
-            "description": "A FabricAdapter represents the physical fabric adapter capable of connecting to an interconnect fabric.  Examples include but are not limited to Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters.",
-            "longDescription": "A FabricAdapter represents the physical Fabric adapter capable of connecting to an interconnect fabric.  Examples include but are not limited to Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters.",
+            "description": "A fabric adapter represents the physical fabric adapter capable of connecting to an interconnect fabric.  Examples include, but are not limited to, Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters.",
+            "longDescription": "This resource shall represent a physical fabric adapter capable of connecting to an interconnect fabric.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -91,8 +91,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "Description": {
                     "anyOf": [
@@ -142,8 +142,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
@@ -205,7 +205,7 @@
                 "Ports": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
                     "description": "The link to the collection of ports that exist on the fabric adapter.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type PortCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.",
                     "readonly": true
                 },
                 "SKU": {
@@ -237,8 +237,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UUID": {
                     "anyOf": [
@@ -284,7 +284,7 @@
                 "MSDT": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/RouteEntryCollection.json#/definitions/RouteEntryCollection",
                     "description": "The Multi Subnet Destination Table for the component.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined MSDT structure.",
+                    "longDescription": "This property shall contain a link to a resource collection of type RouteEntryCollection that represents the Gen-Z Core Specification-defined MSDT structure.",
                     "readonly": true
                 },
                 "PIDT": {
@@ -314,19 +314,21 @@
                 "RequestorVCAT": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VCATEntryCollection.json#/definitions/VCATEntryCollection",
                     "description": "The Requestor Virtual Channel Action Table for the component.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type VCATEntryCollection, and shall represent the Gen-Z Core Specification-defined REQ-VCAT structure.",
-                    "readonly": true
+                    "longDescription": "This property shall contain a link to a resource collection of type VCATEntryCollection that represents the Gen-Z Core Specification-defined REQ-VCAT structure.",
+                    "readonly": true,
+                    "uriSegment": "REQ-VCAT"
                 },
                 "ResponderVCAT": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VCATEntryCollection.json#/definitions/VCATEntryCollection",
                     "description": "The Responder Virtual Channel Action Table for the component.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type VCATEntryCollection, and shall represent the Gen-Z Core Specification-defined RSP-VCAT structure.",
-                    "readonly": true
+                    "longDescription": "This property shall contain a link to a resource collection of type VCATEntryCollection that represents the Gen-Z Core Specification-defined RSP-VCAT structure.",
+                    "readonly": true,
+                    "uriSegment": "RSP-VCAT"
                 },
                 "SSDT": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/RouteEntryCollection.json#/definitions/RouteEntryCollection",
                     "description": "The Single Subnet Destination Table for the component.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined SSDT structure.",
+                    "longDescription": "This property shall contain a link to a resource collection of type RouteEntryCollection that represents the Gen-Z Core Specification-defined SSDT structure.",
                     "readonly": true
                 }
             },
@@ -334,8 +336,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -356,7 +358,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of type Endpoint that represents the logical fabric connection associated with this fabric adapter.",
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent the logical fabric connection associated with this fabric adapter.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -412,8 +414,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -434,5 +436,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#FabricAdapter.v1_5_0.FabricAdapter"
+    "title": "#FabricAdapter.v1_5_1.FabricAdapter"
 }

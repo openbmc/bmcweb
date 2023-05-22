@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,8 +33,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="FabricAdapterCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The collection of FabricAdapter Resource instances."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of FabricAdapter instances for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The collection of FabricAdapter resource instances."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of FabricAdapter instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -53,8 +53,8 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters</String>
-            <String>/redfish/v1/CompositionService/Resourceblocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters</String>
-            <String>/redfish/v1/Resourceblocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters</String>
             <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters</String>
           </Collection>
         </Annotation>
@@ -66,7 +66,6 @@
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
       </EntityType>
-
     </Schema>
 
   </edmx:DataServices>

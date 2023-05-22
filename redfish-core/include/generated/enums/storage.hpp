@@ -25,6 +25,14 @@ enum class EncryptionMode{
     UseLocalKey,
 };
 
+enum class AutoVolumeCreate{
+    Invalid,
+    Disabled,
+    NonRAID,
+    RAID0,
+    RAID1,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::Invalid, "Invalid"},
     {ResetToDefaultsType::ResetAll, "ResetAll"},
@@ -43,6 +51,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionMode, {
     {EncryptionMode::Disabled, "Disabled"},
     {EncryptionMode::UseExternalKey, "UseExternalKey"},
     {EncryptionMode::UseLocalKey, "UseLocalKey"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(AutoVolumeCreate, {
+    {AutoVolumeCreate::Invalid, "Invalid"},
+    {AutoVolumeCreate::Disabled, "Disabled"},
+    {AutoVolumeCreate::NonRAID, "NonRAID"},
+    {AutoVolumeCreate::RAID0, "RAID0"},
+    {AutoVolumeCreate::RAID1, "RAID1"},
 });
 
 }

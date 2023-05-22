@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_3_1.json",
     "$ref": "#/definitions/Triggers",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -66,7 +66,7 @@
                 "DwellTime": {
                     "description": "The amount of time that a trigger event persists before the metric action is performed.",
                     "longDescription": "This property shall contain the amount of time that a trigger event persists before the TriggerActions are performed.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -229,7 +229,7 @@
                 "DwellTime": {
                     "description": "The duration the sensor value must violate the threshold before the threshold is activated.",
                     "longDescription": "This property shall indicate the duration the sensor value violates the threshold before the threshold is activated.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -252,17 +252,23 @@
             "enum": [
                 "Increasing",
                 "Decreasing",
-                "Either"
+                "Either",
+                "Disabled"
             ],
             "enumDescriptions": {
                 "Decreasing": "Value decreases below the threshold.",
+                "Disabled": "The threshold is disabled.",
                 "Either": "Value crosses the threshold in either direction.",
                 "Increasing": "Value increases above the threshold."
             },
             "enumLongDescriptions": {
                 "Decreasing": "This threshold is activated when the reading changes from a value higher than the threshold to a value lower than the threshold.",
+                "Disabled": "This value shall indicate the threshold is disabled and no actions shall be taken as a result of the reading crossing the threshold value.",
                 "Either": "This threshold is activated when either the Increasing or Decreasing conditions are met.",
                 "Increasing": "This threshold is activated when the reading changes from a value lower than the threshold to a value higher than the threshold."
+            },
+            "enumVersionAdded": {
+                "Disabled": "v1_3_0"
             },
             "type": "string"
         },
@@ -413,6 +419,27 @@
                     "type": "array",
                     "versionAdded": "v1_1_0"
                 },
+                "HysteresisDuration": {
+                    "description": "The duration the sensor value must not violate the threshold before the threshold is deactivated.",
+                    "longDescription": "This property shall indicate the duration the sensor value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "HysteresisReading": {
+                    "description": "The reading offset from the threshold value required to clear the threshold.",
+                    "longDescription": "This property shall indicate the offset from the reading for this sensor and the threshold value that deactivates the threshold.  For example, a value of `-2` indicates the sensor reading shall fall 2 units below an upper threshold value to deactivate the threshold.  The value of the property shall use the same units as the Reading property.  A value of `0`, or if the property is not present in the resource, shall indicate the threshold is deactivated when the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -552,6 +579,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#Triggers.v1_2_0.Triggers"
+    "release": "2023.1",
+    "title": "#Triggers.v1_3_1.Triggers"
 }

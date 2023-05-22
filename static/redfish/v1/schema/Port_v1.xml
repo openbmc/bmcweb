@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.8.0                                                         -->
+<!--# Redfish Schema:  Port v1.9.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1084,7 +1084,7 @@
           <Annotation Term="OData.Description" String="Port component, based in the value of entPhysicalAlias in RFC4133."/>
         </Member>
         <Member Name="MacAddr">
-          <Annotation Term="OData.Description" String="MAC address, based on an agent detected unicast source address as defined in IEEE Std. 802."/>
+          <Annotation Term="OData.Description" String="MAC address, based on an agent detected unicast source address as defined in IEEE standard 802."/>
         </Member>
         <Member Name="NetworkAddr">
           <Annotation Term="OData.Description" String="Network address, based on an agent detected network address."/>
@@ -1180,6 +1180,28 @@
         </Member>
         <Member Name="MiniSASHD">
           <Annotation Term="OData.Description" String="The SFP conforms to the SFF Specification SFF-8644."/>
+        </Member>
+        <Member Name="QSFPDD">
+          <Annotation Term="OData.Description" String="The SFP conforms to the QSFP Double Density Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OSFP">
+          <Annotation Term="OData.Description" String="The SFP conforms to the OSFP Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -1591,6 +1613,14 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the connected device is a CXL Type 3 multi-logical device (MLD)."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `QSFPDD` and `OSFP` as SFP types."/>
+
+      <EntityType Name="Port" BaseType="Port.v1_8_0.Port"/>
     </Schema>
 
   </edmx:DataServices>

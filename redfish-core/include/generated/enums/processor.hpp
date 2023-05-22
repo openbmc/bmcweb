@@ -85,6 +85,7 @@ enum class ThrottleCause{
     PowerLimit,
     ThermalLimit,
     ClockLimit,
+    ManagementDetectedFault,
     Unknown,
     OEM,
 };
@@ -169,6 +170,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThrottleCause, {
     {ThrottleCause::PowerLimit, "PowerLimit"},
     {ThrottleCause::ThermalLimit, "ThermalLimit"},
     {ThrottleCause::ClockLimit, "ClockLimit"},
+    {ThrottleCause::ManagementDetectedFault, "ManagementDetectedFault"},
     {ThrottleCause::Unknown, "Unknown"},
     {ThrottleCause::OEM, "OEM"},
 });

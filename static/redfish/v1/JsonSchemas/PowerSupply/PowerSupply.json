@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_5_1.json",
     "$ref": "#/definitions/PowerSupply",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -260,8 +260,8 @@
         },
         "PowerSupply": {
             "additionalProperties": false,
-            "description": "The PowerSupply schema describes a power supply unit.",
-            "longDescription": "This resource shall represent a power supply for a Redfish implementation.",
+            "description": "The PowerSupply schema describes a power supply unit.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present.",
+            "longDescription": "This resource shall represent a power supply unit for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -418,7 +418,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the power supply.",
-                    "longDescription": "This property shall contain location information of this power supply."
+                    "longDescription": "This property shall contain location information for this power supply.  For a resource in the `Absent` state, this property   describes the empty location, such as a slot, socket, or bay, to represent the available  capacity."
                 },
                 "LocationIndicatorActive": {
                     "description": "An indicator allowing an operator to physically locate this resource.",
@@ -665,5 +665,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.2",
-    "title": "#PowerSupply.v1_5_0.PowerSupply"
+    "title": "#PowerSupply.v1_5_1.PowerSupply"
 }

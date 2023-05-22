@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.20.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.20.1                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -335,7 +335,7 @@
         <Property Name="AssetTag" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The user-definable tag that can track this computer system for inventory or other client purposes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the system asset tag value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the system asset tag value.  Modifying this property may modify the AssetTag in the containing Chassis resource."/>
         </Property>
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -370,7 +370,7 @@
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The DNS host name, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the host name for this system, as reported by the operating system or hypervisor.  A service running in the host operating system typically reports this value to the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the host name for this system, as reported by the operating system or hypervisor.  A service running in the host operating system typically reports this value to the manager.  Modifying this property may modify the HostName in one or more EthernetInterface resources contained in this system."/>
         </Property>
         <Property Name="IndicatorLED" Type="ComputerSystem.v1_0_0.IndicatorLED">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -766,6 +766,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_18.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_20">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_19.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -989,6 +995,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_16.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_17.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -1202,6 +1214,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_15.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_16.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1336,6 +1354,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_14.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_15.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1444,6 +1468,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_13.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_14.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1662,6 +1692,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_12.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_13.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1777,6 +1813,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_10.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_11.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1861,6 +1903,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1928,6 +1976,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_8.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_9.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -2000,6 +2054,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -2061,6 +2121,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description.  It was also created to clarify the usage of `UefiHttp` when HttpBootUri is not configured or supported."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_7.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_8.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -2148,6 +2214,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -2198,6 +2270,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_5.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_6.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -2207,7 +2285,7 @@
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.  Modifying this property may modify the LocationIndicatorActive in the containing Chassis resource."/>
         </Property>
         <Property Name="BootProgress" Type="ComputerSystem.v1_13_0.BootProgress">
           <Annotation Term="OData.Description" String="This object describes the last boot progress state."/>
@@ -2469,6 +2547,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -2547,6 +2631,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description.  It was also created to clarify the usage of `UefiHttp` when HttpBootUri is not configured or supported."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_3.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -2645,6 +2735,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description.  It was also created to clarify the usage of `UefiHttp` when HttpBootUri is not configured or supported."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_2.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_3.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
@@ -2763,6 +2859,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -2790,6 +2892,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description.  It was also created to clarify the usage of `UefiHttp` when HttpBootUri is not configured or supported.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_2.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -2844,6 +2952,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_0.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_1.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -2865,6 +2979,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to correct the BootSourceOverrideEnabled reference in the BootSourceOverrideTarget description.  It was also created to clarify the usage of `UefiHttp` when HttpBootUri is not configured or supported.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_1.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -2894,6 +3014,12 @@
           <Annotation Term="OData.Description" String="The system caches KMIP data after first use for the duration specified by the CacheDuration property."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_0.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>

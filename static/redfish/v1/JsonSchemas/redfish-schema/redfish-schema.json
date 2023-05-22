@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_8_0",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_10_0",
     "type": "object",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Redfish Schema Extension",
@@ -147,6 +147,10 @@
             ],
             "type": "string",
             "description": "The term specifies the public release status of a property or schema."
+        },
+        "uriSegment": {
+            "type": "string",
+            "description": "The term specifies the segment appended to the URI of the resource when constructing the URI of a subordinate resource if the segment differs from the reference property name.  Applies to reference properties."
         }
     },
     "properties": {
@@ -238,7 +242,7 @@
         },
         "enumTranslations": {
             "$ref": "#/definitions/enumTranslations"
-        },  
+        },
         "actionResponse": {
             "$ref": "#/definitions/actionResponse"
         },
@@ -247,6 +251,9 @@
         },
         "releaseStatus": {
             "$ref": "#/definitions/releaseStatus"
+        },
+        "uriSegment": {
+            "$ref": "#/definitions/uriSegment"
         }
     }
 }

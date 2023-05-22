@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_3_2.json",
     "$ref": "#/definitions/MetricDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -235,7 +235,7 @@
                 "CalculationTimeInterval": {
                     "description": "The time interval over which the metric calculation is performed.",
                     "longDescription": "This property shall specify the time interval over the metric calculation is performed.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -411,7 +411,7 @@
                 "SensingInterval": {
                     "description": "The time interval between when a metric is updated.",
                     "longDescription": "This property shall specify the time interval between when a metric is updated.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -421,7 +421,7 @@
                 "TimestampAccuracy": {
                     "description": "The accuracy of the timestamp.",
                     "longDescription": "This property shall specify the expected + or - variability of the timestamp.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -548,5 +548,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.1",
-    "title": "#MetricDefinition.v1_3_1.MetricDefinition"
+    "title": "#MetricDefinition.v1_3_2.MetricDefinition"
 }

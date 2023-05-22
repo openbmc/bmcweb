@@ -127,7 +127,7 @@
                         "string",
                         "null"
                     ],
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "SNMP": {
                     "anyOf": [
@@ -475,7 +475,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_1_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "AuthenticationKeySet": {
                     "description": "Indicates if the AuthenticationKey property is set.",
@@ -508,7 +508,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_1_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "EncryptionKeySet": {
                     "description": "Indicates if the EncryptionKey property is set.",
@@ -540,7 +540,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_2_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 }
             },
             "type": "object"

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_3.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -136,7 +136,7 @@
                 "CollectionDuration": {
                     "description": "The duration over which the function is computed.",
                     "longDescription": "This property shall specify the duration over which the function is computed.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -309,7 +309,7 @@
                 "MetricReportHeartbeatInterval": {
                     "description": "The interval at which to send the complete metric report because the Redfish client wants refreshed metric data even when the data has not changed.  This property value is always greater than the recurrence interval of a metric report, and it only applies when the SuppressRepeatedMetricValue property is `true`.",
                     "longDescription": "The property value shall contain a Redfish duration that describes the time interval between generations of the unsuppressed metric report.  It shall always be a value greater than the RecurrenceInterval property within Schedule and should only apply when the SuppressRepeatedMetricValue property is `true`.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -346,7 +346,7 @@
                 "ReportTimespan": {
                     "description": "The maximum timespan that a metric report can cover.",
                     "longDescription": "This property shall contain maximum timespan that a metric report can cover.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -534,5 +534,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#MetricReportDefinition.v1_4_2.MetricReportDefinition"
+    "title": "#MetricReportDefinition.v1_4_3.MetricReportDefinition"
 }

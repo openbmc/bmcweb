@@ -2,7 +2,7 @@
     "$id": "http://redfish.dmtf.org/schemas/v1/SensorCollection.json",
     "$ref": "#/definitions/SensorCollection",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "SensorCollection": {
             "anyOf": [
@@ -91,7 +91,13 @@
             "updatable": false,
             "uris": [
                 "/redfish/v1/Chassis/{ChassisId}/Sensors",
-                "/redfish/v1/Facilities/{FacilityId}/Sensors",
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Sensors",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Sensors"
+            ],
+            "urisDeprecated": [
                 "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors",
                 "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors",
                 "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors",

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_1.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -571,7 +571,7 @@
                 },
                 "AssetTag": {
                     "description": "The user-definable tag that can track this computer system for inventory or other client purposes.",
-                    "longDescription": "This property shall contain the system asset tag value.",
+                    "longDescription": "This property shall contain the system asset tag value.  Modifying this property may modify the AssetTag in the containing Chassis resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -671,7 +671,7 @@
                 },
                 "HostName": {
                     "description": "The DNS host name, without any domain information.",
-                    "longDescription": "This property shall contain the host name for this system, as reported by the operating system or hypervisor.  A service running in the host operating system typically reports this value to the manager.",
+                    "longDescription": "This property shall contain the host name for this system, as reported by the operating system or hypervisor.  A service running in the host operating system typically reports this value to the manager.  Modifying this property may modify the HostName in one or more EthernetInterface resources contained in this system.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -760,7 +760,7 @@
                 },
                 "LocationIndicatorActive": {
                     "description": "An indicator allowing an operator to physically locate this resource.",
-                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.  Modifying this property may modify the LocationIndicatorActive in the containing Chassis resource.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -1446,7 +1446,7 @@
                 "CacheDuration": {
                     "description": "The duration the system caches KMIP data.",
                     "longDescription": "This property shall contain the duration that the system caches KMIP data.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -1477,7 +1477,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_16_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "Port": {
                     "description": "The KMIP server port.",
@@ -2425,5 +2425,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#ComputerSystem.v1_20_0.ComputerSystem"
+    "title": "#ComputerSystem.v1_20_1.ComputerSystem"
 }

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_7_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_8_0.json",
     "$ref": "#/definitions/Event",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -31,6 +31,79 @@
                 }
             },
             "type": "object"
+        },
+        "CPER": {
+            "additionalProperties": false,
+            "description": "Details for a CPER section or record associated with an event.",
+            "longDescription": "This object shall contain the details for a CPER section or record that is the source of an event.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "NotificationType": {
+                    "description": "The CPER Notification Type for a CPER record.",
+                    "longDescription": "This property shall contain the CPER Notification Type for a CPER record that corresponds to the contents of the DiagnosticData property or data retrieved from the URI specified by the AdditionalDataURI property.  This property shall only be present if DiagnosticDataType contains `CPER`.",
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_8_0"
+                },
+                "SectionType": {
+                    "description": "The CPER Section Type.",
+                    "longDescription": "This property shall contain the CPER Section Type for a CPER section that corresponds to the contents of the DiagnosticData property or data retrieved from the URI specified by the AdditionalDataURI property.  This property shall only be present if DiagnosticDataType contains `CPERSection`.",
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                }
+            },
+            "type": "object"
+        },
+        "DiagnosticDataTypes": {
+            "enum": [
+                "Manager",
+                "PreOS",
+                "OS",
+                "OEM",
+                "CPER",
+                "CPERSection"
+            ],
+            "enumDescriptions": {
+                "CPER": "UEFI Common Platform Error Record.",
+                "CPERSection": "A Section of a UEFI Common Platform Error Record.",
+                "Manager": "Manager diagnostic data.",
+                "OEM": "OEM diagnostic data.",
+                "OS": "Operating system (OS) diagnostic data.",
+                "PreOS": "Pre-OS diagnostic data."
+            },
+            "enumLongDescriptions": {
+                "CPER": "This value shall indicate the data provided at the URI specified by the AdditionalDataURI property is a complete UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain a Record Header and at least one Section as defined by the UEFI Specification.",
+                "CPERSection": "This value shall indicate the data provided at the URI specified by the AdditionalDataURI property is a single Section of a UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain one Section as defined by the UEFI Specification, with no Record Header."
+            },
+            "type": "string"
         },
         "Event": {
             "additionalProperties": false,
@@ -138,6 +211,34 @@
                     "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_2_0"
                 },
+                "AdditionalDataSizeBytes": {
+                    "description": "The size of the additional data for this event.",
+                    "longDescription": "This property shall contain the size of the additional data retrieved from the URI specified by the AdditionalDataURI property for this event.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By",
+                    "versionAdded": "v1_8_0"
+                },
+                "AdditionalDataURI": {
+                    "description": "The URI at which to access the additional data for the event, such as diagnostic data, image captures, or other files.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI at which to access the additional data for the event, using the Redfish protocol and authentication methods.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "CPER": {
+                    "$ref": "#/definitions/CPER",
+                    "description": "Details for a CPER section or record associated with this event.",
+                    "longDescription": "This property shall contain the details for a CPER section or record that is the source of this event.",
+                    "versionAdded": "v1_8_0"
+                },
                 "Context": {
                     "deprecated": "Events are triggered independently from subscriptions to those events.  This property has been deprecated in favor of the Context property found at the root level of the object.",
                     "description": "A context can be supplied at subscription time.  This property is the context value supplied by the subscriber.",
@@ -145,6 +246,30 @@
                     "readonly": true,
                     "type": "string",
                     "versionDeprecated": "v1_1_0"
+                },
+                "DiagnosticData": {
+                    "description": "A Base64-encoded set of diagnostic data associated with this event.",
+                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this event.  The contents shall depend on the value of the DiagnosticDataType property.  The length of the value should not exceed 4KB.  Larger diagnostic data payloads should omit this property and use the AdditionalDataURI property to reference the data.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "DiagnosticDataType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DiagnosticDataTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property.",
+                    "longDescription": "This property shall contain the type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
                 },
                 "EventGroupId": {
                     "description": "The identifier that correlates events with the same root cause.  If `0`, no other event is related to this event.",
@@ -322,6 +447,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#Event.v1_7_1.Event"
+    "release": "2023.1",
+    "title": "#Event.v1_8_0.Event"
 }

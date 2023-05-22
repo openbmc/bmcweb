@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_7_0.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -214,7 +214,7 @@
                 "UefiSignatureOwner": {
                     "description": "The UEFI signature owner for this certificate.",
                     "longDescription": "The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for certificates managed by UEFI.",
-                    "pattern": "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})",
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -312,6 +312,19 @@
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_6_0"
+                },
+                "AlternativeNames": {
+                    "description": "The additional host names of the entity.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the additional host names of the entity, as defined by the RFC5280 'subjectAltName' attribute.  This property shall not be present in the Issuer property.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
                 },
                 "City": {
                     "description": "The city or locality of the organization of the entity.",
@@ -672,6 +685,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#Certificate.v1_6_0.Certificate"
+    "release": "2023.1",
+    "title": "#Certificate.v1_7_0.Certificate"
 }

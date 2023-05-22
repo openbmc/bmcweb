@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_10_0.json",
     "$ref": "#/definitions/EventService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -25,6 +25,9 @@
             "properties": {
                 "#EventService.SubmitTestEvent": {
                     "$ref": "#/definitions/SubmitTestEvent"
+                },
+                "#EventService.TestEventSubscription": {
+                    "$ref": "#/definitions/TestEventSubscription"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -348,7 +351,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_5_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "PasswordSet": {
                     "description": "Indicates if the Password property is set.",
@@ -540,31 +543,31 @@
             "parameters": {
                 "EventGroupId": {
                     "description": "The group identifier for the event.",
-                    "longDescription": "The parameter shall contain the group identifier for the event.  It has the same semantics as the EventGroupId property in the Event schema for Redfish.",
+                    "longDescription": "The parameter shall contain the group identifier for the event.  It has the same semantics as the EventGroupId property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the EventGroupId property.",
                     "type": "integer",
                     "versionAdded": "v1_3_0"
                 },
                 "EventId": {
                     "description": "The ID for the event to add.",
-                    "longDescription": "This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service can ignore this value and replace it with its own.",
+                    "longDescription": "This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service can ignore this value and replace it with its own.  If not provided by the client, the resulting event may contain a service-defined EventId property.",
                     "type": "string"
                 },
                 "EventTimestamp": {
                     "description": "The date and time for the event to add.",
                     "format": "date-time",
-                    "longDescription": "This parameter shall contain the date and time for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall contain the date and time for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the EventTimestamp property.",
                     "type": "string"
                 },
                 "EventType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType",
                     "deprecated": "This parameter has been deprecated.  Starting with Redfish Specification v1.6 (Event v1.3), subscriptions are based on the RegistryPrefix and ResourceType properties and not on the EventType property.",
                     "description": "The type for the event to add.",
-                    "longDescription": "This parameter shall contain the property name for which the following allowable values apply.",
+                    "longDescription": "This parameter shall contain the property name for which the following allowable values apply.  If not provided by the client, the resulting event should not contain the EventType property.",
                     "versionDeprecated": "v1_3_0"
                 },
                 "Message": {
                     "description": "The human-readable message for the event to add.",
-                    "longDescription": "This parameter shall have the same semantics as the Message property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall have the same semantics as the Message property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the Message property.",
                     "type": "string"
                 },
                 "MessageArgs": {
@@ -572,24 +575,31 @@
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This parameter shall have the same semantics as the MessageArgs property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall have the same semantics as the MessageArgs property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the MessageArgs property.",
                     "type": "array"
                 },
                 "MessageId": {
                     "description": "The MessageId for the event to add.",
-                    "longDescription": "This parameter shall contain the MessageId for the event to add and have the same semantics as the MessageId property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall contain the MessageId for the event to add and have the same semantics as the MessageId property in the Event schema for Redfish.  Services should accept arbitrary values for this parameter that match that match the defined pattern.",
+                    "pattern": "^\\w+\\.\\d+\\.\\d+\\.\\w+$",
                     "requiredParameter": true,
                     "type": "string"
+                },
+                "MessageSeverity": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health",
+                    "description": "The severity for the event to add.",
+                    "longDescription": "This property shall contain the severity for the event to add and and have the same semantics as the MessageSeverity property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the MessageSeverity property.",
+                    "versionAdded": "v1_10_0"
                 },
                 "OriginOfCondition": {
                     "description": "The URL in the OriginOfCondition property of the event to add.  It is not a reference object.",
                     "format": "uri-reference",
-                    "longDescription": "This parameter shall be a string that represents the URL contained by the OriginOfCondition property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall be a string that represents the URL contained by the OriginOfCondition property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the OriginOfCondition property.",
                     "type": "string"
                 },
                 "Severity": {
                     "description": "The severity for the event to add.",
-                    "longDescription": "This parameter shall contain the severity for the event to add and have the same semantics as the Severity property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall contain the severity for the event to add and have the same semantics as the Severity property in the Event schema for Redfish.  If not provided by the client, the resulting event should not contain the Severity property.",
                     "type": "string"
                 }
             },
@@ -619,9 +629,42 @@
                 }
             },
             "type": "object"
+        },
+        "TestEventSubscription": {
+            "additionalProperties": false,
+            "description": "This action generates a test event using the pre-defined test message.",
+            "longDescription": "This action shall send an event containing the TestMessage message from the Resource Event Message Registry to all appropriate event destinations.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_10_0"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#EventService.v1_9_0.EventService"
+    "release": "2023.1",
+    "title": "#EventService.v1_10_0.EventService"
 }

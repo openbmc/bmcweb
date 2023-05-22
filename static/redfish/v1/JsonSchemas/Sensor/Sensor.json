@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -111,6 +111,24 @@
             "properties": {},
             "type": "object"
         },
+        "ReadingBasisType": {
+            "enum": [
+                "Zero",
+                "Delta",
+                "Headroom"
+            ],
+            "enumDescriptions": {
+                "Delta": "A reading that reports the difference between two measurements.",
+                "Headroom": "A reading that decreases as it approaches a defined reference point.",
+                "Zero": "A zero-based reading."
+            },
+            "enumLongDescriptions": {
+                "Delta": "This value shall indicate a reading that reports the difference between two measurements.",
+                "Headroom": "This value shall indicate a reading that decreases in value as it approaches the reference point.  If the value crosses the reference point, the value may be reported as a negative number, or may report a value of zero.",
+                "Zero": "This value shall indicate a reading with zero as its reference point."
+            },
+            "type": "string"
+        },
         "ReadingType": {
             "enum": [
                 "Temperature",
@@ -125,18 +143,28 @@
                 "Frequency",
                 "Pressure",
                 "PressurekPa",
+                "PressurePa",
                 "LiquidLevel",
                 "Rotational",
                 "AirFlow",
+                "AirFlowCMM",
                 "LiquidFlow",
+                "LiquidFlowLPM",
                 "Barometric",
                 "Altitude",
                 "Percent",
-                "AbsoluteHumidity"
+                "AbsoluteHumidity",
+                "Heat"
             ],
+            "enumDeprecated": {
+                "AirFlow": "This value has been deprecated in favor of `AirFlowCMM` for consistent use of SI units.",
+                "LiquidFlow": "This value has been deprecated in favor of `LiquidFlowLPM` for consistency of units typically expected or reported by Sensor and Control resources.",
+                "Pressure": "This value has been deprecated in favor of `PressurePa` or `PressurekPa` for consistency of units between Sensor and Control resources."
+            },
             "enumDescriptions": {
                 "AbsoluteHumidity": "Absolute humidity (g/cu m).",
-                "AirFlow": "Airflow (cu ft/min).",
+                "AirFlow": "Air flow (cu ft/min).",
+                "AirFlowCMM": "Air flow (m^3/min).",
                 "Altitude": "Altitude (m).",
                 "Barometric": "Barometric pressure (mm).",
                 "ChargeAh": "Charge (Ah).",
@@ -145,45 +173,61 @@
                 "EnergyWh": "Energy (Wh).",
                 "EnergykWh": "Energy (kWh).",
                 "Frequency": "Frequency (Hz).",
+                "Heat": "Heat (kW).",
                 "Humidity": "Relative humidity (percent).",
                 "LiquidFlow": "Liquid flow (L/s).",
+                "LiquidFlowLPM": "Liquid flow (L/min).",
                 "LiquidLevel": "Liquid level (cm).",
                 "Percent": "Percent (%).",
                 "Power": "Power (W).",
                 "Pressure": "Pressure (Pa).",
+                "PressurePa": "Pressure (Pa).",
                 "PressurekPa": "Pressure (kPa).",
                 "Rotational": "Rotational (RPM).",
                 "Temperature": "Temperature (C).",
                 "Voltage": "Voltage (VAC or VDC)."
             },
             "enumLongDescriptions": {
-                "AbsoluteHumidity": "This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units, and the ReadingUnits value shall be `g/m3`.",
-                "AirFlow": "This value shall indicate a measurement of a volume of gas per unit of time, in cubic feet per minute units, that flows through a particular junction.  The ReadingUnits shall be `[ft_i]3/min`.",
-                "Altitude": "This value shall indicate a measurement of altitude, in meter units, defined as the elevation above sea level.  The ReadingUnits value shall be `m`.",
-                "Barometric": "This value shall indicate a measurement of barometric pressure, in millimeters of a mercury column, and the ReadingUnits value shall be `mm[Hg]`.",
-                "ChargeAh": "This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits value shall be `A.h`.",
-                "Current": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in ampere units and the ReadingUnits value shall be `A`.",
-                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
-                "EnergyWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits value shall be `W.h`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
-                "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules and EnergyWh are used for device-level consumption measurements.",
-                "Frequency": "This value shall indicate a frequency measurement, in hertz units, and the ReadingUnits value shall be `Hz`.",
-                "Humidity": "This value shall indicate a relative humidity measurement, in percent units, and the ReadingUnits value shall be '%'.",
-                "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits shall be `L/s`.",
-                "LiquidLevel": "This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits value shall be `cm`.",
-                "Percent": "This value shall indicate a percentage measurement, in percent units, and the ReadingUnits value shall be `%`.",
-                "Power": "This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units, and the ReadingUnits value shall be 'W'.",
-                "Pressure": "This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`.",
-                "PressurekPa": "This value shall indicate a measurement of pressure, in kilopascal units, relative to atmospheric pressure.  The ReadingUnits value shall be `kPa`.",
-                "Rotational": "This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value.",
-                "Temperature": "This value shall indicate a temperature measurement, in degrees Celsius units, and the ReadingUnits value shall be 'Cel'.",
-                "Voltage": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in volt units and the ReadingUnits value shall be `V`."
+                "AbsoluteHumidity": "This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units.  The ReadingUnits property shall contain `g/m3`.",
+                "AirFlow": "This value shall indicate a measurement of a volume of gas per unit of time, in cubic feet per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `[ft_i]3/min`.",
+                "AirFlowCMM": "This value shall indicate a measurement of a volume of gas per unit of time, in cubic meters per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `m3/min`.",
+                "Altitude": "This value shall indicate a measurement of altitude, in meter units, defined as the elevation above sea level.  The ReadingUnits property shall contain `m`.",
+                "Barometric": "This value shall indicate a measurement of barometric pressure, in millimeters of a mercury column.  The ReadingUnits property shall contain `mm[Hg]`.",
+                "ChargeAh": "This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits property shall contain `A.h`.",
+                "Current": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in ampere units and the ReadingUnits property shall contain `A`.",
+                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in joule units and the ReadingUnits property shall contain `J`.  This value is used for device-level energy consumption measurements, while `EnergykWh` is used for large-scale consumption measurements.",
+                "EnergyWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in watt-hour units and the ReadingUnits property shall contain `W.h`.  This value is used for device-level energy consumption measurements, while `EnergykWh` is used for large-scale consumption measurements.",
+                "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item.  If representing metered power consumption the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits property shall contain `kW.h`.  This value is used for large-scale energy consumption measurements, while `EnergyJoules` and `EnergyWh` are used for device-level consumption measurements.",
+                "Frequency": "This value shall indicate a frequency measurement, in hertz units.  The ReadingUnits property shall contain `Hz`.",
+                "Heat": "This value shall indicate a heat measurement, in kilowatt units.  The ReadingUnits property shall contain `kW`.",
+                "Humidity": "This value shall indicate a relative humidity measurement, in percent units.  The ReadingUnits property shall contain `%`.",
+                "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits property shall contain `L/s`.",
+                "LiquidFlowLPM": "This value shall indicate a measurement of a volume of liquid per unit of time, in liters per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `L/min`.",
+                "LiquidLevel": "This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits property shall contain `cm`.",
+                "Percent": "This value shall indicate a percentage measurement, in percent units.  The ReadingUnits property shall contain `%`.",
+                "Power": "This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units.  The ReadingUnits property shall contain `W`.",
+                "Pressure": "This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits property shall contain `Pa`.",
+                "PressurePa": "This value shall indicate a measurement of pressure, in pascal units, relative to atmospheric pressure.  The ReadingUnits property shall contain `Pa`.",
+                "PressurekPa": "This value shall indicate a measurement of pressure, in kilopascal units, relative to atmospheric pressure.  The ReadingUnits property shall contain `kPa`.",
+                "Rotational": "This value shall indicate a measurement of rotational frequency, in revolutions per minute unit.  The ReadingUnits property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value.",
+                "Temperature": "This value shall indicate a temperature measurement, in degrees Celsius units.  The ReadingUnits property shall contain `Cel`.",
+                "Voltage": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in volt units and the ReadingUnits property shall contain `V`."
             },
             "enumVersionAdded": {
                 "AbsoluteHumidity": "v1_5_0",
+                "AirFlowCMM": "v1_7_0",
                 "ChargeAh": "v1_4_0",
                 "EnergyWh": "v1_4_0",
+                "Heat": "v1_7_0",
+                "LiquidFlowLPM": "v1_7_0",
                 "Percent": "v1_1_0",
+                "PressurePa": "v1_7_0",
                 "PressurekPa": "v1_5_0"
+            },
+            "enumVersionDeprecated": {
+                "AirFlow": "v1_7_0",
+                "LiquidFlow": "v1_7_0",
+                "Pressure": "v1_7_0"
             },
             "type": "string"
         },
@@ -352,7 +396,7 @@
                 "AveragingInterval": {
                     "description": "The interval over which the average sensor value is calculated.",
                     "longDescription": "This property shall contain the interval over which the sensor value is averaged to produce the value of the AverageReading property.  This property shall only be present if the AverageReading property is present.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
@@ -640,6 +684,20 @@
                         "null"
                     ]
                 },
+                "ReadingBasis": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ReadingBasisType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The basis for the reading of this sensor.",
+                    "longDescription": "This property shall indicate the basis or frame of reference for the value of the Reading property.  If this property is not present, the value shall be assumed to be `Zero`.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
                 "ReadingRangeMax": {
                     "description": "The maximum possible value for this sensor.",
                     "longDescription": "This property shall indicate the maximum possible value of the Reading property for this sensor.  This value is the range of valid readings for this sensor.  Values outside this range are discarded as reading errors.",
@@ -718,7 +776,7 @@
                 "SensingInterval": {
                     "description": "The time interval between readings of the sensor.",
                     "longDescription": "This property shall contain the time interval between readings of data from the sensor.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -745,7 +803,7 @@
                 },
                 "SpeedRPM": {
                     "description": "The rotational speed.",
-                    "excerpt": "SensorFan,SensorFanArray",
+                    "excerpt": "SensorFan,SensorFanArray,SensorPump",
                     "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
                     "readonly": true,
                     "type": [
@@ -1165,7 +1223,7 @@
                 },
                 "SpeedRPM": {
                     "description": "The rotational speed.",
-                    "excerpt": "SensorFan,SensorFanArray",
+                    "excerpt": "SensorFan,SensorFanArray,SensorPump",
                     "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
                     "readonly": true,
                     "type": [
@@ -1221,7 +1279,7 @@
                 },
                 "SpeedRPM": {
                     "description": "The rotational speed.",
-                    "excerpt": "SensorFan,SensorFanArray",
+                    "excerpt": "SensorFan,SensorFanArray,SensorPump",
                     "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
                     "readonly": true,
                     "type": [
@@ -1444,6 +1502,62 @@
             },
             "type": "object"
         },
+        "SensorPumpExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorPump",
+            "longDescription": "This resource shall represent a sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Reading": {
+                    "description": "The sensor value.",
+                    "excerpt": "Sensor",
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SpeedRPM": {
+                    "description": "The rotational speed.",
+                    "excerpt": "SensorFan,SensorFanArray,SensorPump",
+                    "longDescription": "This property shall contain a reading of the rotational speed of the device in revolutions per minute (RPM) units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "{rev}/min",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
         "SensorVoltageExcerpt": {
             "additionalProperties": false,
             "description": "The Sensor schema describes a sensor and its properties.",
@@ -1545,12 +1659,33 @@
                 "DwellTime": {
                     "description": "The duration the sensor value must violate the threshold before the threshold is activated.",
                     "longDescription": "This property shall indicate the duration the sensor value violates the threshold before the threshold is activated.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "readonly": false,
                     "type": [
                         "string",
                         "null"
                     ]
+                },
+                "HysteresisDuration": {
+                    "description": "The duration the sensor value must not violate the threshold before the threshold is deactivated.",
+                    "longDescription": "This property shall indicate the duration the sensor value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "HysteresisReading": {
+                    "description": "The reading offset from the threshold value required to clear the threshold.",
+                    "longDescription": "This property shall indicate the offset from the reading for this sensor and the threshold value that deactivates the threshold.  For example, a value of `-2` indicates the sensor reading shall fall 2 units below an upper threshold value to deactivate the threshold.  The value of the property shall use the same units as the Reading property.  A value of `0`, or if the property is not present in the resource, shall indicate the threshold is deactivated when the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "Reading": {
                     "description": "The threshold value.",
@@ -1568,17 +1703,23 @@
             "enum": [
                 "Increasing",
                 "Decreasing",
-                "Either"
+                "Either",
+                "Disabled"
             ],
             "enumDescriptions": {
                 "Decreasing": "Value decreases below the threshold.",
+                "Disabled": "The threshold is disabled.",
                 "Either": "Value crosses the threshold in either direction.",
                 "Increasing": "Value increases above the threshold."
             },
             "enumLongDescriptions": {
                 "Decreasing": "This threshold is activated when the reading changes from a value higher than the threshold to a value lower than the threshold.",
+                "Disabled": "This value shall indicate the threshold is disabled and no actions shall be taken as a result of the reading crossing the threshold value.",
                 "Either": "This threshold is activated when either the increasing or decreasing conditions are met.",
                 "Increasing": "This threshold is activated when the reading changes from a value lower than the threshold to a value higher than the threshold."
+            },
+            "enumVersionAdded": {
+                "Disabled": "v1_7_0"
             },
             "type": "string"
         },
@@ -1608,8 +1749,8 @@
                 },
                 "LowerCautionUser": {
                     "$ref": "#/definitions/Threshold",
-                    "description": "The value at which the reading is below normal range.",
-                    "longDescription": "This property shall contain the value at which the Reading property is below normal range.  The value of the property shall use the same units as the Reading property.",
+                    "description": "A user-defined value at which the reading is considered below normal range.",
+                    "longDescription": "This property shall contain a user-defined value at which the Reading property is considered below the normal range.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered below normal range if either the LowerCaution or LowerCautionUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the LowerCaution threshold is implemented as read-only to reflect a service-defined value that cannot be changed.",
                     "versionAdded": "v1_2_0"
                 },
                 "LowerCritical": {
@@ -1619,8 +1760,8 @@
                 },
                 "LowerCriticalUser": {
                     "$ref": "#/definitions/Threshold",
-                    "description": "The value at which the reading is below normal range but not yet fatal.",
-                    "longDescription": "This property shall contain the value at which the Reading property is below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.",
+                    "description": "A user-defined value at which the reading is considered below normal range but not yet fatal.",
+                    "longDescription": "This property shall contain a user-defined value at which the Reading property is considered below the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered below normal range if either the LowerCritical or LowerCriticalUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the LowerCritical threshold is implemented as read-only to reflect a service-defined value that cannot be changed.",
                     "versionAdded": "v1_2_0"
                 },
                 "LowerFatal": {
@@ -1635,8 +1776,8 @@
                 },
                 "UpperCautionUser": {
                     "$ref": "#/definitions/Threshold",
-                    "description": "The value at which the reading is above normal range.",
-                    "longDescription": "This property shall contain the value at which the Reading property is above the normal range.  The value of the property shall use the same units as the Reading property.",
+                    "description": "A user-defined value at which the reading is considered above normal range.",
+                    "longDescription": "This property shall contain a user-defined value at which the Reading property is considered above the normal range.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered above normal range if either the UpperCaution or UpperCautionUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the UpperCaution threshold is implemented as read-only to reflect a service-defined value that cannot be changed.",
                     "versionAdded": "v1_2_0"
                 },
                 "UpperCritical": {
@@ -1646,8 +1787,8 @@
                 },
                 "UpperCriticalUser": {
                     "$ref": "#/definitions/Threshold",
-                    "description": "The value at which the reading is above normal range but not yet fatal.",
-                    "longDescription": "This property shall contain the value at which the Reading property is above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.",
+                    "description": "A user-defined value at which the reading is considered above normal range but not yet fatal.",
+                    "longDescription": "This property shall contain a user-defined value at which the Reading property is considered above the normal range but is not yet fatal.  The value of the property shall use the same units as the Reading property.  The Reading property shall be considered above normal range if either the UpperCritical or UpperCriticalUser threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the UpperCritical threshold is implemented as read-only to reflect a service-defined value that cannot be changed.",
                     "versionAdded": "v1_2_0"
                 },
                 "UpperFatal": {
@@ -1660,6 +1801,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#Sensor.v1_6_0.Sensor"
+    "release": "2023.1",
+    "title": "#Sensor.v1_7_0.Sensor"
 }

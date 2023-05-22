@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  StorageController v1.6.0                                            -->
+<!--# Redfish Schema:  StorageController v1.7.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -64,6 +64,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Battery_v1.xml">
     <edmx:Include Namespace="Battery"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/StorageControllerMetrics_v1.xml">
+    <edmx:Include Namespace="StorageControllerMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Storage_v1.xml">
+    <edmx:Include Namespace="Storage"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -99,6 +105,103 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <ComplexType Name="NVMeSMARTCriticalWarnings"  Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The NVMe SMART Critical Warnings for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the NVMe SMART Critical Warnings for a storage controller."/>
+      </ComplexType>
+
+      <Action Name="AttachNamespaces" IsBound="true">
+        <Annotation Term="OData.Description" String="This action attaches referenced namespaces to the storage controller.  Attached namespaces are added to the AttachedVolumes property in Links."/>
+        <Annotation Term="OData.LongDescription" String="This action shall attach referenced namespaces to the storage controller.  Services shall add the attached namespaces to the AttachedVolumes property in Links."/>
+        <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
+        <Parameter Name="Namespaces" Type="Collection(Volume.Volume)" Nullable="false">
+          <Annotation Term="OData.Description" String="The namespaces to attach to the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type Volume that represent the namespaces to attach to the storage controller."/>
+        </Parameter>
+        <ReturnType Type="StorageController.v1_7_0.AttachDetachNamespacesResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="DetachNamespaces" IsBound="true">
+        <Annotation Term="OData.Description" String="This action detaches referenced namespaces from the storage controller.  Detached namespaces are removed from the AttachedVolumes property in Links."/>
+        <Annotation Term="OData.LongDescription" String="This action shall detach referenced namespaces from the storage controller.  Services shall remove the detached namespaces from the AttachedVolumes property in Links."/>
+        <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
+        <Parameter Name="Namespaces" Type="Collection(Volume.Volume)" Nullable="false">
+          <Annotation Term="OData.Description" String="The namespaces to detach from the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type Volume that represent the namespaces to detach from the storage controller."/>
+        </Parameter>
+        <ReturnType Type="StorageController.v1_7_0.AttachDetachNamespacesResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="SecuritySend" IsBound="true">
+        <Annotation Term="OData.Description" String="This action transfers security protocol data to the controller.  The data transferred to the controller contains security protocol-specific commands to be performed by the controller."/>
+        <Annotation Term="OData.LongDescription" String="This action shall transfer security protocol data to the controller.  The contents of the request are specified by the 'SECURITY PROTOCOL OUT command' section of the SPC-5 Specification."/>
+        <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
+        <Parameter Name="SecurityProtocol" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The security protocol number."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the numeric identifier of the security protocol, as defined by the 'SECURITY PROTOCOL field in SECURITY PROTOCOL OUT command' table of the SPC-5 Specification, and possibly extended by transport-specific standards.  Services shall only accept the values `1` or `2`."/>
+        </Parameter>
+        <Parameter Name="SecurityProtocolSpecific" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The security protocol-specific parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the security protocol-specific data for the transfer operation.  The value is defined by the protocol specified by the SecurityProtocolSpecific parameter."/>
+        </Parameter>
+        <Parameter Name="Data" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The data to transfer."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a Base64-encoded string of the security protocol data to transfer."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="SecurityReceive" IsBound="true">
+        <Annotation Term="OData.Description" String="This action transfers security protocol data from the controller.  The data transferred from the controller contains the status and data result of one or more SecuritySend action requests that were previously submitted to the controller."/>
+        <Annotation Term="OData.LongDescription" String="This action shall transfer security protocol data from the controller.  The contents of the request are specified by the 'SECURITY PROTOCOL IN command' section of the SPC-5 Specification."/>
+        <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
+        <Parameter Name="SecurityProtocol" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The security protocol number."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the numeric identifier of the security protocol, as defined by the 'SECURITY PROTOCOL field in SECURITY PROTOCOL IN command' table of the SPC-5 Specification, and possibly extended by transport-specific standards.  Services shall only accept the values `0`, `1`, or `2`."/>
+        </Parameter>
+        <Parameter Name="SecurityProtocolSpecific" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The security protocol-specific parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the security protocol-specific data for the transfer operation.  The value is defined by the protocol specified by the SecurityProtocolSpecific parameter."/>
+        </Parameter>
+        <Parameter Name="AllocationLength" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="Allocated size for received data."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the allocated size of the received data, which imposes a maximum length of the data.  The response may contain padding to meet this length."/>
+        </Parameter>
+        <ReturnType Type="StorageController.v1_7_0.SecurityReceiveResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_0_0">
@@ -408,10 +511,7 @@
         </Property>
       </ComplexType>
 
-      <ComplexType Name="NVMeSMARTCriticalWarnings">
-        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The NVMe SMART Critical Warnings for a storage controller."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the NVMe SMART Critical Warnings for a storage controller."/>
+      <ComplexType Name="NVMeSMARTCriticalWarnings" BaseType="StorageController.NVMeSMARTCriticalWarnings">
         <Property Name="PMRUnreliable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Persistent Memory Region has become unreliable."/>
@@ -594,6 +694,53 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this storage controller during a power loss event, such as with battery-backed RAID controllers.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual storage controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the AttachNamespaces, DetachNamespaces, SecuritySend, and SecurityReceive actions."/>
+
+      <EntityType Name="StorageController" BaseType="StorageController.v1_6_0.StorageController">
+        <NavigationProperty Name="Metrics" Type="StorageControllerMetrics.StorageControllerMetrics">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the metrics associated with this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the metrics associated with this storage controller."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="StorageController.v1_6_0.Links">
+        <NavigationProperty Name="NVMeDiscoveredSubsystems" Type="Collection(Storage.Storage)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The NVMe subsystems discovered by this discovery controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Storage that represent the NVMe subsystems discovered by this discovery controller.  This property shall only be present if ControllerType in NVMeControllerProperties contains `Discovery`."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="AttachDetachNamespacesResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response body for the AttachNamespaces and DetachNamespaces actions."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the AttachNamespaces and DetachNamespaces actions."/>
+        <NavigationProperty Name="AttachedVolumes" Type="Collection(Volume.Volume)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to volumes that are attached to this controller instance."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Volume that are attached to this instance of storage controller."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="SecurityReceiveResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The security data transferred from a controller."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the security data transferred from a controller."/>
+        <Property Name="Data" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Base64-encoded security protocol data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string of the security protocol data transferred from a controller."/>
+        </Property>
       </ComplexType>
     </Schema>
 

@@ -1,7 +1,7 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_2_1.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "properties": {
         "@Redfish.ActionInfo": {
             "description": "The term can be applied to an action to specify a URI to an ActionInfo resource that describes the parameters supported by this instance of the action.",
@@ -65,7 +65,7 @@
             "readonly": true
         },
         "@Redfish.WriteableProperties": {
-            "description": "The term specifies the properties supported as read-write.  The values contained shall be the names of the writeable properties as defined in the Redfish schema that are available as read-write given the implementation, current configuration, and state of the resource.  This term may appear at the root level of a resource, or within an object.  For arrays of objects, the term may only appear in the first element of the array to indicate identical capabilities for every element in the array.",
+            "description": "The term specifies the properties supported as read-write.  The values contained shall be the names of the writable properties as defined in the Redfish schema that are available as read-write given the implementation, current configuration, and state of the resource.  This term may appear at the root level of a resource, or within an object.  For arrays of objects, the term may only appear in the first element of the array to indicate identical capabilities for every element in the array.",
             "type": "array",
             "items": {
                 "type": "string"

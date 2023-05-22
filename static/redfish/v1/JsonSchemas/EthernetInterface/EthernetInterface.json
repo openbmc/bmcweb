@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_10_0.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -372,7 +372,7 @@
                 },
                 "HostName": {
                     "description": "The DNS host name, without any domain information.",
-                    "longDescription": "This property shall contain DNS host name for this interface.",
+                    "longDescription": "This property shall contain DNS host name for this interface.  Modifying this property may modify the HostName in one or more EthernetInterface resources that belong to the same system, manager, or other device.  If this interface is subordinate to a ComputerSystem resource, modifying this property may modify the HostName of the ComputerSystem resource that contains this interface.  If this interface is subordinate to a Manager resource, modifying this property may modify the HostName of the ManagerNetworkProtocol resource of the Manager resource that contains this interface.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -728,6 +728,19 @@
                 }
             },
             "properties": {
+                "AffiliatedInterfaces": {
+                    "description": "The links to the Ethernet interfaces that are affiliated with this interface, such as a VLAN or a team that uses this interface.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type EthernetInterface that represent Ethernet interfaces that are affiliated with this interface.  EthernetInterface resources referenced in this property shall reference this resource in their RelatedInterfaces property.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_10_0"
+                },
+                "AffiliatedInterfaces@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this Ethernet interface.",
@@ -913,6 +926,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#EthernetInterface.v1_9_0.EthernetInterface"
+    "release": "2023.1",
+    "title": "#EthernetInterface.v1_10_0.EthernetInterface"
 }

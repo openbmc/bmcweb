@@ -506,7 +506,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_8_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "PasswordSet": {
                     "description": "Indicates if the Password property is set.",

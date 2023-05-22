@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.14.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.15.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
-<!--# Copyright 2014-2022 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2023 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
 <!--################################################################################                   -->
 <!---->
@@ -93,6 +93,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
     <edmx:Include Namespace="ComputerSystem"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ConnectionCollection_v1.xml">
+    <edmx:Include Namespace="ConnectionCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -984,6 +987,15 @@
           <Annotation Term="OData.Description" String="All of the storage groups, each of which contains a set of volumes and endpoints that are managed as a group for mapping and masking, that belong to this storage subsystem."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageGroupsCollection.  This property shall be used when implementing mapping and masking."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_15_0"/>
+                <PropertyValue Property="Description" String="This property was deprecated in favor of the Connections property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="EndpointGroups" Type="EndpointGroupCollection.EndpointGroupCollection" Nullable="false" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1192,6 +1204,48 @@
         </Member>
         <Member Name="UseLocalKey">
           <Annotation Term="OData.Description" String="The storage subsystem uses a local key for encryption."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_14_0.Storage">
+        <NavigationProperty Name="Connections" Type="ConnectionCollection.ConnectionCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The collection of links to the connections that this storage subsystem contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ConnectionCollection.  The members of this collection shall reference Connection resources subordinate to Fabric resources."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="AutoVolumeCreate" Type="Storage.v1_15_0.AutoVolumeCreate">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if this storage subsystem automatically create new volumes for unassigned drives."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if volumes are created automatically for each unassigned drive attached to this storage subsystem."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Storage.v1_11_0.Links">
+        <NavigationProperty Name="NVMeoFDiscoverySubysystems" Type="Collection(Storage.Storage)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the discovery subsystems that discovered this subsystem in an NVMe-oF environment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Storage that represent the discovery subsystems that discovered this subsystem in an NVMe-oF environment."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="AutoVolumeCreate">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Do not automatically create volumes."/>
+        </Member>
+        <Member Name="NonRAID">
+          <Annotation Term="OData.Description" String="Automatically create non-RAID volumes."/>
+        </Member>
+        <Member Name="RAID0">
+          <Annotation Term="OData.Description" String="Automatically create RAID0 volumes."/>
+        </Member>
+        <Member Name="RAID1">
+          <Annotation Term="OData.Description" String="Automatically create RAID1 volumes."/>
         </Member>
       </EnumType>
     </Schema>

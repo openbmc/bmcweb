@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_13_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_13_1.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -544,7 +544,7 @@
                 "DeliverBufferedEventDuration": {
                     "description": "The maximum age of buffered events that should be delivered when resuming the subscription.",
                     "longDescription": "This parameter shall indicate the event age of any buffered or otherwise undelivered events that shall be delivered to this event destination when the subscription is resumed.  The service shall deliver any available, previously undelivered event that was created within the duration specified.  A value that equates to zero time, such as `PT0S`, shall indicate that no previously undelivered events shall be sent.  If undelivered events within the duration may been discarded due to a lack of buffer space, the service should send the EventBufferExceeded message from the Base Message Registry.  If the client does not provide this parameter, the service shall apply an implementation specific duration.",
-                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "type": "string",
                     "versionAdded": "v1_12_0"
                 }
@@ -662,7 +662,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_7_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "AuthenticationKeySet": {
                     "description": "Indicates if the AuthenticationKey property is set.",
@@ -695,7 +695,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_7_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 },
                 "EncryptionKeySet": {
                     "description": "Indicates if the EncryptionKey property is set.",
@@ -727,7 +727,7 @@
                         "null"
                     ],
                     "versionAdded": "v1_7_0",
-                    "writeOnly ": true
+                    "writeOnly": true
                 }
             },
             "type": "object"
@@ -936,5 +936,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#EventDestination.v1_13_0.EventDestination"
+    "title": "#EventDestination.v1_13_1.EventDestination"
 }

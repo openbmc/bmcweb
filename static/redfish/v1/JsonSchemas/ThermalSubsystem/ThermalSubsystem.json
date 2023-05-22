@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_2_0.json",
     "$ref": "#/definitions/ThermalSubsystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -88,6 +88,13 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "The Actions property shall contain the available actions for this resource."
                 },
+                "CoolantConnectors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection.json#/definitions/CoolantConnectorCollection",
+                    "description": "A link to the coolant connectors for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the coolant connectors for this equipment.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -155,6 +162,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#ThermalSubsystem.v1_1_0.ThermalSubsystem"
+    "release": "2023.1",
+    "title": "#ThermalSubsystem.v1_2_0.ThermalSubsystem"
 }

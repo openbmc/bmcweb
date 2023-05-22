@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_2_0.json",
     "$ref": "#/definitions/ThermalMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -239,6 +239,36 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource."
                 },
+                "AirFlowCubicMetersPerMinute": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The air flow through the chassis (m^3/min).",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the rate of air flow, in cubic meters per minute units, between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AirFlowCMM`.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "DeltaPressurekPa": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The differential pressure (kPa).",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the pressure, in kilopascal units, for the difference in pressure between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -311,6 +341,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#ThermalMetrics.v1_1_0.ThermalMetrics"
+    "release": "2023.1",
+    "title": "#ThermalMetrics.v1_2_0.ThermalMetrics"
 }
