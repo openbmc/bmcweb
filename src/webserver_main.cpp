@@ -4,6 +4,7 @@
 #include "cors_preflight.hpp"
 #include "dbus_monitor.hpp"
 #include "dbus_singleton.hpp"
+#include "event_dbus_monitor.hpp"
 #include "google/google_service_root.hpp"
 #include "hostname_monitor.hpp"
 #include "ibm/management_console_rest.hpp"
@@ -110,6 +111,9 @@ static int run()
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     crow::ibm_mc::requestRoutes(app);
     crow::ibm_mc_lock::Lock::getInstance();
+    // Start Platform and Partition SAI state change monitor
+    crow::dbus_monitor::registerSAIStateChangeSignal();
+
 #endif
 
 #ifdef BMCWEB_ENABLE_GOOGLE_API
