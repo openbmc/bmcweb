@@ -94,6 +94,30 @@
       },
       "revId": "945d683cb11752178122ece3fa15d7a4c8a8f8c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4026dd9c_aecb0235",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-22T16:52:56Z",
+      "side": 1,
+      "message": "unrelated note. Is https://github.com/openbmc/bmcweb/blob/3e72c2027aa4e64b9892ab0d3970358ba446f1fa/redfish-core/lib/sensors.hpp#L2823 expected? level \u003d 0 will still expand.",
+      "parentUuid": "3b76bfc4_142517cc",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 5
+      },
+      "revId": "945d683cb11752178122ece3fa15d7a4c8a8f8c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
