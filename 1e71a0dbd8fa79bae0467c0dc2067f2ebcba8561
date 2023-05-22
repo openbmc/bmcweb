@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60fb3383_aab9a1d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-22T20:40:48Z",
+      "side": 1,
+      "message": "Seems reasonable. Any testing?",
+      "revId": "1e71a0dbd8fa79bae0467c0dc2067f2ebcba8561",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
