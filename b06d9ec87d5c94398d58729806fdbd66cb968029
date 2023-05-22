@@ -332,6 +332,30 @@
       },
       "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a29a55e_9b85795e",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-22T22:06:56Z",
+      "side": 1,
+      "message": "Right. There\u0027s no need for a mapper lookup. Just use the well-known bus and object name that can be derived from the websocket endpoint. The exception is the backwards-compat case, where you need to map \"console0\" to \"default\".",
+      "parentUuid": "3ec6073c_56507394",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
