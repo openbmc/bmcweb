@@ -100,6 +100,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd739800_5d0ea9c7",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-22T16:36:00Z",
+      "side": 1,
+      "message": "seems like Unkonwn is covered as `std::nullopt` now.",
+      "parentUuid": "3987c862_8d1b0f5a",
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "913861c2_9a362569",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 4
@@ -111,6 +129,24 @@
       "writtenOn": "2023-04-26T20:33:59Z",
       "side": 1,
       "message": "Check for unknown?\n```\n// If the D-Bus property is unknown leave off.\nif (*proto !\u003d \"Unknown\")\n{\n       asyncResp-\u003eres.jsonValue[\"Protocol\"] \u003d *proto;      \n\n}\n```",
+      "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37ae5b09_1bff30ce",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-22T16:36:00Z",
+      "side": 1,
+      "message": "same here. Unknown is covered as `std::nullopt`",
+      "parentUuid": "913861c2_9a362569",
       "revId": "fb20696fbca65d95451937f8d1f824e56ab88e68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
