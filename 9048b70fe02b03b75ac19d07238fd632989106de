@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ba0858a_90d50137",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-22T20:46:19Z",
+      "side": 1,
+      "message": "sure, I can change that. Ed added a comment in that commit but gave a +2",
+      "parentUuid": "10577fd3_25060cc4",
+      "revId": "9048b70fe02b03b75ac19d07238fd632989106de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1b32c4b_a5e173bd",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 7
