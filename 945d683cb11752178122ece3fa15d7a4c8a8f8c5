@@ -46,6 +46,30 @@
       },
       "revId": "945d683cb11752178122ece3fa15d7a4c8a8f8c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb2bf3e_1303178f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-05-22T16:46:19Z",
+      "side": 1,
+      "message": "Wait, what do you mean? I remember the behavior is it handles level 1 in efficient expand, and then expand the left levels in normal expand.",
+      "parentUuid": "671308d6_a366e395",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 5
+      },
+      "revId": "945d683cb11752178122ece3fa15d7a4c8a8f8c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
