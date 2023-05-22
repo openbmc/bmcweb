@@ -4,6 +4,7 @@
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
 
+#include <boost/asio/dispatch.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
@@ -184,8 +185,8 @@ class Server
             [this, connection](const boost::system::error_code& ec) {
             if (!ec)
             {
-                boost::asio::post(*ioService,
-                                  [connection] { connection->start(); });
+                boost::asio::dispatch(*ioService,
+                                      [connection] { connection->start(); });
             }
             doAccept();
             });

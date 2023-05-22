@@ -25,7 +25,7 @@
 #include "registries/privilege_registry.hpp"
 #include "task_messages.hpp"
 
-#include <boost/asio/post.hpp>
+#include <boost/asio/dispatch.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
@@ -292,7 +292,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 self->sendTaskEvent(self->state, self->index);
 
                 // reset the match after the callback was successful
-                boost::asio::post(
+                boost::asio::dispatch(
                     crow::connections::systemBus->get_io_context(),
                     [self] { self->match.reset(); });
                 return;
