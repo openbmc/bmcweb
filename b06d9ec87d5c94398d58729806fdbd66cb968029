@@ -212,6 +212,30 @@
       },
       "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8029b3b2_7c17e13c",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T21:27:37Z",
+      "side": 1,
+      "message": "\u003e will claim the bus name xyz.openbmc_project.Console.consoleXYZ\n\nWe have a bus name per console?  That\u0027s not how we\u0027ve handled this in other places, like sensors.  If that\u0027s the decision, I\u0027m ok with it, it just complicates this code (ie, we now have to have the mapper lookup).",
+      "parentUuid": "65eed1a9_ba49709a",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
