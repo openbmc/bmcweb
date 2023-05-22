@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d571842_1a1be5b3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T17:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89a8c28c_695f30d5",
+      "range": {
+        "startLine": 476,
+        "startChar": 20,
+        "endLine": 476,
+        "endChar": 36
+      },
+      "revId": "f7caf9fc230e568eb7c809d1297755b67dba1ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dde8870c_b890418a",
@@ -84,6 +108,30 @@
       "writtenOn": "2023-05-22T17:05:10Z",
       "side": 1,
       "message": "Is this supposed to be a warning?",
+      "range": {
+        "startLine": 521,
+        "startChar": 20,
+        "endLine": 521,
+        "endChar": 36
+      },
+      "revId": "f7caf9fc230e568eb7c809d1297755b67dba1ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8513ff_76a3b3b6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T17:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dde8870c_b890418a",
       "range": {
         "startLine": 521,
         "startChar": 20,
