@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "454a279c_a664552d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-22T20:22:52Z",
+      "side": 1,
+      "message": "Since Ed uploaded several patch sets, would be good if his name was here too, oh well.",
+      "revId": "cc1506bd152211dcbd8cddedaae4fcbe8236e2f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2fb36c_23ed26db",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-22T20:22:52Z",
+      "side": 1,
+      "message": "can we remove this comment?",
+      "revId": "cc1506bd152211dcbd8cddedaae4fcbe8236e2f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e47c7099_8fb82f62",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-22T20:22:52Z",
+      "side": 1,
+      "message": "I would suggest ERROR here but not required and say something more like \n\nBMCWEB_LOG_ERROR \u003c\u003c \"Processor Throttle getAllProperties error \" \u003c\u003c ec;\n\nThe \"not available\" is tripping me up because it could be a lot more reasons than just unavailable (e.g. timeout).",
+      "revId": "cc1506bd152211dcbd8cddedaae4fcbe8236e2f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
