@@ -236,6 +236,30 @@
       },
       "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5074ccb5_b8bfdbca",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-22T21:49:02Z",
+      "side": 1,
+      "message": "It was a decision taken in the sense that the existing implementation of obmc-console-server has only ever handled one upstream TTY. The implementation already has enough complexity that I think it\u0027s justified that we use multiple instances to expose multiple consoles. If we\u0027re going to move away from that then I\u0027d suggest a new implementation altogether that:\n\n1. Serves multiple upstream TTYs\n2. Listens for network clients directly\n3. Is implemented as an EM reactor\n4. Is not implemented in C (prefer Rust personally)\n\nThat\u0027s a pretty hulking set of desires and not something I immediately have time for.\n\nDespite the apparent complexity for the scope of what it deals with, the current implementation is by comparison relatively simple and agile.",
+      "parentUuid": "8029b3b2_7c17e13c",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
