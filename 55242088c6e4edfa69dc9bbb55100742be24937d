@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65eb30c_ce7813d0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T21:24:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25cbc95d_bcf7580e",
+      "revId": "55242088c6e4edfa69dc9bbb55100742be24937d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfefc71a_a66e2707",
