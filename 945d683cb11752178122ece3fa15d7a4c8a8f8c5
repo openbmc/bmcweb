@@ -70,6 +70,30 @@
       },
       "revId": "945d683cb11752178122ece3fa15d7a4c8a8f8c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b76bfc4_142517cc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-22T16:51:16Z",
+      "side": 1,
+      "message": "yeah, that\u0027s also my understanding. level 1 will use the efficient and level 2+ will be using the default expand.\n\nHere is an example,\n\n```\n wget -qO- \u0027http://localhost:80/redfish/v1/Chassis/BMC/Sensors?$expand\u003d.($levels\u003d1)\u0027\n ...\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/BMC/Sensors/temperature_DIMMXX\",\n      \"@odata.type\": \"#Sensor.v1_2_0.Sensor\",\n      \"Id\": \"temperature_DIMMXX\",\n      \"Name\": \"DIMM16\",\n      \"Reading\": 30.0,\n      \"ReadingRangeMax\": 127.0,\n      \"ReadingRangeMin\": -128.0,\n      \"ReadingType\": \"Temperature\",\n      \"ReadingUnits\": \"Cel\",\n      \"RelatedItem\": [\n        {\n          \"@odata.id\": \"/redfish/v1/Systems/system/Memory/dimmXX\"\n        }\n      ],\n      \"Status\": {\n        \"Health\": \"OK\",\n        \"State\": \"Enabled\"\n      },\n      \"Thresholds\": {\n        \"LowerCaution\": {\n          \"Reading\": null\n        },\n        \"LowerCritical\": {\n          \"Reading\": null\n        },\n        \"UpperCaution\": {\n          \"Reading\": 93.0\n        },\n        \"UpperCritical\": {\n          \"Reading\": 95.0\n        }\n      }\n    }\n  ],\n  \"Members@odata.count\": 242,\n  \"Name\": \"Sensors\"\n}\n```\n\nAnd `level\u003d2` gives out the same result. I thought it would also go into `/redfish/v1/Systems/system/Memory/dimmXX`?",
+      "parentUuid": "cbb2bf3e_1303178f",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 5
+      },
+      "revId": "945d683cb11752178122ece3fa15d7a4c8a8f8c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
