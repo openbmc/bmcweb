@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c6ad88_07168d56",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-22T14:31:21Z",
+      "side": 1,
+      "message": "Would this function is to add an emptySlot if there is no device?\nPerhaps name the function like `addEmptyPCIeSlotIfNotUsed()`?",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "6373339351b66ebe0a1f9df685313bba542d60c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
