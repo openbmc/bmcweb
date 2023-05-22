@@ -22,6 +22,52 @@
       },
       "revId": "f7caf9fc230e568eb7c809d1297755b67dba1ce4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a8c28c_695f30d5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-22T17:05:10Z",
+      "side": 1,
+      "message": "Is this supposed to be a warning? It doesn\u0027t make sense to log an error and return success.",
+      "range": {
+        "startLine": 476,
+        "startChar": 20,
+        "endLine": 476,
+        "endChar": 36
+      },
+      "revId": "f7caf9fc230e568eb7c809d1297755b67dba1ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde8870c_b890418a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-22T17:05:10Z",
+      "side": 1,
+      "message": "Is this supposed to be a warning?",
+      "range": {
+        "startLine": 521,
+        "startChar": 20,
+        "endLine": 521,
+        "endChar": 36
+      },
+      "revId": "f7caf9fc230e568eb7c809d1297755b67dba1ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
