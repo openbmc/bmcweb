@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8a15d3_7d6f89e2",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-22T14:19:03Z",
+      "side": 1,
+      "message": "What if endpoints.size() \u003e 1?\nShould we generate an error message in that case?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 9
+      },
+      "revId": "305c50fe31e46221ea55b5d883bfdf7ced67e1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
