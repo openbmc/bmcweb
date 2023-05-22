@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19560a62_a2d90626",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 98
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T21:22:11Z",
+      "side": 1,
+      "message": "I\u0027ve fixed the issues that I saw with this patchset, including removing the json helper functions, which in practice, didn\u0027t seem to reduce the amount of code here, as well as moved things to use the generated enums where appropriate.  I think this can merge if folks are ok with it.",
+      "revId": "faafe0f92e4e1c6477f6712e0ba5be9c246a57ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
