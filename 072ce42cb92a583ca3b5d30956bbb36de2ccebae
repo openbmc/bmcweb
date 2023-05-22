@@ -16,6 +16,23 @@
       "message": "Fixed the patchset to something that can merge.\n\n@chris, can you please re-review and make sure that the changes I\u0027ve made work for you.  Namely I:\n1. Moved to using the generated enum, instead of hardcoded strings\n2. Modified the flow such that \"ThrottleReasons\" is always produced if supported, even if the array is empty, which is generally what redfish would recommend, not changing the keys supported based on conditions.",
       "revId": "072ce42cb92a583ca3b5d30956bbb36de2ccebae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b09d757_678d616a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T18:04:31Z",
+      "side": 1,
+      "message": "Also, I made the code return internal error on GetAll error, and made both fields non-optional (I don\u0027t see any reason why a service would implement half of this interface).",
+      "revId": "072ce42cb92a583ca3b5d30956bbb36de2ccebae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
