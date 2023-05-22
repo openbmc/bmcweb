@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e818d5_50ccb33a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-22T16:42:26Z",
+      "side": 1,
+      "message": "The only concern is, if we were to use a WIP endpoint then they change things before the official release but we have already implemented the WIP version.\n\n I think the bmcweb maintainers are tied into Redfish enough we have an understanding of what is stable and what really isn\u0027t.",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "7099f3f3f6e7e8300ef84c77f0df259b74fd5f3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a764f86_4b560a0e",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-22T16:42:26Z",
+      "side": 1,
+      "message": "Ugg. They keep changing their directory structure",
+      "range": {
+        "startLine": 240,
+        "startChar": 36,
+        "endLine": 240,
+        "endChar": 44
+      },
+      "revId": "7099f3f3f6e7e8300ef84c77f0df259b74fd5f3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
