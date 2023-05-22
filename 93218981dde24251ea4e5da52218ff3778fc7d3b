@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c280877_8989a6f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-22T16:58:15Z",
+      "side": 1,
+      "message": "2023.1 has been released, and the commit will merge shortly.  Please get this patch fixed up and it can merge as well.",
+      "revId": "93218981dde24251ea4e5da52218ff3778fc7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
