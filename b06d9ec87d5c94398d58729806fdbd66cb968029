@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01106229_e106b4aa",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-22T21:56:20Z",
+      "side": 1,
+      "message": "Good point - I agree you do need this code here. It\u0027s still inefficient in the case of a second request coming in well after the first is established, but not a big deal to me.",
+      "parentUuid": "293fa8fc_ac5fdc59",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08aaa378_1c2dea43",
@@ -276,6 +300,30 @@
       "side": 1,
       "message": "\u003e  The implementation already has enough complexity that I think it\u0027s justified that we use multiple instances to expose multiple consoles\n\nSure, but we\u0027ve just pushed the complexity into clients that want to access it, in this case bmcweb, to hunt down the service needed, which puts the complexity into the webserver, which is not where we\u0027d ideally want it.  It\u0027s not like the complexity went away.\n\nYour 1-4 sounds great, but I\u0027m with you in not having time for it.\n\nWith that said, I\u0027ll reiterate, this is fine as written.",
       "parentUuid": "5074ccb5_b8bfdbca",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "b06d9ec87d5c94398d58729806fdbd66cb968029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec6073c_56507394",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-05-22T21:56:20Z",
+      "side": 1,
+      "message": "Yes, there\u0027s one process/service per console. But it\u0027s an exact mapping between object and bus name.",
+      "parentUuid": "8029b3b2_7c17e13c",
       "range": {
         "startLine": 274,
         "startChar": 4,
