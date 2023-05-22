@@ -27,6 +27,7 @@
 #include "utils/systemd_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <boost/asio/dispatch.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -1302,9 +1303,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
     ~GetPIDValues()
     {
-        boost::asio::post(crow::connections::systemBus->get_io_context(),
-                          std::bind_front(&processingComplete, asyncResp,
-                                          std::move(complete)));
+        boost::asio::dispatch(crow::connections::systemBus->get_io_context(),
+                              std::bind_front(&processingComplete, asyncResp,
+                                              std::move(complete)));
     }
 
     GetPIDValues(const GetPIDValues&) = delete;
