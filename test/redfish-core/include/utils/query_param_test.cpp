@@ -53,7 +53,7 @@ TEST(Delegate, ExpandPositive)
     EXPECT_FALSE(delegated.isOnly);
     EXPECT_EQ(delegated.expandLevel, capabilities.canDelegateExpandLevel);
     EXPECT_EQ(delegated.expandType, ExpandType::Both);
-    EXPECT_EQ(query.expandLevel, 2);
+    EXPECT_EQ(query.expandLevel, 5);
 }
 
 TEST(Delegate, OnlyNegative)
