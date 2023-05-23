@@ -17,7 +17,6 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
-#include "health.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -601,10 +600,6 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& service,
                                  const std::string& objPath)
 {
-    auto health = std::make_shared<HealthPopulate>(aResp);
-    health->selfPath = objPath;
-    health->populate();
-
     BMCWEB_LOG_DEBUG << "Get available system components.";
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
