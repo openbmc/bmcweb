@@ -45,6 +45,30 @@
       },
       "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f026c473_bf39156c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-23T05:56:57Z",
+      "side": 1,
+      "message": "I didn\u0027t do an analysis on using GetManagedObjects to get a single object. It would most likely be a bit faster than multipl dbus calls. The main issue here is that we don\u0027t know which path is the managed object path to make the GetManagedObjects call on. Each service could be different unless we enforce that it has to be a certain path.\n\nDon\u0027t believe we can do that at the moment.",
+      "parentUuid": "a24f55aa_4bae8594",
+      "range": {
+        "startLine": 382,
+        "startChar": 12,
+        "endLine": 384,
+        "endChar": 64
+      },
+      "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
