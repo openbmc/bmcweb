@@ -738,6 +738,37 @@ class AddReport
 };
 } // namespace telemetry
 
+void handleMetricReportGet(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& id)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, telemetry::service,
+        telemetry::getDbusReportPath(id), telemetry::reportInterface,
+        [asyncResp, id](const boost::system::error_code& ec,
+                        const dbus::utility::DBusPropertiesMap& properties) {
+        if (ec.value() == EBADR || ec == boost::system::errc::host_unreachable)
+        {
+            messages::resourceNotFound(asyncResp->res, "MetricReportDefinition",
+                                       id);
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        telemetry::fillReportDefinition(asyncResp, id, properties);
+        });
+}
+
 void handleMetricReportDelete(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
@@ -855,37 +886,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
         .privileges(redfish::privileges::getMetricReportDefinition)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-
-        sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, telemetry::service,
-            telemetry::getDbusReportPath(id), telemetry::reportInterface,
-            [asyncResp,
-             id](const boost::system::error_code& ec,
-                 const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec.value() == EBADR ||
-                ec == boost::system::errc::host_unreachable)
-            {
-                messages::resourceNotFound(asyncResp->res,
-                                           "MetricReportDefinition", id);
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            telemetry::fillReportDefinition(asyncResp, id, properties);
-            });
-        });
+            std::bind_front(handleMetricReportGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
