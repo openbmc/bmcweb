@@ -94,6 +94,30 @@
       },
       "revId": "60a5da4986ea946631a64f8ee0da823b0e436799",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88d00905_eb26bc61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2023-05-23T04:39:44Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not understanding why having one log defined would require us to define another? Lets get your commit message updated with what you\u0027re trying to accomplish, WITHOUT mentioning specifications that don\u0027t apply to Redfish, and we can work on finding a solution.\n\nOpenBmc does not support to log \"DIGITAL/DISCRETE\" SEL events, therefore BMC has to log Redfish instead. I updated commit messages for this point.\n\n\u003e To be more specific, please look at PowerAboveUpperCriticalThreshold, PowerAboveUpperFatalThreshold in the power schema.\n\nIt seems that PowerAboveUpperCriticalThreshold/PowerAboveUpperFatalThreshold is used to indicate the Threshold events, not the \"DIGITAL/DISCRETE\" events. Therefore, I think we need to define new message registries.",
+      "parentUuid": "e1942037_98ef5c11",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "60a5da4986ea946631a64f8ee0da823b0e436799",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
