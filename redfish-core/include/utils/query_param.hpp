@@ -221,7 +221,6 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
         }
         else
         {
-            query.expandLevel -= queryCapabilities.canDelegateExpandLevel;
             delegated.expandLevel = queryCapabilities.canDelegateExpandLevel;
         }
     }
@@ -534,7 +533,7 @@ struct ExpandNode
 // with the keys from the jsonResponse object
 inline void findNavigationReferencesRecursive(
     ExpandType eType, nlohmann::json& jsonResponse,
-    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
+    const nlohmann::json::json_pointer& p, int depth, int skip, bool inLinks,
     std::vector<ExpandNode>& out)
 {
     // If no expand is needed, return early
@@ -554,7 +553,8 @@ inline void findNavigationReferencesRecursive(
             nlohmann::json::json_pointer newPtr = p / index;
             BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
             findNavigationReferencesRecursive(eType, element, newPtr, depth,
-                                              inLinks, out);
+                                              std::max(skip - 1, 0), inLinks,
+                                              out);
             index++;
         }
     }
@@ -574,7 +574,10 @@ inline void findNavigationReferencesRecursive(
             if (uri != nullptr)
             {
                 BMCWEB_LOG_DEBUG << "Found " << *uri << " at " << p.to_string();
-                out.push_back({p, *uri});
+                if (skip == 0)
+                {
+                    out.push_back({p, *uri});
+                }
                 return;
             }
         }
@@ -593,7 +596,10 @@ inline void findNavigationReferencesRecursive(
         {
             return;
         }
-        newDepth--;
+        if (skip == 0)
+        {
+            newDepth--;
+        }
     }
 
     // Loop the object and look for links
@@ -619,7 +625,8 @@ inline void findNavigationReferencesRecursive(
         BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr;
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
-                                          newDepth, localInLinks, out);
+                                          newDepth, std::max(skip - 1, 0),
+                                          localInLinks, out);
     }
 }
 
@@ -630,13 +637,13 @@ inline void findNavigationReferencesRecursive(
 // lands.  May want to avoid forwarding query params when request is uptree from
 // a top level collection.
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, int depth,
+    findNavigationReferences(ExpandType eType, int depth, int skip,
                              nlohmann::json& jsonResponse)
 {
     std::vector<ExpandNode> ret;
     const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
-    findNavigationReferencesRecursive(eType, jsonResponse, root, depth, false,
-                                      ret);
+    findNavigationReferencesRecursive(eType, jsonResponse, root, depth, skip,
+                                      false, ret);
     return ret;
 }
 
@@ -795,10 +802,11 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 
     // Handles the very first level of Expand, and starts a chain of sub-queries
     // for deeper levels.
-    void startQuery(const Query& query)
+    void startQuery(const Query& query, const Query& delegated)
     {
         std::vector<ExpandNode> nodes = findNavigationReferences(
-            query.expandType, query.expandLevel, finalRes->res.jsonValue);
+            query.expandType, query.expandLevel, delegated.expandLevel,
+            finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
         const std::optional<std::string> queryStr = formatQueryForExpand(query);
         if (!queryStr)
@@ -960,7 +968,7 @@ inline void processSelect(crow::Response& intermediateResponse,
 }
 
 inline void
-    processAllParams(crow::App& app, const Query& query,
+    processAllParams(crow::App& app, const Query& query, const Query& delegated,
                      std::function<void(crow::Response&)>& completionHandler,
                      crow::Response& intermediateResponse)
 {
@@ -998,7 +1006,7 @@ inline void
 
         asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
         auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
-        multi->startQuery(query);
+        multi->startQuery(query, delegated);
         return;
     }
 
