@@ -221,7 +221,6 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
         }
         else
         {
-            query.expandLevel -= queryCapabilities.canDelegateExpandLevel;
             delegated.expandLevel = queryCapabilities.canDelegateExpandLevel;
         }
     }
