@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18af08c3_c55c9847",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-23T05:54:46Z",
+      "side": 1,
+      "message": "from downstream discussion.\n\n+rahulkpr@google.com:\n\n\u003eThere are around 8 locations where we are checking for maybeChassisId to decide if it\u0027s directed query or collection. This number would grow as more attributes get added to chassis. I would recommend refactoring to separate the code for handling a chassis instance vs a collection.\n\n\nwltu@google.com:\n\n\u003e I would prefer to keep the two common to prevent them from diverging. I don\u0027t believe more checks to maybeChassisId will be done. In most cases, they just need to pass chassisPtr to support direct query vs. collection.",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 1
+      },
+      "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a24f55aa_4bae8594",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-23T05:54:46Z",
+      "side": 1,
+      "message": "From downstream discussion:\n\nrahulkpr@google.com\n\u003e Was there an analysis done to understand if we do a single GetManagedObjects to the connectionName (and reuse the result for all functions) vs multiple getProperty + getAllProperties, which approach seems to be optimum? I see quite a lot of GetProperty in this file so was wondering.",
+      "range": {
+        "startLine": 382,
+        "startChar": 12,
+        "endLine": 384,
+        "endChar": 64
+      },
+      "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
