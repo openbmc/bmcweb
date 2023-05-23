@@ -56,6 +56,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22f33d88_20e13d87",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-23T20:05:45Z",
+      "side": 1,
+      "message": "Should this really return or just continue? You are going to leave off additional properties on a warning..?",
+      "revId": "9048b70fe02b03b75ac19d07238fd632989106de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c89ccf1_3c43d1c2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-23T20:05:45Z",
+      "side": 1,
+      "message": "Should this really return or just continue?",
+      "revId": "9048b70fe02b03b75ac19d07238fd632989106de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1b32c4b_a5e173bd",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 7
