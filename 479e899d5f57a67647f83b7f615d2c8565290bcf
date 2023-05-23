@@ -22,6 +22,30 @@
       },
       "revId": "479e899d5f57a67647f83b7f615d2c8565290bcf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79e74a81_82b11079",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-23T22:26:08Z",
+      "side": 0,
+      "message": "The issue is when it start paring the json to find odata.id with https://github.com/openbmc/bmcweb/blob/479e899d5f57a67647f83b7f615d2c8565290bcf/redfish-core/include/utils/query_param.hpp#.\n\n`findNavigationReferencesRecursive` only parse 1 level of odata.id since it doesn\u0027t skip the one that is delegated. \n\nAnother potential that\u0027s more clear on the intention would be...\n\nPass delegated to processAllParams -\u003e startQuery\n\nhttps://github.com/openbmc/bmcweb/blob/479e899d5f57a67647f83b7f615d2c8565290bcf/redfish-core/include/utils/query_param.hpp#L962-L1003\n\nSo we do\n\n```\nstd::vector\u003cExpandNode\u003e nodes \u003d findNavigationReferences(\n            query.expandType, query.expandLevel + delegated.expandLevel, finalRes-\u003eres.jsonValue);\n```\ninstead. Or something like skip first `delegated.expandLevel` level.",
+      "parentUuid": "e46898e2_79eb5a5c",
+      "range": {
+        "startLine": 224,
+        "startChar": 33,
+        "endLine": 224,
+        "endChar": 50
+      },
+      "revId": "479e899d5f57a67647f83b7f615d2c8565290bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
