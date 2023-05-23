@@ -53,7 +53,7 @@ TEST(Delegate, ExpandPositive)
     EXPECT_FALSE(delegated.isOnly);
     EXPECT_EQ(delegated.expandLevel, capabilities.canDelegateExpandLevel);
     EXPECT_EQ(delegated.expandType, ExpandType::Both);
-    EXPECT_EQ(query.expandLevel, 2);
+    EXPECT_EQ(query.expandLevel, 5);
 }
 
 TEST(Delegate, OnlyNegative)
@@ -659,23 +659,25 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
         "Foo" : {"@odata.id": "/foobar"}})"_json;
 
     // Parsing as the root should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, 1, singleTreeNode),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::Both, 1, 0, singleTreeNode),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 
     // Parsing in Non-hyperlinks mode should net one entry
     EXPECT_THAT(
-        findNavigationReferences(ExpandType::NotLinks, 1, singleTreeNode),
+        findNavigationReferences(ExpandType::NotLinks, 1, 0, singleTreeNode),
         UnorderedElementsAre(
             ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 
     // Searching for not types should return empty set
-    EXPECT_TRUE(
-        findNavigationReferences(ExpandType::None, 1, singleTreeNode).empty());
+    EXPECT_TRUE(findNavigationReferences(ExpandType::None, 1, 0, singleTreeNode)
+                    .empty());
 
     // Searching for hyperlinks only should return empty set
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::Links, 1, singleTreeNode).empty());
+        findNavigationReferences(ExpandType::Links, 1, 0, singleTreeNode)
+            .empty());
 
     // Responses must include their "@odata.id" property for $expand to work
     // correctly
@@ -686,7 +688,7 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
 
     // Should still find Foo
     EXPECT_THAT(
-        findNavigationReferences(ExpandType::NotLinks, 1, multiTreeNodes),
+        findNavigationReferences(ExpandType::NotLinks, 1, 0, multiTreeNodes),
         UnorderedElementsAre(
             ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 }
@@ -702,21 +704,23 @@ TEST(QueryParams, FindNavigationReferencesLink)
         "Links" : {"Sessions": {"@odata.id": "/foobar"}}})"_json;
 
     // Parsing as the root should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, 1, singleLinkNode),
-                UnorderedElementsAre(ExpandNode{
-                    json::json_pointer("/Links/Sessions"), "/foobar"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::Both, 1, 0, singleLinkNode),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Links/Sessions"), "/foobar"}));
     // Parsing in hyperlinks mode should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Links, 1, singleLinkNode),
-                UnorderedElementsAre(ExpandNode{
-                    json::json_pointer("/Links/Sessions"), "/foobar"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::Links, 1, 0, singleLinkNode),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Links/Sessions"), "/foobar"}));
 
     // Searching for not types should return empty set
-    EXPECT_TRUE(
-        findNavigationReferences(ExpandType::None, 1, singleLinkNode).empty());
+    EXPECT_TRUE(findNavigationReferences(ExpandType::None, 1, 0, singleLinkNode)
+                    .empty());
 
     // Searching for non-hyperlinks only should return empty set
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::NotLinks, 1, singleLinkNode)
+        findNavigationReferences(ExpandType::NotLinks, 1, 0, singleLinkNode)
             .empty());
 }
 
@@ -754,10 +758,10 @@ TEST(QueryParams, PreviouslyExpanded)
 
     // Expand has already occurred so we should not do anything
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::NotLinks, 1, expNode).empty());
+        findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode).empty());
 
     // Previous expand was only a single level so we should further expand
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, expNode),
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
                 UnorderedElementsAre(
                     ExpandNode{json::json_pointer("/Members/0/Sensors"),
                                "/redfish/v1/Chassis/5B247A_Sat1/Sensors"},
@@ -768,17 +772,50 @@ TEST(QueryParams, PreviouslyExpanded)
     json expNode2 = R"({"@odata.id" : "/redfish/v1"})"_json;
     expNode2["Chassis"] = std::move(expNode);
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::NotLinks, 1, expNode2).empty());
+        findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode2).empty());
     EXPECT_TRUE(
-        findNavigationReferences(ExpandType::NotLinks, 2, expNode2).empty());
+        findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode2).empty());
 
     // Previous expand was two levels so we should further expand
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 3, expNode2),
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 3, 0, expNode2),
                 UnorderedElementsAre(
                     ExpandNode{json::json_pointer("/Chassis/Members/0/Sensors"),
                                "/redfish/v1/Chassis/5B247A_Sat1/Sensors"},
                     ExpandNode{json::json_pointer("/Chassis/Members/1/Sensors"),
                                "/redfish/v1/Chassis/5B247A_Sat2/Sensors"}));
+}
+
+TEST(QueryParams, DelegatedSkipExpanded)
+{
+    using nlohmann::json;
+
+    // Responses must include their "@odata.id" property for $expand to work
+    // correctly
+    json expNode = json::parse(R"(
+{
+  "@odata.id": "/redfish/v1",
+  "Foo": {
+    "@odata.id": "/foo"
+  },
+  "Bar": {
+    "@odata.id": "/bar",
+    "Foo": {
+      "@odata.id": "/barfoo"
+    }
+  }
+}
+)",
+                               nullptr, false);
+
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
+                UnorderedElementsAre(
+                    ExpandNode{json::json_pointer("/Foo"), "/foo"},
+                    ExpandNode{json::json_pointer("/Bar/Foo"), "/barfoo"}));
+
+    // Skip the first expand level
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 1, 1, expNode),
+                UnorderedElementsAre(
+                    ExpandNode{json::json_pointer("/Bar/Foo"), "/barfoo"}));
 }
 
 TEST(QueryParams, PartiallyPreviouslyExpanded)
@@ -812,13 +849,13 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
     // The 5B247A_Sat1 Chassis was already expanded a single level so we should
     // only want to expand the Local Chassis
     EXPECT_THAT(
-        findNavigationReferences(ExpandType::NotLinks, 1, expNode),
+        findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode),
         UnorderedElementsAre(ExpandNode{json::json_pointer("/Members/0"),
                                         "/redfish/v1/Chassis/Local"}));
 
     // The 5B247A_Sat1 Chassis was already expanded a single level so we should
     // further expand it as well as the Local Chassis
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, expNode),
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
                 UnorderedElementsAre(
                     ExpandNode{json::json_pointer("/Members/0"),
                                "/redfish/v1/Chassis/Local"},
@@ -830,19 +867,19 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
                         "Systems": {"@odata.id": "/redfish/v1/Systems"}})"_json;
     expNode2["Chassis"] = std::move(expNode);
 
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 1, expNode2),
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode2),
                 UnorderedElementsAre(ExpandNode{json::json_pointer("/Systems"),
                                                 "/redfish/v1/Systems"}));
 
     EXPECT_THAT(
-        findNavigationReferences(ExpandType::NotLinks, 2, expNode2),
+        findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode2),
         UnorderedElementsAre(
             ExpandNode{json::json_pointer("/Systems"), "/redfish/v1/Systems"},
             ExpandNode{json::json_pointer("/Chassis/Members/0"),
                        "/redfish/v1/Chassis/Local"}));
 
     EXPECT_THAT(
-        findNavigationReferences(ExpandType::NotLinks, 3, expNode2),
+        findNavigationReferences(ExpandType::NotLinks, 3, 0, expNode2),
         UnorderedElementsAre(
             ExpandNode{json::json_pointer("/Systems"), "/redfish/v1/Systems"},
             ExpandNode{json::json_pointer("/Chassis/Members/0"),
