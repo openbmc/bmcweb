@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fb0d290b_0806d3d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa1a1bb8_b0f74710",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 52
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d7191587_532a3967",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 16
@@ -110,6 +134,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aecfbb0_8bb465b8",
+        "filename": "http/routing.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd948287_556c4168",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 49
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe863d3f_0142f69e",
@@ -179,6 +227,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6408cb0e_cfaca0d7",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2faae559_d12089fa",
+      "range": {
+        "startLine": 108,
+        "startChar": 47,
+        "endLine": 108,
+        "endChar": 51
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40a7a786_7b9b736b",
@@ -204,6 +276,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5f79c3a_872fe38a",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "server was set in server_sent_events.hpp file, so followed the same format",
+      "parentUuid": "40a7a786_7b9b736b",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 67
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "963017c7_2464b7a6",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 16
@@ -215,6 +311,30 @@
       "writtenOn": "2023-04-17T17:01:17Z",
       "side": 1,
       "message": "Aren\u0027t these the defaults?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 34
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d8a988_65da84a4",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "963017c7_2464b7a6",
       "range": {
         "startLine": 127,
         "startChar": 0,
@@ -317,6 +437,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d6b207_78f93e42",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29fd0f2c_45a7894d",
+      "range": {
+        "startLine": 153,
+        "startChar": 56,
+        "endLine": 153,
+        "endChar": 59
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3cbd9e1_46ec56d7",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aab53af_77305c42",
+      "range": {
+        "startLine": 153,
+        "startChar": 13,
+        "endLine": 153,
+        "endChar": 17
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b064e8f_7330e8a7",
@@ -330,6 +498,30 @@
       "writtenOn": "2023-04-17T17:01:17Z",
       "side": 1,
       "message": "We\u0027re erroring out and closing here.  THere\u0027s no need to commit or consume.",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 0
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8d3b7fa_2c1e0d76",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b064e8f_7330e8a7",
       "range": {
         "startLine": 160,
         "startChar": 0,
@@ -363,6 +555,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd4443b_268d48f3",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6362592_c2d37b41",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 19
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6606b32_9055e548",
@@ -376,6 +592,30 @@
       "writtenOn": "2023-04-17T17:01:17Z",
       "side": 1,
       "message": "const boost::system::error_code\u0026",
+      "range": {
+        "startLine": 187,
+        "startChar": 37,
+        "endLine": 187,
+        "endChar": 61
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7af8410_6622258b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6606b32_9055e548",
       "range": {
         "startLine": 187,
         "startChar": 37,
@@ -409,6 +649,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e958560f_07eca226",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67320830_5f290c7b",
+      "range": {
+        "startLine": 188,
+        "startChar": 37,
+        "endLine": 188,
+        "endChar": 55
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "537b4787_a566f7bc",
@@ -422,6 +686,30 @@
       "writtenOn": "2023-04-17T17:01:17Z",
       "side": 1,
       "message": "Please use the boost::beast::http::field enum rather than a string.",
+      "range": {
+        "startLine": 220,
+        "startChar": 37,
+        "endLine": 220,
+        "endChar": 51
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a8ac34_ec9d39a1",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537b4787_a566f7bc",
       "range": {
         "startLine": 220,
         "startChar": 37,
@@ -478,6 +766,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4efc7789_95a86764",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87ce1e91_ff7015e0",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 25
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f58aa075_1d32866b",
@@ -501,6 +813,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ff5b95_4c28d05b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f58aa075_1d32866b",
+      "range": {
+        "startLine": 231,
+        "startChar": 28,
+        "endLine": 231,
+        "endChar": 39
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcbf32f2_9705a1c3",
@@ -514,6 +850,30 @@
       "writtenOn": "2023-04-17T17:01:17Z",
       "side": 1,
       "message": "string_view doesn\u0027t need to be const.",
+      "range": {
+        "startLine": 254,
+        "startChar": 19,
+        "endLine": 254,
+        "endChar": 24
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "481d155a_4cadf5f3",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcbf32f2_9705a1c3",
       "range": {
         "startLine": 254,
         "startChar": 19,
@@ -572,6 +932,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58c0667e_7c7bbf22",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Followed the same implementation as present in connection.hpp",
+      "parentUuid": "b63e50f0_c35b878c",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 63
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e3e193d2_741954c4",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 16
@@ -583,6 +967,30 @@
       "writtenOn": "2023-04-17T17:01:17Z",
       "side": 1,
       "message": "None of these should be passing by shared_ptr.  the openHandler is not taking ownership of the connection.",
+      "range": {
+        "startLine": 299,
+        "startChar": 23,
+        "endLine": 299,
+        "endChar": 50
+      },
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c4d65e_1a694976",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "openhandler calls createSubscription which needs shared_ptr, hence shared_ptr is passed",
+      "parentUuid": "e3e193d2_741954c4",
       "range": {
         "startLine": 299,
         "startChar": 23,

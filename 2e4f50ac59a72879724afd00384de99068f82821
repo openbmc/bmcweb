@@ -262,6 +262,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3841849d_23887f1d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5808eec_aa461d8b",
+      "range": {
+        "startLine": 353,
+        "startChar": 20,
+        "endLine": 353,
+        "endChar": 46
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18d27540_c22a3530",
@@ -451,6 +475,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "456b355e_dc155154",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "220be980_0cac0b79",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d7a5158_fb4feb65",
@@ -535,6 +583,30 @@
       "side": 1,
       "message": "Basically before starting the SSE event-stream, request need to be validated in terms of correctness( Example: Query parameters supplied as part of request is not correct,), need to respond and close the connection. So this call back is used to for the same.",
       "parentUuid": "a4ac73c5_4923bf7a",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b04618e_b55a224b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d34f45_2421bf9b",
       "range": {
         "startLine": 78,
         "startChar": 0,
@@ -688,6 +760,24 @@
       "side": 1,
       "message": "Still not addressed.  Comment was made 2 years ago.",
       "parentUuid": "80aa279a_568f0007",
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57fdf435_c9effb7e",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Addressed in the latest patch",
+      "parentUuid": "2d7d6d13_1fd2accf",
       "revId": "2e4f50ac59a72879724afd00384de99068f82821",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -894,6 +984,30 @@
       "side": 1,
       "message": "basically if request packet has some invalid data(Example: $filter query params wrong), Before we start the SSE connection stream, We need to complete the request - By sending error response and close the connection. This API does the same completes the Request(by sending error response) and close the connection.",
       "parentUuid": "54d3f112_b536fd25",
+      "range": {
+        "startLine": 210,
+        "startChar": 9,
+        "endLine": 210,
+        "endChar": 24
+      },
+      "revId": "2e4f50ac59a72879724afd00384de99068f82821",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3388c2f8_2cabb439",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-05-23T17:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d7fde9f_2e712510",
       "range": {
         "startLine": 210,
         "startChar": 9,
