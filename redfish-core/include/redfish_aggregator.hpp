@@ -874,10 +874,11 @@ class RedfishAggregator
         {
 
             uint8_t operationId = 1;
+            const char* request_payload = "";
             BMCWEB_LOG_DEBUG << " Collection Request: dbus call to RDE Daemon "
                              << " operationId " << operationId;
             std::string targetURI(thisReq.target());
-            BMCWEB_LOG_DEBUG << "objpath " << rsat.second.objectpath
+            BMCWEB_LOG_DEBUG << "Collections objpath " << rsat.second.objectpath
                              << " targetURI " << targetURI << " udevid "
                              << rsat.second.udevid;
             crow::connections::systemBus->async_method_call(
@@ -892,11 +893,11 @@ class RedfishAggregator
                     return;
                 }
                 processRdeCollectionResponse(rsat.first, asyncResp, jsonString);
-                },
+            },
                 "xyz.openbmc_project.rdeoperation1", rsat.second.objectpath,
                 "xyz.openbmc_project.RdeDevice", "execute_rde",
-                generateRandomInt(), operationId, targetURI,
-                rsat.second.udevid);
+                generateRandomInt(), operationId, targetURI, rsat.second.udevid,
+                request_payload);
         }
     }
 
@@ -933,14 +934,21 @@ class RedfishAggregator
         targetURI.erase(pos, prefix.size() + 1);
 
         uint8_t operationId = 1;
+        const char* request_payload;
+        boost::beast::http::verb method = thisReq.method();
+        if (thisReq.method() == boost::beast::http::verb::post)
+        {
+            operationId = 8;
+            request_payload = thisReq.body().data();
+        }
         BMCWEB_LOG_DEBUG
             << " Resource Request: dbus call to RDE Daemon operationId "
             << operationId;
         BMCWEB_LOG_DEBUG << "objpath " << sat->second.objectpath
                          << " targetURI " << targetURI << " udevid "
-                         << sat->second.udevid;
+                         << sat->second.udevid << " method " << method;
         crow::connections::systemBus->async_method_call(
-            [&operationId, prefix,
+            [&operationId, method, prefix,
              asyncResp](const boost::system::error_code ec,
                         const std::string& jsonString) {
             if (ec)
@@ -950,16 +958,17 @@ class RedfishAggregator
                                  << ec.message();
                 return;
             }
-            processRdeResponse(prefix, asyncResp, jsonString);
-            },
+            processRdeResponse(prefix, method, asyncResp, jsonString);
+        },
             "xyz.openbmc_project.rdeoperation1", sat->second.objectpath,
             "xyz.openbmc_project.RdeDevice", "execute_rde", generateRandomInt(),
-            operationId, targetURI, sat->second.udevid);
+            operationId, targetURI, sat->second.udevid, request_payload);
     }
     // Processes the response returned by a RDE Device and loads its
     // contents into asyncResp
     static void
         processRdeResponse(std::string_view prefix,
+                           boost::beast::http::verb method,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& respString)
     {
@@ -968,13 +977,26 @@ class RedfishAggregator
             nlohmann::json::parse(respString, nullptr, false);
         if (jsonVal.is_discarded())
         {
-            BMCWEB_LOG_ERROR << "Error parsing RDE Device response as JSON";
+            BMCWEB_LOG_ERROR << "Error parsing RDE Device response as JSON "
+                             << respString;
             messages::operationFailed(asyncResp->res);
             return;
         }
 
         BMCWEB_LOG_DEBUG << "Successfully parsed RDE Device response";
 
+        if (method == boost::beast::http::verb::post)
+        {
+            if (jsonVal["Status"] == "Completed")
+            {
+                asyncResp->res.result(200);
+            }
+            else
+            {
+                messages::operationFailed(asyncResp->res);
+            }
+            return;
+        }
         // TODO: For collections we  want to add the satellite responses to
         // our response rather than just straight overwriting them if our
         // local handling was successful (i.e. would return a 200).
