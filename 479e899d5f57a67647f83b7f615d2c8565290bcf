@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e46898e2_79eb5a5c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-05-23T22:18:54Z",
+      "side": 0,
+      "message": "Wait, why is this correct?\n\nThe default expand handler runs after dedicated ones, so minus is correct to me",
+      "range": {
+        "startLine": 224,
+        "startChar": 33,
+        "endLine": 224,
+        "endChar": 50
+      },
+      "revId": "479e899d5f57a67647f83b7f615d2c8565290bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
