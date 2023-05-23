@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd090687_536b67ad",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-23T22:29:37Z",
+      "side": 1,
+      "message": "Need to take this up in another effort.",
+      "parentUuid": "c5dbd72b_40b8d70a",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95db5af1_de23d101",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-03T19:26:15Z",
       "side": 1,
       "message": "const error_code\u0026 please.",
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e0a4bb5_b5e46559",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-23T22:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95db5af1_de23d101",
       "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
