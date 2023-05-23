@@ -18,7 +18,6 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
-#include "health.hpp"
 #include "hypervisor_system.hpp"
 #include "led.hpp"
 #include "pcie.hpp"
@@ -237,13 +236,10 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  * @brief Retrieves computer system properties over dbus
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] systemHealth  Shared HealthPopulate pointer
  *
  * @return None.
  */
-inline void
-    getComputerSystem(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                      const std::shared_ptr<HealthPopulate>& systemHealth)
+inline void getComputerSystem(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
     constexpr std::array<std::string_view, 5> interfaces = {
@@ -255,9 +251,8 @@ inline void
     };
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        [aResp,
-         systemHealth](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        [aResp](const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -278,15 +273,6 @@ inline void
             {
                 continue;
             }
-
-            auto memoryHealth = std::make_shared<HealthPopulate>(
-                aResp, "/MemorySummary/Status"_json_pointer);
-
-            auto cpuHealth = std::make_shared<HealthPopulate>(
-                aResp, "/ProcessorSummary/Status"_json_pointer);
-
-            systemHealth->children.emplace_back(memoryHealth);
-            systemHealth->children.emplace_back(cpuHealth);
 
             // This is not system, so check if it's cpu, dimm, UUID or
             // BiosVer
@@ -380,8 +366,6 @@ inline void
                                                     ["State"] = "Enabled";
                             }
                             });
-
-                        memoryHealth->inventory.emplace_back(path);
                     }
                     else if (interfaceName ==
                              "xyz.openbmc_project.Inventory.Item.Cpu")
@@ -390,8 +374,6 @@ inline void
                             << "Found Cpu, now get its properties.";
 
                         getProcessorSummary(aResp, connection.first, path);
-
-                        cpuHealth->inventory.emplace_back(path);
                     }
                     else if (interfaceName == "xyz.openbmc_project.Common.UUID")
                     {
@@ -3091,27 +3073,6 @@ inline void requestRoutesSystems(App& app)
             nlohmann::json::array_t({"KVMIP"});
 
 #endif // BMCWEB_ENABLE_KVM
-        constexpr std::array<std::string_view, 4> inventoryForSystems{
-            "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.Cpu",
-            "xyz.openbmc_project.Inventory.Item.Drive",
-            "xyz.openbmc_project.Inventory.Item.StorageController"};
-
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
-        dbus::utility::getSubTreePaths(
-            "/", 0, inventoryForSystems,
-            [health](const boost::system::error_code& ec,
-                     const std::vector<std::string>& resp) {
-            if (ec)
-            {
-                // no inventory
-                return;
-            }
-
-            health->inventory = resp;
-            });
-
-        health->populate();
 
         getMainChassisId(asyncResp,
                          [](const std::string& chassisId,
@@ -3126,7 +3087,7 @@ inline void requestRoutesSystems(App& app)
         getLocationIndicatorActive(asyncResp);
         // TODO (Gunnar): Remove IndicatorLED after enough time has passed
         getIndicatorLedState(asyncResp);
-        getComputerSystem(asyncResp, health);
+        getComputerSystem(asyncResp);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getBootProgress(asyncResp);

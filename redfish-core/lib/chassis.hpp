@@ -17,7 +17,6 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
-#include "health.hpp"
 #include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -249,21 +248,6 @@ inline void
             {
                 continue;
             }
-
-            auto health = std::make_shared<HealthPopulate>(asyncResp);
-
-            dbus::utility::getAssociationEndPoints(
-                path + "/all_sensors",
-                [health](const boost::system::error_code& ec2,
-                         const dbus::utility::MapperEndPoints& resp) {
-                if (ec2)
-                {
-                    return; // no sensors = no failures
-                }
-                health->inventory = resp;
-                });
-
-            health->populate();
 
             if (connectionNames.empty())
             {
