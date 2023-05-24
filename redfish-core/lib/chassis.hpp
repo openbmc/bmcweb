@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
@@ -252,18 +254,21 @@ inline void
 
             auto health = std::make_shared<HealthPopulate>(asyncResp);
 
-            dbus::utility::getAssociationEndPoints(
-                path + "/all_sensors",
-                [health](const boost::system::error_code& ec2,
-                         const dbus::utility::MapperEndPoints& resp) {
-                if (ec2)
-                {
-                    return; // no sensors = no failures
-                }
-                health->inventory = resp;
-                });
+            if constexpr (bmcwebEnableHealthPopulate)
+            {
+                dbus::utility::getAssociationEndPoints(
+                    path + "/all_sensors",
+                    [health](const boost::system::error_code& ec2,
+                             const dbus::utility::MapperEndPoints& resp) {
+                    if (ec2)
+                    {
+                        return; // no sensors = no failures
+                    }
+                    health->inventory = resp;
+                    });
 
-            health->populate();
+                health->populate();
+            }
 
             if (connectionNames.empty())
             {

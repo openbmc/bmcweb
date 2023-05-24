@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
@@ -380,8 +382,11 @@ inline void
             auto cpuHealth = std::make_shared<HealthPopulate>(
                 aResp, "/ProcessorSummary/Status"_json_pointer);
 
-            systemHealth->children.emplace_back(memoryHealth);
-            systemHealth->children.emplace_back(cpuHealth);
+            if constexpr (bmcwebEnableHealthPopulate)
+            {
+                systemHealth->children.emplace_back(memoryHealth);
+                systemHealth->children.emplace_back(cpuHealth);
+            }
 
             // This is not system, so check if it's cpu, dimm, UUID or
             // BiosVer
@@ -3107,27 +3112,30 @@ inline void requestRoutesSystems(App& app)
             nlohmann::json::array_t({"KVMIP"});
 
 #endif // BMCWEB_ENABLE_KVM
-        constexpr std::array<std::string_view, 4> inventoryForSystems{
-            "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.Cpu",
-            "xyz.openbmc_project.Inventory.Item.Drive",
-            "xyz.openbmc_project.Inventory.Item.StorageController"};
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
-        dbus::utility::getSubTreePaths(
-            "/", 0, inventoryForSystems,
-            [health](const boost::system::error_code& ec,
-                     const std::vector<std::string>& resp) {
-            if (ec)
-            {
-                // no inventory
-                return;
-            }
+        if constexpr (bmcwebEnableHealthPopulate)
+        {
+            constexpr std::array<std::string_view, 4> inventoryForSystems{
+                "xyz.openbmc_project.Inventory.Item.Dimm",
+                "xyz.openbmc_project.Inventory.Item.Cpu",
+                "xyz.openbmc_project.Inventory.Item.Drive",
+                "xyz.openbmc_project.Inventory.Item.StorageController"};
 
-            health->inventory = resp;
-            });
+            dbus::utility::getSubTreePaths(
+                "/", 0, inventoryForSystems,
+                [health](const boost::system::error_code& ec,
+                         const std::vector<std::string>& resp) {
+                if (ec)
+                {
+                    // no inventory
+                    return;
+                }
 
-        health->populate();
+                health->inventory = resp;
+                });
+            health->populate();
+        }
 
         getMainChassisId(asyncResp,
                          [](const std::string& chassisId,
