@@ -51,6 +51,24 @@
       "parentUuid": "ff305150_b13cf8ed",
       "revId": "ad3e9f36e867fb7c56f4296bffa62e7b39fc7dd9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd901f0f_c6fd14af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T18:56:16Z",
+      "side": 1,
+      "message": "gotcha.  once you think this patch it ok, it can merge.",
+      "parentUuid": "cfb04935_394b4656",
+      "revId": "ad3e9f36e867fb7c56f4296bffa62e7b39fc7dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
