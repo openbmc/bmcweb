@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f94d6c8c_2d177f02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2023-05-24T20:57:59Z",
+      "side": 1,
+      "message": "The issue you linked is about \"querying sensors on chassis without sensors is as expensive as querying sensors on chassis with a lot of sensors\".\n\nThat\u0027s a known issue of the sensor handler code. This efficient expand in chassis won\u0027t make the situation worse at all.",
+      "parentUuid": "deffb1f6_bdf13648",
+      "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18af08c3_c55c9847",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 7
