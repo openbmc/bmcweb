@@ -22,6 +22,30 @@
       },
       "revId": "c48b9a0c46270d467e9482930e8c3d4eab166992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "977f9377_ba11b178",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-24T13:57:51Z",
+      "side": 1,
+      "message": "I had to add service and path debug as those are ifdefed. I kept on separate BMCWEB_LOG_DEBUG because it prints long string so wanted to keep them separate as compared to before. Other option is to use \"__attribute__((unused))\" for service and path.",
+      "parentUuid": "230b595d_8857806b",
+      "range": {
+        "startLine": 255,
+        "startChar": 2,
+        "endLine": 255,
+        "endChar": 68
+      },
+      "revId": "c48b9a0c46270d467e9482930e8c3d4eab166992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
