@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d3ddf22_4b231b99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-24T19:04:38Z",
+      "side": 1,
+      "message": "This is really neat. Impressive job putting this POC together in such a short amount of time. \n\nAs your email states, this introduces a whole slew of other problems. One of the ones I would be most worried about is teaching and reviewing multi-threaded code. We already struggle with reviews in bmcweb. :/\n\nI would bet this doesn\u0027t solve the performance problem Rohit PAI mentioned on the mailing list but am super curious about any results.",
+      "revId": "c826837f3fdd07eea0024310241fe5563a993fd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
