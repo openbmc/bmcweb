@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
@@ -1559,30 +1561,31 @@ inline void
                        const std::vector<IPv4AddressData>& ipv4Data,
                        const std::vector<IPv6AddressData>& ipv6Data)
 {
-    constexpr std::array<std::string_view, 1> inventoryForEthernet = {
-        "xyz.openbmc_project.Inventory.Item.Ethernet"};
-
     nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/bmc/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
-    auto health = std::make_shared<HealthPopulate>(asyncResp);
+    if constexpr (bmcwebEnableHealthPopulate)
+    {
+        constexpr std::array<std::string_view, 1> inventoryForEthernet = {
+            "xyz.openbmc_project.Inventory.Item.Ethernet"};
+        auto health = std::make_shared<HealthPopulate>(asyncResp);
+        dbus::utility::getSubTreePaths(
+            "/", 0, inventoryForEthernet,
+            [health](const boost::system::error_code& ec,
+                     const dbus::utility::MapperGetSubTreePathsResponse& resp) {
+            if (ec)
+            {
+                return;
+            }
 
-    dbus::utility::getSubTreePaths(
-        "/", 0, inventoryForEthernet,
-        [health](const boost::system::error_code& ec,
-                 const dbus::utility::MapperGetSubTreePathsResponse& resp) {
-        if (ec)
-        {
-            return;
-        }
+            health->inventory = resp;
+            });
 
-        health->inventory = resp;
-        });
-
-    health->populate();
+        health->populate();
+    }
 
     if (ethData.nicEnabled)
     {

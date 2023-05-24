@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
@@ -2015,9 +2017,12 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
             std::move(managerForServers);
 
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
-        health->isManagersHealth = true;
-        health->populate();
+        if constexpr (bmcwebEnableHealthPopulate)
+        {
+            auto health = std::make_shared<HealthPopulate>(asyncResp);
+            health->isManagersHealth = true;
+            health->populate();
+        }
 
         sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
                                              "FirmwareVersion", true);
