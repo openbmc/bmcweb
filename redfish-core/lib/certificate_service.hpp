@@ -297,7 +297,8 @@ static void getCertificateProperties(
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objectPath, certs::certPropIntf,
+        crow::connections::systemBus(), service, objectPath,
+        certs::certPropIntf,
         [asyncResp, certURL, certId,
          name](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -381,7 +382,7 @@ static void
                       const std::string& service,
                       const sdbusplus::message::object_path& objectPath)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp,
          id{objectPath.filename()}](const boost::system::error_code& ec) {
         if (ec)
@@ -554,7 +555,7 @@ inline void handleReplaceCertificateAction(
 
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certificate);
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id,
          name](const boost::system::error_code& ec) {
         if (ec)
@@ -597,7 +598,7 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "getCSR CertObjectPath" << certObjPath
                      << " CSRObjectPath=" << csrObjPath
                      << " service=" << service;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, certURI](const boost::system::error_code& ec,
                              const std::string& csr) {
         if (ec)
@@ -810,7 +811,7 @@ inline void
                       "',"
                       "member='InterfacesAdded'");
     csrMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus, match,
+        crow::connections::systemBus(), match,
         [asyncResp, service, objectPath, certURI](sdbusplus::message_t& m) {
         timeout.cancel();
         if (m.is_method_error())
@@ -835,7 +836,7 @@ inline void
             }
         }
         });
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec, const std::string&) {
         if (ec)
         {
@@ -926,7 +927,7 @@ inline void handleHTTPSCertificateCollectionPost(
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certFileBody);
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
         if (ec)
@@ -1032,7 +1033,7 @@ inline void handleLDAPCertificateCollectionPost(
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certFileBody);
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
         if (ec)
@@ -1153,7 +1154,7 @@ inline void handleTrustStoreCertificateCollectionPost(
 
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certFileBody);
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
         if (ec)

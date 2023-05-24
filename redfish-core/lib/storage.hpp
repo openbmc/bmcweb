@@ -167,7 +167,7 @@ inline void
             storageController["Status"]["State"] = "Enabled";
 
             sdbusplus::asio::getProperty<bool>(
-                *crow::connections::systemBus, connectionName, path,
+                crow::connections::systemBus(), connectionName, path,
                 "xyz.openbmc_project.Inventory.Item", "Present",
                 [asyncResp, index](const boost::system::error_code& ec2,
                                    bool isPresent) {
@@ -185,7 +185,7 @@ inline void
                 });
 
             sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, connectionName, path,
+                crow::connections::systemBus(), connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
                 [asyncResp, index](
                     const boost::system::error_code& ec2,
@@ -289,7 +289,7 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
@@ -344,7 +344,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp, path](const boost::system::error_code& ec,
                           const bool isPresent) {
@@ -367,7 +367,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::systemBus(), connectionName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
         [asyncResp](const boost::system::error_code& ec, const bool updating) {
         // this interface isn't necessary, only check it
@@ -430,7 +430,7 @@ inline void
                            const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<

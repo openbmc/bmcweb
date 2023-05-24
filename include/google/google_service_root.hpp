@@ -177,7 +177,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp{asyncResp}](const boost::system::error_code& ec,
                                const std::vector<uint8_t>& responseBytes) {
         invocationCallback(asyncResp, ec, responseBytes);

@@ -98,7 +98,7 @@ inline void extractNTPServersAndDomainNamesData(
 template <typename CallbackFunc>
 void getEthernetIfaceData(CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& errorCode,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -252,7 +252,7 @@ inline void handleNTPProtocolEnabled(
             "xyz.openbmc_project.Time.Synchronization.Method.Manual";
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& errorCode) {
         if (errorCode)
         {
@@ -369,7 +369,7 @@ inline void
                         continue;
                     }
 
-                    crow::connections::systemBus->async_method_call(
+                    crow::connections::systemBus().async_method_call(
                         [asyncResp](const boost::system::error_code& ec2) {
                         if (ec2)
                         {
@@ -408,7 +408,7 @@ inline void
         {
             if (boost::algorithm::starts_with(entry.first, netBasePath))
             {
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code& ec2) {
                     if (ec2)
                     {
@@ -421,7 +421,7 @@ inline void
                     "xyz.openbmc_project.Control.Service.Attributes", "Running",
                     dbus::utility::DbusVariantType{protocolEnabled});
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code& ec2) {
                     if (ec2)
                     {
@@ -454,7 +454,7 @@ inline void
     getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/time/sync_method",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
         [asyncResp](const boost::system::error_code& errorCode,

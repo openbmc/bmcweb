@@ -94,7 +94,7 @@ inline void findAndParseObject(const std::string& service,
                                const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                CheckItemHandler&& handler)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [service, resName, aResp,
          handler](const boost::system::error_code& ec,
                   const dbus::utility::ManagedObjectType& subtree) {
@@ -272,7 +272,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                               const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [name, aResp{std::move(aResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
@@ -615,7 +615,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         // Open pipe
         secretPipe = std::make_shared<SecurePipe>(
-            crow::connections::systemBus->get_io_context(), std::move(secret));
+            crow::connections::systemBus().get_io_context(), std::move(secret));
         unixFd = secretPipe->fd();
 
         // Pass secret over pipe
@@ -629,7 +629,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, secretPipe](const boost::system::error_code& ec,
                                 bool success) {
         if (ec)
@@ -799,7 +799,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Legacy mount requires parameter with image
     if (legacy)
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -814,7 +814,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else // proxy
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -876,7 +876,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
         std::string service = getObjectType.begin()->first;
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [service, resName, action, actionParams,
              asyncResp](const boost::system::error_code& ec2,
                         dbus::utility::ManagedObjectType& subtree) mutable {
@@ -940,7 +940,7 @@ inline void handleManagersVirtualMediaActionEject(
         std::string service = getObjectType.begin()->first;
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [resName, service, action,
              asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::ManagedObjectType& subtree) {

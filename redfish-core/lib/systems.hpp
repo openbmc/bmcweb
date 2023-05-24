@@ -207,18 +207,18 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     // Get the Presence of CPU
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
+        crow::connections::systemBus(), service, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         std::move(getCpuPresenceState));
 
     // Get the Functional State
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
+        crow::connections::systemBus(), service, path,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         std::move(getCpuFunctionalState));
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, path,
+        crow::connections::systemBus(), service, path,
         "xyz.openbmc_project.Inventory.Item.Cpu",
         [aResp, service,
          path](const boost::system::error_code& ec2,
@@ -301,7 +301,7 @@ inline void
                             << "Found Dimm, now get its properties.";
 
                         sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, connection.first,
+                            crow::connections::systemBus(), connection.first,
                             path, "xyz.openbmc_project.Inventory.Item.Dimm",
                             [aResp, service{connection.first},
                              path](const boost::system::error_code& ec2,
@@ -320,7 +320,7 @@ inline void
                             if (properties.empty())
                             {
                                 sdbusplus::asio::getProperty<bool>(
-                                    *crow::connections::systemBus, service,
+                                    crow::connections::systemBus(), service,
                                     path,
                                     "xyz.openbmc_project.State."
                                     "Decorator.OperationalStatus",
@@ -399,7 +399,7 @@ inline void
                             << "Found UUID, now get its properties.";
 
                         sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, connection.first,
+                            crow::connections::systemBus(), connection.first,
                             path, "xyz.openbmc_project.Common.UUID",
                             [aResp](const boost::system::error_code& ec3,
                                     const dbus::utility::DBusPropertiesMap&
@@ -446,7 +446,7 @@ inline void
                              "xyz.openbmc_project.Inventory.Item.System")
                     {
                         sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, connection.first,
+                            crow::connections::systemBus(), connection.first,
                             path,
                             "xyz.openbmc_project.Inventory.Decorator.Asset",
                             [aResp](const boost::system::error_code& ec2,
@@ -516,7 +516,7 @@ inline void
                             });
 
                         sdbusplus::asio::getProperty<std::string>(
-                            *crow::connections::systemBus, connection.first,
+                            crow::connections::systemBus(), connection.first,
                             path,
                             "xyz.openbmc_project.Inventory.Decorator."
                             "AssetTag",
@@ -550,7 +550,7 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host information.";
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Host",
         "/xyz/openbmc_project/state/host0", "xyz.openbmc_project.State.Host",
         "CurrentHostState",
         [aResp](const boost::system::error_code& ec,
@@ -839,7 +839,7 @@ inline int assignBootParameters(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Host",
         "/xyz/openbmc_project/state/host0",
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
         [aResp](const boost::system::error_code& ec,
@@ -869,7 +869,7 @@ inline void getBootProgressLastStateTime(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Host",
         "/xyz/openbmc_project/state/host0",
         "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
         [aResp](const boost::system::error_code& ec,
@@ -903,7 +903,7 @@ inline void getBootProgressLastStateTime(
 inline void getBootOverrideType(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot",
         "xyz.openbmc_project.Control.Boot.Type", "BootType",
         [aResp](const boost::system::error_code& ec,
@@ -942,7 +942,7 @@ inline void getBootOverrideType(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 inline void getBootOverrideMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot",
         "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
         [aResp](const boost::system::error_code& ec,
@@ -986,7 +986,7 @@ inline void
     getBootOverrideSource(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot",
         "xyz.openbmc_project.Control.Boot.Source", "BootSource",
         [aResp](const boost::system::error_code& ec,
@@ -1039,7 +1039,7 @@ inline void
     // If boot source override is enabled, we need to check 'one_time'
     // property to set a correct value for the "BootSourceOverrideEnabled"
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot/one_time",
         "xyz.openbmc_project.Object.Enable", "Enabled",
         [aResp](const boost::system::error_code& ec, bool oneTimeSetting) {
@@ -1074,7 +1074,7 @@ inline void
     getBootOverrideEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot",
         "xyz.openbmc_project.Object.Enable", "Enabled",
         [aResp](const boost::system::error_code& ec,
@@ -1127,7 +1127,7 @@ inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
     BMCWEB_LOG_DEBUG << "Getting System Last Reset Time";
 
     sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
         [aResp](const boost::system::error_code& ec, uint64_t lastResetTime) {
@@ -1165,7 +1165,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Host",
         "/xyz/openbmc_project/state/host0",
         "xyz.openbmc_project.Control.Boot.RebootAttempts",
         [aResp{aResp}](const boost::system::error_code& ec,
@@ -1220,7 +1220,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/auto_reboot",
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
         [aResp](const boost::system::error_code& ec, bool autoRebootEnabled) {
@@ -1269,7 +1269,7 @@ inline void
                               const uint32_t retryAttempts)
 {
     BMCWEB_LOG_DEBUG << "Set Automatic Retry Attempts.";
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1298,7 +1298,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Get power restore policy";
 
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_restore_policy",
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
         [aResp](const boost::system::error_code& ec,
@@ -1389,7 +1389,7 @@ inline void getTrustedModuleRequiredToBoot(
 
         // Valid TPM Enable object found, now reading the current value
         sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, serv, path,
+            crow::connections::systemBus(), serv, path,
             "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
             [aResp](const boost::system::error_code& ec2, bool tpmRequired) {
             if (ec2)
@@ -1479,7 +1479,7 @@ inline void setTrustedModuleRequiredToBoot(
         }
 
         // Valid TPM Enable object found, now setting the value
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [aResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -1538,7 +1538,7 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG << "DBUS boot type: " << bootTypeStr;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1607,7 +1607,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG << "DBUS boot override enable: " << bootOverrideEnable;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec2) {
         if (ec2)
         {
@@ -1633,7 +1633,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "DBUS boot override persistent: "
                      << bootOverridePersistent;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1687,7 +1687,7 @@ inline void setBootModeOrSource(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "DBUS boot source: " << bootSourceStr;
     BMCWEB_LOG_DEBUG << "DBUS boot mode: " << bootModeStr;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1703,7 +1703,7 @@ inline void setBootModeOrSource(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "xyz.openbmc_project.Control.Boot.Source", "BootSource",
         dbus::utility::DbusVariantType(bootSourceStr));
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1798,7 +1798,7 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [aResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -1847,7 +1847,7 @@ inline void setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1896,7 +1896,7 @@ inline void
 
     powerRestorPolicy = policyMapsIt->second;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1923,7 +1923,7 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get OEM information.";
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.PFR.Manager",
+        crow::connections::systemBus(), "xyz.openbmc_project.PFR.Manager",
         "/xyz/openbmc_project/pfr", "xyz.openbmc_project.PFR.Attributes",
         [aResp](const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -2077,7 +2077,7 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         }
         // Valid Power Mode object found, now read the current value
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, service, path,
+            crow::connections::systemBus(), service, path,
             "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
             [aResp](const boost::system::error_code& ec2,
                     const std::string& pmode) {
@@ -2204,7 +2204,7 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                          << path;
 
         // Set the Power Mode property
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [aResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -2291,7 +2291,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Get host watchodg";
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Watchdog",
+        crow::connections::systemBus(), "xyz.openbmc_project.Watchdog",
         "/xyz/openbmc_project/watchdog/host0",
         "xyz.openbmc_project.State.Watchdog",
         [aResp](const boost::system::error_code& ec,
@@ -2371,7 +2371,7 @@ inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [aResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -2389,7 +2389,7 @@ inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
     if (wdtEnable)
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [aResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -2531,7 +2531,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
         // Valid IdlePowerSaver object found, now read the current values
         sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, service, path,
+            crow::connections::systemBus(), service, path,
             "xyz.openbmc_project.Control.Power.IdlePowerSaver",
             [aResp](const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& properties) {
@@ -2631,7 +2631,7 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
         if (ipsEnable)
         {
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [aResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2646,7 +2646,7 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         }
         if (ipsEnterUtil)
         {
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [aResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2664,7 +2664,7 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsEnterTime * 1000;
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [aResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2680,7 +2680,7 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         }
         if (ipsExitUtil)
         {
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [aResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2698,7 +2698,7 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsExitTime * 1000;
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [aResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2760,7 +2760,7 @@ inline void requestRoutesSystemsCollection(App& app)
         asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            crow::connections::systemBus(), "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
             [asyncResp](const boost::system::error_code& ec2,
@@ -2796,7 +2796,7 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         "xyz.openbmc_project.Control.Host.NMI";
     constexpr const char* method = "NMI";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -2885,7 +2885,7 @@ inline void requestRoutesSystemActionsReset(App& app)
 
         if (hostCommand)
         {
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [asyncResp, resetType](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -2911,7 +2911,7 @@ inline void requestRoutesSystemActionsReset(App& app)
         }
         else
         {
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [asyncResp, resetType](const boost::system::error_code& ec) {
                 if (ec)
                 {

@@ -35,7 +35,7 @@ class Resolver
     {
         BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
         uint64_t flag = 0;
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [host, port, handler{std::forward<ResolveHandler>(handler)}](
                 const boost::system::error_code& ec,
                 const std::vector<

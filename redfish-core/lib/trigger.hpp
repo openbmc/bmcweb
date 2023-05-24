@@ -331,7 +331,7 @@ inline void requestRoutesTrigger(App& app)
             return;
         }
         sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, telemetry::service,
+            crow::connections::systemBus(), telemetry::service,
             telemetry::getDbusTriggerPath(id), telemetry::triggerInterface,
             [asyncResp,
              id](const boost::system::error_code& ec,
@@ -369,7 +369,7 @@ inline void requestRoutesTrigger(App& app)
         }
         const std::string triggerPath = telemetry::getDbusTriggerPath(id);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp, id](const boost::system::error_code& ec) {
             if (ec.value() == EBADR)
             {

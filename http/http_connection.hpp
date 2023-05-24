@@ -13,7 +13,6 @@
 #include "utility.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
@@ -42,7 +41,7 @@ inline void prettyPrintJson(crow::Response& res)
 }
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int connectionCount = 0;
+static std::atomic<int> connectionCount = 0;
 
 // request body limit size set by the bmcwebHttpReqBodyLimitMb option
 constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL *

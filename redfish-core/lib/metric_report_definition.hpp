@@ -587,7 +587,7 @@ class AddReport
 
     ~AddReport()
     {
-        boost::asio::post(crow::connections::systemBus->get_io_context(),
+        boost::asio::post(crow::connections::systemBus().get_io_context(),
                           std::bind_front(&performAddReport, asyncResp, args,
                                           std::move(uriToDbus)));
     }
@@ -636,7 +636,7 @@ class AddReport
                 metric.collectionTimeScope, metric.collectionDuration);
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp, id = args.id, uriToDbus](
                 const boost::system::error_code& ec, const std::string&) {
             if (ec == boost::system::errc::file_exists)
@@ -784,7 +784,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
         }
 
         sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, telemetry::service,
+            crow::connections::systemBus(), telemetry::service,
             telemetry::getDbusReportPath(id), telemetry::reportInterface,
             [asyncResp,
              id](const boost::system::error_code& ec,
@@ -823,7 +823,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
 
         const std::string reportPath = telemetry::getDbusReportPath(id);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp, id](const boost::system::error_code& ec) {
             /*
              * boost::system::errc and std::errc are missing value

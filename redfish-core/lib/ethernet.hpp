@@ -620,7 +620,7 @@ inline void deleteIPAddress(const std::string& ifaceId,
                             const std::string& ipHash,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -636,7 +636,7 @@ inline void updateIPv4DefaultGateway(
     const std::string& ifaceId, const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -676,7 +676,7 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
         updateIPv4DefaultGateway(ifaceId, gateway, asyncResp);
     };
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP",
@@ -709,7 +709,7 @@ inline void deleteAndCreateIPAddress(
     const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, version, ifaceId, address, prefixLength,
          gateway](const boost::system::error_code& ec) {
         if (ec)
@@ -718,7 +718,7 @@ inline void deleteAndCreateIPAddress(
         }
         std::string protocol = "xyz.openbmc_project.Network.IP.Protocol.";
         protocol += version == IpVersion::IpV4 ? "IPv4" : "IPv6";
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -757,7 +757,7 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
     };
     // Passing null for gateway, as per redfish spec IPv6StaticAddresses object
     // does not have associated gateway property
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP",
@@ -886,7 +886,7 @@ inline void
                                            "HostName");
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -905,7 +905,7 @@ inline void
 {
     sdbusplus::message::object_path objPath = "/xyz/openbmc_project/network/" +
                                               ifaceId;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -924,7 +924,7 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::vector<std::string> vectorDomainname = {domainname};
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1005,7 +1005,7 @@ inline void
     static constexpr std::string_view dbusNotAllowedError =
         "xyz.openbmc_project.Common.Error.NotAllowed";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, macAddress](const boost::system::error_code& ec,
                                 const sdbusplus::message_t& msg) {
         if (ec)
@@ -1038,7 +1038,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1059,7 +1059,7 @@ inline void setEthernetInterfaceBoolProperty(
     const std::string& ifaceId, const std::string& propertyName,
     const bool& value, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1079,7 +1079,7 @@ inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << propertyName << " = " << value;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1414,7 +1414,7 @@ inline void handleStaticNameServersPatch(
     const std::vector<std::string>& updatedStaticNameServers,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -2031,7 +2031,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             {
                 if (vlanEnable)
                 {
-                    crow::connections::systemBus->async_method_call(
+                    crow::connections::systemBus().async_method_call(
                         [asyncResp](const boost::system::error_code& ec) {
                         if (ec)
                         {
@@ -2093,7 +2093,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         messages::internalError(asyncResp->res);
                     }
                 };
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     std::move(callback), "xyz.openbmc_project.Network",
                     std::string("/xyz/openbmc_project/network/") + ifaceId,
                     "xyz.openbmc_project.Object.Delete", "Delete");
@@ -2210,7 +2210,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             }
             messages::created(asyncResp->res);
         };
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             std::move(callback), "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network",
             "xyz.openbmc_project.Network.VLAN.Create", "VLAN",

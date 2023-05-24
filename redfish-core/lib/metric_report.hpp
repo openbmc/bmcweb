@@ -98,7 +98,7 @@ inline void requestRoutesMetricReport(App& app)
             return;
         }
         const std::string reportPath = telemetry::getDbusReportPath(id);
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp, id, reportPath](const boost::system::error_code& ec) {
             if (ec.value() == EBADR ||
                 ec == boost::system::errc::host_unreachable)
@@ -114,7 +114,7 @@ inline void requestRoutesMetricReport(App& app)
             }
 
             sdbusplus::asio::getProperty<telemetry::TimestampReadings>(
-                *crow::connections::systemBus, telemetry::service, reportPath,
+                crow::connections::systemBus(), telemetry::service, reportPath,
                 telemetry::reportInterface, "Readings",
                 [asyncResp, id](const boost::system::error_code& ec2,
                                 const telemetry::TimestampReadings& ret) {

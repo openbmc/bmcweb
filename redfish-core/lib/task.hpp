@@ -100,7 +100,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         startTime(std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now())),
         status("OK"), state("Running"), messages(nlohmann::json::array()),
-        timer(crow::connections::systemBus->get_io_context())
+        timer(crow::connections::systemBus().get_io_context())
 
     {}
 
@@ -275,7 +275,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             return;
         }
         match = std::make_unique<sdbusplus::bus::match_t>(
-            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+            static_cast<sdbusplus::bus_t&>(crow::connections::systemBus()),
             matchStr,
             [self = shared_from_this()](sdbusplus::message_t& message) {
             boost::system::error_code ec;
@@ -292,7 +292,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
                 // reset the match after the callback was successful
                 boost::asio::post(
-                    crow::connections::systemBus->get_io_context(),
+                    crow::connections::systemBus().get_io_context(),
                     [self] { self->match.reset(); });
                 return;
             }

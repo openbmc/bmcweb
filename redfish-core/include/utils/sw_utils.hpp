@@ -133,7 +133,7 @@ inline void
 
                 // Now grab its version info
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, obj.second[0].first,
+                    crow::connections::systemBus(), obj.second[0].first,
                     obj.first, "xyz.openbmc_project.Software.Version",
                     [aResp, swId, runningImage, swVersionPurpose,
                      activeVersionPropName, populateLinkToImages](
@@ -299,7 +299,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "getSwStatus: swId " << *swId << " svc " << dbusSvc;
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, dbusSvc,
+        crow::connections::systemBus(), dbusSvc,
         "/xyz/openbmc_project/software/" + *swId,
         "xyz.openbmc_project.Software.Activation",
         [asyncResp,

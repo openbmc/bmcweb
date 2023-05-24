@@ -45,9 +45,9 @@ namespace redfish
  */
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
-    // crow::connections::systemBus->async_method_call(
+    // crow::connections::systemBus().async_method_call(
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
         [aResp{std::move(aResp)}](const boost::system::error_code& ec,
@@ -89,7 +89,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
+        crow::connections::systemBus(), service, objPath,
         "xyz.openbmc_project.Chassis.Intrusion", "Status",
         [aResp{std::move(aResp)}](const boost::system::error_code& ec,
                                   const std::string& value) {
@@ -176,7 +176,7 @@ inline void
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
@@ -197,7 +197,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::systemBus(), connectionName, path,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& chassisUUID) {
@@ -320,7 +320,7 @@ inline void
                 if (interface == assetTagInterface)
                 {
                     sdbusplus::asio::getProperty<std::string>(
-                        *crow::connections::systemBus, connectionName, path,
+                        crow::connections::systemBus(), connectionName, path,
                         assetTagInterface, "AssetTag",
                         [asyncResp,
                          chassisId](const boost::system::error_code& ec2,
@@ -338,7 +338,7 @@ inline void
                 else if (interface == replaceableInterface)
                 {
                     sdbusplus::asio::getProperty<bool>(
-                        *crow::connections::systemBus, connectionName, path,
+                        crow::connections::systemBus(), connectionName, path,
                         replaceableInterface, "HotPluggable",
                         [asyncResp,
                          chassisId](const boost::system::error_code& ec2,
@@ -368,7 +368,7 @@ inline void
             }
 
             sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, connectionName, path,
+                crow::connections::systemBus(), connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
                 [asyncResp, chassisId(std::string(chassisId))](
                     const boost::system::error_code& /*ec2*/,
@@ -661,7 +661,7 @@ inline void
             objectPath = "/xyz/openbmc_project/state/chassis0";
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec2) {
             // Use "Set" method to set the property value.
             if (ec2)

@@ -212,7 +212,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     void getAllStatusAssociations()
     {
         std::shared_ptr<HealthPopulate> self = shared_from_this();
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& resp) {
             if (ec)

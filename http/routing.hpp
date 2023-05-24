@@ -1181,7 +1181,7 @@ class Router
             return;
         }
         std::string username = req.session->username;
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [this, &req, asyncResp, &rule,
              callback(std::forward<CallbackFn>(callback))](
                 const boost::system::error_code& ec,
