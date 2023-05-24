@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df61c57_7dc6739b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-24T13:25:34Z",
+      "side": 1,
+      "message": "The key refactor seems this `getMemorySummary()` out of lambda in `getComputerSystems()`, and it looks good.\n\nI think the other code moves may not be needed but I\u0027m also fine about it.",
+      "range": {
+        "startLine": 311,
+        "startChar": 12,
+        "endLine": 311,
+        "endChar": 28
+      },
+      "revId": "c9bcfe80aaa6a73d00526516231d154a0f14069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
