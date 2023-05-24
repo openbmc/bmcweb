@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e7091b8_628867ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-24T00:37:01Z",
+      "side": 1,
+      "message": "Aside from the general disagreement with the handling of `hostSocket` and the lack of generality wrt multiple consoles, this looks okay to me.",
+      "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
