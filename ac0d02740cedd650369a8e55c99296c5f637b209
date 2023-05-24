@@ -46,6 +46,30 @@
       },
       "revId": "ac0d02740cedd650369a8e55c99296c5f637b209",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "036209bc_557da46e",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T16:57:27Z",
+      "side": 1,
+      "message": "Sorry Krzysztof, I thought you had already left the project, which was why I was working on trying to get this patch series cleaned up and in a state that\u0027s mergable.  I didn\u0027t mean to overwrite your changes while you were still planning on working on it.\n\nFeel free to override whatever of mine you would like.\n\nWith that said, I would still like to see the message registry updates done in a different patch.  They are pretty isolated, and I suspect can merge significantly before anything else, but we need to understand the use cases for them.  Please make sure that\u0027s clear in the commit message.",
+      "parentUuid": "34fa451a_1b35aaa0",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 20
+      },
+      "revId": "ac0d02740cedd650369a8e55c99296c5f637b209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
