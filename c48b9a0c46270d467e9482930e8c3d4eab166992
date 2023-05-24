@@ -46,6 +46,30 @@
       },
       "revId": "c48b9a0c46270d467e9482930e8c3d4eab166992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6483ae3_7b0902e6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-24T14:04:37Z",
+      "side": 1,
+      "message": "Then, yes, it may be better to use \n```\n[[maybe_unused]]const std::string\u0026 service, [[maybe_unused]]const std::string\u0026 path,\n```",
+      "parentUuid": "977f9377_ba11b178",
+      "range": {
+        "startLine": 255,
+        "startChar": 2,
+        "endLine": 255,
+        "endChar": 68
+      },
+      "revId": "c48b9a0c46270d467e9482930e8c3d4eab166992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
