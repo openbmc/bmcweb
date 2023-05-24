@@ -87,6 +87,30 @@
       },
       "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20b8166_3f5656c1",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T16:33:01Z",
+      "side": 1,
+      "message": "The flow here goes:\nonOpen called -\u003e dbus async_method_call #1\nonOpen called for 2nd connection -\u003e check on line 209 fires, but because it doesn\u0027t return, the read doesn\u0027t defer. Dbus async_method_call #2\n\nasync_method_call #1 returns, calls doRead, which calls     hostSocket-\u003easync_read_some( on line 83\n\ndbus async_method_call #2 returns, calls     hostSocket-\u003easync_read_some(\n AGAIN, which is already being read, and boom..... crash.\n\nOr am I missing something here?\n\nWhile normally I really do like incremental progress, i kind of wonder if we should just be focusing on getting the patch STACK correct here, because the possibility for the above flow goes completely away once the migration is made to session-level data structures instead of the global objects we have.\n\nidk, I\u0027m conflicted here.  I guess as written, I\u0027m ok with this merging, because the window for the race condition is going to be very very small. So long as there\u0027s quick followup to get us to the next \"correct\" iteration, I guess I\u0027m ok here..",
+      "parentUuid": "55a6bbe0_83c826fb",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 19
+      },
+      "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
