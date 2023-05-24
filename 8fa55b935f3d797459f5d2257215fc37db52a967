@@ -63,6 +63,30 @@
       },
       "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a6bbe0_83c826fb",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-24T14:03:27Z",
+      "side": 1,
+      "message": "Ed, obmc-console already serializes requests on its end so there is no collition from obmc-console side. \n\nAndrew, Even if we have hostSocket check two request can check the hostSocket and it is null and went ahead and query the DBUS hence we need to handle it in the callback function itself.\n\nEd, Please correct me if I am wrong.",
+      "parentUuid": "4bf7fc95_591574fe",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 19
+      },
+      "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
