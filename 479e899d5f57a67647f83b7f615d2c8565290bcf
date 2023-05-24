@@ -70,6 +70,30 @@
       },
       "revId": "479e899d5f57a67647f83b7f615d2c8565290bcf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee186ad_d8d8a634",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-24T22:50:44Z",
+      "side": 0,
+      "message": "discussed with Nan offline and seems like my understand of the issue is wrong and that there is a different bug instead.\n\nMy assumption is that is is DFS, but it should be BFS instead. I believe the change should be https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53228.\n\nThe change should just be not remove the depth and just go find all of the odata.id at the current json output. It is assumed that efficient expand will get to the point where is only expose one more level of odata.id.\n\nfix WIP.",
+      "parentUuid": "9cabf546_c4887a37",
+      "range": {
+        "startLine": 224,
+        "startChar": 33,
+        "endLine": 224,
+        "endChar": 50
+      },
+      "revId": "479e899d5f57a67647f83b7f615d2c8565290bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
