@@ -106,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05cbbcfa_91bb0c64",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T01:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e533004_cc9a88c9",
+      "range": {
+        "startLine": 1316,
+        "startChar": 43,
+        "endLine": 1316,
+        "endChar": 46
+      },
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ad366ce_8e047db6",
@@ -119,6 +143,30 @@
       "writtenOn": "2023-03-03T18:56:00Z",
       "side": 1,
       "message": "Please push this into handleReportDelete so we avoid the lambda entirely.",
+      "range": {
+        "startLine": 1347,
+        "startChar": 0,
+        "endLine": 1350,
+        "endChar": 9
+      },
+      "revId": "58cc4f4dd0583a6360d6c3deb8b3094150554593",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5444698b_b6a2c176",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T01:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ad366ce_8e047db6",
       "range": {
         "startLine": 1347,
         "startChar": 0,

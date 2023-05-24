@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f614b5b3_945b60a9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T01:07:06Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "88f8e598_fd1d3de9",
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac6f8310_04c39a29",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-03T18:56:00Z",
       "side": 0,
       "message": "Please put this code move into its own commit.  As-written, this commit is hard to review.",
+      "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab298a84_12dd71e1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T01:07:06Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ac6f8310_04c39a29",
       "revId": "8d6af63896949c6cd6d310736c5de36b99e121c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
