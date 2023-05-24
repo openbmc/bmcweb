@@ -252,6 +252,7 @@ inline void
 
             auto health = std::make_shared<HealthPopulate>(asyncResp);
 
+#ifdef HEALTH_POPULATE
             dbus::utility::getAssociationEndPoints(
                 path + "/all_sensors",
                 [health](const boost::system::error_code& ec2,
@@ -264,6 +265,7 @@ inline void
                 });
 
             health->populate();
+#endif
 
             if (connectionNames.empty())
             {
