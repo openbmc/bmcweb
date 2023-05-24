@@ -278,7 +278,7 @@ class ConnectionImpl : public Connection
         boost::beast::http::buffer_body>>
         serializer;
     boost::asio::io_context& ioc =
-        crow::connections::systemBus->get_io_context();
+        crow::connections::systemBus().get_io_context();
     boost::asio::steady_timer timer;
     bool doingWrite = false;
 

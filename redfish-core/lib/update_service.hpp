@@ -63,7 +63,7 @@ inline static void activateImage(const std::string& objPath,
                                  const std::string& service)
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [](const boost::system::error_code& errorCode) {
         if (errorCode)
         {
@@ -317,13 +317,13 @@ static void monitorForSoftwareAvailable(
     fwUpdateInProgress = true;
 
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus,
+        crow::connections::systemBus(),
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 
     fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus,
+        crow::connections::systemBus(),
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
@@ -508,7 +508,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         redfish::messages::success(asyncResp->res);
 
         // Call TFTP service
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -575,7 +575,7 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // Set the requested image apply time value
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -748,7 +748,7 @@ inline void requestRoutesUpdateService(App& app)
 #endif
         // Get the current ApplyTime value
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            crow::connections::systemBus(), "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/software/apply_time",
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
             [asyncResp](const boost::system::error_code& ec,
@@ -885,7 +885,7 @@ inline void
                        const std::string& swId)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, path,
+        crow::connections::systemBus(), service, path,
         "xyz.openbmc_project.Software.Version",
         [asyncResp,
          swId](const boost::system::error_code& errorCode,

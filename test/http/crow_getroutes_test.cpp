@@ -28,7 +28,8 @@ using ::testing::UnorderedElementsAre;
 
 TEST(GetRoutes, TestEmptyRoutes)
 {
-    App app;
+    boost::asio::io_context io;
+    App app(io);
     app.validate();
 
     EXPECT_THAT(app.getRoutes(), IsEmpty());
@@ -37,7 +38,8 @@ TEST(GetRoutes, TestEmptyRoutes)
 // Tests that static urls are correctly passed
 TEST(GetRoutes, TestOneRoute)
 {
-    App app;
+    boost::asio::io_context io;
+    App app(io);
 
     BMCWEB_ROUTE(app, "/")
     ([](const crow::Request& /*req*/,
@@ -52,7 +54,9 @@ TEST(GetRoutes, TestOneRoute)
 // Tests that static urls are correctly passed
 TEST(GetRoutes, TestlotsOfRoutes)
 {
-    App app;
+    boost::asio::io_context io;
+    App app(io);
+
     BMCWEB_ROUTE(app, "/")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
     BMCWEB_ROUTE(app, "/foo")

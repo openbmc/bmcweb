@@ -375,7 +375,7 @@ inline void handleRoleMapPatch(
             // delete the existing object
             if (index < roleMapObjData.size())
             {
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp, roleMapObjData, serverType,
                      index](const boost::system::error_code& ec) {
                     if (ec)
@@ -429,7 +429,7 @@ inline void handleRoleMapPatch(
                 // If "RemoteGroup" info is provided
                 if (remoteGroup)
                 {
-                    crow::connections::systemBus->async_method_call(
+                    crow::connections::systemBus().async_method_call(
                         [asyncResp, roleMapObjData, serverType, index,
                          remoteGroup](const boost::system::error_code& ec,
                                       const sdbusplus::message::message& msg) {
@@ -466,7 +466,7 @@ inline void handleRoleMapPatch(
                 // If "LocalRole" info is provided
                 if (localRole)
                 {
-                    crow::connections::systemBus->async_method_call(
+                    crow::connections::systemBus().async_method_call(
                         [asyncResp, roleMapObjData, serverType, index,
                          localRole](const boost::system::error_code& ec,
                                     const sdbusplus::message::message& msg) {
@@ -533,7 +533,7 @@ inline void handleRoleMapPatch(
                 BMCWEB_LOG_DEBUG << "Remote Group=" << *remoteGroup
                                  << ",LocalRole=" << *localRole;
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code& ec) {
                     if (ec)
@@ -582,7 +582,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
             return;
         }
         std::string service = resp.begin()->first;
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [callback,
              ldapType](const boost::system::error_code& errorCode,
                        const dbus::utility::ManagedObjectType& ldapObjects) {
@@ -804,7 +804,7 @@ inline void handleServiceAddressPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, ldapServerElementName,
          serviceAddressList](const boost::system::error_code& ec,
                              sdbusplus::message::message& msg) {
@@ -856,7 +856,7 @@ inline void
                         const std::string& ldapServerElementName,
                         const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, username,
          ldapServerElementName](const boost::system::error_code& ec) {
         if (ec)
@@ -888,7 +888,7 @@ inline void
                         const std::string& ldapServerElementName,
                         const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, password,
          ldapServerElementName](const boost::system::error_code& ec) {
         if (ec)
@@ -921,7 +921,7 @@ inline void
                       const std::string& ldapServerElementName,
                       const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, baseDNList,
          ldapServerElementName](const boost::system::error_code& ec,
                                 const sdbusplus::message::message& msg) {
@@ -973,7 +973,7 @@ inline void
                             const std::string& ldapServerElementName,
                             const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, userNameAttribute,
          ldapServerElementName](const boost::system::error_code& ec) {
         if (ec)
@@ -1008,7 +1008,7 @@ inline void handleGroupNameAttrPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, groupsAttribute,
          ldapServerElementName](const boost::system::error_code& ec) {
         if (ec)
@@ -1042,7 +1042,7 @@ inline void handleServiceEnablePatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, serviceEnabled,
          ldapServerElementName](const boost::system::error_code& ec) {
         if (ec)
@@ -1366,7 +1366,7 @@ inline void updateUserProperties(
 
             if (enabled)
             {
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -1393,7 +1393,7 @@ inline void updateUserProperties(
                     return;
                 }
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -1421,7 +1421,7 @@ inline void updateUserProperties(
                     return;
                 }
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -1518,7 +1518,7 @@ inline void
             "/redfish/v1/AccountService/LDAP/Certificates";
     }
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        crow::connections::systemBus(), "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.AccountPolicy",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -1606,7 +1606,7 @@ inline void handleAccountServicePatch(
 
     if (minPasswordLength)
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1654,7 +1654,7 @@ inline void handleAccountServicePatch(
 
     if (unlockTimeout)
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1670,7 +1670,7 @@ inline void handleAccountServicePatch(
     }
     if (lockoutThreshold)
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1734,7 +1734,7 @@ inline void handleAccountCollectionGet(
     {
         thisUser = req.session->username;
     }
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, thisUser, effectiveUserPrivileges](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& users) {
@@ -1804,7 +1804,7 @@ inline void processAfterCreateUser(
         tempObjPath /= username;
         const std::string userPath(tempObjPath);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [asyncResp, password](const boost::system::error_code& ec3) {
             if (ec3)
             {
@@ -1897,7 +1897,7 @@ inline void processAfterGetAllGroups(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
         processAfterCreateUser(asyncResp, username, password, ec2, m);
@@ -1937,7 +1937,7 @@ inline void handleAccountCollectionPost(
 
     // Reading AllGroups property
     sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        crow::connections::systemBus(), "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
         "AllGroups",
         [asyncResp, username, password{std::move(password)}, roleId, enabled,
@@ -2018,7 +2018,7 @@ inline void
         }
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp,
          accountName](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& users) {
@@ -2175,7 +2175,7 @@ inline void
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, username](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -2264,7 +2264,7 @@ inline void
                              locked, accountTypes, userSelf);
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, accountTypes(std::move(accountTypes))](

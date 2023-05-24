@@ -242,7 +242,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Looking up unixFD for Service " << consoleService
                      << " Path " << consoleObjPath;
     // Call Connect() method to get the unix FD
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [&conn](const boost::system::error_code& ec1,
                 const sdbusplus::message::unix_fd& unixfd) {
         connectConsoleSocket(conn, ec1, unixfd);

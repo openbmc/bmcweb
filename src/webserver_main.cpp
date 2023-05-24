@@ -64,11 +64,8 @@ inline void setupSocket(crow::App& app)
 
 static int run()
 {
-    auto io = std::make_shared<boost::asio::io_context>();
+    boost::asio::io_context& io = crow::connections::getIoContext();
     App app(io);
-
-    sdbusplus::asio::connection systemBus(*io);
-    crow::connections::systemBus = &systemBus;
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
@@ -85,11 +82,11 @@ static int run()
     redfish::RedfishService redfish(app);
 
     // Create EventServiceManager instance and initialize Config
-    redfish::EventServiceManager::getInstance(&*io);
+    redfish::EventServiceManager::getInstance(&io);
 
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
     // Create RedfishAggregator instance and initialize Config
-    redfish::RedfishAggregator::getInstance(&*io);
+    redfish::RedfishAggregator::getInstance(io);
 #endif
 #endif
 
@@ -130,7 +127,7 @@ static int run()
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-    int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
+    int rc = redfish::EventServiceManager::startEventLogMonitor(io);
     if (rc != 0)
     {
         BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
@@ -146,9 +143,7 @@ static int run()
     bmcweb::registerUserRemovedSignal();
 
     app.run();
-    io->run();
-
-    crow::connections::systemBus = nullptr;
+    io.run();
 
     return 0;
 }

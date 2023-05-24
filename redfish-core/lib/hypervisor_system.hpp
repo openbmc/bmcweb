@@ -35,7 +35,7 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get hypervisor state information.";
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
+        crow::connections::systemBus(), "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
         "xyz.openbmc_project.State.Host", "CurrentHostState",
         [aResp](const boost::system::error_code& ec,
@@ -310,7 +310,7 @@ template <typename CallbackFunc>
 void getHypervisorIfaceData(const std::string& ethIfaceId,
                             CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [ethIfaceId{std::string{ethIfaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& error,
@@ -351,7 +351,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Address
                      << " on Iface: " << ethIfaceId;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -383,7 +383,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
                      << " on Iface: " << ethIfaceId;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -415,7 +415,7 @@ inline void
     BMCWEB_LOG_DEBUG
         << "Setting the DefaultGateway to the last configured gateway";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [aResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -514,7 +514,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -543,7 +543,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
         deleteHypervisorIPv4(ifaceId, asyncResp);
         origin = "xyz.openbmc_project.Network.IP.AddressOrigin.DHCP";
     }
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -678,7 +678,7 @@ inline void handleHypervisorHostnamePatch(
     }
 
     asyncResp->res.jsonValue["HostName"] = hostName;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -696,7 +696,7 @@ inline void
     setIPv4InterfaceEnabled(const std::string& ifaceId, bool isActive,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -795,7 +795,7 @@ inline void handleHypervisorSystemGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        crow::connections::systemBus(), "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
         [asyncResp](const boost::system::error_code& ec,
@@ -1030,7 +1030,7 @@ inline void handleHypervisorSystemResetPost(
 
     std::string command = "xyz.openbmc_project.State.Host.Transition.On";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp, resetType](const boost::system::error_code& ec) {
         if (ec)
         {

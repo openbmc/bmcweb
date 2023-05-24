@@ -43,10 +43,7 @@ class App
     using server_t = Server<App, socket_t>;
 #endif
 
-    explicit App(std::shared_ptr<boost::asio::io_context> ioIn =
-                     std::make_shared<boost::asio::io_context>()) :
-        io(std::move(ioIn))
-    {}
+    explicit App(boost::asio::io_context& ioIn) : io(ioIn) {}
     ~App()
     {
         stop();
@@ -139,7 +136,7 @@ class App
 
     void stop()
     {
-        io->stop();
+        io.stop();
     }
 
     void debugPrint()
@@ -185,11 +182,11 @@ class App
 
     boost::asio::io_context& ioContext()
     {
-        return *io;
+        return io;
     }
 
   private:
-    std::shared_ptr<boost::asio::io_context> io;
+    boost::asio::io_context& io;
 #ifdef BMCWEB_ENABLE_SSL
     uint16_t portUint = 443;
 #else

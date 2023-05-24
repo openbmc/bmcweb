@@ -76,7 +76,7 @@ inline void setPowerCapOverride(
             return;
         }
         sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            crow::connections::systemBus(), "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/control/host0/power_cap",
             "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
             [value, sensorsAsyncResp](const boost::system::error_code& ec,
@@ -97,7 +97,7 @@ inline void setPowerCapOverride(
                 return;
             }
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::systemBus().async_method_call(
                 [sensorsAsyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -290,7 +290,7 @@ inline void requestRoutesPower(App& app)
             };
 
             sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                crow::connections::systemBus(), "xyz.openbmc_project.Settings",
                 "/xyz/openbmc_project/control/host0/power_cap",
                 "xyz.openbmc_project.Control.Power.Cap",
                 std::move(valueHandler));

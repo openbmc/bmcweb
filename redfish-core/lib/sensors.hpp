@@ -1029,7 +1029,7 @@ inline void populateFanRedundancy(
                     return;
                 }
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, owner, path,
+                    crow::connections::systemBus(), owner, path,
                     "xyz.openbmc_project.Control.FanRedundancy",
                     [path, sensorsAsyncResp](
                         const boost::system::error_code& err,
@@ -1489,7 +1489,7 @@ static void getInventoryItemsData(
         };
 
         // Get all object paths and their interfaces for current connection
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             std::move(respHandler), invConnection,
             "/xyz/openbmc_project/inventory",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -1719,7 +1719,7 @@ static void getInventoryItemAssociations(
     };
 
     // Call GetManagedObjects on the ObjectMapper to get all associations
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper", "/",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 
@@ -1828,7 +1828,7 @@ void getInventoryLedData(
 
         // Get the State property for the current LED
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, ledConnection, ledPath,
+            crow::connections::systemBus(), ledConnection, ledPath,
             "xyz.openbmc_project.Led.Physical", "State",
             std::move(respHandler));
     }
@@ -1995,9 +1995,9 @@ void getPowerSupplyAttributesData(
     // Get the DeratingFactor property for the PowerSupplyAttributes
     // Currently only property on the interface/only one we care about
     sdbusplus::asio::getProperty<uint32_t>(
-        *crow::connections::systemBus, psAttributesConnection, psAttributesPath,
-        "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
-        std::move(respHandler));
+        crow::connections::systemBus(), psAttributesConnection,
+        psAttributesPath, "xyz.openbmc_project.Control.PowerSupplyAttributes",
+        "DeratingFactor", std::move(respHandler));
 
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData exit";
 }
@@ -2484,7 +2484,7 @@ inline void getSensorData(
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
         };
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             getManagedObjectsCb, connection, "/xyz/openbmc_project/sensors",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
@@ -2703,7 +2703,7 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                crow::connections::systemBus().async_method_call(
                     [sensorAsyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
@@ -2871,7 +2871,7 @@ inline void
     BMCWEB_LOG_DEBUG << "Path " << sensorPath;
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, sensorPath, "",
+        crow::connections::systemBus(), connectionName, sensorPath, "",
         [asyncResp,
          sensorPath](const boost::system::error_code& ec,
                      const ::dbus::utility::DBusPropertiesMap& valuesDict) {

@@ -756,7 +756,7 @@ class RedfishAggregator
             handler)
     {
         BMCWEB_LOG_DEBUG << "Gathering satellite configs";
-        crow::connections::systemBus->async_method_call(
+        crow::connections::systemBus().async_method_call(
             [handler{std::move(handler)}](
                 const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {

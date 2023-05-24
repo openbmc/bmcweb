@@ -57,7 +57,7 @@ inline void
     managerGetServiceRootUptime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "org.freedesktop.systemd1",
+        crow::connections::systemBus(), "org.freedesktop.systemd1",
         "/org/freedesktop/systemd1/unit/bmcweb_2eservice",
         "org.freedesktop.systemd1.Unit", "ActiveEnterTimestampMonotonic",
         std::bind_front(afterGetManagerStartTime, aResp));

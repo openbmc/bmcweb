@@ -88,7 +88,7 @@ inline void
         }
     };
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus,
+        crow::connections::systemBus(),
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);

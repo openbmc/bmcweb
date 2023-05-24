@@ -18,7 +18,7 @@ static std::unique_ptr<sdbusplus::bus::match_t> hostnameSignalMonitor;
 
 inline void installCertificate(const std::filesystem::path& certPath)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [certPath](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -137,7 +137,7 @@ inline void registerHostnameSignal()
          "member='PropertiesChanged'");
 
     hostnameSignalMonitor = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus, propertiesMatchString, onPropertyUpdate,
+        crow::connections::systemBus(), propertiesMatchString, onPropertyUpdate,
         nullptr);
 }
 } // namespace hostname_monitor

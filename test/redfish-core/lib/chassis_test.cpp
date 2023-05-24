@@ -50,8 +50,8 @@ TEST(HandleChassisResetActionInfoGet, StaticAttributesAreExpected)
     std::string fakeChassis = "fakeChassis";
     response->res.setCompleteRequestHandler(
         std::bind_front(assertChassisResetActionInfoGet, fakeChassis));
-
-    crow::App app;
+    boost::asio::io_context io;
+    crow::App app(io);
     handleChassisResetActionInfoGet(app, request, response, fakeChassis);
 }
 

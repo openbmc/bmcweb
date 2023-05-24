@@ -70,7 +70,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {

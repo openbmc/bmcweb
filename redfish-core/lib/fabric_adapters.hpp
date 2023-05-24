@@ -43,7 +43,7 @@ inline void
                              const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        crow::connections::systemBus(), serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [aResp](const boost::system::error_code& ec,
                 const std::string& property) {
@@ -68,7 +68,7 @@ inline void
                           const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        crow::connections::systemBus(), serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [fabricAdapterPath,
          aResp{aResp}](const boost::system::error_code& ec,
@@ -127,7 +127,7 @@ inline void
                           const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        crow::connections::systemBus(), serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [aResp](const boost::system::error_code& ec, const bool present) {
         if (ec)
@@ -153,7 +153,7 @@ inline void
                            const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        crow::connections::systemBus(), serviceName, fabricAdapterPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [aResp](const boost::system::error_code& ec, const bool functional) {
         if (ec)

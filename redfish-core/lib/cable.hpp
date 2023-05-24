@@ -95,7 +95,7 @@ inline void
             }
 
             sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, service, cableObjectPath,
+                crow::connections::systemBus(), service, cableObjectPath,
                 interface,
                 [asyncResp](
                     const boost::system::error_code& ec,

@@ -30,32 +30,29 @@ class Server
     Server(Handler* handlerIn,
            std::unique_ptr<boost::asio::ip::tcp::acceptor>&& acceptorIn,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
-           std::shared_ptr<boost::asio::io_context> io =
-               std::make_shared<boost::asio::io_context>()) :
-        ioService(std::move(io)),
+           boost::asio::io_context& io) :
+        ioService(io),
         acceptor(std::move(acceptorIn)),
-        signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
+        signals(ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {}
 
     Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
            const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
-           const std::shared_ptr<boost::asio::io_context>& io =
-               std::make_shared<boost::asio::io_context>()) :
+           boost::asio::io_context& io) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::endpoint(
-                            boost::asio::ip::make_address(bindaddr), port)),
+                   io, boost::asio::ip::tcp::endpoint(
+                           boost::asio::ip::make_address(bindaddr), port)),
                adaptorCtxIn, io)
     {}
 
     Server(Handler* handlerIn, int existingSocket,
            const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
-           const std::shared_ptr<boost::asio::io_context>& io =
-               std::make_shared<boost::asio::io_context>()) :
+           boost::asio::io_context& io) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::v6(), existingSocket),
+                   io, boost::asio::ip::tcp::v6(), existingSocket),
                adaptorCtxIn, io)
     {}
 
@@ -158,12 +155,12 @@ class Server
 
     void stop()
     {
-        ioService->stop();
+        ioService.stop();
     }
 
     void doAccept()
     {
-        boost::asio::steady_timer timer(*ioService);
+        boost::asio::steady_timer timer(ioService);
         std::shared_ptr<Connection<Adaptor, Handler>> connection;
         if constexpr (std::is_same<Adaptor,
                                    boost::beast::ssl_stream<
@@ -171,20 +168,20 @@ class Server
         {
             connection = std::make_shared<Connection<Adaptor, Handler>>(
                 handler, std::move(timer), getCachedDateStr,
-                Adaptor(*ioService, *adaptorCtx));
+                Adaptor(ioService, *adaptorCtx));
         }
         else
         {
             connection = std::make_shared<Connection<Adaptor, Handler>>(
                 handler, std::move(timer), getCachedDateStr,
-                Adaptor(*ioService));
+                Adaptor(ioService));
         }
         acceptor->async_accept(
             boost::beast::get_lowest_layer(connection->socket()),
             [this, connection](const boost::system::error_code& ec) {
             if (!ec)
             {
-                boost::asio::post(*ioService,
+                boost::asio::post(ioService,
                                   [connection] { connection->start(); });
             }
             doAccept();
@@ -192,7 +189,7 @@ class Server
     }
 
   private:
-    std::shared_ptr<boost::asio::io_context> ioService;
+    boost::asio::io_context& ioService;
     std::function<std::string()> getCachedDateStr;
     std::unique_ptr<boost::asio::ip::tcp::acceptor> acceptor;
     boost::asio::signal_set signals;

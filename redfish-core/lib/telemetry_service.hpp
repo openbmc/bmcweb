@@ -36,7 +36,7 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/Triggers";
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, telemetry::service,
+        crow::connections::systemBus(), telemetry::service,
         "/xyz/openbmc_project/Telemetry/Reports",
         "xyz.openbmc_project.Telemetry.ReportManager",
         [asyncResp](const boost::system::error_code& ec,

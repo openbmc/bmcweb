@@ -29,6 +29,9 @@ using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
                                               DbusWebsocketSession>;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+std::mutex sessionsMutex;
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
 inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
@@ -41,68 +44,72 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     }
     crow::websocket::Connection* connection =
         static_cast<crow::websocket::Connection*>(userdata);
-    auto thisSession = sessions.find(connection);
-    if (thisSession == sessions.end())
-    {
-        BMCWEB_LOG_ERROR << "Couldn't find dbus connection " << connection;
-        return 0;
-    }
-    sdbusplus::message_t message(m);
     nlohmann::json json;
-    json["event"] = message.get_member();
-    json["path"] = message.get_path();
-    if (strcmp(message.get_member(), "PropertiesChanged") == 0)
     {
-        nlohmann::json data;
-        int r = openbmc_mapper::convertDBusToJSON("sa{sv}as", message, data);
-        if (r < 0)
+        std::lock_guard<std::mutex> myLock(sessionsMutex);
+        auto thisSession = sessions.find(connection);
+        if (thisSession == sessions.end())
         {
-            BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+            BMCWEB_LOG_ERROR << "Couldn't find dbus connection " << connection;
             return 0;
         }
-        if (!data.is_array())
+        sdbusplus::message_t message(m);
+        json["event"] = message.get_member();
+        json["path"] = message.get_path();
+        if (strcmp(message.get_member(), "PropertiesChanged") == 0)
         {
-            BMCWEB_LOG_ERROR << "No data in PropertiesChanged signal";
-            return 0;
-        }
-
-        // data is type sa{sv}as and is an array[3] of string, object, array
-        json["interface"] = data[0];
-        json["properties"] = data[1];
-    }
-    else if (strcmp(message.get_member(), "InterfacesAdded") == 0)
-    {
-        nlohmann::json data;
-        int r = openbmc_mapper::convertDBusToJSON("oa{sa{sv}}", message, data);
-        if (r < 0)
-        {
-            BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
-            return 0;
-        }
-
-        if (!data.is_array())
-        {
-            BMCWEB_LOG_ERROR << "No data in InterfacesAdded signal";
-            return 0;
-        }
-
-        // data is type oa{sa{sv}} which is an array[2] of string, object
-        for (const auto& entry : data[1].items())
-        {
-            auto it = thisSession->second.interfaces.find(entry.key());
-            if (it != thisSession->second.interfaces.end())
+            nlohmann::json data;
+            int r = openbmc_mapper::convertDBusToJSON("sa{sv}as", message,
+                                                      data);
+            if (r < 0)
             {
-                json["interfaces"][entry.key()] = entry.value();
+                BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+                return 0;
+            }
+            if (!data.is_array())
+            {
+                BMCWEB_LOG_ERROR << "No data in PropertiesChanged signal";
+                return 0;
+            }
+
+            // data is type sa{sv}as and is an array[3] of string, object, array
+            json["interface"] = data[0];
+            json["properties"] = data[1];
+        }
+        else if (strcmp(message.get_member(), "InterfacesAdded") == 0)
+        {
+            nlohmann::json data;
+            int r = openbmc_mapper::convertDBusToJSON("oa{sa{sv}}", message,
+                                                      data);
+            if (r < 0)
+            {
+                BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+                return 0;
+            }
+
+            if (!data.is_array())
+            {
+                BMCWEB_LOG_ERROR << "No data in InterfacesAdded signal";
+                return 0;
+            }
+
+            // data is type oa{sa{sv}} which is an array[2] of string, object
+            for (const auto& entry : data[1].items())
+            {
+                auto it = thisSession->second.interfaces.find(entry.key());
+                if (it != thisSession->second.interfaces.end())
+                {
+                    json["interfaces"][entry.key()] = entry.value();
+                }
             }
         }
+        else
+        {
+            BMCWEB_LOG_CRITICAL << "message " << message.get_member()
+                                << " was unexpected";
+            return 0;
+        }
     }
-    else
-    {
-        BMCWEB_LOG_CRITICAL << "message " << message.get_member()
-                            << " was unexpected";
-        return 0;
-    }
-
     connection->sendText(
         json.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
     return 0;
@@ -208,7 +215,7 @@ inline void requestRoutes(App& app)
 
                 thisSession.matches.emplace_back(
                     std::make_unique<sdbusplus::bus::match_t>(
-                        *crow::connections::systemBus, propertiesMatchString,
+                        crow::connections::systemBus(), propertiesMatchString,
                         onPropertyUpdate, &conn));
             }
             else
@@ -231,7 +238,7 @@ inline void requestRoutes(App& app)
                     BMCWEB_LOG_DEBUG << "Creating match " << ifaceMatchString;
                     thisSession.matches.emplace_back(
                         std::make_unique<sdbusplus::bus::match_t>(
-                            *crow::connections::systemBus, ifaceMatchString,
+                            crow::connections::systemBus(), ifaceMatchString,
                             onPropertyUpdate, &conn));
                 }
             }
@@ -245,7 +252,7 @@ inline void requestRoutes(App& app)
             BMCWEB_LOG_DEBUG << "Creating match " << objectManagerMatchString;
             thisSession.matches.emplace_back(
                 std::make_unique<sdbusplus::bus::match_t>(
-                    *crow::connections::systemBus, objectManagerMatchString,
+                    crow::connections::systemBus(), objectManagerMatchString,
                     onPropertyUpdate, &conn));
         }
         });
