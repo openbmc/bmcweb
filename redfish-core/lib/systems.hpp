@@ -339,7 +339,7 @@ inline void
                                 return;
                             }
 
-                            const uint32_t* memorySizeInKB = nullptr;
+                            const size_t* memorySizeInKB = nullptr;
 
                             const bool success =
                                 sdbusplus::unpackPropertiesNoThrow(
