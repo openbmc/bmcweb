@@ -314,3 +314,11 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'health-populate',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enables HealthPopulate and generate the Status property for
+                    the resource'''
+)
