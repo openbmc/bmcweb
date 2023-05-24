@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d412cb_c0baacff",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-24T23:09:26Z",
+      "side": 1,
+      "message": "The comment says that both \u0027redfish\u0027 \u0026 \u0027webui\u0027 are needed.\n\nHowever, this condition tells that it will be failed if only one of them set.\n\nWhat if none of them are set?\nThis function returns \u0027true\u0027. Is it expected?",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 16
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
