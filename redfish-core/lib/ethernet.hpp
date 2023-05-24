@@ -1559,17 +1559,16 @@ inline void
                        const std::vector<IPv4AddressData>& ipv4Data,
                        const std::vector<IPv6AddressData>& ipv6Data)
 {
-    constexpr std::array<std::string_view, 1> inventoryForEthernet = {
-        "xyz.openbmc_project.Inventory.Item.Ethernet"};
-
     nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/bmc/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
+#ifdef HEALTH_POPULATE
+    constexpr std::array<std::string_view, 1> inventoryForEthernet = {
+        "xyz.openbmc_project.Inventory.Item.Ethernet"};
     auto health = std::make_shared<HealthPopulate>(asyncResp);
-
     dbus::utility::getSubTreePaths(
         "/", 0, inventoryForEthernet,
         [health](const boost::system::error_code& ec,
@@ -1583,6 +1582,7 @@ inline void
         });
 
     health->populate();
+#endif
 
     if (ethData.nicEnabled)
     {

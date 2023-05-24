@@ -601,9 +601,11 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& service,
                                  const std::string& objPath)
 {
+#ifdef HEALTH_POPULATE
     auto health = std::make_shared<HealthPopulate>(aResp);
     health->selfPath = objPath;
     health->populate();
+#endif
 
     BMCWEB_LOG_DEBUG << "Get available system components.";
     sdbusplus::asio::getAllProperties(

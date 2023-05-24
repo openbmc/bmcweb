@@ -487,8 +487,10 @@ inline void requestRoutesTaskService(App& app)
 
         asyncResp->res.jsonValue["LifeCycleEventOnTaskStateChange"] = true;
 
+#ifdef HEALTH_POPULATE
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         health->populate();
+#endif
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         asyncResp->res.jsonValue["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["Tasks"]["@odata.id"] =

@@ -285,8 +285,10 @@ inline void
             auto cpuHealth = std::make_shared<HealthPopulate>(
                 aResp, "/ProcessorSummary/Status"_json_pointer);
 
+#ifdef HEALTH_POPULATE
             systemHealth->children.emplace_back(memoryHealth);
             systemHealth->children.emplace_back(cpuHealth);
+#endif
 
             // This is not system, so check if it's cpu, dimm, UUID or
             // BiosVer
@@ -3091,13 +3093,15 @@ inline void requestRoutesSystems(App& app)
             nlohmann::json::array_t({"KVMIP"});
 
 #endif // BMCWEB_ENABLE_KVM
+
+        auto health = std::make_shared<HealthPopulate>(asyncResp);
+#ifdef HEALTH_POPULATE
         constexpr std::array<std::string_view, 4> inventoryForSystems{
             "xyz.openbmc_project.Inventory.Item.Dimm",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Item.Drive",
             "xyz.openbmc_project.Inventory.Item.StorageController"};
 
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
         dbus::utility::getSubTreePaths(
             "/", 0, inventoryForSystems,
             [health](const boost::system::error_code& ec,
@@ -3110,8 +3114,8 @@ inline void requestRoutesSystems(App& app)
 
             health->inventory = resp;
             });
-
         health->populate();
+#endif
 
         getMainChassisId(asyncResp,
                          [](const std::string& chassisId,
