@@ -104,6 +104,30 @@
       },
       "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dc674c5_b966cf82",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-24T20:30:51Z",
+      "side": 1,
+      "message": "Concern on using GetManagedObjects like in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63644/comments/6c7ccf62_0093fa4d as the system gets larger.",
+      "parentUuid": "f026c473_bf39156c",
+      "range": {
+        "startLine": 382,
+        "startChar": 12,
+        "endLine": 384,
+        "endChar": 64
+      },
+      "revId": "b4e602432f8b7c21ebed60560408f68e3f8a3041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
