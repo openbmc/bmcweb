@@ -111,6 +111,30 @@
       },
       "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc49e25_890606e5",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-05-24T22:14:07Z",
+      "side": 1,
+      "message": "\u003e The flow here goes:\n\u003e onOpen called -\u003e dbus async_method_call #1\n\u003e onOpen called for 2nd connection -\u003e check on line 209 fires, but because it doesn\u0027t return, the read doesn\u0027t defer. Dbus async_method_call #2\n\u003e \n\u003e async_method_call #1 returns, calls doRead, which calls     hostSocket-\u003easync_read_some( on line 83\n\u003e \n\u003e dbus async_method_call #2 returns, calls     hostSocket-\u003easync_read_some(\n\u003e  AGAIN, which is already being read, and boom..... crash.\n\u003e \n\u003e Or am I missing something here?\n\nPossibly the `hostSocket \u003d\u003d nullptr` check on line 163 protecting `doRead()` and that we\u0027re not (yet) multi-threaded?\n\n\u003e While normally I really do like incremental progress, i kind of wonder if we should just be focusing on getting the patch STACK correct here, because the possibility for the above flow goes completely away once the migration is made to session-level data structures instead of the global objects we have.\n\n+1.",
+      "parentUuid": "b20b8166_3f5656c1",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 19
+      },
+      "revId": "8fa55b935f3d797459f5d2257215fc37db52a967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
