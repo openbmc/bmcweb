@@ -16,6 +16,24 @@
       "message": "This is really neat. Impressive job putting this POC together in such a short amount of time. \n\nAs your email states, this introduces a whole slew of other problems. One of the ones I would be most worried about is teaching and reviewing multi-threaded code. We already struggle with reviews in bmcweb. :/\n\nI would bet this doesn\u0027t solve the performance problem Rohit PAI mentioned on the mailing list but am super curious about any results.",
       "revId": "c826837f3fdd07eea0024310241fe5563a993fd8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ae3937_fa7f3826",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-24T21:59:09Z",
+      "side": 1,
+      "message": "\u003e This is really neat. Impressive job putting this POC together in such a short amount of time.\n\nluckily, asio already supports threads 😊  So it\u0027s largely just a matter of turning them back on, linking them in, and spinning up N dbus connections.\n\n\u003e \n\u003e As your email states, this introduces a whole slew of other problems. One of the ones I would be most worried about is teaching and reviewing multi-threaded code. We already struggle with reviews in bmcweb. :/\n\u003e \n\u003e I would bet this doesn\u0027t solve the performance problem Rohit PAI mentioned on the mailing list but am super curious about any results.\n\nAgreed with everything in the above.  Lets see if the above solves the problem, and if it does, we can\u0027t really ignore it.  We COULD push the \"things need to be multithread-safe\" into a specific layer, which we arguably should do anyway, but lets have that discussion once we know this is the real problem.",
+      "parentUuid": "5d3ddf22_4b231b99",
+      "revId": "c826837f3fdd07eea0024310241fe5563a993fd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
