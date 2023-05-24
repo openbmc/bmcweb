@@ -339,7 +339,7 @@ inline void
                                 return;
                             }
 
-                            const uint32_t* memorySizeInKB = nullptr;
+                            const size_t* memorySizeInKB = nullptr;
 
                             const bool success =
                                 sdbusplus::unpackPropertiesNoThrow(
@@ -366,14 +366,16 @@ inline void
                                     aResp->res
                                         .jsonValue["MemorySummary"]
                                                   ["TotalSystemMemoryGiB"] =
-                                        *memorySizeInKB / (1024 * 1024);
+                                        *memorySizeInKB /
+                                        static_cast<size_t>(1024 * 1024);
                                 }
                                 else
                                 {
                                     aResp->res
                                         .jsonValue["MemorySummary"]
                                                   ["TotalSystemMemoryGiB"] =
-                                        *memorySizeInKB / (1024 * 1024) +
+                                        *memorySizeInKB /
+                                            static_cast<size_t>(1024 * 1024) +
                                         *preValue;
                                 }
                                 aResp->res.jsonValue["MemorySummary"]["Status"]
