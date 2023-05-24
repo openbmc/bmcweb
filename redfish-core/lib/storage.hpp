@@ -91,8 +91,10 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
         count = 0;
 
+#ifdef HEALTH_POPULATE
         health->inventory.insert(health->inventory.end(), driveList.begin(),
                                  driveList.end());
+#endif
 
         for (const std::string& drive : driveList)
         {
@@ -239,6 +241,7 @@ inline void
                 });
         }
 
+#ifdef HEALTH_POPULATE
         // this is done after we know the json array will no longer
         // be resized, as json::array uses vector underneath and we
         // need references to its members that won't change
@@ -255,6 +258,7 @@ inline void
             health->children.emplace_back(subHealth);
             count++;
         }
+#endif
         });
 }
 
@@ -277,7 +281,9 @@ inline void requestRoutesStorage(App& app)
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
+#ifdef HEALTH_POPULATE
         health->populate();
+#endif
 
         getDrives(asyncResp, health);
         getStorageControllers(asyncResp, health);
@@ -682,9 +688,11 @@ inline void requestRoutesDrive(App& app)
             // default it to Enabled
             asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
+#ifdef HEALTH_POPULATE
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             health->inventory.emplace_back(path);
             health->populate();
+#endif
 
             addAllDriveInfo(asyncResp, connectionNames[0].first, path,
                             connectionNames[0].second);

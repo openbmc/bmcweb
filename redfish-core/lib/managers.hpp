@@ -2015,9 +2015,11 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
             std::move(managerForServers);
 
+#ifdef HEALTH_POPULATE
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         health->isManagersHealth = true;
         health->populate();
+#endif
 
         sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
                                              "FirmwareVersion", true);
