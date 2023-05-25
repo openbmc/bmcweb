@@ -70,6 +70,30 @@
       },
       "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b860a9c5_9b03244c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-25T13:50:24Z",
+      "side": 1,
+      "message": "Please observe that we are using XOR on line 215. So if both of redfishType and webUIType are not set then condition will not be true and we will not go inside if() condition and IPMI is set then we already saved \"ipmi\" in the userGroups vector so we will return \u0027ipmi\u0027.",
+      "parentUuid": "fa8d4392_8fd3ecb4",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 16
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
