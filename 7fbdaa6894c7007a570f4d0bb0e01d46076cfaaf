@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a043e5_fa5d6cf6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-25T18:21:26Z",
+      "side": 1,
+      "message": "In other code, we validate the ID, but Ed mentioned that we don\u0027t need to validate it.",
+      "revId": "7fbdaa6894c7007a570f4d0bb0e01d46076cfaaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202c1b91_bce370b6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1352,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-25T18:21:26Z",
+      "side": 1,
+      "message": "Usually, we refactor in a separate commit. Updtae the commit message.",
+      "revId": "7fbdaa6894c7007a570f4d0bb0e01d46076cfaaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
