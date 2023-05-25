@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5cbfba4_d3084dcb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-25T19:54:33Z",
+      "side": 1,
+      "message": "This `handleReportPatch()` is called from `requestRoutesMetricReportDefinition()` for patch.\n\nSo, isn\u0027t this like\n\n```\n    asyncResp-\u003eres.addHeader(\n        boost::beast::http::field::link,\n        \"\u003c/redfish/v1/JsonSchemas/MetricReport/MetricReport.json\u003e; rel\u003ddescribedby\");\n```",
+      "range": {
+        "startLine": 1094,
+        "startChar": 0,
+        "endLine": 1096,
+        "endChar": 125
+      },
+      "revId": "105c912eb78b5000bd8e898c4041a2bb4bcd2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4a5e084_97bfbd86",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 6
