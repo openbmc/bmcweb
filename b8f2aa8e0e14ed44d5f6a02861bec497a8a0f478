@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da39ed91_a2b74c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "left a bunch of comments.  Lots of generalized safety issues that need resolved.",
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e01c455_6e274829",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "Please use flat map.",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "734a3c9d_f976c4ac",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "this should be weak_from_this() to handle destruction properly.",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6707aa_b317fa35",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 86,
+        "startChar": 13,
+        "endLine": 86,
+        "endChar": 17
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0d84d85_983e8022",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "Isn\u0027t this now going to duplicate the data?  If we\u0027re moving to per-session sockets, we shouldn\u0027t be looping over all connections.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 65
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd326aa_9a576a81",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "This doesn\u0027t look used anymore?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 57
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f85a07_b5b26cb9",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "Also doesn\u0027t look used?",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 60
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48239d0_e110d876",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "No need to put an else if the previous line returns.",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 12
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c8797d8_587dbdf3",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "Just do emplace here.  There\u0027s no expectation of collisions in this structure, and in the unlikely event that it happens, destroying the old object is fine.",
+      "range": {
+        "startLine": 166,
+        "startChar": 38,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212329ee_a2ba8b5e",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "please write out the type here.  it\u0027s not obvious without looking at the definition of the function.",
+      "range": {
+        "startLine": 259,
+        "startChar": 4,
+        "endLine": 259,
+        "endChar": 8
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc331fa_ad6b6bf5",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "we now had a handler per connection.  Can this ever happen?",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 5
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46411385_f9577d86",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "This is a safety issue.  You probably want to just lookup the struct in the db on the other side of this so that if the socket disconnects while this call is happening, we handle it right.",
+      "range": {
+        "startLine": 289,
+        "startChar": 9,
+        "endLine": 289,
+        "endChar": 17
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e243854_058c5d22",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T22:45:35Z",
+      "side": 1,
+      "message": "Please remove the lambda.",
+      "range": {
+        "startLine": 307,
+        "startChar": 12,
+        "endLine": 307,
+        "endChar": 38
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
