@@ -16,6 +16,46 @@
       "message": "Tested OK on Ampere\u0027s mtmitchell platform",
       "revId": "bfa6fc4c32564b943686e0f9bb3fda7c868432a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33da681_4e1a405b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:24:46Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need the commit above or it fails the validator?",
+      "revId": "bfa6fc4c32564b943686e0f9bb3fda7c868432a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7350e8fe_fd3581c6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:24:46Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "bfa6fc4c32564b943686e0f9bb3fda7c868432a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
