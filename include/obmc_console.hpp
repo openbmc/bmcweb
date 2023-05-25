@@ -6,191 +6,224 @@
 #include <sys/socket.h>
 
 #include <boost/asio/local/stream_protocol.hpp>
-#include <boost/container/flat_set.hpp>
+#include <boost/container/flat_map.hpp>
 
 namespace crow
 {
 namespace obmc_console
 {
 
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::unique_ptr<boost::asio::local::stream_protocol::socket> hostSocket;
-
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::array<char, 4096> outputBuffer;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::string inputBuffer;
-
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static boost::container::flat_set<crow::websocket::Connection*> sessions;
-
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static bool doingWrite = false;
-
-inline void doWrite()
+class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 {
-    if (doingWrite)
+  public:
+    ConsoleHandler(boost::asio::io_context& ioc,
+                   crow::websocket::Connection& connIn) :
+        hostSocket(ioc),
+        conn(connIn)
+    {}
+
+    ~ConsoleHandler() = default;
+
+    ConsoleHandler(const ConsoleHandler&) = delete;
+    ConsoleHandler(ConsoleHandler&&) = delete;
+    ConsoleHandler& operator=(const ConsoleHandler&) = delete;
+    ConsoleHandler& operator=(ConsoleHandler&&) = delete;
+
+    void doWrite()
     {
-        BMCWEB_LOG_DEBUG << "Already writing.  Bailing out";
-        return;
-    }
-
-    if (inputBuffer.empty())
-    {
-        BMCWEB_LOG_DEBUG << "Outbuffer empty.  Bailing out";
-        return;
-    }
-
-    if (!hostSocket)
-    {
-        BMCWEB_LOG_ERROR << "doWrite(): Socket closed.";
-        return;
-    }
-
-    doingWrite = true;
-    hostSocket->async_write_some(
-        boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
-        [](const boost::beast::error_code& ec, std::size_t bytesWritten) {
-        doingWrite = false;
-        inputBuffer.erase(0, bytesWritten);
-
-        if (ec == boost::asio::error::eof)
+        if (doingWrite)
         {
-            for (crow::websocket::Connection* session : sessions)
-            {
-                session->close("Error in reading to host port");
-            }
+            BMCWEB_LOG_DEBUG << "Already writing.  Bailing out";
             return;
         }
+
+        if (inputBuffer.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Outbuffer empty.  Bailing out";
+            return;
+        }
+
+        doingWrite = true;
+        hostSocket.async_write_some(
+            boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
+            [weak(weak_from_this())](const boost::beast::error_code& ec,
+                                     std::size_t bytesWritten) {
+            std::shared_ptr<ConsoleHandler> self = weak.lock();
+            if (self == nullptr)
+            {
+                return;
+            }
+
+            self->doingWrite = false;
+            self->inputBuffer.erase(0, bytesWritten);
+
+            if (ec == boost::asio::error::eof)
+            {
+                self->conn.close("Error in reading to host port");
+                return;
+            }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Error in host serial write "
+                                 << ec.message();
+                return;
+            }
+            self->doWrite();
+            });
+    }
+
+    void doRead()
+    {
+        std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
+
+        BMCWEB_LOG_DEBUG << "Reading from socket";
+        hostSocket.async_read_some(
+            outputBuffer.prepare(bytes),
+            [this, weakSelf(weak_from_this())](
+                const boost::system::error_code& ec, std::size_t bytesRead) {
+            BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
+            std::shared_ptr<Console> self = weakSelf.lock();
+            if (self == nullptr)
+            {
+                return;
+            }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Couldn't read from host serial port: "
+                                 << ec.message();
+                conn.close("Error connecting to host port");
+                return;
+            }
+            outputBuffer.commit(bytesRead);
+            std::string_view payload(
+                static_cast<const char*>(outputBuffer.data().data()),
+                bytesRead);
+            conn.sendBinary(payload);
+            outputBuffer.consume(bytesRead);
+            doRead();
+            });
+    }
+
+    bool connect(int fd)
+    {
+        boost::system::error_code ec;
+        boost::asio::local::stream_protocol proto;
+
+        hostSocket.assign(proto, fd, ec);
+
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Error in host serial write " << ec.message();
-            return;
+            BMCWEB_LOG_ERROR << "Failed to assign the DBUS socket"
+                             << " Socket assign error: " << ec.message();
+            return false;
         }
+
+        conn.resumeRead();
         doWrite();
-        });
-}
-
-inline void doRead()
-{
-    if (!hostSocket)
-    {
-        BMCWEB_LOG_ERROR << "doRead(): Socket closed.";
-        return;
-    }
-
-    BMCWEB_LOG_DEBUG << "Reading from socket";
-    hostSocket->async_read_some(
-        boost::asio::buffer(outputBuffer.data(), outputBuffer.size()),
-        [](const boost::system::error_code& ec, std::size_t bytesRead) {
-        BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "Couldn't read from host serial port: "
-                             << ec.message();
-            for (crow::websocket::Connection* session : sessions)
-            {
-                session->close("Error in connecting to host port");
-            }
-            return;
-        }
-        std::string_view payload(outputBuffer.data(), bytesRead);
-        for (crow::websocket::Connection* session : sessions)
-        {
-            session->sendBinary(payload);
-        }
         doRead();
-        });
+        return true;
+    }
+
+    boost::asio::local::stream_protocol::socket hostSocket;
+
+    boost::beast::flat_static_buffer<4096> outputBuffer;
+
+    std::string inputBuffer;
+    bool doingWrite = false;
+    crow::websocket::Connection& conn;
+};
+
+using ObmcConsoleMap =
+    boost::container::flat_map<crow::websocket::Connection*,
+                               std::shared_ptr<ConsoleHandler>>;
+
+ObmcConsoleMap& getConsoleHandlerMap()
+{
+    static ObmcConsoleMap map;
+    return map;
 }
 
-// If connection is active then remove it from the connection map
-inline bool removeConnection(crow::websocket::Connection& conn)
+// Create handler for the route on first connection and add connection in the
+// connection map.
+inline std::shared_ptr<ConsoleHandler>
+    addConnectionAndHandler(crow::websocket::Connection& conn)
 {
-    bool ret = false;
+    // Store the pair in the handlers map
+    return getConsoleHandlerMap()
+        .emplace(&conn,
+                 std::make_shared<ConsoleHandler>(conn.getIoContext(), conn))
+        .first->second;
+}
 
-    if (sessions.erase(&conn) != 0U)
+// Validate the connection and get the handler
+inline std::shared_ptr<ConsoleHandler>
+    getConsoleHandler(crow::websocket::Connection& conn)
+{
+    // Look up the handler
+    auto iter = getConsoleHandlerMap().find(&conn);
+    if (iter == getConsoleHandlerMap().end())
     {
-        ret = true;
+        BMCWEB_LOG_ERROR << "Failed to find the handler";
+        return nullptr;
     }
 
-    if (sessions.empty())
+    return iter->second;
+}
+
+// Remove connection from the connection map and if connection map is empty
+// then remove the handler from handlers map.
+inline void onClose(crow::websocket::Connection& conn, const std::string& err)
+{
+    BMCWEB_LOG_INFO << "Closing websocket. Reason: " << err;
+
+    auto iter = getConsoleHandlerMap().find(&conn);
+    if (iter != getConsoleHandlerMap().end())
     {
-        hostSocket = nullptr;
-        inputBuffer.clear();
-        inputBuffer.shrink_to_fit();
+        BMCWEB_LOG_DEBUG << "Remove connection " << &conn
+                         << " from obmc console";
+
+        // Removed last connection so remove the path
+        getConsoleHandlerMap().erase(iter);
     }
-    return ret;
 }
 
 inline void connectConsoleSocket(crow::websocket::Connection& conn,
                                  const boost::system::error_code& ec,
                                  const sdbusplus::message::unix_fd& unixfd)
 {
-    int fd = -1;
-
     if (ec)
     {
         BMCWEB_LOG_ERROR << "Failed to call console Connect() method"
                          << " DBUS error: " << ec.message();
-        if (removeConnection(conn))
-        {
-            conn.close("Failed to call console Connect() method");
-        }
+        conn.close("Failed to connect");
         return;
     }
 
-    // Make sure that connection is still open.
-    if (!sessions.contains(&conn))
+    // Look up the handler
+    std::shared_ptr<ConsoleHandler> handler = getConsoleHandler(conn);
+    if (handler == nullptr)
     {
+        BMCWEB_LOG_ERROR << "Failed to find the handler";
+        conn.close("Internal error");
         return;
     }
 
-    fd = dup(unixfd);
+    int fd = dup(unixfd);
     if (fd == -1)
     {
         BMCWEB_LOG_ERROR << "Failed to dup the DBUS unixfd"
                          << " error: " << strerror(errno);
-        if (removeConnection(conn))
-        {
-            conn.close("Failed to dup the DBUS unixfd");
-        }
+        conn.close("Internal error");
         return;
     }
 
     BMCWEB_LOG_DEBUG << "Console web socket path: " << conn.req.target()
                      << " Console unix FD: " << unixfd << " duped FD: " << fd;
 
-    if (hostSocket == nullptr)
+    if (!handler->connect(fd))
     {
-        boost::system::error_code ec1;
-        boost::asio::local::stream_protocol proto;
-        hostSocket =
-            std::make_unique<boost::asio::local::stream_protocol::socket>(
-                conn.getIoContext());
-
-        hostSocket->assign(proto, fd, ec1);
-
-        if (ec1)
-        {
-            close(fd);
-            BMCWEB_LOG_ERROR << "Failed to assign the DBUS socket"
-                             << " Socket assign error: " << ec1.message();
-            if (removeConnection(conn))
-            {
-                conn.close("Failed to assign the DBUS socket");
-            }
-        }
-        else
-        {
-            conn.resumeRead();
-            doWrite();
-            doRead();
-        }
-    }
-    else
-    {
-        BMCWEB_LOG_DEBUG << "Socket already exist so close the new fd: " << fd;
         close(fd);
+        conn.close("Internal Error");
     }
 }
 
@@ -200,16 +233,13 @@ inline void onOpen(crow::websocket::Connection& conn)
 {
     BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
-    // Save the connection in the map
-    sessions.insert(&conn);
-
-    // We need to wait for dbus and the websockets to hook up before data is
-    // sent/received.  Tell the core to hold off messages until the sockets are
-    // up
-    if (hostSocket == nullptr)
+    std::shared_ptr<ConsoleHandler> handler = addConnectionAndHandler(conn);
+    if (handler == nullptr)
     {
-        conn.deferRead();
+        return;
     }
+
+    conn.deferRead();
 
     // The console id 'default' is used for the console0
     // We need to change it when we provide full multi-console support.
@@ -230,23 +260,25 @@ inline void onOpen(crow::websocket::Connection& conn)
         "Connect");
 }
 
+inline void onMessage(crow::websocket::Connection& conn,
+                      const std::string& data, bool /*isBinary*/)
+{
+    std::shared_ptr<ConsoleHandler> handler = getConsoleHandler(conn);
+    if (handler != nullptr)
+    {
+        handler->inputBuffer += data;
+        handler->doWrite();
+    }
+}
+
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)
-        .onclose([](crow::websocket::Connection& conn,
-                    [[maybe_unused]] const std::string& reason) {
-            BMCWEB_LOG_INFO << "Closing websocket. Reason: " << reason;
-
-            removeConnection(conn);
-        })
-        .onmessage([]([[maybe_unused]] crow::websocket::Connection& conn,
-                      const std::string& data, [[maybe_unused]] bool isBinary) {
-            inputBuffer += data;
-            doWrite();
-        });
+        .onclose(onClose)
+        .onmessage(onMessage);
 }
 } // namespace obmc_console
 } // namespace crow
