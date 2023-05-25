@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "390de2d9_0884db08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-05-25T10:22:31Z",
+      "side": 1,
+      "message": "Tested OK on Ampere\u0027s mtmitchell platform",
+      "revId": "bfa6fc4c32564b943686e0f9bb3fda7c868432a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
