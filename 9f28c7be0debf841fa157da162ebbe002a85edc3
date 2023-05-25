@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24d7c78_ede59c80",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 3134,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T18:07:22Z",
+      "side": 1,
+      "message": "I think it would cleaner without the Redfish like \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20sw_util\u0026type\u003dcode\n\nbut oh well.",
+      "range": {
+        "startLine": 3134,
+        "startChar": 8,
+        "endLine": 3134,
+        "endChar": 17
+      },
+      "revId": "9f28c7be0debf841fa157da162ebbe002a85edc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
