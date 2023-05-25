@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f92d8a7_ef42749b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-25T23:25:48Z",
+      "side": 1,
+      "message": "Dileep/Jason, I have added you as a reviewer for the mentioned above commits. Please let me know if you are okay with the changes and if they work in your environment.",
+      "parentUuid": "412c788c_e9dc4f15",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
