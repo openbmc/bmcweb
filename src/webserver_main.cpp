@@ -4,6 +4,7 @@
 #include "cors_preflight.hpp"
 #include "dbus_monitor.hpp"
 #include "dbus_singleton.hpp"
+#include "google/google_service_root.hpp"
 #include "hostname_monitor.hpp"
 #include "ibm/management_console_rest.hpp"
 #include "image_upload.hpp"
@@ -23,7 +24,6 @@
 #include <systemd/sd-daemon.h>
 
 #include <boost/asio/io_context.hpp>
-#include <google/google_service_root.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>

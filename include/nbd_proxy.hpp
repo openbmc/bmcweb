@@ -17,12 +17,12 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "privileges.hpp"
+#include "websocket.hpp"
 
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/container/flat_map.hpp>
-#include <websocket.hpp>
 
 #include <string_view>
 

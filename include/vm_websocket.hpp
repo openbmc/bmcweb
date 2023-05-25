@@ -1,12 +1,12 @@
 #pragma once
 
 #include "app.hpp"
+#include "websocket.hpp"
 
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/process/child.hpp>
 #include <boost/process/io.hpp>
-#include <websocket.hpp>
 
 #include <csignal>
 

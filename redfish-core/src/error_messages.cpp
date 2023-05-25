@@ -17,13 +17,13 @@
 
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "nlohmann/json.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "source_location.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <cstddef>

@@ -19,7 +19,8 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "nlohmann/json.hpp"
+
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <cmath>
