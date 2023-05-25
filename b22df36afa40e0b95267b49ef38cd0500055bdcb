@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4503cc7_33138a09",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T19:33:13Z",
+      "side": 1,
+      "message": "Moved and changed to warning (internalError already logs).",
+      "parentUuid": "6e5cb71a_2f14296e",
+      "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45e1ab04_6ce16b69",
@@ -90,6 +108,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4253c243_438f2940",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T19:33:13Z",
+      "side": 1,
+      "message": "Moved to 362 and changed to warning.",
+      "parentUuid": "45e1ab04_6ce16b69",
+      "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "87d6ed4e_4322df35",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
@@ -101,6 +137,24 @@
       "writtenOn": "2023-03-15T19:53:40Z",
       "side": 1,
       "message": "could make this match above, move to LOG_ERROR and put on line 708 but oh well.",
+      "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c33af1_ee293ff1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T19:33:13Z",
+      "side": 1,
+      "message": "Made consistent.",
+      "parentUuid": "87d6ed4e_4322df35",
       "revId": "b22df36afa40e0b95267b49ef38cd0500055bdcb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
