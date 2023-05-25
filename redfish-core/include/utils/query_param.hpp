@@ -534,7 +534,7 @@ struct ExpandNode
 // with the keys from the jsonResponse object
 inline void findNavigationReferencesRecursive(
     ExpandType eType, nlohmann::json& jsonResponse,
-    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
+    const nlohmann::json::json_pointer& p, bool inLinks,
     std::vector<ExpandNode>& out)
 {
     // If no expand is needed, return early
@@ -553,8 +553,8 @@ inline void findNavigationReferencesRecursive(
         {
             nlohmann::json::json_pointer newPtr = p / index;
             BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
-            findNavigationReferencesRecursive(eType, element, newPtr, depth,
-                                              inLinks, out);
+            findNavigationReferencesRecursive(eType, element, newPtr, inLinks,
+                                              out);
             index++;
         }
     }
@@ -580,22 +580,6 @@ inline void findNavigationReferencesRecursive(
         }
     }
 
-    int newDepth = depth;
-    auto odataId = obj->find("@odata.id");
-    if (odataId != obj->end())
-    {
-        // The Redfish spec requires all resources to include the resource
-        // identifier.  If the object has multiple elements and one of them is
-        // "@odata.id" then that means we have entered a new level / expanded
-        // resource.  We need to stop traversing if we're already at the desired
-        // depth
-        if ((obj->size() > 1) && (depth == 0))
-        {
-            return;
-        }
-        newDepth--;
-    }
-
     // Loop the object and look for links
     for (auto& element : *obj)
     {
@@ -619,7 +603,7 @@ inline void findNavigationReferencesRecursive(
         BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr;
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
-                                          newDepth, localInLinks, out);
+                                          localInLinks, out);
     }
 }
 
@@ -629,14 +613,15 @@ inline void findNavigationReferencesRecursive(
 // Isn't a concern until https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556
 // lands.  May want to avoid forwarding query params when request is uptree from
 // a top level collection.
+// findNavigationReferences just looks for all of the odata.id available in the
+// response. It doesn't care about the previous expanded level and will just get
+// to the next expand level.
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, int depth,
-                             nlohmann::json& jsonResponse)
+    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse)
 {
     std::vector<ExpandNode> ret;
     const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
-    findNavigationReferencesRecursive(eType, jsonResponse, root, depth, false,
-                                      ret);
+    findNavigationReferencesRecursive(eType, jsonResponse, root, false, ret);
     return ret;
 }
 
@@ -797,8 +782,8 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // for deeper levels.
     void startQuery(const Query& query)
     {
-        std::vector<ExpandNode> nodes = findNavigationReferences(
-            query.expandType, query.expandLevel, finalRes->res.jsonValue);
+        std::vector<ExpandNode> nodes =
+            findNavigationReferences(query.expandType, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
         const std::optional<std::string> queryStr = formatQueryForExpand(query);
         if (!queryStr)
