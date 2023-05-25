@@ -50,9 +50,9 @@ configure_file(input : 'bmcweb.service.in',
                install : true)
 
 # Copy pam-webserver to etc/pam.d
-configure_file(input : 'pam-webserver',
-               output : 'webserver',
-               copy : true,
-               install_dir: '/etc/pam.d',
-               install : true)
+install_data(
+  'pam-webserver',
+  install_dir: '/etc/pam.d/',
+  rename: 'webserver',
+)
 
