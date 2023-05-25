@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a5e084_97bfbd86",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-25T19:20:18Z",
+      "side": 1,
+      "message": "Looks like a bug is fixed?",
+      "range": {
+        "startLine": 1351,
+        "startChar": 23,
+        "endLine": 1351,
+        "endChar": 64
+      },
+      "revId": "105c912eb78b5000bd8e898c4041a2bb4bcd2f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
