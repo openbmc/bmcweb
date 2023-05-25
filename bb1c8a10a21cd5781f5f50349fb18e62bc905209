@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5560e7ee_89fa5cd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T18:53:56Z",
+      "side": 1,
+      "message": "Redfish service validator showed a bug (two slashes in the response).  I\u0027ve fixed the bug.",
+      "parentUuid": "72de900c_64e19657",
+      "revId": "bb1c8a10a21cd5781f5f50349fb18e62bc905209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9c7720c8_bb175839",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 11
