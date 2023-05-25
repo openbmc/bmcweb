@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064b24f9_aad030ad",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:22:20Z",
+      "side": 1,
+      "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 227,
+        "startChar": 41,
+        "endLine": 227,
+        "endChar": 51
+      },
+      "revId": "2c3a7876210eb2b8d9f93bd77f0109bafaf46daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4a5c3cc_bb14a903",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:22:20Z",
+      "side": 1,
+      "message": "can we print the ec, otherwise this trace is mostly useless, internalError is already logged",
+      "range": {
+        "startLine": 232,
+        "startChar": 67,
+        "endLine": 232,
+        "endChar": 69
+      },
+      "revId": "2c3a7876210eb2b8d9f93bd77f0109bafaf46daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5767439b_35b2c1ae",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:22:20Z",
+      "side": 1,
+      "message": "#include \u003csdbusplus/asio/property.hpp\u003e",
+      "range": {
+        "startLine": 248,
+        "startChar": 4,
+        "endLine": 248,
+        "endChar": 32
+      },
+      "revId": "2c3a7876210eb2b8d9f93bd77f0109bafaf46daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6852fa92_84f63c76",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:22:20Z",
+      "side": 1,
+      "message": "can we print the ec, otherwise this trace is mostly useless, internalError is already logged",
+      "range": {
+        "startLine": 256,
+        "startChar": 66,
+        "endLine": 256,
+        "endChar": 68
+      },
+      "revId": "2c3a7876210eb2b8d9f93bd77f0109bafaf46daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
