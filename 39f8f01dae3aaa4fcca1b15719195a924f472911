@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b23c3099_3de0a6f4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-25T19:10:10Z",
+      "side": 1,
+      "message": "Header is added. I am adding my approval.",
+      "revId": "39f8f01dae3aaa4fcca1b15719195a924f472911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
