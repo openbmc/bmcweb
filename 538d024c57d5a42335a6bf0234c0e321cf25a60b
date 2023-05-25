@@ -127,6 +127,30 @@
       },
       "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4d30be_995d942e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-05-25T16:42:30Z",
+      "side": 1,
+      "message": "I am unable to determine how to return an empty object. In other parts of the code, we check if object.empty is present.It is better to check if the object is empty.",
+      "parentUuid": "8a0de0a9_eab12ec0",
+      "range": {
+        "startLine": 278,
+        "startChar": 22,
+        "endLine": 278,
+        "endChar": 36
+      },
+      "revId": "538d024c57d5a42335a6bf0234c0e321cf25a60b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
