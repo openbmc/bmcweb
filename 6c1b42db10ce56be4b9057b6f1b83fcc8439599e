@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a309a674_82fe1685",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:27:01Z",
+      "side": 1,
+      "message": "Redfish.md updates?",
+      "revId": "6c1b42db10ce56be4b9057b6f1b83fcc8439599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d7cdd5_31e06224",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:27:01Z",
+      "side": 1,
+      "message": "#include \"dbus_utility.hpp\" ?",
+      "range": {
+        "startLine": 144,
+        "startChar": 10,
+        "endLine": 144,
+        "endChar": 54
+      },
+      "revId": "6c1b42db10ce56be4b9057b6f1b83fcc8439599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade02515_39afc64d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-25T19:27:01Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
+      "range": {
+        "startLine": 145,
+        "startChar": 10,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "6c1b42db10ce56be4b9057b6f1b83fcc8439599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
