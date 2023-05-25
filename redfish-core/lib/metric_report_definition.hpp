@@ -1170,6 +1170,29 @@ inline void
 }
 } // namespace telemetry
 
+inline void handleMetricReportDefinitionsGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#MetricReportDefinitionCollection."
+        "MetricReportDefinitionCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/TelemetryService/MetricReportDefinitions";
+    asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
+    constexpr std::array<std::string_view, 1> interfaces{
+        telemetry::reportInterface};
+    collection_util::getCollectionMembers(
+        asyncResp,
+        boost::urls::url(
+            "/redfish/v1/TelemetryService/MetricReportDefinitions"),
+        interfaces, "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
+}
 inline void handleMetricReportDefinitionsPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1281,28 +1304,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
         .privileges(redfish::privileges::getMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#MetricReportDefinitionCollection."
-            "MetricReportDefinitionCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/TelemetryService/MetricReportDefinitions";
-        asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
-        constexpr std::array<std::string_view, 1> interfaces{
-            telemetry::reportInterface};
-        collection_util::getCollectionMembers(
-            asyncResp,
-            boost::urls::url(
-                "/redfish/v1/TelemetryService/MetricReportDefinitions"),
-            interfaces,
-            "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
-        });
+            std::bind_front(handleMetricReportDefinitionsGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
         .privileges(redfish::privileges::postMetricReportDefinitionCollection)
