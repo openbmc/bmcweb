@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a886b7a_0ee9d5eb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T16:23:29Z",
+      "side": 1,
+      "message": "Please remove.  As a rule, we compile all code for all branches, and try to rely on removal at link time.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 46
+      },
+      "revId": "f02430e0808d1c8e9847111ea0dcb14e98ca9f80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa84391b_fc3c563a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T16:23:29Z",
+      "side": 1,
+      "message": "if constexpr please, using the config file approach in bmcweb.conf.",
+      "range": {
+        "startLine": 260,
+        "startChar": 7,
+        "endLine": 260,
+        "endChar": 46
+      },
+      "revId": "f02430e0808d1c8e9847111ea0dcb14e98ca9f80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab1e6f4_319bdf41",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T16:23:29Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 386,
+        "startChar": 7,
+        "endLine": 386,
+        "endChar": 46
+      },
+      "revId": "f02430e0808d1c8e9847111ea0dcb14e98ca9f80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
