@@ -33,6 +33,24 @@
       "message": "Usually, we refactor in a separate commit. Updtae the commit message.",
       "revId": "7fbdaa6894c7007a570f4d0bb0e01d46076cfaaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96a552e_b5d6c952",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-25T19:01:18Z",
+      "side": 1,
+      "message": "I\u0027ve broken this out into its own patchset.  Thank you for keeping me honest to my own rules 😊",
+      "parentUuid": "202c1b91_bce370b6",
+      "revId": "7fbdaa6894c7007a570f4d0bb0e01d46076cfaaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
