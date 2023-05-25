@@ -33,6 +33,24 @@
       "message": "staticGatewayData? If you are going to have these, let\u0027s make sure they are correct",
       "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "345c5bb5_f7b9008a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-05-25T16:14:59Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9e20c385_d8ce8ab4",
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
