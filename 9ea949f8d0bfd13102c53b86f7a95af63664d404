@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc169386_95c7bdab",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-25T19:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72ac493d_3e925bdd",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 22
+      },
+      "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f35bb15e_907d5ccf",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-05-25T16:26:13Z",
       "side": 1,
       "message": "why not put this in the ifdef?",
+      "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3d7c3e_1cda13d2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3097,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-05-25T19:49:44Z",
+      "side": 1,
+      "message": "health is passed in `getComputerSystem(asyncResp, health);` at line 3153",
+      "parentUuid": "f35bb15e_907d5ccf",
       "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
