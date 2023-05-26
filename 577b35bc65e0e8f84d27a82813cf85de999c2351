@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc066917_20385de1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T21:00:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f4ad8b7_07b2fcdf",
+      "range": {
+        "startLine": 11,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31ec669e_df3ca380",
@@ -309,6 +333,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe529e1e_541df813",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T21:00:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97bf01be_e8741dc4",
+      "range": {
+        "startLine": 879,
+        "startChar": 0,
+        "endLine": 882,
+        "endChar": 5
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09e10ad3_cc365f97",
@@ -346,6 +394,30 @@
       "side": 1,
       "message": "httpSingleton can\u0027t be initialized without an io_service, and not all contexts have an io_service.",
       "parentUuid": "09e10ad3_cc365f97",
+      "range": {
+        "startLine": 886,
+        "startChar": 8,
+        "endLine": 886,
+        "endChar": 39
+      },
+      "revId": "577b35bc65e0e8f84d27a82813cf85de999c2351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4075a96_95061010",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T21:00:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "604f3d2a_e02eb53b",
       "range": {
         "startLine": 886,
         "startChar": 8,
