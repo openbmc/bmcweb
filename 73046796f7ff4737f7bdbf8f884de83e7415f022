@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ead3b755_aa176856",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-05-26T12:06:35Z",
+      "side": 1,
+      "message": "The above mentioned commits is not working in our system. It shows 0 Fans\nget: https://${bmcip}/redfish/v1/Chassis/{id}/ThermalSubsystem/Fans\n{\n    \"@odata.id\": \"/redfish/v1/Chassis/{id}/ThermalSubsystem/Fans\",\n    \"@odata.type\": \"#FanCollection.FanCollection\",\n    \"Description\": \"The collection of Fan resource instances\",\n    \"Members\": [],\n    \"Members@odata.count\": 0,\n    \"Name\": \"Fan Collection\"\n}\n\nAs Fru information of Fans is not present in Fan inventory, The fans may not shows\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/inventory\" 0 1 xyz.openbmc_project.Inventory.Item.Fan\nas 0\n\nThe Fans details are present under interface xyz.openbmc_project.Sensor.Value\nfan_pwm sensors are \nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/sensors/fan_pwm\" 0 1 \"xyz.openbmc_project.Sensor.Value\"\nas 6 \"/xyz/openbmc_project/sensors/fan_pwm/Pwm_11_12\"\n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_1_2\"\n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_3_4\"\n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_5_6\"\n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_7_8\"\n\"/xyz/openbmc_project/sensors/fan_pwm/Pwm_9_10\"\n\nfan_tach sensors are\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTreePaths sias \"/xyz/openbmc_project/sensors/fan_tach\" 0 1 \"xyz.openbmc_project.Sensor.Value\"\nas 12 \"/xyz/openbmc_project/sensors/fan_tach/Fan_1\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_10\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_11\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_12\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_2\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_3\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_4\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_5\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_6\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_7\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_8\" \"/xyz/openbmc_project/sensors/fan_tach/Fan_9\"",
+      "parentUuid": "8f92d8a7_ef42749b",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
