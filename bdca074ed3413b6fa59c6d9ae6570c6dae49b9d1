@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30725f1_9bc3dda2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "This needs some more details.  Why do we need an asyncronous API?  What does it get us in terms of the user, versus staying on the old API?\n\nIdeally you would talk about it in terms of behavioral changes to the external API.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "065a38ab_1a4cd772",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "Which one?",
+      "range": {
+        "startLine": 17,
+        "startChar": 21,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1bb173b_93dc10ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "This has been stacked on other patches for quite a while.  It will need rebased;  Is it still needed?",
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c8e9e31_5aa386a3",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "virtual_media isn\u0027t the place for generic structures like this.  This probably deserves it\u0027s own file, but also needs deduplicated with the other code that already does this.",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 41
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "464e2dda_3421d353",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "Please make this a class with a constructor to make it more clear how it should be used, and to avoid the std::optionals.",
+      "range": {
+        "startLine": 723,
+        "startChar": 0,
+        "endLine": 723,
+        "endChar": 6
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eee49993_6c774233",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "New services should not be using matchers because they store state within the process.  We have a couple that exist for dbus apis that existed before bmcweb existed, and we wanted to remain compatible, but new features shouldn\u0027t store state in bmcweb iteself.",
+      "range": {
+        "startLine": 731,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 58
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf49be5_d6dc209f",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "I don\u0027t see any shared ownership below.  unique_ptr?",
+      "range": {
+        "startLine": 738,
+        "startChar": 19,
+        "endLine": 738,
+        "endChar": 29
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6094a94_e6373cc0",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:25:10Z",
+      "side": 1,
+      "message": "Please don\u0027t write lambdas over 5 lines.  This is documented in the developing guide.  Please familiarize yourself with it.",
+      "range": {
+        "startLine": 757,
+        "startChar": 26,
+        "endLine": 800,
+        "endChar": 6
+      },
+      "revId": "bdca074ed3413b6fa59c6d9ae6570c6dae49b9d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
