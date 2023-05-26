@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf16b930_c7974d40",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-26T19:34:01Z",
+      "side": 1,
+      "message": "ERROR level?",
+      "range": {
+        "startLine": 369,
+        "startChar": 27,
+        "endLine": 369,
+        "endChar": 32
+      },
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e85454_90c1a33f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-26T19:34:01Z",
+      "side": 1,
+      "message": "return here?",
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b172c30_ffe59f33",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-26T19:34:01Z",
+      "side": 1,
+      "message": "ERROR?",
+      "range": {
+        "startLine": 388,
+        "startChar": 27,
+        "endLine": 388,
+        "endChar": 32
+      },
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3e84762_68722c45",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-26T19:34:01Z",
+      "side": 1,
+      "message": "return here?",
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
