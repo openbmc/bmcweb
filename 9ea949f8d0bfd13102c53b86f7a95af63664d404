@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7227c063_f4bd3092",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-26T20:26:39Z",
+      "side": 1,
+      "message": "I prefer this one because:\nA. it\u0027s not that much cruft to maintain as an API option\nB. if folks really relied on the old behavior, we can get them out of the woodwork and can maintain the option.\nC. if it eventually goes away, that\u0027s fine too.",
+      "parentUuid": "0ec685ec_5bc375c6",
+      "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72ac493d_3e925bdd",
