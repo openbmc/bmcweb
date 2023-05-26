@@ -144,6 +144,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dab95c3_12856eaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-26T19:30:22Z",
+      "side": 1,
+      "message": "It is good to see interest in this from multiple companies, can we converge on either this commit or https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57533 ?",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
