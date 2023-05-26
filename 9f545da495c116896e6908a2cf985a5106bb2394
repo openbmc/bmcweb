@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8d734ca_e60429a6",
+        "filename": "Redfish.md",
+        "patchSetId": 81
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-26T19:26:54Z",
+      "side": 1,
+      "message": "Really this should go with the commit before, oh well. Not the property but the schema/path",
+      "revId": "9f545da495c116896e6908a2cf985a5106bb2394",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
