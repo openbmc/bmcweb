@@ -258,26 +258,31 @@ if not sdbusplus.found()
 endif
 bmcweb_dependencies += sdbusplus
 
-tinyxml = dependency('tinyxml2',
-    default_options: ['tests=false'],
+tinyxml = dependency(
+    'tinyxml2',
     include_type: 'system',
+    version: '>=9.0.0',
 )
+if not tinyxml.found()
+    tinyxml_proj = subproject('tinyxml2', required: true)
+    tinyxml = tinyxml_proj.get_variable('tinyxml_dep')
+    tinyxml = tinyxml.as_system('system')
+endif
 bmcweb_dependencies += tinyxml
 
 systemd = dependency('systemd')
 zlib = dependency('zlib')
 bmcweb_dependencies += [systemd, zlib]
 
-if cxx.has_header('nlohmann/json.hpp')
-    nlohmann_json = declare_dependency()
-else
+nlohmann_json = dependency('nlohmann', version: '>=3.9.2', required: false, include_type: 'system')
+if not nlohmann_json.found()
     nlohmann_json_proj = subproject('nlohmann', required: true)
     nlohmann_json = nlohmann_json_proj.get_variable('nlohmann_json_dep')
     nlohmann_json = nlohmann_json.as_system('system')
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.81.0', required : false, include_type: 'system')
+boost = dependency('boost',version : '>=1.82.0', required : false, include_type: 'system')
 if not boost.found()
   boost = subproject('boost', required: true).get_variable('boost_dep')
   boost = boost.as_system('system')
@@ -285,7 +290,7 @@ endif
 bmcweb_dependencies += boost
 
 if get_option('tests').enabled()
-  gtest = dependency('gtest', main: true,disabler: true, required : false)
+  gtest = dependency('gtest', main: true, disabler: true, required : false)
   gmock = dependency('gmock', required : false)
   if not gtest.found() and get_option('tests').enabled()
     gtest_proj = subproject('gtest', required: true)
