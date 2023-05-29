@@ -68,6 +68,24 @@
       "parentUuid": "4300bde3_ff9649f9",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "914269d0_5de639b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-29T22:03:11Z",
+      "side": 1,
+      "message": "Just like we have a \"powered_by\" association today, I think we need an association from chassis \u003c--\u003e system.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml#L54\n\nAfter that is merged, this patch can look for that association",
+      "parentUuid": "f0f7e487_4ce9b211",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
