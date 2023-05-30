@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4029492_0861d073",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:00:53Z",
+      "side": 1,
+      "message": "I\u0027ve fixed all the outstanding comments, and changed it over to per-connection semantics.  Please review, and retest, and see if what I wrote works for you.",
+      "revId": "a49c0d926750bcb2d69a2c8188a93632552995c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
