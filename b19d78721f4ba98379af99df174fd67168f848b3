@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a5310c4_bbc46dd1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T19:49:12Z",
+      "side": 1,
+      "message": "There is other code in this file doing the same stuff so keeping it consistent.\n\ninline void handleRoleMapPatch(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::vector\u003cstd::pair\u003cstd::string, LDAPRoleMapData\u003e\u003e\u0026 roleMapObjData,\n    const std::string\u0026 serverType, const std::vector\u003cnlohmann::json\u003e\u0026 input)",
+      "parentUuid": "1b7b71fc_db8af3e6",
+      "range": {
+        "startLine": 175,
+        "startChar": 10,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee38f15_2292c49c",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-30T17:26:27Z",
       "side": 1,
       "message": "nit, extra parens.",
+      "range": {
+        "startLine": 197,
+        "startChar": 46,
+        "endLine": 197,
+        "endChar": 48
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5612f840_f51c4e2f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T19:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ee38f15_2292c49c",
       "range": {
         "startLine": 197,
         "startChar": 46,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6553d8fa_8e5595b7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T19:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aab058fe_14cd83bc",
+      "range": {
+        "startLine": 215,
+        "startChar": 24,
+        "endLine": 215,
+        "endChar": 35
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a129bb3a_d5f1314d",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-05-30T17:26:27Z",
       "side": 1,
       "message": "this can just be\n\nif (redfishType), because of the check on 215, correct?",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 223,
+        "endChar": 37
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "019b2e32_df8027d2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T19:49:12Z",
+      "side": 1,
+      "message": "I agree that we can only check redfishtype but it is cleaner to have both.",
+      "parentUuid": "a129bb3a_d5f1314d",
       "range": {
         "startLine": 223,
         "startChar": 8,
@@ -277,6 +373,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f69cea5_08c2f11d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T19:49:12Z",
+      "side": 1,
+      "message": "I don\u0027t think that comment is needed as there is a code above which shows that we are updating user group.",
+      "parentUuid": "13456a1e_ddfa3342",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 16
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cb3a067_d556006f",
@@ -314,6 +434,30 @@
       "side": 1,
       "message": "If you want to do this in a separate patch, that\u0027s fine, but it will need to merge at the same time as this one.",
       "parentUuid": "2cb3a067_d556006f",
+      "range": {
+        "startLine": 1824,
+        "startChar": 0,
+        "endLine": 1826,
+        "endChar": 53
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9980c04c_bb76e98e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T19:49:12Z",
+      "side": 1,
+      "message": "yes, POST is in my list but I thought it has low priority if PATCH supports these parameters.",
+      "parentUuid": "d6d307ca_b503da44",
       "range": {
         "startLine": 1824,
         "startChar": 0,
