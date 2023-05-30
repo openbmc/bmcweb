@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd3f0ecc_b4d3b502",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T18:00:03Z",
+      "side": 1,
+      "message": "This still needs figured out.  We need to not rely on the finalizer pattern.",
+      "range": {
+        "startLine": 1040,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 37
+      },
+      "revId": "126186c6e553956a2a7e2b0542e3ba35ed4c7ca2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
