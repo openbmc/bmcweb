@@ -223,10 +223,20 @@ inline void onOpen(crow::websocket::Connection& conn)
 
     conn.deferRead();
 
-    // The console id 'default' is used for the console0
-    // We need to change it when we provide full multi-console support.
-    const std::string consolePath = "/xyz/openbmc_project/console/default";
-    const std::string consoleService = "xyz.openbmc_project.Console.default";
+    // Get the console id from console router path and prepare the console
+    // object path and console service.
+    std::string consoleLeaf =
+        sdbusplus::message::object_path(conn.req.target()).filename();
+    std::string consolePath =
+        sdbusplus::message::object_path("/xyz/openbmc_project/console") /
+        consoleLeaf;
+    std::string consoleService = "xyz.openbmc_project.Console." + consoleLeaf;
+    // Keep old path for backward compatibility
+    if (conn.req.target() == "/console0")
+    {
+        consolePath = "/xyz/openbmc_project/console/default";
+        consoleService = "xyz.openbmc_project.Console.default";
+    }
 
     BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
                      << " service = " << consoleService
@@ -258,6 +268,16 @@ inline void onMessage(crow::websocket::Connection& conn,
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
+        .privileges({{"OpenBMCHostConsole"}})
+        .websocket()
+        .onopen(onOpen)
+        .onclose(onClose)
+        .onmessage(onMessage);
+}
+
+inline void requestMultiConsoleRoutes(App& app)
+{
+    BMCWEB_ROUTE(app, "/console/<str>")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)
