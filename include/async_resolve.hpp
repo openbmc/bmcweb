@@ -45,10 +45,7 @@ class Resolver
 
         uint16_t portNum = 0;
 
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        const char* portEnd = port.data() + port.size();
-
-        auto it = std::from_chars(port.data(), portEnd, portNum);
+        auto it = std::from_chars(&*port.begin(), &*port.end(), portNum);
         if (it.ec != std::errc())
         {
             BMCWEB_LOG_ERROR << "Failed to get the Port";
