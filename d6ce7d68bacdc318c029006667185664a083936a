@@ -619,6 +619,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed5ee10_e3b6cb8c",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fab5db3_6152ed9c",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b00aade2_6b8d0ab4",
@@ -901,6 +925,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75bd2bf0_7d6477d6",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6a81b21_20aaa65d",
+      "range": {
+        "startLine": 131,
+        "startChar": 58,
+        "endLine": 132,
+        "endChar": 75
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fe909bd_bdb5f345",
@@ -995,6 +1043,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54482e5c_c916a5f4",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cadfc943_7b1633a2",
+      "range": {
+        "startLine": 148,
+        "startChar": 50,
+        "endLine": 148,
+        "endChar": 58
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87506087_5daac682",
@@ -1032,6 +1104,30 @@
       "side": 1,
       "message": "ctx.dbusArgs.thresholds is a variant of two different vectors, and getting reference to it, while possible is not much helpful. But there is other improvement possible - std::move()",
       "parentUuid": "87506087_5daac682",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 44
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a09076e_ee1ac43a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09d54235_824dd93d",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -1173,6 +1269,30 @@
       "side": 1,
       "message": "As above (thresholds is a variant), I think it would be better to use std::move()",
       "parentUuid": "81b626bc_99ea7bed",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 44
+      },
+      "revId": "d6ce7d68bacdc318c029006667185664a083936a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f43c486_4cea7167",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b164df7a_67af642d",
       "range": {
         "startLine": 201,
         "startChar": 0,

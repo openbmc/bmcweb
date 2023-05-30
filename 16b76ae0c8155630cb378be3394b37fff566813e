@@ -354,6 +354,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e985ee16_3c0805f8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "293656b2_14eb4c59",
+      "range": {
+        "startLine": 133,
+        "startChar": 50,
+        "endLine": 133,
+        "endChar": 58
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56792d1e_d078934d",
@@ -448,6 +472,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69cf0005_6f01c983",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dfcea4d_8f23a0b6",
+      "range": {
+        "startLine": 155,
+        "startChar": 9,
+        "endLine": 155,
+        "endChar": 13
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e04a6e9_ed356a16",
@@ -532,6 +580,30 @@
       "side": 1,
       "message": "I reused Finalizer class idea from the past. I can include it in other similar cases in bmcweb (like MetricReportDefinition), if approved here.",
       "parentUuid": "e0983543_cfc6f185",
+      "range": {
+        "startLine": 510,
+        "startChar": 12,
+        "endLine": 510,
+        "endChar": 66
+      },
+      "revId": "16b76ae0c8155630cb378be3394b37fff566813e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28e2250e_ddfdf04f",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6d78e35_d8c8bf2f",
       "range": {
         "startLine": 510,
         "startChar": 12,
