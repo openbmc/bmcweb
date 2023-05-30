@@ -142,6 +142,30 @@
       },
       "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13456a1e_ddfa3342",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-30T15:17:38Z",
+      "side": 1,
+      "message": "I also think so. \nThen, it may be better to write the comment differently\nas \u0027both redfish/webui or none are allowed for PATCH\u0027\n\n```\n    // Both  Redfish and WebUI Account Types are needed to PATCH\n    // OR none of those Types are needed to be set.  \u003c--??\n```",
+      "parentUuid": "4610ae79_275b49ea",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 16
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
