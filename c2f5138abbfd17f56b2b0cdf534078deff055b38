@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc9ae456_201bd91f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "That\u0027s right. It can only be contained by a single Chassis, so it makes sense to ensure that only one association is present.",
+      "parentUuid": "fed90c92_b8bd1a77",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e5cf470_c788204b",
@@ -66,6 +84,24 @@
       "writtenOn": "2023-05-09T16:47:17Z",
       "side": 1,
       "message": "ec should be passed by reference.",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "796679a9_ed2264d0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e5cf470_c788204b",
       "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -87,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30646527_11b376bc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc7a4c3_204c5906",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44fdad93_4ee3794b",
@@ -104,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31401791_c0d95873",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44fdad93_4ee3794b",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59404fb3_a993d20a",
@@ -117,6 +189,24 @@
       "writtenOn": "2023-05-09T16:47:17Z",
       "side": 1,
       "message": "Check if ec is not EBADR and return internal error.",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2cbf6ac_c6138e3f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59404fb3_a993d20a",
       "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +246,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f2ab37_954fc14c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "Added the check for whether it already existed",
+      "parentUuid": "60ad15b5_38a105d6",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0ea0ea0_75e73607",
@@ -169,6 +277,24 @@
       "writtenOn": "2023-05-12T17:56:06Z",
       "side": 1,
       "message": "Change to jValue.size().\n\nThis is related to my earlier comment, but I think needs to happen regardless.  In the previous for loop you won\u0027t add a given downstreamChassis if it\u0027s empty.  When that happens the size of Contains will not be the same as the size of downstreamChassisPath.",
+      "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a89983ef_3deb999f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-05-30T15:50:33Z",
+      "side": 1,
+      "message": "Thanks! Good catch",
+      "parentUuid": "b0ea0ea0_75e73607",
       "revId": "c2f5138abbfd17f56b2b0cdf534078deff055b38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
