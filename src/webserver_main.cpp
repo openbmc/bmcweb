@@ -100,6 +100,7 @@ static int run()
 #endif
 
 #ifdef BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
+    crow::obmc_console::buildConsoleList();
     crow::obmc_console::requestRoutes(app);
 #endif
 

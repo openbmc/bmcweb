@@ -16,6 +16,11 @@ namespace obmc_console
 // Update this value each time we add new console route.
 static constexpr const uint maxSessions = 32;
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static boost::container::flat_set<std::string, std::less<>,
+                                  std::vector<std::string>>
+    supportedConsoleIds;
+
 class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 {
   public:
@@ -147,6 +152,47 @@ inline ObmcConsoleMap& getConsoleHandlerMap()
     return map;
 }
 
+// Build a list of supported console ids. This list is built at start
+// so if new console is started after the list is built then you need
+// to restart the bmcweb service.
+inline void buildConsoleList()
+{
+    BMCWEB_LOG_DEBUG << "Building console list";
+
+    // mapper call lambda
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Console.Access"};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/console", 1, interfaces,
+        [](const boost::system::error_code& ec,
+           const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_WARNING
+                << "getSubTree() for consoles failed. DBUS error:"
+                << ec.message();
+            return;
+        }
+
+        // Iterate over all retrieved ObjectPaths.
+        for (const auto& object : subtree)
+        {
+            std::string consoleLeaf =
+                sdbusplus::message::object_path(object.first).filename();
+            BMCWEB_LOG_DEBUG << "Console Object path = " << object.first
+                             << " consoleLeaf = " << consoleLeaf;
+            auto [iter, success] = supportedConsoleIds.insert(consoleLeaf);
+
+            if (!success)
+            {
+                BMCWEB_LOG_ERROR << "Failed to insert console id "
+                                 << consoleLeaf;
+            }
+        }
+        });
+}
+
 // Remove connection from the connection map and if connection map is empty
 // then remove the handler from handlers map.
 inline void onClose(crow::websocket::Connection& conn, const std::string& err)
@@ -217,20 +263,33 @@ inline void onOpen(crow::websocket::Connection& conn)
         return;
     }
 
+    // Get the console id from console router path and prepare the console
+    // object path and console service.
+    std::string consoleLeaf =
+        sdbusplus::message::object_path(conn.req.target()).filename();
+    const std::string consolePath = "/xyz/openbmc_project/console/" +
+                                    consoleLeaf;
+    const std::string consoleService = "xyz.openbmc_project.Console." +
+                                       consoleLeaf;
+
+    BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
+                     << " service = " << consoleService
+                     << " Request target = " << conn.req.target();
+
+    // Make sure that it is supported console id
+    auto iter = supportedConsoleIds.find(consoleLeaf);
+    if (iter == supportedConsoleIds.end())
+    {
+        BMCWEB_LOG_WARNING << "Console id '" << consoleLeaf << "' not found";
+        conn.close("Console id not found");
+        return;
+    }
+
     std::shared_ptr<ConsoleHandler> handler =
         std::make_shared<ConsoleHandler>(conn.getIoContext(), conn);
     getConsoleHandlerMap().emplace(&conn, handler);
 
     conn.deferRead();
-
-    // The console id 'default' is used for the console0
-    // We need to change it when we provide full multi-console support.
-    const std::string consolePath = "/xyz/openbmc_project/console/default";
-    const std::string consoleService = "xyz.openbmc_project.Console.default";
-
-    BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
-                     << " service = " << consoleService
-                     << " Request target = " << conn.req.target();
 
     // Call Connect() method to get the unix FD
     crow::connections::systemBus->async_method_call(
@@ -257,7 +316,7 @@ inline void onMessage(crow::websocket::Connection& conn,
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/console0")
+    BMCWEB_ROUTE(app, "/console/<str>")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)
