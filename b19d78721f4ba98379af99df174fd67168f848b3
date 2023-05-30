@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee07784_6713e1a4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T21:28:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c9bbc9_a7e45966",
+      "range": {
+        "startLine": 175,
+        "startChar": 10,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee38f15_2292c49c",
@@ -506,6 +530,30 @@
       "side": 1,
       "message": "Please let me know when you have POST done.  I suspect it won\u0027t be terribly difficult on top of what you already have.  The dbus interfaces are the hard part.",
       "parentUuid": "9980c04c_bb76e98e",
+      "range": {
+        "startLine": 1824,
+        "startChar": 0,
+        "endLine": 1826,
+        "endChar": 53
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3288b601_33c91da4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T21:28:57Z",
+      "side": 1,
+      "message": "ok, I will work on it. thanks.",
+      "parentUuid": "f18beeeb_c485426f",
       "range": {
         "startLine": 1824,
         "startChar": 0,
