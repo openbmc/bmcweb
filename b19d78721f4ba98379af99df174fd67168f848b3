@@ -1,6 +1,115 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b997e178_9790465f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:26:27Z",
+      "side": 1,
+      "message": "A few minor things, and one very important thing.  POST needs to be handled.",
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7b71fc_db8af3e6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:26:27Z",
+      "side": 1,
+      "message": "This is not taking ownership.  Please pass by Response\u0026",
+      "range": {
+        "startLine": 175,
+        "startChar": 10,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee38f15_2292c49c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:26:27Z",
+      "side": 1,
+      "message": "nit, extra parens.",
+      "range": {
+        "startLine": 197,
+        "startChar": 46,
+        "endLine": 197,
+        "endChar": 48
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab058fe_14cd83bc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:26:27Z",
+      "side": 1,
+      "message": "nit, extra parens.",
+      "range": {
+        "startLine": 215,
+        "startChar": 24,
+        "endLine": 215,
+        "endChar": 35
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a129bb3a_d5f1314d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:26:27Z",
+      "side": 1,
+      "message": "this can just be\n\nif (redfishType), because of the check on 215, correct?",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 223,
+        "endChar": 37
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d412cb_c0baacff",
@@ -163,6 +272,29 @@
         "startChar": 0,
         "endLine": 228,
         "endChar": 16
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cb3a067_d556006f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T17:26:27Z",
+      "side": 1,
+      "message": "I see no changes to this to support the new parameter.  I know your intent was to support PATCH, but in the Redfish model, it also needs to be supported on creation as well.  POST parameters should be a superset of patch parameters",
+      "range": {
+        "startLine": 1824,
+        "startChar": 0,
+        "endLine": 1826,
+        "endChar": 53
       },
       "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
