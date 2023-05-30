@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "795bbf72_564aeac2",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T20:12:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e1be9c1_080183df",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 10
+      },
+      "revId": "11345746cc7b97f435fede9f22fb6a23e04e114a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2efe1d08_6f289823",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-30T16:44:13Z",
       "side": 1,
       "message": "\"std::array is a template class that encapsulate a statically-sized array, stored inside the object itself, which means that, if you instantiate the class on the stack, the array itself will be on the stack. Its size has to be known at compile time (it\u0027s passed as a template parameter), and it cannot grow or shrink.\"\n\nI highly recommend using `std::vector` here instead. That will allocate space as needed on the heap.",
+      "range": {
+        "startLine": 164,
+        "startChar": 9,
+        "endLine": 164,
+        "endChar": 14
+      },
+      "revId": "11345746cc7b97f435fede9f22fb6a23e04e114a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "def3b2fc_c9b18e12",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T20:12:49Z",
+      "side": 1,
+      "message": "We are using boost buffer so added that instead of std::array.\n\n    std::unique_ptr\u003cboost::beast::flat_static_buffer\u003c4096\u003e\u003e\n        outputBuffer;",
+      "parentUuid": "2efe1d08_6f289823",
       "range": {
         "startLine": 164,
         "startChar": 9,
