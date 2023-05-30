@@ -195,8 +195,7 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Console web socket path: " << conn.req.target()
-                     << " Console unix FD: " << unixfd << " duped FD: " << fd;
+    BMCWEB_LOG_DEBUG << "Console unix FD: " << unixfd << " duped FD: " << fd;
 
     if (!iter->second->connect(fd))
     {
@@ -209,6 +208,8 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
 // rules string.
 inline void onOpen(crow::websocket::Connection& conn)
 {
+    std::string consoleLeaf;
+
     BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
     if (getConsoleHandlerMap().size() >= maxSessions)
@@ -223,10 +224,22 @@ inline void onOpen(crow::websocket::Connection& conn)
 
     conn.deferRead();
 
-    // The console id 'default' is used for the console0
-    // We need to change it when we provide full multi-console support.
-    const std::string consolePath = "/xyz/openbmc_project/console/default";
-    const std::string consoleService = "xyz.openbmc_project.Console.default";
+    // Keep old path for backward compatibility
+    if (conn.req.target() == "/console0")
+    {
+        consoleLeaf = "default";
+    }
+    else
+    {
+        // Get the console id from console router path and prepare the console
+        // object path and console service.
+        consoleLeaf =
+            sdbusplus::message::object_path(conn.req.target()).filename();
+    }
+    std::string consolePath =
+        sdbusplus::message::object_path("/xyz/openbmc_project/console") /
+        consoleLeaf;
+    std::string consoleService = "xyz.openbmc_project.Console." + consoleLeaf;
 
     BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
                      << " service = " << consoleService
@@ -258,6 +271,16 @@ inline void onMessage(crow::websocket::Connection& conn,
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
+        .privileges({{"OpenBMCHostConsole"}})
+        .websocket()
+        .onopen(onOpen)
+        .onclose(onClose)
+        .onmessage(onMessage);
+}
+
+inline void requestMultiConsoleRoutes(App& app)
+{
+    BMCWEB_ROUTE(app, "/console/<str>")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)
