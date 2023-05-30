@@ -199,8 +199,7 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Console web socket path: " << conn.req.target()
-                     << " Console unix FD: " << unixfd << " duped FD: " << fd;
+    BMCWEB_LOG_DEBUG << "Console unix FD: " << unixfd << " duped FD: " << fd;
 
     if (!iter->second->connect(fd))
     {
@@ -209,10 +208,46 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
     }
 }
 
+inline void
+    processConsoleObject(crow::websocket::Connection& conn,
+                         const std::string& consoleObjPath,
+                         const boost::system::error_code& ec,
+                         const ::dbus::utility::MapperGetObject& objInfo)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING << "getDbusObject() for consoles failed. DBUS error:"
+                           << ec.message();
+        conn.close("getDbusObject() for consoles failed.");
+        return;
+    }
+    if (objInfo.size() != 1)
+    {
+        BMCWEB_LOG_WARNING << "getDbusObject() returned unexpected size: "
+                           << objInfo.size();
+        conn.close("getDbusObject() returned unexpected size");
+        return;
+    }
+    const auto& valueIface = *objInfo.begin();
+    const std::string& consoleService = valueIface.first;
+    BMCWEB_LOG_DEBUG << "Looking up unixFD for Service " << consoleService
+                     << " Path " << consoleObjPath;
+    // Call Connect() method to get the unix FD
+    crow::connections::systemBus->async_method_call(
+        [&conn](const boost::system::error_code& ec1,
+                const sdbusplus::message::unix_fd& unixfd) {
+        connectConsoleSocket(conn, ec1, unixfd);
+        },
+        consoleService, consoleObjPath, "xyz.openbmc_project.Console.Access",
+        "Connect");
+}
+
 // Query consoles from DBUS and find the matching to the
 // rules string.
 inline void onOpen(crow::websocket::Connection& conn)
 {
+    std::string consoleLeaf;
+
     BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
     if (getConsoleHandlerMap().size() >= maxSessions)
@@ -227,23 +262,34 @@ inline void onOpen(crow::websocket::Connection& conn)
 
     conn.deferRead();
 
-    // The console id 'default' is used for the console0
-    // We need to change it when we provide full multi-console support.
-    const std::string consolePath = "/xyz/openbmc_project/console/default";
-    const std::string consoleService = "xyz.openbmc_project.Console.default";
+    // Keep old path for backward compatibility
+    if (conn.url().path() == "/console0")
+    {
+        consoleLeaf = "default";
+    }
+    else
+    {
+        // Get the console id from console router path and prepare the console
+        // object path and console service.
+        consoleLeaf = conn.url().segments().back();
+    }
+    std::string consolePath =
+        sdbusplus::message::object_path("/xyz/openbmc_project/console") /
+        consoleLeaf;
 
     BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
-                     << " service = " << consoleService
-                     << " Request target = " << conn.req.target();
+                     << " Request target = " << conn.url().path();
 
-    // Call Connect() method to get the unix FD
-    crow::connections::systemBus->async_method_call(
-        [&conn](const boost::system::error_code& ec,
-                const sdbusplus::message::unix_fd& unixfd) {
-        connectConsoleSocket(conn, ec, unixfd);
-        },
-        consoleService, consolePath, "xyz.openbmc_project.Console.Access",
-        "Connect");
+    // mapper call lambda
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Console.Access"};
+
+    dbus::utility::getDbusObject(
+        consolePath, interfaces,
+        [&conn, consolePath](const boost::system::error_code& ec,
+                             const ::dbus::utility::MapperGetObject& objInfo) {
+        processConsoleObject(conn, consolePath, ec, objInfo);
+        });
 }
 
 inline void onMessage(crow::websocket::Connection& conn,
@@ -262,6 +308,13 @@ inline void onMessage(crow::websocket::Connection& conn,
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/console0")
+        .privileges({{"OpenBMCHostConsole"}})
+        .websocket()
+        .onopen(onOpen)
+        .onclose(onClose)
+        .onmessage(onMessage);
+
+    BMCWEB_ROUTE(app, "/console/<str>")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)

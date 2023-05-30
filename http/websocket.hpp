@@ -45,7 +45,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void resumeRead() = 0;
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
-
+    virtual boost::urls::url_view url() = 0;
     boost::beast::http::request<boost::beast::http::string_body> req;
 };
 
@@ -54,8 +54,8 @@ class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& reqIn, Adaptor adaptorIn,
-        std::function<void(Connection&)> openHandlerIn,
+        const crow::Request& reqIn, boost::urls::url_view urlViewIn,
+        Adaptor adaptorIn, std::function<void(Connection&)> openHandlerIn,
         std::function<void(Connection&, const std::string&, bool)>
             messageHandlerIn,
         std::function<void(crow::websocket::Connection&, std::string_view,
@@ -65,7 +65,7 @@ class ConnectionImpl : public Connection
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
         std::function<void(Connection&)> errorHandlerIn) :
         Connection(reqIn),
-        ws(std::move(adaptorIn)), inBuffer(inString, 131088),
+        uri(urlViewIn), ws(std::move(adaptorIn)), inBuffer(inString, 131088),
         openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
         messageExHandler(std::move(messageExHandlerIn)),
@@ -215,6 +215,11 @@ class ConnectionImpl : public Connection
             });
     }
 
+    boost::urls::url_view url() override
+    {
+        return uri;
+    }
+
     void acceptDone()
     {
         BMCWEB_LOG_DEBUG << "Websocket accepted connection";
@@ -337,6 +342,8 @@ class ConnectionImpl : public Connection
         inString.clear();
         doRead();
     }
+
+    boost::urls::url uri;
 
     boost::beast::websocket::stream<Adaptor, false> ws;
 
