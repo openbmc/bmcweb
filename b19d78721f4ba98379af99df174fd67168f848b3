@@ -118,6 +118,30 @@
       },
       "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4610ae79_275b49ea",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-30T14:30:06Z",
+      "side": 1,
+      "message": "yes because something else must be set in the userGroups. Otherwise we would have returned false in L210. The only other case is if accountType is not set at all. I don\u0027t think that is possible.",
+      "parentUuid": "4dc9110f_d07586c4",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 16
+      },
+      "revId": "b19d78721f4ba98379af99df174fd67168f848b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
