@@ -142,6 +142,30 @@
       },
       "revId": "09fce01a8cc69b4cdc3470b330166882f82c581b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9538879_dbd0f776",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-05-30T17:32:38Z",
+      "side": 1,
+      "message": "We can\u0027t assume the satellite will expand all the levels because there is no guarantee the satellite supports expand.  It\u0027s unlikely we\u0027d have a situation where we expected something like levels\u003d3 and instead only got levels\u003d1.  It is very possible to expect levels\u003dn and we received levels\u003d0.\n\nReverting https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727 will break all aggregated $expands when the satellite supports $expand.  I think the root issue is we shouldn\u0027t be assuming expand depths since that is incompatible with aggregation.  That commit removed the assumption from the base expand flow, but it did not consider assumptions in the efficient sensors expand flow.",
+      "parentUuid": "47ca6973_26e2638c",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 70
+      },
+      "revId": "09fce01a8cc69b4cdc3470b330166882f82c581b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
