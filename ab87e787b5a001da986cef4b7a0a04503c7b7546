@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c22785_ef305207",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe911668_8746c666",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "055cc1ce_75f395fa",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-30T21:25:57Z",
       "side": 1,
       "message": "I don\u0027t think this needs to be a unique-ptr anymore?  Neither does the buffer.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 20
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "427d6caf_a404da42",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "055cc1ce_75f395fa",
       "range": {
         "startLine": 164,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf53d6e_3b7597eb",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d35fcc_d256c033",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 21
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf361823_fd503bf2",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-30T21:25:57Z",
       "side": 1,
       "message": "As we discussed, one socket to one session.  There\u0027s no need to put the sessions set into the connection object.\n\nThis can be a single reference to the Connection object.",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 70
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18c0fe1_decb3f8b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf361823_fd503bf2",
       "range": {
         "startLine": 172,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ca1c05_a59a134d",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afc99c3f_6409e79b",
+      "range": {
+        "startLine": 176,
+        "startChar": 75,
+        "endLine": 176,
+        "endChar": 76
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d544b1a7_e6d82401",
@@ -139,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd8b97d_7d16fd97",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d544b1a7_e6d82401",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 40
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af8cecb0_bee1a932",
@@ -152,6 +296,30 @@
       "writtenOn": "2023-05-30T21:25:57Z",
       "side": 1,
       "message": "can this be renamed to \"onClose\".  I think that\u0027s more clear.",
+      "range": {
+        "startLine": 351,
+        "startChar": 17,
+        "endLine": 351,
+        "endChar": 43
+      },
+      "revId": "ab87e787b5a001da986cef4b7a0a04503c7b7546",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c29bfa_1fa20bc4",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-30T23:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af8cecb0_bee1a932",
       "range": {
         "startLine": 351,
         "startChar": 17,
