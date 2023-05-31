@@ -254,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed3c4b42_b2db41ab",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T14:01:26Z",
+      "side": 1,
+      "message": "ok, done.",
+      "parentUuid": "617711f4_2647b788",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 65
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bd326aa_9a576a81",
@@ -527,6 +551,30 @@
       "writtenOn": "2023-05-30T23:21:23Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "5ccf3f67_ff9c4599",
+      "range": {
+        "startLine": 166,
+        "startChar": 38,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "b8f2aa8e0e14ed44d5f6a02861bec497a8a0f478",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc8152f_0f9a9669",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T14:01:26Z",
+      "side": 1,
+      "message": "ok, done.",
       "parentUuid": "5ccf3f67_ff9c4599",
       "range": {
         "startLine": 166,
