@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ddb22c4_0f7ac15b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:55:54Z",
+      "side": 1,
+      "message": "Yep, This got caught up in the flury.  I think I fixed it.",
+      "parentUuid": "2739ad1f_a4019096",
+      "revId": "d445f464263948c7d4d8ac2e26d05e7f2df2ba47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e888014_0092d490",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-31T19:10:51Z",
       "side": 1,
       "message": "You added handleMetricReportDefinitionCollectionGet but are calling handleMetricReportGet",
+      "revId": "d445f464263948c7d4d8ac2e26d05e7f2df2ba47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381a9a36_1680dd28",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:55:54Z",
+      "side": 1,
+      "message": "Yeah, there were two methods that got mixed up.  I think it\u0027s sane now.",
+      "parentUuid": "0e888014_0092d490",
       "revId": "d445f464263948c7d4d8ac2e26d05e7f2df2ba47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
