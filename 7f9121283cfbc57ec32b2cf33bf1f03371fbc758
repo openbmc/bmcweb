@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e03c045_8701870f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T20:46:38Z",
+      "side": 1,
+      "message": "Yes, that would be what I\u0027m envisioning.",
+      "parentUuid": "201eff4a_5651a1fd",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 61
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ec5930_910cd439",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "I will remove the console list for now.",
       "parentUuid": "b04c9014_ae57e0f6",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "889f317a_10f4aa85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T20:46:38Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "df2256f6_8077e4e0",
       "range": {
         "startLine": 15,
         "startChar": 2,
@@ -269,6 +317,30 @@
       "side": 1,
       "message": "Are you suggesting to completely remove list and keep what we had before?",
       "parentUuid": "e30d5842_34eebc88",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a914746_81d1e166",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T20:46:38Z",
+      "side": 1,
+      "message": "Completely remove the list.",
+      "parentUuid": "18648d90_981b4f95",
       "range": {
         "startLine": 19,
         "startChar": 0,
