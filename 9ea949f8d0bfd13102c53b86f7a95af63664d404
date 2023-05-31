@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "949c9b41_9505001e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:20:46Z",
+      "side": 1,
+      "message": "\u003e If it isn\u0027t wanted by anyone, then 63702 is cleaner. (I didn\u0027t see a reply on discord, unless I missed it?)\n\nPeople not replying is different than having a discussion with the original authors (intel) and them saying they don\u0027t use it anymore.  I suspect there are quite a few folks that rely on it and don\u0027t realize it.\n\nI\u0027m actually even ok if this option defaults to disabling health populate, and we can gauge interest by the number of folks that turn it back on.\n\n\u003e Will we default this to off?\n\nIMO, we can do this today.\n\n\u003e Multiple commits mapping Redfish \"Health\" -\u003e OperationalStatus\u0027s Functional. E.g.\n\nSo long as they implement the status properties correctly, I think that\u0027s ok, but I suspect there\u0027s no backend code for a lot of those (but lets evaluate in the patches).",
+      "parentUuid": "8fd2bd16_1d916e43",
+      "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72ac493d_3e925bdd",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
