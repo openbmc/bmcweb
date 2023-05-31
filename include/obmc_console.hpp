@@ -75,13 +75,21 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
             });
     }
 
+    static void afterSendEx(const std::weak_ptr<ConsoleHandler>& weak)
+    {
+        std::shared_ptr<ConsoleHandler> self = weak.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        self2->doRead();
+    }
+
     void doRead()
     {
-        std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
-
         BMCWEB_LOG_DEBUG << "Reading from socket";
         hostSocket.async_read_some(
-            outputBuffer.prepare(bytes),
+            boost::asio::buffer(outputBuffer),
             [this, weakSelf(weak_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
             BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
@@ -97,13 +105,9 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
                 conn.close("Error connecting to host port");
                 return;
             }
-            outputBuffer.commit(bytesRead);
-            std::string_view payload(
-                static_cast<const char*>(outputBuffer.data().data()),
-                bytesRead);
-            conn.sendBinary(payload);
-            outputBuffer.consume(bytesRead);
-            doRead();
+            std::string_view payload(outputBuffer.data(), bytesRead);
+            self->conn.sendEx(crow::websocket::MessageType::Binary, payload,
+                              std::bind_front(afterSendEx, weak_from_this()));
             });
     }
 
@@ -129,7 +133,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 
     boost::asio::local::stream_protocol::socket hostSocket;
 
-    boost::beast::flat_static_buffer<4096> outputBuffer;
+    std::array<char, 4096> outputBuffer{};
 
     std::string inputBuffer;
     bool doingWrite = false;
