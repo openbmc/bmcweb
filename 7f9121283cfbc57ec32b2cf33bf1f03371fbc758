@@ -444,6 +444,52 @@
       },
       "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9171a4f_9bbcf5cf",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T20:50:19Z",
+      "side": 1,
+      "message": "Please use sdbusplus::object_path::operator/ to construct this.  That is called out in COMMON_ERRORS.md",
+      "range": {
+        "startLine": 270,
+        "startChar": 10,
+        "endLine": 270,
+        "endChar": 21
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "146f3264_05cd0b60",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T20:50:19Z",
+      "side": 1,
+      "message": "Ah, this might be the confusion.  Every console is being implemented by its own dbus connection?\n\nIn which case the right way would be to use GetObject on the mapper to look up the service.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 51
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
