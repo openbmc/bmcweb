@@ -662,8 +662,9 @@ inline void
         }
         if (!foundDumpEntry)
         {
-            BMCWEB_LOG_ERROR << "Can't find Dump Entry";
-            messages::internalError(asyncResp->res);
+            BMCWEB_LOG_WARNING << "Can't find Dump Entry " << entryID;
+            messages::resourceNotFound(asyncResp->res, dumpType + " dump",
+                                       entryID);
             return;
         }
         },
