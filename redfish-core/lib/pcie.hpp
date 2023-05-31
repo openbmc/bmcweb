@@ -547,11 +547,6 @@ inline void addPCIeFunctionProperties(
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
     std::string functionName = "Function" + pcieFunctionId;
-    if (!validatePCIeFunctionId(pcieFunctionId, pcieDevProperties))
-    {
-        messages::resourceNotFound(resp, "PCIeFunction", pcieFunctionId);
-        return;
-    }
     for (const auto& property : pcieDevProperties)
     {
         const std::string* strProperty =
@@ -638,6 +633,13 @@ inline void
             aResp, pcieDevicePath, service,
             [aResp, pcieDeviceId, pcieFunctionId](
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
+            std::string functionName = "Function" + pcieFunctionId;
+            if (!validatePCIeFunctionId(pcieFunctionId, pcieDevProperties))
+            {
+                messages::resourceNotFound(aResp->res, "PCIeFunction",
+                                           pcieFunctionId);
+                return;
+            }
             addPCIeFunctionCommonProperties(aResp->res, pcieDeviceId,
                                             pcieFunctionId);
             addPCIeFunctionProperties(aResp->res, pcieFunctionId,
