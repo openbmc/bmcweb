@@ -636,12 +636,18 @@ inline void
 
     getValidPCIeDevicePath(
         pcieDeviceId, aResp,
-        [aResp, pcieDeviceId, pcieFunctionId](const std::string& pcieDevicePath,
+        [aResp, pcieDeviceId, pcieFunctionId, pcieFunctionIdStr](const std::string& pcieDevicePath,
                                               const std::string& service) {
         getPCIeDeviceProperties(
             aResp, pcieDevicePath, service,
-            [aResp, pcieDeviceId, pcieFunctionId](
+            [aResp, pcieDeviceId, pcieFunctionId, pcieFunctionIdStr](
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
+            if (!validatePCIeFunctionId(pcieFunctionIdStr, pcieDevProperties))
+            {
+                messages::resourceNotFound(aResp->res, "PCIeFunction",
+                                           pcieFunctionIdStr);
+                return;
+            }
             addPCIeFunctionCommonProperties(aResp->res, pcieDeviceId,
                                             pcieFunctionId);
             addPCIeFunctionProperties(aResp->res, pcieFunctionId,
