@@ -32,10 +32,12 @@
 #include "utils/sw_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <boost/asio/error.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/message.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
@@ -2855,6 +2857,45 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 }
 
 /**
+ * Handle error responses from d-bus for system power requests
+ */
+inline void handleSystemActionResetError(const boost::system::error_code& ec,
+                                         const sdbusplus::message_t& eMsg,
+                                         std::string_view resetType,
+                                         crow::Response& res)
+{
+    if (ec.value() == boost::asio::error::invalid_argument)
+    {
+        messages::actionParameterNotSupported(res, resetType, "Reset");
+        return;
+    }
+
+    if (eMsg.get_error() == nullptr)
+    {
+        BMCWEB_LOG_ERROR << "D-Bus response error: " << ec;
+        messages::internalError(res);
+        return;
+    }
+    const char* errorMessage = eMsg.get_error()->name;
+
+    // If operation failed due to BMC not being in Ready state, tell
+    // user to retry in a bit
+    if ((strcmp(errorMessage,
+                "xyz.openbmc_project.State.Chassis.Error.BMCNotReady") == 0) ||
+        (strcmp(errorMessage,
+                "xyz.openbmc_project.State.Host.Error.BMCNotReady") == 0))
+    {
+        BMCWEB_LOG_DEBUG << "BMC not ready, operation not allowed right now";
+        messages::serviceTemporarilyUnavailable(res, "10");
+        return;
+    }
+
+    BMCWEB_LOG_ERROR << "System Action Reset transition fail " << ec
+                     << " sdbusplus:" << errorMessage;
+    messages::internalError(res);
+}
+
+/**
  * SystemActionsReset class supports handle POST method for Reset action.
  * The class retrieves and sends data directly to D-Bus.
  */
@@ -2931,19 +2972,13 @@ inline void requestRoutesSystemActionsReset(App& app)
         if (hostCommand)
         {
             crow::connections::systemBus->async_method_call(
-                [asyncResp, resetType](const boost::system::error_code& ec) {
+                [asyncResp, resetType](const boost::system::error_code& ec,
+                                       sdbusplus::message_t& sdbusErrMsg) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                    if (ec.value() == boost::asio::error::invalid_argument)
-                    {
-                        messages::actionParameterNotSupported(
-                            asyncResp->res, resetType, "Reset");
-                    }
-                    else
-                    {
-                        messages::internalError(asyncResp->res);
-                    }
+                    handleSystemActionResetError(ec, sdbusErrMsg, resetType,
+                                                 asyncResp->res);
+
                     return;
                 }
                 messages::success(asyncResp->res);
@@ -2957,19 +2992,12 @@ inline void requestRoutesSystemActionsReset(App& app)
         else
         {
             crow::connections::systemBus->async_method_call(
-                [asyncResp, resetType](const boost::system::error_code& ec) {
+                [asyncResp, resetType](const boost::system::error_code& ec,
+                                       sdbusplus::message_t& sdbusErrMsg) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                    if (ec.value() == boost::asio::error::invalid_argument)
-                    {
-                        messages::actionParameterNotSupported(
-                            asyncResp->res, resetType, "Reset");
-                    }
-                    else
-                    {
-                        messages::internalError(asyncResp->res);
-                    }
+                    handleSystemActionResetError(ec, sdbusErrMsg, resetType,
+                                                 asyncResp->res);
                     return;
                 }
                 messages::success(asyncResp->res);
