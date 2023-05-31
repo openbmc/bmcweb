@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5c1090a_7ddf58bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T19:22:50Z",
+      "side": 1,
+      "message": "The backward compatibility will be maintained by webui. Following drop handles that and must be merged before mine.\n\nhttps://gerrit.openbmc.org/c/openbmc/webui-vue/+/63442",
+      "parentUuid": "db1aec0a_7d2251b5",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 61
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35ec5930_910cd439",
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbfd5634_5e480934",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T19:22:50Z",
+      "side": 1,
+      "message": "You mean something like this?\n\ngetSupportedConsoleIds()\n{\ntatic boost::container::flat_set\u003cstd::string, std::less\u003c\u003e,\n                                  std::vector\u003cstd::string\u003e\u003e\n    supportedConsoleIds;\n    return supportedConsoleIds;\n}",
+      "parentUuid": "9944cf81_c7c3b6f0",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a41272ca_b032b99c",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 1
@@ -100,6 +148,30 @@
       "writtenOn": "2023-05-31T19:13:52Z",
       "side": 1,
       "message": "Why are we calling the mapper here again?  Can we just call obmc console directly?  Even if we\u0027re calling the mapper, we should be calling GetObject",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 54
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde8ff7e_02c8641b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T19:22:50Z",
+      "side": 1,
+      "message": "This is to build the list of consoles. We need to get the list of paths. This is called once at the start of bmcweb.",
+      "parentUuid": "a41272ca_b032b99c",
       "range": {
         "startLine": 167,
         "startChar": 0,
