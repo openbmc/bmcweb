@@ -93,6 +93,30 @@
       },
       "revId": "d64f9cd87395d6a8aa49d879c2ba19225764ca73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ed6eb75_4ef1b5d1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-31T20:37:18Z",
+      "side": 1,
+      "message": "Yes, this fixes the non-digit ids (e.g. ABC, 12X etc).\nHowever, the non-existent function ids (e.g. 12, 34, etc) are still reporting as valid.\nI\u0027ve modified https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63850 to address the issue and rebased onto this commit.",
+      "parentUuid": "8cc21dc8_73da65c7",
+      "range": {
+        "startLine": 627,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 5
+      },
+      "revId": "d64f9cd87395d6a8aa49d879c2ba19225764ca73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
