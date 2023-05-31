@@ -524,10 +524,10 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
 }
 
 inline bool validatePCIeFunctionId(
-    const std::string& pcieFunctionId,
+    uint64_t pcieFunctionId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
-    std::string functionName = "Function" + pcieFunctionId;
+    std::string functionName = "Function" + std::to_string(pcieFunctionId);
     std::string devIDProperty = functionName + "DeviceId";
 
     const std::string* devIdProperty = nullptr;
@@ -642,6 +642,13 @@ inline void
             aResp, pcieDevicePath, service,
             [aResp, pcieDeviceId, pcieFunctionId](
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
+            std::string functionName = "Function" + pcieFunctionId;
+            if (!validatePCIeFunctionId(pcieFunctionId, pcieDevProperties))
+            {
+                messages::resourceNotFound(aResp->res, "PCIeFunction",
+                                           std::to_string(pcieFunctionId));
+                return;
+            }
             addPCIeFunctionCommonProperties(aResp->res, pcieDeviceId,
                                             pcieFunctionId);
             addPCIeFunctionProperties(aResp->res, pcieFunctionId,
