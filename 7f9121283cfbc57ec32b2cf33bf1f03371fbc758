@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "629632e9_7a23353d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T23:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e03c045_8701870f",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 61
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35ec5930_910cd439",
@@ -205,6 +229,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "df2256f6_8077e4e0",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e2b1b3_8e96b321",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T23:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "889f317a_10f4aa85",
       "range": {
         "startLine": 15,
         "startChar": 2,
@@ -351,6 +399,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7bfbb42_d650dbc0",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T23:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a914746_81d1e166",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a41272ca_b032b99c",
@@ -446,6 +518,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c3182bc_e8f3aaf1",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T23:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93fe55b1_ba09d81f",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 54
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9171a4f_9bbcf5cf",
@@ -469,6 +565,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c033f8cb_f1faefe6",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T23:09:21Z",
+      "side": 1,
+      "message": "It is not clear which method is correct. There is no example given in the COMMON_ERROR.md. I have followed steps from https://github.com/openbmc/bmcweb/blob/6f8273e49cffdd347c223b9538558edfb05e818a/redfish-core/lib/certificate_service.hpp#L1070",
+      "parentUuid": "a9171a4f_9bbcf5cf",
+      "range": {
+        "startLine": 270,
+        "startChar": 10,
+        "endLine": 270,
+        "endChar": 21
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "146f3264_05cd0b60",
@@ -482,6 +602,30 @@
       "writtenOn": "2023-05-31T20:50:19Z",
       "side": 1,
       "message": "Ah, this might be the confusion.  Every console is being implemented by its own dbus connection?\n\nIn which case the right way would be to use GetObject on the mapper to look up the service.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 51
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c5c17ea_dde1df5d",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T23:09:21Z",
+      "side": 1,
+      "message": "yes, Each console has its own DBUS object. For now I am directly making connect call which fails if console path is not valid.",
+      "parentUuid": "146f3264_05cd0b60",
       "range": {
         "startLine": 272,
         "startChar": 0,
