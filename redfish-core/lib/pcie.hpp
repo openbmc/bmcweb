@@ -543,15 +543,10 @@ inline bool validatePCIeFunctionId(
 }
 
 inline void addPCIeFunctionProperties(
-    crow::Response& resp, const std::string& pcieFunctionId,
+    crow::Response& resp, uint64_t pcieFunctionId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
-    std::string functionName = "Function" + pcieFunctionId;
-    if (!validatePCIeFunctionId(pcieFunctionId, pcieDevProperties))
-    {
-        messages::resourceNotFound(resp, "PCIeFunction", pcieFunctionId);
-        return;
-    }
+    std::string functionName = "Function" + std::to_string(pcieFunctionId);
     for (const auto& property : pcieDevProperties)
     {
         const std::string* strProperty =
@@ -603,7 +598,7 @@ inline void addPCIeFunctionProperties(
 
 inline void addPCIeFunctionCommonProperties(crow::Response& resp,
                                             const std::string& pcieDeviceId,
-                                            const std::string& pcieFunctionId)
+                                            uint64_t pcieFunctionId)
 {
     resp.addHeader(
         boost::beast::http::field::link,
@@ -613,8 +608,8 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
         "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions/{}",
         pcieDeviceId, pcieFunctionId);
     resp.jsonValue["Name"] = "PCIe Function";
-    resp.jsonValue["Id"] = pcieFunctionId;
-    resp.jsonValue["FunctionId"] = std::stoi(pcieFunctionId);
+    resp.jsonValue["Id"] = std::to_string(pcieFunctionId);
+    resp.jsonValue["FunctionId"] = pcieFunctionId;
     resp.jsonValue["Links"]["PCIeDevice"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/system/PCIeDevices/{}", pcieDeviceId);
 }
@@ -623,10 +618,19 @@ inline void
     handlePCIeFunctionGet(App& app, const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                           const std::string& pcieDeviceId,
-                          const std::string& pcieFunctionId)
+                          const std::string& pcieFunctionIdStr)
 {
     if (!redfish::setUpRedfishRoute(app, req, aResp))
     {
+        return;
+    }
+    uint64_t pcieFunctionId = 0;
+    std::from_chars_result result = std::from_chars(
+        &*pcieFunctionIdStr.begin(), &*pcieFunctionIdStr.end(), pcieFunctionId);
+    if (r.ec != std::errc{} || r.ptr != &*pcieFunctionIdStr.end())
+    {
+        messages::resourceNotFound(aResp->res, "PCIeFunction",
+                                   pcieFunctionIdStr);
         return;
     }
 
