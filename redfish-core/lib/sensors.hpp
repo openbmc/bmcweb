@@ -2932,7 +2932,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         if (ec)
         {
             messages::internalError(asyncResp->res);
-            BMCWEB_LOG_DEBUG << "Sensor getSensorPaths resp_handler: "
+            BMCWEB_LOG_ERROR << "Sensor getSensorPaths resp_handler: "
                              << "Dbus error " << ec;
             return;
         }
