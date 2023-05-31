@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "042927bb_7fc4caf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:30:16Z",
+      "side": 1,
+      "message": "\u003e The backward compatibility will be maintained by webui\n\nNo thank you.  Please maintain api compatibility at the API boundary.  Changing one client does not maintain compatibility for anything but that client.",
+      "parentUuid": "e5c1090a_7ddf58bc",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 61
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ec5930_910cd439",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -161,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e30d5842_34eebc88",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:30:16Z",
+      "side": 1,
+      "message": "No, we should not store state at all.",
+      "parentUuid": "dbfd5634_5e480934",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a41272ca_b032b99c",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 1
@@ -196,6 +244,30 @@
       "side": 1,
       "message": "This is to build the list of consoles. We need to get the list of paths. This is called once at the start of bmcweb.",
       "parentUuid": "a41272ca_b032b99c",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 54
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b403dca6_807fd194",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:30:16Z",
+      "side": 1,
+      "message": "\u003e This is to build the list of consoles.\n\nWHY?  This is counter to DBUS_USAGE.md.  If you want to get a console in a daemon-independent manner, use the mapper (GetObject).  In this case, I suspect we can just call the daemon directly until we have another user.",
+      "parentUuid": "fde8ff7e_02c8641b",
       "range": {
         "startLine": 167,
         "startChar": 0,
