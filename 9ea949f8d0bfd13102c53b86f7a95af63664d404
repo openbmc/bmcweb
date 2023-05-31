@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fd2bd16_1d916e43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-05-31T19:06:11Z",
+      "side": 1,
+      "message": "Ack. I mostly agree. \n\n\u003e A. it\u0027s not that much cruft to maintain as an API option\n\nIt is a medium amount of work to maintain this, I wouldn\u0027t say trivial or not much (since it touches several core/frequently changed files)  \nIf it isn\u0027t wanted by anyone, then 63702 is cleaner. (I didn\u0027t see a reply on discord, unless I missed it?)\n\n\n\u003e B. if folks really relied on the old behavior, we can get them out of the woodwork and can maintain the option.\n\nBut yes, this is less likely to break folks. \n\n\u003e C. if it eventually goes away, that\u0027s fine too.\n\nWill we default this to off?\nThis punts the health discussion down the road and we go ahead with \n\nMultiple commits mapping Redfish \"Health\" -\u003e OperationalStatus\u0027s Functional. E.g. \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62447\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57670\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62850\n https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62511/11/redfish-core/lib/fan.hpp\n\nAgree?",
+      "parentUuid": "7227c063_f4bd3092",
+      "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72ac493d_3e925bdd",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
