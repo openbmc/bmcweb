@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "201eff4a_5651a1fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T20:05:58Z",
+      "side": 1,
+      "message": "ok, In that case we need to register one more router. One for /console0 and second for /console/\u003cstr\u003e. Is that what you are envisioning?",
+      "parentUuid": "042927bb_7fc4caf6",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 61
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ec5930_910cd439",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "We can not completely avoid it but we are trying to avoid DBUS call for bad string attach. This is from the discussion on my earlier drop. \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62525?tab\u003dcomments",
       "parentUuid": "35ec5930_910cd439",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df2256f6_8077e4e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T20:05:58Z",
+      "side": 1,
+      "message": "I will remove the console list for now.",
+      "parentUuid": "b04c9014_ae57e0f6",
       "range": {
         "startLine": 15,
         "startChar": 2,
@@ -209,6 +257,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18648d90_981b4f95",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T20:05:58Z",
+      "side": 1,
+      "message": "Are you suggesting to completely remove list and keep what we had before?",
+      "parentUuid": "e30d5842_34eebc88",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a41272ca_b032b99c",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 1
@@ -268,6 +340,30 @@
       "side": 1,
       "message": "\u003e This is to build the list of consoles.\n\nWHY?  This is counter to DBUS_USAGE.md.  If you want to get a console in a daemon-independent manner, use the mapper (GetObject).  In this case, I suspect we can just call the daemon directly until we have another user.",
       "parentUuid": "fde8ff7e_02c8641b",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 54
+      },
+      "revId": "7f9121283cfbc57ec32b2cf33bf1f03371fbc758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93fe55b1_ba09d81f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T20:05:58Z",
+      "side": 1,
+      "message": "ok, I will remove the console list for now.",
+      "parentUuid": "b403dca6_807fd194",
       "range": {
         "startLine": 167,
         "startChar": 0,
