@@ -333,6 +333,7 @@ srcfiles_bmcweb = files(
   'src/boost_beast.cpp',
   'src/boost_url.cpp',
   'src/dbus_singleton.cpp',
+  'src/json_html_serializer.cpp',
 )
 
 bmcweblib = static_library(
