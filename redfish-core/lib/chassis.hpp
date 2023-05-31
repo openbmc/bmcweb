@@ -669,12 +669,38 @@ inline void
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec2) {
+            [asyncResp](const boost::system::error_code& ec2,
+                        sdbusplus::message_t& sdbusErrMsg) {
             // Use "Set" method to set the property value.
             if (ec2)
             {
-                BMCWEB_LOG_ERROR << "[Set] Bad D-Bus request error: " << ec2;
+                // If no specific sdbusplus error returned, just return default
+                if (!sdbusErrMsg)
+                {
+                    BMCWEB_LOG_ERROR << "Chassis power transition fail " << ec2;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                // If operation failed due to BMC not being in Ready state, tell
+                // user to retry in a bit
+                if (strcmp(
+                        sdbusErrMsg.get_error()->name,
+                        "xyz.openbmc_project.State.Chassis.Error.BMCNotReady") ==
+                    0)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "BMC not ready, operation not allowed right now";
+                    static const int retryTime = 10;
+                    messages::serviceTemporarilyUnavailable(
+                        asyncResp->res, std::to_string(retryTime));
+                    return;
+                }
+
+                BMCWEB_LOG_ERROR
+                    << "Chassis power transition fail " << ec2
+                    << " sdbusplus:" << sdbusErrMsg.get_error()->name;
                 messages::internalError(asyncResp->res);
+
                 return;
             }
 
