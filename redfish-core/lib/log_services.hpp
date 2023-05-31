@@ -662,8 +662,8 @@ inline void
         }
         if (!foundDumpEntry)
         {
-            BMCWEB_LOG_ERROR << "Can't find Dump Entry";
-            messages::internalError(asyncResp->res);
+            BMCWEB_LOG_WARNING << "Can't find Dump Entry " << entryID;
+            messages::resourceNotFound(asyncResp->res, dumpType + " dump", entryID);
             return;
         }
         },
@@ -2041,7 +2041,7 @@ inline bool
     std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
     if (ec)
     {
-        BMCWEB_LOG_ERROR << ec.message();
+        BMCWEB_LOG_WARNING << ec.message();
         return false;
     }
     for (const std::filesystem::directory_entry& it : logPath)
@@ -2177,7 +2177,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         std::vector<std::filesystem::path> hostLoggerFiles;
         if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
         {
-            BMCWEB_LOG_ERROR << "fail to get host log file path";
+            BMCWEB_LOG_WARNING << "fail to get host log file path";
             return;
         }
         // If we weren't provided top and skip limits, use the defaults.
