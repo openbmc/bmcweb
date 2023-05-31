@@ -34,6 +34,24 @@
       "parentUuid": "80b2b2ef_8dcecec1",
       "revId": "f84f553daa1e992b4c4df9ecdc1fc24cf58d21bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32072719_340d51d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T15:35:17Z",
+      "side": 1,
+      "message": "Can you please re-push your changes on top of my patchset 12? I made lot of changes based on your review comments.",
+      "parentUuid": "dfe93081_44a5dabe",
+      "revId": "f84f553daa1e992b4c4df9ecdc1fc24cf58d21bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
