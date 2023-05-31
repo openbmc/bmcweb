@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db6c6b22_0b26872b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T23:19:26Z",
+      "side": 1,
+      "message": "No lambdas over 10 lines please.  This can be made a regular method.",
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7057821_5caef455",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T23:19:26Z",
+      "side": 1,
+      "message": "Please don\u0027t construct by brace construction or complete replacement of objects.  They:\n\n1. have problems where one section of code might overwrite keys from another section of code.\n2. Create larger binary sizes.\n\nThis code would be something like\n\nasyncResp-\u003eres.jsonValue[\"Links\"][\"ContainedBy\"][\"@odata.id\"] \u003d boost::urls::format(\"/redfish/v1/Chassis/{}\", upstreamChassis);",
+      "range": {
+        "startLine": 205,
+        "startChar": 59,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56331e7_514cc4c6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T23:19:26Z",
+      "side": 1,
+      "message": "Please use get_if\u003cnlohamann::json::array_t\u003e here;  Technically what you do on line 233 can throw, and the compiler isn\u0027t smart enough to not generate the unwind tables for it.",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 31
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
