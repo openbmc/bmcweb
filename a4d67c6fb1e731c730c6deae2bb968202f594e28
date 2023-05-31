@@ -16,6 +16,24 @@
       "message": "WOuld you please review and test if https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63853 fixes your issue.  If so, can you add review comments that you\u0027ve tested it on that review.",
       "revId": "a4d67c6fb1e731c730c6deae2bb968202f594e28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "441aaee1_101a7d52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-31T18:43:13Z",
+      "side": 1,
+      "message": "I added the test result to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63853/comment/ef1cc626_5a083ac5/\n\nIt prevents the core but it still allows the invalid-digit-starting function id.",
+      "parentUuid": "b5477575_1f1a347f",
+      "revId": "a4d67c6fb1e731c730c6deae2bb968202f594e28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
