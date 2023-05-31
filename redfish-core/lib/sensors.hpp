@@ -2919,14 +2919,20 @@ inline void handleSensorGet(App& app, const crow::Request& req,
     // and get the path and service name associated with the sensor
     ::dbus::utility::getDbusObject(
         sensorPath, interfaces,
-        [asyncResp,
+        [asyncResp, sensorId,
          sensorPath](const boost::system::error_code& ec,
                      const ::dbus::utility::MapperGetObject& subtree) {
         BMCWEB_LOG_DEBUG << "respHandler1 enter";
+        if (ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_WARNING << "Sensor not found from getSensorPaths";
+            messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");
+            return;
+        }
         if (ec)
         {
             messages::internalError(asyncResp->res);
-            BMCWEB_LOG_ERROR << "Sensor getSensorPaths resp_handler: "
+            BMCWEB_LOG_DEBUG << "Sensor getSensorPaths resp_handler: "
                              << "Dbus error " << ec;
             return;
         }
