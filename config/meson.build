@@ -13,7 +13,7 @@ conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
-enable_health_populate = get_option('health-populate')
+enable_health_populate = get_option('redfish-health-populate')
 conf_data.set10('BMCWEB_ENABLE_HEALTH_POPULATE', enable_health_populate.enabled())
 
 # Logging level

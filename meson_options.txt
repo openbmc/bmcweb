@@ -227,6 +227,14 @@ option(
 )
 
 option(
+    'redfish-health-populate',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enables HealthPopulate and generate the Status property for
+                    the resource. This option will be removed Q1 2024'''
+)
+
+option(
     'https_port',
     type: 'integer',
     min: 1,
@@ -324,12 +332,4 @@ option(
                     limits of user-facing behavior.  It is not recommended to
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
-)
-
-option(
-    'health-populate',
-    type: 'feature',
-    value: 'enabled',
-    description: '''Enables HealthPopulate and generate the Status property for
-                    the resource'''
 )
