@@ -34,6 +34,24 @@
       "parentUuid": "b5477575_1f1a347f",
       "revId": "a4d67c6fb1e731c730c6deae2bb968202f594e28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff171e7_efed403d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-31T18:44:18Z",
+      "side": 1,
+      "message": "So, I think it may be better to combine both commits - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63853 \u0026 this.",
+      "parentUuid": "441aaee1_101a7d52",
+      "revId": "a4d67c6fb1e731c730c6deae2bb968202f594e28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
