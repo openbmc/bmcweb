@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee08544b_cb70c589",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-05-31T20:30:31Z",
+      "side": 1,
+      "message": "Please add information regarding testing.",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 11
+      },
+      "revId": "8e4d1c237c310815442141500af5f87b51d72f99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
