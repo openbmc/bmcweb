@@ -70,6 +70,24 @@
       "parentUuid": "eff171e7_efed403d",
       "revId": "a4d67c6fb1e731c730c6deae2bb968202f594e28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1998c2bb_2f01bed2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-05-31T20:34:44Z",
+      "side": 1,
+      "message": "63853 checks correctly with non-digit function ids (e.g. ABC, 12X, etc).\nHowever, the non-existing function ids (e.g. 12, 34, etc) results in the success.\n\nI\u0027ve rebased this commit onto 63853 to fix only those non-existing ids.",
+      "parentUuid": "c0531b1f_d6ffb9aa",
+      "revId": "a4d67c6fb1e731c730c6deae2bb968202f594e28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
