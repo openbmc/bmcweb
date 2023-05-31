@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "174b700c_3364b037",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:37:32Z",
+      "side": 1,
+      "message": "One minor change in the naming of the option, and this can merge.",
+      "revId": "8686ce3b8e1ca3a0d471c217b0d347db8bbf5c6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89dc244d_681d045b",
+        "filename": "meson_options.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-05-31T19:37:32Z",
+      "side": 1,
+      "message": "Please put this with the other redfish options.\n\nSimilar to redfish-allow-deprecated-power-thermal, don\u0027t abbreviate proc or mem.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 37
+      },
+      "revId": "8686ce3b8e1ca3a0d471c217b0d347db8bbf5c6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
