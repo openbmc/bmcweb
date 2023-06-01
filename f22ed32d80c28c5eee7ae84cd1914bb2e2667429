@@ -94,6 +94,30 @@
       },
       "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da3e0e6_a47be518",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-01T20:42:21Z",
+      "side": 1,
+      "message": "I have forced the string in the code and DBUS just returned invalid argument. When you say it would kick off dbus what do you mean?\n\n [DEBUG \"obmc_console.hpp\":247] Console Object path \u003d /xyz/openbmc_project/console/_30_24_25_5e_23_25_25 service \u003d xyz.openbmc_project.Console.0$%^#%% Request target \u003d /console0\n [ERROR \"obmc_console.hpp\":178] Failed to call console Connect() method DBUS error: Invalid argument",
+      "parentUuid": "c0a83337_e0a49271",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 78
+      },
+      "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
