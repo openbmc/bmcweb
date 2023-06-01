@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0c8d1c_3c7b9671",
+        "filename": "meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-01T19:32:29Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be like?\n```\nif(option_value !\u003d \u0027\u0027 and option_value !\u003d \u0027disabled\u0027)\n```",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 57
+      },
+      "revId": "752de609a400187837f04c528de38723cdebf277",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
