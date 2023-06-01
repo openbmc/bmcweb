@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dbd729c_5734a21b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-01T16:45:15Z",
+      "side": 1,
+      "message": "I tried this and it gave compilation error. I am looking for document which provides boost http request where uri is defined.\n\nstd::string_view leaf \u003d *conn.req.uri.segments().last();",
+      "parentUuid": "86998319_a5ef81f7",
+      "range": {
+        "startLine": 229,
+        "startChar": 40,
+        "endLine": 229,
+        "endChar": 57
+      },
+      "revId": "6fcfc91943073713ce23054c06a757759a524521",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6cb8a5ab_f6614dad",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 3
