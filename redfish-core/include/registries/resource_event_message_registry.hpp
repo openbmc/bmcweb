@@ -18,21 +18,34 @@
 namespace redfish::registries::resource_event
 {
 const Header header = {
-    "Copyright 2014-2020 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
-    "#MessageRegistry.v1_4_0.MessageRegistry",
-    "ResourceEvent.1.0.3",
+    "Copyright 2014-2023 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
+    "#MessageRegistry.v1_6_0.MessageRegistry",
+    "ResourceEvent.1.3.0",
     "Resource Event Message Registry",
     "en",
     "This registry defines the messages to use for resource events.",
     "ResourceEvent",
-    "1.0.3",
+    "1.3.0",
     "DMTF",
 };
 constexpr const char* url =
-    "https://redfish.dmtf.org/registries/ResourceEvent.1.0.3.json";
+    "https://redfish.dmtf.org/registries/ResourceEvent.1.3.0.json";
 
 constexpr std::array registry =
 {
+    MessageEntry{
+        "AggregationSourceDiscovered",
+        {
+            "Indicates that a new aggregation source has been discovered.",
+            "A aggregation source of connection method `%1` located at `%2` has been discovered.",
+            "OK",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "The aggregation source is available to the service and can be identified using the identified connection method.",
+        }},
     MessageEntry{
         "LicenseAdded",
         {
@@ -145,6 +158,66 @@ constexpr std::array registry =
             "Resolution dependent upon error type.",
         }},
     MessageEntry{
+        "ResourcePaused",
+        {
+            "Indicates that the power state of a resource has changed to paused.",
+            "The resource `%1` has been paused.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "ResourcePoweredOff",
+        {
+            "Indicates that the power state of a resource has changed to powered off.",
+            "The resource `%1` has powered off.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "ResourcePoweredOn",
+        {
+            "Indicates that the power state of a resource has changed to powered on.",
+            "The resource `%1` has powered on.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "ResourcePoweringOff",
+        {
+            "Indicates that the power state of a resource has changed to powering off.",
+            "The resource `%1` is powering off.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "ResourcePoweringOn",
+        {
+            "Indicates that the power state of a resource has changed to powering on.",
+            "The resource `%1` is powering on.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
         "ResourceRemoved",
         {
             "Indicates that all conditions of a successful remove operation have been met.",
@@ -175,6 +248,19 @@ constexpr std::array registry =
                 "string",
             },
             "See vendor specific instructions for specific actions.",
+        }},
+    MessageEntry{
+        "ResourceStateChanged",
+        {
+            "Indicates that the state of a resource has changed.",
+            "The state of resource `%1` has changed to %2.",
+            "OK",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "None.",
         }},
     MessageEntry{
         "ResourceStatusChangedCritical",
@@ -254,6 +340,16 @@ constexpr std::array registry =
             "None.",
         }},
     MessageEntry{
+        "TestMessage",
+        {
+            "A test message used to validate event delivery mechanisms.",
+            "Test message.",
+            "OK",
+            0,
+            {},
+            "None.",
+        }},
+    MessageEntry{
         "URIForResourceChanged",
         {
             "Indicates that the URI for a resource has changed.  Examples for this would be physical component replacement or redistribution.",
@@ -268,24 +364,32 @@ constexpr std::array registry =
 
 enum class Index
 {
-    licenseAdded = 0,
-    licenseChanged = 1,
-    licenseExpired = 2,
-    resourceChanged = 3,
-    resourceCreated = 4,
-    resourceErrorThresholdCleared = 5,
-    resourceErrorThresholdExceeded = 6,
-    resourceErrorsCorrected = 7,
-    resourceErrorsDetected = 8,
-    resourceRemoved = 9,
-    resourceSelfTestCompleted = 10,
-    resourceSelfTestFailed = 11,
-    resourceStatusChangedCritical = 12,
-    resourceStatusChangedOK = 13,
-    resourceStatusChangedWarning = 14,
-    resourceVersionIncompatible = 15,
-    resourceWarningThresholdCleared = 16,
-    resourceWarningThresholdExceeded = 17,
-    uRIForResourceChanged = 18,
+    aggregationSourceDiscovered = 0,
+    licenseAdded = 1,
+    licenseChanged = 2,
+    licenseExpired = 3,
+    resourceChanged = 4,
+    resourceCreated = 5,
+    resourceErrorThresholdCleared = 6,
+    resourceErrorThresholdExceeded = 7,
+    resourceErrorsCorrected = 8,
+    resourceErrorsDetected = 9,
+    resourcePaused = 10,
+    resourcePoweredOff = 11,
+    resourcePoweredOn = 12,
+    resourcePoweringOff = 13,
+    resourcePoweringOn = 14,
+    resourceRemoved = 15,
+    resourceSelfTestCompleted = 16,
+    resourceSelfTestFailed = 17,
+    resourceStateChanged = 18,
+    resourceStatusChangedCritical = 19,
+    resourceStatusChangedOK = 20,
+    resourceStatusChangedWarning = 21,
+    resourceVersionIncompatible = 22,
+    resourceWarningThresholdCleared = 23,
+    resourceWarningThresholdExceeded = 24,
+    testMessage = 25,
+    uRIForResourceChanged = 26,
 };
 } // namespace redfish::registries::resource_event
