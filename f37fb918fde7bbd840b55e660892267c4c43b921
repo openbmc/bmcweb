@@ -86,6 +86,30 @@
       },
       "revId": "f37fb918fde7bbd840b55e660892267c4c43b921",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "136964e4_8da10977",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T19:55:48Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "496e299d_64d1487f",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 13
+      },
+      "revId": "f37fb918fde7bbd840b55e660892267c4c43b921",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
