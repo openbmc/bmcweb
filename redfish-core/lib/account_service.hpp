@@ -1828,12 +1828,11 @@ inline void processAfterCreateUser(
                              "/redfish/v1/AccountService/Accounts/" + username);
 }
 
-inline void processAfterGetAllGroups(
+inline void processCreateUserRequest(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& username, const std::string& password,
     const std::optional<std::string>& roleId, std::optional<bool> enabled,
     const std::vector<std::string>& allGroupsList)
-
 {
     std::vector<std::string> userGroups;
     for (const auto& grp : allGroupsList)
@@ -1857,6 +1856,39 @@ inline void processAfterGetAllGroups(
         *roleId, *enabled);
 }
 
+inline void createUserWithAccountTypes(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const std::string& password,
+    const std::optional<std::string>& roleId, std::optional<bool> enabled,
+    const std::optional<std::vector<std::string>> accountTypes)
+{
+    std::vector<std::string> userGroups;
+
+    // Convert account types to unix groups.
+    if (!getUserGroupFromAccountType(asyncResp->res, *accountTypes, userGroups))
+    {
+        // Problem in mapping Account Types to User Groups, Error already
+        // logged.
+        return;
+    }
+
+    // Make sure that group is supported based on the role id.
+    for (const auto& grp : userGroups)
+    {
+        // Hostconsole account type is only allowed for the user with
+        // administrator priviledges.
+        if ((grp == "hostconsole") && (roleId != "priv-admin"))
+        {
+            BMCWEB_LOG_ERROR << "Only administrator can get HostConsole access";
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+    }
+
+    processCreateUserRequest(asyncResp, username, password, roleId, enabled,
+                             userGroups);
+}
+
 inline void handleAccountCollectionPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1869,9 +1901,10 @@ inline void handleAccountCollectionPost(
     std::string password;
     std::optional<std::string> roleId("User");
     std::optional<bool> enabled = true;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "RoleId", roleId,
-                                  "Enabled", enabled))
+    std::optional<std::vector<std::string>> accountTypes;
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res, "UserName", username, "Password", password,
+            "RoleId", roleId, "Enabled", enabled, "AccountTypes", accountTypes))
     {
         return;
     }
@@ -1883,6 +1916,14 @@ inline void handleAccountCollectionPost(
         return;
     }
     roleId = priv;
+
+    // Create user using user specified account types.
+    if (accountTypes)
+    {
+        createUserWithAccountTypes(asyncResp, username, password, roleId,
+                                   enabled, accountTypes);
+        return;
+    }
 
     // Reading AllGroups property
     sdbusplus::asio::getProperty<std::vector<std::string>>(
@@ -1905,7 +1946,7 @@ inline void handleAccountCollectionPost(
             return;
         }
 
-        processAfterGetAllGroups(asyncResp, username, password, roleId, enabled,
+        processCreateUserRequest(asyncResp, username, password, roleId, enabled,
                                  allGroupsList);
         });
 }
