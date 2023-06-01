@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e70784ad_41daf77d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T18:12:43Z",
+      "side": 1,
+      "message": "Common error.",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 70
+      },
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a0d5888_25182859",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
@@ -14,6 +37,29 @@
       "writtenOn": "2023-05-25T16:04:20Z",
       "side": 1,
       "message": "id ?",
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb86333_9e81941c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T18:12:43Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem like a good thing to default to?",
+      "range": {
+        "startLine": 908,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 29
+      },
       "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -49,6 +95,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "9e20c385_d8ce8ab4",
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "419199c4_f5d06051",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T18:12:43Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "345c5bb5_f7b9008a",
       "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
