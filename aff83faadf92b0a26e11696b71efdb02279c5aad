@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc99e1c_25e4144f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "Adding some observations.",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d3890e_face290d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "Is it possible to get a non-numeric string? Does this code need to be more robust?",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70200b9c_54531a1d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "Assigning the default value to \u00270\u0027 seems like a bad idea. I believe you\u0027re effectively making this the highest priority route in the system.\nThe typical default value seems to be 1024. I recommend using a value larger than the default when the property is not specified.\n\nAssigning static IP addresses on dual NIC systems already causes a problem with the routing table due to it assigning the static entry to be the most significant entry in the table. We routinely see eth0, dhcp assigned, fail to operate correctly when eth1 is assigned a static IP address. The routing table is set to have eth1 be the most dominant route, preventing access to the BMC eth0 interface.",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28ac9acf_172ead8d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "Don\u0027t assign to \u00270\u0027. I recommend something greater than 1024.",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a09d1ce2_2676f863",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "See above",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bddeca13_72e55e2b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "What happens when stoul fails? Does this get assigned \u00270\u0027?",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94abf2ec_22d6d929",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1687,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "Is there a plan to standardize this?",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2521891f_419854dd",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-01T20:11:26Z",
+      "side": 1,
+      "message": "Is this also going to be extended to IPv6?",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
