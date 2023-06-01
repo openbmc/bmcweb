@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66fa9b8d_2a1f7f95",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T20:36:55Z",
+      "side": 1,
+      "message": "+1.  Why is RouteMetric implemented as a string?  Ideally it should be an int, but if you MUST keep it as a string, you need to parse with std::from_chars to avoid throwing an uncaught exception.\n\nThis is called out in COMMON_ERRORS.md",
+      "parentUuid": "02d3890e_face290d",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70200b9c_54531a1d",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 6
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-01T20:11:26Z",
       "side": 1,
       "message": "Assigning the default value to \u00270\u0027 seems like a bad idea. I believe you\u0027re effectively making this the highest priority route in the system.\nThe typical default value seems to be 1024. I recommend using a value larger than the default when the property is not specified.\n\nAssigning static IP addresses on dual NIC systems already causes a problem with the routing table due to it assigning the static entry to be the most significant entry in the table. We routinely see eth0, dhcp assigned, fail to operate correctly when eth1 is assigned a static IP address. The routing table is set to have eth1 be the most dominant route, preventing access to the BMC eth0 interface.",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65912c77_125d1cbb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T20:36:55Z",
+      "side": 1,
+      "message": "\u003e Assigning the default value to \u00270\u0027 seems like a bad idea. I believe you\u0027re effectively making this the highest priority route in the system.\n\u003e The typical default value seems to be 1024. I recommend using a value larger than the default when the property is not specified.\n\nThe default values should not be within the realm of bmcweb to decide, although I do agree with you.  This code should just omit those properties if they don\u0027t exist.\n\n\u003e \n\u003e Assigning static IP addresses on dual NIC systems already causes a problem with the routing table due to it assigning the static entry to be the most significant entry in the table. We routinely see eth0, dhcp assigned, fail to operate correctly when eth1 is assigned a static IP address. The routing table is set to have eth1 be the most dominant route, preventing access to the BMC eth0 interface.",
+      "parentUuid": "70200b9c_54531a1d",
       "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -133,6 +169,23 @@
       "writtenOn": "2023-06-01T20:11:26Z",
       "side": 1,
       "message": "Is this also going to be extended to IPv6?",
+      "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b880cf_7ffaccdb",
+        "filename": "static/redfish/v1/schema/OemIPAddress_v1.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T20:36:55Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md",
       "revId": "aff83faadf92b0a26e11696b71efdb02279c5aad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
