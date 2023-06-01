@@ -243,12 +243,14 @@ class Connection :
             [self(shared_from_this())](crow::Response& thisRes) {
             self->completeRequest(thisRes);
         });
-
+        bool isSse =
+            isContentTypeAllowed(req->getHeaderValue("Accept"),
+                                 http_helpers::ContentType::EventStream, false);
         if ((thisReq.isUpgrade() &&
              boost::iequals(
                  thisReq.getHeaderValue(boost::beast::http::field::upgrade),
                  "websocket")) ||
-            (Handler::isSseRoute(*req)))
+            isSse)
         {
             asyncResp->res.setCompleteRequestHandler(
                 [self(shared_from_this())](crow::Response& thisRes) {
