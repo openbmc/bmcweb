@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e114ef5_46d289ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "230e6c41_a5beda11",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 8
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97b08c1b_779344a5",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-14T23:53:58Z",
       "side": 1,
       "message": "we should spell this out as ServerSentEvent.  I don\u0027t think redfish uses abbreviations anywhere in the URI paths, so we should avoid them as well.\n\nAlso, isn\u0027t this URI going to conflict with other subscriptions?  What if you had a subscription with ID \"SSE\"",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 13,
+        "endChar": 47
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f361a56a_bee218fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97b08c1b_779344a5",
       "range": {
         "startLine": 13,
         "startChar": 44,
@@ -450,6 +498,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f78eb8c6_f71b0d3c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b22827_5196466b",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 0
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d5da77d_7fad8ba0",
@@ -463,6 +535,30 @@
       "writtenOn": "2021-05-14T23:53:58Z",
       "side": 1,
       "message": "?  this function seems incorrectly named, and this pattern seems odd.  wouldn\u0027t the SSE code itself map SSEConnection to ID, then we\u0027d access the subscription entirely by ID?",
+      "range": {
+        "startLine": 606,
+        "startChar": 8,
+        "endLine": 606,
+        "endChar": 25
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25043b1b_9c795d41",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d5da77d_7fad8ba0",
       "range": {
         "startLine": 606,
         "startChar": 8,
@@ -519,6 +615,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a48383e2_32fcfbd5",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a3931ef_8ce0f98d",
+      "range": {
+        "startLine": 1045,
+        "startChar": 30,
+        "endLine": 1045,
+        "endChar": 36
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "586bf84f_88d589e8",
@@ -542,6 +662,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b1067c_cac00e5f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "586bf84f_88d589e8",
+      "range": {
+        "startLine": 1047,
+        "startChar": 12,
+        "endLine": 1047,
+        "endChar": 41
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17c349b8_e25f536d",
@@ -555,6 +699,30 @@
       "writtenOn": "2021-05-14T23:53:58Z",
       "side": 1,
       "message": "Capture the parameter you need by reference to be more specific.",
+      "range": {
+        "startLine": 1070,
+        "startChar": 13,
+        "endLine": 1070,
+        "endChar": 17
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3432ef0_c3f3c13d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17c349b8_e25f536d",
       "range": {
         "startLine": 1070,
         "startChar": 13,
