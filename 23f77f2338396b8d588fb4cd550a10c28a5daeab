@@ -54,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "78da6652_2f7f8d98",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b80cb6c_fe509bc1",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3472aad9_a2021448",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
@@ -92,6 +110,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b694103e_58821c05",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "I thought about merging this into one function between the 2 files but there\u0027s enough differences that I think it still makes sense to keep them separate but let me know.",
+      "parentUuid": "6e4b843b_816d999a",
+      "range": {
+        "startLine": 674,
+        "startChar": 0,
+        "endLine": 705,
+        "endChar": 13
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c52a4345_054c96b7",
@@ -105,6 +147,30 @@
       "writtenOn": "2023-06-01T17:04:40Z",
       "side": 1,
       "message": "Maybe just pass in message_t instead?",
+      "range": {
+        "startLine": 2861,
+        "startChar": 41,
+        "endLine": 2861,
+        "endChar": 60
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f5f919_ca4ea2d4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2861,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c52a4345_054c96b7",
       "range": {
         "startLine": 2861,
         "startChar": 41,
@@ -138,6 +204,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9bf5467_9eea47b7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b88c3b6_4b73f667",
+      "range": {
+        "startLine": 2862,
+        "startChar": 4,
+        "endLine": 2862,
+        "endChar": 22
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0c02d89_b6d151a6",
@@ -151,6 +241,24 @@
       "writtenOn": "2023-06-01T19:07:41Z",
       "side": 1,
       "message": "#include \u003cboost/asio/error.hpp\u003e",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6144fb2_353872a7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2865,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0c02d89_b6d151a6",
       "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -178,6 +286,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c2cbb39_3050dcc4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2887,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "Yeah, doesn\u0027t seem to help with readability here vs. just hard coding in the call.",
+      "parentUuid": "95f70847_09d7e967",
+      "range": {
+        "startLine": 2887,
+        "startChar": 0,
+        "endLine": 2887,
+        "endChar": 40
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e9491a1_a5b05b28",
@@ -191,6 +323,24 @@
       "writtenOn": "2023-06-01T19:07:41Z",
       "side": 1,
       "message": "#include \u003cstring\u003e",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "789949b9_1d157ae4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2889,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-01T21:05:52Z",
+      "side": 1,
+      "message": "Went with plan to just hard code the \"10\"",
+      "parentUuid": "4e9491a1_a5b05b28",
       "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
