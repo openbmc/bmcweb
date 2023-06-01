@@ -16,6 +16,24 @@
       "message": "with the goal of getting this patchset moving, I\u0027ve uploaded the next patchset in the series.  As written, I don\u0027t believe they have any effect on the output of bmcweb, because there are no handlers registered.  Lets work to get this stuff stabilized.",
       "revId": "791937c0f74818634b6c4c6ad48e7e88d48f999f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e857be2_d2eb941d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T20:42:02Z",
+      "side": 1,
+      "message": "I am good with that. \nI support this feature.",
+      "parentUuid": "3aa5b34d_f35d3034",
+      "revId": "791937c0f74818634b6c4c6ad48e7e88d48f999f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
