@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a70125_f85fa15e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1886,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:26:44Z",
+      "side": 1,
+      "message": "Isn\u0027t this duplicated with other code?",
+      "range": {
+        "startLine": 1875,
+        "startChar": 0,
+        "endLine": 1886,
+        "endChar": 5
+      },
+      "revId": "2f30b85e4bb71d2ded408c3986ead9ea41e322bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a05f42_60b1235b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1926,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:26:44Z",
+      "side": 1,
+      "message": "Is there any way to make this take the same path as the below?  I\u0027m worried about completely ignoring the AllGroups could cause inconsistencies in the future.",
+      "range": {
+        "startLine": 1920,
+        "startChar": 0,
+        "endLine": 1926,
+        "endChar": 5
+      },
+      "revId": "2f30b85e4bb71d2ded408c3986ead9ea41e322bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
