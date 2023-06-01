@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ab94fa0_ba9ed7db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:24:16Z",
+      "side": 1,
+      "message": "overall, seems fine to me.  A couple things that I\u0027d like to see fixed, but overall should be ok.",
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5145f43b_7b1be6c1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2865,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:24:16Z",
+      "side": 1,
+      "message": "Two nits:\n\n1. We generally don\u0027t pass sting_view by const, because it\u0027s a value.\n2. This function isn\u0027t taking ownership of the response to do async calls, so we pass the response by Response\u0026, not AsyncResp.",
+      "range": {
+        "startLine": 2864,
+        "startChar": 0,
+        "endLine": 2865,
+        "endChar": 54
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe17c46_5be3f920",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2874,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:24:16Z",
+      "side": 1,
+      "message": "can you please load the result of this into a variable.  It makes it more clear that it\u0027s not null, even though it\u0027s probably returning the same pointer on lines 2883 and 2886, I can\u0027t know that without looking at the code.",
+      "range": {
+        "startLine": 2874,
+        "startChar": 8,
+        "endLine": 2874,
+        "endChar": 24
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c8ebf3b_a044e2fd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2883,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:24:16Z",
+      "side": 1,
+      "message": "Any way to avoid strcmp here?  I\u0027m ok with it if not, but it seems like with all the string/string_view/std::less magic we have these days, we wouldn\u0027t need to fall back on strcmp.  Oh well, investigate if you want to.",
+      "range": {
+        "startLine": 2883,
+        "startChar": 9,
+        "endLine": 2883,
+        "endChar": 15
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "485846c4_7af7d574",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2888,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T23:24:16Z",
+      "side": 1,
+      "message": "Per our new rules, is this an error?  This is expected to happen at times, @Gunnar, what do you think?",
+      "range": {
+        "startLine": 2888,
+        "startChar": 19,
+        "endLine": 2888,
+        "endChar": 24
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
