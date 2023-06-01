@@ -214,6 +214,30 @@
       },
       "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4527042a_cb7fc13e",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T21:48:39Z",
+      "side": 1,
+      "message": "I should answer this more thoroughly.  I want this code relying on the same code that everything else is.  In your case, you actually kind of rebuilt the mapper in that global variable originally, so it\u0027s roughly what you were thinking, we just call out to an external provider.",
+      "parentUuid": "26b1a4c3_9a08c210",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 78
+      },
+      "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
