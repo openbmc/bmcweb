@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ecf56a48_b561c4ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T00:26:56Z",
+      "side": 1,
+      "message": "\u003e So long as they implement the status properties correctly, I think that\u0027s ok, but \u003e I suspect there\u0027s no backend code for a lot of those (but lets evaluate in the patches).\nAck. For us, each of these have a backend of PLDM/vpd parser/etc\n\nhttps://github.com/openbmc/openpower-vpd-parser/blob/9cf56eeda726addff04e3844cac3bb5f949c00aa/ibm_vpd_app.cpp#L620\n\nhttps://github.com/openbmc/pldm/blob/558714d08032996301863d7b72d6104485de9f7d/configurations/events/stateSensorPdrs.json#L745\n\nhttps://github.com/search?q\u003dorg%3Aopenbmc%20operationalstatus\u0026type\u003dcode",
+      "parentUuid": "949c9b41_9505001e",
+      "revId": "9ea949f8d0bfd13102c53b86f7a95af63664d404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72ac493d_3e925bdd",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
