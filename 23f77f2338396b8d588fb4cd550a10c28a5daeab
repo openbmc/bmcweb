@@ -18,6 +18,57 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d8fec1_b428f36d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T19:07:41Z",
+      "side": 1,
+      "message": "Seems reasonable",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b80cb6c_fe509bc1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T19:07:41Z",
+      "side": 1,
+      "message": "#include \u003csdbusplus/message.hpp\u003e",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3472aad9_a2021448",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T19:07:41Z",
+      "side": 1,
+      "message": "This is a 5xx error, so yeah,  https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels I think ERROR is correct. Could flood the journal with this but that is true if you enable logging and have any request that prints to the journal",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e4b843b_816d999a",
@@ -89,6 +140,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0c02d89_b6d151a6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2865,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T19:07:41Z",
+      "side": 1,
+      "message": "#include \u003cboost/asio/error.hpp\u003e",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95f70847_09d7e967",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -106,6 +174,23 @@
         "endLine": 2887,
         "endChar": 40
       },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e9491a1_a5b05b28",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2889,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-01T19:07:41Z",
+      "side": 1,
+      "message": "#include \u003cstring\u003e",
       "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
