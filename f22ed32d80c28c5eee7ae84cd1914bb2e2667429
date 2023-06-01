@@ -46,6 +46,30 @@
       },
       "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b18db8e_2fe70508",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-01T19:47:15Z",
+      "side": 1,
+      "message": "I tried this string but it did not even reached the router. I can still work on the getDbusObject() call.\n\n  File \"/usr/lib/python3/dist-packages/websockets/legacy/client.py\", line 482, in __init__\n    wsuri \u003d parse_uri(uri)\n  File \"/usr/lib/python3/dist-packages/websockets/uri.py\", line 81, in parse_uri\n    raise exceptions.InvalidURI(uri, \"fragment identifier is meaningless\")\nwebsockets.exceptions.InvalidURI: wss://rain136bmc:443/console/0$%^#% isn\u0027t a valid URI: fragment identifier is meaningless",
+      "parentUuid": "08959979_818e71f1",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 78
+      },
+      "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
