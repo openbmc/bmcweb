@@ -142,6 +142,30 @@
       },
       "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ab2d36_7b66299f",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T21:07:08Z",
+      "side": 1,
+      "message": "\u003e Failed to call console Connect() method DBUS error: Invalid argument\n\nThis was a thrown exception that didn\u0027t get handled (at least it used to be).\n\n\u003e I am not trying to avoid the work but just trying to understand the security issue.\n\nI appreciate you.  I wasn\u0027t saying you were avoiding work.  If that was how it sounded, i apologize.",
+      "parentUuid": "e5823433_a87d3803",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 78
+      },
+      "revId": "f22ed32d80c28c5eee7ae84cd1914bb2e2667429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
