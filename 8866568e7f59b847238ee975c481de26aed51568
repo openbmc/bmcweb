@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab844c5_61504a80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T14:35:42Z",
+      "side": 1,
+      "message": "Please help to review and test\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63887\n\nWith those changes, I think this patch can merge.",
+      "revId": "8866568e7f59b847238ee975c481de26aed51568",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
