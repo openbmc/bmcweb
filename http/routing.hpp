@@ -391,7 +391,7 @@ class SseSocketRule : public BaseRule
     }
 
 #ifndef BMCWEB_ENABLE_SSL
-    void handleUpgrade(const Request& req,
+    void handleUpgrade(const Request& /*req*/,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
@@ -399,11 +399,11 @@ class SseSocketRule : public BaseRule
             crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
             myConnection = std::make_shared<
                 crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
-                req, std::move(adaptor), openHandler, closeHandler);
+                std::move(adaptor), openHandler, closeHandler);
         myConnection->start();
     }
 #else
-    void handleUpgrade(const Request& req,
+    void handleUpgrade(const Request& /*req*/,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
@@ -412,7 +412,7 @@ class SseSocketRule : public BaseRule
             boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
             myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
                 boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
-                req, std::move(adaptor), openHandler, closeHandler);
+                std::move(adaptor), openHandler, closeHandler);
         myConnection->start();
     }
 #endif
@@ -432,12 +432,8 @@ class SseSocketRule : public BaseRule
     }
 
   private:
-    std::function<void(std::shared_ptr<crow::sse_socket::Connection>&,
-                       const crow::Request&,
-                       const std::shared_ptr<bmcweb::AsyncResp>&)>
-        openHandler;
-    std::function<void(std::shared_ptr<crow::sse_socket::Connection>&)>
-        closeHandler;
+    std::function<void(crow::sse_socket::Connection&)> openHandler;
+    std::function<void(crow::sse_socket::Connection&)> closeHandler;
 };
 
 template <typename T>
@@ -459,13 +455,6 @@ struct RuleParameterTraits
         SseSocketRule* p = new SseSocketRule(self->rule);
         self->ruleToUpgrade.reset(p);
         return *p;
-    }
-
-    self_t& name(std::string_view name) noexcept
-    {
-        self_t* self = static_cast<self_t*>(this);
-        self->nameStr = name;
-        return *self;
     }
 
     self_t& methods(boost::beast::http::verb method)
@@ -1182,15 +1171,6 @@ class Router
         }
 
         return true;
-    }
-
-    static bool isSseRoute(Request& req)
-    {
-        return std::any_of(sse_socket::sseRoutes.begin(),
-                           sse_socket::sseRoutes.end(),
-                           [&req](const char* sseRoute) {
-            return (req.url().encoded_path() == sseRoute);
-        });
     }
 
     static bool
