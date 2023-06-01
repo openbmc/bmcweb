@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b3ee50_19193888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T17:04:40Z",
+      "side": 1,
+      "message": "Bunch of minor stuff, other than that, looks good.",
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4b843b_816d999a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T17:04:40Z",
+      "side": 1,
+      "message": "No lambdas over 15 lines please, per the developing guide.",
+      "range": {
+        "startLine": 674,
+        "startChar": 0,
+        "endLine": 705,
+        "endChar": 13
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c52a4345_054c96b7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2861,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T17:04:40Z",
+      "side": 1,
+      "message": "Maybe just pass in message_t instead?",
+      "range": {
+        "startLine": 2861,
+        "startChar": 41,
+        "endLine": 2861,
+        "endChar": 60
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b88c3b6_4b73f667",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T17:04:40Z",
+      "side": 1,
+      "message": "nit, string_view.",
+      "range": {
+        "startLine": 2862,
+        "startChar": 4,
+        "endLine": 2862,
+        "endChar": 22
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f70847_09d7e967",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2887,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T17:04:40Z",
+      "side": 1,
+      "message": "Does it make sense to just declare this as a string \"10\" inline in the next line?  This isn\u0027t used as an int anywhere",
+      "range": {
+        "startLine": 2887,
+        "startChar": 0,
+        "endLine": 2887,
+        "endChar": 40
+      },
+      "revId": "23f77f2338396b8d588fb4cd550a10c28a5daeab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
