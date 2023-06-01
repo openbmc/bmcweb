@@ -22,10 +22,7 @@
 #include "persistent_data.hpp"
 #include "random.hpp"
 #include "registries.hpp"
-#include "registries/base_message_registry.hpp"
-#include "registries/openbmc_message_registry.hpp"
-#include "registries/privilege_registry.hpp"
-#include "registries/task_event_message_registry.hpp"
+#include "registries_selector.hpp"
 #include "server_sent_events.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
@@ -61,27 +58,6 @@ static constexpr const char* eventServiceFile =
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
-
-namespace registries
-{
-inline std::span<const MessageEntry>
-    getRegistryFromPrefix(const std::string& registryName)
-{
-    if (task_event::header.registryPrefix == registryName)
-    {
-        return {task_event::registry};
-    }
-    if (openbmc::header.registryPrefix == registryName)
-    {
-        return {openbmc::registry};
-    }
-    if (base::header.registryPrefix == registryName)
-    {
-        return {base::registry};
-    }
-    return {openbmc::registry};
-}
-} // namespace registries
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
