@@ -1832,19 +1832,69 @@ inline void processAfterGetAllGroups(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& username, const std::string& password,
     const std::optional<std::string>& roleId, std::optional<bool> enabled,
+    std::optional<std::vector<std::string>> accountTypes,
     const std::vector<std::string>& allGroupsList)
-
 {
     std::vector<std::string> userGroups;
+    std::vector<std::string> accountTypeUserGroups;
+
+    // If user specified account types then convert them to unix user groups
+    if (accountTypes)
+    {
+        if (!getUserGroupFromAccountType(asyncResp->res, *accountTypes,
+                                         accountTypeUserGroups))
+        {
+            // Problem in mapping Account Types to User Groups, Error already
+            // logged.
+            return;
+        }
+    }
+
     for (const auto& grp : allGroupsList)
     {
+        // If user specified the account type then only accept groups which are
+        // in the account types group list.
+        if (!accountTypeUserGroups.empty())
+        {
+            bool found = false;
+            for (const auto& grp1 : accountTypeUserGroups)
+            {
+                if (grp == grp1)
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                continue;
+            }
+        }
+
         // Console access is provided to the user who is a member of
         // hostconsole group and has a administrator role. So, set
         // hostconsole group only for the administrator.
-        if ((grp != "hostconsole") || (roleId == "priv-admin"))
+        if ((grp == "hostconsole") && (roleId != "priv-admin"))
         {
-            userGroups.emplace_back(grp);
+            if (!accountTypeUserGroups.empty())
+            {
+                BMCWEB_LOG_ERROR
+                    << "Only administrator can get HostConsole access";
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+            continue;
         }
+        userGroups.emplace_back(grp);
+    }
+
+    // Make sure user specified groups are valid. This is internal error because
+    // it some inconsistencies between user manager and bmcweb.
+    if (!accountTypeUserGroups.empty() &&
+        accountTypeUserGroups.size() != userGroups.size())
+    {
+        messages::internalError(asyncResp->res);
+        return;
     }
 
     crow::connections::systemBus->async_method_call(
@@ -1869,9 +1919,10 @@ inline void handleAccountCollectionPost(
     std::string password;
     std::optional<std::string> roleId("User");
     std::optional<bool> enabled = true;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "RoleId", roleId,
-                                  "Enabled", enabled))
+    std::optional<std::vector<std::string>> accountTypes;
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res, "UserName", username, "Password", password,
+            "RoleId", roleId, "Enabled", enabled, "AccountTypes", accountTypes))
     {
         return;
     }
@@ -1889,9 +1940,9 @@ inline void handleAccountCollectionPost(
         *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
         "AllGroups",
-        [asyncResp, username, password{std::move(password)}, roleId,
-         enabled](const boost::system::error_code& ec,
-                  const std::vector<std::string>& allGroupsList) {
+        [asyncResp, username, password{std::move(password)}, roleId, enabled,
+         accountTypes](const boost::system::error_code& ec,
+                       const std::vector<std::string>& allGroupsList) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
@@ -1906,7 +1957,7 @@ inline void handleAccountCollectionPost(
         }
 
         processAfterGetAllGroups(asyncResp, username, password, roleId, enabled,
-                                 allGroupsList);
+                                 accountTypes, allGroupsList);
         });
 }
 
