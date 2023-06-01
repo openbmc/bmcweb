@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7099cb6e_b061e742",
+        "filename": "src/json_html_serializer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T19:14:46Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "8d52d9ef_c1f3bae5",
+      "revId": "2a27001600e1ce2d1fae9df7326bf2b1dea80a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d2687ead_5225d8de",
         "filename": "src/json_html_serializer.cpp",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-01T19:12:46Z",
       "side": 1,
       "message": "#include \u003climits\u003e\n\nOh well it was wrong before. Could be fixed in a separate commit",
+      "revId": "2a27001600e1ce2d1fae9df7326bf2b1dea80a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eaa7f20_b1d47c44",
+        "filename": "src/json_html_serializer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-01T19:14:46Z",
+      "side": 1,
+      "message": "Easy enough to just fix now.",
+      "parentUuid": "d2687ead_5225d8de",
       "revId": "2a27001600e1ce2d1fae9df7326bf2b1dea80a35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
