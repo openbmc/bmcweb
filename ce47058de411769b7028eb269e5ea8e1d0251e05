@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3124115_373c75de",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-06-02T07:36:21Z",
+      "side": 1,
+      "message": "Done.\n\nAlso split out the other lambda",
+      "parentUuid": "db6c6b22_0b26872b",
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7057821_5caef455",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-31T23:19:26Z",
       "side": 1,
       "message": "Please don\u0027t construct by brace construction or complete replacement of objects.  They:\n\n1. have problems where one section of code might overwrite keys from another section of code.\n2. Create larger binary sizes.\n\nThis code would be something like\n\nasyncResp-\u003eres.jsonValue[\"Links\"][\"ContainedBy\"][\"@odata.id\"] \u003d boost::urls::format(\"/redfish/v1/Chassis/{}\", upstreamChassis);",
+      "range": {
+        "startLine": 205,
+        "startChar": 59,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb22979f_4eaabcbc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-06-02T07:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7057821_5caef455",
       "range": {
         "startLine": 205,
         "startChar": 59,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98ada7cf_7a7a4c2c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-06-02T07:36:21Z",
+      "side": 1,
+      "message": "get_if doesn\u0027t work for nlohmann::json since it isn\u0027t technically a variant.\n\nI don\u0027t get how line 233 could throw. Could you explain more?",
+      "parentUuid": "f56331e7_514cc4c6",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 31
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a661a5f_b44328a6",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 5
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-31T23:20:02Z",
       "side": 1,
       "message": "same here, no brace init please.",
+      "range": {
+        "startLine": 245,
+        "startChar": 17,
+        "endLine": 245,
+        "endChar": 18
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf793c6c_d28381d6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-06-02T07:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a661a5f_b44328a6",
       "range": {
         "startLine": 245,
         "startChar": 17,
