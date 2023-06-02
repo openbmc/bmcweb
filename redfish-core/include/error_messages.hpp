@@ -1079,15 +1079,6 @@ nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length);
 
 void arraySizeTooLong(crow::Response& res, std::string_view property,
                       uint64_t length);
-/**
- * @brief Formats StringValueTooLong message into JSON
- * Message body: "Indicates that a string value passed to the given resource
- * exceeded its length limit."
- * @returns Message StringValueTooLong formatted to JSON */
-nlohmann::json stringValueTooLong(std::string_view property, uint64_t length);
-
-void stringValueTooLong(crow::Response& res, std::string_view property,
-                        uint64_t length);
 
 } // namespace messages
 
