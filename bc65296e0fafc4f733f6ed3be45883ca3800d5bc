@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c50057_913167d3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2865,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-02T19:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5145f43b_7b1be6c1",
+      "range": {
+        "startLine": 2864,
+        "startChar": 0,
+        "endLine": 2865,
+        "endChar": 54
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abe17c46_5be3f920",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f86b726_8b213e67",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2874,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-02T19:47:52Z",
+      "side": 1,
+      "message": "Sure I\u0027ll model it off of what userErrorMessageHandler() did.",
+      "parentUuid": "abe17c46_5be3f920",
+      "range": {
+        "startLine": 2874,
+        "startChar": 8,
+        "endLine": 2874,
+        "endChar": 24
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c8ebf3b_a044e2fd",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-06-01T23:24:16Z",
       "side": 1,
       "message": "Any way to avoid strcmp here?  I\u0027m ok with it if not, but it seems like with all the string/string_view/std::less magic we have these days, we wouldn\u0027t need to fall back on strcmp.  Oh well, investigate if you want to.",
+      "range": {
+        "startLine": 2883,
+        "startChar": 9,
+        "endLine": 2883,
+        "endChar": 15
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5ea727d_840fabb9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2883,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-02T19:47:52Z",
+      "side": 1,
+      "message": "Def not my area of expertise. I see out at https://www.digitalocean.com/community/tutorials/compare-strings-in-c-plus-plus the 3 options (strcmp, compare, or String \u003d\u003d) but seems like more code to get there vs. just the strcmp, and it\u0027s consistent with what was done in account_service.hpp so if no strong feelings, I\u0027ll leave it as-is.",
+      "parentUuid": "1c8ebf3b_a044e2fd",
       "range": {
         "startLine": 2883,
         "startChar": 9,
@@ -124,6 +196,30 @@
       "side": 1,
       "message": "By https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels Error is okay since a 5xx but I am not sure that feels correct. \n\nI wonder the value here? It doesn\u0027t include an ec, the client would know by the message returned.. \nWe use serviceTemporarilyUnavailable other places https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20serviceTemporarilyUnavailable\u0026type\u003dcode\nbut don\u0027t log on any other serviceTemporarilyUnavailable.\nI am okay with this, but would also be okay if you moved to a DEBUG or removed completely (my preference).\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63895/1/redfish-core/lib/chassis.hpp is really helpful in debugging because it prints the ec, here I don\u0027t see the value. :/",
       "parentUuid": "485846c4_7af7d574",
+      "range": {
+        "startLine": 2888,
+        "startChar": 19,
+        "endLine": 2888,
+        "endChar": 24
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fecd4001_0638036f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2888,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-06-02T19:47:52Z",
+      "side": 1,
+      "message": "ok, I\u0027m going to make debug. PSM also logs when this occurs so we\u0027ll have that in the journal.",
+      "parentUuid": "2035b92c_4a264a04",
       "range": {
         "startLine": 2888,
         "startChar": 19,
