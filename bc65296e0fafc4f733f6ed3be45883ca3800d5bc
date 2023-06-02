@@ -108,6 +108,30 @@
       },
       "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2035b92c_4a264a04",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2888,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-02T16:17:18Z",
+      "side": 1,
+      "message": "By https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels Error is okay since a 5xx but I am not sure that feels correct. \n\nI wonder the value here? It doesn\u0027t include an ec, the client would know by the message returned.. \nWe use serviceTemporarilyUnavailable other places https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20serviceTemporarilyUnavailable\u0026type\u003dcode\nbut don\u0027t log on any other serviceTemporarilyUnavailable.\nI am okay with this, but would also be okay if you moved to a DEBUG or removed completely (my preference).\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63895/1/redfish-core/lib/chassis.hpp is really helpful in debugging because it prints the ec, here I don\u0027t see the value. :/",
+      "parentUuid": "485846c4_7af7d574",
+      "range": {
+        "startLine": 2888,
+        "startChar": 19,
+        "endLine": 2888,
+        "endChar": 24
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
