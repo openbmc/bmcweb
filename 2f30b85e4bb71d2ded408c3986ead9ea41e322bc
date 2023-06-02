@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eea72df_b430c14f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1886,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-02T13:16:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e70f9220_7fe90e40",
+      "range": {
+        "startLine": 1875,
+        "startChar": 0,
+        "endLine": 1886,
+        "endChar": 5
+      },
+      "revId": "2f30b85e4bb71d2ded408c3986ead9ea41e322bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17a05f42_60b1235b",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "In that case we will have to make the accountType as required parameter. Let me try to restructure and use the all group query and see.",
       "parentUuid": "46acc744_e6cde7e9",
+      "range": {
+        "startLine": 1920,
+        "startChar": 0,
+        "endLine": 1926,
+        "endChar": 5
+      },
+      "revId": "2f30b85e4bb71d2ded408c3986ead9ea41e322bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65224117_a1afd298",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1926,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-02T13:16:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c63bfae_1d21b98c",
       "range": {
         "startLine": 1920,
         "startChar": 0,
