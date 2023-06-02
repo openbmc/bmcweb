@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9394f06a_31f917d0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-02T15:10:46Z",
+      "side": 1,
+      "message": "sorry, get_ptr is what I meant.  you’re right, get_if is the variant equivalent.\n\nif the type of downstreamChassisPaths isn’t object_t, nlohmann::json::begin will throw.",
+      "parentUuid": "98ada7cf_7a7a4c2c",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 31
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a661a5f_b44328a6",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 5
