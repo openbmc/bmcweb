@@ -166,6 +166,30 @@
       },
       "revId": "09fce01a8cc69b4cdc3470b330166882f82c581b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84793a04_b8c3d3ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-03T00:23:50Z",
+      "side": 1,
+      "message": "I tested Patchset 9 with aggregation and did not see any issues.  From my testing, the following queries involving aggregated resources are all expanded correctly:\n\nredfish/v1/Chassis?$expand\u003d.($levels\u003d1)\nredfish/v1/Chassis/5B247A_AggChassis?$expand\u003d.($levels\u003d1)\nredfish/v1/Chassis/5B247A_AggChassis?$expand\u003d.($levels\u003d2)\nredfish/v1/Chassis/5B247A_AggChassis/Sensors?$expand\u003d.($levels\u003d1)\nredfish/v1/Systems?$expand\u003d.($levels\u003d1)\nredfish/v1/UpdateService?$expand\u003d.($levels\u003d1)\nredfish/v1/UpdateService?$expand\u003d.($levels\u003d2)\n\nI think Patchset 9 is the correct approach.  I don\u0027t have a setup where a Sensor resource contains a navigation link, but I\u0027m assuming Patchset 9 still fixes the original issue of /redfish/v1/Chassis/BMC/Sensors?$expand\u003d.($levels\u003d2) not being expanded correctly.",
+      "parentUuid": "a9538879_dbd0f776",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 70
+      },
+      "revId": "09fce01a8cc69b4cdc3470b330166882f82c581b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
