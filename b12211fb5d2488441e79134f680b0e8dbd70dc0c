@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "965be82c_3e942936",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-03T00:58:18Z",
+      "side": 1,
+      "message": "\u003e This is going to be required before the patchset can be merged. \n\nACK\n\n\u003e In parallel, there\u0027s discussions going on about moving bmcweb to non-root, for which this would immediately break.\n\n\u003e Especially considering there\u0027s patchsets in review to do this already the expected way, ...\n\nIf you mean https://gerrit.openbmc.org/c/openbmc/phosphor-debug-collector/+/49466 then that\u0027s planning to expose a filepath.  We\u0027d still have to open that file so wouldn\u0027t that also get broken by moving bmcweb to non-root?\n\nIf so then is the answer to retrieve a file descriptor from dbus like we do with https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1960-L1982?",
+      "parentUuid": "48bda2c6_dcd01dce",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 46
+      },
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3980cf73_3f7233a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
