@@ -190,6 +190,30 @@
       },
       "revId": "09fce01a8cc69b4cdc3470b330166882f82c581b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a0cac3e_57e3c32f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-03T01:31:13Z",
+      "side": 1,
+      "message": "Actually it looks like the change introduces a new issue in aggregated sensor expansion.  If I query an aggregated sensor on my system I do see a navigation link\n\ncurl -s \u0027localhost/redfish/v1/Chassis/5B247A_AggChassis/Sensors/temp\u0027\n{\n  ...\n  \"RelatedItem\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/5B247A_system\"\n    }\n  ],\n  ...\n}\n\nHowever, that property is missing from the output of:\n\ncurl -s \u0027localhost/redfish/v1/Chassis/5B247A_AggChassis/Sensors?$expand\u003d.($levels\u003d1)\u0027\n\nas well as some downstream properties under Status.  If do\n\ncurl -s \u0027localhost/redfish/v1/Chassis/5B247A_AggChassis/Sensors/temp?$expand\u003d.($levels\u003d1)\u0027\n\nthen RelatedItem gets expanded like it should.  If I instead call \n\ncurl -s \u0027localhost/redfish/v1/Chassis/5B247A_AggChassis/Sensors?$expand\u003d.($levels\u003d2)\u0027\n\nthen you don\u0027t see RelatedItem in the output and the output is the same as if I did a level 1 expand.\n\nI don\u0027t know if this issue was also present in Patchset 5 or if it was introduced by the cleanup that took place after that patch",
+      "parentUuid": "84793a04_b8c3d3ec",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 70
+      },
+      "revId": "09fce01a8cc69b4cdc3470b330166882f82c581b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
