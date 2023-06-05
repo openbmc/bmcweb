@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff219b1_be613518",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1889,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-05T15:26:15Z",
+      "side": 1,
+      "message": "I think - empty() check is not needed as it will be iterated in groups,\nand also this seems trying to check whether \u0027grp\u0027 is in accountTypeUserGroups.\n\nThis can be simplified like\n\n```\n    for (const auto\u0026 grp : allGroupsList)\n    {\n        // If user specified the account type then only accept groups which are\n        // in the account types group list.\n        if(accountTypeUserGroups.find(grp) \u003d\u003d accountTypeUserGroups.end())\n        {\n              continue;\n        }\n        \n        // Console access is provided to the user who is a member of\n        // hostconsole group and has a administrator role. So, set\n        // hostconsole group only for the administrator.\n        if ((grp \u003d\u003d \"hostconsole\") \u0026\u0026 (roleId !\u003d \"priv-admin\"))\n        {\n            // NOTE: accountTypeUserGroups is not empty as \u0027grp\u0027 is in the list\n            BMCWEB_LOG_ERROR\n                    \u003c\u003c \"Only administrator can get HostConsole access\";\n            asyncResp-\u003eres.result(boost::beast::http::status::bad_request);\n            return;\n        }\n        userGroups.emplace_back(grp);\n   }\n```",
+      "range": {
+        "startLine": 1852,
+        "startChar": 0,
+        "endLine": 1889,
+        "endChar": 5
+      },
+      "revId": "5cae56fecc42a257336c05e9f31d9a54938b1381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
