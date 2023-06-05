@@ -22,6 +22,30 @@
       },
       "revId": "5cae56fecc42a257336c05e9f31d9a54938b1381",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f4a84a3_06e07e87",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1889,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-05T19:27:20Z",
+      "side": 1,
+      "message": "This logic doesn\u0027t work for two reasons, 1) there is no find method in std:vector and 2) If account type is not specified then we will try to create user with no groups.",
+      "parentUuid": "eff219b1_be613518",
+      "range": {
+        "startLine": 1852,
+        "startChar": 0,
+        "endLine": 1889,
+        "endChar": 5
+      },
+      "revId": "5cae56fecc42a257336c05e9f31d9a54938b1381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
