@@ -359,6 +359,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd06c8ba_1b2428af",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T18:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "765a66fc_002d28b6",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 77
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d741e0a1_ba171b0b",
@@ -372,6 +396,30 @@
       "writtenOn": "2021-05-14T23:53:58Z",
       "side": 1,
       "message": "This seems like an important TODO, otherwise won\u0027t we send all events to the consumer, and break the protocol?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "bcb80fc9a86555c74b56b5b37615601d3fbfae31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b5c767d_835b6a50",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T18:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d741e0a1_ba171b0b",
       "range": {
         "startLine": 32,
         "startChar": 0,

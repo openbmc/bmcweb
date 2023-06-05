@@ -69,6 +69,30 @@
       },
       "revId": "c7e1491e360d3c1e060ae8457c019a5f97bfff25",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16bf0821_cdea9d81",
+        "filename": "include/eventservice_sse.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T18:50:52Z",
+      "side": 1,
+      "message": "Not here, should be done in the core if anywhere.  The current patchset no longer handles query params, so we can follow up on the next patchset.",
+      "parentUuid": "0c2442b0_bb571032",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "c7e1491e360d3c1e060ae8457c019a5f97bfff25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

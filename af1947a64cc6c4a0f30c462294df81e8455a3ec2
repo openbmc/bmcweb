@@ -16,6 +16,24 @@
       "message": "When moving code, please do it in a different patch than code changes.",
       "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f724525_e40e8f56",
+        "filename": "redfish-core/include/server_sent_events.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T18:50:52Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "87003fea_6eb622ac",
+      "revId": "af1947a64cc6c4a0f30c462294df81e8455a3ec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
