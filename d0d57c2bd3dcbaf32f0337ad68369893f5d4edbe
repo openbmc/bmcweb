@@ -34,6 +34,23 @@
       "parentUuid": "4ac1cc46_2b755261",
       "revId": "d0d57c2bd3dcbaf32f0337ad68369893f5d4edbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbfddf07_c5c6813d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-05T13:29:21Z",
+      "side": 1,
+      "message": "We should log ERROR for internal errors.",
+      "revId": "d0d57c2bd3dcbaf32f0337ad68369893f5d4edbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
