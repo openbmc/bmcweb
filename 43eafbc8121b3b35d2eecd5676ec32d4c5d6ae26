@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a967aa1_411891be",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-05T15:52:55Z",
+      "side": 1,
+      "message": "\u0027req.url()\u0027 is a part of \u0027req\u0027, and thus it can also be obtained inside websocket.\nThen, this part would not need to be changed.",
+      "range": {
+        "startLine": 308,
+        "startChar": 21,
+        "endLine": 308,
+        "endChar": 30
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27712e4_3b99aeae",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-05T15:52:55Z",
+      "side": 1,
+      "message": "This `urlViewIn` is `reqIn.url()` from `routing.hpp`, and then, this can be removed",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19f9d9e1_6d42620a",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-05T15:52:55Z",
+      "side": 1,
+      "message": "As  uurlViewIn is reqIn.url() from routing.hpp, this can be written as\n```\nuri(reqIn.url()), \n```",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9493b44b_a8d95390",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-05T15:52:55Z",
+      "side": 1,
+      "message": "\u0027req\u0027 is already a member of the parent class \u0027Connection\u0027.\nThen, this can be simply rewritten as\n\n```\n    boost::urls::url_view url() override\n    {\n        return req.url();\n    }\n```\n\nThen, `uri` seems not needed.",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
