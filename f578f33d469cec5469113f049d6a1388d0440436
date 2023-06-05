@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "72357545_088f3e28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T20:58:37Z",
+      "side": 1,
+      "message": "Ok, I think I see the confusion here (and I\u0027m not sure I know the right behavior here, but I have a guess).\n\nLevel 1 expands each object in the sensor collection\nRelatedItem is a collection, and at a property level it has AutoExpandReferences set, which means that L2 has already been expanded.  This DOESN\u0027T mean that the expansion doesn\u0027t count against the depth, because it was already expanded, just automatically in the standard.\n\nWe should get the experts looking at this, but to my eye, this looks correct.  You would need expand level 3 to expand\n\nSensorCollection.Members\nSensor.RelatedItem\nRelatedItem[0]\n\nand get the result you want.  Does depth\u003d3 get you what you\u0027re looking for?",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "f578f33d469cec5469113f049d6a1388d0440436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31abc319_e8b8b20c",
