@@ -271,6 +271,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7799f08b_589b9d4a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-05T13:07:22Z",
+      "side": 1,
+      "message": "This is the sensor path\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L78 \n\nThis commit is searching the sensor path and listing sensors as fans.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41b6fd7b_e2f5162e",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
