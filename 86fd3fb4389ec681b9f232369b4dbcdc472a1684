@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e0e4969_077f30b5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T17:35:58Z",
+      "side": 1,
+      "message": "This actually shouldn\u0027t be anything.  This error is already set by readJson for you.",
+      "parentUuid": "7c420b68_9d90a7b9",
+      "range": {
+        "startLine": 990,
+        "startChar": 0,
+        "endLine": 990,
+        "endChar": 51
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f056e8c2_4c01a82f",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 6
