@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f17327_c5704981",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:42:24Z",
+      "side": 1,
+      "message": "A couple minor things, looks good to me.\n\nLeaving time for others to review.",
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a967aa1_411891be",
@@ -184,6 +201,75 @@
         "startChar": 0,
         "endLine": 222,
         "endChar": 0
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "441d54b8_d751a276",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:42:24Z",
+      "side": 1,
+      "message": "This is the check you want to use on any callback.",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 51
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b114118a_7747c935",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:42:24Z",
+      "side": 1,
+      "message": "this was acquired through an unsafe capture.\n\nPlease do a getConsoleHandlerMap().find() before using this object.",
+      "range": {
+        "startLine": 212,
+        "startChar": 54,
+        "endLine": 212,
+        "endChar": 58
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b16d807_2d02b764",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:42:24Z",
+      "side": 1,
+      "message": "Nit, please move line 231 above this branch, and make this branch\n\nif (valueIface !\u003d *objinfo.end())\n\nto make it more clear that it\u0027s not a nullptr dereference.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 28
       },
       "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
