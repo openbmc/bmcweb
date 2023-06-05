@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ea5d7b4_02fdd2e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-06-05T23:18:35Z",
+      "side": 1,
+      "message": "\u003e Does depth\u003d3 get you what you\u0027re looking for?\n\nyeah, depth\u003d3 does get the expected output.\n\n---\n\num. That would make sense, however, this is only an issue with delegated expand + default.\n\nFor example,\n\n```\nroot@yscbj4-nfd01:~# wget -qO- \u0027http://localhost:80/redfish/v1/Systems/system/Storage/storage\u0027\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/Storage/storage\",\n  \"@odata.type\": \"#Storage.v1_9_1.Storage\",\n  \"Drives\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/storage/Drives/drive\"\n    }\n  ],\n  ...\n}\n```\n\n\u003e \u0027http://localhost:80/redfish/v1/Systems/system/Storage/storage?$expand\u003d.($levels\u003d1)\u0027\n\nsould expand the Drive.\n\nSo the behavior is different between only default handler and delegated + default.\n\nMy issue on this is that the default handler is counting the levels that has already been expected by delegated handler.\n\nWith\nquery.expandLevel \u003d 2 -\u003e\n  query.expandLevel \u003d 1 and delegated.expandLevel \u003d 1.\n\nThe query.expandLevel just looks at the thing already expanded by delegated.expandLevel and does nothing.\n\nWith query.expandLevel \u003d 3 -\u003e\n  query.expandLevel \u003d 2 and delegated.expandLevel \u003d 1.\nThis would work since we still have 1 level of expand left.",
+      "parentUuid": "8c32decd_db74a0a3",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "f578f33d469cec5469113f049d6a1388d0440436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31abc319_e8b8b20c",

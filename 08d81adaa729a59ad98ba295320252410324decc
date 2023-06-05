@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13d309a6_392d67ff",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-06-05T23:18:35Z",
+      "side": 0,
+      "message": "it will just always go one level deeper every time. No matter how much the level of delegated expand.",
+      "parentUuid": "fc2117cc_f43b2df0",
+      "range": {
+        "startLine": 537,
+        "startChar": 47,
+        "endLine": 537,
+        "endChar": 52
+      },
+      "revId": "08d81adaa729a59ad98ba295320252410324decc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3692d14_750c338f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-05T20:36:20Z",
       "side": 0,
       "message": "????  Without this check, this is now going to expand non-resources (like array elements), which doesn\u0027t seem correct?",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 30
+      },
+      "revId": "08d81adaa729a59ad98ba295320252410324decc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a919ae7c_1f9aa538",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-06-05T23:18:35Z",
+      "side": 0,
+      "message": "oh.\n\nDoes this mean that in the example\n```\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/BMC/Sensors/temperature_DIMMXX\",\n      \"@odata.type\": \"#Sensor.v1_2_0.Sensor\",\n      \"Id\": \"temperature_DIMMXX\",\n      \"Name\": \"DIMMXX\",\n      \"Reading\": 30.0,\n      \"ReadingRangeMax\": 127.0,\n      \"ReadingRangeMin\": -128.0,\n      \"ReadingType\": \"Temperature\",\n      \"ReadingUnits\": \"Cel\",\n      \"RelatedItem\": [\n        {\n          \"@odata.id\": \"/redfish/v1/Systems/system/Memory/dimmXX\"\n        }\n      ],\n      \"Status\": {\n        \"Health\": \"OK\",\n        \"State\": \"Enabled\"\n      },\n      \"Thresholds\": {\n        \"LowerCaution\": {\n          \"Reading\": null\n        },\n        \"LowerCritical\": {\n          \"Reading\": null\n        },\n        \"UpperCaution\": {\n          \"Reading\": 93.0\n        },\n        \"UpperCritical\": {\n          \"Reading\": 95.0\n        }\n      }\n    }\n  ],\n  \"Members@odata.count\": 242,\n  \"Name\": \"Sensors\"\n}\n```\n\nThe stuff in `RelatedItem` shouldn\u0027t be expanded?\n\n-----\n\nAll we are doing is finding all odata id.\n\nSo things in\n\n```\n[\n  {\n    \"@odata.id\": \"/redfish/v1/0\"\n  },\n  {\n    \"@odata.id\": \"/redfish/v1/1\"\n  },\n  ,,,\n]\n```\n\nwill all get expanded,",
+      "parentUuid": "d3692d14_750c338f",
       "range": {
         "startLine": 584,
         "startChar": 0,
