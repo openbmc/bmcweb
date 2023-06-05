@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c32decd_db74a0a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T22:34:43Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think we should have auto expand count as a level of depth.\n\nWe shouldn\u0027t guess here.  Either it\u0027s written in the spec, in which case we should do what it says, or it\u0027s not, and we should get the behavior called out.\n\n\u003e in order to get the individual Chassis objects.\n\nNo, because Chassis has ContainsTarget\u003dTrue, so when you navitage the thing, it\u0027s actually the thing, not an expanded reference.\n\n\u003e I think the issue is efficient sensor expand is not completely compatible with the updated expand\n\nYep, that could be.",
+      "parentUuid": "158f66d8_2496dfb7",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "f578f33d469cec5469113f049d6a1388d0440436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31abc319_e8b8b20c",
