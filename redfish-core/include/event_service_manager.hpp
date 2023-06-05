@@ -437,7 +437,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        return this->sendEvent(strMsg);
+        return sendEvent(strMsg);
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -506,7 +506,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        this->sendEvent(strMsg);
+        sendEvent(strMsg);
     }
 #endif
 
@@ -546,7 +546,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
-        this->sendEvent(strMsg);
+        sendEvent(strMsg);
     }
 
     void updateRetryConfig(uint32_t retryAttempts,
@@ -997,7 +997,7 @@ class EventServiceManager
 
     bool sendTestEventLog()
     {
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             if (!entry->sendTestEventLog())
@@ -1027,7 +1027,7 @@ class EventServiceManager
 
         eventRecord.emplace_back(std::move(eventMessage));
 
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             bool isSubscribed = false;
@@ -1073,7 +1073,7 @@ class EventServiceManager
     }
     void sendBroadcastMsg(const std::string& broadcastMsg)
     {
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             nlohmann::json msgJson;
@@ -1188,7 +1188,7 @@ class EventServiceManager
             return;
         }
 
-        for (const auto& it : this->subscriptionsMap)
+        for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
             if (entry->eventFormatType == "Event")
