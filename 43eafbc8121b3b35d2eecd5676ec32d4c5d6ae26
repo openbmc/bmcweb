@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c09b4d9_8be0ecbe",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:38:45Z",
+      "side": 1,
+      "message": "req is going away in the next patchset, which is why this pipes through URI.\n\nfine as-is.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/61219/6?usp\u003drelated-change",
+      "parentUuid": "3a967aa1_411891be",
+      "range": {
+        "startLine": 308,
+        "startChar": 21,
+        "endLine": 308,
+        "endChar": 30
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b27712e4_3b99aeae",
         "filename": "http/websocket.hpp",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-05T15:52:55Z",
       "side": 1,
       "message": "This `urlViewIn` is `reqIn.url()` from `routing.hpp`, and then, this can be removed",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b22915_ee5ff6f6",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:38:45Z",
+      "side": 1,
+      "message": "See above comment.  req is going away.",
+      "parentUuid": "b27712e4_3b99aeae",
       "range": {
         "startLine": 57,
         "startChar": 36,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "868e48a9_475b8122",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:38:45Z",
+      "side": 1,
+      "message": "reqIn is going away.",
+      "parentUuid": "19f9d9e1_6d42620a",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9493b44b_a8d95390",
         "filename": "http/websocket.hpp",
         "patchSetId": 7
@@ -83,6 +155,30 @@
       "writtenOn": "2023-06-05T15:52:55Z",
       "side": 1,
       "message": "\u0027req\u0027 is already a member of the parent class \u0027Connection\u0027.\nThen, this can be simply rewritten as\n\n```\n    boost::urls::url_view url() override\n    {\n        return req.url();\n    }\n```\n\nThen, `uri` seems not needed.",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "43eafbc8121b3b35d2eecd5676ec32d4c5d6ae26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffed30c7_8f31ef35",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T16:38:45Z",
+      "side": 1,
+      "message": "req is going away.",
+      "parentUuid": "9493b44b_a8d95390",
       "range": {
         "startLine": 218,
         "startChar": 0,
