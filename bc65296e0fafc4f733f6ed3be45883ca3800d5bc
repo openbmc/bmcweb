@@ -159,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cbf5dcb_74f55088",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2883,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T21:40:04Z",
+      "side": 1,
+      "message": "account_service uses string_view in the way I would\u0027ve expected, although it does use strcmp in places.  I\u0027m not worried about it.\n\nhttps://github.com/openbmc/bmcweb/blob/052bcbf48802da1fa9583c8c0990378304e29903/redfish-core/lib/account_service.hpp#L327",
+      "parentUuid": "e5ea727d_840fabb9",
+      "range": {
+        "startLine": 2883,
+        "startChar": 9,
+        "endLine": 2883,
+        "endChar": 15
+      },
+      "revId": "bc65296e0fafc4f733f6ed3be45883ca3800d5bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "485846c4_7af7d574",
