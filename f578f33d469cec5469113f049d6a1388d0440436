@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "158f66d8_2496dfb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-05T21:56:48Z",
+      "side": 1,
+      "message": "I don\u0027t think we should have auto expand count as a level of depth.  We don\u0027t do that anywhere else from what I can tell.  For example, Members in a Chassis collection is also AutoExpandReferences https://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/schema/ChassisCollection_v1.xml#L63\n\nIf I\u0027m understanding it correctly then with what you\u0027re describing we should be doing /redfish/v1/Chassis?$expand\u003d.($levels\u003d2) in order to get the individual Chassis objects.\n\nI think the issue is efficient sensor expand is not completely compatible with the updated expand (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60727).  The efficient version makes assumptions which have been removed from the overall expand approach",
+      "parentUuid": "72357545_088f3e28",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "f578f33d469cec5469113f049d6a1388d0440436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31abc319_e8b8b20c",
