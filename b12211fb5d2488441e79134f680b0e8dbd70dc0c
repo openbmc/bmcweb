@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2aea3f7c_ac86d985",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-05T18:56:57Z",
+      "side": 1,
+      "message": "I would prefer it to use the latest interface, rather than checking in code that we know needs to almost immediately change.  If that doesn\u0027t work, let me know, and we can probably work out a different staging plan.",
+      "parentUuid": "b88076e5_9a176a46",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 46
+      },
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3980cf73_3f7233a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
