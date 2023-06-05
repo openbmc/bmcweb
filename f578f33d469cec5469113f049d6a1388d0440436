@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "baa4aa03_f1aa846e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-05T23:42:56Z",
+      "side": 1,
+      "message": "\u003e We shouldn\u0027t guess here. Either it\u0027s written in the spec, in which case we should do what it says, or it\u0027s not, and we should get the behavior called out.\n\nThe spec seems to suggest that it\u0027s actually AutoExpand and not AutoExpandReferences that count as a level https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.18.0.pdf#page\u003d48\n\n```\nThe $expand query parameter has a set of possible options that determine which hyperlinks in a\nresource are included in the expanded response. Some resources may already be expanded due to the\nresource\u0027s schema annotation AutoExpand , such as the Temperature object in the Thermal resource.\n```\n\nThe Temperatures array has AutoExpand unlike the other resources we\u0027ve mentioned https://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/schema/Thermal_v1.xml#L94\n\nThe response from /redfish/v1/Chassis/{ChassisId}/Thermal actually has the Temperature resources expanded\n\n```\ncurl -s \u0027localhost/redfish/v1/Chassis/chassis/Thermal\u0027\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/chassis/Thermal\",\n  \"@odata.type\": \"#Thermal.v1_4_0.Thermal\",\n  \"Fans\": [],\n  \"Id\": \"Thermal\",\n  \"Name\": \"Thermal\",\n  \"Redundancy\": [],\n  \"Temperatures\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/chassis/Thermal#/Temperatures/0\",\n      \"@odata.type\": \"#Thermal.v1_3_0.Temperature\",\n      \"MaxReadingRangeTemp\": 125.0,\n      \"MemberId\": \"sensor\",\n      \"MinReadingRangeTemp\": 0.0,\n      \"Name\": \"Sensor\",\n      \"ReadingCelsius\": 47.0,\n      \"Status\": {\n        \"Health\": \"OK\",\n        \"State\": \"Enabled\"\n      }\n    },\n    ...\n}\n```\n\nThat type of auto expand will get correctly counted as a level by the existing expand implementation.",
+      "parentUuid": "4ea5d7b4_02fdd2e7",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "f578f33d469cec5469113f049d6a1388d0440436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31abc319_e8b8b20c",
