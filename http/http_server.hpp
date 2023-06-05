@@ -86,7 +86,7 @@ class Server
                 lastDateUpdate = std::chrono::steady_clock::now();
                 updateDateStr();
             }
-            return this->dateStr;
+            return dateStr;
         };
 
         BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
@@ -146,7 +146,7 @@ class Server
                             << "Error while canceling async operations:"
                             << ec2.message();
                     }
-                    this->startAsyncWaitForSignal();
+                    startAsyncWaitForSignal();
                 }
                 else
                 {
@@ -184,7 +184,7 @@ class Server
             [this, connection](const boost::system::error_code& ec) {
             if (!ec)
             {
-                boost::asio::post(*this->ioService,
+                boost::asio::post(*ioService,
                                   [connection] { connection->start(); });
             }
             doAccept();
