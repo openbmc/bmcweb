@@ -49,7 +49,7 @@ class App
     {}
     ~App()
     {
-        this->stop();
+        stop();
     }
 
     App(const App&) = delete;
