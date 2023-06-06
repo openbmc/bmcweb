@@ -282,9 +282,9 @@ systemd = dependency('systemd')
 zlib = dependency('zlib')
 bmcweb_dependencies += [systemd, zlib]
 
-nlohmann_json = dependency('nlohmann', version: '>=3.9.2', required: false, include_type: 'system')
+nlohmann_json = dependency('nlohmann_json', version: '>=3.9.2', required: false, include_type: 'system')
 if not nlohmann_json.found()
-    nlohmann_json_proj = subproject('nlohmann', required: true)
+    nlohmann_json_proj = subproject('nlohmann_json', required: true)
     nlohmann_json = nlohmann_json_proj.get_variable('nlohmann_json_dep')
     nlohmann_json = nlohmann_json.as_system('system')
 endif
