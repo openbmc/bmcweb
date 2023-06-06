@@ -29,12 +29,17 @@ struct Response
 
     void addHeader(std::string_view key, std::string_view value)
     {
-        stringResponse->set(key, value);
+        stringResponse->insert(key, value);
     }
 
     void addHeader(boost::beast::http::field key, std::string_view value)
     {
-        stringResponse->set(key, value);
+        stringResponse->insert(key, value);
+    }
+
+    void clearHeader(boost::beast::http::field key)
+    {
+        stringResponse->erase(key);
     }
 
     Response() : stringResponse(response_type{}) {}

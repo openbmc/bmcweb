@@ -196,22 +196,13 @@ inline void requestRoutes(App& app)
                     asyncResp->res.jsonValue["message"] = "200 OK";
                     asyncResp->res.jsonValue["status"] = "ok";
 
-                    // Hack alert.  Boost beast by default doesn't let you
-                    // declare multiple headers of the same name, and in
-                    // most cases this is fine.  Unfortunately here we need
-                    // to set the Session cookie, which requires the
-                    // httpOnly attribute, as well as the XSRF cookie, which
-                    // requires it to not have an httpOnly attribute. To get
-                    // the behavior we want, we simply inject the second
-                    // "set-cookie" string into the value header, and get
-                    // the result we want, even though we are technicaly
-                    // declaring two headers here.
                     asyncResp->res.addHeader(
-                        "Set-Cookie",
+                        boost::beast::http::field::set_cookie,
                         "XSRF-TOKEN=" + session->csrfToken +
-                            "; SameSite=Strict; Secure\r\nSet-Cookie: "
-                            "SESSION=" +
-                            session->sessionToken +
+                            "; SameSite=Strict; Secure");
+                    asyncResp->res.addHeader(
+                        boost::beast::http::field::set_cookie,
+                        "SESSION=" + session->sessionToken +
                             "; SameSite=Strict; Secure; HttpOnly");
                 }
                 else
