@@ -179,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f83fa707_69b7fa3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-06-06T08:09:29Z",
+      "side": 1,
+      "message": "I need to show Fans only, but as fan fru inventory is not available in our oem so I have took fans from \"xyz.openbmc_project.Sensor.Value\".\nFrom \"xyz.openbmc_project.Sensor.Value\" interface, i took all other interfaces and from there i am getting those data from dbus ex: \"xyz.openbmc_project.State.Decorator.OperationalStatus\"\nFor now i didn\u0027t added location, Asset and other interfaces data because of not present not our oem\nAs previous comments i have added fan_pwm only",
+      "parentUuid": "afef8254_e1c08634",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
