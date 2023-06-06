@@ -19,7 +19,6 @@
 #include "logging.hpp"
 
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/strand.hpp>
 #include <boost/beast/http/buffer_body.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/read.hpp>
