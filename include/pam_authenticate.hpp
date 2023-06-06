@@ -49,7 +49,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         // passing off ownership of this to a C application, there aren't a lot
         // of sane ways to avoid it.
 
-        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)'
+        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
         void* passPtr = malloc(appPassSize + 1);
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         char* pass = reinterpret_cast<char*>(passPtr);
