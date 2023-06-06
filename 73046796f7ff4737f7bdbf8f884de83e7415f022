@@ -312,6 +312,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83d27f62_b8846180",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001763
+      },
+      "writtenOn": "2023-06-06T08:12:32Z",
+      "side": 1,
+      "message": "As fan fru information is not present in our oem i have got interfaces and services from Sensor and updated the data",
+      "parentUuid": "7799f08b_589b9d4a",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41b6fd7b_e2f5162e",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
