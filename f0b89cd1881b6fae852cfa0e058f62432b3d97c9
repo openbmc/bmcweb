@@ -53,6 +53,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda4cf40_ece05eb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-06T15:44:52Z",
+      "side": 1,
+      "message": "I\u0027m approving this, despite my disappointment in the schema.",
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abf8a735_119ecdac",
@@ -137,6 +154,30 @@
       "side": 1,
       "message": "I feel StatelessAddressAutoConfiguration property rightly added to schema to allow configuration independent of DHCPv6 configuration",
       "parentUuid": "231acb89_baef7c5a",
+      "range": {
+        "startLine": 1158,
+        "startChar": 1,
+        "endLine": 1167,
+        "endChar": 2
+      },
+      "revId": "f0b89cd1881b6fae852cfa0e058f62432b3d97c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4383cb4_15308513",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2023-06-06T15:44:52Z",
+      "side": 1,
+      "message": "My opinion, StatelessAddressAutoConfiguration is a terrible naming convention for a control of Router Advertisement. Enabling/Disabling Router Advertisement does more than controlling SLAAC.\n\nIf I\u0027m looking in systemd.networkd(5) I can see enabling/disabling Routing Advertisement is done using IPv6AcceptRA. Nowhere in the description of IPv6AcceptRA is there a mention of SLAAC.\n\nBy extension, if I want to enable RA from Redfish, the first place I\u0027m going to look in the schema is something with router and advertisement. I\u0027m not going to think \"I need to enable StatelessAddressAutoConfiguration\" in order to enable Router Advertisement.\n\nI agree there needs to be a knob to turn on/off RA. This commit allows that knob to be turned. The naming convention for turning that knob leaves a lot to be desired.",
+      "parentUuid": "c20f6775_7a7f0d72",
       "range": {
         "startLine": 1158,
         "startChar": 1,
