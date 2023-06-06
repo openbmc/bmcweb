@@ -438,7 +438,7 @@ TEST(processCollectionResponse, satelliteWrongContentHeader)
     convertToSat(resp);
 
     // Ignore the satellite even though otherwise valid
-    resp.addHeader("Content-Type", "");
+    resp.clearHeader(boost::beast::http::field::content_type);
 
     RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
     EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
