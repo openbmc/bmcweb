@@ -91,11 +91,11 @@ using CheckItemHandler =
 
 inline void findAndParseObject(const std::string& service,
                                const std::string& resName,
-                               const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                CheckItemHandler&& handler)
 {
     crow::connections::systemBus->async_method_call(
-        [service, resName, aResp,
+        [service, resName, asyncResp,
          handler](const boost::system::error_code& ec,
                   const dbus::utility::ManagedObjectType& subtree) {
         if (ec)
@@ -110,13 +110,13 @@ inline void findAndParseObject(const std::string& service,
             VmMode mode = parseObjectPathAndGetMode(item.first, resName);
             if (mode != VmMode::Invalid)
             {
-                handler(service, resName, aResp, item);
+                handler(service, resName, asyncResp, item);
                 return;
             }
         }
 
         BMCWEB_LOG_DEBUG << "Parent item not found";
-        aResp->res.result(boost::beast::http::status::not_found);
+        asyncResp->res.result(boost::beast::http::status::not_found);
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -151,7 +151,7 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
  */
 inline void
     vmParseInterfaceObject(const dbus::utility::DBusInteracesMap& interfaces,
-                           const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     for (const auto& [interface, values] : interfaces)
     {
@@ -170,10 +170,10 @@ inline void
                     if (!endpointIdValue->empty())
                     {
                         // Proxy mode
-                        aResp->res
+                        asyncResp->res
                             .jsonValue["Oem"]["OpenBMC"]["WebSocketEndpoint"] =
                             *endpointIdValue;
-                        aResp->res.jsonValue["TransferProtocolType"] = "OEM";
+                        asyncResp->res.jsonValue["TransferProtocolType"] = "OEM";
                     }
                 }
                 if (property == "ImageURL")
@@ -187,19 +187,19 @@ inline void
                         {
                             // this will handle https share, which not
                             // necessarily has to have filename given.
-                            aResp->res.jsonValue["ImageName"] = "";
+                            asyncResp->res.jsonValue["ImageName"] = "";
                         }
                         else
                         {
-                            aResp->res.jsonValue["ImageName"] =
+                            asyncResp->res.jsonValue["ImageName"] =
                                 filePath.filename();
                         }
 
-                        aResp->res.jsonValue["Image"] = *imageUrlValue;
-                        aResp->res.jsonValue["TransferProtocolType"] =
+                        asyncResp->res.jsonValue["Image"] = *imageUrlValue;
+                        asyncResp->res.jsonValue["TransferProtocolType"] =
                             getTransferProtocolTypeFromUri(*imageUrlValue);
 
-                        aResp->res.jsonValue["ConnectedVia"] =
+                        asyncResp->res.jsonValue["ConnectedVia"] =
                             virtual_media::ConnectedVia::URI;
                     }
                 }
@@ -208,7 +208,7 @@ inline void
                     const bool* writeProtectedValue = std::get_if<bool>(&value);
                     if (writeProtectedValue != nullptr)
                     {
-                        aResp->res.jsonValue["WriteProtected"] =
+                        asyncResp->res.jsonValue["WriteProtected"] =
                             *writeProtectedValue;
                     }
                 }
@@ -226,11 +226,11 @@ inline void
                         BMCWEB_LOG_DEBUG << "Value Active not found";
                         return;
                     }
-                    aResp->res.jsonValue["Inserted"] = *activeValue;
+                    asyncResp->res.jsonValue["Inserted"] = *activeValue;
 
                     if (*activeValue)
                     {
-                        aResp->res.jsonValue["ConnectedVia"] =
+                        asyncResp->res.jsonValue["ConnectedVia"] =
                             virtual_media::ConnectedVia::Applet;
                     }
                 }
@@ -267,13 +267,13 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
 /**
  *  @brief Fills collection data
  */
-inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                               const std::string& service,
                               const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
     crow::connections::systemBus->async_method_call(
-        [name, aResp{std::move(aResp)}](
+        [name, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
         if (ec)
@@ -281,7 +281,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
             BMCWEB_LOG_DEBUG << "DBUS response error";
             return;
         }
-        nlohmann::json& members = aResp->res.jsonValue["Members"];
+        nlohmann::json& members = asyncResp->res.jsonValue["Members"];
         members = nlohmann::json::array();
 
         for (const auto& object : subtree)
@@ -297,7 +297,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 "/redfish/v1/Managers/{}/VirtualMedia/{}", name, path);
             members.emplace_back(std::move(item));
         }
-        aResp->res.jsonValue["Members@odata.count"] = members.size();
+        asyncResp->res.jsonValue["Members@odata.count"] = members.size();
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -338,13 +338,13 @@ inline void
 /**
  *  @brief Fills data for specific resource
  */
-inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& service, const std::string& name,
                       const std::string& resName)
 {
     BMCWEB_LOG_DEBUG << "Get Virtual Media resource data.";
 
-    findAndParseObject(service, resName, aResp,
+    findAndParseObject(service, resName, asyncResp,
                        std::bind_front(afterGetVmData, name));
 }
 

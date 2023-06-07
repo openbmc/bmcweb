@@ -1692,12 +1692,12 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 /**
  * @brief Retrieves BMC manager location data over DBus
  *
- * @param[in] aResp Shared pointer for completing asynchronous calls
+ * @param[in] asyncResp Shared pointer for completing asynchronous calls
  * @param[in] connectionName - service name
  * @param[in] path - object path
  * @return none
  */
-inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& connectionName,
                         const std::string& path)
 {
@@ -1706,23 +1706,23 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [aResp](const boost::system::error_code& ec,
+        [asyncResp](const boost::system::error_code& ec,
                 const std::string& property) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error for "
                                 "Location";
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
-        aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
         });
 }
 // avoid name collision systems.hpp
 inline void
-    managerGetLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+    managerGetLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << "Getting Manager Last Reset Time";
 
@@ -1730,7 +1730,7 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
         "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
         "LastRebootTime",
-        [aResp](const boost::system::error_code& ec,
+        [asyncResp](const boost::system::error_code& ec,
                 const uint64_t lastResetTime) {
         if (ec)
         {
@@ -1743,7 +1743,7 @@ inline void
         uint64_t lastResetTimeStamp = lastResetTime / 1000;
 
         // Convert to ISO 8601 standard
-        aResp->res.jsonValue["LastResetTime"] =
+        asyncResp->res.jsonValue["LastResetTime"] =
             redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
         });
 }
@@ -1751,20 +1751,20 @@ inline void
 /**
  * @brief Set the running firmware image
  *
- * @param[i,o] aResp - Async response object
+ * @param[i,o] asyncResp - Async response object
  * @param[i] runningFirmwareTarget - Image to make the running image
  *
  * @return void
  */
 inline void
-    setActiveFirmwareImage(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    setActiveFirmwareImage(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& runningFirmwareTarget)
 {
     // Get the Id from /redfish/v1/UpdateService/FirmwareInventory/<Id>
     std::string::size_type idPos = runningFirmwareTarget.rfind('/');
     if (idPos == std::string::npos)
     {
-        messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+        messages::propertyValueNotInList(asyncResp->res, runningFirmwareTarget,
                                          "@odata.id");
         BMCWEB_LOG_DEBUG << "Can't parse firmware ID!";
         return;
@@ -1772,7 +1772,7 @@ inline void
     idPos++;
     if (idPos >= runningFirmwareTarget.size())
     {
-        messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+        messages::propertyValueNotInList(asyncResp->res, runningFirmwareTarget,
                                          "@odata.id");
         BMCWEB_LOG_DEBUG << "Invalid firmware ID.";
         return;
@@ -1781,20 +1781,20 @@ inline void
 
     // Make sure the image is valid before setting priority
     crow::connections::systemBus->async_method_call(
-        [aResp, firmwareId,
+        [asyncResp, firmwareId,
          runningFirmwareTarget](const boost::system::error_code& ec,
                                 dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "D-Bus response error getting objects.";
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
         if (subtree.empty())
         {
             BMCWEB_LOG_DEBUG << "Can't find image!";
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1825,7 +1825,7 @@ inline void
 
         if (!foundImage)
         {
-            messages::propertyValueNotInList(aResp->res, runningFirmwareTarget,
+            messages::propertyValueNotInList(asyncResp->res, runningFirmwareTarget,
                                              "@odata.id");
             BMCWEB_LOG_DEBUG << "Invalid firmware ID.";
             return;
@@ -1838,14 +1838,14 @@ inline void
         // An addition could be a Redfish Setting like
         // ActiveSoftwareImageApplyTime and support OnReset
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code& ec2) {
+            [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "D-Bus response error setting.";
-                messages::internalError(aResp->res);
+                messages::internalError(asyncResp->res);
                 return;
             }
-            doBMCGracefulRestart(aResp);
+            doBMCGracefulRestart(asyncResp);
             },
 
             "xyz.openbmc_project.Software.BMC.Updater",
@@ -1859,7 +1859,7 @@ inline void
         "GetManagedObjects");
 }
 
-inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         std::string datetime)
 {
     BMCWEB_LOG_DEBUG << "Set date time: " << datetime;
@@ -1868,21 +1868,21 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
         redfish::time_utils::dateStringToEpoch(datetime);
     if (!us)
     {
-        messages::propertyValueFormatError(aResp->res, datetime, "DateTime");
+        messages::propertyValueFormatError(asyncResp->res, datetime, "DateTime");
         return;
     }
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)},
+        [asyncResp{std::move(asyncResp)},
          datetime{std::move(datetime)}](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "Failed to set elapsed time. "
                                 "DBUS response error "
                              << ec;
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
-        aResp->res.jsonValue["DateTime"] = datetime;
+        asyncResp->res.jsonValue["DateTime"] = datetime;
         },
         "xyz.openbmc_project.Time.Manager", "/xyz/openbmc_project/time/bmc",
         "org.freedesktop.DBus.Properties", "Set",

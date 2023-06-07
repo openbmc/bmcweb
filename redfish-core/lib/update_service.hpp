@@ -854,24 +854,24 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
-    getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::string& purpose)
 {
     if (purpose == sw_util::bmcPurpose)
     {
-        nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+        nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
         item["@odata.id"] = "/redfish/v1/Managers/bmc";
         relatedItem.emplace_back(std::move(item));
-        aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
+        asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
     else if (purpose == sw_util::biosPurpose)
     {
-        nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
+        nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
         item["@odata.id"] = "/redfish/v1/Systems/system/Bios";
         relatedItem.emplace_back(std::move(item));
-        aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
+        asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
     else
     {

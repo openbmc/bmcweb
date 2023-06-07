@@ -17,7 +17,7 @@ namespace redfish
 {
 
 inline void
-    afterGetManagerStartTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    afterGetManagerStartTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                              const boost::system::error_code& ec,
                              uint64_t bmcwebResetTime)
 {
@@ -39,7 +39,7 @@ inline void
     if (runTime < steady_clock::duration::zero())
     {
         BMCWEB_LOG_CRITICAL << "Uptime was negative????";
-        messages::internalError(aResp->res);
+        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -50,17 +50,17 @@ inline void
     using SecondsFloat = std::chrono::duration<double>;
     SecondsFloat sec = std::chrono::duration_cast<SecondsFloat>(milli);
 
-    aResp->res.jsonValue["ServiceRootUptimeSeconds"] = sec.count();
+    asyncResp->res.jsonValue["ServiceRootUptimeSeconds"] = sec.count();
 }
 
 inline void
-    managerGetServiceRootUptime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+    managerGetServiceRootUptime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getProperty<uint64_t>(
         *crow::connections::systemBus, "org.freedesktop.systemd1",
         "/org/freedesktop/systemd1/unit/bmcweb_2eservice",
         "org.freedesktop.systemd1.Unit", "ActiveEnterTimestampMonotonic",
-        std::bind_front(afterGetManagerStartTime, aResp));
+        std::bind_front(afterGetManagerStartTime, asyncResp));
 }
 /**
  * handleManagerDiagnosticData supports ManagerDiagnosticData.

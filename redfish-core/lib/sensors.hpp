@@ -2821,14 +2821,14 @@ inline void getChassisCallback(
 
 inline void
     handleSensorCollectionGet(App& app, const crow::Request& req,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                              const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                               const std::string& chassisId)
 {
     query_param::QueryCapabilities capabilities = {
         .canDelegateExpandLevel = 1,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, aResp,
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
                                                   delegatedQuery, capabilities))
     {
         return;
@@ -2838,7 +2838,7 @@ inline void
     {
         // we perform efficient expand.
         auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            aResp, chassisId, sensors::dbus::sensorPaths,
+            asyncResp, chassisId, sensors::dbus::sensorPaths,
             sensors::node::sensors,
             /*efficientExpand=*/true);
         getChassisData(asyncResp);
@@ -2850,8 +2850,8 @@ inline void
 
     // We get all sensors as hyperlinkes in the chassis (this
     // implies we reply on the default query parameters handler)
-    getChassis(aResp, chassisId, sensors::node::sensors, dbus::sensorPaths,
-               std::bind_front(sensors::getChassisCallback, aResp, chassisId,
+    getChassis(asyncResp, chassisId, sensors::node::sensors, dbus::sensorPaths,
+               std::bind_front(sensors::getChassisCallback, asyncResp, chassisId,
                                sensors::node::sensors));
 }
 
