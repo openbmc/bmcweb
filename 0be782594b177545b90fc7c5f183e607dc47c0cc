@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c902ff_72a926fd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2789,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-07T18:26:21Z",
+      "side": 0,
+      "message": "Cool, you fixed this.",
+      "revId": "0be782594b177545b90fc7c5f183e607dc47c0cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

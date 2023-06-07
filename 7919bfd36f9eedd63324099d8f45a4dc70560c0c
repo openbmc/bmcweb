@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82cd9824_93b30923",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3421,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-07T18:26:21Z",
+      "side": 1,
+      "message": "In other files, we have the routes all at the bottom. Can we be consistent ?",
+      "revId": "7919bfd36f9eedd63324099d8f45a4dc70560c0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
