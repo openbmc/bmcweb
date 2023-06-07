@@ -23,7 +23,7 @@ namespace collection_util
  * @brief Populate the collection "Members" from a GetSubTreePaths search of
  *        inventory
  *
- * @param[i,o] aResp  Async response object
+ * @param[i,o] asyncResp  Async response object
  * @param[i]   collectionPath  Redfish collection path which is used for the
  *             Members Redfish Path
  * @param[i]   interfaces  List of interfaces to constrain the GetSubTree search
@@ -32,7 +32,7 @@ namespace collection_util
  * @return void
  */
 inline void
-    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
+    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                          const boost::urls::url& collectionPath,
                          std::span<const std::string_view> interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
@@ -41,20 +41,20 @@ inline void
                      << collectionPath.buffer();
     dbus::utility::getSubTreePaths(
         subtree, 0, interfaces,
-        [collectionPath, aResp{std::move(aResp)}](
+        [collectionPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objects) {
         if (ec == boost::system::errc::io_error)
         {
-            aResp->res.jsonValue["Members"] = nlohmann::json::array();
-            aResp->res.jsonValue["Members@odata.count"] = 0;
+            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+            asyncResp->res.jsonValue["Members@odata.count"] = 0;
             return;
         }
 
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -72,7 +72,7 @@ inline void
         std::sort(pathNames.begin(), pathNames.end(),
                   AlphanumLess<std::string>());
 
-        nlohmann::json& members = aResp->res.jsonValue["Members"];
+        nlohmann::json& members = asyncResp->res.jsonValue["Members"];
         members = nlohmann::json::array();
         for (const std::string& leaf : pathNames)
         {
@@ -82,7 +82,7 @@ inline void
             member["@odata.id"] = std::move(url);
             members.emplace_back(std::move(member));
         }
-        aResp->res.jsonValue["Members@odata.count"] = members.size();
+        asyncResp->res.jsonValue["Members@odata.count"] = members.size();
         });
 }
 
