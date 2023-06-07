@@ -41,19 +41,19 @@ namespace redfish
 /**
  * @brief Retrieves chassis state properties over dbus
  *
- * @param[in] aResp - Shared pointer for completing asynchronous calls.
+ * @param[in] asyncResp - Shared pointer for completing asynchronous calls.
  *
  * @return None.
  */
-inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     // crow::connections::systemBus->async_method_call(
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
-        [aResp{std::move(aResp)}](const boost::system::error_code& ec,
-                                  const std::string& chassisState) {
+        [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
+                                          const std::string& chassisState) {
         if (ec)
         {
             if (ec == boost::system::errc::host_unreachable)
@@ -64,7 +64,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
                 return;
             }
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -72,19 +72,19 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
         // Verify Chassis State
         if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.On")
         {
-            aResp->res.jsonValue["PowerState"] = "On";
-            aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] = "On";
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         }
         else if (chassisState ==
                  "xyz.openbmc_project.State.Chassis.PowerState.Off")
         {
-            aResp->res.jsonValue["PowerState"] = "Off";
-            aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            asyncResp->res.jsonValue["PowerState"] = "Off";
+            asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
         }
         });
 }
 
-inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
+inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                   const std::string& service,
                                   const std::string& objPath)
 {
@@ -93,8 +93,8 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Chassis.Intrusion", "Status",
-        [aResp{std::move(aResp)}](const boost::system::error_code& ec,
-                                  const std::string& value) {
+        [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
+                                          const std::string& value) {
         if (ec)
         {
             // do not add err msg in redfish response, because this is not
@@ -103,21 +103,23 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
 
-        aResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensorNumber"] = 1;
-        aResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensor"] = value;
+        asyncResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensorNumber"] =
+            1;
+        asyncResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensor"] = value;
         });
 }
 
 /**
  * Retrieves physical security properties over dbus
  */
-inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
+inline void
+    getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Chassis.Intrusion"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/Intrusion", 1, interfaces,
-        [aResp{std::move(aResp)}](
+        [asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
@@ -133,7 +135,7 @@ inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
             if (!object.second.empty())
             {
                 const auto service = object.second.front();
-                getIntrusionByService(aResp, service.first, object.first);
+                getIntrusionByService(asyncResp, service.first, object.first);
                 return;
             }
         }
