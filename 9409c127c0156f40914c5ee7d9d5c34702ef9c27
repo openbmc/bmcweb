@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2dcf82a_3ad909b1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-07T23:46:23Z",
+      "side": 1,
+      "message": "Fixed two instances of this.",
+      "parentUuid": "fdf89e9b_a17e33a2",
+      "range": {
+        "startLine": 566,
+        "startChar": 44,
+        "endLine": 566,
+        "endChar": 49
+      },
+      "revId": "9409c127c0156f40914c5ee7d9d5c34702ef9c27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a524e8a1_5dc9fd98",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-06-07T19:51:06Z",
       "side": 1,
       "message": "nit:The comments in this file are not indented correctly in some places.",
+      "revId": "9409c127c0156f40914c5ee7d9d5c34702ef9c27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9804c01_478ee943",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-07T23:46:23Z",
+      "side": 1,
+      "message": "Fixed several instances in this file.",
+      "parentUuid": "a524e8a1_5dc9fd98",
       "revId": "9409c127c0156f40914c5ee7d9d5c34702ef9c27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
