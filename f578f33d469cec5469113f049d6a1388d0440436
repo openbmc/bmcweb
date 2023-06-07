@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a03564a_b475f4be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-07T22:10:51Z",
+      "side": 1,
+      "message": "\u003e I buy that interpretation\n\nIn that case are there any concerns with reverting to the approach used in Patchset 9?  It\u0027s compatible with that interpretation and plays well with aggregation.  If we don\u0027t use a depth-based method (e.g. Patchset 11) then serious additional work would be required to support both of those.",
+      "parentUuid": "cf9460de_be273885",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 7
+      },
+      "revId": "f578f33d469cec5469113f049d6a1388d0440436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31abc319_e8b8b20c",
