@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cafac9dc_1d0a93b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-07T20:38:44Z",
+      "side": 1,
+      "message": "Please also participate in the code that was pushed significantly before this was, that claims to implement similar things.\n\nOverall, the patchset looks ok once some minor tweaks are made to it.  Looking forward to when the code is actually used, and merged with the existing reviews in progress.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/52075/60",
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2bfc71_f120faa3",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-07T20:38:44Z",
+      "side": 1,
+      "message": "This is documented in common errors.  Please read and understand all the things in COMMON_ERRORS.md.  If you need help, please message me and I can walk you through it.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 74
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3dee881_58a699f1",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-07T20:38:44Z",
+      "side": 1,
+      "message": "Per the rules in the developing guide, no lambdas over 10 lines please.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 58
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
