@@ -27,19 +27,20 @@ namespace redfish
  * The hypervisor state object is optional so this function will only set the
  * state variables if the object is found
  *
- * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ * @param[in] asyncResp     Shared pointer for completing asynchronous calls.
  *
  * @return None.
  */
-inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+inline void
+    getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << "Get hypervisor state information.";
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
         "xyz.openbmc_project.State.Host", "CurrentHostState",
-        [aResp](const boost::system::error_code& ec,
-                const std::string& hostState) {
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& hostState) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -52,41 +53,41 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         // Verify Host State
         if (hostState == "xyz.openbmc_project.State.Host.HostState.Running")
         {
-            aResp->res.jsonValue["PowerState"] = "On";
-            aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] = "On";
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "Quiesced")
         {
-            aResp->res.jsonValue["PowerState"] = "On";
-            aResp->res.jsonValue["Status"]["State"] = "Quiesced";
+            asyncResp->res.jsonValue["PowerState"] = "On";
+            asyncResp->res.jsonValue["Status"]["State"] = "Quiesced";
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "Standby")
         {
-            aResp->res.jsonValue["PowerState"] = "On";
-            aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            asyncResp->res.jsonValue["PowerState"] = "On";
+            asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "TransitioningToRunning")
         {
-            aResp->res.jsonValue["PowerState"] = "PoweringOn";
-            aResp->res.jsonValue["Status"]["State"] = "Starting";
+            asyncResp->res.jsonValue["PowerState"] = "PoweringOn";
+            asyncResp->res.jsonValue["Status"]["State"] = "Starting";
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "TransitioningToOff")
         {
-            aResp->res.jsonValue["PowerState"] = "PoweringOff";
-            aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] = "PoweringOff";
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState.Off")
         {
-            aResp->res.jsonValue["PowerState"] = "Off";
-            aResp->res.jsonValue["Status"]["State"] = "Disabled";
+            asyncResp->res.jsonValue["PowerState"] = "Off";
+            asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
         }
         else
         {
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
         });
@@ -98,19 +99,19 @@ inline void getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
  * The hypervisor state object is optional so this function will only set the
  * Action if the object is found
  *
- * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ * @param[in] asyncResp     Shared pointer for completing asynchronous calls.
  *
  * @return None.
  */
 inline void
-    getHypervisorActions(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+    getHypervisorActions(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG << "Get hypervisor actions.";
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.State.Host"};
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/state/hypervisor0", interfaces,
-        [aResp](
+        [asyncResp](
             const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 objInfo) {
@@ -133,13 +134,13 @@ inline void
         {
             // More then one hypervisor object is not supported and is an
             // error
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
         // Object present so system support limited ComputerSystem Action
         nlohmann::json& reset =
-            aResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"];
+            asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"];
         reset["target"] =
             "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset";
         reset["@Redfish.ActionInfo"] =
@@ -338,21 +339,20 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
 /**
  * @brief Sets the Hypervisor Interface IPAddress DBUS
  *
- * @param[in] aResp          Shared pointer for generating response message.
+ * @param[in] asyncResp          Shared pointer for generating response message.
  * @param[in] ipv4Address    Address from the incoming request
  * @param[in] ethIfaceId     Hypervisor Interface Id
  *
  * @return None.
  */
-inline void
-    setHypervisorIPv4Address(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                             const std::string& ethIfaceId,
-                             const std::string& ipv4Address)
+inline void setHypervisorIPv4Address(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ethIfaceId, const std::string& ipv4Address)
 {
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Address
                      << " on Iface: " << ethIfaceId;
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code& ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
@@ -370,21 +370,21 @@ inline void
 /**
  * @brief Sets the Hypervisor Interface SubnetMask DBUS
  *
- * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] asyncResp     Shared pointer for generating response message.
  * @param[in] subnet    SubnetMask from the incoming request
  * @param[in] ethIfaceId Hypervisor Interface Id
  *
  * @return None.
  */
 inline void
-    setHypervisorIPv4Subnet(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    setHypervisorIPv4Subnet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& ethIfaceId, const uint8_t subnet)
 {
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
                      << " on Iface: " << ethIfaceId;
 
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code& ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
@@ -402,21 +402,21 @@ inline void
 /**
  * @brief Sets the Hypervisor Interface Gateway DBUS
  *
- * @param[in] aResp          Shared pointer for generating response message.
+ * @param[in] asyncResp          Shared pointer for generating response message.
  * @param[in] gateway        Gateway from the incoming request
  * @param[in] ethIfaceId     Hypervisor Interface Id
  *
  * @return None.
  */
-inline void
-    setHypervisorIPv4Gateway(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                             const std::string& gateway)
+inline void setHypervisorIPv4Gateway(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& gateway)
 {
     BMCWEB_LOG_DEBUG
         << "Setting the DefaultGateway to the last configured gateway";
 
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code& ec) {
+        [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error " << ec;
