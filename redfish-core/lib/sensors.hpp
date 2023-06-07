@@ -2819,16 +2819,16 @@ inline void getChassisCallback(
     BMCWEB_LOG_DEBUG << "getChassisCallback exit";
 }
 
-inline void
-    handleSensorCollectionGet(App& app, const crow::Request& req,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                              const std::string& chassisId)
+inline void handleSensorCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
 {
     query_param::QueryCapabilities capabilities = {
         .canDelegateExpandLevel = 1,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, aResp,
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
                                                   delegatedQuery, capabilities))
     {
         return;
@@ -2837,11 +2837,11 @@ inline void
     if (delegatedQuery.expandType != query_param::ExpandType::None)
     {
         // we perform efficient expand.
-        auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            aResp, chassisId, sensors::dbus::sensorPaths,
+        auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
+            asyncResp, chassisId, sensors::dbus::sensorPaths,
             sensors::node::sensors,
             /*efficientExpand=*/true);
-        getChassisData(asyncResp);
+        getChassisData(sensorsAsyncResp);
 
         BMCWEB_LOG_DEBUG
             << "SensorCollection doGet exit via efficient expand handler";
@@ -2850,9 +2850,9 @@ inline void
 
     // We get all sensors as hyperlinkes in the chassis (this
     // implies we reply on the default query parameters handler)
-    getChassis(aResp, chassisId, sensors::node::sensors, dbus::sensorPaths,
-               std::bind_front(sensors::getChassisCallback, aResp, chassisId,
-                               sensors::node::sensors));
+    getChassis(asyncResp, chassisId, sensors::node::sensors, dbus::sensorPaths,
+               std::bind_front(sensors::getChassisCallback, asyncResp,
+                               chassisId, sensors::node::sensors));
 }
 
 inline void

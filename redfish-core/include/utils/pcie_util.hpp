@@ -23,8 +23,8 @@ namespace pcie_util
  * @brief Populate the PCIe Device list from a GetSubTreePaths search of
  *        inventory
  *
- * @param[i,o] aResp  Async response object
- * @param[i]   Name   Key to store the list of PCIe devices in aResp
+ * @param[i,o] asyncResp  Async response object
+ * @param[i]   Name   Key to store the list of PCIe devices in asyncResp
  *
  * @return void
  */

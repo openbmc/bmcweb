@@ -32,26 +32,26 @@ constexpr const char* bmcPurpose =
 /**
  * @brief Populate the running software version and image links
  *
- * @param[i,o] aResp             Async response object
+ * @param[i,o] asyncResp             Async response object
  * @param[i]   swVersionPurpose  Indicates what target to look for
- * @param[i]   activeVersionPropName  Index in aResp->res.jsonValue to write
+ * @param[i]   activeVersionPropName  Index in asyncResp->res.jsonValue to write
  * the running software version to
- * @param[i]   populateLinkToImages  Populate aResp->res "Links"
+ * @param[i]   populateLinkToImages  Populate asyncResp->res "Links"
  * "ActiveSoftwareImage" with a link to the running software image and
  * "SoftwareImages" with a link to the all its software images
  *
  * @return void
  */
-inline void
-    populateSoftwareInformation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                                const std::string& swVersionPurpose,
-                                const std::string& activeVersionPropName,
-                                const bool populateLinkToImages)
+inline void populateSoftwareInformation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swVersionPurpose,
+    const std::string& activeVersionPropName, const bool populateLinkToImages)
 {
     // Used later to determine running (known on Redfish as active) Sw images
     dbus::utility::getAssociationEndPoints(
         "/xyz/openbmc_project/software/functional",
-        [aResp, swVersionPurpose, activeVersionPropName, populateLinkToImages](
+        [asyncResp, swVersionPurpose, activeVersionPropName,
+         populateLinkToImages](
             const boost::system::error_code& ec,
             const dbus::utility::MapperEndPoints& functionalSw) {
         BMCWEB_LOG_DEBUG << "populateSoftwareInformation enter";
@@ -59,7 +59,7 @@ inline void
         {
             BMCWEB_LOG_ERROR << "error_code = " << ec;
             BMCWEB_LOG_ERROR << "error msg = " << ec.message();
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -68,7 +68,7 @@ inline void
             // Could keep going and try to populate SoftwareImages but
             // something is seriously wrong, so just fail
             BMCWEB_LOG_ERROR << "Zero functional software in system";
-            messages::internalError(aResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -92,7 +92,7 @@ inline void
             "xyz.openbmc_project.Software.Version"};
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/software", 0, interfaces,
-            [aResp, swVersionPurpose, activeVersionPropName,
+            [asyncResp, swVersionPurpose, activeVersionPropName,
              populateLinkToImages, functionalSwIds](
                 const boost::system::error_code& ec2,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -100,7 +100,7 @@ inline void
             {
                 BMCWEB_LOG_ERROR << "error_code = " << ec2;
                 BMCWEB_LOG_ERROR << "error msg = " << ec2.message();
-                messages::internalError(aResp->res);
+                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -115,7 +115,7 @@ inline void
                 std::string swId = path.filename();
                 if (swId.empty())
                 {
-                    messages::internalError(aResp->res);
+                    messages::internalError(asyncResp->res);
                     BMCWEB_LOG_ERROR << "Invalid software ID";
 
                     return;
@@ -135,7 +135,7 @@ inline void
                 sdbusplus::asio::getAllProperties(
                     *crow::connections::systemBus, obj.second[0].first,
                     obj.first, "xyz.openbmc_project.Software.Version",
-                    [aResp, swId, runningImage, swVersionPurpose,
+                    [asyncResp, swId, runningImage, swVersionPurpose,
                      activeVersionPropName, populateLinkToImages](
                         const boost::system::error_code& ec3,
                         const dbus::utility::DBusPropertiesMap&
@@ -152,7 +152,7 @@ inline void
                         {
                             return;
                         }
-                        messages::internalError(aResp->res);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     // example propertiesList
@@ -169,13 +169,13 @@ inline void
 
                     if (!success)
                     {
-                        messages::internalError(aResp->res);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
 
                     if (version == nullptr || version->empty())
                     {
-                        messages::internalError(aResp->res);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     if (swInvPurpose == nullptr ||
@@ -192,7 +192,7 @@ inline void
                     if (populateLinkToImages)
                     {
                         nlohmann::json& softwareImageMembers =
-                            aResp->res.jsonValue["Links"]["SoftwareImages"];
+                            asyncResp->res.jsonValue["Links"]["SoftwareImages"];
                         // Firmware images are at
                         // /redfish/v1/UpdateService/FirmwareInventory/<Id>
                         // e.g. .../FirmwareInventory/82d3ec86
@@ -201,7 +201,7 @@ inline void
                             "/redfish/v1/UpdateService/FirmwareInventory/{}",
                             swId);
                         softwareImageMembers.emplace_back(std::move(member));
-                        aResp->res
+                        asyncResp->res
                             .jsonValue["Links"]["SoftwareImages@odata.count"] =
                             softwareImageMembers.size();
 
@@ -212,14 +212,15 @@ inline void
                                 "/redfish/v1/UpdateService/FirmwareInventory/{}",
                                 swId);
                             // Create the link to the running image
-                            aResp->res
+                            asyncResp->res
                                 .jsonValue["Links"]["ActiveSoftwareImage"] =
                                 std::move(runningMember);
                         }
                     }
                     if (!activeVersionPropName.empty() && runningImage)
                     {
-                        aResp->res.jsonValue[activeVersionPropName] = *version;
+                        asyncResp->res.jsonValue[activeVersionPropName] =
+                            *version;
                     }
                     });
             }
@@ -286,7 +287,7 @@ inline std::string getRedfishSwHealth(const std::string& swState)
  * This function will put the appropriate Redfish state of the input
  * software id to ["Status"]["State"] within the json response
  *
- * @param[i,o] aResp    Async response object
+ * @param[i,o] asyncResp    Async response object
  * @param[i]   swId     The software ID to get status for
  * @param[i]   dbusSvc  The dbus service implementing the software object
  *
