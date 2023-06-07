@@ -97,6 +97,23 @@
       "message": "Hi Ed,\nThank you for the inputs.\nI will have internal discussion with the team and will get back to you on this.",
       "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a774555f_2eb884da",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001274
+      },
+      "writtenOn": "2023-06-07T09:32:50Z",
+      "side": 1,
+      "message": "Where IMAGE_UPLOAD_DIR is defined ?",
+      "revId": "7b218e2f9f167d4d993164ad55d81b7f5fbe3c52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
