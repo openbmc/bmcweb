@@ -2838,23 +2838,6 @@ inline void handleComputerSystemCollectionGet(
 }
 
 /**
- * SystemsCollection derived class for delivering ComputerSystems Collection
- * Schema
- */
-inline void requestRoutesSystemsCollection(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::headComputerSystemCollection)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::getComputerSystemCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleComputerSystemCollectionGet, std::ref(app)));
-}
-
-/**
  * Function transceives data with dbus directly.
  */
 inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -3024,22 +3007,6 @@ inline void handleComputerSystemResetActionPost(
             "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
             dbus::utility::DbusVariantType{command});
     }
-}
-
-/**
- * SystemActionsReset class supports handle POST method for Reset action.
- * The class retrieves and sends data directly to D-Bus.
- */
-inline void requestRoutesSystemActionsReset(App& app)
-{
-    /**
-     * Function handles POST method request.
-     * Analyzes POST body message before sends Reset request data to D-Bus.
-     */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleComputerSystemResetActionPost, std::ref(app)));
 }
 
 inline void handleComputerSystemHead(
@@ -3382,28 +3349,6 @@ inline void handleComputerSystemPatch(
                           ipsExitUtil, ipsExitTime);
     }
 }
-/**
- * Systems derived class for delivering Computer Systems Schema.
- */
-inline void requestRoutesSystems(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::headComputerSystem)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleComputerSystemHead, std::ref(app)));
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleComputerSystemGet, std::ref(app)));
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::patchComputerSystem)
-        .methods(boost::beast::http::verb::patch)(
-            std::bind_front(handleComputerSystemPatch, std::ref(app)));
-}
 
 inline void handleSystemCollectionResetActionHead(
     crow::App& app, const crow::Request& req,
@@ -3482,15 +3427,42 @@ inline void handleSystemCollectionResetActionGet(
  * SystemResetActionInfo derived class for delivering Computer Systems
  * ResetType AllowableValues using ResetInfo schema.
  */
-inline void requestRoutesSystemResetActionInfo(App& app)
+inline void requestRoutesSystems(App& app)
 {
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
+        .privileges(redfish::privileges::headComputerSystemCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
+        .privileges(redfish::privileges::getComputerSystemCollection)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleComputerSystemCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
+        .privileges(redfish::privileges::headComputerSystem)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleComputerSystemHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
+        .privileges(redfish::privileges::getComputerSystem)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleComputerSystemGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
+        .privileges(redfish::privileges::patchComputerSystem)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleComputerSystemPatch, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Actions/ComputerSystem.Reset/")
+        .privileges(redfish::privileges::postComputerSystem)
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleComputerSystemResetActionPost, std::ref(app)));
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::headActionInfo)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleSystemCollectionResetActionHead, std::ref(app)));
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(std::bind_front(
