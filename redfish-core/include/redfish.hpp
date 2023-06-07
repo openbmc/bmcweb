@@ -177,10 +177,8 @@ class RedfishService
         requestRoutesMemoryCollection(app);
         requestRoutesMemory(app);
 
-        requestRoutesSystemsCollection(app);
         requestRoutesSystems(app);
-        requestRoutesSystemActionsReset(app);
-        requestRoutesSystemResetActionInfo(app);
+
         requestRoutesBiosService(app);
         requestRoutesBiosReset(app);
 
