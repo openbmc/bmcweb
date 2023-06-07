@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cc3a01e_5fb4ed5a",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-07T17:46:48Z",
+      "side": 1,
+      "message": "#include \u003cstring_view\u003e  // for std::string_view\n#include \u003cspan\u003e         // for std::span",
+      "revId": "4bc84850461c3c32c49bfa0fab5f3f8e2c4bebaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
