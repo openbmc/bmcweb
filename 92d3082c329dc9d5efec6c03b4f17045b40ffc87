@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c91cccf_75a5ca76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T17:29:28Z",
+      "side": 1,
+      "message": "It means it\u0027s checking for converting int to uint implicitly, or converting something of a larger size to a smaller size implicitly.\n\nIn this case, mathematical operators of different types get promoted to int type, which is what\u0027s causing your warning (likely).\n\n10U specifies that this should be a 10 unsigned, which means that you won\u0027t get the implicit conversion to int.",
+      "parentUuid": "c919e04e_43e83809",
+      "revId": "92d3082c329dc9d5efec6c03b4f17045b40ffc87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "868cabf4_62022403",
         "filename": "redfish-core/include/utils/hex_utils.hpp",
         "patchSetId": 2
