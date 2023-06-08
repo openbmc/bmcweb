@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "2a3ddf49_7079d14f",
         "filename": "http/http_response.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "we can use dynamic response body right?",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1accb857_b24c9d14",
         "filename": "http/http_response.hpp",
@@ -32,10 +33,10 @@
       "message": "don\u0027t we need to create another response structure for dynamic body type?\nbecoz existing response body is of string type",
       "parentUuid": "2a3ddf49_7079d14f",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4972038f_cc120e76",
         "filename": "http/http_response.hpp",
@@ -50,10 +51,10 @@
       "message": "Your patchset actually gave me the idea that if we had \"done\" callbacks, we wouldn\u0027t need to have the core take ownership of the string, which means we can use buffer body, and have flow control with it, which removes the need for dynamic body, like we do with websockets.  In fact, websockets could use a buffer interface too if we had callbacks when the write was done, which would fix the flow control issues there too.",
       "parentUuid": "1accb857_b24c9d14",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "62f02d92_d69296f2",
         "filename": "http/http_response.hpp",
@@ -68,10 +69,10 @@
       "message": "i agree we can use buffer_body..\ninitially i have tried to use buffer_body type instead of dynamic body but we need to enable chunked encoding for buffer body type as per HTTP 1.1\nits additional overhead and complicated again.\nso i understand that we can achieve same with dynamic_body easily and i feel for our use-case dynamic-body is apt",
       "parentUuid": "4972038f_cc120e76",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e1b577b7_e6d2b2f8",
         "filename": "http/http_response.hpp",
@@ -86,10 +87,10 @@
       "message": "\u003e i agree we can use buffer_body..\n\u003e initially i have tried to use buffer_body type instead of dynamic body but we need to enable chunked encoding for buffer body type as per HTTP 1.1\n\u003e its additional overhead and complicated again.\n\u003e so i understand that we can achieve same with dynamic_body easily and i feel for our use-case dynamic-body is apt\n\nI didn\u0027t think buffer body required chunked encoding.  Http1.1 doesn\u0027t require chunked encoding unless I\u0027m missing something.  Agreed that chunked encoding is more complexity than it\u0027s worth.",
       "parentUuid": "62f02d92_d69296f2",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "52e8ce94_30cef9a4",
         "filename": "http/http_response.hpp",
@@ -104,10 +105,10 @@
       "message": "Ed,\n\nI have created  response class with http buffer_body type and buffer body type ignoring content length header even if i set and chunked encoding enabled by default with buffer_body type(could not disable).\n\n curl -k -H \"X-Auth-Token: $bmc_token\" -X GET -D dumpheader.txt http://${BMC_IP}/redfish/v1/Managers/bmc/LogServices/Dump/attachment/1 \u003e bmcdump_1\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n100  4096    0  4096    0     0   141k      0 --:--:-- --:--:-- --:--:--  142k\n\ncurl: (56) Problem (2) in the Chunked-Encoded data\n\n\n-cat dumpheader.txt\nHTTP/1.1 200 OK\nContent-Type: application/octet-stream\nTransfer-Encoding: chunked",
       "parentUuid": "e1b577b7_e6d2b2f8",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bf74b38d_b3e023d8",
         "filename": "http/http_response.hpp",
@@ -122,10 +123,10 @@
       "message": "Can you post the code you used somewhere?  I was under the impression that code had to call res.chunked(true) to enable chunking, and also call net::make_chunk.  I\u0027m not sure what you did to get it, but I\u0027ve used buffer body in the past for similar things.",
       "parentUuid": "52e8ce94_30cef9a4",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "52b6cea9_1701588f",
         "filename": "http/http_response.hpp",
@@ -140,10 +141,10 @@
       "message": "sure Ed. I need to search for that code, not sure if i had backup.\ni remember enabling res.chunked(true) but did not use make_chunk, i think that\u0027s where we need to write more code to prepare chunk header and chunk data for each chunk right?\ni will try once again and will let you know.\nbut don\u0027t we have another way to achieve flow control with dynamic_buffer body.\nthat\u0027s exactly suits for data streaming right?",
       "parentUuid": "bf74b38d_b3e023d8",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d3b62461_1396e494",
         "filename": "http/http_response.hpp",
@@ -158,10 +159,10 @@
       "message": "Ed\n\nI have used buffer_body with disabled chunked encoding instead of dynamic buffer body\nin my dump offload commit and could see dumps offloaded.",
       "parentUuid": "52b6cea9_1701588f",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ce977190_b25d9ebe",
         "filename": "http/http_response.hpp",
@@ -176,10 +177,10 @@
       "message": "do you want to take a look that code? shall I push",
       "parentUuid": "d3b62461_1396e494",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1cc6f3ce_5ee2e2f4",
         "filename": "http/http_response.hpp",
@@ -194,10 +195,10 @@
       "message": "Feel free.",
       "parentUuid": "ce977190_b25d9ebe",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "92d12038_a24c2f00",
         "filename": "http/http_response.hpp",
@@ -212,10 +213,10 @@
       "message": "updated latest patch of this commit\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38051\nthis patchset uses buffer body instead of dynamic buffer body \nplease have a look and let me know your views",
       "parentUuid": "1cc6f3ce_5ee2e2f4",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "397be55e_9982afdb",
         "filename": "http/http_response.hpp",
@@ -229,10 +230,10 @@
       "side": 1,
       "message": "i did not understand why do we need to store headers ?\nheaders sent only once before writing data right?",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9f0c48ee_98f7caa0",
         "filename": "http/http_response.hpp",
@@ -247,8 +248,8 @@
       "message": "We\u0027re converting the body to a different type here.  The first call to write will send the headers along with the first payload, so they need to be preserved.  Unfortunately, they\u0027re part of the body, and I wasn\u0027t able to get a fields reference type to work (it\u0027s not allowed).  and the way we organize this, we don\u0027t really know if the API in question is going to call write, until it does, so we can\u0027t send the headers ahead of time before the first call to write.\n\nHopefully that makes sense.",
       "parentUuid": "397be55e_9982afdb",
       "revId": "981051eaaf62b581ff6878bb747baef87a0d3cf9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
-  ]
+  ],
+  "submitRequirementResults": []
 }
