@@ -131,10 +131,9 @@ static inline void handlePCIeDeviceCollectionGet(
         "/redfish/v1/Systems/system/PCIeDevices";
     asyncResp->res.jsonValue["Name"] = "PCIe Device Collection";
     asyncResp->res.jsonValue["Description"] = "Collection of PCIe Devices";
-    asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-    asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-    pcie_util::getPCIeDeviceList(asyncResp, "Members");
+    pcie_util::getPCIeDeviceList(asyncResp,
+                                 nlohmann::json::json_pointer("/Members"));
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)

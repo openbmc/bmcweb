@@ -3339,7 +3339,8 @@ inline void
     getBootProperties(asyncResp);
     getBootProgress(asyncResp);
     getBootProgressLastStateTime(asyncResp);
-    pcie_util::getPCIeDeviceList(asyncResp, "PCIeDevices");
+    pcie_util::getPCIeDeviceList(asyncResp,
+                                 nlohmann::json::json_pointer("/PCIeDevices"));
     getHostWatchdogTimer(asyncResp);
     getPowerRestorePolicy(asyncResp);
     getStopBootOnFault(asyncResp);
