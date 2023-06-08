@@ -20,6 +20,161 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36e669b2_5692f86c",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "Can we rename this? getSystemInformation to me, makes me think we are getting properties. \nverifySystemId? \nverifySystemPath? \ngetSystemPath?\ngetValidSystemPath? (e.g. we have a similar function for chassis https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/chassis_utils.hpp )",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 25
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e13baac_087fcbad",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "#include \u003cutility\u003e",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2a0d49_2a8bc686",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "Please pass by reference https://github.com/openbmc/bmcweb/commit/5e7e2dc585dc7a7e62d2b648b541e7f50c39ea5d\n\nAlso #include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed9a890f_76493289",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "Could you use const dbus::utility::MapperGetSubTreePathsResponse\u0026 ?",
+      "range": {
+        "startLine": 30,
+        "startChar": 53,
+        "endLine": 30,
+        "endChar": 60
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3da57da_59485ec0",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "#include \u003cstring\u003e",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41198bd9_0085727f",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "#include \u003cvector\u003e",
+      "range": {
+        "startLine": 30,
+        "startChar": 21,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e757228c_13b1d2a2",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "This trace is a lot more useful if you include the ec. \nCould also be LOG_ERROR, see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63895",
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec2bfc71_f120faa3",
         "filename": "redfish-core/include/utils/system_utils.hpp",
         "patchSetId": 3
@@ -37,6 +192,23 @@
         "endLine": 53,
         "endChar": 74
       },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c6a736b_3ab63ae9",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:02:10Z",
+      "side": 1,
+      "message": "Can you use     dbus::utility::getSubTreePaths( ?\nLike https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/chassis_utils.hpp#LL30C1-L30C36",
       "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
