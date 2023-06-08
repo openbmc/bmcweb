@@ -6,6 +6,7 @@
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "http/utility.hpp"
+#include "utils/collection.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -38,40 +39,9 @@ inline void
 {
     static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
         "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
-
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
-        [asyncResp, name](const boost::system::error_code& ec,
-                          const dbus::utility::MapperGetSubTreePathsResponse&
-                              pcieDevicePaths) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("no PCIe device paths found ec: {}", ec.message());
-            // Not an error, system just doesn't have PCIe info
-            return;
-        }
-        nlohmann::json& pcieDeviceList = asyncResp->res.jsonValue[name];
-        pcieDeviceList = nlohmann::json::array();
-        for (const std::string& pcieDevicePath : pcieDevicePaths)
-        {
-            size_t devStart = pcieDevicePath.rfind('/');
-            if (devStart == std::string::npos)
-            {
-                continue;
-            }
-
-            std::string devName = pcieDevicePath.substr(devStart + 1);
-            if (devName.empty())
-            {
-                continue;
-            }
-            nlohmann::json::object_t pcieDevice;
-            pcieDevice["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Systems/system/PCIeDevices/{}", devName);
-            pcieDeviceList.emplace_back(std::move(pcieDevice));
-        }
-        asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
-        });
+    collection_util::getCollectionMembersArray(
+        asyncResp, boost::urls::url("/redfish/v1/Systems/system/PCIeDevices"),
+        pcieDeviceInterface, name, "/xyz/openbmc_project/inventory");
 }
 
 inline std::optional<pcie_slots::SlotTypes>
