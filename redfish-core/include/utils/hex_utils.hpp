@@ -43,11 +43,11 @@ inline uint8_t hexCharToNibble(char ch)
     }
     else if (ch >= 'A' && ch <= 'F')
     {
-        rc = static_cast<uint8_t>(ch) - 'A' + 10;
+        rc = static_cast<uint8_t>(ch - 'A') + static_cast<uint8_t>(10);
     }
     else if (ch >= 'a' && ch <= 'f')
     {
-        rc = static_cast<uint8_t>(ch) - 'a' + 10;
+        rc = static_cast<uint8_t>(ch - 'a') + static_cast<uint8_t>(10);
     }
 
     return rc;
