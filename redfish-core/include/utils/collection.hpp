@@ -20,7 +20,7 @@ namespace collection_util
 {
 
 /**
- * @brief Populate the collection "Members" from a GetSubTreePaths search of
+ * @brief Populate the collection members from a GetSubTreePaths search of
  *        inventory
  *
  * @param[i,o] aResp  Async response object
@@ -28,26 +28,28 @@ namespace collection_util
  *             Members Redfish Path
  * @param[i]   interfaces  List of interfaces to constrain the GetSubTree search
  * @param[in]  subtree     D-Bus base path to constrain search to.
+ * @param[in]  arrayName   Array name in which the collection members will be
+ *             stored.
  *
  * @return void
  */
 inline void
-    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                         const boost::urls::url& collectionPath,
-                         std::span<const std::string_view> interfaces,
-                         const char* subtree = "/xyz/openbmc_project/inventory")
+    getCollectionMembersArray(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                              const boost::urls::url& collectionPath,
+                              std::span<const std::string_view> interfaces,
+                              const char* subtree, const std::string& arrayName)
 {
     BMCWEB_LOG_DEBUG << "Get collection members for: "
                      << collectionPath.buffer();
     dbus::utility::getSubTreePaths(
         subtree, 0, interfaces,
-        [collectionPath, aResp{std::move(aResp)}](
+        [collectionPath, aResp{std::move(aResp)}, arrayName](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objects) {
         if (ec == boost::system::errc::io_error)
         {
-            aResp->res.jsonValue["Members"] = nlohmann::json::array();
-            aResp->res.jsonValue["Members@odata.count"] = 0;
+            aResp->res.jsonValue[arrayName] = nlohmann::json::array();
+            aResp->res.jsonValue[arrayName + "@odata.count"] = 0;
             return;
         }
 
@@ -72,7 +74,7 @@ inline void
         std::sort(pathNames.begin(), pathNames.end(),
                   AlphanumLess<std::string>());
 
-        nlohmann::json& members = aResp->res.jsonValue["Members"];
+        nlohmann::json& members = aResp->res.jsonValue[arrayName];
         members = nlohmann::json::array();
         for (const std::string& leaf : pathNames)
         {
@@ -82,8 +84,18 @@ inline void
             member["@odata.id"] = std::move(url);
             members.emplace_back(std::move(member));
         }
-        aResp->res.jsonValue["Members@odata.count"] = members.size();
+        aResp->res.jsonValue[arrayName + "@odata.count"] = members.size();
         });
+}
+
+inline void
+    getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                         const boost::urls::url& collectionPath,
+                         std::span<const std::string_view> interfaces,
+                         const char* subtree = "/xyz/openbmc_project/inventory")
+{
+    getCollectionMembersArray(aResp, collectionPath, interfaces, subtree,
+                              "Members");
 }
 
 } // namespace collection_util
