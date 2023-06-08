@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eba1fc5f_3af5b810",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Will participate, but after looking at these codes, it seems that this logic here is never actually implemented in any of the multi-host commits. They have logic to find the systemIndex but not to find the actual DBus object path representing the system.",
+      "parentUuid": "cafac9dc_1d0a93b5",
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e669b2_5692f86c",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-06-08T18:02:10Z",
       "side": 1,
       "message": "Can we rename this? getSystemInformation to me, makes me think we are getting properties. \nverifySystemId? \nverifySystemPath? \ngetSystemPath?\ngetValidSystemPath? (e.g. we have a similar function for chassis https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/chassis_utils.hpp )",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 25
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7395b3fc_fd5e0d06",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Renamed to getValidSystemPath",
+      "parentUuid": "36e669b2_5692f86c",
       "range": {
         "startLine": 24,
         "startChar": 5,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02bdb1ef_70cfa3e5",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e13baac_087fcbad",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c2a0d49_2a8bc686",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-06-08T18:02:10Z",
       "side": 1,
       "message": "Please pass by reference https://github.com/openbmc/bmcweb/commit/5e7e2dc585dc7a7e62d2b648b541e7f50c39ea5d\n\nAlso #include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "262fe7ec_fa54b2ff",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c2a0d49_2a8bc686",
       "range": {
         "startLine": 29,
         "startChar": 42,
@@ -156,6 +246,78 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f3288d_74a63c80",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Used dbus::utility::MapperGetSubTreePathsResponse instead",
+      "parentUuid": "41198bd9_0085727f",
+      "range": {
+        "startLine": 30,
+        "startChar": 21,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "def4431c_df40ae48",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed9a890f_76493289",
+      "range": {
+        "startLine": 30,
+        "startChar": 53,
+        "endLine": 30,
+        "endChar": 60
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8d32a72_c70abc9c",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Used dbus::utility::MapperGetSubTreePathsResponse instead",
+      "parentUuid": "d3da57da_59485ec0",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e757228c_13b1d2a2",
@@ -169,6 +331,24 @@
       "writtenOn": "2023-06-08T18:02:10Z",
       "side": 1,
       "message": "This trace is a lot more useful if you include the ec. \nCould also be LOG_ERROR, see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63895",
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83221984_78fcafa2",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e757228c_13b1d2a2",
       "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -196,6 +376,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d32c252_d67e740d",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done. Used object_path().filename()",
+      "parentUuid": "ec2bfc71_f120faa3",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 74
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c6a736b_3ab63ae9",
@@ -213,6 +417,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfe3a74a_a0d36832",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c6a736b_3ab63ae9",
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3dee881_58a699f1",
@@ -226,6 +448,30 @@
       "writtenOn": "2023-06-07T20:38:44Z",
       "side": 1,
       "message": "Per the rules in the developing guide, no lambdas over 10 lines please.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 58
+      },
+      "revId": "6ecbe5977dee02e4aa0937ba0f12d885530b7d3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23eb73fd_34cf617f",
+        "filename": "redfish-core/include/utils/system_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2023-06-08T20:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3dee881_58a699f1",
       "range": {
         "startLine": 28,
         "startChar": 8,
