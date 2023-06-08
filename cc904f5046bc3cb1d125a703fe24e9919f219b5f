@@ -22,6 +22,30 @@
       },
       "revId": "cc904f5046bc3cb1d125a703fe24e9919f219b5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d1d9c75_8f42f577",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T22:46:19Z",
+      "side": 1,
+      "message": "correct.",
+      "parentUuid": "22e0cf7b_9502a4d8",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "cc904f5046bc3cb1d125a703fe24e9919f219b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
