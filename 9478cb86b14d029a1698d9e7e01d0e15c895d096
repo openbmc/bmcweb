@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ce90095_51ac6d92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T20:23:47Z",
+      "side": 1,
+      "message": "Please wrap your commits 50/72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e63f2dd_9e6577ec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2045,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T20:23:47Z",
+      "side": 1,
+      "message": "Isn\u0027t this a hard error if we try to open a folder that doesn\u0027t exist?\n\nBased on the my understanding of the rules here, the old code was correct.",
+      "range": {
+        "startLine": 2045,
+        "startChar": 0,
+        "endLine": 2045,
+        "endChar": 43
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcc8192_012d2640",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T20:23:47Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 2181,
+        "startChar": 12,
+        "endLine": 2181,
+        "endChar": 30
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3c56659_e0d60a46",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T20:23:47Z",
+      "side": 1,
+      "message": "internalError already logs to LOG_ERROR.  Can this just be removed?",
+      "range": {
+        "startLine": 2935,
+        "startChar": 0,
+        "endLine": 2936,
+        "endChar": 52
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
