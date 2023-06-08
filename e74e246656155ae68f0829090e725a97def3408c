@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f0a8877_525bd466",
+        "filename": "http/routing/baserule.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003climits\u003e",
+      "range": {
+        "startLine": 83,
+        "startChar": 18,
+        "endLine": 83,
+        "endChar": 37
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8bda543_5ba22770",
+        "filename": "http/routing/dynamicrule.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003ctype_traits\u003e",
+      "range": {
+        "startLine": 95,
+        "startChar": 17,
+        "endLine": 95,
+        "endChar": 31
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83a44710_96425b4a",
+        "filename": "http/routing/dynamicrule.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
+      "range": {
+        "startLine": 224,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 17
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c62375_d3170dfd",
+        "filename": "http/routing/ruleparametertraits.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003coptional\u003e",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ae9b38_b9d28673",
+        "filename": "http/routing/ruleparametertraits.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003cinitializer_list\u003e",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 35
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "664c3e51_8615132b",
+        "filename": "http/routing/sserule.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003cmemory\u003e",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88232c13_2e20e70b",
+        "filename": "http/routing/sserule.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003cvector\u003e",
+      "range": {
+        "startLine": 26,
+        "startChar": 22,
+        "endLine": 26,
+        "endChar": 33
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929bc496_e6496881",
+        "filename": "http/routing/sserule.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:05:10Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 17
+      },
+      "revId": "e74e246656155ae68f0829090e725a97def3408c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
