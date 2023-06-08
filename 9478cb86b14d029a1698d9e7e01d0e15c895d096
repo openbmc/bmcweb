@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "249245e2_1e015429",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-08T20:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ce90095_51ac6d92",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e63f2dd_9e6577ec",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-08T20:23:47Z",
       "side": 1,
       "message": "Isn\u0027t this a hard error if we try to open a folder that doesn\u0027t exist?\n\nBased on the my understanding of the rules here, the old code was correct.",
+      "range": {
+        "startLine": 2045,
+        "startChar": 0,
+        "endLine": 2045,
+        "endChar": 43
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc8fb233_ea47c390",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2045,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-08T20:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e63f2dd_9e6577ec",
       "range": {
         "startLine": 2045,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c011d918_07037c54",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-08T20:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cfcc8192_012d2640",
+      "range": {
+        "startLine": 2181,
+        "startChar": 12,
+        "endLine": 2181,
+        "endChar": 30
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3c56659_e0d60a46",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-06-08T20:23:47Z",
       "side": 1,
       "message": "internalError already logs to LOG_ERROR.  Can this just be removed?",
+      "range": {
+        "startLine": 2935,
+        "startChar": 0,
+        "endLine": 2936,
+        "endChar": 52
+      },
+      "revId": "9478cb86b14d029a1698d9e7e01d0e15c895d096",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "629a998a_ed01af23",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-08T20:38:22Z",
+      "side": 1,
+      "message": "Ack. I removed it.",
+      "parentUuid": "e3c56659_e0d60a46",
       "range": {
         "startLine": 2935,
         "startChar": 0,
