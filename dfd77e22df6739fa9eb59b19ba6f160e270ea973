@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb238715_8616cd97",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T21:13:44Z",
+      "side": 1,
+      "message": "note: this is an inline lambda, but that\u0027s what this whole file does already.  When we apply normal methods to this file, we will do the whole file at once.",
+      "range": {
+        "startLine": 1990,
+        "startChar": 0,
+        "endLine": 1990,
+        "endChar": 44
+      },
+      "revId": "dfd77e22df6739fa9eb59b19ba6f160e270ea973",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
