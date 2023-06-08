@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cb3f8bb_bf74a1a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-06-08T17:21:45Z",
+      "side": 1,
+      "message": "not sure, it just started happening recently for some reason. MAybe like yesterday.",
+      "parentUuid": "5b8a012c_3ab81896",
+      "revId": "92d3082c329dc9d5efec6c03b4f17045b40ffc87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "868cabf4_62022403",
         "filename": "redfish-core/include/utils/hex_utils.hpp",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-08T17:14:00Z",
       "side": 1,
       "message": "I think you just want 10U here instead of the static cast?",
+      "revId": "92d3082c329dc9d5efec6c03b4f17045b40ffc87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c8a025c_34fab848",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-06-08T17:21:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "868cabf4_62022403",
       "revId": "92d3082c329dc9d5efec6c03b4f17045b40ffc87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
