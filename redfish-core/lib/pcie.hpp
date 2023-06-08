@@ -286,8 +286,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Location "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for Location {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -675,7 +675,7 @@ static inline void getValidPCIePath(
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
