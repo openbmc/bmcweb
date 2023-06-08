@@ -22,13 +22,14 @@ namespace collection_util
 
 inline void handleCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::urls::url& collectionPath, const boost::system::error_code& ec,
+    const boost::urls::url& collectionPath, const std::string& keyName,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& objects)
 {
     if (ec == boost::system::errc::io_error)
     {
-        asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-        asyncResp->res.jsonValue["Members@odata.count"] = 0;
+        asyncResp->res.jsonValue[keyName] = nlohmann::json::array();
+        asyncResp->res.jsonValue[keyName + "@odata.count"] = 0;
         return;
     }
 
@@ -52,7 +53,7 @@ inline void handleCollectionMembers(
     }
     std::ranges::sort(pathNames, AlphanumLess<std::string>());
 
-    nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    nlohmann::json& members = asyncResp->res.jsonValue[keyName];
     members = nlohmann::json::array();
     for (const std::string& leaf : pathNames)
     {
@@ -62,11 +63,11 @@ inline void handleCollectionMembers(
         member["@odata.id"] = std::move(url);
         members.emplace_back(std::move(member));
     }
-    asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+    asyncResp->res.jsonValue[keyName + "@odata.count"] = members.size();
 }
 
 /**
- * @brief Populate the collection "Members" from a GetSubTreePaths search of
+ * @brief Populate the collection members from a GetSubTreePaths search of
  *        inventory
  *
  * @param[i,o] asyncResp  Async response object
@@ -74,19 +75,30 @@ inline void handleCollectionMembers(
  *             Members Redfish Path
  * @param[i]   interfaces  List of interfaces to constrain the GetSubTree search
  * @param[in]  subtree     D-Bus base path to constrain search to.
+ * @param[in]  keyName     Key name in which the collection members will be
+ *             stored.
  *
  * @return void
  */
-inline void
-    getCollectionMembers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const boost::urls::url& collectionPath,
-                         std::span<const std::string_view> interfaces,
-                         const std::string& subtree)
+inline void getCollectionMembersKeyName(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::urls::url& collectionPath,
+    std::span<const std::string_view> interfaces, const std::string& subtree,
+    const std::string& keyName)
 {
     BMCWEB_LOG_DEBUG("Get collection members for: {}", collectionPath.buffer());
-    dbus::utility::getSubTreePaths(
-        subtree, 0, interfaces,
-        std::bind_front(handleCollectionMembers, asyncResp, collectionPath));
+    dbus::utility::getSubTreePaths(subtree, 0, interfaces,
+                                   std::bind_front(handleCollectionMembers,
+                                                   asyncResp, collectionPath,
+                                                   keyName));
+}
+inline void getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                                 const boost::urls::url& collectionPath,
+                                 std::span<const std::string_view> interfaces,
+                                 const std::string& subtree)
+{
+    getCollectionMembersKeyName(std::move(asyncResp), collectionPath,
+                                interfaces, subtree, "Members");
 }
 
 } // namespace collection_util
