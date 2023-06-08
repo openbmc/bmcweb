@@ -22,6 +22,30 @@
       },
       "revId": "feec68d92bf29d5260fc9f7c07888993c8b560d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d70554_c2803503",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T18:11:40Z",
+      "side": 0,
+      "message": "My opinion (which isn\u0027t that strong) is that to include a collection route, you have to include the members of that collection as well.   Because of that, we\u0027re not going to register just requestRoutesProcessor and not requestRoutesProcessorCollection, so we should just have one method, because it\u0027s simpler, and keeps the size of redfish.hpp down.\n\nwith that said, if the former is seen as better, I can get behind that.  My opinion isn\u0027t strong.",
+      "parentUuid": "758782ce_2db1ea69",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 48
+      },
+      "revId": "feec68d92bf29d5260fc9f7c07888993c8b560d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
