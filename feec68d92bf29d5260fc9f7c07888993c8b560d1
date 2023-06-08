@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758782ce_2db1ea69",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:07:58Z",
+      "side": 0,
+      "message": "Is this the direction we want to go, one requestRoutesSystems vs \n\n        requestRoutesProcessorCollection(app);\n        requestRoutesProcessor(app);\n\nor \n\n        requestRoutesManagerCollection(app);\n        requestRoutesManager(app);\n        requestRoutesManagerResetAction(app);\n        requestRoutesManagerResetActionInfo(app);\n        requestRoutesManagerResetToDefaultsAction(app);\n\n?",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 48
+      },
+      "revId": "feec68d92bf29d5260fc9f7c07888993c8b560d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
