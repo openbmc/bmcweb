@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81e641c0_cd01965a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:21:54Z",
+      "side": 1,
+      "message": "Probably \n    if constexpr (bmcwebEnableMultiHost)\n    {\n        // Option currently returns no systems.  TBD\n        messages::resourceNotFound(aResp-\u003eres, \"ComputerSystem\", systemName);\n        return;\n    }\n\nhere too?",
+      "revId": "0be782594b177545b90fc7c5f183e607dc47c0cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76788db2_325c30fa",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:21:54Z",
+      "side": 1,
+      "message": "You have it in the other head, might as well here too \n\n    if constexpr (bmcwebEnableMultiHost)\n    {\n        // Option currently returns no systems.  TBD\n        messages::resourceNotFound(aResp-\u003eres, \"ComputerSystem\", systemName);\n        return;\n    }",
+      "revId": "0be782594b177545b90fc7c5f183e607dc47c0cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d04b7d_ef28fef9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2927,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:21:54Z",
+      "side": 1,
+      "message": "In places where you are going from system to \u003cstr\u003e \nI think you should add \n\n        if (systemName !\u003d \"system\")\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n        \nor at least where it calls something like /xyz/openbmc_project/state/host0. Maybe here is the only place",
+      "revId": "0be782594b177545b90fc7c5f183e607dc47c0cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3e1716a_423f4453",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3096,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:21:54Z",
+      "side": 1,
+      "message": "Here, no big deal that this went to /redfish/v1/Systems/\u003cstr\u003e/",
+      "revId": "0be782594b177545b90fc7c5f183e607dc47c0cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aadeb27_280d76db",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3421,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-08T18:21:54Z",
+      "side": 1,
+      "message": "Here, no big deal that this went to /redfish/v1/Systems/\u003cstr\u003e/",
+      "revId": "0be782594b177545b90fc7c5f183e607dc47c0cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
