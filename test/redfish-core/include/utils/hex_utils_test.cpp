@@ -54,11 +54,11 @@ TEST(HexCharToNibble, ReturnsCorrectNibbleForEveryHexChar)
         }
         else if (c >= 'A' && c <= 'F')
         {
-            expected = static_cast<uint8_t>(c) - 'A' + 10;
+            expected = static_cast<uint8_t>(c - 'A') + 10U;
         }
         else if (c >= 'a' && c <= 'f')
         {
-            expected = static_cast<uint8_t>(c) - 'a' + 10;
+            expected = static_cast<uint8_t>(c - 'a') + 10U;
         }
 
         EXPECT_EQ(hexCharToNibble(c), expected);
