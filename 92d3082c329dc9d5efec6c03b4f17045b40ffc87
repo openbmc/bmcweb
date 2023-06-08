@@ -16,6 +16,23 @@
       "message": "We have -Wconversion turned on in CI.  Any idea why you\u0027re seeing different errors here?",
       "revId": "92d3082c329dc9d5efec6c03b4f17045b40ffc87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "868cabf4_62022403",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-08T17:14:00Z",
+      "side": 1,
+      "message": "I think you just want 10U here instead of the static cast?",
+      "revId": "92d3082c329dc9d5efec6c03b4f17045b40ffc87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
