@@ -16,6 +16,24 @@
       "message": "Why remove this? \nWhy not move it up, make it an ERROR ?",
       "revId": "61b1eb21464d676d9ab92125e38dfd5a2acb850f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e9b0bed_33172c60",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2935,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-09T14:52:15Z",
+      "side": 0,
+      "message": "Sorry, I mistakenly removed it.\nI add BMCWEB_LOG_ERROR entry back.",
+      "parentUuid": "accb54a7_497ecd3b",
+      "revId": "61b1eb21464d676d9ab92125e38dfd5a2acb850f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
