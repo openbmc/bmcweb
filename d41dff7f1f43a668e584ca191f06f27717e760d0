@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df734553_4c1cb322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-09T15:31:56Z",
+      "side": 1,
+      "message": "Needs more details here.  When we\u0027re interpreting as bytes, what\u0027s the potential problem?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fca9f430_a33ea921",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-09T15:31:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure how you came to this conclusion.  From the specification:\n\n\"A client POST to this URI shall contain the Content-Type HTTP header with the value multipart/\nform-data , with the body formatted as defined by this specification. For more information about\nmultipart/form-data HTTP requests, see RFC7578.\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42dcbb59_7b0dbf85",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
