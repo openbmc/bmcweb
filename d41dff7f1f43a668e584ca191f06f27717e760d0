@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4ca3fb0_cfa00ae0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-09T21:59:13Z",
+      "side": 1,
+      "message": "This file has all positive and negative tests then I am not sure why you are saying it. Do I have to fix this code.\n\n/include/http_utility_test.cpp",
+      "parentUuid": "c86b8095_f0a0e507",
+      "range": {
+        "startLine": 689,
+        "startChar": 29,
+        "endLine": 689,
+        "endChar": 46
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42dcbb59_7b0dbf85",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
