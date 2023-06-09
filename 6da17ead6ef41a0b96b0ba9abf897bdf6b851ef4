@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1942e0_21a8af92",
+        "filename": "test/include/http_utility_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-09T22:11:59Z",
+      "side": 1,
+      "message": "This is the test that\u0027s incorrect if you pass in a Content-Type header instead of an Accepts header.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "6da17ead6ef41a0b96b0ba9abf897bdf6b851ef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
