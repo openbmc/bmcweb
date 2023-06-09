@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc55c39d_f1545c9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-09T16:08:12Z",
+      "side": 1,
+      "message": "This is where it adds OperationalStatus for all the inventory\n\nhttps://github.com/openbmc/openpower-vpd-parser/blob/3fb026386546cfd288ab4f86156c9aa0ffa145d6/ibm_vpd_app.cpp#L620",
+      "parentUuid": "9bc769ae_43abb421",
+      "revId": "d972efb2fe3dae114b97b7d82f787d05faeec72b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f51afed_566d9c32",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e52b8a9f_e3af4d41",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-09T16:08:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f51afed_566d9c32",
+      "revId": "d972efb2fe3dae114b97b7d82f787d05faeec72b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23c76930_82cfb036",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-06-05T13:30:51Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "d972efb2fe3dae114b97b7d82f787d05faeec72b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76177c8d_5df016c5",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-09T16:08:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c76930_82cfb036",
       "revId": "d972efb2fe3dae114b97b7d82f787d05faeec72b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
