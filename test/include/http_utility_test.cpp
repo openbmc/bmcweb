@@ -23,6 +23,8 @@ TEST(isContentTypeAllowed, PositiveTest)
         isContentTypeAllowed("application/cbor", ContentType::CBOR, false));
     EXPECT_TRUE(isContentTypeAllowed("application/json, text/html",
                                      ContentType::HTML, false));
+    EXPECT_TRUE(isContentTypeAllowed("multipart/form-data",
+                                     ContentType::MultiPart, false));
 }
 
 TEST(isContentTypeAllowed, NegativeTest)
@@ -36,6 +38,10 @@ TEST(isContentTypeAllowed, NegativeTest)
     EXPECT_FALSE(
         isContentTypeAllowed("application/cbor", ContentType::HTML, false));
     EXPECT_FALSE(isContentTypeAllowed("application/json, text/html",
+                                      ContentType::OctetStream, false));
+    EXPECT_FALSE(isContentTypeAllowed("application/cbor",
+                                      ContentType::MultiPart, false));
+    EXPECT_FALSE(isContentTypeAllowed("multipart/form-data",
                                       ContentType::OctetStream, false));
 }
 

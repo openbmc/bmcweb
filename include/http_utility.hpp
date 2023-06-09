@@ -27,6 +27,7 @@ enum class ContentType
     JSON,
     OctetStream,
     EventStream,
+    MultiPart,
 };
 
 struct ContentTypePair
@@ -35,12 +36,13 @@ struct ContentTypePair
     ContentType contentTypeEnum;
 };
 
-constexpr std::array<ContentTypePair, 5> contentTypes{{
+constexpr std::array<ContentTypePair, 6> contentTypes{{
     {"application/cbor", ContentType::CBOR},
     {"application/json", ContentType::JSON},
     {"application/octet-stream", ContentType::OctetStream},
     {"text/html", ContentType::HTML},
     {"text/event-stream", ContentType::EventStream},
+    {"multipart/form-data", ContentType::MultiPart},
 }};
 
 inline ContentType

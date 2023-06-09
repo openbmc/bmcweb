@@ -684,6 +684,17 @@ inline void
     }
     BMCWEB_LOG_DEBUG << "doPost...";
 
+    // Make sure that content type is application/octet-stream or
+    // multipart/form-data
+    std::string_view contentType = req.getHeaderValue("Content-Type");
+    if (!boost::iequals(contentType, "application/octet-stream") &&
+        !boost::iequals(contentType, "multipart/form-data"))
+    {
+        BMCWEB_LOG_DEBUG << "Bad content type specified:" << contentType;
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+
     // Setup callback for when new software detected
     monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
 
