@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8403dd2f_a60f1f5e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-06-09T15:52:21Z",
+      "side": 1,
+      "message": "I don\u0027t think this looks for associations still. That functionality might\u0027ve gotten lost in a patch rebase",
+      "range": {
+        "startLine": 1101,
+        "startChar": 19,
+        "endLine": 1101,
+        "endChar": 34
+      },
+      "revId": "61fec084c3d7f24ef97e02743e52041a84e1b84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
