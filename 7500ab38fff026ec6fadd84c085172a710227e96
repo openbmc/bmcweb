@@ -16,6 +16,24 @@
       "message": "why including \u003cstring\u003e instead of \u003cstring_view\u003e?",
       "revId": "7500ab38fff026ec6fadd84c085172a710227e96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afee4c76_c75b6163",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-09T21:16:47Z",
+      "side": 1,
+      "message": "Because I made a mistake 😊  Thank you for catching it.  Fixed.",
+      "parentUuid": "b58b2b03_153ae53a",
+      "revId": "7500ab38fff026ec6fadd84c085172a710227e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
