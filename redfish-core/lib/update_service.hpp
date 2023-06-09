@@ -684,6 +684,16 @@ inline void
     }
     BMCWEB_LOG_DEBUG << "doPost...";
 
+    // Make sure that content type is application/octet-stream
+    if (!http_helpers::isContentTypeAllowed(
+            req.getHeaderValue("Content-Type"),
+            http_helpers::ContentType::OctetStream, false))
+    {
+        BMCWEB_LOG_DEBUG << "Bad content type specified";
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+
     // Setup callback for when new software detected
     monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
 
