@@ -35,7 +35,7 @@ struct ContentTypePair
     ContentType contentTypeEnum;
 };
 
-constexpr std::array<ContentTypePair, 5> contentTypes{{
+constexpr std::array<ContentTypePair, 6> contentTypes{{
     {"application/cbor", ContentType::CBOR},
     {"application/json", ContentType::JSON},
     {"application/octet-stream", ContentType::OctetStream},
