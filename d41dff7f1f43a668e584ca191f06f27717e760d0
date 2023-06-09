@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db0124a5_be4ee531",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-09T18:56:40Z",
+      "side": 1,
+      "message": "There are all content types bmcweb supports. There is no multipart in the list so you are saying we should add multipart in the list and support it?\n\nconstexpr std::array\u003cContentTypePair, 5\u003e contentTypes{{\n    {\"application/cbor\", ContentType::CBOR},\n    {\"application/json\", ContentType::JSON},\n    {\"application/octet-stream\", ContentType::OctetStream},\n    {\"text/html\", ContentType::HTML},\n    {\"text/event-stream\", ContentType::EventStream},\n}};\n\n\nI just checked what IBM GUI requests for and it is octet-stream.\n\n[DEBUG \"update_service.hpp\":627] handleUpdateServicePost: content: application/octet-stream",
+      "parentUuid": "fca9f430_a33ea921",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42dcbb59_7b0dbf85",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
