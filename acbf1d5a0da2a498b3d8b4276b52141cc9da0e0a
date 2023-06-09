@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a862fd94_269b228e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-09T21:08:57Z",
+      "side": 1,
+      "message": "When we generate BMCWEB_LOG_ERROR, bmcweb uses ec.value() or ec.messages() inconsistently.\n\nec.message() may be more readily readable from the logs?",
+      "range": {
+        "startLine": 207,
+        "startChar": 36,
+        "endLine": 207,
+        "endChar": 46
+      },
+      "revId": "acbf1d5a0da2a498b3d8b4276b52141cc9da0e0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
