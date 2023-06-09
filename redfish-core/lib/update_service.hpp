@@ -682,28 +682,44 @@ inline void
     {
         return;
     }
-    BMCWEB_LOG_DEBUG << "doPost...";
+    std::string_view contentType = req.getHeaderValue("Content-Type");
 
-    // Setup callback for when new software detected
-    monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
+    BMCWEB_LOG_DEBUG << "doPost: contentType=" << contentType;
 
-    MultipartParser parser;
-    ParserError ec = parser.parse(req);
-    if (ec == ParserError::ERROR_BOUNDARY_FORMAT)
+    // Make sure that content type is application/octet-stream or
+    // multipart/form-data
+    if (boost::iequals(contentType, "application/octet-stream"))
     {
-        // If the request didnt' contain boundary information, assume it was a
-        // POST binary payload.
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
+
         uploadImageFile(asyncResp->res, req.body());
-        return;
     }
-    if (ec != ParserError::PARSER_SUCCESS)
+    else if (contentType.starts_with("multipart/form-data"))
     {
-        // handle error
-        BMCWEB_LOG_ERROR << "MIME parse failed, ec : " << static_cast<int>(ec);
-        messages::internalError(asyncResp->res);
-        return;
+        MultipartParser parser;
+
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
+
+        ParserError ec = parser.parse(req);
+        if (ec != ParserError::PARSER_SUCCESS)
+        {
+            // handle error
+            BMCWEB_LOG_ERROR << "MIME parse failed, ec : "
+                             << static_cast<int>(ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        updateMultipartContext(asyncResp, parser);
     }
-    updateMultipartContext(asyncResp, parser);
+    else
+    {
+        BMCWEB_LOG_DEBUG << "Bad content type specified:" << contentType;
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+    }
 }
 
 inline void requestRoutesUpdateService(App& app)
