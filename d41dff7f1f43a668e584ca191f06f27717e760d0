@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37babaeb_7b71bef7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-09T21:54:14Z",
+      "side": 1,
+      "message": "@gunnar mentioned that intel raised the security issue but I don\u0027t have any information about it.",
+      "parentUuid": "df734553_4c1cb322",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fca9f430_a33ea921",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "ok, I will add it. Thanks!",
       "parentUuid": "23959e4c_a8217da4",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47cd575a_9069d200",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-09T21:54:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d7aee16_7494cd79",
       "range": {
         "startLine": 10,
         "startChar": 18,
