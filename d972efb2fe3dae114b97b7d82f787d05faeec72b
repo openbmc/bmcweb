@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d02828b4_87531dd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-09T16:29:51Z",
+      "side": 1,
+      "message": "Can you add this to the commit msg?",
+      "parentUuid": "cc55c39d_f1545c9d",
+      "revId": "d972efb2fe3dae114b97b7d82f787d05faeec72b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f51afed_566d9c32",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 26
