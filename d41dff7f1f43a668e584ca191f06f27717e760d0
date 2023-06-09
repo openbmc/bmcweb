@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23959e4c_a8217da4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-09T20:00:33Z",
+      "side": 1,
+      "message": "\u003e There are all content types bmcweb supports. There is no multipart in the list so you are saying we should add multipart in the list and support it?\n\u003e \n\u003e constexpr std::array\u003cContentTypePair, 5\u003e contentTypes{{\n\u003e     {\"application/cbor\", ContentType::CBOR},\n\u003e     {\"application/json\", ContentType::JSON},\n\u003e     {\"application/octet-stream\", ContentType::OctetStream},\n\u003e     {\"text/html\", ContentType::HTML},\n\u003e     {\"text/event-stream\", ContentType::EventStream},\n\u003e }};\n\u003e \n\nhttps://github.com/openbmc/bmcweb/blob/994fd86a3f6649a820f66313765e85e762ad105a/include/login_routes.hpp#L121\n\nMatches against multipart, but you\u0027re right, it doesn\u0027t use the new generic functions, which we could fix.\n\n\u003e \n\u003e I just checked what IBM GUI requests for and it is octet-stream.\n\u003e \n\u003e [DEBUG \"update_service.hpp\":627] handleUpdateServicePost: content: application/octet-stream\n\nThis is not an appropriate way to match the specification.  Now, the background you\u0027re missing is that we actually support BOTH http multipart and OctetStream.  Multipart is defined by the standard, the other is only used by the gui.  Your patch breaks the multipart one.",
+      "parentUuid": "db0124a5_be4ee531",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42dcbb59_7b0dbf85",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
