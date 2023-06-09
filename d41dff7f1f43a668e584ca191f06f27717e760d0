@@ -121,6 +121,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89f01b5f_f7a46dcd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-09T20:17:56Z",
+      "side": 1,
+      "message": "The \"isContentTypeAllowed\" is generally read against the accepts header, not the content-type header.  The fact that this code works is somewhat of an accident, because a single content-type header is the same as a single accepts header, but this code will allow multiple accepts headers, which is incorrect.",
+      "range": {
+        "startLine": 689,
+        "startChar": 29,
+        "endLine": 689,
+        "endChar": 46
+      },
+      "revId": "d41dff7f1f43a668e584ca191f06f27717e760d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42dcbb59_7b0dbf85",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
