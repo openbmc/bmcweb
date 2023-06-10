@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12e8e68_1daf40f2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-10T16:32:45Z",
+      "side": 1,
+      "message": "In the flow, can you please make this control the flow of the branches on line 703 and 701?  If the Content-Type is not form-data, we should not be running it through the form-data parser.\n\nAs written, the flow still tries to part octet-stream as form data.",
+      "revId": "51235efb464d850b177dccfae83079b34032f6d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
