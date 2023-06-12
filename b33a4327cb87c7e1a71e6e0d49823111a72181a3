@@ -16,6 +16,24 @@
       "message": "How does this play with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64072 ?\nWhen insecure-ignore-content-type is enabled, should we ignore this check?",
       "revId": "b33a4327cb87c7e1a71e6e0d49823111a72181a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ffad278_586181c4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-12T21:37:33Z",
+      "side": 1,
+      "message": "I think what is here is probably the best. \nWhat was here before was hacky.. :/\n\nCould do something like \n```\n    else\n    {\n    BMCWEB_LOG_DEBUG \u003c\u003c \"Bad content type specified:\" \u003c\u003c contentType;\n#ifndef BMCWEB_INSECURE_IGNORE_CONTENT_TYPE\n    // Setup callback for when new software detected\n    monitorForSoftwareAvailable(asyncResp, req, \"/redfish/v1/UpdateService\");\n    MultipartParser parser;\n    ParserError ec \u003d parser.parse(req);\n    if (ec \u003d\u003d ParserError::ERROR_BOUNDARY_FORMAT)\n    {\n        // If the request didnt\u0027 contain boundary information, assume it was a\n        // POST binary payload.\n        uploadImageFile(asyncResp-\u003eres, req.body());\n        return;\n    }\n    if (ec !\u003d ParserError::PARSER_SUCCESS)\n    {\n        // handle error\n        BMCWEB_LOG_ERROR \u003c\u003c \"MIME parse failed, ec : \" \u003c\u003c static_cast\u003cint\u003e(ec);\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n    updateMultipartContext(asyncResp, parser);\n#else\n    asyncResp-\u003eres.result(boost::beast::http::status::bad_request);\n#endif\n\n    }\n```\n\nBut that seem better..",
+      "parentUuid": "a16a45d6_b123b0d9",
+      "revId": "b33a4327cb87c7e1a71e6e0d49823111a72181a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
