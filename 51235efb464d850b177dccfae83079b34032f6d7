@@ -16,6 +16,24 @@
       "message": "In the flow, can you please make this control the flow of the branches on line 703 and 701?  If the Content-Type is not form-data, we should not be running it through the form-data parser.\n\nAs written, the flow still tries to part octet-stream as form data.",
       "revId": "51235efb464d850b177dccfae83079b34032f6d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1400a7e3_ad60526f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-12T19:06:59Z",
+      "side": 1,
+      "message": "Please check my latest code and see if that is ok. I was able to send data of type multipart/form-data like this but it expect some attributes.\n\nfilename\u003d$image_file\nfiletype\u003d\u0027multipart/form-data\u0027\ntoken\u003d$TOKEN\nurl\u003d\"https://${bmc}/redfish/v1/UpdateService/update\"\n\ncurl -k -H \"X-Auth-Token: $TOKEN\" \\\n  --form \"file\u003d@$filename;type\u003d$filetype\" \\\n  \"$url\"",
+      "parentUuid": "a12e8e68_1daf40f2",
+      "revId": "51235efb464d850b177dccfae83079b34032f6d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
