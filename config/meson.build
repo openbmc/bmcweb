@@ -10,6 +10,10 @@ conf_data.set10('BMCWEB_INSECURE_ENABLE_QUERY_PARAMS', enable_redfish_query.enab
 # conf_data.set10('BMCWEB_ENABLE_REDFISH_AGGREGATION', enable_redfish_aggregation.enabled())
 insecure_push_style_notification = get_option('insecure-push-style-notification')
 conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push_style_notification.enabled())
+
+insecure_ignore_content_type = get_option('insecure-ignore-content-type')
+conf_data.set10('BMCWEB_INSECURE_IGNORE_CONTENT_TYPE', insecure_ignore_content_type.enabled())
+
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))

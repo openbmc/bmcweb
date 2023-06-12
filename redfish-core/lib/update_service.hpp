@@ -688,15 +688,8 @@ inline void
 
     // Make sure that content type is application/octet-stream or
     // multipart/form-data
-    if (boost::iequals(contentType, "application/octet-stream"))
-    {
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
-
-        uploadImageFile(asyncResp->res, req.body());
-    }
-    else if (contentType.starts_with("multipart/form-data"))
+    if (contentType.starts_with("multipart/form-data") ||
+        !bmcwebInsecureIgnoreContentType)
     {
         MultipartParser parser;
 
@@ -705,21 +698,33 @@ inline void
                                     "/redfish/v1/UpdateService");
 
         ParserError ec = parser.parse(req);
-        if (ec != ParserError::PARSER_SUCCESS)
+        if (ec == ParserError::PARSER_SUCCESS)
         {
-            // handle error
-            BMCWEB_LOG_ERROR << "MIME parse failed, ec : "
-                             << static_cast<int>(ec);
-            messages::internalError(asyncResp->res);
+            updateMultipartContext(asyncResp, parser);
             return;
         }
-        updateMultipartContext(asyncResp, parser);
+        // If we don't ignore the content type, send bad request back to the
+        // user. Otherwise, continue to other avenues.
+        if (!bmcwebInsecureIgnoreContentType)
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
     }
-    else
+    // If the content type matches, or we fell through parsing for multipart
+    if (boost::iequals(contentType, "application/octet-stream") ||
+        !bmcwebInsecureIgnoreContentType)
     {
-        BMCWEB_LOG_DEBUG << "Bad content type specified:" << contentType;
-        asyncResp->res.result(boost::beast::http::status::bad_request);
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
+
+        uploadImageFile(asyncResp->res, req.body());
+        return;
     }
+
+    BMCWEB_LOG_DEBUG << "Bad content type specified:" << contentType;
+    asyncResp->res.result(boost::beast::http::status::bad_request);
 }
 
 inline void requestRoutesUpdateService(App& app)
