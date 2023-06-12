@@ -34,6 +34,24 @@
       "parentUuid": "a16a45d6_b123b0d9",
       "revId": "b33a4327cb87c7e1a71e6e0d49823111a72181a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b08241_0fe01318",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-12T22:22:02Z",
+      "side": 1,
+      "message": "Good catch. Should we wait to see if anyone complains about it?",
+      "parentUuid": "9ffad278_586181c4",
+      "revId": "b33a4327cb87c7e1a71e6e0d49823111a72181a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
