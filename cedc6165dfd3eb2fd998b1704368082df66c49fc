@@ -16,6 +16,46 @@
       "message": "Did some of the lambda breakouts so this patchset looks a lot cleaner.  LGTM if the author and everyone else is ok with it.",
       "revId": "cedc6165dfd3eb2fd998b1704368082df66c49fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41fced8e_25ff919d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 97
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-12T21:07:41Z",
+      "side": 1,
+      "message": "pass by reference?",
+      "range": {
+        "startLine": 61,
+        "startChar": 52,
+        "endLine": 61,
+        "endChar": 54
+      },
+      "revId": "cedc6165dfd3eb2fd998b1704368082df66c49fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddf4fb2_f0ddaf06",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 97
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-12T21:07:41Z",
+      "side": 1,
+      "message": "shouldn\u0027t we give an error, similar to what we do in other places, if the endpoints interface is supported but the getProperty function returns an error? \n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fabric_adapters.hpp#L52",
+      "revId": "cedc6165dfd3eb2fd998b1704368082df66c49fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
