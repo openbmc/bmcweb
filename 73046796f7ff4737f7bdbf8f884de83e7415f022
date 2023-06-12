@@ -197,6 +197,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b9b0b2e_ffb0d455",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-12T20:30:22Z",
+      "side": 1,
+      "message": "It is important to note that the current implementation works for only Intel. I would suggest considering the addition of fan inventory information similar to what has been done for other components such as PowerSupply and fabric_adapters.\n\nWhen incorporating fan inventory add sensors and cooled_by association to Fan Inventory. Here is an example:\n\nFor sensors:\n{\n    \"types\": {\n        \"rType\": \"inventory\",\n        \"fType\": \"sensors\"\n    },\n    \"paths\": [\n        \"/xyz/openbmc_project/sensors/fan_tach/fan1_0\",  // sensor paths\n        \"/xyz/openbmc_project/sensors/fan_tach/fan1_1\"\n    ]\n}\n\nFor cooled_by association:\n{\n    \"types\": {\n        \"rType\": \"cooled_by\",\n        \"fType\": \"cooling\"\n    },\n    \"paths\": [\n        \"/xyz/openbmc_project/inventory/system/chassis\"  // Chassis path\n    ]\n}",
+      "parentUuid": "f83fa707_69b7fa3f",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
