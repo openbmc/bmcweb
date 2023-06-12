@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e7eebf3_79309a79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-12T21:03:33Z",
+      "side": 1,
+      "message": "Option is now moved to experimental.  Will test webui-vue as I get time.",
+      "parentUuid": "2a30f516_3757a564",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45234503_b0744d6e",
@@ -158,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5c0322_44547009",
+        "filename": "meson_options.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-12T21:03:33Z",
+      "side": 1,
+      "message": "At some point it should be enabled by default, but not for now.",
+      "parentUuid": "0fb24f9c_eb118abd",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "788ad920_987faba0",
@@ -195,6 +231,30 @@
       "side": 1,
       "message": "ACK",
       "parentUuid": "788ad920_987faba0",
+      "range": {
+        "startLine": 255,
+        "startChar": 25,
+        "endLine": 255,
+        "endChar": 31
+      },
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd48b74_06247dda",
+        "filename": "meson_options.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-12T21:03:33Z",
+      "side": 1,
+      "message": "Changed to HTTP/2 and mentioned that we use nghttp2.",
+      "parentUuid": "395878a4_647cb0c9",
       "range": {
         "startLine": 255,
         "startChar": 25,
