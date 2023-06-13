@@ -22,6 +22,29 @@
       },
       "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399b1f2b_9bac7b7b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-13T17:48:26Z",
+      "side": 1,
+      "message": "Can you please review the \"cookieAuth\" flag that we used to have here.  I suspect you need to just do some reverts.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 28
+      },
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
