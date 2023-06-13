@@ -38,6 +38,7 @@ using RcAcquireLock = std::pair<bool, std::variant<Rc, std::pair<bool, int>>>;
 using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
 using SessionFlags = std::pair<SType, SType>;
 using ListOfSessionIds = std::vector<std::string>;
+static constexpr uint8_t LockResourceIdSizeInBytes = 8;
 
 class Lock
 {
@@ -187,7 +188,7 @@ class Lock
 
 inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 {
-    std::vector<std::pair<uint32_t, LockRequests>> lockList;
+    std::vector<std::pair<uint32_t, LockRequests>> lockList{};
 
     if (!lockTable.empty())
     {
@@ -513,30 +514,33 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 // If all the elements in the lock requests which are subjected for comparison
 // are same, then the last comparison would be to check for the respective
 // bytes in the resourceid based on the segment length.
-
-inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
-                            uint32_t /*position*/)
+inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
+                            uint32_t position)
 {
-    BMCWEB_LOG_ERROR
-        << "This code is disabled due to clang-tidy issues that prevent CI "
-           "from passing.";
-    std::terminate();
+    std::vector<uint8_t> res1;
+    std::vector<uint8_t> res2;
 
-#if 0
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    uint8_t* p = reinterpret_cast<uint8_t*>(&resourceId1);
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    uint8_t* q = reinterpret_cast<uint8_t*>(&resourceId2);
+    for (uint8_t i = 0; i < sizeof(resourceId1); i++)
+    {
+        uint8_t byte = resourceId1 >> (i * 8);
+        res1.insert(res1.begin(), byte);
+    }
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    uint8_t pPosition = p[position];
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    uint8_t qPosition = q[position];
+    for (uint8_t i = 0; i < sizeof(resourceId2); i++)
+    {
+        uint8_t byte = resourceId2 >> (i * 8);
+        res2.insert(res1.begin(), byte);
+    }
 
-    BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(pPosition) << ","
-                     << std::to_string(qPosition);
+    uint8_t pPosition = 0;
+    uint8_t qPosition = 0;
+    if (position < LockResourceIdSizeInBytes)
+    {
+        pPosition = res1[position];
+        qPosition = res2[position];
+    }
+
     return pPosition == qPosition;
-#endif
 }
 
 inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
