@@ -154,6 +154,24 @@
       "message": "This second check in the if is not required as it is already handled by first if, right?",
       "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5800230_b348eca6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-13T13:34:12Z",
+      "side": 1,
+      "message": "This is still needed if you entered \n\n    if (contentType.starts_with(\"multipart/form-data\") ||\n        !bmcwebEnforceContentType)\n\nbut had a ec !\u003d ParserError::PARSER_SUCCESS\n\nA comment or two would help here, I had to really think about the decision tree",
+      "parentUuid": "21e0c109_e587e494",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
