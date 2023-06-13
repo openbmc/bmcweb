@@ -239,6 +239,24 @@
       "parentUuid": "c4fa6676_617a661d",
       "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4afc3baa_6fb79b53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-13T23:06:58Z",
+      "side": 1,
+      "message": "After experimenting various options/configurations, the issue happens due to the optimization option (-Os) (which seems also set by default).\n\nTo avoid the issue, two settings are needed in `local.conf` to handle `--buildtype\u003ddebug`\n\n\n- `DEBUG_BUILD:pn-bmcweb \u003d \"1\"`     \n    This is to set the optimization option !\u003d \u0027-Os\u0027.\n    However, this does not build bmcweb as debug logging level.\n\n- `EXTRA_OEMESON:pn-bmcweb:append \u003d \"--buildtype\u003denabled\"`\n    This is to build bmcweb as debug buildtype.",
+      "parentUuid": "f9679025_e786be2c",
+      "revId": "838586adfdaf8400d2790b2df09d2aa8026d79bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
