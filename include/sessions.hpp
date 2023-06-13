@@ -40,6 +40,7 @@ struct UserSession
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence{PersistenceType::TIMEOUT};
     bool isConfigureSelfOnly = false;
+    bool authByToken = true;
     std::string userRole{};
     std::vector<std::string> userGroups{};
 
@@ -259,6 +260,7 @@ class SessionStore
             redfish::ip_util::toString(clientIp),
             std::chrono::steady_clock::now(), persistence,
             isConfigureSelfOnly});
+	session->authByToken = false;
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
@@ -279,6 +281,7 @@ class SessionStore
         }
         std::shared_ptr<UserSession> userSession = sessionIt->second;
         userSession->lastUpdated = std::chrono::steady_clock::now();
+        userSession->authByToken = true;
         return userSession;
     }
 
