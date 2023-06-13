@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c44de8ab_7dbd1993",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-13T16:51:36Z",
+      "side": 1,
+      "message": "I\u0027m fine either way.",
+      "parentUuid": "f2a0dc18_d6bcb408",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c60f741_eb55065e",
@@ -107,6 +125,48 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "62ffaa14_bf67c3d7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-13T16:51:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfb9189f_984375c7",
+      "range": {
+        "startLine": 692,
+        "startChar": 9,
+        "endLine": 692,
+        "endChar": 33
+      },
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a41c6ba9_f9266a43",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-13T16:51:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "194815b5_1799dc2f",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "636c3f11_5153af8a",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -135,6 +195,24 @@
       "writtenOn": "2023-06-13T03:31:59Z",
       "side": 1,
       "message": "This is not quite the same because in the old code vs here we just try uploadImageFile with any ec !\u003d ParserError::PARSER_SUCCESS. I think this is okay though. \n\n    if (ec \u003d\u003d ParserError::ERROR_BOUNDARY_FORMAT)\n    {\n        // If the request didnt\u0027 contain boundary information, assume it was a\n        // POST binary payload.\n        uploadImageFile(asyncResp-\u003eres, req.body());\n        return;\n    }",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e82c77_82b9f809",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-13T16:51:36Z",
+      "side": 1,
+      "message": "ACK.  Agreed, I think it\u0027s ok.",
+      "parentUuid": "31f503c2_b416104c",
       "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
