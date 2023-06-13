@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2a0dc18_d6bcb408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-13T03:31:59Z",
+      "side": 1,
+      "message": "I am just not sure this is worth the complexity. \nI am fine either way. As soon as we don\u0027t add this, someone will probably complain ;)",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c60f741_eb55065e",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-13T03:31:59Z",
+      "side": 1,
+      "message": "bmcwebInsecureIgnoreContentType or keep this and change https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64143/2/config/bmcweb_config.h.in",
+      "range": {
+        "startLine": 28,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb9189f_984375c7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-13T03:31:59Z",
+      "side": 1,
+      "message": "bmcwebInsecureIgnoreContentType",
+      "range": {
+        "startLine": 692,
+        "startChar": 9,
+        "endLine": 692,
+        "endChar": 33
+      },
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "636c3f11_5153af8a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-13T03:31:59Z",
+      "side": 1,
+      "message": "A comment here would help \n// When ContentType is multipart, but ec !\u003d ParserError::PARSER_SUCCESS",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f503c2_b416104c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-13T03:31:59Z",
+      "side": 1,
+      "message": "This is not quite the same because in the old code vs here we just try uploadImageFile with any ec !\u003d ParserError::PARSER_SUCCESS. I think this is okay though. \n\n    if (ec \u003d\u003d ParserError::ERROR_BOUNDARY_FORMAT)\n    {\n        // If the request didnt\u0027 contain boundary information, assume it was a\n        // POST binary payload.\n        uploadImageFile(asyncResp-\u003eres, req.body());\n        return;\n    }",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
