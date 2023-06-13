@@ -187,7 +187,7 @@ class Lock
 
 inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 {
-    std::vector<std::pair<uint32_t, LockRequests>> lockList;
+    std::vector<std::pair<uint32_t, LockRequests>> lockList{};
 
     if (!lockTable.empty())
     {
@@ -220,7 +220,8 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
                                           const SessionFlags& ids)
 {
-    bool status = validateRids(p);
+    bool status = false;
+    status = validateRids(p);
 
     if (!status)
     {
@@ -255,7 +256,8 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
     // check for conflict record
 
     const LockRequests& multiRequest = lockRequestStructure;
-    bool status = isConflictRequest(multiRequest);
+    bool status = false;
+    status = isConflictRequest(multiRequest);
 
     if (status)
     {
@@ -514,8 +516,9 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 // are same, then the last comparison would be to check for the respective
 // bytes in the resourceid based on the segment length.
 
-inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
-                            uint32_t /*position*/)
+inline static bool Lock::checkByte(uint64_t /*resourceId1*/, 
+                                   uint64_t /*resourceId2*/,
+                                   uint32_t /*position*/)
 {
     BMCWEB_LOG_ERROR
         << "This code is disabled due to clang-tidy issues that prevent CI "
