@@ -187,7 +187,7 @@ class Lock
 
 inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 {
-    std::vector<std::pair<uint32_t, LockRequests>> lockList;
+    std::vector<std::pair<uint32_t, LockRequests>> lockList{};
 
     if (!lockTable.empty())
     {
@@ -220,7 +220,8 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
                                           const SessionFlags& ids)
 {
-    bool status = validateRids(p);
+    bool status = false;
+    status = validateRids(p);
 
     if (!status)
     {
@@ -238,7 +239,7 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
     return std::make_pair(true, status2);
 }
 
-inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
+inline static RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 {
     // validate the lock request
 
@@ -255,7 +256,8 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
     // check for conflict record
 
     const LockRequests& multiRequest = lockRequestStructure;
-    bool status = isConflictRequest(multiRequest);
+    bool status = false;
+    status = isConflictRequest(multiRequest);
 
     if (status)
     {
@@ -272,7 +274,7 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
     return std::make_pair(false, conflict);
 }
 
-inline void Lock::releaseLock(const std::string& sessionId)
+inline static void Lock::releaseLock(const std::string& sessionId)
 {
     if (!lockTable.empty())
     {
@@ -299,7 +301,7 @@ inline void Lock::releaseLock(const std::string& sessionId)
         }
     }
 }
-inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
+inline static RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
                                      const SessionFlags& ids)
 {
     for (const auto& id : refRids)
@@ -338,7 +340,7 @@ inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
     return std::make_pair(true, std::make_pair(0, LockRequest()));
 }
 
-inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
+inline static bool Lock::validateRids(const ListOfTransactionIds& refRids)
 {
     for (const auto& id : refRids)
     {
@@ -359,7 +361,7 @@ inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
     return true;
 }
 
-inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
+inline static bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 {
     // validate the locktype
 
@@ -425,7 +427,7 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
     return true;
 }
 
-inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
+inline static Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 {
     if (lockTable.empty())
     {
@@ -471,7 +473,7 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
     return std::make_pair(false, transactionId);
 }
 
-inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
+inline static bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 {
     // check for all the locks coming in as a part of single request
     // return conflict if any two lock requests are conflicting
@@ -514,7 +516,7 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 // are same, then the last comparison would be to check for the respective
 // bytes in the resourceid based on the segment length.
 
-inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
+inline static bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
                             uint32_t /*position*/)
 {
     BMCWEB_LOG_ERROR
@@ -539,7 +541,7 @@ inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
 #endif
 }
 
-inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
+inline static bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
                                    const LockRequest& refLockRecord2)
 {
     // No conflict if both are read locks
@@ -613,7 +615,7 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
     return true;
 }
 
-inline uint32_t Lock::generateTransactionId()
+inline static uint32_t Lock::generateTransactionId()
 {
     ++transactionId;
     return transactionId;
