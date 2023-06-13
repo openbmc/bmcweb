@@ -187,7 +187,7 @@ class Lock
 
 inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 {
-    std::vector<std::pair<uint32_t, LockRequests>> lockList;
+    std::vector<std::pair<uint32_t, LockRequests>> lockList{};
 
     if (!lockTable.empty())
     {
@@ -220,7 +220,8 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
                                           const SessionFlags& ids)
 {
-    bool status = validateRids(p);
+    bool status = false;
+    status = validateRids(p);
 
     if (!status)
     {
@@ -255,7 +256,8 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
     // check for conflict record
 
     const LockRequests& multiRequest = lockRequestStructure;
-    bool status = isConflictRequest(multiRequest);
+    bool status = false;
+    status = isConflictRequest(multiRequest);
 
     if (status)
     {
@@ -513,16 +515,13 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 // If all the elements in the lock requests which are subjected for comparison
 // are same, then the last comparison would be to check for the respective
 // bytes in the resourceid based on the segment length.
-
-inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
-                            uint32_t /*position*/)
+inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
+                            uint32_t position)
 {
     BMCWEB_LOG_ERROR
         << "This code is disabled due to clang-tidy issues that prevent CI "
            "from passing.";
-    std::terminate();
 
-#if 0
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     uint8_t* p = reinterpret_cast<uint8_t*>(&resourceId1);
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
@@ -536,7 +535,6 @@ inline bool Lock::checkByte(uint64_t /*resourceId1*/, uint64_t /*resourceId2*/,
     BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(pPosition) << ","
                      << std::to_string(qPosition);
     return pPosition == qPosition;
-#endif
 }
 
 inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
