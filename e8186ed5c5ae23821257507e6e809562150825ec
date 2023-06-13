@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dccd6d6_bfe32199",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-13T13:30:12Z",
+      "side": 1,
+      "message": "Extracting fanName 2 places, removed it here.",
+      "parentUuid": "96c6fd25_de82e963",
+      "revId": "e8186ed5c5ae23821257507e6e809562150825ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a94a31bd_d0dc77fe",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb538f1_03f646fa",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-13T13:30:12Z",
+      "side": 1,
+      "message": "We found the fan in line 160 but the service is not found. It is internal error.\nIf we don\u0027t find the fanId then returning resource not found at Line 184.",
+      "parentUuid": "a94a31bd_d0dc77fe",
+      "revId": "e8186ed5c5ae23821257507e6e809562150825ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f2ffdbb_cfb8b666",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-06-02T22:04:06Z",
       "side": 1,
       "message": "Ed told me that common way to do this is as follows,\n    std::string endpointPath \u003d\n        sdbusplus::message::object_path(validChassisPath) /\n        \"cooled_by\";",
+      "revId": "e8186ed5c5ae23821257507e6e809562150825ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "852f3581_36b8cf4a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-13T13:30:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f2ffdbb_cfb8b666",
       "revId": "e8186ed5c5ae23821257507e6e809562150825ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
