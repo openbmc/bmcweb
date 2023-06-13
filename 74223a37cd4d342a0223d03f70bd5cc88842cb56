@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0075c7a_5229d480",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-13T13:25:05Z",
+      "side": 1,
+      "message": "yes, Variable name doesn\u0027t match.",
+      "parentUuid": "4c60f741_eb55065e",
+      "range": {
+        "startLine": 28,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfb9189f_984375c7",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -60,6 +84,23 @@
         "endLine": 692,
         "endChar": 33
       },
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194815b5_1799dc2f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-13T13:25:05Z",
+      "side": 1,
+      "message": "Correct the variable name.",
       "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -94,6 +135,23 @@
       "writtenOn": "2023-06-13T03:31:59Z",
       "side": 1,
       "message": "This is not quite the same because in the old code vs here we just try uploadImageFile with any ec !\u003d ParserError::PARSER_SUCCESS. I think this is okay though. \n\n    if (ec \u003d\u003d ParserError::ERROR_BOUNDARY_FORMAT)\n    {\n        // If the request didnt\u0027 contain boundary information, assume it was a\n        // POST binary payload.\n        uploadImageFile(asyncResp-\u003eres, req.body());\n        return;\n    }",
+      "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e0c109_e587e494",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-13T13:25:05Z",
+      "side": 1,
+      "message": "This second check in the if is not required as it is already handled by first if, right?",
       "revId": "74223a37cd4d342a0223d03f70bd5cc88842cb56",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
