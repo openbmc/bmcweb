@@ -12,7 +12,6 @@ insecure_push_style_notification = get_option('insecure-push-style-notification'
 conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push_style_notification.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
-conf_data.set('HTTPS_PORT', get_option('https_port'))
 enable_health_populate = get_option('redfish-health-populate')
 conf_data.set10('BMCWEB_ENABLE_HEALTH_POPULATE', enable_health_populate.enabled())
 enable_proc_mem_status = get_option('redfish-enable-proccessor-memory-status')
