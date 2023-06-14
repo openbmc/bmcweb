@@ -563,7 +563,7 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
     resp.jsonValue["@odata.type"] = "#PCIeFunction.v1_2_3.PCIeFunction";
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions/{}",
-        pcieDeviceId, pcieFunctionId);
+        pcieDeviceId, std::to_string(pcieFunctionId));
     resp.jsonValue["Name"] = "PCIe Function";
     resp.jsonValue["Id"] = std::to_string(pcieFunctionId);
     resp.jsonValue["FunctionId"] = pcieFunctionId;
