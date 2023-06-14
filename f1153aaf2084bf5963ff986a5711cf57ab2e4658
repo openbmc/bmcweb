@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6471bf31_cc753355",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-14T17:15:52Z",
+      "side": 1,
+      "message": "\u003e https://github.com/openbmc/bmcweb/commit/5b224921d765a93c5f93a6012109a9a748ef7cd4 and https://github.com/openbmc/bmcweb/commit/a1e0871d2425b3f42d0e5893d548593e5ed576bb were added a year ago?\n\u003e Or what commit are you talking about?\n\nYep.  Those commits.  This patchset was \"recent\" at the time it was pushed (September 2022).  I can remove the word recent if it helps.",
+      "parentUuid": "445434b7_07cc8af6",
+      "revId": "f1153aaf2084bf5963ff986a5711cf57ab2e4658",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c107d93b_abdd57e1",
