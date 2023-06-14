@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445434b7_07cc8af6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-14T16:26:33Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/5b224921d765a93c5f93a6012109a9a748ef7cd4 and https://github.com/openbmc/bmcweb/commit/a1e0871d2425b3f42d0e5893d548593e5ed576bb were added a year ago?\nOr what commit are you talking about?",
+      "revId": "f1153aaf2084bf5963ff986a5711cf57ab2e4658",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c107d93b_abdd57e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-14T16:26:33Z",
+      "side": 1,
+      "message": "Code seems good",
+      "revId": "f1153aaf2084bf5963ff986a5711cf57ab2e4658",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
