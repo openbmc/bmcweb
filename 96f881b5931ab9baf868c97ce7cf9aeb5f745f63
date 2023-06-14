@@ -34,6 +34,24 @@
       "parentUuid": "28b0dd09_cc1262f2",
       "revId": "96f881b5931ab9baf868c97ce7cf9aeb5f745f63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9461acf2_e3cf9e24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-14T18:46:14Z",
+      "side": 1,
+      "message": "I updated the message.\nCode that updates the OperationalStatus for all the inventory\nhttps://github.com/openbmc/openpower-vpd-parser/blob/ \\\n3fb026386546cfd288ab4f86156c9aa0ffa145d6/ibm_vpd_app.cpp#L620",
+      "parentUuid": "ec4bd1f0_f7035e21",
+      "revId": "96f881b5931ab9baf868c97ce7cf9aeb5f745f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
