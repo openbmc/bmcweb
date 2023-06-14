@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "826d5f82_3bc1aee9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-14T21:12:46Z",
+      "side": 1,
+      "message": "I think it may be better as one http link.\nIf it exceeds 50 chars, we can put it inside ``.\n\n`https://github.com/openbmc/openpower-vpd-parser/blob/3fb026386546cfd288ab4f86156c9aa0ffa145d6/ibm_vpd_app.cpp#L620`",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "e1eed446d77b98f641b91d71bb01ad31cc2584da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
