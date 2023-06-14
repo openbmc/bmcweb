@@ -459,16 +459,15 @@ inline std::shared_ptr<boost::asio::ssl::context>
         BMCWEB_LOG_ERROR << "Error setting tmp ecdh list\n";
     }
 
-    std::string mozillaModern = "ECDHE-ECDSA-AES256-GCM-SHA384:"
+    std::string mozillaModern = "ECDHE-ECDSA-AES128-GCM-SHA256:"
+                                "ECDHE-RSA-AES128-GCM-SHA256:"
+                                "ECDHE-ECDSA-AES256-GCM-SHA384:"
                                 "ECDHE-RSA-AES256-GCM-SHA384:"
                                 "ECDHE-ECDSA-CHACHA20-POLY1305:"
                                 "ECDHE-RSA-CHACHA20-POLY1305:"
-                                "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                "ECDHE-RSA-AES128-GCM-SHA256:"
-                                "ECDHE-ECDSA-AES256-SHA384:"
-                                "ECDHE-RSA-AES256-SHA384:"
-                                "ECDHE-ECDSA-AES128-SHA256:"
-                                "ECDHE-RSA-AES128-SHA256";
+                                "DHE-RSA-AES128-GCM-SHA256:"
+                                "DHE-RSA-AES256-GCM-SHA384:"
+                                "DHE-RSA-CHACHA20-POLY1305";
 
     if (SSL_CTX_set_cipher_list(mSslContext->native_handle(),
                                 mozillaModern.c_str()) != 1)
