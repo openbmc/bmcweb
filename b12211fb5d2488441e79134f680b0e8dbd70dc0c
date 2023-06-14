@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23a4fd43_eb5b248a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-06-14T16:51:39Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-debug-collector/+/49466 is being change to expose the file handle instead of a filepath.  I\u0027m going to switch this patch to WIP until it\u0027s been updated to remove the use of a hardcoded filepath",
+      "parentUuid": "2aea3f7c_ac86d985",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 46
+      },
+      "revId": "b12211fb5d2488441e79134f680b0e8dbd70dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3980cf73_3f7233a5",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 7
