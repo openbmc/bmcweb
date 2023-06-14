@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ee8dcf_8635b7c7",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-14T22:22:29Z",
+      "side": 1,
+      "message": "It looks like this function is searching \"PCIeDevice\" \u0026 \"PCIeSlot\" and then pass isPCIeDevice boolean value to callback. The callback is checking it and goes thru the different path.\n\nThis style seems causing some confusion when following the logic flow.\n\nFor example,\nif it is PCIeDevice, \n\n```\nhandlePCIeDeviceGet() {\n            getPCIeDeviceAsset(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceState(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceProperties(..., [](){\n                   addPCIeDeviceProperties()});\n            //Inside getSlotLocationAndProperties\n            getPCIeDeviceSlotPath( .. [](){\n               dbus::utility::getDbusObject(\n                   ...\n                   [](const boost::system::error_code\u0026 ec,\n                                 const dbus::utility::MapperGetObject\u0026 object) {\n\n                doSlotLocationAndProperties(asyncResp, pcieDeviceSlot,\n                                            object.begin()-\u003efirst);\n               });                \n          });\n ```\n \n if it is PCIeSlot,\n \n ```\n handlePCIeDeviceGet() {\n             \n            //Inside getSlotLocationAndProperties()\n         doSlotLocationAndProperties(asyncResp, pciePath, service);\n```\n\n----\n\n\nPerhaps, we can separate getValidPCIePath(), or get interfacename as a parameter, then we can branch out like\n\n- getValidPCIePathOnDevice() -- on as PCIeDevice\n- getValidPCIePathOnSlot() - on PCIeSlot\n\n\nThen, using those functions, separate the logic-flow for Device and Slot.\n\n\n```\ngetValidPCIePath(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 pcieId,  interfaces \u003c- as parameter)\n```\n\nThen, we may do \n             \n```\nhandlePCIeDeviceGet() {\n   getValidPCIePathOnDevice( ... ,\n       [](){\n            .... \u003ccall functions or do the followings\u003e...\n            getPCIeDeviceAsset(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceState(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceProperties(..., [](){\n                   addPCIeDeviceProperties()});\n            //Inside getSlotLocationAndProperties\n             ...\n    });\n    \n    getValidPCIePathOnSlot( ... \n        [](){\n             doSlotLocationAndProperties(asyncResp, pciePath, service);\n     });\n...\n```",
+      "range": {
+        "startLine": 512,
+        "startChar": 25,
+        "endLine": 512,
+        "endChar": 28
+      },
+      "revId": "09ba1533af0821459353848c75bb285b1b4ccb63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
