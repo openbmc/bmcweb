@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0180640_5b4fa654",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-06-15T08:51:40Z",
+      "side": 1,
+      "message": "This is not for webui login, which uses the token based authentication and no issues with websocket communication. Issue is only with command based authentication(basicAuth) which are used for websocket communication (Ex: SOL). In our case, We have python based scripts which are used for capturing the SOL logs.\n\nSOL uses the web sockets and tool such as python will uses BasicAuth to establish and get SOL logs and this fix addresses those use cases.",
+      "parentUuid": "ec4dc5cb_c1ce58ce",
+      "range": {
+        "startLine": 13,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "399b1f2b_9bac7b7b",
         "filename": "include/sessions.hpp",
         "patchSetId": 2
@@ -61,6 +85,30 @@
       "writtenOn": "2023-06-13T17:48:26Z",
       "side": 1,
       "message": "Can you please review the \"cookieAuth\" flag that we used to have here.  I suspect you need to just do some reverts.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 28
+      },
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cbc6814_82c57c64",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-06-15T08:51:40Z",
+      "side": 1,
+      "message": "This is most similar to the other cookieAuth which was removed, There setting this flag was missing(removed) and that caused failure. I made this flag to identify all Token based authentication and skipping CSRF tokens for those types.",
+      "parentUuid": "399b1f2b_9bac7b7b",
       "range": {
         "startLine": 43,
         "startChar": 0,
