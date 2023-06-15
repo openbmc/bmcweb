@@ -20,10 +20,8 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
     res.addHeader(bf::x_frame_options, "DENY");
 
     res.addHeader(bf::pragma, "no-cache");
-    res.addHeader(bf::cache_control, "no-Store,no-Cache");
+    res.addHeader(bf::cache_control, "no-store, max-age=0");
 
-    res.addHeader("X-XSS-Protection", "1; "
-                                      "mode=block");
     res.addHeader("X-Content-Type-Options", "nosniff");
 
     // Recommendations from https://owasp.org/www-project-secure-headers/
@@ -69,6 +67,15 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                         "usb=(self), "
                                         "web-share=(), "
                                         "xr-spatial-tracking2=()");
+
+    res.addHeader("X-Permitted-Cross-Domain-Policies",
+            "none");
+
+    res.addHeader("Clear-Site-Data", "\"cache\",\"cookies\",\"storage\"");
+
+    res.addHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    res.addHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.addHeader("Cross-Origin-Resource-Policy", "same-origin");
 
     if (bmcwebInsecureDisableXssPrevention == 0)
     {
