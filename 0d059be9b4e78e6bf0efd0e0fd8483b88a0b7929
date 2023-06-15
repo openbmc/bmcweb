@@ -3,6 +3,138 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b74d6e9_b575764c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "As written, I\u0027m not sure how this patchset helps.  It drops 10 lines in the cable example of IMO, relatively straightforward to read code (even if it includes loops), and replaces it with 700ish lines of very hard to read code, that, unless I\u0027m mistaken, doesn\u0027t replicate the behavior of the old code faithfully.\n\nI encourage you to keep working on refining the idea, and continue porting over more examples to try to get your idea to a net-negative line count, as well as simplify it, but as written, if this were deployed everywhere, I think it would hurt our debugability and readability.",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d516a07_0ba99538",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "Isn\u0027t this basically the same as:\n\nstd::function\u003cconst DbusVariantType\u0026,\n              const sdbusplus::message::object_path\u0026,\n              std::string_view, std::string_view,\n              MetaData\u0026\u003e\n              \n?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b46d367a_8d314736",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "I like to think I\u0027m ok with c++, but code like this is really a lot tougher to read and understand.\n\nalso, this would be our first usage of concepts in the project that I\u0027m aware of.  That\u0027s not to say you shouldn\u0027t, but lets make sure it actually reduces the complexity.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fe2950_3cdd60c6",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "You\u0027ve invented your own nlohmann::json::json_pointer type here.  Please don\u0027t invent your own, use what already exists, and we know escapes properly.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 5
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b638983_9ac96e3d",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "Why are these objects special?  There\u0027s no way to map a unix_fd to a redfish output directly.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 75
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7abcd1f_8a532c12",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "Like has been pointed out to you already, please don\u0027t use using namespace, per the coding standard.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78ed0b62_3068f03c",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
@@ -14,6 +146,70 @@
       "writtenOn": "2023-06-15T19:40:26Z",
       "side": 1,
       "message": "I am struggling to see how this is easier code to write and maintain..",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4541074_fdbd32eb",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "+1.  Yes, in this example it is 10 lines less code at the call site (21 lines instead of 32), but it:\n\nA. Uses quite a few inline lambdas, that we know cause debugability problems (inline lambdas don\u0027t print very good call stacks) and review problems (clang format likes to changes them significantly on what should be trivial diffs).\nB. Invokes a significant number of background lines (200 lines) of code that are harder to debug.\nC. Instantiates multiple templates that are non-standard.",
+      "parentUuid": "78ed0b62_3068f03c",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad967220_238c26ac",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "Isn\u0027t this wrong?  This is going to return a filled std::optional with a default constructed double (ie 0.0), which would then get serialized as 0.0, not null right?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87037c9b_41c2a507",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:28:10Z",
+      "side": 1,
+      "message": "This isn\u0027t the same has messages::internalError().",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 75
+      },
       "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
