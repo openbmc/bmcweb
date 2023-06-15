@@ -509,6 +509,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6f0f3e6_5d781af4",
+        "filename": "test/redfish-core/include/utils/dbus_tree_parser_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:39:29Z",
+      "side": 1,
+      "message": "Please do something like Processor or Sensor.  Cable is still far too simple.",
+      "parentUuid": "b106ff35_1e2346c4",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 1
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "942dd683_4755df46",
         "filename": "test/redfish-core/include/utils/dbus_tree_parser_test.cpp",
         "patchSetId": 1
