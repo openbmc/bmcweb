@@ -309,6 +309,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c82d012d_eca3e6ce",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T23:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb12e73b_4d3e8f22",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 79
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76b7743b_49862f0e",
@@ -464,6 +488,30 @@
       "side": 1,
       "message": "\u003e Yes. For the snmptrap clients, We cannot use random IDs.\n\nWhy not?  User-generated IDs are dangerous for code safety.\n\n\u003e Please see our previous discussion：\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/43/redfish-core/include/event_service_manager.hpp#851\n\nI see that comment, which was about default params.  Not sure what this has to do with ignoring the ID.",
       "parentUuid": "286d1ae5_c91c094c",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 73
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13d3298_623b51ae",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T23:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f261f913_da4e85fe",
       "range": {
         "startLine": 536,
         "startChar": 0,
