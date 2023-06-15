@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8457b806_7912951f",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T23:44:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec0d9508_d9c92841",
+      "range": {
+        "startLine": 146,
+        "startChar": 33,
+        "endLine": 147,
+        "endChar": 51
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da98249c_2cb57a38",
@@ -119,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f319c8a4_964d4580",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T23:44:56Z",
+      "side": 1,
+      "message": "This whole function needs to go in the snmp handler.  If duplicates aren\u0027t allowed, bmcweb shouldn\u0027t enforce that.",
+      "parentUuid": "42eeefdf_9a22e609",
+      "range": {
+        "startLine": 166,
+        "startChar": 16,
+        "endLine": 195,
+        "endChar": 17
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6090d976_039e3f7b",
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "Yes, you are right. I will push a patch to the SNMP daemon.\n\nHi Ratan, please look at this TODO in phosphor-snmp: https://github.com/openbmc/phosphor-snmp/blob/54d83f5a164caf8d45f727389ad8264203aae2a6/snmp_conf_manager.cpp#L83\nDo you plan to add the error(Object already exist) in the D-Bus interface?\n If not, can we use TooManyResources here? https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Common.errors.yaml#L13",
       "parentUuid": "6090d976_039e3f7b",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "14379c209958d49f94adbd3989e55603320cd882",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d6d011_6ed3cfb2",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T23:44:56Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "57a430c3_e8403dd8",
       "range": {
         "startLine": 221,
         "startChar": 0,
