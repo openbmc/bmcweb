@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb02c0fa_09723c22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:59:22Z",
+      "side": 1,
+      "message": "Please take a look at your tests results.  It\u0027s possible you found a bug in the service validator, can you please provide the passing report somewhere that we can inspect if that\u0027s the case?",
+      "revId": "4104b1286796c5d8c5df9b93868742603411799c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf15757_d497cc85",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:59:22Z",
+      "side": 1,
+      "message": "MemoryLocation.Channel is an Edm.Int64, not a string.  I have no idea how this could\u0027ve passed your test.",
+      "range": {
+        "startLine": 568,
+        "startChar": 12,
+        "endLine": 569,
+        "endChar": 5
+      },
+      "revId": "4104b1286796c5d8c5df9b93868742603411799c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29eb60f6_8b2c3152",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:59:22Z",
+      "side": 1,
+      "message": "Memory controller is also an int64.",
+      "range": {
+        "startLine": 573,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 46
+      },
+      "revId": "4104b1286796c5d8c5df9b93868742603411799c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad4d88fb_8e95d79c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:59:22Z",
+      "side": 1,
+      "message": "Slot is also an int 64.",
+      "range": {
+        "startLine": 581,
+        "startChar": 70,
+        "endLine": 581,
+        "endChar": 79
+      },
+      "revId": "4104b1286796c5d8c5df9b93868742603411799c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f468aa_86967820",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:59:22Z",
+      "side": 1,
+      "message": "Socket is also an int64.",
+      "range": {
+        "startLine": 587,
+        "startChar": 17,
+        "endLine": 587,
+        "endChar": 26
+      },
+      "revId": "4104b1286796c5d8c5df9b93868742603411799c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
