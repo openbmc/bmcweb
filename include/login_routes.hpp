@@ -235,7 +235,8 @@ inline void requestRoutes(App& app)
                                      "SESSION="
                                      "; SameSite=Strict; Secure; HttpOnly; "
                                      "expires=Thu, 01 Jan 1970 00:00:00 GMT");
-
+            asyncResp->res.addHeader("Clear-Site-Data",
+                                     "\"cache\",\"cookies\",\"storage\"");
             persistent_data::SessionStore::getInstance().removeSession(session);
         }
         });
