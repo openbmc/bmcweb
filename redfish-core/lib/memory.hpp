@@ -414,7 +414,7 @@ inline void
     const std::string* ecc = nullptr;
     const std::string* formFactor = nullptr;
     const std::vector<uint16_t>* allowedSpeedsMT = nullptr;
-    const uint8_t* memoryAttributes = nullptr;
+    const size_t* memoryAttributes = nullptr;
     const uint16_t* memoryConfiguredSpeedInMhz = nullptr;
     const std::string* memoryType = nullptr;
     const std::string* channel = nullptr;
@@ -531,8 +531,7 @@ inline void
 
     if (memoryAttributes != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["RankCount"] =
-            static_cast<uint64_t>(*memoryAttributes);
+        asyncResp->res.jsonValue[jsonPtr]["RankCount"] = *memoryAttributes;
     }
 
     if (memoryConfiguredSpeedInMhz != nullptr)
