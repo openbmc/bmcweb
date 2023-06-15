@@ -349,6 +349,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa307774_3dcc2ea8",
+        "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:10:43Z",
+      "side": 1,
+      "message": "What you\u0027re asking for is answered in the doc I pointed out above.  If you have questions, ask on discord or the mailing list.",
+      "parentUuid": "a4458208_ba530be5",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fcf38d71_fb4b3b44",
         "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
         "patchSetId": 1
