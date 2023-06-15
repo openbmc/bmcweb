@@ -72,6 +72,46 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "256958e8_63b1c09f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T22:02:31Z",
+      "side": 1,
+      "message": "Can we start with just revert",
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "608f504c_96d8573c",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T22:02:31Z",
+      "side": 1,
+      "message": "CSRF only applies to Cookie, not all auth types.",
+      "range": {
+        "startLine": 103,
+        "startChar": 29,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "399b1f2b_9bac7b7b",
@@ -109,6 +149,30 @@
       "side": 1,
       "message": "This is most similar to the other cookieAuth which was removed, There setting this flag was missing(removed) and that caused failure. I made this flag to identify all Token based authentication and skipping CSRF tokens for those types.",
       "parentUuid": "399b1f2b_9bac7b7b",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 28
+      },
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29303ef4_191dd5d8",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T22:02:31Z",
+      "side": 1,
+      "message": "That doesn\u0027t appear to be what your patchset does.  Can you please put the old logic (with if(cookieAuth) ) back in place?",
+      "parentUuid": "6cbc6814_82c57c64",
       "range": {
         "startLine": 43,
         "startChar": 0,
