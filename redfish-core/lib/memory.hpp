@@ -417,10 +417,10 @@ inline void
     const uint8_t* memoryAttributes = nullptr;
     const uint16_t* memoryConfiguredSpeedInMhz = nullptr;
     const std::string* memoryType = nullptr;
-    const std::string* channel = nullptr;
-    const std::string* memoryController = nullptr;
-    const std::string* slot = nullptr;
-    const std::string* socket = nullptr;
+    const std::uint8_t* channel = nullptr;
+    const std::uint8_t* memoryController = nullptr;
+    const std::uint8_t* slot = nullptr;
+    const std::uint8_t* socket = nullptr;
     const std::string* sparePartNumber = nullptr;
     const std::string* model = nullptr;
     const std::string* locationCode = nullptr;
@@ -564,24 +564,27 @@ inline void
 
     if (channel != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["MemoryLocation"]["Channel"] =
-            *channel;
+        aResp->res.jsonValue[jsonPtr]["MemoryLocation"]["Channel"] =
+            std::to_string(*channel);
     }
 
     if (memoryController != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["MemoryLocation"]
-                                ["MemoryController"] = *memoryController;
+        asyncResp->res
+            .jsonValue[jsonPtr]["MemoryLocation"]["MemoryController"] =
+            std::to_string(*memoryController);
     }
 
     if (slot != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["MemoryLocation"]["Slot"] = *slot;
+        std::string slotValue(1, char(*slot));
+        aResp->res.jsonValue[jsonPtr]["MemoryLocation"]["Slot"] = slotValue;
     }
 
     if (socket != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["MemoryLocation"]["Socket"] = *socket;
+        aResp->res.jsonValue[jsonPtr]["MemoryLocation"]["Socket"] =
+                            std::to_string(*socket);
     }
 
     if (sparePartNumber != nullptr)
