@@ -33,6 +33,24 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64114 looks like the same function",
       "revId": "8a0b58890420d3c006f20da06b68a39cd6b1fd3d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3db1fe_72b60b22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001768
+      },
+      "writtenOn": "2023-06-15T08:25:23Z",
+      "side": 1,
+      "message": "Yes, it is the same function. I tested implementation from this patchset on the real machine, it works correct.",
+      "parentUuid": "0424793b_7118407f",
+      "revId": "8a0b58890420d3c006f20da06b68a39cd6b1fd3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
