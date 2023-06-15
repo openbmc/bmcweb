@@ -417,10 +417,10 @@ inline void
     const uint8_t* memoryAttributes = nullptr;
     const uint16_t* memoryConfiguredSpeedInMhz = nullptr;
     const std::string* memoryType = nullptr;
-    const std::string* channel = nullptr;
-    const std::string* memoryController = nullptr;
-    const std::string* slot = nullptr;
-    const std::string* socket = nullptr;
+    const std::uint8_t* channel = nullptr;
+    const std::uint8_t* memoryController = nullptr;
+    const std::uint8_t* slot = nullptr;
+    const std::uint8_t* socket = nullptr;
     const std::string* sparePartNumber = nullptr;
     const std::string* model = nullptr;
     const std::string* locationCode = nullptr;
