@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88967f60_f3bf29f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:42:51Z",
+      "side": 1,
+      "message": "This also adds about 2kB to the binary size for one conversion of one instance of a unpackPropertiesNoThrow call.  Assuming this scaling holds, there are 41 unpack properties calls;  41 * 2KB \u003d 82KB, which means that if this patch is executed, it will add about 12% to the total binary size of bmcweb.  Please keep that in mind when making changes.",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d516a07_0ba99538",
