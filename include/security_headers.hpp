@@ -71,6 +71,15 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                   "web-share=(), "
                   "xr-spatial-tracking2=()");
 
+    res.addHeader("X-Permitted-Cross-Domain-Policies",
+            "none");
+
+    res.addHeader("Clear-Site-Data", "\"cache\",\"cookies\",\"storage\"");
+
+    res.addHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    res.addHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.addHeader("Cross-Origin-Resource-Policy", "same-origin");
+
     if (bmcwebInsecureDisableXssPrevention == 0)
     {
         res.addHeader("Content-Security-Policy", "default-src 'none'; "
