@@ -15,60 +15,52 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
      */
     using bf = boost::beast::http::field;
     res.addHeader(bf::strict_transport_security, "max-age=31536000; "
-                                                 "includeSubdomains; "
-                                                 "preload");
+                                                 "includeSubdomains");
     res.addHeader(bf::x_frame_options, "DENY");
 
     res.addHeader(bf::pragma, "no-cache");
-    res.addHeader(bf::cache_control, "no-Store,no-Cache");
+    res.addHeader(bf::cache_control, "no-store, max-age=0");
 
-    res.addHeader("X-XSS-Protection", "1; "
-                                      "mode=block");
     res.addHeader("X-Content-Type-Options", "nosniff");
 
     // Recommendations from https://owasp.org/www-project-secure-headers/
     // https://owasp.org/www-project-secure-headers/ci/headers_add.json
     res.addHeader("Referrer-Policy", "no-referrer");
-    res.addHeader("Permissions-Policy", "accelerometer=(), "
-                                        "ambient-light-sensor=(), "
-                                        "autoplay=(), "
-                                        "battery=(), "
-                                        "bluetooth=(), "
-                                        "camera=(), "
-                                        "ch-ua=(), "
-                                        "ch-ua-arch=(), "
-                                        "ch-ua-bitness=(), "
-                                        "ch-ua-full-version=(), "
-                                        "ch-ua-full-version-list=(), "
-                                        "ch-ua-mobile=(), "
-                                        "ch-ua-model=(), "
-                                        "ch-ua-platform=(), "
-                                        "ch-ua-platform-version=(), "
-                                        "ch-ua-wow64=(), "
-                                        "cross-origin-isolated=(), "
-                                        "display-capture=(), "
-                                        "encrypted-media=(), "
-                                        "execution-while-not-rendered=(), "
-                                        "execution-while-out-of-viewport=(), "
-                                        "fullscreen=(), "
-                                        "geolocation=(), "
-                                        "gyroscope=(), "
-                                        "hid=(), "
-                                        "idle-detection=(), "
-                                        "keyboard-map=(), "
-                                        "magnetometer=(), "
-                                        "microphone=(), "
-                                        "midi=(), "
-                                        "navigation-override=(), "
-                                        "payment=(), "
-                                        "picture-in-picture=(), "
-                                        "publickey-credentials-get=(), "
-                                        "screen-wake-lock=(), "
-                                        "serial=(), "
-                                        "sync-xhr=(), "
-                                        "usb=(self), "
-                                        "web-share=(), "
-                                        "xr-spatial-tracking2=()");
+    res.addHeader("Permissions-Policy", "accelerometer=(),"
+                                        "ambient-light-sensor=(),"
+                                        "autoplay=(),"
+                                        "battery=(),"
+                                        "camera=(),"
+                                        "display-capture=(),"
+                                        "document-domain=(),"
+                                        "encrypted-media=(),"
+                                        "fullscreen=(),"
+                                        "gamepad=(),"
+                                        "geolocation=(),"
+                                        "gyroscope=(),"
+                                        "layout-animations=(),"
+                                        "legacy-image-formats=(self),"
+                                        "magnetometer=(),"
+                                        "microphone=(),"
+                                        "midi=(),"
+                                        "oversized-images=(self),"
+                                        "payment=(),"
+                                        "picture-in-picture=(),"
+                                        "publickey-credentials-get=(),"
+                                        "speaker-selection=()"
+                                        "sync-xhr=(),"
+                                        "unoptimized-images=(),"
+                                        "unsized-media=(),"
+                                        "usb=(),"
+                                        "screen-wak-lock=(),"
+                                        "web-share=(),"
+                                        "xr-spatial-tracking=()");
+
+    res.addHeader("X-Permitted-Cross-Domain-Policies", "none");
+
+    res.addHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    res.addHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.addHeader("Cross-Origin-Resource-Policy", "same-origin");
 
     if (bmcwebInsecureDisableXssPrevention == 0)
     {
