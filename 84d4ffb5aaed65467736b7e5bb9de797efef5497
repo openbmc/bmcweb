@@ -438,6 +438,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "273da466_86735675",
+        "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:35:34Z",
+      "side": 1,
+      "message": "\u003e No exception will be escaped from parser.\n\nThis statement has been made many times by many people.  I\u0027m happy to discuss adding exceptions to non-critical paths, but not in the context of another very invasive change.\n\nAll of this patches error handling is for parsing errors, none of which are exceptional, therefore exceptions shouldn\u0027t be used.",
+      "parentUuid": "2f94e091_34fd3214",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 9
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8670e10_781b8b8d",
         "filename": "test/redfish-core/include/utils/dbus_tree_parser_test.cpp",
         "patchSetId": 1
