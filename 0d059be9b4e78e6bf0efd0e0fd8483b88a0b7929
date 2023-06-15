@@ -187,6 +187,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9441b03_e768c3ae",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T21:51:04Z",
+      "side": 1,
+      "message": "This branch is also wrong.\n\nthe old behavior was\n\n1. If it\u0027s finite: include it directly with no error.\n2. if it\u0027s not finite, but nan, do not add it but do not put in an error.\n3. if it\u0027s not finite, and not NAN, do not add it but add an error.\n\nThis patchset looks like it handles #2 incorrectly.",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad967220_238c26ac",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
