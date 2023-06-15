@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77ae148d_19b9c356",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-15T16:34:28Z",
+      "side": 1,
+      "message": "Will leave this open.  Please merge when the dependent commits are merged.",
+      "revId": "b7d52a12eda8754c918ff7f6fe4b06cac330c25c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
