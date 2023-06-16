@@ -22,6 +22,23 @@
       },
       "revId": "e1eed446d77b98f641b91d71bb01ad31cc2584da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84956f6b_50ae8794",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-16T13:37:06Z",
+      "side": 1,
+      "message": "Can you add the ec to this trace?",
+      "revId": "e1eed446d77b98f641b91d71bb01ad31cc2584da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
