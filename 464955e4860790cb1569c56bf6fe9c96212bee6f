@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67931a05_8ae1ff57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-16T18:42:49Z",
+      "side": 1,
+      "message": "Please take a look at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64256",
+      "parentUuid": "256958e8_63b1c09f",
+      "revId": "464955e4860790cb1569c56bf6fe9c96212bee6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "608f504c_96d8573c",
         "filename": "http/websocket.hpp",
         "patchSetId": 2
