@@ -152,6 +152,7 @@ static std::shared_ptr<persistent_data::UserSession>
     std::shared_ptr<persistent_data::UserSession> sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(
             authKey);
+    sessionOut->cookieAuth = true;
     if (sessionOut == nullptr)
     {
         return nullptr;
