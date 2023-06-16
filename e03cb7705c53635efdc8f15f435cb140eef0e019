@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aeecb356_dffd1aed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-16T21:13:46Z",
+      "side": 1,
+      "message": "Added some more context.  Clearly there is a use case, otherwise we wouldn\u0027t have gotten the patch.  I\u0027d like to get more information on what that use case is and how we can test it better, but for now, per the developing guide under the compatibility section, this is what we need to do.",
+      "parentUuid": "13907d41_b1703727",
+      "revId": "e03cb7705c53635efdc8f15f435cb140eef0e019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfb3a2e6_c8538a2f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-16T19:48:18Z",
       "side": 1,
       "message": "sign-off",
+      "revId": "e03cb7705c53635efdc8f15f435cb140eef0e019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "682ecdb1_270614b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-16T21:13:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfb3a2e6_c8538a2f",
       "revId": "e03cb7705c53635efdc8f15f435cb140eef0e019",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
