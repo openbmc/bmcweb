@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89ff7d56_06f4a61a",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-16T20:11:58Z",
+      "side": 1,
+      "message": "I still find this odd/unexpected. \nI guess when the PDI model was created, it was assumed all your PowerSupplies had the same Efficiency Rating? Can you alteast call this out in the commit msg..",
+      "parentUuid": "edec7aa9_85c4fe5e",
+      "revId": "15353e1082b74eaadfaa7059a386df95d2c3bb97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e888e7a2_2bf27af1",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 6
