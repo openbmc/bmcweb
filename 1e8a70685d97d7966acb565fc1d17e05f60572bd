@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed23415_5ba6b0c4",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-06-16T18:55:50Z",
+      "side": 1,
+      "message": "This can cause the crash without nullptr check. Better to move it to last before return ( After line no: 182)",
+      "revId": "1e8a70685d97d7966acb565fc1d17e05f60572bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
