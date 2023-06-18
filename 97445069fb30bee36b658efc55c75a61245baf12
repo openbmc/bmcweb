@@ -294,6 +294,24 @@
       "parentUuid": "4c308b36_c0a2865b",
       "revId": "97445069fb30bee36b658efc55c75a61245baf12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2e85b73_5761b86d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-06-18T13:24:44Z",
+      "side": 1,
+      "message": "can we use BMCWEB_HTTP_REQ_BODY_LIMIT_MB?\nwhich is already used in bmcweb code.",
+      "parentUuid": "46000391_13295c27",
+      "revId": "97445069fb30bee36b658efc55c75a61245baf12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
