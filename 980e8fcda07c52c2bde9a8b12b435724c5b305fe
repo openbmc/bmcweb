@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "376697b9_0705be92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 71
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-18T22:00:57Z",
+      "side": 1,
+      "message": "Seems reasonable to me.",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012c354b_e87d13fa",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-18T22:00:57Z",
+      "side": 1,
+      "message": "Not sure this makes sense.. But I don\u0027t see an error that is great here. (I think Redfish needs an additional \"NotSupported\" message. ActionNotSupported/SourceDoesNotSupportProtocol doesn\u0027t make a lot of sense.. Looking at https://redfish.dmtf.org/registries/Base.1.16.0.json) \n\nOh well. \n\n\n        \"PropertyValueOutOfRange\": {\n            \"Description\": \"Indicates that a property was given the correct value type but the value of that property is outside the supported range.\",\n            \"LongDescription\": \"This value shall be used to indicate that a property was given the correct value type but the value of that property is outside the supported range.\",\n            \"Message\": \"The value \u0027%1\u0027 for the property %2 is not in the supported range of acceptable values.\",\n            \"Severity\": \"Warning\",\n            \"MessageSeverity\": \"Warning\",\n            \"VersionAdded\": \"1.3.0\",\n            \"NumberOfArgs\": 2,\n            \"ParamTypes\": [\n                \"string\",\n                \"string\"\n            ],\n            \"ArgDescriptions\": [\n                \"The value provided for the property.\",\n                \"The name of the property.\"\n            ],\n            \"ArgLongDescriptions\": [\n                \"This argument shall contain the value provided for the property.\",\n                \"This argument shall contain the name of the property.\"\n            ],\n            \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"\n        },",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec7782b_6e3dc102",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-18T22:00:57Z",
+      "side": 1,
+      "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d646d095_b9ce148d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-18T22:00:57Z",
+      "side": 1,
+      "message": "#include \u003cmemory\u003e",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4b0f58_1489407c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-18T22:00:57Z",
+      "side": 1,
+      "message": "include string",
+      "range": {
+        "startLine": 211,
+        "startChar": 14,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
