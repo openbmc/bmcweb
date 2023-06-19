@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "025fb1d8_1b9af8be",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "yes. But not as heavy as std::function. A quick protoype reveals the difference in assembly generation https://godbolt.org/z/WccnYvq56",
+      "parentUuid": "5d516a07_0ba99538",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b46d367a_8d314736",
         "filename": "redfish-core/include/utils/dbus_to_json.hpp",
         "patchSetId": 38
@@ -71,6 +95,30 @@
       "writtenOn": "2023-06-15T21:28:10Z",
       "side": 1,
       "message": "I like to think I\u0027m ok with c++, but code like this is really a lot tougher to read and understand.\n\nalso, this would be our first usage of concepts in the project that I\u0027m aware of.  That\u0027s not to say you shouldn\u0027t, but lets make sure it actually reduces the complexity.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939fc631_ee129f10",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "These concepts are used to pick proper overloads based on caller site usage. Most of them are very rare cases, but still needed to be added for complete support. This is similar to the crow::black_magic:: templates hidden behind BMCWEB_ROUTE. That reduces the caller site code a lot.",
+      "parentUuid": "b46d367a_8d314736",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3dc3db4f_43e0aaa1",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "changed the implementation",
+      "parentUuid": "f0fe2950_3cdd60c6",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 5
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b638983_9ac96e3d",
         "filename": "redfish-core/include/utils/dbus_to_json.hpp",
         "patchSetId": 38
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2d371b2_dc164717",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "GenericNodeMapper specialization takes advantage of automatic conversion of types to nlohmann json. This avoids an explicit template arguments in mapToKey call. The types avoided here do not support such automatic conversion. But you can convert these types to Json by giving the template argument.",
+      "parentUuid": "4b638983_9ac96e3d",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 75
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7abcd1f_8a532c12",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
@@ -140,6 +236,30 @@
       "writtenOn": "2023-06-15T21:28:10Z",
       "side": 1,
       "message": "Like has been pointed out to you already, please don\u0027t use using namespace, per the coding standard.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14f7da59_6ea806d7",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7abcd1f_8a532c12",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -187,6 +307,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d484448f_629b7ebe",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "It depends on familiarity. If you read the code you will see that you are just stating the intent. \"add a mapper that maps \"CableTypeDescription\" string property to \"CableType\" and report error if property missmatch. You will not write code for how to iterate the tree, how to unwrap the Dbus variant and how to report error. In trivial case(Majority) a one-liner will do the job. Look at the ethernet.hpp to see the 2 page long code do the same thing. The alternate solution that uses unpackPropertiesNoThrow may not scale well beyond 3 properties. Even in the simpler case such as this one the amount of code you write is still less. \nThe template instantiation is upper-bounded by the number of different types in Dbus variant. But unpackPropertiesNoThrow instantiation depends on the number of possible permutations and combinations of the arguments.\n\nBackground code handles several other rare usages. Which will get instantiated only when we use it.",
+      "parentUuid": "e4541074_fdbd32eb",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9441b03_e768c3ae",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
@@ -198,6 +336,24 @@
       "writtenOn": "2023-06-15T21:51:04Z",
       "side": 1,
       "message": "This branch is also wrong.\n\nthe old behavior was\n\n1. If it\u0027s finite: include it directly with no error.\n2. if it\u0027s not finite, but nan, do not add it but do not put in an error.\n3. if it\u0027s not finite, and not NAN, do not add it but add an error.\n\nThis patchset looks like it handles #2 incorrectly.",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "785216f7_b6e37def",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "Ack , will update the code accordingly",
+      "parentUuid": "a9441b03_e768c3ae",
       "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -227,6 +383,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ed821c3_30a9c4a0",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "No. std::optional\u003cdouble\u003e() is null optional and will be evaluated to false in an if statement.",
+      "parentUuid": "ad967220_238c26ac",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87037c9b_41c2a507",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
@@ -238,6 +418,30 @@
       "writtenOn": "2023-06-15T21:28:10Z",
       "side": 1,
       "message": "This isn\u0027t the same has messages::internalError().",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "899131b5_1a516c88",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "The internal error messages are already captured as part of the target Json. Here we are just setting the response code.",
+      "parentUuid": "87037c9b_41c2a507",
       "range": {
         "startLine": 57,
         "startChar": 0,

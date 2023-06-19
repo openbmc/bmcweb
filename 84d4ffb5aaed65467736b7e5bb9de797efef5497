@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2fd5d7_bca43e32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "added the reason for the utility in commit message",
+      "parentUuid": "5ee95bc5_014b5223",
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8af1e407_98be6d15",
@@ -450,6 +468,30 @@
       "side": 1,
       "message": "\u003e No exception will be escaped from parser.\n\nThis statement has been made many times by many people.  I\u0027m happy to discuss adding exceptions to non-critical paths, but not in the context of another very invasive change.\n\nAll of this patches error handling is for parsing errors, none of which are exceptional, therefore exceptions shouldn\u0027t be used.",
       "parentUuid": "2f94e091_34fd3214",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 9
+      },
+      "revId": "84d4ffb5aaed65467736b7e5bb9de797efef5497",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dda4013_ce9a07f2",
+        "filename": "redfish-core/include/utils/dbus_tree_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-06-19T16:52:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "273da466_86735675",
       "range": {
         "startLine": 123,
         "startChar": 0,
