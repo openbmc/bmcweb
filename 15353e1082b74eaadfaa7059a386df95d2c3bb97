@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "812b3fab_8c810ac3",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-19T21:45:24Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "89ff7d56_06f4a61a",
+      "revId": "15353e1082b74eaadfaa7059a386df95d2c3bb97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e888e7a2_2bf27af1",
