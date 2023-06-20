@@ -212,7 +212,9 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     void getAllStatusAssociations()
     {
         std::shared_ptr<HealthPopulate> self = shared_from_this();
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::message::object_path path("/");
+        dbus::utility::getManagedObjects(
+            "xyz.openbmc_project.ObjectMapper", path,
             [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& resp) {
             if (ec)
@@ -230,9 +232,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 }
                 it = self->statuses.erase(it);
             }
-            },
-            "xyz.openbmc_project.ObjectMapper", "/",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
     }
 
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
