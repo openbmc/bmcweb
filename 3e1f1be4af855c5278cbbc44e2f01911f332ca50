@@ -16,6 +16,24 @@
       "message": "unaddressed comments",
       "revId": "3e1f1be4af855c5278cbbc44e2f01911f332ca50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "982dbd0e_1af12828",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-20T18:52:14Z",
+      "side": 1,
+      "message": "I will address the comments once we get the approval of\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57559",
+      "parentUuid": "70ad6c51_3440f1e1",
+      "revId": "3e1f1be4af855c5278cbbc44e2f01911f332ca50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
