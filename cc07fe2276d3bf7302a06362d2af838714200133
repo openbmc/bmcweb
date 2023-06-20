@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f920c74_918d6a8c",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T22:31:11Z",
+      "side": 1,
+      "message": "Changed to X-Content-Type-Options",
+      "parentUuid": "32d50752_c40561ab",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e02b0370_9bd75f50",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "250b2562_faee1248",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T22:31:11Z",
+      "side": 1,
+      "message": "Moved.",
+      "parentUuid": "e02b0370_9bd75f50",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f7315a4_b0b3a65d",
@@ -60,6 +108,24 @@
       "writtenOn": "2023-06-20T20:56:55Z",
       "side": 1,
       "message": "So https://owasp.org/www-project-secure-headers/ci/headers_add.json says unoptimized-images\u003d(self) here but might as well go more strict. Ack.",
+      "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4ba226_78d8b658",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T22:31:11Z",
+      "side": 1,
+      "message": "Made the edit on the fly.  WIll test shortly.",
+      "parentUuid": "2f7315a4_b0b3a65d",
       "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
