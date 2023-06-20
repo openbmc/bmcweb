@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fc8bbbc_0fa413ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfcabd50_b8a6e08d",
+      "revId": "873b94bbe8cf2ec1b7f254df932934b49a56c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66a23518_1dbfc88f",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-20T17:10:19Z",
       "side": 1,
       "message": "Would be good if Ed\u0027s name was here too. All good. For next time.",
+      "revId": "873b94bbe8cf2ec1b7f254df932934b49a56c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcfc236b_c252dcd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T17:15:21Z",
+      "side": 1,
+      "message": "Added.",
+      "parentUuid": "66a23518_1dbfc88f",
       "revId": "873b94bbe8cf2ec1b7f254df932934b49a56c038",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
