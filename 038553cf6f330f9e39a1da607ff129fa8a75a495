@@ -22,6 +22,23 @@
       },
       "revId": "038553cf6f330f9e39a1da607ff129fa8a75a495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3875c01e_6c8f1167",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T18:47:26Z",
+      "side": 1,
+      "message": "As-written, I still think the existing interfaces we have are better, and a change to the declarative style this patchset proposes would be a net negative on complexity, code review time, and readability.\n\nPlease continue to iterate it, and continue to make it:\nA. In line with the coding standard (no inline lambdas, no exceptions in non-exceptional parsers, ect).\nB. Show the improvement that is specified in the commit.  As-written, it\u0027s +700 lines of non-test code that frankly I have trouble reading, and gave up trying.  This is roughly quadruple compared to the black_magic namespace (170 lines) that it claims to be inspired by.\nC. Port over more examples to show the utility, and that it can be applied universally.  As this patchset stands, I don\u0027t see any case where a handler is greatly simplified.\nD. Measure the performance characteristics of doing these things at runtime instead of compile time.  As-written, the parsers are constructed at runtime, which might have peak memory usage impacts that are contrary to the developing guide.\n\nAs always, please continue to review other peoples bmcweb patches and help to get them on master.  The change you\u0027re proposing here will require LOTS of input from reviewers outside of the maintainers pool, and unless you plan on porting over all the code yourself, likely some significant effort put in porting over to the new APIs.  The sooner you start building those relationships with other bmcweb users, the better.\n\nFor the moment, I\u0027m going to check out of this patchset.  Once you believe that:\nA. you have buy in from the rest of the community that this is better.\nB. Patchsets that port over a majority of the code to the new APIs.\nC. All the comments addressed.\n\nFeel free to ping me, add me back to the reviewers list, and we can discuss further.",
+      "revId": "038553cf6f330f9e39a1da607ff129fa8a75a495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
