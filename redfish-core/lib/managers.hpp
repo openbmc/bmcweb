@@ -290,7 +290,9 @@ inline void
                      const std::vector<std::string>& supportedProfiles,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path objPath(path);
+    dbus::utility::getManagedObjects(
+        connection, path,
         [asyncResp, currentProfile, supportedProfiles](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& managedObj) {
@@ -688,8 +690,7 @@ inline void
                 }
             }
         }
-        },
-        connection, path, objectManagerIface, "GetManagedObjects");
+        });
 }
 
 enum class CreatePIDRet
@@ -1358,7 +1359,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+        dbus::utility::getManagedObjects(
+            "xyz.openbmc_project.EntityManager", path,
             [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& mObj) {
             if (ec)
@@ -1384,10 +1387,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 }
             }
             self->managedObj = mObj;
-            },
-            "xyz.openbmc_project.EntityManager",
-            "/xyz/openbmc_project/inventory", objectManagerIface,
-            "GetManagedObjects");
+            });
 
         // at the same time get the profile information
         constexpr std::array<std::string_view, 1> thermalModeIfaces = {
@@ -1779,10 +1779,12 @@ inline void
     std::string firmwareId = runningFirmwareTarget.substr(idPos);
 
     // Make sure the image is valid before setting priority
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, firmwareId,
-         runningFirmwareTarget](const boost::system::error_code& ec,
-                                dbus::utility::ManagedObjectType& subtree) {
+    sdbusplus::message::object_path path("/xyz/openbmc_project/software");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Software.BMC.Updater", path,
+        [asyncResp, firmwareId, runningFirmwareTarget](
+            const boost::system::error_code& ec,
+            const dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "D-Bus response error getting objects.";
@@ -1852,10 +1854,7 @@ inline void
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
             dbus::utility::DbusVariantType(static_cast<uint8_t>(0)));
-        },
-        "xyz.openbmc_project.Software.BMC.Updater",
-        "/xyz/openbmc_project/software", "org.freedesktop.DBus.ObjectManager",
-        "GetManagedObjects");
+        });
 }
 
 inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
