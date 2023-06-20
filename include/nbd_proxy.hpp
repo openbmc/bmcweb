@@ -327,15 +327,13 @@ inline void onOpen(crow::websocket::Connection& conn)
 {
     BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
-    auto openHandler =
+    sdbusplus::message::object_path path("/xyz/openbmc_project/VirtualMedia");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.VirtualMedia", path,
         [&conn](const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {
         afterGetManagedObjects(conn, ec, objects);
-    };
-    crow::connections::systemBus->async_method_call(
-        std::move(openHandler), "xyz.openbmc_project.VirtualMedia",
-        "/xyz/openbmc_project/VirtualMedia",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 
     // We need to wait for dbus and the websockets to hook up before data is
     // sent/received.  Tell the core to hold off messages until the sockets are

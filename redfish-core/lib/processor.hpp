@@ -225,7 +225,9 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+    dbus::utility::getManagedObjects(
+        service, path,
         [cpuId, service, objPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -288,9 +290,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             asyncResp->res.jsonValue["TotalCores"] = totalCores;
         }
         return;
-        },
-        service, "/xyz/openbmc_project/inventory",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 /**

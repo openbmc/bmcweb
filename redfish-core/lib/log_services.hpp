@@ -467,10 +467,12 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/dump");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Dump.Manager", path,
         [asyncResp, entriesPath,
          dumpType](const boost::system::error_code& ec,
-                   dbus::utility::ManagedObjectType& resp) {
+                   const dbus::utility::ManagedObjectType& objects) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DumpEntry resp_handler got error " << ec;
@@ -498,6 +500,7 @@ inline void
             "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/";
 
+        dbus::utility::ManagedObjectType resp(objects);
         std::sort(resp.begin(), resp.end(), [](const auto& l, const auto& r) {
             return AlphanumLess<std::string>()(l.first.filename(),
                                                r.first.filename());
@@ -567,9 +570,7 @@ inline void
             entriesArray.emplace_back(std::move(thisEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
-        },
-        "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void
@@ -583,7 +584,9 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/dump");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Dump.Manager", path,
         [asyncResp, entryID, dumpType,
          entriesPath](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& resp) {
@@ -667,9 +670,7 @@ inline void
                                        entryID);
             return;
         }
-        },
-        "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1564,7 +1565,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
 
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::message::object_path path("/xyz/openbmc_project/logging");
+        dbus::utility::getManagedObjects(
+            "xyz.openbmc_project.Logging", path,
             [asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::ManagedObjectType& resp) {
             if (ec)
@@ -1718,9 +1721,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 });
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
-            },
-            "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
         });
 }
 
