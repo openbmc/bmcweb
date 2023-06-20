@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d50752_c40561ab",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-20T20:56:55Z",
+      "side": 1,
+      "message": "I don\u0027t see this header anywhere, I think this can be removed. Oh well",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e02b0370_9bd75f50",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-20T20:56:55Z",
+      "side": 1,
+      "message": "Can this comment be moved up to line 17? since all of these are from this",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f7315a4_b0b3a65d",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-20T20:56:55Z",
+      "side": 1,
+      "message": "So https://owasp.org/www-project-secure-headers/ci/headers_add.json says unoptimized-images\u003d(self) here but might as well go more strict. Ack.",
+      "revId": "cc07fe2276d3bf7302a06362d2af838714200133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
