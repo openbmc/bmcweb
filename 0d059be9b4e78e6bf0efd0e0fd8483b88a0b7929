@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a787a39_c82e7047",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:46:22Z",
+      "side": 1,
+      "message": "Lets start with the simplest code, and we can optimize as it\u0027s appropriate.",
+      "parentUuid": "025fb1d8_1b9af8be",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b46d367a_8d314736",
         "filename": "redfish-core/include/utils/dbus_to_json.hpp",
         "patchSetId": 38
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "These concepts are used to pick proper overloads based on caller site usage. Most of them are very rare cases, but still needed to be added for complete support. This is similar to the crow::black_magic:: templates hidden behind BMCWEB_ROUTE. That reduces the caller site code a lot.",
       "parentUuid": "b46d367a_8d314736",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 44
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d0ed747_c43a6b1c",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:46:22Z",
+      "side": 1,
+      "message": "\u003e These concepts are used to pick proper overloads based on caller site usage. Most of them are very rare cases, but still needed to be added for complete support. This is similar to the crow::black_magic:: templates hidden behind BMCWEB_ROUTE. That reduces the caller site code a lot.\n\nYou will notice that in the last year I\u0027ve significantly reduced both the complexity and size of the black_magic namespace.  I would eventually like it to go away entirely, but for the moment it\u0027s down to 170 lines.  This code actively goes the other direction.\n\n\u003e That reduces the caller site code a lot.\n\nThis isn\u0027t true in a lot of cases, and just putting complexity outside of the call site doesn\u0027t solve the problem.  We need code that works, regardless of how many lines are written.",
+      "parentUuid": "939fc631_ee129f10",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -213,6 +261,30 @@
       "side": 1,
       "message": "GenericNodeMapper specialization takes advantage of automatic conversion of types to nlohmann json. This avoids an explicit template arguments in mapToKey call. The types avoided here do not support such automatic conversion. But you can convert these types to Json by giving the template argument.",
       "parentUuid": "4b638983_9ac96e3d",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 75
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24b5906f_44919037",
+        "filename": "redfish-core/include/utils/dbus_to_json.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:46:22Z",
+      "side": 1,
+      "message": "\u003e GenericNodeMapper specialization takes advantage of automatic conversion of types to nlohmann json. This avoids an explicit template arguments in mapToKey call. The types avoided here do not support such automatic conversion. But you can convert these types to Json by giving the template argument.\n\nThat seems confusing as an API, but I think I understand now.",
+      "parentUuid": "e2d371b2_dc164717",
       "range": {
         "startLine": 187,
         "startChar": 0,
@@ -325,6 +397,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a61710f_1484658f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:46:22Z",
+      "side": 1,
+      "message": "\u003e It depends on familiarity. If you read the code you will see that you are just stating the intent. \"add a mapper that maps \"CableTypeDescription\" string property to \"CableType\" and report error if property missmatch. \n\nWith respect, I\u0027ve read the code, and I definitely do not see the stated intent any more than I did in the previous code.  I see inline lambdas, which are disallowed, and callbacks that it\u0027s difficult to determine the effect of.\n\n\u003e You will not write code for how to iterate the tree, how to unwrap the Dbus variant and how to report error. In trivial case(Majority) a one-liner will do the job.\n\nPlease actually show this.  I do not see a case where the majority one liner would do the job.\n\n\n\u003e Look at the ethernet.hpp to see the 2 page long code do the same thing.\n\nEthernet was one of the first schemas written, and hasn\u0027t taken advantage of the latest helper functions.  Please start by moving ethernet over to the helper functions we already have before you do your comparison.\n\n\u003e The alternate solution that uses unpackPropertiesNoThrow may not scale well beyond 3 properties.\n\nYou say this.... but \"may not scale well\" does really tell me what the problem is.  Can you elaborate?  We have unpackPropertiesNoThrow calls that use more than 3 properties today.\n\n\u003e Even in the simpler case such as this one the amount of code you write is still less. \n\n\nUnless you count all the helper functions, in which case you\u0027ve written more code, even if you assume we port over every handler, there will be more boilerplate.\n\n\u003e The template instantiation is upper-bounded by the number of different types in Dbus variant. But unpackPropertiesNoThrow instantiation depends on the number of possible permutations and combinations of the arguments.\n\nI\u0027m confused what argument you\u0027re making here.  If the argument that more code gets generated with unpackPropertiesNoThrow, that seems to be not true (the binaries on this patchset are larger).\n\n\u003e \n\u003e Background code handles several other rare usages. Which will get instantiated only when we use it.\n\nQuite confused at this statement.",
+      "parentUuid": "d484448f_629b7ebe",
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9441b03_e768c3ae",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
@@ -407,6 +497,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23a1a5fe_52f9aa81",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:46:22Z",
+      "side": 1,
+      "message": "Right, which would mean that the property would get omitted from the json object rather than being put in as null?",
+      "parentUuid": "8ed821c3_30a9c4a0",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87037c9b_41c2a507",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 38
@@ -442,6 +556,30 @@
       "side": 1,
       "message": "The internal error messages are already captured as part of the target Json. Here we are just setting the response code.",
       "parentUuid": "87037c9b_41c2a507",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "0d059be9b4e78e6bf0efd0e0fd8483b88a0b7929",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed971194_f3688f7b",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:46:22Z",
+      "side": 1,
+      "message": "That seems error prone and confusing.  Is there any way to make that more clear?",
+      "parentUuid": "899131b5_1a516c88",
       "range": {
         "startLine": 57,
         "startChar": 0,
