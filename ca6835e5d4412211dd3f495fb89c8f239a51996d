@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be60f1e1_a2130be6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:21:07Z",
+      "side": 1,
+      "message": "If you\u0027d like to add a meson option for \"FIPS compliant ciphers only\" feel free.",
+      "parentUuid": "1e26e7cf_3f72df27",
+      "revId": "ca6835e5d4412211dd3f495fb89c8f239a51996d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15a81746_bbb1c6f1",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-19T23:53:33Z",
       "side": 1,
       "message": "Note the three CHACHA20 ciphers are not FIPS 140-2 compliant.  (And that\u0027s all I\u0027m going to say about that topic.)",
+      "revId": "ca6835e5d4412211dd3f495fb89c8f239a51996d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69e356c1_deae306d",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T16:21:07Z",
+      "side": 1,
+      "message": "If you have an opinion there, feel free to bring it up with the guys that run the mozilla cipher recommendations.",
+      "parentUuid": "15a81746_bbb1c6f1",
       "revId": "ca6835e5d4412211dd3f495fb89c8f239a51996d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
