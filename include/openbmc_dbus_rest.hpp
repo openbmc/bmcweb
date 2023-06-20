@@ -302,7 +302,9 @@ inline void getManagedObjectsForEnumerate(
     BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << objectName
                      << " object_manager_path " << objectManagerPath
                      << " connection_name " << connectionName;
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path(objectManagerPath);
+    dbus::utility::getManagedObjects(
+        connectionName, path,
         [transaction, objectName,
          connectionName](const boost::system::error_code& ec,
                          const dbus::utility::ManagedObjectType& objects) {
@@ -360,9 +362,7 @@ inline void getManagedObjectsForEnumerate(
                 }
             }
         }
-        },
-        connectionName, objectManagerPath, "org.freedesktop.DBus.ObjectManager",
-        "GetManagedObjects");
+        });
 }
 
 inline void findObjectManagerPathForEnumerate(

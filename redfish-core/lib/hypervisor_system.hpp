@@ -311,7 +311,9 @@ template <typename CallbackFunc>
 void getHypervisorIfaceData(const std::string& ethIfaceId,
                             CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Settings", path,
         [ethIfaceId{std::string{ethIfaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& error,
@@ -331,9 +333,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
             BMCWEB_LOG_INFO << "Hypervisor Interface not found";
         }
         callback(found, ethData, ipv4Data);
-        },
-        "xyz.openbmc_project.Settings", "/",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 /**

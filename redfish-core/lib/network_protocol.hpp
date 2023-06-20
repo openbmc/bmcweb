@@ -98,7 +98,9 @@ inline void extractNTPServersAndDomainNamesData(
 template <typename CallbackFunc>
 void getEthernetIfaceData(CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/network");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Network", path,
         [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& errorCode,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -114,9 +116,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
         extractNTPServersAndDomainNamesData(dbusData, ntpServers, domainNames);
 
         callback(true, ntpServers, domainNames);
-        },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void afterNetworkPortRequest(

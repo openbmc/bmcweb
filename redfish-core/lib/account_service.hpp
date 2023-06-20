@@ -53,7 +53,6 @@ constexpr const char* ldapCreateInterface =
 constexpr const char* ldapEnableInterface = "xyz.openbmc_project.Object.Enable";
 constexpr const char* ldapPrivMapperInterface =
     "xyz.openbmc_project.User.PrivilegeMapper";
-constexpr const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 constexpr const char* propertyInterface = "org.freedesktop.DBus.Properties";
 
 struct LDAPRoleMapData
@@ -580,7 +579,9 @@ inline void getLDAPConfigData(const std::string& ldapType,
             return;
         }
         std::string service = resp.begin()->first;
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::message::object_path path(ldapRootObject);
+        dbus::utility::getManagedObjects(
+            service, path,
             [callback,
              ldapType](const boost::system::error_code& errorCode,
                        const dbus::utility::ManagedObjectType& ldapObjects) {
@@ -717,8 +718,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
                 }
             }
             callback(true, confData, ldapType);
-            },
-            service, ldapRootObject, dbusObjManagerIntf, "GetManagedObjects");
+            });
         });
 }
 
@@ -1732,7 +1732,9 @@ inline void handleAccountCollectionGet(
     {
         thisUser = req.session->username;
     }
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/user");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.User.Manager", path,
         [asyncResp, thisUser, effectiveUserPrivileges](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& users) {
@@ -1776,9 +1778,7 @@ inline void handleAccountCollectionGet(
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();
-        },
-        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void processAfterCreateUser(
@@ -2016,7 +2016,9 @@ inline void
         }
     }
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/user");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.User.Manager", path,
         [asyncResp,
          accountName](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& users) {
@@ -2148,9 +2150,7 @@ inline void
             "/redfish/v1/AccountService/Accounts/" + accountName;
         asyncResp->res.jsonValue["Id"] = accountName;
         asyncResp->res.jsonValue["UserName"] = accountName;
-        },
-        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void
