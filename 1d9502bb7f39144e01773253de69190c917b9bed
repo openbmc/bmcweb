@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67813fa9_f230909e",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-20T20:55:18Z",
+      "side": 1,
+      "message": "I am confused, this doesn\u0027t seem to match https://owasp.org/www-project-secure-headers/ci/headers_add.json",
+      "revId": "1d9502bb7f39144e01773253de69190c917b9bed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
