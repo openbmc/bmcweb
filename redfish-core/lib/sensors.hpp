@@ -1449,12 +1449,14 @@ static void getInventoryItemsData(
     {
         const std::string& invConnection = *it;
 
-        // Response handler for GetManagedObjects
-        auto respHandler = [sensorsAsyncResp, inventoryItems, invConnections,
-                            callback{std::forward<Callback>(callback)},
-                            invConnectionsIndex](
-                               const boost::system::error_code& ec,
-                               const dbus::utility::ManagedObjectType& resp) {
+        // Get all object paths and their interfaces for current connection
+        sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+        dbus::utility::getManagedObjects(
+            invConnection, path,
+            [sensorsAsyncResp, inventoryItems, invConnections,
+             callback{std::forward<Callback>(callback)}, invConnectionsIndex](
+                const boost::system::error_code& ec,
+                const dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getInventoryItemsData respHandler enter";
             if (ec)
             {
@@ -1486,13 +1488,7 @@ static void getInventoryItemsData(
                                   invConnectionsIndex + 1);
 
             BMCWEB_LOG_DEBUG << "getInventoryItemsData respHandler exit";
-        };
-
-        // Get all object paths and their interfaces for current connection
-        crow::connections::systemBus->async_method_call(
-            std::move(respHandler), invConnection,
-            "/xyz/openbmc_project/inventory",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
     }
 
     BMCWEB_LOG_DEBUG << "getInventoryItemsData exit";
@@ -1606,8 +1602,10 @@ static void getInventoryItemAssociations(
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations enter";
 
-    // Response handler for GetManagedObjects
-    auto respHandler =
+    // Call GetManagedObjects on the ObjectMapper to get all associations
+    sdbusplus::message::object_path path("/");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.ObjectMapper", path,
         [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
          sensorNames](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& resp) {
@@ -1716,12 +1714,7 @@ static void getInventoryItemAssociations(
         }
         callback(inventoryItems);
         BMCWEB_LOG_DEBUG << "getInventoryItemAssociations respHandler exit";
-    };
-
-    // Call GetManagedObjects on the ObjectMapper to get all associations
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper", "/",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations exit";
 }
@@ -2269,8 +2262,10 @@ inline void getSensorData(
     // Get managed objects from all services exposing sensors
     for (const std::string& connection : connections)
     {
-        // Response handler to process managed objects
-        auto getManagedObjectsCb =
+        sdbusplus::message::object_path sensorPath(
+            "/xyz/openbmc_project/sensors");
+        dbus::utility::getManagedObjects(
+            connection, sensorPath,
             [sensorsAsyncResp, sensorNames,
              inventoryItems](const boost::system::error_code& ec,
                              const dbus::utility::ManagedObjectType& resp) {
@@ -2482,11 +2477,7 @@ inline void getSensorData(
                 }
             }
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
-        };
-
-        crow::connections::systemBus->async_method_call(
-            getManagedObjectsCb, connection, "/xyz/openbmc_project/sensors",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
     }
     BMCWEB_LOG_DEBUG << "getSensorData exit";
 }

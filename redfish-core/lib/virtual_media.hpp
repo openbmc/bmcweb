@@ -94,7 +94,9 @@ inline void
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        CheckItemHandler&& handler)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path path("/xyz/openbmc_project/VirtualMedia");
+    dbus::utility::getManagedObjects(
+        service, path,
         [service, resName, asyncResp,
          handler](const boost::system::error_code& ec,
                   const dbus::utility::ManagedObjectType& subtree) {
@@ -117,9 +119,7 @@ inline void
 
         BMCWEB_LOG_DEBUG << "Parent item not found";
         asyncResp->res.result(boost::beast::http::status::not_found);
-        },
-        service, "/xyz/openbmc_project/VirtualMedia",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 /**
@@ -273,7 +273,10 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                               const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::message::object_path objPath(
+        "/xyz/openbmc_project/VirtualMedia");
+    dbus::utility::getManagedObjects(
+        service, objPath,
         [name, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
@@ -299,9 +302,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             members.emplace_back(std::move(item));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = members.size();
-        },
-        service, "/xyz/openbmc_project/VirtualMedia",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        });
 }
 
 inline void
@@ -877,10 +878,13 @@ inline void handleManagersVirtualMediaActionInsertPost(
         std::string service = getObjectType.begin()->first;
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        crow::connections::systemBus->async_method_call(
-            [service, resName, action, actionParams,
-             asyncResp](const boost::system::error_code& ec2,
-                        dbus::utility::ManagedObjectType& subtree) mutable {
+        sdbusplus::message::object_path path(
+            "/xyz/openbmc_project/VirtualMedia");
+        dbus::utility::getManagedObjects(
+            service, path,
+            [service, resName, action, actionParams, asyncResp](
+                const boost::system::error_code& ec2,
+                const dbus::utility::ManagedObjectType& subtree) mutable {
             if (ec2)
             {
                 // Not possible in proxy mode
@@ -902,9 +906,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             }
             BMCWEB_LOG_DEBUG << "Parent item not found";
             messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
-            },
-            service, "/xyz/openbmc_project/VirtualMedia",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
         });
 }
 
@@ -941,7 +943,10 @@ inline void handleManagersVirtualMediaActionEject(
         std::string service = getObjectType.begin()->first;
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::message::object_path path(
+            "/xyz/openbmc_project/VirtualMedia");
+        dbus::utility::getManagedObjects(
+            service, path,
             [resName, service, action,
              asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::ManagedObjectType& subtree) {
@@ -964,9 +969,7 @@ inline void handleManagersVirtualMediaActionEject(
             }
             BMCWEB_LOG_DEBUG << "Parent item not found";
             messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
-            },
-            service, "/xyz/openbmc_project/VirtualMedia",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
         });
 }
 
