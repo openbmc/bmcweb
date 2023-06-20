@@ -756,11 +756,12 @@ class RedfishAggregator
             handler)
     {
         BMCWEB_LOG_DEBUG << "Gathering satellite configs";
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+        dbus::utility::getManagedObjects(
+            "xyz.openbmc_project.EntityManager", path,
             [handler{std::move(handler)}](
                 const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error " << ec.value() << ", "
@@ -786,10 +787,7 @@ class RedfishAggregator
                     << "No satellite BMCs detected.  Redfish Aggregation not enabled";
             }
             handler(ec, satelliteInfo);
-            },
-            "xyz.openbmc_project.EntityManager",
-            "/xyz/openbmc_project/inventory",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+            });
     }
 
     // Processes the response returned by a satellite BMC and loads its
