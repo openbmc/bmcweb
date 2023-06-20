@@ -109,6 +109,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "492e856e_8e1052b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-20T19:44:18Z",
+      "side": 1,
+      "message": "Seems to work for me.",
+      "parentUuid": "5e81e853_40ba23a4",
+      "revId": "8dd74ad1cc15ddb0a8044e418205cc27fe5606ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7c6fb294_1c6beeba",
         "filename": "include/security_headers.hpp",
         "patchSetId": 1
