@@ -63,18 +63,17 @@ inline static void activateImage(const std::string& objPath,
                                  const std::string& service)
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Software.Activation", "RequestedActivation",
+        "xyz.openbmc_project.Software.Activation.RequestedActivations.Active",
         [](const boost::system::error_code& errorCode) {
         if (errorCode)
         {
             BMCWEB_LOG_DEBUG << "error_code = " << errorCode;
             BMCWEB_LOG_DEBUG << "error msg = " << errorCode.message();
         }
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Software.Activation", "RequestedActivation",
-        dbus::utility::DbusVariantType(
-            "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"));
+        });
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -575,21 +574,19 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // Set the requested image apply time value
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-        },
-        "xyz.openbmc_project.Settings",
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/software/apply_time",
-        "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
-        dbus::utility::DbusVariantType{applyTimeNewVal});
+        applyTimeNewVal, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        });
 }
 
 inline void

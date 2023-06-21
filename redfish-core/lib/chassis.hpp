@@ -750,7 +750,9 @@ inline void
             objectPath = "/xyz/openbmc_project/state/chassis0";
         }
 
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, processName, objectPath,
+            interfaceName, destProperty, propertyValue,
             [asyncResp](const boost::system::error_code& ec2,
                         sdbusplus::message_t& sdbusErrMsg) {
             // Use "Set" method to set the property value.
@@ -762,10 +764,7 @@ inline void
             }
 
             messages::success(asyncResp->res);
-            },
-            processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
-            interfaceName, destProperty,
-            dbus::utility::DbusVariantType{propertyValue});
+            });
         });
 }
 
