@@ -1122,14 +1122,14 @@ inline void patchAppliedOperatingConfig(
     BMCWEB_LOG_INFO << "Setting config to " << configPath.str;
 
     // Set the property, with handler to check error responses
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, *controlService, cpuObjectPath,
+        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+        "AppliedConfig", configPath,
         [resp, appliedConfigUri](const boost::system::error_code& ec,
                                  const sdbusplus::message_t& msg) {
         handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
-        },
-        *controlService, cpuObjectPath, "org.freedesktop.DBus.Properties",
-        "Set", "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "AppliedConfig", dbus::utility::DbusVariantType(std::move(configPath)));
+        });
 }
 
 inline void
