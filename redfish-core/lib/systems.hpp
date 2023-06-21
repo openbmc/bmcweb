@@ -1332,20 +1332,20 @@ inline void setAutomaticRetryAttempts(
     const uint32_t retryAttempts)
 {
     BMCWEB_LOG_DEBUG << "Set Automatic Retry Attempts.";
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR
-                << "DBUS response error: Set setAutomaticRetryAttempts" << ec;
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        },
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
-        "org.freedesktop.DBus.Properties", "Set",
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        "/xyz/openbmc_project/state/host0",
         "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
-        std::variant<uint32_t>(retryAttempts));
+        retryAttempts, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR
+                    << "DBUS response error: Set setAutomaticRetryAttempts"
+                    << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
 }
 
 inline computer_system::PowerRestorePolicyTypes
@@ -1558,7 +1558,9 @@ inline void setTrustedModuleRequiredToBoot(
         }
 
         // Valid TPM Enable object found, now setting the value
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, serv, path,
+            "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable", tpmRequired,
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -1569,10 +1571,7 @@ inline void setTrustedModuleRequiredToBoot(
                 return;
             }
             BMCWEB_LOG_DEBUG << "Set TrustedModuleRequiredToBoot done.";
-            },
-            serv, path, "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
-            dbus::utility::DbusVariantType(tpmRequired));
+            });
         });
 }
 
@@ -1617,7 +1616,10 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG << "DBUS boot type: " << bootTypeStr;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Control.Boot.Type", "BootType", bootTypeStr,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1631,12 +1633,7 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         BMCWEB_LOG_DEBUG << "Boot type update done.";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Control.Boot.Type", "BootType",
-        dbus::utility::DbusVariantType(bootTypeStr));
+        });
 }
 
 /**
@@ -1687,7 +1684,10 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG << "DBUS boot override enable: " << bootOverrideEnable;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Object.Enable", "Enabled", bootOverrideEnable,
         [asyncResp](const boost::system::error_code& ec2) {
         if (ec2)
         {
@@ -1696,12 +1696,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         BMCWEB_LOG_DEBUG << "Boot override enable update done.";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Object.Enable", "Enabled",
-        dbus::utility::DbusVariantType(bootOverrideEnable));
+        });
 
     if (!bootOverrideEnable)
     {
@@ -1713,7 +1708,10 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "DBUS boot override persistent: "
                      << bootOverridePersistent;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/boot/one_time",
+        "xyz.openbmc_project.Object.Enable", "Enabled", !bootOverridePersistent,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1722,12 +1720,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         BMCWEB_LOG_DEBUG << "Boot one_time update done.";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot/one_time",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Object.Enable", "Enabled",
-        dbus::utility::DbusVariantType(!bootOverridePersistent));
+        });
 }
 
 /**
@@ -1768,7 +1761,10 @@ inline void
     BMCWEB_LOG_DEBUG << "DBUS boot source: " << bootSourceStr;
     BMCWEB_LOG_DEBUG << "DBUS boot mode: " << bootModeStr;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Control.Boot.Source", "BootSource", bootSourceStr,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1777,14 +1773,12 @@ inline void
             return;
         }
         BMCWEB_LOG_DEBUG << "Boot source update done.";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Control.Boot.Source", "BootSource",
-        dbus::utility::DbusVariantType(bootSourceStr));
+        });
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Control.Boot.Mode", "BootMode", bootModeStr,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1793,12 +1787,7 @@ inline void
             return;
         }
         BMCWEB_LOG_DEBUG << "Boot mode update done.";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
-        dbus::utility::DbusVariantType(bootModeStr));
+        });
 }
 
 /**
@@ -1880,19 +1869,18 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec2) {
-            if (ec2)
-            {
-                BMCWEB_LOG_DEBUG << "D-Bus response error on AssetTag Set "
-                                 << ec2;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            },
-            service, path, "org.freedesktop.DBus.Properties", "Set",
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, service, path,
             "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
-            dbus::utility::DbusVariantType(assetTag));
+            assetTag, [asyncResp](const boost::system::error_code& ec2) {
+                if (ec2)
+                {
+                    BMCWEB_LOG_DEBUG << "D-Bus response error on AssetTag Set "
+                                     << ec2;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            });
         });
 }
 
@@ -1930,19 +1918,17 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        },
-        "xyz.openbmc_project.Settings",
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/auto_reboot",
-        "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
-        dbus::utility::DbusVariantType(autoRebootEnabled));
+        autoRebootEnabled, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
 }
 
 inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
@@ -1985,19 +1971,17 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        },
-        "xyz.openbmc_project.Settings",
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_restore_policy",
-        "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
-        dbus::utility::DbusVariantType(powerRestorePolicy));
+        powerRestorePolicy, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
 }
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -2295,17 +2279,16 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          << path;
 
         // Set the Power Mode property
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, service, path,
+            "xyz.openbmc_project.Control.Power.Mode", "PowerMode", powerMode,
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
                 messages::internalError(asyncResp->res);
                 return;
             }
-            },
-            service, path, "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
-            dbus::utility::DbusVariantType(powerMode));
+            });
         });
 }
 
@@ -2463,25 +2446,26 @@ inline void
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            },
-            "xyz.openbmc_project.Watchdog",
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.Watchdog",
             "/xyz/openbmc_project/watchdog/host0",
-            "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.State.Watchdog", "ExpireAction",
-            dbus::utility::DbusVariantType(wdtTimeOutActStr));
+            wdtTimeOutActStr, [asyncResp](const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            });
     }
 
     if (wdtEnable)
     {
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.Watchdog",
+            "/xyz/openbmc_project/watchdog/host0",
+            "xyz.openbmc_project.State.Watchdog", "Enabled", *wdtEnable,
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -2489,12 +2473,7 @@ inline void
                 messages::internalError(asyncResp->res);
                 return;
             }
-            },
-            "xyz.openbmc_project.Watchdog",
-            "/xyz/openbmc_project/watchdog/host0",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.State.Watchdog", "Enabled",
-            dbus::utility::DbusVariantType(*wdtEnable));
+            });
     }
 }
 
@@ -2725,22 +2704,24 @@ inline void
 
         if (ipsEnable)
         {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                },
-                service, path, "org.freedesktop.DBus.Properties", "Set",
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, service, path,
                 "xyz.openbmc_project.Control.Power.IdlePowerSaver", "Enabled",
-                dbus::utility::DbusVariantType(*ipsEnable));
+                *ipsEnable, [asyncResp](const boost::system::error_code& ec2) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                });
         }
         if (ipsEnterUtil)
         {
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                "EnterUtilizationPercent", *ipsEnterUtil,
                 [asyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2748,17 +2729,16 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                },
-                service, path, "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "EnterUtilizationPercent",
-                dbus::utility::DbusVariantType(*ipsEnterUtil));
+                });
         }
         if (ipsEnterTime)
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsEnterTime * 1000;
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                "EnterDwellTime", timeMilliseconds,
                 [asyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2766,15 +2746,14 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                },
-                service, path, "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "EnterDwellTime",
-                dbus::utility::DbusVariantType(timeMilliseconds));
+                });
         }
         if (ipsExitUtil)
         {
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                "ExitUtilizationPercent", *ipsExitUtil,
                 [asyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2782,17 +2761,16 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                },
-                service, path, "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "ExitUtilizationPercent",
-                dbus::utility::DbusVariantType(*ipsExitUtil));
+                });
         }
         if (ipsExitTime)
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsExitTime * 1000;
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                "ExitDwellTime", timeMilliseconds,
                 [asyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -2800,11 +2778,7 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                },
-                service, path, "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "ExitDwellTime",
-                dbus::utility::DbusVariantType(timeMilliseconds));
+                });
         }
         });
 
@@ -3023,7 +2997,11 @@ inline void handleComputerSystemResetActionPost(
 
     if (hostCommand)
     {
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+            "/xyz/openbmc_project/state/host0",
+            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+            command,
             [asyncResp, resetType](const boost::system::error_code& ec,
                                    sdbusplus::message_t& sdbusErrMsg) {
             if (ec)
@@ -3034,16 +3012,15 @@ inline void handleComputerSystemResetActionPost(
                 return;
             }
             messages::success(asyncResp->res);
-            },
-            "xyz.openbmc_project.State.Host",
-            "/xyz/openbmc_project/state/host0",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            dbus::utility::DbusVariantType{command});
+            });
     }
     else
     {
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+            "/xyz/openbmc_project/state/chassis0",
+            "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
+            command,
             [asyncResp, resetType](const boost::system::error_code& ec,
                                    sdbusplus::message_t& sdbusErrMsg) {
             if (ec)
@@ -3053,12 +3030,7 @@ inline void handleComputerSystemResetActionPost(
                 return;
             }
             messages::success(asyncResp->res);
-            },
-            "xyz.openbmc_project.State.Chassis",
-            "/xyz/openbmc_project/state/chassis0",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-            dbus::utility::DbusVariantType{command});
+            });
     }
 }
 
