@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d65c0f_27bef416",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-21T13:15:33Z",
+      "side": 1,
+      "message": "It looks like this @data.count seems keep updated in a loop L83.\nI think we can refactor to do all entries in a function like\n\n```\nupdateFanList(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                          const std::string\u0026 chassisId,\n                          const dbus::utility::MapperEndPoints\u0026 fanPaths)\n{\n    nlohmann::json\u0026 fanList \u003d asyncResp-\u003eres.jsonValue[\"Members\"];\n    \n    for (const auto\u0026 fanPath : fanPaths)\n   {        \n       std::string fanName \u003d sdbusplus::message::object_path(fanPath).filename();\n...\n       nlohmann::json item;\n       item[\"@odata.id\"] \u003d boost::urls::format(\n           \"/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}\", chassisId, fanName);\n        fanList.emplace_back(std::move(item));\n    }\n    asyncResp-\u003eres.jsonValue[\"Members@odata.count\"] \u003d fanList.size();\n}\n\n\n\ninline void doFanCollection(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                            const std::string\u0026 chassisId,\n                            const std::optional\u003cstd::string\u003e\u0026 validChassisPath)\n{\n...\n     dbus::utility::getAssociationEndPoints(\n        endpointPath, [asyncResp, chassisId](\n                          const boost::system::error_code\u0026 ec,\n                          const dbus::utility::MapperEndPoints\u0026 endpoints) {\n              ...\n              updateFanList(asyncResp, chassisId, endpoints);\n        });\n}\n            \n ```",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 69
+      },
+      "revId": "ca1eb7f969d48b3718f29a760cc17cacf8368390",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
