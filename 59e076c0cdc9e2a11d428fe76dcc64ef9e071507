@@ -16,6 +16,29 @@
       "message": "LGTM.  A couple spot checks to make sure the new method works like the old would be good, and a written commit message, then this can merge.",
       "revId": "59e076c0cdc9e2a11d428fe76dcc64ef9e071507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb28c254_143d9e0b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T17:21:44Z",
+      "side": 1,
+      "message": "Something to consider in another patchset.\n\nBasically EVERY set handler takes this basic code.  We could consolidate into one helper function that basically did this and save a lot of inline lambdas.\n\nJust a thought.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 46
+      },
+      "revId": "59e076c0cdc9e2a11d428fe76dcc64ef9e071507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
