@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "266dbfeb_dce4e4ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-21T19:29:44Z",
+      "side": 1,
+      "message": "Could address the heads later too",
+      "revId": "f2c5e9244d1fcc8e5b90fb42c0fba5b19eea3489",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c8ab0c_a60f5abb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 3082,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-21T19:29:44Z",
+      "side": 1,
+      "message": "if constexpr (bmcwebEnableMultiHost)\n        {\n            // Option currently returns no systems.  TBD\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n\nprobably makes sense but oh well",
+      "revId": "f2c5e9244d1fcc8e5b90fb42c0fba5b19eea3489",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "809227d9_8fe7b8a7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 3443,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-21T19:29:44Z",
+      "side": 1,
+      "message": "probably makes sense to have a \n\n        if constexpr (bmcwebEnableMultiHost)\n        {\n            // Option currently returns no systems.  TBD\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n\noh well\n\n\n        if (systemName !\u003d \"system\")\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n\nmight make sense too, since this was /redfish/v1/Systems/system/ResetActionInfo/ only",
+      "revId": "f2c5e9244d1fcc8e5b90fb42c0fba5b19eea3489",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
