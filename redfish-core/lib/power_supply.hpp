@@ -18,6 +18,11 @@
 namespace redfish
 {
 
+static constexpr const char* powerSupplyInventoryPath =
+    "/xyz/openbmc_project/inventory";
+static constexpr std::array<std::string_view, 1> powerSupplyInterface = {
+    "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+
 inline void
     updatePowerSupplyList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisId,
@@ -65,24 +70,26 @@ inline void
     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
     std::string powerPath = *validChassisPath + "/powered_by";
-    dbus::utility::getAssociationEndPoints(
-        powerPath, [asyncResp, chassisId](
-                       const boost::system::error_code& ec,
-                       const dbus::utility::MapperEndPoints& endpoints) {
-            if (ec)
+    dbus::utility::getAssociatedSubTreePaths(
+        powerPath, sdbusplus::message::object_path(powerSupplyInventoryPath), 0,
+        powerSupplyInterface,
+        [asyncResp, chassisId](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
             {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR << "DBUS response error" << ec.value();
-                    messages::internalError(asyncResp->res);
-                }
-                return;
+                BMCWEB_LOG_ERROR << "DBUS response error" << ec.value();
+                messages::internalError(asyncResp->res);
             }
+            return;
+        }
 
-            for (const auto& endpoint : endpoints)
-            {
-                updatePowerSupplyList(asyncResp, chassisId, endpoint);
-            }
+        for (const auto& path : subtreePaths)
+        {
+            updatePowerSupplyList(asyncResp, chassisId, path);
+        }
         });
 }
 
@@ -154,42 +161,43 @@ inline void getValidPowerSupplyPath(
     std::function<void(const std::string& powerSupplyPath)>&& callback)
 {
     std::string powerPath = validChassisPath + "/powered_by";
-    dbus::utility::getAssociationEndPoints(
-        powerPath, [asyncResp, powerSupplyId, callback{std::move(callback)}](
-                       const boost::system::error_code& ec,
-                       const dbus::utility::MapperEndPoints& endpoints) {
-            if (ec)
+    dbus::utility::getAssociatedSubTreePaths(
+        powerPath, sdbusplus::message::object_path(powerSupplyInventoryPath), 0,
+        powerSupplyInterface,
+        [asyncResp, powerSupplyId, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
             {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR
-                        << "DBUS response error for getAssociationEndPoints"
-                        << ec.value();
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                messages::resourceNotFound(asyncResp->res, "PowerSupplies",
-                                           powerSupplyId);
+                BMCWEB_LOG_ERROR
+                    << "DBUS response error for getAssociatedSubTreePaths"
+                    << ec.value();
+                messages::internalError(asyncResp->res);
                 return;
             }
+            messages::resourceNotFound(asyncResp->res, "PowerSupplies",
+                                       powerSupplyId);
+            return;
+        }
 
-            for (const auto& endpoint : endpoints)
+        for (const auto& path : subtreePaths)
+        {
+            if (checkPowerSupplyId(path, powerSupplyId))
             {
-                if (checkPowerSupplyId(endpoint, powerSupplyId))
-                {
-                    callback(endpoint);
-                    return;
-                }
-            }
-
-            if (!endpoints.empty())
-            {
-                BMCWEB_LOG_WARNING << "Power supply not found: "
-                                   << powerSupplyId;
-                messages::resourceNotFound(asyncResp->res, "PowerSupplies",
-                                           powerSupplyId);
+                callback(path);
                 return;
             }
+        }
+
+        if (!subtreePaths.empty())
+        {
+            BMCWEB_LOG_WARNING << "Power supply not found: " << powerSupplyId;
+            messages::resourceNotFound(asyncResp->res, "PowerSupplies",
+                                       powerSupplyId);
+            return;
+        }
         });
 }
 
@@ -387,10 +395,8 @@ inline void
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         asyncResp->res.jsonValue["Status"]["Health"] = "OK";
 
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
         dbus::utility::getDbusObject(
-            powerSupplyPath, interfaces,
+            powerSupplyPath, powerSupplyInterface,
             [asyncResp,
              powerSupplyPath](const boost::system::error_code& ec,
                               const dbus::utility::MapperGetObject& object) {
