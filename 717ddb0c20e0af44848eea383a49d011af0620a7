@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8b83ba_f6d06999",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:39:36Z",
+      "side": 1,
+      "message": "Lets follow them exactly for now, and if we can and should be more strict, lets do it in another patch.\n\nFixed my miss.",
+      "parentUuid": "1e737674_de1c797b",
+      "revId": "717ddb0c20e0af44848eea383a49d011af0620a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee12909b_f6dff1d7",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-06-21T19:37:30Z",
       "side": 1,
       "message": "https://owasp.org/www-project-secure-headers/ci/headers_add.json has these as self. \n\n,sync-xhr\u003d(self),unoptimized-images\u003d(self),unsized-media\u003d(self), \n\nI am wondering more the policy we are trying to follow",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 59
+      },
+      "revId": "717ddb0c20e0af44848eea383a49d011af0620a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac14ac3e_64984939",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:39:36Z",
+      "side": 1,
+      "message": "Fixed to follow owasp policy.",
+      "parentUuid": "ee12909b_f6dff1d7",
       "range": {
         "startLine": 52,
         "startChar": 0,
