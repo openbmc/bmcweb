@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b8b030_af8295ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:08:37Z",
+      "side": 1,
+      "message": "Looks like wltu got this done:\nhttps://gerrit.openbmc.org/q/topic:associated-subtree-mapper-wltu",
+      "revId": "d9b55c874c7f6a00c4ce504a887477a9da401c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
