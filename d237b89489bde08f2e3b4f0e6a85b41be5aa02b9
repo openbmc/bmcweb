@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59dd841_2d1b1d81",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-21T23:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf16b930_c7974d40",
+      "range": {
+        "startLine": 369,
+        "startChar": 27,
+        "endLine": 369,
+        "endChar": 32
+      },
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69e85454_90c1a33f",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-05-26T19:34:01Z",
       "side": 1,
       "message": "return here?",
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d86d8d35_27960dfb",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-21T23:03:06Z",
+      "side": 1,
+      "message": "Added return if ec !\u003d EBADR, other wise we will continue to add sensor URI. It is a valid sensor.",
+      "parentUuid": "69e85454_90c1a33f",
       "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df00d76f_289d72d7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-21T23:03:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b172c30_ffe59f33",
+      "range": {
+        "startLine": 388,
+        "startChar": 27,
+        "endLine": 388,
+        "endChar": 32
+      },
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3e84762_68722c45",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-05-26T19:34:01Z",
       "side": 1,
       "message": "return here?",
+      "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b181957_ca0b87e2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-21T23:03:06Z",
+      "side": 1,
+      "message": "Added return if ec !\u003d EBADR, other wise we will continue to add sensor URI. It is a valid sensor.",
+      "parentUuid": "f3e84762_68722c45",
       "revId": "d237b89489bde08f2e3b4f0e6a85b41be5aa02b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
