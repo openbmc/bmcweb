@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2da2cce_6049934b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-21T23:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7235d02_414953c0",
+      "range": {
+        "startLine": 153,
+        "startChar": 10,
+        "endLine": 153,
+        "endChar": 54
+      },
+      "revId": "38e4569af986f80082c71d4ff63e6acec3e25aff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52d788f4_a5069727",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-21T13:25:54Z",
       "side": 1,
       "message": "This can be\n   `for (const auto\u0026 fanPath : fanPaths)`",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 158,
+        "endChar": 47
+      },
+      "revId": "38e4569af986f80082c71d4ff63e6acec3e25aff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b4c0400_6c363d30",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-21T23:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52d788f4_a5069727",
       "range": {
         "startLine": 157,
         "startChar": 1,
