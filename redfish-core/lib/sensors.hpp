@@ -2694,7 +2694,10 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::setProperty(
+                    *crow::connections::systemBus, item.second, item.first,
+                    "xyz.openbmc_project.Sensor.Value", "Value",
+                    iterator->second.first,
                     [sensorAsyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
@@ -2714,10 +2717,7 @@ inline void setSensorsOverride(
                         messages::internalError(
                             sensorAsyncResp->asyncResp->res);
                     }
-                    },
-                    item.second, item.first, "org.freedesktop.DBus.Properties",
-                    "Set", "xyz.openbmc_project.Sensor.Value", "Value",
-                    dbus::utility::DbusVariantType(iterator->second.first));
+                    });
             }
         };
         // Get object with connection for the given sensor name
