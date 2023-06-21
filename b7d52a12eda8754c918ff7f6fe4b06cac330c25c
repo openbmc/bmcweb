@@ -16,6 +16,23 @@
       "message": "Will leave this open.  Please merge when the dependent commits are merged.",
       "revId": "b7d52a12eda8754c918ff7f6fe4b06cac330c25c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97b50934_3f32d809",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-21T20:48:26Z",
+      "side": 1,
+      "message": "This should not have been abandoned.  I think the referenced commit in the abandon is something else.",
+      "revId": "b7d52a12eda8754c918ff7f6fe4b06cac330c25c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
