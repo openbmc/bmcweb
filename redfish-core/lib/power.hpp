@@ -97,7 +97,10 @@ inline void setPowerCapOverride(
                 return;
             }
 
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/control/host0/power_cap",
+                "xyz.openbmc_project.Control.Power.Cap", "PowerCap", *value,
                 [sensorsAsyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -107,12 +110,7 @@ inline void setPowerCapOverride(
                 }
                 sensorsAsyncResp->asyncResp->res.result(
                     boost::beast::http::status::no_content);
-                },
-                "xyz.openbmc_project.Settings",
-                "/xyz/openbmc_project/control/host0/power_cap",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
-                std::variant<uint32_t>(*value));
+                });
             });
     };
     redfish::chassis_utils::getValidChassisPath(sensorsAsyncResp->asyncResp,

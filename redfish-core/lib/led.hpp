@@ -122,7 +122,10 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
+        "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
         [asyncResp, ledOn,
          ledBlinkng](const boost::system::error_code& ec) mutable {
         if (ec)
@@ -135,7 +138,11 @@ inline void
                 ledOn = true;
             }
         }
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus,
+            "xyz.openbmc_project.LED.GroupManager",
+            "/xyz/openbmc_project/led/groups/enclosure_identify",
+            "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -144,18 +151,8 @@ inline void
                 return;
             }
             messages::success(asyncResp->res);
-            },
-            "xyz.openbmc_project.LED.GroupManager",
-            "/xyz/openbmc_project/led/groups/enclosure_identify",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Led.Group", "Asserted",
-            dbus::utility::DbusVariantType(ledOn));
-        },
-        "xyz.openbmc_project.LED.GroupManager",
-        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Led.Group", "Asserted",
-        dbus::utility::DbusVariantType(ledBlinkng));
+            });
+        });
 }
 
 /**
@@ -229,14 +226,21 @@ inline void setLocationIndicatorActive(
 {
     BMCWEB_LOG_DEBUG << "Set LocationIndicatorActive";
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, ledState](const boost::system::error_code& ec) mutable {
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
+        "xyz.openbmc_project.Led.Group", "Asserted", ledState,
+        [asyncResp, ledState](const boost::system::error_code& ec) {
         if (ec)
         {
             // Some systems may not have enclosure_identify_blink object so
             // lets set enclosure_identify state also if
             // enclosure_identify_blink failed
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.LED.GroupManager",
+                "/xyz/openbmc_project/led/groups/enclosure_identify",
+                "xyz.openbmc_project.Led.Group", "Asserted", ledState,
                 [asyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
@@ -244,18 +248,8 @@ inline void setLocationIndicatorActive(
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                },
-                "xyz.openbmc_project.LED.GroupManager",
-                "/xyz/openbmc_project/led/groups/enclosure_identify",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Led.Group", "Asserted",
-                dbus::utility::DbusVariantType(ledState));
+                });
         }
-        },
-        "xyz.openbmc_project.LED.GroupManager",
-        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Led.Group", "Asserted",
-        dbus::utility::DbusVariantType(ledState));
+        });
 }
 } // namespace redfish

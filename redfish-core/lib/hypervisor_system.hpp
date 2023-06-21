@@ -351,7 +351,10 @@ inline void setHypervisorIPv4Address(
 {
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Address
                      << " on Iface: " << ethIfaceId;
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
+        "xyz.openbmc_project.Network.IP", "Address", ipv4Address,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -359,12 +362,7 @@ inline void setHypervisorIPv4Address(
             return;
         }
         BMCWEB_LOG_DEBUG << "Hypervisor IPaddress is Set";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", "Address",
-        dbus::utility::DbusVariantType(ipv4Address));
+        });
 }
 
 /**
@@ -383,7 +381,10 @@ inline void
     BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
                      << " on Iface: " << ethIfaceId;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
+        "xyz.openbmc_project.Network.IP", "PrefixLength", subnet,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -391,12 +392,7 @@ inline void
             return;
         }
         BMCWEB_LOG_DEBUG << "SubnetMask is Set";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", "PrefixLength",
-        dbus::utility::DbusVariantType(subnet));
+        });
 }
 
 /**
@@ -415,20 +411,18 @@ inline void setHypervisorIPv4Gateway(
     BMCWEB_LOG_DEBUG
         << "Setting the DefaultGateway to the last configured gateway";
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "Default Gateway is Set";
-        },
-        "xyz.openbmc_project.Settings",
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor",
-        "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
-        dbus::utility::DbusVariantType(gateway));
+        gateway, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Default Gateway is Set";
+        });
 }
 
 /**
@@ -514,7 +508,10 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled", dhcp,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -522,12 +519,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
             messages::internalError(asyncResp->res);
             return;
         }
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
-        dbus::utility::DbusVariantType{dhcp});
+        });
 
     // Set the IPv4 address origin to the DHCP / Static as per the new value
     // of the DHCPEnabled property
@@ -543,7 +535,10 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
         deleteHypervisorIPv4(ifaceId, asyncResp);
         origin = "xyz.openbmc_project.Network.IP.AddressOrigin.DHCP";
     }
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
+        "xyz.openbmc_project.Network.IP", "Origin", origin,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -552,12 +547,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
             return;
         }
         BMCWEB_LOG_DEBUG << "Hypervisor IPaddress Origin is Set";
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", "Origin",
-        dbus::utility::DbusVariantType(origin));
+        });
 }
 
 inline void handleHypervisorIPv4StaticPatch(
@@ -675,38 +665,32 @@ inline void handleHypervisorHostnamePatch(
     }
 
     asyncResp->res.jsonValue["HostName"] = hostName;
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/",
+        "xyz.openbmc_project.Network.SystemConfiguration", "HostName", hostName,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
         }
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        dbus::utility::DbusVariantType(hostName));
+        });
 }
 
 inline void
     setIPv4InterfaceEnabled(const std::string& ifaceId, bool isActive,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
+        "xyz.openbmc_project.Object.Enable", "Enabled", isActive,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
             messages::internalError(asyncResp->res);
-            return;
         }
-        },
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Object.Enable", "Enabled",
-        dbus::utility::DbusVariantType(isActive));
+        });
 }
 
 inline void handleHypervisorEthernetInterfaceCollectionGet(
@@ -1021,7 +1005,10 @@ inline void handleHypervisorSystemResetPost(
 
     std::string command = "xyz.openbmc_project.State.Host.Transition.On";
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
+        "/xyz/openbmc_project/state/hypervisor0",
+        "xyz.openbmc_project.State.Host", "RequestedHostTransition", command,
         [asyncResp, resetType](const boost::system::error_code& ec) {
         if (ec)
         {
@@ -1043,12 +1030,7 @@ inline void handleHypervisorSystemResetPost(
             return;
         }
         messages::success(asyncResp->res);
-        },
-        "xyz.openbmc_project.State.Hypervisor",
-        "/xyz/openbmc_project/state/hypervisor0",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-        dbus::utility::DbusVariantType{std::move(command)});
+        });
 }
 
 inline void requestRoutesHypervisorSystems(App& app)

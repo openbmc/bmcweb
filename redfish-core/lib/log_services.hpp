@@ -1841,7 +1841,10 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         }
         BMCWEB_LOG_DEBUG << "Set Resolved";
 
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging/entry/" + entryId,
+            "xyz.openbmc_project.Logging.Entry", "Resolved", *resolved,
             [asyncResp, entryId](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1849,12 +1852,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            },
-            "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryId,
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Logging.Entry", "Resolved",
-            dbus::utility::DbusVariantType(*resolved));
+            });
         });
 
     BMCWEB_ROUTE(

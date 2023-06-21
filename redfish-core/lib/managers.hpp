@@ -61,9 +61,9 @@ inline void
     const char* destProperty = "RequestedBMCTransition";
 
     // Create the D-Bus variant for D-Bus call.
-    dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
-
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        destProperty, propertyValue,
         [asyncResp](const boost::system::error_code& ec) {
         // Use "Set" method to set the property value.
         if (ec)
@@ -74,9 +74,7 @@ inline void
         }
 
         messages::success(asyncResp->res);
-        },
-        processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
-        interfaceName, destProperty, dbusPropertyValue);
+        });
 }
 
 inline void
@@ -90,9 +88,9 @@ inline void
     const char* destProperty = "RequestedBMCTransition";
 
     // Create the D-Bus variant for D-Bus call.
-    dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
-
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        destProperty, propertyValue,
         [asyncResp](const boost::system::error_code& ec) {
         // Use "Set" method to set the property value.
         if (ec)
@@ -103,9 +101,7 @@ inline void
         }
 
         messages::success(asyncResp->res);
-        },
-        processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
-        interfaceName, destProperty, dbusPropertyValue);
+        });
 }
 
 /**
@@ -1466,17 +1462,16 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 return;
             }
             currentProfile = *profile;
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, profileConnection, profilePath,
+                thermalModeIface, "Current", *profile,
                 [response](const boost::system::error_code& ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error patching profile" << ec;
                     messages::internalError(response->res);
                 }
-                },
-                profileConnection, profilePath,
-                "org.freedesktop.DBus.Properties", "Set", thermalModeIface,
-                "Current", dbus::utility::DbusVariantType(*profile));
+                });
         }
 
         for (auto& containerPair : configuration)
@@ -1600,7 +1595,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::setProperty(
+                            *crow::connections::systemBus,
+                            "xyz.openbmc_project.EntityManager", path, iface,
+                            property.first, property.second,
                             [response,
                              propertyName{std::string(property.first)}](
                                 const boost::system::error_code& ec) {
@@ -1612,10 +1610,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 return;
                             }
                             messages::success(response->res);
-                            },
-                            "xyz.openbmc_project.EntityManager", path,
-                            "org.freedesktop.DBus.Properties", "Set", iface,
-                            property.first, property.second);
+                            });
                     }
                 }
                 else
@@ -1839,7 +1834,12 @@ inline void
         // Only support Immediate
         // An addition could be a Redfish Setting like
         // ActiveSoftwareImageApplyTime and support OnReset
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus,
+            "xyz.openbmc_project.Software.BMC.Updater",
+            "/xyz/openbmc_project/software/" + firmwareId,
+            "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
+            static_cast<uint8_t>(0),
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
@@ -1848,13 +1848,7 @@ inline void
                 return;
             }
             doBMCGracefulRestart(asyncResp);
-            },
-
-            "xyz.openbmc_project.Software.BMC.Updater",
-            "/xyz/openbmc_project/software/" + firmwareId,
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
-            dbus::utility::DbusVariantType(static_cast<uint8_t>(0)));
+            });
         });
 }
 
@@ -1871,7 +1865,10 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                            "DateTime");
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Time.Manager",
+        "/xyz/openbmc_project/time/bmc", "xyz.openbmc_project.Time.EpochTime",
+        "Elapsed", us->count(),
         [asyncResp{std::move(asyncResp)},
          datetime{std::move(datetime)}](const boost::system::error_code& ec) {
         if (ec)
@@ -1883,11 +1880,7 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
         asyncResp->res.jsonValue["DateTime"] = datetime;
-        },
-        "xyz.openbmc_project.Time.Manager", "/xyz/openbmc_project/time/bmc",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Time.EpochTime", "Elapsed",
-        dbus::utility::DbusVariantType(us->count()));
+        });
 }
 
 inline void
