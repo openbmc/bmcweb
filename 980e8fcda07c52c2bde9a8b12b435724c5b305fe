@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d220b43_21b54d78",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:37:32Z",
+      "side": 1,
+      "message": "Yeah, this is unfortunately the best error message we have, even if it\u0027s lame.",
+      "parentUuid": "012c354b_e87d13fa",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ec7782b_6e3dc102",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-18T22:00:57Z",
       "side": 1,
       "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1bb6dac_7fbfb674",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ec7782b_6e3dc102",
       "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af218431_72e814c2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d646d095_b9ce148d",
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec4b0f58_1489407c",
@@ -82,6 +136,30 @@
       "writtenOn": "2023-06-18T22:00:57Z",
       "side": 1,
       "message": "include string",
+      "range": {
+        "startLine": 211,
+        "startChar": 14,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "980e8fcda07c52c2bde9a8b12b435724c5b305fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b15a416a_28ea23d8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 71
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-21T19:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec4b0f58_1489407c",
       "range": {
         "startLine": 211,
         "startChar": 14,
