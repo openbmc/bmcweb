@@ -252,17 +252,17 @@ inline void handleNTPProtocolEnabled(
             "xyz.openbmc_project.Time.Synchronization.Method.Manual";
     }
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/time/sync_method",
+        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
+        timeSyncMethod,
         [asyncResp](const boost::system::error_code& errorCode) {
         if (errorCode)
         {
             messages::internalError(asyncResp->res);
         }
-        },
-        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/time/sync_method",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        dbus::utility::DbusVariantType{timeSyncMethod});
+        });
 }
 
 inline void
@@ -369,17 +369,16 @@ inline void
                         continue;
                     }
 
-                    crow::connections::systemBus->async_method_call(
+                    sdbusplus::asio::setProperty(
+                        *crow::connections::systemBus, service, objectPath,
+                        interface, "StaticNTPServers", currentNtpServers,
                         [asyncResp](const boost::system::error_code& ec2) {
                         if (ec2)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        },
-                        service, objectPath, "org.freedesktop.DBus.Properties",
-                        "Set", interface, "StaticNTPServers",
-                        dbus::utility::DbusVariantType{currentNtpServers});
+                        });
                 }
             }
         }
@@ -408,31 +407,30 @@ inline void
         {
             if (boost::algorithm::starts_with(entry.first, netBasePath))
             {
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    },
-                    entry.second.begin()->first, entry.first,
-                    "org.freedesktop.DBus.Properties", "Set",
+                sdbusplus::asio::setProperty(
+                    *crow::connections::systemBus, entry.second.begin()->first,
+                    entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Running",
-                    dbus::utility::DbusVariantType{protocolEnabled});
-
-                crow::connections::systemBus->async_method_call(
+                    protocolEnabled,
                     [asyncResp](const boost::system::error_code& ec2) {
                     if (ec2)
                     {
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    },
-                    entry.second.begin()->first, entry.first,
-                    "org.freedesktop.DBus.Properties", "Set",
+                    });
+                sdbusplus::asio::setProperty(
+                    *crow::connections::systemBus, entry.second.begin()->first,
+                    entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
-                    dbus::utility::DbusVariantType{protocolEnabled});
+                    protocolEnabled,
+                    [asyncResp](const boost::system::error_code& ec2) {
+                    if (ec2)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    });
             }
         }
         });
