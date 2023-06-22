@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60dc4129_6896dfe8",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T04:13:31Z",
+      "side": 1,
+      "message": "May be in a different commit. Not planning to do here.",
+      "parentUuid": "2d43a42b_434307bf",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "0f9859dcc981edf391da4b617d319b92e9d82980",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14186b9e_1edeef0c",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-14T21:07:34Z",
       "side": 1,
       "message": "The current used subtree is \"/xyz/openbmc_project/inventory\" for both cases - `getCollectionMembers()` and `getPCIeDeviceList()`.\nI think we can move subtree parameter to the end as an optional.\nAlso, the usage pattern of arrayName seems the literal string rather than variable.\n\nThen we can define the function like - \n\n```\ngetCollectionMembersArray(std::shared_ptr\u003cbmcweb::AsyncResp\u003e asyncResp,\n                              const boost::urls::url\u0026 collectionPath,\n                              std::span\u003cconst std::string_view\u003e interfaces,\n                              std::string_view arrayName,\n                              const char* subtree \u003d \"/xyz/openbmc_project/inventory\")\n```\n\nIf `std::string_view` is used, `arrayName + \"@odata.count\"` may need to be `std::string(arrayName)+\"@odata.count\"`",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 80
+      },
+      "revId": "0f9859dcc981edf391da4b617d319b92e9d82980",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc16d3f_af71b158",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T04:13:31Z",
+      "side": 1,
+      "message": "I am not sure why need optional subtree?\nIn the code, arrayName is already of type std::string, so there is no issue with concatenating it with \"@odata.count\". I did not understand the comment.",
+      "parentUuid": "14186b9e_1edeef0c",
       "range": {
         "startLine": 37,
         "startChar": 4,
