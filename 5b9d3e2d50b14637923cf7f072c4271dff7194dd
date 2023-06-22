@@ -39,6 +39,30 @@
       },
       "revId": "5b9d3e2d50b14637923cf7f072c4271dff7194dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91bb4345_fcb79b01",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T19:57:46Z",
+      "side": 1,
+      "message": "I moved to shared_ptr because std::vector requires that objects are both copyable and movable.  If I\u0027m honest, I couldn\u0027t really figure out why that\u0027s required (one would think you only need a move constructor).\n\nWhen I compared to KVM and the other websockets that do the same thing, they used a shared_ptr and just made the whole thing copyable.\n\nI\u0027m fairly certain with a day of bashing my head at it, I could figure it out, but it didn\u0027t seem worth it for such a lightweight struct.",
+      "parentUuid": "7e33af77_02224b7f",
+      "range": {
+        "startLine": 22,
+        "startChar": 21,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "5b9d3e2d50b14637923cf7f072c4271dff7194dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
