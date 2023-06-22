@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d235e42e_9ce71448",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T14:45:10Z",
+      "side": 1,
+      "message": "I like the way the code is now. With the comments it should be more clear.",
+      "parentUuid": "bef45aed_0611a462",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 1
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f422e67f_5555746c",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 12
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-22T13:27:37Z",
       "side": 1,
       "message": "I meant this code like\n\n```\n        if (isPCIeDevice)\n        {\n            getPCIeDeviceAsset(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceState(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);\n\n            getPCIeDeviceProperties(\n                asyncResp, pcieDevicePath, service,\n                [asyncResp, pcieDeviceId](\n                    const dbus::utility::DBusPropertiesMap\u0026 pcieDevProperties) {\n                addPCIeDeviceProperties(asyncResp-\u003eres, pcieDeviceId,\n                                        pcieDevProperties);\n                });\n                \n            //ADD: Get slot on device\n            getSlotLocationAndProperties(asyncResp,pciePath,service);\n        }\n        else\n        {\n           // Retrieve PCIe Slot location and properties regardless of the device\n          // type (PCIeDevice or PCIeSlot)\n          // CHG: --\u003e Get SlotLocation on device\n          getSlotLocationAndProperties(asyncResp, pcieDevicePath, service);\n        }\n\n```",
+      "range": {
+        "startLine": 624,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 46
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380896f9_3e4eaad1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T14:45:10Z",
+      "side": 1,
+      "message": "I understand, but I like the way current code. With comments it should be more clear.",
+      "parentUuid": "f422e67f_5555746c",
       "range": {
         "startLine": 624,
         "startChar": 0,
