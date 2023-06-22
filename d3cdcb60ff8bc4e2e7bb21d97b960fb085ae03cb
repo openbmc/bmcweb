@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb1c841_628ef171",
+        "filename": "Redfish.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T21:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "002a1eba_36687776",
+      "range": {
+        "startLine": 382,
+        "startChar": 2,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "212c7580_8db2afd2",
@@ -70,6 +94,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c8b2ca_9db9b3b0",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T21:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3af43a0f_27bb1c01",
+      "range": {
+        "startLine": 412,
+        "startChar": 23,
+        "endLine": 412,
+        "endChar": 33
+      },
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e724bd2f_1518f5a1",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T21:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "212c7580_8db2afd2",
+      "range": {
+        "startLine": 412,
+        "startChar": 16,
+        "endLine": 412,
+        "endChar": 20
+      },
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0210607d_8466a3fe",
@@ -83,6 +155,24 @@
       "writtenOn": "2023-06-22T19:17:50Z",
       "side": 1,
       "message": "I would have wrote this more like \nhttps://github.com/openbmc/bmcweb/blob/6995c1ce42d5bc2d223af7d3b2f3cae613d3b231/redfish-core/lib/chassis.hpp#L69\n\nor \n\nhttps://github.com/openbmc/bmcweb/blob/6995c1ce42d5bc2d223af7d3b2f3cae613d3b231/redfish-core/lib/redfish_v1.hpp#L87\n\nor \n\nhttps://github.com/openbmc/bmcweb/commit/613dabea03cd2f5cb999be37aaf539280c63ea7a#diff-a6441dc86bbef5cbe2192c66717e8b938f9ee3a02670ff54c702338095a0d660R186\n\nI think above is the preferred style \n\nnlohmann::json::array_t efficiencyRatings;\nnlohmann::json::object_t efficiencyPercent;\n\nefficiencyPercent[\"EfficiencyPercent\"] \u003d value;\n\nefficiencyRatings.emplace_back(std::move(efficiencyPercent));\nasyncResp-\u003eres.jsonValue[\"EfficiencyRatings\"] \u003d std::move(efficiencyRatings);",
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "937c85aa_62f8a5eb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T21:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0210607d_8466a3fe",
       "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
