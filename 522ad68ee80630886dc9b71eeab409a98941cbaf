@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83525308_fe932553",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T15:53:10Z",
+      "side": 1,
+      "message": "This is old code, not related to this commit. Only change is adding if condition. It should be in a separate commit.",
+      "parentUuid": "3bc13658_1d81aee1",
+      "range": {
+        "startLine": 620,
+        "startChar": 21,
+        "endLine": 637,
+        "endChar": 9
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f422e67f_5555746c",
