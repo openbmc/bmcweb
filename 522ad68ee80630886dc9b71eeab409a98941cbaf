@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef45aed_0611a462",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-22T13:27:37Z",
+      "side": 1,
+      "message": "I meant - make this function is only for PCIeDevice, \nas it is only calling `doSlotLocationAndProperties()` for the case of pcieslot.\nSo, the caller can directly use `doSlotLocationAndProperties()` for pcie slot case, not going thru this function.\n\n```\n\ninline void getSlotLocationAndProperties(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 pciePath,    const std::string\u0026 service)\n{\n\n        // If it is a PCIeDevice, retrieve the associated PCIeSlot path and its\n        // service.\n        getPCIeDeviceSlotPath(\n            pciePath, asyncResp,\n            [asyncResp, pciePath](const std::string\u0026 pcieDeviceSlot) {\n            dbus::utility::getDbusObject(\n                pcieDeviceSlot, pcieDeviceInterface,\n                [asyncResp,\n                 pcieDeviceSlot](const boost::system::error_code\u0026 ec,\n                                 const dbus::utility::MapperGetObject\u0026 object) {\n                if (ec || object.empty())\n                {\n                    BMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error for getDbusObject \"\n                                     \u003c\u003c ec.message();\n                    messages::internalError(asyncResp-\u003eres);\n                    return;\n                }\n                doSlotLocationAndProperties(asyncResp, pcieDeviceSlot,\n                                            object.begin()-\u003efirst);\n                });\n            });\n}\n\n```",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 1
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f422e67f_5555746c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-22T13:27:37Z",
+      "side": 1,
+      "message": "I meant this code like\n\n```\n        if (isPCIeDevice)\n        {\n            getPCIeDeviceAsset(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceState(asyncResp, pcieDevicePath, service);\n            getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);\n\n            getPCIeDeviceProperties(\n                asyncResp, pcieDevicePath, service,\n                [asyncResp, pcieDeviceId](\n                    const dbus::utility::DBusPropertiesMap\u0026 pcieDevProperties) {\n                addPCIeDeviceProperties(asyncResp-\u003eres, pcieDeviceId,\n                                        pcieDevProperties);\n                });\n                \n            //ADD: Get slot on device\n            getSlotLocationAndProperties(asyncResp,pciePath,service);\n        }\n        else\n        {\n           // Retrieve PCIe Slot location and properties regardless of the device\n          // type (PCIeDevice or PCIeSlot)\n          // CHG: --\u003e Get SlotLocation on device\n          getSlotLocationAndProperties(asyncResp, pcieDevicePath, service);\n        }\n\n```",
+      "range": {
+        "startLine": 624,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 46
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
