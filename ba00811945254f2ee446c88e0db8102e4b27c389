@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67bbd366_3edbf488",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T18:57:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we also do the same here then? \ngetAssociatedSubTreePaths",
+      "revId": "ba00811945254f2ee446c88e0db8102e4b27c389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
