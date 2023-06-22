@@ -3,12 +3,11 @@
 
 #include "async_resp.hpp"
 #include "authentication.hpp"
+#include "complete_response_fields.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
-#include "json_html_serializer.hpp"
 #include "logging.hpp"
 #include "mutual_tls.hpp"
-#include "security_headers.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
 
@@ -314,65 +313,13 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-        BMCWEB_LOG_INFO << "Response: " << this << ' '
-                        << req->url().encoded_path() << ' ' << res.resultInt()
-                        << " keepalive=" << keepAlive;
-
-        addSecurityHeaders(*req, res);
-
-        crow::authentication::cleanupTempSession(*req);
+        completeResponseFields(*req, res);
 
         if (!isAlive())
         {
-            // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
-            // isReading
-            // << ' ' << isWriting;
-            // delete this;
-
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
             res.setCompleteRequestHandler(nullptr);
             return;
         }
-
-        res.setHashAndHandleNotModified();
-
-        if (res.body().empty() && res.jsonValue.is_structured())
-        {
-            using http_helpers::ContentType;
-            std::array<ContentType, 3> allowed{
-                ContentType::CBOR, ContentType::JSON, ContentType::HTML};
-            ContentType prefered =
-                getPreferedContentType(req->getHeaderValue("Accept"), allowed);
-
-            if (prefered == ContentType::HTML)
-            {
-                json_html_util::prettyPrintJson(res);
-            }
-            else if (prefered == ContentType::CBOR)
-            {
-                res.addHeader(boost::beast::http::field::content_type,
-                              "application/cbor");
-                nlohmann::json::to_cbor(res.jsonValue, res.body());
-            }
-            else
-            {
-                // Technically prefered could also be NoMatch here, but we'd
-                // like to default to something rather than return 400 for
-                // backward compatibility.
-                res.addHeader(boost::beast::http::field::content_type,
-                              "application/json");
-                res.body() = res.jsonValue.dump(
-                    2, ' ', true, nlohmann::json::error_handler_t::replace);
-            }
-        }
-
-        if (res.resultInt() >= 400 && res.body().empty())
-        {
-            res.body() = std::string(res.reason());
-        }
-
-        res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         doWrite(res);
 
