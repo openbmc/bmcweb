@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d084cba_8d19f647",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T18:42:14Z",
+      "side": 1,
+      "message": "I am good with this direction, I think the pros outweight the slightly harder code to understand (e.g. someone coming in and having to understand what bmcweb::flat_map is)",
+      "revId": "5b9d3e2d50b14637923cf7f072c4271dff7194dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e33af77_02224b7f",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T18:42:14Z",
+      "side": 1,
+      "message": "You moved to shared_ptr because in case in the future this gets shared with multiple objects / just simpler, we use shared_ptr a lot more?\n\n\"Unique_ptr is more efficient and expressive, but less flexible and compatible than shared_ptr.\"",
+      "range": {
+        "startLine": 22,
+        "startChar": 21,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "5b9d3e2d50b14637923cf7f072c4271dff7194dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
