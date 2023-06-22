@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ec8dc98_59f147be",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T04:14:53Z",
+      "side": 1,
+      "message": "There is no requirement, it should be in a different commit.",
+      "parentUuid": "60dc4129_6896dfe8",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "0f9859dcc981edf391da4b617d319b92e9d82980",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14186b9e_1edeef0c",
