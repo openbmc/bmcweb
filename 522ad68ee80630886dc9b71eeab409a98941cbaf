@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bc13658_1d81aee1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T15:40:30Z",
+      "side": 1,
+      "message": "This lambda is:\n\nA. Too complex (violates the coding rules)\nB. Multi depth (there\u0027s a lambda within a lambda)\n\nNeither of these is acceptable practice.  Please fix it.",
+      "range": {
+        "startLine": 620,
+        "startChar": 21,
+        "endLine": 637,
+        "endChar": 9
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f422e67f_5555746c",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 12
