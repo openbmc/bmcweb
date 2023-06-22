@@ -46,6 +46,30 @@
       },
       "revId": "ca1eb7f969d48b3718f29a760cc17cacf8368390",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d167b8e2_d3ba60b2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-22T14:01:20Z",
+      "side": 1,
+      "message": "My comment is not about the correctness, as it works either way, but more like the optimization - no need to update Json[\"@data.count\"] every element.\nThe suggested structure is updating the count at the end once.\n\n```\n                          const std::string\u0026 chassisId,\n                          const dbus::utility::MapperEndPoints\u0026 fanPaths)\n{\n    nlohmann::json\u0026 fanList \u003d asyncResp-\u003eres.jsonValue[\"Members\"];\n\n    for (const auto\u0026 fanPath : fanPaths)\n   {        \n       std::string fanName \u003d sdbusplus::message::object_path(fanPath).filename();\n       if (fanName.empty())\n       {\n           continue;     \u003c-- skip\n       }\n       nlohmann::json item;\n       item[\"@odata.id\"] \u003d boost::urls::format(\n           \"/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}\", chassisId, fanName);\n        fanList.emplace_back(std::move(item));\n    }\n    \n    --\u003e update the data count at the end once.\n    asyncResp-\u003eres.jsonValue[\"Members@odata.count\"] \u003d fanList.size();\n}\n\n```",
+      "parentUuid": "95025fb9_512d93da",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 69
+      },
+      "revId": "ca1eb7f969d48b3718f29a760cc17cacf8368390",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
