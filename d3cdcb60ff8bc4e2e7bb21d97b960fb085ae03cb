@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "002a1eba_36687776",
+        "filename": "Redfish.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T19:17:50Z",
+      "side": 1,
+      "message": "EfficiencyRatings/EfficiencyPercent ?",
+      "range": {
+        "startLine": 382,
+        "startChar": 2,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212c7580_8db2afd2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T19:17:50Z",
+      "side": 1,
+      "message": "why not an internal error for ec1 ?",
+      "range": {
+        "startLine": 412,
+        "startChar": 16,
+        "endLine": 412,
+        "endChar": 20
+      },
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3af43a0f_27bb1c01",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T19:17:50Z",
+      "side": 1,
+      "message": "So you leave off if it is 0?\nI see this similar check there before \nhttps://github.com/openbmc/bmcweb/blob/6995c1ce42d5bc2d223af7d3b2f3cae613d3b231/redfish-core/lib/sensors.hpp#L2217\n\nI think that is fine. I assume the check for 0 is there for a default value from PDI ?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/3bbd4827527ae41ea9e20c499506ff3a83027534/yaml/xyz/openbmc_project/Control/PowerSupplyAttributes.interface.yaml#L4\n\nA comment might help but not required \n\ne.g. \n// The PDI default value is 0, if it hasn\u0027t been set leave off",
+      "range": {
+        "startLine": 412,
+        "startChar": 23,
+        "endLine": 412,
+        "endChar": 33
+      },
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0210607d_8466a3fe",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-22T19:17:50Z",
+      "side": 1,
+      "message": "I would have wrote this more like \nhttps://github.com/openbmc/bmcweb/blob/6995c1ce42d5bc2d223af7d3b2f3cae613d3b231/redfish-core/lib/chassis.hpp#L69\n\nor \n\nhttps://github.com/openbmc/bmcweb/blob/6995c1ce42d5bc2d223af7d3b2f3cae613d3b231/redfish-core/lib/redfish_v1.hpp#L87\n\nor \n\nhttps://github.com/openbmc/bmcweb/commit/613dabea03cd2f5cb999be37aaf539280c63ea7a#diff-a6441dc86bbef5cbe2192c66717e8b938f9ee3a02670ff54c702338095a0d660R186\n\nI think above is the preferred style \n\nnlohmann::json::array_t efficiencyRatings;\nnlohmann::json::object_t efficiencyPercent;\n\nefficiencyPercent[\"EfficiencyPercent\"] \u003d value;\n\nefficiencyRatings.emplace_back(std::move(efficiencyPercent));\nasyncResp-\u003eres.jsonValue[\"EfficiencyRatings\"] \u003d std::move(efficiencyRatings);",
+      "revId": "d3cdcb60ff8bc4e2e7bb21d97b960fb085ae03cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
