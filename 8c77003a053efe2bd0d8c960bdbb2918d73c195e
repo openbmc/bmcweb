@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8940e46_c9b3ff11",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T17:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb00e878_354fb2a6",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "8c77003a053efe2bd0d8c960bdbb2918d73c195e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b54e6a9_a36b3f4b",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-20T20:21:36Z",
       "side": 1,
       "message": "This needs checked for empty.",
+      "range": {
+        "startLine": 25,
+        "startChar": 16,
+        "endLine": 25,
+        "endChar": 28
+      },
+      "revId": "8c77003a053efe2bd0d8c960bdbb2918d73c195e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c5ec388_245bcc36",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T17:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b54e6a9_a36b3f4b",
       "range": {
         "startLine": 25,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4742e22_22db83d3",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T17:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54797a1f_b76e64ca",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "8c77003a053efe2bd0d8c960bdbb2918d73c195e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb4c5654_ca864c55",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2317753_80f74598",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T17:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb4c5654_ca864c55",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "8c77003a053efe2bd0d8c960bdbb2918d73c195e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e933994c_68ba5aa3",
@@ -123,6 +219,24 @@
       "writtenOn": "2022-10-20T20:21:36Z",
       "side": 1,
       "message": "Please make this lambda its own method.",
+      "revId": "8c77003a053efe2bd0d8c960bdbb2918d73c195e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6ea2319_52a0483d",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-22T17:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e933994c_68ba5aa3",
       "revId": "8c77003a053efe2bd0d8c960bdbb2918d73c195e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
