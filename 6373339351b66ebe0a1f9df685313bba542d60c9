@@ -22,6 +22,30 @@
       },
       "revId": "6373339351b66ebe0a1f9df685313bba542d60c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc3dbb9_b518743e",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-22T03:25:54Z",
+      "side": 1,
+      "message": "Changed the name to addEmptyPCIeSlot, empt PCIeSlot means not in use.",
+      "parentUuid": "76c6ad88_07168d56",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "6373339351b66ebe0a1f9df685313bba542d60c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
