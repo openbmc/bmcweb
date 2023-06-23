@@ -16,6 +16,24 @@
       "message": "Looks like a straightforward replacement\nhttps://en.cppreference.com/w/cpp/experimental/source_location\nhttps://en.cppreference.com/w/cpp/utility/source_location",
       "revId": "d85418e397ffffb2446eac9799b381502518b780",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e9a82d_43f0dd3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-23T14:26:08Z",
+      "side": 1,
+      "message": "Yes. They had similar enough APIs for our use. We only added this due to Clang not supporting the non-experimental ones fast enough. The code here (and even the comments) were originally copied from phosphor-logging where I had added the support for Clang. I’ve removed them there this morning also.",
+      "parentUuid": "08c43a55_255f2508",
+      "revId": "d85418e397ffffb2446eac9799b381502518b780",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
