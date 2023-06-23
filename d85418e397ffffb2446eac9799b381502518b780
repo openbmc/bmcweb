@@ -34,6 +34,23 @@
       "parentUuid": "08c43a55_255f2508",
       "revId": "d85418e397ffffb2446eac9799b381502518b780",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab8dfbb_49faaccf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-23T15:15:28Z",
+      "side": 1,
+      "message": "Seems like a trivially correct cleanup.  No need to litigate further.\n\n\nAs always, happy to discuss if someone sees an issue.",
+      "revId": "d85418e397ffffb2446eac9799b381502518b780",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
