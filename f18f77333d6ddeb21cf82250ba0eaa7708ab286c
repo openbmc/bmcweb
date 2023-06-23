@@ -39,6 +39,30 @@
       },
       "revId": "f18f77333d6ddeb21cf82250ba0eaa7708ab286c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e3ef03_ec105d6d",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-23T20:10:40Z",
+      "side": 1,
+      "message": "Defining inventoryPath is giving error as it is already used in other places. \nI made a modification to the code by replacing the variable \u0027powerSupplyInventoryPath\u0027 with the actual path \u0027/xyz/openbmc_project/inventory\u0027 in the function call. This is the most common way we do in bmcweb.",
+      "parentUuid": "14d93228_976170dc",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
+        "endChar": 54
+      },
+      "revId": "f18f77333d6ddeb21cf82250ba0eaa7708ab286c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
