@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c16040_7c83f3d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-23T16:44:18Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this is ready for a review and merge.\n\nThere\u0027s missing features (like websocket support and mutual TLS), but it\u0027s disabled by default, and for Redfish use cases, shows what HTTP/2 can do.",
+      "revId": "65873051910baaeb47be329142e3e5217665cbde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
