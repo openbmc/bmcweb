@@ -16,6 +16,29 @@
       "message": "I fixed this patchset, and I see a couple functional problems with it.\n\n1. Service-config-manager is now required, otherwise PACTCHING a enabled change returns an internal error.\n2. On systems without the services listed, the services still show up in NetworkProtocol.",
       "revId": "7bcb09ad0fb6a650878fe37425ec14acc3ad2ce2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4b25e79_7947c886",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-23T22:39:09Z",
+      "side": 1,
+      "message": "Can you add BMCWEB_LOG_ERROR with the error code (ec) to log internal errors, which will help with debugging.",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "7bcb09ad0fb6a650878fe37425ec14acc3ad2ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
