@@ -16,12 +16,12 @@
 #pragma once
 
 #include "http_response.hpp"
-#include "source_location.hpp"
 
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
+#include <source_location>
 #include <string>
 #include <string_view>
 
@@ -121,8 +121,8 @@ void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
  * @returns Message InternalError formatted to JSON */
 nlohmann::json internalError();
 
-void internalError(crow::Response& res, bmcweb::source_location location =
-                                            bmcweb::source_location::current());
+void internalError(crow::Response& res, std::source_location location =
+                                            std::source_location::current());
 
 /**
  * @brief Formats UnrecognizedRequestBody message into JSON

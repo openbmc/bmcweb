@@ -19,7 +19,6 @@
 #include "logging.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
-#include "source_location.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -27,6 +26,7 @@
 
 #include <array>
 #include <cstddef>
+#include <source_location>
 #include <span>
 #include <string>
 #include <utility>
@@ -280,7 +280,7 @@ nlohmann::json internalError(void)
     return getLog(redfish::registries::base::Index::internalError, {});
 }
 
-void internalError(crow::Response& res, const bmcweb::source_location location)
+void internalError(crow::Response& res, const std::source_location location)
 {
     BMCWEB_LOG_CRITICAL << "Internal Error " << location.file_name() << "("
                         << location.line() << ":" << location.column() << ") `"
