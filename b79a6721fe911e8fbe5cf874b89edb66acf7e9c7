@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41910a02_a96bb6ea",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-23T15:42:47Z",
+      "side": 1,
+      "message": "I thought on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61110 we decided that ::invalid would mean an error",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8674b1bc_19651249",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-23T15:42:47Z",
+      "side": 1,
+      "message": "I thought on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61110 we decided that ::invalid would mean an error",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06fbea58_45f4b9ba",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-23T15:42:47Z",
+      "side": 1,
+      "message": "you do ec.value below, ec.value for consistency ?\nAlso can you add a space after the  getAssociatedSubTreePaths",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5034f06c_a5a64d75",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 23
@@ -20,6 +71,23 @@
         "endLine": 249,
         "endChar": 9
       },
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d60f6d51_11f5157b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-23T15:42:47Z",
+      "side": 1,
+      "message": "ec.value for consistency",
       "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
