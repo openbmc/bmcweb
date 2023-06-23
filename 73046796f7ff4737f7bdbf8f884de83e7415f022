@@ -268,6 +268,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57c6eeea_f0ca84ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-23T15:46:05Z",
+      "side": 1,
+      "message": "We create Fan interface in the following code\nhttps://github.com/openbmc/openpower-vpd-parser/blob/3fb026386546cfd288ab4f86156c9aa0ffa145d6/vpd_tool_impl.cpp#L339\n\nFAN_INTERFACE is the Meson option:\nhttps://github.com/search?q\u003dorg%3Aopenbmc+%22FAN_INTERFACE%22\u0026type\u003dcode",
+      "parentUuid": "396abe43_b2b25d5e",
+      "revId": "73046796f7ff4737f7bdbf8f884de83e7415f022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c42eeb97_2076d0de",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 11
