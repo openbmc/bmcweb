@@ -429,7 +429,7 @@ inline void handleRoleMapPatch(
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, roleMapObjData, serverType, index,
                          remoteGroup](const boost::system::error_code& ec,
-                                      const sdbusplus::message::message& msg) {
+                                      const sdbusplus::message_t& msg) {
                         if (ec)
                         {
                             const sd_bus_error* dbusError = msg.get_error();
@@ -466,7 +466,7 @@ inline void handleRoleMapPatch(
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, roleMapObjData, serverType, index,
                          localRole](const boost::system::error_code& ec,
-                                    const sdbusplus::message::message& msg) {
+                                    const sdbusplus::message_t& msg) {
                         if (ec)
                         {
                             const sd_bus_error* dbusError = msg.get_error();
@@ -803,9 +803,8 @@ inline void handleServiceAddressPatch(
     const std::string& ldapConfigObject)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, ldapServerElementName,
-         serviceAddressList](const boost::system::error_code& ec,
-                             sdbusplus::message::message& msg) {
+        [asyncResp, ldapServerElementName, serviceAddressList](
+            const boost::system::error_code& ec, sdbusplus::message_t& msg) {
         if (ec)
         {
             const sd_bus_error* dbusError = msg.get_error();
@@ -922,7 +921,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp, baseDNList,
          ldapServerElementName](const boost::system::error_code& ec,
-                                const sdbusplus::message::message& msg) {
+                                const sdbusplus::message_t& msg) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "Error Occurred in Updating the base DN";
