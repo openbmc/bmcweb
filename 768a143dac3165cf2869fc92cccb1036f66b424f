@@ -52,6 +52,24 @@
       "parentUuid": "872ca3bc_e43eeb5b",
       "revId": "768a143dac3165cf2869fc92cccb1036f66b424f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95d8db5f_01e5921f",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T18:44:55Z",
+      "side": 0,
+      "message": "No response from joseph in 10 days.  Lets just move forward.",
+      "parentUuid": "7c6b5f3f_3a83e898",
+      "revId": "768a143dac3165cf2869fc92cccb1036f66b424f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
