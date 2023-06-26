@@ -101,47 +101,6 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
     }
     return tagValue;
 }
-
-template <typename... T>
-struct S
-{
-    template <typename U>
-    using push = S<U, T...>;
-    template <typename U>
-    using push_back = S<T..., U>;
-    template <template <typename... Args> class U>
-    using rebind = U<T...>;
-};
-
-template <typename F, typename Set>
-struct CallHelper;
-
-template <typename F, typename... Args>
-struct CallHelper<F, S<Args...>>
-{
-    template <typename F1, typename... Args1,
-              typename = decltype(std::declval<F1>()(std::declval<Args1>()...))>
-    static char test(int);
-
-    template <typename...>
-    static int test(...);
-
-    static constexpr bool value = sizeof(test<F, Args...>(0)) == sizeof(char);
-};
-
-template <uint64_t Tag>
-struct Arguments
-{
-    using subarguments = typename Arguments<Tag / 3>::type;
-    using type = typename subarguments::template push<std::string>;
-};
-
-template <>
-struct Arguments<0>
-{
-    using type = S<>;
-};
-
 } // namespace black_magic
 
 namespace utility
@@ -152,6 +111,17 @@ struct FunctionTraits
 {
     template <size_t i>
     using arg = std::tuple_element_t<i, boost::callable_traits::args_t<T>>;
+};
+
+constexpr size_t numArgsFromTag(int tag)
+{
+    size_t ret = 0;
+    while (tag > 0)
+    {
+        tag /= black_magic::toUnderlying(black_magic::TypeCode::Max);
+        ret++;
+    }
+    return ret;
 };
 
 inline std::string base64encode(std::string_view data)
