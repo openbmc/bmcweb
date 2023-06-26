@@ -93,7 +93,9 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "form-action *; "
                                                  "frame-ancestors *; "
                                                  "object-src *; "
-                                                 "base-uri *");
+                                                 "base-uri *; "
+                                                 "upgrade-insecure-requests; "
+                                                 "block-all-mixed-content");
 
         std::string_view origin = req.getHeaderValue("Origin");
         res.addHeader(bf::access_control_allow_origin, origin);
