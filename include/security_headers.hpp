@@ -63,17 +63,20 @@ inline void addSecurityHeaders(crow::Response& res)
         res.addHeader("Cross-Origin-Embedder-Policy", "require-corp");
         res.addHeader("Cross-Origin-Opener-Policy", "same-origin");
         res.addHeader("Cross-Origin-Resource-Policy", "same-origin");
-        res.addHeader("Content-Security-Policy",
-                      "default-src 'none'; "
-                      "img-src 'self' data:; "
-                      "font-src 'self'; "
-                      "style-src 'self'; "
-                      "script-src 'self'; "
-                      "connect-src 'self' wss:; "
-                      "form-action 'none'; "
-                      "frame-ancestors 'none'; "
-                      "object-src 'none'; "
-                      "base-uri 'none' ");
+        res.addHeader(
+            "Content-Security-Policy",
+            "default-src 'none'; "
+            "img-src 'self' data:; "
+            "font-src 'self'; "
+            "style-src 'self'; "
+            "script-src 'self'; "
+            "connect-src 'self' wss:; "
+            "form-action 'none'; "
+            "frame-ancestors 'none'; "
+            "object-src 'none'; "
+            "base-uri 'none'; "
+            "upgrade-insecure-requests; "
+            "block-all-mixed-content");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
         // https://stackoverflow.com/questions/18447970/content-security-polic
