@@ -33,17 +33,14 @@ class TaggedRule :
     void operator()(Func&& f)
     {
         static_assert(
-            black_magic::CallHelper<
-                Func, black_magic::S<crow::Request,
-                                     std::shared_ptr<bmcweb::AsyncResp>&,
-                                     Args...>>::value,
+            std::is_invocable_v<Func, crow::Request,
+                                std::shared_ptr<bmcweb::AsyncResp>&, Args...>,
             "Handler type is mismatched with URL parameters");
         static_assert(
-            std::is_same<
-                void,
-                decltype(f(std::declval<crow::Request>(),
-                           std::declval<std::shared_ptr<bmcweb::AsyncResp>&>(),
-                           std::declval<Args>()...))>::value,
+            std::is_same_v<
+                void, std::invoke_result_t<Func, crow::Request,
+                                           std::shared_ptr<bmcweb::AsyncResp>&,
+                                           Args...>>,
             "Handler function with response argument should have void return type");
 
         handler = std::forward<Func>(f);
@@ -53,11 +50,31 @@ class TaggedRule :
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& params) override
     {
-        detail::routing_handler_call_helper::Call<
-            detail::routing_handler_call_helper::CallParams<decltype(handler)>,
-            0, black_magic::S<Args...>, black_magic::S<>>()(
-            detail::routing_handler_call_helper::CallParams<decltype(handler)>{
-                handler, params, req, asyncResp});
+        if constexpr (sizeof...(Args) == 0)
+        {
+            handler(req, asyncResp);
+        }
+        if constexpr (sizeof...(Args) == 1)
+        {
+            handler(req, asyncResp, params[0]);
+        }
+        else if constexpr (sizeof...(Args) == 2)
+        {
+            handler(req, asyncResp, params[0], params[1]);
+        }
+        else if constexpr (sizeof...(Args) == 3)
+        {
+            handler(req, asyncResp, params[0], params[1], params[2]);
+        }
+        else if constexpr (sizeof...(Args) == 4)
+        {
+            handler(req, asyncResp, params[0], params[1], params[2], params[3]);
+        }
+        else if constexpr (sizeof...(Args) == 5)
+        {
+            handler(req, asyncResp, params[0], params[1], params[2], params[3],
+                    params[4]);
+        }
     }
 
   private:

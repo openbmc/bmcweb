@@ -16,160 +16,47 @@ namespace detail
 {
 namespace routing_handler_call_helper
 {
-template <typename T, int Pos>
-struct CallPair
-{
-    using type = T;
-    static const int pos = Pos;
-};
-
-template <typename H1>
-struct CallParams
-{
-    H1& handler;
-    const std::vector<std::string>& params;
-    const Request& req;
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp;
-};
-
-template <typename F, int NString, typename S1, typename S2>
-struct Call
-{};
-
-template <typename F, int NString, typename... Args1, typename... Args2>
-struct Call<F, NString, black_magic::S<std::string, Args1...>,
-            black_magic::S<Args2...>>
-{
-    void operator()(F cparams)
-    {
-        using pushed = typename black_magic::S<Args2...>::template push_back<
-            CallPair<std::string, NString>>;
-        Call<F, NString + 1, black_magic::S<Args1...>, pushed>()(cparams);
-    }
-};
-
-template <typename F, int NString, typename... Args1>
-struct Call<F, NString, black_magic::S<>, black_magic::S<Args1...>>
-{
-    void operator()(F cparams)
-    {
-        cparams.handler(cparams.req, cparams.asyncResp,
-                        cparams.params[Args1::pos]...);
-    }
-};
 
 template <typename Func, typename... ArgsWrapped>
 struct Wrapped
 {
     template <typename... Args>
-    void set(
-        Func f,
-        typename std::enable_if<
-            !std::is_same<
-                typename std::tuple_element<0, std::tuple<Args..., void>>::type,
-                const Request&>::value,
-            int>::type /*enable*/
-        = 0)
-    {
-        handler = [f = std::forward<Func>(f)](
-                      const Request&,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      Args... args) { asyncResp->res.result(f(args...)); };
-    }
-
-    template <typename Req, typename... Args>
-    struct ReqHandlerWrapper
-    {
-        explicit ReqHandlerWrapper(Func fIn) : f(std::move(fIn)) {}
-
-        void operator()(const Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        Args... args)
-        {
-            asyncResp->res.result(f(req, args...));
-        }
-
-        Func f;
-    };
-
-    template <typename... Args>
-    void set(
-        Func f,
-        typename std::enable_if<
-            std::is_same<
-                typename std::tuple_element<0, std::tuple<Args..., void>>::type,
-                const Request&>::value &&
-                !std::is_same<typename std::tuple_element<
-                                  1, std::tuple<Args..., void, void>>::type,
-                              const std::shared_ptr<bmcweb::AsyncResp>&>::value,
-            int>::type /*enable*/
-        = 0)
-    {
-        handler = ReqHandlerWrapper<Args...>(std::move(f));
-        /*handler = (
-            [f = std::move(f)]
-            (const Request& req, Response& res, Args... args){
-                 res.result(f(req, args...));
-                 res.end();
-            });*/
-    }
-
-    template <typename... Args>
-    void set(
-        Func f,
-        typename std::enable_if<
-            std::is_same<
-                typename std::tuple_element<0, std::tuple<Args..., void>>::type,
-                const Request&>::value &&
-                std::is_same<typename std::tuple_element<
-                                 1, std::tuple<Args..., void, void>>::type,
-                             const std::shared_ptr<bmcweb::AsyncResp>&>::value,
-            int>::type /*enable*/
-        = 0)
+    void set(Func f)
     {
         handler = std::move(f);
     }
 
-    template <typename... Args>
-    struct HandlerTypeHelper
-    {
-        using type = std::function<void(
-            const crow::Request& /*req*/,
-            const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
-        using args_type = black_magic::S<Args...>;
-    };
-
-    template <typename... Args>
-    struct HandlerTypeHelper<const Request&, Args...>
-    {
-        using type = std::function<void(
-            const crow::Request& /*req*/,
-            const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
-        using args_type = black_magic::S<Args...>;
-    };
-
-    template <typename... Args>
-    struct HandlerTypeHelper<const Request&,
-                             const std::shared_ptr<bmcweb::AsyncResp>&, Args...>
-    {
-        using type = std::function<void(
-            const crow::Request& /*req*/,
-            const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>;
-        using args_type = black_magic::S<Args...>;
-    };
-
-    typename HandlerTypeHelper<ArgsWrapped...>::type handler;
+    std::function<void(ArgsWrapped...)> handler;
 
     void operator()(const Request& req,
                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::vector<std::string>& params)
     {
-        detail::routing_handler_call_helper::Call<
-            detail::routing_handler_call_helper::CallParams<decltype(handler)>,
-            0, typename HandlerTypeHelper<ArgsWrapped...>::args_type,
-            black_magic::S<>>()(
-            detail::routing_handler_call_helper::CallParams<decltype(handler)>{
-                handler, params, req, asyncResp});
+        if constexpr (sizeof...(ArgsWrapped) == 2)
+        {
+            handler(req, asyncResp);
+        }
+        else if constexpr (sizeof...(ArgsWrapped) == 3)
+        {
+            handler(req, asyncResp, params[0]);
+        }
+        else if constexpr (sizeof...(ArgsWrapped) == 4)
+        {
+            handler(req, asyncResp, params[0], params[1]);
+        }
+        else if constexpr (sizeof...(ArgsWrapped) == 5)
+        {
+            handler(req, asyncResp, params[0], params[1], params[2]);
+        }
+        else if constexpr (sizeof...(ArgsWrapped) == 6)
+        {
+            handler(req, asyncResp, params[0], params[1], params[2], params[3]);
+        }
+        else if constexpr (sizeof...(ArgsWrapped) == 7)
+        {
+            handler(req, asyncResp, params[0], params[1], params[2], params[3],
+                    params[4]);
+        }
     }
 };
 } // namespace routing_handler_call_helper
