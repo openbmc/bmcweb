@@ -74,7 +74,9 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "form-action 'none'; "
                                                  "frame-ancestors 'none'; "
                                                  "object-src 'none'; "
-                                                 "base-uri 'none' ");
+                                                 "base-uri 'none'; "
+                                                 "upgrade-insecure-requests; "
+                                                 "block-all-mixed-content");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
         // https://stackoverflow.com/questions/18447970/content-security-polic
