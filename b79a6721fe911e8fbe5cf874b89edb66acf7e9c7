@@ -131,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9804b4f0_5e511b64",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-26T20:55:15Z",
+      "side": 1,
+      "message": "I don\u0027t care much but we aren\u0027t being consistent..\n\nAt https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61110/9/redfish-core/lib/storage.hpp\n\nWe are doing Invalid \u003d internalError\n\n                std::optional\u003cprotocol::Protocol\u003e proto \u003d\n                    convertDriveProtocol(*value);\n                if (!proto)\n                {\n                    BMCWEB_LOG_WARNING \u003c\u003c \"Unknown DrivePrototype Interface: \"\n                                       \u003c\u003c *value;\n                    continue;\n                }\n                if (*proto \u003d\u003d protocol::Protocol::Invalid)\n                {\n                    messages::internalError(asyncResp-\u003eres);\n                    return;\n                }\n\n\nHere we are doing, nullopt \u003d internalError and Invalid means leave it off  \n\n    std::optional\u003cpcie_slots::SlotTypes\u003e redfishSlotType \u003d\n        pcie_util::dbusSlotTypeToRf(slotType);\n    if (!redfishSlotType)\n    {\n        BMCWEB_LOG_ERROR \u003c\u003c \"Invalid PCIeSlot type\";\n        messages::internalError(res);\n        return;\n    }\n    if (*redfishSlotType !\u003d pcie_slots::SlotTypes::Invalid)\n    {\n        res.jsonValue[\"Slot\"][\"SlotType\"] \u003d *redfishSlotType;\n    }\n\nAt https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61110\n Ed Tanous \n\nI have a minor preference for this one, because \"invalid\" means that the input was invalid, nullopt means there\u0027s no output.\n\nInvalid is different than not present. But my preference here isn\u0027t strong; The only thing that\u0027s important is that we follow DBUS_USAGE.md as far as the user is concerned.",
+      "parentUuid": "e2965bc0_ca13be3d",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06fbea58_45f4b9ba",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 23
