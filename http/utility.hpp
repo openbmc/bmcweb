@@ -46,24 +46,6 @@ constexpr typename std::underlying_type<E>::type toUnderlying(E e) noexcept
     return static_cast<typename std::underlying_type<E>::type>(e);
 }
 
-template <typename... Args>
-struct computeParameterTagFromArgsList;
-
-template <>
-struct computeParameterTagFromArgsList<>
-{
-    static constexpr int value = 0;
-};
-
-template <typename Arg, typename... Args>
-struct computeParameterTagFromArgsList<Arg, Args...>
-{
-    static_assert(std::is_same_v<std::string, std::decay_t<Arg>>);
-    static constexpr int subValue =
-        computeParameterTagFromArgsList<Args...>::value;
-    static constexpr int value = subValue * toUnderlying(TypeCode::String);
-};
-
 constexpr inline uint64_t getParameterTag(std::string_view url)
 {
     uint64_t tagValue = 0;
