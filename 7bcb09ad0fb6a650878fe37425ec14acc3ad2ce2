@@ -39,6 +39,30 @@
       },
       "revId": "7bcb09ad0fb6a650878fe37425ec14acc3ad2ce2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2c4cee_6f91010f",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T18:47:14Z",
+      "side": 1,
+      "message": "internalError already logs to BMCWEB_LOG_ERROR automatically.  Why do we need both?",
+      "parentUuid": "e4b25e79_7947c886",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "7bcb09ad0fb6a650878fe37425ec14acc3ad2ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
