@@ -126,7 +126,8 @@ struct CallHelper<F, S<Args...>>
     template <typename...>
     static int test(...);
 
-    static constexpr bool value = sizeof(test<F, Args...>(0)) == sizeof(char);
+    // Determines if the call and string values are valid
+    static constexpr bool valid = sizeof(test<F, Args...>(0)) == sizeof(char);
 };
 
 template <uint64_t Tag>

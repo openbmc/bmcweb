@@ -36,7 +36,7 @@ class TaggedRule :
             black_magic::CallHelper<
                 Func, black_magic::S<crow::Request,
                                      std::shared_ptr<bmcweb::AsyncResp>&,
-                                     Args...>>::value,
+                                     Args...>>::valid,
             "Handler type is mismatched with URL parameters");
         static_assert(
             std::is_same<
