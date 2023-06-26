@@ -140,6 +140,30 @@
       },
       "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f762f969_c6dfd0ab",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-26T12:11:05Z",
+      "side": 1,
+      "message": "The comment may not be needed if the code itself is clear enough, and thus it would be preferred to more clear code structure.\n\nAnyway, it is about the coding style and convention, and thus I\u0027m okay if the others also agree.",
+      "parentUuid": "380896f9_3e4eaad1",
+      "range": {
+        "startLine": 624,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 46
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
