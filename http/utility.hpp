@@ -101,47 +101,6 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
     }
     return tagValue;
 }
-
-template <typename... T>
-struct S
-{
-    template <typename U>
-    using push = S<U, T...>;
-    template <typename U>
-    using push_back = S<T..., U>;
-    template <template <typename... Args> class U>
-    using rebind = U<T...>;
-};
-
-template <typename F, typename Set>
-struct CallHelper;
-
-template <typename F, typename... Args>
-struct CallHelper<F, S<Args...>>
-{
-    template <typename F1, typename... Args1,
-              typename = decltype(std::declval<F1>()(std::declval<Args1>()...))>
-    static char test(int);
-
-    template <typename...>
-    static int test(...);
-
-    static constexpr bool value = sizeof(test<F, Args...>(0)) == sizeof(char);
-};
-
-template <uint64_t Tag>
-struct Arguments
-{
-    using subarguments = typename Arguments<Tag / 3>::type;
-    using type = typename subarguments::template push<std::string>;
-};
-
-template <>
-struct Arguments<0>
-{
-    using type = S<>;
-};
-
 } // namespace black_magic
 
 namespace utility
