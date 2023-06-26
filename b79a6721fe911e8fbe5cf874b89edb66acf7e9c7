@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0d4ac1_f71791af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "I\u0027ve fixed quite a few issues with this patchset.  Please re-review and retest.",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7ca9824_2efe5cd9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t match phosphor-dbus-interfaces, but also then doesn\u0027t appear to be used?\n\nI\u0027ve removed it.",
+      "range": {
+        "startLine": 162,
+        "startChar": 67,
+        "endLine": 162,
+        "endChar": 72
+      },
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41910a02_a96bb6ea",
@@ -55,6 +95,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2965bc0_ca13be3d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "It looks like https://github.com/openbmc/bmcweb/blob/7a54389415ea264ffdd9605002ee6f61bd6a995f/redfish-core/include/utils/pcie_util.hpp#L130\n\nimplements nullopt as \"bad interface\" and invalid as optional, so as written, this code looks correct.",
+      "parentUuid": "8674b1bc_19651249",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06fbea58_45f4b9ba",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 23
@@ -66,6 +124,24 @@
       "writtenOn": "2023-06-23T15:42:47Z",
       "side": 1,
       "message": "you do ec.value below, ec.value for consistency ?\nAlso can you add a space after the  getAssociatedSubTreePaths",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c381aa_a215b219",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06fbea58_45f4b9ba",
       "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -93,6 +169,53 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5864c43_cf0b8164",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "I\u0027ve changed this to the prefered coding style.",
+      "parentUuid": "5034f06c_a5a64d75",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 9
+      },
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a1bfe4_cb3e5cea",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "This capture doesn\u0027t look like it\u0027s used?",
+      "range": {
+        "startLine": 279,
+        "startChar": 20,
+        "endLine": 279,
+        "endChar": 34
+      },
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d60f6d51_11f5157b",
@@ -106,6 +229,24 @@
       "writtenOn": "2023-06-23T15:42:47Z",
       "side": 1,
       "message": "ec.value for consistency",
+      "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66dce4f4_d58d2795",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T17:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d60f6d51_11f5157b",
       "revId": "b79a6721fe911e8fbe5cf874b89edb66acf7e9c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
