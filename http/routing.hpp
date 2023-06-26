@@ -376,16 +376,68 @@ class Router
     }
 
     template <uint64_t N>
-    typename black_magic::Arguments<N>::type::template rebind<TaggedRule>&
-        newRuleTagged(const std::string& rule)
+    auto& newRuleTagged(const std::string& rule)
     {
-        using RuleT = typename black_magic::Arguments<N>::type::template rebind<
-            TaggedRule>;
-        std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-        RuleT* ptr = ruleObject.get();
-        allRules.emplace_back(std::move(ruleObject));
-
-        return *ptr;
+        constexpr size_t numArgs = [](int tag) {
+            size_t ret = 0;
+            while (tag > 0)
+            {
+                tag /= black_magic::toUnderlying(black_magic::TypeCode::Max);
+                ret++;
+            }
+            return ret;
+        }(N);
+        if constexpr (numArgs == 0)
+        {
+            using RuleT = TaggedRule<>;
+            std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+            RuleT* ptr = ruleObject.get();
+            allRules.emplace_back(std::move(ruleObject));
+            return *ptr;
+        }
+        else if constexpr (numArgs == 1)
+        {
+            using RuleT = TaggedRule<std::string>;
+            std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+            RuleT* ptr = ruleObject.get();
+            allRules.emplace_back(std::move(ruleObject));
+            return *ptr;
+        }
+        else if constexpr (numArgs == 2)
+        {
+            using RuleT = TaggedRule<std::string, std::string>;
+            std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+            RuleT* ptr = ruleObject.get();
+            allRules.emplace_back(std::move(ruleObject));
+            return *ptr;
+        }
+        else if constexpr (numArgs == 3)
+        {
+            using RuleT = TaggedRule<std::string, std::string, std::string>;
+            std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+            RuleT* ptr = ruleObject.get();
+            allRules.emplace_back(std::move(ruleObject));
+            return *ptr;
+        }
+        else if constexpr (numArgs == 4)
+        {
+            using RuleT =
+                TaggedRule<std::string, std::string, std::string, std::string>;
+            std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+            RuleT* ptr = ruleObject.get();
+            allRules.emplace_back(std::move(ruleObject));
+            return *ptr;
+        }
+        else
+        {
+            using RuleT = TaggedRule<std::string, std::string, std::string,
+                                     std::string, std::string>;
+            std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+            RuleT* ptr = ruleObject.get();
+            allRules.emplace_back(std::move(ruleObject));
+            return *ptr;
+        }
+        static_assert(numArgs > 5, "Max number of args supported is 5");
     }
 
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
