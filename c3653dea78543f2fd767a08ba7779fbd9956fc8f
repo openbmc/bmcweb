@@ -50,6 +50,24 @@
       "message": "We are more strict here, which I think is fine? But we are missing block-all-mixed-content and upgrade-insecure-requests\n\n   {\n      \"name\": \"Content-Security-Policy\",\n      \"value\": \"default-src \u0027self\u0027; form-action \u0027self\u0027; object-src \u0027none\u0027; frame-ancestors \u0027none\u0027; upgrade-insecure-requests; block-all-mixed-content\"\n    },\n    {",
       "revId": "c3653dea78543f2fd767a08ba7779fbd9956fc8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b846146_5b9f039a",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-26T21:16:18Z",
+      "side": 1,
+      "message": "Let me add those in the next patch so we can test separately.  CSP actually has the potential to break things, and I\u0027d like to see the revert be simpler if need be.",
+      "parentUuid": "af245400_20957e5e",
+      "revId": "c3653dea78543f2fd767a08ba7779fbd9956fc8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
