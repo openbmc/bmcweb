@@ -64,40 +64,6 @@ struct computeParameterTagFromArgsList<Arg, Args...>
     static constexpr int value = subValue * toUnderlying(TypeCode::String);
 };
 
-inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
-{
-    while (true)
-    {
-        if (a == 0 && b == 0)
-        {
-            // Both tags were equivalent, parameters are compatible
-            return true;
-        }
-        if (a == 0 || b == 0)
-        {
-            // one of the tags had more parameters than the other
-            return false;
-        }
-        TypeCode sa = static_cast<TypeCode>(a % toUnderlying(TypeCode::Max));
-        TypeCode sb = static_cast<TypeCode>(b % toUnderlying(TypeCode::Max));
-
-        if (sa == TypeCode::Path)
-        {
-            sa = TypeCode::String;
-        }
-        if (sb == TypeCode::Path)
-        {
-            sb = TypeCode::String;
-        }
-        if (sa != sb)
-        {
-            return false;
-        }
-        a /= toUnderlying(TypeCode::Max);
-        b /= toUnderlying(TypeCode::Max);
-    }
-}
-
 constexpr inline uint64_t getParameterTag(std::string_view url)
 {
     uint64_t tagValue = 0;
