@@ -70,6 +70,24 @@
       "parentUuid": "7c6b5f3f_3a83e898",
       "revId": "768a143dac3165cf2869fc92cccb1036f66b424f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88c0aa3_ee7c8227",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-06-26T20:32:23Z",
+      "side": 0,
+      "message": "(Sorry for the delay.  I wasn\u0027t getting email notifications.  I\u0027ve updated my gerrit email setting.)\n\nThe results I see from various network security scan tools only care if a specific response header is present or not.  So if the goal is to placate the tool, adding a header is a big step forward.  For the header value, I think following OWASP by default is good, as modified by BMC-specific considerations.\nI don\u0027t have any other insights into the scan tools.",
+      "parentUuid": "95d8db5f_01e5921f",
+      "revId": "768a143dac3165cf2869fc92cccb1036f66b424f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
