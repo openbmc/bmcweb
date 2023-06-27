@@ -123,11 +123,10 @@ inline std::optional<pcie_slots::SlotTypes>
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown")
     {
-        return pcie_slots::SlotTypes::Invalid;
+        return std::nullopt;
     }
 
-    // Unspecified slotType should return an internal error.
-    return std::nullopt;
+    return pcie_slots::SlotTypes::Invalid;
 }
 
 inline std::optional<pcie_device::PCIeTypes>
@@ -162,11 +161,10 @@ inline std::optional<pcie_device::PCIeTypes>
         generationInUse ==
             "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
     {
-        return pcie_device::PCIeTypes::Invalid;
+        return std::nullopt;
     }
 
-    // The value is not unknown or Gen1-5, need return an internal error.
-    return std::nullopt;
+    return pcie_device::PCIeTypes::Invalid;
 }
 
 } // namespace pcie_util
