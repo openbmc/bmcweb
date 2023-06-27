@@ -69,11 +69,16 @@ inline void
             pcie_util::redfishPcieGenerationFromDbus(*generation);
         if (!pcieType)
         {
-            messages::internalError(asyncResp->res);
-            return;
+            BMCWEB_LOG_WARNING << "Unknown PCIe Slot Generation: "
+                               << *generation;
         }
-        if (*pcieType != pcie_device::PCIeTypes::Invalid)
+        else
         {
+            if (*pcieType == pcie_device::PCIeTypes::Invalid)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
             slot["PCIeType"] = *pcieType;
         }
     }
@@ -89,11 +94,16 @@ inline void
             pcie_util::dbusSlotTypeToRf(*slotType);
         if (!redfishSlotType)
         {
-            messages::internalError(asyncResp->res);
-            return;
+            BMCWEB_LOG_WARNING << "Unknown PCIe Slot Type: " << *slotType;
         }
-        if (*redfishSlotType != pcie_slots::SlotTypes::Invalid)
+        else
         {
+            if (*redfishSlotType == pcie_slots::SlotTypes::Invalid)
+            {
+                BMCWEB_LOG_ERROR << "Unknown PCIe Slot Type: " << *slotType;
+                messages::internalError(asyncResp->res);
+                return;
+            }
             slot["SlotType"] = *redfishSlotType;
         }
     }

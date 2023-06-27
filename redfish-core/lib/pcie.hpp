@@ -295,11 +295,18 @@ inline void addPCIeDeviceProperties(
 
         if (!redfishGenerationInUse)
         {
-            messages::internalError(resp);
-            return;
+            BMCWEB_LOG_WARNING << "Unknown PCIe Device Generation: "
+                               << *generationInUse;
         }
-        if (*redfishGenerationInUse != pcie_device::PCIeTypes::Invalid)
+        else
         {
+            if (*redfishGenerationInUse == pcie_device::PCIeTypes::Invalid)
+            {
+                BMCWEB_LOG_ERROR << "Invalid PCIe Device Generation: "
+                                 << *generationInUse;
+                messages::internalError(resp);
+                return;
+            }
             resp.jsonValue["PCIeInterface"]["PCIeType"] =
                 *redfishGenerationInUse;
         }
