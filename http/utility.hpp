@@ -102,13 +102,6 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
     return tagValue;
 }
 
-template <typename T>
-struct FunctionTraits
-{
-    template <size_t i>
-    using arg = std::tuple_element_t<i, boost::callable_traits::args_t<T>>;
-};
-
 constexpr size_t numArgsFromTag(int tag)
 {
     size_t ret = 0;
