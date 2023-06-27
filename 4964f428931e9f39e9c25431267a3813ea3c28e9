@@ -51,6 +51,69 @@
       "message": "Added Alicja and Przemyslaw based on file history. \nhttps://github.com/openbmc/bmcweb/commits/master/include/nbd_proxy.hpp\n\nGive a few days in case someone is interested in tested nbd proxy. Looks good to me.",
       "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "070d2ecc_77f22bbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-06-27T20:09:00Z",
+      "side": 1,
+      "message": "Minor comments, otherwise looks good to me.",
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900462b7_d94d7a21",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-06-27T20:09:00Z",
+      "side": 1,
+      "message": "This variable can be removed.",
+      "range": {
+        "startLine": 134,
+        "startChar": 7,
+        "endLine": 134,
+        "endChar": 33
+      },
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025a4c64_0d00b7e9",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-06-27T20:09:00Z",
+      "side": 1,
+      "message": "mobile.get() can be used instead.",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 28
+      },
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
