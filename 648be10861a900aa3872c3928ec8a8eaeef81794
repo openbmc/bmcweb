@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b4e16d9_0dc650a3",
+        "filename": "Redfish.md",
+        "patchSetId": 77
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-27T22:29:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12071443_6c1a617d",
+      "range": {
+        "startLine": 395,
+        "startChar": 2,
+        "endLine": 395,
+        "endChar": 10
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e0cc48e_c53b8b60",
@@ -87,6 +111,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce81ad5c_e2acf666",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-27T22:29:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed9e6534_d517f1a8",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9052898_35b6398f",
@@ -100,6 +142,24 @@
       "writtenOn": "2023-06-27T14:47:26Z",
       "side": 1,
       "message": "why fail? We retrieve the information if it is not null. Change in all properties.\nCheckout how we do in PCIe or PowerSupply implementation",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fad321b_3b1ac5d4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-27T22:29:57Z",
+      "side": 1,
+      "message": "I think we can get null if property does not exist and it is an error here.",
+      "parentUuid": "c9052898_35b6398f",
       "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -236,6 +296,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "018e0cf2_3a1fc344",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-27T22:29:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e473819_55d35094",
+      "range": {
+        "startLine": 445,
+        "startChar": 4,
+        "endLine": 452,
+        "endChar": 5
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d21749f0_400bc38a",
@@ -276,6 +360,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1127afc_380510e3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-27T22:29:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5f941d9_8982f1e4",
+      "range": {
+        "startLine": 506,
+        "startChar": 19,
+        "endLine": 506,
+        "endChar": 24
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b39f352_59c145d0",
@@ -289,6 +397,30 @@
       "writtenOn": "2023-06-27T14:47:26Z",
       "side": 1,
       "message": "Change all aResp to asyncRep.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/64058",
+      "range": {
+        "startLine": 544,
+        "startChar": 65,
+        "endLine": 544,
+        "endChar": 70
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6febbfc_f47b4055",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-27T22:29:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b39f352_59c145d0",
       "range": {
         "startLine": 544,
         "startChar": 65,
