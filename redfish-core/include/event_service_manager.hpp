@@ -23,7 +23,6 @@
 #include "random.hpp"
 #include "registries.hpp"
 #include "registries_selector.hpp"
-#include "server_sent_events.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
 #include "utils/json_utils.hpp"
