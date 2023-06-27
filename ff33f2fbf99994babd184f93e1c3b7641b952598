@@ -22,6 +22,30 @@
       },
       "revId": "ff33f2fbf99994babd184f93e1c3b7641b952598",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17f625b8_6f5f702e",
+        "filename": "http/routing/dynamicrule.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-27T19:35:53Z",
+      "side": 1,
+      "message": "Because we need to do compile time detection of a type, with template specializations.\n\nIt\u0027s empty to ensure that it never gets instantiated.\n\nhttps://www.geeksforgeeks.org/template-specialization-c/",
+      "parentUuid": "b1e6b989_624b73b2",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "ff33f2fbf99994babd184f93e1c3b7641b952598",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
