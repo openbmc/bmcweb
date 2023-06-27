@@ -26,6 +26,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e0cc48e_c53b8b60",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-27T19:16:20Z",
+      "side": 1,
+      "message": "Where is it used?\nIf so, it may be better to name to present it.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5279626a_1f647a61",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-27T19:16:20Z",
+      "side": 1,
+      "message": "In many places, not all cases result as errors.\nIs it the case that may need to ignore like `if(ec.value() !\u003d EBADR)`?\n\nAlso, this function is invoked only from `afterGetAssemblyProperties()`.\nPerhaps should it be handled inside it like\n\n```\nafterGetAssemblyProperties()\n{\n....\n     sdbusplus::asio::getAllProperties(\n                    *crow::connections::systemBus, serviceName, assembly,\n                    \"xyz.openbmc_project.Inventory.Decorator.Asset\",\n                    [aResp,\n                     assemblyIndex](const boost::beast::error_code\u0026 ec2,\n                                    const dbus::utility::DBusPropertiesMap\u0026\n                                        propertiesList) {\n                    if(ec2) {\n                        messages::internalError(aResp-\u003eres);\n                        return;\n                     }\n                     processAssetProperties(...); \u003c- no need to pass \u0027ec2\u0027\n                     \n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed9e6534_d517f1a8",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 77
@@ -54,6 +100,98 @@
       "writtenOn": "2023-06-27T14:47:26Z",
       "side": 1,
       "message": "why fail? We retrieve the information if it is not null. Change in all properties.\nCheckout how we do in PCIe or PowerSupply implementation",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a668a67_e1167f60",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-27T19:16:20Z",
+      "side": 1,
+      "message": "Is it a case to use `boost::urls::format()`?",
+      "range": {
+        "startLine": 199,
+        "startChar": 1,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02527f24_6568bfd2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-27T19:16:20Z",
+      "side": 1,
+      "message": "Can \u0027ec\u0027 can be handled before calling `afterGetAssemblyProperties()`?",
+      "range": {
+        "startLine": 221,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 48
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d2275f5_72c15765",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-27T19:16:20Z",
+      "side": 1,
+      "message": "Isn\u0027t this the case to use `getAssociationEndPoints()`?\n\nThen `endpoints()` would be the type of `MapperEndPoints`.",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 52
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a3c6160_a2f6c41a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-27T19:16:20Z",
+      "side": 1,
+      "message": "If `getAssociationEndPoints()` is used, I don\u0027t think this is needed.\nInstead the check can be like\n`if(endpoints.empty())`",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 0
+      },
       "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
