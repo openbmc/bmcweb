@@ -379,6 +379,7 @@ class Router
     auto& newRuleTagged(const std::string& rule)
     {
         constexpr size_t numArgs = utility::numArgsFromTag(N);
+
         if constexpr (numArgs == 0)
         {
             using RuleT = TaggedRule<>;
