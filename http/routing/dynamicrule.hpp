@@ -14,17 +14,15 @@ namespace crow
 {
 namespace detail
 {
-namespace routing_handler_call_helper
-{
 
 template <typename Func, typename... ArgsWrapped>
 struct Wrapped
+{};
+
+template <typename Func, typename... ArgsWrapped>
+struct Wrapped<Func, std::tuple<ArgsWrapped...>>
 {
-    template <typename... Args>
-    void set(Func f)
-    {
-        handler = std::move(f);
-    }
+    explicit Wrapped(Func f) : handler(std::move(f)) {}
 
     std::function<void(ArgsWrapped...)> handler;
 
@@ -59,7 +57,6 @@ struct Wrapped
         }
     }
 };
-} // namespace routing_handler_call_helper
 } // namespace detail
 
 class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
@@ -86,28 +83,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
     void operator()(Func f)
     {
         using boost::callable_traits::args_t;
-        constexpr size_t arity = std::tuple_size<args_t<Func>>::value;
-        constexpr auto is = std::make_integer_sequence<unsigned, arity>{};
-        erasedHandler = wrap(std::move(f), is);
-    }
-
-    // enable_if Arg1 == request && Arg2 == Response
-    // enable_if Arg1 == request && Arg2 != response
-    // enable_if Arg1 != request
-
-    template <typename Func, unsigned... Indices>
-    std::function<void(const Request&,
-                       const std::shared_ptr<bmcweb::AsyncResp>&,
-                       const std::vector<std::string>&)>
-        wrap(Func f, std::integer_sequence<unsigned, Indices...> /*is*/)
-    {
-        using function_t = crow::utility::FunctionTraits<Func>;
-
-        auto ret = detail::routing_handler_call_helper::Wrapped<
-            Func, typename function_t::template arg<Indices>...>();
-        ret.template set<typename function_t::template arg<Indices>...>(
-            std::move(f));
-        return ret;
+        erasedHandler = detail::Wrapped<Func, args_t<Func>>(std::move(f));
     }
 
   private:
