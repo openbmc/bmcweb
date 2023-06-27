@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a02b9166_717a32e5",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T03:57:52Z",
+      "side": 1,
+      "message": "Code has been modified and is no longer applicable. ACK.",
+      "parentUuid": "1c126719_5f8089bc",
+      "range": {
+        "startLine": 43,
+        "startChar": 16,
+        "endLine": 43,
+        "endChar": 71
+      },
+      "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab39a6b2_1d3f24f7",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "No, I do not think that is correct(lines 3066-3071), I will fix it in the next commit, but not the current commit.\nBecause for this URL(/redfish/v1/Systems/\u003cstr\u003e), systemName may be other values, in other words, systemID does not have to be equal to system, maybe system1,system2...",
       "parentUuid": "ab39a6b2_1d3f24f7",
+      "range": {
+        "startLine": 3149,
+        "startChar": 0,
+        "endLine": 3158,
+        "endChar": 17
+      },
+      "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba24e02_1739c866",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T03:57:52Z",
+      "side": 1,
+      "message": "I am passing the path instead of checking the system path. This needs to be changed for multiple systems support.",
+      "parentUuid": "f8fb71e2_5df87a57",
       "range": {
         "startLine": 3149,
         "startChar": 0,
