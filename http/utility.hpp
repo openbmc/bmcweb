@@ -28,7 +28,7 @@
 
 namespace crow
 {
-namespace black_magic
+namespace utility
 {
 
 enum class TypeCode : uint8_t
@@ -101,10 +101,6 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
     }
     return tagValue;
 }
-} // namespace black_magic
-
-namespace utility
-{
 
 template <typename T>
 struct FunctionTraits
