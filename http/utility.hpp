@@ -28,7 +28,7 @@
 
 namespace crow
 {
-namespace black_magic
+namespace utility
 {
 
 enum class TypeCode : uint8_t
@@ -101,10 +101,6 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
     }
     return tagValue;
 }
-} // namespace black_magic
-
-namespace utility
-{
 
 template <typename T>
 struct FunctionTraits
@@ -119,7 +115,7 @@ constexpr size_t numArgsFromTag(int tag)
     while (tag > 0)
     {
         // Move to the next tag by removing the bottom bits from the number
-        tag /= black_magic::toUnderlying(black_magic::TypeCode::Max);
+        tag /= toUnderlying(TypeCode::Max);
         ret++;
     }
     return ret;

@@ -25,7 +25,7 @@
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
 #define BMCWEB_ROUTE(app, url)                                                 \
-    app.template route<crow::black_magic::getParameterTag(url)>(url)
+    app.template route<crow::utility::getParameterTag(url)>(url)
 
 namespace crow
 {

@@ -24,7 +24,7 @@ namespace crow::utility
 namespace
 {
 
-using ::crow::black_magic::getParameterTag;
+using ::crow::utility::getParameterTag;
 
 TEST(Utility, Base64DecodeAuthString)
 {
