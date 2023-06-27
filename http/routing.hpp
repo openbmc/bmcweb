@@ -382,7 +382,7 @@ class Router
             size_t ret = 0;
             while (tag > 0)
             {
-                tag /= black_magic::toUnderlying(black_magic::TypeCode::Max);
+                tag /= utility::toUnderlying(utility::TypeCode::Max);
                 ret++;
             }
             return ret;
