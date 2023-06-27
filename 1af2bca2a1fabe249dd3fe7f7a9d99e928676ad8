@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d91229c_96144c9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-27T21:29:19Z",
+      "side": 1,
+      "message": "+1 to easier to understand",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "1af2bca2a1fabe249dd3fe7f7a9d99e928676ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64fec645_f6606ce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-27T21:29:19Z",
+      "side": 1,
+      "message": "Seems okay to me",
+      "revId": "1af2bca2a1fabe249dd3fe7f7a9d99e928676ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845dbcb8_db179817",
+        "filename": "http/routing/taggedrule.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-27T21:29:19Z",
+      "side": 1,
+      "message": "why not else if here too?",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 11
+      },
+      "revId": "1af2bca2a1fabe249dd3fe7f7a9d99e928676ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667ebc03_b0c73f26",
+        "filename": "http/routing/taggedrule.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-27T21:29:19Z",
+      "side": 1,
+      "message": "Need an else for \u003e5 ? I guess you already have it in http/routing.hpp ?",
+      "revId": "1af2bca2a1fabe249dd3fe7f7a9d99e928676ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f4c0e5_5a5e8d53",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-27T21:29:19Z",
+      "side": 1,
+      "message": "A comment about what this is doing would help understand. Oh well.",
+      "revId": "1af2bca2a1fabe249dd3fe7f7a9d99e928676ad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
