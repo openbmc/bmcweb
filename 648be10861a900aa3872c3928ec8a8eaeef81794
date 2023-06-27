@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12071443_6c1a617d",
+        "filename": "Redfish.md",
+        "patchSetId": 77
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "Don\u0027t need to add MemberId and Name. These are fields common to all schemas.",
+      "range": {
+        "startLine": 395,
+        "startChar": 2,
+        "endLine": 395,
+        "endChar": 10
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed9e6534_d517f1a8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "Change these to ERROR for all internalError",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9052898_35b6398f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "why fail? We retrieve the information if it is not null. Change in all properties.\nCheckout how we do in PCIe or PowerSupply implementation",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cdfe082_815095d9",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "checkForAssemblyAssociations and getAssemblyEndpoints functions should be replaced with getAssociatedSubTreePaths. This is written before we don\u0027t have this function.",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e473819_55d35094",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "We already checked chassis before calling this function, why check again?",
+      "range": {
+        "startLine": 445,
+        "startChar": 4,
+        "endLine": 452,
+        "endChar": 5
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21749f0_400bc38a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "Why not using the interfaces that getSubTreePaths is using?\nThis will narrow down the retrieval to only the interfaces that we  are interested in.",
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5f941d9_8982f1e4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "Should be ERROR.",
+      "range": {
+        "startLine": 506,
+        "startChar": 19,
+        "endLine": 506,
+        "endChar": 24
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b39f352_59c145d0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 77
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-27T14:47:26Z",
+      "side": 1,
+      "message": "Change all aResp to asyncRep.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/64058",
+      "range": {
+        "startLine": 544,
+        "startChar": 65,
+        "endLine": 544,
+        "endChar": 70
+      },
+      "revId": "648be10861a900aa3872c3928ec8a8eaeef81794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
