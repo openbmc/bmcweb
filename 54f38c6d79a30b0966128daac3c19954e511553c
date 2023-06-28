@@ -16,6 +16,40 @@
       "message": "Looks good to me.",
       "revId": "54f38c6d79a30b0966128daac3c19954e511553c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f23f34d3_f71a3a4a",
+        "filename": "src/boost_asio.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T15:53:16Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_CRITICAL ?",
+      "revId": "54f38c6d79a30b0966128daac3c19954e511553c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed992fb6_bac055b7",
+        "filename": "src/boost_asio.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T15:53:16Z",
+      "side": 1,
+      "message": "CRITICAL ?",
+      "revId": "54f38c6d79a30b0966128daac3c19954e511553c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
