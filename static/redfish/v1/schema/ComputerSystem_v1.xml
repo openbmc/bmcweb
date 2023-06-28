@@ -2428,6 +2428,10 @@
           <Annotation Term="OData.Description" String="The connection details for an IPMI Serial-over-LAN service."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a serial console service that uses the IPMI Serial-over-LAN (SOL) protocol."/>
         </Property>
+        <Property Name="Websocket" Type="ComputerSystem.v1_13_0.SerialConsoleProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for a websocket interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a serial console service that uses Websocket RFC64556455."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="SerialConsoleProtocol">
@@ -2459,6 +2463,11 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The hotkey sequence available for the user to exit the serial console session."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a string that can be provided to a user to describe the hotkey sequence used to exit the serial console session, or, if shared with a manager CLI, to return to the CLI."/>
+        </Property>
+        <Property Name="WebsocketURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI to connect to for RFC6455 Websocket console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the URI to which the websocket console can be connected to."/>
         </Property>
       </ComplexType>
 
@@ -3020,6 +3029,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the WebsocketURI type to SerialConsole."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_1.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>

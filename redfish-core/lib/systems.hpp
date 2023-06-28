@@ -3175,6 +3175,9 @@ inline void
     getPortStatusAndPath(std::span{protocolToDBusForSystems},
                          std::bind_front(afterPortRequest, asyncResp));
 
+    asyncResp->res.jsonValue["SerialConsole"]["Websocket"]["WebsocketURI"] = "/console/0";
+    asyncResp->res.jsonValue["SerialConsole"]["Websocket"]["ServiceEnabled"] = true;
+
 #ifdef BMCWEB_ENABLE_KVM
     // Fill in GraphicalConsole info
     asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
