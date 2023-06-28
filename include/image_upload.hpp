@@ -3,10 +3,8 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "ossl_random.hpp"
 
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <cstdio>
@@ -93,9 +91,7 @@ inline void
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 
-    std::string filepath(
-        "/tmp/images/" +
-        boost::uuids::to_string(boost::uuids::random_generator()()));
+    std::string filepath("/tmp/images/" + bmcweb::getRandomUUID());
     BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);

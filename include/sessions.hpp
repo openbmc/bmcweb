@@ -1,7 +1,7 @@
 #pragma once
 
 #include "logging.hpp"
-#include "random.hpp"
+#include "ossl_random.hpp"
 #include "utility.hpp"
 #include "utils/ip_utils.hpp"
 
