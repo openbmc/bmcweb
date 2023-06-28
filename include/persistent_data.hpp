@@ -3,12 +3,10 @@
 #include "event_service_store.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "ossl_random.hpp"
 #include "sessions.hpp"
 
 #include <boost/beast/http/fields.hpp>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
 #include <nlohmann/json.hpp>
 
 #include <filesystem>
@@ -178,8 +176,7 @@ class ConfigFile
 
         if (systemUuid.empty())
         {
-            systemUuid =
-                boost::uuids::to_string(boost::uuids::random_generator()());
+            systemUuid = bmcweb::getRandomUUID();
             needWrite = true;
         }
         if (fileRevision < jsonRevision)
