@@ -191,7 +191,7 @@ inline void requestRoutesSubmitTestEvent(App& app)
 }
 
 inline void doSubscriptionCollection(
-    const boost::system::error_code ec,
+    const boost::system::error_code& ec,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const dbus::utility::ManagedObjectType& resp)
 {
@@ -255,7 +255,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
             memberArray.emplace_back(std::move(member));
         }
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::ManagedObjectType& resp) {
             doSubscriptionCollection(ec, asyncResp, resp);
             },

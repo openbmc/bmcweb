@@ -2244,7 +2244,7 @@ inline void
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, accountTypes(std::move(accountTypes))](
-            const boost::system::error_code ec, sdbusplus::message_t& m) {
+            const boost::system::error_code& ec, sdbusplus::message_t& m) {
         if (ec)
         {
             userErrorMessageHandler(m.get_error(), asyncResp, newUser,
