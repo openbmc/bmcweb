@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa55ffa7_080dbc4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T17:42:00Z",
+      "side": 1,
+      "message": "As stated this can\u0027t merge until the spec is released or we move to OEM, but from a spec side, this seems like a very reasonable proposal.",
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe19827_c60c867c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3178,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T17:42:00Z",
+      "side": 1,
+      "message": "isn\u0027t it console0 ? The default https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63855/11/include/obmc_console.hpp ?",
+      "range": {
+        "startLine": 3178,
+        "startChar": 79,
+        "endLine": 3178,
+        "endChar": 88
+      },
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc3ae37_ab0db367",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3178,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T17:42:00Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we look at D-Bus for this? Maybe an association from the system object to the console object?\nDepending where multiple system support is when this lands, I think I would be okay with the default and then something that looks at D-Bus coming after.",
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76452fdd_45ed5ed6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3179,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T17:42:00Z",
+      "side": 1,
+      "message": "Look at https://github.com/openbmc/bmcweb/blob/master/meson_options.txt#L63 to determine Enabled?",
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28c769a3_31cc1678",
+        "filename": "static/redfish/v1/schema/ComputerSystem_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2433,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T17:42:00Z",
+      "side": 1,
+      "message": "RFC6455 ?",
+      "range": {
+        "startLine": 2433,
+        "startChar": 155,
+        "endLine": 2433,
+        "endChar": 166
+      },
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
