@@ -1315,13 +1315,15 @@ static LogParseError
 
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());
+    messageArgs.resize(message->numberOfArgs);
+
     std::string msg = redfish::registries::fillMessageArgs(messageArgs,
                                                            message->message);
     if (msg.empty())
     {
         return LogParseError::parseFailed;
     }
-
+    
     // Get the Created time from the timestamp. The log timestamp is in RFC3339
     // format which matches the Redfish format except for the fractional seconds
     // between the '.' and the '+', so just remove them.
