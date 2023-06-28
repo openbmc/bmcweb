@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <limits>
+#include <string>
 
 namespace bmcweb
 {
@@ -45,5 +46,7 @@ struct OpenSSLGenerator
     static constexpr int opensslSuccess = 1;
     bool err = false;
 };
+
+std::string getRandomUUID();
 
 } // namespace bmcweb

@@ -20,6 +20,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "multipart_parser.hpp"
+#include "ossl_random.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task.hpp"
@@ -531,9 +532,8 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 
 inline void uploadImageFile(crow::Response& res, std::string_view body)
 {
-    std::filesystem::path filepath(
-        "/tmp/images/" +
-        boost::uuids::to_string(boost::uuids::random_generator()()));
+    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+
     BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
