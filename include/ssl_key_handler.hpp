@@ -1,7 +1,7 @@
 #pragma once
 
 #include "logging.hpp"
-#include "random.hpp"
+#include "ossl_random.hpp"
 
 extern "C"
 {
