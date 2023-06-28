@@ -316,11 +316,11 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
         "xyz.openbmc_project.Settings", path,
         [ethIfaceId{std::string{ethIfaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code& error,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
-        if (error)
+        if (ec)
         {
             callback(false, ethData, ipv4Data);
             return;
@@ -707,9 +707,9 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/network/hypervisor", 0, interfaces,
         [asyncResp](
-            const boost::system::error_code& error,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& ifaceList) {
-        if (error)
+        if (ec)
         {
             messages::resourceNotFound(asyncResp->res, "System", "hypervisor");
             return;

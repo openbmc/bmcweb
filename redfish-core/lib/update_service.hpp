@@ -67,11 +67,11 @@ inline static void activateImage(const std::string& objPath,
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Software.Activation", "RequestedActivation",
         "xyz.openbmc_project.Software.Activation.RequestedActivations.Active",
-        [](const boost::system::error_code& errorCode) {
-        if (errorCode)
+        [](const boost::system::error_code& ec) {
+        if (ec)
         {
-            BMCWEB_LOG_DEBUG << "error_code = " << errorCode;
-            BMCWEB_LOG_DEBUG << "error msg = " << errorCode.message();
+            BMCWEB_LOG_DEBUG << "error_code = " << ec;
+            BMCWEB_LOG_DEBUG << "error msg = " << ec.message();
         }
         });
 }
@@ -101,14 +101,14 @@ static void
             dbus::utility::getDbusObject(
                 objPath.str, interfaces,
                 [objPath, asyncResp, payload(std::move(payload))](
-                    const boost::system::error_code& errorCode,
+                    const boost::system::error_code& ec,
                     const std::vector<
                         std::pair<std::string, std::vector<std::string>>>&
                         objInfo) mutable {
-                if (errorCode)
+                if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << "error_code = " << errorCode;
-                    BMCWEB_LOG_DEBUG << "error msg = " << errorCode.message();
+                    BMCWEB_LOG_DEBUG << "error_code = " << ec;
+                    BMCWEB_LOG_DEBUG << "error msg = " << ec.message();
                     if (asyncResp)
                     {
                         messages::internalError(asyncResp->res);
@@ -138,11 +138,11 @@ static void
                 {
                     std::shared_ptr<task::TaskData> task =
                         task::TaskData::createTask(
-                            [](const boost::system::error_code& ec,
+                            [](const boost::system::error_code& ec2,
                                sdbusplus::message_t& msg,
                                const std::shared_ptr<task::TaskData>&
                                    taskData) {
-                        if (ec)
+                        if (ec2)
                         {
                             return task::completed;
                         }
@@ -903,9 +903,9 @@ inline void
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Software.Version",
         [asyncResp,
-         swId](const boost::system::error_code& errorCode,
+         swId](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (errorCode)
+        if (ec)
         {
             messages::internalError(asyncResp->res);
             return;

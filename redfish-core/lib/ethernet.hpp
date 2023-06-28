@@ -782,13 +782,13 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         "xyz.openbmc_project.Network", path,
         [ethifaceId{std::string{ethifaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code& errorCode,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
         std::vector<IPv6AddressData> ipv6Data;
 
-        if (errorCode)
+        if (ec)
         {
             callback(false, ethData, ipv4Data, ipv6Data);
             return;
@@ -832,13 +832,13 @@ void getEthernetIfaceList(CallbackFunc&& callback)
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
         [callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code& errorCode,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
         // Callback requires vector<string> to retrieve all available
         // ethernet interfaces
         std::vector<std::string> ifaceList;
         ifaceList.reserve(resp.size());
-        if (errorCode)
+        if (ec)
         {
             callback(false, ifaceList);
             return;

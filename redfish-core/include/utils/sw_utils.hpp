@@ -304,9 +304,9 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/xyz/openbmc_project/software/" + *swId,
         "xyz.openbmc_project.Software.Activation",
         [asyncResp,
-         swId](const boost::system::error_code& errorCode,
+         swId](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (errorCode)
+        if (ec)
         {
             // not all swtypes are updateable, this is ok
             asyncResp->res.jsonValue["Status"]["State"] = "Enabled";

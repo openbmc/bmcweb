@@ -2369,9 +2369,9 @@ inline void
                     nlohmann::json& propertyItem = propertiesObj[name];
                     crow::connections::systemBus->async_send(
                         m, [&propertyItem,
-                            asyncResp](const boost::system::error_code& e,
+                            asyncResp](const boost::system::error_code& ec2,
                                        sdbusplus::message_t& msg) {
-                            if (e)
+                            if (ec2)
                             {
                                 return;
                             }

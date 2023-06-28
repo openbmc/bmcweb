@@ -102,12 +102,12 @@ void getEthernetIfaceData(CallbackFunc&& callback)
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
         [callback{std::forward<CallbackFunc>(callback)}](
-            const boost::system::error_code& errorCode,
+            const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& dbusData) {
         std::vector<std::string> ntpServers;
         std::vector<std::string> domainNames;
 
-        if (errorCode)
+        if (ec)
         {
             callback(false, ntpServers, domainNames);
             return;
@@ -256,12 +256,11 @@ inline void handleNTPProtocolEnabled(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/time/sync_method",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        timeSyncMethod,
-        [asyncResp](const boost::system::error_code& errorCode) {
-        if (errorCode)
-        {
-            messages::internalError(asyncResp->res);
-        }
+        timeSyncMethod, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+            }
         });
 }
 
@@ -455,9 +454,9 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/time/sync_method",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        [asyncResp](const boost::system::error_code& errorCode,
+        [asyncResp](const boost::system::error_code& ec,
                     const std::string& timeSyncMethod) {
-        if (errorCode)
+        if (ec)
         {
             return;
         }
