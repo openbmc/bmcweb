@@ -353,6 +353,7 @@ srcfiles_bmcweb = files(
   'src/boost_url.cpp',
   'src/dbus_singleton.cpp',
   'src/json_html_serializer.cpp',
+  'src/ossl_random.cpp',
 )
 
 bmcweblib = static_library(
@@ -389,6 +390,7 @@ srcfiles_unittest = files(
   'test/include/multipart_test.cpp',
   'test/include/openbmc_dbus_rest_test.cpp',
   'test/include/str_utility_test.cpp',
+  'test/include/ossl_random.cpp',
   'test/redfish-core/include/privileges_test.cpp',
   'test/redfish-core/include/redfish_aggregator_test.cpp',
   'test/redfish-core/include/registries_test.cpp',
