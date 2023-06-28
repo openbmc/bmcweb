@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0561e6_eea66182",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T01:26:33Z",
+      "side": 1,
+      "message": "ec2 looked more correct, already an ec",
+      "range": {
+        "startLine": 431,
+        "startChar": 58,
+        "endLine": 431,
+        "endChar": 60
+      },
+      "revId": "d75d18e4c165397343886b4fe661405caaf2c8f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854faa33_926f127a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T01:26:33Z",
+      "side": 1,
+      "message": "ec3",
+      "range": {
+        "startLine": 1035,
+        "startChar": 59,
+        "endLine": 1035,
+        "endChar": 60
+      },
+      "revId": "d75d18e4c165397343886b4fe661405caaf2c8f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
