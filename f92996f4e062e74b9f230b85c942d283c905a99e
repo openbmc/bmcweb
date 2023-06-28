@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "788a7231_aec54b08",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T15:46:08Z",
+      "side": 1,
+      "message": "Can you call asyncResp   ?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/64058",
+      "range": {
+        "startLine": 1417,
+        "startChar": 73,
+        "endLine": 1417,
+        "endChar": 78
+      },
+      "revId": "f92996f4e062e74b9f230b85c942d283c905a99e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13a41f4_d72888eb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T15:46:08Z",
+      "side": 1,
+      "message": "Can you name asyncResp ?",
+      "range": {
+        "startLine": 1957,
+        "startChar": 73,
+        "endLine": 1957,
+        "endChar": 78
+      },
+      "revId": "f92996f4e062e74b9f230b85c942d283c905a99e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
