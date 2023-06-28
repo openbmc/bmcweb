@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6356df7_98721326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-28T17:44:56Z",
+      "side": 1,
+      "message": "I\u0027m ok with this being a global now that it can be disabled for multi-host configurations.",
+      "revId": "62f2feb4c802d9934591961a9e0e898b747d8b18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
