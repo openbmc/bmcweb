@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed50f0f6_5b741e02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-28T20:02:08Z",
+      "side": 1,
+      "message": "CI failure was a clang-format issue. Fixed.",
+      "revId": "9dcfe8c1ca70f8ff260aa5613f787d5fa3e7c45d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
