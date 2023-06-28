@@ -46,6 +46,30 @@
       },
       "revId": "752de609a400187837f04c528de38723cdebf277",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe014444_27f45f1f",
+        "filename": "meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-28T14:09:27Z",
+      "side": 1,
+      "message": "Right.  The original code seems correct to make sure to add the enabled options.",
+      "parentUuid": "28630633_eb80dd41",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 57
+      },
+      "revId": "752de609a400187837f04c528de38723cdebf277",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
