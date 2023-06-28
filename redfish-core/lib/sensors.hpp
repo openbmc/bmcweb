@@ -570,11 +570,11 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             sensorPath,
             [asyncResp, chassisSubNode, sensorTypes,
              callback{std::forward<const Callback>(callback)}](
-                const boost::system::error_code& e,
+                const boost::system::error_code& ec2,
                 const dbus::utility::MapperEndPoints& nodeSensorList) {
-            if (e)
+            if (ec2)
             {
-                if (e.value() != EBADR)
+                if (ec2.value() != EBADR)
                 {
                     messages::internalError(asyncResp->res);
                     return;
@@ -1010,9 +1010,9 @@ inline void populateFanRedundancy(
             dbus::utility::getAssociationEndPoints(
                 path + "/chassis",
                 [path, owner, sensorsAsyncResp](
-                    const boost::system::error_code& e,
+                    const boost::system::error_code& ec2,
                     const dbus::utility::MapperEndPoints& endpoints) {
-                if (e)
+                if (ec2)
                 {
                     return; // if they don't have an association we
                             // can't tell what chassis is
@@ -1032,9 +1032,9 @@ inline void populateFanRedundancy(
                     *crow::connections::systemBus, owner, path,
                     "xyz.openbmc_project.Control.FanRedundancy",
                     [path, sensorsAsyncResp](
-                        const boost::system::error_code& err,
+                        const boost::system::error_code& ec2,
                         const dbus::utility::DBusPropertiesMap& ret) {
-                    if (err)
+                    if (ec2)
                     {
                         return; // don't have to have this
                                 // interface

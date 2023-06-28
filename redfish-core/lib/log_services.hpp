@@ -818,9 +818,9 @@ inline void createDumpTaskCallback(
 
         std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
             [createdObjPath, dumpEntryPath, dumpId, isProgressIntfPresent](
-                const boost::system::error_code& err, sdbusplus::message_t& msg,
+                const boost::system::error_code& ec, sdbusplus::message_t& msg,
                 const std::shared_ptr<task::TaskData>& taskData) {
-            if (err)
+            if (ec)
             {
                 BMCWEB_LOG_ERROR << createdObjPath.str
                                  << ": Error in creating dump";
@@ -3599,9 +3599,9 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 return;
             }
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [](const boost::system::error_code& err, sdbusplus::message_t&,
+                [](const boost::system::error_code& ec2, sdbusplus::message_t&,
                    const std::shared_ptr<task::TaskData>& taskData) {
-                if (!err)
+                if (!ec2)
                 {
                     taskData->messages.emplace_back(messages::taskCompletedOK(
                         std::to_string(taskData->index)));

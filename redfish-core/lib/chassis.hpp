@@ -428,7 +428,7 @@ inline void
                 *crow::connections::systemBus, connectionName, path,
                 "xyz.openbmc_project.Inventory.Decorator.Asset",
                 [asyncResp, chassisId(std::string(chassisId)),
-                 path](const boost::system::error_code& /*ec2*/,
+                 path](const boost::system::error_code& /*ec*/,
                        const dbus::utility::DBusPropertiesMap& propertiesList) {
                 const std::string* partNumber = nullptr;
                 const std::string* serialNumber = nullptr;

@@ -144,12 +144,12 @@ inline void requestRoutesPower(App& app)
 
         using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
         auto chassisHandler =
-            [sensorAsyncResp](const boost::system::error_code& e,
+            [sensorAsyncResp](const boost::system::error_code& ec2,
                               const Mapper& chassisPaths) {
-            if (e)
+            if (ec2)
             {
                 BMCWEB_LOG_ERROR
-                    << "Power Limit GetSubTreePaths handler Dbus error " << e;
+                    << "Power Limit GetSubTreePaths handler Dbus error " << ec2;
                 return;
             }
 

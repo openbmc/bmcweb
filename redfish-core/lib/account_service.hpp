@@ -576,13 +576,13 @@ inline void getLDAPConfigData(const std::string& ldapType,
         dbus::utility::getManagedObjects(
             service, path,
             [callback,
-             ldapType](const boost::system::error_code& errorCode,
+             ldapType](const boost::system::error_code& ec2,
                        const dbus::utility::ManagedObjectType& ldapObjects) {
             LDAPConfigData confData{};
-            if (errorCode)
+            if (ec2)
             {
                 callback(false, confData, ldapType);
-                BMCWEB_LOG_ERROR << "D-Bus responses error: " << errorCode;
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec2;
                 return;
             }
 
