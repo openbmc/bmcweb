@@ -60,6 +60,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb098178_72e4c6dd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-28T23:42:30Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t we look at D-Bus for this? Maybe an association from the system object to the console object?\n\nWe don\u0027t really have a system object, although agreed, that would be more ideal.  let me look at if that\u0027s possible.\n\n\u003e Depending where multiple system support is when this lands, I think I would be okay with the default and then something that looks at D-Bus coming after.\n\nACK.",
+      "parentUuid": "5dc3ae37_ab0db367",
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbd7713f_267353b8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-28T23:42:30Z",
+      "side": 1,
+      "message": ".......  possibly?  I thought /console/0 and /console/0 were equivalent?",
+      "parentUuid": "dbe19827_c60c867c",
+      "range": {
+        "startLine": 3178,
+        "startChar": 79,
+        "endLine": 3178,
+        "endChar": 88
+      },
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76452fdd_45ed5ed6",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -71,6 +113,24 @@
       "writtenOn": "2023-06-28T17:42:00Z",
       "side": 1,
       "message": "Look at https://github.com/openbmc/bmcweb/blob/master/meson_options.txt#L63 to determine Enabled?",
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1484627d_c4929a81",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-28T23:42:30Z",
+      "side": 1,
+      "message": "Ack.  Seems reasonable.",
+      "parentUuid": "76452fdd_45ed5ed6",
       "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +148,30 @@
       "writtenOn": "2023-06-28T17:42:00Z",
       "side": 1,
       "message": "RFC6455 ?",
+      "range": {
+        "startLine": 2433,
+        "startChar": 155,
+        "endLine": 2433,
+        "endChar": 166
+      },
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47caab34_97ef6e31",
+        "filename": "static/redfish/v1/schema/ComputerSystem_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2433,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-28T23:42:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "28c769a3_31cc1678",
       "range": {
         "startLine": 2433,
         "startChar": 155,
