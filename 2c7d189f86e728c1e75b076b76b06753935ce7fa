@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02c7842f_1a4db23e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T14:51:00Z",
+      "side": 1,
+      "message": "We should not trigger an internal error, we should simply not to display the property. The same applies to other properties as well.",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb072a8e_4a261535",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T14:51:00Z",
+      "side": 1,
+      "message": "For the sparePartNumber, we should also check if it is empty. \nif (sparePartNumber !\u003d nullptr \u0026\u0026 !sparePartNumber-\u003eempty())",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2cb5c6c_9b5d3dcf",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T14:51:00Z",
+      "side": 1,
+      "message": "why we updating the count here instead of updating after adding the entries?",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e73e41_f47b1172",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T14:51:00Z",
+      "side": 1,
+      "message": "ok, the assumption is made that the assemblies received in the subtree response are in the same order as in the sortedAssemblyList.\nwhat if an entry is missing in one of the lists (subtree or assemblies), it will cause a mismatch in the subsequent comparisons, and the code will not find matching entries beyond that point.",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b94a32_88f9ebe8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T14:51:00Z",
+      "side": 1,
+      "message": "Unused variable",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84bc3833_8122b66b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T14:51:00Z",
+      "side": 1,
+      "message": "Why are we checking again? getDbusobject returns only objects that has \"xyz.openbmc_project.Association.Definitions\" interface.",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
