@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "54fe79b6_f588cad9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T15:35:41Z",
+      "side": 1,
+      "message": "I agree a different tree, /ibm/v1/, a different REST interface should not be sending out Redfish events. This is a design flaw.",
+      "revId": "c0141847e23d85ac99ff6f05f8be125057bfe2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbc6653_53fb23fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T15:35:41Z",
+      "side": 1,
+      "message": "Only if you enable ibm-management-console and I can\u0027t think of anyone else other than us doing that. Break the client because they receive an event that starts with /ibm/v1/ ? Moot point due to above but not sure I agree with the \"likely to break\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "c0141847e23d85ac99ff6f05f8be125057bfe2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9ce17d7c_0647b24d",
@@ -14,6 +54,24 @@
       "writtenOn": "2023-06-27T17:59:09Z",
       "side": 1,
       "message": "The commits mentioned previously to clean this up appear abandoned.  This is now 2 years old.  What\u0027s the plan here?",
+      "revId": "c0141847e23d85ac99ff6f05f8be125057bfe2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0af9ca_830faf96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T15:35:41Z",
+      "side": 1,
+      "message": "This code is used by us today, I think we can continue to maintain downstream until we can architect a proper solution. @sunitha sound okay?",
+      "parentUuid": "9ce17d7c_0647b24d",
       "revId": "c0141847e23d85ac99ff6f05f8be125057bfe2fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
