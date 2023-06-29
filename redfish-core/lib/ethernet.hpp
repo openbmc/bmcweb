@@ -749,10 +749,19 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
                        const std::string& address,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    auto createIpHandler = [asyncResp](const boost::system::error_code& ec) {
+    auto createIpHandler =
+        [asyncResp, address](const boost::system::error_code& ec) {
         if (ec)
         {
-            messages::internalError(asyncResp->res);
+            if (ec == boost::system::errc::io_error)
+            {
+                messages::propertyValueFormatError(asyncResp->res, address,
+                                                   "Address");
+            }
+            else
+            {
+                messages::internalError(asyncResp->res);
+            }
         }
     };
     // Passing null for gateway, as per redfish spec IPv6StaticAddresses object
