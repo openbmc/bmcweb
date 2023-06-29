@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae2cf1f9_8177af9e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-29T17:22:46Z",
+      "side": 1,
+      "message": "\u003e Should we define these like below?\n\nWe shouldn\u0027t.  Each of these fields is required on the interface, therefore we need to actually require them in the API.  The way I wrote it is the way I would expect an interface to be read that doesn\u0027t have multiple versions required.\n\n0 is just a placeholder to initialize the value to (as is required by the coding standard).  Unless the dbus service publishes zero, it will never be seen by a user.",
+      "parentUuid": "1f1af76f_e422570d",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 25
+      },
+      "revId": "a7f7bcad96ea2ee1052842b606755fb884b0a1a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06d053e1_ca565241",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 26
