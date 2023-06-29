@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf3da358_14f7f6e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-29T03:21:36Z",
+      "side": 1,
+      "message": "In the end this code really needs changed to just support GetObject, but this works for now.",
+      "revId": "ed5ef44e8d51ec78acf65faac15af02fdadc20cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
