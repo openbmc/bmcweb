@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55fcb31b_6adfddd3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T19:45:51Z",
+      "side": 1,
+      "message": "I have tested it, and it is working as expected. We are returning whatever the D-Bus service publishes.\n\n```\ncurl -k https://${bmc}/redfish/v1/Systems/system/PCIeDevices/pcie_card8\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card8\",\n  \"@odata.type\": \"#PCIeDevice.v1_9_0.PCIeDevice\",\n  \"Id\": \"pcie_card8\",\n  \"Manufacturer\": \"\",\n  \"Model\": \"6B87\",\n  \"Name\": \"PCIe Device\",\n  \"PCIeFunctions\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card8/PCIeFunctions\"\n  },\n  \"PCIeInterface\": {\n    \"LanesInUse\": -1\n  },\n  \"PartNumber\": \"03FL194\",\n  \"SerialNumber\": \"Y131UF09S00J\",\n  \"Slot\": {\n    \"Lanes\": 10,\n    \"SlotType\": \"FullLength\"\n  },\n  \"SparePartNumber\": \"03FL195\",\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  }\n}\n```",
+      "parentUuid": "ae2cf1f9_8177af9e",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 25
+      },
+      "revId": "a7f7bcad96ea2ee1052842b606755fb884b0a1a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06d053e1_ca565241",
