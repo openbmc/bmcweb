@@ -2685,8 +2685,13 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
+                std::string type = path.parent_path().filename();
+                type.erase(std::remove(type.begin(), type.end(), '_'), type.end());
+                std::string Id = type;
+                Id += "_";
+                Id += sensorName;
 
-                const auto& iterator = overrideMap.find(sensorName);
+                const auto& iterator = overrideMap.find(Id);
                 if (iterator == overrideMap.end())
                 {
                     BMCWEB_LOG_INFO << "Unable to find sensor object"
