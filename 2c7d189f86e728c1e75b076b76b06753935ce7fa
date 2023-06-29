@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d4a5c1_bffdaa0d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-29T20:39:11Z",
+      "side": 1,
+      "message": "We are failing because these are required properties. The value could be empty string but if it returns NULL that means some internal error.",
+      "parentUuid": "02c7842f_1a4db23e",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb072a8e_4a261535",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-29T14:51:00Z",
       "side": 1,
       "message": "For the sparePartNumber, we should also check if it is empty. \nif (sparePartNumber !\u003d nullptr \u0026\u0026 !sparePartNumber-\u003eempty())",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b99c996_41aacf43",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-29T20:39:11Z",
+      "side": 1,
+      "message": "As per assembly schema document space part number could be a NULL/empty string.\n\nhttps://redfish.dmtf.org/schemas/v1/Assembly.v1_4_0.json",
+      "parentUuid": "bb072a8e_4a261535",
       "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55efe265_36d0d40a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-29T20:39:11Z",
+      "side": 1,
+      "message": "The reason is we are walking all assemblies and adding them hence we are ok to add count upfront. There is a possibility that one of the async function may fail in that case caller will see the failure.",
+      "parentUuid": "a2cb5c6c_9b5d3dcf",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8e73e41_f47b1172",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-06-29T14:51:00Z",
       "side": 1,
       "message": "ok, the assumption is made that the assemblies received in the subtree response are in the same order as in the sortedAssemblyList.\nwhat if an entry is missing in one of the lists (subtree or assemblies), it will cause a mismatch in the subsequent comparisons, and the code will not find matching entries beyond that point.",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "251e5de2_2f6f2fdd",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-29T20:39:11Z",
+      "side": 1,
+      "message": "The assemblies is a sorted array of endpoints. Now we are making sure that objects received using the vrm, tpm etc. interfaces are matching. We are making updateAssemblyList only when we match endpoint path with the path received by querying the different FRU interfaces. If we do not find matching entry then we ignore it and move on to next object path. So I am not sure the issue you are pointing out.",
+      "parentUuid": "e8e73e41_f47b1172",
       "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d52ada_2cab909e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-29T20:39:11Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "f9b94a32_88f9ebe8",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84bc3833_8122b66b",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-06-29T14:51:00Z",
       "side": 1,
       "message": "Why are we checking again? getDbusobject returns only objects that has \"xyz.openbmc_project.Association.Definitions\" interface.",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d3ecb0_1c785df0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1001634
+      },
+      "writtenOn": "2023-06-29T20:39:11Z",
+      "side": 1,
+      "message": "good point. removed the check.",
+      "parentUuid": "84bc3833_8122b66b",
       "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
