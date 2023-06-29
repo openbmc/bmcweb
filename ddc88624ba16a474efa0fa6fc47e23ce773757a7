@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168d9a62_a8001860",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T17:24:21Z",
+      "side": 1,
+      "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f70c7b9_0106c6bb",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T17:24:21Z",
+      "side": 1,
+      "message": "#include \u003cmemory\u003e",
+      "range": {
+        "startLine": 186,
+        "startChar": 30,
+        "endLine": 186,
+        "endChar": 45
+      },
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86270363_e8805363",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T17:24:21Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
+      "range": {
+        "startLine": 271,
+        "startChar": 10,
+        "endLine": 271,
+        "endChar": 23
+      },
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
