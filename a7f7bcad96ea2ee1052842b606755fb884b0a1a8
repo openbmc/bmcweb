@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eedb496_698f0c36",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-29T14:06:39Z",
+      "side": 1,
+      "message": "Should we define these like below?\n\n```\n    std::string* generation \u003d nullptr;\n    size_t* lanes \u003d nullptr;\n    std::string* slotType \u003d nullptr;\n```   \n\nAnd then check them after calling `unpackPropertiesNoThrow()` to see whether they are obtained.\n```\nif(generation \u003d\u003d nullptr) \n```",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 25
+      },
+      "revId": "a7f7bcad96ea2ee1052842b606755fb884b0a1a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d053e1_ca565241",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-29T14:06:39Z",
+      "side": 1,
+      "message": "For example, if we use `size_t* lines \u003d nullptr` above,\n\n```\nif(lanes !\u003d nullptr)\n{\n   res.jsonValue[\"Slot\"][\"Lanes\"] \u003d *lanes;\n}\n```",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 43
+      },
+      "revId": "a7f7bcad96ea2ee1052842b606755fb884b0a1a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
