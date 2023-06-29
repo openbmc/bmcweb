@@ -52,10 +52,9 @@
 # respond to such requests in the timeframe required by the CVE process, and
 # ideally should have a track record of doing it in the past.
 #
-# - Understand the webui variants (webui-vue and phosphor-webui) that bmcweb
-# can optionally host, its use cases, and how they differ from "normal" client
-# based use cases, as well as an understanding of hosting web services in
-# general.
+# - Understand webui-vue, that bmcweb can optionally host, its use cases, and
+# how they differ from "normal" client-based use cases, as well as an
+# understanding of hosting web services in general.
 #
 # If you believe you meet the qualifications for the above, please open a
 # patchset, adding your name to the list below, documenting some evidence of
