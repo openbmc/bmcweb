@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "599cfe33_14562d92",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-29T16:14:40Z",
+      "side": 1,
+      "message": "Ed made this change, I don\u0027t see anything wrong.\nIf the \"Lanes\" property is not present, its default value of 0 will be returned, which is the correct value..",
+      "parentUuid": "3eedb496_698f0c36",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 25
+      },
+      "revId": "a7f7bcad96ea2ee1052842b606755fb884b0a1a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06d053e1_ca565241",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 26
