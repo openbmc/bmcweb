@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa095315_0f52a465",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3178,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-29T02:30:09Z",
+      "side": 1,
+      "message": "I don\u0027t think so. webui-vue / phosphor-webui both used console0\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fwebui-vue%20console0\u0026type\u003dcode\n\nIt would be \nBMCWEB_ROUTE(app, \"/console0\")\n\nVs\n\nBMCWEB_ROUTE(app, \"/console/0\")\n\nNow the new path at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63855/11/include/obmc_console.hpp#326 is \n\nBMCWEB_ROUTE(app, \"/console/\u003cstr\u003e\")",
+      "parentUuid": "fbd7713f_267353b8",
+      "range": {
+        "startLine": 3178,
+        "startChar": 79,
+        "endLine": 3178,
+        "endChar": 88
+      },
+      "revId": "22bc60ad2058a995e6c9030d1d739125a956480b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76452fdd_45ed5ed6",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
