@@ -87,6 +87,30 @@
       },
       "revId": "7bcb09ad0fb6a650878fe37425ec14acc3ad2ce2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae42ec0_38e79b3e",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-30T21:13:35Z",
+      "side": 1,
+      "message": "That hasn\u0027t been my experience, but it\u0027s not imporant enough for me to argue the point.",
+      "parentUuid": "66a38bab_7f1d6f22",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 35
+      },
+      "revId": "7bcb09ad0fb6a650878fe37425ec14acc3ad2ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
