@@ -13,9 +13,7 @@
 #include <boost/beast/websocket/ssl.hpp>
 #endif
 
-namespace crow
-{
-namespace websocket
+namespace crow::websocket
 {
 
 enum class MessageType
@@ -370,5 +368,4 @@ class ConnectionImpl : public Connection
 
     std::shared_ptr<Connection> selfOwned;
 };
-} // namespace websocket
-} // namespace crow
+} // namespace crow::websocket

@@ -26,10 +26,7 @@
 
 #include <string_view>
 
-namespace crow
-{
-
-namespace nbd_proxy
+namespace crow::nbd_proxy
 {
 
 using boost::asio::local::stream_protocol;
@@ -380,5 +377,4 @@ inline void requestRoutes(App& app)
         .onclose(onClose)
         .onmessageex(onMessage);
 }
-} // namespace nbd_proxy
-} // namespace crow
+} // namespace crow::nbd_proxy

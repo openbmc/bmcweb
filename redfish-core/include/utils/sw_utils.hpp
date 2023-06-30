@@ -17,9 +17,7 @@
 #include <string_view>
 #include <vector>
 
-namespace redfish
-{
-namespace sw_util
+namespace redfish::sw_util
 {
 /* @brief String that indicates a bios software instance */
 constexpr const char* biosPurpose =
@@ -376,5 +374,4 @@ inline void
         });
 }
 
-} // namespace sw_util
-} // namespace redfish
+} // namespace redfish::sw_util

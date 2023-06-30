@@ -73,9 +73,7 @@
 // IWYU pragma: no_include <exception>
 // IWYU pragma: no_include <boost/type_index/type_index_facade.hpp>
 
-namespace crow
-{
-namespace openbmc_mapper
+namespace crow::openbmc_mapper
 {
 const constexpr char* notFoundMsg = "404 Not Found";
 const constexpr char* badReqMsg = "400 Bad Request";
@@ -2599,5 +2597,4 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get,
                  boost::beast::http::verb::post)(handleBusSystemPost);
 }
-} // namespace openbmc_mapper
-} // namespace crow
+} // namespace crow::openbmc_mapper

@@ -12,9 +12,7 @@
 
 #include <variant>
 
-namespace crow
-{
-namespace dbus_monitor
+namespace crow::dbus_monitor
 {
 
 struct DbusWebsocketSession
@@ -250,5 +248,4 @@ inline void requestRoutes(App& app)
         }
         });
 }
-} // namespace dbus_monitor
-} // namespace crow
+} // namespace crow::dbus_monitor

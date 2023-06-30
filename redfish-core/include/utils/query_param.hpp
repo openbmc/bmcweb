@@ -44,9 +44,7 @@
 // IWYU pragma: no_include <boost/type_index/type_index_facade.hpp>
 // IWYU pragma: no_include <stdint.h>
 
-namespace redfish
-{
-namespace query_param
+namespace redfish::query_param
 {
 
 enum class ExpandType : uint8_t
@@ -1057,5 +1055,4 @@ inline void
     completionHandler(intermediateResponse);
 }
 
-} // namespace query_param
-} // namespace redfish
+} // namespace redfish::query_param

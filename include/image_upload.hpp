@@ -11,9 +11,7 @@
 #include <fstream>
 #include <memory>
 
-namespace crow
-{
-namespace image_upload
+namespace crow::image_upload
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -117,5 +115,4 @@ inline void requestRoutes(App& app)
         uploadImageHandler(req, asyncResp);
         });
 }
-} // namespace image_upload
-} // namespace crow
+} // namespace crow::image_upload

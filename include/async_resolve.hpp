@@ -12,10 +12,7 @@
 #include <iostream>
 #include <memory>
 
-namespace crow
-{
-
-namespace async_resolve
+namespace crow::async_resolve
 {
 
 class Resolver
@@ -117,6 +114,5 @@ class Resolver
     }
 };
 
-} // namespace async_resolve
-} // namespace crow
+} // namespace crow::async_resolve
 #endif

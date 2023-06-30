@@ -8,9 +8,7 @@
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/container/flat_map.hpp>
 
-namespace crow
-{
-namespace obmc_console
+namespace crow::obmc_console
 {
 
 // Update this value each time we add new console route.
@@ -330,5 +328,4 @@ inline void requestRoutes(App& app)
         .onclose(onClose)
         .onmessage(onMessage);
 }
-} // namespace obmc_console
-} // namespace crow
+} // namespace crow::obmc_console

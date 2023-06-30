@@ -7,10 +7,7 @@
 #include <array>
 #include <string_view>
 
-namespace redfish
-{
-
-namespace chassis_utils
+namespace redfish::chassis_utils
 {
 /**
  * @brief Retrieves valid chassis path
@@ -63,5 +60,4 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "checkChassisId exit";
 }
 
-} // namespace chassis_utils
-} // namespace redfish
+} // namespace redfish::chassis_utils

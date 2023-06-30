@@ -6,9 +6,7 @@
 
 #include <string>
 
-namespace redfish
-{
-namespace ip_util
+namespace redfish::ip_util
 {
 
 /**
@@ -112,5 +110,4 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
     return true;
 }
 
-} // namespace ip_util
-} // namespace redfish
+} // namespace redfish::ip_util

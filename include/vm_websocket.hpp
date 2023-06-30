@@ -10,9 +10,7 @@
 
 #include <csignal>
 
-namespace crow
-{
-namespace obmc_vm
+namespace crow::obmc_vm
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -223,5 +221,4 @@ inline void requestRoutes(App& app)
         });
 }
 
-} // namespace obmc_vm
-} // namespace crow
+} // namespace crow::obmc_vm
