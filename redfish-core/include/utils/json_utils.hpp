@@ -552,7 +552,7 @@ bool readJsonPatch(const crow::Request& req, crow::Response& res,
                    std::string_view key, UnpackTypes&&... in)
 {
     std::optional<nlohmann::json> jsonRequest = readJsonPatchHelper(req, res);
-    if (jsonRequest == std::nullopt)
+    if (!jsonRequest)
     {
         return false;
     }
