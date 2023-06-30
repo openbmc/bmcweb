@@ -178,6 +178,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "375241a1_ee83b328",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-30T21:06:07Z",
+      "side": 1,
+      "message": "\u003e Why is get_ptr the best choice here?\n\nBecause it only does the is array lookup once.\n\n\u003e The docs say that I can\u0027t write data to the pointee, so I\u0027d still need to use the original reference instead of a pointer to actually insert the links.\n\n......  We write data to the pointee all over the place.....  I was unaware the docs said it was undefined behavior.  Hyrums law strikes again.\n\n\u003e \n\u003e The operator[] and is_array functions won\u0027t throw unless jsonValue wasn\u0027t an object or null, which seems very unlikely and isn\u0027t checked anywhere else in this file.\n\u003e \n\u003e downstreamChassisPaths is an std::vector, so I still don\u0027t see how it could throw.\n\nACK.  This has approached the level of bikeshed, and pointing to the nlohmann docs is super interesting that we\u0027re relying on (at least what the docs say) is UB.",
+      "parentUuid": "b504ffe0_38d91e16",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 31
+      },
+      "revId": "ce47058de411769b7028eb269e5ea8e1d0251e05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a661a5f_b44328a6",
