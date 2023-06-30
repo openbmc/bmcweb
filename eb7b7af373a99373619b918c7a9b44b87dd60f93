@@ -184,6 +184,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "205784ea_093c7dc2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-06-30T06:24:44Z",
+      "side": 1,
+      "message": "The readme doc in phosphor-dbus-interfaces/yaml/xyz/openbmc_project/BIOSConfig/ was not up to date. This PR addresses that https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/64562\n\nAnd as per the new readme you can see correct object paths and methods. Which is consistent with bios-settings-mgr repo.",
+      "parentUuid": "fec5e75b_fca08709",
+      "range": {
+        "startLine": 57,
+        "startChar": 42,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "eb7b7af373a99373619b918c7a9b44b87dd60f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ea21f56_76771fec",
