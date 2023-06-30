@@ -391,7 +391,7 @@ inline std::optional<TransferProtocol>
 inline std::optional<TransferProtocol> getTransferProtocolFromParam(
     const std::optional<std::string>& transferProtocolType)
 {
-    if (transferProtocolType == std::nullopt)
+    if (!transferProtocolType)
     {
         return {};
     }
@@ -670,7 +670,7 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // optional param inserted must be true
-    if ((actionParams.inserted != std::nullopt) && !*actionParams.inserted)
+    if (actionParams.inserted && !*actionParams.inserted)
     {
         BMCWEB_LOG_ERROR(
             "Request action optional parameter Inserted must be true.");
@@ -682,7 +682,7 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // optional param transferMethod must be stream
-    if ((actionParams.transferMethod != std::nullopt) &&
+    if (actionParams.transferMethod &&
         (*actionParams.transferMethod != "Stream"))
     {
         BMCWEB_LOG_ERROR("Request action optional parameter "
@@ -708,7 +708,8 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         getTransferProtocolFromParam(actionParams.transferProtocolType);
 
     // ImageUrl does not contain valid protocol type
-    if (*uriTransferProtocolType == TransferProtocol::invalid)
+    if (uriTransferProtocolType &&
+        *uriTransferProtocolType == TransferProtocol::invalid)
     {
         BMCWEB_LOG_ERROR("Request action parameter ImageUrl must "
                          "contain specified protocol type from list: "
@@ -720,21 +721,21 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // transferProtocolType should contain value from list
-    if (*paramTransferProtocolType == TransferProtocol::invalid)
+    if (paramTransferProtocolType &&
+        *paramTransferProtocolType == TransferProtocol::invalid)
     {
         BMCWEB_LOG_ERROR("Request action parameter TransferProtocolType "
                          "must be provided with value from list: "
                          "(CIFS, HTTPS).");
 
-        messages::propertyValueNotInList(asyncResp->res,
-                                         *actionParams.transferProtocolType,
-                                         "TransferProtocolType");
+        messages::propertyValueNotInList(
+            asyncResp->res, actionParams.transferProtocolType.value_or(""),
+            "TransferProtocolType");
         return;
     }
 
     // valid transfer protocol not provided either with URI nor param
-    if ((uriTransferProtocolType == std::nullopt) &&
-        (paramTransferProtocolType == std::nullopt))
+    if (!uriTransferProtocolType && !paramTransferProtocolType)
     {
         BMCWEB_LOG_ERROR("Request action parameter ImageUrl must "
                          "contain specified protocol type or param "
@@ -746,8 +747,7 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // valid transfer protocol provided both with URI and param
-    if ((paramTransferProtocolType != std::nullopt) &&
-        (uriTransferProtocolType != std::nullopt))
+    if (paramTransferProtocolType && uriTransferProtocolType)
     {
         // check if protocol is the same for URI and param
         if (*paramTransferProtocolType != *uriTransferProtocolType)
@@ -758,15 +758,20 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                              "provided with param imageUrl.");
 
             messages::actionParameterValueTypeError(
-                asyncResp->res, *actionParams.transferProtocolType,
+                asyncResp->res, actionParams.transferProtocolType.value_or(""),
                 "TransferProtocolType", "InsertMedia");
 
             return;
         }
     }
+    if (!paramTransferProtocolType)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
     // validation passed, add protocol to URI if needed
-    if (uriTransferProtocolType == std::nullopt)
+    if (!uriTransferProtocolType)
     {
         actionParams.imageUrl = getUriWithTransferProtocol(
             *actionParams.imageUrl, *paramTransferProtocolType);
@@ -783,7 +788,7 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     doMountVmLegacy(asyncResp, service, resName, *actionParams.imageUrl,
-                    !(*actionParams.writeProtected),
+                    !(actionParams.writeProtected.value_or(false)),
                     std::move(*actionParams.userName),
                     std::move(*actionParams.password));
 }
