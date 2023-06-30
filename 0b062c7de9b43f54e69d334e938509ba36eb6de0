@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3aeebf2_1a0cf248",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-30T16:22:37Z",
+      "side": 1,
+      "message": "Seems reasonable.",
+      "revId": "0b062c7de9b43f54e69d334e938509ba36eb6de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7bd5552_62ca3e5b",
+        "filename": "include/ossl_random.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-30T16:22:37Z",
+      "side": 1,
+      "message": "I like the rename, random.hpp is confusing because there is random  header \u003crandom\u003e already.",
+      "revId": "0b062c7de9b43f54e69d334e938509ba36eb6de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8554337_acee00ac",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-30T16:22:37Z",
+      "side": 1,
+      "message": "#include \"ossl_random.hpp\" ?",
+      "revId": "0b062c7de9b43f54e69d334e938509ba36eb6de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aff3d56_a3b0294b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-30T16:22:37Z",
+      "side": 1,
+      "message": "Used for OpenSSLGenerator, got it.",
+      "revId": "0b062c7de9b43f54e69d334e938509ba36eb6de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a1f712_0022b348",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-06-30T16:22:37Z",
+      "side": 1,
+      "message": "Used for std::uniform_int_distribution, got it.",
+      "revId": "0b062c7de9b43f54e69d334e938509ba36eb6de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
