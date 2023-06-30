@@ -1391,8 +1391,8 @@ inline void
             }
             else
             {
-                createIPv4(ifaceId, prefixLength, *gateway, *address,
-                           asyncResp);
+                createIPv4(ifaceId, prefixLength, gateway.value_or(""),
+                           address.value_or(""), asyncResp);
             }
             entryIdx++;
         }
@@ -1512,6 +1512,11 @@ inline void handleIPv6StaticAddressesPatch(
             {
                 messages::propertyMissing(asyncResp->res,
                                           pathString + "/PrefixLength");
+                return;
+            }
+            if (!prefix)
+            {
+                messages::internalError(asyncResp->res);
                 return;
             }
 
