@@ -234,9 +234,10 @@ class ConfigFile
                 session["username"] = p.second->username;
                 session["csrf_token"] = p.second->csrfToken;
                 session["client_ip"] = p.second->clientIp;
-                if (p.second->clientId)
+                const std::optional<std::string>& clientId = p.second->clientId;
+                if (clientId)
                 {
-                    session["client_id"] = *p.second->clientId;
+                    session["client_id"] = *clientId;
                 }
                 sessions.emplace_back(std::move(session));
             }

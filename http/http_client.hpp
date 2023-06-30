@@ -125,6 +125,7 @@ struct PendingRequest
     {}
 };
 
+namespace http = boost::beast::http;
 class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 {
   private:
@@ -137,10 +138,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     uint32_t connId;
 
     // Data buffers
-    boost::beast::http::request<boost::beast::http::string_body> req;
-    std::optional<
-        boost::beast::http::response_parser<boost::beast::http::string_body>>
-        parser;
+    http::request<http::string_body> req;
+    using parser_type = http::response_parser<http::string_body>;
+    std::optional<parser_type> parser;
     boost::beast::flat_static_buffer<httpReadBufferSize> buffer;
     Response res;
 
@@ -329,9 +329,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     {
         state = ConnState::recvInProgress;
 
-        parser.emplace(std::piecewise_construct, std::make_tuple());
+        parser_type& thisParser = parser.emplace(std::piecewise_construct,
+                                                 std::make_tuple());
 
-        parser->body_limit(connPolicy->requestByteLimit);
+        thisParser.body_limit(connPolicy->requestByteLimit);
 
         timer.expires_after(std::chrono::seconds(30));
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
@@ -340,14 +341,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         if (sslConn)
         {
             boost::beast::http::async_read(
-                *sslConn, buffer, *parser,
+                *sslConn, buffer, thisParser,
                 std::bind_front(&ConnectionInfo::afterRead, this,
                                 shared_from_this()));
         }
         else
         {
             boost::beast::http::async_read(
-                conn, buffer, *parser,
+                conn, buffer, thisParser,
                 std::bind_front(&ConnectionInfo::afterRead, this,
                                 shared_from_this()));
         }
@@ -375,6 +376,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
         BMCWEB_LOG_DEBUG("recvMessage() bytes transferred: {}",
                          bytesTransferred);
+        if (!parser)
+        {
+            return;
+        }
         BMCWEB_LOG_DEBUG("recvMessage() data: {}", parser->get().body());
 
         unsigned int respCode = parser->get().result_int();
