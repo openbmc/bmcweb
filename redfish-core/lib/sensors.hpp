@@ -1230,7 +1230,7 @@ inline InventoryItem* findInventoryItemForSensor(
 {
     for (InventoryItem& inventoryItem : *inventoryItems)
     {
-        if (inventoryItem.sensors.count(sensorObjPath) > 0)
+        if (inventoryItem.sensors.contains(sensorObjPath))
         {
             return &inventoryItem;
         }
