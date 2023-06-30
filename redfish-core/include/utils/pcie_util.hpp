@@ -17,9 +17,7 @@
 #include <string>
 #include <string_view>
 
-namespace redfish
-{
-namespace pcie_util
+namespace redfish::pcie_util
 {
 
 /**
@@ -167,5 +165,4 @@ inline std::optional<pcie_device::PCIeTypes>
     return pcie_device::PCIeTypes::Invalid;
 }
 
-} // namespace pcie_util
-} // namespace redfish
+} // namespace redfish::pcie_util

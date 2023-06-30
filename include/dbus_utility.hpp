@@ -41,10 +41,7 @@
 // IWYU pragma: no_include <stdint.h>
 // IWYU pragma: no_include <boost/system/detail/error_code.hpp>
 
-namespace dbus
-{
-
-namespace utility
+namespace dbus::utility
 {
 
 // clang-format off
@@ -268,5 +265,4 @@ inline void
         "GetManagedObjects");
 }
 
-} // namespace utility
-} // namespace dbus
+} // namespace dbus::utility

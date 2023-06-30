@@ -24,9 +24,7 @@ using Rc = std::pair<bool, std::variant<uint32_t, LockRequest>>;
 using RcGetLockList =
     std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>;
 using ListOfSessionIds = std::vector<std::string>;
-namespace crow
-{
-namespace ibm_mc
+namespace crow::ibm_mc
 {
 constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
@@ -810,5 +808,4 @@ inline void requestRoutes(App& app)
         });
 }
 
-} // namespace ibm_mc
-} // namespace crow
+} // namespace crow::ibm_mc

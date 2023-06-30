@@ -22,10 +22,7 @@
 
 #include <nlohmann/json.hpp>
 
-namespace redfish
-{
-
-namespace json_util
+namespace redfish::json_util
 {
 
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
@@ -97,5 +94,4 @@ uint64_t getEstimatedJsonSize(const nlohmann::json& root)
     return 0;
 }
 
-} // namespace json_util
-} // namespace redfish
+} // namespace redfish::json_util

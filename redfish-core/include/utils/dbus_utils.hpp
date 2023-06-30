@@ -4,9 +4,7 @@
 
 #include <sdbusplus/unpack_properties.hpp>
 
-namespace redfish
-{
-namespace dbus_utils
+namespace redfish::dbus_utils
 {
 
 struct UnpackErrorPrinter
@@ -22,5 +20,4 @@ struct UnpackErrorPrinter
     }
 };
 
-} // namespace dbus_utils
-} // namespace redfish
+} // namespace redfish::dbus_utils

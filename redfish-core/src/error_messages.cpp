@@ -33,10 +33,7 @@
 
 // IWYU pragma: no_include <stddef.h>
 
-namespace redfish
-{
-
-namespace messages
+namespace redfish::messages
 {
 
 static void addMessageToErrorJson(nlohmann::json& target,
@@ -1856,6 +1853,4 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2)
     return ret;
 }
 
-} // namespace messages
-
-} // namespace redfish
+} // namespace redfish::messages
