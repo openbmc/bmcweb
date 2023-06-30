@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45c7e939_aea07503",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-30T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "168d9a62_a8001860",
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f70c7b9_0106c6bb",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f834dd9b_5fe8eb93",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-30T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f70c7b9_0106c6bb",
+      "range": {
+        "startLine": 186,
+        "startChar": 30,
+        "endLine": 186,
+        "endChar": 45
+      },
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86270363_e8805363",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-06-29T17:24:21Z",
       "side": 1,
       "message": "#include \u003cfunctional\u003e",
+      "range": {
+        "startLine": 271,
+        "startChar": 10,
+        "endLine": 271,
+        "endChar": 23
+      },
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce515980_ceed82e9",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-30T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86270363_e8805363",
       "range": {
         "startLine": 271,
         "startChar": 10,
@@ -95,6 +161,24 @@
       "side": 1,
       "message": "If we don\u0027t want to hardcode it, we should call the getValidSystemsPath function that we implemented in version 36.",
       "parentUuid": "8ed2584d_38414fdf",
+      "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f874271_a6591150",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 3324,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-30T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4bf0d4d_49fc8e55",
       "revId": "ddc88624ba16a474efa0fa6fc47e23ce773757a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
