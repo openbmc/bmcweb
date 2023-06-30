@@ -14,9 +14,7 @@
 #include <string_view>
 #include <vector>
 
-namespace redfish
-{
-namespace collection_util
+namespace redfish::collection_util
 {
 
 /**
@@ -86,5 +84,4 @@ inline void
         });
 }
 
-} // namespace collection_util
-} // namespace redfish
+} // namespace redfish::collection_util

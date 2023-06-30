@@ -13,9 +13,7 @@
 #include <fstream>
 #include <string>
 
-namespace crow
-{
-namespace webassets
+namespace crow::webassets
 {
 
 struct CmpStr
@@ -179,5 +177,4 @@ inline void requestRoutes(App& app)
         }
     }
 }
-} // namespace webassets
-} // namespace crow
+} // namespace crow::webassets

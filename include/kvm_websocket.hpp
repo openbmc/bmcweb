@@ -7,9 +7,7 @@
 
 #include <boost/container/flat_map.hpp>
 
-namespace crow
-{
-namespace obmc_kvm
+namespace crow::obmc_kvm
 {
 
 static constexpr const uint maxSessions = 4;
@@ -186,5 +184,4 @@ inline void requestRoutes(App& app)
         });
 }
 
-} // namespace obmc_kvm
-} // namespace crow
+} // namespace crow::obmc_kvm

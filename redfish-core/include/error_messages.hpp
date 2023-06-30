@@ -28,10 +28,7 @@
 // IWYU pragma: no_include <cstdint.h>
 // IWYU pragma: no_forward_declare crow::Response
 
-namespace redfish
-{
-
-namespace messages
+namespace redfish::messages
 {
 
 constexpr const char* messageVersionPrefix = "Base.1.11.0.";
@@ -1083,6 +1080,4 @@ nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length);
 void arraySizeTooLong(crow::Response& res, std::string_view property,
                       uint64_t length);
 
-} // namespace messages
-
-} // namespace redfish
+} // namespace redfish::messages

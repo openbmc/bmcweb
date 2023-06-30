@@ -16,9 +16,7 @@
 #include <string_view>
 #include <vector>
 
-namespace crow
-{
-namespace google_api
+namespace crow::google_api
 {
 
 inline void
@@ -224,5 +222,4 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(handleRoTSendCommandPost);
 }
 
-} // namespace google_api
-} // namespace crow
+} // namespace crow::google_api
