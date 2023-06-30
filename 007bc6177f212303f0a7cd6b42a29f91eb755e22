@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f305ce1_c40f6fb5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e70784ad_41daf77d",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 70
+      },
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a0d5888_25182859",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-05-25T16:04:20Z",
       "side": 1,
       "message": "id ?",
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5887b4_86694861",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a0d5888_25182859",
       "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -162,6 +204,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f32f9b6_09c5fe05",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Sure Ed. I will check and see if backend can contain this. The create interface is at https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Network/StaticRoute/Create.interface.yaml",
+      "parentUuid": "17a900a1_8a18debb",
+      "range": {
+        "startLine": 908,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 29
+      },
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e20c385_d8ce8ab4",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
@@ -213,6 +279,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed2d990_12d87915",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "419199c4_f5d06051",
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b7e4250_977f10f3",
@@ -226,6 +310,24 @@
       "writtenOn": "2023-05-25T16:39:22Z",
       "side": 1,
       "message": "use vector?",
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad3da85_f393ad17",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b7e4250_977f10f3",
       "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

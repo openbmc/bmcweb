@@ -93,6 +93,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22308df8_59a71d11",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7c731ef_6b073518",
+      "range": {
+        "startLine": 901,
+        "startChar": 0,
+        "endLine": 912,
+        "endChar": 60
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e648de2c_14af0f75",
@@ -116,6 +140,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6331a6cb_cd332398",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "This is hardcoded here to use the common dbus interface StaticRoute for StaticGateway use case as well. The Destination address is 0 for the static gateway.",
+      "parentUuid": "e648de2c_14af0f75",
+      "range": {
+        "startLine": 943,
+        "startChar": 9,
+        "endLine": 943,
+        "endChar": 24
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7cccf83_66a4357d",
@@ -129,6 +177,30 @@
       "writtenOn": "2023-06-01T18:12:43Z",
       "side": 1,
       "message": "This should be an ArraySizeTooShort error?  The property value type is for if the type is incorrect.",
+      "range": {
+        "startLine": 965,
+        "startChar": 18,
+        "endLine": 965,
+        "endChar": 40
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd181a3_0b2e44e0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "This error is similar to how IPv4 and IPv6 patch request is handled.",
+      "parentUuid": "d7cccf83_66a4357d",
       "range": {
         "startLine": 965,
         "startChar": 18,
@@ -209,6 +281,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4cc8055_a59e543b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e0e4969_077f30b5",
+      "range": {
+        "startLine": 990,
+        "startChar": 0,
+        "endLine": 990,
+        "endChar": 51
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f056e8c2_4c01a82f",
@@ -232,6 +328,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8febc8_fe460fca",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Does not compile",
+      "parentUuid": "f056e8c2_4c01a82f",
+      "range": {
+        "startLine": 1001,
+        "startChar": 16,
+        "endLine": 1001,
+        "endChar": 35
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dafabf7_26cccf15",
@@ -245,6 +365,30 @@
       "writtenOn": "2023-06-05T05:24:53Z",
       "side": 1,
       "message": "Same as above",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1005,
+        "endChar": 54
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7187630e_5366f1c5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-06-30T16:23:59Z",
+      "side": 1,
+      "message": "Does not apply here",
+      "parentUuid": "9dafabf7_26cccf15",
       "range": {
         "startLine": 1005,
         "startChar": 0,
