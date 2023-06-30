@@ -94,6 +94,10 @@ class Connection :
         // don't require auth
         if (preverified)
         {
+            if (!req)
+            {
+                return false;
+            }
             mtlsSession = verifyMtlsUser(req->ipAddress, ctx);
             if (mtlsSession)
             {
@@ -202,6 +206,10 @@ class Connection :
     void handle()
     {
         std::error_code reqEc;
+        if (!parser)
+        {
+            return;
+        }
         crow::Request& thisReq = req.emplace(parser->release(), reqEc);
         if (reqEc)
         {
@@ -365,6 +373,10 @@ class Connection :
         {
             return;
         }
+        if (!req)
+        {
+            return;
+        }
         req->ipAddress = ip;
     }
 
@@ -391,7 +403,10 @@ class Connection :
     void doReadHeaders()
     {
         BMCWEB_LOG_DEBUG << this << " doReadHeaders";
-
+        if (!parser)
+        {
+            return;
+        }
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
             adaptor, buffer, *parser,
@@ -477,6 +492,10 @@ class Connection :
     void doRead()
     {
         BMCWEB_LOG_DEBUG << this << " doRead";
+        if (!parser)
+        {
+            return;
+        }
         startDeadline();
         boost::beast::http::async_read_some(
             adaptor, buffer, *parser,
@@ -517,7 +536,7 @@ class Connection :
     {
         BMCWEB_LOG_DEBUG << this << " doWrite";
         thisRes.preparePayload();
-        serializer.emplace(*thisRes.stringResponse);
+        serializer.emplace(thisRes.stringResponse);
         startDeadline();
         boost::beast::http::async_write(adaptor, *serializer,
                                         [this, self(shared_from_this())](
