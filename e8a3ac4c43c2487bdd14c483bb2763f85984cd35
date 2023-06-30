@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "8a7e1583_6efdf9a3",
         "filename": "http/http_connection.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "same here",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "70656eb2_5cf72c4a",
         "filename": "include/authorization.hpp",
@@ -31,10 +32,10 @@
       "side": 1,
       "message": "I think I need to call async method dbus call to getUserInfo here\nBut seeing issue while adding async calling in method as this method returns session\n\nEd\ncan you please what can be done here",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c256e30d_1dd3e5d8",
         "filename": "include/authorization.hpp",
@@ -49,10 +50,10 @@
       "message": "Do we need to make the blocking call here to get the user role? I know that as per the bmcweb guideline we should not make the blocking calls.\nEd,Gunnar can throw some light here.",
       "parentUuid": "70656eb2_5cf72c4a",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d1772947_6b36e085",
         "filename": "include/authorization.hpp",
@@ -67,10 +68,10 @@
       "message": "Ed\ncan you please give your input here?",
       "parentUuid": "c256e30d_1dd3e5d8",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c5a27671_aa545849",
         "filename": "include/authorization.hpp",
@@ -85,10 +86,10 @@
       "message": "What input are you looking for?  Blocking calls are disallowed for good reason.  Ideally this information would come from PAM.",
       "parentUuid": "d1772947_6b36e085",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1bce075a_4a774e19",
         "filename": "include/authorization.hpp",
@@ -103,10 +104,10 @@
       "message": "I got that, see an issue having async method call to get user role as this method returns session. it may need some restructuring.\n\n\n\" Ideally this information would come from PAM\"-\u003e you mean we don\u0027t need read user role here?",
       "parentUuid": "c5a27671_aa545849",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "467b6bbb_437d21e6",
         "filename": "include/authorization.hpp",
@@ -121,8 +122,25 @@
       "message": "Correct, we would read the user role from our pam conversation, that way, we\u0027re rooting our security in linux, instead of something we invented.\n\nEventually, it would be great if user sessions became real linux user sessions, such that dbus permissions could directly determine a users privilege level, but we\u0027re a ways off from that;  Relying on dbus for role information is not something any linux distribution I\u0027m aware of does.",
       "parentUuid": "1bce075a_4a774e19",
       "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c1794cc_bc124a49",
+        "filename": "include/authorization.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-30T21:37:09Z",
+      "side": 1,
+      "message": "Fixed in latest.",
+      "parentUuid": "467b6bbb_437d21e6",
+      "revId": "e8a3ac4c43c2487bdd14c483bb2763f85984cd35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
