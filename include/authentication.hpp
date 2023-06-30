@@ -13,10 +13,7 @@
 #include <random>
 #include <utility>
 
-namespace crow
-{
-
-namespace authentication
+namespace crow::authentication
 {
 
 inline void cleanupTempSession(const Request& req)
@@ -306,5 +303,4 @@ static std::shared_ptr<persistent_data::UserSession>
     return nullptr;
 }
 
-} // namespace authentication
-} // namespace crow
+} // namespace crow::authentication

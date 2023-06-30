@@ -9,9 +9,7 @@
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 
-namespace crow
-{
-namespace hostname_monitor
+namespace crow::hostname_monitor
 {
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<sdbusplus::bus::match_t> hostnameSignalMonitor;
@@ -140,6 +138,5 @@ inline void registerHostnameSignal()
         *crow::connections::systemBus, propertiesMatchString, onPropertyUpdate,
         nullptr);
 }
-} // namespace hostname_monitor
-} // namespace crow
+} // namespace crow::hostname_monitor
 #endif

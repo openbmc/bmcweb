@@ -17,10 +17,7 @@
 #include <boost/beast/websocket/ssl.hpp>
 #endif
 
-namespace crow
-{
-
-namespace sse_socket
+namespace crow::sse_socket
 {
 struct Connection : std::enable_shared_from_this<Connection>
 {
@@ -285,5 +282,4 @@ class ConnectionImpl : public Connection
     std::function<void(Connection&)> openHandler;
     std::function<void(Connection&)> closeHandler;
 };
-} // namespace sse_socket
-} // namespace crow
+} // namespace crow::sse_socket

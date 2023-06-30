@@ -26,9 +26,7 @@
 #include <utility>
 #include <variant>
 
-namespace crow
-{
-namespace utility
+namespace crow::utility
 {
 
 enum class TypeCode : uint8_t
@@ -532,8 +530,7 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
     return true;
 }
 
-} // namespace utility
-} // namespace crow
+} // namespace crow::utility
 
 namespace nlohmann
 {

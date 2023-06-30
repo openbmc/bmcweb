@@ -4,9 +4,7 @@
 
 #include <nlohmann/json.hpp>
 
-namespace redfish
-{
-namespace messages
+namespace redfish::messages
 {
 
 inline nlohmann::json
@@ -41,5 +39,4 @@ inline nlohmann::json resourceRemoved()
         redfish::registries::resource_event::Index::resourceRemoved, {});
 }
 
-} // namespace messages
-} // namespace redfish
+} // namespace redfish::messages

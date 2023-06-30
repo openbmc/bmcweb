@@ -12,10 +12,7 @@
 
 #include <string>
 
-namespace redfish
-{
-
-namespace telemetry
+namespace redfish::telemetry
 {
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
@@ -178,5 +175,4 @@ inline std::optional<nlohmann::json::array_t>
     return redfishEnums;
 }
 
-} // namespace telemetry
-} // namespace redfish
+} // namespace redfish::telemetry

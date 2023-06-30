@@ -12,10 +12,7 @@
 
 #include <random>
 
-namespace crow
-{
-
-namespace login_routes
+namespace crow::login_routes
 {
 
 inline void requestRoutes(App& app)
@@ -241,5 +238,4 @@ inline void requestRoutes(App& app)
         }
         });
 }
-} // namespace login_routes
-} // namespace crow
+} // namespace crow::login_routes
