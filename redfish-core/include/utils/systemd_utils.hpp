@@ -20,10 +20,7 @@
 #include <array>
 #include <string>
 
-namespace redfish
-{
-
-namespace systemd_utils
+namespace redfish::systemd_utils
 {
 
 /**
@@ -53,5 +50,4 @@ inline std::string getUuid()
     return ret;
 }
 
-} // namespace systemd_utils
-} // namespace redfish
+} // namespace redfish::systemd_utils

@@ -12,9 +12,7 @@
 #include <fstream>
 #include <variant>
 
-namespace crow
-{
-namespace ibm_mc_lock
+namespace crow::ibm_mc_lock
 {
 
 using SType = std::string;
@@ -619,5 +617,4 @@ inline uint32_t Lock::generateTransactionId()
     return transactionId;
 }
 
-} // namespace ibm_mc_lock
-} // namespace crow
+} // namespace crow::ibm_mc_lock

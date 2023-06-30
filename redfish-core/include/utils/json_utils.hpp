@@ -43,10 +43,7 @@
 // IWYU pragma: no_include <stdint.h>
 // IWYU pragma: no_forward_declare crow::Request
 
-namespace redfish
-{
-
-namespace json_util
+namespace redfish::json_util
 {
 
 /**
@@ -687,5 +684,4 @@ inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 //  5. null: 4 characters (null)
 uint64_t getEstimatedJsonSize(const nlohmann::json& root);
 
-} // namespace json_util
-} // namespace redfish
+} // namespace redfish::json_util

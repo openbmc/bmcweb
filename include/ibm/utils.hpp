@@ -5,9 +5,7 @@
 #include <filesystem>
 #include <fstream>
 
-namespace crow
-{
-namespace ibm_utils
+namespace crow::ibm_utils
 {
 
 inline bool createDirectory(std::string_view path)
@@ -39,5 +37,4 @@ inline bool createDirectory(std::string_view path)
     return true;
 }
 
-} // namespace ibm_utils
-} // namespace crow
+} // namespace crow::ibm_utils

@@ -1,9 +1,7 @@
 #pragma once
 #include <sdbusplus/asio/connection.hpp>
 
-namespace crow
-{
-namespace connections
+namespace crow::connections
 {
 
 // Initialze before using!
@@ -11,5 +9,4 @@ namespace connections
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 extern sdbusplus::asio::connection* systemBus;
 
-} // namespace connections
-} // namespace crow
+} // namespace crow::connections

@@ -3,10 +3,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace redfish
-{
-
-namespace stl_utils
+namespace redfish::stl_utils
 {
 
 template <typename ForwardIterator>
@@ -35,5 +32,4 @@ void removeDuplicate(T& t)
     t.erase(firstDuplicate(t.begin(), t.end()), t.end());
 }
 
-} // namespace stl_utils
-} // namespace redfish
+} // namespace redfish::stl_utils

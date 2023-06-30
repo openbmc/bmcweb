@@ -9,9 +9,7 @@
 // IWYU pragma: no_include <gtest/gtest-test-part.h>
 // IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
-namespace crow
-{
-namespace ibm_mc
+namespace crow::ibm_mc
 {
 
 TEST(IsValidConfigFileName, FileNameValidCharReturnsTrue)
@@ -52,5 +50,4 @@ TEST(IsValidConfigFileName, FileNameMoreThan20CharReturnsFalse)
     EXPECT_FALSE(isValidConfigFileName("BadfileBadfileBadfile", res));
 }
 
-} // namespace ibm_mc
-} // namespace crow
+} // namespace crow::ibm_mc

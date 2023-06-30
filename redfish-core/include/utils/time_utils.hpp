@@ -20,10 +20,7 @@
 // IWYU pragma: no_include <stddef.h>
 // IWYU pragma: no_include <stdint.h>
 
-namespace redfish
-{
-
-namespace time_utils
+namespace redfish::time_utils
 {
 
 namespace details
@@ -442,5 +439,4 @@ inline std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
     return std::chrono::duration<uint64_t, std::micro>{durMicroSecs};
 }
 
-} // namespace time_utils
-} // namespace redfish
+} // namespace redfish::time_utils
