@@ -154,8 +154,8 @@ class HTTP2Connection :
         completeResponseFields(thisReq, thisRes);
         thisRes.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
-        boost::beast::http::fields& fields = thisRes.stringResponse->base();
-        std::string code = std::to_string(thisRes.stringResponse->result_int());
+        boost::beast::http::fields& fields = thisRes.stringResponse.base();
+        std::string code = std::to_string(thisRes.stringResponse.result_int());
         hdr.emplace_back(headerFromStringViews(":status", code));
         for (const boost::beast::http::fields::value_type& header : fields)
         {
