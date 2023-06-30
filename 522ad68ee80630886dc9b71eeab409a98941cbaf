@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb59067_f593bd30",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-30T23:38:30Z",
+      "side": 1,
+      "message": "Refactored.",
+      "parentUuid": "d235e42e_9ce71448",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 1
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bc13658_1d81aee1",
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "The comment may not be needed if the code itself is clear enough, and thus it would be preferred to more clear code structure.\n\nAnyway, it is about the coding style and convention, and thus I\u0027m okay if the others also agree.",
       "parentUuid": "380896f9_3e4eaad1",
+      "range": {
+        "startLine": 624,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 46
+      },
+      "revId": "522ad68ee80630886dc9b71eeab409a98941cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e56a08b_54028fa1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-06-30T23:38:30Z",
+      "side": 1,
+      "message": "Previous commit and in this commit refactored the code.",
+      "parentUuid": "f762f969_c6dfd0ab",
       "range": {
         "startLine": 624,
         "startChar": 0,
