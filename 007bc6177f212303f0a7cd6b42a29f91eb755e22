@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17a900a1_8a18debb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-06-30T15:36:13Z",
+      "side": 1,
+      "message": "xyz.openbmc_project.Network.StaticRoute.Create can creat an ipv6 gateway?  That seems like it would be xyz.openbmc_project.Network.Gateway.Create.\n\nI\u0027m not very comfortable having this default hardcoded in bmcweb.  If the service itself wants to pick a default, that\u0027s fine, it should expose a create API that only takes two arguments.\n\nIt should also be noted, I don\u0027t see a Create method here:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Network/StaticRoute.interface.yaml",
+      "parentUuid": "b1b43bdf_e703f688",
+      "range": {
+        "startLine": 908,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 29
+      },
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e20c385_d8ce8ab4",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
