@@ -135,7 +135,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 
     std::optional<query_param::Query> queryOpt =
         query_param::parseParameters(req.url().params(), asyncResp->res);
-    if (queryOpt == std::nullopt)
+    if (!queryOpt)
     {
         return false;
     }

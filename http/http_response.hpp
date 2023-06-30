@@ -23,26 +23,26 @@ struct Response
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
 
-    std::optional<response_type> stringResponse;
+    response_type stringResponse;
 
     nlohmann::json jsonValue;
 
     void addHeader(std::string_view key, std::string_view value)
     {
-        stringResponse->insert(key, value);
+        stringResponse.insert(key, value);
     }
 
     void addHeader(boost::beast::http::field key, std::string_view value)
     {
-        stringResponse->insert(key, value);
+        stringResponse.insert(key, value);
     }
 
     void clearHeader(boost::beast::http::field key)
     {
-        stringResponse->erase(key);
+        stringResponse.erase(key);
     }
 
-    Response() : stringResponse(response_type{}) {}
+    Response() = default;
 
     Response(Response&& res) noexcept :
         stringResponse(std::move(res.stringResponse)),
@@ -73,7 +73,7 @@ struct Response
             return *this;
         }
         stringResponse = std::move(r.stringResponse);
-        r.stringResponse.emplace(response_type{});
+        r.stringResponse.clear();
         jsonValue = std::move(r.jsonValue);
 
         // Only need to move completion handler if not already completed
@@ -98,27 +98,27 @@ struct Response
 
     void result(unsigned v)
     {
-        stringResponse->result(v);
+        stringResponse.result(v);
     }
 
     void result(boost::beast::http::status v)
     {
-        stringResponse->result(v);
+        stringResponse.result(v);
     }
 
     boost::beast::http::status result() const
     {
-        return stringResponse->result();
+        return stringResponse.result();
     }
 
     unsigned resultInt() const
     {
-        return stringResponse->result_int();
+        return stringResponse.result_int();
     }
 
     std::string_view reason() const
     {
-        return stringResponse->reason();
+        return stringResponse.reason();
     }
 
     bool isCompleted() const noexcept
@@ -128,29 +128,29 @@ struct Response
 
     std::string& body()
     {
-        return stringResponse->body();
+        return stringResponse.body();
     }
 
     std::string_view getHeaderValue(std::string_view key) const
     {
-        return stringResponse->base()[key];
+        return stringResponse.base()[key];
     }
 
     void keepAlive(bool k)
     {
-        stringResponse->keep_alive(k);
+        stringResponse.keep_alive(k);
     }
 
     bool keepAlive() const
     {
-        return stringResponse->keep_alive();
+        return stringResponse.keep_alive();
     }
 
     void preparePayload()
     {
         // This code is a throw-free equivalent to
         // beast::http::message::prepare_payload
-        boost::optional<uint64_t> pSize = stringResponse->payload_size();
+        boost::optional<uint64_t> pSize = stringResponse.payload_size();
         using boost::beast::http::status;
         using boost::beast::http::status_class;
         using boost::beast::http::to_status_class;
@@ -160,12 +160,11 @@ struct Response
         }
         else
         {
-            bool is1XXReturn = to_status_class(stringResponse->result()) ==
+            bool is1XXReturn = to_status_class(stringResponse.result()) ==
                                status_class::informational;
             if (*pSize > 0 &&
-                (is1XXReturn ||
-                 stringResponse->result() == status::no_content ||
-                 stringResponse->result() == status::not_modified))
+                (is1XXReturn || stringResponse.result() == status::no_content ||
+                 stringResponse.result() == status::not_modified))
             {
                 BMCWEB_LOG_CRITICAL(
                     "{} Response content provided but code was no-content or not_modified, which aren't allowed to have a body",
@@ -174,13 +173,14 @@ struct Response
                 body().clear();
             }
         }
-        stringResponse->content_length(*pSize);
+        stringResponse.content_length(*pSize);
     }
 
     void clear()
     {
         BMCWEB_LOG_DEBUG("{} Clearing response containers", logPtr(this));
-        stringResponse.emplace(response_type{});
+        stringResponse.clear();
+        stringResponse.body().shrink_to_fit();
         jsonValue = nullptr;
         completed = false;
         expectedHash = std::nullopt;
@@ -188,7 +188,7 @@ struct Response
 
     void write(std::string_view bodyPart)
     {
-        stringResponse->body() += std::string(bodyPart);
+        stringResponse.body() += std::string(bodyPart);
     }
 
     std::string computeEtag() const

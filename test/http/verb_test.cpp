@@ -27,8 +27,7 @@ TEST(BoostToHttpVerb, ValidCase)
     {
         HttpVerb httpVerb = static_cast<HttpVerb>(verbIndex);
         std::optional<HttpVerb> verb = httpVerbFromBoost(verbMap[httpVerb]);
-        ASSERT_TRUE(verb.has_value());
-        EXPECT_EQ(*verb, httpVerb);
+        EXPECT_EQ(verb, httpVerb);
     }
 }
 

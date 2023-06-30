@@ -1806,7 +1806,7 @@ inline void processAfterCreateUser(
 inline void processAfterGetAllGroups(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& username, const std::string& password,
-    const std::optional<std::string>& roleId, std::optional<bool> enabled,
+    const std::string& roleId, bool enabled,
     std::optional<std::vector<std::string>> accountTypes,
     const std::vector<std::string>& allGroupsList)
 {
@@ -1871,7 +1871,6 @@ inline void processAfterGetAllGroups(
         messages::internalError(asyncResp->res);
         return;
     }
-
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
@@ -1879,7 +1878,7 @@ inline void processAfterGetAllGroups(
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "CreateUser", username, userGroups,
-        *roleId, *enabled);
+        roleId, enabled);
 }
 
 inline void handleAccountCollectionPost(
@@ -1892,23 +1891,27 @@ inline void handleAccountCollectionPost(
     }
     std::string username;
     std::string password;
-    std::optional<std::string> roleId("User");
-    std::optional<bool> enabled = true;
+    std::optional<std::string> roleIdJson;
+    std::optional<bool> enabledJson;
     std::optional<std::vector<std::string>> accountTypes;
-    if (!json_util::readJsonPatch(
-            req, asyncResp->res, "UserName", username, "Password", password,
-            "RoleId", roleId, "Enabled", enabled, "AccountTypes", accountTypes))
+    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
+                                  "Password", password, "RoleId", roleIdJson,
+                                  "Enabled", enabledJson, "AccountTypes",
+                                  accountTypes))
     {
         return;
     }
 
-    std::string priv = getPrivilegeFromRoleId(*roleId);
+    std::string roleId = roleIdJson.value_or("User");
+    std::string priv = getPrivilegeFromRoleId(roleId);
     if (priv.empty())
     {
-        messages::propertyValueNotInList(asyncResp->res, *roleId, "RoleId");
+        messages::propertyValueNotInList(asyncResp->res, roleId, "RoleId");
         return;
     }
     roleId = priv;
+
+    bool enabled = enabledJson.value_or(true);
 
     // Reading AllGroups property
     sdbusplus::asio::getProperty<std::vector<std::string>>(

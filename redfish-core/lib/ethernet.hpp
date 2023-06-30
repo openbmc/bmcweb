@@ -1295,34 +1295,27 @@ inline void
             // not explicitly provided are assumed to be unmodified from the
             // current state of the interface. Merge existing state into the
             // current request.
-            const std::string* addr = nullptr;
-            const std::string* gw = nullptr;
-            uint8_t prefixLength = 0;
-            bool errorInEntry = false;
             if (address)
             {
-                if (ip_util::ipv4VerifyIpAndGetBitcount(*address))
-                {
-                    addr = &(*address);
-                }
-                else
+                if (!ip_util::ipv4VerifyIpAndGetBitcount(*address))
                 {
                     messages::propertyValueFormatError(asyncResp->res, *address,
                                                        pathString + "/Address");
-                    errorInEntry = true;
+                    return;
                 }
             }
             else if (nicIpEntry != ipv4Data.cend())
             {
-                addr = &(nicIpEntry->address);
+                address = (nicIpEntry->address);
             }
             else
             {
                 messages::propertyMissing(asyncResp->res,
                                           pathString + "/Address");
-                errorInEntry = true;
+                return;
             }
 
+            uint8_t prefixLength = 0;
             if (subnetMask)
             {
                 if (!ip_util::ipv4VerifyIpAndGetBitcount(*subnetMask,
@@ -1331,7 +1324,7 @@ inline void
                     messages::propertyValueFormatError(
                         asyncResp->res, *subnetMask,
                         pathString + "/SubnetMask");
-                    errorInEntry = true;
+                    return;
                 }
             }
             else if (nicIpEntry != ipv4Data.cend())
@@ -1342,50 +1335,41 @@ inline void
                     messages::propertyValueFormatError(
                         asyncResp->res, nicIpEntry->netmask,
                         pathString + "/SubnetMask");
-                    errorInEntry = true;
+                    return;
                 }
             }
             else
             {
                 messages::propertyMissing(asyncResp->res,
                                           pathString + "/SubnetMask");
-                errorInEntry = true;
+                return;
             }
 
             if (gateway)
             {
-                if (ip_util::ipv4VerifyIpAndGetBitcount(*gateway))
-                {
-                    gw = &(*gateway);
-                }
-                else
+                if (!ip_util::ipv4VerifyIpAndGetBitcount(*gateway))
                 {
                     messages::propertyValueFormatError(asyncResp->res, *gateway,
                                                        pathString + "/Gateway");
-                    errorInEntry = true;
+                    return;
                 }
             }
             else if (nicIpEntry != ipv4Data.cend())
             {
-                gw = &nicIpEntry->gateway;
+                gateway = nicIpEntry->gateway;
             }
             else
             {
                 messages::propertyMissing(asyncResp->res,
                                           pathString + "/Gateway");
-                errorInEntry = true;
-            }
-
-            if (errorInEntry)
-            {
                 return;
             }
 
             if (nicIpEntry != ipv4Data.cend())
             {
                 deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
-                                         nicIpEntry->id, prefixLength, *gw,
-                                         *addr, asyncResp);
+                                         nicIpEntry->id, prefixLength, *gateway,
+                                         *address, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
             }
