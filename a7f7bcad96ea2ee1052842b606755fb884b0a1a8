@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c39d0a_35e723f1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-06-30T14:02:47Z",
+      "side": 1,
+      "message": "I\u0027m fine with the this style -- I think probably because those fields are already required and the default values are making sense.\nHowever, in case when some optional fields are used, I think those arguments may need to be defined as pointers (to check whether those fields are present or not).",
+      "parentUuid": "55fcb31b_6adfddd3",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 25
+      },
+      "revId": "a7f7bcad96ea2ee1052842b606755fb884b0a1a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06d053e1_ca565241",
