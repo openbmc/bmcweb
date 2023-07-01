@@ -177,39 +177,99 @@ inline void requestRoutes(App& app)
             }
             else
             {
-                auto session =
-                    persistent_data::SessionStore::getInstance()
-                        .generateUserSession(
-                            username, req.ipAddress, std::nullopt,
-                            persistent_data::PersistenceType::TIMEOUT,
-                            isConfigureSelfOnly);
+                // Verify if the User belongs to redfish group before creating a
+                // session
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, looksLikePhosphorRest, isConfigureSelfOnly,
+                     ipAddress(req.ipAddress),
+                     username](const boost::system::error_code& ec,
+                               const dbus::utility::DBusPropertiesMap&
+                                   userInfoMap) mutable {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                    }
 
-                if (looksLikePhosphorRest)
-                {
-                    // Phosphor-Rest requires a very specific login
-                    // structure, and doesn't actually look at the status
-                    // code.
-                    // TODO(ed).... Fix that upstream
+                    const std::vector<std::string>* userGroups = nullptr;
+                    bool isRedfishGroupUser = false;
 
-                    asyncResp->res.jsonValue["data"] =
-                        "User '" + std::string(username) + "' logged in";
-                    asyncResp->res.jsonValue["message"] = "200 OK";
-                    asyncResp->res.jsonValue["status"] = "ok";
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap,
+                        "UserGroups", userGroups);
 
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::set_cookie,
-                        "XSRF-TOKEN=" + session->csrfToken +
-                            "; SameSite=Strict; Secure");
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::set_cookie,
-                        "SESSION=" + session->sessionToken +
-                            "; SameSite=Strict; Secure; HttpOnly");
-                }
-                else
-                {
-                    // if content type is json, assume json token
-                    asyncResp->res.jsonValue["token"] = session->sessionToken;
-                }
+                    if (!success)
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to unpack user properties.";
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                    }
+
+                    if (userGroups != nullptr)
+                    {
+                        for (const auto& userGroup : *userGroups)
+                        {
+                            if (userGroup == "redfish")
+                            {
+                                isRedfishGroupUser = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!isRedfishGroupUser)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "User does not belong to redfish group..... \n";
+                        asyncResp->res.result(
+                            boost::beast::http::status::unauthorized);
+                        return;
+                    }
+
+                    // Create session
+
+                    auto session =
+                        persistent_data::SessionStore::getInstance()
+                            .generateUserSession(
+                                username, ipAddress, std::nullopt,
+                                persistent_data::PersistenceType::TIMEOUT,
+                                isConfigureSelfOnly);
+
+                    if (looksLikePhosphorRest)
+                    {
+                        // Phosphor-Rest requires a very specific login
+                        // structure, and doesn't actually look at the status
+                        // code.
+                        // TODO(ed).... Fix that upstream
+
+                        asyncResp->res.jsonValue["data"] =
+                            "User '" + std::string(username) + "' logged in";
+                        asyncResp->res.jsonValue["message"] = "200 OK";
+                        asyncResp->res.jsonValue["status"] = "ok";
+
+                        asyncResp->res.addHeader(
+                            boost::beast::http::field::set_cookie,
+                            "XSRF-TOKEN=" + session->csrfToken +
+                                "; SameSite=Strict; Secure");
+                        asyncResp->res.addHeader(
+                            boost::beast::http::field::set_cookie,
+                            "SESSION=" + session->sessionToken +
+                                "; SameSite=Strict; Secure; HttpOnly");
+                    }
+                    else
+                    {
+                        // if content type is json, assume json token
+                        asyncResp->res.jsonValue["token"] =
+                            session->sessionToken;
+                    }
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "xyz.openbmc_project.User.Manager", "GetUserInfo",
+                    username);
             }
         }
         else
