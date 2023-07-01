@@ -18,6 +18,104 @@ namespace crow
 namespace login_routes
 {
 
+static void createSession(std::string_view username,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const boost::asio::ip::address& ipAddress,
+                          bool looksLikePhosphorRest, bool isConfigureSelfOnly)
+{
+    auto session =
+        persistent_data::SessionStore::getInstance().generateUserSession(
+            username, ipAddress, std::nullopt,
+            persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
+
+    if (looksLikePhosphorRest)
+    {
+        // Phosphor-Rest requires a very specific login
+        // structure, and doesn't actually look at the status
+        // code.
+        // TODO(ed).... Fix that upstream
+
+        asyncResp->res.jsonValue["data"] = "User '" + std::string(username) +
+                                           "' logged in";
+        asyncResp->res.jsonValue["message"] = "200 OK";
+        asyncResp->res.jsonValue["status"] = "ok";
+
+        asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                 "XSRF-TOKEN=" + session->csrfToken +
+                                     "; SameSite=Strict; Secure");
+        asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                 "SESSION=" + session->sessionToken +
+                                     "; SameSite=Strict; Secure; HttpOnly");
+    }
+    else
+    {
+        // if content type is json, assume json token
+        asyncResp->res.jsonValue["token"] = session->sessionToken;
+    }
+}
+
+static bool
+    isRedfishGroupUser(const dbus::utility::DBusPropertiesMap& userInfoMap,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    const std::vector<std::string>* userGroups = nullptr;
+    bool isRedfishGrpUsr = false;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap, "UserGroups",
+        userGroups);
+
+    if (!success)
+    {
+        BMCWEB_LOG_ERROR << "Failed to unpack user properties.";
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return false;
+    }
+
+    if (userGroups != nullptr)
+    {
+        for (const auto& userGroup : *userGroups)
+        {
+            if (userGroup == "redfish")
+            {
+                isRedfishGrpUsr = true;
+            }
+        }
+    }
+
+    if (!isRedfishGrpUsr)
+    {
+        BMCWEB_LOG_ERROR << "User does not belong to redfish group..... \n";
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+        return false;
+    }
+
+    return true;
+}
+
+template <typename CallbackFn>
+static void getUserInfo(std::string_view username,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        CallbackFn&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback(std::forward<CallbackFn>(callback))](
+            const boost::system::error_code& ec,
+            const dbus::utility::DBusPropertiesMap& userInfoMap) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+            asyncResp->res.result(boost::beast::http::status::unauthorized);
+            return;
+        }
+
+        callback(userInfoMap);
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
+}
+
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/login")
@@ -177,39 +275,23 @@ inline void requestRoutes(App& app)
             }
             else
             {
-                auto session =
-                    persistent_data::SessionStore::getInstance()
-                        .generateUserSession(
-                            username, req.ipAddress, std::nullopt,
-                            persistent_data::PersistenceType::TIMEOUT,
-                            isConfigureSelfOnly);
+                // Verify if the User belongs to redfish group before creating a
+                // session
+                getUserInfo(
+                    username, asyncResp,
+                    [username, asyncResp, looksLikePhosphorRest,
+                     isConfigureSelfOnly, ipAddress(req.ipAddress)](
+                        const dbus::utility::DBusPropertiesMap& userInfoMap) {
+                    if (!isRedfishGroupUser(userInfoMap, asyncResp))
+                    {
+                        // Error message is already filled to asyncResp.
+                        return;
+                    }
 
-                if (looksLikePhosphorRest)
-                {
-                    // Phosphor-Rest requires a very specific login
-                    // structure, and doesn't actually look at the status
-                    // code.
-                    // TODO(ed).... Fix that upstream
-
-                    asyncResp->res.jsonValue["data"] =
-                        "User '" + std::string(username) + "' logged in";
-                    asyncResp->res.jsonValue["message"] = "200 OK";
-                    asyncResp->res.jsonValue["status"] = "ok";
-
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::set_cookie,
-                        "XSRF-TOKEN=" + session->csrfToken +
-                            "; SameSite=Strict; Secure");
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::set_cookie,
-                        "SESSION=" + session->sessionToken +
-                            "; SameSite=Strict; Secure; HttpOnly");
-                }
-                else
-                {
-                    // if content type is json, assume json token
-                    asyncResp->res.jsonValue["token"] = session->sessionToken;
-                }
+                    // Create a session as user belongs to Redfish Group
+                    createSession(username, asyncResp, ipAddress,
+                                  looksLikePhosphorRest, isConfigureSelfOnly);
+                    });
             }
         }
         else
