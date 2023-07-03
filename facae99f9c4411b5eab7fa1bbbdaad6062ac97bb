@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7fc347_8dd256e1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:31:18Z",
+      "side": 1,
+      "message": "Add a space before `ec.value()`.\n\n```\nBMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error for Location \" \u003c\u003c ec.value();\n```",
+      "range": {
+        "startLine": 286,
+        "startChar": 61,
+        "endLine": 286,
+        "endChar": 70
+      },
+      "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a239aba0_c12f3712",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:31:18Z",
+      "side": 1,
+      "message": "I think it may be better to name to indicate something related to \u0027slot\u0027 here like\n```\nafterPCIeSlotGetDbusObject()\n```",
+      "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
