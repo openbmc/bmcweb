@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e335a95_fe0d91b4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-03T14:45:59Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/a56174963e1d8bd9fc90cdeb3aa7f1b7f2e0dca4/static/redfish/v1/JsonSchemas/Assembly/Assembly.json#L220\n\nif you don\u0027t specify a value for the \"PartNumber\" property, it can be assumed to be null based on the provided schema.  \nSimilarly, for other properties, if no value is specified, it should not result in a failure and can be considered as null according to the schema.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fabric_adapters.hpp#L101",
+      "parentUuid": "51d4a5c1_bffdaa0d",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb072a8e_4a261535",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 78
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "As per assembly schema document space part number could be a NULL/empty string.\n\nhttps://redfish.dmtf.org/schemas/v1/Assembly.v1_4_0.json",
       "parentUuid": "bb072a8e_4a261535",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f927260e_25b37940",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-03T14:45:59Z",
+      "side": 1,
+      "message": "That is why we check if it is not null or not empty then we return the value.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fabric_adapters.hpp#L116",
+      "parentUuid": "4b99c996_41aacf43",
       "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
