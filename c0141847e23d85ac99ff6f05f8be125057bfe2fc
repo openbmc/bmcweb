@@ -92,6 +92,23 @@
       "parentUuid": "9ce17d7c_0647b24d",
       "revId": "c0141847e23d85ac99ff6f05f8be125057bfe2fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5423b702_6890e75a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-07-03T09:31:44Z",
+      "side": 1,
+      "message": "Agree since we must adhere to the standards.",
+      "revId": "c0141847e23d85ac99ff6f05f8be125057bfe2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
