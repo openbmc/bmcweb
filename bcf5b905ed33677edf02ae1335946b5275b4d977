@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a995d750_1007e911",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:28:24Z",
+      "side": 1,
+      "message": "In typical BMCWEB coding style, this may be written to reduce the indentation depth by doing\n\n```\n    if( path.filename() !\u003d pcieId)\n    {\n       continue;\n    }\n    \n   for (const auto\u0026 [service, interfaces] : object)\n```",
+      "range": {
+        "startLine": 578,
+        "startChar": 0,
+        "endLine": 579,
+        "endChar": 9
+      },
+      "revId": "bcf5b905ed33677edf02ae1335946b5275b4d977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae4f067f_c788d4cb",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:28:24Z",
+      "side": 1,
+      "message": "Are expecting multiple object to have same interface?\nIf not, I think we can short cut the loop here.\n\n```\n   callback(path, service, true);\n   break;\n```",
+      "range": {
+        "startLine": 588,
+        "startChar": 1,
+        "endLine": 588,
+        "endChar": 54
+      },
+      "revId": "bcf5b905ed33677edf02ae1335946b5275b4d977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19620008_db03ca7e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:28:24Z",
+      "side": 1,
+      "message": "Similar to above PCIeDevice case, can we break the loop?\n```\n   callback(path, service, true);\n   break;\n```",
+      "range": {
+        "startLine": 594,
+        "startChar": 24,
+        "endLine": 594,
+        "endChar": 55
+      },
+      "revId": "bcf5b905ed33677edf02ae1335946b5275b4d977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66990e01_17bbfc21",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:28:24Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be `BMCWEB_LOG_ERROR` with `ec`?\n\nOr should we check `ec.value() \u003d\u003d EBADR` here like\n\n```\nif(ec)\n{\n    if(ec.value() !\u003d EBADR)\n    {\n        BMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error \" \u003c\u003c ec.value();\n        message::internalError(asyncResp-\u003eres);\n    }\n    return;\n}\n```",
+      "range": {
+        "startLine": 626,
+        "startChar": 12,
+        "endLine": 626,
+        "endChar": 54
+      },
+      "revId": "bcf5b905ed33677edf02ae1335946b5275b4d977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
