@@ -16,6 +16,23 @@
       "message": "Sure, will do these test and continue work on this commit",
       "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c347caa_000d68b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-03T07:14:38Z",
+      "side": 1,
+      "message": "Hi Ed\n\nThank you so much for your patchset.\ncan you please let me know if you are looking for any specific changes or tests with this commit?",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
