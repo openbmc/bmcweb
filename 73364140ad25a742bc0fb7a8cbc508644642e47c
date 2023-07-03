@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f590d278_1e7b6b8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-03T07:11:31Z",
+      "side": 1,
+      "message": "Sure, will do these test and continue work on this commit",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
