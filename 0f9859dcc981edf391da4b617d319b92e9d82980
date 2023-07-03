@@ -117,6 +117,30 @@
       },
       "revId": "0f9859dcc981edf391da4b617d319b92e9d82980",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed0a98f_d19130f3",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-03T13:37:26Z",
+      "side": 1,
+      "message": "It is not about the functional issue, but it may be better to put the potentially optional argument to the end - esp if `getCollectionMembersArray()` may be used elsewhere.\n\nIn that case, `subtree` may not be explicitly specified just like `getCollectionMembers()`.\n\nThen, it is better to put `subtree` argument at the end of the argument list so that those places do not need to pass the default `subtree` value (`\"/xyz/openbmc_project/inventory\"`).\n\n(It is the same way of defining `getCollectionMembers()`).",
+      "parentUuid": "4bc16d3f_af71b158",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 80
+      },
+      "revId": "0f9859dcc981edf391da4b617d319b92e9d82980",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
