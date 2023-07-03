@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4b12e07_518ff1d9",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-03T17:34:48Z",
+      "side": 1,
+      "message": "I don\u0027t see this change in patchset 6",
+      "parentUuid": "afd75ebf_0f2030b1",
+      "revId": "0b062c7de9b43f54e69d334e938509ba36eb6de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9aff3d56_a3b0294b",
