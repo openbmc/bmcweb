@@ -52,6 +52,23 @@
       "parentUuid": "d5f1c478_fbc7c537",
       "revId": "ed5ef44e8d51ec78acf65faac15af02fdadc20cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98e35cef_b02c187b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-04T03:46:49Z",
+      "side": 1,
+      "message": "joseph, please don’t +2 things for which you are not the maintainer.",
+      "revId": "ed5ef44e8d51ec78acf65faac15af02fdadc20cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
