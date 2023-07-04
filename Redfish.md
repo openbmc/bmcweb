@@ -855,11 +855,11 @@ other.
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
+- DeviceType
 - Manufacturer
 - Model
 - PartNumber
 - PCIeInterface
-  - DeviceType
   - LanesInUse
   - PCIeType
 - SerialNumber

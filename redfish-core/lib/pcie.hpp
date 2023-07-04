@@ -430,7 +430,7 @@ inline void addPCIeDeviceProperties(
 
     if (deviceType != nullptr && !deviceType->empty())
     {
-        asyncResp->res.jsonValue["PCIeInterface"]["DeviceType"] = *deviceType;
+        asyncResp->res.jsonValue["DeviceType"] = *deviceType;
     }
 
     if (generationInUse != nullptr)
