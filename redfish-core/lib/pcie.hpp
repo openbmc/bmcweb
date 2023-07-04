@@ -415,12 +415,14 @@ inline void addPCIeDeviceProperties(
 {
     const std::string* deviceType = nullptr;
     const std::string* generationInUse = nullptr;
+    const std::string* generationSupported = nullptr;
     const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "DeviceType",
-        deviceType, "GenerationInUse", generationInUse, "LanesInUse",
-        lanesInUse);
+        deviceType, "GenerationInUse", generationInUse, "GenerationSupported",
+        generationSupported, "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
 
     if (!success)
     {
@@ -457,11 +459,41 @@ inline void addPCIeDeviceProperties(
         }
     }
 
+    if (generationSupported != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> redfishGenerationSupported =
+            pcie_util::redfishPcieGenerationFromDbus(*generationSupported);
+
+        if (!redfishGenerationSupported)
+        {
+            BMCWEB_LOG_WARNING << "Unknown PCIe Device Generation: "
+                               << *generationSupported;
+        }
+        else
+        {
+            if (*redfishGenerationSupported == pcie_device::PCIeTypes::Invalid)
+            {
+                BMCWEB_LOG_ERROR << "Invalid PCIe Device Generation: "
+                                 << *generationSupported;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["PCIeInterface"]["MaxPCIeType"] =
+                *redfishGenerationSupported;
+        }
+    }
+
     // The default value of LanesInUse is 0, and the field will be
     // left as off if it is a default value.
     if (lanesInUse != nullptr && *lanesInUse != 0)
     {
         asyncResp->res.jsonValue["PCIeInterface"]["LanesInUse"] = *lanesInUse;
+    }
+    // The default value of MaxLanes is 0, and the field will be
+    // left as off if it is a default value.
+    if (maxLanes != nullptr && *maxLanes != 0)
+    {
+        asyncResp->res.jsonValue["PCIeInterface"]["MaxLanes"] = *maxLanes;
     }
 
     asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
