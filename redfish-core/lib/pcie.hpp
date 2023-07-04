@@ -415,7 +415,7 @@ inline void addPCIeDeviceProperties(
 {
     const std::string* deviceType = nullptr;
     const std::string* generationInUse = nullptr;
-    const int64_t* lanesInUse = nullptr;
+    const size_t* lanesInUse = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "DeviceType",
