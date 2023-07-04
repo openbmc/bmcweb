@@ -861,6 +861,8 @@ other.
 - PartNumber
 - PCIeInterface
   - LanesInUse
+  - MaxLanes
+  - MaxPCIeType
   - PCIeType
 - SerialNumber
 - Slot
