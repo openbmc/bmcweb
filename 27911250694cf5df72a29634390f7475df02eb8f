@@ -158,6 +158,30 @@
       },
       "revId": "27911250694cf5df72a29634390f7475df02eb8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4b829ee_436f5cd6",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-05T22:42:44Z",
+      "side": 1,
+      "message": "bmcweb will use whatever types PDI and Redfish dictate, and this patchset isn\u0027t the place to debate if we got the types lined up right, only to make sure that we\u0027re following the types specified.",
+      "parentUuid": "e925b1e5_92540e19",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 418,
+        "endChar": 39
+      },
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
