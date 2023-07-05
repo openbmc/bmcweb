@@ -57,6 +57,30 @@
       },
       "revId": "27911250694cf5df72a29634390f7475df02eb8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064972ba_a4cad1ab",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-05T14:36:13Z",
+      "side": 1,
+      "message": "PDI says the type size\nhttps://grok.openbmc.org/xref/openbmc/phosphor-dbus-interfaces/yaml/xyz/openbmc_project/Inventory/Item/PCIeDevice.interface.yaml?r\u003dca6a4837#292",
+      "parentUuid": "7bcb0cf4_26ab9d55",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 418,
+        "endChar": 39
+      },
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
