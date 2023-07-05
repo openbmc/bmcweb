@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c47115ac_1d220fcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-05T22:36:05Z",
+      "side": 1,
+      "message": "I changes the code to use size_t instead of int64_t, it is failing in our environment\n\ncurl -k https://${bmc}/redfish/v1/Systems/system/PCIeDevices/dp0_drive0\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/dp0_drive0\",\n  \"@odata.type\": \"#PCIeDevice.v1_9_0.PCIeDevice\",\n  \"Id\": \"dp0_drive0\",\n  \"Name\": \"PCIe Device\",\n  \"Slot\": {\n    \"Lanes\": 0,\n    \"SlotType\": \"U2\"\n  },\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Absent\"\n  },\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The request failed due to an internal service error.  The service is still operational.\",\n        \"MessageArgs\": [],\n        \"MessageId\": \"Base.1.13.0.InternalError\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Resubmit the request.  If the problem persists, consider resetting the service.\"\n      }\n    ],\n    \"code\": \"Base.1.13.0.InternalError\",\n    \"message\": \"The request failed due to an internal service error.  The service is still operational.\"\n  }\n}",
+      "parentUuid": "2390eca1_8a716b20",
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9f60bf_bf948e4e",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
