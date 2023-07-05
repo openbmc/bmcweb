@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2390eca1_8a716b20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-05T21:46:11Z",
+      "side": 1,
+      "message": "I am not sure whether the commit mentioned above broke the code. It is working fine in our environment and redfish validator is passing\n\nbusctl get-property -j xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot8/pcie_card8 xyz.openbmc_project.Inventory.Item.PCIeDevice  \nLanesInUse\n{\n\t\"type\" : \"x\",\n\t\"data\" : -1\n}\nRedfish validator passes.\n\nPCIeInterface.LanesInUse\t-1\tnumber\tYes\tPASS\n\nI will run with the new change and see what happens.",
+      "parentUuid": "b2d1ae57_0eef475a",
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9f60bf_bf948e4e",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
