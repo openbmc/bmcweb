@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8047c2b2_f4c75f45",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-05T13:43:27Z",
+      "side": 1,
+      "message": "Can we change this to be similar to what we did with the properties in PCIeSlot?\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/pcie.hpp#L162C1-L162C1\n   \n   std::string generationSupported;\n   size_t maxLanes \u003d 0;",
+      "revId": "e6b854d4f9f4e88539ac2a80165ce16141ef837c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
