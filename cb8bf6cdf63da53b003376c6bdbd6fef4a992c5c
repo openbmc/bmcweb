@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "526fa214_a38feae7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-05T17:49:57Z",
+      "side": 1,
+      "message": "nit - his \u0027return\u0027 can be removed",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 23
+      },
+      "revId": "cb8bf6cdf63da53b003376c6bdbd6fef4a992c5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
