@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d93bba1_a3af986f",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-05T14:37:03Z",
+      "side": 1,
+      "message": "Similar to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64638, I think the correct type is int64 as specified in https://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml",
+      "range": {
+        "startLine": 420,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 37
+      },
+      "revId": "e6b854d4f9f4e88539ac2a80165ce16141ef837c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8047c2b2_f4c75f45",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
