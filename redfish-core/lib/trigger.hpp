@@ -606,7 +606,8 @@ inline bool parsePostTriggerParams(crow::Response& res,
 
     if (metricType)
     {
-        if (!(ctx.metricType = getMetricType(*metricType)))
+        ctx.metricType = getMetricType(*metricType);
+        if (!ctx.metricType)
         {
             messages::propertyValueIncorrect(res, "MetricType", *metricType);
             return false;
@@ -615,8 +616,8 @@ inline bool parsePostTriggerParams(crow::Response& res,
 
     if (discreteTriggerCondition)
     {
-        if (!(ctx.discreteCondition =
-                  getDiscreteCondition(*discreteTriggerCondition)))
+        ctx.discreteCondition = getDiscreteCondition(*discreteTriggerCondition);
+        if (!ctx.discreteCondition)
         {
             messages::propertyValueIncorrect(res, "DiscreteTriggerCondition",
                                              *discreteTriggerCondition);
