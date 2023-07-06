@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c35546_b58c387d",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T18:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e9bf23e_289ca043",
+      "range": {
+        "startLine": 88,
+        "startChar": 63,
+        "endLine": 88,
+        "endChar": 66
+      },
+      "revId": "7fa72990d62afc1f0bf79dcf590f7783e968f775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56bc9f53_f0098bd1",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-03T13:15:12Z",
       "side": 1,
       "message": "`ec1.value()` preferred?",
+      "range": {
+        "startLine": 96,
+        "startChar": 27,
+        "endLine": 96,
+        "endChar": 40
+      },
+      "revId": "7fa72990d62afc1f0bf79dcf590f7783e968f775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50401b69_4e7d4527",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T18:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56bc9f53_f0098bd1",
       "range": {
         "startLine": 96,
         "startChar": 27,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35f9f7c1_cc8ce721",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T18:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e522c46_e13da9d0",
+      "range": {
+        "startLine": 123,
+        "startChar": 66,
+        "endLine": 123,
+        "endChar": 80
+      },
+      "revId": "7fa72990d62afc1f0bf79dcf590f7783e968f775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74d485b5_87580fcd",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-07-03T13:15:12Z",
       "side": 1,
       "message": "I think this can be simplified like this\n\n```\nsdbusplus::message::object_path objectPath(pcieDevicePath);\nstd::string\u0026 devName \u003d  objectPath.filename();\n```",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 70
+      },
+      "revId": "7fa72990d62afc1f0bf79dcf590f7783e968f775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c048afbc_328a03f5",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T18:55:43Z",
+      "side": 1,
+      "message": "Comments not related to this commit.",
+      "parentUuid": "74d485b5_87580fcd",
       "range": {
         "startLine": 164,
         "startChar": 0,
