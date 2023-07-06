@@ -46,6 +46,30 @@
       },
       "revId": "f1d1f5d3332613c5e04143f1bd272e75471cbb74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d4d452_c6b2f4ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-06T19:45:58Z",
+      "side": 1,
+      "message": "Ack. I don\u0027t have a strong opinion. Clang enforces it so turning it on, seems okay.",
+      "parentUuid": "08a2543d_e0780e90",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 65
+      },
+      "revId": "f1d1f5d3332613c5e04143f1bd272e75471cbb74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
