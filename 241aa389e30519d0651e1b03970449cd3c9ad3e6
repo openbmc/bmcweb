@@ -51,6 +51,24 @@
       "message": "Overall, this patch misses some of the intent behind the auth system.  it adds things to /login, but ignores the other couple ways to log in, which tells me that it hasn\u0027t had any sort of security correctness review.\n\nLets start by getting the beahvior you expect, including:\n1. Users with redfish privilege.\n2. Users without redfish privilege.\n3. Redfish endpoints\n4. Non-redfish endpoints\n5. Webui endpoints.\n\nAfter that, we can figure out what code we need to write, but as-written this can be pretty trivially bypassed by just using the redfish login apis.",
       "revId": "241aa389e30519d0651e1b03970449cd3c9ad3e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af293f2c_4fdd1263",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T21:15:03Z",
+      "side": 1,
+      "message": "I should\u0027ve said \"Lets start by getting the behavior you expect documented, including:\"",
+      "parentUuid": "ad60ca15_855b6897",
+      "revId": "241aa389e30519d0651e1b03970449cd3c9ad3e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
