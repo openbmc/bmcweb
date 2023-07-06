@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "644e5ef9_5b588ccd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T12:35:10Z",
+      "side": 1,
+      "message": "If the interface exists, then all properties should have a value. For Lanes, we return the values published by the D-Bus service. We don\u0027t need to add additional check. Refer:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62737/26/redfish-core/lib/pcie.hpp#164",
+      "parentUuid": "17aedf25_04637d36",
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9f60bf_bf948e4e",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
