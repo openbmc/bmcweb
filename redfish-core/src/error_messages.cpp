@@ -168,7 +168,7 @@ static nlohmann::json getLog(redfish::registries::base::Index name,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceInUse(void)
+nlohmann::json resourceInUse()
 {
     return getLog(redfish::registries::base::Index::resourceInUse, {});
 }
@@ -186,7 +186,7 @@ void resourceInUse(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json malformedJSON(void)
+nlohmann::json malformedJSON()
 {
     return getLog(redfish::registries::base::Index::malformedJSON, {});
 }
@@ -275,7 +275,7 @@ void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json internalError(void)
+nlohmann::json internalError()
 {
     return getLog(redfish::registries::base::Index::internalError, {});
 }
@@ -296,7 +296,7 @@ void internalError(crow::Response& res, const std::source_location location)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json unrecognizedRequestBody(void)
+nlohmann::json unrecognizedRequestBody()
 {
     return getLog(redfish::registries::base::Index::unrecognizedRequestBody,
                   {});
@@ -357,7 +357,7 @@ void actionParameterUnknown(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceCannotBeDeleted(void)
+nlohmann::json resourceCannotBeDeleted()
 {
     return getLog(redfish::registries::base::Index::resourceCannotBeDeleted,
                   {});
@@ -439,7 +439,7 @@ void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountForSessionNoLongerExists(void)
+nlohmann::json accountForSessionNoLongerExists()
 {
     return getLog(
         redfish::registries::base::Index::accountForSessionNoLongerExists, {});
@@ -592,7 +592,7 @@ void serviceDisabled(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json serviceInUnknownState(void)
+nlohmann::json serviceInUnknownState()
 {
     return getLog(redfish::registries::base::Index::serviceInUnknownState, {});
 }
@@ -610,7 +610,7 @@ void serviceInUnknownState(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json eventSubscriptionLimitExceeded(void)
+nlohmann::json eventSubscriptionLimitExceeded()
 {
     return getLog(
         redfish::registries::base::Index::eventSubscriptionLimitExceeded, {});
@@ -670,7 +670,7 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1, int arg2)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json sessionTerminated(void)
+nlohmann::json sessionTerminated()
 {
     return getLog(redfish::registries::base::Index::sessionTerminated, {});
 }
@@ -688,7 +688,7 @@ void sessionTerminated(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json subscriptionTerminated(void)
+nlohmann::json subscriptionTerminated()
 {
     return getLog(redfish::registries::base::Index::subscriptionTerminated, {});
 }
@@ -903,7 +903,7 @@ void resourceCreationConflict(crow::Response& res, boost::urls::url_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json maximumErrorsExceeded(void)
+nlohmann::json maximumErrorsExceeded()
 {
     return getLog(redfish::registries::base::Index::maximumErrorsExceeded, {});
 }
@@ -921,7 +921,7 @@ void maximumErrorsExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json preconditionFailed(void)
+nlohmann::json preconditionFailed()
 {
     return getLog(redfish::registries::base::Index::preconditionFailed, {});
 }
@@ -939,7 +939,7 @@ void preconditionFailed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json preconditionRequired(void)
+nlohmann::json preconditionRequired()
 {
     return getLog(redfish::registries::base::Index::preconditionRequired, {});
 }
@@ -957,7 +957,7 @@ void preconditionRequired(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json operationFailed(void)
+nlohmann::json operationFailed()
 {
     return getLog(redfish::registries::base::Index::operationFailed, {});
 }
@@ -975,7 +975,7 @@ void operationFailed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json operationTimeout(void)
+nlohmann::json operationTimeout()
 {
     return getLog(redfish::registries::base::Index::operationTimeout, {});
 }
@@ -1103,7 +1103,7 @@ void queryParameterValueTypeError(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json serviceShuttingDown(void)
+nlohmann::json serviceShuttingDown()
 {
     return getLog(redfish::registries::base::Index::serviceShuttingDown, {});
 }
@@ -1207,7 +1207,7 @@ void strictAccountTypes(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountRemoved(void)
+nlohmann::json accountRemoved()
 {
     return getLog(redfish::registries::base::Index::accountRemoved, {});
 }
@@ -1244,7 +1244,7 @@ void accessDenied(crow::Response& res, boost::urls::url_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryNotSupported(void)
+nlohmann::json queryNotSupported()
 {
     return getLog(redfish::registries::base::Index::queryNotSupported, {});
 }
@@ -1262,7 +1262,7 @@ void queryNotSupported(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json createLimitReachedForResource(void)
+nlohmann::json createLimitReachedForResource()
 {
     return getLog(
         redfish::registries::base::Index::createLimitReachedForResource, {});
@@ -1281,7 +1281,7 @@ void createLimitReachedForResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json generalError(void)
+nlohmann::json generalError()
 {
     return getLog(redfish::registries::base::Index::generalError, {});
 }
@@ -1299,7 +1299,7 @@ void generalError(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json success(void)
+nlohmann::json success()
 {
     return getLog(redfish::registries::base::Index::success, {});
 }
@@ -1318,7 +1318,7 @@ void success(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json created(void)
+nlohmann::json created()
 {
     return getLog(redfish::registries::base::Index::created, {});
 }
@@ -1336,7 +1336,7 @@ void created(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json noOperation(void)
+nlohmann::json noOperation()
 {
     return getLog(redfish::registries::base::Index::noOperation, {});
 }
@@ -1374,7 +1374,7 @@ void propertyUnknown(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json noValidSession(void)
+nlohmann::json noValidSession()
 {
     return getLog(redfish::registries::base::Index::noValidSession, {});
 }
@@ -1411,7 +1411,7 @@ void invalidObject(crow::Response& res, boost::urls::url_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceInStandby(void)
+nlohmann::json resourceInStandby()
 {
     return getLog(redfish::registries::base::Index::resourceInStandby, {});
 }
@@ -1456,7 +1456,7 @@ void actionParameterValueTypeError(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json sessionLimitExceeded(void)
+nlohmann::json sessionLimitExceeded()
 {
     return getLog(redfish::registries::base::Index::sessionLimitExceeded, {});
 }
@@ -1513,7 +1513,7 @@ void invalidIndex(crow::Response& res, int64_t arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json emptyJSON(void)
+nlohmann::json emptyJSON()
 {
     return getLog(redfish::registries::base::Index::emptyJSON, {});
 }
@@ -1531,7 +1531,7 @@ void emptyJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryNotSupportedOnResource(void)
+nlohmann::json queryNotSupportedOnResource()
 {
     return getLog(redfish::registries::base::Index::queryNotSupportedOnResource,
                   {});
@@ -1550,7 +1550,7 @@ void queryNotSupportedOnResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryNotSupportedOnOperation(void)
+nlohmann::json queryNotSupportedOnOperation()
 {
     return getLog(
         redfish::registries::base::Index::queryNotSupportedOnOperation, {});
@@ -1569,7 +1569,7 @@ void queryNotSupportedOnOperation(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryCombinationInvalid(void)
+nlohmann::json queryCombinationInvalid()
 {
     return getLog(redfish::registries::base::Index::queryCombinationInvalid,
                   {});
@@ -1588,7 +1588,7 @@ void queryCombinationInvalid(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json insufficientPrivilege(void)
+nlohmann::json insufficientPrivilege()
 {
     return getLog(redfish::registries::base::Index::insufficientPrivilege, {});
 }
@@ -1629,7 +1629,7 @@ void propertyValueModified(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountNotModified(void)
+nlohmann::json accountNotModified()
 {
     return getLog(redfish::registries::base::Index::accountNotModified, {});
 }
@@ -1712,7 +1712,7 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountModified(void)
+nlohmann::json accountModified()
 {
     return getLog(redfish::registries::base::Index::accountModified, {});
 }
