@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df95addb_56c2c09a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T19:04:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb7fc347_8dd256e1",
+      "range": {
+        "startLine": 286,
+        "startChar": 61,
+        "endLine": 286,
+        "endChar": 70
+      },
+      "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a239aba0_c12f3712",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-07-03T13:31:18Z",
       "side": 1,
       "message": "I think it may be better to name to indicate something related to \u0027slot\u0027 here like\n```\nafterPCIeSlotGetDbusObject()\n```",
+      "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d737f634_06f97070",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T19:04:07Z",
+      "side": 1,
+      "message": "Not related to this commit.",
+      "parentUuid": "a239aba0_c12f3712",
       "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
