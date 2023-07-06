@@ -269,8 +269,7 @@ inline void
                           const std::vector<nlohmann::json>& ntpServerObjects,
                           std::vector<std::string> currentNtpServers)
 {
-    std::vector<std::string>::iterator currentNtpServer =
-        currentNtpServers.begin();
+    auto currentNtpServer = currentNtpServers.begin();
     for (size_t index = 0; index < ntpServerObjects.size(); index++)
     {
         const nlohmann::json& ntpServer = ntpServerObjects[index];

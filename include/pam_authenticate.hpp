@@ -60,7 +60,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
         std::strncpy(pass, appPass, appPassSize + 1);
 
-        size_t numMsgSize = static_cast<size_t>(numMsg);
+        auto numMsgSize = static_cast<size_t>(numMsg);
         // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
         void* ptr = calloc(numMsgSize, sizeof(struct pam_response));
         if (ptr == nullptr)

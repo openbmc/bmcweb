@@ -679,7 +679,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            int32_t i = static_cast<int32_t>(*intValue);
+            auto i = static_cast<int32_t>(*intValue);
             r = sd_bus_message_append_basic(m, argCode[0], &i);
             if (r < 0)
             {
@@ -734,7 +734,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            int16_t n = static_cast<int16_t>(*intValue);
+            auto n = static_cast<int16_t>(*intValue);
             r = sd_bus_message_append_basic(m, argCode[0], &n);
             if (r < 0)
             {
@@ -764,7 +764,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            uint8_t y = static_cast<uint8_t>(*uintValue);
+            auto y = static_cast<uint8_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &y);
         }
         else if (argCode == "q")
@@ -778,7 +778,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            uint16_t q = static_cast<uint16_t>(*uintValue);
+            auto q = static_cast<uint16_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &q);
         }
         else if (argCode == "u")
@@ -792,7 +792,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            uint32_t u = static_cast<uint32_t>(*uintValue);
+            auto u = static_cast<uint32_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &u);
         }
         else if (argCode == "t")

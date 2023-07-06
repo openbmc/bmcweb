@@ -260,7 +260,7 @@ constexpr std::tuple<IntType, unsigned, unsigned>
 {
     z += 719468;
     IntType era = (z >= 0 ? z : z - 146096) / 146097;
-    unsigned doe = static_cast<unsigned>(z - era * 146097); // [0, 146096]
+    auto doe = static_cast<unsigned>(z - era * 146097);     // [0, 146096]
     unsigned yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) /
                    365;                                     // [0, 399]
     IntType y = static_cast<IntType>(yoe) + era * 400;
@@ -438,7 +438,7 @@ inline std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
     }
     posixTime = ldt.utc_time();
     boost::posix_time::time_duration dur = posixTime - epoch;
-    uint64_t durMicroSecs = static_cast<uint64_t>(dur.total_microseconds());
+    auto durMicroSecs = static_cast<uint64_t>(dur.total_microseconds());
     return std::chrono::duration<uint64_t, std::micro>{durMicroSecs};
 }
 

@@ -1238,8 +1238,7 @@ inline void
     // match it to the first JSON element in the IPv4StaticAddresses array.
     // Match each subsequent JSON element to the next static IP programmed
     // into the NIC.
-    std::vector<IPv4AddressData>::const_iterator nicIpEntry =
-        getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
+    auto nicIpEntry = getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     for (nlohmann::json& thisJson : input)
     {
@@ -1428,8 +1427,7 @@ inline void handleIPv6StaticAddressesPatch(
         return;
     }
     size_t entryIdx = 1;
-    std::vector<IPv6AddressData>::const_iterator nicIpEntry =
-        getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
+    auto nicIpEntry = getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
     for (const nlohmann::json& thisJson : input)
     {
         std::string pathString = "IPv6StaticAddresses/" +

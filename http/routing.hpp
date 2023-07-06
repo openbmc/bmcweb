@@ -268,7 +268,7 @@ class Trie
                 {
                     if (url.compare(i, x.second.size(), x.second) == 0)
                     {
-                        size_t index = static_cast<size_t>(x.first);
+                        auto index = static_cast<size_t>(x.first);
                         if (nodes[idx].paramChildrens[index] == 0U)
                         {
                             unsigned newNodeIdx = newNode();
@@ -526,7 +526,7 @@ class Router
         {
             return findRoute;
         }
-        size_t reqMethodIndex = static_cast<size_t>(*verb);
+        auto reqMethodIndex = static_cast<size_t>(*verb);
         // Check to see if this url exists at any verb
         for (size_t perMethodIndex = 0; perMethodIndex <= maxVerbIndex;
              perMethodIndex++)
@@ -544,7 +544,7 @@ class Router
             {
                 findRoute.allowHeader += ", ";
             }
-            HttpVerb thisVerb = static_cast<HttpVerb>(perMethodIndex);
+            auto thisVerb = static_cast<HttpVerb>(perMethodIndex);
             findRoute.allowHeader += httpVerbToString(thisVerb);
             if (perMethodIndex == reqMethodIndex)
             {

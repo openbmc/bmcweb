@@ -1798,8 +1798,7 @@ inline void
         bool foundImage = false;
         for (const auto& object : subtree)
         {
-            const std::string& path =
-                static_cast<const std::string&>(object.first);
+            const auto& path = static_cast<const std::string&>(object.first);
             std::size_t idPos2 = path.rfind('/');
 
             if (idPos2 == std::string::npos)

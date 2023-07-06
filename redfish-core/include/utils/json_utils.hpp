@@ -594,8 +594,8 @@ inline int odataObjectCmp(const nlohmann::json& a, const nlohmann::json& b)
     {
         return 1;
     }
-    object_t::const_iterator aIt = aObj->find("@odata.id");
-    object_t::const_iterator bIt = bObj->find("@odata.id");
+    auto aIt = aObj->find("@odata.id");
+    auto bIt = bObj->find("@odata.id");
     // If either object doesn't have the key, they get "sorted" to the end.
     if (aIt == aObj->end())
     {

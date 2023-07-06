@@ -288,11 +288,11 @@ inline void generateSslCertificate(const std::string& filepath,
 
             using x509String = const unsigned char;
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* country = reinterpret_cast<x509String*>("US");
+            const auto* country = reinterpret_cast<x509String*>("US");
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* company = reinterpret_cast<x509String*>("OpenBMC");
+            const auto* company = reinterpret_cast<x509String*>("OpenBMC");
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+            const auto* cnStr = reinterpret_cast<x509String*>(cn.c_str());
 
             X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
                                        0);
@@ -447,7 +447,7 @@ inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
     // is here.
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    unsigned char** outNew = const_cast<unsigned char**>(out);
+    auto** outNew = const_cast<unsigned char**>(out);
     int rv = nghttp2_select_next_protocol(outNew, outlen, in, inlen);
     if (rv != 1)
     {
