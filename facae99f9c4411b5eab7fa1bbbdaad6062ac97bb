@@ -99,6 +99,24 @@
       "parentUuid": "d737f634_06f97070",
       "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229455ae_43d6b38b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-06T19:49:32Z",
+      "side": 1,
+      "message": "I understand, but I didn\u0027t add this function in this commit.",
+      "parentUuid": "8825b687_354580d7",
+      "revId": "facae99f9c4411b5eab7fa1bbbdaad6062ac97bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
