@@ -182,6 +182,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34d39564_4fadff49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T16:49:16Z",
+      "side": 1,
+      "message": "\u003e but its code uses size_t both in bmcweb and PDI\n\nThere\u0027s 3 pieces here: bmcweb, PDI, and the daemon implementing PDI.  What is the daemon implementing PDI in your test?",
+      "parentUuid": "1c9125a4_0ef9b30d",
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9f60bf_bf948e4e",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
