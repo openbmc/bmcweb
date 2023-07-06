@@ -297,16 +297,17 @@ inline void
     {
         nlohmann::json& totalMemory =
             asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"];
-        const uint64_t* preValue = totalMemory.get_ptr<const uint64_t*>();
+        const double* preValue = totalMemory.get_ptr<const double*>();
         if (preValue == nullptr)
         {
             asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-                *memorySizeInKB / static_cast<size_t>(1024 * 1024);
+                static_cast<double>(*memorySizeInKB) / (1024 * 1024);
         }
         else
         {
             asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-                *memorySizeInKB / static_cast<size_t>(1024 * 1024) + *preValue;
+                static_cast<double>(*memorySizeInKB) / (1024 * 1024) +
+                *preValue;
         }
         if constexpr (bmcwebEnableProcMemStatus)
         {
@@ -3236,7 +3237,7 @@ inline void
             "Disabled";
     }
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
-        uint64_t(0);
+        double(0);
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
     asyncResp->res.jsonValue["Processors"]["@odata.id"] =
