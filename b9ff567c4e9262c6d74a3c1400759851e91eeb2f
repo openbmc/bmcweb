@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f3d8c97_6d75a157",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-06T19:42:00Z",
+      "side": 1,
+      "message": "The statement would need to be like\n```\n         if(ec)\n         {\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR\n                        \u003c\u003c \"DBUS response error for getAssociationEndPoints: \"\n                        \u003c\u003c ec.value();\n                    messages::internalError(asyncResp-\u003eres);\n                }\n                return;  //\u003c\u003d\u003d Add\n         }\n```",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "b9ff567c4e9262c6d74a3c1400759851e91eeb2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
