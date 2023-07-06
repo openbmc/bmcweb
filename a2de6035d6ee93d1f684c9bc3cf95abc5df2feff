@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5990a417_9d49a657",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "Left in-progress comments.",
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da1462a_c60a6c03",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "please pass error codes by const reference.  This reduces the number of intermediate constructions.",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d78872_b2a87bb6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "Why are we default constructing a message object here?  Having a default arg in a constructor seems odd.",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 66
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d340a427_d843c360",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "These are generally not what an error id would look like.  In normal openbmc dbus usage, an error would look like \"xyz.openbmc_project.InvalidId\" or something similar.",
+      "range": {
+        "startLine": 53,
+        "startChar": 26,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ed7f7ba_570cd9d4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "These are all fairly unsafe references.  Could we rearchitect these methods to simply take these as the first few arguments like we\u0027ve done everywhere else, and remove the class entirely?\n\nHaving one class to verify all errors is a little worrisome, and not simple to trace.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f746284_00ced48a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "lets avoid changing auto -\u003e type in this case.  Although both are allowed, it\u0027s unrelated to the overall change.",
+      "range": {
+        "startLine": 1194,
+        "startChar": 8,
+        "endLine": 1194,
+        "endChar": 37
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91589ffc_eb83f018",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-06T19:21:48Z",
+      "side": 1,
+      "message": "?  This doesn\u0027t look related to error handling?",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1264,
+        "endChar": 9
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
