@@ -52,6 +52,24 @@
       "parentUuid": "fbc62c52_1aa82162",
       "revId": "be79e396c7d3af8caea8b77f0e34e59c54696506",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009aac69_f5535ce2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 40
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T21:07:56Z",
+      "side": 1,
+      "message": "Re-reading the commit, I also agree with Gunnar.\n\nThe commit message should not contain the unresolved link (because such reference could become invalid after this commit is done).\n\nIf they are to be separated, it should be explained not referenced.\nOr maybe combine 2 commits into one to avoid such situation.",
+      "parentUuid": "47ac60d7_bbf3d491",
+      "revId": "be79e396c7d3af8caea8b77f0e34e59c54696506",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
