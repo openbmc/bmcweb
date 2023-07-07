@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cc66dda_04746302",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T20:29:27Z",
+      "side": 1,
+      "message": "I think - an unresolved gerrit link is better not to be included but it should be okay to mentione that the validator will fail only with this commit.\n(The commit message explains sufficiently the scope of this commit).\n\nSo, your suggestion may be better to combine together as one commit\n(In fact, I\u0027m also thinking about it).",
+      "parentUuid": "ba5f26be_e5dd3e3e",
+      "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f04c4f58_659f4df5",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01e1cf8_f2410bf6",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T20:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f04c4f58_659f4df5",
+      "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8326c4a1_06c49463",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-07-07T19:55:51Z",
       "side": 1,
       "message": "Redundancy in initializing the members array. The members array is initially set to an empty array in the doHandlePortCollectionGet function.",
+      "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b6bf03_2e2e30ea",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T20:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8326c4a1_06c49463",
       "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
