@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "355ad0e8_c0b25136",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T13:12:25Z",
+      "side": 1,
+      "message": "DBUS doc says that the missing property should not result in as an error.\n\nhttps://github.com/openbmc/bmcweb/blob/master/DBUS_USAGE.md\n\n```\nAll DBus interfaces on all object paths are optional. An object missing an interface is never an error, and shall simply omit the relevant properties and/or actions from that Redfish Resource.\n```\n\nIf so, the code may need to look like\n\n```\n    if (sparePartNum !\u003d nullptr)\n    {\n        assemblyData[\"SparePartNumber\"] \u003d *sparePartNum;\n    }\n```",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25b0a824_1b1386d7",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 79
