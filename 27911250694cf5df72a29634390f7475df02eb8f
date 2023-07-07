@@ -200,6 +200,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa9e50af_d5c4b40d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2023-07-07T07:14:19Z",
+      "side": 1,
+      "message": "Once again, speaking about about `Lakshmi-y` output:\n```\n\"Slot\": {\n  \"Lanes\": 0,\n  ...\n}\n```\nAs I\u0027ve understood from your comments in your downstream code `-1` value means Unknown/Unspecified. But what about zero? Is it a sane value for a slot lanes? Or does it also mean something like Unknown/Unspecified?\nBecause with the current PDI, which represents lanes with unsigned values I thought that `0` always means Unknown/Unspecified.\nAnd in that case according to the https://github.com/openbmc/bmcweb/blob/master/DBUS_USAGE.md the `Lanes : 0` should be omitted.\n```\nIf the DBus interface definition has an \"unknown\" or \"unspecified\" value, detecting these will omit the property from the Redfish tree, in line with the Redfish specification.\n```\nIf I\u0027m correct, I can create a separate patch for that.",
+      "parentUuid": "34d39564_4fadff49",
+      "revId": "27911250694cf5df72a29634390f7475df02eb8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d9f60bf_bf948e4e",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
