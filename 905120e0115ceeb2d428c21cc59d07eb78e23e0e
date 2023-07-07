@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f04c4f58_659f4df5",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-07T19:55:51Z",
+      "side": 1,
+      "message": "Usually we add a check to ensure that only non-empty portId values are added to the portIdNames. Currently, if sdbusplus::message::object_path(path).filename() returns an empty string, the portId variable will also be assigned an empty string, leading to an invalid URL for that port.",
+      "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8326c4a1_06c49463",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-07T19:55:51Z",
+      "side": 1,
+      "message": "Redundancy in initializing the members array. The members array is initially set to an empty array in the doHandlePortCollectionGet function.",
+      "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
