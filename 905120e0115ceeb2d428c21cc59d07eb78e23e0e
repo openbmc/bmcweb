@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fee044c0_b29b22ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T20:59:19Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61374 is combined into this commit,\nand 61374 will be abandoned.",
+      "parentUuid": "a6f01fe9_f4b9b574",
+      "revId": "905120e0115ceeb2d428c21cc59d07eb78e23e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f04c4f58_659f4df5",
