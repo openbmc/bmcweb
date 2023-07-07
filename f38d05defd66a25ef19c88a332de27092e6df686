@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35965551_a7a55e30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-07T20:59:33Z",
+      "side": 1,
+      "message": "@linuxwei,\n\nI\u0027ve combined this commit into https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61097.\n\nSo, would you abandon this commit?\n(I can\u0027t do it as I\u0027m not the owner of this commit).",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 44
+      },
+      "revId": "f38d05defd66a25ef19c88a332de27092e6df686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
