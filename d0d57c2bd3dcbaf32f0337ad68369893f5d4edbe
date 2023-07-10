@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41361999_fee471b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-10T21:03:47Z",
+      "side": 1,
+      "message": "Based on comments on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62511, I feel the consensus is to converge on this stack.",
+      "parentUuid": "08ac07d6_0d078d40",
+      "revId": "d0d57c2bd3dcbaf32f0337ad68369893f5d4edbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbfddf07_c5c6813d",
