@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78127ace_669eab9e",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T13:26:09Z",
+      "side": 1,
+      "message": "This is not a collection of Ports, but a base \u0027port\u0027 resource schema - which should have \"Name\" \u0026 \"Id\".\n\n```\ncurl -k -X GET https://${bmc}:18080/redfish/v1/Systems/system/FabricAdapters/disk_backplane0/Ports/dp0_port1\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/disk_backplane0/Ports/dp0_port1\",\n      \"@odata.type\": \"#Port.v1_7_0.Port\",\n      \"Id\": \"dp0_port1\",\n      \"Name\": \"dp0_port1\"    \u003c-----\n    }%\n```",
+      "parentUuid": "6450641e_1828b8bd",
+      "revId": "71ae0e1abf4083ab04f67a96b4811f9599b9486c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a8f3efc_996ca65c",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00c3eae2_2038b7aa",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T13:26:09Z",
+      "side": 1,
+      "message": "bmcweb does not handle this \u0027not found\u0027 cases consistently.\nAnother example like this is\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/pcie.hpp#L74\n\nAnyway, it may be good to add the portId into log",
+      "parentUuid": "6a8f3efc_996ca65c",
+      "revId": "71ae0e1abf4083ab04f67a96b4811f9599b9486c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "940f5c1e_1f0f1a1b",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-07-10T12:59:50Z",
       "side": 1,
       "message": "split into a new function using std::bind_front.",
+      "revId": "71ae0e1abf4083ab04f67a96b4811f9599b9486c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4804d341_68df4067",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T13:26:09Z",
+      "side": 1,
+      "message": "Not sure it is necessary here.\n\nThis code has 2 simple inner calls with lambdas - which are more readable than going thru 2 separate functions via bind_front.\n\nEven if we prefer to use bind_front(), in this case a small lamdba still be needed to pass the arguments properly.\nSo I don\u0027t think this is a good example case to use bind_front().",
+      "parentUuid": "940f5c1e_1f0f1a1b",
       "revId": "71ae0e1abf4083ab04f67a96b4811f9599b9486c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
