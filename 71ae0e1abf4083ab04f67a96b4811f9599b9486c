@@ -104,6 +104,24 @@
       "parentUuid": "940f5c1e_1f0f1a1b",
       "revId": "71ae0e1abf4083ab04f67a96b4811f9599b9486c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b1eac57_2931ef9e",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T17:48:31Z",
+      "side": 1,
+      "message": "I\u0027ve refactored to reduce the depth of lambdas by using std::bind_front().",
+      "parentUuid": "4804d341_68df4067",
+      "revId": "71ae0e1abf4083ab04f67a96b4811f9599b9486c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
