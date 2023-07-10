@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99684d7_288d4f8b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-10T18:21:52Z",
+      "side": 1,
+      "message": "nit: Why does only this function have prolog comments, while the rest of the file lacks them? Should consider removing the prolog here?",
+      "revId": "1db2395c31b470cf4cc8e53ab417ac470f37a4c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
