@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c8f16a0_0f4ca2e0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T16:54:42Z",
+      "side": 1,
+      "message": "I think - bmcweb coding style in most places seems like\n\n```\n        if (ec)\n        {\n            if (ec.value() !\u003d EBADR)\n            {\n                BMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error for sensor Value \"\n                                 \u003c\u003c ec.value();\n                messages::internalError(asyncResp-\u003eres);\n            }\n            return;\n        }\n        asyncResp-\u003eres.jsonValue[name][\"Reading\"] \u003d value;\n```",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 9
+      },
+      "revId": "73b0387b3263b848de1c30e2863cd1926ff135ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b19a2a7_642d2ee0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T16:54:42Z",
+      "side": 1,
+      "message": "Similar to the above code style comment.",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 9
+      },
+      "revId": "73b0387b3263b848de1c30e2863cd1926ff135ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa4a997_559b7a46",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T16:54:42Z",
+      "side": 1,
+      "message": "This `return` is not needed",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 461,
+        "endChar": 27
+      },
+      "revId": "73b0387b3263b848de1c30e2863cd1926ff135ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
