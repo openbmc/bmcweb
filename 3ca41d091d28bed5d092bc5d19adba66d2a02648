@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "965db0c8_ccdf006a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-10T21:06:07Z",
+      "side": 1,
+      "message": "Needs removed.  ACK.",
+      "parentUuid": "21ca7d50_59680820",
+      "revId": "3ca41d091d28bed5d092bc5d19adba66d2a02648",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00cc6bea_eeea9b0c",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4797f59d_b2c7f5a9",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-10T21:06:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "00cc6bea_eeea9b0c",
+      "revId": "3ca41d091d28bed5d092bc5d19adba66d2a02648",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d8bfbef_4948ae78",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-07-10T20:48:36Z",
       "side": 1,
       "message": "Where are these used?",
+      "revId": "3ca41d091d28bed5d092bc5d19adba66d2a02648",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edb62fbd_6f5309f1",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-10T21:06:07Z",
+      "side": 1,
+      "message": "Ack.  All of these are leftover from when user_role_map wasn\u0027t in its own file.  Now that it is, these don\u0027t make any sense.",
+      "parentUuid": "0d8bfbef_4948ae78",
       "revId": "3ca41d091d28bed5d092bc5d19adba66d2a02648",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
