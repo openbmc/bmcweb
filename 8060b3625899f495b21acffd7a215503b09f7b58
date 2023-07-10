@@ -16,6 +16,24 @@
       "message": "I feel this goes against what we have been doing in bmcweb with mostly avoiding auto.. Do you feel strongly we want this? this is enforced by clang-tidy and the impact to the code here is low so I could be convinced but it feels counter to other feedack.",
       "revId": "8060b3625899f495b21acffd7a215503b09f7b58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918c0dc1_42573c98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-10T19:53:26Z",
+      "side": 1,
+      "message": "I don\u0027t know when I\u0027ve ever really enforced that we need to use auto on BOTH sides of an argument.  The thing I generally comment on is some variation of\n\nauto foo \u003d myOpaqueMethodCall();\n\nWhere it\u0027s not obvious in that context what the return type is, and more importantly, if myOpaqueMethodCall() changes from say uint64_t, to int64_t, there\u0027s no change to the call site that would make us check if that transform was safe.\n\nThis is only really changing stuff like\n\nFoo foo \u003d static_cast\u003cFoo\u003e(myFoo);\n\nWhich, auto seems perfrectly fine.  Foo is already declared on the line, and there\u0027s no way that static_cast will ever change to return Bar, without that line changing.",
+      "parentUuid": "1a212117_50fb1298",
+      "revId": "8060b3625899f495b21acffd7a215503b09f7b58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
