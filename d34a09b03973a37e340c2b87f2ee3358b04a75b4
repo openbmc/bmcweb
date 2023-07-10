@@ -34,6 +34,24 @@
       "parentUuid": "c711eff0_6d96f98a",
       "revId": "d34a09b03973a37e340c2b87f2ee3358b04a75b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2261da0f_b67c1a73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-10T15:50:50Z",
+      "side": 1,
+      "message": "I know pcie slot schema should go away one day but I feel the logic should match until then",
+      "parentUuid": "c711eff0_6d96f98a",
+      "revId": "d34a09b03973a37e340c2b87f2ee3358b04a75b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
