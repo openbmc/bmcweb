@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3197e160_c13e7ac3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T23:00:31Z",
+      "side": 1,
+      "message": "```\nconst boost::system::error_code\u0026 ec,\n```",
+      "range": {
+        "startLine": 370,
+        "startChar": 26,
+        "endLine": 370,
+        "endChar": 60
+      },
+      "revId": "e8f84f70e3d5f55b439d053c0f5262d440bfbe05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f149b7_ec8fbe7c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T23:00:31Z",
+      "side": 1,
+      "message": "```\nconst boost::system::error_code\u0026 ec,\n```",
+      "range": {
+        "startLine": 393,
+        "startChar": 26,
+        "endLine": 393,
+        "endChar": 61
+      },
+      "revId": "e8f84f70e3d5f55b439d053c0f5262d440bfbe05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
