@@ -16,6 +16,24 @@
       "message": "nit: Why does only this function have prolog comments, while the rest of the file lacks them? Should consider removing the prolog here?",
       "revId": "1db2395c31b470cf4cc8e53ab417ac470f37a4c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2615b7d4_43187e6a",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-10T19:09:45Z",
+      "side": 1,
+      "message": "It was inherited from the previous code.  Yes, I\u0027ll remove it.",
+      "parentUuid": "f99684d7_288d4f8b",
+      "revId": "1db2395c31b470cf4cc8e53ab417ac470f37a4c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
