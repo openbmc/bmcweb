@@ -70,6 +70,24 @@
       "parentUuid": "47ac60d7_bbf3d491",
       "revId": "be79e396c7d3af8caea8b77f0e34e59c54696506",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a84873f_0190537f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 40
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-10T02:11:01Z",
+      "side": 1,
+      "message": "Yeah in the future, let\u0027s be sure not to do this again as for now, I am okay here.\n\n\u003e Should we have a basic Fan schema (e.g. only containing name \u0026 id) in one commit (to contain FanCollection and basic Fan schema -- similarly PortCollection \u0026 Port)?\n\nIt is fine to break them up but let\u0027s be sure each passes the validator",
+      "parentUuid": "009aac69_f5535ce2",
+      "revId": "be79e396c7d3af8caea8b77f0e34e59c54696506",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
