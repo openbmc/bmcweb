@@ -190,7 +190,10 @@ inline void addPCIeSlotProperties(
         res.jsonValue["Slot"]["PCIeType"] = *pcieType;
     }
 
-    res.jsonValue["Slot"]["Lanes"] = lanes;
+    if (lanes != 0)
+    {
+        res.jsonValue["Slot"]["Lanes"] = lanes;
+    }
 
     std::optional<pcie_slots::SlotTypes> redfishSlotType =
         pcie_util::dbusSlotTypeToRf(slotType);

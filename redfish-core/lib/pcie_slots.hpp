@@ -83,7 +83,7 @@ inline void
         }
     }
 
-    if (lanes != nullptr)
+    if (lanes != nullptr && *lanes != 0)
     {
         slot["Lanes"] = *lanes;
     }
