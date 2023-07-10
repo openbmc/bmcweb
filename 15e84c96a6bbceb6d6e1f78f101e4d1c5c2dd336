@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6d78e3a1_499b502b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-10T13:31:45Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "d2060868_3c0266ae",
+      "range": {
+        "startLine": 186,
+        "startChar": 73,
+        "endLine": 186,
+        "endChar": 74
+      },
+      "revId": "15e84c96a6bbceb6d6e1f78f101e4d1c5c2dd336",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "37d3e710_6213e764",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 30
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-10T02:12:35Z",
       "side": 1,
       "message": "fanid would make this more useful, oh well.",
+      "range": {
+        "startLine": 196,
+        "startChar": 40,
+        "endLine": 196,
+        "endChar": 42
+      },
+      "revId": "15e84c96a6bbceb6d6e1f78f101e4d1c5c2dd336",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb7ad2ec_1108e22b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-10T13:31:45Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "37d3e710_6213e764",
       "range": {
         "startLine": 196,
         "startChar": 40,
