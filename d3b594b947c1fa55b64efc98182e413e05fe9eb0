@@ -22,6 +22,30 @@
       },
       "revId": "d3b594b947c1fa55b64efc98182e413e05fe9eb0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b404979_921bc591",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-10T17:03:07Z",
+      "side": 1,
+      "message": "I see static_cast used in multiple other places in bmcweb.\nwhat do you suggest here?",
+      "parentUuid": "2db63353_898f6495",
+      "range": {
+        "startLine": 526,
+        "startChar": 23,
+        "endLine": 526,
+        "endChar": 43
+      },
+      "revId": "d3b594b947c1fa55b64efc98182e413e05fe9eb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
