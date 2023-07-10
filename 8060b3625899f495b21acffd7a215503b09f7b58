@@ -52,6 +52,24 @@
       "parentUuid": "918c0dc1_42573c98",
       "revId": "8060b3625899f495b21acffd7a215503b09f7b58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "236979a3_7e5780c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-10T20:51:43Z",
+      "side": 1,
+      "message": "Maybe leave open for a few more days, see if anyone else cares either way",
+      "parentUuid": "ca11661b_5409acbe",
+      "revId": "8060b3625899f495b21acffd7a215503b09f7b58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
