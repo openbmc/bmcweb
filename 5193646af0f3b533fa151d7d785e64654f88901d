@@ -34,6 +34,23 @@
       "parentUuid": "028b7511_b1e18325",
       "revId": "5193646af0f3b533fa151d7d785e64654f88901d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7af7c2_7a131d28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-11T18:35:37Z",
+      "side": 1,
+      "message": "Tested and validator passed.\n# curl -k https://${bmc}/redfish/v1/Systems/system/PCIeDevices/pcie_card2\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card2\",\n  \"@odata.type\": \"#PCIeDevice.v1_9_0.PCIeDevice\",\n  \"Id\": \"pcie_card2\",\n  \"Manufacturer\": \"\",\n  \"Model\": \"2CF5\",\n  \"Name\": \"PCIe Device\",\n  \"PCIeFunctions\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card2/PCIeFunctions\"\n  },\n  \"PartNumber\": \"02WF001\",\n  \"SerialNumber\": \"YL11BG0AN04G\",\n  \"SparePartNumber\": \"02WF000\",\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  }\n}",
+      "revId": "5193646af0f3b533fa151d7d785e64654f88901d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
