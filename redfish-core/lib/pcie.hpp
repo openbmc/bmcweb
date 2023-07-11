@@ -416,26 +416,20 @@ inline void addPCIeDeviceProperties(
     const std::string& pcieDeviceId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
-    const std::string* deviceType = nullptr;
     const std::string* generationInUse = nullptr;
     const std::string* generationSupported = nullptr;
     const size_t* lanesInUse = nullptr;
     const size_t* maxLanes = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "DeviceType",
-        deviceType, "GenerationInUse", generationInUse, "GenerationSupported",
-        generationSupported, "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+        dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "GenerationInUse",
+        generationInUse, "GenerationSupported", generationSupported,
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
 
     if (!success)
     {
         messages::internalError(asyncResp->res);
         return;
-    }
-
-    if (deviceType != nullptr && !deviceType->empty())
-    {
-        asyncResp->res.jsonValue["PCIeInterface"]["DeviceType"] = *deviceType;
     }
 
     if (generationInUse != nullptr)
