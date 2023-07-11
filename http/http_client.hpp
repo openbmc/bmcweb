@@ -180,7 +180,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     {
         if (ec || (endpointList.empty()))
         {
-            BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+            BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message() << " "
+                             << host << ":" << std::to_string(port);
             state = ConnState::resolveFailed;
             waitAndRetry();
             return;
@@ -315,7 +316,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.cancel();
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "sendMessage() failed: " << ec.message();
+            BMCWEB_LOG_ERROR << "sendMessage() failed: " << ec.message() << " "
+                             << host << ":" << std::to_string(port);
             state = ConnState::sendFailed;
             waitAndRetry();
             return;
@@ -368,7 +370,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.cancel();
         if (ec && ec != boost::asio::ssl::error::stream_truncated)
         {
-            BMCWEB_LOG_ERROR << "recvMessage() failed: " << ec.message();
+            BMCWEB_LOG_ERROR << "recvMessage() failed: " << ec.message()
+                             << " from " << host << ":" << std::to_string(port);
             state = ConnState::recvFailed;
             waitAndRetry();
             return;
@@ -387,7 +390,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             // The listener failed to receive the Sent-Event
             BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
                                 "receive Sent-Event. Header Response Code: "
-                             << respCode;
+                             << respCode << " from " << host << ":"
+                             << std::to_string(port);
             state = ConnState::recvFailed;
             waitAndRetry();
             return;
@@ -437,7 +441,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         if ((retryCount >= connPolicy->maxRetryAttempts) ||
             (state == ConnState::sslInitFailed))
         {
-            BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
+            BMCWEB_LOG_ERROR << "Maximum number of retries reached."
+                             << " " << host << ":" << std::to_string(port);
             BMCWEB_LOG_DEBUG << "Retry policy: "
                              << connPolicy->retryPolicyAction;
 
@@ -766,7 +771,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
         else if (requestQueue.size() < maxRequestQueueSize)
         {
-            BMCWEB_LOG_ERROR << "Max pool size reached. Adding data to queue.";
+            BMCWEB_LOG_ERROR << "Max pool size reached. Adding data to queue."
+                             << destIP << ":" << std::to_string(destPort);
             requestQueue.emplace_back(std::move(thisReq), std::move(cb));
         }
         else
