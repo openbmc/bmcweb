@@ -1,0 +1,9 @@
+Code-Review+1: Lakshmi Yadlapati <lakshmiy@us.ibm.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Myung Bae <myungbae@us.ibm.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+Submitted-at: Tue, 11 Jul 2023 15:17:55 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64753
+Project: openbmc/bmcweb
+Branch: refs/heads/master
