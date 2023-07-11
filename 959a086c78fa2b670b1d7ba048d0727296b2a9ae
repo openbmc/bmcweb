@@ -16,6 +16,24 @@
       "message": "I think you need to correct Refish.md, like I did here\n64639: Drop DeviceType property from the PCIeInterface | https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64639",
       "revId": "959a086c78fa2b670b1d7ba048d0727296b2a9ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a83483_47981ed9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T17:09:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ce535348_e81fe54d",
+      "revId": "959a086c78fa2b670b1d7ba048d0727296b2a9ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
