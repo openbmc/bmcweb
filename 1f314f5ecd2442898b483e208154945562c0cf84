@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "563e6677_4f4e41c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T20:38:56Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right, the examples from the specification say:\n\n\"For instance, AdminPassword or UserPassword.\"\n\nCan you describe what Administrator is referencing here?",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "45c70982_23ddeb40",
