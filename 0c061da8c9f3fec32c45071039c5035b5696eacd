@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf9d914a_d9db5e11",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T17:42:08Z",
+      "side": 1,
+      "message": "Why is this required?  can\u0027t we just compare against 0?",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853392e2_571f35a7",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T17:42:08Z",
+      "side": 1,
+      "message": "This is no more safe than the reinterpret cast before, and is using banned functions (ie memcpy).",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 64
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5b1dc4_bef4521f",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T17:42:08Z",
+      "side": 1,
+      "message": "This needs range checked.  if position \u003e 8, this will seg fault.\n\nI\u0027m not sure if that\u0027s what you meant to do on line 526?\n\nI would expect:\n\nif (position \u003e\u003d res1.size(){\n   return ...;\n}",
+      "range": {
+        "startLine": 530,
+        "startChar": 25,
+        "endLine": 530,
+        "endChar": 33
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
