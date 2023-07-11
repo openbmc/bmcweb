@@ -859,7 +859,6 @@ other.
 - Model
 - PartNumber
 - PCIeInterface
-  - DeviceType
   - LanesInUse
   - MaxLanes
   - MaxPCIeType
