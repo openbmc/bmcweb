@@ -16,6 +16,29 @@
       "message": "The Redfish validator was passing with the old version, most likely because in our environment the \"DeviceType\" is null, and that is why the validator is passing.",
       "revId": "fc394f67d68890b6a76f9e7af680bd64fcc81aa1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1907da2_288e2e87",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T15:02:10Z",
+      "side": 1,
+      "message": "Lets just remove this property completely for now.  It doesn\u0027t follow Dbus conventions for enums.\n\nDoesn\u0027t use the generated redfish enums: https://github.com/openbmc/bmcweb/blob/5db33d60ca6c3be2b799f5fd0fd311c37917fd70/redfish-core/include/generated/enums/pcie_device.hpp#L17\n\nAnd clearly wasn\u0027t tested.  Lets remove it in one patch, and we can re-add when someone is willing to follow the conventions.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/88902e67bcd86b2122b4c1f3b1eaa550b329b08a/yaml/xyz/openbmc_project/Inventory/Item/PCIeDevice.interface.yaml#L7\n\nAlso shows that this is a string value, while in Redfish it\u0027s an enum value.  That means that these two parameters can\u0027t mix.",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 61
+      },
+      "revId": "fc394f67d68890b6a76f9e7af680bd64fcc81aa1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
