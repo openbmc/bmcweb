@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3cfbd27_c195bb4a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T15:04:51Z",
+      "side": 1,
+      "message": "Because these properties were added later, I don\u0027t think we can do that here.",
+      "parentUuid": "8047c2b2_f4c75f45",
+      "revId": "e6b854d4f9f4e88539ac2a80165ce16141ef837c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24ea1a88_3f9fab85",
@@ -143,6 +161,30 @@
       "side": 1,
       "message": "What is in this patch already is fine.  MaxLanes was added last year:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/2c9a434998bb9e40e1e0a1e9c500884f11a8c8ab\n\nSo there likely exists implementations of this schema that don\u0027t have a MaxLanes property in them.  What is written here appears correct to that end.",
       "parentUuid": "24ea1a88_3f9fab85",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 46
+      },
+      "revId": "e6b854d4f9f4e88539ac2a80165ce16141ef837c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d76e4dc_eae13b8b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T15:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0439344_1912d4eb",
       "range": {
         "startLine": 492,
         "startChar": 0,
