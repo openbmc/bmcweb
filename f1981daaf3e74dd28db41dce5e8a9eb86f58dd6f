@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d11be340_1694f83a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-07-11T17:11:16Z",
+      "side": 1,
+      "message": "Seems correct to me.",
+      "revId": "f1981daaf3e74dd28db41dce5e8a9eb86f58dd6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55595534_10cc1b2d",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-07-11T17:11:16Z",
+      "side": 1,
+      "message": "I suggest test cases:\n\nSeveral test cases have the same setup:\nSetup: Create user X (userx) and create a session for user X (sessionX)\n1. Delete userx, use sessionX, and expect failure.\n2. Change userx\u0027s role to lower privilege, use sessionX for operation that requires higher privilege, and expect failure.\n3. Change userx\u0027s role to higher privilege, use sessionX for operation that requires higher privilege, and expect success.\n4. Delete userx, then recreate user X (same role), use sessionX, and expect success(?).\n\nTest case 5: Expired password: Create userx and expire the password (for example, via command `passwd --expire userx`), then create a session for user X.  Then perform these two variations:\n1. Ensure that session: has the PasswordChangeRequired message, and cannot do anything more than change its own password and log out, and /redfish/v1/AccountService/Accounts/userx has the PasswordChangeRequired property.\n2. Use that session to change the userx password and then ensure that session: does NOT have the PasswordChangeRequired property (or it is false), and does not have the PasswordChangeRequired message, and can perform operations consistent with its role.  [See related https://github.com/openbmc/phosphor-user-manager/issues/9.]",
+      "revId": "f1981daaf3e74dd28db41dce5e8a9eb86f58dd6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

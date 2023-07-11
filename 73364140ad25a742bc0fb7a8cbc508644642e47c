@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83da0a7d_0efc8ca9",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-07-11T17:11:16Z",
+      "side": 1,
+      "message": "I have no concerns with serializing access to the userRoleMap.  Because BMCWeb is \"single threaded\" it will always access the userRoleMap when nobody else is looking at it.",
+      "parentUuid": "a8a29eba_4ab767fb",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ba32c0e_be7169f3",
         "filename": "include/user_role_map.hpp",
         "patchSetId": 23
