@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8a29eba_4ab767fb",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T15:07:26Z",
+      "side": 1,
+      "message": "@Abhilash does the above make sense to you?",
+      "parentUuid": "274ba5b9_e98af2ec",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ba32c0e_be7169f3",
         "filename": "include/user_role_map.hpp",
         "patchSetId": 23
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "\u003e why can\u0027t we enclose all of the below code within this try block? it can improve the code readability.\n\nBecause nothing else below it is expected to throw an exception.\n\n\u003e There are other petentially throwing functions called from below code (like out of memory). We could handle all cases in a single catch block.\n\nOOM needs to be handled at a higher level, by throwing to main, and letting systemd restart the process (this is why bmcweb hosts no state that isn\u0027t persisted).",
       "parentUuid": "0ba32c0e_be7169f3",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0bb972f_2a5290cc",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-11T15:07:26Z",
+      "side": 1,
+      "message": "@Abhilash Does that make sense to you?",
+      "parentUuid": "46a6db43_65757d82",
       "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
