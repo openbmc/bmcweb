@@ -142,6 +142,30 @@
       },
       "revId": "d3b594b947c1fa55b64efc98182e413e05fe9eb0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "755371d2_ca9a942c",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-11T16:47:01Z",
+      "side": 1,
+      "message": "are we good with the change? Can you please check",
+      "parentUuid": "9eeb165f_bf666ddb",
+      "range": {
+        "startLine": 526,
+        "startChar": 23,
+        "endLine": 526,
+        "endChar": 43
+      },
+      "revId": "d3b594b947c1fa55b64efc98182e413e05fe9eb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
