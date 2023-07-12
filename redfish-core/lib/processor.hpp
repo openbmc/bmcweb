@@ -138,8 +138,8 @@ inline void getCpuDataByInterface(
             }
             else if (property.first == "Socket")
             {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
+                const std::string_view* value =
+                    std::get_if<std::string_view>(&property.second);
                 if (value != nullptr)
                 {
                     asyncResp->res.jsonValue["Socket"] = *value;
@@ -302,7 +302,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
  * translation cannot be done, returns "Unknown" throttle reason.
  */
 inline processor::ThrottleCause
-    dbusToRfThrottleCause(const std::string& dbusSource)
+    dbusToRfThrottleCause(std::string_view dbusSource)
 {
     if (dbusSource ==
         "xyz.openbmc_project.Control.Power.Throttle.ThrottleReasons.ClockLimit")
@@ -345,7 +345,7 @@ inline void
     }
 
     const bool* status = nullptr;
-    const std::vector<std::string>* causes = nullptr;
+    const std::vector<std::string_view>* causes = nullptr;
 
     if (!sdbusplus::unpackPropertiesNoThrow(dbus_utils::UnpackErrorPrinter(),
                                             properties, "Throttled", status,
@@ -357,7 +357,7 @@ inline void
 
     asyncResp->res.jsonValue["Throttled"] = *status;
     nlohmann::json::array_t rCauses;
-    for (const std::string& cause : *causes)
+    for (std::string_view cause : *causes)
     {
         processor::ThrottleCause rfCause = dbusToRfThrottleCause(cause);
         if (rfCause == processor::ThrottleCause::Invalid)
@@ -405,11 +405,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        const std::string* serialNumber = nullptr;
-        const std::string* model = nullptr;
-        const std::string* manufacturer = nullptr;
-        const std::string* partNumber = nullptr;
-        const std::string* sparePartNumber = nullptr;
+        const std::string_view* serialNumber = nullptr;
+        const std::string_view* model = nullptr;
+        const std::string_view* manufacturer = nullptr;
+        const std::string_view* partNumber = nullptr;
+        const std::string_view* sparePartNumber = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), properties, "SerialNumber",
@@ -479,7 +479,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        const std::string* version = nullptr;
+        const std::string_view* version = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), properties, "Version", version);

@@ -68,8 +68,8 @@ inline void extractNTPServersAndDomainNamesData(
             {
                 if (propertyPair.first == "StaticNTPServers")
                 {
-                    const std::vector<std::string>* ntpServers =
-                        std::get_if<std::vector<std::string>>(
+                    const std::vector<std::string_view>* ntpServers =
+                        std::get_if<std::vector<std::string_view>>(
                             &propertyPair.second);
                     if (ntpServers != nullptr)
                     {
@@ -79,8 +79,8 @@ inline void extractNTPServersAndDomainNamesData(
                 }
                 else if (propertyPair.first == "DomainName")
                 {
-                    const std::vector<std::string>* domainNames =
-                        std::get_if<std::vector<std::string>>(
+                    const std::vector<std::string_view>* domainNames =
+                        std::get_if<std::vector<std::string_view>>(
                             &propertyPair.second);
                     if (domainNames != nullptr)
                     {

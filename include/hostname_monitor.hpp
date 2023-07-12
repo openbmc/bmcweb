@@ -49,12 +49,12 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
     dbus::utility::DBusPropertiesMap changedProperties;
 
     message.read(iface, changedProperties);
-    const std::string* hostname = nullptr;
+    const std::string_view* hostname = nullptr;
     for (const auto& propertyPair : changedProperties)
     {
         if (propertyPair.first == "HostName")
         {
-            hostname = std::get_if<std::string>(&propertyPair.second);
+            hostname = std::get_if<std::string_view>(&propertyPair.second);
         }
     }
     if (hostname == nullptr)
@@ -117,7 +117,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
                             << "certificate with subject cn: " << *hostname;
 
             ensuressl::generateSslCertificate("/tmp/hostname_cert.tmp",
-                                              *hostname);
+                                              std::string(*hostname));
             installCertificate("/tmp/hostname_cert.tmp");
         }
         ASN1_STRING_free(asn1);

@@ -35,7 +35,7 @@ inline void
         return;
     }
 
-    const std::string* cableTypeDescription = nullptr;
+    const std::string_view* cableTypeDescription = nullptr;
     const double* length = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(

@@ -228,8 +228,8 @@ inline void requestRoutesPower(App& app)
                 int64_t scale = 0;
 
                 for (const std::pair<std::string,
-                                     dbus::utility::DbusVariantType>& property :
-                     properties)
+                                     dbus::utility::DbusVariantReadType>&
+                         property : properties)
                 {
                     if (property.first == "Scale")
                     {

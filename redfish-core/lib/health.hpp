@@ -110,8 +110,9 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                                 continue;
                             }
 
-                            const std::vector<std::string>* endpoints =
-                                std::get_if<std::vector<std::string>>(&value);
+                            const std::vector<std::string_view>* endpoints =
+                                std::get_if<std::vector<std::string_view>>(
+                                    &value);
                             if (endpoints == nullptr)
                             {
                                 BMCWEB_LOG_ERROR << "Illegal association at "
@@ -119,7 +120,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                                 continue;
                             }
                             bool containsChild = false;
-                            for (const std::string& endpoint : *endpoints)
+                            for (std::string_view endpoint : *endpoints)
                             {
                                 if (std::find(inventory.begin(),
                                               inventory.end(),

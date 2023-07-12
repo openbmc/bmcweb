@@ -159,9 +159,9 @@ inline void addPCIeSlotProperties(
         messages::internalError(res);
         return;
     }
-    std::string generation;
+    std::string_view generation;
     size_t lanes = 0;
-    std::string slotType;
+    std::string_view slotType;
 
     bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieSlotProperties, "Generation",
@@ -368,11 +368,11 @@ inline void
             return;
         }
 
-        const std::string* manufacturer = nullptr;
-        const std::string* model = nullptr;
-        const std::string* partNumber = nullptr;
-        const std::string* serialNumber = nullptr;
-        const std::string* sparePartNumber = nullptr;
+        const std::string_view* manufacturer = nullptr;
+        const std::string_view* model = nullptr;
+        const std::string_view* partNumber = nullptr;
+        const std::string_view* serialNumber = nullptr;
+        const std::string_view* sparePartNumber = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), assetList, "Manufacturer",
@@ -416,9 +416,9 @@ inline void addPCIeDeviceProperties(
     const std::string& pcieDeviceId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
-    const std::string* deviceType = nullptr;
-    const std::string* generationInUse = nullptr;
-    const std::string* generationSupported = nullptr;
+    const std::string_view* deviceType = nullptr;
+    const std::string_view* generationInUse = nullptr;
+    const std::string_view* generationSupported = nullptr;
     const size_t* lanesInUse = nullptr;
     const size_t* maxLanes = nullptr;
 
@@ -614,12 +614,12 @@ inline void addPCIeFunctionList(
         // looking for a device ID
         std::string devIDProperty = "Function" + std::to_string(functionNum) +
                                     "DeviceId";
-        const std::string* property = nullptr;
+        const std::string_view* property = nullptr;
         for (const auto& propEntry : pcieDevProperties)
         {
             if (propEntry.first == devIDProperty)
             {
-                property = std::get_if<std::string>(&propEntry.second);
+                property = std::get_if<std::string_view>(&propEntry.second);
                 break;
             }
         }
@@ -698,12 +698,12 @@ inline bool validatePCIeFunctionId(
     std::string functionName = "Function" + std::to_string(pcieFunctionId);
     std::string devIDProperty = functionName + "DeviceId";
 
-    const std::string* devIdProperty = nullptr;
+    const std::string_view* devIdProperty = nullptr;
     for (const auto& property : pcieDevProperties)
     {
         if (property.first == devIDProperty)
         {
-            devIdProperty = std::get_if<std::string>(&property.second);
+            devIdProperty = std::get_if<std::string_view>(&property.second);
             break;
         }
     }
@@ -717,8 +717,8 @@ inline void addPCIeFunctionProperties(
     std::string functionName = "Function" + std::to_string(pcieFunctionId);
     for (const auto& property : pcieDevProperties)
     {
-        const std::string* strProperty =
-            std::get_if<std::string>(&property.second);
+        const std::string_view* strProperty =
+            std::get_if<std::string_view>(&property.second);
 
         if (property.first == functionName + "DeviceId")
         {

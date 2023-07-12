@@ -457,24 +457,22 @@ inline void
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
         [asyncResp](const boost::system::error_code& ec,
-                    const std::vector<
-                        std::pair<std::string, dbus::utility::DbusVariantType>>&
-                        propertiesList) {
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (ec)
         {
             // this interface isn't required
             return;
         }
-        const std::string* encryptionStatus = nullptr;
+        const std::string_view* encryptionStatus = nullptr;
         const bool* isLocked = nullptr;
-        for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+        for (const std::pair<std::string, dbus::utility::DbusVariantReadType>&
                  property : propertiesList)
         {
             const std::string& propertyName = property.first;
             if (propertyName == "Type")
             {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
+                const std::string_view* value =
+                    std::get_if<std::string_view>(&property.second);
                 if (value == nullptr)
                 {
                     // illegal property
@@ -519,8 +517,8 @@ inline void
             }
             else if (propertyName == "Protocol")
             {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
+                const std::string_view* value =
+                    std::get_if<std::string_view>(&property.second);
                 if (value == nullptr)
                 {
                     BMCWEB_LOG_ERROR << "Illegal property: Protocol";
@@ -563,7 +561,8 @@ inline void
             }
             else if (propertyName == "EncryptionStatus")
             {
-                encryptionStatus = std::get_if<std::string>(&property.second);
+                encryptionStatus =
+                    std::get_if<std::string_view>(&property.second);
                 if (encryptionStatus == nullptr)
                 {
                     BMCWEB_LOG_ERROR << "Illegal property: EncryptionStatus";

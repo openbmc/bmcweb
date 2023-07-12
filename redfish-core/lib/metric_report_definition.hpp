@@ -34,8 +34,8 @@ namespace telemetry
 {
 
 using ReadingParameters = std::vector<std::tuple<
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
-    std::string, std::string, uint64_t>>;
+    std::vector<std::tuple<sdbusplus::message::object_path, std::string_view>>,
+    std::string_view, std::string_view, uint64_t>>;
 
 inline metric_report_definition::ReportActionsEnum
     toRedfishReportAction(std::string_view dbusValue)
@@ -217,11 +217,11 @@ inline void
                          const std::string& id,
                          const dbus::utility::DBusPropertiesMap& properties)
 {
-    std::vector<std::string> reportActions;
+    std::vector<std::string_view> reportActions;
     ReadingParameters readingParams;
-    std::string reportingType;
-    std::string reportUpdates;
-    std::string name;
+    std::string_view reportingType;
+    std::string_view reportUpdates;
+    std::string_view name;
     uint64_t appendLimit = 0;
     uint64_t interval = 0;
     bool enabled = false;
@@ -263,7 +263,7 @@ inline void
     asyncResp->res.jsonValue["Links"]["Triggers"] = std::move(*linkedTriggers);
 
     nlohmann::json::array_t redfishReportActions;
-    for (const std::string& action : reportActions)
+    for (const std::string_view action : reportActions)
     {
         metric_report_definition::ReportActionsEnum redfishAction =
             toRedfishReportAction(action);
@@ -650,7 +650,11 @@ class AddReport
             return;
         }
 
-        telemetry::ReadingParameters readingParams;
+        std::vector<
+            std::tuple<std::vector<std::tuple<sdbusplus::message::object_path,
+                                              std::string>>,
+                       std::string, std::string, uint64_t>>
+            readingParams;
         readingParams.reserve(args.metrics.size());
 
         for (const auto& metric : args.metrics)

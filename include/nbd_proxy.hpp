@@ -40,8 +40,8 @@ constexpr const char* requiredPrivilegeString = "ConfigureManager";
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {
     NbdProxyServer(crow::websocket::Connection& connIn,
-                   const std::string& socketIdIn,
-                   const std::string& endpointIdIn, const std::string& pathIn) :
+                   std::string_view socketIdIn, std::string_view endpointIdIn,
+                   std::string_view pathIn) :
         socketId(socketIdIn),
         endpointId(endpointIdIn), path(pathIn),
 
@@ -247,8 +247,8 @@ inline void
                            const boost::system::error_code& ec,
                            const dbus::utility::ManagedObjectType& objects)
 {
-    const std::string* socketValue = nullptr;
-    const std::string* endpointValue = nullptr;
+    const std::string_view* socketValue = nullptr;
+    const std::string_view* endpointValue = nullptr;
     const std::string* endpointObjectPath = nullptr;
 
     if (ec)
@@ -271,7 +271,7 @@ inline void
             {
                 if (name == "EndpointId")
                 {
-                    endpointValue = std::get_if<std::string>(&value);
+                    endpointValue = std::get_if<std::string_view>(&value);
 
                     if (endpointValue == nullptr)
                     {
@@ -280,7 +280,7 @@ inline void
                 }
                 if (name == "Socket")
                 {
-                    socketValue = std::get_if<std::string>(&value);
+                    socketValue = std::get_if<std::string_view>(&value);
                     if (socketValue == nullptr)
                     {
                         BMCWEB_LOG_ERROR << "Socket property value is null";
@@ -316,7 +316,8 @@ inline void
 
     // If the socket file exists (i.e. after bmcweb crash),
     // we cannot reuse it.
-    std::remove((*socketValue).c_str());
+    std::string socket(*socketValue);
+    std::remove(socket.c_str());
 
     sessions[&conn] = std::make_shared<NbdProxyServer>(
         conn, *socketValue, *endpointValue, *endpointObjectPath);
