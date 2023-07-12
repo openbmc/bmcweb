@@ -154,7 +154,7 @@ inline std::string getDhcpEnabledEnumeration(bool isIPv4, bool isIPv6)
 }
 
 inline std::string
-    translateAddressOriginDbusToRedfish(const std::string& inputOrigin,
+    translateAddressOriginDbusToRedfish(std::string_view inputOrigin,
                                         bool isIPv4)
 {
     if (inputOrigin == "xyz.openbmc_project.Network.IP.AddressOrigin.Static")
@@ -203,8 +203,9 @@ inline bool extractEthernetInterfaceData(
                     {
                         if (propertyPair.first == "MACAddress")
                         {
-                            const std::string* mac =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* mac =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (mac != nullptr)
                             {
                                 ethData.macAddress = *mac;
@@ -299,8 +300,9 @@ inline bool extractEthernetInterfaceData(
                         }
                         else if (propertyPair.first == "DHCPEnabled")
                         {
-                            const std::string* dhcpEnabled =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* dhcpEnabled =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (dhcpEnabled != nullptr)
                             {
                                 ethData.dhcpEnabled = *dhcpEnabled;
@@ -318,11 +320,12 @@ inline bool extractEthernetInterfaceData(
                         }
                         else if (propertyPair.first == "DefaultGateway")
                         {
-                            const std::string* defaultGateway =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* defaultGateway =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
-                                std::string defaultGatewayStr = *defaultGateway;
+                                std::string defaultGatewayStr(*defaultGateway);
                                 if (defaultGatewayStr.empty())
                                 {
                                     ethData.defaultGateway = "0.0.0.0";
@@ -335,12 +338,13 @@ inline bool extractEthernetInterfaceData(
                         }
                         else if (propertyPair.first == "DefaultGateway6")
                         {
-                            const std::string* defaultGateway6 =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* defaultGateway6 =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (defaultGateway6 != nullptr)
                             {
-                                std::string defaultGateway6Str =
-                                    *defaultGateway6;
+                                std::string defaultGateway6Str(
+                                    *defaultGateway6);
                                 if (defaultGateway6Str.empty())
                                 {
                                     ethData.ipv6DefaultGateway =
@@ -403,8 +407,8 @@ inline bool extractEthernetInterfaceData(
                 {
                     if (propertyPair.first == "HostName")
                     {
-                        const std::string* hostname =
-                            std::get_if<std::string>(&propertyPair.second);
+                        const std::string_view* hostname =
+                            std::get_if<std::string_view>(&propertyPair.second);
                         if (hostname != nullptr)
                         {
                             ethData.hostName = *hostname;
@@ -446,8 +450,8 @@ inline void extractIPV6Data(const std::string& ethifaceId,
                         continue;
                     }
 
-                    const std::string* typeStr =
-                        std::get_if<std::string>(&type->second);
+                    const std::string_view* typeStr =
+                        std::get_if<std::string_view>(&type->second);
 
                     if (typeStr == nullptr ||
                         (*typeStr !=
@@ -465,8 +469,8 @@ inline void extractIPV6Data(const std::string& ethifaceId,
                     {
                         if (property.first == "Address")
                         {
-                            const std::string* address =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* address =
+                                std::get_if<std::string_view>(&property.second);
                             if (address != nullptr)
                             {
                                 ipv6Address.address = *address;
@@ -474,8 +478,8 @@ inline void extractIPV6Data(const std::string& ethifaceId,
                         }
                         else if (property.first == "Origin")
                         {
-                            const std::string* origin =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* origin =
+                                std::get_if<std::string_view>(&property.second);
                             if (origin != nullptr)
                             {
                                 ipv6Address.origin =
@@ -539,8 +543,8 @@ inline void extractIPData(const std::string& ethifaceId,
                         continue;
                     }
 
-                    const std::string* typeStr =
-                        std::get_if<std::string>(&type->second);
+                    const std::string_view* typeStr =
+                        std::get_if<std::string_view>(&type->second);
 
                     if (typeStr == nullptr ||
                         (*typeStr !=
@@ -558,8 +562,8 @@ inline void extractIPData(const std::string& ethifaceId,
                     {
                         if (property.first == "Address")
                         {
-                            const std::string* address =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* address =
+                                std::get_if<std::string_view>(&property.second);
                             if (address != nullptr)
                             {
                                 ipv4Address.address = *address;
@@ -567,8 +571,8 @@ inline void extractIPData(const std::string& ethifaceId,
                         }
                         else if (property.first == "Origin")
                         {
-                            const std::string* origin =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* origin =
+                                std::get_if<std::string_view>(&property.second);
                             if (origin != nullptr)
                             {
                                 ipv4Address.origin =

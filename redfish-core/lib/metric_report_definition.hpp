@@ -219,9 +219,9 @@ inline void
 {
     std::vector<std::string> reportActions;
     ReadingParameters readingParams;
-    std::string reportingType;
-    std::string reportUpdates;
-    std::string name;
+    std::string_view reportingType;
+    std::string_view reportUpdates;
+    std::string_view name;
     uint64_t appendLimit = 0;
     uint64_t interval = 0;
     bool enabled = false;

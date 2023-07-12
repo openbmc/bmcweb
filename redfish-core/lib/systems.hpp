@@ -139,10 +139,9 @@ inline void
     }
 }
 
-inline void getProcessorProperties(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>&
-        properties)
+inline void
+    getProcessorProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const dbus::utility::DBusPropertiesMap& properties)
 {
     BMCWEB_LOG_DEBUG << "Got " << properties.size() << " Cpu properties.";
 
@@ -463,7 +462,7 @@ inline void
                             BMCWEB_LOG_DEBUG << "Got " << properties.size()
                                              << " UUID properties.";
 
-                            const std::string* uUID = nullptr;
+                            const std::string_view* uUID = nullptr;
 
                             const bool success =
                                 sdbusplus::unpackPropertiesNoThrow(
@@ -478,7 +477,7 @@ inline void
 
                             if (uUID != nullptr)
                             {
-                                std::string valueStr = *uUID;
+                                std::string valueStr(*uUID);
                                 if (valueStr.size() == 32)
                                 {
                                     valueStr.insert(8, 1, '-');
@@ -510,11 +509,11 @@ inline void
                             BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
                                              << " properties for system";
 
-                            const std::string* partNumber = nullptr;
-                            const std::string* serialNumber = nullptr;
-                            const std::string* manufacturer = nullptr;
-                            const std::string* model = nullptr;
-                            const std::string* subModel = nullptr;
+                            const std::string_view* partNumber = nullptr;
+                            const std::string_view* serialNumber = nullptr;
+                            const std::string_view* manufacturer = nullptr;
+                            const std::string_view* model = nullptr;
+                            const std::string_view* subModel = nullptr;
 
                             const bool success =
                                 sdbusplus::unpackPropertiesNoThrow(
@@ -2403,7 +2402,7 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  * @return Returns as a string, the timeout action in Redfish terms. If
  * translation cannot be done, returns an empty string.
  */
-inline std::string dbusToRfWatchdogAction(const std::string& dbusAction)
+inline std::string dbusToRfWatchdogAction(std::string_view dbusAction)
 {
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
     {
@@ -2489,7 +2488,7 @@ inline void
         hostWatchdogTimer["Status"]["State"] = "Enabled";
 
         const bool* enabled = nullptr;
-        const std::string* expireAction = nullptr;
+        const std::string_view* expireAction = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), properties, "Enabled", enabled,

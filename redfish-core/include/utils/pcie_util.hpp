@@ -76,7 +76,7 @@ inline void
 }
 
 inline std::optional<pcie_slots::SlotTypes>
-    dbusSlotTypeToRf(const std::string& slotType)
+    dbusSlotTypeToRf(std::string_view slotType)
 {
     if (slotType ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength")
@@ -130,7 +130,7 @@ inline std::optional<pcie_slots::SlotTypes>
 }
 
 inline std::optional<pcie_device::PCIeTypes>
-    redfishPcieGenerationFromDbus(const std::string& generationInUse)
+    redfishPcieGenerationFromDbus(std::string_view generationInUse)
 {
     if (generationInUse ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1")

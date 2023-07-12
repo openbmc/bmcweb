@@ -82,10 +82,10 @@ inline void
             return;
         }
 
-        const std::string* serialNumber = nullptr;
-        const std::string* model = nullptr;
-        const std::string* partNumber = nullptr;
-        const std::string* sparePartNumber = nullptr;
+        const std::string_view* serialNumber = nullptr;
+        const std::string_view* model = nullptr;
+        const std::string_view* partNumber = nullptr;
+        const std::string_view* sparePartNumber = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "SerialNumber",

@@ -160,8 +160,8 @@ inline void populateSoftwareInformation(
                     // "IBM-witherspoon-OP9-v2.0.10-2.22" "Purpose"
                     // s
                     // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
-                    const std::string* version = nullptr;
-                    const std::string* swInvPurpose = nullptr;
+                    const std::string_view* version = nullptr;
+                    const std::string_view* swInvPurpose = nullptr;
 
                     const bool success = sdbusplus::unpackPropertiesNoThrow(
                         dbus_utils::UnpackErrorPrinter(), propertiesList,
@@ -237,7 +237,7 @@ inline void populateSoftwareInformation(
  *
  * @return The corresponding Redfish state
  */
-inline resource::State getRedfishSwState(const std::string& swState)
+inline resource::State getRedfishSwState(std::string_view swState)
 {
     if (swState == "xyz.openbmc_project.Software.Activation.Activations.Active")
     {
@@ -266,7 +266,7 @@ inline resource::State getRedfishSwState(const std::string& swState)
  *
  * @return The corresponding Redfish health state
  */
-inline std::string getRedfishSwHealth(const std::string& swState)
+inline std::string getRedfishSwHealth(std::string_view swState)
 {
     if ((swState ==
          "xyz.openbmc_project.Software.Activation.Activations.Active") ||
@@ -313,7 +313,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        const std::string* swInvActivation = nullptr;
+        const std::string_view* swInvActivation = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "Activation",

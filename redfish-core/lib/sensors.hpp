@@ -1042,7 +1042,7 @@ inline void populateFanRedundancy(
 
                     const uint8_t* allowedFailures = nullptr;
                     const std::vector<std::string>* collection = nullptr;
-                    const std::string* status = nullptr;
+                    const std::string_view* status = nullptr;
 
                     const bool success = sdbusplus::unpackPropertiesNoThrow(
                         dbus_utils::UnpackErrorPrinter(), ret,
@@ -1340,8 +1340,8 @@ inline void storeInventoryItemData(
             {
                 if (name == "Manufacturer")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.manufacturer = *value;
@@ -1349,8 +1349,8 @@ inline void storeInventoryItemData(
                 }
                 if (name == "Model")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.model = *value;
@@ -1358,8 +1358,8 @@ inline void storeInventoryItemData(
                 }
                 if (name == "SerialNumber")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.serialNumber = *value;
@@ -1367,8 +1367,8 @@ inline void storeInventoryItemData(
                 }
                 if (name == "PartNumber")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.partNumber = *value;

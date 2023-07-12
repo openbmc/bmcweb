@@ -645,8 +645,8 @@ inline void getLDAPConfigData(const std::string& ldapType,
                     {
                         for (const auto& property : interface.second)
                         {
-                            const std::string* strValue =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* strValue =
+                                std::get_if<std::string_view>(&property.second);
                             if (strValue == nullptr)
                             {
                                 continue;
@@ -687,8 +687,8 @@ inline void getLDAPConfigData(const std::string& ldapType,
                         LDAPRoleMapData roleMapData{};
                         for (const auto& property : interface.second)
                         {
-                            const std::string* strValue =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* strValue =
+                                std::get_if<std::string_view>(&property.second);
 
                             if (strValue == nullptr)
                             {
@@ -2064,8 +2064,8 @@ inline void
                     }
                     else if (property.first == "UserPrivilege")
                     {
-                        const std::string* userPrivPtr =
-                            std::get_if<std::string>(&property.second);
+                        const std::string_view* userPrivPtr =
+                            std::get_if<std::string_view>(&property.second);
                         if (userPrivPtr == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "UserPrivilege wasn't a "

@@ -343,13 +343,13 @@ inline void
                 std::string name;
 
                 for (const std::pair<std::string,
-                                     dbus::utility::DbusVariantType>& propPair :
-                     intfPair.second)
+                                     dbus::utility::DbusVariantReadType>&
+                         propPair : intfPair.second)
                 {
                     if (propPair.first == "Name")
                     {
-                        const std::string* namePtr =
-                            std::get_if<std::string>(&propPair.second);
+                        const std::string_view* namePtr =
+                            std::get_if<std::string_view>(&propPair.second);
                         if (namePtr == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "Pid Name Field illegal";
@@ -380,15 +380,16 @@ inline void
                     }
                 }
                 nlohmann::json* config = nullptr;
-                const std::string* classPtr = nullptr;
+                const std::string_view* classPtr = nullptr;
 
                 for (const std::pair<std::string,
-                                     dbus::utility::DbusVariantType>& propPair :
-                     intfPair.second)
+                                     dbus::utility::DbusVariantReadType>&
+                         propPair : intfPair.second)
                 {
                     if (propPair.first == "Class")
                     {
-                        classPtr = std::get_if<std::string>(&propPair.second);
+                        classPtr =
+                            std::get_if<std::string_view>(&propPair.second);
                     }
                 }
 
@@ -618,8 +619,9 @@ inline void
                         }
                         else if (propertyPair.first == "SetPointOffset")
                         {
-                            const std::string* ptr =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* ptr =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
 
                             if (ptr == nullptr)
                             {
@@ -770,8 +772,8 @@ inline CreatePIDRet createPidInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& response, const std::string& type,
     const nlohmann::json::iterator& it, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
-    dbus::utility::DBusPropertiesMap& output, std::string& chassis,
-    const std::string& profile)
+    std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>& output,
+    std::string& chassis, const std::string& profile)
 {
     // common deleter
     if (it.value() == nullptr)
@@ -1212,7 +1214,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                     return;
                 }
 
-                const std::string* current = nullptr;
+                const std::string_view* current = nullptr;
                 const std::vector<std::string>* supported = nullptr;
 
                 const bool success = sdbusplus::unpackPropertiesNoThrow(
@@ -1418,7 +1420,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     messages::internalError(self->asyncResp->res);
                     return;
                 }
-                const std::string* current = nullptr;
+                const std::string_view* current = nullptr;
                 const std::vector<std::string>* supported = nullptr;
 
                 const bool success = sdbusplus::unpackPropertiesNoThrow(
@@ -1499,7 +1501,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     return boost::algorithm::ends_with(obj.first.str,
                                                        "/" + dbusObjName);
                 });
-                dbus::utility::DBusPropertiesMap output;
+                std::vector<
+                    std::pair<std::string, dbus::utility::DbusVariantType>>
+                    output;
 
                 output.reserve(16); // The pid interface length
 
@@ -2124,11 +2128,11 @@ inline void requestRoutesManager(App& app)
                             return;
                         }
 
-                        const std::string* partNumber = nullptr;
-                        const std::string* serialNumber = nullptr;
-                        const std::string* manufacturer = nullptr;
-                        const std::string* model = nullptr;
-                        const std::string* sparePartNumber = nullptr;
+                        const std::string_view* partNumber = nullptr;
+                        const std::string_view* serialNumber = nullptr;
+                        const std::string_view* manufacturer = nullptr;
+                        const std::string_view* model = nullptr;
+                        const std::string_view* sparePartNumber = nullptr;
 
                         const bool success = sdbusplus::unpackPropertiesNoThrow(
                             dbus_utils::UnpackErrorPrinter(), propertiesList,

@@ -125,7 +125,7 @@ inline void
 /**
  * @brief Function extracts transfer protocol name from URI.
  */
-inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
+inline std::string getTransferProtocolTypeFromUri(std::string_view imageUri)
 {
     boost::urls::result<boost::urls::url_view> url =
         boost::urls::parse_uri(imageUri);
@@ -161,8 +161,8 @@ inline void
             {
                 if (property == "EndpointId")
                 {
-                    const std::string* endpointIdValue =
-                        std::get_if<std::string>(&value);
+                    const std::string_view* endpointIdValue =
+                        std::get_if<std::string_view>(&value);
                     if (endpointIdValue == nullptr)
                     {
                         continue;
@@ -179,8 +179,8 @@ inline void
                 }
                 if (property == "ImageURL")
                 {
-                    const std::string* imageUrlValue =
-                        std::get_if<std::string>(&value);
+                    const std::string_view* imageUrlValue =
+                        std::get_if<std::string_view>(&value);
                     if (imageUrlValue != nullptr && !imageUrlValue->empty())
                     {
                         std::filesystem::path filePath = *imageUrlValue;

@@ -61,8 +61,8 @@ struct UserRoleMap
             {
                 if (property.first == "UserPrivilege")
                 {
-                    const std::string* role =
-                        std::get_if<std::string>(&property.second);
+                    const std::string_view* role =
+                        std::get_if<std::string_view>(&property.second);
                     if (role != nullptr)
                     {
                         fields.userRole = *role;

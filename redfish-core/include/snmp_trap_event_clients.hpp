@@ -33,7 +33,7 @@ inline void afterGetSnmpTrapClientdata(
         return;
     }
 
-    std::string address;
+    std::string_view address;
     uint16_t port = 0;
 
     bool success = sdbusplus::unpackPropertiesNoThrow(

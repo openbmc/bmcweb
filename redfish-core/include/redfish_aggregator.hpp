@@ -438,8 +438,8 @@ class RedfishAggregator
         {
             if (prop.first == "Hostname")
             {
-                const std::string* propVal =
-                    std::get_if<std::string>(&prop.second);
+                const std::string_view* propVal =
+                    std::get_if<std::string_view>(&prop.second);
                 if (propVal == nullptr)
                 {
                     BMCWEB_LOG_ERROR << "Invalid Hostname value";
@@ -467,8 +467,8 @@ class RedfishAggregator
 
             else if (prop.first == "AuthType")
             {
-                const std::string* propVal =
-                    std::get_if<std::string>(&prop.second);
+                const std::string_view* propVal =
+                    std::get_if<std::string_view>(&prop.second);
                 if (propVal == nullptr)
                 {
                     BMCWEB_LOG_ERROR << "Invalid AuthType value";

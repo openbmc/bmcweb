@@ -308,10 +308,10 @@ static void getCertificateProperties(
             return;
         }
 
-        const std::string* certificateString = nullptr;
+        const std::string_view* certificateString = nullptr;
         const std::vector<std::string>* keyUsage = nullptr;
-        const std::string* issuer = nullptr;
-        const std::string* subject = nullptr;
+        const std::string_view* issuer = nullptr;
+        const std::string_view* subject = nullptr;
         const uint64_t* validNotAfter = nullptr;
         const uint64_t* validNotBefore = nullptr;
 

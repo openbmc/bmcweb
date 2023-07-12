@@ -138,8 +138,8 @@ inline void getCpuDataByInterface(
             }
             else if (property.first == "Socket")
             {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
+                const std::string_view* value =
+                    std::get_if<std::string_view>(&property.second);
                 if (value != nullptr)
                 {
                     asyncResp->res.jsonValue["Socket"] = *value;
@@ -405,11 +405,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        const std::string* serialNumber = nullptr;
-        const std::string* model = nullptr;
-        const std::string* manufacturer = nullptr;
-        const std::string* partNumber = nullptr;
-        const std::string* sparePartNumber = nullptr;
+        const std::string_view* serialNumber = nullptr;
+        const std::string_view* model = nullptr;
+        const std::string_view* manufacturer = nullptr;
+        const std::string_view* partNumber = nullptr;
+        const std::string_view* sparePartNumber = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), properties, "SerialNumber",
@@ -479,7 +479,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        const std::string* version = nullptr;
+        const std::string_view* version = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), properties, "Version", version);

@@ -76,7 +76,7 @@ enum class DumpCreationProgress
 
 namespace fs = std::filesystem;
 
-inline std::string translateSeverityDbusToRedfish(const std::string& s)
+inline std::string translateSeverityDbusToRedfish(std::string_view s)
 {
     if ((s == "xyz.openbmc_project.Logging.Entry.Level.Alert") ||
         (s == "xyz.openbmc_project.Logging.Entry.Level.Critical") ||
@@ -98,7 +98,7 @@ inline std::string translateSeverityDbusToRedfish(const std::string& s)
     return "";
 }
 
-inline std::optional<bool> getProviderNotifyAction(const std::string& notify)
+inline std::optional<bool> getProviderNotifyAction(std::string_view notify)
 {
     std::optional<bool> notifyAction;
     if (notify == "xyz.openbmc_project.Logging.Entry.Notify.Notify")
@@ -310,7 +310,7 @@ static bool
 }
 
 inline log_entry::OriginatorTypes
-    mapDbusOriginatorTypeToRedfish(const std::string& originatorType)
+    mapDbusOriginatorTypeToRedfish(std::string_view originatorType)
 {
     if (originatorType ==
         "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client")
@@ -345,7 +345,7 @@ inline void parseDumpEntryFromDbusObject(
                 if (propertyMap.first == "Status")
                 {
                     const auto* status =
-                        std::get_if<std::string>(&propertyMap.second);
+                        std::get_if<std::string_view>(&propertyMap.second);
                     if (status == nullptr)
                     {
                         messages::internalError(asyncResp->res);
@@ -398,8 +398,8 @@ inline void parseDumpEntryFromDbusObject(
             {
                 if (propertyMap.first == "OriginatorId")
                 {
-                    const std::string* id =
-                        std::get_if<std::string>(&propertyMap.second);
+                    const std::string_view* id =
+                        std::get_if<std::string_view>(&propertyMap.second);
                     if (id == nullptr)
                     {
                         messages::internalError(asyncResp->res);
@@ -410,8 +410,8 @@ inline void parseDumpEntryFromDbusObject(
 
                 if (propertyMap.first == "OriginatorType")
                 {
-                    const std::string* type =
-                        std::get_if<std::string>(&propertyMap.second);
+                    const std::string_view* type =
+                        std::get_if<std::string_view>(&propertyMap.second);
                     if (type == nullptr)
                     {
                         messages::internalError(asyncResp->res);
@@ -701,8 +701,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline DumpCreationProgress
-    mapDbusStatusToDumpProgress(const std::string& status)
+inline DumpCreationProgress mapDbusStatusToDumpProgress(std::string_view status)
 {
     if (status ==
             "xyz.openbmc_project.Common.Progress.OperationStatus.Failed" ||
@@ -725,7 +724,7 @@ inline DumpCreationProgress
     {
         if (key == "Status")
         {
-            const std::string* value = std::get_if<std::string>(&val);
+            const std::string_view* value = std::get_if<std::string_view>(&val);
             if (value == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Status property value is null";
@@ -737,7 +736,7 @@ inline DumpCreationProgress
     return DumpCreationProgress::DUMP_CREATE_INPROGRESS;
 }
 
-inline std::string getDumpEntryPath(const std::string& dumpPath)
+inline std::string getDumpEntryPath(std::string_view dumpPath)
 {
     if (dumpPath == "/xyz/openbmc_project/dump/bmc/entry")
     {
@@ -1044,9 +1043,9 @@ inline static void
                              std::string& filename, std::string& timestamp,
                              std::string& logfile)
 {
-    const std::string* filenamePtr = nullptr;
-    const std::string* timestampPtr = nullptr;
-    const std::string* logfilePtr = nullptr;
+    const std::string_view* filenamePtr = nullptr;
+    const std::string_view* timestampPtr = nullptr;
+    const std::string_view* logfilePtr = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), params, "Timestamp", timestampPtr,
@@ -1596,12 +1595,12 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 const uint32_t* id = nullptr;
                 const uint64_t* timestamp = nullptr;
                 const uint64_t* updateTimestamp = nullptr;
-                const std::string* severity = nullptr;
-                const std::string* message = nullptr;
-                const std::string* filePath = nullptr;
-                const std::string* resolution = nullptr;
+                const std::string_view* severity = nullptr;
+                const std::string_view* message = nullptr;
+                const std::string_view* filePath = nullptr;
+                const std::string_view* resolution = nullptr;
                 bool resolved = false;
-                const std::string* notify = nullptr;
+                const std::string_view* notify = nullptr;
 
                 for (const auto& interfaceMap : objectPath.second)
                 {
@@ -1626,17 +1625,17 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                             }
                             else if (propertyMap.first == "Severity")
                             {
-                                severity = std::get_if<std::string>(
+                                severity = std::get_if<std::string_view>(
                                     &propertyMap.second);
                             }
                             else if (propertyMap.first == "Resolution")
                             {
-                                resolution = std::get_if<std::string>(
+                                resolution = std::get_if<std::string_view>(
                                     &propertyMap.second);
                             }
                             else if (propertyMap.first == "Message")
                             {
-                                message = std::get_if<std::string>(
+                                message = std::get_if<std::string_view>(
                                     &propertyMap.second);
                             }
                             else if (propertyMap.first == "Resolved")
@@ -1653,7 +1652,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                             else if (propertyMap.first ==
                                      "ServiceProviderNotify")
                             {
-                                notify = std::get_if<std::string>(
+                                notify = std::get_if<std::string_view>(
                                     &propertyMap.second);
                                 if (notify == nullptr)
                                 {
@@ -1676,7 +1675,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         {
                             if (propertyMap.first == "Path")
                             {
-                                filePath = std::get_if<std::string>(
+                                filePath = std::get_if<std::string_view>(
                                     &propertyMap.second);
                             }
                         }
@@ -1789,12 +1788,12 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const uint32_t* id = nullptr;
             const uint64_t* timestamp = nullptr;
             const uint64_t* updateTimestamp = nullptr;
-            const std::string* severity = nullptr;
-            const std::string* message = nullptr;
-            const std::string* filePath = nullptr;
-            const std::string* resolution = nullptr;
+            const std::string_view* severity = nullptr;
+            const std::string_view* message = nullptr;
+            const std::string_view* filePath = nullptr;
+            const std::string_view* resolution = nullptr;
             bool resolved = false;
-            const std::string* notify = nullptr;
+            const std::string_view* notify = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
@@ -3419,9 +3418,7 @@ inline void requestRoutesCrashdumpFile(App& app)
         auto getStoredLogCallback =
             [asyncResp, logID, fileName, url(boost::urls::url(req.url()))](
                 const boost::system::error_code& ec,
-                const std::vector<
-                    std::pair<std::string, dbus::utility::DbusVariantType>>&
-                    resp) {
+                const dbus::utility::DBusPropertiesMap& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();

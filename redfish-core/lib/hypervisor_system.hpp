@@ -168,8 +168,9 @@ inline bool extractHypervisorInterfaceData(
                     {
                         if (propertyPair.first == "MACAddress")
                         {
-                            const std::string* mac =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* mac =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (mac != nullptr)
                             {
                                 ethData.macAddress = *mac;
@@ -184,8 +185,9 @@ inline bool extractHypervisorInterfaceData(
                     {
                         if (propertyPair.first == "DHCPEnabled")
                         {
-                            const std::string* dhcp =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* dhcp =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (dhcp != nullptr)
                             {
                                 ethData.dhcpEnabled = *dhcp;
@@ -223,8 +225,8 @@ inline bool extractHypervisorInterfaceData(
                     {
                         if (property.first == "Address")
                         {
-                            const std::string* address =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* address =
+                                std::get_if<std::string_view>(&property.second);
                             if (address != nullptr)
                             {
                                 ipv4Address.address = *address;
@@ -232,8 +234,8 @@ inline bool extractHypervisorInterfaceData(
                         }
                         else if (property.first == "Origin")
                         {
-                            const std::string* origin =
-                                std::get_if<std::string>(&property.second);
+                            const std::string_view* origin =
+                                std::get_if<std::string_view>(&property.second);
                             if (origin != nullptr)
                             {
                                 ipv4Address.origin =
@@ -277,8 +279,9 @@ inline bool extractHypervisorInterfaceData(
                     {
                         if (propertyPair.first == "HostName")
                         {
-                            const std::string* hostName =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* hostName =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (hostName != nullptr)
                             {
                                 ethData.hostName = *hostName;
@@ -286,8 +289,9 @@ inline bool extractHypervisorInterfaceData(
                         }
                         else if (propertyPair.first == "DefaultGateway")
                         {
-                            const std::string* defaultGateway =
-                                std::get_if<std::string>(&propertyPair.second);
+                            const std::string_view* defaultGateway =
+                                std::get_if<std::string_view>(
+                                    &propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
                                 ethData.defaultGateway = *defaultGateway;
