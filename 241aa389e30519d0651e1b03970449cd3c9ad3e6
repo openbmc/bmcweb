@@ -69,6 +69,24 @@
       "parentUuid": "ad60ca15_855b6897",
       "revId": "241aa389e30519d0651e1b03970449cd3c9ad3e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ac94ca_d0a1e669",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-07-12T16:23:06Z",
+      "side": 1,
+      "message": "Woops.. Thats right !!\n\nI was kind of looking for some functions provided by PAM to accomplish this... and i did not bump into any which was suiting the need.\n\n\nDid manage to find another alternative function to get user info, but that was lengthy and felt out of place...\n\nThats when I took the DBus route !\n\n\nBut realized that there are some PAM configurations that needs to be tweaked to get this functionality working and shouldn\u0027t be coded this way !\n\nAbandoning this patch",
+      "parentUuid": "af293f2c_4fdd1263",
+      "revId": "241aa389e30519d0651e1b03970449cd3c9ad3e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
