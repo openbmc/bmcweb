@@ -16,6 +16,24 @@
       "message": "Don\u0027t see this used. oh well.",
       "revId": "fef27b64924e20fa5129ee17146ccc564e5ac414",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36dd56c4_7cbe2d36",
+        "filename": "test/include/ossl_random.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-12T18:30:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de70cd4_ac1e26fe",
+      "revId": "fef27b64924e20fa5129ee17146ccc564e5ac414",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
