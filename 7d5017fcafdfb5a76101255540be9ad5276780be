@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca98cb29_dbf5cb36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-07-12T21:37:21Z",
+      "side": 1,
+      "message": "Seems okay to me.",
+      "revId": "7d5017fcafdfb5a76101255540be9ad5276780be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c30c4a_8957d9f9",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-07-12T21:37:21Z",
+      "side": 1,
+      "message": "Nice, thanks for putting this in there.",
+      "revId": "7d5017fcafdfb5a76101255540be9ad5276780be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
