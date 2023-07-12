@@ -455,6 +455,30 @@
       },
       "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d30b2fdd_7e8918cb",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-12T17:43:36Z",
+      "side": 1,
+      "message": "this involves more changes \u0026 byte order notations will change if we remove this big endian conversion. locks records have sections which we process which is readable \u0026 easy in big endian notations",
+      "parentUuid": "a0a6c4cd_a8124aec",
+      "range": {
+        "startLine": 597,
+        "startChar": 20,
+        "endLine": 597,
+        "endChar": 49
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
