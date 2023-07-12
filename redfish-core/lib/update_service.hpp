@@ -156,12 +156,12 @@ static void
 
                         if (iface == "xyz.openbmc_project.Software.Activation")
                         {
-                            const std::string* state = nullptr;
+                            const std::string_view* state = nullptr;
                             for (const auto& property : values)
                             {
                                 if (property.first == "Activation")
                                 {
-                                    state = std::get_if<std::string>(
+                                    state = std::get_if<std::string_view>(
                                         &property.second);
                                     if (state == nullptr)
                                     {
@@ -339,15 +339,15 @@ static void monitorForSoftwareAvailable(
             if (interface.first == "xyz.openbmc_project.Logging.Entry")
             {
                 for (const std::pair<std::string,
-                                     dbus::utility::DbusVariantType>& value :
-                     interface.second)
+                                     dbus::utility::DbusVariantReadType>&
+                         value : interface.second)
                 {
                     if (value.first != "Message")
                     {
                         continue;
                     }
-                    const std::string* type =
-                        std::get_if<std::string>(&value.second);
+                    const std::string_view* type =
+                        std::get_if<std::string_view>(&value.second);
                     if (type == nullptr)
                     {
                         // if this was our message, timeout will cover it
@@ -868,7 +868,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
     getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                    const std::string& purpose)
+                    std::string_view purpose)
 {
     if (purpose == sw_util::bmcPurpose)
     {
@@ -911,8 +911,8 @@ inline void
             return;
         }
 
-        const std::string* swInvPurpose = nullptr;
-        const std::string* version = nullptr;
+        const std::string_view* swInvPurpose = nullptr;
+        const std::string_view* version = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "Purpose",
@@ -960,7 +960,7 @@ inline void
             return;
         }
 
-        std::string formatDesc = swInvPurpose->substr(endDesc);
+        std::string formatDesc(swInvPurpose->substr(endDesc));
         asyncResp->res.jsonValue["Description"] = formatDesc + " image";
         getRelatedItems(asyncResp, *swInvPurpose);
         });

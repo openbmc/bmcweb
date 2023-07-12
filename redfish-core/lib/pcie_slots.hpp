@@ -47,9 +47,9 @@ inline void
 
     nlohmann::json::object_t slot;
 
-    const std::string* generation = nullptr;
+    const std::string_view* generation = nullptr;
     const size_t* lanes = nullptr;
-    const std::string* slotType = nullptr;
+    const std::string_view* slotType = nullptr;
     const bool* hotPluggable = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(

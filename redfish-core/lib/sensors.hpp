@@ -317,7 +317,7 @@ enum class LedState
 class InventoryItem
 {
   public:
-    explicit InventoryItem(const std::string& objPath) : objectPath(objPath)
+    explicit InventoryItem(std::string_view objPath) : objectPath(objPath)
     {
         // Set inventory item name to last node of object path
         sdbusplus::message::object_path path(objectPath);
@@ -1041,8 +1041,8 @@ inline void populateFanRedundancy(
                     }
 
                     const uint8_t* allowedFailures = nullptr;
-                    const std::vector<std::string>* collection = nullptr;
-                    const std::string* status = nullptr;
+                    const std::vector<std::string_view>* collection = nullptr;
+                    const std::string_view* status = nullptr;
 
                     const bool success = sdbusplus::unpackPropertiesNoThrow(
                         dbus_utils::UnpackErrorPrinter(), ret,
@@ -1093,9 +1093,10 @@ inline void populateFanRedundancy(
                     nlohmann::json::array_t redfishCollection;
                     const auto& fanRedfish =
                         sensorsAsyncResp->asyncResp->res.jsonValue["Fans"];
-                    for (const std::string& item : *collection)
+                    for (std::string_view item : *collection)
                     {
-                        sdbusplus::message::object_path itemPath(item);
+                        std::string itemStr(item);
+                        sdbusplus::message::object_path itemPath(itemStr);
                         std::string itemName = itemPath.filename();
                         if (itemName.empty())
                         {
@@ -1206,7 +1207,7 @@ inline void
  */
 inline InventoryItem* findInventoryItem(
     const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
-    const std::string& invItemObjPath)
+    std::string_view invItemObjPath)
 {
     for (InventoryItem& inventoryItem : *inventoryItems)
     {
@@ -1274,7 +1275,7 @@ inline InventoryItem*
  */
 inline void addInventoryItem(
     const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
-    const std::string& invItemObjPath, const std::string& sensorObjPath)
+    std::string_view invItemObjPath, const std::string& sensorObjPath)
 {
     // Look for inventory item in vector
     InventoryItem* inventoryItem = findInventoryItem(inventoryItems,
@@ -1340,8 +1341,8 @@ inline void storeInventoryItemData(
             {
                 if (name == "Manufacturer")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.manufacturer = *value;
@@ -1349,8 +1350,8 @@ inline void storeInventoryItemData(
                 }
                 if (name == "Model")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.model = *value;
@@ -1358,8 +1359,8 @@ inline void storeInventoryItemData(
                 }
                 if (name == "SerialNumber")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.serialNumber = *value;
@@ -1367,8 +1368,8 @@ inline void storeInventoryItemData(
                 }
                 if (name == "PartNumber")
                 {
-                    const std::string* value =
-                        std::get_if<std::string>(&dbusValue);
+                    const std::string_view* value =
+                        std::get_if<std::string_view>(&dbusValue);
                     if (value != nullptr)
                     {
                         inventoryItem.partNumber = *value;
@@ -1646,14 +1647,15 @@ static void getInventoryItemAssociations(
                             {
                                 if (valueName == "endpoints")
                                 {
-                                    const std::vector<std::string>* endpoints =
-                                        std::get_if<std::vector<std::string>>(
+                                    const std::vector<std::string_view>*
+                                        endpoints = std::get_if<
+                                            std::vector<std::string_view>>(
                                             &value);
                                     if ((endpoints != nullptr) &&
                                         !endpoints->empty())
                                     {
                                         // Add inventory item to vector
-                                        const std::string& invItemPath =
+                                        const std::string_view invItemPath =
                                             endpoints->front();
                                         addInventoryItem(inventoryItems,
                                                          invItemPath,
@@ -1691,15 +1693,16 @@ static void getInventoryItemAssociations(
                             {
                                 if (valueName == "endpoints")
                                 {
-                                    const std::vector<std::string>* endpoints =
-                                        std::get_if<std::vector<std::string>>(
+                                    const std::vector<std::string_view>*
+                                        endpoints = std::get_if<
+                                            std::vector<std::string_view>>(
                                             &value);
                                     if ((endpoints != nullptr) &&
                                         !endpoints->empty())
                                     {
                                         // Add inventory item to vector
                                         // Store LED path in inventory item
-                                        const std::string& ledPath =
+                                        const std::string_view ledPath =
                                             endpoints->front();
                                         inventoryItem.ledObjectPath = ledPath;
                                     }

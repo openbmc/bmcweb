@@ -39,7 +39,7 @@
 namespace redfish
 {
 
-inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
+inline std::string translateMemoryTypeToRedfish(std::string_view memoryType)
 {
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR")
     {
@@ -188,8 +188,8 @@ inline void getPersistentMemoryProperties(
     const bool* isRankSpareEnabled = nullptr;
     const std::vector<uint32_t>* maxAveragePowerLimitmW = nullptr;
     const bool* configurationLocked = nullptr;
-    const std::string* allowedMemoryModes = nullptr;
-    const std::string* memoryMedia = nullptr;
+    const std::string_view* allowedMemoryModes = nullptr;
+    const std::string_view* memoryMedia = nullptr;
     const bool* configurationLockCapable = nullptr;
     const bool* dataLockCapable = nullptr;
     const bool* passphraseCapable = nullptr;
@@ -405,25 +405,25 @@ inline void
 
     const uint16_t* memoryDataWidth = nullptr;
     const size_t* memorySizeInKB = nullptr;
-    const std::string* partNumber = nullptr;
-    const std::string* serialNumber = nullptr;
-    const std::string* manufacturer = nullptr;
+    const std::string_view* partNumber = nullptr;
+    const std::string_view* serialNumber = nullptr;
+    const std::string_view* manufacturer = nullptr;
     const uint16_t* revisionCode = nullptr;
     const bool* present = nullptr;
     const uint16_t* memoryTotalWidth = nullptr;
-    const std::string* ecc = nullptr;
-    const std::string* formFactor = nullptr;
+    const std::string_view* ecc = nullptr;
+    const std::string_view* formFactor = nullptr;
     const std::vector<uint16_t>* allowedSpeedsMT = nullptr;
     const size_t* memoryAttributes = nullptr;
     const uint16_t* memoryConfiguredSpeedInMhz = nullptr;
-    const std::string* memoryType = nullptr;
+    const std::string_view* memoryType = nullptr;
     const std::uint8_t* channel = nullptr;
     const std::uint8_t* memoryController = nullptr;
     const std::uint8_t* slot = nullptr;
     const std::uint8_t* socket = nullptr;
-    const std::string* sparePartNumber = nullptr;
-    const std::string* model = nullptr;
-    const std::string* locationCode = nullptr;
+    const std::string_view* sparePartNumber = nullptr;
+    const std::string_view* model = nullptr;
+    const std::string_view* locationCode = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "MemoryDataWidth",
@@ -635,9 +635,9 @@ inline void assembleDimmPartitionData(
     const dbus::utility::DBusPropertiesMap& properties,
     const nlohmann::json::json_pointer& regionPtr)
 {
-    const std::string* memoryClassification = nullptr;
+    const std::string_view* memoryClassification = nullptr;
     const uint64_t* offsetInKiB = nullptr;
-    const std::string* partitionId = nullptr;
+    const std::string_view* partitionId = nullptr;
     const bool* passphraseState = nullptr;
     const uint64_t* sizeInKiB = nullptr;
 

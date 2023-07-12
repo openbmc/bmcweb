@@ -61,8 +61,8 @@ struct UserRoleMap
             {
                 if (property.first == "UserPrivilege")
                 {
-                    const std::string* role =
-                        std::get_if<std::string>(&property.second);
+                    const std::string_view* role =
+                        std::get_if<std::string_view>(&property.second);
                     if (role != nullptr)
                     {
                         fields.userRole = *role;
@@ -70,11 +70,13 @@ struct UserRoleMap
                 }
                 else if (property.first == "UserGroups")
                 {
-                    const std::vector<std::string>* groups =
-                        std::get_if<std::vector<std::string>>(&property.second);
+                    const std::vector<std::string_view>* groups =
+                        std::get_if<std::vector<std::string_view>>(
+                            &property.second);
                     if (groups != nullptr)
                     {
-                        fields.userGroups = *groups;
+                        fields.userGroups = std::vector<std::string>(
+                            groups->begin(), groups->end());
                     }
                 }
                 else if (property.first == "UserPasswordExpired")
