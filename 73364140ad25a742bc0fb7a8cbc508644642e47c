@@ -142,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bbcd89a_51c461bf",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-12T03:10:26Z",
+      "side": 1,
+      "message": "as long as single io_context has been used, it works fine. Later if we decide to improve parallelism either by creating threads and io_context per client or by spawning some worker thread that uses userRoleMap map, then it is bound to fail. If we are not anticipating those changes I have no other concerns.",
+      "parentUuid": "65acb917_a434b90c",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ba32c0e_be7169f3",
@@ -191,6 +209,24 @@
       "side": 1,
       "message": "@Abhilash Does that make sense to you?",
       "parentUuid": "46a6db43_65757d82",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef7b1e5_c5403a91",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-12T03:10:26Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "c0bb972f_2a5290cc",
       "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
