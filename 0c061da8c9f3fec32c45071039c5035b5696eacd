@@ -201,6 +201,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d4c90a_295e59f4",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-12T17:29:22Z",
+      "side": 1,
+      "message": "pPosition \u003d  static_cast\u003cuint8_t\u003e( 0xFF \u0026\u0026 (resourceId1 \u003e\u003e (8 * position)));",
+      "parentUuid": "bb66bf10_f7d63bcb",
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f219aca_ece2e520",
@@ -285,6 +303,30 @@
       "writtenOn": "2023-07-11T17:49:26Z",
       "side": 1,
       "message": "Given that this function is now operating bytewise, I don\u0027t think an endian swap is neccesary?",
+      "range": {
+        "startLine": 597,
+        "startChar": 20,
+        "endLine": 597,
+        "endChar": 49
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5fc157_1ead561e",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-12T17:29:22Z",
+      "side": 1,
+      "message": "it is not necessary, but we are following big endian notations in this code while processing lock record sections which is easily understandable.",
+      "parentUuid": "09c93edd_c5d0774e",
       "range": {
         "startLine": 597,
         "startChar": 20,
