@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1470b7_22c258eb",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-12T03:11:37Z",
+      "side": 1,
+      "message": "Any effort to multithread bmcweb will need to take a holistic look at everywhere we have this singleton pattern, not just this one spot.\n\nThank you for your review.",
+      "parentUuid": "3bbcd89a_51c461bf",
+      "revId": "73364140ad25a742bc0fb7a8cbc508644642e47c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ba32c0e_be7169f3",
