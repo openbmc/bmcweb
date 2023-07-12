@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14665518_ec712225",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-12T17:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa208d4_e51156ca",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "853392e2_571f35a7",
@@ -399,6 +423,30 @@
       "side": 1,
       "message": "Please remove.  There\u0027s no need to do endian conversion if we\u0027re operating on this as a series of bytes.",
       "parentUuid": "2a5fc157_1ead561e",
+      "range": {
+        "startLine": 597,
+        "startChar": 20,
+        "endLine": 597,
+        "endChar": 49
+      },
+      "revId": "0c061da8c9f3fec32c45071039c5035b5696eacd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "475dba1d_5c0eff9a",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-12T17:43:32Z",
+      "side": 1,
+      "message": "Doesn\u0027t look done, but it\u0027s not worth arguing about.  Thanks for making the other changes.",
+      "parentUuid": "a0a6c4cd_a8124aec",
       "range": {
         "startLine": 597,
         "startChar": 20,

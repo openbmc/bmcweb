@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46e47204_77531115",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-12T17:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3ef9cc8_24fded7e",
+      "range": {
+        "startLine": 520,
+        "startChar": 20,
+        "endLine": 520,
+        "endChar": 45
+      },
+      "revId": "12802d3984b044a8d56f46feb0dd797f0f37b760",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b1d6e3e_00ee73c3",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-12T17:33:17Z",
       "side": 1,
       "message": "this can now never be false, because of the check on line 520.",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 527,
+        "endChar": 45
+      },
+      "revId": "12802d3984b044a8d56f46feb0dd797f0f37b760",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0707e12_9a581f88",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-12T17:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b1d6e3e_00ee73c3",
       "range": {
         "startLine": 527,
         "startChar": 0,
