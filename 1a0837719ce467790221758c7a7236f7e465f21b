@@ -16,6 +16,24 @@
       "message": "#include \u003cboost/asio/ip/tcp.hpp\u003e ?",
       "revId": "1a0837719ce467790221758c7a7236f7e465f21b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c6bc14_c004ff1c",
+        "filename": "test/include/async_resolve_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-13T21:22:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a4c649_662f5207",
+      "revId": "1a0837719ce467790221758c7a7236f7e465f21b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
