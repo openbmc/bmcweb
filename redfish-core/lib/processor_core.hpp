@@ -112,10 +112,100 @@ inline void handleSubProcessorCoreHead(
                         coreId));
 }
 
+inline void doGetSubProcessorCoreHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool functional)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error, ec: {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!functional)
+    {
+        asyncResp->res.jsonValue["Status"]["Health"] =
+            resource::Health::Critical;
+    }
+}
+
+inline void getSubProcessorCoreHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& objPath)
+{
+    dbus::utility::getProperty<bool>(
+        service, objPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        std::bind_front(doGetSubProcessorCoreHealth, asyncResp));
+}
+
+inline void afterGetSubProcessorCorePresent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool present)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Present {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!present)
+    {
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Absent;
+        return;
+    }
+}
+
+inline void afterGetSubProcessorCoreAvailable(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& corePath,
+    const boost::system::error_code& ec, bool available)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error, ec: {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!available)
+    {
+        asyncResp->res.jsonValue["Status"]["State"] =
+            resource::State::UnavailableOffline;
+    }
+
+    dbus::utility::getProperty<bool>(
+        service, corePath, "xyz.openbmc_project.Inventory.Item", "Present",
+        std::bind_front(afterGetSubProcessorCorePresent, asyncResp));
+}
+
+inline void getSubProcessorCoreState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& corePath)
+{
+    dbus::utility::getProperty<bool>(
+        service, corePath, "xyz.openbmc_project.State.Decorator.Availability",
+        "Available",
+        std::bind_front(afterGetSubProcessorCoreAvailable, asyncResp, service,
+                        corePath));
+}
+
 inline void getSubProcessorCoreData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& processorId,
-    const std::string& coreId)
+    const std::string& coreId, const std::string& corePath,
+    const dbus::utility::MapperServiceMap& object)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -126,6 +216,15 @@ inline void getSubProcessorCoreData(
         processorId, coreId);
     asyncResp->res.jsonValue["Name"] = "SubProcessor";
     asyncResp->res.jsonValue["Id"] = coreId;
+
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+
+    for (const auto& [service, interfaces] : object)
+    {
+        getSubProcessorCoreState(asyncResp, service, corePath);
+        getSubProcessorCoreHealth(asyncResp, service, corePath);
+    }
 }
 
 inline void doHandleSubProcessorCoreGet(
@@ -158,7 +257,9 @@ inline void doHandleSubProcessorCoreGet(
         messages::resourceNotFound(asyncResp->res, "Processor", coreId);
         return;
     }
-    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId);
+    const auto& [corePath, object] = *it;
+    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId,
+                            corePath, object);
 }
 
 inline void handleSubProcessorCoreGet(

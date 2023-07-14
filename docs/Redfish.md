@@ -1182,6 +1182,7 @@ functions the same like the default implementation under the System resource.
 - @odata.type
 - Id
 - Name
+- Status
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
