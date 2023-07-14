@@ -9,7 +9,6 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/processor.hpp"
-#include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "query.hpp"
@@ -17,6 +16,7 @@
 #include "utils/collection.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/processor_utils.hpp"
+#include "utils/resource_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -60,11 +60,11 @@ inline void doHandleSubProcessorCoreHead(
         return;
     }
 
-    const auto& it =
-        std::ranges::find_if(coreSubTree, [coreId](const auto& coreMap) {
+    const auto& coreIt =
+        std::ranges::find_if(coreSubTree, [&coreId](const auto& coreMap) {
             return sdbusplus::object_path(coreMap.first).filename() == coreId;
         });
-    if (it == coreSubTree.end())
+    if (coreIt == coreSubTree.end())
     {
         BMCWEB_LOG_WARNING("Core {} not found.", coreId);
         messages::resourceNotFound(asyncResp->res, "Processor", coreId);
@@ -110,7 +110,8 @@ inline void handleSubProcessorCoreHead(
 inline void getSubProcessorCoreData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& processorId,
-    const std::string& coreId)
+    const std::string& coreId, const std::string& corePath,
+    const dbus::utility::MapperServiceMap& object)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -122,6 +123,10 @@ inline void getSubProcessorCoreData(
     asyncResp->res.jsonValue["Name"] = "SubProcessor";
     asyncResp->res.jsonValue["Id"] = coreId;
     asyncResp->res.jsonValue["ProcessorType"] = processor::ProcessorType::Core;
+    resource_utils::getResourceState(asyncResp, object, corePath,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, object, corePath,
+                                      ""_json_pointer);
 }
 
 inline void doHandleSubProcessorCoreGet(
@@ -144,17 +149,19 @@ inline void doHandleSubProcessorCoreGet(
         return;
     }
 
-    const auto& it =
-        std::ranges::find_if(coreSubTree, [coreId](const auto& coreMap) {
+    const auto& coreIt =
+        std::ranges::find_if(coreSubTree, [&coreId](const auto& coreMap) {
             return sdbusplus::object_path(coreMap.first).filename() == coreId;
         });
-    if (it == coreSubTree.end())
+    if (coreIt == coreSubTree.end())
     {
         BMCWEB_LOG_WARNING("Core {} not found.", coreId);
         messages::resourceNotFound(asyncResp->res, "Processor", coreId);
         return;
     }
-    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId);
+    const auto& [corePath, object] = *coreIt;
+    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId,
+                            corePath, object);
 }
 
 inline void handleSubProcessorCoreGet(
