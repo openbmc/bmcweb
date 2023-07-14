@@ -99,6 +99,34 @@ inline void
                                                    asyncResp, collectionPath,
                                                    jsonKeyName));
 }
+
+/**
+ * @brief Populate the collection "Members" from the Associations endpoint path
+ *
+ * @param[in, out] asyncResp  Async response object
+ * @param[in]      collectionPath  Redfish collection path which is used for the
+ *                                 Members Redfish Path
+ * @param[in]      interfaces  List of interfaces to constrain the associated
+ *                             members
+ * @param[in]      associationEndPointPath  Path that points to the association
+ *                                          end point
+ * @param[in]      path  Base path to search for the subtree
+ *
+ * @return void
+ */
+inline void
+    getAssociatedCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                                   const boost::urls::url& collectionPath,
+                                   std::span<const std::string_view> interfaces,
+                                   const std::string& associationEndPointPath,
+                                   const sdbusplus::message::object_path& path)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        associationEndPointPath, path, 0, interfaces,
+        std::bind_front(handleCollectionMembers, asyncResp, collectionPath,
+                        nlohmann::json::json_pointer("/Members")));
+}
+
 inline void
     getCollectionMembers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::urls::url& collectionPath,
