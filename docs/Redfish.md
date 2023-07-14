@@ -1189,6 +1189,7 @@ functions the same like the default implementation under the System resource.
 - Id
 - Name
 - ProcessorType
+- Status
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 

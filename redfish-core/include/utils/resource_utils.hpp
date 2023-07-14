@@ -124,6 +124,37 @@ inline void getResourceState(
                         jsonPtr));
 }
 
+/*
+ * @brief Retrieves the status.state of the first service that implements
+ * Inventory.Item or State.Decorator.Availability. If no service implements
+ * these interfaces, it will default to Status.State Enabled
+ *
+ * @param[in] asyncResp AsyncResp object to update
+ * @param[in] services Map of services to interfaces
+ * @param[in] path D-Bus object path
+ * @param[in] jsonPtr JSON pointer to where the parent JSON object is
+ */
+inline void getResourceState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperServiceMap& services, const std::string& path,
+    const nlohmann::json::json_pointer& jsonPtr)
+{
+    for (const auto& [serviceName, interfaces] : services)
+    {
+        for (const auto& interface : interfaces)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item" ||
+                interface == "xyz.openbmc_project.State.Decorator.Availability")
+            {
+                getResourceState(asyncResp, serviceName, path, jsonPtr);
+                return;
+            }
+        }
+    }
+    asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
+        resource::State::Enabled;
+}
+
 inline void afterGetResourceHealth(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const nlohmann::json::json_pointer& jsonPtr,
@@ -159,6 +190,37 @@ inline void getResourceHealth(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         std::bind_front(afterGetResourceHealth, asyncResp, jsonPtr));
+}
+
+/*
+ * @brief Retrieves the status.health of the first service that implements
+ * State.Decorator.OperationalStatus. If no service implements the interface,
+ * it will default to Status.Health OK
+ *
+ * @param[in] asyncResp AsyncResp object to update
+ * @param[in] services Map of services to interfaces
+ * @param[in] path D-Bus object path
+ * @param[in] jsonPtr JSON pointer to where the parent JSON object is
+ */
+inline void getResourceHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperServiceMap& services, const std::string& path,
+    const nlohmann::json::json_pointer& jsonPtr)
+{
+    for (const auto& [serviceName, interfaces] : services)
+    {
+        for (const auto& interface : interfaces)
+        {
+            if (interface ==
+                "xyz.openbmc_project.State.Decorator.OperationalStatus")
+            {
+                getResourceHealth(asyncResp, serviceName, path, jsonPtr);
+                return;
+            }
+        }
+    }
+    asyncResp->res.jsonValue[jsonPtr]["Status"]["Health"] =
+        resource::Health::OK;
 }
 
 } // namespace resource_utils
