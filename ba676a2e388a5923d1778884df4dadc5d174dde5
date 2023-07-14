@@ -52,6 +52,24 @@
       "parentUuid": "eb29203d_161c5764",
       "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8e55bd_71796edf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-14T15:32:20Z",
+      "side": 1,
+      "message": "\u003e can you tell reason behind that?\n\nBecause there\u0027s no collection where we support PUT today.  Lets start by getting the normal verbs supported (PATCH, DELETE, POST) and we can circle back around to why PUT needs to be supported differently (ideally with a description in the commit message for why).\n\nFunctionally PUT is just a slightly modified version of PATCH (where parameters are required instead of optional), so it\u0027s not clear why we would need an explicit PUT handler, and there\u0027s no documentation about what it does differently.\n\n\u003e I am not sure what you mean \n\nThe finalizer class was removed, because it\u0027s a pattern that we\u0027re trying to get rid of (executing things in destructors), and I don\u0027t want to go backwards.  This likely means the patchset no longer meets its intended funciton.",
+      "parentUuid": "833b7da1_3619dc0c",
+      "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
