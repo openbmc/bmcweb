@@ -1174,6 +1174,16 @@ functions the same like the default implementation under the System resource.
 - Members
 - `Members@odata.count`
 
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors/{CoreId}/
+
+#### Processor
+
+- @odata.id
+- @odata.type
+- Id
+- Name
+- ProcessorType
+
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
 #### ActionInfo
