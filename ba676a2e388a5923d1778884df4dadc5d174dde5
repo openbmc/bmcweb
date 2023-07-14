@@ -34,6 +34,24 @@
       "parentUuid": "d79af448_058eebfd",
       "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "833b7da1_3619dc0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-14T13:26:33Z",
+      "side": 1,
+      "message": "Ed, could you please do quick follow up on \"As written, this patchset doesn\u0027t work\"? I am not sure what you mean and can\u0027t find the exact info in history (it\u0027s quite huge now).\nAbout your proposition - it\u0027s something we can do, that is after we fix your recent code-reviews on next one. But there\u0027s also question about PUT method - I see that you reverted it, can you tell reason behind that?",
+      "parentUuid": "eb29203d_161c5764",
+      "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
