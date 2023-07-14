@@ -17,6 +17,7 @@
 #include "utils/collection.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/processor_utils.hpp"
+#include "utils/resource_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -110,7 +111,8 @@ inline void handleSubProcessorCoreHead(
 inline void getSubProcessorCoreData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& processorId,
-    const std::string& coreId)
+    const std::string& coreId, const std::string& corePath,
+    const dbus::utility::MapperServiceMap& object)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -122,6 +124,14 @@ inline void getSubProcessorCoreData(
     asyncResp->res.jsonValue["Name"] = "SubProcessor";
     asyncResp->res.jsonValue["Id"] = coreId;
     asyncResp->res.jsonValue["ProcessorType"] = processor::ProcessorType::Core;
+
+    for (const auto& [service, interfaces] : object)
+    {
+        resource_utils::getResourceState(asyncResp, service, corePath,
+                                         ""_json_pointer);
+        resource_utils::getResourceHealth(asyncResp, service, corePath,
+                                          ""_json_pointer);
+    }
 }
 
 inline void doHandleSubProcessorCoreGet(
@@ -154,7 +164,9 @@ inline void doHandleSubProcessorCoreGet(
         messages::resourceNotFound(asyncResp->res, "Processor", coreId);
         return;
     }
-    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId);
+    const auto& [corePath, object] = *it;
+    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId,
+                            corePath, object);
 }
 
 inline void handleSubProcessorCoreGet(
