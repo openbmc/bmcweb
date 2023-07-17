@@ -51,6 +51,16 @@ class Connection :
     using self_type = Connection<Adaptor, Handler>;
 
   public:
+    using string_body_serailizer = boost::beast::http::response_serializer<
+        boost::beast::http::string_body>;
+    using file_body_serailizer =
+        boost::beast::http::response_serializer<boost::beast::http::file_body>;
+    using buffer_body_serailizer = boost::beast::http::response_serializer<
+        boost::beast::http::buffer_body>;
+
+    using variant_serializer =
+        std::variant<string_body_serailizer, file_body_serailizer,
+                     buffer_body_serailizer>;
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor adaptorIn) :
@@ -332,7 +342,54 @@ class Connection :
             adaptor.close();
         }
     }
+    void updateBody(Response& resp,
+                    Response::string_body_response_type& /*unused*/)
+    {
+        if (resp.body().empty() && !resp.jsonValue.empty())
+        {
+            using http_helpers::ContentType;
+            std::array<ContentType, 2> allowed{ContentType::JSON,
+                                               ContentType::HTML};
+            ContentType prefered =
+                getPreferedContentType(req->getHeaderValue("Accept"), allowed);
 
+            if (prefered == ContentType::HTML)
+            {
+                prettyPrintJson(resp);
+            }
+            else
+            {
+                // Technically prefered could also be NoMatch here, but we'd
+                // like to default to something rather than return 400 for
+                // backward compatibility.
+                resp.addHeader(boost::beast::http::field::content_type,
+                               "application/json");
+                resp.body() = resp.jsonValue.dump(
+                    2, ' ', true, nlohmann::json::error_handler_t::replace);
+            }
+        }
+
+        if (resp.resultInt() >= 400 && resp.body().empty())
+        {
+            resp.body() = std::string(resp.reason());
+        }
+
+        if (resp.result() == boost::beast::http::status::no_content)
+        {
+            // Boost beast throws if content is provided on a no-content
+            // response.  Ideally, this would never happen, but in the case that
+            // it does, we don't want to throw.
+            BMCWEB_LOG_CRITICAL
+                << this << " Response content provided but code was no-content";
+            resp.body().clear();
+        }
+    }
+    void updateBody(Response& /*unused*/,
+                    Response::file_body_response_type& /*unused*/)
+    {}
+    void updateBody(Response& /*unused*/,
+                    Response::buffer_body_response_type& /*unused*/)
+    {}
     void completeRequest(crow::Response& thisRes)
     {
         if (!req)
@@ -513,13 +570,12 @@ class Connection :
             });
     }
 
-    void doWrite(crow::Response& thisRes)
+    void doWriteImpl(auto& ser)
     {
         BMCWEB_LOG_DEBUG << this << " doWrite";
-        thisRes.preparePayload();
-        serializer.emplace(*thisRes.stringResponse);
+
         startDeadline();
-        boost::beast::http::async_write(adaptor, *serializer,
+        boost::beast::http::async_write(adaptor, ser,
                                         [this, self(shared_from_this())](
                                             const boost::system::error_code& ec,
                                             std::size_t bytesTransferred) {
@@ -533,7 +589,7 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " from write(2)";
                 return;
             }
-            if (!keepAlive)
+            if (!res.keepAlive())
             {
                 close();
                 BMCWEB_LOG_DEBUG << this << " from write(1)";
@@ -554,6 +610,18 @@ class Connection :
             req.reset();
             doReadHeaders();
         });
+    }
+    void doWrite(crow::Response& thisRes)
+    {
+        std::visit(
+            [this, &thisRes](auto&& r) {
+            updateBody(thisRes, r);
+            r.prepare_payload();
+            serializer.emplace(makeSerializer(r));
+            },
+            thisRes.genericResponse.value());
+        std::visit([this](auto&& ser) { doWriteImpl(ser); },
+                   serializer.value());
     }
 
     void cancelDeadlineTimer()
@@ -615,9 +683,19 @@ class Connection :
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    std::optional<boost::beast::http::response_serializer<
-        boost::beast::http::string_body>>
-        serializer;
+    std::optional<variant_serializer> serializer;
+    auto makeSerializer(Response::string_body_response_type& resp)
+    {
+        return string_body_serailizer{resp};
+    }
+    auto makeSerializer(Response::file_body_response_type& resp)
+    {
+        return file_body_serailizer{resp};
+    }
+    auto makeSerializer(Response::buffer_body_response_type& resp)
+    {
+        return buffer_body_serailizer{resp};
+    }
 
     std::optional<crow::Request> req;
     crow::Response res;
