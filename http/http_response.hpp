@@ -159,7 +159,7 @@ struct Response
     {
         return completed;
     }
-
+    
     const std::string* body()
     {
         string_response* body =
