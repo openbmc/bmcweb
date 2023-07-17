@@ -404,7 +404,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         // Copy the response into a Response object so that it can be
         // processed by the callback function.
-        res.stringResponse = parser->release();
+        res.genericResponse = parser->release();
         callback(parser->keep_alive(), connId, res);
         res.clear();
     }
