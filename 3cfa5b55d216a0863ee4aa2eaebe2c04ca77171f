@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5d52dd2_a86492c2",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-17T19:54:49Z",
+      "side": 1,
+      "message": "I don\u0027t see this interface out here \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Connector.interface.yaml\n\nWhat am I missing ?",
+      "revId": "3cfa5b55d216a0863ee4aa2eaebe2c04ca77171f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "221f497c_908ab6c4",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 35
