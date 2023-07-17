@@ -262,7 +262,10 @@ struct Response
             str->body() += bodyPart;
             return;
         }
-        response.emplace<string_response>(result(), 11, std::move(bodyPart));
+        http::header<false> headTemp = std::move(fields());
+        string_response& stringResponse =
+            response.emplace<string_response>(std::move(headTemp));
+        stringResponse.body() = std::move(bodyPart);
     }
 
     void end()
