@@ -577,7 +577,6 @@ class Connection :
                                   std::bind_front(&self_type::afterDoWrite,
                                                   this, shared_from_this()));
     }
-
     void cancelDeadlineTimer()
     {
         timer.cancel();
