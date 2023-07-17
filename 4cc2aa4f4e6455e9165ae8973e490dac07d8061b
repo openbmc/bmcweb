@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6ff198_b6452b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-17T15:28:25Z",
+      "side": 1,
+      "message": "While I\u0027m happy that you\u0027re excited about the project, you already have a major core feature in review.  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63609\n\nPlease finish with that before starting on another major core feature.  If you plan to abandon 63609, please comment that on that review, and abandon it appropriately.",
+      "revId": "4cc2aa4f4e6455e9165ae8973e490dac07d8061b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
