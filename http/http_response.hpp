@@ -2,6 +2,9 @@
 #include "logging.hpp"
 #include "utils/hex_utils.hpp"
 
+#include <boost/beast/http/basic_dynamic_body.hpp>
+#include <boost/beast/http/buffer_body.hpp>
+#include <boost/beast/http/file_body.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <nlohmann/json.hpp>
@@ -16,36 +19,50 @@ namespace crow
 template <typename Adaptor, typename Handler>
 class Connection;
 
+inline void safeMove(auto callable)
+{
+    try
+    {
+        callable();
+    }
+    catch (std::bad_variant_access& /*unused*/)
+    {}
+}
+
 struct Response
 {
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
-    using response_type =
+    using string_body_response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
+    using file_body_response_type =
+        boost::beast::http::response<boost::beast::http::file_body>;
 
-    std::optional<response_type> stringResponse;
+    using response_type =
+        std::variant<string_body_response_type, file_body_response_type>;
+
+    std::optional<response_type> genericResponse;
 
     nlohmann::json jsonValue;
 
-    void addHeader(std::string_view key, std::string_view value)
+    void addHeader(const std::string_view key, const std::string_view value)
     {
-        stringResponse->insert(key, value);
+        fields().insert(key, value);
     }
 
     void addHeader(boost::beast::http::field key, std::string_view value)
     {
-        stringResponse->insert(key, value);
+        fields().insert(key, value);
     }
-
     void clearHeader(boost::beast::http::field key)
     {
-        stringResponse->erase(key);
+        fields().erase(key);
     }
 
-    Response() : stringResponse(response_type{}) {}
+    Response() : genericResponse(string_body_response_type{}) {}
 
     Response(Response&& res) noexcept :
-        stringResponse(std::move(res.stringResponse)),
+        genericResponse(std::move(res.genericResponse)),
         jsonValue(std::move(res.jsonValue)), completed(res.completed)
     {
         // See note in operator= move handler for why this is needed.
@@ -72,8 +89,10 @@ struct Response
         {
             return *this;
         }
-        stringResponse = std::move(r.stringResponse);
-        r.stringResponse.emplace(response_type{});
+        safeMove(
+            [this, &r]() { genericResponse = std::move(r.genericResponse); });
+
+        r.genericResponse.emplace(response_type{});
         jsonValue = std::move(r.jsonValue);
 
         // Only need to move completion handler if not already completed
@@ -98,59 +117,186 @@ struct Response
 
     void result(unsigned v)
     {
-        stringResponse->result(v);
+        string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->result(v);
+        }
+
+        file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->result(v);
     }
 
     void result(boost::beast::http::status v)
     {
-        stringResponse->result(v);
+        string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->result(v);
+        }
+
+        file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->result(v);
     }
 
     boost::beast::http::status result() const
     {
-        return stringResponse->result();
+        const string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->result();
+        }
+        const file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->result();
     }
 
     unsigned resultInt() const
     {
-        return stringResponse->result_int();
+        const string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->result_int();
+        }
+        const file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->result_int();
     }
 
     std::string_view reason() const
     {
-        return stringResponse->reason();
+        const string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->reason();
+        }
+        const file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->reason();
     }
 
     bool isCompleted() const noexcept
     {
         return completed;
     }
+    boost::beast::http::header<false, boost::beast::http::fields>& fields()
+    {
+        string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->base();
+        }
 
+        file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->base();
+    }
+    const boost::beast::http::header<false, boost::beast::http::fields>&
+        fields() const
+    {
+        const string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->base();
+        }
+
+        const file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->base();
+    }
+    template <typename NewResponseType>
+    void updateResponseIfNeeded()
+    {
+        if (!std::holds_alternative<NewResponseType>(genericResponse.value()))
+        {
+            *genericResponse = NewResponseType(std::move(fields()));
+        }
+    }
     std::string& body()
     {
-        return stringResponse->body();
+        updateResponseIfNeeded<string_body_response_type>();
+        return std::get<string_body_response_type>(*genericResponse).body();
+    }
+
+    bool openFile(const std::filesystem::path& path)
+    {
+        boost::beast::http::file_body::value_type file;
+        boost::beast::error_code ec;
+        file.open(path.c_str(), boost::beast::file_mode::scan, ec);
+        if (ec)
+        {
+            return false;
+        }
+        updateResponseIfNeeded<file_body_response_type>();
+        std::get<file_body_response_type>(*genericResponse).body() =
+            std::move(file);
+        return true;
+
+        // file_body_response_type& resp =
+        //     genericResponse.value().emplace<file_body_response_type>(
+        //         std::move(fields()));
+        // resp.body() = std::move(file);
     }
 
     std::string_view getHeaderValue(std::string_view key) const
     {
-        return stringResponse->base()[key];
+        return fields()[key];
     }
 
     void keepAlive(bool k)
     {
-        stringResponse->keep_alive(k);
+        string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->keep_alive(k);
+        }
+        file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->keep_alive(k);
     }
 
     bool keepAlive() const
     {
-        return stringResponse->keep_alive();
+        const string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->keep_alive();
+        }
+        const file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->keep_alive();
     }
 
     void preparePayload()
     {
+        string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->content_length(
+                getContentLength(sresp->payload_size(), sresp->result()));
+        }
+        file_body_response_type* fresp =
+            std::get_if<file_body_response_type>(&genericResponse.value());
+        return fresp->content_length(
+            getContentLength(fresp->payload_size(), fresp->result()));
+    }
+    uint64_t getContentLength(boost::optional<uint64_t> pSize,
+                              boost::beast::http::status result)
+    {
         // This code is a throw-free equivalent to
         // beast::http::message::prepare_payload
-        boost::optional<uint64_t> pSize = stringResponse->payload_size();
         using boost::beast::http::status;
         using boost::beast::http::status_class;
         using boost::beast::http::to_status_class;
@@ -160,12 +306,10 @@ struct Response
         }
         else
         {
-            bool is1XXReturn = to_status_class(stringResponse->result()) ==
+            bool is1XXReturn = to_status_class(result) ==
                                status_class::informational;
-            if (*pSize > 0 &&
-                (is1XXReturn ||
-                 stringResponse->result() == status::no_content ||
-                 stringResponse->result() == status::not_modified))
+            if (*pSize > 0 && (is1XXReturn || result == status::no_content ||
+                               result == status::not_modified))
             {
                 BMCWEB_LOG_CRITICAL(
                     "{} Response content provided but code was no-content or not_modified, which aren't allowed to have a body",
@@ -174,21 +318,22 @@ struct Response
                 body().clear();
             }
         }
-        stringResponse->content_length(*pSize);
+        return *pSize;
     }
 
     void clear()
     {
         BMCWEB_LOG_DEBUG("{} Clearing response containers", logPtr(this));
-        stringResponse.emplace(response_type{});
-        jsonValue = nullptr;
+
+        genericResponse.emplace(string_body_response_type{});
+        jsonValue.clear();
         completed = false;
         expectedHash = std::nullopt;
     }
 
     void write(std::string_view bodyPart)
     {
-        stringResponse->body() += std::string(bodyPart);
+        body() += std::string(bodyPart);
     }
 
     std::string computeEtag() const
