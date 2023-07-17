@@ -46,7 +46,7 @@ struct Response
             [](auto&& r) -> const fields_type& { return r.base(); }, response);
     }
 
-    void addHeader(std::string_view key, std::string_view value)
+    void addHeader( std::string_view key,  std::string_view value)
     {
         fields().insert(key, value);
     }
@@ -159,7 +159,6 @@ struct Response
     {
         return completed;
     }
-
     const std::string* body()
     {
         string_response* body =

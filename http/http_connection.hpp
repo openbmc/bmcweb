@@ -51,6 +51,7 @@ class Connection :
     using self_type = Connection<Adaptor, Handler>;
 
   public:
+
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor adaptorIn) :
@@ -575,7 +576,7 @@ class Connection :
                                   std::bind_front(&self_type::afterDoWrite,
                                                   this, shared_from_this()));
     }
-
+    
     void cancelDeadlineTimer()
     {
         timer.cancel();
