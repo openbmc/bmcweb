@@ -27,7 +27,13 @@ inline void completeResponseFields(const Request& req, Response& res)
     authentication::cleanupTempSession(req);
 
     res.setHashAndHandleNotModified();
-
+    std::visit(
+        [&res](auto&& bodyResp) { completeResponseFieldsImpl(res, bodyResp); },
+        res.genericResponse);
+}
+inline completeResponseFieldsImpl(
+    Response& res, Response::string_body_response_type& /*unused*/)
+{
     if (res.body().empty() && res.jsonValue.is_structured())
     {
         using http_helpers::ContentType;
@@ -58,4 +64,10 @@ inline void completeResponseFields(const Request& req, Response& res)
         }
     }
 }
+inline completeResponseFieldsImpl(Response& /*unused*/,
+                                  Response::file_body_response_type& /*unused*/)
+{}
+inline completeResponseFieldsImpl(
+    Response& /*unused*/, Response::buffer_body_response_type& /*unused*/)
+{}
 } // namespace crow
