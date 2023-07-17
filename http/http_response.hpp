@@ -262,7 +262,10 @@ struct Response
             str->body() += bodyPart;
             return;
         }
-        response.emplace<string_response>(result(), 11, std::move(bodyPart));
+        http::header<false> headTemp = std::move(fields());
+        string_response& stringResponse =
+            response.emplace<string_response>(std::move(headTemp));
+        stringResponse.body() = std::move(bodyPart);
     }
 
     void end()
@@ -361,6 +364,13 @@ struct Response
         if (ec)
         {
             return false;
+        }
+        file_response* fileResponseptr =
+            boost::variant2::get_if<file_response>(&response);
+        if (fileResponseptr != nullptr)
+        {
+            fileResponseptr->body() = std::move(file);
+            return true;
         }
         // store the headers on stack temporarily so we can reconstruct the new
         // base with the old headers copied in.
