@@ -1,7 +1,9 @@
 #pragma once
 #include "logging.hpp"
 #include "utils/hex_utils.hpp"
-
+#include <boost/beast/http/basic_dynamic_body.hpp>
+#include <boost/beast/http/buffer_body.hpp>
+#include <boost/beast/http/file_body.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <nlohmann/json.hpp>
@@ -20,33 +22,38 @@ struct Response
 {
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
-    using response_type =
+    using string_body_response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
+    using file_body_response_type =
+        boost::beast::http::response<boost::beast::http::file_body>;
+    using buffer_body_response_type =
+        boost::beast::http::response<boost::beast::http::buffer_body>;
 
-    std::optional<response_type> stringResponse;
+    using response_type =
+        std::variant<string_body_response_type, file_body_response_type,
+                     buffer_body_response_type>;
+
+    std::optional<response_type> genericResponse;
 
     nlohmann::json jsonValue;
 
-    void addHeader(std::string_view key, std::string_view value)
+    void addHeader(const std::string_view key, const std::string_view value)
     {
-        stringResponse->insert(key, value);
+        std::visit([key, value](auto&& res) { res.set(key, value); },
+                   genericResponse.value());
     }
 
     void addHeader(boost::beast::http::field key, std::string_view value)
     {
-        stringResponse->insert(key, value);
+        std::visit([key, value](auto&& res) { res.set(key, value); },
+                   genericResponse.value());
     }
 
-    void clearHeader(boost::beast::http::field key)
-    {
-        stringResponse->erase(key);
-    }
-
-    Response() : stringResponse(response_type{}) {}
+    Response() : genericResponse(string_body_response_type{}) {}
 
     Response(Response&& res) noexcept :
-        stringResponse(std::move(res.stringResponse)),
-        jsonValue(std::move(res.jsonValue)), completed(res.completed)
+        genericResponse(std::move(res.genericResponse)),
+        jsonValue(std::move(res.jsonValue)),completed(res.completed)
     {
         // See note in operator= move handler for why this is needed.
         if (!res.completed)
@@ -72,8 +79,8 @@ struct Response
         {
             return *this;
         }
-        stringResponse = std::move(r.stringResponse);
-        r.stringResponse.emplace(response_type{});
+        genericResponse = std::move(r.genericResponse);
+        r.genericResponse.emplace(response_type{});
         jsonValue = std::move(r.jsonValue);
 
         // Only need to move completion handler if not already completed
@@ -98,27 +105,30 @@ struct Response
 
     void result(unsigned v)
     {
-        stringResponse->result(v);
+        std::visit([v](auto&& res) { res.result(v); }, genericResponse.value());
     }
 
     void result(boost::beast::http::status v)
     {
-        stringResponse->result(v);
+        std::visit([v](auto&& res) { res.result(v); }, genericResponse.value());
     }
 
     boost::beast::http::status result() const
     {
-        return stringResponse->result();
+        return std::visit([](auto&& res) { return res.result(); },
+                          genericResponse.value());
     }
 
     unsigned resultInt() const
     {
-        return stringResponse->result_int();
+        return std::visit([](auto&& res) { return res.result_int(); },
+                          genericResponse.value());
     }
 
     std::string_view reason() const
     {
-        return stringResponse->reason();
+        return std::visit([](auto&& res) { return res.reason(); },
+                          genericResponse.value());
     }
 
     bool isCompleted() const noexcept
@@ -128,67 +138,55 @@ struct Response
 
     std::string& body()
     {
-        return stringResponse->body();
+        if (!std::holds_alternative<string_body_response_type>(
+                genericResponse.value()))
+        {
+            string_body_response_type stringbody{};
+            std::visit([&stringbody](
+                           auto&& other) { stringbody.base() = other.base(); },
+                       genericResponse.value());
+
+            genericResponse.emplace(stringbody);
+        }
+        return std::get<string_body_response_type>(*genericResponse).body();
     }
 
     std::string_view getHeaderValue(std::string_view key) const
     {
-        return stringResponse->base()[key];
+        return std::visit([key](auto&& res) { return res.base()[key]; },
+                          genericResponse.value());
     }
 
     void keepAlive(bool k)
     {
-        stringResponse->keep_alive(k);
+        return std::visit([k](auto&& res) { res.keep_alive(k); },
+                          genericResponse.value());
     }
 
     bool keepAlive() const
     {
-        return stringResponse->keep_alive();
+        return std::visit([](auto&& res) { return res.keep_alive(); },
+                          genericResponse.value());
     }
 
     void preparePayload()
     {
-        // This code is a throw-free equivalent to
-        // beast::http::message::prepare_payload
-        boost::optional<uint64_t> pSize = stringResponse->payload_size();
-        using boost::beast::http::status;
-        using boost::beast::http::status_class;
-        using boost::beast::http::to_status_class;
-        if (!pSize)
-        {
-            pSize = 0;
-        }
-        else
-        {
-            bool is1XXReturn = to_status_class(stringResponse->result()) ==
-                               status_class::informational;
-            if (*pSize > 0 &&
-                (is1XXReturn ||
-                 stringResponse->result() == status::no_content ||
-                 stringResponse->result() == status::not_modified))
-            {
-                BMCWEB_LOG_CRITICAL
-                    << this
-                    << " Response content provided but code was no-content or not_modified, which aren't allowed to have a body";
-                pSize = 0;
-                body().clear();
-            }
-        }
-        stringResponse->content_length(*pSize);
+        return std::visit([](auto&& res) { return res.prepare_payload(); },
+                          genericResponse.value());
     }
 
     void clear()
     {
         BMCWEB_LOG_DEBUG << this << " Clearing response containers";
-        stringResponse.emplace(response_type{});
-        jsonValue = nullptr;
+        genericResponse.emplace(response_type{});
+        jsonValue.clear();
         completed = false;
         expectedHash = std::nullopt;
     }
 
     void write(std::string_view bodyPart)
     {
-        stringResponse->body() += std::string(bodyPart);
+        body() += std::string(bodyPart);
     }
 
     std::string computeEtag() const
