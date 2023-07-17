@@ -51,6 +51,13 @@ class Connection :
     using self_type = Connection<Adaptor, Handler>;
 
   public:
+    using string_body_serializer = boost::beast::http::response_serializer<
+        boost::beast::http::string_body>;
+    using file_body_serializer =
+        boost::beast::http::response_serializer<boost::beast::http::file_body>;
+
+    using Serializer =
+        std::variant<string_body_serializer, file_body_serializer>;
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor adaptorIn) :
@@ -510,48 +517,74 @@ class Connection :
             handle();
             });
     }
+    void onWriteFinish(const boost::system::error_code& ec,
+                       std::size_t bytesTransferred)
+    {
+        BMCWEB_LOG_DEBUG("{} async_write {} bytes", logPtr(this),
+                         bytesTransferred);
 
-    void doWrite(crow::Response& thisRes)
+        cancelDeadlineTimer();
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
+            return;
+        }
+        if (!res.keepAlive())
+        {
+            close();
+            BMCWEB_LOG_DEBUG("{} from write(1)", logPtr(this));
+            return;
+        }
+
+        serializer.reset();
+        BMCWEB_LOG_DEBUG("{} Clearing response", logPtr(this));
+        res.clear();
+        parser.emplace(std::piecewise_construct, std::make_tuple());
+        parser->body_limit(httpReqBodyLimit); // reset body limit for
+                                              // newly created parser
+        buffer.consume(buffer.size());
+
+        userSession = nullptr;
+
+        // Destroy the Request via the std::optional
+        req.reset();
+        doReadHeaders();
+    }
+    void doWriteImpl(string_body_serializer& bodySerialiser)
     {
         BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
-        thisRes.preparePayload();
-        serializer.emplace(*thisRes.stringResponse);
+
         startDeadline();
-        boost::beast::http::async_write(adaptor, *serializer,
+        boost::beast::http::async_write(adaptor, bodySerialiser,
                                         [this, self(shared_from_this())](
                                             const boost::system::error_code& ec,
                                             std::size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG("{} async_write {} bytes", logPtr(this),
-                             bytesTransferred);
-
-            cancelDeadlineTimer();
-
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
-                return;
-            }
-            if (!keepAlive)
-            {
-                close();
-                BMCWEB_LOG_DEBUG("{} from write(1)", logPtr(this));
-                return;
-            }
-
-            serializer.reset();
-            BMCWEB_LOG_DEBUG("{} Clearing response", logPtr(this));
-            res.clear();
-            parser.emplace(std::piecewise_construct, std::make_tuple());
-            parser->body_limit(httpReqBodyLimit); // reset body limit for
-                                                  // newly created parser
-            buffer.consume(buffer.size());
-
-            userSession = nullptr;
-
-            // Destroy the Request via the std::optional
-            req.reset();
-            doReadHeaders();
+            onWriteFinish(ec, bytesTransferred);
         });
+    }
+    void doWriteImpl(file_body_serializer& bodySerialiser)
+    {
+        BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
+
+        startDeadline();
+        boost::beast::http::async_write(adaptor, bodySerialiser,
+                                        [this, self(shared_from_this())](
+                                            const boost::system::error_code& ec,
+                                            std::size_t bytesTransferred) {
+            onWriteFinish(ec, bytesTransferred);
+        });
+    }
+    void doWrite(crow::Response& thisRes)
+    {
+        thisRes.preparePayload();
+        std::visit([this](auto&& r) { serializer.emplace(makeSerializer(r)); },
+                   thisRes.genericResponse.value());
+        std::visit(
+            [this](auto&& bodySerialiser) {
+            this->doWriteImpl(bodySerialiser);
+            },
+            *serializer);
     }
 
     void cancelDeadlineTimer()
@@ -616,9 +649,15 @@ class Connection :
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    std::optional<boost::beast::http::response_serializer<
-        boost::beast::http::string_body>>
-        serializer;
+    std::optional<Serializer> serializer;
+    auto makeSerializer(Response::string_body_response_type& resp)
+    {
+        return string_body_serializer{resp};
+    }
+    auto makeSerializer(Response::file_body_response_type& resp)
+    {
+        return file_body_serializer{resp};
+    }
 
     std::optional<crow::Request> req;
     crow::Response res;
