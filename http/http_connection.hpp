@@ -51,6 +51,13 @@ class Connection :
     using self_type = Connection<Adaptor, Handler>;
 
   public:
+    using string_body_serailizer = boost::beast::http::response_serializer<
+        boost::beast::http::string_body>;
+    using file_body_serailizer =
+        boost::beast::http::response_serializer<boost::beast::http::file_body>;
+
+    using variant_serializer =
+        std::variant<string_body_serailizer, file_body_serailizer>;
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor adaptorIn) :
@@ -511,13 +518,12 @@ class Connection :
             });
     }
 
-    void doWrite(crow::Response& thisRes)
+    void doWriteImpl(auto& ser)
     {
-        BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
-        thisRes.preparePayload();
-        serializer.emplace(*thisRes.stringResponse);
+        BMCWEB_LOG_DEBUG << this << " doWrite";
+
         startDeadline();
-        boost::beast::http::async_write(adaptor, *serializer,
+        boost::beast::http::async_write(adaptor, ser,
                                         [this, self(shared_from_this())](
                                             const boost::system::error_code& ec,
                                             std::size_t bytesTransferred) {
@@ -531,7 +537,7 @@ class Connection :
                 BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
                 return;
             }
-            if (!keepAlive)
+            if (!res.keepAlive())
             {
                 close();
                 BMCWEB_LOG_DEBUG("{} from write(1)", logPtr(this));
@@ -552,6 +558,17 @@ class Connection :
             req.reset();
             doReadHeaders();
         });
+    }
+    void doWrite(crow::Response& thisRes)
+    {
+        std::visit(
+            [this](auto&& r) {
+            r.prepare_payload();
+            serializer.emplace(makeSerializer(r));
+            },
+            thisRes.genericResponse.value());
+        std::visit([this](auto&& ser) { this->doWriteImpl(ser); },
+                   serializer.value());
     }
 
     void cancelDeadlineTimer()
@@ -616,9 +633,15 @@ class Connection :
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    std::optional<boost::beast::http::response_serializer<
-        boost::beast::http::string_body>>
-        serializer;
+    std::optional<variant_serializer> serializer;
+    auto makeSerializer(Response::string_body_response_type& resp)
+    {
+        return string_body_serailizer{resp};
+    }
+    auto makeSerializer(Response::file_body_response_type& resp)
+    {
+        return file_body_serailizer{resp};
+    }
 
     std::optional<crow::Request> req;
     crow::Response res;
