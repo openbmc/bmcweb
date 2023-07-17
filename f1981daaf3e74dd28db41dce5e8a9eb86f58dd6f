@@ -87,6 +87,24 @@
       "parentUuid": "bcc6a92a_b27ca9d0",
       "revId": "f1981daaf3e74dd28db41dce5e8a9eb86f58dd6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41ad80f1_86779fa3",
+        "filename": "include/user_role_map.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-17T18:06:14Z",
+      "side": 1,
+      "message": "Any test results?",
+      "parentUuid": "54fef460_5c2953f9",
+      "revId": "f1981daaf3e74dd28db41dce5e8a9eb86f58dd6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
