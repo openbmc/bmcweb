@@ -409,6 +409,7 @@ srcfiles_unittest = files(
   'test/http/crow_getroutes_test.cpp',
   'test/http/http_connection_test.cpp',
   'test/http/router_test.cpp',
+  'test/http/http_response_test.cpp',
   'test/http/utility_test.cpp',
   'test/http/verb_test.cpp',
   'test/include/dbus_utility_test.cpp',
