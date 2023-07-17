@@ -46,7 +46,7 @@ struct Response
             [](auto&& r) -> const fields_type& { return r.base(); }, response);
     }
 
-    void addHeader(std::string_view key, std::string_view value)
+    void addHeader(const std::string_view key, const std::string_view value)
     {
         fields().insert(key, value);
     }
@@ -159,6 +159,14 @@ struct Response
     {
         return completed;
     }
+    boost::beast::http::header<false, boost::beast::http::fields>& fields()
+    {
+        string_body_response_type* sresp =
+            std::get_if<string_body_response_type>(&genericResponse.value());
+        if (sresp != nullptr)
+        {
+            return sresp->base();
+        }
 
     const std::string* body()
     {

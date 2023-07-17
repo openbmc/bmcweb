@@ -17,8 +17,9 @@
 
 namespace crow
 {
-
-inline void completeResponseFields(const Request& req, Response& res)
+inline void
+    completeResponseFieldsImpl(const Request& req, Response& res,
+                               Response::string_body_response_type& /*unused*/)
 {
     BMCWEB_LOG_INFO("Response:  {} {}", req.url().encoded_path(),
                     res.resultInt());
@@ -59,4 +60,28 @@ inline void completeResponseFields(const Request& req, Response& res)
         }
     }
 }
+inline void
+    completeResponseFieldsImpl(const Request& /*unused*/, Response& res,
+                               Response::file_body_response_type& /*unused*/)
+{
+    res.addHeader(boost::beast::http::field::content_type,
+                  "application/octet-stream");
+}
+
+inline void completeResponseFields(const Request& req, Response& res)
+{
+    BMCWEB_LOG_INFO("Response:  {} {}", req.url().encoded_path(),
+                    res.resultInt());
+    addSecurityHeaders(req, res);
+
+    authentication::cleanupTempSession(req);
+
+    res.setHashAndHandleNotModified();
+    std::visit(
+        [&req, &res](auto&& bodyResp) {
+        completeResponseFieldsImpl(req, res, bodyResp);
+        },
+        res.genericResponse.value());
+}
+
 } // namespace crow
