@@ -51,6 +51,13 @@ class Connection :
     using self_type = Connection<Adaptor, Handler>;
 
   public:
+    using string_body_serializer = boost::beast::http::response_serializer<
+        boost::beast::http::string_body>;
+    using file_body_serializer =
+        boost::beast::http::response_serializer<boost::beast::http::file_body>;
+
+    using Serializer =
+        std::variant<string_body_serializer, file_body_serializer>;
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor adaptorIn) :
@@ -529,6 +536,11 @@ class Connection :
             handle();
             });
     }
+    void onWriteFinish(const boost::system::error_code& ec,
+                       std::size_t bytesTransferred)
+    {
+        BMCWEB_LOG_DEBUG("{} async_write {} bytes", logPtr(this),
+                         bytesTransferred);
 
     void afterDoWrite(const std::shared_ptr<self_type>& /*self*/,
                       const boost::system::error_code& ec,
@@ -574,6 +586,29 @@ class Connection :
         boost::beast::async_write(adaptor, thisRes.generator(),
                                   std::bind_front(&self_type::afterDoWrite,
                                                   this, shared_from_this()));
+    }
+    void doWriteImpl(file_body_serializer& bodySerialiser)
+    {
+        BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
+
+        startDeadline();
+        boost::beast::http::async_write(adaptor, bodySerialiser,
+                                        [this, self(shared_from_this())](
+                                            const boost::system::error_code& ec,
+                                            std::size_t bytesTransferred) {
+            onWriteFinish(ec, bytesTransferred);
+        });
+    }
+    void doWrite(crow::Response& thisRes)
+    {
+        thisRes.preparePayload();
+        std::visit([this](auto&& r) { serializer.emplace(makeSerializer(r)); },
+                   thisRes.genericResponse.value());
+        std::visit(
+            [this](auto&& bodySerialiser) {
+            this->doWriteImpl(bodySerialiser);
+            },
+            *serializer);
     }
 
     void cancelDeadlineTimer()
