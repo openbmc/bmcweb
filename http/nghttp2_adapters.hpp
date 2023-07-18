@@ -99,7 +99,7 @@ struct nghttp2_session
     {
         if (nghttp2_session_server_new(&ptr, callbacks.get(), nullptr) != 0)
         {
-            BMCWEB_LOG_ERROR << "nghttp2_session_server_new failed";
+            BMCWEB_LOG_ERROR("nghttp2_session_server_new failed");
             return;
         }
     }

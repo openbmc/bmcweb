@@ -68,8 +68,8 @@ class Connection :
 
         connectionCount++;
 
-        BMCWEB_LOG_DEBUG << this << " Connection open, total "
-                         << connectionCount;
+        BMCWEB_LOG_DEBUG("{} Connection open, total {}", logPtr(this),
+                         connectionCount);
     }
 
     ~Connection()
@@ -78,8 +78,8 @@ class Connection :
         cancelDeadlineTimer();
 
         connectionCount--;
-        BMCWEB_LOG_DEBUG << this << " Connection closed, total "
-                         << connectionCount;
+        BMCWEB_LOG_DEBUG("{} Connection closed, total {}", logPtr(this),
+                         connectionCount);
     }
 
     Connection(const Connection&) = delete;
@@ -97,9 +97,8 @@ class Connection :
             mtlsSession = verifyMtlsUser(req->ipAddress, ctx);
             if (mtlsSession)
             {
-                BMCWEB_LOG_DEBUG
-                    << this
-                    << " Generating TLS session: " << mtlsSession->uniqueId;
+                BMCWEB_LOG_DEBUG("{} Generating TLS session: {}", logPtr(this),
+                                 mtlsSession->uniqueId);
             }
         }
         return true;
@@ -126,7 +125,7 @@ class Connection :
                 static_cast<unsigned int>(id.length()));
             if (ret == 0)
             {
-                BMCWEB_LOG_ERROR << this << " failed to set SSL id";
+                BMCWEB_LOG_ERROR("{} failed to set SSL id", logPtr(this));
             }
         }
 
@@ -143,7 +142,8 @@ class Connection :
     {
         if (connectionCount >= 100)
         {
-            BMCWEB_LOG_CRITICAL << this << "Max connection count exceeded.";
+            BMCWEB_LOG_CRITICAL("{}Max connection count exceeded.",
+                                logPtr(this));
             return;
         }
 
@@ -183,8 +183,8 @@ class Connection :
             {
                 std::string_view selectedProtocol(
                     std::bit_cast<const char*>(alpn), alpnlen);
-                BMCWEB_LOG_DEBUG << "ALPN selected protocol \""
-                                 << selectedProtocol << "\" len: " << alpnlen;
+                BMCWEB_LOG_DEBUG("ALPN selected protocol \"{}\" len: {}",
+                                 selectedProtocol, alpnlen);
                 if (selectedProtocol == "h2")
                 {
                     auto http2 =
@@ -205,7 +205,7 @@ class Connection :
         crow::Request& thisReq = req.emplace(parser->release(), reqEc);
         if (reqEc)
         {
-            BMCWEB_LOG_DEBUG << "Request failed to construct" << reqEc;
+            BMCWEB_LOG_DEBUG("Request failed to construct{}", reqEc.message());
             res.result(boost::beast::http::status::bad_request);
             completeRequest(res);
             return;
@@ -226,11 +226,10 @@ class Connection :
             }
         }
 
-        BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << thisReq.version() / 10
-                        << "." << thisReq.version() % 10 << ' '
-                        << thisReq.methodString() << " " << thisReq.target()
-                        << " " << thisReq.ipAddress.to_string();
+        BMCWEB_LOG_INFO("Request:  {} HTTP/{}.{} {} {} {}", logPtr(this),
+                        thisReq.version() / 10, thisReq.version() % 10,
+                        thisReq.methodString(), thisReq.target(),
+                        thisReq.ipAddress.to_string());
 
         res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
@@ -248,7 +247,7 @@ class Connection :
                                                  req->method()) &&
             thisReq.session == nullptr)
         {
-            BMCWEB_LOG_WARNING << "Authentication failed";
+            BMCWEB_LOG_WARNING("Authentication failed");
             forward_unauthorized::sendUnauthorized(
                 req->url().encoded_path(),
                 req->getHeaderValue("X-Requested-With"),
@@ -258,7 +257,7 @@ class Connection :
         }
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-        BMCWEB_LOG_DEBUG << "Setting completion handler";
+        BMCWEB_LOG_DEBUG("Setting completion handler");
         asyncResp->res.setCompleteRequestHandler(
             [self(shared_from_this())](crow::Response& thisRes) {
             self->completeRequest(thisRes);
@@ -320,9 +319,8 @@ class Connection :
             adaptor.next_layer().close();
             if (mtlsSession != nullptr)
             {
-                BMCWEB_LOG_DEBUG
-                    << this
-                    << " Removing TLS session: " << mtlsSession->uniqueId;
+                BMCWEB_LOG_DEBUG("{} Removing TLS session: {}", logPtr(this),
+                                 mtlsSession->uniqueId);
                 persistent_data::SessionStore::getInstance().removeSession(
                     mtlsSession);
             }
@@ -371,7 +369,7 @@ class Connection :
     boost::system::error_code getClientIp(boost::asio::ip::address& ip)
     {
         boost::system::error_code ec;
-        BMCWEB_LOG_DEBUG << "Fetch the client IP address";
+        BMCWEB_LOG_DEBUG("Fetch the client IP address");
         boost::asio::ip::tcp::endpoint endpoint =
             boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
 
@@ -379,8 +377,8 @@ class Connection :
         {
             // If remote endpoint fails keep going. "ClientOriginIPAddress"
             // will be empty.
-            BMCWEB_LOG_ERROR << "Failed to get the client's IP Address. ec : "
-                             << ec;
+            BMCWEB_LOG_ERROR("Failed to get the client's IP Address. ec : {}",
+                             ec);
             return ec;
         }
         ip = endpoint.address();
@@ -390,7 +388,7 @@ class Connection :
   private:
     void doReadHeaders()
     {
-        BMCWEB_LOG_DEBUG << this << " doReadHeaders";
+        BMCWEB_LOG_DEBUG("{} doReadHeaders", logPtr(this));
 
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
@@ -398,21 +396,21 @@ class Connection :
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG << this << " async_read_header "
-                             << bytesTransferred << " Bytes";
+            BMCWEB_LOG_DEBUG("{} async_read_header {} Bytes", logPtr(this),
+                             bytesTransferred);
             bool errorWhileReading = false;
             if (ec)
             {
                 errorWhileReading = true;
                 if (ec == boost::beast::http::error::end_of_stream)
                 {
-                    BMCWEB_LOG_WARNING
-                        << this << " Error while reading: " << ec.message();
+                    BMCWEB_LOG_WARNING("{} Error while reading: {}",
+                                       logPtr(this), ec.message());
                 }
                 else
                 {
-                    BMCWEB_LOG_ERROR
-                        << this << " Error while reading: " << ec.message();
+                    BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
+                                     ec.message());
                 }
             }
             else
@@ -431,7 +429,7 @@ class Connection :
             if (errorWhileReading)
             {
                 close();
-                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
                 return;
             }
 
@@ -440,7 +438,7 @@ class Connection :
             boost::asio::ip::address ip;
             if (getClientIp(ip))
             {
-                BMCWEB_LOG_DEBUG << "Unable to get client IP";
+                BMCWEB_LOG_DEBUG("Unable to get client IP");
             }
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
             boost::beast::http::verb method = parser->get().method();
@@ -454,13 +452,13 @@ class Connection :
                     parser->content_length();
                 if (contentLength && *contentLength > loggedOutPostBodyLimit)
                 {
-                    BMCWEB_LOG_DEBUG << "Content length greater than limit "
-                                     << *contentLength;
+                    BMCWEB_LOG_DEBUG("Content length greater than limit {}",
+                                     *contentLength);
                     close();
                     return;
                 }
 
-                BMCWEB_LOG_DEBUG << "Starting quick deadline";
+                BMCWEB_LOG_DEBUG("Starting quick deadline");
             }
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
 
@@ -476,22 +474,22 @@ class Connection :
 
     void doRead()
     {
-        BMCWEB_LOG_DEBUG << this << " doRead";
+        BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
         startDeadline();
         boost::beast::http::async_read_some(
             adaptor, buffer, *parser,
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG << this << " async_read_some " << bytesTransferred
-                             << " Bytes";
+            BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
+                             bytesTransferred);
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << this
-                                 << " Error while reading: " << ec.message();
+                BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
+                                 ec.message());
                 close();
-                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
                 return;
             }
 
@@ -515,7 +513,7 @@ class Connection :
 
     void doWrite(crow::Response& thisRes)
     {
-        BMCWEB_LOG_DEBUG << this << " doWrite";
+        BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
         thisRes.preparePayload();
         serializer.emplace(*thisRes.stringResponse);
         startDeadline();
@@ -523,25 +521,25 @@ class Connection :
                                         [this, self(shared_from_this())](
                                             const boost::system::error_code& ec,
                                             std::size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG << this << " async_write " << bytesTransferred
-                             << " bytes";
+            BMCWEB_LOG_DEBUG("{} async_write {} bytes", logPtr(this),
+                             bytesTransferred);
 
             cancelDeadlineTimer();
 
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << this << " from write(2)";
+                BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
                 return;
             }
             if (!keepAlive)
             {
                 close();
-                BMCWEB_LOG_DEBUG << this << " from write(1)";
+                BMCWEB_LOG_DEBUG("{} from write(1)", logPtr(this));
                 return;
             }
 
             serializer.reset();
-            BMCWEB_LOG_DEBUG << this << " Clearing response";
+            BMCWEB_LOG_DEBUG("{} Clearing response", logPtr(this));
             res.clear();
             parser.emplace(std::piecewise_construct, std::make_tuple());
             parser->body_limit(httpReqBodyLimit); // reset body limit for
@@ -580,7 +578,8 @@ class Connection :
                 weakSelf.lock();
             if (!self)
             {
-                BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
+                BMCWEB_LOG_CRITICAL("{} Failed to capture connection",
+                                    logPtr(self.get()));
                 return;
             }
 
@@ -593,16 +592,18 @@ class Connection :
             }
             if (ec)
             {
-                BMCWEB_LOG_CRITICAL << self << " timer failed " << ec;
+                BMCWEB_LOG_CRITICAL("{} timer failed {}", logPtr(self.get()),
+                                    ec);
             }
 
-            BMCWEB_LOG_WARNING << self << "Connection timed out, closing";
+            BMCWEB_LOG_WARNING("{}Connection timed out, closing",
+                               logPtr(self.get()));
 
             self->close();
         });
 
         timerStarted = true;
-        BMCWEB_LOG_DEBUG << this << " timer started";
+        BMCWEB_LOG_DEBUG("{} timer started", logPtr(this));
     }
 
     Adaptor adaptor;

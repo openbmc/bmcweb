@@ -35,7 +35,7 @@ namespace redfish
 inline void
     getIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "Get led groups";
+    BMCWEB_LOG_DEBUG("Get led groups");
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
@@ -45,8 +45,8 @@ inline void
         // proceed to get enclosure_identify state.
         if (ec == boost::system::errc::invalid_argument)
         {
-            BMCWEB_LOG_DEBUG
-                << "Get identity blinking LED failed, missmatch in property type";
+            BMCWEB_LOG_DEBUG(
+                "Get identity blinking LED failed, missmatch in property type");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -67,8 +67,8 @@ inline void
                         const bool ledOn) {
             if (ec2 == boost::system::errc::invalid_argument)
             {
-                BMCWEB_LOG_DEBUG
-                    << "Get enclosure identity led failed, missmatch in property type";
+                BMCWEB_LOG_DEBUG(
+                    "Get enclosure identity led failed, missmatch in property type");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -103,7 +103,7 @@ inline void
     setIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& ledState)
 {
-    BMCWEB_LOG_DEBUG << "Set led groups";
+    BMCWEB_LOG_DEBUG("Set led groups");
     bool ledOn = false;
     bool ledBlinkng = false;
 
@@ -146,7 +146,7 @@ inline void
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
+                BMCWEB_LOG_DEBUG("DBUS response error {}", ec2);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -165,7 +165,7 @@ inline void
 inline void getLocationIndicatorActive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
+    BMCWEB_LOG_DEBUG("Get LocationIndicatorActive");
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
@@ -175,8 +175,8 @@ inline void getLocationIndicatorActive(
         // proceed to get enclosure_identify state.
         if (ec == boost::system::errc::invalid_argument)
         {
-            BMCWEB_LOG_DEBUG
-                << "Get identity blinking LED failed, missmatch in property type";
+            BMCWEB_LOG_DEBUG(
+                "Get identity blinking LED failed, missmatch in property type");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -197,8 +197,8 @@ inline void getLocationIndicatorActive(
                         const bool ledOn) {
             if (ec2 == boost::system::errc::invalid_argument)
             {
-                BMCWEB_LOG_DEBUG
-                    << "Get enclosure identity led failed, missmatch in property type";
+                BMCWEB_LOG_DEBUG(
+                    "Get enclosure identity led failed, missmatch in property type");
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -224,7 +224,7 @@ inline void getLocationIndicatorActive(
 inline void setLocationIndicatorActive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool ledState)
 {
-    BMCWEB_LOG_DEBUG << "Set LocationIndicatorActive";
+    BMCWEB_LOG_DEBUG("Set LocationIndicatorActive");
 
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
@@ -244,7 +244,7 @@ inline void setLocationIndicatorActive(
                 [asyncResp](const boost::system::error_code& ec2) {
                 if (ec2)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
+                    BMCWEB_LOG_DEBUG("DBUS response error {}", ec2);
                     messages::internalError(asyncResp->res);
                     return;
                 }

@@ -210,8 +210,8 @@ inline void handleAggregationSourceHead(
         "</redfish/v1/JsonSchemas/AggregationService/AggregationSource.json>; rel=describedby");
 
     // Needed to prevent unused variable error
-    BMCWEB_LOG_DEBUG << "Added link header to response from "
-                     << aggregationSourceId;
+    BMCWEB_LOG_DEBUG("Added link header to response from {}",
+                     aggregationSourceId);
 }
 
 inline void requestRoutesAggregationSource(App& app)

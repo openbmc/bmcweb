@@ -200,7 +200,7 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
                 // given
                 if (std::get<0>(it->second[0]) == i)
                 {
-                    BMCWEB_LOG_DEBUG << "Session id is found in the locktable";
+                    BMCWEB_LOG_DEBUG("Session id is found in the locktable");
 
                     // Push the whole lock record into a vector for returning
                     // the json
@@ -225,7 +225,7 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
     if (!status)
     {
         // Validation of rids failed
-        BMCWEB_LOG_ERROR << "releaseLock: Contains invalid request id";
+        BMCWEB_LOG_ERROR("releaseLock: Contains invalid request id");
         return std::make_pair(false, status);
     }
     // Validation passed, check if all the locks are owned by the
@@ -247,8 +247,8 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
         bool status = isValidLockRequest(lockRecord);
         if (!status)
         {
-            BMCWEB_LOG_DEBUG << "Not a Valid record";
-            BMCWEB_LOG_DEBUG << "Bad json in request";
+            BMCWEB_LOG_DEBUG("Not a Valid record");
+            BMCWEB_LOG_DEBUG("Bad json in request");
             return std::make_pair(true, std::make_pair(status, 0));
         }
     }
@@ -259,16 +259,16 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 
     if (status)
     {
-        BMCWEB_LOG_DEBUG << "There is a conflict within itself";
+        BMCWEB_LOG_DEBUG("There is a conflict within itself");
         return std::make_pair(true, std::make_pair(status, 1));
     }
-    BMCWEB_LOG_DEBUG << "The request is not conflicting within itself";
+    BMCWEB_LOG_DEBUG("The request is not conflicting within itself");
 
     // Need to check for conflict with the locktable entries.
 
     auto conflict = isConflictWithTable(multiRequest);
 
-    BMCWEB_LOG_DEBUG << "Done with checking conflict with the locktable";
+    BMCWEB_LOG_DEBUG("Done with checking conflict with the locktable");
     return std::make_pair(false, conflict);
 }
 
@@ -285,10 +285,10 @@ inline void Lock::releaseLock(const std::string& sessionId)
                 // given
                 if (std::get<0>(it->second[0]) == sessionId)
                 {
-                    BMCWEB_LOG_DEBUG << "Remove the lock from the locktable "
-                                        "having sessionID="
-                                     << sessionId;
-                    BMCWEB_LOG_DEBUG << "TransactionID =" << it->first;
+                    BMCWEB_LOG_DEBUG("Remove the lock from the locktable "
+                                     "having sessionID={}",
+                                     sessionId);
+                    BMCWEB_LOG_DEBUG("TransactionID ={}", it->first);
                     it = lockTable.erase(it);
                 }
                 else
@@ -315,23 +315,23 @@ inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
             (expectedSessionId == ids.second))
         {
             // It is owned by the currently request hmc
-            BMCWEB_LOG_DEBUG << "Lock is owned  by the current hmc";
+            BMCWEB_LOG_DEBUG("Lock is owned  by the current hmc");
             // remove the lock
             if (lockTable.erase(id) != 0U)
             {
-                BMCWEB_LOG_DEBUG << "Removing the locks with transaction ID : "
-                                 << id;
+                BMCWEB_LOG_DEBUG("Removing the locks with transaction ID : {}",
+                                 id);
             }
             else
             {
-                BMCWEB_LOG_ERROR << "Removing the locks from the lock table "
-                                    "failed, transaction ID: "
-                                 << id;
+                BMCWEB_LOG_ERROR("Removing the locks from the lock table "
+                                 "failed, transaction ID: {}",
+                                 id);
             }
         }
         else
         {
-            BMCWEB_LOG_DEBUG << "Lock is not owned by the current hmc";
+            BMCWEB_LOG_DEBUG("Lock is not owned by the current hmc");
             return std::make_pair(false, std::make_pair(id, lockTable[id][0]));
         }
     }
@@ -346,13 +346,13 @@ inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
 
         if (search != lockTable.end())
         {
-            BMCWEB_LOG_DEBUG << "Valid Transaction id";
+            BMCWEB_LOG_DEBUG("Valid Transaction id");
             //  continue for the next rid
         }
         else
         {
-            BMCWEB_LOG_ERROR << "validateRids: At least 1 inValid Request id: "
-                             << id;
+            BMCWEB_LOG_ERROR("validateRids: At least 1 inValid Request id: {}",
+                             id);
             return false;
         }
     }
@@ -366,21 +366,21 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
     if (!((boost::equals(std::get<2>(refLockRecord), "Read") ||
            (boost::equals(std::get<2>(refLockRecord), "Write")))))
     {
-        BMCWEB_LOG_DEBUG << "Validation of LockType Failed";
-        BMCWEB_LOG_DEBUG << "Locktype : " << std::get<2>(refLockRecord);
+        BMCWEB_LOG_DEBUG("Validation of LockType Failed");
+        BMCWEB_LOG_DEBUG("Locktype : {}", std::get<2>(refLockRecord));
         return false;
     }
 
-    BMCWEB_LOG_DEBUG << static_cast<int>(std::get<4>(refLockRecord).size());
+    BMCWEB_LOG_DEBUG("{}", static_cast<int>(std::get<4>(refLockRecord).size()));
 
     // validate the number of segments
     // Allowed No of segments are between 2 and 6
     if ((static_cast<int>(std::get<4>(refLockRecord).size()) > 6) ||
         (static_cast<int>(std::get<4>(refLockRecord).size()) < 2))
     {
-        BMCWEB_LOG_DEBUG << "Validation of Number of Segments Failed";
-        BMCWEB_LOG_DEBUG << "Number of Segments provied : "
-                         << std::get<4>(refLockRecord).size();
+        BMCWEB_LOG_DEBUG("Validation of Number of Segments Failed");
+        BMCWEB_LOG_DEBUG("Number of Segments provied : {}",
+                         std::get<4>(refLockRecord).size());
         return false;
     }
 
@@ -396,8 +396,8 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
                (boost::equals(p.first, "LockAll")) ||
                (boost::equals(p.first, "DontLock")))))
         {
-            BMCWEB_LOG_DEBUG << "Validation of lock flags failed";
-            BMCWEB_LOG_DEBUG << p.first;
+            BMCWEB_LOG_DEBUG("Validation of lock flags failed");
+            BMCWEB_LOG_DEBUG("{}", p.first);
             return false;
         }
 
@@ -406,8 +406,8 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 
         if (p.second < 1 || p.second > 4)
         {
-            BMCWEB_LOG_DEBUG << "Validation of Segment Length Failed";
-            BMCWEB_LOG_DEBUG << p.second;
+            BMCWEB_LOG_DEBUG("Validation of Segment Length Failed");
+            BMCWEB_LOG_DEBUG("{}", p.second);
             return false;
         }
 
@@ -430,16 +430,16 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
     if (lockTable.empty())
     {
         uint32_t thisTransactionId = generateTransactionId();
-        BMCWEB_LOG_DEBUG << thisTransactionId;
+        BMCWEB_LOG_DEBUG("{}", thisTransactionId);
         // Lock table is empty, so we are safe to add the lockrecords
         // as there will be no conflict
-        BMCWEB_LOG_DEBUG << "Lock table is empty, so adding the lockrecords";
+        BMCWEB_LOG_DEBUG("Lock table is empty, so adding the lockrecords");
         lockTable.emplace(thisTransactionId, refLockRequestStructure);
 
         return std::make_pair(false, thisTransactionId);
     }
-    BMCWEB_LOG_DEBUG
-        << "Lock table is not empty, check for conflict with lock table";
+    BMCWEB_LOG_DEBUG(
+        "Lock table is not empty, check for conflict with lock table");
     // Lock table is not empty, compare the lockrequest entries with
     // the entries in the lock table
 
@@ -464,7 +464,7 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 
     // Lock table is empty, so we are safe to add the lockrecords
     // as there will be no conflict
-    BMCWEB_LOG_DEBUG << " Adding elements into lock table";
+    BMCWEB_LOG_DEBUG(" Adding elements into lock table");
     transactionId = generateTransactionId();
     lockTable.emplace(std::make_pair(transactionId, refLockRequestStructure));
 
@@ -478,14 +478,14 @@ inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
 
     if (refLockRequestStructure.size() == 1)
     {
-        BMCWEB_LOG_DEBUG << "Only single lock request, so there is no conflict";
+        BMCWEB_LOG_DEBUG("Only single lock request, so there is no conflict");
         // This means , we have only one lock request in the current
         // request , so no conflict within the request
         return false;
     }
 
-    BMCWEB_LOG_DEBUG
-        << "There are multiple lock requests coming in a single request";
+    BMCWEB_LOG_DEBUG(
+        "There are multiple lock requests coming in a single request");
 
     // There are multiple requests a part of one request
 
@@ -537,7 +537,7 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
     if (boost::equals(std::get<2>(refLockRecord1), "Read") &&
         boost::equals(std::get<2>(refLockRecord2), "Read"))
     {
-        BMCWEB_LOG_DEBUG << "Both are read locks, no conflict";
+        BMCWEB_LOG_DEBUG("Both are read locks, no conflict");
         return false;
     }
 
@@ -549,9 +549,9 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
         if (boost::equals(p.first, "LockAll") ||
             boost::equals(std::get<4>(refLockRecord2)[i].first, "LockAll"))
         {
-            BMCWEB_LOG_DEBUG
-                << "Either of the Comparing locks are trying to lock all "
-                   "resources under the current resource level";
+            BMCWEB_LOG_DEBUG(
+                "Either of the Comparing locks are trying to lock all "
+                "resources under the current resource level");
             return true;
         }
 
@@ -569,10 +569,10 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
         // So no conflict
         if (p.second != std::get<4>(refLockRecord2)[i].second)
         {
-            BMCWEB_LOG_DEBUG << "Segment lengths are not same";
-            BMCWEB_LOG_DEBUG << "Segment 1 length : " << p.second;
-            BMCWEB_LOG_DEBUG << "Segment 2 length : "
-                             << std::get<4>(refLockRecord2)[i].second;
+            BMCWEB_LOG_DEBUG("Segment lengths are not same");
+            BMCWEB_LOG_DEBUG("Segment 1 length : {}", p.second);
+            BMCWEB_LOG_DEBUG("Segment 2 length : {}",
+                             std::get<4>(refLockRecord2)[i].second);
             return false;
         }
 

@@ -48,7 +48,7 @@ inline void handleTelemetryServiceGet(
         }
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }

@@ -54,11 +54,11 @@ inline void populateSoftwareInformation(
          populateLinkToImages](
             const boost::system::error_code& ec,
             const dbus::utility::MapperEndPoints& functionalSw) {
-        BMCWEB_LOG_DEBUG << "populateSoftwareInformation enter";
+        BMCWEB_LOG_DEBUG("populateSoftwareInformation enter");
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "error_code = " << ec;
-            BMCWEB_LOG_ERROR << "error msg = " << ec.message();
+            BMCWEB_LOG_ERROR("error_code = {}", ec);
+            BMCWEB_LOG_ERROR("error msg = {}", ec.message());
             messages::internalError(asyncResp->res);
             return;
         }
@@ -67,7 +67,7 @@ inline void populateSoftwareInformation(
         {
             // Could keep going and try to populate SoftwareImages but
             // something is seriously wrong, so just fail
-            BMCWEB_LOG_ERROR << "Zero functional software in system";
+            BMCWEB_LOG_ERROR("Zero functional software in system");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -98,13 +98,13 @@ inline void populateSoftwareInformation(
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec2)
             {
-                BMCWEB_LOG_ERROR << "error_code = " << ec2;
-                BMCWEB_LOG_ERROR << "error msg = " << ec2.message();
+                BMCWEB_LOG_ERROR("error_code = {}", ec2);
+                BMCWEB_LOG_ERROR("error msg = {}", ec2.message());
                 messages::internalError(asyncResp->res);
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " images";
+            BMCWEB_LOG_DEBUG("Found {} images", subtree.size());
 
             for (const std::pair<std::string,
                                  std::vector<std::pair<
@@ -116,7 +116,7 @@ inline void populateSoftwareInformation(
                 if (swId.empty())
                 {
                     messages::internalError(asyncResp->res);
-                    BMCWEB_LOG_ERROR << "Invalid software ID";
+                    BMCWEB_LOG_ERROR("Invalid software ID");
 
                     return;
                 }
@@ -142,8 +142,8 @@ inline void populateSoftwareInformation(
                             propertiesList) {
                     if (ec3)
                     {
-                        BMCWEB_LOG_ERROR << "error_code = " << ec3;
-                        BMCWEB_LOG_ERROR << "error msg = " << ec3.message();
+                        BMCWEB_LOG_ERROR("error_code = {}", ec3);
+                        BMCWEB_LOG_ERROR("error msg = {}", ec3.message());
                         // Have seen the code update app delete the D-Bus
                         // object, during code update, between the call to
                         // mapper and here. Just leave these properties off if
@@ -185,9 +185,9 @@ inline void populateSoftwareInformation(
                         return;
                     }
 
-                    BMCWEB_LOG_DEBUG << "Image ID: " << swId;
-                    BMCWEB_LOG_DEBUG << "Running image: " << runningImage;
-                    BMCWEB_LOG_DEBUG << "Image purpose: " << *swInvPurpose;
+                    BMCWEB_LOG_DEBUG("Image ID: {}", swId);
+                    BMCWEB_LOG_DEBUG("Running image: {}", runningImage);
+                    BMCWEB_LOG_DEBUG("Image purpose: {}", *swInvPurpose);
 
                     if (populateLinkToImages)
                     {
@@ -253,7 +253,7 @@ inline resource::State getRedfishSwState(const std::string& swState)
     {
         return resource::State::StandbySpare;
     }
-    BMCWEB_LOG_DEBUG << "Default sw state " << swState << " to Disabled";
+    BMCWEB_LOG_DEBUG("Default sw state {} to Disabled", swState);
     return resource::State::Disabled;
 }
 
@@ -277,7 +277,7 @@ inline std::string getRedfishSwHealth(const std::string& swState)
     {
         return "OK";
     }
-    BMCWEB_LOG_DEBUG << "Sw state " << swState << " to Warning";
+    BMCWEB_LOG_DEBUG("Sw state {} to Warning", swState);
     return "Warning";
 }
 
@@ -297,7 +297,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::shared_ptr<std::string>& swId,
                         const std::string& dbusSvc)
 {
-    BMCWEB_LOG_DEBUG << "getSwStatus: swId " << *swId << " svc " << dbusSvc;
+    BMCWEB_LOG_DEBUG("getSwStatus: swId {} svc {}", *swId, dbusSvc);
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, dbusSvc,
@@ -331,7 +331,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "getSwStatus: Activation " << *swInvActivation;
+        BMCWEB_LOG_DEBUG("getSwStatus: Activation {}", *swInvActivation);
         asyncResp->res.jsonValue["Status"]["State"] =
             getRedfishSwState(*swInvActivation);
         asyncResp->res.jsonValue["Status"]["Health"] =
@@ -359,8 +359,8 @@ inline void
                           const dbus::utility::MapperEndPoints& objPaths) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << " error_code = " << ec
-                             << " error msg =  " << ec.message();
+            BMCWEB_LOG_DEBUG(" error_code = {} error msg =  {}", ec,
+                             ec.message());
             // System can exist with no updateable software,
             // so don't throw error here.
             return;
