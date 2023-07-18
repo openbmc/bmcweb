@@ -72,8 +72,9 @@ struct UserSession
                 element.value().get_ptr<const std::string*>();
             if (thisValue == nullptr)
             {
-                BMCWEB_LOG_ERROR << "Error reading persistent store.  Property "
-                                 << element.key() << " was not of type string";
+                BMCWEB_LOG_ERROR(
+                    "Error reading persistent store.  Property {} was not of type string",
+                    element.key());
                 continue;
             }
             if (element.key() == "unique_id")
@@ -103,9 +104,9 @@ struct UserSession
 
             else
             {
-                BMCWEB_LOG_ERROR
-                    << "Got unexpected property reading persistent file: "
-                    << element.key();
+                BMCWEB_LOG_ERROR(
+                    "Got unexpected property reading persistent file: {}",
+                    element.key());
                 continue;
             }
         }
@@ -116,8 +117,8 @@ struct UserSession
         if (userSession->uniqueId.empty() || userSession->username.empty() ||
             userSession->sessionToken.empty() || userSession->csrfToken.empty())
         {
-            BMCWEB_LOG_DEBUG << "Session missing required security "
-                                "information, refusing to restore";
+            BMCWEB_LOG_DEBUG("Session missing required security "
+                             "information, refusing to restore");
             return nullptr;
         }
 

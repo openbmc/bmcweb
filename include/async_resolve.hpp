@@ -20,14 +20,14 @@ inline bool endpointFromResolveTuple(const std::vector<uint8_t>& ipAddress,
 {
     if (ipAddress.size() == 4) // ipv4 address
     {
-        BMCWEB_LOG_DEBUG << "ipv4 address";
+        BMCWEB_LOG_DEBUG("ipv4 address");
         boost::asio::ip::address_v4 ipv4Addr(
             {ipAddress[0], ipAddress[1], ipAddress[2], ipAddress[3]});
         endpoint.address(ipv4Addr);
     }
     else if (ipAddress.size() == 16) // ipv6 address
     {
-        BMCWEB_LOG_DEBUG << "ipv6 address";
+        BMCWEB_LOG_DEBUG("ipv6 address");
         boost::asio::ip::address_v6 ipv6Addr(
             {ipAddress[0], ipAddress[1], ipAddress[2], ipAddress[3],
              ipAddress[4], ipAddress[5], ipAddress[6], ipAddress[7],
@@ -37,7 +37,7 @@ inline bool endpointFromResolveTuple(const std::vector<uint8_t>& ipAddress,
     }
     else
     {
-        BMCWEB_LOG_ERROR << "Resolve failed to fetch the IP address";
+        BMCWEB_LOG_ERROR("Resolve failed to fetch the IP address");
         return false;
     }
     return true;
@@ -66,14 +66,14 @@ class Resolver
     void async_resolve(const std::string& host, std::string_view port,
                        ResolveHandler&& handler)
     {
-        BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+        BMCWEB_LOG_DEBUG("Trying to resolve: {}:{}", host, port);
 
         uint16_t portNum = 0;
 
         auto it = std::from_chars(&*port.begin(), &*port.end(), portNum);
         if (it.ec != std::errc())
         {
-            BMCWEB_LOG_ERROR << "Failed to get the Port";
+            BMCWEB_LOG_ERROR("Failed to get the Port");
             handler(std::make_error_code(std::errc::invalid_argument),
                     results_type{});
 
@@ -90,12 +90,12 @@ class Resolver
             results_type endpointList;
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+                BMCWEB_LOG_ERROR("Resolve failed: {}", ec.message());
                 handler(ec, endpointList);
                 return;
             }
-            BMCWEB_LOG_DEBUG << "ResolveHostname returned: " << hostName << ":"
-                             << flagNum;
+            BMCWEB_LOG_DEBUG("ResolveHostname returned: {}:{}", hostName,
+                             flagNum);
             // Extract the IP address from the response
             for (const std::tuple<int32_t, int32_t, std::vector<uint8_t>>&
                      resolveList : resp)
@@ -109,7 +109,8 @@ class Resolver
                         boost::system::errc::address_not_available);
                     handler(ecErr, endpointList);
                 }
-                BMCWEB_LOG_DEBUG << "resolved endpoint is : " << endpoint;
+                BMCWEB_LOG_DEBUG("resolved endpoint is : {}",
+                                 endpoint.address().to_string());
                 endpointList.push_back(endpoint);
             }
             // All the resolved data is filled in the endpointList

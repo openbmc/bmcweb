@@ -110,7 +110,7 @@ inline void afterChassisDriveCollectionSubtree(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Drive mapper call error";
+        BMCWEB_LOG_ERROR("Drive mapper call error");
         messages::internalError(asyncResp->res);
         return;
     }
@@ -131,7 +131,7 @@ inline void afterChassisDriveCollectionSubtree(
         sdbusplus::message::object_path object(drive);
         if (object.filename().empty())
         {
-            BMCWEB_LOG_ERROR << "Failed to find filename in " << drive;
+            BMCWEB_LOG_ERROR("Failed to find filename in {}", drive);
             return;
         }
 
@@ -161,7 +161,7 @@ inline void afterSystemsStorageGetSubtree(
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG << "requestRoutesStorage DBUS response error";
+        BMCWEB_LOG_DEBUG("requestRoutesStorage DBUS response error");
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
                                    storageId);
         return;
@@ -230,7 +230,7 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG << "requestRoutesStorage DBUS response error";
+        BMCWEB_LOG_DEBUG("requestRoutesStorage DBUS response error");
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
                                    storageId);
         return;
@@ -274,7 +274,7 @@ inline void
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
-        BMCWEB_LOG_DEBUG << "requestRoutesStorage setUpRedfishRoute failed";
+        BMCWEB_LOG_DEBUG("requestRoutesStorage setUpRedfishRoute failed");
         return;
     }
 
@@ -478,7 +478,7 @@ inline void
                 if (value == nullptr)
                 {
                     // illegal property
-                    BMCWEB_LOG_ERROR << "Illegal property: Type";
+                    BMCWEB_LOG_ERROR("Illegal property: Type");
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -487,8 +487,8 @@ inline void
                     convertDriveType(*value);
                 if (!mediaType)
                 {
-                    BMCWEB_LOG_WARNING << "UnknownDriveType Interface: "
-                                       << *value;
+                    BMCWEB_LOG_WARNING("UnknownDriveType Interface: {}",
+                                       *value);
                     continue;
                 }
                 if (*mediaType == drive::MediaType::Invalid)
@@ -505,7 +505,7 @@ inline void
                     std::get_if<uint64_t>(&property.second);
                 if (capacity == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal property: Capacity";
+                    BMCWEB_LOG_ERROR("Illegal property: Capacity");
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -523,7 +523,7 @@ inline void
                     std::get_if<std::string>(&property.second);
                 if (value == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal property: Protocol";
+                    BMCWEB_LOG_ERROR("Illegal property: Protocol");
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -532,8 +532,8 @@ inline void
                     convertDriveProtocol(*value);
                 if (!proto)
                 {
-                    BMCWEB_LOG_WARNING << "Unknown DrivePrototype Interface: "
-                                       << *value;
+                    BMCWEB_LOG_WARNING("Unknown DrivePrototype Interface: {}",
+                                       *value);
                     continue;
                 }
                 if (*proto == protocol::Protocol::Invalid)
@@ -549,8 +549,8 @@ inline void
                     std::get_if<uint8_t>(&property.second);
                 if (lifeLeft == nullptr)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Illegal property: PredictedMediaLifeLeftPercent";
+                    BMCWEB_LOG_ERROR(
+                        "Illegal property: PredictedMediaLifeLeftPercent");
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -566,7 +566,7 @@ inline void
                 encryptionStatus = std::get_if<std::string>(&property.second);
                 if (encryptionStatus == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal property: EncryptionStatus";
+                    BMCWEB_LOG_ERROR("Illegal property: EncryptionStatus");
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -576,7 +576,7 @@ inline void
                 isLocked = std::get_if<bool>(&property.second);
                 if (isLocked == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal property: Locked";
+                    BMCWEB_LOG_ERROR("Illegal property: Locked");
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -646,7 +646,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Drive mapper call error";
+        BMCWEB_LOG_ERROR("Drive mapper call error");
         messages::internalError(asyncResp->res);
         return;
     }
@@ -676,8 +676,8 @@ inline void afterGetSubtreeSystemsStorageDrive(
 
     if (connectionNames.size() != 1)
     {
-        BMCWEB_LOG_ERROR << "Connection size " << connectionNames.size()
-                         << ", not equal to 1";
+        BMCWEB_LOG_ERROR("Connection size {}, not equal to 1",
+                         connectionNames.size());
         messages::internalError(asyncResp->res);
         return;
     }
@@ -770,7 +770,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
 
         if (connectionNames.empty())
         {
-            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+            BMCWEB_LOG_ERROR("Got 0 Connection names");
             continue;
         }
 
@@ -787,7 +787,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
                                    const dbus::utility::MapperEndPoints& resp) {
             if (ec3)
             {
-                BMCWEB_LOG_ERROR << "Error in chassis Drive association ";
+                BMCWEB_LOG_ERROR("Error in chassis Drive association ");
             }
             nlohmann::json& members = asyncResp->res.jsonValue["Members"];
             // important if array is empty
@@ -856,7 +856,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -872,7 +872,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         if (connectionNames.empty())
         {
-            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+            BMCWEB_LOG_ERROR("Got 0 Connection names");
             continue;
         }
 
@@ -959,7 +959,7 @@ inline void
 
             if (connectionNames.empty())
             {
-                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                BMCWEB_LOG_ERROR("Got 0 Connection names");
                 continue;
             }
 
@@ -999,7 +999,7 @@ inline void getStorageControllerAsset(
     if (ec)
     {
         // this interface isn't necessary
-        BMCWEB_LOG_DEBUG << "Failed to get StorageControllerAsset";
+        BMCWEB_LOG_DEBUG("Failed to get StorageControllerAsset");
         return;
     }
 
@@ -1058,7 +1058,7 @@ inline void populateStorageController(
         // if we get a good return
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "Failed to get Present property";
+            BMCWEB_LOG_DEBUG("Failed to get Present property");
             return;
         }
         if (!isPresent)
@@ -1086,7 +1086,7 @@ inline void getStorageControllerHandler(
     if (ec || subtree.empty())
     {
         // doesn't have to be there
-        BMCWEB_LOG_DEBUG << "Failed to handle StorageController";
+        BMCWEB_LOG_DEBUG("Failed to handle StorageController");
         return;
     }
 
@@ -1096,7 +1096,7 @@ inline void getStorageControllerHandler(
         std::string id = object.filename();
         if (id.empty())
         {
-            BMCWEB_LOG_ERROR << "Failed to find filename in " << path;
+            BMCWEB_LOG_ERROR("Failed to find filename in {}", path);
             return;
         }
         if (id != controllerId)
@@ -1106,8 +1106,8 @@ inline void getStorageControllerHandler(
 
         if (interfaceDict.size() != 1)
         {
-            BMCWEB_LOG_ERROR << "Connection size " << interfaceDict.size()
-                             << ", greater than 1";
+            BMCWEB_LOG_ERROR("Connection size {}, greater than 1",
+                             interfaceDict.size());
             messages::internalError(asyncResp->res);
             return;
         }
@@ -1128,7 +1128,7 @@ inline void populateStorageControllerCollection(
     {
         asyncResp->res.jsonValue["Members"] = std::move(members);
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
-        BMCWEB_LOG_DEBUG << "Failed to find any StorageController";
+        BMCWEB_LOG_DEBUG("Failed to find any StorageController");
         return;
     }
 
@@ -1137,7 +1137,7 @@ inline void populateStorageControllerCollection(
         std::string id = sdbusplus::message::object_path(path).filename();
         if (id.empty())
         {
-            BMCWEB_LOG_ERROR << "Failed to find filename in " << path;
+            BMCWEB_LOG_ERROR("Failed to find filename in {}", path);
             return;
         }
         nlohmann::json::object_t member;
@@ -1156,15 +1156,15 @@ inline void handleSystemsStorageControllerCollectionGet(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
-        BMCWEB_LOG_DEBUG
-            << "Failed to setup Redfish Route for StorageController Collection";
+        BMCWEB_LOG_DEBUG(
+            "Failed to setup Redfish Route for StorageController Collection");
         return;
     }
     if (systemName != "system")
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
-        BMCWEB_LOG_DEBUG << "Failed to find ComputerSystem of " << systemName;
+        BMCWEB_LOG_DEBUG("Failed to find ComputerSystem of {}", systemName);
         return;
     }
 
@@ -1192,15 +1192,14 @@ inline void handleSystemsStorageControllerGet(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
-        BMCWEB_LOG_DEBUG
-            << "Failed to setup Redfish Route for StorageController";
+        BMCWEB_LOG_DEBUG("Failed to setup Redfish Route for StorageController");
         return;
     }
     if (systemName != "system")
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
-        BMCWEB_LOG_DEBUG << "Failed to find ComputerSystem of " << systemName;
+        BMCWEB_LOG_DEBUG("Failed to find ComputerSystem of {}", systemName);
         return;
     }
     constexpr std::array<std::string_view, 1> interfaces = {

@@ -34,7 +34,7 @@ inline bool
 
     if (!success)
     {
-        BMCWEB_LOG_ERROR << "Failed to unpack user properties.";
+        BMCWEB_LOG_ERROR("Failed to unpack user properties.");
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
         return false;
@@ -43,13 +43,13 @@ inline bool
     if (userRolePtr != nullptr)
     {
         req.session->userRole = *userRolePtr;
-        BMCWEB_LOG_DEBUG << "userName = " << req.session->username
-                         << " userRole = " << *userRolePtr;
+        BMCWEB_LOG_DEBUG("userName = {} userRole = {}", req.session->username,
+                         *userRolePtr);
     }
 
     if (remoteUser == nullptr)
     {
-        BMCWEB_LOG_ERROR << "RemoteUser property missing or wrong type";
+        BMCWEB_LOG_ERROR("RemoteUser property missing or wrong type");
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
         return false;
@@ -59,8 +59,8 @@ inline bool
     {
         if (!*remoteUser)
         {
-            BMCWEB_LOG_ERROR << "UserPasswordExpired property is expected for"
-                                " local user but is missing or wrong type";
+            BMCWEB_LOG_ERROR("UserPasswordExpired property is expected for"
+                             " local user but is missing or wrong type");
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             return false;
@@ -103,7 +103,7 @@ inline bool
         // Remove all privileges except ConfigureSelf
         userPrivileges =
             userPrivileges.intersection(redfish::Privileges{"ConfigureSelf"});
-        BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
+        BMCWEB_LOG_DEBUG("Operation limited to ConfigureSelf");
     }
 
     if (!rule.checkPrivileges(userPrivileges))
@@ -132,7 +132,7 @@ void afterGetUserInfo(Request& req,
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+        BMCWEB_LOG_ERROR("GetUserInfo failed...");
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
         return;
@@ -140,7 +140,7 @@ void afterGetUserInfo(Request& req,
 
     if (!populateUserInfo(req, asyncResp, userInfoMap))
     {
-        BMCWEB_LOG_ERROR << "Failed to populate user information";
+        BMCWEB_LOG_ERROR("Failed to populate user information");
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
         return;
@@ -149,7 +149,7 @@ void afterGetUserInfo(Request& req,
     if (!isUserPrivileged(req, asyncResp, rule))
     {
         // User is not privileged
-        BMCWEB_LOG_ERROR << "Insufficient Privilege";
+        BMCWEB_LOG_ERROR("Insufficient Privilege");
         asyncResp->res.result(boost::beast::http::status::forbidden);
         return;
     }
