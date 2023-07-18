@@ -1,10 +1,6 @@
 #pragma once
 
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/constants.hpp>
-#include <boost/iterator/iterator_facade.hpp>
-#include <boost/type_index/type_index_facade.hpp>
-
+#include <algorithm>
 #include <cctype>
 #include <iomanip>
 #include <ostream>

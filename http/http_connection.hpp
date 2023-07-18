@@ -10,9 +10,9 @@
 #include "logging.hpp"
 #include "mutual_tls.hpp"
 #include "ssl_key_handler.hpp"
+#include "str_utility.hpp"
 #include "utility.hpp"
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
@@ -273,10 +273,10 @@ class Connection :
         bool isSse =
             isContentTypeAllowed(req->getHeaderValue("Accept"),
                                  http_helpers::ContentType::EventStream, false);
+        std::string_view upgradeType(
+            thisReq.getHeaderValue(boost::beast::http::field::upgrade));
         if ((thisReq.isUpgrade() &&
-             boost::iequals(
-                 thisReq.getHeaderValue(boost::beast::http::field::upgrade),
-                 "websocket")) ||
+             bmcweb::asciiIEquals(upgradeType, "websocket")) ||
             isSse)
         {
             asyncResp->res.setCompleteRequestHandler(
