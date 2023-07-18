@@ -11,7 +11,6 @@
 
 #include <sys/types.h>
 
-#include <boost/algorithm/string/classification.hpp>
 #include <boost/beast/http/message.hpp> // IWYU pragma: keep
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
