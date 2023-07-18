@@ -28,7 +28,6 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 
-#include <boost/algorithm/string/case_conv.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -731,7 +730,7 @@ inline void
 
     // Make sure that content type is application/octet-stream or
     // multipart/form-data
-    if (boost::iequals(contentType, "application/octet-stream"))
+    if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req,

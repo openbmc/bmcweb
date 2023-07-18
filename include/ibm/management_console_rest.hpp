@@ -6,9 +6,9 @@
 #include "event_service_manager.hpp"
 #include "ibm/locks.hpp"
 #include "resource_messages.hpp"
+#include "str_utility.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/types.hpp>
@@ -49,7 +49,7 @@ inline void handleFilePut(const crow::Request& req,
     std::error_code ec;
     // Check the content-type of the request
     boost::beast::string_view contentType = req.getHeaderValue("content-type");
-    if (!boost::iequals(contentType, "application/octet-stream"))
+    if (!bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
         asyncResp->res.result(boost::beast::http::status::not_acceptable);
         asyncResp->res.jsonValue["Description"] = contentNotAcceptableMsg;

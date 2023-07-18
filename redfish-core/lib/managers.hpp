@@ -743,7 +743,7 @@ inline const dbus::utility::ManagedObjectType::value_type*
     std::replace(escaped.begin(), escaped.end(), ' ', '_');
     escaped = "/" + escaped;
     auto it = std::ranges::find_if(managedObj, [&escaped](const auto& obj) {
-        if (boost::algorithm::ends_with(obj.first.str, escaped))
+        if (obj.first.str.ends_with(escaped))
         {
             BMCWEB_LOG_DEBUG("Matched {}", obj.first.str);
             return true;
@@ -1492,8 +1492,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 auto pathItr = std::ranges::find_if(
                     managedObj, [&dbusObjName](const auto& obj) {
-                    return boost::algorithm::ends_with(obj.first.str,
-                                                       "/" + dbusObjName);
+                    return obj.first.parent_path() == dbusObjName;
                 });
                 dbus::utility::DBusPropertiesMap output;
 
@@ -1621,7 +1620,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     bool foundChassis = false;
                     for (const auto& obj : managedObj)
                     {
-                        if (boost::algorithm::ends_with(obj.first.str, chassis))
+                        if (obj.first.parent_path() == chassis)
                         {
                             chassis = obj.first.str;
                             foundChassis = true;
