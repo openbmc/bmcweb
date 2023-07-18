@@ -13,7 +13,7 @@ inline void createSubscription(crow::sse_socket::Connection& conn)
     if ((manager.getNumberOfSubscriptions() >= maxNoOfSubscriptions) ||
         manager.getNumberOfSSESubscriptions() >= maxNoOfSSESubscriptions)
     {
-        BMCWEB_LOG_WARNING << "Max SSE subscriptions reached";
+        BMCWEB_LOG_WARNING("Max SSE subscriptions reached");
         conn.close("Max SSE subscriptions reached");
         return;
     }

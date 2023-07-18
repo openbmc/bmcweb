@@ -66,7 +66,7 @@ class HTTP2Connection :
 
         if (sendServerConnectionHeader() != 0)
         {
-            BMCWEB_LOG_ERROR << "send_server_connection_header failed";
+            BMCWEB_LOG_ERROR("send_server_connection_header failed");
             return;
         }
         doRead();
@@ -74,7 +74,7 @@ class HTTP2Connection :
 
     int sendServerConnectionHeader()
     {
-        BMCWEB_LOG_DEBUG << "send_server_connection_header()";
+        BMCWEB_LOG_DEBUG("send_server_connection_header()");
 
         uint32_t maxStreams = 4;
         std::array<nghttp2_settings_entry, 2> iv = {
@@ -83,7 +83,7 @@ class HTTP2Connection :
         int rv = ngSession.submitSettings(iv);
         if (rv != 0)
         {
-            BMCWEB_LOG_ERROR << "Fatal error: " << nghttp2_strerror(rv);
+            BMCWEB_LOG_ERROR("Fatal error: {}", nghttp2_strerror(rv));
             return -1;
         }
         return 0;
@@ -97,20 +97,20 @@ class HTTP2Connection :
     {
         if (source == nullptr || source->ptr == nullptr)
         {
-            BMCWEB_LOG_DEBUG << "Source was null???";
+            BMCWEB_LOG_DEBUG("Source was null???");
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
 
-        BMCWEB_LOG_DEBUG << "File read callback length: " << length;
+        BMCWEB_LOG_DEBUG("File read callback length: {}", length);
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         Http2StreamData* str = reinterpret_cast<Http2StreamData*>(source->ptr);
         crow::Response& res = str->res;
 
-        BMCWEB_LOG_DEBUG << "total: " << res.body().size()
-                         << " send_sofar: " << str->sentSofar;
+        BMCWEB_LOG_DEBUG("total: {} send_sofar: {}", res.body().size(),
+                         str->sentSofar);
 
         size_t toSend = std::min(res.body().size() - str->sentSofar, length);
-        BMCWEB_LOG_DEBUG << "Copying " << toSend << " bytes to buf";
+        BMCWEB_LOG_DEBUG("Copying {} bytes to buf", toSend);
 
         std::string::iterator bodyBegin = res.body().begin();
         std::advance(bodyBegin, str->sentSofar);
@@ -120,7 +120,7 @@ class HTTP2Connection :
 
         if (str->sentSofar >= res.body().size())
         {
-            BMCWEB_LOG_DEBUG << "Setting OEF flag";
+            BMCWEB_LOG_DEBUG("Setting OEF flag");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
             //*dataFlags |= NGHTTP2_DATA_FLAG_NO_COPY;
         }
@@ -138,7 +138,7 @@ class HTTP2Connection :
 
     int sendResponse(Response& completedRes, int32_t streamId)
     {
-        BMCWEB_LOG_DEBUG << "send_response stream_id:" << streamId;
+        BMCWEB_LOG_DEBUG("send_response stream_id:{}", streamId);
 
         auto it = streams.find(streamId);
         if (it == streams.end())
@@ -175,7 +175,7 @@ class HTTP2Connection :
         int rv = ngSession.submitResponse(streamId, hdr, &dataPrd);
         if (rv != 0)
         {
-            BMCWEB_LOG_ERROR << "Fatal error: " << nghttp2_strerror(rv);
+            BMCWEB_LOG_ERROR("Fatal error: {}", nghttp2_strerror(rv));
             close();
             return -1;
         }
@@ -201,7 +201,7 @@ class HTTP2Connection :
 
     int onRequestRecv(int32_t streamId)
     {
-        BMCWEB_LOG_DEBUG << "on_request_recv";
+        BMCWEB_LOG_DEBUG("on_request_recv");
 
         auto it = streams.find(streamId);
         if (it == streams.end())
@@ -211,14 +211,14 @@ class HTTP2Connection :
         }
 
         crow::Request& thisReq = it->second->req;
-        BMCWEB_LOG_DEBUG << "Handling " << &thisReq << " \""
-                         << thisReq.url().encoded_path() << "\"";
+        BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
+                         thisReq.url().encoded_path());
 
         crow::Response& thisRes = it->second->res;
 
         thisRes.setCompleteRequestHandler(
             [this, streamId](Response& completeRes) {
-            BMCWEB_LOG_DEBUG << "res.completeRequestHandler called";
+            BMCWEB_LOG_DEBUG("res.completeRequestHandler called");
             if (sendResponse(completeRes, streamId) != 0)
             {
                 close();
@@ -234,7 +234,7 @@ class HTTP2Connection :
 
     int onFrameRecvCallback(const nghttp2_frame& frame)
     {
-        BMCWEB_LOG_DEBUG << "frame type " << static_cast<int>(frame.hd.type);
+        BMCWEB_LOG_DEBUG("frame type {}", static_cast<int>(frame.hd.type));
         switch (frame.hd.type)
         {
             case NGHTTP2_DATA:
@@ -255,15 +255,15 @@ class HTTP2Connection :
                                          const nghttp2_frame* frame,
                                          void* userData)
     {
-        BMCWEB_LOG_DEBUG << "on_frame_recv_callback";
+        BMCWEB_LOG_DEBUG("on_frame_recv_callback");
         if (userData == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "user data was null?";
+            BMCWEB_LOG_CRITICAL("user data was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         if (frame == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "frame was null?";
+            BMCWEB_LOG_CRITICAL("frame was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         return userPtrToSelf(userData).onFrameRecvCallback(*frame);
@@ -281,10 +281,10 @@ class HTTP2Connection :
                                            int32_t streamId,
                                            uint32_t /*unused*/, void* userData)
     {
-        BMCWEB_LOG_DEBUG << "on_stream_close_callback stream " << streamId;
+        BMCWEB_LOG_DEBUG("on_stream_close_callback stream {}", streamId);
         if (userData == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "user data was null?";
+            BMCWEB_LOG_CRITICAL("user data was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         auto stream = userPtrToSelf(userData).streams.find(streamId);
@@ -308,8 +308,8 @@ class HTTP2Connection :
         std::string_view valueSv(reinterpret_cast<const char*>(value.data()),
                                  value.size());
 
-        BMCWEB_LOG_DEBUG << "on_header_callback name: " << nameSv << " value "
-                         << valueSv;
+        BMCWEB_LOG_DEBUG("on_header_callback name: {} value {}", nameSv,
+                         valueSv);
 
         switch (frame.hd.type)
         {
@@ -321,7 +321,7 @@ class HTTP2Connection :
                 auto thisStream = streams.find(frame.hd.stream_id);
                 if (thisStream == streams.end())
                 {
-                    BMCWEB_LOG_ERROR << "Unknown stream" << frame.hd.stream_id;
+                    BMCWEB_LOG_ERROR("Unknown stream{}", frame.hd.stream_id);
                     close();
                     return -1;
                 }
@@ -338,7 +338,7 @@ class HTTP2Connection :
                         boost::beast::http::string_to_verb(valueSv);
                     if (verb == boost::beast::http::verb::unknown)
                     {
-                        BMCWEB_LOG_ERROR << "Unknown http verb " << valueSv;
+                        BMCWEB_LOG_ERROR("Unknown http verb {}", valueSv);
                         close();
                         return -1;
                     }
@@ -365,22 +365,22 @@ class HTTP2Connection :
     {
         if (userData == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "user data was null?";
+            BMCWEB_LOG_CRITICAL("user data was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         if (frame == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "frame was null?";
+            BMCWEB_LOG_CRITICAL("frame was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         if (name == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "name was null?";
+            BMCWEB_LOG_CRITICAL("name was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         if (value == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "value was null?";
+            BMCWEB_LOG_CRITICAL("value was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         return userPtrToSelf(userData).onHeaderCallback(*frame, {name, namelen},
@@ -392,7 +392,7 @@ class HTTP2Connection :
         if (frame.hd.type == NGHTTP2_HEADERS &&
             frame.headers.cat == NGHTTP2_HCAT_REQUEST)
         {
-            BMCWEB_LOG_DEBUG << "create stream for id " << frame.hd.stream_id;
+            BMCWEB_LOG_DEBUG("create stream for id {}", frame.hd.stream_id);
 
             std::pair<boost::container::flat_map<
                           int32_t, std::unique_ptr<Http2StreamData>>::iterator,
@@ -409,15 +409,15 @@ class HTTP2Connection :
                                             const nghttp2_frame* frame,
                                             void* userData)
     {
-        BMCWEB_LOG_DEBUG << "on_begin_headers_callback";
+        BMCWEB_LOG_DEBUG("on_begin_headers_callback");
         if (userData == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "user data was null?";
+            BMCWEB_LOG_CRITICAL("user data was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         if (frame == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "frame was null?";
+            BMCWEB_LOG_CRITICAL("frame was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         return userPtrToSelf(userData).onBeginHeadersCallback(*frame);
@@ -428,7 +428,7 @@ class HTTP2Connection :
                                  size_t sendLength)
     {
         self->isWriting = false;
-        BMCWEB_LOG_DEBUG << "Sent " << sendLength;
+        BMCWEB_LOG_DEBUG("Sent {}", sendLength);
         if (ec)
         {
             self->close();
@@ -457,7 +457,7 @@ class HTTP2Connection :
     ssize_t onSendCallback(nghttp2_session* /*session */, const uint8_t* data,
                            size_t length, int /* flags */)
     {
-        BMCWEB_LOG_DEBUG << "On send callback size=" << length;
+        BMCWEB_LOG_DEBUG("On send callback size={}", length);
         size_t copied = boost::asio::buffer_copy(
             sendBuffer.prepare(length), boost::asio::buffer(data, length));
         sendBuffer.commit(copied);
@@ -489,20 +489,20 @@ class HTTP2Connection :
 
     void doRead()
     {
-        BMCWEB_LOG_DEBUG << this << " doRead";
+        BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
         adaptor.async_read_some(
             inBuffer.prepare(8192),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG << this << " async_read_some " << bytesTransferred
-                             << " Bytes";
+            BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
+                             bytesTransferred);
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << this
-                                 << " Error while reading: " << ec.message();
+                BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
+                                 ec.message());
                 close();
-                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
                 return;
             }
             inBuffer.commit(bytesTransferred);
@@ -513,13 +513,13 @@ class HTTP2Connection :
                 std::span<const uint8_t> bufferSpan{
                     std::bit_cast<const uint8_t*>(bufferIt.data()),
                     bufferIt.size()};
-                BMCWEB_LOG_DEBUG << "http2 is getting " << bufferSpan.size()
-                                 << " bytes";
+                BMCWEB_LOG_DEBUG("http2 is getting {} bytes",
+                                 bufferSpan.size());
                 ssize_t readLen = ngSession.memRecv(bufferSpan);
                 if (readLen <= 0)
                 {
-                    BMCWEB_LOG_ERROR << "nghttp2_session_mem_recv returned "
-                                     << readLen;
+                    BMCWEB_LOG_ERROR("nghttp2_session_mem_recv returned {}",
+                                     readLen);
                     close();
                     return;
                 }

@@ -57,13 +57,13 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     ~NbdProxyServer()
     {
-        BMCWEB_LOG_DEBUG << "NbdProxyServer destructor";
+        BMCWEB_LOG_DEBUG("NbdProxyServer destructor");
 
-        BMCWEB_LOG_DEBUG << "peerSocket->close()";
+        BMCWEB_LOG_DEBUG("peerSocket->close()");
         boost::system::error_code ec;
         peerSocket.close(ec);
 
-        BMCWEB_LOG_DEBUG << "std::remove(" << socketId << ")";
+        BMCWEB_LOG_DEBUG("std::remove({})", socketId);
         std::remove(socketId.c_str());
 
         crow::connections::systemBus->async_method_call(
@@ -83,12 +83,12 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                                      stream_protocol::socket socket) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "UNIX socket: async_accept error = "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("UNIX socket: async_accept error = {}",
+                                 ec.message());
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Connection opened";
+            BMCWEB_LOG_DEBUG("Connection opened");
             std::shared_ptr<NbdProxyServer> self = weak.lock();
             if (self == nullptr)
             {
@@ -110,8 +110,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBus error: cannot call mount method = "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("DBus error: cannot call mount method = {}",
+                                 ec.message());
 
                 self->connection.close("Failed to mount media");
                 return;
@@ -142,8 +142,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                                      size_t bytesRead) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "UNIX socket: async_read_some error = "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("UNIX socket: async_read_some error = {}",
+                                 ec.message());
                 return;
             }
             std::shared_ptr<NbdProxyServer> self = weak.lock();
@@ -172,13 +172,13 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     {
         if (uxWriteInProgress)
         {
-            BMCWEB_LOG_ERROR << "Write in progress";
+            BMCWEB_LOG_ERROR("Write in progress");
             return;
         }
 
         if (ws2uxBuf.size() == 0)
         {
-            BMCWEB_LOG_ERROR << "No data to write to UNIX socket";
+            BMCWEB_LOG_ERROR("No data to write to UNIX socket");
             return;
         }
 
@@ -199,8 +199,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "UNIX: async_write error = "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("UNIX: async_write error = {}", ec.message());
                 self->connection.close("Internal error");
                 return;
             }
@@ -253,7 +252,7 @@ inline void
 
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
+        BMCWEB_LOG_ERROR("DBus error: {}", ec.message());
         conn.close("Failed to create mount point");
         return;
     }
@@ -275,7 +274,7 @@ inline void
 
                     if (endpointValue == nullptr)
                     {
-                        BMCWEB_LOG_ERROR << "EndpointId property value is null";
+                        BMCWEB_LOG_ERROR("EndpointId property value is null");
                     }
                 }
                 if (name == "Socket")
@@ -283,7 +282,7 @@ inline void
                     socketValue = std::get_if<std::string>(&value);
                     if (socketValue == nullptr)
                     {
-                        BMCWEB_LOG_ERROR << "Socket property value is null";
+                        BMCWEB_LOG_ERROR("Socket property value is null");
                     }
                 }
             }
@@ -299,7 +298,7 @@ inline void
 
     if (objects.empty() || endpointObjectPath == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Cannot find requested EndpointId";
+        BMCWEB_LOG_ERROR("Cannot find requested EndpointId");
         conn.close("Failed to match EndpointId");
         return;
     }
@@ -308,7 +307,7 @@ inline void
     {
         if (session.second->getEndpointId() == conn.req.target())
         {
-            BMCWEB_LOG_ERROR << "Cannot open new connection - socket is in use";
+            BMCWEB_LOG_ERROR("Cannot open new connection - socket is in use");
             conn.close("Slot is in use");
             return;
         }
@@ -325,7 +324,7 @@ inline void
 };
 inline void onOpen(crow::websocket::Connection& conn)
 {
-    BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
+    BMCWEB_LOG_DEBUG("nbd-proxy.onopen({})", logPtr(&conn));
 
     sdbusplus::message::object_path path("/xyz/openbmc_project/VirtualMedia");
     dbus::utility::getManagedObjects(
@@ -344,11 +343,11 @@ inline void onOpen(crow::websocket::Connection& conn)
 inline void onClose(crow::websocket::Connection& conn,
                     const std::string& reason)
 {
-    BMCWEB_LOG_DEBUG << "nbd-proxy.onclose(reason = '" << reason << "')";
+    BMCWEB_LOG_DEBUG("nbd-proxy.onclose(reason = '{}')", reason);
     auto session = sessions.find(&conn);
     if (session == sessions.end())
     {
-        BMCWEB_LOG_DEBUG << "No session to close";
+        BMCWEB_LOG_DEBUG("No session to close");
         return;
     }
     // Remove reference to session in global map
@@ -359,7 +358,7 @@ inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
                       crow::websocket::MessageType /*type*/,
                       std::function<void()>&& whenComplete)
 {
-    BMCWEB_LOG_DEBUG << "nbd-proxy.onMessage(len = " << data.size() << ")";
+    BMCWEB_LOG_DEBUG("nbd-proxy.onMessage(len = {})", data.size());
 
     // Acquire proxy from sessions
     auto session = sessions.find(&conn);

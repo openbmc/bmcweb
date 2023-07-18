@@ -46,8 +46,7 @@ inline void
                               pcieDevicePaths) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
-                             << ec.message();
+            BMCWEB_LOG_DEBUG("no PCIe device paths found ec: {}", ec.message());
             // Not an error, system just doesn't have PCIe info
             return;
         }

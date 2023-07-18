@@ -135,10 +135,9 @@ inline void
             const std::string& introspectXml) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR
-                << "Introspect call failed with error: " << ec.message()
-                << " on process: " << processName << " path: " << objectPath
-                << "\n";
+            BMCWEB_LOG_ERROR(
+                "Introspect call failed with error: {} on process: {} path: {}",
+                ec.message(), processName, objectPath);
             return;
         }
         nlohmann::json::object_t object;
@@ -152,8 +151,8 @@ inline void
         tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
         if (pRoot == nullptr)
         {
-            BMCWEB_LOG_ERROR << "XML document failed to parse " << processName
-                             << " " << objectPath << "\n";
+            BMCWEB_LOG_ERROR("XML document failed to parse {} {}", processName,
+                             objectPath);
         }
         else
         {
@@ -186,8 +185,8 @@ inline void getPropertiesForEnumerate(
     const std::string& interface,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
-                     << service << " " << interface;
+    BMCWEB_LOG_DEBUG("getPropertiesForEnumerate {} {} {}", objectPath, service,
+                     interface);
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objectPath, interface,
@@ -196,9 +195,9 @@ inline void getPropertiesForEnumerate(
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "GetAll on path " << objectPath << " iface "
-                             << interface << " service " << service
-                             << " failed with code " << ec;
+            BMCWEB_LOG_ERROR(
+                "GetAll on path {} iface {} service {} failed with code {}",
+                objectPath, interface, service, ec);
             return;
         }
 
@@ -236,7 +235,7 @@ inline void findRemainingObjectsForEnumerate(
     const std::shared_ptr<dbus::utility::MapperGetSubTreeResponse>& subtree,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "findRemainingObjectsForEnumerate";
+    BMCWEB_LOG_DEBUG("findRemainingObjectsForEnumerate");
     const nlohmann::json& dataJson = asyncResp->res.jsonValue["data"];
 
     for (const auto& [path, interface_map] : *subtree)
@@ -280,8 +279,8 @@ struct InProgressEnumerateData
         }
         catch (...)
         {
-            BMCWEB_LOG_CRITICAL
-                << "findRemainingObjectsForEnumerate threw exception";
+            BMCWEB_LOG_CRITICAL(
+                "findRemainingObjectsForEnumerate threw exception");
         }
     }
 
@@ -299,9 +298,9 @@ inline void getManagedObjectsForEnumerate(
     const std::string& connectionName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << objectName
-                     << " object_manager_path " << objectManagerPath
-                     << " connection_name " << connectionName;
+    BMCWEB_LOG_DEBUG(
+        "getManagedObjectsForEnumerate {} object_manager_path {} connection_name {}",
+        objectName, objectManagerPath, connectionName);
     sdbusplus::message::object_path path(objectManagerPath);
     dbus::utility::getManagedObjects(
         connectionName, path,
@@ -310,9 +309,9 @@ inline void getManagedObjectsForEnumerate(
                          const dbus::utility::ManagedObjectType& objects) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "GetManagedObjects on path " << objectName
-                             << " on connection " << connectionName
-                             << " failed with code " << ec;
+            BMCWEB_LOG_ERROR(
+                "GetManagedObjects on path {} on connection {} failed with code {}",
+                objectName, connectionName, ec);
             return;
         }
 
@@ -323,7 +322,7 @@ inline void getManagedObjectsForEnumerate(
         {
             if (objectPath.first.str.starts_with(objectName))
             {
-                BMCWEB_LOG_DEBUG << "Reading object " << objectPath.first.str;
+                BMCWEB_LOG_DEBUG("Reading object {}", objectPath.first.str);
                 nlohmann::json& objectJson = dataJson[objectPath.first.str];
                 if (objectJson.is_null())
                 {
@@ -369,16 +368,16 @@ inline void findObjectManagerPathForEnumerate(
     const std::string& objectName, const std::string& connectionName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << objectName
-                     << " on connection:" << connectionName;
+    BMCWEB_LOG_DEBUG("Finding objectmanager for path {} on connection:{}",
+                     objectName, connectionName);
     crow::connections::systemBus->async_method_call(
         [transaction, objectName, connectionName](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetAncestorsResponse& objects) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "GetAncestors on path " << objectName
-                             << " failed with code " << ec;
+            BMCWEB_LOG_ERROR("GetAncestors on path {} failed with code {}",
+                             objectName, ec);
             return;
         }
 
@@ -414,13 +413,13 @@ inline void getObjectAndEnumerate(
                       const dbus::utility::MapperGetObject& objects) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "GetObject for path " << transaction->objectPath
-                             << " failed with code " << ec;
+            BMCWEB_LOG_ERROR("GetObject for path {} failed with code {}",
+                             transaction->objectPath, ec);
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "GetObject for " << transaction->objectPath
-                         << " has " << objects.size() << " entries";
+        BMCWEB_LOG_DEBUG("GetObject for {} has {} entries",
+                         transaction->objectPath, objects.size());
         if (!objects.empty())
         {
             transaction->subtree->emplace_back(transaction->objectPath,
@@ -437,18 +436,18 @@ inline void getObjectAndEnumerate(
             {
                 for (const auto& interface : connection.second)
                 {
-                    BMCWEB_LOG_DEBUG << connection.first << " has interface "
-                                     << interface;
+                    BMCWEB_LOG_DEBUG("{} has interface {}", connection.first,
+                                     interface);
                     if (interface == "org.freedesktop.DBus.ObjectManager")
                     {
-                        BMCWEB_LOG_DEBUG << "found object manager path "
-                                         << object.first;
+                        BMCWEB_LOG_DEBUG("found object manager path {}",
+                                         object.first);
                         connections[connection.first] = object.first;
                     }
                 }
             }
         }
-        BMCWEB_LOG_DEBUG << "Got " << connections.size() << " connections";
+        BMCWEB_LOG_DEBUG("Got {} connections", connections.size());
 
         for (const auto& connection : connections)
         {
@@ -596,10 +595,10 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
                              const nlohmann::json& inputJson)
 {
     int r = 0;
-    BMCWEB_LOG_DEBUG << "Converting "
-                     << inputJson.dump(2, ' ', true,
-                                       nlohmann::json::error_handler_t::replace)
-                     << " to type: " << argType;
+    BMCWEB_LOG_DEBUG(
+        "Converting {} to type: {}",
+        inputJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
+        argType);
     const std::vector<std::string> argTypes = dbusArgSplit(argType);
 
     // Assume a single object for now.
@@ -840,8 +839,8 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         else if (argCode.starts_with("v"))
         {
             std::string containedType = argCode.substr(1);
-            BMCWEB_LOG_DEBUG << "variant type: " << argCode
-                             << " appending variant of type: " << containedType;
+            BMCWEB_LOG_DEBUG("variant type: {} appending variant of type: {}",
+                             argCode, containedType);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_VARIANT,
                                               containedType.c_str());
             if (r < 0)
@@ -947,8 +946,8 @@ int readMessageItem(const std::string& typeCode, sdbusplus::message_t& m,
     int r = sd_bus_message_read_basic(m.get(), typeCode.front(), &value);
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_read_basic on type " << typeCode
-                         << " failed!";
+        BMCWEB_LOG_ERROR("sd_bus_message_read_basic on type {} failed!",
+                         typeCode);
         return r;
     }
 
@@ -966,8 +965,8 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
     std::vector<std::string> types = dbusArgSplit(typeCode);
     if (types.size() != 2)
     {
-        BMCWEB_LOG_ERROR << "wrong number contained types in dictionary: "
-                         << types.size();
+        BMCWEB_LOG_ERROR("wrong number contained types in dictionary: {}",
+                         types.size());
         return -1;
     }
 
@@ -975,7 +974,7 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
                                            typeCode.c_str());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container with rc " << r;
+        BMCWEB_LOG_ERROR("sd_bus_message_enter_container with rc {}", r);
         return r;
     }
 
@@ -1011,7 +1010,7 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
     r = sd_bus_message_exit_container(m.get());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        BMCWEB_LOG_ERROR("sd_bus_message_exit_container failed");
         return r;
     }
 
@@ -1023,8 +1022,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
 {
     if (typeCode.size() < 2)
     {
-        BMCWEB_LOG_ERROR << "Type code " << typeCode
-                         << " too small for an array";
+        BMCWEB_LOG_ERROR("Type code {} too small for an array", typeCode);
         return -1;
     }
 
@@ -1034,8 +1032,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
                                            containedType.c_str());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
-                         << r;
+        BMCWEB_LOG_ERROR("sd_bus_message_enter_container failed with rc {}", r);
         return r;
     }
 
@@ -1057,7 +1054,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
         r = sd_bus_message_at_end(m.get(), 0);
         if (r < 0)
         {
-            BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";
+            BMCWEB_LOG_ERROR("sd_bus_message_at_end failed");
             return r;
         }
 
@@ -1090,7 +1087,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
     r = sd_bus_message_exit_container(m.get());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        BMCWEB_LOG_ERROR("sd_bus_message_exit_container failed");
         return r;
     }
 
@@ -1102,8 +1099,7 @@ inline int readStructFromMessage(const std::string& typeCode,
 {
     if (typeCode.size() < 3)
     {
-        BMCWEB_LOG_ERROR << "Type code " << typeCode
-                         << " too small for a struct";
+        BMCWEB_LOG_ERROR("Type code {} too small for a struct", typeCode);
         return -1;
     }
 
@@ -1114,8 +1110,7 @@ inline int readStructFromMessage(const std::string& typeCode,
                                            containedTypes.c_str());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
-                         << r;
+        BMCWEB_LOG_ERROR("sd_bus_message_enter_container failed with rc {}", r);
         return r;
     }
 
@@ -1132,7 +1127,7 @@ inline int readStructFromMessage(const std::string& typeCode,
     r = sd_bus_message_exit_container(m.get());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        BMCWEB_LOG_ERROR("sd_bus_message_exit_container failed");
         return r;
     }
     return 0;
@@ -1144,7 +1139,7 @@ inline int readVariantFromMessage(sdbusplus::message_t& m, nlohmann::json& data)
     int r = sd_bus_message_peek_type(m.get(), nullptr, &containerType);
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_peek_type failed";
+        BMCWEB_LOG_ERROR("sd_bus_message_peek_type failed");
         return r;
     }
 
@@ -1152,8 +1147,7 @@ inline int readVariantFromMessage(sdbusplus::message_t& m, nlohmann::json& data)
                                        containerType);
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
-                         << r;
+        BMCWEB_LOG_ERROR("sd_bus_message_enter_container failed with rc {}", r);
         return r;
     }
 
@@ -1166,7 +1160,7 @@ inline int readVariantFromMessage(sdbusplus::message_t& m, nlohmann::json& data)
     r = sd_bus_message_exit_container(m.get());
     if (r < 0)
     {
-        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed";
+        BMCWEB_LOG_ERROR("sd_bus_message_enter_container failed");
         return r;
     }
 
@@ -1304,7 +1298,7 @@ inline int convertDBusToJSON(const std::string& returnType,
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Invalid D-Bus signature type " << typeCode;
+            BMCWEB_LOG_ERROR("Invalid D-Bus signature type {}", typeCode);
             return -2;
         }
     }
@@ -1380,18 +1374,17 @@ inline void findActionOnInterface(
     const std::shared_ptr<InProgressActionData>& transaction,
     const std::string& connectionName)
 {
-    BMCWEB_LOG_DEBUG << "findActionOnInterface for connection "
-                     << connectionName;
+    BMCWEB_LOG_DEBUG("findActionOnInterface for connection {}", connectionName);
     crow::connections::systemBus->async_method_call(
         [transaction, connectionName{std::string(connectionName)}](
             const boost::system::error_code& ec,
             const std::string& introspectXml) {
-        BMCWEB_LOG_DEBUG << "got xml:\n " << introspectXml;
+        BMCWEB_LOG_DEBUG("got xml:\n {}", introspectXml);
         if (ec)
         {
-            BMCWEB_LOG_ERROR
-                << "Introspect call failed with error: " << ec.message()
-                << " on process: " << connectionName << "\n";
+            BMCWEB_LOG_ERROR(
+                "Introspect call failed with error: {} on process: {}",
+                ec.message(), connectionName);
             return;
         }
         tinyxml2::XMLDocument doc;
@@ -1400,8 +1393,7 @@ inline void findActionOnInterface(
         tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
         if (pRoot == nullptr)
         {
-            BMCWEB_LOG_ERROR << "XML document failed to parse "
-                             << connectionName << "\n";
+            BMCWEB_LOG_ERROR("XML document failed to parse {}", connectionName);
             return;
         }
         tinyxml2::XMLElement* interfaceNode =
@@ -1424,13 +1416,13 @@ inline void findActionOnInterface(
                 while (methodNode != nullptr)
                 {
                     const char* thisMethodName = methodNode->Attribute("name");
-                    BMCWEB_LOG_DEBUG << "Found method: " << thisMethodName;
+                    BMCWEB_LOG_DEBUG("Found method: {}", thisMethodName);
                     if (thisMethodName != nullptr &&
                         thisMethodName == transaction->methodName)
                     {
-                        BMCWEB_LOG_DEBUG << "Found method named "
-                                         << thisMethodName << " on interface "
-                                         << thisInterfaceName;
+                        BMCWEB_LOG_DEBUG(
+                            "Found method named {} on interface {}",
+                            thisMethodName, thisInterfaceName);
                         sdbusplus::message_t m =
                             crow::connections::systemBus->new_method_call(
                                 connectionName.c_str(),
@@ -1540,8 +1532,8 @@ inline void handleAction(const crow::Request& req,
                          const std::string& objectPath,
                          const std::string& methodName)
 {
-    BMCWEB_LOG_DEBUG << "handleAction on path: " << objectPath << " and method "
-                     << methodName;
+    BMCWEB_LOG_DEBUG("handleAction on path: {} and method {}", objectPath,
+                     methodName);
     nlohmann::json requestDbusData;
 
     JsonParseResult ret = parseRequestAsJson(req, requestDbusData);
@@ -1588,15 +1580,15 @@ inline void handleAction(const crow::Request& req,
                 interfaceNames) {
         if (ec || interfaceNames.empty())
         {
-            BMCWEB_LOG_ERROR << "Can't find object";
+            BMCWEB_LOG_ERROR("Can't find object");
             setErrorResponse(transaction->asyncResp->res,
                              boost::beast::http::status::not_found,
                              notFoundDesc, notFoundMsg);
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "GetObject returned " << interfaceNames.size()
-                         << " object(s)";
+        BMCWEB_LOG_DEBUG("GetObject returned {} object(s)",
+                         interfaceNames.size());
 
         for (const std::pair<std::string, std::vector<std::string>>& object :
              interfaceNames)
@@ -1609,7 +1601,7 @@ inline void handleAction(const crow::Request& req,
 inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& objectPath)
 {
-    BMCWEB_LOG_DEBUG << "handleDelete on path: " << objectPath;
+    BMCWEB_LOG_DEBUG("handleDelete on path: {}", objectPath);
 
     dbus::utility::getDbusObject(
         objectPath, {},
@@ -1619,7 +1611,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 interfaceNames) {
         if (ec || interfaceNames.empty())
         {
-            BMCWEB_LOG_ERROR << "Can't find object";
+            BMCWEB_LOG_ERROR("Can't find object");
             setErrorResponse(asyncResp->res,
                              boost::beast::http::status::method_not_allowed,
                              methodNotAllowedDesc, methodNotAllowedMsg);
@@ -1665,7 +1657,7 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& objectPath)
 {
-    BMCWEB_LOG_DEBUG << "Doing enumerate on " << objectPath;
+    BMCWEB_LOG_DEBUG("Doing enumerate on {}", objectPath);
 
     asyncResp->res.jsonValue["message"] = "200 OK";
     asyncResp->res.jsonValue["status"] = "ok";
@@ -1685,8 +1677,8 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "GetSubTree failed on "
-                             << transaction->objectPath;
+            BMCWEB_LOG_ERROR("GetSubTree failed on {}",
+                             transaction->objectPath);
             setErrorResponse(transaction->asyncResp->res,
                              boost::beast::http::status::not_found,
                              notFoundDesc, notFoundMsg);
@@ -1702,7 +1694,7 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       std::string& objectPath, std::string& destProperty)
 {
-    BMCWEB_LOG_DEBUG << "handleGet: " << objectPath << " prop:" << destProperty;
+    BMCWEB_LOG_DEBUG("handleGet: {} prop:{}", objectPath, destProperty);
     std::shared_ptr<std::string> propertyName =
         std::make_shared<std::string>(std::move(destProperty));
 
@@ -1751,8 +1743,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                       sdbusplus::message_t& msg) {
                         if (ec2)
                         {
-                            BMCWEB_LOG_ERROR << "Bad dbus request error: "
-                                             << ec2;
+                            BMCWEB_LOG_ERROR("Bad dbus request error: {}", ec2);
                         }
                         else
                         {
@@ -1760,7 +1751,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             int r = convertDBusToJSON("a{sv}", msg, properties);
                             if (r < 0)
                             {
-                                BMCWEB_LOG_ERROR << "convertDBusToJSON failed";
+                                BMCWEB_LOG_ERROR("convertDBusToJSON failed");
                             }
                             else
                             {
@@ -1904,9 +1895,9 @@ inline void handlePut(const crow::Request& req,
                               const std::string& introspectXml) {
                 if (ec3)
                 {
-                    BMCWEB_LOG_ERROR << "Introspect call failed with error: "
-                                     << ec3.message()
-                                     << " on process: " << connectionName;
+                    BMCWEB_LOG_ERROR(
+                        "Introspect call failed with error: {} on process: {}",
+                        ec3.message(), connectionName);
                     transaction->setErrorStatus("Unexpected Error");
                     return;
                 }
@@ -1916,8 +1907,8 @@ inline void handlePut(const crow::Request& req,
                 tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
                 if (pRoot == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "XML document failed to parse: "
-                                     << introspectXml;
+                    BMCWEB_LOG_ERROR("XML document failed to parse: {}",
+                                     introspectXml);
                     transaction->setErrorStatus("Unexpected Error");
                     return;
                 }
@@ -1926,13 +1917,13 @@ inline void handlePut(const crow::Request& req,
                 while (ifaceNode != nullptr)
                 {
                     const char* interfaceName = ifaceNode->Attribute("name");
-                    BMCWEB_LOG_DEBUG << "found interface " << interfaceName;
+                    BMCWEB_LOG_DEBUG("found interface {}", interfaceName);
                     tinyxml2::XMLElement* propNode =
                         ifaceNode->FirstChildElement("property");
                     while (propNode != nullptr)
                     {
                         const char* propertyName = propNode->Attribute("name");
-                        BMCWEB_LOG_DEBUG << "Found property " << propertyName;
+                        BMCWEB_LOG_DEBUG("Found property {}", propertyName);
                         if (propertyName == transaction->propertyName)
                         {
                             const char* argType = propNode->Attribute("type");
@@ -1987,7 +1978,7 @@ inline void handlePut(const crow::Request& req,
                                     [transaction](
                                         const boost::system::error_code& ec,
                                         sdbusplus::message_t& m2) {
-                                    BMCWEB_LOG_DEBUG << "sent";
+                                    BMCWEB_LOG_DEBUG("sent");
                                     if (ec)
                                     {
                                         const sd_bus_error* e = m2.get_error();
@@ -2161,10 +2152,9 @@ inline void
                          const std::string& introspectXml) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR
-                    << "Introspect call failed with error: " << ec.message()
-                    << " on process: " << processName << " path: " << objectPath
-                    << "\n";
+                BMCWEB_LOG_ERROR(
+                    "Introspect call failed with error: {} on process: {} path: {}",
+                    ec.message(), processName, objectPath);
                 return;
             }
             tinyxml2::XMLDocument doc;
@@ -2173,15 +2163,15 @@ inline void
             tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
             if (pRoot == nullptr)
             {
-                BMCWEB_LOG_ERROR << "XML document failed to parse "
-                                 << processName << " " << objectPath << "\n";
+                BMCWEB_LOG_ERROR("XML document failed to parse {} {}",
+                                 processName, objectPath);
                 asyncResp->res.jsonValue["status"] = "XML parse error";
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << introspectXml;
+            BMCWEB_LOG_DEBUG("{}", introspectXml);
             asyncResp->res.jsonValue["status"] = "ok";
             asyncResp->res.jsonValue["bus_name"] = processName;
             asyncResp->res.jsonValue["object_path"] = objectPath;
@@ -2216,10 +2206,9 @@ inline void
                             const std::string& introspectXml) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR
-                    << "Introspect call failed with error: " << ec.message()
-                    << " on process: " << processName << " path: " << objectPath
-                    << "\n";
+                BMCWEB_LOG_ERROR(
+                    "Introspect call failed with error: {} on process: {} path: {}",
+                    ec.message(), processName, objectPath);
                 return;
             }
             tinyxml2::XMLDocument doc;
@@ -2228,8 +2217,8 @@ inline void
             tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
             if (pRoot == nullptr)
             {
-                BMCWEB_LOG_ERROR << "XML document failed to parse "
-                                 << processName << " " << objectPath << "\n";
+                BMCWEB_LOG_ERROR("XML document failed to parse {} {}",
+                                 processName, objectPath);
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 return;
@@ -2448,7 +2437,7 @@ inline void requestRoutes(App& app)
                                       std::vector<std::string>& names) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Dbus call failed with code " << ec;
+                BMCWEB_LOG_ERROR("Dbus call failed with code {}", ec);
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
             }
@@ -2538,7 +2527,7 @@ inline void requestRoutes(App& app)
         if (!std::filesystem::exists(loc) ||
             !std::filesystem::is_directory(loc))
         {
-            BMCWEB_LOG_ERROR << loc.string() << "Not found";
+            BMCWEB_LOG_ERROR("{}Not found", loc.string());
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
@@ -2565,7 +2554,7 @@ inline void requestRoutes(App& app)
             static std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
             if (!std::regex_match(dumpFileName, dumpFileRegex))
             {
-                BMCWEB_LOG_ERROR << "Invalid dump filename " << dumpFileName;
+                BMCWEB_LOG_ERROR("Invalid dump filename {}", dumpFileName);
                 asyncResp->res.result(boost::beast::http::status::not_found);
                 return;
             }

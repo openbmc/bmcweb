@@ -37,8 +37,7 @@ inline void
                          std::span<const std::string_view> interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
 {
-    BMCWEB_LOG_DEBUG << "Get collection members for: "
-                     << collectionPath.buffer();
+    BMCWEB_LOG_DEBUG("Get collection members for: {}", collectionPath.buffer());
     dbus::utility::getSubTreePaths(
         subtree, 0, interfaces,
         [collectionPath, asyncResp{std::move(asyncResp)}](
@@ -53,7 +52,7 @@ inline void
 
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
             messages::internalError(asyncResp->res);
             return;
         }

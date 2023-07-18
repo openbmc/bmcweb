@@ -37,7 +37,7 @@ inline void afterGetManagerStartTime(
 
     if (runTime < steady_clock::duration::zero())
     {
-        BMCWEB_LOG_CRITICAL << "Uptime was negative????";
+        BMCWEB_LOG_CRITICAL("Uptime was negative????");
         messages::internalError(asyncResp->res);
         return;
     }

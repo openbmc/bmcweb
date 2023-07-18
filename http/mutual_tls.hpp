@@ -21,14 +21,14 @@ inline std::shared_ptr<persistent_data::UserSession>
              .getAuthMethodsConfig()
              .tls)
     {
-        BMCWEB_LOG_DEBUG << "TLS auth_config is disabled";
+        BMCWEB_LOG_DEBUG("TLS auth_config is disabled");
         return nullptr;
     }
 
     X509_STORE_CTX* cts = ctx.native_handle();
     if (cts == nullptr)
     {
-        BMCWEB_LOG_DEBUG << "Cannot get native TLS handle.";
+        BMCWEB_LOG_DEBUG("Cannot get native TLS handle.");
         return nullptr;
     }
 
@@ -36,7 +36,7 @@ inline std::shared_ptr<persistent_data::UserSession>
     X509* peerCert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
     if (peerCert == nullptr)
     {
-        BMCWEB_LOG_DEBUG << "Cannot get current TLS certificate.";
+        BMCWEB_LOG_DEBUG("Cannot get current TLS certificate.");
         return nullptr;
     }
 
@@ -44,7 +44,7 @@ inline std::shared_ptr<persistent_data::UserSession>
     int ctxError = X509_STORE_CTX_get_error(cts);
     if (ctxError != X509_V_OK)
     {
-        BMCWEB_LOG_INFO << "Last TLS error is: " << ctxError;
+        BMCWEB_LOG_INFO("Last TLS error is: {}", ctxError);
         return nullptr;
     }
     // Check that we have reached final certificate in chain
@@ -52,12 +52,13 @@ inline std::shared_ptr<persistent_data::UserSession>
     if (depth != 0)
 
     {
-        BMCWEB_LOG_DEBUG << "Certificate verification in progress (depth "
-                         << depth << "), waiting to reach final depth";
+        BMCWEB_LOG_DEBUG(
+            "Certificate verification in progress (depth {}), waiting to reach final depth",
+            depth);
         return nullptr;
     }
 
-    BMCWEB_LOG_DEBUG << "Certificate verification of final depth";
+    BMCWEB_LOG_DEBUG("Certificate verification of final depth");
 
     // Verify KeyUsage
     bool isKeyUsageDigitalSignature = false;
@@ -68,7 +69,7 @@ inline std::shared_ptr<persistent_data::UserSession>
 
     if ((usage == nullptr) || (usage->data == nullptr))
     {
-        BMCWEB_LOG_DEBUG << "TLS usage is null";
+        BMCWEB_LOG_DEBUG("TLS usage is null");
         return nullptr;
     }
 
@@ -88,9 +89,9 @@ inline std::shared_ptr<persistent_data::UserSession>
 
     if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
     {
-        BMCWEB_LOG_DEBUG << "Certificate ExtendedKeyUsage does "
-                            "not allow provided certificate to "
-                            "be used for user authentication";
+        BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
+                         "not allow provided certificate to "
+                         "be used for user authentication");
         return nullptr;
     }
 
@@ -101,7 +102,7 @@ inline std::shared_ptr<persistent_data::UserSession>
 
     if (extUsage == nullptr)
     {
-        BMCWEB_LOG_DEBUG << "TLS extUsage is null";
+        BMCWEB_LOG_DEBUG("TLS extUsage is null");
         return nullptr;
     }
 
@@ -121,9 +122,9 @@ inline std::shared_ptr<persistent_data::UserSession>
     // Certificate has to have proper key usages set
     if (!isExKeyUsageClientAuth)
     {
-        BMCWEB_LOG_DEBUG << "Certificate ExtendedKeyUsage does "
-                            "not allow provided certificate to "
-                            "be used for user authentication";
+        BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
+                         "not allow provided certificate to "
+                         "be used for user authentication");
         return nullptr;
     }
     std::string sslUser;
@@ -136,14 +137,14 @@ inline std::shared_ptr<persistent_data::UserSession>
 
     if (status == -1)
     {
-        BMCWEB_LOG_DEBUG << "TLS cannot get username to create session";
+        BMCWEB_LOG_DEBUG("TLS cannot get username to create session");
         return nullptr;
     }
 
     size_t lastChar = sslUser.find('\0');
     if (lastChar == std::string::npos || lastChar == 0)
     {
-        BMCWEB_LOG_DEBUG << "Invalid TLS user name";
+        BMCWEB_LOG_DEBUG("Invalid TLS user name");
         return nullptr;
     }
     sslUser.resize(lastChar);
