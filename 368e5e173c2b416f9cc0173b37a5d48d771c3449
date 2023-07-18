@@ -70,6 +70,30 @@
       },
       "revId": "368e5e173c2b416f9cc0173b37a5d48d771c3449",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692a086c_d43d719b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-18T17:01:39Z",
+      "side": 1,
+      "message": "Yes, it\u0027s doing something identical, which is why I commented on it.\n\nPlease don\u0027t duplicate work.  Yes, the patchset is based on an old version, but it it more complete than what\u0027s above, and could be rebased.  Please use it as a starting point, and just take over that review rather than opening a new one that does the same thing.",
+      "parentUuid": "024c7b6c_1fb7eae7",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "368e5e173c2b416f9cc0173b37a5d48d771c3449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
