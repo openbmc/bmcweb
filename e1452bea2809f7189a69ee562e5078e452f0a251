@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a403f7f_2740ee4f",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-18T18:59:48Z",
+      "side": 0,
+      "message": "Note to reviewer, SSL_CTX_set_ecdh_auto is now deprecated, and the gcc analyzer now realizes this is dead code that will never execute.  I removed it for now to get the compiler to not complain, and will fix it in the next patch.",
+      "revId": "e1452bea2809f7189a69ee562e5078e452f0a251",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
