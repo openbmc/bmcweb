@@ -36,10 +36,6 @@
 #include <tinyxml2.h>
 #include <unistd.h>
 
-#include <boost/algorithm/string/case_conv.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/replace.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
@@ -50,9 +46,11 @@
 #include <array>
 #include <charconv>
 #include <filesystem>
+#include <iterator>
 #include <optional>
 #include <ranges>
 #include <span>
+#include <string>
 #include <string_view>
 #include <variant>
 
@@ -113,6 +111,15 @@ inline std::optional<bool> getProviderNotifyAction(const std::string& notify)
     }
 
     return notifyAction;
+}
+
+inline std::string getDumpPath(std::string_view dumpType)
+{
+    std::string dbusDumpPath = "/xyz/openbmc_project/dump/";
+    std::ranges::transform(dumpType, std::back_inserter(dbusDumpPath),
+                           bmcweb::asciiToLower);
+
+    return dbusDumpPath;
 }
 
 inline static int getJournalMetadata(sd_journal* journal,
@@ -537,9 +544,7 @@ inline void
                                                   " Dump Entries";
 
         nlohmann::json::array_t entriesArray;
-        std::string dumpEntryPath =
-            "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/";
+        std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
 
         dbus::utility::ManagedObjectType resp(objects);
         std::ranges::sort(resp, [](const auto& l, const auto& r) {
@@ -640,9 +645,7 @@ inline void
         }
 
         bool foundDumpEntry = false;
-        std::string dumpEntryPath =
-            "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/";
+        std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
 
         for (const auto& objectPath : resp)
         {
@@ -736,11 +739,10 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     };
+
     crow::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/" +
-            entryID,
+        getDumpPath(dumpType) + "/entry/" + entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -847,10 +849,8 @@ inline void
         return;
     }
 
-    std::string dumpEntryPath =
-        sdbusplus::message::object_path("/xyz/openbmc_project/dump/") /
-        std::string(boost::algorithm::to_lower_copy(dumpType)) / "entry" /
-        entryID;
+    std::string dumpEntryPath = std::format("{}/entry/{}",
+                                            getDumpPath(dumpType), entryID);
 
     auto downloadDumpEntryHandler =
         [asyncResp, entryID,
@@ -1212,18 +1212,13 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         BMCWEB_LOG_DEBUG("Dump Created. Path: {}", objPath.str);
         createDumpTaskCallback(std::move(payload), asyncResp, objPath);
     },
-        "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)),
+        "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
         "xyz.openbmc_project.Dump.Create", "CreateDump", createDumpParamVec);
 }
 
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& dumpType)
 {
-    std::string dumpTypeLowerCopy =
-        std::string(boost::algorithm::to_lower_copy(dumpType));
-
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
@@ -1233,8 +1228,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     },
-        "xyz.openbmc_project.Dump.Manager",
-        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy,
+        "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
@@ -2837,13 +2831,9 @@ inline void
             return;
         }
 
-        const std::string dbusDumpPath =
-            "/xyz/openbmc_project/dump/" +
-            boost::algorithm::to_lower_copy(dumpType);
-
         for (const std::string& path : subTreePaths)
         {
-            if (path == dbusDumpPath)
+            if (path == getDumpPath(dumpType))
             {
                 asyncResp->res
                     .jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
