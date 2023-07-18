@@ -153,8 +153,8 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "RootOfTrust.Actions.SendCommand failed: "
-                         << ec.message();
+        BMCWEB_LOG_ERROR("RootOfTrust.Actions.SendCommand failed: {}",
+                         ec.message());
         redfish::messages::internalError(asyncResp->res);
         return;
     }
@@ -171,7 +171,7 @@ inline void
     std::vector<uint8_t> bytes = hexStringToBytes(command);
     if (bytes.empty())
     {
-        BMCWEB_LOG_DEBUG << "Invalid command: " << command;
+        BMCWEB_LOG_DEBUG("Invalid command: {}", command);
         redfish::messages::actionParameterValueTypeError(command, "Command",
                                                          "SendCommand");
         return;
@@ -195,7 +195,7 @@ inline void handleRoTSendCommandPost(
     if (!redfish::json_util::readJsonAction(request, asyncResp->res, "Command",
                                             command))
     {
-        BMCWEB_LOG_DEBUG << "Missing property Command.";
+        BMCWEB_LOG_DEBUG("Missing property Command.");
         redfish::messages::actionParameterMissing(asyncResp->res, "SendCommand",
                                                   "Command");
         return;

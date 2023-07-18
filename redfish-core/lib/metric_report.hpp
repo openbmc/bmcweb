@@ -108,7 +108,7 @@ inline void requestRoutesMetricReport(App& app)
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -120,7 +120,7 @@ inline void requestRoutesMetricReport(App& app)
                                 const telemetry::TimestampReadings& ret) {
                 if (ec2)
                 {
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec2;
+                    BMCWEB_LOG_ERROR("respHandler DBus error {}", ec2);
                     messages::internalError(asyncResp->res);
                     return;
                 }

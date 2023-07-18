@@ -73,12 +73,12 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << ec;
+            BMCWEB_LOG_ERROR("{}", ec);
             return;
         }
         if (subtree.empty())
         {
-            BMCWEB_LOG_DEBUG << "Can't find chassis!";
+            BMCWEB_LOG_DEBUG("Can't find chassis!");
             return;
         }
 
@@ -87,11 +87,11 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             (idPos + 1) >= subtree[0].first.size())
         {
             messages::internalError(asyncResp->res);
-            BMCWEB_LOG_DEBUG << "Can't parse chassis ID!";
+            BMCWEB_LOG_DEBUG("Can't parse chassis ID!");
             return;
         }
         std::string chassisId = subtree[0].first.substr(idPos + 1);
-        BMCWEB_LOG_DEBUG << "chassisId = " << chassisId;
+        BMCWEB_LOG_DEBUG("chassisId = {}", chassisId);
         callback(chassisId, asyncResp);
         });
 }
@@ -109,7 +109,7 @@ void getPortStatusAndPath(
         std::vector<std::tuple<std::string, std::string, bool>> socketData;
         if (ec)
         {
-            BMCWEB_LOG_ERROR << ec;
+            BMCWEB_LOG_ERROR("{}", ec);
             // return error code
             callback(ec, socketData);
             return;
@@ -181,10 +181,9 @@ void getPortStatusAndPath(
                     {
                         // Already registered as enabled or current one is not
                         // enabled, nothing to do
-                        BMCWEB_LOG_DEBUG
-                            << "protocolName: " << kv.first
-                            << ", already true or current one is false: "
-                            << isProtocolEnabled;
+                        BMCWEB_LOG_DEBUG(
+                            "protocolName: {}, already true or current one is false: {}",
+                            kv.first, isProtocolEnabled);
                         break;
                     }
                     // Remove existing entry and replace with new one (below)
@@ -216,7 +215,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
             const std::vector<std::tuple<std::string, std::string>>& resp) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << ec;
+            BMCWEB_LOG_ERROR("{}", ec);
             callback(ec, 0);
             return;
         }
@@ -228,7 +227,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                     boost::system::errc::bad_message);
             // return error code
             callback(ec1, 0);
-            BMCWEB_LOG_ERROR << ec1;
+            BMCWEB_LOG_ERROR("{}", ec1);
             return;
         }
         const std::string& listenStream =
@@ -250,7 +249,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
             }
             // return error code
             callback(ec3, 0);
-            BMCWEB_LOG_ERROR << ec3;
+            BMCWEB_LOG_ERROR("{}", ec3);
         }
         callback(ec, port);
         });

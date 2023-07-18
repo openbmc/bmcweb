@@ -82,7 +82,7 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error" << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error{}", ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -171,9 +171,9 @@ inline void getValidPowerSupplyPath(
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR
-                    << "DBUS response error for getAssociatedSubTreePaths"
-                    << ec.value();
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error for getAssociatedSubTreePaths{}",
+                    ec.value());
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -193,7 +193,7 @@ inline void getValidPowerSupplyPath(
 
         if (!subtreePaths.empty())
         {
-            BMCWEB_LOG_WARNING << "Power supply not found: " << powerSupplyId;
+            BMCWEB_LOG_WARNING("Power supply not found: {}", powerSupplyId);
             messages::resourceNotFound(asyncResp->res, "PowerSupplies",
                                        powerSupplyId);
             return;
@@ -213,8 +213,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for State "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for State {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -239,8 +239,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Health "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for Health {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -266,8 +266,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Asset "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for Asset {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -331,8 +331,8 @@ inline void getPowerSupplyFirmwareVersion(
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for FirmwareVersion "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for FirmwareVersion {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -354,8 +354,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Location "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for Location {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -373,8 +373,8 @@ inline void handleGetEfficiencyResponse(
     {
         if (ec.value() != EBADR)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error for DeratingFactor "
-                             << ec.value();
+            BMCWEB_LOG_ERROR("DBUS response error for DeratingFactor {}",
+                             ec.value());
             messages::internalError(asyncResp->res);
         }
         return;
@@ -402,8 +402,8 @@ inline void handlePowerSupplyAttributesSubTreeResponse(
     {
         if (ec.value() != EBADR)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error for EfficiencyPercent "
-                             << ec.value();
+            BMCWEB_LOG_ERROR("DBUS response error for EfficiencyPercent {}",
+                             ec.value());
             messages::internalError(asyncResp->res);
         }
         return;
@@ -411,15 +411,15 @@ inline void handlePowerSupplyAttributesSubTreeResponse(
 
     if (subtree.empty())
     {
-        BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
+        BMCWEB_LOG_DEBUG("Can't find Power Supply Attributes!");
         return;
     }
 
     if (subtree.size() != 1)
     {
-        BMCWEB_LOG_ERROR
-            << "Unexpected number of paths returned by getSubTree: "
-            << subtree.size();
+        BMCWEB_LOG_ERROR(
+            "Unexpected number of paths returned by getSubTree: {}",
+            subtree.size());
         messages::internalError(asyncResp->res);
         return;
     }

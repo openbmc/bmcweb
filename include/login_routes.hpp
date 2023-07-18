@@ -41,7 +41,7 @@ inline void requestRoutes(App& app)
                                                      false);
             if (loginCredentials.is_discarded())
             {
-                BMCWEB_LOG_DEBUG << "Bad json in request";
+                BMCWEB_LOG_DEBUG("Bad json in request");
                 asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
@@ -125,8 +125,8 @@ inline void requestRoutes(App& app)
             if (ec != ParserError::PARSER_SUCCESS)
             {
                 // handle error
-                BMCWEB_LOG_ERROR << "MIME parse failed, ec : "
-                                 << static_cast<int>(ec);
+                BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
+                                 static_cast<int>(ec));
                 asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
@@ -137,13 +137,13 @@ inline void requestRoutes(App& app)
                     formpart.fields.find("Content-Disposition");
                 if (it == formpart.fields.end())
                 {
-                    BMCWEB_LOG_ERROR << "Couldn't find Content-Disposition";
+                    BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
                     asyncResp->res.result(
                         boost::beast::http::status::bad_request);
                     continue;
                 }
 
-                BMCWEB_LOG_INFO << "Parsing value " << it->value();
+                BMCWEB_LOG_INFO("Parsing value {}", it->value());
 
                 if (it->value() == "form-data; name=\"username\"")
                 {
@@ -155,8 +155,7 @@ inline void requestRoutes(App& app)
                 }
                 else
                 {
-                    BMCWEB_LOG_INFO << "Extra format, ignore it."
-                                    << it->value();
+                    BMCWEB_LOG_INFO("Extra format, ignore it.{}", it->value());
                 }
             }
         }
@@ -214,7 +213,7 @@ inline void requestRoutes(App& app)
         }
         else
         {
-            BMCWEB_LOG_DEBUG << "Couldn't interpret password";
+            BMCWEB_LOG_DEBUG("Couldn't interpret password");
             asyncResp->res.result(boost::beast::http::status::bad_request);
         }
         });

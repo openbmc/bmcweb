@@ -678,7 +678,7 @@ inline void afterCreateTrigger(
     if (ec)
     {
         messages::internalError(asyncResp->res);
-        BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+        BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
         return;
     }
 
@@ -687,8 +687,8 @@ inline void afterCreateTrigger(
     if (!triggerId)
     {
         messages::internalError(asyncResp->res);
-        BMCWEB_LOG_ERROR << "Unknown data returned by "
-                            "AddTrigger DBus method";
+        BMCWEB_LOG_ERROR("Unknown data returned by "
+                         "AddTrigger DBus method");
         return;
     }
 
@@ -791,8 +791,8 @@ inline std::optional<nlohmann::json> getMetricReportDefinitions(
         if (reportId.empty())
         {
             {
-                BMCWEB_LOG_ERROR << "Property Reports contains invalid value: "
-                                 << path.str;
+                BMCWEB_LOG_ERROR("Property Reports contains invalid value: {}",
+                                 path.str);
                 return std::nullopt;
             }
         }
@@ -848,8 +848,8 @@ inline bool fillTrigger(
             getTriggerActions(*triggerActions);
         if (!redfishTriggerActions)
         {
-            BMCWEB_LOG_ERROR
-                << "Property TriggerActions is invalid in Trigger: " << id;
+            BMCWEB_LOG_ERROR(
+                "Property TriggerActions is invalid in Trigger: {}", id);
             return false;
         }
         json["TriggerActions"] = *redfishTriggerActions;
@@ -861,8 +861,7 @@ inline bool fillTrigger(
             getMetricReportDefinitions(*reports);
         if (!linkedReports)
         {
-            BMCWEB_LOG_ERROR << "Property Reports is invalid in Trigger: "
-                             << id;
+            BMCWEB_LOG_ERROR("Property Reports is invalid in Trigger: {}", id);
             return false;
         }
         json["Links"]["MetricReportDefinitions"] = *linkedReports;
@@ -877,10 +876,9 @@ inline bool fillTrigger(
 
             if (!discreteTriggers)
             {
-                BMCWEB_LOG_ERROR
-                    << "Property Thresholds is invalid for discrete "
-                       "triggers in Trigger: "
-                    << id;
+                BMCWEB_LOG_ERROR("Property Thresholds is invalid for discrete "
+                                 "triggers in Trigger: {}",
+                                 id);
                 return false;
             }
 
@@ -896,10 +894,9 @@ inline bool fillTrigger(
 
             if (!numericThresholds)
             {
-                BMCWEB_LOG_ERROR
-                    << "Property Thresholds is invalid for numeric "
-                       "thresholds in Trigger: "
-                    << id;
+                BMCWEB_LOG_ERROR("Property Thresholds is invalid for numeric "
+                                 "thresholds in Trigger: {}",
+                                 id);
                 return false;
             }
 
@@ -1012,7 +1009,7 @@ inline void requestRoutesTrigger(App& app)
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -1046,7 +1043,7 @@ inline void requestRoutesTrigger(App& app)
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
