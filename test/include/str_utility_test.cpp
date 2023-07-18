@@ -49,4 +49,29 @@ TEST(Split, Sensor)
                                  "unit", "name"));
 }
 
+TEST(AsciiToLower, Positive)
+{
+    using bmcweb::asciiToLower;
+    // Noop
+    EXPECT_EQ(asciiToLower('a'), 'a');
+    EXPECT_EQ(asciiToLower('z'), 'z');
+    EXPECT_EQ(asciiToLower('0'), '0');
+    EXPECT_EQ(asciiToLower('_'), '_');
+
+    // Converted
+    EXPECT_EQ(asciiToLower('A'), 'a');
+    EXPECT_EQ(asciiToLower('Z'), 'z');
+}
+
+TEST(AsciiIEquals, Positive)
+{
+    using bmcweb::asciiIEquals;
+    EXPECT_TRUE(asciiIEquals("FOO", "foo"));
+    EXPECT_TRUE(asciiIEquals("foo", "foo"));
+    EXPECT_TRUE(asciiIEquals("", ""));
+    EXPECT_TRUE(asciiIEquals("_", "_"));
+
+    EXPECT_FALSE(asciiIEquals("bar", "foo"));
+}
+
 } // namespace

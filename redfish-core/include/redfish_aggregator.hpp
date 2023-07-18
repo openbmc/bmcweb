@@ -5,8 +5,7 @@
 #include "error_messages.hpp"
 #include "http_client.hpp"
 #include "http_connection.hpp"
-
-#include <boost/algorithm/string/predicate.hpp>
+#include "parsing.hpp"
 
 #include <array>
 
@@ -153,8 +152,12 @@ inline bool searchCollectionsArray(std::string_view uri,
 // defined in the above array.
 inline bool isPropertyUri(std::string_view propertyName)
 {
-    return boost::iends_with(propertyName, "uri") ||
-           std::binary_search(nonUriProperties.begin(), nonUriProperties.end(),
+    if (propertyName.ends_with("uri") || propertyName.ends_with("Uri") ||
+        propertyName.ends_with("URI"))
+    {
+        return true;
+    }
+    return std::binary_search(nonUriProperties.begin(), nonUriProperties.end(),
                               propertyName);
 }
 
@@ -854,9 +857,7 @@ class RedfishAggregator
         // We want to attempt prefix fixing regardless of response code
         // The resp will not have a json component
         // We need to create a json from resp's stringResponse
-        std::string_view contentType = resp.getHeaderValue("Content-Type");
-        if (boost::iequals(contentType, "application/json") ||
-            boost::iequals(contentType, "application/json; charset=utf-8"))
+        if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
             nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
                                                            false);
@@ -918,9 +919,7 @@ class RedfishAggregator
 
         // The resp will not have a json component
         // We need to create a json from resp's stringResponse
-        std::string_view contentType = resp.getHeaderValue("Content-Type");
-        if (boost::iequals(contentType, "application/json") ||
-            boost::iequals(contentType, "application/json; charset=utf-8"))
+        if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
             nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
                                                            false);
@@ -1052,9 +1051,7 @@ class RedfishAggregator
 
         // The resp will not have a json component
         // We need to create a json from resp's stringResponse
-        std::string_view contentType = resp.getHeaderValue("Content-Type");
-        if (boost::iequals(contentType, "application/json") ||
-            boost::iequals(contentType, "application/json; charset=utf-8"))
+        if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
             bool addedLinks = false;
             nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
