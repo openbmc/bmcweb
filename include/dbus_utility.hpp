@@ -111,7 +111,7 @@ inline void logError(const boost::system::error_code& ec)
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "DBus error: " << ec << ", cannot call method";
+        BMCWEB_LOG_ERROR("DBus error: {}, cannot call method", ec);
     }
 }
 

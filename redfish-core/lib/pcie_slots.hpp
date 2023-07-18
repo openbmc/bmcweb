@@ -29,7 +29,7 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Can't get PCIeSlot properties!";
+        BMCWEB_LOG_ERROR("Can't get PCIeSlot properties!");
         messages::internalError(asyncResp->res);
         return;
     }
@@ -40,7 +40,7 @@ inline void
         slots.get_ptr<nlohmann::json::array_t*>();
     if (slotsPtr == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Slots key isn't an array???";
+        BMCWEB_LOG_ERROR("Slots key isn't an array???");
         messages::internalError(asyncResp->res);
         return;
     }
@@ -69,8 +69,7 @@ inline void
             pcie_util::redfishPcieGenerationFromDbus(*generation);
         if (!pcieType)
         {
-            BMCWEB_LOG_WARNING << "Unknown PCIe Slot Generation: "
-                               << *generation;
+            BMCWEB_LOG_WARNING("Unknown PCIe Slot Generation: {}", *generation);
         }
         else
         {
@@ -94,13 +93,13 @@ inline void
             pcie_util::dbusSlotTypeToRf(*slotType);
         if (!redfishSlotType)
         {
-            BMCWEB_LOG_WARNING << "Unknown PCIe Slot Type: " << *slotType;
+            BMCWEB_LOG_WARNING("Unknown PCIe Slot Type: {}", *slotType);
         }
         else
         {
             if (*redfishSlotType == pcie_slots::SlotTypes::Invalid)
             {
-                BMCWEB_LOG_ERROR << "Unknown PCIe Slot Type: " << *slotType;
+                BMCWEB_LOG_ERROR("Unknown PCIe Slot Type: {}", *slotType);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -129,14 +128,14 @@ inline void onMapperAssociationDone(
             // This PCIeSlot have no chassis association.
             return;
         }
-        BMCWEB_LOG_ERROR << "DBUS response error";
+        BMCWEB_LOG_ERROR("DBUS response error");
         messages::internalError(asyncResp->res);
         return;
     }
 
     if (pcieSlotChassis.size() != 1)
     {
-        BMCWEB_LOG_ERROR << "PCIe Slot association error! ";
+        BMCWEB_LOG_ERROR("PCIe Slot association error! ");
         messages::internalError(asyncResp->res);
         return;
     }
@@ -166,7 +165,7 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "D-Bus response error on GetSubTree " << ec;
+        BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -176,8 +175,8 @@ inline void
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Get properties for PCIeSlots associated to chassis = "
-                     << chassisID;
+    BMCWEB_LOG_DEBUG("Get properties for PCIeSlots associated to chassis = {}",
+                     chassisID);
 
     asyncResp->res.jsonValue["@odata.type"] = "#PCIeSlots.v1_4_1.PCIeSlots";
     asyncResp->res.jsonValue["Name"] = "PCIe Slot Information";

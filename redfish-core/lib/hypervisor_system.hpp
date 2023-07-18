@@ -34,7 +34,7 @@ namespace redfish
 inline void
     getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "Get hypervisor state information.";
+    BMCWEB_LOG_DEBUG("Get hypervisor state information.");
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
@@ -43,13 +43,13 @@ inline void
                     const std::string& hostState) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
             // This is an optional D-Bus object so just return if
             // error occurs
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Hypervisor state: " << hostState;
+        BMCWEB_LOG_DEBUG("Hypervisor state: {}", hostState);
         // Verify Host State
         if (hostState == "xyz.openbmc_project.State.Host.HostState.Running")
         {
@@ -106,7 +106,7 @@ inline void
 inline void
     getHypervisorActions(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "Get hypervisor actions.";
+    BMCWEB_LOG_DEBUG("Get hypervisor actions.");
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.State.Host"};
     dbus::utility::getDbusObject(
@@ -117,7 +117,7 @@ inline void
                 objInfo) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
             // This is an optional D-Bus object so just return if
             // error occurs
             return;
@@ -259,9 +259,9 @@ inline bool extractHypervisorInterfaceData(
                         }
                         else
                         {
-                            BMCWEB_LOG_ERROR
-                                << "Got extra property: " << property.first
-                                << " on the " << objpath.first.str << " object";
+                            BMCWEB_LOG_ERROR(
+                                "Got extra property: {} on the {} object",
+                                property.first, objpath.first.str);
                         }
                     }
                 }
@@ -330,7 +330,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
                                                     ipv4Data);
         if (!found)
         {
-            BMCWEB_LOG_INFO << "Hypervisor Interface not found";
+            BMCWEB_LOG_INFO("Hypervisor Interface not found");
         }
         callback(found, ethData, ipv4Data);
         });
@@ -349,8 +349,8 @@ inline void setHypervisorIPv4Address(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ethIfaceId, const std::string& ipv4Address)
 {
-    BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4Address
-                     << " on Iface: " << ethIfaceId;
+    BMCWEB_LOG_DEBUG("Setting the Hypervisor IPaddress : {} on Iface: {}",
+                     ipv4Address, ethIfaceId);
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId + "/ipv4/addr0",
@@ -358,10 +358,10 @@ inline void setHypervisorIPv4Address(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             return;
         }
-        BMCWEB_LOG_DEBUG << "Hypervisor IPaddress is Set";
+        BMCWEB_LOG_DEBUG("Hypervisor IPaddress is Set");
         });
 }
 
@@ -378,8 +378,8 @@ inline void
     setHypervisorIPv4Subnet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& ethIfaceId, const uint8_t subnet)
 {
-    BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
-                     << " on Iface: " << ethIfaceId;
+    BMCWEB_LOG_DEBUG("Setting the Hypervisor subnet : {} on Iface: {}", subnet,
+                     ethIfaceId);
 
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
@@ -388,10 +388,10 @@ inline void
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             return;
         }
-        BMCWEB_LOG_DEBUG << "SubnetMask is Set";
+        BMCWEB_LOG_DEBUG("SubnetMask is Set");
         });
 }
 
@@ -408,8 +408,8 @@ inline void setHypervisorIPv4Gateway(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& gateway)
 {
-    BMCWEB_LOG_DEBUG
-        << "Setting the DefaultGateway to the last configured gateway";
+    BMCWEB_LOG_DEBUG(
+        "Setting the DefaultGateway to the last configured gateway");
 
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
@@ -418,10 +418,10 @@ inline void setHypervisorIPv4Gateway(
         gateway, [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
                 return;
             }
-            BMCWEB_LOG_DEBUG << "Default Gateway is Set";
+            BMCWEB_LOG_DEBUG("Default Gateway is Set");
         });
 }
 
@@ -515,7 +515,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -542,11 +542,11 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
-        BMCWEB_LOG_DEBUG << "Hypervisor IPaddress Origin is Set";
+        BMCWEB_LOG_DEBUG("Hypervisor IPaddress Origin is Set");
         });
 }
 
@@ -637,8 +637,8 @@ inline void handleHypervisorIPv4StaticPatch(
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Calling createHypervisorIPv4 on : " << ifaceId
-                         << "," << *address;
+        BMCWEB_LOG_DEBUG("Calling createHypervisorIPv4 on : {},{}", ifaceId,
+                         *address);
         createHypervisorIPv4(ifaceId, prefixLength, *gateway, *address,
                              asyncResp);
         // Set the DHCPEnabled to false since the Static IPv4 is set
@@ -786,7 +786,7 @@ inline void handleHypervisorSystemGet(
             messages::resourceNotFound(asyncResp->res, "System", "hypervisor");
             return;
         }
-        BMCWEB_LOG_DEBUG << "Hypervisor is available";
+        BMCWEB_LOG_DEBUG("Hypervisor is available");
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystem.v1_6_0.ComputerSystem";
@@ -888,8 +888,8 @@ inline void handleHypervisorEthernetInterfacePatch(
             if ((ipv4Json.is_null()) &&
                 (translateDhcpEnabledToBool(ethData.dhcpEnabled, true)))
             {
-                BMCWEB_LOG_INFO << "Ignoring the delete on ipv4StaticAddresses "
-                                   "as the interface is DHCP enabled";
+                BMCWEB_LOG_INFO("Ignoring the delete on ipv4StaticAddresses "
+                                "as the interface is DHCP enabled");
             }
             else
             {
@@ -929,7 +929,7 @@ inline void handleHypervisorResetActionGet(
                 objInfo) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
 
             // No hypervisor objects found by mapper
             if (ec.value() == boost::system::errc::io_error)
@@ -1012,7 +1012,7 @@ inline void handleHypervisorSystemResetPost(
         [asyncResp, resetType](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
             if (ec.value() == boost::asio::error::invalid_argument)
             {
                 messages::actionParameterNotSupported(asyncResp->res,

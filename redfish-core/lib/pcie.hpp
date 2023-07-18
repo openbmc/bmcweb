@@ -62,7 +62,7 @@ static inline void handlePCIeDevicePath(
                        const dbus::utility::MapperGetObject& object) {
             if (ec || object.empty())
             {
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -71,7 +71,7 @@ static inline void handlePCIeDevicePath(
         return;
     }
 
-    BMCWEB_LOG_WARNING << "PCIe Device not found";
+    BMCWEB_LOG_WARNING("PCIe Device not found");
     messages::resourceNotFound(asyncResp->res, "PCIeDevice", pcieDeviceId);
 }
 
@@ -89,7 +89,7 @@ static inline void getValidPCIeDevicePath(
                        pcieDevicePaths) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "D-Bus response error on GetSubTree " << ec;
+            BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -154,8 +154,8 @@ inline void addPCIeSlotProperties(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "DBUS response error for getAllProperties"
-                         << ec.value();
+        BMCWEB_LOG_ERROR("DBUS response error for getAllProperties{}",
+                         ec.value());
         messages::internalError(res);
         return;
     }
@@ -177,13 +177,13 @@ inline void addPCIeSlotProperties(
         pcie_util::redfishPcieGenerationFromDbus(generation);
     if (!pcieType)
     {
-        BMCWEB_LOG_WARNING << "Unknown PCIeType: " << generation;
+        BMCWEB_LOG_WARNING("Unknown PCIeType: {}", generation);
     }
     else
     {
         if (*pcieType == pcie_device::PCIeTypes::Invalid)
         {
-            BMCWEB_LOG_ERROR << "Invalid PCIeType: " << generation;
+            BMCWEB_LOG_ERROR("Invalid PCIeType: {}", generation);
             messages::internalError(res);
             return;
         }
@@ -199,13 +199,13 @@ inline void addPCIeSlotProperties(
         pcie_util::dbusSlotTypeToRf(slotType);
     if (!redfishSlotType)
     {
-        BMCWEB_LOG_WARNING << "Unknown PCIeSlot Type: " << slotType;
+        BMCWEB_LOG_WARNING("Unknown PCIeSlot Type: {}", slotType);
     }
     else
     {
         if (*redfishSlotType == pcie_slots::SlotTypes::Invalid)
         {
-            BMCWEB_LOG_ERROR << "Invalid PCIeSlot type: " << slotType;
+            BMCWEB_LOG_ERROR("Invalid PCIeSlot type: {}", slotType);
             messages::internalError(res);
             return;
         }
@@ -232,17 +232,17 @@ inline void getPCIeDeviceSlotPath(
                 // Missing association is not an error
                 return;
             }
-            BMCWEB_LOG_ERROR
-                << "DBUS response error for getAssociatedSubTreePaths "
-                << ec.value();
+            BMCWEB_LOG_ERROR(
+                "DBUS response error for getAssociatedSubTreePaths {}",
+                ec.value());
             messages::internalError(asyncResp->res);
             return;
         }
         if (endpoints.size() > 1)
         {
-            BMCWEB_LOG_ERROR
-                << "PCIeDevice is associated with more than one PCIeSlot: "
-                << endpoints.size();
+            BMCWEB_LOG_ERROR(
+                "PCIeDevice is associated with more than one PCIeSlot: {}",
+                endpoints.size());
             messages::internalError(asyncResp->res);
             return;
         }
@@ -250,7 +250,7 @@ inline void getPCIeDeviceSlotPath(
         {
             // If the device doesn't have an association, return without PCIe
             // Slot properties
-            BMCWEB_LOG_DEBUG << "PCIeDevice is not associated with PCIeSlot";
+            BMCWEB_LOG_DEBUG("PCIeDevice is not associated with PCIeSlot");
             return;
         }
         callback(endpoints[0]);
@@ -265,8 +265,8 @@ inline void
 {
     if (ec || object.empty())
     {
-        BMCWEB_LOG_ERROR << "DBUS response error for getDbusObject "
-                         << ec.value();
+        BMCWEB_LOG_ERROR("DBUS response error for getDbusObject {}",
+                         ec.value());
         messages::internalError(asyncResp->res);
         return;
     }
@@ -306,8 +306,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Health "
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for Health {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -333,7 +333,7 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for State";
+                BMCWEB_LOG_ERROR("DBUS response error for State");
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -361,8 +361,8 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Properties"
-                                 << ec.value();
+                BMCWEB_LOG_ERROR("DBUS response error for Properties{}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -445,15 +445,15 @@ inline void addPCIeDeviceProperties(
 
         if (!redfishGenerationInUse)
         {
-            BMCWEB_LOG_WARNING << "Unknown PCIe Device Generation: "
-                               << *generationInUse;
+            BMCWEB_LOG_WARNING("Unknown PCIe Device Generation: {}",
+                               *generationInUse);
         }
         else
         {
             if (*redfishGenerationInUse == pcie_device::PCIeTypes::Invalid)
             {
-                BMCWEB_LOG_ERROR << "Invalid PCIe Device Generation: "
-                                 << *generationInUse;
+                BMCWEB_LOG_ERROR("Invalid PCIe Device Generation: {}",
+                                 *generationInUse);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -469,15 +469,15 @@ inline void addPCIeDeviceProperties(
 
         if (!redfishGenerationSupported)
         {
-            BMCWEB_LOG_WARNING << "Unknown PCIe Device Generation: "
-                               << *generationSupported;
+            BMCWEB_LOG_WARNING("Unknown PCIe Device Generation: {}",
+                               *generationSupported);
         }
         else
         {
             if (*redfishGenerationSupported == pcie_device::PCIeTypes::Invalid)
             {
-                BMCWEB_LOG_ERROR << "Invalid PCIe Device Generation: "
-                                 << *generationSupported;
+                BMCWEB_LOG_ERROR("Invalid PCIe Device Generation: {}",
+                                 *generationSupported);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -521,7 +521,7 @@ inline void getPCIeDeviceProperties(
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Properties";
+                BMCWEB_LOG_ERROR("DBUS response error for Properties");
                 messages::internalError(asyncResp->res);
             }
             return;

@@ -20,8 +20,8 @@ namespace crow
 
 inline void completeResponseFields(const Request& req, Response& res)
 {
-    BMCWEB_LOG_INFO << "Response: " << ' ' << req.url().encoded_path() << ' '
-                    << res.resultInt();
+    BMCWEB_LOG_INFO("Response:  {} {}", req.url().encoded_path(),
+                    res.resultInt());
     addSecurityHeaders(req, res);
 
     authentication::cleanupTempSession(req);

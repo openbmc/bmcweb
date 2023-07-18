@@ -89,8 +89,8 @@ class Server
             return dateStr;
         };
 
-        BMCWEB_LOG_INFO << "bmcweb server is running, local endpoint "
-                        << acceptor->local_endpoint().address().to_string();
+        BMCWEB_LOG_INFO("bmcweb server is running, local endpoint {}",
+                        acceptor->local_endpoint().address().to_string());
         startAsyncWaitForSignal();
         doAccept();
     }
@@ -114,7 +114,7 @@ class Server
             fs::create_directories(certPath);
         }
         fs::path certFile = certPath / "server.pem";
-        BMCWEB_LOG_INFO << "Building SSL Context file=" << certFile.string();
+        BMCWEB_LOG_INFO("Building SSL Context file={}", certFile.string());
         std::string sslPemFile(certFile);
         ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
         std::shared_ptr<boost::asio::ssl::context> sslContext =
@@ -130,21 +130,21 @@ class Server
             [this](const boost::system::error_code& ec, int signalNo) {
             if (ec)
             {
-                BMCWEB_LOG_INFO << "Error in signal handler" << ec.message();
+                BMCWEB_LOG_INFO("Error in signal handler{}", ec.message());
             }
             else
             {
                 if (signalNo == SIGHUP)
                 {
-                    BMCWEB_LOG_INFO << "Receivied reload signal";
+                    BMCWEB_LOG_INFO("Receivied reload signal");
                     loadCertificate();
                     boost::system::error_code ec2;
                     acceptor->cancel(ec2);
                     if (ec2)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Error while canceling async operations:"
-                            << ec2.message();
+                        BMCWEB_LOG_ERROR(
+                            "Error while canceling async operations:{}",
+                            ec2.message());
                     }
                     startAsyncWaitForSignal();
                 }
