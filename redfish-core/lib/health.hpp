@@ -73,7 +73,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             bool isSelf = false;
             if (selfPath)
             {
-                if (boost::equals(path.str, *selfPath) ||
+                if (path.str == *selfPath ||
                     path.str.starts_with(*selfPath + "/"))
                 {
                     isSelf = true;
