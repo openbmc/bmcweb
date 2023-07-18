@@ -38,8 +38,8 @@ inline void
                         const crow::Response& resIn)
 {
     std::string computedEtag = resIn.computeEtag();
-    BMCWEB_LOG_DEBUG << "User provided if-match etag " << ifMatchHeader
-                     << " computed etag " << computedEtag;
+    BMCWEB_LOG_DEBUG("User provided if-match etag {} computed etag {}",
+                     ifMatchHeader, computedEtag);
     if (computedEtag != ifMatchHeader)
     {
         messages::preconditionFailed(asyncResp->res);
@@ -47,7 +47,7 @@ inline void
     }
     // Restart the request without if-match
     req.req.erase(boost::beast::http::field::if_match);
-    BMCWEB_LOG_DEBUG << "Restarting request";
+    BMCWEB_LOG_DEBUG("Restarting request");
     app.handle(req, asyncResp);
 }
 
@@ -118,7 +118,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     query_param::Query& delegated,
     const query_param::QueryCapabilities& queryCapabilities)
 {
-    BMCWEB_LOG_DEBUG << "setup redfish route";
+    BMCWEB_LOG_DEBUG("setup redfish route");
 
     // Section 7.4 of the redfish spec "Redfish Services shall process the
     // [OData-Version header] in the following table as defined by the HTTP 1.1

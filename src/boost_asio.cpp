@@ -9,14 +9,14 @@ namespace boost
 {
 void throw_exception(const std::exception& e)
 {
-    BMCWEB_LOG_CRITICAL << "Boost exception thrown " << e.what();
+    BMCWEB_LOG_CRITICAL("Boost exception thrown {}", e.what());
     std::terminate();
 }
 
 void throw_exception(const std::exception& e, const source_location& loc)
 {
-    BMCWEB_LOG_CRITICAL << "Boost exception thrown " << e.what() << " from "
-                        << loc;
+    BMCWEB_LOG_CRITICAL("Boost exception thrown {} from {}:{}", e.what(),
+                        loc.file_name(), loc.line());
     std::terminate();
 }
 } // namespace boost
