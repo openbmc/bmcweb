@@ -33,7 +33,7 @@ inline void handleAdapterError(const boost::system::error_code& ec,
         return;
     }
 
-    BMCWEB_LOG_ERROR << "DBus method call failed with error " << ec.value();
+    BMCWEB_LOG_ERROR("DBus method call failed with error {}", ec.value());
     messages::internalError(res);
 }
 
@@ -50,7 +50,7 @@ inline void getFabricAdapterLocation(
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Location";
+                BMCWEB_LOG_ERROR("DBUS response error for Location");
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -76,7 +76,7 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Properties";
+                BMCWEB_LOG_ERROR("DBUS response error for Properties");
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -133,7 +133,7 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for State";
+                BMCWEB_LOG_ERROR("DBUS response error for State");
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -160,7 +160,7 @@ inline void
         {
             if (ec.value() != EBADR)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error for Health";
+                BMCWEB_LOG_ERROR("DBUS response error for Health");
                 messages::internalError(asyncResp->res);
             }
             return;
@@ -240,7 +240,7 @@ inline void getValidFabricAdapterPath(
                 return;
             }
         }
-        BMCWEB_LOG_WARNING << "Adapter not found";
+        BMCWEB_LOG_WARNING("Adapter not found");
         messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
         });
 }

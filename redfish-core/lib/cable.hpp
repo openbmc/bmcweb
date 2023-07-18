@@ -30,7 +30,7 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
         messages::internalError(resp);
         return;
     }
@@ -83,7 +83,7 @@ inline void
                        const std::string& cableObjectPath,
                        const dbus::utility::MapperServiceMap& serviceMap)
 {
-    BMCWEB_LOG_DEBUG << "Get Properties for cable " << cableObjectPath;
+    BMCWEB_LOG_DEBUG("Get Properties for cable {}", cableObjectPath);
 
     for (const auto& [service, interfaces] : serviceMap)
     {
@@ -121,7 +121,7 @@ inline void requestRoutesCable(App& app)
         {
             return;
         }
-        BMCWEB_LOG_DEBUG << "Cable Id: " << cableId;
+        BMCWEB_LOG_DEBUG("Cable Id: {}", cableId);
         constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Cable"};
         dbus::utility::getSubTree(
@@ -137,7 +137,7 @@ inline void requestRoutesCable(App& app)
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }

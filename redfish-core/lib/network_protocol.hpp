@@ -351,7 +351,7 @@ inline void
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", " << ec.message();
+            BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
             messages::internalError(asyncResp->res);
             return;
         }

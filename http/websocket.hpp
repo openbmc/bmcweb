@@ -75,7 +75,7 @@ class ConnectionImpl : public Connection
         /* Turn on the timeouts on websocket stream to server role */
         ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(
             boost::beast::role_type::server));
-        BMCWEB_LOG_DEBUG << "Creating new connection " << this;
+        BMCWEB_LOG_DEBUG("Creating new connection {}", logPtr(this));
     }
 
     boost::asio::io_context& getIoContext() override
@@ -86,7 +86,7 @@ class ConnectionImpl : public Connection
 
     void start()
     {
-        BMCWEB_LOG_DEBUG << "starting connection " << this;
+        BMCWEB_LOG_DEBUG("starting connection {}", logPtr(this));
 
         using bf = boost::beast::http::field;
 
@@ -104,7 +104,7 @@ class ConnectionImpl : public Connection
                     !crow::utility::constantTimeStringCompare(
                         protocol, session->csrfToken))
                 {
-                    BMCWEB_LOG_ERROR << "Websocket CSRF error";
+                    BMCWEB_LOG_ERROR("Websocket CSRF error");
                     m.result(boost::beast::http::status::unauthorized);
                     return;
                 }
@@ -131,7 +131,7 @@ class ConnectionImpl : public Connection
                                  const boost::system::error_code& ec) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in ws.async_accept " << ec;
+                BMCWEB_LOG_ERROR("Error in ws.async_accept {}", ec);
                 return;
             }
             acceptDone();
@@ -151,8 +151,8 @@ class ConnectionImpl : public Connection
     {
         if (doingWrite)
         {
-            BMCWEB_LOG_CRITICAL
-                << "Cannot mix sendEx usage with sendBinary or sendText";
+            BMCWEB_LOG_CRITICAL(
+                "Cannot mix sendEx usage with sendBinary or sendText");
             onDone();
             return;
         }
@@ -169,7 +169,7 @@ class ConnectionImpl : public Connection
 
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec;
+                BMCWEB_LOG_ERROR("Error in ws.async_write {}", ec);
                 self->close("write error");
             }
         });
@@ -210,7 +210,7 @@ class ConnectionImpl : public Connection
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
+                BMCWEB_LOG_ERROR("Error closing websocket {}", ec);
                 return;
             }
             });
@@ -223,7 +223,7 @@ class ConnectionImpl : public Connection
 
     void acceptDone()
     {
-        BMCWEB_LOG_DEBUG << "Websocket accepted connection";
+        BMCWEB_LOG_DEBUG("Websocket accepted connection");
 
         if (openHandler)
         {
@@ -264,7 +264,7 @@ class ConnectionImpl : public Connection
             {
                 if (ec != boost::beast::websocket::error::closed)
                 {
-                    BMCWEB_LOG_ERROR << "doRead error " << ec;
+                    BMCWEB_LOG_ERROR("doRead error {}", ec);
                 }
                 if (closeHandler)
                 {
@@ -306,7 +306,7 @@ class ConnectionImpl : public Connection
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec;
+                BMCWEB_LOG_ERROR("Error in ws.async_write {}", ec);
                 return;
             }
             doWrite();

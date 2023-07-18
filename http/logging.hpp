@@ -2,16 +2,119 @@
 
 #include "bmcweb_config.h"
 
-#include <algorithm>
-#include <array>
-#include <cstdio>
-#include <cstdlib>
-#include <ctime>
-#include <filesystem>
+#include <boost/system/error_code.hpp>
+#include <boost/url/pct_string_view.hpp>
+#include <boost/url/string_view.hpp>
+#include <boost/url/url.hpp>
+#include <nlohmann/json.hpp>
+
+#include <bit>
+#include <format>
 #include <iostream>
-#include <sstream>
-#include <string>
+#include <source_location>
 #include <string_view>
+#include <system_error>
+
+// Clang-tidy would rather these be static, but using static causes the template
+// specialization to not function.  Ignore the warning.
+// NOLINTBEGIN(readability-convert-member-functions-to-static, cert-dcl58-cpp)
+template <>
+struct std::formatter<boost::system::error_code>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+
+    auto format(const boost::system::error_code& ec, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}", ec.what());
+    }
+};
+
+template <>
+struct std::formatter<boost::urls::pct_string_view>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const boost::urls::pct_string_view& msg, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}",
+                              std::string_view(msg.data(), msg.size()));
+    }
+};
+
+template <>
+struct std::formatter<boost::urls::url>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const boost::urls::url& msg, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}", std::string_view(msg.buffer()));
+    }
+};
+
+template <>
+struct std::formatter<boost::core::string_view>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const boost::core::string_view& msg, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}", std::string_view(msg));
+    }
+};
+
+template <>
+struct std::formatter<void*>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const void*& ptr, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}",
+                              std::to_string(std::bit_cast<size_t>(ptr)));
+    }
+};
+
+template <>
+struct std::formatter<nlohmann::json::json_pointer>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const nlohmann::json::json_pointer& ptr, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}", ptr.to_string());
+    }
+};
+
+template <>
+struct std::formatter<nlohmann::json>
+{
+    static constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const nlohmann::json& json, auto& ctx) const
+    {
+        return std::format_to(
+            ctx.out(), "{}",
+            json.dump(-1, ' ', false,
+                      nlohmann::json::error_handler_t::replace));
+    }
+};
+// NOLINTEND(readability-convert-member-functions-to-static, cert-dcl58-cpp)
 
 namespace crow
 {
@@ -51,103 +154,81 @@ constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
 constexpr crow::LogLevel bmcwebCurrentLoggingLevel =
     getLogLevelFromName(bmcwebLoggingLevel);
 
-class Logger
+struct FormatString
 {
-  private:
-    //
-    static std::string timestamp()
-    {
-        std::string date;
-        date.resize(32, '\0');
-        time_t t = time(nullptr);
+    std::string_view str;
+    std::source_location loc;
 
-        tm myTm{};
-
-        gmtime_r(&t, &myTm);
-
-        size_t sz = strftime(date.data(), date.size(), "%Y-%m-%d %H:%M:%S",
-                             &myTm);
-        date.resize(sz);
-        return date;
-    }
-
-  public:
-    Logger([[maybe_unused]] const std::string& prefix,
-           [[maybe_unused]] const std::string& filename,
-           [[maybe_unused]] const size_t line)
-    {
-        stringstream << "(" << timestamp() << ") [" << prefix << " "
-                     << std::filesystem::path(filename).filename() << ":"
-                     << line << "] ";
-    }
-    ~Logger()
-    {
-        stringstream << std::endl;
-        std::cerr << stringstream.str();
-    }
-
-    Logger(const Logger&) = delete;
-    Logger(Logger&&) = delete;
-    Logger& operator=(const Logger&) = delete;
-    Logger& operator=(const Logger&&) = delete;
-
-    //
-    template <typename T>
-    Logger& operator<<([[maybe_unused]] const T& value)
-    {
-        // Somewhere in the code we're implicitly casting an array to a
-        // pointer in logging code. It's non-trivial to find,
-        // so disable the check here for now
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-        stringstream << value;
-        return *this;
-    }
-
-    constexpr static LogLevel getCurrentLogLevel()
-    {
-        return bmcwebCurrentLoggingLevel;
-    }
-
-    constexpr static bool isLoggingEnabled()
-    {
-        return getCurrentLogLevel() >= crow::LogLevel::Debug;
-    }
-
-    constexpr static bool checkLoggingLevel(const LogLevel level)
-    {
-        return isLoggingEnabled() && (getCurrentLogLevel() <= level);
-    }
-
-  private:
-    //
-    std::ostringstream stringstream;
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    FormatString(const char* strIn, const std::source_location& locIn =
+                                        std::source_location::current()) :
+        str(strIn),
+        loc(locIn)
+    {}
 };
+
+template <typename T>
+const void* logPtr(T p)
+{
+    static_assert(std::is_pointer<T>::value,
+                  "Can't use logPtr without pointer");
+    return std::bit_cast<const void*>(p);
+}
+
+template <LogLevel level>
+inline void vlog(const FormatString& format, std::format_args&& args)
+{
+    if constexpr (bmcwebCurrentLoggingLevel > level)
+    {
+        return;
+    }
+    constexpr size_t stringIndex = static_cast<size_t>(level);
+    static_assert(stringIndex < mapLogLevelFromName.size(),
+                  "Missing string for level");
+    constexpr std::string_view levelString = mapLogLevelFromName[stringIndex].first;
+    std::string_view filename = format.loc.file_name();
+    if (filename.starts_with("../"))
+    {
+        filename = filename.substr(3);
+    }
+    std::cout << std::format("[{} {}:{}] ", levelString, filename,
+                             format.loc.line());
+    std::cout << std::vformat(format.str, args);
+    std::putc('\n', stdout);
+}
 } // namespace crow
 
-// Disable clang-tidy warnings about unused macros.
-// NOLINTBEGIN(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
+template <typename... Args>
+inline void BMCWEB_LOG_CRITICAL(const crow::FormatString& format, Args&&... args)
+{
+    crow::vlog<crow::LogLevel::Critical>(
+        format, std::make_format_args(std::forward<Args>(args)...));
+}
 
-// The logging functions currently use macros.  Now that we have c++20, ideally
-// they'd use source_location with fixed functions, but for the moment, disable
-// the check.
-#define BMCWEB_LOG_CRITICAL                                                    \
-    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Critical))   \
-    crow::Logger("CRITICAL", __FILE__, __LINE__)
+template <typename... Args>
+inline void BMCWEB_LOG_ERROR(const crow::FormatString& format, Args&&... args)
+{
+    crow::vlog<crow::LogLevel::Error>(
+        format, std::make_format_args(std::forward<Args>(args)...));
+}
 
-#define BMCWEB_LOG_ERROR                                                       \
-    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Error))      \
-    crow::Logger("ERROR", __FILE__, __LINE__)
+template <typename... Args>
+inline void BMCWEB_LOG_WARNING(const crow::FormatString& format, Args&&... args)
+{
+    crow::vlog<crow::LogLevel::Warning>(
+        format, std::make_format_args(std::forward<Args>(args)...));
+}
 
-#define BMCWEB_LOG_WARNING                                                     \
-    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Warning))    \
-    crow::Logger("WARNING", __FILE__, __LINE__)
+template <typename... Args>
+inline void BMCWEB_LOG_INFO(const crow::FormatString& format, Args&&... args)
+{
+    crow::vlog<crow::LogLevel::Info>(
+        format, std::make_format_args(std::forward<Args>(args)...));
+}
 
-#define BMCWEB_LOG_INFO                                                        \
-    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Info))       \
-    crow::Logger("INFO", __FILE__, __LINE__)
-
-#define BMCWEB_LOG_DEBUG                                                       \
-    if constexpr (crow::Logger::checkLoggingLevel(crow::LogLevel::Debug))      \
-    crow::Logger("DEBUG", __FILE__, __LINE__)
-
-// NOLINTEND(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
+template <typename... Args>
+inline void BMCWEB_LOG_DEBUG(const crow::FormatString& format, Args&&... args)
+{
+    crow::vlog<crow::LogLevel::Debug>(
+        format, std::make_format_args(std::forward<Args>(args)...));
+}
