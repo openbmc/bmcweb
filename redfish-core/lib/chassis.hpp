@@ -62,7 +62,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::vector<std::string>& storageList) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "getStorageLink got DBUS response error";
+            BMCWEB_LOG_DEBUG("getStorageLink got DBUS response error");
             return;
         }
 
@@ -109,15 +109,15 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
             {
                 // Service not available, no error, just don't return
                 // chassis state info
-                BMCWEB_LOG_DEBUG << "Service not available " << ec;
+                BMCWEB_LOG_DEBUG("Service not available {}", ec);
                 return;
             }
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Chassis state: " << chassisState;
+        BMCWEB_LOG_DEBUG("Chassis state: {}", chassisState);
         // Verify Chassis State
         if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.On")
         {
@@ -137,7 +137,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                   const std::string& service,
                                   const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
+    BMCWEB_LOG_DEBUG("Get intrusion status by service ");
 
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
@@ -148,7 +148,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         {
             // do not add err msg in redfish response, because this is not
             //     mandatory property
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             return;
         }
 
@@ -175,7 +175,7 @@ inline void
         {
             // do not add err msg in redfish response, because this is not
             //     mandatory property
-            BMCWEB_LOG_INFO << "DBUS error: no matched iface " << ec << "\n";
+            BMCWEB_LOG_INFO("DBUS error: no matched iface {}", ec);
             return;
         }
         // Iterate over all retrieved ObjectPaths.
@@ -220,7 +220,7 @@ inline void getChassisContainedBy(
     {
         if (ec.value() != EBADR)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
         }
         return;
@@ -231,7 +231,7 @@ inline void getChassisContainedBy(
     }
     if (upstreamChassisPaths.size() > 1)
     {
-        BMCWEB_LOG_ERROR << chassisId << " is contained by mutliple chassis";
+        BMCWEB_LOG_ERROR("{} is contained by mutliple chassis", chassisId);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -241,8 +241,8 @@ inline void getChassisContainedBy(
     std::string upstreamChassis = upstreamChassisPath.filename();
     if (upstreamChassis.empty())
     {
-        BMCWEB_LOG_WARNING << "Malformed upstream Chassis path "
-                           << upstreamChassisPath.str << " on " << chassisId;
+        BMCWEB_LOG_WARNING("Malformed upstream Chassis path {} on {}",
+                           upstreamChassisPath.str, chassisId);
         return;
     }
 
@@ -259,7 +259,7 @@ inline void getChassisContains(
     {
         if (ec.value() != EBADR)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
         }
         return;
@@ -280,9 +280,8 @@ inline void getChassisContains(
         std::string downstreamChassis = downstreamChassisPath.filename();
         if (downstreamChassis.empty())
         {
-            BMCWEB_LOG_WARNING << "Malformed downstream Chassis path "
-                               << downstreamChassisPath.str << " on "
-                               << chassisId;
+            BMCWEB_LOG_WARNING("Malformed downstream Chassis path {} on {}",
+                               downstreamChassisPath.str, chassisId);
             continue;
         }
         nlohmann::json link;
@@ -298,7 +297,7 @@ inline void
                            const std::string& chassisId,
                            const std::string& chassisPath)
 {
-    BMCWEB_LOG_DEBUG << "Get chassis connectivity";
+    BMCWEB_LOG_DEBUG("Get chassis connectivity");
 
     dbus::utility::getAssociationEndPoints(
         chassisPath + "/contained_by",
@@ -333,7 +332,7 @@ inline void
                     const std::string& property) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error for Location";
+            BMCWEB_LOG_ERROR("DBUS response error for Location");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -354,7 +353,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::string& chassisUUID) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error for UUID";
+            BMCWEB_LOG_ERROR("DBUS response error for UUID");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -382,7 +381,7 @@ inline void
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -424,7 +423,7 @@ inline void
 
             if (connectionNames.empty())
             {
-                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                BMCWEB_LOG_ERROR("Got 0 Connection names");
                 continue;
             }
 
@@ -484,8 +483,8 @@ inline void
                                     const std::string& property) {
                         if (ec2)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "DBus response error for AssetTag: " << ec2;
+                            BMCWEB_LOG_ERROR(
+                                "DBus response error for AssetTag: {}", ec2);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -502,9 +501,9 @@ inline void
                                     const bool property) {
                         if (ec2)
                         {
-                            BMCWEB_LOG_ERROR
-                                << "DBus response error for HotPluggable: "
-                                << ec2;
+                            BMCWEB_LOG_ERROR(
+                                "DBus response error for HotPluggable: {}",
+                                ec2);
                             messages::internalError(asyncResp->res);
                             return;
                         }
@@ -693,7 +692,7 @@ inline void
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -716,7 +715,7 @@ inline void
 
             if (connectionNames.empty())
             {
-                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                BMCWEB_LOG_ERROR("Got 0 Connection names");
                 continue;
             }
 
@@ -793,7 +792,7 @@ inline void handleChassisPowerCycleError(const boost::system::error_code& ec,
 {
     if (eMsg.get_error() == nullptr)
     {
-        BMCWEB_LOG_ERROR << "D-Bus response error: " << ec;
+        BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
         messages::internalError(res);
         return;
     }
@@ -804,13 +803,13 @@ inline void handleChassisPowerCycleError(const boost::system::error_code& ec,
     if (errorMessage ==
         std::string_view("xyz.openbmc_project.State.Chassis.Error.BMCNotReady"))
     {
-        BMCWEB_LOG_DEBUG << "BMC not ready, operation not allowed right now";
+        BMCWEB_LOG_DEBUG("BMC not ready, operation not allowed right now");
         messages::serviceTemporarilyUnavailable(res, "10");
         return;
     }
 
-    BMCWEB_LOG_ERROR << "Chassis Power Cycle fail " << ec
-                     << " sdbusplus:" << errorMessage;
+    BMCWEB_LOG_ERROR("Chassis Power Cycle fail {} sdbusplus:{}", ec,
+                     errorMessage);
     messages::internalError(res);
 }
 
@@ -828,7 +827,7 @@ inline void
             const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "[mapper] Bad D-Bus request error: " << ec;
+            BMCWEB_LOG_ERROR("[mapper] Bad D-Bus request error: {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -877,7 +876,7 @@ inline void handleChassisResetActionInfoPost(
     {
         return;
     }
-    BMCWEB_LOG_DEBUG << "Post Chassis Reset.";
+    BMCWEB_LOG_DEBUG("Post Chassis Reset.");
 
     std::string resetType;
 
@@ -888,8 +887,7 @@ inline void handleChassisResetActionInfoPost(
 
     if (resetType != "PowerCycle")
     {
-        BMCWEB_LOG_DEBUG << "Invalid property value for ResetType: "
-                         << resetType;
+        BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}", resetType);
         messages::actionParameterNotSupported(asyncResp->res, resetType,
                                               "ResetType");
 

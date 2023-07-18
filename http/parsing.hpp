@@ -24,7 +24,7 @@ inline JsonParseResult parseRequestAsJson(const crow::Request& req,
     if (!boost::iequals(contentType, "application/json") &&
         !boost::iequals(contentType, "application/json; charset=utf-8"))
     {
-        BMCWEB_LOG_WARNING << "Failed to parse content type on request";
+        BMCWEB_LOG_WARNING("Failed to parse content type on request");
 #ifndef BMCWEB_INSECURE_IGNORE_CONTENT_TYPE
         return JsonParseResult::BadContentType;
 #endif
@@ -32,7 +32,7 @@ inline JsonParseResult parseRequestAsJson(const crow::Request& req,
     jsonOut = nlohmann::json::parse(req.body(), nullptr, false);
     if (jsonOut.is_discarded())
     {
-        BMCWEB_LOG_WARNING << "Failed to parse json in request";
+        BMCWEB_LOG_WARNING("Failed to parse json in request");
         return JsonParseResult::BadJsonData;
     }
 
