@@ -36,13 +36,13 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
     {
         if (doingWrite)
         {
-            BMCWEB_LOG_DEBUG << "Already writing.  Bailing out";
+            BMCWEB_LOG_DEBUG("Already writing.  Bailing out");
             return;
         }
 
         if (inputBuffer.empty())
         {
-            BMCWEB_LOG_DEBUG << "Outbuffer empty.  Bailing out";
+            BMCWEB_LOG_DEBUG("Outbuffer empty.  Bailing out");
             return;
         }
 
@@ -67,8 +67,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Error in host serial write "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("Error in host serial write {}", ec.message());
                 return;
             }
             self->doWrite();
@@ -87,12 +86,12 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 
     void doRead()
     {
-        BMCWEB_LOG_DEBUG << "Reading from socket";
+        BMCWEB_LOG_DEBUG("Reading from socket");
         hostSocket.async_read_some(
             boost::asio::buffer(outputBuffer),
             [this, weakSelf(weak_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
+            BMCWEB_LOG_DEBUG("read done.  Read {} bytes", bytesRead);
             std::shared_ptr<ConsoleHandler> self = weakSelf.lock();
             if (self == nullptr)
             {
@@ -100,8 +99,8 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
             }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "Couldn't read from host serial port: "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("Couldn't read from host serial port: {}",
+                                 ec.message());
                 conn.close("Error connecting to host port");
                 return;
             }
@@ -120,8 +119,9 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Failed to assign the DBUS socket"
-                             << " Socket assign error: " << ec.message();
+            BMCWEB_LOG_ERROR(
+                "Failed to assign the DBUS socket Socket assign error: {}",
+                ec.message());
             return false;
         }
 
@@ -155,15 +155,15 @@ inline ObmcConsoleMap& getConsoleHandlerMap()
 // then remove the handler from handlers map.
 inline void onClose(crow::websocket::Connection& conn, const std::string& err)
 {
-    BMCWEB_LOG_INFO << "Closing websocket. Reason: " << err;
+    BMCWEB_LOG_INFO("Closing websocket. Reason: {}", err);
 
     auto iter = getConsoleHandlerMap().find(&conn);
     if (iter == getConsoleHandlerMap().end())
     {
-        BMCWEB_LOG_CRITICAL << "Unable to find connection " << &conn;
+        BMCWEB_LOG_CRITICAL("Unable to find connection {}", logPtr(&conn));
         return;
     }
-    BMCWEB_LOG_DEBUG << "Remove connection " << &conn << " from obmc console";
+    BMCWEB_LOG_DEBUG("Remove connection {} from obmc console", logPtr(&conn));
 
     // Removed last connection so remove the path
     getConsoleHandlerMap().erase(iter);
@@ -175,8 +175,9 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Failed to call console Connect() method"
-                         << " DBUS error: " << ec.message();
+        BMCWEB_LOG_ERROR(
+            "Failed to call console Connect() method DBUS error: {}",
+            ec.message());
         conn.close("Failed to connect");
         return;
     }
@@ -185,20 +186,20 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
     auto iter = getConsoleHandlerMap().find(&conn);
     if (iter == getConsoleHandlerMap().end())
     {
-        BMCWEB_LOG_ERROR << "Connection was already closed";
+        BMCWEB_LOG_ERROR("Connection was already closed");
         return;
     }
 
     int fd = dup(unixfd);
     if (fd == -1)
     {
-        BMCWEB_LOG_ERROR << "Failed to dup the DBUS unixfd"
-                         << " error: " << strerror(errno);
+        BMCWEB_LOG_ERROR("Failed to dup the DBUS unixfd error: {}",
+                         strerror(errno));
         conn.close("Internal error");
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Console unix FD: " << unixfd << " duped FD: " << fd;
+    BMCWEB_LOG_DEBUG("Console duped FD: {}", fd);
 
     if (!iter->second->connect(fd))
     {
@@ -217,14 +218,14 @@ inline void
     auto iter = getConsoleHandlerMap().find(&conn);
     if (iter == getConsoleHandlerMap().end())
     {
-        BMCWEB_LOG_ERROR << "Connection was already closed";
+        BMCWEB_LOG_ERROR("Connection was already closed");
         return;
     }
 
     if (ec)
     {
-        BMCWEB_LOG_WARNING << "getDbusObject() for consoles failed. DBUS error:"
-                           << ec.message();
+        BMCWEB_LOG_WARNING("getDbusObject() for consoles failed. DBUS error:{}",
+                           ec.message());
         conn.close("getDbusObject() for consoles failed.");
         return;
     }
@@ -232,15 +233,15 @@ inline void
     const auto valueIface = objInfo.begin();
     if (valueIface == objInfo.end())
     {
-        BMCWEB_LOG_WARNING << "getDbusObject() returned unexpected size: "
-                           << objInfo.size();
+        BMCWEB_LOG_WARNING("getDbusObject() returned unexpected size: {}",
+                           objInfo.size());
         conn.close("getDbusObject() returned unexpected size");
         return;
     }
 
     const std::string& consoleService = valueIface->first;
-    BMCWEB_LOG_DEBUG << "Looking up unixFD for Service " << consoleService
-                     << " Path " << consoleObjPath;
+    BMCWEB_LOG_DEBUG("Looking up unixFD for Service {} Path {}", consoleService,
+                     consoleObjPath);
     // Call Connect() method to get the unix FD
     crow::connections::systemBus->async_method_call(
         [&conn](const boost::system::error_code& ec1,
@@ -257,7 +258,7 @@ inline void onOpen(crow::websocket::Connection& conn)
 {
     std::string consoleLeaf;
 
-    BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
+    BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
     if (getConsoleHandlerMap().size() >= maxSessions)
     {
@@ -286,8 +287,8 @@ inline void onOpen(crow::websocket::Connection& conn)
         sdbusplus::message::object_path("/xyz/openbmc_project/console") /
         consoleLeaf;
 
-    BMCWEB_LOG_DEBUG << "Console Object path = " << consolePath
-                     << " Request target = " << conn.url().path();
+    BMCWEB_LOG_DEBUG("Console Object path = {} Request target = {}",
+                     consolePath, conn.url().path());
 
     // mapper call lambda
     constexpr std::array<std::string_view, 1> interfaces = {
@@ -307,7 +308,7 @@ inline void onMessage(crow::websocket::Connection& conn,
     auto handler = getConsoleHandlerMap().find(&conn);
     if (handler == getConsoleHandlerMap().end())
     {
-        BMCWEB_LOG_CRITICAL << "Unable to find connection " << &conn;
+        BMCWEB_LOG_CRITICAL("Unable to find connection {}", logPtr(&conn));
         return;
     }
     handler->second->inputBuffer += data;

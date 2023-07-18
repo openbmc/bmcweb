@@ -614,7 +614,7 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         health->populate();
     }
 
-    BMCWEB_LOG_DEBUG << "Get available system components.";
+    BMCWEB_LOG_DEBUG("Get available system components.");
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
         [dimmId, asyncResp{std::move(asyncResp)}](
@@ -622,7 +622,7 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -695,7 +695,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
 
             return;
@@ -710,7 +710,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         const std::string& dimmId)
 {
-    BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
+    BMCWEB_LOG_DEBUG("Get available system dimm resources.");
     constexpr std::array<std::string_view, 2> dimmInterfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
@@ -721,7 +721,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
 
             return;

@@ -14,11 +14,10 @@ struct UnpackErrorPrinter
     void operator()(const sdbusplus::UnpackErrorReason reason,
                     const std::string& property) const noexcept
     {
-        BMCWEB_LOG_ERROR
-            << "DBUS property error in property: " << property << ", reason: "
-            << static_cast<
-                   std::underlying_type_t<sdbusplus::UnpackErrorReason>>(
-                   reason);
+        BMCWEB_LOG_ERROR(
+            "DBUS property error in property: {}, reason: {}", property,
+            static_cast<std::underlying_type_t<sdbusplus::UnpackErrorReason>>(
+                reason));
     }
 };
 

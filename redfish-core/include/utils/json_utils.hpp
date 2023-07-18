@@ -101,21 +101,21 @@ bool checkRange(const FromType& from, std::string_view key)
 {
     if (from > std::numeric_limits<ToType>::max())
     {
-        BMCWEB_LOG_DEBUG << "Value for key " << key
-                         << " was greater than max: " << __PRETTY_FUNCTION__;
+        BMCWEB_LOG_DEBUG("Value for key {} was greater than max: {}", key,
+                         __PRETTY_FUNCTION__);
         return false;
     }
     if (from < std::numeric_limits<ToType>::lowest())
     {
-        BMCWEB_LOG_DEBUG << "Value for key " << key
-                         << " was less than min: " << __PRETTY_FUNCTION__;
+        BMCWEB_LOG_DEBUG("Value for key {} was less than min: {}", key,
+                         __PRETTY_FUNCTION__);
         return false;
     }
     if constexpr (std::is_floating_point_v<ToType>)
     {
         if (std::isnan(from))
         {
-            BMCWEB_LOG_DEBUG << "Value for key " << key << " was NAN";
+            BMCWEB_LOG_DEBUG("Value for key {} was NAN", key);
             return false;
         }
     }
@@ -193,9 +193,8 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
         if (jsonPtr == nullptr)
         {
-            BMCWEB_LOG_DEBUG
-                << "Value for key " << key
-                << " was incorrect type: " << jsonValue.type_name();
+            BMCWEB_LOG_DEBUG("Value for key {} was incorrect type: {}", key,
+                             jsonValue.type_name());
             return UnpackErrorCode::invalidType;
         }
         value = std::move(*jsonPtr);
@@ -392,7 +391,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
         jsonRequest.get_ptr<nlohmann::json::object_t*>();
     if (obj == nullptr)
     {
-        BMCWEB_LOG_DEBUG << "Json value is not an object";
+        BMCWEB_LOG_DEBUG("Json value is not an object");
         messages::unrecognizedRequestBody(res);
         return false;
     }
@@ -521,14 +520,14 @@ inline std::optional<nlohmann::json>
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
     {
-        BMCWEB_LOG_DEBUG << "Json value not readable";
+        BMCWEB_LOG_DEBUG("Json value not readable");
         return std::nullopt;
     }
     nlohmann::json::object_t* object =
         jsonRequest.get_ptr<nlohmann::json::object_t*>();
     if (object == nullptr || object->empty())
     {
-        BMCWEB_LOG_DEBUG << "Json value is empty";
+        BMCWEB_LOG_DEBUG("Json value is empty");
         messages::emptyJSON(res);
         return std::nullopt;
     }
@@ -568,7 +567,7 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
     {
-        BMCWEB_LOG_DEBUG << "Json value not readable";
+        BMCWEB_LOG_DEBUG("Json value not readable");
         return false;
     }
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);

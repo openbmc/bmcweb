@@ -191,16 +191,16 @@ inline std::optional<nlohmann::json::array_t> getLinkedTriggers(
         if (path.parent_path() !=
             "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
         {
-            BMCWEB_LOG_ERROR << "Property Triggers contains invalid value: "
-                             << path.str;
+            BMCWEB_LOG_ERROR("Property Triggers contains invalid value: {}",
+                             path.str);
             return std::nullopt;
         }
 
         std::string id = path.filename();
         if (id.empty())
         {
-            BMCWEB_LOG_ERROR << "Property Triggers contains invalid value: "
-                             << path.str;
+            BMCWEB_LOG_ERROR("Property Triggers contains invalid value: {}",
+                             path.str);
             return std::nullopt;
         }
         nlohmann::json::object_t trigger;
@@ -666,9 +666,9 @@ class AddReport
                 auto el = uriToDbus.find(uri);
                 if (el == uriToDbus.end())
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Failed to find DBus sensor corresponding to URI "
-                        << uri;
+                    BMCWEB_LOG_ERROR(
+                        "Failed to find DBus sensor corresponding to URI {}",
+                        uri);
                     messages::propertyValueNotInList(asyncResp->res, uri,
                                                      "MetricProperties/" +
                                                          std::to_string(i));
@@ -712,7 +712,7 @@ class AddReport
             if (ec)
             {
                 messages::internalError(asyncResp->res);
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
                 return;
             }
 
@@ -819,7 +819,7 @@ inline void
         }
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -855,7 +855,7 @@ inline void handleMetricReportDelete(
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+            BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -913,9 +913,9 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                     const std::map<std::string, std::string>& uriToDbus) {
                 if (status != boost::beast::http::status::ok)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Failed to retrieve URI to dbus sensors map with err "
-                        << static_cast<unsigned>(status);
+                    BMCWEB_LOG_ERROR(
+                        "Failed to retrieve URI to dbus sensors map with err {}",
+                        static_cast<unsigned>(status));
                     return;
                 }
                 addReportReq->insert(uriToDbus);
