@@ -16,6 +16,24 @@
       "message": "While I\u0027m happy that you\u0027re excited about the project, you already have a major core feature in review.  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63609\n\nPlease finish with that before starting on another major core feature.  If you plan to abandon 63609, please comment that on that review, and abandon it appropriately.",
       "revId": "4cc2aa4f4e6455e9165ae8973e490dac07d8061b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de5cdda_3f751b42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-18T16:31:53Z",
+      "side": 1,
+      "message": "Because of the priority changes  I had to temporarily stop working on it. Also, I was not aware of the existence of unpackmethod when I started it. Later I thought it is better to enhance the unpack method itself to add functional interface to it  . Will resume the work once other priorities are done.",
+      "parentUuid": "ef6ff198_b6452b3a",
+      "revId": "4cc2aa4f4e6455e9165ae8973e490dac07d8061b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
