@@ -3,7 +3,6 @@
 #include "ibm/utils.hpp"
 #include "logging.hpp"
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
 #include <nlohmann/json.hpp>
@@ -363,8 +362,8 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 {
     // validate the locktype
 
-    if (!((boost::equals(std::get<2>(refLockRecord), "Read") ||
-           (boost::equals(std::get<2>(refLockRecord), "Write")))))
+    if (!((std::get<2>(refLockRecord) == "Read" ||
+           (std::get<2>(refLockRecord) == "Write"))))
     {
         BMCWEB_LOG_DEBUG("Validation of LockType Failed");
         BMCWEB_LOG_DEBUG("Locktype : {}", std::get<2>(refLockRecord));
@@ -392,9 +391,8 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
         // validate the lock flags
         // Allowed lockflags are locksame,lockall & dontlock
 
-        if (!((boost::equals(p.first, "LockSame") ||
-               (boost::equals(p.first, "LockAll")) ||
-               (boost::equals(p.first, "DontLock")))))
+        if (!((p.first == "LockSame" || (p.first == "LockAll") ||
+               (p.first == "DontLock"))))
         {
             BMCWEB_LOG_DEBUG("Validation of lock flags failed");
             BMCWEB_LOG_DEBUG("{}", p.first);
@@ -411,8 +409,7 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
             return false;
         }
 
-        if ((boost::equals(p.first, "LockSame") ||
-             (boost::equals(p.first, "LockAll"))))
+        if ((p.first == "LockSame" || (p.first == "LockAll")))
         {
             ++lockFlag;
             if (lockFlag >= 2)
@@ -534,8 +531,8 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
 {
     // No conflict if both are read locks
 
-    if (boost::equals(std::get<2>(refLockRecord1), "Read") &&
-        boost::equals(std::get<2>(refLockRecord2), "Read"))
+    if (std::get<2>(refLockRecord1) == "Read" &&
+        std::get<2>(refLockRecord2) == "Read")
     {
         BMCWEB_LOG_DEBUG("Both are read locks, no conflict");
         return false;
@@ -546,8 +543,8 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
     {
         // return conflict when any of them is try to lock all resources
         // under the current resource level.
-        if (boost::equals(p.first, "LockAll") ||
-            boost::equals(std::get<4>(refLockRecord2)[i].first, "LockAll"))
+        if (p.first == "LockAll" ||
+            std::get<4>(refLockRecord2)[i].first == "LockAll")
         {
             BMCWEB_LOG_DEBUG(
                 "Either of the Comparing locks are trying to lock all "
@@ -558,8 +555,8 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
         // determine if there is a lock-all-with-same-segment-size.
         // If the current segment sizes are the same,then we should fail.
 
-        if ((boost::equals(p.first, "LockSame") ||
-             boost::equals(std::get<4>(refLockRecord2)[i].first, "LockSame")) &&
+        if ((p.first == "LockSame" ||
+             std::get<4>(refLockRecord2)[i].first == "LockSame") &&
             (p.second == std::get<4>(refLockRecord2)[i].second))
         {
             return true;
