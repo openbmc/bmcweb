@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <ranges>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -21,4 +23,22 @@ inline void split(std::vector<std::string>& strings, std::string_view str,
         start = end + 1;
     }
 }
+
+inline char asciiToLower(char c)
+{
+    // Converts a character to lower case without relying on std::locale
+    if ('A' <= c && c <= 'Z')
+    {
+        c -= ('A' - 'a');
+    }
+    return c;
+}
+
+inline bool asciiIEquals(std::string_view left, std::string_view right)
+{
+    return std::ranges::equal(left, right, [](char lChar, char rChar) {
+        return asciiToLower(lChar) == asciiToLower(rChar);
+    });
+}
+
 } // namespace bmcweb
