@@ -34,6 +34,23 @@
       "parentUuid": "ff0bc7f1_992b1f37",
       "revId": "459c16423966146336301dfd884c467b3afa62cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e454e473_9732e5a8",
+        "filename": "scripts/replace_logs.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-18T20:17:49Z",
+      "side": 1,
+      "message": "This is intended to go away, maybe end of 2023? \nCould you add that here? 2 reasons: 1) we remember to remove this and gives a date. 2) gives anyone running it a heads up.",
+      "revId": "459c16423966146336301dfd884c467b3afa62cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
