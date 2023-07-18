@@ -404,7 +404,7 @@ inline void
 
         for (const auto& entry : subtree)
         {
-            if (boost::algorithm::starts_with(entry.first, netBasePath))
+            if (entry.first.starts_with(netBasePath))
             {
                 sdbusplus::asio::setProperty(
                     *crow::connections::systemBus, entry.second.begin()->first,
