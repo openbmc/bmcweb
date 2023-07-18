@@ -557,4 +557,5 @@ struct adl_serializer<boost::urls::url_view>
         j = url.buffer();
     }
 };
+
 } // namespace nlohmann

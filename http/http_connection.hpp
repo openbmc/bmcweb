@@ -12,7 +12,6 @@
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
@@ -26,7 +25,9 @@
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
 
+#include <algorithm>
 #include <atomic>
+#include <cctype>
 #include <chrono>
 #include <vector>
 
@@ -266,11 +267,12 @@ class Connection :
         bool isSse =
             isContentTypeAllowed(req->getHeaderValue("Accept"),
                                  http_helpers::ContentType::EventStream, false);
-        if ((thisReq.isUpgrade() &&
-             boost::iequals(
-                 thisReq.getHeaderValue(boost::beast::http::field::upgrade),
-                 "websocket")) ||
-            isSse)
+        std::string upgradeType(
+            thisReq.getHeaderValue(boost::beast::http::field::upgrade));
+        std::transform(upgradeType.begin(), upgradeType.end(),
+                       upgradeType.begin(),
+                       [](unsigned char c) { return std::tolower(c); });
+        if ((thisReq.isUpgrade() && upgradeType == "websocket") || isSse)
         {
             asyncResp->res.setCompleteRequestHandler(
                 [self(shared_from_this())](crow::Response& thisRes) {
