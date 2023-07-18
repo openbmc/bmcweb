@@ -198,7 +198,7 @@ inline void doSubscriptionCollection(
             return;
         }
 
-        BMCWEB_LOG_ERROR << "D-Bus response error on GetManagedObjects " << ec;
+        BMCWEB_LOG_ERROR("D-Bus response error on GetManagedObjects {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -209,7 +209,7 @@ inline void doSubscriptionCollection(
         const std::string snmpId = path.filename();
         if (snmpId.empty())
         {
-            BMCWEB_LOG_ERROR << "The SNMP client ID is wrong";
+            BMCWEB_LOG_ERROR("The SNMP client ID is wrong");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -324,8 +324,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         if (!crow::utility::validateAndSplitUrl(destUrl, urlProto, host, port,
                                                 path))
         {
-            BMCWEB_LOG_WARNING
-                << "Failed to validate and split destination url";
+            BMCWEB_LOG_WARNING("Failed to validate and split destination url");
             messages::propertyValueFormatError(asyncResp->res, destUrl,
                                                "Destination");
             return;

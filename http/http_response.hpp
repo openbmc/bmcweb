@@ -66,8 +66,8 @@ struct Response
 
     Response& operator=(Response&& r) noexcept
     {
-        BMCWEB_LOG_DEBUG << "Moving response containers; this: " << this
-                         << "; other: " << &r;
+        BMCWEB_LOG_DEBUG("Moving response containers; this: {}; other: {}",
+                         logPtr(this), logPtr(&r));
         if (this == &r)
         {
             return *this;
@@ -167,9 +167,9 @@ struct Response
                  stringResponse->result() == status::no_content ||
                  stringResponse->result() == status::not_modified))
             {
-                BMCWEB_LOG_CRITICAL
-                    << this
-                    << " Response content provided but code was no-content or not_modified, which aren't allowed to have a body";
+                BMCWEB_LOG_CRITICAL(
+                    "{} Response content provided but code was no-content or not_modified, which aren't allowed to have a body",
+                    logPtr(this));
                 pSize = 0;
                 body().clear();
             }
@@ -179,7 +179,7 @@ struct Response
 
     void clear()
     {
-        BMCWEB_LOG_DEBUG << this << " Clearing response containers";
+        BMCWEB_LOG_DEBUG("{} Clearing response containers", logPtr(this));
         stringResponse.emplace(response_type{});
         jsonValue = nullptr;
         completed = false;
@@ -216,14 +216,14 @@ struct Response
         }
         if (completed)
         {
-            BMCWEB_LOG_ERROR << this << " Response was ended twice";
+            BMCWEB_LOG_ERROR("{} Response was ended twice", logPtr(this));
             return;
         }
         completed = true;
-        BMCWEB_LOG_DEBUG << this << " calling completion handler";
+        BMCWEB_LOG_DEBUG("{} calling completion handler", logPtr(this));
         if (completeRequestHandler)
         {
-            BMCWEB_LOG_DEBUG << this << " completion handler was valid";
+            BMCWEB_LOG_DEBUG("{} completion handler was valid", logPtr(this));
             completeRequestHandler(*this);
         }
     }
@@ -235,7 +235,7 @@ struct Response
 
     void setCompleteRequestHandler(std::function<void(Response&)>&& handler)
     {
-        BMCWEB_LOG_DEBUG << this << " setting completion handler";
+        BMCWEB_LOG_DEBUG("{} setting completion handler", logPtr(this));
         completeRequestHandler = std::move(handler);
 
         // Now that we have a new completion handler attached, we're no longer
@@ -245,8 +245,8 @@ struct Response
 
     std::function<void(Response&)> releaseCompleteRequestHandler()
     {
-        BMCWEB_LOG_DEBUG << this << " releasing completion handler"
-                         << static_cast<bool>(completeRequestHandler);
+        BMCWEB_LOG_DEBUG("{} releasing completion handler{}", logPtr(this),
+                         static_cast<bool>(completeRequestHandler));
         std::function<void(Response&)> ret = completeRequestHandler;
         completeRequestHandler = nullptr;
         completed = true;
