@@ -22,6 +22,30 @@
       },
       "revId": "70b06479084fb75123bc053267129c6e03084d3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a73b620c_2f81c201",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-18T15:25:10Z",
+      "side": 1,
+      "message": "\u003e buffer body support needs chunked encoding as well support.\n\nBuffer body does not require chunked encoding, they are separate.\n\n\u003e I think file_body and dynamic_body will be sufficient to cover all use-cases",
+      "parentUuid": "f3a7ded9_8b758254",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "70b06479084fb75123bc053267129c6e03084d3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

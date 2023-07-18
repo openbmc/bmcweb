@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c882ced6_90907517",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-18T15:25:10Z",
+      "side": 1,
+      "message": "Please add these features one at a time.  Don\u0027t add both body types in one go.\n\nAlso, please help to review the last time I did this, and ideally start with my patchset and develop from there.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/35992",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "368e5e173c2b416f9cc0173b37a5d48d771c3449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
