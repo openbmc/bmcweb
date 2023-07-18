@@ -497,8 +497,11 @@ inline std::shared_ptr<boost::asio::ssl::context>
     // There is a pull request to add this.  Once this is included in an asio
     // drop, use the right way
     // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
-    if (SSL_CTX_set_ecdh_auto(mSslContext->native_handle(), 1) != 1)
-    {}
+    if (SSL_CTX_set1_groups_list(mSslContext->native_handle(),
+                                 "X25519:P-256:P-384") != 1)
+    {
+        BMCWEB_LOG_ERROR("Enable to set groups list");
+    }
 
     // Mozilla intermediate cipher suites v5.7
     // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
