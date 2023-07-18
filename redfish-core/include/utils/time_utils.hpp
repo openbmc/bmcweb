@@ -93,14 +93,13 @@ inline std::optional<std::chrono::milliseconds>
         auto [ptr, ec] = std::from_chars(v.begin(), v.end(), ticks);
         if (ec != std::errc())
         {
-            BMCWEB_LOG_ERROR << "Failed to convert string \"" << v
-                             << "\" to decimal";
+            BMCWEB_LOG_ERROR("Failed to convert string \"{}\" to decimal", v);
             return std::nullopt;
         }
         size_t charactersRead = static_cast<size_t>(ptr - v.data());
         if (ptr >= v.end())
         {
-            BMCWEB_LOG_ERROR << "Missing postfix";
+            BMCWEB_LOG_ERROR("Missing postfix");
             return std::nullopt;
         }
         if (*ptr == 'D')
@@ -147,8 +146,7 @@ inline std::optional<std::chrono::milliseconds>
             }
             else if (stage > ProcessingStage::Milliseconds)
             {
-                BMCWEB_LOG_ERROR
-                    << "Got unexpected information at end of parse";
+                BMCWEB_LOG_ERROR("Got unexpected information at end of parse");
                 return std::nullopt;
             }
             else
@@ -170,7 +168,7 @@ inline std::optional<std::chrono::milliseconds>
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Unknown postfix " << *ptr;
+            BMCWEB_LOG_ERROR("Unknown postfix {}", *ptr);
             return std::nullopt;
         }
 

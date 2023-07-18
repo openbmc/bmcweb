@@ -59,7 +59,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                              const std::string& service,
                              const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get Processor UUID";
+    BMCWEB_LOG_DEBUG("Get Processor UUID");
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
@@ -67,7 +67,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const boost::system::error_code& ec, const std::string& property) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -79,7 +79,7 @@ inline void getCpuDataByInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const dbus::utility::DBusInteracesMap& cpuInterfacesProperties)
 {
-    BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
+    BMCWEB_LOG_DEBUG("Get CPU resources by interface.");
 
     // Set the default value of state
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
@@ -223,7 +223,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                 const std::string& service,
                                 const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
+    BMCWEB_LOG_DEBUG("Get available system cpu resources by service.");
 
     sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
     dbus::utility::getManagedObjects(
@@ -233,7 +233,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const dbus::utility::ManagedObjectType& dbusData) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -339,7 +339,7 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "Processor Throttle getAllProperties error " << ec;
+        BMCWEB_LOG_ERROR("Processor Throttle getAllProperties error {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -376,7 +376,7 @@ inline void
                           const std::string& service,
                           const std::string& objectPath)
 {
-    BMCWEB_LOG_DEBUG << "Get processor throttle resources";
+    BMCWEB_LOG_DEBUG("Get processor throttle resources");
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objectPath,
@@ -391,7 +391,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                             const std::string& service,
                             const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
+    BMCWEB_LOG_DEBUG("Get Cpu Asset Data");
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
@@ -400,7 +400,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -465,7 +465,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                const std::string& service,
                                const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get Cpu Revision Data";
+    BMCWEB_LOG_DEBUG("Get Cpu Revision Data");
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Revision",
@@ -474,7 +474,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -501,8 +501,7 @@ inline void getAcceleratorDataByService(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& acclrtrId,
     const std::string& service, const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG
-        << "Get available system Accelerator resources by service.";
+    BMCWEB_LOG_DEBUG("Get available system Accelerator resources by service.");
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
         [acclrtrId, asyncResp{std::move(asyncResp)}](
@@ -510,7 +509,7 @@ inline void getAcceleratorDataByService(
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -613,7 +612,7 @@ inline void
                      const std::string& cpuId, const std::string& service,
                      const std::string& objPath)
 {
-    BMCWEB_LOG_INFO << "Getting CPU operating configs for " << cpuId;
+    BMCWEB_LOG_INFO("Getting CPU operating configs for {}", cpuId);
 
     // First, GetAll CurrentOperatingConfig properties on the object
     sdbusplus::asio::getAllProperties(
@@ -624,7 +623,7 @@ inline void
                   const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", " << ec.message();
+            BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
             messages::internalError(asyncResp->res);
             return;
         }
@@ -685,7 +684,7 @@ inline void
                     const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
                 if (ec2)
                 {
-                    BMCWEB_LOG_WARNING << "D-Bus Property Get error: " << ec2;
+                    BMCWEB_LOG_WARNING("D-Bus Property Get error: {}", ec2);
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -714,7 +713,7 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                const std::string& service,
                                const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
+    BMCWEB_LOG_DEBUG("Get Cpu Location Data");
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
@@ -722,7 +721,7 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             const boost::system::error_code& ec, const std::string& property) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
+            BMCWEB_LOG_DEBUG("DBUS response error");
             messages::internalError(asyncResp->res);
             return;
         }
@@ -744,7 +743,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& service,
                            const std::string& objectPath)
 {
-    BMCWEB_LOG_DEBUG << "Get CPU UniqueIdentifier";
+    BMCWEB_LOG_DEBUG("Get CPU UniqueIdentifier");
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
@@ -753,7 +752,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::string& id) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Failed to read cpu unique id: " << ec;
+            BMCWEB_LOG_ERROR("Failed to read cpu unique id: {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -777,7 +776,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                                const std::string& processorId,
                                Handler&& handler)
 {
-    BMCWEB_LOG_DEBUG << "Get available system processor resources.";
+    BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
     constexpr std::array<std::string_view, 9> interfaces = {
@@ -797,7 +796,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error: " << ec;
+            BMCWEB_LOG_DEBUG("DBUS response error: {}", ec);
             messages::internalError(resp->res);
             return;
         }
@@ -921,7 +920,7 @@ inline void
                     const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
         {
-            BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", " << ec.message();
+            BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
             messages::internalError(asyncResp->res);
             return;
         }
@@ -1022,11 +1021,11 @@ inline void
 {
     if (!ec)
     {
-        BMCWEB_LOG_DEBUG << "Set Property succeeded";
+        BMCWEB_LOG_DEBUG("Set Property succeeded");
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Set Property failed: " << ec;
+    BMCWEB_LOG_DEBUG("Set Property failed: {}", ec);
 
     const sd_bus_error* dbusError = msg.get_error();
     if (dbusError == nullptr)
@@ -1119,7 +1118,7 @@ inline void patchAppliedOperatingConfig(
     sdbusplus::message::object_path configPath(cpuObjectPath);
     configPath /= configBaseName;
 
-    BMCWEB_LOG_INFO << "Setting config to " << configPath.str;
+    BMCWEB_LOG_INFO("Setting config to {}", configPath.str);
 
     // Set the property, with handler to check error responses
     sdbusplus::asio::setProperty(
@@ -1207,8 +1206,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                 const dbus::utility::MapperGetSubTreePathsResponse& objects) {
             if (ec)
             {
-                BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
-                                   << ec.message();
+                BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -1281,8 +1279,7 @@ inline void requestRoutesOperatingConfig(App& app)
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", "
-                                   << ec.message();
+                BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
                 messages::internalError(asyncResp->res);
                 return;
             }

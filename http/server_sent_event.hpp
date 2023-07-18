@@ -49,7 +49,7 @@ class ConnectionImpl : public Connection
         timer(ioc), openHandler(std::move(openHandlerIn)),
         closeHandler(std::move(closeHandlerIn))
     {
-        BMCWEB_LOG_DEBUG << "SseConnectionImpl: SSE constructor " << this;
+        BMCWEB_LOG_DEBUG("SseConnectionImpl: SSE constructor {}", logPtr(this));
     }
 
     ConnectionImpl(const ConnectionImpl&) = delete;
@@ -59,7 +59,7 @@ class ConnectionImpl : public Connection
 
     ~ConnectionImpl() override
     {
-        BMCWEB_LOG_DEBUG << "SSE ConnectionImpl: SSE destructor " << this;
+        BMCWEB_LOG_DEBUG("SSE ConnectionImpl: SSE destructor {}", logPtr(this));
     }
 
     boost::asio::io_context& getIoContext() override
@@ -72,7 +72,7 @@ class ConnectionImpl : public Connection
     {
         if (!openHandler)
         {
-            BMCWEB_LOG_CRITICAL << "No open handler???";
+            BMCWEB_LOG_CRITICAL("No open handler???");
             return;
         }
         openHandler(*this);
@@ -85,13 +85,13 @@ class ConnectionImpl : public Connection
         {
             closeHandler(*this);
         }
-        BMCWEB_LOG_DEBUG << "Closing SSE connection " << this << " - " << msg;
+        BMCWEB_LOG_DEBUG("Closing SSE connection {} - {}", logPtr(this), msg);
         boost::beast::get_lowest_layer(adaptor).close();
     }
 
     void sendSSEHeader()
     {
-        BMCWEB_LOG_DEBUG << "Starting SSE connection";
+        BMCWEB_LOG_DEBUG("Starting SSE connection");
         using BodyType = boost::beast::http::buffer_body;
         boost::beast::http::response<BodyType> res(
             boost::beast::http::status::ok, 11, BodyType{});
@@ -113,11 +113,11 @@ class ConnectionImpl : public Connection
         serializer.reset();
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Error sending header" << ec;
+            BMCWEB_LOG_ERROR("Error sending header{}", ec);
             close("async_write_header failed");
             return;
         }
-        BMCWEB_LOG_DEBUG << "SSE header sent - Connection established";
+        BMCWEB_LOG_DEBUG("SSE header sent - Connection established");
 
         serializer.reset();
 
@@ -138,7 +138,7 @@ class ConnectionImpl : public Connection
         }
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Read error: " << ec;
+            BMCWEB_LOG_ERROR("Read error: {}", ec);
         }
 
         close("Close SSE connection");
@@ -152,7 +152,7 @@ class ConnectionImpl : public Connection
         }
         if (inputBuffer.size() == 0)
         {
-            BMCWEB_LOG_DEBUG << "inputBuffer is empty... Bailing out";
+            BMCWEB_LOG_DEBUG("inputBuffer is empty... Bailing out");
             return;
         }
         startTimeout();
@@ -179,19 +179,19 @@ class ConnectionImpl : public Connection
 
         if (ec == boost::asio::error::eof)
         {
-            BMCWEB_LOG_ERROR << "async_write_some() SSE stream closed";
+            BMCWEB_LOG_ERROR("async_write_some() SSE stream closed");
             close("SSE stream closed");
             return;
         }
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "async_write_some() failed: " << ec.message();
+            BMCWEB_LOG_ERROR("async_write_some() failed: {}", ec.message());
             close("async_write_some failed");
             return;
         }
-        BMCWEB_LOG_DEBUG << "async_write_some() bytes transferred: "
-                         << bytesTransferred;
+        BMCWEB_LOG_DEBUG("async_write_some() bytes transferred: {}",
+                         bytesTransferred);
 
         doWrite();
     }
@@ -200,7 +200,7 @@ class ConnectionImpl : public Connection
     {
         if (msg.empty())
         {
-            BMCWEB_LOG_DEBUG << "Empty data, bailing out.";
+            BMCWEB_LOG_DEBUG("Empty data, bailing out.");
             return;
         }
 
@@ -249,22 +249,24 @@ class ConnectionImpl : public Connection
         std::shared_ptr<Connection> self = weakSelf.lock();
         if (!self)
         {
-            BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
+            BMCWEB_LOG_CRITICAL("{} Failed to capture connection",
+                                logPtr(self.get()));
             return;
         }
 
         if (ec == boost::asio::error::operation_aborted)
         {
-            BMCWEB_LOG_DEBUG << "operation aborted";
+            BMCWEB_LOG_DEBUG("operation aborted");
             // Canceled wait means the path succeeeded.
             return;
         }
         if (ec)
         {
-            BMCWEB_LOG_CRITICAL << self << " timer failed " << ec;
+            BMCWEB_LOG_CRITICAL("{} timer failed {}", logPtr(self.get()), ec);
         }
 
-        BMCWEB_LOG_WARNING << self << "Connection timed out, closing";
+        BMCWEB_LOG_WARNING("{}Connection timed out, closing",
+                           logPtr(self.get()));
 
         self->close("closing connection");
     }

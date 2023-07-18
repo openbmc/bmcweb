@@ -307,18 +307,20 @@ class Trie
         {
             if (n->paramChildrens[i] != 0U)
             {
-                BMCWEB_LOG_DEBUG << std::string(
-                    2U * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
+                BMCWEB_LOG_DEBUG(
+                    "{}({}{}",
+                    std::string(2U * level,
+                                ' ') /*, n->paramChildrens[i], ") "*/);
                 switch (static_cast<ParamType>(i))
                 {
                     case ParamType::STRING:
-                        BMCWEB_LOG_DEBUG << "<str>";
+                        BMCWEB_LOG_DEBUG("<str>");
                         break;
                     case ParamType::PATH:
-                        BMCWEB_LOG_DEBUG << "<path>";
+                        BMCWEB_LOG_DEBUG("<path>");
                         break;
                     case ParamType::MAX:
-                        BMCWEB_LOG_DEBUG << "<ERROR>";
+                        BMCWEB_LOG_DEBUG("<ERROR>");
                         break;
                 }
 
@@ -327,9 +329,9 @@ class Trie
         }
         for (const Node::ChildMap::value_type& kv : n->children)
         {
-            BMCWEB_LOG_DEBUG
-                << std::string(2U * level, ' ') /*<< "(" << kv.second << ") "*/
-                << kv.first;
+            BMCWEB_LOG_DEBUG("{}({}{}{}",
+                             std::string(2U * level, ' ') /*, kv.second, ") "*/,
+                             kv.first);
             debugNodePrint(&nodes[kv.second], level + 1);
         }
     }
@@ -498,7 +500,7 @@ class Router
         FindRoute route;
         if (index >= perMethods.size())
         {
-            BMCWEB_LOG_CRITICAL << "Bad index???";
+            BMCWEB_LOG_CRITICAL("Bad index???");
             return route;
         }
         const PerMethod& perMethod = perMethods[index];
@@ -574,8 +576,7 @@ class Router
         unsigned ruleIndex = found.first;
         if (ruleIndex == 0U)
         {
-            BMCWEB_LOG_DEBUG << "Cannot match rules "
-                             << req.url().encoded_path();
+            BMCWEB_LOG_DEBUG("Cannot match rules {}", req.url().encoded_path());
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
@@ -589,16 +590,16 @@ class Router
         size_t methods = rule.getMethods();
         if ((methods & (1U << static_cast<size_t>(*verb))) == 0)
         {
-            BMCWEB_LOG_DEBUG
-                << "Rule found but method mismatch: "
-                << req.url().encoded_path() << " with " << req.methodString()
-                << "(" << static_cast<uint32_t>(*verb) << ") / " << methods;
+            BMCWEB_LOG_DEBUG(
+                "Rule found but method mismatch: {} with {}({}) / {}",
+                req.url().encoded_path(), req.methodString(),
+                static_cast<uint32_t>(*verb), methods);
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rule.rule << "' "
-                         << static_cast<uint32_t>(*verb) << " / " << methods;
+        BMCWEB_LOG_DEBUG("Matched rule (upgrade) '{}' {} / {}", rule.rule,
+                         static_cast<uint32_t>(*verb), methods);
 
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
@@ -665,9 +666,8 @@ class Router
         BaseRule& rule = *foundRoute.route.rule;
         std::vector<std::string> params = std::move(foundRoute.route.params);
 
-        BMCWEB_LOG_DEBUG << "Matched rule '" << rule.rule << "' "
-                         << static_cast<uint32_t>(*verb) << " / "
-                         << rule.getMethods();
+        BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
+                         static_cast<uint32_t>(*verb), rule.getMethods());
 
         if (req.session == nullptr)
         {
@@ -684,8 +684,9 @@ class Router
     {
         for (size_t i = 0; i < perMethods.size(); i++)
         {
-            BMCWEB_LOG_DEBUG << boost::beast::http::to_string(
-                static_cast<boost::beast::http::verb>(i));
+            BMCWEB_LOG_DEBUG("{}",
+                             boost::beast::http::to_string(
+                                 static_cast<boost::beast::http::verb>(i)));
             perMethods[i].trie.debugPrint();
         }
     }

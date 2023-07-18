@@ -83,8 +83,8 @@ inline bool searchCollectionsArray(std::string_view uri,
             uri.substr(serviceRootUri.size(), parseCount));
     if (!parsedUrl)
     {
-        BMCWEB_LOG_ERROR << "Failed to get target URI from "
-                         << uri.substr(serviceRootUri.size());
+        BMCWEB_LOG_ERROR("Failed to get target URI from {}",
+                         uri.substr(serviceRootUri.size()));
         return false;
     }
 
@@ -165,7 +165,7 @@ static inline void addPrefixToStringItem(std::string& strValue,
     auto parsed = boost::urls::parse_relative_ref(strValue);
     if (!parsed)
     {
-        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << strValue;
+        BMCWEB_LOG_CRITICAL("Couldn't parse URI from resource {}", strValue);
         return;
     }
 
@@ -178,7 +178,7 @@ static inline void addPrefixToStringItem(std::string& strValue,
     if (crow::utility::readUrlSegments(thisUrl, "redfish", "v1", "JsonSchemas",
                                        crow::utility::OrMorePaths()))
     {
-        BMCWEB_LOG_DEBUG << "Skipping JsonSchemas URI prefix fixing";
+        BMCWEB_LOG_DEBUG("Skipping JsonSchemas URI prefix fixing");
         return;
     }
 
@@ -244,7 +244,7 @@ static inline void addPrefixToItem(nlohmann::json& item,
     std::string* strValue = item.get_ptr<std::string*>();
     if (strValue == nullptr)
     {
-        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+        BMCWEB_LOG_CRITICAL("Field wasn't a string????");
         return;
     }
     addPrefixToStringItem(*strValue, prefix);
@@ -288,7 +288,7 @@ static inline void addPrefixToHeadersInResp(nlohmann::json& json,
     nlohmann::json::array_t* array = json.get_ptr<nlohmann::json::array_t*>();
     if (array == nullptr)
     {
-        BMCWEB_LOG_ERROR << "Field wasn't an array_t????";
+        BMCWEB_LOG_ERROR("Field wasn't an array_t????");
         return;
     }
 
@@ -298,7 +298,7 @@ static inline void addPrefixToHeadersInResp(nlohmann::json& json,
         std::string* strHeader = item.get_ptr<std::string*>();
         if (strHeader == nullptr)
         {
-            BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+            BMCWEB_LOG_CRITICAL("Field wasn't a string????");
             continue;
         }
 
@@ -355,7 +355,7 @@ inline boost::system::error_code aggregationRetryHandler(unsigned int respCode)
 {
     // Allow all response codes because we want to surface any satellite
     // issue to the client
-    BMCWEB_LOG_DEBUG << "Received " << respCode << " response from satellite";
+    BMCWEB_LOG_DEBUG("Received {} response from satellite", respCode);
     return boost::system::errc::make_error_code(boost::system::errc::success);
 }
 
@@ -382,13 +382,12 @@ class RedfishAggregator
     {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Something went wrong while querying dbus!";
+            BMCWEB_LOG_ERROR("Something went wrong while querying dbus!");
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "There were "
-                         << std::to_string(satelliteInfo.size())
-                         << " satellite configs found at startup";
+        BMCWEB_LOG_DEBUG("There were {} satellite configs found at startup",
+                         std::to_string(satelliteInfo.size()));
     }
 
     // Search D-Bus objects for satellite config objects and add their
@@ -404,14 +403,14 @@ class RedfishAggregator
                 if (interface.first ==
                     "xyz.openbmc_project.Configuration.SatelliteController")
                 {
-                    BMCWEB_LOG_DEBUG << "Found Satellite Controller at "
-                                     << objectPath.first.str;
+                    BMCWEB_LOG_DEBUG("Found Satellite Controller at {}",
+                                     objectPath.first.str);
 
                     if (!satelliteInfo.empty())
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Redfish Aggregation only supports one satellite!";
-                        BMCWEB_LOG_DEBUG << "Clearing all satellite data";
+                        BMCWEB_LOG_ERROR(
+                            "Redfish Aggregation only supports one satellite!");
+                        BMCWEB_LOG_DEBUG("Clearing all satellite data");
                         satelliteInfo.clear();
                         return;
                     }
@@ -442,7 +441,7 @@ class RedfishAggregator
                     std::get_if<std::string>(&prop.second);
                 if (propVal == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Invalid Hostname value";
+                    BMCWEB_LOG_ERROR("Invalid Hostname value");
                     return;
                 }
                 url.set_host(*propVal);
@@ -453,13 +452,13 @@ class RedfishAggregator
                 const uint64_t* propVal = std::get_if<uint64_t>(&prop.second);
                 if (propVal == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Invalid Port value";
+                    BMCWEB_LOG_ERROR("Invalid Port value");
                     return;
                 }
 
                 if (*propVal > std::numeric_limits<uint16_t>::max())
                 {
-                    BMCWEB_LOG_ERROR << "Port value out of range";
+                    BMCWEB_LOG_ERROR("Port value out of range");
                     return;
                 }
                 url.set_port(std::to_string(static_cast<uint16_t>(*propVal)));
@@ -471,7 +470,7 @@ class RedfishAggregator
                     std::get_if<std::string>(&prop.second);
                 if (propVal == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Invalid AuthType value";
+                    BMCWEB_LOG_ERROR("Invalid AuthType value");
                     return;
                 }
 
@@ -479,9 +478,9 @@ class RedfishAggregator
                 // with the satellite BMC
                 if (*propVal != "None")
                 {
-                    BMCWEB_LOG_ERROR
-                        << "Unsupported AuthType value: " << *propVal
-                        << ", only \"none\" is supported";
+                    BMCWEB_LOG_ERROR(
+                        "Unsupported AuthType value: {}, only \"none\" is supported",
+                        *propVal);
                     return;
                 }
                 url.set_scheme("http");
@@ -491,20 +490,19 @@ class RedfishAggregator
         // Make sure all required config information was made available
         if (url.host().empty())
         {
-            BMCWEB_LOG_ERROR << "Satellite config " << name << " missing Host";
+            BMCWEB_LOG_ERROR("Satellite config {} missing Host", name);
             return;
         }
 
         if (!url.has_port())
         {
-            BMCWEB_LOG_ERROR << "Satellite config " << name << " missing Port";
+            BMCWEB_LOG_ERROR("Satellite config {} missing Port", name);
             return;
         }
 
         if (!url.has_scheme())
         {
-            BMCWEB_LOG_ERROR << "Satellite config " << name
-                             << " missing AuthType";
+            BMCWEB_LOG_ERROR("Satellite config {} missing AuthType", name);
             return;
         }
 
@@ -519,9 +517,9 @@ class RedfishAggregator
             resultString = "Updated existing satellite config ";
         }
 
-        BMCWEB_LOG_DEBUG << resultString << name << " at "
-                         << result.first->second.scheme() << "://"
-                         << result.first->second.encoded_host_and_port();
+        BMCWEB_LOG_DEBUG("{}{} at {}://{}", resultString, name,
+                         result.first->second.scheme(),
+                         result.first->second.encoded_host_and_port());
     }
 
     enum AggregationType
@@ -539,15 +537,15 @@ class RedfishAggregator
         {
             if (aggType == AggregationType::Collection)
             {
-                BMCWEB_LOG_DEBUG
-                    << "Only aggregate GET requests to top level collections";
+                BMCWEB_LOG_DEBUG(
+                    "Only aggregate GET requests to top level collections");
                 return;
             }
 
             if (aggType == AggregationType::ContainsSubordinate)
             {
-                BMCWEB_LOG_DEBUG << "Only aggregate GET requests when uptree of"
-                                 << " a top level collection";
+                BMCWEB_LOG_DEBUG(
+                    "Only aggregate GET requests when uptree of a top level collection");
                 return;
             }
         }
@@ -557,7 +555,7 @@ class RedfishAggregator
         auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Failed to create copy of request";
+            BMCWEB_LOG_ERROR("Failed to create copy of request");
             if (aggType == AggregationType::Resource)
             {
                 messages::internalError(asyncResp->res);
@@ -582,8 +580,7 @@ class RedfishAggregator
             targetPrefix += "_";
             if (memberName.starts_with(targetPrefix))
             {
-                BMCWEB_LOG_DEBUG << "\"" << satellite.first
-                                 << "\" is a known prefix";
+                BMCWEB_LOG_DEBUG("\"{}\" is a known prefix", satellite.first);
 
                 // Remove the known prefix from the request's URI and
                 // then forward to the associated satellite BMC
@@ -634,14 +631,14 @@ class RedfishAggregator
         }
 
         const crow::Request& thisReq = *sharedReq;
-        BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
-                         << thisReq.target();
+        BMCWEB_LOG_DEBUG("Aggregation is enabled, begin processing of {}",
+                         thisReq.target());
 
         // We previously determined the request is for a collection.  No need to
         // check again
         if (aggType == AggregationType::Collection)
         {
-            BMCWEB_LOG_DEBUG << "Aggregating a collection";
+            BMCWEB_LOG_DEBUG("Aggregating a collection");
             // We need to use a specific response handler and send the
             // request to all known satellites
             getInstance().forwardCollectionRequests(thisReq, asyncResp,
@@ -653,8 +650,8 @@ class RedfishAggregator
         // collection.  No need to check again
         if (aggType == AggregationType::ContainsSubordinate)
         {
-            BMCWEB_LOG_DEBUG
-                << "Aggregating what may have a subordinate collection";
+            BMCWEB_LOG_DEBUG(
+                "Aggregating what may have a subordinate collection");
             // We need to use a specific response handler and send the
             // request to all known satellites
             getInstance().forwardContainsSubordinateRequests(thisReq, asyncResp,
@@ -703,8 +700,7 @@ class RedfishAggregator
         {
             // Realistically this shouldn't get called since we perform an
             // earlier check to make sure the prefix exists
-            BMCWEB_LOG_ERROR << "Unrecognized satellite prefix \"" << prefix
-                             << "\"";
+            BMCWEB_LOG_ERROR("Unrecognized satellite prefix \"{}\"", prefix);
             return;
         }
 
@@ -714,8 +710,8 @@ class RedfishAggregator
         if (pos == std::string::npos)
         {
             // If this fails then something went wrong
-            BMCWEB_LOG_ERROR << "Error removing prefix \"" << prefix
-                             << "_\" from request URI";
+            BMCWEB_LOG_ERROR("Error removing prefix \"{}_\" from request URI",
+                             prefix);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -803,7 +799,7 @@ class RedfishAggregator
                  const std::unordered_map<std::string, boost::urls::url>&)>
             handler)
     {
-        BMCWEB_LOG_DEBUG << "Gathering satellite configs";
+        BMCWEB_LOG_DEBUG("Gathering satellite configs");
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
@@ -813,8 +809,8 @@ class RedfishAggregator
             std::unordered_map<std::string, boost::urls::url> satelliteInfo;
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec.value() << ", "
-                                 << ec.message();
+                BMCWEB_LOG_ERROR("DBUS response error {}, {}", ec.value(),
+                                 ec.message());
                 handler(ec, satelliteInfo);
                 return;
             }
@@ -826,14 +822,14 @@ class RedfishAggregator
 
             if (!satelliteInfo.empty())
             {
-                BMCWEB_LOG_DEBUG << "Redfish Aggregation enabled with "
-                                 << std::to_string(satelliteInfo.size())
-                                 << " satellite BMCs";
+                BMCWEB_LOG_DEBUG(
+                    "Redfish Aggregation enabled with {} satellite BMCs",
+                    std::to_string(satelliteInfo.size()));
             }
             else
             {
-                BMCWEB_LOG_DEBUG
-                    << "No satellite BMCs detected.  Redfish Aggregation not enabled";
+                BMCWEB_LOG_DEBUG(
+                    "No satellite BMCs detected.  Redfish Aggregation not enabled");
             }
             handler(ec, satelliteInfo);
             });
@@ -866,21 +862,21 @@ class RedfishAggregator
                                                            false);
             if (jsonVal.is_discarded())
             {
-                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+                BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
                 messages::operationFailed(asyncResp->res);
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+            BMCWEB_LOG_DEBUG("Successfully parsed satellite response");
 
             addPrefixes(jsonVal, prefix);
 
-            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
+            BMCWEB_LOG_DEBUG("Added prefix to parsed satellite response");
 
             asyncResp->res.result(resp.result());
             asyncResp->res.jsonValue = std::move(jsonVal);
 
-            BMCWEB_LOG_DEBUG << "Finished writing asyncResp";
+            BMCWEB_LOG_DEBUG("Finished writing asyncResp");
         }
         else
         {
@@ -908,9 +904,9 @@ class RedfishAggregator
 
         if (resp.resultInt() != 200)
         {
-            BMCWEB_LOG_DEBUG
-                << "Collection resource does not exist in satellite BMC \""
-                << prefix << "\"";
+            BMCWEB_LOG_DEBUG(
+                "Collection resource does not exist in satellite BMC \"{}\"",
+                prefix);
             // Return the error if we haven't had any successes
             if (asyncResp->res.resultInt() != 200)
             {
@@ -930,7 +926,7 @@ class RedfishAggregator
                                                            false);
             if (jsonVal.is_discarded())
             {
-                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+                BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
 
                 // Notify the user if doing so won't overwrite a valid response
                 if (asyncResp->res.resultInt() != 200)
@@ -940,13 +936,13 @@ class RedfishAggregator
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+            BMCWEB_LOG_DEBUG("Successfully parsed satellite response");
 
             // Now we need to add the prefix to the URIs contained in the
             // response.
             addPrefixes(jsonVal, prefix);
 
-            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
+            BMCWEB_LOG_DEBUG("Added prefix to parsed satellite response");
 
             // If this resource collection does not exist on the aggregating bmc
             // and has not already been added from processing the response from
@@ -959,18 +955,18 @@ class RedfishAggregator
                 if ((!jsonVal.contains("Members")) &&
                     (!jsonVal["Members"].is_array()))
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "Skipping aggregating unsupported resource";
+                    BMCWEB_LOG_DEBUG(
+                        "Skipping aggregating unsupported resource");
                     return;
                 }
 
-                BMCWEB_LOG_DEBUG
-                    << "Collection does not exist, overwriting asyncResp";
+                BMCWEB_LOG_DEBUG(
+                    "Collection does not exist, overwriting asyncResp");
                 asyncResp->res.result(resp.result());
                 asyncResp->res.jsonValue = std::move(jsonVal);
                 asyncResp->res.addHeader("Content-Type", "application/json");
 
-                BMCWEB_LOG_DEBUG << "Finished overwriting asyncResp";
+                BMCWEB_LOG_DEBUG("Finished overwriting asyncResp");
             }
             else
             {
@@ -980,13 +976,14 @@ class RedfishAggregator
                     (!asyncResp->res.jsonValue["Members"].is_array()))
 
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "Skipping aggregating unsupported resource";
+                    BMCWEB_LOG_DEBUG(
+                        "Skipping aggregating unsupported resource");
                     return;
                 }
 
-                BMCWEB_LOG_DEBUG << "Adding aggregated resources from \""
-                                 << prefix << "\" to collection";
+                BMCWEB_LOG_DEBUG(
+                    "Adding aggregated resources from \"{}\" to collection",
+                    prefix);
 
                 // TODO: This is a potential race condition with multiple
                 // satellites and the aggregating bmc attempting to write to
@@ -1010,8 +1007,8 @@ class RedfishAggregator
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
-                             << "\"";
+            BMCWEB_LOG_ERROR("Received unparsable response from \"{}\"",
+                             prefix);
             // We received a response that was not a json.
             // Notify the user only if we did not receive any valid responses
             // and if the resource collection does not already exist on the
@@ -1041,9 +1038,9 @@ class RedfishAggregator
 
         if (resp.resultInt() != 200)
         {
-            BMCWEB_LOG_DEBUG
-                << "Resource uptree from Collection does not exist in "
-                << "satellite BMC \"" << prefix << "\"";
+            BMCWEB_LOG_DEBUG(
+                "Resource uptree from Collection does not exist in satellite BMC \"{}\"",
+                prefix);
             // Return the error if we haven't had any successes
             if (asyncResp->res.resultInt() != 200)
             {
@@ -1064,7 +1061,7 @@ class RedfishAggregator
                                                            false);
             if (jsonVal.is_discarded())
             {
-                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+                BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
 
                 // Notify the user if doing so won't overwrite a valid response
                 if (asyncResp->res.resultInt() != 200)
@@ -1074,7 +1071,7 @@ class RedfishAggregator
                 return;
             }
 
-            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+            BMCWEB_LOG_DEBUG("Successfully parsed satellite response");
 
             // Parse response and add properties missing from the AsyncResp
             // Valid properties will be of the form <property>.@odata.id and
@@ -1085,7 +1082,7 @@ class RedfishAggregator
                 jsonVal.get_ptr<nlohmann::json::object_t*>();
             if (object == nullptr)
             {
-                BMCWEB_LOG_ERROR << "Parsed JSON was not an object?";
+                BMCWEB_LOG_ERROR("Parsed JSON was not an object?");
                 return;
             }
 
@@ -1100,7 +1097,7 @@ class RedfishAggregator
                     prop.second["@odata.id"].get_ptr<std::string*>();
                 if (strValue == nullptr)
                 {
-                    BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+                    BMCWEB_LOG_CRITICAL("Field wasn't a string????");
                     continue;
                 }
                 if (!searchCollectionsArray(*strValue, SearchType::CollOrCon))
@@ -1112,8 +1109,8 @@ class RedfishAggregator
                 if (!asyncResp->res.jsonValue.contains(prop.first))
                 {
                     // Only add the property if it did not already exist
-                    BMCWEB_LOG_DEBUG << "Adding link for " << *strValue
-                                     << " from BMC " << prefix;
+                    BMCWEB_LOG_DEBUG("Adding link for {} from BMC {}",
+                                     *strValue, prefix);
                     asyncResp->res.jsonValue[prop.first]["@odata.id"] =
                         *strValue;
                     continue;
@@ -1157,8 +1154,8 @@ class RedfishAggregator
         }
         else
         {
-            BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
-                             << "\"";
+            BMCWEB_LOG_ERROR("Received unparsable response from \"{}\"",
+                             prefix);
             // We received as response that was not a json
             // Notify the user only if we did not receive any valid responses,
             // and if the resource does not already exist on the aggregating BMC
@@ -1225,7 +1222,7 @@ class RedfishAggregator
                 // being a local resource describing the satellite
                 if (collectionItem.starts_with("5B247A_"))
                 {
-                    BMCWEB_LOG_DEBUG << "Need to forward a request";
+                    BMCWEB_LOG_DEBUG("Need to forward a request");
 
                     // Extract the prefix from the request's URI, retrieve the
                     // associated satellite config information, and then forward
@@ -1271,7 +1268,7 @@ class RedfishAggregator
             return Result::LocalHandle;
         }
 
-        BMCWEB_LOG_DEBUG << "Aggregation not required for " << url.buffer();
+        BMCWEB_LOG_DEBUG("Aggregation not required for {}", url.buffer());
         return Result::LocalHandle;
     }
 };
