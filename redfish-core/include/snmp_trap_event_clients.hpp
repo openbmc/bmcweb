@@ -28,7 +28,7 @@ inline void afterGetSnmpTrapClientdata(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "D-Bus response error on GetSubTree " << ec;
+        BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -95,8 +95,8 @@ inline void
                         dbus::utility::ManagedObjectType& resp) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "D-Bus response error on GetManagedObjects "
-                             << ec;
+            BMCWEB_LOG_ERROR("D-Bus response error on GetManagedObjects {}",
+                             ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -107,7 +107,7 @@ inline void
             const std::string snmpId = path.filename();
             if (snmpId.empty())
             {
-                BMCWEB_LOG_ERROR << "The SNMP client ID is wrong";
+                BMCWEB_LOG_ERROR("The SNMP client ID is wrong");
                 messages::internalError(asyncResp->res);
                 return;
             }

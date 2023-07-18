@@ -462,7 +462,7 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
 inline bool processOnly(crow::App& app, crow::Response& res,
                         std::function<void(crow::Response&)>& completionHandler)
 {
-    BMCWEB_LOG_DEBUG << "Processing only query param";
+    BMCWEB_LOG_DEBUG("Processing only query param");
     auto itMembers = res.jsonValue.find("Members");
     if (itMembers == res.jsonValue.end())
     {
@@ -473,8 +473,9 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     auto itMemBegin = itMembers->begin();
     if (itMemBegin == itMembers->end() || itMembers->size() != 1)
     {
-        BMCWEB_LOG_DEBUG << "Members contains " << itMembers->size()
-                         << " element, returning full collection.";
+        BMCWEB_LOG_DEBUG(
+            "Members contains {} element, returning full collection.",
+            itMembers->size());
         completionHandler(res);
         return false;
     }
@@ -482,7 +483,7 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     auto itUrl = itMemBegin->find("@odata.id");
     if (itUrl == itMemBegin->end())
     {
-        BMCWEB_LOG_DEBUG << "No found odata.id";
+        BMCWEB_LOG_DEBUG("No found odata.id");
         messages::internalError(res);
         completionHandler(res);
         return false;
@@ -490,7 +491,7 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     const std::string* url = itUrl->get_ptr<const std::string*>();
     if (url == nullptr)
     {
-        BMCWEB_LOG_DEBUG << "@odata.id wasn't a string????";
+        BMCWEB_LOG_DEBUG("@odata.id wasn't a string????");
         messages::internalError(res);
         completionHandler(res);
         return false;
@@ -507,7 +508,8 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     }
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    BMCWEB_LOG_DEBUG << "setting completion handler on " << &asyncResp->res;
+    BMCWEB_LOG_DEBUG("setting completion handler on {}",
+                     logPtr(&asyncResp->res));
     asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
     asyncResp->res.setIsAliveHelper(res.releaseIsAliveHelper());
     app.handle(newReq, asyncResp);
@@ -579,7 +581,7 @@ inline void findNavigationReferencesInArrayRecursive(
     for (auto& element : array)
     {
         nlohmann::json::json_pointer newPtr = jsonPtr / index;
-        BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
+        BMCWEB_LOG_DEBUG("Traversing response at {}", newPtr.to_string());
         findNavigationReferencesRecursive(eType, element, newPtr, depth,
                                           skipDepth, inLinks, out);
         index++;
@@ -600,8 +602,7 @@ inline void findNavigationReferencesInObjectRecursive(
                 obj.begin()->second.get_ptr<const std::string*>();
             if (uri != nullptr)
             {
-                BMCWEB_LOG_DEBUG << "Found " << *uri << " at "
-                                 << jsonPtr.to_string();
+                BMCWEB_LOG_DEBUG("Found {} at {}", *uri, jsonPtr.to_string());
                 if (skipDepth == 0)
                 {
                     out.push_back({jsonPtr, *uri});
@@ -658,7 +659,7 @@ inline void findNavigationReferencesInObjectRecursive(
             continue;
         }
         nlohmann::json::json_pointer newPtr = jsonPtr / element.first;
-        BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr;
+        BMCWEB_LOG_DEBUG("Traversing response at {}", newPtr);
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
                                           newDepth, skipDepth, localInLinks,
@@ -827,7 +828,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
-        BMCWEB_LOG_DEBUG << "placeResult for " << locationToPlace;
+        BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace);
         propogateError(finalRes->res, res);
         if (!res.jsonValue.is_object() || res.jsonValue.empty())
         {
@@ -844,7 +845,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         std::vector<ExpandNode> nodes = findNavigationReferences(
             query.expandType, query.expandLevel, delegated.expandLevel,
             finalRes->res.jsonValue);
-        BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
+        BMCWEB_LOG_DEBUG("{} nodes to traverse", nodes.size());
         const std::optional<std::string> queryStr = formatQueryForExpand(query);
         if (!queryStr)
         {
@@ -854,7 +855,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         for (const ExpandNode& node : nodes)
         {
             const std::string subQuery = node.uri + *queryStr;
-            BMCWEB_LOG_DEBUG << "URL of subquery:  " << subQuery;
+            BMCWEB_LOG_DEBUG("URL of subquery:  {}", subQuery);
             std::error_code ec;
             crow::Request newReq({boost::beast::http::verb::get, subQuery, 11},
                                  ec);
@@ -865,8 +866,8 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             }
 
             auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-            BMCWEB_LOG_DEBUG << "setting completion handler on "
-                             << &asyncResp->res;
+            BMCWEB_LOG_DEBUG("setting completion handler on {}",
+                             logPtr(&asyncResp->res));
 
             addAwaitingResponse(asyncResp, node.location);
             app.handle(newReq, asyncResp);
@@ -902,7 +903,7 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Handling top/skip";
+    BMCWEB_LOG_DEBUG("Handling top/skip");
     nlohmann::json::object_t::iterator members = obj->find("Members");
     if (members == obj->end())
     {
@@ -946,12 +947,12 @@ inline void recursiveSelect(nlohmann::json& currRoot,
         currRoot.get_ptr<nlohmann::json::object_t*>();
     if (object != nullptr)
     {
-        BMCWEB_LOG_DEBUG << "Current JSON is an object";
+        BMCWEB_LOG_DEBUG("Current JSON is an object");
         auto it = currRoot.begin();
         while (it != currRoot.end())
         {
             auto nextIt = std::next(it);
-            BMCWEB_LOG_DEBUG << "key=" << it.key();
+            BMCWEB_LOG_DEBUG("key={}", it.key());
             const SelectTrieNode* nextNode = currNode.find(it.key());
             // Per the Redfish spec section 7.3.3, the service shall select
             // certain properties as if $select was omitted. This applies to
@@ -969,12 +970,12 @@ inline void recursiveSelect(nlohmann::json& currRoot,
             }
             if (nextNode != nullptr)
             {
-                BMCWEB_LOG_DEBUG << "Recursively select: " << it.key();
+                BMCWEB_LOG_DEBUG("Recursively select: {}", it.key());
                 recursiveSelect(*it, *nextNode);
                 it = nextIt;
                 continue;
             }
-            BMCWEB_LOG_DEBUG << it.key() << " is getting removed!";
+            BMCWEB_LOG_DEBUG("{} is getting removed!", it.key());
             it = currRoot.erase(it);
         }
     }
@@ -982,7 +983,7 @@ inline void recursiveSelect(nlohmann::json& currRoot,
         currRoot.get_ptr<nlohmann::json::array_t*>();
     if (array != nullptr)
     {
-        BMCWEB_LOG_DEBUG << "Current JSON is an array";
+        BMCWEB_LOG_DEBUG("Current JSON is an array");
         // Array index is omitted, so reuse the same Trie node
         for (nlohmann::json& nextRoot : *array)
         {
@@ -1000,7 +1001,7 @@ inline void recursiveSelect(nlohmann::json& currRoot,
 inline void processSelect(crow::Response& intermediateResponse,
                           const SelectTrieNode& trieRoot)
 {
-    BMCWEB_LOG_DEBUG << "Process $select quary parameter";
+    BMCWEB_LOG_DEBUG("Process $select quary parameter");
     recursiveSelect(intermediateResponse.jsonValue, trieRoot);
 }
 
@@ -1011,11 +1012,11 @@ inline void
 {
     if (!completionHandler)
     {
-        BMCWEB_LOG_DEBUG << "Function was invalid?";
+        BMCWEB_LOG_DEBUG("Function was invalid?");
         return;
     }
 
-    BMCWEB_LOG_DEBUG << "Processing query params";
+    BMCWEB_LOG_DEBUG("Processing query params");
     // If the request failed, there's no reason to even try to run query
     // params.
     if (intermediateResponse.resultInt() < 200 ||
@@ -1037,7 +1038,7 @@ inline void
 
     if (query.expandType != ExpandType::None)
     {
-        BMCWEB_LOG_DEBUG << "Executing expand query";
+        BMCWEB_LOG_DEBUG("Executing expand query");
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>(
             std::move(intermediateResponse));
 

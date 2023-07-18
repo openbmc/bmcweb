@@ -21,7 +21,7 @@ template <typename Callback>
 void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisId, Callback&& callback)
 {
-    BMCWEB_LOG_DEBUG << "checkChassisId enter";
+    BMCWEB_LOG_DEBUG("checkChassisId enter");
     constexpr std::array<std::string_view, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
@@ -33,11 +33,11 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
          chassisId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         chassisPaths) mutable {
-        BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
+        BMCWEB_LOG_DEBUG("getValidChassisPath respHandler enter");
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "getValidChassisPath respHandler DBUS error: "
-                             << ec;
+            BMCWEB_LOG_ERROR("getValidChassisPath respHandler DBUS error: {}",
+                             ec);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -49,7 +49,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             std::string chassisName = path.filename();
             if (chassisName.empty())
             {
-                BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
+                BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
                 continue;
             }
             if (chassisName == chassisId)
@@ -60,7 +60,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         callback(chassisPath);
         });
-    BMCWEB_LOG_DEBUG << "checkChassisId exit";
+    BMCWEB_LOG_DEBUG("checkChassisId exit");
 }
 
 } // namespace chassis_utils
