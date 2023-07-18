@@ -70,6 +70,24 @@
       "parentUuid": "833b7da1_3619dc0c",
       "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dd16a9b_6138b25d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-18T19:07:29Z",
+      "side": 1,
+      "message": "@Jakub?  Can we get an answer to the first question.  Would you like this to merge as-written, so we can start working on the next patch, or would you like to make changes first?",
+      "parentUuid": "8b8e55bd_71796edf",
+      "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
