@@ -46,6 +46,30 @@
       },
       "revId": "368e5e173c2b416f9cc0173b37a5d48d771c3449",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "024c7b6c_1fb7eae7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-18T16:57:32Z",
+      "side": 1,
+      "message": "It seems changes are done on a bit old code base. I have gone through the code. It is almost similar to what is being done in this change set. I guess, I missed the preservation of the header in \u0027clear\u0027 method.I will add that.  \n\nIn this patch-set I was thinking about leaving the file opening to clients. Yes, it makes more sense to give an Api for that in the response. Then we can make an easy transition from string body(current body) to file body(new body) by copying the existing header.",
+      "parentUuid": "6551bf4e_d4236d78",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "368e5e173c2b416f9cc0173b37a5d48d771c3449",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
