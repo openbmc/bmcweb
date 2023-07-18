@@ -28,8 +28,6 @@
 #include <systemd/sd-bus.h>
 #include <tinyxml2.h>
 
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
@@ -428,7 +426,10 @@ inline void getObjectAndEnumerate(
 
         // Map indicating connection name, and the path where the object
         // manager exists
-        boost::container::flat_map<std::string, std::string> connections;
+        boost::container::flat_map<
+            std::string, std::string, std::less<>,
+            std::vector<std::pair<std::string, std::string>>>
+            connections;
 
         for (const auto& object : *(transaction->subtree))
         {
@@ -710,7 +711,14 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             else if (stringValue != nullptr)
             {
-                boolInt = boost::istarts_with(*stringValue, "t") ? 1 : 0;
+                if (!stringValue->empty())
+                {
+                    if (stringValue->front() == 't' ||
+                        stringValue->front() == 'T')
+                    {
+                        boolInt = 1;
+                    }
+                }
             }
             else
             {
