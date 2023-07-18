@@ -26,11 +26,6 @@
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
 
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/find.hpp>
-#include <boost/algorithm/string/predicate.hpp>
-#include <boost/algorithm/string/replace.hpp>
-#include <boost/range/algorithm/replace_copy_if.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -823,7 +818,11 @@ inline void objectPropertiesToJson(
     }
     else if (sensorType == "power")
     {
-        if (boost::iequals(sensorName, "total_power"))
+        std::string sensorNameLower(sensorName);
+        std::transform(sensorNameLower.begin(), sensorNameLower.end(),
+                       sensorNameLower.begin(),
+                       [](unsigned char c) { return std::tolower(c); });
+        if (sensorNameLower == "total_power")
         {
             sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
             // Put multiple "sensors" into a single PowerControl, so have
@@ -832,7 +831,7 @@ inline void objectPropertiesToJson(
             sensorJson["Name"] = "Chassis Power Control";
             unit = "/PowerConsumedWatts"_json_pointer;
         }
-        else if (boost::ifind_first(sensorName, "input").empty())
+        else if (sensorNameLower.find("input") != std::string::npos)
         {
             unit = "/PowerInputWatts"_json_pointer;
         }
@@ -2193,8 +2192,9 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     // Check if matching PowerSupply object already exists in JSON array
     for (nlohmann::json& powerSupply : powerSupplyArray)
     {
-        if (powerSupply["Name"] ==
-            boost::replace_all_copy(inventoryItem.name, "_", " "))
+        std::string powerSupplyName = powerSupply["Name"];
+        std::replace(powerSupplyName.begin(), powerSupplyName.end(), ' ', '_');
+        if (powerSupplyName == inventoryItem.name)
         {
             return powerSupply;
         }
@@ -2207,7 +2207,9 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
                                                chassisId);
     url.set_fragment(("/PowerSupplies"_json_pointer).to_string());
     powerSupply["@odata.id"] = std::move(url);
-    powerSupply["Name"] = boost::replace_all_copy(inventoryItem.name, "_", " ");
+    std::string escaped = inventoryItem.name;
+    std::replace(escaped.begin(), escaped.end(), '_', ' ');
+    powerSupply["Name"] = escaped;
     powerSupply["Manufacturer"] = inventoryItem.manufacturer;
     powerSupply["Model"] = inventoryItem.model;
     powerSupply["PartNumber"] = inventoryItem.partNumber;

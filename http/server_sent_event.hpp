@@ -3,7 +3,6 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
