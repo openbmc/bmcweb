@@ -34,6 +34,8 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <memory>
+#include <string>
 #include <string_view>
 
 namespace redfish
@@ -158,6 +160,29 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
+inline void
+    getIntrusionReArmByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                               const std::string& service,
+                               const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG("Get intrusion rearm by service");
+
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Chassis.Intrusion", "Rearm",
+        [asyncResp{std::move(asyncResp)}](const boost::system::error_code ec,
+                                          const std::string& value) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS error: failed to get property");
+            return;
+        }
+
+        asyncResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensorReArm"] =
+            value;
+        });
+}
+
 /**
  * Retrieves physical security properties over dbus
  */
@@ -185,6 +210,8 @@ inline void
             {
                 const auto service = object.second.front();
                 getIntrusionByService(asyncResp, service.first, object.first);
+                getIntrusionReArmByService(asyncResp, service.first,
+                                           object.first);
                 return;
             }
         }
@@ -643,6 +670,23 @@ inline void
     getPhysicalSecurityData(asyncResp);
 }
 
+inline void setIntrusionSensorByService(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& service,
+    const std::string& objPath, const std::string& intrusionSensor)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Chassis.Intrusion", "Status", intrusionSensor,
+        [asyncResp](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS error: failed to set property");
+            return;
+        }
+        messages::success(asyncResp->res);
+        });
+}
+
 inline void
     handleChassisPatch(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -654,10 +698,47 @@ inline void
     }
     std::optional<bool> locationIndicatorActive;
     std::optional<std::string> indicatorLed;
+    std::optional<std::string> intrusionSensor;
 
     if (param.empty())
     {
         return;
+    }
+
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "PhysicalSecurity/IntrusionSensor",
+                                  intrusionSensor))
+    {
+        return;
+    }
+
+    if (intrusionSensor)
+    {
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Chassis.Intrusion"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project", 0, interfaces,
+            [asyncResp{std::move(asyncResp)}, intrusionSensor](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS error: no matched iface");
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Iterate over all retrieved ObjectPaths.
+            for (const auto& object : subtree)
+            {
+                if (!object.second.empty())
+                {
+                    const auto service = object.second.front();
+                    setIntrusionSensorByService(asyncResp, service.first,
+                                                object.first, *intrusionSensor);
+                    return;
+                }
+            }
+            });
     }
 
     if (!json_util::readJsonPatch(
