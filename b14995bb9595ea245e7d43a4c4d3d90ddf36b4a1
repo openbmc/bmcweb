@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "087c648b_fc4eb4b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-19T16:54:43Z",
+      "side": 1,
+      "message": "I see two changes in your above:\n\n1. Changing Error to ERROR.  The old output had Error, so lets keep it the same, and if we want to change it, do it in another patchset.\n2. removing the relative folder structure.  I believe having the full path helps users to find the right file quickly.  Why would we omit the folder?",
+      "parentUuid": "c9907b8f_7676576b",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b25bb5ed_eb56d45f",
         "filename": "http/complete_response_fields.hpp",
         "patchSetId": 22
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-19T02:22:28Z",
       "side": 1,
       "message": "nit: Do we need two spaces here?",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6f8c15_8dd858b6",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-19T16:54:43Z",
+      "side": 1,
+      "message": "This commit faithfully puts forward what was there before, which included two spaces.  It\u0027s unlikely that was on purpose, but lets fix that in another patch.",
+      "parentUuid": "b25bb5ed_eb56d45f",
       "range": {
         "startLine": 23,
         "startChar": 30,
