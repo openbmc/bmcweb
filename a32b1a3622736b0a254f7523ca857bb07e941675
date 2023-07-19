@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9156b627_79e9f185",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-19T05:52:47Z",
+      "side": 1,
+      "message": "I think assignment operator is invoked on a possible dangling reference in case of header above.",
+      "parentUuid": "536ea696_ea2c28f4",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad1290ec_d5214e7d",
         "filename": "http/http_response.hpp",
         "patchSetId": 10
