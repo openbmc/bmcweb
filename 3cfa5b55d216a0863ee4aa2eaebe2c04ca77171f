@@ -38,6 +38,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccc77182_4eb13928",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-19T00:56:45Z",
+      "side": 1,
+      "message": "Will have to rebase after https://gerrit.openbmc.org/c/openbmc/bmcweb/+/51587 goes in",
+      "revId": "3cfa5b55d216a0863ee4aa2eaebe2c04ca77171f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f64328eb_1e1b7f1c",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-19T00:56:45Z",
+      "side": 1,
+      "message": "This is different than we have done other places.. This comes from a comment in this review. Talked a bit about this at https://lore.kernel.org/openbmc/CY5PR12MB60833AEB2F2FA388F05E4AD8CC989@CY5PR12MB6083.namprd12.prod.outlook.com/ \nI suspect we will see more of these in the future",
+      "revId": "3cfa5b55d216a0863ee4aa2eaebe2c04ca77171f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "221f497c_908ab6c4",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 35
