@@ -88,6 +88,24 @@
       "parentUuid": "8b8e55bd_71796edf",
       "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5917d3f_6f82e59a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-19T13:43:56Z",
+      "side": 1,
+      "message": "Ed, I would like to get this merged, but shouldn\u0027t we resolve #1040 first?\nI think it was done in improved error handling patch (the code you mentioned in recent review - link below) but perhaps we should move it to this patch, and then we merge. Also we should drop the \"PUT\" part from the title.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57812/19..21/redfish-core/lib/metric_report_definition.hpp#b1264",
+      "parentUuid": "0dd16a9b_6138b25d",
+      "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
