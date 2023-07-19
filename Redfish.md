@@ -201,6 +201,9 @@ Fields common to all schemas
 - Power
   - Shall be included if component contains voltage/current sensing components,
     otherwise will be omitted.
+- PhysicalSecurity
+  - Shall be included if component contains intrusion sensors, otherwise shall
+    be omitted.
 - PowerState
 - Sensors
 - Status
