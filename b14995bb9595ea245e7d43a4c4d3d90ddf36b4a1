@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25bb5ed_eb56d45f",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-07-19T02:22:28Z",
+      "side": 1,
+      "message": "nit: Do we need two spaces here?",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
