@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9907b8f_7676576b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-19T13:35:48Z",
+      "side": 1,
+      "message": "nit:\n\nWouldn\u0027t this be better done like this?\n\n```\n[ERROR event_service_manager.hpp:1301] \n```",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b25bb5ed_eb56d45f",
         "filename": "http/complete_response_fields.hpp",
         "patchSetId": 22
