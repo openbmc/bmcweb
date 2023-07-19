@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0f1314_4cc95da8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-19T23:31:21Z",
+      "side": 1,
+      "message": "This patchset looks like it had a parent that was based on a commit from August 2022.  When rebased (which I did to make sure the log changes got made) this no longer builds because of aggregator changes.  Not sure what\u0027s next here.",
+      "revId": "6ce7c66b3ec6b65ba50a3c6efceff0cf0280971d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
