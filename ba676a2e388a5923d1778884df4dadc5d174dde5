@@ -106,6 +106,24 @@
       "parentUuid": "0dd16a9b_6138b25d",
       "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfba7322_41f6c706",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-19T22:41:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure what #1040 refers to, but it\u0027s up to you what you\u0027d like to see happen here.  If you\u0027d like this to merge and treat followup issues as bugs, that\u0027s fine, or if you\u0027d like to fix them in this patch, that\u0027s fine too, just let me know what you\u0027d like.",
+      "parentUuid": "e5917d3f_6f82e59a",
+      "revId": "ba676a2e388a5923d1778884df4dadc5d174dde5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
