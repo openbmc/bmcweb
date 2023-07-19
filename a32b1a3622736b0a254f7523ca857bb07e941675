@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "003a58a5_e70125bb",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-19T15:33:27Z",
+      "side": 1,
+      "message": "Some of the changes in this file are not related to file body implementation.\nCorrect me if I am wrong. Since this file is diverged a lot from what we have now in master , do you still think we should work on top of this patch set?",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "536ea696_ea2c28f4",
         "filename": "http/http_response.hpp",
         "patchSetId": 10
