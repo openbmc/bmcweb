@@ -158,6 +158,30 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
+inline void getIntrusionReArmByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                       const std::string& service,
+                                       const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get intrusion rearm by service \n";
+
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Chassis.Intrusion", "Rearm",
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::string& value) {
+        if (ec)
+        {
+            // do not add err msg in redfish response, because this is not
+            //     mandatory property
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+            return;
+        }
+
+        aResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensorReArm"] =
+            value;
+        });
+}
+
 /**
  * Retrieves physical security properties over dbus
  */
@@ -185,6 +209,8 @@ inline void
             {
                 const auto service = object.second.front();
                 getIntrusionByService(asyncResp, service.first, object.first);
+                getIntrusionReArmByService(asyncResp, service.first,
+                                           object.first);
                 return;
             }
         }
@@ -655,10 +681,36 @@ inline void
     }
     std::optional<bool> locationIndicatorActive;
     std::optional<std::string> indicatorLed;
+    std::optional<std::string> intrusionSensor;
 
     if (param.empty())
     {
         return;
+    }
+
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "PhysicalSecurity/IntrusionSensor",
+                                  intrusionSensor))
+    {
+        return;
+    }
+
+    if (intrusionSensor)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, intrusionSensor](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.IntrusionSensor",
+            "/xyz/openbmc_project/Chassis/Intrusion",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Chassis.Intrusion", "Status",
+            dbus::utility::DbusVariantType(*intrusionSensor));
     }
 
     if (!json_util::readJsonPatch(
