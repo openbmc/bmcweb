@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10ede117_d1915885",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-19T18:27:53Z",
+      "side": 1,
+      "message": "Not a strong opinion.\n\n- Capital words may be more visible?  \n- I think most of file names are already unique, and they are primarily for the developers. \n- Also, short prefix in the log by putting only base file name.",
+      "parentUuid": "087c648b_fc4eb4b5",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b25bb5ed_eb56d45f",
         "filename": "http/complete_response_fields.hpp",
         "patchSetId": 22
