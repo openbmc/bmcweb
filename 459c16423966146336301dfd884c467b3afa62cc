@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a125a39_211828f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-19T17:10:29Z",
+      "side": 1,
+      "message": "Yep, this patchset predated that work to make the levels configurable.  I updated it to add support for it (which was largely just changing a variable around.)\n\nThank you for catching that.  I had forgotten that logging was configurable now.",
+      "parentUuid": "cbeeb08b_70290650",
+      "revId": "459c16423966146336301dfd884c467b3afa62cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ff0bc7f1_992b1f37",
