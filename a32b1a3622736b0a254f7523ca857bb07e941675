@@ -1,4 +1,56 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "536ea696_ea2c28f4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-19T04:29:21Z",
+      "side": 1,
+      "message": "does this compile? re-assingment to reference?\nEven if it worked, shouldn\u0027t we keep already assigned headers to newly created stringbody? \nUse Case. \nCurrent body is filebody. User has assigned some headers already to the current body. \nUser decided to change the body type to stringbody by calling body(). \nNow user has lost all already set headers. \nThe use case is applicable for stringbody to filebody transition as well.\nSo the question is shouldn\u0027t we copy all already set headers to the new response?\nException  is for headers such as content type and length, which we need to be reset for new body type.",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad1290ec_d5214e7d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-19T04:29:21Z",
+      "side": 1,
+      "message": "clear means only clear he body or all content including header?\nShould we reset to monostate ?",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52d8a1b0_177735a4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-19T04:29:21Z",
+      "side": 1,
+      "message": "overwriting existing headers.",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
