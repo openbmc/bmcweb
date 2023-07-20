@@ -184,6 +184,7 @@ class RedfishService
         requestRoutesOperatingConfig(app);
         requestRoutesMemoryCollection(app);
         requestRoutesMemory(app);
+        requestRoutesSubProcessors(app);
 
         requestRoutesSystems(app);
 
