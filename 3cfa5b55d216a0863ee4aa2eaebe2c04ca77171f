@@ -55,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a988b6a2_1b3dc869",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-20T19:55:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccc77182_4eb13928",
+      "revId": "3cfa5b55d216a0863ee4aa2eaebe2c04ca77171f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f64328eb_1e1b7f1c",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 35
