@@ -122,6 +122,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "157e9aab_6c92e783",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-20T20:50:24Z",
+      "side": 1,
+      "message": "BTW, I\u0027m open to discussion on this, I just didn\u0027t want to hold up this very-merge-conflict-causing patch while we debated this.",
+      "parentUuid": "823464ee_37392729",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f51859b8_9d3160be",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 22
@@ -174,6 +198,30 @@
       "side": 1,
       "message": "This commit faithfully puts forward what was there before, which included two spaces.  It\u0027s unlikely that was on purpose, but lets fix that in another patch.",
       "parentUuid": "b25bb5ed_eb56d45f",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "b14995bb9595ea245e7d43a4c4d3d90ddf36b4a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3758cc99_14e87e7d",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-20T20:50:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6f8c15_8dd858b6",
       "range": {
         "startLine": 23,
         "startChar": 30,
