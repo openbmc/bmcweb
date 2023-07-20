@@ -46,6 +46,30 @@
       },
       "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b47f1144_c4d7cf29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-20T00:40:28Z",
+      "side": 1,
+      "message": "but you didn\u0027t push the next patch.  SPLITTING up your patches helps with quick reviews.  Pushing a patch that doesn\u0027t function slows things down, because I can\u0027t merge dead code.\n\nUnless there\u0027s another patch you meant to stack on this one and forgot to?",
+      "parentUuid": "9c0ecb61_84224b3a",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
