@@ -94,6 +94,30 @@
       },
       "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a1e88ca_d72c0e79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-20T01:24:05Z",
+      "side": 1,
+      "message": "so we’re clear:\nsplit up TemperatureReadinngsCelcius into another patch.\nboth patches will merge at the same time to avoid merging dead code.\n\nso long as that’s what you meant, sounds good to me.",
+      "parentUuid": "d20d26cf_524b1367",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
