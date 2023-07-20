@@ -70,6 +70,30 @@
       },
       "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20d26cf_524b1367",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-07-20T01:21:05Z",
+      "side": 1,
+      "message": "Understood\nI think let me remove TemperatureReadingsCelsius in this commit, and will implement this function in the next commit, Agree?",
+      "parentUuid": "b47f1144_c4d7cf29",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
