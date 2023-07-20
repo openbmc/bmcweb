@@ -8,10 +8,13 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
 #include <format>
+#include <functional>
+#include <optional>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -29,6 +32,7 @@ enum class ChassisSubNode
     powerNode,
     sensorsNode,
     thermalNode,
+    thermalMetricsNode,
     unknownNode,
 };
 
@@ -42,6 +46,8 @@ constexpr std::string_view chassisSubNodeToString(ChassisSubNode subNode)
             return "Sensors";
         case ChassisSubNode::thermalNode:
             return "Thermal";
+        case ChassisSubNode::thermalMetricsNode:
+            return "ThermalMetrics";
         case ChassisSubNode::unknownNode:
         default:
             return "";
@@ -65,8 +71,17 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
     {
         subNode = ChassisSubNode::thermalNode;
     }
+    else if (subNodeStr == "ThermalMetrics")
+    {
+        subNode = ChassisSubNode::thermalMetricsNode;
+    }
 
     return subNode;
+}
+
+inline bool isExcerptNode(const ChassisSubNode subNode)
+{
+    return (subNode == ChassisSubNode::thermalMetricsNode);
 }
 
 /**
@@ -378,44 +393,47 @@ inline void objectPropertiesToJson(
     const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
-    if (chassisSubNode == ChassisSubNode::sensorsNode)
+    if (!isExcerptNode(chassisSubNode))
     {
-        std::string subNodeEscaped = getSensorId(sensorName, sensorType);
-        // For sensors in SensorCollection we set Id instead of MemberId,
-        // including power sensors.
-        sensorJson["Id"] = std::move(subNodeEscaped);
+        if (chassisSubNode == ChassisSubNode::sensorsNode)
+        {
+            std::string subNodeEscaped = getSensorId(sensorName, sensorType);
+            // For sensors in SensorCollection we set Id instead of MemberId,
+            // including power sensors.
+            sensorJson["Id"] = std::move(subNodeEscaped);
 
-        std::string sensorNameEs(sensorName);
-        std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
-        sensorJson["Name"] = std::move(sensorNameEs);
-    }
-    else if (sensorType != "power")
-    {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
-        std::string sensorNameEs(sensorName);
-        std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
-        sensorJson["Name"] = std::move(sensorNameEs);
-    }
+            std::string sensorNameEs(sensorName);
+            std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+            sensorJson["Name"] = std::move(sensorNameEs);
+        }
+        else if (sensorType != "power")
+        {
+            // Set MemberId and Name for non-power sensors.  For PowerSupplies
+            // and PowerControl, those properties have more general values
+            // because multiple sensors can be stored in the same JSON object.
+            std::string sensorNameEs(sensorName);
+            std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+            sensorJson["Name"] = std::move(sensorNameEs);
+        }
 
-    const bool* checkAvailable = nullptr;
-    bool available = true;
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
-        checkAvailable);
-    if (!success)
-    {
-        messages::internalError();
-    }
-    if (checkAvailable != nullptr)
-    {
-        available = *checkAvailable;
-    }
+        const bool* checkAvailable = nullptr;
+        bool available = true;
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
+            checkAvailable);
+        if (!success)
+        {
+            messages::internalError();
+        }
+        if (checkAvailable != nullptr)
+        {
+            available = *checkAvailable;
+        }
 
-    sensorJson["Status"]["State"] = getState(inventoryItem, available);
-    sensorJson["Status"]["Health"] =
-        getHealth(sensorJson, propertiesDict, inventoryItem);
+        sensorJson["Status"]["State"] = getState(inventoryItem, available);
+        sensorJson["Status"]["Health"] =
+            getHealth(sensorJson, propertiesDict, inventoryItem);
+    }
 
     // Parameter to set to override the type we get from dbus, and force it to
     // int, regardless of what is available.  This is used for schemas like fan,
@@ -423,30 +441,36 @@ inline void objectPropertiesToJson(
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
-    if (chassisSubNode == ChassisSubNode::sensorsNode)
+    if ((chassisSubNode == ChassisSubNode::sensorsNode) ||
+        isExcerptNode(chassisSubNode))
     {
-        sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
+        // ThermalMetrics excerpts don't include these properties
+        if (chassisSubNode != ChassisSubNode::thermalMetricsNode)
+        {
+            sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
 
-        sensor::ReadingType readingType = sensors::toReadingType(sensorType);
-        if (readingType == sensor::ReadingType::Invalid)
-        {
-            BMCWEB_LOG_ERROR("Redfish cannot map reading type for {}",
-                             sensorType);
-        }
-        else
-        {
-            sensorJson["ReadingType"] = readingType;
-        }
+            sensor::ReadingType readingType =
+                sensors::toReadingType(sensorType);
+            if (readingType == sensor::ReadingType::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Redfish cannot map reading type for {}",
+                                 sensorType);
+            }
+            else
+            {
+                sensorJson["ReadingType"] = readingType;
+            }
 
-        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
-        if (readingUnits.empty())
-        {
-            BMCWEB_LOG_ERROR("Redfish cannot map reading unit for {}",
-                             sensorType);
-        }
-        else
-        {
-            sensorJson["ReadingUnits"] = readingUnits;
+            std::string_view readingUnits = sensors::toReadingUnits(sensorType);
+            if (readingUnits.empty())
+            {
+                BMCWEB_LOG_ERROR("Redfish cannot map reading unit for {}",
+                                 sensorType);
+            }
+            else
+            {
+                sensorJson["ReadingUnits"] = readingUnits;
+            }
         }
     }
     else if (sensorType == "temperature")
@@ -505,6 +529,7 @@ inline void objectPropertiesToJson(
         BMCWEB_LOG_ERROR("Redfish cannot map object type for {}", sensorName);
         return;
     }
+
     // Map of dbus interface name, dbus property name and redfish property_name
     std::vector<
         std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
@@ -513,20 +538,25 @@ inline void objectPropertiesToJson(
 
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
-    if (chassisSubNode == ChassisSubNode::sensorsNode)
+    if ((chassisSubNode == ChassisSubNode::sensorsNode) ||
+        isExcerptNode(chassisSubNode))
     {
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
-            "/Thresholds/UpperCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
-            "/Thresholds/LowerCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
-            "/Thresholds/UpperCritical/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
-            "/Thresholds/LowerCritical/Reading"_json_pointer);
+        // ThermalMetrics excerpts don't include these properties
+        if (chassisSubNode != ChassisSubNode::thermalMetricsNode)
+        {
+            properties.emplace_back(
+                "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
+                "/Thresholds/UpperCaution/Reading"_json_pointer);
+            properties.emplace_back(
+                "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
+                "/Thresholds/LowerCaution/Reading"_json_pointer);
+            properties.emplace_back(
+                "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
+                "/Thresholds/UpperCritical/Reading"_json_pointer);
+            properties.emplace_back(
+                "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
+                "/Thresholds/LowerCritical/Reading"_json_pointer);
+        }
     }
     else if (sensorType != "power")
     {
@@ -546,14 +576,21 @@ inline void objectPropertiesToJson(
 
     // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
-    if (chassisSubNode == ChassisSubNode::sensorsNode)
+    if ((chassisSubNode == ChassisSubNode::sensorsNode) ||
+        isExcerptNode(chassisSubNode))
     {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/ReadingRangeMin"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/ReadingRangeMax"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
-                                "Accuracy", "/Accuracy"_json_pointer);
+        // ThermalMetrics excerpts don't include these properties
+        if (chassisSubNode != ChassisSubNode::thermalMetricsNode)
+        {
+            properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                    "MinValue",
+                                    "/ReadingRangeMin"_json_pointer);
+            properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                    "MaxValue",
+                                    "/ReadingRangeMax"_json_pointer);
+            properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                    "Accuracy", "/Accuracy"_json_pointer);
+        }
     }
     else if (sensorType == "temperature")
     {
@@ -613,6 +650,108 @@ inline void objectPropertiesToJson(
             }
         }
     }
+}
+
+/**
+ * @brief Builds a json sensor excerpt representation of a sensor.
+ * @param path The D-Bus path to the sensor to be built
+ * @param chassisId The Chassis Id for the sensor
+ * @param chassisSubNode The subnode (e.g. ThermalMetrics) of the sensor
+ * @param sensorTypeExpected The expected type of the sensor
+ * @param propertiesDict A dictionary of the properties to build the sensor
+ * from.
+ * @param sensorJson  The json object to fill
+ * @returns True if sensorJson object filled. False on any error.
+ * Caller is responsible for handling error.
+ */
+inline bool objectExcerptToJson(
+    const std::string& path, const std::string_view chassisId,
+    ChassisSubNode chassisSubNode,
+    const std::optional<std::string>& sensorTypeExpected,
+    const dbus::utility::DBusPropertiesMap& propertiesDict,
+    nlohmann::json& sensorJson)
+{
+    if (!isExcerptNode(chassisSubNode))
+    {
+        BMCWEB_LOG_DEBUG("{} is not a sensor excerpt",
+                         chassisSubNodeToString(chassisSubNode));
+        return false;
+    }
+
+    sdbusplus::message::object_path sensorPath(path);
+    std::string sensorName = sensorPath.filename();
+    std::string sensorType = sensorPath.parent_path().filename();
+    if (sensorName.empty() || sensorType.empty())
+    {
+        BMCWEB_LOG_DEBUG("Invalid sensor path {}", path);
+        return false;
+    }
+
+    if (sensorTypeExpected && (sensorType != *sensorTypeExpected))
+    {
+        BMCWEB_LOG_DEBUG("{} is not expected type {}", path,
+                         *sensorTypeExpected);
+        return false;
+    }
+
+    // Sensor excerpts use DataSourceUri to reference full sensor Redfish path
+    sensorJson["DataSourceUri"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Sensors/{}", chassisId,
+                            getSensorId(sensorName, sensorType));
+
+    // Fill in sensor excerpt properties
+    objectPropertiesToJson(sensorName, sensorType, chassisSubNode,
+                           propertiesDict, sensorJson, nullptr);
+
+    return true;
+}
+
+// Maps D-Bus: Service, SensorPath
+using SensorServicePathMap = std::pair<std::string, std::string>;
+using SensorServicePathList = std::vector<SensorServicePathMap>;
+
+inline void afterGetAllSensorObjects(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::function<void(SensorServicePathList&)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for getAssociatedSubTree {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    SensorServicePathList sensorsServiceAndPath;
+
+    for (const auto& [sensorPath, serviceMaps] : subtree)
+    {
+        for (const auto& [service, interfaces] : serviceMaps)
+        {
+            sensorsServiceAndPath.emplace_back(service, sensorPath);
+        }
+    }
+
+    callback(sensorsServiceAndPath);
+}
+
+inline void getAllSensorObjects(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& associatedPath, const std::string& path,
+    std::span<const std::string_view> interfaces, const int32_t depth,
+    const std::function<void(SensorServicePathList&)>& callback)
+{
+    sdbusplus::message::object_path endpointPath{associatedPath};
+    endpointPath /= "all_sensors";
+
+    dbus::utility::getAssociatedSubTree(
+        endpointPath, sdbusplus::message::object_path(path), depth, interfaces,
+        std::bind_front(afterGetAllSensorObjects, asyncResp, callback));
 }
 
 } // namespace sensor_utils
