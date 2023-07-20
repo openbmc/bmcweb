@@ -16,6 +16,24 @@
       "message": "I don\u0027t see it documented anywhere it should start with /Intrusion so this feels more correct",
       "revId": "c9786760c64289bb47abb30a80ef050f75b56852",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bfed753_79d73a94",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-20T19:23:04Z",
+      "side": 1,
+      "message": "The new is more correct IMO.",
+      "parentUuid": "954abd3c_ffa051cc",
+      "revId": "c9786760c64289bb47abb30a80ef050f75b56852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
