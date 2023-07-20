@@ -22,6 +22,30 @@
       },
       "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0ecb61_84224b3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-07-20T00:38:29Z",
+      "side": 1,
+      "message": "Yes, We will implement it in the next commit.\nBecause splitting into multiple commits really helps with quick reviews 😊",
+      "parentUuid": "da50885f_981a637b",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "7d5c5f776834d7e9696bd577256450d7ec0211fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
