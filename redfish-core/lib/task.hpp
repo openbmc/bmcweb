@@ -175,15 +175,16 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     {
         timer.expires_after(timeout);
         timer.async_wait(
-            [self = shared_from_this()](boost::system::error_code ec) {
+            [self = shared_from_this()](const boost::system::error_code& ec) {
             if (ec == boost::asio::error::operation_aborted)
             {
                 return; // completed successfully
             }
-            if (!ec)
+            boost::system::error_code ec2 = ec;
+            if (!ec2)
             {
                 // change ec to error as timer expired
-                ec = boost::asio::error::operation_aborted;
+                ec2 = boost::asio::error::operation_aborted;
             }
             self->match.reset();
             sdbusplus::message_t msg;
@@ -194,7 +195,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 messages::taskAborted(std::to_string(self->index)));
             // Send event :TaskAborted
             self->sendTaskEvent(self->state, self->index);
-            self->callback(ec, msg, self);
+            self->callback(ec2, msg, self);
         });
     }
 
