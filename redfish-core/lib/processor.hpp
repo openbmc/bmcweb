@@ -903,6 +903,10 @@ inline void getProcessorData(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    asyncResp->res.jsonValue["SubProcessors"]["@odata.id"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/{}/Processors/{}/SubProcessors",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
