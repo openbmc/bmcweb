@@ -1,8 +1,10 @@
 #pragma once
 
 #include "app.hpp"
+#include "dbus_utility.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "sensors.hpp"
 #include "utils/chassis_utils.hpp"
 
 #include <functional>
@@ -12,6 +14,107 @@
 
 namespace redfish
 {
+inline bool isThermalPath(const std::string& sensorPath)
+{
+    bool ret = false;
+
+    for (const auto& path : redfish::sensors::dbus::thermalPaths)
+    {
+        if (sensorPath.starts_with(path))
+        {
+            ret = true;
+            break;
+        }
+    }
+
+    return ret;
+}
+
+inline void afterGetTemperatureValue(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& path,
+    const boost::system::error_code& ec, double val)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("handleTemperatureReadingsCelsius() failed: {}",
+                             ec.message());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    std::string sensorName = sdbusplus::message::object_path(path).filename();
+    nlohmann::json& tempArray =
+        asyncResp->res.jsonValue["TemperatureReadingsCelsius"];
+    tempArray["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorName);
+    tempArray["DataSourceUri"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorName);
+    tempArray["DeviceName"] = sensorName;
+    tempArray["Reading"] = val;
+}
+
+inline void handleTemperatureReadingsCelsius(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperGetSubTreeResponse& objects,
+    const std::string& chassisId)
+{
+    for (const auto& [path, object] : objects)
+    {
+        if (!isThermalPath(path))
+        {
+            continue;
+        }
+
+        for (const auto& [service, interfaces] : object)
+        {
+            sdbusplus::asio::getProperty<double>(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.Sensor.Value", "Value",
+                std::bind_front(afterGetTemperatureValue, asyncResp, chassisId,
+                                path));
+        }
+    }
+}
+
+inline void getTemperatureReadingsCelsius(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& validChassisPath, const std::string& chassisId)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    sdbusplus::message::object_path endpointPath{validChassisPath};
+    endpointPath /= "all_sensors";
+
+    dbus::utility::getAssociatedSubTree(
+        endpointPath,
+        sdbusplus::message::object_path("/xyz/openbmc_project/sensors"), 0,
+        interfaces,
+        [asyncResp,
+         chassisId](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& objects) {
+        if (ec == boost::system::errc::io_error)
+        {
+            asyncResp->res.jsonValue["TemperatureReadingsCelsius"] =
+                nlohmann::json::array();
+            return;
+        }
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        handleTemperatureReadingsCelsius(asyncResp, objects, chassisId);
+    });
+}
+
 inline void
     doThermalMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
@@ -32,6 +135,8 @@ inline void
         "/redfish/v1/Chassis/{}/ThermalSubsystem/ThermalMetrics", chassisId);
     asyncResp->res.jsonValue["Id"] = "ThermalMetrics";
     asyncResp->res.jsonValue["Name"] = "Chassis Thermal Metrics";
+
+    getTemperatureReadingsCelsius(asyncResp, *validChassisPath, chassisId);
 }
 
 inline void handleThermalMetricsHead(
