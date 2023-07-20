@@ -319,6 +319,8 @@ Fields common to all schemas
 
 ##### ThermalMetrics
 
+- TemperatureReadingsCelsius
+
 #### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans
 
 ##### FansCollection
