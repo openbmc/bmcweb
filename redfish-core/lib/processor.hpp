@@ -847,6 +847,17 @@ inline void
                      const std::string& objectPath,
                      const dbus::utility::MapperServiceMap& serviceMap)
 {
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Processor/Processor.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] = "#Processor.v1_18_0.Processor";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/Processors/{}", processorId);
+    asyncResp->res.jsonValue["SubProcessors"]["@odata.id"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/system/Processors/{}/SubProcessors",
+            processorId);
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)
@@ -898,6 +909,68 @@ inline void
             }
         }
     }
+}
+
+template <typename Handler>
+inline void
+    getProcessorPaths(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& processorId, Handler&& handler)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Cpu"};
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        [asyncResp, processorId, handler{std::forward<Handler>(handler)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
+            // No processor objects found by mapper
+            if (ec.value() == boost::system::errc::io_error)
+            {
+                messages::resourceNotFound(asyncResp->res, "Processor",
+                                           processorId);
+                return;
+            }
+
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const std::string& cpuPath : subTreePaths)
+        {
+            handler(cpuPath);
+            return;
+        }
+
+        // Object not found
+        messages::resourceNotFound(asyncResp->res, "Processor", processorId);
+        });
+}
+
+inline void
+    getSubProcessorMembers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& processorId,
+                           const std::string& cpuPath)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ProcessorCollection/ProcessorCollection.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#ProcessorCollection.ProcessorCollection";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/Processors/{}/SubProcessors", processorId);
+    asyncResp->res.jsonValue["Name"] = "SubProcessor Collection";
+
+    const boost::urls::url& subProcessorsPath = boost::urls::format(
+        "/redfish/v1/Systems/system/Processors/{}/SubProcessors", processorId);
+    const std::string associationPath = cpuPath + "/containing";
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.CpuCore"};
+    collection_util::getAssociatedCollectionMembers(
+        asyncResp, subProcessorsPath, interfaces, associationPath,
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"));
 }
 
 /**
@@ -1129,6 +1202,21 @@ inline void patchAppliedOperatingConfig(
                                  const sdbusplus::message_t& msg) {
         handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
     });
+}
+
+inline void
+    handleSubProcessorsHead(crow::App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& /* systemName */,
+                            const std::string& /* processorId */)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ProcessorCollection/ProcessorCollection.json>; rel=describedby");
 }
 
 inline void
@@ -1401,14 +1489,6 @@ inline void requestRoutesProcessor(App& app)
             return;
         }
 
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/Processor/Processor.json>; rel=describedby");
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#Processor.v1_18_0.Processor";
-        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/system/Processors/{}", processorId);
-
         getProcessorObject(
             asyncResp, processorId,
             std::bind_front(getProcessorData, asyncResp, processorId));
@@ -1463,6 +1543,45 @@ inline void requestRoutesProcessor(App& app)
                                                appliedConfigUri));
         }
     });
+}
+
+inline void
+    handleSubProcessorsGet(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& systemName,
+                           const std::string& processorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("Get available system sub processor core members.");
+
+    getProcessorPaths(
+        asyncResp, processorId,
+        std::bind_front(getSubProcessorMembers, asyncResp, processorId));
+}
+
+inline void requestRoutesSubProcessors(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/Processors/<str>/SubProcessors")
+        .privileges(redfish::privileges::headProcessorCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleSubProcessorsHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/Processors/<str>/SubProcessors")
+        .privileges(redfish::privileges::getProcessorCollection)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleSubProcessorsGet, std::ref(app)));
 }
 
 } // namespace redfish
