@@ -1148,6 +1148,7 @@ functions the same like the default implementation under the System resource.
 - Socket
 - SparePartNumber
 - Status
+- SubProcessors
 - ThrottleCauses
 - Throttled
 - TotalCores
@@ -1163,6 +1164,15 @@ functions the same like the default implementation under the System resource.
 - PowerLimitWatts/ControlMode
 - PowerLimitWatts/DefaultSetPoint
 - PowerLimitWatts/SetPoint
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
+
+#### ProcessorCollection
+
+- @odata.id
+- @odata.type
+- Members
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
