@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3238993_f2b32140",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-20T18:24:40Z",
+      "side": 1,
+      "message": "Warning. Needs the new style of logging.",
+      "revId": "36805615109f2a3301db58557aaa2e2b04c1170d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b462b3c1_5e478d86",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-20T18:24:40Z",
+      "side": 1,
+      "message": "WARNING. Needs the new style of logging.",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "36805615109f2a3301db58557aaa2e2b04c1170d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b4d1f23_b37c6d77",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-20T18:24:40Z",
+      "side": 1,
+      "message": "include a space please",
+      "range": {
+        "startLine": 54,
+        "startChar": 55,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "36805615109f2a3301db58557aaa2e2b04c1170d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
