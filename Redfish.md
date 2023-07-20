@@ -922,11 +922,19 @@ other.
 - Socket
 - SparePartNumber
 - Status
+- SubProcessors
 - ThrottleCauses
 - Throttled
 - TotalCores
 - TotalThreads
 - Version
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
+
+#### ProcessorCollection
+
+- Members
+- Members@odata.count
 
 ### /redfish/v1/Systems/system/Storage/
 
