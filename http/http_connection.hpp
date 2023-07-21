@@ -242,6 +242,40 @@ class Connection :
             return;
         }
         keepAlive = thisReq.keepAlive();
+        if (req->url().buffer() == "/" && mtlsSession != nullptr &&
+            !mtlsWebuiAuth)
+        {
+            // Phosphor-Rest requires a very specific login
+            // structure, and doesn't actually look at the status
+            // code.
+            // TODO(ed).... Fix that upstream
+
+            res.jsonValue["data"] = "User '" +
+                                    std::string(thisReq.session->username) +
+                                    "' logged in";
+            res.jsonValue["message"] = "200 OK";
+            res.jsonValue["status"] = "ok";
+
+            // Hack alert.  Boost beast by default doesn't let you
+            // declare multiple headers of the same name, and in
+            // most cases this is fine.  Unfortunately here we need
+            // to set the Session cookie, which requires the
+            // httpOnly attribute, as well as the XSRF cookie, which
+            // requires it to not have an httpOnly attribute. To get
+            // the behavior we want, we simply inject the second
+            // "set-cookie" string into the value header, and get
+            // the result we want, even though we are technicaly
+            // declaring two headers here.
+            res.addHeader("Set-Cookie",
+                          "XSRF-TOKEN=" + thisReq.session->csrfToken +
+                              "; SameSite=Strict; Secure\r\nSet-Cookie: "
+                              "SESSION=" +
+                              thisReq.session->sessionToken +
+                              "; SameSite=Strict; Secure; HttpOnly");
+            completeRequest(res);
+            mtlsWebuiAuth = true;
+            return;
+        }
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         if (!crow::authentication::isOnAllowlist(req->url().path(),
                                                  req->method()) &&
@@ -631,6 +665,8 @@ class Connection :
     bool keepAlive = true;
 
     bool timerStarted = false;
+
+    bool mtlsWebuiAuth = false;
 
     std::function<std::string()>& getCachedDateStr;
 
