@@ -205,9 +205,10 @@ inline void handleLogin(const crow::Request& req,
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
-    int pamrc = pamAuthenticateUser(username, password);
-    afterAuthenticateUser(asyncResp, username, req.ipAddress,
-                          looksLikePhosphorRest, pamrc);
+    std::function<void(int32_t)> callback =
+        std::bind_front(afterAuthenticateUser, asyncResp, std::string(username),
+                        req.ipAddress, looksLikePhosphorRest);
+    pamAuthenticateUser(username, password, std::move(callback));
 }
 
 inline void handleLogout(const crow::Request& req,
