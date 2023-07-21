@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca1e45a_d01c8be0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-21T16:27:46Z",
+      "side": 1,
+      "message": "Done. Thanks for your review.",
+      "parentUuid": "360b6b94_3a0dd404",
+      "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3266a73c_09aa9d95",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-20T18:33:12Z",
       "side": 1,
       "message": "#include \u003cstring\u003e",
+      "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11bf032c_c8f3daa3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-21T16:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3266a73c_09aa9d95",
       "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3733858_12a324a5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-21T16:27:46Z",
+      "side": 1,
+      "message": "Sorry, I wasn\u0027t aware. Done.\n- And there\u0027s something I can\u0027t figure out myself, I don\u0027t know if it\u0027s fine to ask here, hope you can help a bit. In this patch, I use readJsonPatch to read \"PhysicalSecurity/IntrusionSensor\" as this commit https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50809 says I can do so. But when I use curl to do patch to it as below:\ncurl -X PATCH --user root:0penBmc -H \"Content-Type: application/json\" --insecure https://${BMC_IP}/redfish/v1/Chassis/chassis -d \u0027{\"PhysicalSecurity\": { \"IntrusionSensor\": \"Normal\" } }\u0027\n\u003d\u003e Everythign works fine. However, after the success msg of setting to the DBUS property, there\u0027s also a warning msg id \"Base.1.16.0.PropertyUnknown\" saying \"The property PhysicalSecurity is not in the list of valid properties for the resource.\". I\u0027ve tried to back to readJsonPatch of PhysicalSecurity first, then read \"IntrusionSensor\" from it, but the warning msg is still shown. I guess it\u0027s from this line https://github.com/openbmc/bmcweb/blob/fc3edfdd8b63c1efc4aed7e882584b6aec1b1a11/redfish-core/include/utils/json_utils.hpp#L464, but I don\u0027t know what leads to this.",
+      "parentUuid": "55ced872_5af6c313",
+      "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a2e81a5_7f3e98ed",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2037f8bc_43798923",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-21T16:27:46Z",
+      "side": 1,
+      "message": "I just wanted to log out the error message if it exists. But now I have changed it to logging the failure of the DBUS actions in general. I\u0027m not sure if it addresses your concerns.",
+      "parentUuid": "6a2e81a5_7f3e98ed",
+      "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b29c6bf1_dcf911c3",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
@@ -82,6 +154,24 @@
       "writtenOn": "2023-07-20T18:33:12Z",
       "side": 1,
       "message": "Shouldn\u0027t we also go to mapper to get this like we do the Get above?",
+      "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6db6c4a_66cf5dfe",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-21T16:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b29c6bf1_dcf911c3",
       "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
