@@ -1,0 +1,8 @@
+[Unit]
+Description=BMC Webserver authentication unix socket
+
+[Socket]
+ListenStream=@bmcweb_auth
+
+[Install]
+WantedBy=sockets.target

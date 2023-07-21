@@ -1,17 +1,16 @@
-#pragma once
-
-#include "dbus_singleton.hpp"
-
 #include <security/pam_appl.h>
 
+#include <boost/asio/io_context.hpp>
 #include <boost/utility/string_view.hpp>
+#include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/asio/object_server.hpp>
 
 #include <cstring>
 #include <memory>
 #include <span>
 
 // function used to get user input
-inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
+static int pamFunctionConversation(int numMsg, const struct pam_message** msg,
                                    struct pam_response** resp, void* appdataPtr)
 {
     if ((appdataPtr == nullptr) || (msg == nullptr) || (resp == nullptr))
@@ -88,29 +87,43 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
  * @param username The provided username aka account name.
  * @param password The provided password.
  * @returns PAM error code or PAM_SUCCESS for success. */
-inline void pamAuthenticateUser(std::string_view username,
-                                std::string_view password,
-                                std::function<void(int32_t)>&& callback)
+static int pamAuthenticateUser(const std::string& username,
+                               const std::string& password)
 {
-    BMCWEB_LOG_DEBUG("Calling pam Authenticate");
-    crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](const boost::system::error_code& ec,
-                                        int32_t pamrc) mutable {
-        if (ec)
-        {
-            BMCWEB_LOG_CRITICAL("Failed to call authenticate daemon");
-            callback(-1);
-            return;
-        }
-        callback(pamrc);
-        },
-        "xyz.openbmc_project.Authentication",
-        "/xyz/openbmc_project/authentication",
-        "xyz.openbmc_project.Authentication", "Authenticate", username,
-        password);
+    std::string passStr(password);
+    char* passStrNoConst = passStr.data();
+    const struct pam_conv localConversation = {pamFunctionConversation,
+                                               passStrNoConst};
+    pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
+
+    int retval = pam_start("webserver", username.c_str(), &localConversation,
+                           &localAuthHandle);
+    if (retval != PAM_SUCCESS)
+    {
+        return retval;
+    }
+
+    retval = pam_authenticate(localAuthHandle,
+                              PAM_SILENT | PAM_DISALLOW_NULL_AUTHTOK);
+    if (retval != PAM_SUCCESS)
+    {
+        pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
+        return retval;
+    }
+
+    /* check that the account is healthy */
+    retval = pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK);
+    if (retval != PAM_SUCCESS)
+    {
+        pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
+        return retval;
+    }
+
+    return pam_end(localAuthHandle, PAM_SUCCESS);
 }
 
-inline int pamUpdatePassword(const std::string& username,
+/*
+static int pamUpdatePassword(const std::string& username,
                              const std::string& password)
 {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
@@ -135,4 +148,25 @@ inline int pamUpdatePassword(const std::string& username,
     }
 
     return pam_end(localAuthHandle, PAM_SUCCESS);
+}
+*/
+
+int main()
+{
+    boost::asio::io_context io;
+    auto conn = std::make_shared<sdbusplus::asio::connection>(io);
+    conn->set_address("@bmcweb_auth");
+    auto server = sdbusplus::asio::object_server(conn);
+    std::shared_ptr<sdbusplus::asio::dbus_interface> iface =
+        server.add_interface("/xyz/openbmc_project/authentication",
+                             "xyz.openbmc_project.Authentication");
+
+    iface->register_method(
+        "Authenticate",
+        [](const std::string& user, const std::string& password) -> int32_t {
+            return pamAuthenticateUser(user, password);
+        });
+    iface->initialize();
+    conn->request_name("xyz.openbmc_project.Authentication");
+    io.run();
 }
