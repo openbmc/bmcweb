@@ -1,0 +1,12 @@
+[Unit]
+Description=Start bmcweb authentication server
+
+[Service]
+ExecStart=@MESON_INSTALL_PREFIX@/bin/pam_auth
+WorkingDirectory=/home/root
+Type=dbus
+BusName=xyz.openbmc_project.Authentication
+
+
+[Install]
+WantedBy=multi-user.target
