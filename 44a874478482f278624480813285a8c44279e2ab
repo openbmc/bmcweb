@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03398eca_5109aba4",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-21T14:28:41Z",
+      "side": 1,
+      "message": "This is separate as https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65280",
+      "revId": "44a874478482f278624480813285a8c44279e2ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
