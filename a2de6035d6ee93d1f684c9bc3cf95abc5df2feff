@@ -154,6 +154,30 @@
       },
       "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "072a19ed_5e0c32a9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-21T11:24:15Z",
+      "side": 1,
+      "message": "Moved this part to \u0027Add PUT and PATCH\u0027 patch",
+      "parentUuid": "91589ffc_eb83f018",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1264,
+        "endChar": 9
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
