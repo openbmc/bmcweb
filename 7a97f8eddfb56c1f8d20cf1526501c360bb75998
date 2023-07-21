@@ -16,6 +16,24 @@
       "message": "This is a WIP. I am trying to figure out:\n1. How to automatically force the page to refresh after the mtls session is intercepted and the cookie is injected.\n2. Currently I have a single bool which is tracking if this connection has been intercepted previously. If so, it does not attempt to intercept it again. Is there a better way to handle this? I wanted to check the cookies, but I couldn\u0027t figure out a good way to do that in crow.\n3. webui requires the username to be stored in local storage. To my knowledge, this is not something I can inject from bmcweb, so I believe this will require a change to webui?",
       "revId": "7a97f8eddfb56c1f8d20cf1526501c360bb75998",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a48cb51_b030adb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-21T23:51:12Z",
+      "side": 1,
+      "message": "If you would like to test these changes, this is my accompanying script to automatically generate all the required certs and handle uploading them to bmcweb: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65325",
+      "parentUuid": "e5723476_3d6ccc0b",
+      "revId": "7a97f8eddfb56c1f8d20cf1526501c360bb75998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
