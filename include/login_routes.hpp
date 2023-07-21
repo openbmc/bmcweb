@@ -18,7 +18,11 @@ namespace crow
 namespace login_routes
 {
 
-inline void afterAuthenticateUser(int pamrc)
+inline void
+    afterAuthenticateUser(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& username,
+                          const boost::asio::ip::address& ipAddress,
+                          bool looksLikePhosphorRest, int32_t pamrc)
 {
     bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
     if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
@@ -29,7 +33,7 @@ inline void afterAuthenticateUser(int pamrc)
     {
         auto session =
             persistent_data::SessionStore::getInstance().generateUserSession(
-                username, req.ipAddress, std::nullopt,
+                username, ipAddress, std::nullopt,
                 persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
 
         if (looksLikePhosphorRest)
@@ -198,8 +202,10 @@ inline void handleLogin(const crow::Request& req,
 
     if (!username.empty() && !password.empty())
     {
-        int pamrc = pamAuthenticateUser(username, password);
-        afterAuthenticateUser(pamrc);
+        std::function<void(int32_t)> callback = std::bind_front(
+            afterAuthenticateUser, asyncResp, std::string(username),
+            req.ipAddress, looksLikePhosphorRest);
+        pamAuthenticateUser(username, password, std::move(callback));
     }
     else
     {
