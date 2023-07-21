@@ -53,6 +53,18 @@ configure_file(input : 'bmcweb.service.in',
                configuration: conf_data,
                install : true)
 
+configure_file(input : 'pam_auth.socket.in',
+               output : 'pam_auth.socket',
+               install_dir: systemd_system_unit_dir,
+               configuration: conf_data,
+               install : true)
+
+configure_file(input : 'pam_auth.service.in',
+               output : 'pam_auth.service',
+               install_dir: systemd_system_unit_dir,
+               configuration: conf_data,
+               install : true)
+
 # Copy pam-webserver to etc/pam.d
 install_data(
   'pam-webserver',
