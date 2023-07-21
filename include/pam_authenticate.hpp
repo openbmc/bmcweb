@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "dbus_singleton.hpp"
 #include "logging.hpp"
 
 #include <security/_pam_types.h>
@@ -124,52 +125,27 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
  * @param password The provided password.
  * @param token The provided MFA token.
  * @returns PAM error code or PAM_SUCCESS for success. */
-inline int pamAuthenticateUser(std::string_view username,
-                               std::string_view password,
-                               std::optional<std::string> token)
+inline void pamAuthenticateUser(std::string_view username,
+                                std::string_view password,
+                                std::optional<std::string> /*token*/,
+                                std::function<void(int32_t)>&& callback)
 {
-    std::string userStr(username);
-    PasswordData data;
-    if (int ret = data.addPrompt("Password: ", password); ret != PAM_SUCCESS)
-    {
-        return ret;
-    }
-    if (token)
-    {
-        if (int ret = data.addPrompt("Verification code: ", *token);
-            ret != PAM_SUCCESS)
-        {
-            return ret;
-        }
-    }
-
-    const struct pam_conv localConversation = {pamFunctionConversation, &data};
-    pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
-
-    int retval = pam_start("webserver", userStr.c_str(), &localConversation,
-                           &localAuthHandle);
-    if (retval != PAM_SUCCESS)
-    {
-        return retval;
-    }
-
-    retval = pam_authenticate(localAuthHandle,
-                              PAM_SILENT | PAM_DISALLOW_NULL_AUTHTOK);
-    if (retval != PAM_SUCCESS)
-    {
-        pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
-        return retval;
-    }
-
-    /* check that the account is healthy */
-    retval = pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK);
-    if (retval != PAM_SUCCESS)
-    {
-        pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
-        return retval;
-    }
-
-    return pam_end(localAuthHandle, PAM_SUCCESS);
+    BMCWEB_LOG_DEBUG("Calling pam Authenticate");
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code& ec,
+                                        int32_t pamrc) mutable {
+            if (ec)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to call authenticate daemon");
+                callback(-1);
+                return;
+            }
+            callback(pamrc);
+        },
+        "xyz.openbmc_project.Authentication",
+        "/xyz/openbmc_project/authentication",
+        "xyz.openbmc_project.Authentication", "Authenticate", username,
+        password);
 }
 
 inline int pamUpdatePassword(const std::string& username,

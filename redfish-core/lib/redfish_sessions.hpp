@@ -227,6 +227,46 @@ inline void processAfterSessionCreation(
     });
 }
 
+inline void afterPamAuthenticateUser(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const std::optional<std::string>& clientId,
+    const boost::asio::ip::address& ipAddress, int pamrc)
+{
+    bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+    if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
+    {
+        messages::resourceAtUriUnauthorized(asyncResp->res,
+                                            boost::urls::url(""),
+                                            "Invalid username or password");
+        return;
+    }
+
+    // User is authenticated - create session
+    std::shared_ptr<persistent_data::UserSession> session =
+        persistent_data::SessionStore::getInstance().generateUserSession(
+            username, ipAddress, clientId,
+            persistent_data::SessionType::Session, isConfigureSelfOnly);
+    if (session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    asyncResp->res.addHeader(
+        "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
+    asyncResp->res.result(boost::beast::http::status::created);
+    if (session->isConfigureSelfOnly)
+    {
+        messages::passwordChangeRequired(
+            asyncResp->res,
+            boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
+                                session->username));
+    }
+
+    fillSessionObject(asyncResp->res, *session);
+}
+
 inline void handleSessionCollectionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -264,27 +304,10 @@ inline void handleSessionCollectionPost(
 
         return;
     }
-
-    int pamrc = pamAuthenticateUser(username, password, token);
-    bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
-    if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
-    {
-        messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
-                                            "Invalid username or password");
-        return;
-    }
-
-    // User is authenticated - create session
-    std::shared_ptr<persistent_data::UserSession> session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, req.ipAddress, clientId,
-            persistent_data::SessionType::Session, isConfigureSelfOnly);
-    if (session == nullptr)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    processAfterSessionCreation(asyncResp, req, username, session);
+    std::function<void(int32_t)> callback =
+        std::bind_front(afterPamAuthenticateUser, asyncResp,
+                        std::string(username), clientId, req.ipAddress);
+    pamAuthenticateUser(username, password, token, std::move(callback));
 }
 
 inline void handleSessionServiceHead(

@@ -12,6 +12,7 @@ User=@BMCWEB_USER@
 Group=@BMCWEB_GROUP@
 DynamicUser=@BMCWEB_DYNAMICUSER@
 StateDirectory=@BMCWEB_STATE_DIRECTORY@
+Wants=pam_auth.service
 WorkingDirectory=@BMCWEB_WORKING_DIRECTORY@
 
 # bmcweb currently uses /tmp as a mechanism to share files.
