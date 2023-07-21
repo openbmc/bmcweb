@@ -70,6 +70,24 @@
       "parentUuid": "ef09014e_e839126c",
       "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5c2f26f_3fed78a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-21T17:15:56Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/ documents interfaces, associations, and some paths.\nsensors path at https://github.com/openbmc/phosphor-dbus-interfaces/blob/d1484a1499bc241316853934e6e8b735166deee2/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L6 \ninventory paths at https://github.com/openbmc/phosphor-dbus-interfaces/blob/d1484a1499bc241316853934e6e8b735166deee2/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml#L7 and in other repos like https://github.com/openbmc/docs/blob/0666ef8a4a4d54f0848994d69a623e7145dbc36d/host-management.md?plain\u003d1#L21\n\nIs this a control path https://github.com/openbmc/phosphor-dbus-interfaces/blob/d1484a1499bc241316853934e6e8b735166deee2/requirements.md?plain\u003d1#L77 should it be under xyz/openbmc_project/control/intrusion ?\nShould it be under inventory xyz/openbmc_project/inventory/chassis/intrusion ?\n\n/xyz/openbmc_project/Chassis/Intrusion feels to violate the paths above. 1) chassis shouldn\u0027t be under /xyz/openbmc_project directly and 2) lower case for paths is what I see other places. \n\nPlease add more to your commit msg about this.",
+      "parentUuid": "996fc463_b9530f85",
+      "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
