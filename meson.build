@@ -377,6 +377,19 @@ executable(
   install_dir:bindir
 )
 
+# Generate the bmcweb_auth executable
+executable(
+  'pam_auth',
+  'src/pam_main.cpp',
+  'src/boost_asio.cpp',
+  include_directories : incdir,
+  dependencies: bmcweb_dependencies,
+  link_with: bmcweblib,
+  link_args: '-Wl,--gc-sections',
+  install: true,
+  install_dir:bindir
+)
+
 srcfiles_unittest = files(
   'test/http/crow_getroutes_test.cpp',
   'test/http/router_test.cpp',

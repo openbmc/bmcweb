@@ -4,6 +4,7 @@ Description=BMC Webserver socket
 [Socket]
 ListenStream=@HTTPS_PORT@
 ReusePort=true
+Wants=pam_auth.service
 
 [Install]
 WantedBy=sockets.target
