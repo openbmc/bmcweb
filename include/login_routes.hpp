@@ -18,6 +18,31 @@ namespace crow
 namespace login_routes
 {
 
+inline void
+    afterAuthenticateUser(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          std::string_view username,
+                          const boost::asio::ip::address& ipAddress,
+                          int32_t pamrc)
+{
+    bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+    if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
+    {
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+    }
+    else
+    {
+        auto session =
+            persistent_data::SessionStore::getInstance().generateUserSession(
+                username, ipAddress, std::nullopt,
+                persistent_data::SessionType::Session, isConfigureSelfOnly);
+
+        bmcweb::setSessionCookies(asyncResp->res, *session);
+
+        // if content type is json, assume json token
+        asyncResp->res.jsonValue["token"] = session->sessionToken;
+    }
+}
+
 inline void handleLogin(const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -151,33 +176,16 @@ inline void handleLogin(const crow::Request& req,
         password = req.getHeaderValue("password");
     }
 
-    if (!username.empty() && !password.empty())
-    {
-        int pamrc = pamAuthenticateUser(username, password);
-        bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
-        if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
-        {
-            asyncResp->res.result(boost::beast::http::status::unauthorized);
-        }
-        else
-        {
-            auto session =
-                persistent_data::SessionStore::getInstance()
-                    .generateUserSession(username, req.ipAddress, std::nullopt,
-                                         persistent_data::SessionType::Session,
-                                         isConfigureSelfOnly);
-
-            bmcweb::setSessionCookies(asyncResp->res, *session);
-
-            // if content type is json, assume json token
-            asyncResp->res.jsonValue["token"] = session->sessionToken;
-        }
-    }
-    else
+    if (username.empty() || password.empty())
     {
         BMCWEB_LOG_DEBUG("Couldn't interpret password");
         asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
     }
+
+    std::function<void(int32_t)> callback = std::bind_front(
+        afterAuthenticateUser, asyncResp, std::string(username), req.ipAddress);
+    pamAuthenticateUser(username, password, std::move(callback));
 }
 
 inline void handleLogout(const crow::Request& req,
