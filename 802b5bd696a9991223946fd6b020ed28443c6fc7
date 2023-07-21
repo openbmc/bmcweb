@@ -52,6 +52,24 @@
       "parentUuid": "3b7063c2_f753e792",
       "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996fc463_b9530f85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-21T16:08:15Z",
+      "side": 1,
+      "message": "I had a patch merged a while ago (https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/61433) which changes the object path, but have not discussed with PDI maintainers yet. However, Redfish currently fails to query PhysicalSecurity data because of the change.",
+      "parentUuid": "ef09014e_e839126c",
+      "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
