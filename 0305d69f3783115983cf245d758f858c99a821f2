@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f7675f_0da3d577",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "There\u0027s only one problem I see that NEEDS to be fixed (Using a Requests Session object to avoid DOSing the BMC with TLS requests).  Everything else we can treat as incremental improvement.",
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0398db5e_33191766",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "Would\u0027ve liked to see this use redfish python api rather than urllib directly.\n\nThat can be a future improvement.",
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7897c8aa_3509415d",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "Can we avoid this being a global?\n\nI\u0027m fine with it as-is if it\u0027s difficult.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21f0fb80_79dee6e0",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "We should generate EC keys by default.\n\ncan be a future improvement.",
+      "range": {
+        "startLine": 26,
+        "startChar": 28,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b28079_bccd0a37",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "This needs to be using a Session object, otherwise it will spin up a new TLS connection per request.",
+      "range": {
+        "startLine": 197,
+        "startChar": 15,
+        "endLine": 197,
+        "endChar": 23
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0177579_afa60822",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "You do this pattern a lot, you probably want r.raise_for_status() in most cases.\n\nCan be a future improvement.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 9
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9036dcc_76104510",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:33:06Z",
+      "side": 1,
+      "message": "weird text wrapping here.  Maybe you don\u0027t need multiline?\n\nnot that important.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
