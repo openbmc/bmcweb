@@ -88,6 +88,24 @@
       "parentUuid": "996fc463_b9530f85",
       "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba494edf_42897652",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-24T05:52:50Z",
+      "side": 1,
+      "message": "Thanks for your helpful info. I have modified the commit msg to make this patch independent with the object path. Here are some of my arguments with flaw, please help correct my understanding and suggest a better one if required.\n\n\u003e Is this a control path https://github.com/openbmc/phosphor-dbus-\n\u003e interfaces/blob/d1484a1499bc241316853934e6e8b735166deee2/requirements.md\n\u003e plain\u003d1#L77 should it be under xyz/openbmc_project/control/intrusion ?\n\nNo, because it doesn\u0027t control anything but an indication of the chassis\u0027s intrusion status. Although Status property under it\u0027s interface can be written to via Redfish, the action is just to manually rearm the intrusion status (if the Rearm property is Manual)\n\nIt shouldn\u0027t be under /xyz/openbmc_project/sensors/, because it\u0027s not a sensor like any others, it neither functions against thresholds nor implements Sensor.Value interface as https://github.com/openbmc/phosphor-dbus-interfaces/blob/d1484a1499bc241316853934e6e8b735166deee2/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L2C44-L3C63 says.\n\n\u003e Should it be under inventory xyz/openbmc_project/inventory/chassis/intrusion ?\n\nI don\u0027t have a valid base to argue this, but it\u0027s implemented in dbus-sensors service intrusionsensor anyway, putting the path under inventory/ hierarchy seems to be a bit strange to me. But I think it can be associated to chassis at the Endpoint of /xyz/openbmc_project/inventory/system/chassis/\u003csome_association_name\u003e\n\n\u003e /xyz/openbmc_project/Chassis/Intrusion feels to violate the paths above. 1)\n\u003e chassis shouldn\u0027t be under /xyz/openbmc_project directly and 2) lower case for\n\u003e paths is what I see other places.\n\nIn the beginning, I saw some places using object paths like \"/xyz/openbmc_project/Chassis/Buttons/Power0\" (https://github.com/openbmc/phosphor-host-ipmid/blob/4e02b431f1cf316c12eec1cc085ba105d3c48b33/chassishandler.cpp#L115), \"/xyz/openbmc_project/Chassis/Control/NMISource\" (https://github.com/openbmc/phosphor-host-ipmid/blob/4e02b431f1cf316c12eec1cc085ba105d3c48b33/chassishandler.cpp#L890), \"/xyz/openbmc_project/Chassis/Buttons/Reset0\"(https://github.com/openbmc/phosphor-buttons/blob/9456ffc9f21c92f890266be54a151bf59b413411/meson.build#L16), and the interfaces implemented in these object paths are placed under the xyz/openbmc_project/Chassis folder in PDI like where the \"xyz.openbmc_project.Chassis.Intrusion\" is placed. I could be blunt, but are these paths special cases?",
+      "parentUuid": "e5c2f26f_3fed78a6",
+      "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
