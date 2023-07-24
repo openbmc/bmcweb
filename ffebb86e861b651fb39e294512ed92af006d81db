@@ -16,6 +16,52 @@
       "message": "Still waiting on https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63124",
       "revId": "ffebb86e861b651fb39e294512ed92af006d81db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c0eeb85_c5d346d4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:42:40Z",
+      "side": 1,
+      "message": "Please change these variables to \"dnsV4Enabled\" to differentiate from v6.",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "ffebb86e861b651fb39e294512ed92af006d81db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90ff729_7adf99b0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-24T19:42:40Z",
+      "side": 1,
+      "message": "NTP is a global setting, outside of DHCP.  Why are we enabling NTP on a DHCP V4/V6 basis?",
+      "range": {
+        "startLine": 1245,
+        "startChar": 0,
+        "endLine": 1245,
+        "endChar": 72
+      },
+      "revId": "ffebb86e861b651fb39e294512ed92af006d81db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
