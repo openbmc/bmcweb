@@ -192,7 +192,7 @@ inline void doSubscriptionCollection(
 {
     if (ec)
     {
-        if (ec.value() == EBADR)
+        if (ec.value() == EBADR || ec.value() == EHOSTUNREACH)
         {
             // This is an optional process so just return if it isn't there
             return;
