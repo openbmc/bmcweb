@@ -510,7 +510,7 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
 
     port = setPortDefaults(url.value());
 
-    host = url->encoded_host();
+    host = url->encoded_host_address();
 
     path = url->encoded_path();
     if (path.empty())
