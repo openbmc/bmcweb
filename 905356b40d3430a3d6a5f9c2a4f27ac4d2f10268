@@ -16,6 +16,144 @@
       "message": "Missing testing.",
       "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99978a6_4a0d726e",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-25T19:11:43Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1609520d_4a0eed53",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-25T19:11:43Z",
+      "side": 1,
+      "message": "please don\u0027t use auto in this context.  It obfuscates intent.\n\nIn this case, it also duplicates quite a bit of non-trivial code.  I suspect you want to roll out the lambda into it method so it doesn\u0027t get duplicated.",
+      "range": {
+        "startLine": 521,
+        "startChar": 21,
+        "endLine": 521,
+        "endChar": 25
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5dc041c_73a85662",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-25T19:11:43Z",
+      "side": 1,
+      "message": "This throws exceptions, which is why it was replaced a while ago.  Why was it added back?",
+      "range": {
+        "startLine": 566,
+        "startChar": 0,
+        "endLine": 566,
+        "endChar": 32
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12f2f05_a4a0389d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-25T19:11:43Z",
+      "side": 1,
+      "message": "Please don\u0027t do this.  Doing so causes you to not handle errors at all.\n\nAlso, variants can only throw in the case of unfilled-by-exception, which we should never see.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a301dd8_08a1633f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-25T19:11:43Z",
+      "side": 1,
+      "message": "THere\u0027s no needs to do BOTH holds_alternative and std::visit.  I\u0027m having a little trouble even understanding what this function is doing.  Can you help me understand here?",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 74
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35621684_89b22214",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-25T19:11:43Z",
+      "side": 1,
+      "message": "std::get throws.  Please use the result of the emplace() call as your return.",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
