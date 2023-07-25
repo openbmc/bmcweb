@@ -862,7 +862,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         }
         else if (argCode.starts_with("(") && argCode.ends_with(")"))
         {
-            std::string containedType = argCode.substr(1, argCode.size() - 1);
+            std::string containedType = argCode.substr(1, argCode.size() - 2);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_STRUCT,
                                               containedType.c_str());
             if (r < 0)
@@ -871,7 +871,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
 
             nlohmann::json::const_iterator it = j->begin();
-            for (const std::string& argCode2 : dbusArgSplit(argType))
+            for (const std::string& argCode2 : dbusArgSplit(containedType))
             {
                 if (it == j->end())
                 {
@@ -888,7 +888,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
         }
         else if (argCode.starts_with("{") && argCode.ends_with("}"))
         {
-            std::string containedType = argCode.substr(1, argCode.size() - 1);
+            std::string containedType = argCode.substr(1, argCode.size() - 2);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_DICT_ENTRY,
                                               containedType.c_str());
             if (r < 0)
