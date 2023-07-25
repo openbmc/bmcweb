@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e14249bd_04b7c348",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-25T01:12:10Z",
+      "side": 1,
+      "message": "urllib isn\u0027t required, I simply imported it to silence a warning being sent every time an HTTPS request was sent to the BMC when using a self-signed cert. I am currently implementing the use of the redfish library (I did not think to look for the existence of this library before). However, the final request will still need to be made using the requests library since Redfish lacks support for modern authentication methods.",
+      "parentUuid": "0398db5e_33191766",
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7897c8aa_3509415d",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 6
@@ -60,6 +78,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "80bfdbdb_6d16c3a1",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-25T01:12:10Z",
+      "side": 1,
+      "message": "I have moved it into main() which sends the serial to the functions which generate the certs.",
+      "parentUuid": "7897c8aa_3509415d",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "21f0fb80_79dee6e0",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 6
@@ -71,6 +113,30 @@
       "writtenOn": "2023-07-24T19:33:06Z",
       "side": 1,
       "message": "We should generate EC keys by default.\n\ncan be a future improvement.",
+      "range": {
+        "startLine": 26,
+        "startChar": 28,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09cca6cd_0aabffb4",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-25T01:12:10Z",
+      "side": 1,
+      "message": "I looked into this and pyOpenSSL does not support EC keys unfortunately. It looks like the cryptography library is the best for this. Given the need to replace the entire pyOpenSSL library with the cryptography library for this change, I agree with future improvement.",
+      "parentUuid": "21f0fb80_79dee6e0",
       "range": {
         "startLine": 26,
         "startChar": 28,
@@ -106,6 +172,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "481b6862_94d889d7",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-25T01:12:10Z",
+      "side": 1,
+      "message": "Now that I am using the redfish library to make these requests, all the requests are made through the same session except for the final test request since the redfish library does not support TLS authentication.",
+      "parentUuid": "76b28079_bccd0a37",
+      "range": {
+        "startLine": 197,
+        "startChar": 15,
+        "endLine": 197,
+        "endChar": 23
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f0177579_afa60822",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 6
@@ -129,6 +219,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8b04b75a_15ced1da",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-25T01:12:10Z",
+      "side": 1,
+      "message": "I made this fix, but then I replaced these requests with the redfish library. The documentation on the redfish library seems rather sparse unfortunately, but from what I was able to find, I could not find a similar function to raise_for_status().",
+      "parentUuid": "f0177579_afa60822",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 9
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e9036dcc_76104510",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 6
@@ -140,6 +254,30 @@
       "writtenOn": "2023-07-24T19:33:06Z",
       "side": 1,
       "message": "weird text wrapping here.  Maybe you don\u0027t need multiline?\n\nnot that important.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "0305d69f3783115983cf245d758f858c99a821f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaafb24b_322c9b60",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2023-07-25T01:12:10Z",
+      "side": 1,
+      "message": "Removed that wrap. I had manually fixed the line before running a formatter which resulted in some strange wrapping.",
+      "parentUuid": "e9036dcc_76104510",
       "range": {
         "startLine": 277,
         "startChar": 0,
