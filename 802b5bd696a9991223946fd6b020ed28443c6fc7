@@ -106,6 +106,24 @@
       "parentUuid": "e5c2f26f_3fed78a6",
       "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32182770_8b615399",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-25T23:15:20Z",
+      "side": 1,
+      "message": "Some of this in the commit msg would help here. \n\n\u003e In the beginning, I saw some places using object paths like \"/xyz/openbmc_project/Chassis/Buttons/Power0\" (https://github.com/openbmc/phosphor-host-ipmid/blob/4e02b431f1cf316c12eec1cc085ba105d3c48b33/chassishandler.cpp#L115), \"/xyz/openbmc_project/Chassis/Control/NMISource\" (https://github.com/openbmc/phosphor-host-ipmid/blob/4e02b431f1cf316c12eec1cc085ba105d3c48b33/chassishandler.cpp#L890), \"/xyz/openbmc_project/Chassis/Buttons/Reset0\"(https://github.com/openbmc/phosphor-buttons/blob/9456ffc9f21c92f890266be54a151bf59b413411/meson.build#L16), and the interfaces implemented in these object paths are placed under the xyz/openbmc_project/Chassis folder in PDI like where the \"xyz.openbmc_project.Chassis.Intrusion\" is placed. I could be blunt, but are these paths special cases?\n\nI think these paths are wrong. Instead of /xyz/openbmc_project/Chassis/Control/NMISource, something more like /xyz/openbmc_project/control/chassis/nmisource but I think those are beyond the scope of this change",
+      "parentUuid": "ba494edf_42897652",
+      "revId": "802b5bd696a9991223946fd6b020ed28443c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
