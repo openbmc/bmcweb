@@ -16,6 +16,24 @@
       "message": "Hi, \nAssuming you were added to a CCLA, could you have your companies admin add you to the approved CI group so you don\u0027t get a \"User not approved, see admin, no CI\"? I did not see your name on a Individual CLA",
       "revId": "98073481b6ad77ad7c389342e41c27b2be04c662",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb5fd9ea_5a5ef127",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001853
+      },
+      "writtenOn": "2023-07-25T16:23:18Z",
+      "side": 1,
+      "message": "Done. Just sent a signed Individual CLA.",
+      "parentUuid": "edde20a8_b852a81e",
+      "revId": "98073481b6ad77ad7c389342e41c27b2be04c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
