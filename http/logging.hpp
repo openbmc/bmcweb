@@ -121,31 +121,24 @@ namespace crow
 enum class LogLevel
 {
     Disabled = 0,
-    Debug,
-    Info,
-    Warning,
-    Error,
     Critical,
+    Error,
+    Warning,
+    Info,
+    Debug,
+    Enabled,
 };
 
 // Mapping of the external loglvl name to internal loglvl
-constexpr std::array<std::pair<std::string_view, crow::LogLevel>, 7>
-    mapLogLevelFromName{{{"disabled", crow::LogLevel::Disabled},
-                         {"enabled", crow::LogLevel::Debug},
-                         {"debug", crow::LogLevel::Debug},
-                         {"info", crow::LogLevel::Info},
-                         {"warning", crow::LogLevel::Warning},
-                         {"error", crow::LogLevel::Error},
-                         {"critical", crow::LogLevel::Critical}}};
+constexpr std::array<std::string_view, 7> mapLogLevelFromName{
+    "DISABLED", "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "ENABLED"};
 
 constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
 {
-    const auto* iter =
-        std::find_if(begin(mapLogLevelFromName), end(mapLogLevelFromName),
-                     [&name](const auto& v) { return v.first == name; });
-    if (iter != end(mapLogLevelFromName))
+    const auto* iter = std::ranges::find(mapLogLevelFromName, name);
+    if (iter != mapLogLevelFromName.end())
     {
-        return iter->second;
+        return static_cast<LogLevel>(iter - mapLogLevelFromName.begin());
     }
     return crow::LogLevel::Disabled;
 }
@@ -178,24 +171,19 @@ const void* logPtr(T p)
 template <LogLevel level>
 inline void vlog(const FormatString& format, std::format_args&& args)
 {
-    if constexpr (bmcwebCurrentLoggingLevel > level)
+    if constexpr (bmcwebCurrentLoggingLevel <= level)
     {
         return;
     }
     constexpr size_t stringIndex = static_cast<size_t>(level);
     static_assert(stringIndex < mapLogLevelFromName.size(),
                   "Missing string for level");
-    constexpr std::string_view levelString =
-        mapLogLevelFromName[stringIndex].first;
+    constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
     std::string_view filename = format.loc.file_name();
-    if (filename.starts_with("../"))
-    {
-        filename = filename.substr(3);
-    }
+    filename = filename.substr(filename.rfind('/') + 1);
     std::cout << std::format("[{} {}:{}] ", levelString, filename,
-                             format.loc.line());
-    std::cout << std::vformat(format.str, args);
-    std::putc('\n', stdout);
+                             format.loc.line())
+              << std::vformat(format.str, args) << '\n';
 }
 } // namespace crow
 

@@ -27,6 +27,7 @@ if get_option('buildtype').startswith('debug') and loglvlopt == 'disabled'
    # Override logging level as 'debug' if 'bmcweb-logging' is set as 'dsiabled'
    loglvlopt = 'debug'
 endif
+loglvlopt = loglvlopt.to_upper()
 conf_data.set('BMCWEB_LOGGING_LEVEL', loglvlopt)
 
 conf_h_dep = declare_dependency(
