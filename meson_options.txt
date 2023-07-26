@@ -212,7 +212,7 @@ option(
 option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable/disable the new PowerSubsystem, ThermalSubsystem,
                     and all children schemas. This includes displaying all
                     sensors in the SensorCollection. At a later date, this
