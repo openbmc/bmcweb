@@ -16,6 +16,24 @@
       "message": "This seems to have a bunch of reviews.  Is anyone else interested in testing this, or can it merge?",
       "revId": "cc09ad1f782cfcb68116c5dd4c53c2124f2f59bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87015b7_07a96b61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-26T10:54:09Z",
+      "side": 1,
+      "message": "Discussed with Prashanth today, I have shared openbmc build with this commit.\nPrashanth started running automation tests, soon will get test results\nlets wait for a day",
+      "parentUuid": "eebaddf8_773c13c5",
+      "revId": "cc09ad1f782cfcb68116c5dd4c53c2124f2f59bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
