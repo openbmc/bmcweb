@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fbd48d7_644ab4d5",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-26T07:59:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b99978a6_4a0d726e",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1609520d_4a0eed53",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34d5c129_9bef9f0c",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-26T07:59:06Z",
+      "side": 1,
+      "message": "auto was needed because it is a generic function that should work for both file and string body. I moved the common code that does not depend on parameter out of the function. Now I believe less code will be generated",
+      "parentUuid": "1609520d_4a0eed53",
+      "range": {
+        "startLine": 521,
+        "startChar": 21,
+        "endLine": 521,
+        "endChar": 25
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5dc041c_73a85662",
         "filename": "http/http_connection.hpp",
         "patchSetId": 25
@@ -77,6 +125,30 @@
       "writtenOn": "2023-07-25T19:11:43Z",
       "side": 1,
       "message": "This throws exceptions, which is why it was replaced a while ago.  Why was it added back?",
+      "range": {
+        "startLine": 566,
+        "startChar": 0,
+        "endLine": 566,
+        "endChar": 32
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c213488_4c69ab43",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-26T07:59:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b5dc041c_73a85662",
       "range": {
         "startLine": 566,
         "startChar": 0,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3629eb93_497abf45",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-26T07:59:06Z",
+      "side": 1,
+      "message": "This was done to fix the clang-tidy error. Move and visit are called from no-except functions. Yes, in our case variant will always hold some value. That is why the catch is empty. But clang-tidy will show it as Error if don\u0027t catch possible exceptions. This wrapper works as exception-safe version of std::visit. The wrapper added to avoid ugly try-catch everywhere std::visit is performed.",
+      "parentUuid": "f12f2f05_a4a0389d",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a301dd8_08a1633f",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07942e55_5d94a946",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-26T07:59:06Z",
+      "side": 1,
+      "message": "This code does the body migration (string-body to file-body or file-body to string-body).\nUse Case;\n1) current response type is string-body\n2) user updates some header fields of the response\n3) Then the user tries to open a file\n4) The body should be migrated to file-body\n5) Before setting the file-body to variant, we need to copy all headers from string-body to the new file-body\n\nThe same code work for file-body to string-body migration as well.\n\nThe hold_alternative check prevents migration from file-body to file-body, or string-body to string-body. Similar to how we avoid self-assignment in \"\u003d\" operator overloading.",
+      "parentUuid": "2a301dd8_08a1633f",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 74
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35621684_89b22214",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -146,6 +266,30 @@
       "writtenOn": "2023-07-25T19:11:43Z",
       "side": 1,
       "message": "std::get throws.  Please use the result of the emplace() call as your return.",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0eb016_0ec1b1d5",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-07-26T07:59:06Z",
+      "side": 1,
+      "message": "we are making sure that the variant will have proper value at updateAlternative function. Should we still use get_if here?",
+      "parentUuid": "35621684_89b22214",
       "range": {
         "startLine": 205,
         "startChar": 15,
