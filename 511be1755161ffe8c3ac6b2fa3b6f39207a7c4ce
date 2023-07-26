@@ -522,6 +522,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72386f15_60fc6f73",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-07-26T04:13:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30c3e73f_2a46ca2a",
+      "range": {
+        "startLine": 195,
+        "startChar": 21,
+        "endLine": 195,
+        "endChar": 24
+      },
+      "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "177a5275_8a02c6a7",
@@ -559,6 +583,30 @@
       "side": 1,
       "message": "yes. I understand your point, but I could not find other way to do this.\n\nuser manager store user role for all local users (dbus object)\nbut for LDAP users  User-manager doesn\u0027t store user role for each user(user role stored for ldap group)\nand as part of GetUserInfo D-bus call gets role of particular LDAP user.\nthis code is to update cache with particular ldap user role.",
       "parentUuid": "177a5275_8a02c6a7",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 74
+      },
+      "revId": "511be1755161ffe8c3ac6b2fa3b6f39207a7c4ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87f9752a_cb84d1b4",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-07-26T04:13:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c080c81f_69cf505e",
       "range": {
         "startLine": 223,
         "startChar": 0,
