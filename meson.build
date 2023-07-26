@@ -306,7 +306,7 @@ if not nlohmann_json.found()
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.82.0', required : false, include_type: 'system')
+boost = dependency('boost',version : '>=1.82.0', required : false, include_type: 'system', modules: ['coroutine'])
 if not boost.found()
   boost = subproject('boost', required: true).get_variable('boost_dep')
   boost = boost.as_system('system')

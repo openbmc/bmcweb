@@ -463,6 +463,10 @@ inline std::string setProtocolDefaults(boost::urls::url_view urlView)
     {
         return "snmp";
     }
+    if (urlView.scheme() == "syslog")
+    {
+        return "syslog";
+    }
     return "";
 }
 
@@ -488,6 +492,10 @@ inline uint16_t setPortDefaults(boost::urls::url_view url)
     if (url.scheme() == "snmp")
     {
         return 162;
+    }
+    if (url.scheme() == "syslog")
+    {
+        return 514;
     }
     return 0;
 }

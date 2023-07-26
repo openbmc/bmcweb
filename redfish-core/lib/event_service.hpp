@@ -21,6 +21,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "snmp_trap_event_clients.hpp"
+#include "syslog_event_subscribers.hpp"
 
 #include <boost/beast/http/fields.hpp>
 #include <boost/system/error_code.hpp>
@@ -249,6 +250,9 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 "/redfish/v1/EventService/Subscriptions/{}" + id);
             memberArray.emplace_back(std::move(member));
         }
+
+        syslog::collectSyslogSubscriptions(asyncResp);
+
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::ManagedObjectType& resp) {
@@ -285,6 +289,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         std::optional<std::vector<std::string>> resTypes;
         std::optional<std::vector<nlohmann::json>> headers;
         std::optional<std::vector<nlohmann::json>> mrdJsonArray;
+        std::optional<std::vector<nlohmann::json>> syslogFilters;
 
         if (!json_util::readJsonPatch(
                 req, asyncResp->res, "Destination", destUrl, "Context", context,
@@ -292,7 +297,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 "EventFormatType", eventFormatType2, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
-                mrdJsonArray, "ResourceTypes", resTypes))
+                mrdJsonArray, "ResourceTypes", resTypes, "SyslogFilters",
+                syslogFilters))
         {
             return;
         }
@@ -397,26 +403,36 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (subscriptionType)
         {
-            if (*subscriptionType != "RedfishEvent")
+            if (*subscriptionType != "RedfishEvent" &&
+                *subscriptionType != "Syslog")
             {
                 messages::propertyValueNotInList(
                     asyncResp->res, *subscriptionType, "SubscriptionType");
                 return;
             }
-            subValue->subscriptionType = *subscriptionType;
         }
         else
         {
-            subValue->subscriptionType = "RedfishEvent"; // Default
+            subscriptionType = "RedfishEvent"; // Default
         }
+        subValue->subscriptionType = *subscriptionType;
 
-        if (protocol != "Redfish")
+        if (protocol != "Redfish" &&
+            protocol != "SyslogTLS" && protocol != "SyslogTCP" &&
+            protocol != "SyslogUDP" && protocol != "SyslogRELP")
         {
             messages::propertyValueNotInList(asyncResp->res, protocol,
                                              "Protocol");
             return;
         }
         subValue->protocol = protocol;
+
+        if (*subscriptionType == "Syslog")
+        {
+            syslog::addSyslogSubscription(asyncResp, urlProto, host, port,
+                                          protocol, syslogFilters);
+            return;
+        }
 
         if (eventFormatType2)
         {
@@ -632,6 +648,12 @@ inline void requestRoutesEventDestination(App& app)
             return;
         }
 
+        if (param.starts_with("syslog"))
+        {
+            syslog::getSyslogSubscription(asyncResp, param);
+            return;
+        }
+
         std::shared_ptr<Subscription> subValue =
             EventServiceManager::getInstance().getSubscription(param);
         if (subValue == nullptr)
@@ -642,7 +664,7 @@ inline void requestRoutesEventDestination(App& app)
         const std::string& id = param;
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#EventDestination.v1_8_0.EventDestination";
+            "#EventDestination.v1_9_0.EventDestination";
         asyncResp->res.jsonValue["Protocol"] = "Redfish";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/EventService/Subscriptions/" + id;
@@ -764,6 +786,12 @@ inline void requestRoutesEventDestination(App& app)
         {
             deleteSnmpTrapClient(asyncResp, param);
             EventServiceManager::getInstance().deleteSubscription(param);
+            return;
+        }
+
+        if (param.starts_with("syslog"))
+        {
+            syslog::deleteSyslogSubscription(asyncResp, param);
             return;
         }
 
