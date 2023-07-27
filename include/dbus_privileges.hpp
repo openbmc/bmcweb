@@ -40,6 +40,11 @@ inline bool
         return false;
     }
 
+    if (req.session == nullptr)
+    {
+        return false;
+    }
+
     if (userRolePtr != nullptr)
     {
         req.session->userRole = *userRolePtr;
@@ -93,6 +98,10 @@ inline bool
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      BaseRule& rule)
 {
+    if (req.session == nullptr)
+    {
+        return false;
+    }
     // Get the user's privileges from the role
     redfish::Privileges userPrivileges =
         redfish::getUserPrivileges(*req.session);
