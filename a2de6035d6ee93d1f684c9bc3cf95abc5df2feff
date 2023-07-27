@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25394356_6dbb508a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T17:06:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acb3ca08_04e8d889",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32d78872_b2a87bb6",
@@ -172,6 +196,30 @@
       "side": 1,
       "message": "After some thought I am not sure about removing the class entirely and moving to functions as having 3 extra arguments for each call would make the call context even bigger (see line #864). If it\u0027s still prefered way we can do this.",
       "parentUuid": "4ed7f7ba_570cd9d4",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37c6f9d6_ade6244b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T17:06:42Z",
+      "side": 1,
+      "message": "Line 864 should realistically be a real function now, and passed the context.\n\nI would really like to avoid the class if we can because that kind of code on line 864 is very difficult to review.  It\u0027s calling 10 methods in a single branch.",
+      "parentUuid": "6267a55b_4e2b8c64",
       "range": {
         "startLine": 204,
         "startChar": 0,
