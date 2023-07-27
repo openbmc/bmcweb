@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e786b20b_74c07c0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T17:36:59Z",
+      "side": 1,
+      "message": "Code looks ok from a bmcweb perspective.  Lets get the naming nailed down in phosphor cert manager, then I\u0027m fine here.",
+      "revId": "7a01b8017a72b74e5867c21c3ebd6e7eac671d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae6a4e1_4ff6cb50",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T17:36:59Z",
+      "side": 1,
+      "message": "was the name \"general\" discussed anywhere?  It seems problematic. Maybe something like \"root\" to denote what it is?\n\nIf it\u0027s already been discussed, I\u0027m fine with it.",
+      "range": {
+        "startLine": 45,
+        "startChar": 42,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "7a01b8017a72b74e5867c21c3ebd6e7eac671d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
