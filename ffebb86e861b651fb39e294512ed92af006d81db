@@ -134,6 +134,30 @@
       },
       "revId": "ffebb86e861b651fb39e294512ed92af006d81db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d35524db_17ec5dc7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-07-27T07:50:02Z",
+      "side": 1,
+      "message": "Yes. Dynamic NTP servers will be assigned onto the interface based on this flag. \n\nIf v4 is enabled, the DHCPv4 server supplied NTP servers will be applied, and If v6 is enabled, the IPv6 router -or- DHCPv6 server supplied NTP servers will be applied.\nPS: Both can co-exist on a single interface.",
+      "parentUuid": "0c873bf6_e365b9c7",
+      "range": {
+        "startLine": 1245,
+        "startChar": 0,
+        "endLine": 1245,
+        "endChar": 72
+      },
+      "revId": "ffebb86e861b651fb39e294512ed92af006d81db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
