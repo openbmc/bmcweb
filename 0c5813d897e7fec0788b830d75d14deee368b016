@@ -33,6 +33,24 @@
       "message": "```\n+    if (req.session \u003d\u003d nullptr)\n+    {\n```",
       "revId": "0c5813d897e7fec0788b830d75d14deee368b016",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42670ab_5ab4fd02",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-27T20:34:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3240c1c1_4e4cf9c5",
+      "revId": "0c5813d897e7fec0788b830d75d14deee368b016",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
