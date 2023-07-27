@@ -34,6 +34,144 @@
       "parentUuid": "668e402f_8ec55b8e",
       "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a43544e3_cb8efd3e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T18:19:05Z",
+      "side": 1,
+      "message": "Common error.  Please read and understand COMMON_ERRORS.md.  Dbus paths cannot be constructed from user-defined parameters without being escaped.",
+      "range": {
+        "startLine": 374,
+        "startChar": 15,
+        "endLine": 374,
+        "endChar": 71
+      },
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81958f5e_563c237a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T18:19:05Z",
+      "side": 1,
+      "message": "Common error.",
+      "range": {
+        "startLine": 412,
+        "startChar": 17,
+        "endLine": 412,
+        "endChar": 71
+      },
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61183e06_2d02fd9c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T18:19:05Z",
+      "side": 1,
+      "message": "New code should be using the property unpacking mechanisms.  This is fine for now because the code above it did this, but please put together a follow-on patchset to clean this up.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 445,
+        "endChar": 0
+      },
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a785b3d1_7e184493",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T18:19:05Z",
+      "side": 1,
+      "message": "See below, please make nwType an enum.",
+      "range": {
+        "startLine": 1131,
+        "startChar": 26,
+        "endLine": 1131,
+        "endChar": 44
+      },
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8715fd48_183f3f63",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T18:19:05Z",
+      "side": 1,
+      "message": "Common error again.",
+      "range": {
+        "startLine": 1136,
+        "startChar": 0,
+        "endLine": 1136,
+        "endChar": 68
+      },
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758c55d3_8fc8ffa0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-27T18:19:05Z",
+      "side": 1,
+      "message": "Please make this an enumeration.  There\u0027s only two things supported here, we don\u0027t need to allow any string on this api.",
+      "range": {
+        "startLine": 1236,
+        "startChar": 64,
+        "endLine": 1236,
+        "endChar": 69
+      },
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
