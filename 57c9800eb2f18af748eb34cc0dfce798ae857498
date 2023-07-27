@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565d54d6_6dedab91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-27T20:41:04Z",
+      "side": 1,
+      "message": "I know this is still WIP, would be good to announce on the mailing list when the time comes",
+      "revId": "57c9800eb2f18af748eb34cc0dfce798ae857498",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
