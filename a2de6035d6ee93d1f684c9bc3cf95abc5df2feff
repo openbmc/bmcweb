@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "acb3ca08_04e8d889",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-27T13:37:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da1462a_c60a6c03",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32d78872_b2a87bb6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 19
@@ -54,6 +78,30 @@
       "writtenOn": "2023-07-06T19:21:48Z",
       "side": 1,
       "message": "Why are we default constructing a message object here?  Having a default arg in a constructor seems odd.",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 66
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe1f04f0_0e0bf567",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-27T13:37:59Z",
+      "side": 1,
+      "message": "Got rid of default constructing the message object and instead we will take pointer to just sd_bus_error. However, this requires explicitly passing \u0027nullptr\u0027 as argument where we don\u0027t rely on message. Also renamed getError() to more fitting getErrorMessage().",
+      "parentUuid": "32d78872_b2a87bb6",
       "range": {
         "startLine": 45,
         "startChar": 8,
@@ -100,6 +148,30 @@
       "writtenOn": "2023-07-06T19:21:48Z",
       "side": 1,
       "message": "These are all fairly unsafe references.  Could we rearchitect these methods to simply take these as the first few arguments like we\u0027ve done everywhere else, and remove the class entirely?\n\nHaving one class to verify all errors is a little worrisome, and not simple to trace.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6267a55b_4e2b8c64",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-27T13:37:59Z",
+      "side": 1,
+      "message": "After some thought I am not sure about removing the class entirely and moving to functions as having 3 extra arguments for each call would make the call context even bigger (see line #864). If it\u0027s still prefered way we can do this.",
+      "parentUuid": "4ed7f7ba_570cd9d4",
       "range": {
         "startLine": 204,
         "startChar": 0,
