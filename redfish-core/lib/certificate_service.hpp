@@ -36,13 +36,13 @@ constexpr const char* httpsServiceName =
 constexpr const char* ldapServiceName =
     "xyz.openbmc_project.Certs.Manager.Client.Ldap";
 constexpr const char* authorityServiceName =
-    "xyz.openbmc_project.Certs.Manager.Authority.Ldap";
+    "xyz.openbmc_project.Certs.Manager.Authority.Truststore";
 constexpr const char* baseObjectPath = "/xyz/openbmc_project/certs";
 constexpr const char* httpsObjectPath =
     "/xyz/openbmc_project/certs/server/https";
 constexpr const char* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 constexpr const char* authorityObjectPath =
-    "/xyz/openbmc_project/certs/authority/ldap";
+    "/xyz/openbmc_project/certs/authority/truststore";
 } // namespace certs
 
 /**
