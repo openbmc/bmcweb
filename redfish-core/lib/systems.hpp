@@ -1357,7 +1357,7 @@ inline computer_system::PowerRestorePolicyTypes
         return computer_system::PowerRestorePolicyTypes::AlwaysOff;
     }
     if (value ==
-        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysRestore")
+        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore")
     {
         return computer_system::PowerRestorePolicyTypes::LastState;
     }
