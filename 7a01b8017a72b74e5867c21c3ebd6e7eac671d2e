@@ -39,6 +39,30 @@
       },
       "revId": "7a01b8017a72b74e5867c21c3ebd6e7eac671d2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c1f114_90ab8cff",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-07-28T06:31:44Z",
+      "side": 1,
+      "message": "In the main article it was suggested to change it to \u0027truststore\u0027. I\u0027ll do that in the next patchset.",
+      "parentUuid": "7ae6a4e1_4ff6cb50",
+      "range": {
+        "startLine": 45,
+        "startChar": 42,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "7a01b8017a72b74e5867c21c3ebd6e7eac671d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
