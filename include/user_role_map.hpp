@@ -100,7 +100,7 @@ struct UserRoleMap
         return fields;
     }
 
-    void userAdded(sdbusplus::message::message& m)
+    void userAdded(sdbusplus::message_t& m)
     {
         BMCWEB_LOG_DEBUG("User Added");
         sdbusplus::message::object_path objPath;
@@ -136,7 +136,7 @@ struct UserRoleMap
         }
     }
 
-    void userRemoved(sdbusplus::message::message& m)
+    void userRemoved(sdbusplus::message_t& m)
     {
         BMCWEB_LOG_DEBUG("User Removed");
         sdbusplus::message::object_path objPath;
@@ -164,7 +164,7 @@ struct UserRoleMap
         roleMap.erase(name);
     }
 
-    void userPropertiesChanged(sdbusplus::message::message& m)
+    void userPropertiesChanged(sdbusplus::message_t& m)
     {
         BMCWEB_LOG_DEBUG("Properties Changed");
         std::string interface;
