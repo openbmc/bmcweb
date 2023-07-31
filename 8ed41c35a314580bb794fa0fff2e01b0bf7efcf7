@@ -52,6 +52,24 @@
       "parentUuid": "715e1ba5_156f3e43",
       "revId": "8ed41c35a314580bb794fa0fff2e01b0bf7efcf7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf0d676_36647395",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:19:44Z",
+      "side": 0,
+      "message": "please use url_view as I\u0027ve asked.  It\u0027s:\n\nMore explicit what we\u0027re doing.\nHandles more error conditions.",
+      "parentUuid": "a03aa491_72b532c5",
+      "revId": "8ed41c35a314580bb794fa0fff2e01b0bf7efcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
