@@ -554,38 +554,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         shutdownConn(retry);
     }
 
-    void setCipherSuiteTLSext()
-    {
-        if (!sslConn)
-        {
-            return;
-        }
-        // NOTE: The SSL_set_tlsext_host_name is defined in tlsv1.h header
-        // file but its having old style casting (name is cast to void*).
-        // Since bmcweb compiler treats all old-style-cast as error, its
-        // causing the build failure. So replaced the same macro inline and
-        // did corrected the code by doing static_cast to viod*. This has to
-        // be fixed in openssl library in long run. Set SNI Hostname (many
-        // hosts need this to handshake successfully)
-        if (SSL_ctrl(sslConn->native_handle(), SSL_CTRL_SET_TLSEXT_HOSTNAME,
-                     TLSEXT_NAMETYPE_host_name,
-                     static_cast<void*>(&host.front())) == 0)
-
-        {
-            boost::beast::error_code ec{static_cast<int>(::ERR_get_error()),
-                                        boost::asio::error::get_ssl_category()};
-
-            BMCWEB_LOG_ERROR(
-                "SSL_set_tlsext_host_name {}:{}, id: {} failed: {}", host, port,
-                std::to_string(connId), ec.message());
-            // Set state as sslInit failed so that we close the connection
-            // and take appropriate action as per retry configuration.
-            state = ConnState::sslInitFailed;
-            waitAndRetry();
-            return;
-        }
-    }
-
   public:
     explicit ConnectionInfo(
         boost::asio::io_context& iocIn, const std::string& idIn,
@@ -615,7 +583,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 return;
             }
             sslConn.emplace(conn, *sslCtx);
-            setCipherSuiteTLSext();
         }
     }
 };
