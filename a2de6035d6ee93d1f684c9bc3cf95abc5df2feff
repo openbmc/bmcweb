@@ -232,6 +232,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dea18e08_17a7d1c6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T16:05:45Z",
+      "side": 1,
+      "message": "Also, and more importantly, I don\u0027t know of anywhere else in the code that we handle errors using a class this large, so there would be a lot of rampup to make sure that it\u0027s correct and maintainable.",
+      "parentUuid": "37c6f9d6_ade6244b",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f746284_00ced48a",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 19
