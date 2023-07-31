@@ -19,6 +19,7 @@
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
+#include "utility.hpp"
 
 #include <boost/asio/connect.hpp>
 #include <boost/asio/io_context.hpp>
@@ -39,6 +40,8 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
 
 #include <cstdlib>
 #include <functional>
@@ -560,6 +563,15 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             return;
         }
+
+        boost::urls::url url;
+        url.set_host(host);
+        if (url.host_type() != boost::urls::host_type::name)
+        {
+            // Avoid setting SNI hostname if its IP address
+            return;
+        }
+
         // NOTE: The SSL_set_tlsext_host_name is defined in tlsv1.h header
         // file but its having old style casting (name is cast to void*).
         // Since bmcweb compiler treats all old-style-cast as error, its
