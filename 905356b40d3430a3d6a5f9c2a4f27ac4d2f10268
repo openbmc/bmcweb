@@ -279,6 +279,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "138a1750_3d1e0f0d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:37:25Z",
+      "side": 1,
+      "message": "\u003e This code does the body migration (string-body to file-body or file-body to string-body).\n\u003e Use Case;\n\u003e 1) current response type is string-body\n\u003e 2) user updates some header fields of the response\n\u003e 3) Then the user tries to open a file\n\u003e 4) The body should be migrated to file-body\n\u003e 5) Before setting the file-body to variant, we need to copy all headers from string-body to the new file-body\n\u003e \n\u003e The same code work for file-body to string-body migration as well.\n\u003e \n\u003e The hold_alternative check prevents migration from file-body to file-body, or string-body to string-body. Similar to how we avoid self-assignment in \"\u003d\" operator overloading.",
+      "parentUuid": "07942e55_5d94a946",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 74
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35621684_89b22214",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -338,6 +362,30 @@
       "side": 1,
       "message": "I never said to use get_if.  I said to use the result of emplace()",
       "parentUuid": "8b0eb016_0ec1b1d5",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3283d13c_110a6da9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:37:25Z",
+      "side": 1,
+      "message": "The most important thing is that body() can now return an error, which means that the prototype of this function needs to change.  As-is, you\u0027ve just make this code throw, which this code doesn\u0027t catch anywhere, and will just crash the service.",
+      "parentUuid": "5edeec22_64be1a35",
       "range": {
         "startLine": 205,
         "startChar": 15,
