@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "480c3280_d21f327c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-07-31T12:08:29Z",
+      "side": 1,
+      "message": "Ed, sorry for late reply - we had to discuss this on our side. To wrap up:\nTriggers schema defines RedfishEvent as TriggerActions [1], and that mechanism is already implemented [2]. What\u0027s surprising that there\u0027s no standard definition of such events in [3]. This patchset presents our proposition of such events (initially made in [4]) and we are going to raise this subject on DMTF forum to make them official.\n\n[1] https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2022.3.html#triggers-120\n[2] https://github.com/openbmc/telemetry/blob/3995a361af50f6708090bf853494cf1659864cd4/src/trigger_actions.cpp#L243\n[3] https://www.dmtf.org/sites/default/files/standards/documents/DSP2065_2022.3.html\n[4] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/44935",
+      "parentUuid": "5b73bcc3_c11aaf92",
+      "revId": "1b9806c77e7f2a0e7e8b89dbadc5fad380716667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1730b355_b151c439",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
