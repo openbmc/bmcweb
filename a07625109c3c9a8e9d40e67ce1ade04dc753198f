@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75830ad1_600e3999",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-07-31T16:29:21Z",
+      "side": 1,
+      "message": "Does enabling bugprone-unchecked-optional-access in clang-tidy still fail ?",
+      "revId": "a07625109c3c9a8e9d40e67ce1ade04dc753198f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
