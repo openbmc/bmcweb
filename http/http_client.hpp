@@ -560,6 +560,16 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             return;
         }
+
+        boost::asio::ip::address addr;
+        boost::system::error_code err_code;
+        boost::asio::ip::make_address(host, err_code);
+        if (!err_code)
+        {
+            //Skip setting SNI hostname if its IP address
+            return;
+        }
+
         // NOTE: The SSL_set_tlsext_host_name is defined in tlsv1.h header
         // file but its having old style casting (name is cast to void*).
         // Since bmcweb compiler treats all old-style-cast as error, its
