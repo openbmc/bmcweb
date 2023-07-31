@@ -16,6 +16,24 @@
       "message": "A quick read through of:\nhttps://github.com/openssl/openssl/issues/8083\n\nShows that we should not be setting a hostname if it\u0027s ipv4 OR ipv6.\n\nLets just do something like\n\nboost::urls::url_view view(host);\n\nif (view.host_type() !\u003d urls::host_type::name){\n    return;\n}",
       "revId": "8ed41c35a314580bb794fa0fff2e01b0bf7efcf7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715e1ba5_156f3e43",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-31T18:04:09Z",
+      "side": 0,
+      "message": "Yes, SNI hostname should not be set if it\u0027s ipv4 OR ipv6.\nits good idea to add check and avoid setting SNI hostname only for IP addresses.\nI have added a similar check to find if its an IP address or not.",
+      "parentUuid": "33bc4ec4_565db72c",
+      "revId": "8ed41c35a314580bb794fa0fff2e01b0bf7efcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

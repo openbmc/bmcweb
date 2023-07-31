@@ -22,6 +22,30 @@
       },
       "revId": "e3126bd9d84ab3833b3fa0b8f560db1e6dc6fb77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c3c13db_8d405686",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-31T18:04:09Z",
+      "side": 1,
+      "message": "I am not an TLS expert, but I could see SSL handshake works without setting this parameter so I thought we don\u0027t need this.\n\nI see in the comment note its mentioned that \"many hosts need this to handshake successfully\" but I don\u0027t see any reason for this one",
+      "parentUuid": "677bf858_05f047c8",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "e3126bd9d84ab3833b3fa0b8f560db1e6dc6fb77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
