@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31b95a60_deac6864",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "Understood, I would like to see how we can avoid this complexity of having a templated, non-trivial class.  I suspect it will be quite a few iterations of using get_if rather than std::visit, and I\u0027m ok with that.  That seems significantly less complex to me.",
+      "parentUuid": "3629eb93_497abf45",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a301dd8_08a1633f",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "we are making sure that the variant will have proper value at updateAlternative function. Should we still use get_if here?",
       "parentUuid": "35621684_89b22214",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5edeec22_64be1a35",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "I never said to use get_if.  I said to use the result of emplace()",
+      "parentUuid": "8b0eb016_0ec1b1d5",
       "range": {
         "startLine": 205,
         "startChar": 15,

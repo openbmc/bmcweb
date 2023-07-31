@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7339aa3_cfe72342",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "please spell serializer properly.",
+      "range": {
+        "startLine": 54,
+        "startChar": 22,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98fc9b45_b271b214",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "just call this \"serializer\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 10,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13dbcbe7_298f2780",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "There\u0027s only 4 lines of code in this method now.  Please just make it two methods, with two different types.",
+      "range": {
+        "startLine": 554,
+        "startChar": 21,
+        "endLine": 554,
+        "endChar": 25
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8cd0e76_9cd8ba62",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "Please simplify to\n\nif (this.genericResponse.holds_alternative\u003cfile_body\u003e()){\n    serializer.emplace(Response::file_body_response_type());\n} else (.....){\n   serializer.emplace(Response::file_body_response_type());\n}\n\nThere\u0027s no need to invent a template just to use std::visit here.",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 570,
+        "endChar": 52
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f7fcf3b_e81d7bbb",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:32:55Z",
+      "side": 1,
+      "message": "*serializer please for consistency.",
+      "range": {
+        "startLine": 575,
+        "startChar": 12,
+        "endLine": 575,
+        "endChar": 22
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
