@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81be741a_203f488d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T19:52:11Z",
+      "side": 1,
+      "message": "LGTM.  Leaving in review for a bit to see if anyone has another opinion.",
+      "revId": "d40927538253e3a42d1e0d8fcca32a1b835c70cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
