@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0056e7d_b0a66457",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T19:26:41Z",
+      "side": 1,
+      "message": "Should we set this to \"https://\" just to be clear?  I realized it\u0027s not used, but it seems useful to at least be somewhat correct in our construction.  /\u003chostname\u003e doesn\u0027t seem as useful in debug.",
+      "range": {
+        "startLine": 565,
+        "startChar": 35,
+        "endLine": 565,
+        "endChar": 38
+      },
+      "revId": "773a0fb38a520122be654a95d6718438ea838d2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
