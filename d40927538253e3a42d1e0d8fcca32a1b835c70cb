@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cbd1b60_a50b5236",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T21:03:26Z",
+      "side": 1,
+      "message": "weird, does gitlint no longer run?",
+      "parentUuid": "c4d7ae30_8348ce3d",
+      "range": {
+        "startLine": 9,
+        "startChar": 70,
+        "endLine": 9,
+        "endChar": 78
+      },
+      "revId": "d40927538253e3a42d1e0d8fcca32a1b835c70cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "81be741a_203f488d",
