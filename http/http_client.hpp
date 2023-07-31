@@ -19,6 +19,7 @@
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
+#include "utility.hpp"
 
 #include <boost/asio/connect.hpp>
 #include <boost/asio/io_context.hpp>
@@ -547,6 +548,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             return;
         }
+
+        if (host.host_type() != boost::urls::host_type::name)
+        {
+            // Avoid setting SNI hostname if its IP address
+            return;
+        }
+        // Create a null terminated string for SSL
         std::string hostname(host.encoded_host_address());
         // NOTE: The SSL_set_tlsext_host_name is defined in tlsv1.h header
         // file but its having old style casting (name is cast to void*).
