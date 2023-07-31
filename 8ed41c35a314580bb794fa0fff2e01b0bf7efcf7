@@ -88,6 +88,24 @@
       "parentUuid": "fdf0d676_36647395",
       "revId": "8ed41c35a314580bb794fa0fff2e01b0bf7efcf7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c20b50f_76d032d9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-07-31T18:22:24Z",
+      "side": 0,
+      "message": "I have tried using url_view but I was hitting an mismatch exception.\nas host is a string, I thought this is straight forward way to find its Ip address or hostname",
+      "parentUuid": "fdf0d676_36647395",
+      "revId": "8ed41c35a314580bb794fa0fff2e01b0bf7efcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
