@@ -33,6 +33,971 @@
       "message": "Can you get your companies gerrit group admin to add you so you don\u0027t get a  \"User not approved, see admin, no CI\" ?",
       "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0164e5ba_5e4a4551",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "I did a first pass here.  I realize that the coroutines will need to be removed, but during the rewrite, it seems worthwhile to do the coding standard things at the same time.\n\nThis is likely not a complete review, but it should be a starting point.",
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b503e890_0b81d6c3",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "All of these should be constexpr std::string_view.\n\nAlso, for any of these that are only used in a single place, please inline the string.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 53
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "617d751d_959d297c",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "macros are explicitly disallowed.  CI will flag this once it runs for you.",
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd98328f_9bc1cc45",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please follow the naming convention.",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 18
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c8a8486_5caac72e",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "This does not appear to be used as a tuple.  Tuples obfuscate what their arguments are.  Please use a normal struct instead.",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 13
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b080fbed_3fd3a793",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "std::array for const things.",
+      "range": {
+        "startLine": 94,
+        "startChar": 18,
+        "endLine": 94,
+        "endChar": 24
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c368d7e6_2feed513",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "This helper function already exists.  Please use the existing one instead of creating your own new one.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 1
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b3b899_3fcb2f92",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "per the coding standard, please don\u0027t make non-trivial lambdas.",
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e82bd6e0_9838cac0",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "init your variables.",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f08d547_cb9d7005",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "There\u0027s no need to call boost::urls::format on fixed strings.",
+      "range": {
+        "startLine": 220,
+        "startChar": 56,
+        "endLine": 220,
+        "endChar": 69
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f2875d5_f056ae4c",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "emplace_back please.",
+      "range": {
+        "startLine": 223,
+        "startChar": 22,
+        "endLine": 223,
+        "endChar": 31
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e334d082_557d29e3",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "nit, redundant return.",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 18
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4670cbb_c9c469aa",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please don\u0027t do this.  You are constructing an intermediate json object, as well as using a banned function.  Please just write this as a simple if/else ladder\n\nif (protocol \u003d\u003d \"SyslogTLS\"){\n ....\n}",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 59
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556013f9_0c4f865f",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please just let the higher level check handle this.",
+      "range": {
+        "startLine": 253,
+        "startChar": 8,
+        "endLine": 253,
+        "endChar": 20
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79afaa9f_df3b0aa1",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "This doesn\u0027t describe anything.  What does the spec say?  Which spec?",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 24
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6104f04_195a5a3c",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "emplace_back.",
+      "range": {
+        "startLine": 273,
+        "startChar": 13,
+        "endLine": 273,
+        "endChar": 22
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28f4b09b_9cf34341",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "const.",
+      "range": {
+        "startLine": 277,
+        "startChar": 9,
+        "endLine": 277,
+        "endChar": 13
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d2433e6_5c24fc0b",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "nit, please call this \"processLowerSeverity\" just to keep consistent.",
+      "range": {
+        "startLine": 293,
+        "startChar": 12,
+        "endLine": 293,
+        "endChar": 27
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9153c333_93d74c5d",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please just return a std::optional like we do most other places.",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 21
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676c1680_b46c71a9",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "nit, all new APIs should be prefering string_view, unless there\u0027s a good reason not to.",
+      "range": {
+        "startLine": 352,
+        "startChar": 4,
+        "endLine": 352,
+        "endChar": 27
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74ecbf3_ec12bc45",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "please pass trivial types by value.",
+      "range": {
+        "startLine": 353,
+        "startChar": 4,
+        "endLine": 353,
+        "endChar": 24
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260ee6da_eff3f827",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please make this a reference.",
+      "range": {
+        "startLine": 358,
+        "startChar": 4,
+        "endLine": 358,
+        "endChar": 32
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c214e347_2c7dcbcf",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "By value.",
+      "range": {
+        "startLine": 404,
+        "startChar": 4,
+        "endLine": 404,
+        "endChar": 19
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5490f1_649a860e",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Probably should be const.",
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "180a5d11_f74ae3b9",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Can we just select a reasonable set of defaults if the user doesn\u0027t provide filters?  Probably \"all\"?",
+      "range": {
+        "startLine": 408,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 27
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99ebf95c_6ee562eb",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please separate these into if brackets.  This helps with readability.",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 5
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5adeff7_3f965b71",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "first, this shouldn\u0027t be static.\n\nsecond, this can just be \"nlohmann::json::array_t",
+      "range": {
+        "startLine": 455,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 52
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3111e883_fcc3d0a1",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please don\u0027t use optional like this.  It requires the reader to go look up the type, and reduces the amount of context this function has.",
+      "range": {
+        "startLine": 460,
+        "startChar": 8,
+        "endLine": 460,
+        "endChar": 12
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "265dc6fd_a46ec9aa",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "nit, please just use operator(boo)\n\nex\n\nif(!opt)\n\nBeing consistent helps in readability.",
+      "range": {
+        "startLine": 461,
+        "startChar": 17,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f417449_74869c65",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Same as above, please don\u0027t use auto in this context.",
+      "range": {
+        "startLine": 476,
+        "startChar": 4,
+        "endLine": 476,
+        "endChar": 8
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30caa48b_1b34bbc2",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "if(!opt)",
+      "range": {
+        "startLine": 477,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 25
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7d3f994_fcbd6f74",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 482,
+        "startChar": 30,
+        "endLine": 482,
+        "endChar": 33
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b59d207_52664114",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "do:\n\nnlohmann::json::array_t filterArray;\n\nhere\n\nand on line 517, do\n\nasyncResp-\u003eres.jsonValue[\"SyslogFilters\"] \u003d std::move(filterArray);\n\nThe above code compiles smaller, and has more type safety if, in theory, the SyslogFilters param had already been set.",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 490,
+        "endChar": 76
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1bb7654_58432208",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "This seems like a problem, we should not be accepting anything that Redfish doesn\u0027t support.",
+      "range": {
+        "startLine": 509,
+        "startChar": 29,
+        "endLine": 509,
+        "endChar": 50
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac8c706_323236eb",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "emplace_back + std::move.  Please fix all of them.",
+      "range": {
+        "startLine": 516,
+        "startChar": 20,
+        "endLine": 516,
+        "endChar": 29
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf269967_2098de89",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "given that this shouldn\u0027t be possible, this needs to be internalError",
+      "range": {
+        "startLine": 527,
+        "startChar": 18,
+        "endLine": 527,
+        "endChar": 34
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d059bf_002323b4",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "uninitialized variable.",
+      "range": {
+        "startLine": 535,
+        "startChar": 21,
+        "endLine": 535,
+        "endChar": 25
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda2e335_d609ec7e",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "The other code accepted all forms of Syslog, including UDP.  The check should reflect that only SyslogTCP is supported at this time.",
+      "range": {
+        "startLine": 547,
+        "startChar": 52,
+        "endLine": 547,
+        "endChar": 61
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9f1095b_ea42b433",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "?  Empty string doesn\u0027t seem right for this parameter.  If it\u0027s not supported, that\u0027s fine, but we shouldn\u0027t be publishing an empty string.",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 554,
+        "endChar": 53
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42736c2_26ac2023",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Please do not create non-trivial lambdas.  Please use normal functions.",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 557,
+        "endChar": 56
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a3e8dc_dcc289c9",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "same as above.  internalError if this isn\u0027t possible.",
+      "range": {
+        "startLine": 569,
+        "startChar": 18,
+        "endLine": 569,
+        "endChar": 34
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "802010e9_bafeaa61",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "No need to check for existence on delete.  If it doesn\u0027t exist, the delete method will fail.",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 13
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d4c845_3802c173",
+        "filename": "redfish-core/include/syslog_event_subscribers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-07-31T18:16:46Z",
+      "side": 1,
+      "message": "Why are we setting a syslog rule to empty host and port 0 in the delete flow.  There should just be a delete method, similar to how other functions work.",
+      "range": {
+        "startLine": 587,
+        "startChar": 42,
+        "endLine": 587,
+        "endChar": 47
+      },
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
