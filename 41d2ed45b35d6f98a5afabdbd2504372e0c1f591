@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d226d4b3_87e6ee3c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-07-31T12:06:29Z",
+      "side": 1,
+      "message": "It was just me reading json patch under one resource for different properties separately that caused the warning message. Updated the code to fix this.",
+      "parentUuid": "b3733858_12a324a5",
+      "revId": "41d2ed45b35d6f98a5afabdbd2504372e0c1f591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a2e81a5_7f3e98ed",
