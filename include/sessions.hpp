@@ -2,12 +2,10 @@
 
 #include "logging.hpp"
 #include "ossl_random.hpp"
-#include "user_role_map.hpp"
 #include "utility.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <nlohmann/json.hpp>
-#include <sdbusplus/message.hpp>
 
 #include <algorithm>
 #include <csignal>
@@ -258,15 +256,11 @@ class SessionStore
             }
         }
 
-        std::string userRole = crow::UserRoleMap::getInstance()
-                                   .getUserRole(username)
-                                   .userRole.value_or("");
-
         auto session = std::make_shared<UserSession>(UserSession{
             uniqueId, sessionToken, std::string(username), csrfToken, clientId,
             redfish::ip_util::toString(clientIp),
             std::chrono::steady_clock::now(), persistence, false,
-            isConfigureSelfOnly, userRole});
+            isConfigureSelfOnly});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
