@@ -3,6 +3,7 @@
 
 #include <boost/beast/http/fields.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/url/parse.hpp>
 #include <nlohmann/json.hpp>
 
 namespace persistent_data
@@ -11,7 +12,7 @@ namespace persistent_data
 struct UserSubscription
 {
     std::string id;
-    std::string destinationUrl;
+    boost::urls::url destinationUrl;
     std::string protocol;
     std::string retryPolicy;
     std::string customText;
@@ -48,7 +49,13 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->destinationUrl = *value;
+                boost::urls::result<boost::urls::url> url =
+                    boost::urls::parse_absolute_uri(*value);
+                if (!url)
+                {
+                    continue;
+                }
+                subvalue->destinationUrl = std::move(*url);
             }
             else if (element.key() == "Protocol")
             {
