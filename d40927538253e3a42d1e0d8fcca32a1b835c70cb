@@ -247,6 +247,30 @@
       },
       "revId": "d40927538253e3a42d1e0d8fcca32a1b835c70cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d7bb71_fca5f9dc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-08-01T15:30:36Z",
+      "side": 1,
+      "message": "ok, changes looks good.\nI will verify this patch and see if it works for me.",
+      "parentUuid": "f662db57_98857b29",
+      "range": {
+        "startLine": 565,
+        "startChar": 35,
+        "endLine": 565,
+        "endChar": 52
+      },
+      "revId": "d40927538253e3a42d1e0d8fcca32a1b835c70cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
