@@ -135,6 +135,30 @@
       },
       "revId": "090e4004f1476fe34d2a1a59c7e241f45d83d5b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd6c3af3_3c38fa06",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-01T20:04:37Z",
+      "side": 1,
+      "message": "Patchset 2  (which has what I think is the correct name) didn\u0027t fix the problem 2/6 times despite: \n\nAug 01 19:44:19 witherspoon-Y230UF71K03T systemd[1]: Started Phosphor User Manager.\n...\nAug 01 19:44:20 witherspoon-Y230UF71K03T systemd[1]: Started Start bmcweb server.\n\nand \n\nAug 01 19:59:25 witherspoon-Y230UF71K03T systemd[1]: Started Phosphor User Manager.\nAug 01 19:59:25 witherspoon-Y230UF71K03T systemd[1]: Started Start bmcweb server.",
+      "parentUuid": "5081d669_af431ed9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "090e4004f1476fe34d2a1a59c7e241f45d83d5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
