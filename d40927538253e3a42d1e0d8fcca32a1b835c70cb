@@ -175,6 +175,30 @@
       },
       "revId": "d40927538253e3a42d1e0d8fcca32a1b835c70cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd9d2dfd_8a42c4d1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-08-01T06:57:12Z",
+      "side": 1,
+      "message": "boost::urls::format also works but seems its expecting URI to start with \"/\".\nit works with below logic\nboost::urls::url hostname \u003d boost::urls::format(\"/https://{}\", host);\nboost::urls::url_view view(hostname);\n\nI can make change if you are ok with this",
+      "parentUuid": "ee602e6c_8aa3ba97",
+      "range": {
+        "startLine": 565,
+        "startChar": 35,
+        "endLine": 565,
+        "endChar": 52
+      },
+      "revId": "d40927538253e3a42d1e0d8fcca32a1b835c70cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
