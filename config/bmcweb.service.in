@@ -3,6 +3,8 @@ Description=Start bmcweb server
 
 Wants=network.target
 After=network.target
+Wants=xyz.openbmc_project.Phosphor-User-manager
+After=xyz.openbmc_project.Phosphor-User-manager
 
 [Service]
 ExecReload=kill -s HUP $MAINPID
