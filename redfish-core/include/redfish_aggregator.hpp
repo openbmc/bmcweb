@@ -711,8 +711,9 @@ class RedfishAggregator
         }
 
         // We need to strip the prefix from the request's path
-        std::string targetURI(thisReq.target());
-        size_t pos = targetURI.find(prefix + "_");
+        boost::urls::url targetURI(thisReq.target());
+        std::string path = thisReq.url().path();
+        size_t pos = path.find(prefix + "_");
         if (pos == std::string::npos)
         {
             // If this fails then something went wrong
@@ -721,16 +722,17 @@ class RedfishAggregator
             messages::internalError(asyncResp->res);
             return;
         }
-        targetURI.erase(pos, prefix.size() + 1);
+        path.erase(pos, prefix.size() + 1);
 
         std::function<void(crow::Response&)> cb =
             std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.req.body();
-        client.sendDataWithCallback(
-            std::move(data), std::string(sat->second.host()),
-            sat->second.port_number(), targetURI, false /*useSSL*/,
-            thisReq.fields(), thisReq.method(), cb);
+        boost::urls::url url(sat->second);
+        url.set_path(path);
+        url.set_query(targetURI.query());
+        client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
+                                    thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -744,12 +746,13 @@ class RedfishAggregator
             std::function<void(crow::Response&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
 
-            std::string targetURI(thisReq.target());
+            boost::urls::url url(sat.second);
+            url.set_path(thisReq.url().path());
+            url.set_query(thisReq.url().query());
+
             std::string data = thisReq.req.body();
-            client.sendDataWithCallback(
-                std::move(data), std::string(sat.second.host()),
-                sat.second.port_number(), targetURI, false /*useSSL*/,
-                thisReq.fields(), thisReq.method(), cb);
+            client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
+                                        thisReq.method(), cb);
         }
     }
 
@@ -769,12 +772,13 @@ class RedfishAggregator
             // is not already supported by the aggregating BMC
             // TODO: Improve the processing so that we don't have to strip query
             // params in this specific case
-            std::string targetURI(thisReq.url().path());
+            boost::urls::url url(sat.second);
+            url.set_path(thisReq.url().path());
+
             std::string data = thisReq.req.body();
-            client.sendDataWithCallback(
-                std::move(data), std::string(sat.second.host()),
-                sat.second.port_number(), targetURI, false /*useSSL*/,
-                thisReq.fields(), thisReq.method(), cb);
+
+            client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
+                                        thisReq.method(), cb);
         }
     }
 
