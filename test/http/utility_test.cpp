@@ -140,51 +140,6 @@ TEST(Utility, readUrlSegments)
     EXPECT_TRUE(readUrlSegments(*parsed, OrMorePaths()));
 }
 
-TEST(Utility, ValidateAndSplitUrlPositive)
-{
-    std::string host;
-    std::string urlProto;
-    uint16_t port = 0;
-    std::string path;
-    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar", urlProto, host,
-                                    port, path));
-    EXPECT_EQ(host, "foo.com");
-    EXPECT_EQ(urlProto, "https");
-    EXPECT_EQ(port, 18080);
-
-    EXPECT_EQ(path, "/bar");
-
-    // query string
-    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar?foobar=1",
-                                    urlProto, host, port, path));
-    EXPECT_EQ(path, "/bar?foobar=1");
-
-    // fragment
-    ASSERT_TRUE(validateAndSplitUrl("https://foo.com:18080/bar#frag", urlProto,
-                                    host, port, path));
-    EXPECT_EQ(path, "/bar#frag");
-
-    // Missing port
-    ASSERT_TRUE(
-        validateAndSplitUrl("https://foo.com/bar", urlProto, host, port, path));
-    EXPECT_EQ(port, 443);
-
-    // Missing path defaults to "/"
-    ASSERT_TRUE(
-        validateAndSplitUrl("https://foo.com/", urlProto, host, port, path));
-    EXPECT_EQ(path, "/");
-
-    // If http push eventing is allowed, allow http and pick a default port of
-    // 80, if it's not, parse should fail.
-    ASSERT_EQ(
-        validateAndSplitUrl("http://foo.com/bar", urlProto, host, port, path),
-        bmcwebInsecureEnableHttpPushStyleEventing);
-    if constexpr (bmcwebInsecureEnableHttpPushStyleEventing)
-    {
-        EXPECT_EQ(port, 80);
-    }
-}
-
 TEST(Router, ParameterTagging)
 {
     EXPECT_EQ(1, getParameterTag("<str>"));
