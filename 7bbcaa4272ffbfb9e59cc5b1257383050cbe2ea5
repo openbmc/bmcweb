@@ -16,6 +16,24 @@
       "message": "I think https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65641 fixes this as well. So going with that. Will abandon after 65641 merges",
       "revId": "7bbcaa4272ffbfb9e59cc5b1257383050cbe2ea5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba9eb880_505f6e66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-01T19:57:01Z",
+      "side": 1,
+      "message": "I still hit this 2/6 times on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65641. I vote go with the revert",
+      "parentUuid": "cbf1d37f_557cdf33",
+      "revId": "7bbcaa4272ffbfb9e59cc5b1257383050cbe2ea5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
