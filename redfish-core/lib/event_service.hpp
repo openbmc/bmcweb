@@ -24,6 +24,7 @@
 
 #include <boost/beast/http/fields.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/parse.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 
@@ -317,15 +318,26 @@ inline void requestRoutesEventDestinationCollection(App& app)
             }
         }
 
-        std::string host;
-        std::string urlProto;
-        uint16_t port = 0;
-        std::string path;
-
-        if (!crow::utility::validateAndSplitUrl(destUrl, urlProto, host, port,
-                                                path))
+        boost::urls::result<boost::urls::url> url =
+            boost::urls::parse_absolute_uri(destUrl);
+        if (!url)
         {
             BMCWEB_LOG_WARNING("Failed to validate and split destination url");
+            messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                               "Destination");
+            return;
+        }
+        url->normalize();
+        crow::utility::setProtocolDefaults(*url, protocol);
+        crow::utility::setPortDefaults(*url);
+
+        if (url->path().empty())
+        {
+            url->set_path("/");
+        }
+
+        if (url->has_userinfo())
+        {
             messages::propertyValueFormatError(asyncResp->res, destUrl,
                                                "Destination");
             return;
@@ -381,20 +393,22 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     asyncResp->res, "MetricReportDefinitions", "Protocol");
                 return;
             }
+            if (url->scheme() != "snmp")
+            {
+                messages::propertyValueConflict(asyncResp->res, "Destination",
+                                                "Protocol");
+                return;
+            }
 
-            addSnmpTrapClient(asyncResp, host, port);
+            addSnmpTrapClient(asyncResp, url->host_address(),
+                              url->port_number());
             return;
         }
 
-        if (path.empty())
-        {
-            path = "/";
-        }
+        std::shared_ptr<Subscription> subValue =
+            std::make_shared<Subscription>(*url, app.ioContext());
 
-        std::shared_ptr<Subscription> subValue = std::make_shared<Subscription>(
-            host, port, path, urlProto, app.ioContext());
-
-        subValue->destinationUrl = destUrl;
+        subValue->destinationUrl = std::move(*url);
 
         if (subscriptionType)
         {

@@ -47,6 +47,19 @@ struct std::formatter<boost::urls::pct_string_view>
 };
 
 template <>
+struct std::formatter<boost::urls::url_view>
+{
+    constexpr auto parse(std::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+    auto format(const boost::urls::url& msg, auto& ctx) const
+    {
+        return std::format_to(ctx.out(), "{}", std::string_view(msg.buffer()));
+    }
+};
+
+template <>
 struct std::formatter<boost::urls::url>
 {
     constexpr auto parse(std::format_parse_context& ctx)

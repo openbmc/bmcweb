@@ -445,91 +445,55 @@ inline boost::urls::url replaceUrlSegment(boost::urls::url_view urlView,
     return url;
 }
 
-inline std::string setProtocolDefaults(boost::urls::url_view urlView)
+inline void setProtocolDefaults(boost::urls::url& url,
+                                std::string_view protocol)
 {
-    if (urlView.scheme() == "https")
+    if (url.has_scheme())
     {
-        return "https";
+        return;
     }
-    if (urlView.scheme() == "http")
+    if (protocol == "Redfish" || protocol.empty())
     {
-        if (bmcwebInsecureEnableHttpPushStyleEventing)
+        if (url.port_number() == 443)
         {
-            return "http";
+            url.set_scheme("https");
         }
-        return "";
+        if (url.port_number() == 80)
+        {
+            if (bmcwebInsecureEnableHttpPushStyleEventing)
+            {
+                url.set_scheme("http");
+            }
+        }
     }
-    if (urlView.scheme() == "snmp")
+    else if (protocol == "SNMPv2c")
     {
-        return "snmp";
+        url.set_scheme("snmp");
     }
-    return "";
 }
 
-inline uint16_t setPortDefaults(boost::urls::url_view url)
+inline void setPortDefaults(boost::urls::url& url)
 {
     uint16_t port = url.port_number();
     if (port != 0)
     {
-        // user picked a port already.
-        return port;
+        return;
     }
 
     // If the user hasn't explicitly stated a port, pick one explicitly for them
     // based on the protocol defaults
     if (url.scheme() == "http")
     {
-        return 80;
+        url.set_port_number(80);
     }
     if (url.scheme() == "https")
     {
-        return 443;
+        url.set_port_number(443);
     }
     if (url.scheme() == "snmp")
     {
-        return 162;
+        url.set_port_number(162);
     }
-    return 0;
-}
-
-inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
-                                std::string& host, uint16_t& port,
-                                std::string& path)
-{
-    boost::urls::result<boost::urls::url_view> url =
-        boost::urls::parse_uri(destUrl);
-    if (!url)
-    {
-        return false;
-    }
-    urlProto = setProtocolDefaults(url.value());
-    if (urlProto.empty())
-    {
-        return false;
-    }
-
-    port = setPortDefaults(url.value());
-
-    host = url->encoded_host_address();
-
-    path = url->encoded_path();
-    if (path.empty())
-    {
-        path = "/";
-    }
-    if (url->has_fragment())
-    {
-        path += '#';
-        path += url->encoded_fragment();
-    }
-
-    if (url->has_query())
-    {
-        path += '?';
-        path += url->encoded_query();
-    }
-
-    return true;
 }
 
 } // namespace utility
