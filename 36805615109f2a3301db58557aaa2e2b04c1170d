@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ee42fa_3c2cc01e",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-08-01T00:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3238993_f2b32140",
+      "revId": "36805615109f2a3301db58557aaa2e2b04c1170d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b462b3c1_5e478d86",
@@ -54,6 +72,54 @@
       "writtenOn": "2023-07-20T18:24:40Z",
       "side": 1,
       "message": "include a space please",
+      "range": {
+        "startLine": 54,
+        "startChar": 55,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "36805615109f2a3301db58557aaa2e2b04c1170d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52bb623_6d89372b",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-08-01T00:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b462b3c1_5e478d86",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "36805615109f2a3301db58557aaa2e2b04c1170d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24b015db_39f33c32",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-08-01T00:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b4d1f23_b37c6d77",
       "range": {
         "startLine": 54,
         "startChar": 55,
