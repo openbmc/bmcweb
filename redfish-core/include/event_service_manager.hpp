@@ -357,13 +357,10 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(const std::string& inHost, uint16_t inPort,
-                 const std::string& inPath, const std::string& inUriProto,
-                 boost::asio::io_context& ioc) :
-        host(inHost),
-        port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        path(inPath), uriProto(inUriProto)
+    Subscription(boost::urls::url_view url, boost::asio::io_context& ioc) :
+        policy(std::make_shared<crow::ConnectionPolicy>())
     {
+        destinationUrl = url;
         client.emplace(ioc, policy);
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
@@ -385,12 +382,11 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
         if (client)
         {
-            client->sendData(std::move(msg), host, port, path, useSSL,
-                             httpHeaders, boost::beast::http::verb::post);
+            client->sendData(std::move(msg), destinationUrl, httpHeaders,
+                             boost::beast::http::verb::post);
             return true;
         }
 
@@ -569,8 +565,7 @@ class Subscription : public persistent_data::UserSubscription
   private:
     std::string subId;
     uint64_t eventSeqNum = 1;
-    std::string host;
-    uint16_t port = 0;
+    boost::urls::url host;
     std::shared_ptr<crow::ConnectionPolicy> policy;
     crow::sse_socket::Connection* sseConn = nullptr;
     std::optional<crow::HttpClient> client;
@@ -651,21 +646,17 @@ class EventServiceManager
             std::shared_ptr<persistent_data::UserSubscription> newSub =
                 it.second;
 
-            std::string host;
-            std::string urlProto;
-            uint16_t port = 0;
-            std::string path;
-            bool status = crow::utility::validateAndSplitUrl(
-                newSub->destinationUrl, urlProto, host, port, path);
+            boost::urls::result<boost::urls::url> url =
+                boost::urls::parse_absolute_uri(newSub->destinationUrl);
 
-            if (!status)
+            if (!url)
             {
                 BMCWEB_LOG_ERROR(
                     "Failed to validate and split destination url");
                 continue;
             }
             std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(host, port, path, urlProto, ioc);
+                std::make_shared<Subscription>(*url, ioc);
 
             subValue->id = newSub->id;
             subValue->destinationUrl = newSub->destinationUrl;
@@ -1014,20 +1005,6 @@ class EventServiceManager
             idList.emplace_back(it.first);
         }
         return idList;
-    }
-
-    bool isDestinationExist(const std::string& destUrl) const
-    {
-        for (const auto& it : subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (entry->destinationUrl == destUrl)
-            {
-                BMCWEB_LOG_ERROR("Destination exist already{}", destUrl);
-                return true;
-            }
-        }
-        return false;
     }
 
     bool sendTestEventLog()
