@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba89325d_d1a3ca1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001853
+      },
+      "writtenOn": "2023-08-01T11:02:09Z",
+      "side": 1,
+      "message": "I work for myself. I sent the signed **Individual** CLA on July 25th.\nLooks like I\u0027m still not an approved user. What are my next steps?",
+      "parentUuid": "9ba78de7_7b8043db",
+      "revId": "db4c28dce341832be869a86db405b8f4ef4fc470",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b503e890_0b81d6c3",
         "filename": "redfish-core/include/syslog_event_subscribers.hpp",
         "patchSetId": 1
