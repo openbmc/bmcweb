@@ -87,6 +87,30 @@
       },
       "revId": "090e4004f1476fe34d2a1a59c7e241f45d83d5b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aaa730d_4071fb19",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2023-08-01T19:22:35Z",
+      "side": 1,
+      "message": "User manager code here: https://github.com/openbmc/phosphor-user-manager/blob/master/user_mgr.cpp#L1593\nseems to populate the user accounts before it adds the dbus object (but I don’t know dbus that well).",
+      "parentUuid": "8ad7aa4e_748d122c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "090e4004f1476fe34d2a1a59c7e241f45d83d5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
