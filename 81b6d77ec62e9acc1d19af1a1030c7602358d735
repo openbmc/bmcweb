@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7bf464b_8242ddb3",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-08-01T03:32:47Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "88b3e77e_154bbf5e",
+      "revId": "81b6d77ec62e9acc1d19af1a1030c7602358d735",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6188f63_6b1ea879",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-08-01T03:21:18Z",
       "side": 1,
       "message": "Confused why you need this? What option are using here\nhttps://github.com/openbmc/bmcweb/commit/13451e3913c29bb380ef6778f11749d337ddd442",
+      "revId": "81b6d77ec62e9acc1d19af1a1030c7602358d735",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac1b9e9_c35e1348",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-08-01T03:32:47Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "f6188f63_6b1ea879",
       "revId": "81b6d77ec62e9acc1d19af1a1030c7602358d735",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
