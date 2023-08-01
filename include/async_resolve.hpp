@@ -63,7 +63,7 @@ class Resolver
     // This function is kept using snake case so that it is interoperable with
     // boost::asio::ip::tcp::resolver
     // NOLINTNEXTLINE(readability-identifier-naming)
-    void async_resolve(const std::string& host, std::string_view port,
+    void async_resolve(std::string_view host, std::string_view port,
                        ResolveHandler&& handler)
     {
         BMCWEB_LOG_DEBUG("Trying to resolve: {}:{}", host, port);
@@ -82,7 +82,8 @@ class Resolver
 
         uint64_t flag = 0;
         crow::connections::systemBus->async_method_call(
-            [host, portNum, handler{std::forward<ResolveHandler>(handler)}](
+            [host{std::string(host)}, portNum,
+             handler{std::forward<ResolveHandler>(handler)}](
                 const boost::system::error_code& ec,
                 const std::vector<
                     std::tuple<int32_t, int32_t, std::vector<uint8_t>>>& resp,
