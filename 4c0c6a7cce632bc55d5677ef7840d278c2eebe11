@@ -88,6 +88,29 @@
       "parentUuid": "34594561_69151d87",
       "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e164b439_a21f87ed",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-01T20:49:54Z",
+      "side": 1,
+      "message": "If we just ignore this error, would it solve the problem in a simpler way?\n\nIf that works, just ignore it, but leave a comment as to why.",
+      "range": {
+        "startLine": 582,
+        "startChar": 0,
+        "endLine": 582,
+        "endChar": 76
+      },
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
