@@ -302,18 +302,27 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::optional<std::vector<nlohmann::json::object_t>> headers;
             std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
 
+            // clang-format off
             if (!json_util::readJsonPatch(
-                    req, asyncResp->res, "Destination", destUrl, "Context",
-                    context, "Protocol", protocol, "SubscriptionType",
-                    subscriptionType, "EventFormatType", eventFormatType2,
-                    "HttpHeaders", headers, "RegistryPrefixes", regPrefixes,
-                    "OriginResources", originResources, "MessageIds", msgIds,
+                    req, asyncResp->res,
+                    "Context", context,
                     "DeliveryRetryPolicy", retryPolicy,
-                    "MetricReportDefinitions", mrdJsonArray, "ResourceTypes",
-                    resTypes, "VerifyCertificate", verifyCertificate))
+                    "Destination", destUrl,
+                    "EventFormatType", eventFormatType2,
+                    "HttpHeaders", headers,
+                    "MessageIds", msgIds,
+                    "MetricReportDefinitions", mrdJsonArray,
+                    "OriginResources", originResources,
+                    "Protocol", protocol,
+                    "RegistryPrefixes", regPrefixes,
+                    "ResourceTypes", resTypes,
+                    "SubscriptionType", subscriptionType,
+                    "VerifyCertificate", verifyCertificate
+            ))
             {
                 return;
             }
+            // clang-format on
 
             // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
             static constexpr const uint16_t maxDestinationSize = 2000;
@@ -425,7 +434,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(*url, app.ioContext());
 
-            subValue->destinationUrl = std::move(*url);
+            subValue->userSub.destinationUrl = std::move(*url);
 
             if (subscriptionType)
             {
@@ -435,11 +444,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         asyncResp->res, *subscriptionType, "SubscriptionType");
                     return;
                 }
-                subValue->subscriptionType = *subscriptionType;
+                subValue->userSub.subscriptionType = *subscriptionType;
             }
             else
             {
-                subValue->subscriptionType = "RedfishEvent"; // Default
+                // Default
+                subValue->userSub.subscriptionType = "RedfishEvent";
             }
 
             if (protocol != "Redfish")
@@ -448,11 +458,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                                  "Protocol");
                 return;
             }
-            subValue->protocol = protocol;
+            subValue->userSub.protocol = protocol;
 
             if (verifyCertificate)
             {
-                subValue->verifyCertificate = *verifyCertificate;
+                subValue->userSub.verifyCertificate = *verifyCertificate;
             }
 
             if (eventFormatType2)
@@ -465,12 +475,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         asyncResp->res, *eventFormatType2, "EventFormatType");
                     return;
                 }
-                subValue->eventFormatType = *eventFormatType2;
+                subValue->userSub.eventFormatType = *eventFormatType2;
             }
             else
             {
                 // If not specified, use default "Event"
-                subValue->eventFormatType = "Event";
+                subValue->userSub.eventFormatType = "Event";
             }
 
             if (context)
@@ -483,7 +493,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                                  maxContextSize);
                     return;
                 }
-                subValue->customText = *context;
+                subValue->userSub.customText = *context;
             }
 
             if (headers)
@@ -516,7 +526,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                 asyncResp->res, "HttpHeaders", maxHeaderSizeED);
                             return;
                         }
-                        subValue->httpHeaders.set(item.first, *value);
+                        subValue->userSub.httpHeaders.set(item.first, *value);
                     }
                 }
             }
@@ -533,12 +543,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         return;
                     }
                 }
-                subValue->registryPrefixes = *regPrefixes;
+                subValue->userSub.registryPrefixes = *regPrefixes;
             }
 
             if (originResources)
             {
-                subValue->originResources = *originResources;
+                subValue->userSub.originResources = *originResources;
             }
 
             if (resTypes)
@@ -553,7 +563,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         return;
                     }
                 }
-                subValue->resourceTypes = *resTypes;
+                subValue->userSub.resourceTypes = *resTypes;
             }
 
             if (msgIds)
@@ -562,14 +572,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
                 // If no registry prefixes are mentioned, consider all
                 // supported prefixes
-                if (subValue->registryPrefixes.empty())
+                if (subValue->userSub.registryPrefixes.empty())
                 {
                     registryPrefix.assign(supportedRegPrefixes.begin(),
                                           supportedRegPrefixes.end());
                 }
                 else
                 {
-                    registryPrefix = subValue->registryPrefixes;
+                    registryPrefix = subValue->userSub.registryPrefixes;
                 }
 
                 for (const std::string& id : *msgIds)
@@ -603,7 +613,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     }
                 }
 
-                subValue->registryMsgIds = *msgIds;
+                subValue->userSub.registryMsgIds = *msgIds;
             }
 
             if (retryPolicy)
@@ -615,12 +625,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         asyncResp->res, *retryPolicy, "DeliveryRetryPolicy");
                     return;
                 }
-                subValue->retryPolicy = *retryPolicy;
+                subValue->userSub.retryPolicy = *retryPolicy;
             }
             else
             {
                 // Default "TerminateAfterRetries"
-                subValue->retryPolicy = "TerminateAfterRetries";
+                subValue->userSub.retryPolicy = "TerminateAfterRetries";
             }
 
             if (mrdJsonArray)
@@ -635,7 +645,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     {
                         return;
                     }
-                    subValue->metricReportDefinitions.emplace_back(mrdUri);
+                    subValue->userSub.metricReportDefinitions.emplace_back(
+                        mrdUri);
                 }
             }
 
@@ -683,44 +694,38 @@ inline void requestRoutesEventDestination(App& app)
                 }
                 const std::string& id = param;
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#EventDestination.v1_14_1.EventDestination";
-                asyncResp->res.jsonValue["Protocol"] =
-                    event_destination::EventDestinationProtocol::Redfish;
-                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/EventService/Subscriptions/{}", id);
-                asyncResp->res.jsonValue["Id"] = id;
-                asyncResp->res.jsonValue["Name"] = "Event Destination " + id;
-                asyncResp->res.jsonValue["Destination"] =
-                    subValue->destinationUrl;
-                asyncResp->res.jsonValue["Context"] = subValue->customText;
-                asyncResp->res.jsonValue["SubscriptionType"] =
-                    subValue->subscriptionType;
-                asyncResp->res.jsonValue["HttpHeaders"] =
-                    nlohmann::json::array();
-                asyncResp->res.jsonValue["EventFormatType"] =
-                    subValue->eventFormatType;
-                asyncResp->res.jsonValue["RegistryPrefixes"] =
-                    subValue->registryPrefixes;
-                asyncResp->res.jsonValue["ResourceTypes"] =
-                    subValue->resourceTypes;
+                const persistent_data::UserSubscription& userSub =
+                    subValue->userSub;
 
-                asyncResp->res.jsonValue["MessageIds"] =
-                    subValue->registryMsgIds;
-                asyncResp->res.jsonValue["DeliveryRetryPolicy"] =
-                    subValue->retryPolicy;
-                asyncResp->res.jsonValue["VerifyCertificate"] =
-                    subValue->verifyCertificate;
+                nlohmann::json& jVal = asyncResp->res.jsonValue;
+                jVal["@odata.type"] =
+                    "#EventDestination.v1_14_1.EventDestination";
+                jVal["Protocol"] =
+                    event_destination::EventDestinationProtocol::Redfish;
+                jVal["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/EventService/Subscriptions/{}", id);
+                jVal["Id"] = id;
+                jVal["Name"] = "Event Destination " + id;
+                jVal["Destination"] = userSub.destinationUrl;
+                jVal["Context"] = userSub.customText;
+                jVal["SubscriptionType"] = userSub.subscriptionType;
+                jVal["HttpHeaders"] = nlohmann::json::array();
+                jVal["EventFormatType"] = userSub.eventFormatType;
+                jVal["RegistryPrefixes"] = userSub.registryPrefixes;
+                jVal["ResourceTypes"] = userSub.resourceTypes;
+
+                jVal["MessageIds"] = userSub.registryMsgIds;
+                jVal["DeliveryRetryPolicy"] = userSub.retryPolicy;
+                jVal["VerifyCertificate"] = userSub.verifyCertificate;
 
                 nlohmann::json::array_t mrdJsonArray;
-                for (const auto& mdrUri : subValue->metricReportDefinitions)
+                for (const auto& mdrUri : userSub.metricReportDefinitions)
                 {
                     nlohmann::json::object_t mdr;
                     mdr["@odata.id"] = mdrUri;
                     mrdJsonArray.emplace_back(std::move(mdr));
                 }
-                asyncResp->res.jsonValue["MetricReportDefinitions"] =
-                    mrdJsonArray;
+                jVal["MetricReportDefinitions"] = mrdJsonArray;
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
@@ -761,7 +766,7 @@ inline void requestRoutesEventDestination(App& app)
 
                 if (context)
                 {
-                    subValue->customText = *context;
+                    subValue->userSub.customText = *context;
                 }
 
                 if (headers)
@@ -783,7 +788,7 @@ inline void requestRoutesEventDestination(App& app)
                             fields.set(it.first, *value);
                         }
                     }
-                    subValue->httpHeaders = std::move(fields);
+                    subValue->userSub.httpHeaders = std::move(fields);
                 }
 
                 if (retryPolicy)
@@ -797,12 +802,12 @@ inline void requestRoutesEventDestination(App& app)
                                                          "DeliveryRetryPolicy");
                         return;
                     }
-                    subValue->retryPolicy = *retryPolicy;
+                    subValue->userSub.retryPolicy = *retryPolicy;
                 }
 
                 if (verifyCertificate)
                 {
-                    subValue->verifyCertificate = *verifyCertificate;
+                    subValue->userSub.verifyCertificate = *verifyCertificate;
                 }
 
                 EventServiceManager::getInstance().updateSubscriptionData();
@@ -821,23 +826,21 @@ inline void requestRoutesEventDestination(App& app)
                 {
                     return;
                 }
-
+                EventServiceManager& event = EventServiceManager::getInstance();
                 if (param.starts_with("snmp"))
                 {
                     deleteSnmpTrapClient(asyncResp, param);
-                    EventServiceManager::getInstance().deleteSubscription(
-                        param);
+                    event.deleteSubscription(param);
                     return;
                 }
 
-                if (!EventServiceManager::getInstance().isSubscriptionExist(
-                        param))
+                if (!event.deleteSubscription(param))
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EventDestination", param);
                     return;
                 }
-                EventServiceManager::getInstance().deleteSubscription(param);
+                messages::success(asyncResp->res);
             });
 }
 

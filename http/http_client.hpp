@@ -848,7 +848,9 @@ class HttpClient
   private:
     std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
         connectionPools;
-    boost::asio::io_context& ioc;
+
+    // reference_wrapper here makes HttpClient movable
+    std::reference_wrapper<boost::asio::io_context> ioc;
     std::shared_ptr<ConnectionPolicy> connPolicy;
 
     // Used as a dummy callback by sendData() in order to call
@@ -868,8 +870,8 @@ class HttpClient
 
     HttpClient(const HttpClient&) = delete;
     HttpClient& operator=(const HttpClient&) = delete;
-    HttpClient(HttpClient&&) = delete;
-    HttpClient& operator=(HttpClient&&) = delete;
+    HttpClient(HttpClient&& client) = default;
+    HttpClient& operator=(HttpClient&& client) = default;
     ~HttpClient() = default;
 
     // Send a request to destIP where additional processing of the
