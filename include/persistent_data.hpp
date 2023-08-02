@@ -157,10 +157,10 @@ class ConfigFile
                     {
                         for (const auto& elem : item.second)
                         {
-                            std::shared_ptr<UserSubscription> newSubscription =
+                            std::optional<UserSubscription> newSubscription =
                                 UserSubscription::fromJson(elem);
 
-                            if (newSubscription == nullptr)
+                            if (!newSubscription)
                             {
                                 BMCWEB_LOG_ERROR("Problem reading subscription "
                                                  "from persistent store");
@@ -172,7 +172,7 @@ class ConfigFile
                                              newSubscription->customText);
                             EventServiceStore::getInstance()
                                 .subscriptionsConfigMap.emplace(
-                                    newSubscription->id, newSubscription);
+                                    newSubscription->id, *newSubscription);
                         }
                     }
                     else
