@@ -256,6 +256,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "682d4fc7_806c3a35",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "I felt adding \"if else\" chain everywhere to do the same thing for different types reduces the readability and maintainability. I have removed Template class with a generic function to do the same. is it ok?",
+      "parentUuid": "a2f5e7c9_cc01a7de",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a301dd8_08a1633f",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -410,6 +434,30 @@
       "side": 1,
       "message": "The most important thing is that body() can now return an error, which means that the prototype of this function needs to change.  As-is, you\u0027ve just make this code throw, which this code doesn\u0027t catch anywhere, and will just crash the service.",
       "parentUuid": "5edeec22_64be1a35",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c630b61_23ea88ed",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "emplace will not be executed always. It executes only if the current body type is not the desired type. So we should call get or get_if in other cases. Made changes to use safeVisit to avoid the exception.",
+      "parentUuid": "3283d13c_110a6da9",
       "range": {
         "startLine": 205,
         "startChar": 15,

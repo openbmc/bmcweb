@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4fb4815_007ff62a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "Using polymorphic despatch instead of if-else chain will make the code scalable for future types. If we wanted to add a custom body type that reads from a custom source, say a domain socket, then we just needed to add some new overloads to support it. Need not touch any common code. What you think?",
+      "parentUuid": "b8cd0e76_9cd8ba62",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 570,
+        "endChar": 52
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f7fcf3b_e81d7bbb",
         "filename": "http/http_connection.hpp",
         "patchSetId": 35
@@ -139,6 +163,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "321b522e_2962e64c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "It is better to keep this as a generic function for all types. Otherwise we will be duplicating the same code for each type. Templates are useful for wrting such reusable algorithms. What do you think?",
+      "parentUuid": "59b4d660_396f6af4",
+      "range": {
+        "startLine": 190,
+        "startChar": 9,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71725e1b_9e3bd0a7",
@@ -164,6 +212,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2976cffc_7b01ed53",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "We should create a new response anyway if the current body is not the desired one. We are using \"move\" to avoid any other temporary response object creation. I renamed the parameter names, as it was a bit confusing. What we really creating is a new response that can hold the body.",
+      "parentUuid": "71725e1b_9e3bd0a7",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 23
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b26679b_52ce1c4f",
         "filename": "http/http_response.hpp",
         "patchSetId": 35
@@ -175,6 +247,30 @@
       "writtenOn": "2023-07-31T18:37:25Z",
       "side": 1,
       "message": "I suspect you want ::scan here.",
+      "range": {
+        "startLine": 212,
+        "startChar": 57,
+        "endLine": 212,
+        "endChar": 61
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b05b20_f68d0fe9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b26679b_52ce1c4f",
       "range": {
         "startLine": 212,
         "startChar": 57,
@@ -233,6 +329,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a235432_bde64cb6",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "I was wondering why we decided to reimplement prepare_payload? is it because it\u0027s a throwing function? In that case wrap it around a try-catch would have solved the problem?. I believe the beast owner knows better how prepare_payload work for different response types.",
+      "parentUuid": "0f8e6f25_edc5ba84",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 43
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83e14b9c_bb92dd48",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 35
@@ -256,6 +376,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7efaaff4_4856c296",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "is this applicable to test code?",
+      "parentUuid": "83e14b9c_bb92dd48",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "402cd318_35caac05",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 35
@@ -267,6 +411,30 @@
       "writtenOn": "2023-07-31T18:44:25Z",
       "side": 1,
       "message": "please don\u0027t invent your own split function.  WE already have access to several (both a bmcweb one and boost)",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 9
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de1feb13_dd959721",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-02T04:31:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "402cd318_35caac05",
       "range": {
         "startLine": 19,
         "startChar": 0,
