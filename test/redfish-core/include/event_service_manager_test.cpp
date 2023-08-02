@@ -29,7 +29,9 @@ TEST(EventServiceManager, eventMatchesFilter)
         nlohmann::json::object_t event;
         // Resource types filter
         Subscription sub(url, io);
-        sub.resourceTypes.emplace_back("Task");
+        persistent_data::UserSubscription& userSub = sub.userSub;
+
+        userSub.resourceTypes.emplace_back("Task");
         EXPECT_FALSE(sub.eventMatchesFilter(event, "Event"));
         EXPECT_TRUE(sub.eventMatchesFilter(event, "Task"));
     }
@@ -37,7 +39,9 @@ TEST(EventServiceManager, eventMatchesFilter)
         nlohmann::json::object_t event;
         // Resource types filter
         Subscription sub(url, io);
-        sub.registryMsgIds.emplace_back("OpenBMC.PostComplete");
+        persistent_data::UserSubscription& userSub = sub.userSub;
+
+        userSub.registryMsgIds.emplace_back("OpenBMC.PostComplete");
 
         // Correct message registry
         event["MessageId"] = "OpenBMC.0.1.PostComplete";
@@ -55,6 +59,7 @@ TEST(EventServiceManager, eventMatchesFilter)
         nlohmann::json::object_t event;
         // Resource types filter
         Subscription sub(url, io);
+
         event["MessageId"] = "OpenBMC.0.1.PostComplete";
 
         // Correct message registry
@@ -69,10 +74,12 @@ TEST(EventServiceManager, eventMatchesFilter)
         nlohmann::json::object_t event;
         // Resource types filter
         Subscription sub(url, io);
+        persistent_data::UserSubscription& userSub = sub.userSub;
+
         event["MessageId"] = "OpenBMC.0.1.PostComplete";
 
         // Correct message registry
-        sub.registryPrefixes.emplace_back("OpenBMC");
+        userSub.registryPrefixes.emplace_back("OpenBMC");
         EXPECT_TRUE(sub.eventMatchesFilter(event, "Event"));
 
         // Different message registry
@@ -84,17 +91,21 @@ TEST(EventServiceManager, eventMatchesFilter)
         // Resource types filter
         {
             Subscription sub(url, io);
+            persistent_data::UserSubscription& userSub = sub.userSub;
+
             event["OriginOfCondition"] = "/redfish/v1/Managers/bmc";
 
             // Correct origin
-            sub.originResources.emplace_back("/redfish/v1/Managers/bmc");
+            userSub.originResources.emplace_back("/redfish/v1/Managers/bmc");
             EXPECT_TRUE(sub.eventMatchesFilter(event, "Event"));
         }
         {
             Subscription sub(url, io);
+            persistent_data::UserSubscription& userSub = sub.userSub;
             // Incorrect origin
-            sub.originResources.clear();
-            sub.originResources.emplace_back("/redfish/v1/Managers/bmc_not");
+            userSub.originResources.clear();
+            userSub.originResources.emplace_back(
+                "/redfish/v1/Managers/bmc_not");
             EXPECT_FALSE(sub.eventMatchesFilter(event, "Event"));
         }
     }
