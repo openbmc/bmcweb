@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e6682d_541b4784",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T17:51:14Z",
+      "side": 1,
+      "message": "Still incorrect.  This needs to be using sdbusplus::message::object_path.  Something like\n\nsdbusplus::message::object_path path(\"/xyz/openbmc_project/network\");\npath /\u003d ethifaceId;\n\nsdbusplus::message::object_path dhcp4 \u003d path / ethifaceId / \"dhcp4\";\nif objpath.first.str.starts_with(dhcp4.str())",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 0
+      },
+      "revId": "b3999f769071153898d1a5694fcd9858ad7c5fc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01fc8388_f4a2e984",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T17:51:14Z",
+      "side": 1,
+      "message": "nit, please call this \"NetworkType\"  no need to shorten here, and NW is not a common abbreviation.",
+      "range": {
+        "startLine": 1133,
+        "startChar": 11,
+        "endLine": 1133,
+        "endChar": 17
+      },
+      "revId": "b3999f769071153898d1a5694fcd9858ad7c5fc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10ecfbe9_c11f489b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T17:51:14Z",
+      "side": 1,
+      "message": "Pass enumerations (which are int) by value please.",
+      "range": {
+        "startLine": 1141,
+        "startChar": 57,
+        "endLine": 1141,
+        "endChar": 70
+      },
+      "revId": "b3999f769071153898d1a5694fcd9858ad7c5fc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6279d15_d436e654",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T17:51:14Z",
+      "side": 1,
+      "message": "nit, please unroll this.\n\nif (type \u003d\u003d NwType::dhcp4){\n   path /\u003d \"dhcp4\";\n} else {\n   path /\u003d \"dhcp6\";\n}",
+      "range": {
+        "startLine": 1146,
+        "startChar": 0,
+        "endLine": 1146,
+        "endChar": 54
+      },
+      "revId": "b3999f769071153898d1a5694fcd9858ad7c5fc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
