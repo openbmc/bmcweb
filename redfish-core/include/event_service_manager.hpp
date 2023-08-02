@@ -258,25 +258,29 @@ inline int formatEventLogEntry(const std::string& logEntryID,
 
 } // namespace event_log
 
-class Subscription : public persistent_data::UserSubscription
+class Subscription
 {
   public:
     Subscription(const Subscription&) = delete;
     Subscription& operator=(const Subscription&) = delete;
-    Subscription(Subscription&&) = delete;
-    Subscription& operator=(Subscription&&) = delete;
+    Subscription(Subscription&&) = default;
+    Subscription& operator=(Subscription&&) = default;
 
-    Subscription(const boost::urls::url_view_base& url,
+    Subscription(persistent_data::UserSubscription&& user,
+                 const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc) :
-        policy(std::make_shared<crow::ConnectionPolicy>())
+        userSubscription(std::move(user)),
+        policy(std::make_shared<crow::ConnectionPolicy>()),
+        client(std::in_place_t(), ioc, policy)
     {
-        destinationUrl = url;
-        client.emplace(ioc, policy);
+        userSubscription.destinationUrl = url;
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
     }
 
-    explicit Subscription(crow::sse_socket::Connection& connIn) :
+    Subscription(persistent_data::UserSubscription&& user,
+                 crow::sse_socket::Connection& connIn) :
+        userSubscription(std::move(user)),
         sseConn(&connIn)
     {}
 
@@ -291,15 +295,13 @@ class Subscription : public persistent_data::UserSubscription
         {
             return false;
         }
-
-        // A connection pool will be created if one does not already exist
         if (client)
         {
-            client->sendData(std::move(msg), destinationUrl, httpHeaders,
+            client->sendData(std::move(msg), userSubscription.destinationUrl,
+                             userSubscription.httpHeaders,
                              boost::beast::http::verb::post);
             return true;
         }
-
         if (sseConn != nullptr)
         {
             eventSeqNum++;
@@ -322,7 +324,7 @@ class Subscription : public persistent_data::UserSubscription
         logEntryJson["MessageArgs"] = nlohmann::json::array();
         logEntryJson["EventTimestamp"] =
             redfish::time_utils::getDateTimeOffsetNow().first;
-        logEntryJson["Context"] = customText;
+        logEntryJson["Context"] = userSubscription.customText;
 
         nlohmann::json msg;
         msg["@odata.type"] = "#Event.v1_4_0.Event";
@@ -350,10 +352,11 @@ class Subscription : public persistent_data::UserSubscription
 
             // If registryPrefixes list is empty, don't filter events
             // send everything.
-            if (!registryPrefixes.empty())
+            if (!userSubscription.registryPrefixes.empty())
             {
-                auto obj = std::ranges::find(registryPrefixes, registryName);
-                if (obj == registryPrefixes.end())
+                auto obj = std::ranges::find(userSubscription.registryPrefixes,
+                                             registryName);
+                if (obj == userSubscription.registryPrefixes.end())
                 {
                     continue;
                 }
@@ -361,10 +364,11 @@ class Subscription : public persistent_data::UserSubscription
 
             // If registryMsgIds list is empty, don't filter events
             // send everything.
-            if (!registryMsgIds.empty())
+            if (!userSubscription.registryMsgIds.empty())
             {
-                auto obj = std::ranges::find(registryMsgIds, messageKey);
-                if (obj == registryMsgIds.end())
+                auto obj = std::ranges::find(userSubscription.registryMsgIds,
+                                             messageKey);
+                if (obj == userSubscription.registryMsgIds.end())
                 {
                     continue;
                 }
@@ -375,9 +379,9 @@ class Subscription : public persistent_data::UserSubscription
 
             logEntryArray.push_back({});
             nlohmann::json& bmcLogEntry = logEntryArray.back();
-            if (event_log::formatEventLogEntry(idStr, messageID,
-                                               messageArgsView, timestamp,
-                                               customText, bmcLogEntry) != 0)
+            if (event_log::formatEventLogEntry(
+                    idStr, messageID, messageArgsView, timestamp,
+                    userSubscription.customText, bmcLogEntry) != 0)
             {
                 BMCWEB_LOG_DEBUG("Read eventLog entry failed");
                 continue;
@@ -409,10 +413,11 @@ class Subscription : public persistent_data::UserSubscription
             reportId);
 
         // Empty list means no filter. Send everything.
-        if (!metricReportDefinitions.empty())
+        if (!userSubscription.metricReportDefinitions.empty())
         {
-            if (std::ranges::find(metricReportDefinitions, mrdUri.buffer()) ==
-                metricReportDefinitions.end())
+            if (std::ranges::find(userSubscription.metricReportDefinitions,
+                                  mrdUri.buffer()) ==
+                userSubscription.metricReportDefinitions.end())
             {
                 return;
             }
@@ -429,9 +434,9 @@ class Subscription : public persistent_data::UserSubscription
 
         // Context is set by user during Event subscription and it must be
         // set for MetricReport response.
-        if (!customText.empty())
+        if (!userSubscription.customText.empty())
         {
-            msg["Context"] = customText;
+            msg["Context"] = userSubscription.customText;
         }
 
         std::string strMsg = msg.dump(2, ' ', true,
@@ -469,16 +474,22 @@ class Subscription : public persistent_data::UserSubscription
 
     bool matchSseId(const crow::sse_socket::Connection& thisConn)
     {
+        if (sseConn == nullptr)
+        {
+            return false;
+        }
         return &thisConn == sseConn;
     }
+
+    persistent_data::UserSubscription userSubscription;
 
   private:
     std::string subId;
     uint64_t eventSeqNum = 1;
     boost::urls::url host;
     std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::sse_socket::Connection* sseConn = nullptr;
     std::optional<crow::HttpClient> client;
+    crow::sse_socket::Connection* sseConn;
     std::string path;
     std::string uriProto;
 
@@ -511,8 +522,7 @@ class EventServiceManager
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
-    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
-        subscriptionsMap;
+    boost::container::flat_map<std::string, Subscription> subscriptionsMap;
 
     uint64_t eventId{1};
 
@@ -553,11 +563,10 @@ class EventServiceManager
         for (const auto& it : persistent_data::EventServiceStore::getInstance()
                                   .subscriptionsConfigMap)
         {
-            std::shared_ptr<persistent_data::UserSubscription> newSub =
-                it.second;
+            persistent_data::UserSubscription newSub = it.second;
 
             boost::system::result<boost::urls::url> url =
-                boost::urls::parse_absolute_uri(newSub->destinationUrl);
+                boost::urls::parse_absolute_uri(newSub.destinationUrl);
 
             if (!url)
             {
@@ -565,27 +574,10 @@ class EventServiceManager
                     "Failed to validate and split destination url");
                 continue;
             }
-            std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(*url, ioc);
 
-            subValue->id = newSub->id;
-            subValue->destinationUrl = newSub->destinationUrl;
-            subValue->protocol = newSub->protocol;
-            subValue->retryPolicy = newSub->retryPolicy;
-            subValue->customText = newSub->customText;
-            subValue->eventFormatType = newSub->eventFormatType;
-            subValue->subscriptionType = newSub->subscriptionType;
-            subValue->registryMsgIds = newSub->registryMsgIds;
-            subValue->registryPrefixes = newSub->registryPrefixes;
-            subValue->resourceTypes = newSub->resourceTypes;
-            subValue->httpHeaders = newSub->httpHeaders;
-            subValue->metricReportDefinitions = newSub->metricReportDefinitions;
-
-            if (subValue->id.empty())
-            {
-                BMCWEB_LOG_ERROR("Failed to add subscription");
-            }
-            subscriptionsMap.insert(std::pair(subValue->id, subValue));
+            std::string id = newSub.id;
+            auto it2 = subscriptionsMap.emplace(
+                id, Subscription(std::move(newSub), *url, ioc));
 
             updateNoOfSubscribersCount();
 
@@ -593,9 +585,10 @@ class EventServiceManager
             {
                 cacheRedfishLogFile();
             }
-
+            
             // Update retry configuration.
-            subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+            it2.first->second.updateRetryConfig(retryAttempts,
+                                                retryTimeoutInterval);
         }
     }
 
@@ -628,11 +621,11 @@ class EventServiceManager
             {
                 for (const auto& elem : item.second)
                 {
-                    std::shared_ptr<persistent_data::UserSubscription>
+                    std::optional<persistent_data::UserSubscription>
                         newSubscription =
                             persistent_data::UserSubscription::fromJson(elem,
                                                                         true);
-                    if (newSubscription == nullptr)
+                    if (!newSubscription)
                     {
                         BMCWEB_LOG_ERROR("Problem reading subscription "
                                          "from old persistent store");
@@ -648,17 +641,7 @@ class EventServiceManager
                     while (retry != 0)
                     {
                         id = std::to_string(dist(gen));
-                        if (gen.error())
-                        {
-                            retry = 0;
-                            break;
-                        }
-                        newSubscription->id = id;
-                        auto inserted =
-                            persistent_data::EventServiceStore::getInstance()
-                                .subscriptionsConfigMap.insert(
-                                    std::pair(id, newSubscription));
-                        if (inserted.second)
+                        if (!gen.error())
                         {
                             break;
                         }
@@ -672,6 +655,10 @@ class EventServiceManager
                             "persistent store");
                         continue;
                     }
+                    newSubscription->id = id;
+                    persistent_data::EventServiceStore::getInstance()
+                        .subscriptionsConfigMap.emplace(
+                            id, std::move(*newSubscription));
                 }
             }
 
@@ -743,11 +730,11 @@ class EventServiceManager
         if (updateRetryCfg)
         {
             // Update the changed retry config to all subscriptions
-            for (const auto& it :
+            for (std::pair<std::string, Subscription>& it :
                  EventServiceManager::getInstance().subscriptionsMap)
             {
-                Subscription& entry = *it.second;
-                entry.updateRetryConfig(retryAttempts, retryTimeoutInterval);
+                it.second.updateRetryConfig(retryAttempts,
+                                            retryTimeoutInterval);
             }
         }
     }
@@ -756,14 +743,15 @@ class EventServiceManager
     {
         size_t eventLogSubCount = 0;
         size_t metricReportSubCount = 0;
-        for (const auto& it : subscriptionsMap)
+        for (auto& it : subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (entry->eventFormatType == eventFormatType)
+            Subscription& entry = it.second;
+            if (entry.userSubscription.eventFormatType == eventFormatType)
             {
                 eventLogSubCount++;
             }
-            else if (entry->eventFormatType == metricReportFormatType)
+            else if (entry.userSubscription.eventFormatType ==
+                     metricReportFormatType)
             {
                 metricReportSubCount++;
             }
@@ -784,7 +772,7 @@ class EventServiceManager
         }
     }
 
-    std::shared_ptr<Subscription> getSubscription(const std::string& id)
+    Subscription* getSubscription(const std::string& id)
     {
         auto obj = subscriptionsMap.find(id);
         if (obj == subscriptionsMap.end())
@@ -792,12 +780,11 @@ class EventServiceManager
             BMCWEB_LOG_ERROR("No subscription exist with ID:{}", id);
             return nullptr;
         }
-        std::shared_ptr<Subscription> subValue = obj->second;
-        return subValue;
+        return &obj->second;
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription>& subValue,
-                                const bool updateFile = true)
+    std::string addSubscription(persistent_data::UserSubscription&& subValue,
+                                crow::sse_socket::Connection* sse = nullptr)
     {
         std::uniform_int_distribution<uint32_t> dist(0);
         bmcweb::OpenSSLGenerator gen;
@@ -810,12 +797,6 @@ class EventServiceManager
             id = std::to_string(dist(gen));
             if (gen.error())
             {
-                retry = 0;
-                break;
-            }
-            auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
-            if (inserted.second)
-            {
                 break;
             }
             --retry;
@@ -827,26 +808,27 @@ class EventServiceManager
             return "";
         }
 
-        std::shared_ptr<persistent_data::UserSubscription> newSub =
-            std::make_shared<persistent_data::UserSubscription>();
-        newSub->id = id;
-        newSub->destinationUrl = subValue->destinationUrl;
-        newSub->protocol = subValue->protocol;
-        newSub->retryPolicy = subValue->retryPolicy;
-        newSub->customText = subValue->customText;
-        newSub->eventFormatType = subValue->eventFormatType;
-        newSub->subscriptionType = subValue->subscriptionType;
-        newSub->registryMsgIds = subValue->registryMsgIds;
-        newSub->registryPrefixes = subValue->registryPrefixes;
-        newSub->resourceTypes = subValue->resourceTypes;
-        newSub->httpHeaders = subValue->httpHeaders;
-        newSub->metricReportDefinitions = subValue->metricReportDefinitions;
+        // Set Subscription ID for back trace
+        subValue.id = id;
         persistent_data::EventServiceStore::getInstance()
-            .subscriptionsConfigMap.emplace(newSub->id, newSub);
+            .subscriptionsConfigMap.emplace(id, subValue);
+        if (sse != nullptr)
+        {
+            subscriptionsMap.emplace(id,
+                                     Subscription(std::move(subValue), *sse));
+        }
+        else
+        {
+            auto it = subscriptionsMap.emplace(
+                id, Subscription(std::move(subValue), *sse));
+            // Update retry configuration.
+            it.first->second.updateRetryConfig(retryAttempts,
+                                               retryTimeoutInterval);
+        }
 
         updateNoOfSubscribersCount();
 
-        if (updateFile)
+        if (sse != nullptr)
         {
             updateSubscriptionData();
         }
@@ -858,11 +840,6 @@ class EventServiceManager
                 cacheRedfishLogFile();
             }
         }
-        // Update retry configuration.
-        subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-
-        // Set Subscription ID for back trace
-        subValue->setSubscriptionId(id);
         return id;
     }
 
@@ -891,13 +868,13 @@ class EventServiceManager
     {
         for (auto it = subscriptionsMap.begin(); it != subscriptionsMap.end();)
         {
-            std::shared_ptr<Subscription> entry = it->second;
-            bool entryIsThisConn = entry->matchSseId(thisConn);
+            Subscription& entry = it->second;
+            bool entryIsThisConn = entry.matchSseId(thisConn);
             if (entryIsThisConn)
             {
                 persistent_data::EventServiceStore::getInstance()
                     .subscriptionsConfigMap.erase(
-                        it->second->getSubscriptionId());
+                        it->second.getSubscriptionId());
                 it = subscriptionsMap.erase(it);
                 return;
             }
@@ -914,9 +891,9 @@ class EventServiceManager
     {
         auto size = std::ranges::count_if(
             subscriptionsMap,
-            [](const std::pair<std::string, std::shared_ptr<Subscription>>&
-                   entry) {
-            return (entry.second->subscriptionType == subscriptionTypeSSE);
+            [](const std::pair<std::string, Subscription>& entry) {
+            return entry.second.userSubscription.subscriptionType ==
+                   subscriptionTypeSSE;
         });
         return static_cast<size_t>(size);
     }
@@ -933,10 +910,10 @@ class EventServiceManager
 
     bool sendTestEventLog()
     {
-        for (const auto& it : subscriptionsMap)
+        for (auto& it : subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (!entry->sendTestEventLog())
+            Subscription& entry = it.second;
+            if (!entry.sendTestEventLog())
             {
                 return false;
             }
@@ -963,16 +940,17 @@ class EventServiceManager
 
         eventRecord.emplace_back(std::move(eventMessage));
 
-        for (const auto& it : subscriptionsMap)
+        for (auto& it : subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            Subscription& entry = it.second;
             bool isSubscribed = false;
             // Search the resourceTypes list for the subscription.
             // If resourceTypes list is empty, don't filter events
             // send everything.
-            if (!entry->resourceTypes.empty())
+            if (!entry.userSubscription.resourceTypes.empty())
             {
-                for (const auto& resource : entry->resourceTypes)
+                for (const auto& resource :
+                     entry.userSubscription.resourceTypes)
                 {
                     if (resType == resource)
                     {
@@ -999,7 +977,7 @@ class EventServiceManager
 
                 std::string strMsg = msgJson.dump(
                     2, ' ', true, nlohmann::json::error_handler_t::replace);
-                entry->sendEvent(std::move(strMsg));
+                entry.sendEvent(std::move(strMsg));
                 eventId++; // increment the eventId
             }
             else
@@ -1104,12 +1082,12 @@ class EventServiceManager
             return;
         }
 
-        for (const auto& it : subscriptionsMap)
+        for (auto& it : subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (entry->eventFormatType == "Event")
+            Subscription& entry = it.second;
+            if (entry.userSubscription.eventFormatType == "Event")
             {
-                entry->filterAndSendEventLogs(eventRecords);
+                entry.filterAndSendEventLogs(eventRecords);
             }
         }
     }
@@ -1283,11 +1261,11 @@ class EventServiceManager
             return;
         }
 
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
+        for (auto& it : EventServiceManager::getInstance().subscriptionsMap)
         {
-            Subscription& entry = *it.second;
-            if (entry.eventFormatType == metricReportFormatType)
+            Subscription& entry = it.second;
+            if (entry.userSubscription.eventFormatType ==
+                metricReportFormatType)
             {
                 entry.filterAndSendReports(id, *readings);
             }
