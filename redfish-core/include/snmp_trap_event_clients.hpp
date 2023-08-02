@@ -66,17 +66,6 @@ inline void
     asyncResp->res.jsonValue["SubscriptionType"] = "SNMPTrap";
     asyncResp->res.jsonValue["EventFormatType"] = "Event";
 
-    std::shared_ptr<Subscription> subValue =
-        EventServiceManager::getInstance().getSubscription(id);
-    if (subValue != nullptr)
-    {
-        asyncResp->res.jsonValue["Context"] = subValue->customText;
-    }
-    else
-    {
-        asyncResp->res.jsonValue["Context"] = "";
-    }
-
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.Network.SNMP",
         objectPath, "xyz.openbmc_project.Network.Client",
