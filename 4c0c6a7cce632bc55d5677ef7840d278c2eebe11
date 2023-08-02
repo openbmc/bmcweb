@@ -308,6 +308,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33cd2d32_fc7bbee3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T17:34:51Z",
+      "side": 1,
+      "message": "I just built both in openbmc-build-scripts and in yocto.  It builds fine.",
+      "parentUuid": "f3d9d329_e592369d",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e164b439_a21f87ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
