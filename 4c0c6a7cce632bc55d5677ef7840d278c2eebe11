@@ -290,6 +290,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3d9d329_e592369d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T17:31:12Z",
+      "side": 1,
+      "message": "are you sure you checked out the patch, and didn\u0027t cherry-pick?  If you cherry-pick, you would get the error you got because you removed the boost::url change from the stack.",
+      "parentUuid": "51dfd902_a8c986a2",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e164b439_a21f87ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
