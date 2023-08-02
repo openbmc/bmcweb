@@ -19,7 +19,8 @@ TEST(EventServiceManager, eventMatchesFilter)
     boost::urls::url url;
 
     {
-        Subscription sub(url, io);
+        Subscription ioSub(url, io);
+        persistent_data::UserSubscription& sub = ioSub.userSub;
         nlohmann::json::object_t event;
 
         // Default constructed should always pass
@@ -87,14 +88,16 @@ TEST(EventServiceManager, eventMatchesFilter)
             event["OriginOfCondition"] = "/redfish/v1/Managers/bmc";
 
             // Correct origin
-            sub.originResources.emplace_back("/redfish/v1/Managers/bmc");
+            sub.originResources.emplace_back(
+                "/redfish/v1/Managers/bmc");
             EXPECT_TRUE(sub.eventMatchesFilter(event, "Event"));
         }
         {
             Subscription sub(url, io);
             // Incorrect origin
             sub.originResources.clear();
-            sub.originResources.emplace_back("/redfish/v1/Managers/bmc_not");
+            sub.originResources.emplace_back(
+                "/redfish/v1/Managers/bmc_not");
             EXPECT_FALSE(sub.eventMatchesFilter(event, "Event"));
         }
     }
