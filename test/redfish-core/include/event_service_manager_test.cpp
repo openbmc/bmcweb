@@ -1,4 +1,5 @@
 #include "event_service_manager.hpp"
+#include "event_service_store.hpp"
 #include "filter_expr_printer.hpp"
 
 #include <boost/asio/io_context.hpp>
@@ -19,7 +20,8 @@ TEST(EventServiceManager, eventMatchesFilter)
     boost::urls::url url;
 
     {
-        Subscription sub(url, io);
+        Subscription ioSub(url, io);
+        persistent_data::UserSubscription& sub = ioSub.userSub;
         nlohmann::json::object_t event;
 
         // Default constructed should always pass
