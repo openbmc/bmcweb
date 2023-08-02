@@ -63,6 +63,30 @@
       },
       "revId": "7a01b8017a72b74e5867c21c3ebd6e7eac671d2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b52a27c_375a3dbb",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T16:54:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82c1f114_90ab8cff",
+      "range": {
+        "startLine": 45,
+        "startChar": 42,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "7a01b8017a72b74e5867c21c3ebd6e7eac671d2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
