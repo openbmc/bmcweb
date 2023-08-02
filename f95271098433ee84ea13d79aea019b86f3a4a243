@@ -16,6 +16,24 @@
       "message": "I\u0027ve pushed what I think the code stack should be.  Please review this, as well as the previous commit, and run them through your use case tests please.\n\nThanks.",
       "revId": "f95271098433ee84ea13d79aea019b86f3a4a243",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5455d2d_fe28cc8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-08-02T16:14:01Z",
+      "side": 1,
+      "message": "sure, your latest patch looks good.\nwill run tests and let you know",
+      "parentUuid": "f5297282_a6ce8ac5",
+      "revId": "f95271098433ee84ea13d79aea019b86f3a4a243",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
