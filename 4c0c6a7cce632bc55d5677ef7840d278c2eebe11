@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57d4eddb_9b0448ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-08-02T05:45:34Z",
+      "side": 1,
+      "message": "yes, URLs with IPv6 addresses required to have square brackets \nDestination URI looks like this \nexamples: http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/redfish/v1/Events \n         http://9.2.3.4:80/redfish/v1/Events\nit gets parsed FEDC:BA98:7654:3210:FEDC:BA98:7654:3210 value, tries to resolve and  connect to FEDC:BA98:7654:3210:FEDC:BA98:7654:3210:80",
+      "parentUuid": "87689ac4_7d7407b3",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e164b439_a21f87ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
