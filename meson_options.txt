@@ -239,7 +239,7 @@ option(
 option(
     'redfish-health-populate',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enables HealthPopulate and generate the Status property for
                     the resource. This option will be removed Q1 2024'''
 )
