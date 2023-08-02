@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "203f4e36_3216e2cd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T15:59:13Z",
+      "side": 1,
+      "message": "It\u0027s getting parsed on this line it looks like:\nhttps://github.com/openbmc/bmcweb/blob/d518a9beb3c5fb36ea7a6da0d920ff3a4eddabac/http/utility.hpp#L513\n\nSo we need to defer the parsing until later so we can determine the underlying type.:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/65645\n\nPlease stack on top of that patch, and I think you should be able to do what you\u0027re trying to do easily.  It\u0027s a much larger change, but I think the right one.  I can\u0027t really explain why adding a slash in the front works, given that /1234::xxxx::xxxx is not a valid URL.",
+      "parentUuid": "57d4eddb_9b0448ce",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e164b439_a21f87ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
