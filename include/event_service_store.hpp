@@ -24,11 +24,10 @@ struct UserSubscription
     boost::beast::http::fields httpHeaders;
     std::vector<std::string> metricReportDefinitions;
 
-    static std::shared_ptr<UserSubscription>
+    static std::optional<UserSubscription>
         fromJson(const nlohmann::json& j, const bool loadFromOldConfig = false)
     {
-        std::shared_ptr<UserSubscription> subvalue =
-            std::make_shared<UserSubscription>();
+        UserSubscription subvalue;
         for (const auto& element : j.items())
         {
             if (element.key() == "Id")
@@ -39,7 +38,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->id = *value;
+                subvalue.id = *value;
             }
             else if (element.key() == "Destination")
             {
@@ -55,7 +54,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->destinationUrl = std::move(*url);
+                subvalue.destinationUrl = std::move(*url);
             }
             else if (element.key() == "Protocol")
             {
@@ -65,7 +64,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->protocol = *value;
+                subvalue.protocol = *value;
             }
             else if (element.key() == "DeliveryRetryPolicy")
             {
@@ -75,7 +74,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->retryPolicy = *value;
+                subvalue.retryPolicy = *value;
             }
             else if (element.key() == "Context")
             {
@@ -85,7 +84,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->customText = *value;
+                subvalue.customText = *value;
             }
             else if (element.key() == "EventFormatType")
             {
@@ -95,7 +94,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->eventFormatType = *value;
+                subvalue.eventFormatType = *value;
             }
             else if (element.key() == "SubscriptionType")
             {
@@ -105,7 +104,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                subvalue->subscriptionType = *value;
+                subvalue.subscriptionType = *value;
             }
             else if (element.key() == "MessageIds")
             {
@@ -118,7 +117,7 @@ struct UserSubscription
                     {
                         continue;
                     }
-                    subvalue->registryMsgIds.emplace_back(*value);
+                    subvalue.registryMsgIds.emplace_back(*value);
                 }
             }
             else if (element.key() == "RegistryPrefixes")
@@ -132,7 +131,7 @@ struct UserSubscription
                     {
                         continue;
                     }
-                    subvalue->registryPrefixes.emplace_back(*value);
+                    subvalue.registryPrefixes.emplace_back(*value);
                 }
             }
             else if (element.key() == "ResourceTypes")
@@ -146,7 +145,7 @@ struct UserSubscription
                     {
                         continue;
                     }
-                    subvalue->resourceTypes.emplace_back(*value);
+                    subvalue.resourceTypes.emplace_back(*value);
                 }
             }
             else if (element.key() == "HttpHeaders")
@@ -162,7 +161,7 @@ struct UserSubscription
                                          val.key());
                         continue;
                     }
-                    subvalue->httpHeaders.set(val.key(), *value);
+                    subvalue.httpHeaders.set(val.key(), *value);
                 }
             }
             else if (element.key() == "MetricReportDefinitions")
@@ -176,7 +175,7 @@ struct UserSubscription
                     {
                         continue;
                     }
-                    subvalue->metricReportDefinitions.emplace_back(*value);
+                    subvalue.metricReportDefinitions.emplace_back(*value);
                 }
             }
             else
@@ -188,15 +187,14 @@ struct UserSubscription
             }
         }
 
-        if ((subvalue->id.empty() && !loadFromOldConfig) ||
-            subvalue->destinationUrl.empty() || subvalue->protocol.empty() ||
-            subvalue->retryPolicy.empty() ||
-            subvalue->eventFormatType.empty() ||
-            subvalue->subscriptionType.empty())
+        if ((subvalue.id.empty() && !loadFromOldConfig) ||
+            subvalue.destinationUrl.empty() || subvalue.protocol.empty() ||
+            subvalue.retryPolicy.empty() || subvalue.eventFormatType.empty() ||
+            subvalue.subscriptionType.empty())
         {
             BMCWEB_LOG_ERROR("Subscription missing required field "
                              "information, refusing to restore");
-            return nullptr;
+            return std::nullopt;
         }
 
         return subvalue;
@@ -251,7 +249,7 @@ struct EventServiceConfig
 class EventServiceStore
 {
   public:
-    boost::container::flat_map<std::string, std::shared_ptr<UserSubscription>>
+    boost::container::flat_map<std::string, UserSubscription>
         subscriptionsConfigMap;
     EventServiceConfig eventServiceConfig;
 

@@ -17,17 +17,16 @@ inline void createSubscription(crow::sse_socket::Connection& conn)
         conn.close("Max SSE subscriptions reached");
         return;
     }
-    std::shared_ptr<redfish::Subscription> subValue =
-        std::make_shared<redfish::Subscription>(conn);
+    persistent_data::UserSubscription subValue;
 
     // GET on this URI means, Its SSE subscriptionType.
-    subValue->subscriptionType = redfish::subscriptionTypeSSE;
+    subValue.subscriptionType = redfish::subscriptionTypeSSE;
 
-    subValue->protocol = "Redfish";
-    subValue->retryPolicy = "TerminateAfterRetries";
-    subValue->eventFormatType = "Event";
+    subValue.protocol = "Redfish";
+    subValue.retryPolicy = "TerminateAfterRetries";
+    subValue.eventFormatType = "Event";
 
-    std::string id = manager.addSubscription(subValue, false);
+    std::string id = manager.addSubscription(std::move(subValue), &conn);
     if (id.empty())
     {
         conn.close("Internal Error");

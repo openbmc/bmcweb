@@ -404,10 +404,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
 
-        std::shared_ptr<Subscription> subValue =
-            std::make_shared<Subscription>(*url, app.ioContext());
-
-        subValue->destinationUrl = std::move(*url);
+        persistent_data::UserSubscription subValue;
+        subValue.destinationUrl = std::move(*url);
 
         if (subscriptionType)
         {
@@ -417,11 +415,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     asyncResp->res, *subscriptionType, "SubscriptionType");
                 return;
             }
-            subValue->subscriptionType = *subscriptionType;
+            subValue.subscriptionType = *subscriptionType;
         }
         else
         {
-            subValue->subscriptionType = "RedfishEvent"; // Default
+            subValue.subscriptionType = "RedfishEvent"; // Default
         }
 
         if (protocol != "Redfish")
@@ -430,7 +428,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                              "Protocol");
             return;
         }
-        subValue->protocol = protocol;
+        subValue.protocol = protocol;
 
         if (eventFormatType2)
         {
@@ -442,12 +440,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     asyncResp->res, *eventFormatType2, "EventFormatType");
                 return;
             }
-            subValue->eventFormatType = *eventFormatType2;
+            subValue.eventFormatType = *eventFormatType2;
         }
         else
         {
             // If not specified, use default "Event"
-            subValue->eventFormatType = "Event";
+            subValue.eventFormatType = "Event";
         }
 
         if (context)
@@ -460,7 +458,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                              maxContextSize);
                 return;
             }
-            subValue->customText = *context;
+            subValue.customText = *context;
         }
 
         if (headers)
@@ -492,7 +490,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                             "HttpHeaders/" + item.key());
                         return;
                     }
-                    subValue->httpHeaders.set(item.key(), *value);
+                    subValue.httpHeaders.set(item.key(), *value);
                 }
             }
         }
@@ -510,7 +508,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     return;
                 }
             }
-            subValue->registryPrefixes = *regPrefixes;
+            subValue.registryPrefixes = *regPrefixes;
         }
 
         if (resTypes)
@@ -526,7 +524,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     return;
                 }
             }
-            subValue->resourceTypes = *resTypes;
+            subValue.resourceTypes = *resTypes;
         }
 
         if (msgIds)
@@ -535,14 +533,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
             // If no registry prefixes are mentioned, consider all
             // supported prefixes
-            if (subValue->registryPrefixes.empty())
+            if (subValue.registryPrefixes.empty())
             {
                 registryPrefix.assign(supportedRegPrefixes.begin(),
                                       supportedRegPrefixes.end());
             }
             else
             {
-                registryPrefix = subValue->registryPrefixes;
+                registryPrefix = subValue.registryPrefixes;
             }
 
             for (const std::string& id : *msgIds)
@@ -576,7 +574,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 }
             }
 
-            subValue->registryMsgIds = *msgIds;
+            subValue.registryMsgIds = *msgIds;
         }
 
         if (retryPolicy)
@@ -589,12 +587,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                                  "DeliveryRetryPolicy");
                 return;
             }
-            subValue->retryPolicy = *retryPolicy;
+            subValue.retryPolicy = *retryPolicy;
         }
         else
         {
             // Default "TerminateAfterRetries"
-            subValue->retryPolicy = "TerminateAfterRetries";
+            subValue.retryPolicy = "TerminateAfterRetries";
         }
 
         if (mrdJsonArray)
@@ -609,12 +607,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 {
                     return;
                 }
-                subValue->metricReportDefinitions.emplace_back(mrdUri);
+                subValue.metricReportDefinitions.emplace_back(mrdUri);
             }
         }
 
-        std::string id =
-            EventServiceManager::getInstance().addSubscription(subValue);
+        std::string id = EventServiceManager::getInstance().addSubscription(
+            std::move(subValue));
         if (id.empty())
         {
             messages::internalError(asyncResp->res);
@@ -634,26 +632,25 @@ inline void requestRoutesEventDestination(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& param) {
+                   const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
 
-        if (param.starts_with("snmp"))
+        if (id.starts_with("snmp"))
         {
-            getSnmpTrapClient(asyncResp, param);
+            getSnmpTrapClient(asyncResp, id);
             return;
         }
 
-        std::shared_ptr<Subscription> subValue =
-            EventServiceManager::getInstance().getSubscription(param);
+        Subscription* subValue =
+            EventServiceManager::getInstance().getSubscription(id);
         if (subValue == nullptr)
         {
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
-        const std::string& id = param;
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#EventDestination.v1_8_0.EventDestination";
@@ -662,21 +659,28 @@ inline void requestRoutesEventDestination(App& app)
             "/redfish/v1/EventService/Subscriptions/{}", id);
         asyncResp->res.jsonValue["Id"] = id;
         asyncResp->res.jsonValue["Name"] = "Event Destination " + id;
-        asyncResp->res.jsonValue["Destination"] = subValue->destinationUrl;
-        asyncResp->res.jsonValue["Context"] = subValue->customText;
+        asyncResp->res.jsonValue["Destination"] =
+            subValue->userSubscription.destinationUrl;
+        asyncResp->res.jsonValue["Context"] =
+            subValue->userSubscription.customText;
         asyncResp->res.jsonValue["SubscriptionType"] =
-            subValue->subscriptionType;
+            subValue->userSubscription.subscriptionType;
         asyncResp->res.jsonValue["HttpHeaders"] = nlohmann::json::array();
-        asyncResp->res.jsonValue["EventFormatType"] = subValue->eventFormatType;
+        asyncResp->res.jsonValue["EventFormatType"] =
+            subValue->userSubscription.eventFormatType;
         asyncResp->res.jsonValue["RegistryPrefixes"] =
-            subValue->registryPrefixes;
-        asyncResp->res.jsonValue["ResourceTypes"] = subValue->resourceTypes;
+            subValue->userSubscription.registryPrefixes;
+        asyncResp->res.jsonValue["ResourceTypes"] =
+            subValue->userSubscription.resourceTypes;
 
-        asyncResp->res.jsonValue["MessageIds"] = subValue->registryMsgIds;
-        asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue->retryPolicy;
+        asyncResp->res.jsonValue["MessageIds"] =
+            subValue->userSubscription.registryMsgIds;
+        asyncResp->res.jsonValue["DeliveryRetryPolicy"] =
+            subValue->userSubscription.retryPolicy;
 
         nlohmann::json::array_t mrdJsonArray;
-        for (const auto& mdrUri : subValue->metricReportDefinitions)
+        for (const auto& mdrUri :
+             subValue->userSubscription.metricReportDefinitions)
         {
             nlohmann::json::object_t mdr;
             mdr["@odata.id"] = mdrUri;
@@ -698,7 +702,7 @@ inline void requestRoutesEventDestination(App& app)
         {
             return;
         }
-        std::shared_ptr<Subscription> subValue =
+        Subscription* subValue =
             EventServiceManager::getInstance().getSubscription(param);
         if (subValue == nullptr)
         {
@@ -719,7 +723,7 @@ inline void requestRoutesEventDestination(App& app)
 
         if (context)
         {
-            subValue->customText = *context;
+            subValue->userSubscription.customText = *context;
         }
 
         if (headers)
@@ -741,7 +745,7 @@ inline void requestRoutesEventDestination(App& app)
                     fields.set(it.key(), *value);
                 }
             }
-            subValue->httpHeaders = fields;
+            subValue->userSubscription.httpHeaders = fields;
         }
 
         if (retryPolicy)
@@ -754,7 +758,7 @@ inline void requestRoutesEventDestination(App& app)
                                                  "DeliveryRetryPolicy");
                 return;
             }
-            subValue->retryPolicy = *retryPolicy;
+            subValue->userSubscription.retryPolicy = *retryPolicy;
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();
