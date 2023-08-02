@@ -180,6 +180,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd297fc0_f4c94edc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-02T16:53:36Z",
+      "side": 1,
+      "message": "I\u0027ve fixed this to what I think it should be.  Reopen if we still need to discuss more.",
+      "parentUuid": "203f4e36_3216e2cd",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e164b439_a21f87ed",
