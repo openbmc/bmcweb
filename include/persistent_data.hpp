@@ -158,10 +158,10 @@ class ConfigFile
                     {
                         for (const auto& elem : item.second)
                         {
-                            std::shared_ptr<UserSubscription> newSubscription =
+                            std::optional<UserSubscription> newSub =
                                 UserSubscription::fromJson(elem);
 
-                            if (newSubscription == nullptr)
+                            if (!newSub)
                             {
                                 BMCWEB_LOG_ERROR("Problem reading subscription "
                                                  "from persistent store");
@@ -169,11 +169,13 @@ class ConfigFile
                             }
 
                             BMCWEB_LOG_DEBUG("Restored subscription: {} {}",
-                                             newSubscription->id,
-                                             newSubscription->customText);
-                            EventServiceStore::getInstance()
-                                .subscriptionsConfigMap.emplace(
-                                    newSubscription->id, newSubscription);
+                                             newSub->id, newSub->customText);
+
+                            boost::container::flat_map<
+                                std::string, UserSubscription>& configMap =
+                                EventServiceStore::getInstance()
+                                    .subscriptionsConfigMap;
+                            configMap.emplace(newSub->id, *newSub);
                         }
                     }
                     else
@@ -252,33 +254,33 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            std::shared_ptr<UserSubscription> subValue = it.second;
-            if (subValue->subscriptionType == "SSE")
+            const UserSubscription& subValue = it.second;
+            if (subValue.subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
                 continue;
             }
             nlohmann::json::object_t headers;
             for (const boost::beast::http::fields::value_type& header :
-                 subValue->httpHeaders)
+                 subValue.httpHeaders)
             {
                 std::string name(header.name_string());
                 headers[std::move(name)] = header.value();
             }
 
             subscriptions.push_back({
-                {"Id", subValue->id},
-                {"Context", subValue->customText},
-                {"DeliveryRetryPolicy", subValue->retryPolicy},
-                {"Destination", subValue->destinationUrl},
-                {"EventFormatType", subValue->eventFormatType},
+                {"Id", subValue.id},
+                {"Context", subValue.customText},
+                {"DeliveryRetryPolicy", subValue.retryPolicy},
+                {"Destination", subValue.destinationUrl},
+                {"EventFormatType", subValue.eventFormatType},
                 {"HttpHeaders", std::move(headers)},
-                {"MessageIds", subValue->registryMsgIds},
-                {"Protocol", subValue->protocol},
-                {"RegistryPrefixes", subValue->registryPrefixes},
-                {"ResourceTypes", subValue->resourceTypes},
-                {"SubscriptionType", subValue->subscriptionType},
-                {"MetricReportDefinitions", subValue->metricReportDefinitions},
+                {"MessageIds", subValue.registryMsgIds},
+                {"Protocol", subValue.protocol},
+                {"RegistryPrefixes", subValue.registryPrefixes},
+                {"ResourceTypes", subValue.resourceTypes},
+                {"SubscriptionType", subValue.subscriptionType},
+                {"MetricReportDefinitions", subValue.metricReportDefinitions},
             });
         }
         persistentFile << data;
@@ -344,7 +346,7 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            const UserSubscription& subValue = *it.second;
+            const UserSubscription& subValue = it.second;
             if (subValue.subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
