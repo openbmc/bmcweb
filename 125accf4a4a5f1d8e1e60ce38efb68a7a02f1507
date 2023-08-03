@@ -52,6 +52,24 @@
       "parentUuid": "b28a5800_a58e92b3",
       "revId": "125accf4a4a5f1d8e1e60ce38efb68a7a02f1507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d51ebcc_f21039ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-03T17:50:16Z",
+      "side": 1,
+      "message": "Then I think we should pull the option or set a date to do so. :/ \nI understand this middle ground isn\u0027t great.",
+      "parentUuid": "e39006c4_f4a86e27",
+      "revId": "125accf4a4a5f1d8e1e60ce38efb68a7a02f1507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
