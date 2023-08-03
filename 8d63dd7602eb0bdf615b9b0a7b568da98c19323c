@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0543635_1d93a6b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-08-03T04:59:42Z",
+      "side": 1,
+      "message": "duplicate signed-off, need to be removed.",
+      "revId": "8d63dd7602eb0bdf615b9b0a7b568da98c19323c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a3fd0e_fd04c3bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2023-08-03T04:59:42Z",
+      "side": 1,
+      "message": "Tested section missing",
+      "revId": "8d63dd7602eb0bdf615b9b0a7b568da98c19323c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
