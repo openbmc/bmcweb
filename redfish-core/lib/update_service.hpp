@@ -393,6 +393,8 @@ static void monitorForSoftwareAvailable(
                     }
                     else
                     {
+                        BMCWEB_LOG_ERROR("Unknown Software Image Error type={}",
+                                         *type);
                         redfish::messages::internalError(asyncResp->res);
                     }
                 }
