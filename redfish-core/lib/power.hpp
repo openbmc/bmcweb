@@ -134,6 +134,63 @@ inline void requestRoutesPower(App& app)
         }
         asyncResp->res.jsonValue["PowerControl"] = nlohmann::json::array();
 
+        using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
+
+        auto powerHandler = [asyncResp](const boost::system::error_code& ec4,
+                                        const Mapper& powerPaths) {
+
+            if (ec4)
+            {
+                messages::internalError(asyncResp->res);
+                std::cerr << "Power handler: Dbus error " << ec4;
+                return;
+            }
+
+            for (const std::string& path : powerPaths)
+            {
+
+                if (!boost::algorithm::ends_with(path, "Output_Power"))
+                    continue;
+
+                auto powerHandler2 =
+                    [asyncResp](const boost::system::error_code& ec5,
+                                double value) {
+                    if (ec5)
+                    {
+                        return;
+                    }
+
+                    const int currentValue =
+                        asyncResp->res
+                            .jsonValue["PowerControl"][0]["PowerConsumedWatts"];
+
+                    asyncResp->res
+                        .jsonValue["PowerControl"][0]["PowerConsumedWatts"] =
+                        currentValue + static_cast<int>(value);
+                };
+
+                sdbusplus::asio::getProperty<double>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.PSUSensor", path,
+                    "xyz.openbmc_project.Sensor.Value", "Value",
+                    std::move(powerHandler2));
+            }
+        };
+
+        nlohmann::json::object_t pco;
+
+        if (asyncResp->res.jsonValue["PowerControl"].size() == 0)
+            asyncResp->res.jsonValue["PowerControl"].push_back(pco);
+
+        asyncResp->res.jsonValue["PowerControl"][0]["PowerConsumedWatts"] = 0;
+
+        std::array<std::string_view, 1> powerInterfaces = {
+            "xyz.openbmc_project.Sensor.Value"};
+
+        dbus::utility::getSubTreePaths("/xyz/openbmc_project/sensors/power", 0,
+                                       powerInterfaces,
+                                       std::move(powerHandler));
+
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::powerPaths,
             sensors::node::power);
