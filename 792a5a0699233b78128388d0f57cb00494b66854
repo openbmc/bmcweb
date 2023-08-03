@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c022d760_73db615f",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-03T12:22:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t matter much. Since this function is simple and self-contained, extracting pcieDeviceList inside the function could make it more readable.",
+      "parentUuid": "21adf958_b31c4259",
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c4f63b3_65d214ce",
         "filename": "redfish-core/include/utils/pcie_util.hpp",
         "patchSetId": 24
@@ -48,6 +66,24 @@
       "writtenOn": "2023-07-20T18:04:30Z",
       "side": 1,
       "message": "I am confused why you set this twice, here and in addEmptyPCIeSlot ?",
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e198d4_1df99479",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-03T12:22:31Z",
+      "side": 1,
+      "message": "In the error path of getEmptyPCIeSlots (ex: line #99), it returns without updating the count. Also, I left the getPCIeDeviceList as is because we will replace the code with a new getCollectionMembers function in the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64087.",
+      "parentUuid": "0c4f63b3_65d214ce",
       "revId": "792a5a0699233b78128388d0f57cb00494b66854",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
