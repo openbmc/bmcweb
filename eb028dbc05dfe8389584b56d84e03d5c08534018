@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39f0fdd6_345c8417",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-03T16:12:11Z",
+      "side": 1,
+      "message": "Don\u0027t need to end your summary part of you commit msg with a :\n\nOh well, for next time.",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "eb028dbc05dfe8389584b56d84e03d5c08534018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd54b12e_6f6181cf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -14,6 +37,23 @@
       "writtenOn": "2023-08-03T16:10:08Z",
       "side": 1,
       "message": "Can you explain why just enabling this in your layer is not enough?",
+      "revId": "eb028dbc05dfe8389584b56d84e03d5c08534018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b33742_e44d0f3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-03T16:12:11Z",
+      "side": 1,
+      "message": "Can you have your company CI admin add you the approved Gerrit list so you don\u0027t get a \"User not approved, see admin, no CI\"\nThanks!",
       "revId": "eb028dbc05dfe8389584b56d84e03d5c08534018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
