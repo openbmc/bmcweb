@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98663be3_1d86ff50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-04T20:45:08Z",
+      "side": 1,
+      "message": "Why.. It throws, got it \nhttps://json.nlohmann.me/api/basic_json/items/\n\nThis is more code but the tradeoff being getting rid of a function that throws. Have you  see problems or just a general cleanup?",
+      "revId": "fedc1d01696195f7c8c959fe06103933a0b930be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
