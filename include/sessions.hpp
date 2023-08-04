@@ -61,42 +61,43 @@ struct UserSession
      * @return a shared pointer if data has been loaded properly, nullptr
      * otherwise
      */
-    static std::shared_ptr<UserSession> fromJson(const nlohmann::json& j)
+    static std::shared_ptr<UserSession>
+        fromJson(const nlohmann::json::object_t& j)
     {
         std::shared_ptr<UserSession> userSession =
             std::make_shared<UserSession>();
-        for (const auto& element : j.items())
+        for (const auto& element : j)
         {
             const std::string* thisValue =
-                element.value().get_ptr<const std::string*>();
+                element.second.get_ptr<const std::string*>();
             if (thisValue == nullptr)
             {
                 BMCWEB_LOG_ERROR(
                     "Error reading persistent store.  Property {} was not of type string",
-                    element.key());
+                    element.first);
                 continue;
             }
-            if (element.key() == "unique_id")
+            if (element.first == "unique_id")
             {
                 userSession->uniqueId = *thisValue;
             }
-            else if (element.key() == "session_token")
+            else if (element.first == "session_token")
             {
                 userSession->sessionToken = *thisValue;
             }
-            else if (element.key() == "csrf_token")
+            else if (element.first == "csrf_token")
             {
                 userSession->csrfToken = *thisValue;
             }
-            else if (element.key() == "username")
+            else if (element.first == "username")
             {
                 userSession->username = *thisValue;
             }
-            else if (element.key() == "client_id")
+            else if (element.first == "client_id")
             {
                 userSession->clientId = *thisValue;
             }
-            else if (element.key() == "client_ip")
+            else if (element.first == "client_ip")
             {
                 userSession->clientIp = *thisValue;
             }
@@ -105,7 +106,7 @@ struct UserSession
             {
                 BMCWEB_LOG_ERROR(
                     "Got unexpected property reading persistent file: {}",
-                    element.key());
+                    element.first);
                 continue;
             }
         }
@@ -142,33 +143,33 @@ struct AuthConfigMethods
     bool cookie = BMCWEB_COOKIE_AUTH;
     bool tls = BMCWEB_MUTUAL_TLS_AUTH;
 
-    void fromJson(const nlohmann::json& j)
+    void fromJson(const nlohmann::json::object_t& j)
     {
-        for (const auto& element : j.items())
+        for (const auto& element : j)
         {
-            const bool* value = element.value().get_ptr<const bool*>();
+            const bool* value = element.second.get_ptr<const bool*>();
             if (value == nullptr)
             {
                 continue;
             }
 
-            if (element.key() == "XToken")
+            if (element.first == "XToken")
             {
                 xtoken = *value;
             }
-            else if (element.key() == "Cookie")
+            else if (element.first == "Cookie")
             {
                 cookie = *value;
             }
-            else if (element.key() == "SessionToken")
+            else if (element.first == "SessionToken")
             {
                 sessionToken = *value;
             }
-            else if (element.key() == "BasicAuth")
+            else if (element.first == "BasicAuth")
             {
                 basic = *value;
             }
-            else if (element.key() == "TLS")
+            else if (element.first == "TLS")
             {
                 tls = *value;
             }

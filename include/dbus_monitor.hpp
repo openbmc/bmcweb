@@ -80,20 +80,32 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
             BMCWEB_LOG_ERROR("convertDBusToJSON failed with {}", r);
             return 0;
         }
-
-        if (!data.is_array())
+        nlohmann::json::array_t* arr = data.get_ptr<nlohmann::json::array_t*>();
+        if (arr == nullptr)
+        {
+            BMCWEB_LOG_ERROR("No data in InterfacesAdded signal");
+            return 0;
+        }
+        if (arr->size() < 2)
         {
             BMCWEB_LOG_ERROR("No data in InterfacesAdded signal");
             return 0;
         }
 
-        // data is type oa{sa{sv}} which is an array[2] of string, object
-        for (const auto& entry : data[1].items())
+        nlohmann::json::object_t* obj =
+            (*arr)[1].get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr)
         {
-            auto it = thisSession->second.interfaces.find(entry.key());
+            BMCWEB_LOG_ERROR("No data in InterfacesAdded signal");
+            return 0;
+        }
+        // data is type oa{sa{sv}} which is an array[2] of string, object
+        for (const auto& entry : *obj)
+        {
+            auto it = thisSession->second.interfaces.find(entry.first);
             if (it != thisSession->second.interfaces.end())
             {
-                json["interfaces"][entry.key()] = entry.value();
+                json["interfaces"][entry.first] = entry.second;
             }
         }
     }

@@ -62,14 +62,20 @@ class ConfigFile
             }
             else
             {
-                for (const auto& item : data.items())
+                const nlohmann::json::object_t* obj =
+                    data.get_ptr<nlohmann::json::object_t*>();
+                if (obj == nullptr)
                 {
-                    if (item.key() == "revision")
+                    return;
+                }
+                for (const auto& item : *obj)
+                {
+                    if (item.first == "revision")
                     {
                         fileRevision = 0;
 
                         const uint64_t* uintPtr =
-                            item.value().get_ptr<const uint64_t*>();
+                            item.second.get_ptr<const uint64_t*>();
                         if (uintPtr == nullptr)
                         {
                             BMCWEB_LOG_ERROR("Failed to read revision flag");
@@ -79,24 +85,24 @@ class ConfigFile
                             fileRevision = *uintPtr;
                         }
                     }
-                    else if (item.key() == "system_uuid")
+                    else if (item.first == "system_uuid")
                     {
                         const std::string* jSystemUuid =
-                            item.value().get_ptr<const std::string*>();
+                            item.second.get_ptr<const std::string*>();
                         if (jSystemUuid != nullptr)
                         {
                             systemUuid = *jSystemUuid;
                         }
                     }
-                    else if (item.key() == "auth_config")
+                    else if (item.first == "auth_config")
                     {
                         SessionStore::getInstance()
                             .getAuthMethodsConfig()
-                            .fromJson(item.value());
+                            .fromJson(item.second);
                     }
-                    else if (item.key() == "sessions")
+                    else if (item.first == "sessions")
                     {
-                        for (const auto& elem : item.value())
+                        for (const auto& elem : item.second)
                         {
                             std::shared_ptr<UserSession> newSession =
                                 UserSession::fromJson(elem);
@@ -116,10 +122,10 @@ class ConfigFile
                                 newSession->sessionToken, newSession);
                         }
                     }
-                    else if (item.key() == "timeout")
+                    else if (item.first == "timeout")
                     {
                         const int64_t* jTimeout =
-                            item.value().get_ptr<int64_t*>();
+                            item.second.get_ptr<const int64_t*>();
                         if (jTimeout == nullptr)
                         {
                             BMCWEB_LOG_DEBUG(
@@ -132,15 +138,25 @@ class ConfigFile
                         SessionStore::getInstance().updateSessionTimeout(
                             sessionTimeoutInseconds);
                     }
-                    else if (item.key() == "eventservice_config")
+                    else if (item.first == "eventservice_config")
                     {
+                        const nlohmann::json::object_t* esobj =
+                            item.second
+                                .get_ptr<const nlohmann::json::object_t*>();
+                        if (esobj == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG(
+                                "Problem reading EventService value");
+                            continue;
+                        }
+
                         EventServiceStore::getInstance()
                             .getEventServiceConfig()
-                            .fromJson(item.value());
+                            .fromJson(*esobj);
                     }
-                    else if (item.key() == "subscriptions")
+                    else if (item.first == "subscriptions")
                     {
-                        for (const auto& elem : item.value())
+                        for (const auto& elem : item.second)
                         {
                             std::shared_ptr<UserSubscription> newSubscription =
                                 UserSubscription::fromJson(elem);
