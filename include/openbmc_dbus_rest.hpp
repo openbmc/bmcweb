@@ -912,15 +912,21 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             const std::string& keyType = codes[0];
             const std::string& valueType = codes[1];
-            for (const auto& it : j->items())
+            const nlohmann::json::object_t* arr =
+                j->get_ptr<const nlohmann::json::object_t*>();
+            if (arr == nullptr)
             {
-                r = convertJsonToDbus(m, keyType, it.key());
+                return -1;
+            }
+            for (const auto& it : *arr)
+            {
+                r = convertJsonToDbus(m, keyType, it.first);
                 if (r < 0)
                 {
                     return r;
                 }
 
-                r = convertJsonToDbus(m, valueType, it.value());
+                r = convertJsonToDbus(m, valueType, it.second);
                 if (r < 0)
                 {
                     return r;
@@ -1343,21 +1349,23 @@ inline void handleMethodResponse(
     // Otherwise, make the results an array with every result
     // an entry.  Could also just fail in that case, but it
     // seems better to get the data back somehow.
-
-    if (transaction->methodResponse.is_object() && data.is_object())
+    nlohmann::json::object_t* dataobj =
+        data.get_ptr<nlohmann::json::object_t*>();
+    if (transaction->methodResponse.is_object() && dataobj != nullptr)
     {
-        for (const auto& obj : data.items())
+        for (auto& obj : *dataobj)
         {
             // Note: Will overwrite the data for a duplicate key
-            transaction->methodResponse.emplace(obj.key(),
-                                                std::move(obj.value()));
+            transaction->methodResponse.emplace(obj.first,
+                                                std::move(obj.second));
         }
         return;
     }
 
-    if (transaction->methodResponse.is_array() && data.is_array())
+    nlohmann::json::array_t* dataarr = data.get_ptr<nlohmann::json::array_t*>();
+    if (transaction->methodResponse.is_array() && dataarr != nullptr)
     {
-        for (auto& obj : data)
+        for (auto& obj : *dataarr)
         {
             transaction->methodResponse.emplace_back(std::move(obj));
         }
@@ -1763,7 +1771,9 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         }
                         else
                         {
-                            for (const auto& prop : properties.items())
+                            nlohmann::json::object_t* obj =
+                                properties.get_ptr<nlohmann::json::object_t*>();
+                            for (const auto& prop : *obj)
                             {
                                 // if property name is empty, or
                                 // matches our search query, add it
@@ -1771,12 +1781,11 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
                                 if (propertyName->empty())
                                 {
-                                    (*response)[prop.key()] =
-                                        std::move(prop.value());
+                                    (*response)[prop.first] = prop.second;
                                 }
-                                else if (prop.key() == *propertyName)
+                                else if (prop.first == *propertyName)
                                 {
-                                    *response = std::move(prop.value());
+                                    *response = prop.second;
                                 }
                             }
                         }
