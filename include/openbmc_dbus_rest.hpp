@@ -904,15 +904,21 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             const std::string& keyType = codes[0];
             const std::string& valueType = codes[1];
-            for (const auto& it : j->items())
+            const nlohmann::json::object_t* arr =
+                j->get_ptr<const nlohmann::json::object_t*>();
+            if (arr == nullptr)
             {
-                r = convertJsonToDbus(m, keyType, it.key());
+                return -1;
+            }
+            for (const auto& it : *arr)
+            {
+                r = convertJsonToDbus(m, keyType, it.first);
                 if (r < 0)
                 {
                     return r;
                 }
 
-                r = convertJsonToDbus(m, valueType, it.value());
+                r = convertJsonToDbus(m, valueType, it.second);
                 if (r < 0)
                 {
                     return r;
@@ -1335,21 +1341,23 @@ inline void handleMethodResponse(
     // Otherwise, make the results an array with every result
     // an entry.  Could also just fail in that case, but it
     // seems better to get the data back somehow.
-
-    if (transaction->methodResponse.is_object() && data.is_object())
+    nlohmann::json::object_t* dataobj =
+        data.get_ptr<nlohmann::json::object_t*>();
+    if (transaction->methodResponse.is_object() && dataobj != nullptr)
     {
-        for (const auto& obj : data.items())
+        for (auto& obj : *dataobj)
         {
             // Note: Will overwrite the data for a duplicate key
-            transaction->methodResponse.emplace(obj.key(),
-                                                std::move(obj.value()));
+            transaction->methodResponse.emplace(obj.first,
+                                                std::move(obj.second));
         }
         return;
     }
 
-    if (transaction->methodResponse.is_array() && data.is_array())
+    nlohmann::json::array_t* dataarr = data.get_ptr<nlohmann::json::array_t*>();
+    if (transaction->methodResponse.is_array() && dataarr != nullptr)
     {
-        for (auto& obj : data)
+        for (auto& obj : *dataarr)
         {
             transaction->methodResponse.emplace_back(std::move(obj));
         }
@@ -1739,57 +1747,59 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         "org.freedesktop.DBus.Properties", "GetAll");
                 m.append(interface);
                 crow::connections::systemBus->async_send(
-                    m, [asyncResp, response,
-                        propertyName](const boost::system::error_code& ec2,
-                                      sdbusplus::message_t& msg) {
-                        if (ec2)
+                    m,
+                    [asyncResp, response,
+                     propertyName](const boost::system::error_code& ec2,
+                                   sdbusplus::message_t& msg) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_ERROR("Bad dbus request error: {}", ec2);
+                    }
+                    else
+                    {
+                        nlohmann::json properties;
+                        int r = convertDBusToJSON("a{sv}", msg, properties);
+                        if (r < 0)
                         {
-                            BMCWEB_LOG_ERROR("Bad dbus request error: {}", ec2);
+                            BMCWEB_LOG_ERROR("convertDBusToJSON failed");
                         }
                         else
                         {
-                            nlohmann::json properties;
-                            int r = convertDBusToJSON("a{sv}", msg, properties);
-                            if (r < 0)
+                            nlohmann::json::object_t* obj =
+                                properties.get_ptr<nlohmann::json::object_t*>();
+                            for (const auto& prop : *obj)
                             {
-                                BMCWEB_LOG_ERROR("convertDBusToJSON failed");
-                            }
-                            else
-                            {
-                                for (const auto& prop : properties.items())
-                                {
-                                    // if property name is empty, or
-                                    // matches our search query, add it
-                                    // to the response json
+                                // if property name is empty, or
+                                // matches our search query, add it
+                                // to the response json
 
-                                    if (propertyName->empty())
-                                    {
-                                        (*response)[prop.key()] =
-                                            std::move(prop.value());
-                                    }
-                                    else if (prop.key() == *propertyName)
-                                    {
-                                        *response = std::move(prop.value());
-                                    }
+                                if (propertyName->empty())
+                                {
+                                    (*response)[prop.first] = prop.second;
+                                }
+                                else if (prop.first == *propertyName)
+                                {
+                                    *response = prop.second;
                                 }
                             }
                         }
-                        if (response.use_count() == 1)
+                    }
+                    if (response.use_count() == 1)
+                    {
+                        if (!propertyName->empty() && response->empty())
                         {
-                            if (!propertyName->empty() && response->empty())
-                            {
-                                setErrorResponse(
-                                    asyncResp->res,
-                                    boost::beast::http::status::not_found,
-                                    propNotFoundDesc, notFoundMsg);
-                            }
-                            else
-                            {
-                                asyncResp->res.jsonValue["status"] = "ok";
-                                asyncResp->res.jsonValue["message"] = "200 OK";
-                                asyncResp->res.jsonValue["data"] = *response;
-                            }
+                            setErrorResponse(
+                                asyncResp->res,
+                                boost::beast::http::status::not_found,
+                                propNotFoundDesc, notFoundMsg);
                         }
+                        else
+                        {
+                            asyncResp->res.jsonValue["status"] = "ok";
+                            asyncResp->res.jsonValue["message"] = "200 OK";
+                            asyncResp->res.jsonValue["data"] = *response;
+                        }
+                    }
                     });
             }
         }
