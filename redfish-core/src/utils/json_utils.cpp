@@ -90,7 +90,7 @@ uint64_t getEstimatedJsonSize(const nlohmann::json& root)
     if (object != nullptr)
     {
         uint64_t sum = 0;
-        for (const auto& [k, v] : root.items())
+        for (const auto& [k, v] : *object)
         {
             constexpr uint64_t colonQuoteSpaceSize = 4;
             sum += k.size() + getEstimatedJsonSize(v) + colonQuoteSpaceSize;
