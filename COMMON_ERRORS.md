@@ -81,6 +81,7 @@ Commonly used methods that fall into this pattern:
 - nlohmann::json::get
 - nlohmann::json::get_ref
 - nlohmann::json::get_to
+- nlohmann::json::items
 - nlohmann::json::operator\<\<
 - nlohmann::json::operator\>\>
 - std::filesystem::create_directory
