@@ -77,6 +77,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f540d401_27cb4973",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-08-04T07:44:12Z",
+      "side": 1,
+      "message": "Srinivas, As discussed we will work to get you added to openbmc-ci group.",
+      "parentUuid": "67b33742_e44d0f3f",
+      "revId": "eb028dbc05dfe8389584b56d84e03d5c08534018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f48b5017_32ae2640",
         "filename": "meson_options.txt",
         "patchSetId": 2
@@ -88,6 +106,24 @@
       "writtenOn": "2023-08-03T16:10:08Z",
       "side": 1,
       "message": "This was disabled by default on purpose. \nThere was discord discussion around this before this change was done. \nThe HealthRollup design is half baked (I think it was a start but since hasn\u0027t been pushed) and hasn\u0027t been supported. It only covers a handful of resources in bmcweb. \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20health.hpp\u0026type\u003dcode\n\nI am okay with a HealthRollup design but a HealthRollup design needs to address how it interacts with https://github.com/openbmc/phosphor-dbus-interfaces/blob/d1484a1499bc241316853934e6e8b735166deee2/yaml/xyz/openbmc_project/State/Decorator/OperationalStatus.interface.yaml#L4\n\nThe interfaces for the design need to in phosphor-dbus-interfaces, performance needs to be accounted for, and it needs to be supported across all bmcweb resources\n\nDiscord discussion: https://discord.com/channels/775381525260664832/855566794994221117/1110731215343976482",
+      "revId": "eb028dbc05dfe8389584b56d84e03d5c08534018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54bebbe_24714631",
+        "filename": "meson_options.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-08-04T07:44:12Z",
+      "side": 1,
+      "message": "Thank you Gunnar for details - Previous default value is enabled and during rename(), it got disabled but don\u0027t see reason for changing default value in commit message. Thanks for pointing out discard link and that clarifies the doubt.\n\n@Srinivas, We can discard this change and keep it disabled, till above said design concerns are addressed",
+      "parentUuid": "f48b5017_32ae2640",
       "revId": "eb028dbc05dfe8389584b56d84e03d5c08534018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
