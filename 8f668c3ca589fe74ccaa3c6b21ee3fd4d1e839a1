@@ -189,6 +189,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c8fa4ef_f2c22427",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-06T17:23:26Z",
+      "side": 1,
+      "message": "\u003e It is better to keep this as a generic function for all types. \n\nI don\u0027t agree.\n\n\u003e Otherwise we will be duplicating the same code for each type.\n\nThis is intentional, because the code will get duplicated at compile time.  It\u0027s intended to be a hint to the writer that things might need to be optimized into functions.",
+      "parentUuid": "321b522e_2962e64c",
+      "range": {
+        "startLine": 190,
+        "startChar": 9,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71725e1b_9e3bd0a7",
         "filename": "http/http_response.hpp",
         "patchSetId": 35
@@ -224,6 +248,30 @@
       "side": 1,
       "message": "We should create a new response anyway if the current body is not the desired one. We are using \"move\" to avoid any other temporary response object creation. I renamed the parameter names, as it was a bit confusing. What we really creating is a new response that can hold the body.",
       "parentUuid": "71725e1b_9e3bd0a7",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 23
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fac8e81_80d365f4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-06T17:23:26Z",
+      "side": 1,
+      "message": "\u003e We should create a new response anyway if the current body is not the desired one. We are using \"move\" to avoid any other temporary response object creation.\n\nThis doesn\u0027t have any bearing on what I said.  I asked you to only make a copy of the things being copied.\n\n\u003e I renamed the parameter names, as it was a bit confusing. What we really creating is a new response that can hold the body.\n\nUnderstood, I would still like to see base() used.",
+      "parentUuid": "2976cffc_7b01ed53",
       "range": {
         "startLine": 194,
         "startChar": 12,
@@ -341,6 +389,30 @@
       "side": 1,
       "message": "I was wondering why we decided to reimplement prepare_payload? is it because it\u0027s a throwing function? In that case wrap it around a try-catch would have solved the problem?. I believe the beast owner knows better how prepare_payload work for different response types.",
       "parentUuid": "0f8e6f25_edc5ba84",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 43
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd110a53_d5683eab",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-06T17:23:26Z",
+      "side": 1,
+      "message": "\u003e I was wondering why we decided to reimplement prepare_payload?\n\nQuestions like this are better answered in the appropriate forums, either the mailing list, or discord.\n\n\u003e is it because it\u0027s a throwing function? \n\nYep.\n\n\u003e In that case wrap it around a try-catch would have solved the problem?.\n\nIt would\u0027ve been incompatible with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46841\n\n\u003e I believe the beast owner knows better how prepare_payload work for different response types.",
+      "parentUuid": "9a235432_bde64cb6",
       "range": {
         "startLine": 248,
         "startChar": 0,

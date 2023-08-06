@@ -466,6 +466,30 @@
       },
       "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2850d0_da37ab0e",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-06T17:23:26Z",
+      "side": 1,
+      "message": "Per the coding standard documented in Developing.md please do not use exceptions for recoverable errors, which this is.",
+      "parentUuid": "5c630b61_23ea88ed",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
