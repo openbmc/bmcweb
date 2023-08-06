@@ -400,6 +400,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f52737a_aa9c5860",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-06T17:13:46Z",
+      "side": 1,
+      "message": "yes.",
+      "parentUuid": "7efaaff4_4856c296",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "402cd318_35caac05",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 35
@@ -440,6 +464,29 @@
         "startChar": 0,
         "endLine": 28,
         "endChar": 9
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c78d0d58_35ad8489",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-06T17:13:46Z",
+      "side": 1,
+      "message": "Please don\u0027t invent a new Http client type.  We have an http client defined in http_client.hpp.  Please use it.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
       },
       "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
