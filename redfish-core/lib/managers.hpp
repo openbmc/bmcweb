@@ -38,6 +38,7 @@
 #include <array>
 #include <cstdint>
 #include <memory>
+#include <ranges>
 #include <sstream>
 #include <string_view>
 #include <variant>
@@ -741,8 +742,7 @@ inline const dbus::utility::ManagedObjectType::value_type*
     std::string escaped = value;
     std::replace(escaped.begin(), escaped.end(), ' ', '_');
     escaped = "/" + escaped;
-    auto it = std::find_if(managedObj.begin(), managedObj.end(),
-                           [&escaped](const auto& obj) {
+    auto it = std::ranges::find_if(managedObj, [&escaped](const auto& obj) {
         if (boost::algorithm::ends_with(obj.first.str, escaped))
         {
             BMCWEB_LOG_DEBUG("Matched {}", obj.first.str);
@@ -1118,8 +1118,8 @@ inline CreatePIDRet createPidInterface(
         {
             constexpr const std::array<const char*, 2> allowedDirections = {
                 "Ceiling", "Floor"};
-            if (std::find(allowedDirections.begin(), allowedDirections.end(),
-                          *direction) == allowedDirections.end())
+            if (std::ranges::find(allowedDirections, *direction) ==
+                allowedDirections.end())
             {
                 messages::propertyValueTypeError(response->res, "Direction",
                                                  *direction);
@@ -1372,8 +1372,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             {
                 for (const auto& [interface, _] : object)
                 {
-                    if (std::find(configurations.begin(), configurations.end(),
-                                  interface) != configurations.end())
+                    if (std::ranges::find(configurations, interface) !=
+                        configurations.end())
                     {
                         self->objectCount++;
                         break;
@@ -1451,8 +1451,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         std::shared_ptr<bmcweb::AsyncResp> response = asyncResp;
         if (profile)
         {
-            if (std::find(supportedProfiles.begin(), supportedProfiles.end(),
-                          *profile) == supportedProfiles.end())
+            if (std::ranges::find(supportedProfiles, *profile) ==
+                supportedProfiles.end())
             {
                 messages::actionParameterUnknown(response->res, "Profile",
                                                  *profile);
@@ -1490,12 +1490,11 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 std::replace(dbusObjName.begin(), dbusObjName.end(), ' ', '_');
                 BMCWEB_LOG_DEBUG("looking for {}", name);
 
-                auto pathItr = std::find_if(managedObj.begin(),
-                                            managedObj.end(),
-                                            [&dbusObjName](const auto& obj) {
-                    return boost::algorithm::ends_with(obj.first.str,
-                                                       "/" + dbusObjName);
-                });
+                auto pathItr = std::ranges::find_if(
+                    managedObj, [&dbusObjName](const auto& obj) {
+                        return boost::algorithm::ends_with(obj.first.str,
+                                                           "/" + dbusObjName);
+                    });
                 dbus::utility::DBusPropertiesMap output;
 
                 output.reserve(16); // The pid interface length

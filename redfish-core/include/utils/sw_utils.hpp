@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <array>
+#include <ranges>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -125,8 +126,8 @@ inline void populateSoftwareInformation(
                 // Look at Ids from
                 // /xyz/openbmc_project/software/functional
                 // to determine if this is a running image
-                if (std::find(functionalSwIds.begin(), functionalSwIds.end(),
-                              swId) != functionalSwIds.end())
+                if (std::ranges::find(functionalSwIds, swId) !=
+                    functionalSwIds.end())
                 {
                     runningImage = true;
                 }
@@ -367,8 +368,7 @@ inline void
         }
         std::string reqSwObjPath = "/xyz/openbmc_project/software/" + *swId;
 
-        if (std::find(objPaths.begin(), objPaths.end(), reqSwObjPath) !=
-            objPaths.end())
+        if (std::ranges::find(objPaths, reqSwObjPath) != objPaths.end())
         {
             asyncResp->res.jsonValue["Updateable"] = true;
             return;
