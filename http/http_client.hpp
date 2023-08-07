@@ -39,6 +39,8 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
 
 #include <cstdlib>
