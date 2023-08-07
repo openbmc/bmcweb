@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14aa3fc3_c272297a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:44:57Z",
+      "side": 1,
+      "message": "What backend are you testing with?  Where can I see \"disk_backplane0\" defined?",
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb0e1522_16b761ea",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:44:57Z",
+      "side": 1,
+      "message": "Please make a separate function.",
+      "range": {
+        "startLine": 37,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 28
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5accbcc9_8f8e56ec",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:44:57Z",
+      "side": 1,
+      "message": "Why does this need to exist?  In case the mapper gives us a bad path?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9256dd21_5bb92fb9",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:44:57Z",
+      "side": 1,
+      "message": "std::bind_front here please.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 9
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea927cf9_14ce64ea",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:44:57Z",
+      "side": 1,
+      "message": "Why is this required?",
+      "range": {
+        "startLine": 262,
+        "startChar": 4,
+        "endLine": 262,
+        "endChar": 29
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23ae8f7c_228dad7b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:44:57Z",
+      "side": 1,
+      "message": "Please give this a different name.  It is dtoo similar to handlePortCollectionGet",
+      "range": {
+        "startLine": 266,
+        "startChar": 8,
+        "endLine": 266,
+        "endChar": 33
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
