@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9af67d_b70e718c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-07T15:36:40Z",
+      "side": 1,
+      "message": "Need more here. \nWhy does bmcweb need this change?\nHow does this fix the current power consumption?\nWhy doesn\u0027t the current PowerConsumedWatts work? What is the bug with the current one, this is fixing?\nhttps://github.com/openbmc/bmcweb/blob/1ccf70f116b28a0f78404b914a789ce05f411ddf/redfish-core/lib/sensors.hpp#L833",
+      "revId": "175962cab949090bccca273d6b201924e8038a62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
