@@ -31,6 +31,7 @@
 
 #include <array>
 #include <optional>
+#include <ranges>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -2004,12 +2005,11 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        const auto userIt = std::find_if(
-            users.begin(), users.end(),
-            [accountName](
-                const std::pair<sdbusplus::message::object_path,
-                                dbus::utility::DBusInteracesMap>& user) {
-            return accountName == user.first.filename();
+        const auto userIt = std::ranges::find_if(
+            users, [accountName](
+                       const std::pair<sdbusplus::message::object_path,
+                                       dbus::utility::DBusInteracesMap>& user) {
+                return accountName == user.first.filename();
             });
 
         if (userIt == users.end())

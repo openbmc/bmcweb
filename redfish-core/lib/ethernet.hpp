@@ -34,6 +34,7 @@
 
 #include <array>
 #include <optional>
+#include <ranges>
 #include <regex>
 #include <string_view>
 #include <vector>
@@ -446,9 +447,8 @@ inline void extractIPV6Data(const std::string& ethifaceId,
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
-                    auto type = std::find_if(interface.second.begin(),
-                                             interface.second.end(),
-                                             [](const auto& property) {
+                    auto type = std::ranges::find_if(interface.second,
+                                                     [](const auto& property) {
                         return property.first == "Type";
                     });
                     if (type == interface.second.end())
@@ -539,9 +539,8 @@ inline void extractIPData(const std::string& ethifaceId,
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
-                    auto type = std::find_if(interface.second.begin(),
-                                             interface.second.end(),
-                                             [](const auto& property) {
+                    auto type = std::ranges::find_if(interface.second,
+                                                     [](const auto& property) {
                         return property.first == "Type";
                     });
                     if (type == interface.second.end())
@@ -886,8 +885,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
             }
         }
 
-        std::sort(ifaceList.begin(), ifaceList.end(),
-                  AlphanumLess<std::string>());
+        std::ranges::sort(ifaceList, AlphanumLess<std::string>());
 
         // Finally make a callback with useful data
         callback(true, ifaceList);
@@ -955,7 +953,7 @@ inline void
 inline bool isHostnameValid(const std::string& hostname)
 {
     // A valid host name can never have the dotted-decimal form (RFC 1123)
-    if (std::all_of(hostname.begin(), hostname.end(), ::isdigit))
+    if (std::ranges::all_of(hostname, ::isdigit))
     {
         return false;
     }

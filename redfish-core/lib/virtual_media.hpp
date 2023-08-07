@@ -30,6 +30,7 @@
 
 #include <array>
 #include <string_view>
+#include <ranges>
 
 namespace redfish
 {
@@ -608,9 +609,9 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Pack secret
         auto secret = credentials.pack(
             [](const auto& user, const auto& pass, auto& buff) {
-            std::copy(user.begin(), user.end(), std::back_inserter(buff));
+            std::ranges::copy(user, std::back_inserter(buff));
             buff.push_back('\0');
-            std::copy(pass.begin(), pass.end(), std::back_inserter(buff));
+            std::ranges::copy(pass, std::back_inserter(buff));
             buff.push_back('\0');
         });
 
