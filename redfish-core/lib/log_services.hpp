@@ -2061,7 +2061,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
                                      "application/octet-stream");
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
-            asyncResp->res.body() = std::move(output);
+            asyncResp->res.write(std::move(output));
             },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
@@ -3448,14 +3448,11 @@ inline void requestRoutesCrashdumpFile(App& app)
                 return;
             }
 
-            if (!std::filesystem::exists(dbusFilepath))
+            if (!asyncResp->res.openFile(dbusFilepath))
             {
                 messages::resourceNotFound(asyncResp->res, "LogEntry", logID);
                 return;
             }
-            std::ifstream ifs(dbusFilepath, std::ios::in | std::ios::binary);
-            asyncResp->res.body() =
-                std::string(std::istreambuf_iterator<char>{ifs}, {});
 
             // Configure this to be a file download when accessed
             // from a browser
@@ -4216,7 +4213,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                                      "application/octet-stream");
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
-            asyncResp->res.body() = crow::utility::base64encode(strData);
+            asyncResp->res.write(crow::utility::base64encode(strData));
             },
             "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
