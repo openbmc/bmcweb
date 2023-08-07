@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b6038be_76ce10d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:27:35Z",
+      "side": 1,
+      "message": "FYI, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64588 is likely to cause a pretty significant merge conflict.  You might want to rebase on top of it.",
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86abc758_568469fd",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:27:35Z",
+      "side": 1,
+      "message": "why is this called impl now?",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12419323_37782648",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:27:35Z",
+      "side": 1,
+      "message": "std::bind_front(std::ref(req), std::ref(res))",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "849af48b_7db7c59c",
