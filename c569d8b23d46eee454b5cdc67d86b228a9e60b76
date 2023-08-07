@@ -409,6 +409,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95817edd_1e0229e8",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-08-07T19:29:43Z",
+      "side": 1,
+      "message": "I\u0027ve added retaining the file descriptor for auditing to decrease the path-length on an audit call.",
+      "parentUuid": "9654fa07_c5c04da9",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f8f98fc_e279da65",
         "filename": "meson_options.txt",
         "patchSetId": 5
