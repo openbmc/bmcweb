@@ -39,6 +39,8 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
 
 #include <cstdlib>
@@ -50,9 +52,8 @@
 
 namespace crow
 {
-
-// With Redfish Aggregation it is assumed we will connect to another instance
-// of BMCWeb which can handle 100 simultaneous connections.
+// With Redfish Aggregation it is assumed we will connect to another
+// instance of BMCWeb which can handle 100 simultaneous connections.
 constexpr size_t maxPoolSize = 20;
 constexpr size_t maxRequestQueueSize = 500;
 constexpr unsigned int httpReadBodyLimit = 131072;
@@ -96,8 +97,8 @@ static inline boost::system::error_code
     return boost::system::errc::make_error_code(boost::system::errc::success);
 };
 
-// We need to allow retry information to be set before a message has been sent
-// and a connection pool has been created
+// We need to allow retry information to be set before a message has been
+// sent and a connection pool has been created
 struct ConnectionPolicy
 {
     uint32_t maxRetryAttempts = 5;
@@ -402,7 +403,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         // Copy the response into a Response object so that it can be
         // processed by the callback function.
-        res.stringResponse = parser->release();
+        res.response = parser->release();
         callback(parser->keep_alive(), connId, res);
         res.clear();
     }
@@ -419,8 +420,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         if (ec)
         {
             BMCWEB_LOG_ERROR("async_wait failed: {}", ec.message());
-            // If the timer fails, we need to close the socket anyway, same as
-            // if it expired.
+            // If the timer fails, we need to close the socket anyway, same
+            // as if it expired.
         }
         std::shared_ptr<ConnectionInfo> self = weakSelf.lock();
         if (self == nullptr)
@@ -454,8 +455,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             callback(false, connId, res);
             res.clear();
 
-            // Reset the retrycount to zero so that client can try connecting
-            // again if needed
+            // Reset the retrycount to zero so that client can try
+            // connecting again if needed
             retryCount = 0;
             return;
         }
@@ -604,10 +605,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 BMCWEB_LOG_ERROR("prepareSSLContext failed - {}, id: {}", host,
                                  connId);
                 // Don't retry if failure occurs while preparing SSL context
-                // such as certificate is invalid or set cipher failure or set
-                // host name failure etc... Setting conn state to sslInitFailed
-                // and connection state will be transitioned to next state
-                // depending on retry policy set by subscription.
+                // such as certificate is invalid or set cipher failure or
+                // set host name failure etc... Setting conn state to
+                // sslInitFailed and connection state will be transitioned
+                // to next state depending on retry policy set by
+                // subscription.
                 state = ConnState::sslInitFailed;
                 waitAndRetry();
                 return;
@@ -742,8 +744,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             }
         }
 
-        // All connections in use so create a new connection or add request to
-        // the queue
+        // All connections in use so create a new connection or add request
+        // to the queue
         if (connections.size() < connPolicy->maxConnections)
         {
             BMCWEB_LOG_DEBUG("Adding new connection to pool {}", id);
@@ -760,8 +762,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
         else
         {
-            // If we can't buffer the request then we should let the callback
-            // handle a 429 Too Many Requests dummy response
+            // If we can't buffer the request then we should let the
+            // callback handle a 429 Too Many Requests dummy response
             BMCWEB_LOG_ERROR("{}:{} request queue full.  Dropping request.",
                              id);
             Response dummyRes;
@@ -875,8 +877,8 @@ class HttpClient
             pool.first->second = std::make_shared<ConnectionPool>(
                 ioc, clientKey, connPolicy, destUrl);
         }
-        // Send the data using either the existing connection pool or the newly
-        // created connection pool
+        // Send the data using either the existing connection pool or the
+        // newly created connection pool
         pool.first->second->sendData(std::move(data), destUrl, httpHeader, verb,
                                      resHandler);
     }
