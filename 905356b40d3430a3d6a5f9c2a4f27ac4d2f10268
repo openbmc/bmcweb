@@ -352,6 +352,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c56d36a_df9b7687",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:19:39Z",
+      "side": 1,
+      "message": "\u003e I disagree on this.\n\nYour disagreement is noted, and I\u0027m happy to revisit if we get N different implementations of this.  Part of the reason I\u0027m arguing for this is I know that we will likely only have 3 body implementations, and we\u0027ve been through several rounds where people write \"generic\" code, and duplicate quite a bit of code in the binary.  If we get to 3 body implementations, and this use of generics doesn\u0027t duplicate a lot of code, I\u0027m happy to discuss again then.\n\n\u003e To me it is against the spirit of generic programming and \" dont repeat yourself (DRY)\" principle. I think we can agree to disagree here. \n\u003e I will make changes as per the request.\n\nThank you, I appreciate it.",
+      "parentUuid": "facad103_1e4d848a",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a301dd8_08a1633f",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -626,6 +650,30 @@
       "side": 1,
       "message": "But how do make a non-breaking change here? The body() should return a reference to a string.  If we change the return type to include error-info then the change set will be huge. We should handle the error in every calling site. Do we really want to do it? And how do we handle the error case in the calling site? I felt the simplest solution would be to make sure that no such case occur. That is what updateResponseIfNeeded function do. The only issue is that the \"get\" can throw, but it will never throw in our case.",
       "parentUuid": "4f2850d0_da37ab0e",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bb490b_c28354d3",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:19:39Z",
+      "side": 1,
+      "message": "\u003e But how do make a non-breaking change here?\n\nBecause prior to this commit we did not use exceptions for non-exceptional (Ie, should not crash) error handling.  This uses exceptions for non-exceptional error handling.\n\n\u003e The body() should return a reference to a string.  If we change the return type to include error-info then the change set will be huge.\n\n\"This requires a large change\" is not an argument against not handling errors.  Errors shall be handled.  Also, there aren\u0027t that many calls to body(), I would expect about a dozen.\n\n\u003e We should handle the error in every calling site. Do we really want to do it? \n\nYes, we should handle errors.\n\n\u003e And how do we handle the error case in the calling site? I felt the simplest solution would be to make sure that no such case occur.\n\nThe case can occur.  It is trivial to write code in a handler that does this incorrectly, which means it\u0027s an error that needs handled.\n\n\u003e That is what updateResponseIfNeeded function do. The only issue is that the \"get\" can throw, but it will never throw in our case.\n\nHow have you verified that it can never throw?",
+      "parentUuid": "b1ffd4b4_364e9671",
       "range": {
         "startLine": 205,
         "startChar": 15,

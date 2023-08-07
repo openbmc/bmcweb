@@ -261,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea7073e8_d74e3557",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:19:39Z",
+      "side": 1,
+      "message": "\u003e Are you saying that prefer handwritten duplicate code over generic functions?\n\nYes.\n\n\u003e Generic functions are invented to avoid such duplicated hand-written code right?\n\nThis project has never optimized for amount of code.  It optimizes for simplicity.  Generics are quite useful if there are N implementations, where N is large, but with only 2 implementations, a branch is much simpler.\n\nAlso, FWIW, now that we have if constexpr, most implementations of generics have been moving to a branch-like generic for simplicity.",
+      "parentUuid": "42a9484d_611ed83c",
+      "range": {
+        "startLine": 190,
+        "startChar": 9,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71725e1b_9e3bd0a7",
         "filename": "http/http_response.hpp",
         "patchSetId": 35
@@ -344,6 +368,30 @@
       "side": 1,
       "message": "I don\u0027t understand. The new response object creation and the invocation of base assignment operation will happen only if the current response type is not suitable for new body type. We are not doing any extra work here. \nIt seems you wanted to separate body from header. Is it possible to create such a response type in beast? can you point me to an example of it?",
       "parentUuid": "5fac8e81_80d365f4",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 23
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba324b8_439d7ade",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:19:39Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t understand. The new response object creation and the invocation of base assignment operation will happen only if the current response type is not suitable for new body type. We are not doing any extra work here. \n\nYou are copying a larger object than necessary. Whether or not that\u0027s \"work\" is up for debate, but I\u0027d still like to only copy the things we intend to use, which is base()\n\n\u003e It seems you wanted to separate body from header. Is it possible to create such a response type in beast?\n\nyes, using the base() method on the Response object.\n\n\u003e can you point me to an example of it?\n\nI\u0027ve already pointed you to the commit multiple times, but I\u0027m happy to point you to it again.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/35992",
+      "parentUuid": "7613f0fa_cd09e21d",
       "range": {
         "startLine": 194,
         "startChar": 12,
@@ -674,6 +722,30 @@
       "side": 1,
       "message": "Does it work for simple synchronous connections suitable for automated tests?",
       "parentUuid": "c78d0d58_35ad8489",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3407e09b_f9612bf8",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T17:19:39Z",
+      "side": 1,
+      "message": "\u003e Does it work for simple synchronous connections suitable for automated tests?\n\nIt\u0027s a general http client.  If it doesn\u0027t work for your use case, modify it to make it work for your use case.  We cannot have N different implementations of an HTTP client in the codebase because everyone decided they didn\u0027t like what was there.",
+      "parentUuid": "56d9cec8_b3690a8b",
       "range": {
         "startLine": 21,
         "startChar": 7,
