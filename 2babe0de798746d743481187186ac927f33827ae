@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "849af48b_7db7c59c",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2023-08-07T07:50:05Z",
+      "side": 1,
+      "message": "I tested it, if the downloaded file is too large, it may time out.",
+      "range": {
+        "startLine": 603,
+        "startChar": 29,
+        "endLine": 603,
+        "endChar": 41
+      },
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
