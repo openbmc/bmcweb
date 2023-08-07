@@ -2535,8 +2535,7 @@ inline void requestRoutes(App& app)
 
         for (const auto& file : files)
         {
-            std::ifstream readFile(file.path());
-            if (!readFile.good())
+            if (!asyncResp->res.openFile(file))
             {
                 continue;
             }
@@ -2565,8 +2564,6 @@ inline void requestRoutes(App& app)
                 boost::beast::http::field::content_disposition,
                 contentDispositionParam);
 
-            asyncResp->res.body() = {std::istreambuf_iterator<char>(readFile),
-                                     std::istreambuf_iterator<char>()};
             return;
         }
         asyncResp->res.result(boost::beast::http::status::not_found);

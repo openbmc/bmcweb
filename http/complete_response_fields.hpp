@@ -27,8 +27,7 @@ inline void completeResponseFields(const Request& req, Response& res)
     authentication::cleanupTempSession(req);
 
     res.setHashAndHandleNotModified();
-
-    if (res.body().empty() && res.jsonValue.is_structured())
+    if (res.jsonValue.is_structured())
     {
         using http_helpers::ContentType;
         std::array<ContentType, 3> allowed{ContentType::CBOR, ContentType::JSON,
@@ -44,7 +43,9 @@ inline void completeResponseFields(const Request& req, Response& res)
         {
             res.addHeader(boost::beast::http::field::content_type,
                           "application/cbor");
-            nlohmann::json::to_cbor(res.jsonValue, res.body());
+            std::string cbor;
+            nlohmann::json::to_cbor(res.jsonValue, cbor);
+            res.write(std::move(cbor));
         }
         else
         {
@@ -53,8 +54,8 @@ inline void completeResponseFields(const Request& req, Response& res)
             // backward compatibility.
             res.addHeader(boost::beast::http::field::content_type,
                           "application/json");
-            res.body() = res.jsonValue.dump(
-                2, ' ', true, nlohmann::json::error_handler_t::replace);
+            res.write(res.jsonValue.dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace));
         }
     }
 }
