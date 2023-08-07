@@ -32,6 +32,7 @@
 #include <limits>
 #include <map>
 #include <optional>
+#include <ranges>
 #include <span>
 #include <string>
 #include <string_view>
@@ -670,7 +671,7 @@ struct ODataObjectLess
 // those whose |element[key]| is string.
 inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 {
-    std::sort(array.begin(), array.end(), ODataObjectLess());
+    std::ranges::sort(array, ODataObjectLess());
 }
 
 // Returns the estimated size of the JSON value

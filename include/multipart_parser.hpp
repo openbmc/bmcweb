@@ -224,7 +224,7 @@ class MultipartParser
   private:
     void indexBoundary()
     {
-        std::fill(boundaryIndex.begin(), boundaryIndex.end(), 0);
+        std::ranges::fill(boundaryIndex, 0);
         for (const char current : boundary)
         {
             boundaryIndex[static_cast<unsigned char>(current)] = true;

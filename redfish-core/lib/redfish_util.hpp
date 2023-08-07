@@ -25,6 +25,7 @@
 
 #include <array>
 #include <charconv>
+#include <ranges>
 #include <string_view>
 
 namespace redfish
@@ -166,8 +167,8 @@ void getPortStatusAndPath(
                 // Some protocols may have multiple services associated with
                 // them (for example IPMI). Look to see if we've already added
                 // an entry for the current protocol.
-                auto find = std::find_if(
-                    socketData.begin(), socketData.end(),
+                auto find = std::ranges::find_if(
+                    socketData,
                     [&kv](const std::tuple<std::string, std::string, bool>& i) {
                     return std::get<1>(i) == kv.first;
                     });
