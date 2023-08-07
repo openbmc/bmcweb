@@ -9,6 +9,7 @@
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
+#include <ranges>
 #include <span>
 #include <string>
 #include <string_view>
@@ -68,8 +69,7 @@ inline void
             }
             pathNames.push_back(leaf);
         }
-        std::sort(pathNames.begin(), pathNames.end(),
-                  AlphanumLess<std::string>());
+        std::ranges::sort(pathNames, AlphanumLess<std::string>());
 
         nlohmann::json& members = asyncResp->res.jsonValue["Members"];
         members = nlohmann::json::array();

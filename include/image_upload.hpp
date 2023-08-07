@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <fstream>
 #include <memory>
+#include <ranges>
 
 namespace crow
 {
@@ -66,9 +67,8 @@ inline void
         dbus::utility::DBusInteracesMap interfaces;
         m.read(path, interfaces);
 
-        if (std::find_if(interfaces.begin(), interfaces.end(),
-                         [](const auto& i) {
-            return i.first == "xyz.openbmc_project.Software.Version";
+        if (std::ranges::find_if(interfaces, [](const auto& i) {
+                return i.first == "xyz.openbmc_project.Software.Version";
             }) != interfaces.end())
         {
             timeout.cancel();

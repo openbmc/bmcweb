@@ -23,6 +23,7 @@
 #include <nlohmann/json.hpp>
 
 #include <array>
+#include <ranges>
 #include <string_view>
 #include <variant>
 
@@ -121,9 +122,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                             bool containsChild = false;
                             for (const std::string& endpoint : *endpoints)
                             {
-                                if (std::find(inventory.begin(),
-                                              inventory.end(),
-                                              endpoint) != inventory.end())
+                                if (std::ranges::find(inventory, endpoint) !=
+                                    inventory.end())
                                 {
                                     containsChild = true;
                                     break;
