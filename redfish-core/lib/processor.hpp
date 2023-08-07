@@ -37,6 +37,7 @@
 
 #include <array>
 #include <limits>
+#include <ranges>
 #include <string_view>
 
 namespace redfish
@@ -814,10 +815,8 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
             // (e.g. /redfish/../Processors/dimm0)
             for (const auto& [serviceName, interfaceList] : serviceMap)
             {
-                if (std::find_first_of(
-                        interfaceList.begin(), interfaceList.end(),
-                        processorInterfaces.begin(),
-                        processorInterfaces.end()) != interfaceList.end())
+                if (std::find_first_of(interfaceList, processorInterfaces) !=
+                    interfaceList.end())
                 {
                     found = true;
                     break;
@@ -1083,9 +1082,9 @@ inline void patchAppliedOperatingConfig(
     const std::string* controlService = nullptr;
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
-        if (std::find(interfaceList.begin(), interfaceList.end(),
-                      "xyz.openbmc_project.Control.Processor."
-                      "CurrentOperatingConfig") != interfaceList.end())
+        if (std::ranges::find(interfaceList,
+                              "xyz.openbmc_project.Control.Processor."
+                              "CurrentOperatingConfig") != interfaceList.end())
         {
             controlService = &serviceName;
             break;

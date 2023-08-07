@@ -40,6 +40,7 @@
 #include <ctime>
 #include <fstream>
 #include <memory>
+#include <ranges>
 #include <span>
 
 namespace redfish
@@ -83,10 +84,9 @@ static const Message*
     getMsgFromRegistry(const std::string& messageKey,
                        const std::span<const MessageEntry>& registry)
 {
-    std::span<const MessageEntry>::iterator messageIt =
-        std::find_if(registry.begin(), registry.end(),
-                     [&messageKey](const MessageEntry& messageEntry) {
-        return messageKey == messageEntry.first;
+    std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
+        registry, [&messageKey](const MessageEntry& messageEntry) {
+            return messageKey == messageEntry.first;
         });
     if (messageIt != registry.end())
     {
@@ -278,8 +278,7 @@ inline bool
                        std::vector<std::string>& registryPrefixes,
                        std::vector<std::string>& metricReportDefinitions)
 {
-    sseFilter.erase(std::remove_if(sseFilter.begin(), sseFilter.end(),
-                                   isFilterQuerySpecialChar),
+    sseFilter.erase(std::ranges::remove_if(sseFilter, isFilterQuerySpecialChar),
                     sseFilter.end());
 
     std::vector<std::string> result;
@@ -447,8 +446,7 @@ class Subscription : public persistent_data::UserSubscription
             // send everything.
             if (!registryPrefixes.empty())
             {
-                auto obj = std::find(registryPrefixes.begin(),
-                                     registryPrefixes.end(), registryName);
+                auto obj = std::ranges::find(registryPrefixes, registryName);
                 if (obj == registryPrefixes.end())
                 {
                     continue;
@@ -459,8 +457,7 @@ class Subscription : public persistent_data::UserSubscription
             // send everything.
             if (!registryMsgIds.empty())
             {
-                auto obj = std::find(registryMsgIds.begin(),
-                                     registryMsgIds.end(), messageKey);
+                auto obj = std::ranges::find(registryMsgIds, messageKey);
                 if (obj == registryMsgIds.end())
                 {
                     continue;
@@ -509,9 +506,8 @@ class Subscription : public persistent_data::UserSubscription
         // Empty list means no filter. Send everything.
         if (!metricReportDefinitions.empty())
         {
-            if (std::find(metricReportDefinitions.begin(),
-                          metricReportDefinitions.end(),
-                          mrdUri.buffer()) == metricReportDefinitions.end())
+            if (std::ranges::find(metricReportDefinitions, mrdUri.buffer()) ==
+                metricReportDefinitions.end())
             {
                 return;
             }
@@ -997,8 +993,8 @@ class EventServiceManager
 
     size_t getNumberOfSSESubscriptions() const
     {
-        auto size = std::count_if(
-            subscriptionsMap.begin(), subscriptionsMap.end(),
+        auto size = std::ranges::count_if(
+            subscriptionsMap,
             [](const std::pair<std::string, std::shared_ptr<Subscription>>&
                    entry) {
             return (entry.second->subscriptionType == subscriptionTypeSSE);
@@ -1369,9 +1365,8 @@ class EventServiceManager
         std::vector<std::string> invalidProps;
         msg.read(interface, props, invalidProps);
 
-        auto found =
-            std::find_if(props.begin(), props.end(),
-                         [](const auto& x) { return x.first == "Readings"; });
+        auto found = std::ranges::find_if(
+            props, [](const auto& x) { return x.first == "Readings"; });
         if (found == props.end())
         {
             BMCWEB_LOG_INFO("Failed to get Readings from Report properties");

@@ -101,8 +101,8 @@ inline bool searchCollectionsArray(std::string_view uri,
                (searchType == SearchType::CollOrCon);
     }
 
-    const auto* it = std::lower_bound(
-        topCollections.begin(), topCollections.end(), parsedUrl->buffer());
+    const auto* it = std::ranges::lower_bound(topCollections,
+                                              parsedUrl->buffer());
     if (it == topCollections.end())
     {
         // parsedUrl is alphabetically after the last entry in the array so it
