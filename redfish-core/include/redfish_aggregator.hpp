@@ -9,8 +9,6 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 #include <array>
-#include <ranges>
-#include <string_view>
 
 namespace redfish
 {
@@ -102,8 +100,9 @@ inline bool searchCollectionsArray(std::string_view uri,
         return (searchType == SearchType::ContainsSubordinate) ||
                (searchType == SearchType::CollOrCon);
     }
-    std::string_view url = parsedUrl->buffer();
-    const auto* it = std::ranges::lower_bound(topCollections, url);
+
+    const auto* it = std::lower_bound(
+        topCollections.begin(), topCollections.end(), parsedUrl->buffer());
     if (it == topCollections.end())
     {
         // parsedUrl is alphabetically after the last entry in the array so it
@@ -712,9 +711,8 @@ class RedfishAggregator
         }
 
         // We need to strip the prefix from the request's path
-        boost::urls::url targetURI(thisReq.target());
-        std::string path = thisReq.url().path();
-        size_t pos = path.find(prefix + "_");
+        std::string targetURI(thisReq.target());
+        size_t pos = targetURI.find(prefix + "_");
         if (pos == std::string::npos)
         {
             // If this fails then something went wrong
@@ -723,20 +721,16 @@ class RedfishAggregator
             messages::internalError(asyncResp->res);
             return;
         }
-        path.erase(pos, prefix.size() + 1);
+        targetURI.erase(pos, prefix.size() + 1);
 
         std::function<void(crow::Response&)> cb =
             std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.req.body();
-        boost::urls::url url(sat->second);
-        url.set_path(path);
-        if (targetURI.has_query())
-        {
-            url.set_query(targetURI.query());
-        }
-        client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
-                                    thisReq.method(), cb);
+        client.sendDataWithCallback(
+            std::move(data), std::string(sat->second.host()),
+            sat->second.port_number(), targetURI, false /*useSSL*/,
+            thisReq.fields(), thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -750,15 +744,12 @@ class RedfishAggregator
             std::function<void(crow::Response&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
 
-            boost::urls::url url(sat.second);
-            url.set_path(thisReq.url().path());
-            if (thisReq.url().has_query())
-            {
-                url.set_query(thisReq.url().query());
-            }
+            std::string targetURI(thisReq.target());
             std::string data = thisReq.req.body();
-            client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
-                                        thisReq.method(), cb);
+            client.sendDataWithCallback(
+                std::move(data), std::string(sat.second.host()),
+                sat.second.port_number(), targetURI, false /*useSSL*/,
+                thisReq.fields(), thisReq.method(), cb);
         }
     }
 
@@ -778,13 +769,12 @@ class RedfishAggregator
             // is not already supported by the aggregating BMC
             // TODO: Improve the processing so that we don't have to strip query
             // params in this specific case
-            boost::urls::url url(sat.second);
-            url.set_path(thisReq.url().path());
-
+            std::string targetURI(thisReq.url().path());
             std::string data = thisReq.req.body();
-
-            client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
-                                        thisReq.method(), cb);
+            client.sendDataWithCallback(
+                std::move(data), std::string(sat.second.host()),
+                sat.second.port_number(), targetURI, false /*useSSL*/,
+                thisReq.fields(), thisReq.method(), cb);
         }
     }
 
@@ -874,8 +864,14 @@ class RedfishAggregator
         if (boost::iequals(contentType, "application/json") ||
             boost::iequals(contentType, "application/json; charset=utf-8"))
         {
-            nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
-                                                           false);
+            std::string* body = resp.body();
+            if (body == nullptr){
+                BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
+                messages::operationFailed(asyncResp->res);
+                return;
+            }
+            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
+                                                           nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
@@ -898,7 +894,7 @@ class RedfishAggregator
         {
             // We allow any Content-Type that is not "application/json" now
             asyncResp->res.result(resp.result());
-            asyncResp->res.write(resp.body());
+            asyncResp->res.copyBody(resp);
         }
         addAggregatedHeaders(asyncResp->res, resp, prefix);
     }
@@ -927,7 +923,7 @@ class RedfishAggregator
             if (asyncResp->res.resultInt() != 200)
             {
                 asyncResp->res.result(resp.result());
-                asyncResp->res.write(resp.body());
+                asyncResp->res.copyBody(resp);
             }
             return;
         }
@@ -938,8 +934,8 @@ class RedfishAggregator
         if (boost::iequals(contentType, "application/json") ||
             boost::iequals(contentType, "application/json; charset=utf-8"))
         {
-            nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
-                                                           false);
+            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
+                                                           nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
@@ -1061,7 +1057,7 @@ class RedfishAggregator
             if (asyncResp->res.resultInt() != 200)
             {
                 asyncResp->res.result(resp.result());
-                asyncResp->res.write(resp.body());
+                asyncResp->res.copyBody(resp);
             }
             return;
         }
@@ -1073,8 +1069,8 @@ class RedfishAggregator
             boost::iequals(contentType, "application/json; charset=utf-8"))
         {
             bool addedLinks = false;
-            nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
-                                                           false);
+            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
+                                                           nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
