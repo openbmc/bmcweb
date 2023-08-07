@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8ba1501_d2905cfb",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:49:12Z",
+      "side": 1,
+      "message": "bind_front and a normal callback here please.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 9
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb0e1522_16b761ea",
         "filename": "redfish-core/include/utils/port_utils.hpp",
         "patchSetId": 44
@@ -43,6 +66,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3b45303_11cb7b4d",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:49:12Z",
+      "side": 1,
+      "message": "please just put in port.hpp.  There\u0027s no need to create a new utils namespace for something only used in one module.",
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5accbcc9_8f8e56ec",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 44
@@ -59,6 +99,29 @@
         "startChar": 0,
         "endLine": 30,
         "endChar": 0
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228e56c1_665183ab",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T15:49:12Z",
+      "side": 1,
+      "message": "Why is this unused?",
+      "range": {
+        "startLine": 35,
+        "startChar": 43,
+        "endLine": 35,
+        "endChar": 51
       },
       "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
