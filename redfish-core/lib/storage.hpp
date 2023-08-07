@@ -36,6 +36,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <ranges>
 #include <string_view>
 
 namespace redfish
@@ -166,8 +167,8 @@ inline void afterSystemsStorageGetSubtree(
                                    storageId);
         return;
     }
-    auto storage = std::find_if(
-        subtree.begin(), subtree.end(),
+    auto storage = std::ranges::find_if(
+        subtree,
         [&storageId](const std::pair<std::string,
                                      dbus::utility::MapperServiceMap>& object) {
         return sdbusplus::message::object_path(object.first).filename() ==
@@ -235,8 +236,8 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                    storageId);
         return;
     }
-    auto storage = std::find_if(
-        subtree.begin(), subtree.end(),
+    auto storage = std::ranges::find_if(
+        subtree,
         [&storageId](const std::pair<std::string,
                                      dbus::utility::MapperServiceMap>& object) {
         return sdbusplus::message::object_path(object.first).filename() ==
@@ -651,8 +652,8 @@ inline void afterGetSubtreeSystemsStorageDrive(
         return;
     }
 
-    auto drive = std::find_if(
-        subtree.begin(), subtree.end(),
+    auto drive = std::ranges::find_if(
+        subtree,
         [&driveId](const std::pair<std::string,
                                    dbus::utility::MapperServiceMap>& object) {
         return sdbusplus::message::object_path(object.first).filename() ==
@@ -800,8 +801,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
                 leafNames.push_back(drivePath.filename());
             }
 
-            std::sort(leafNames.begin(), leafNames.end(),
-                      AlphanumLess<std::string>());
+            std::ranges::sort(leafNames, AlphanumLess<std::string>());
 
             for (const auto& leafName : leafNames)
             {

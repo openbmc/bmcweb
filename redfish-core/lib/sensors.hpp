@@ -41,6 +41,7 @@
 #include <iterator>
 #include <limits>
 #include <map>
+#include <ranges>
 #include <set>
 #include <string_view>
 #include <utility>
@@ -733,9 +734,8 @@ inline void objectPropertiesToJson(
     if (chassisSubNode == sensors::node::sensors)
     {
         std::string subNodeEscaped(sensorType);
-        subNodeEscaped.erase(
-            std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), '_'),
-            subNodeEscaped.end());
+        auto remove = std::ranges::remove(subNodeEscaped, '_');
+        subNodeEscaped.erase(std::ranges::begin(remove), subNodeEscaped.end());
 
         // For sensors in SensorCollection we set Id instead of MemberId,
         // including power sensors.
@@ -1017,11 +1017,10 @@ inline void populateFanRedundancy(
                     return; // if they don't have an association we
                             // can't tell what chassis is
                 }
-                auto found =
-                    std::find_if(endpoints.begin(), endpoints.end(),
-                                 [sensorsAsyncResp](const std::string& entry) {
-                    return entry.find(sensorsAsyncResp->chassisId) !=
-                           std::string::npos;
+                auto found = std::ranges::find_if(
+                    endpoints, [sensorsAsyncResp](const std::string& entry) {
+                        return entry.find(sensorsAsyncResp->chassisId) !=
+                               std::string::npos;
                     });
 
                 if (found == endpoints.end())
@@ -1105,10 +1104,9 @@ inline void populateFanRedundancy(
                         todo(ed): merge patch that fixes the names
                         std::replace(itemName.begin(),
                                      itemName.end(), '_', ' ');*/
-                        auto schemaItem =
-                            std::find_if(fanRedfish.begin(), fanRedfish.end(),
-                                         [itemName](const nlohmann::json& fan) {
-                            return fan["Name"] == itemName;
+                        auto schemaItem = std::ranges::find_if(
+                            fanRedfish, [itemName](const nlohmann::json& fan) {
+                                return fan["Name"] == itemName;
                             });
                         if (schemaItem != fanRedfish.end())
                         {
@@ -2319,10 +2317,10 @@ inline void getSensorData(
                     !sensorsAsyncResp->efficientExpand)
                 {
                     std::string sensorTypeEscaped(sensorType);
-                    sensorTypeEscaped.erase(
-                        std::remove(sensorTypeEscaped.begin(),
-                                    sensorTypeEscaped.end(), '_'),
-                        sensorTypeEscaped.end());
+                    auto remove = std::ranges::remove(sensorTypeEscaped, '_');
+
+                    sensorTypeEscaped.erase(std::ranges::begin(remove),
+                                            sensorTypeEscaped.end());
                     std::string sensorId(sensorTypeEscaped);
                     sensorId += "_";
                     sensorId += sensorName;
@@ -2411,10 +2409,10 @@ inline void getSensorData(
                     else if (fieldName == "Members")
                     {
                         std::string sensorTypeEscaped(sensorType);
-                        sensorTypeEscaped.erase(
-                            std::remove(sensorTypeEscaped.begin(),
-                                        sensorTypeEscaped.end(), '_'),
-                            sensorTypeEscaped.end());
+                        auto remove = std::ranges::remove(sensorTypeEscaped,
+                                                          '_');
+                        sensorTypeEscaped.erase(std::ranges::begin(remove),
+                                                sensorTypeEscaped.end());
                         std::string sensorId(sensorTypeEscaped);
                         sensorId += "_";
                         sensorId += sensorName;
@@ -2683,7 +2681,8 @@ inline void setSensorsOverride(
                     return;
                 }
                 std::string id = path.parent_path().filename();
-                id.erase(std::remove(id.begin(), id.end(), '_'), id.end());
+                auto remove = std::ranges::remove(id, '_');
+                id.erase(std::ranges::begin(remove), id.end());
                 id += "_";
                 id += sensorName;
 
@@ -2795,7 +2794,8 @@ inline void getChassisCallback(
         std::string type = path.parent_path().filename();
         // fan_tach has an underscore in it, so remove it to "normalize" the
         // type in the URI
-        type.erase(std::remove(type.begin(), type.end(), '_'), type.end());
+        auto remove = std::ranges::remove(type, '_');
+        type.erase(std::ranges::begin(remove), type.end());
 
         nlohmann::json::object_t member;
         std::string id = type;

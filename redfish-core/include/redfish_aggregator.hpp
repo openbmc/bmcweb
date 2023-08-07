@@ -9,6 +9,8 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 #include <array>
+#include <ranges>
+#include <string_view>
 
 namespace redfish
 {
@@ -100,9 +102,8 @@ inline bool searchCollectionsArray(std::string_view uri,
         return (searchType == SearchType::ContainsSubordinate) ||
                (searchType == SearchType::CollOrCon);
     }
-
-    const auto* it = std::lower_bound(
-        topCollections.begin(), topCollections.end(), parsedUrl->buffer());
+    std::string_view url = parsedUrl->buffer();
+    const auto* it = std::ranges::lower_bound(topCollections, url);
     if (it == topCollections.end())
     {
         // parsedUrl is alphabetically after the last entry in the array so it

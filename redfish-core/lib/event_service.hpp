@@ -29,6 +29,7 @@
 
 #include <charconv>
 #include <memory>
+#include <ranges>
 #include <span>
 #include <string>
 
@@ -420,9 +421,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (eventFormatType2)
         {
-            if (std::find(supportedEvtFormatTypes.begin(),
-                          supportedEvtFormatTypes.end(),
-                          *eventFormatType2) == supportedEvtFormatTypes.end())
+            if (std::ranges::find(supportedEvtFormatTypes, *eventFormatType2) ==
+                supportedEvtFormatTypes.end())
             {
                 messages::propertyValueNotInList(
                     asyncResp->res, *eventFormatType2, "EventFormatType");
@@ -487,9 +487,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
         {
             for (const std::string& it : *regPrefixes)
             {
-                if (std::find(supportedRegPrefixes.begin(),
-                              supportedRegPrefixes.end(),
-                              it) == supportedRegPrefixes.end())
+                if (std::ranges::find(supportedRegPrefixes, it) ==
+                    supportedRegPrefixes.end())
                 {
                     messages::propertyValueNotInList(asyncResp->res, it,
                                                      "RegistryPrefixes");
@@ -503,9 +502,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
         {
             for (const std::string& it : *resTypes)
             {
-                if (std::find(supportedResourceTypes.begin(),
-                              supportedResourceTypes.end(),
-                              it) == supportedResourceTypes.end())
+                if (std::ranges::find(supportedResourceTypes, it) ==
+                    supportedResourceTypes.end())
                 {
                     messages::propertyValueNotInList(asyncResp->res, it,
                                                      "ResourceTypes");
@@ -542,8 +540,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         registry =
                             redfish::registries::getRegistryFromPrefix(it);
 
-                    if (std::any_of(
-                            registry.begin(), registry.end(),
+                    if (std::ranges::any_of(
+                            registry,
                             [&id](const redfish::registries::MessageEntry&
                                       messageEntry) {
                         return id == messageEntry.first;
@@ -567,9 +565,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (retryPolicy)
         {
-            if (std::find(supportedRetryPolicies.begin(),
-                          supportedRetryPolicies.end(),
-                          *retryPolicy) == supportedRetryPolicies.end())
+            if (std::ranges::find(supportedRetryPolicies, *retryPolicy) ==
+                supportedRetryPolicies.end())
             {
                 messages::propertyValueNotInList(asyncResp->res, *retryPolicy,
                                                  "DeliveryRetryPolicy");
@@ -732,9 +729,8 @@ inline void requestRoutesEventDestination(App& app)
 
         if (retryPolicy)
         {
-            if (std::find(supportedRetryPolicies.begin(),
-                          supportedRetryPolicies.end(),
-                          *retryPolicy) == supportedRetryPolicies.end())
+            if (std::ranges::find(supportedRetryPolicies, *retryPolicy) ==
+                supportedRetryPolicies.end())
             {
                 messages::propertyValueNotInList(asyncResp->res, *retryPolicy,
                                                  "DeliveryRetryPolicy");
