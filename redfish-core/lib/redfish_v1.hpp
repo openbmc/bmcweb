@@ -11,6 +11,7 @@
 
 #include <boost/url/format.hpp>
 
+#include <ranges>
 #include <string>
 
 namespace redfish
@@ -105,7 +106,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
         return;
     }
 
-    if (std::find(schemas.begin(), schemas.end(), schema) == schemas.end())
+    if (std::ranges::find(schemas, schema) == schemas.end())
     {
         messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;

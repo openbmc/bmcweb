@@ -34,6 +34,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <ranges>
 #include <string_view>
 
 namespace redfish
@@ -514,8 +515,8 @@ inline void
 
             for (const char* interface : hasIndicatorLed)
             {
-                if (std::find(interfaces2.begin(), interfaces2.end(),
-                              interface) != interfaces2.end())
+                if (std::ranges::find(interfaces2, interface) !=
+                    interfaces2.end())
                 {
                     getIndicatorLedState(asyncResp);
                     getLocationIndicatorActive(asyncResp);
@@ -728,8 +729,8 @@ inline void
             bool indicatorChassis = false;
             for (const char* interface : hasIndicatorLed)
             {
-                if (std::find(interfaces3.begin(), interfaces3.end(),
-                              interface) != interfaces3.end())
+                if (std::ranges::find(interfaces3, interface) !=
+                    interfaces3.end())
                 {
                     indicatorChassis = true;
                     break;
@@ -840,8 +841,7 @@ inline void
         std::string objectPath = "/xyz/openbmc_project/state/chassis_system0";
 
         /* Look for system reset chassis path */
-        if ((std::find(chassisList.begin(), chassisList.end(), objectPath)) ==
-            chassisList.end())
+        if ((std::ranges::find(chassisList, objectPath)) == chassisList.end())
         {
             /* We prefer to reset the full chassis_system, but if it doesn't
              * exist on some platforms, fall back to a host-only power reset
