@@ -106,19 +106,42 @@ class HTTP2Connection :
         BMCWEB_LOG_DEBUG("File read callback length: {}", length);
         crow::Response& res = stream.res;
 
-        BMCWEB_LOG_DEBUG("total: {} send_sofar: {}", res.body().size(),
-                         stream.sentSofar);
+        Response::string_response* body =
+            boost::variant2::get_if<Response::string_response>(&res.response);
+        Response::file_response* fbody =
+            boost::variant2::get_if<Response::file_response>(&res.response);
 
-        size_t toSend = std::min(res.body().size() - stream.sentSofar, length);
+        size_t size = res.size();
+        BMCWEB_LOG_DEBUG("total: {} send_sofar: {}", size, stream.sentSofar);
+
+        size_t toSend = std::min(size - stream.sentSofar, length);
         BMCWEB_LOG_DEBUG("Copying {} bytes to buf", toSend);
 
-        std::string::iterator bodyBegin = res.body().begin();
-        std::advance(bodyBegin, stream.sentSofar);
+        if (body != nullptr)
+        {
+            std::string::const_iterator bodyBegin = body->body().begin();
+            std::advance(bodyBegin, stream.sentSofar);
 
-        memcpy(buf, &*bodyBegin, toSend);
+            memcpy(buf, &*bodyBegin, toSend);
+        }
+        else if (fbody != nullptr)
+        {
+            boost::system::error_code ec;
+
+            size_t nread = fbody->body().file().read(buf, toSend, ec);
+            if (ec || nread != toSend)
+            {
+                return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+            }
+        }
+        else
+        {
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
+
         stream.sentSofar += toSend;
 
-        if (stream.sentSofar >= res.body().size())
+        if (stream.sentSofar >= size)
         {
             BMCWEB_LOG_DEBUG("Setting OEF flag");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
@@ -154,8 +177,8 @@ class HTTP2Connection :
         completeResponseFields(thisReq, thisRes);
         thisRes.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
-        boost::beast::http::fields& fields = thisRes.stringResponse.base();
-        std::string code = std::to_string(thisRes.stringResponse.result_int());
+        boost::beast::http::fields& fields = thisRes.fields();
+        std::string code = std::to_string(thisRes.resultInt());
         hdr.emplace_back(headerFromStringViews(":status", code));
         for (const boost::beast::http::fields::value_type& header : fields)
         {

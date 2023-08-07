@@ -766,8 +766,9 @@ inline void
         return;
     }
 
-    asyncResp->res.body().resize(static_cast<size_t>(size), '\0');
-    rc = read(fd, asyncResp->res.body().data(), asyncResp->res.body().size());
+    std::string body;
+    body.resize(static_cast<size_t>(size), '\0');
+    rc = read(fd, body.data(), body.size());
     if ((rc == -1) || (rc != size))
     {
         BMCWEB_LOG_ERROR("Failed to read in file");
@@ -776,15 +777,16 @@ inline void
         return;
     }
     close(fd);
-
     if (downloadEntryType == "System")
     {
-        // We need to encode the data.  Doing it this way saves the other paths
-        // from having to make a copy into a temporary variable.
-        asyncResp->res.body() =
-            crow::utility::base64encode(asyncResp->res.body());
+        // Base64 encode response.
+        asyncResp->res.write(crow::utility::base64encode(body));
         asyncResp->res.addHeader(
             boost::beast::http::field::content_transfer_encoding, "Base64");
+    }
+    else
+    {
+        asyncResp->res.write(std::move(body));
     }
 
     asyncResp->res.addHeader(boost::beast::http::field::content_type,
@@ -3545,14 +3547,11 @@ inline void requestRoutesCrashdumpFile(App& app)
                 return;
             }
 
-            if (!std::filesystem::exists(dbusFilepath))
+            if (!asyncResp->res.openFile(dbusFilepath))
             {
                 messages::resourceNotFound(asyncResp->res, "LogEntry", logID);
                 return;
             }
-            std::ifstream ifs(dbusFilepath, std::ios::in | std::ios::binary);
-            asyncResp->res.body() =
-                std::string(std::istreambuf_iterator<char>{ifs}, {});
 
             // Configure this to be a file download when accessed
             // from a browser
@@ -4314,7 +4313,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
                                      "application/octet-stream");
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
-            asyncResp->res.body() = crow::utility::base64encode(strData);
+            asyncResp->res.write(crow::utility::base64encode(strData));
         },
             "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
