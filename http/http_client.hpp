@@ -39,6 +39,9 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
+#include <boost/url/url_view.hpp>
 
 #include <cstdlib>
 #include <functional>
@@ -409,7 +412,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         // Copy the response into a Response object so that it can be
         // processed by the callback function.
-        res.stringResponse = parser->release();
+        res.response = parser->release();
         callback(parser->keep_alive(), connId, res);
         res.clear();
     }

@@ -864,8 +864,8 @@ class RedfishAggregator
         if (boost::iequals(contentType, "application/json") ||
             boost::iequals(contentType, "application/json; charset=utf-8"))
         {
-            nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
-                                                           false);
+            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
+                                                           nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
@@ -888,7 +888,7 @@ class RedfishAggregator
         {
             // We allow any Content-Type that is not "application/json" now
             asyncResp->res.result(resp.result());
-            asyncResp->res.write(resp.body());
+            asyncResp->res.copyBody(resp);
         }
         addAggregatedHeaders(asyncResp->res, resp, prefix);
     }
@@ -917,7 +917,7 @@ class RedfishAggregator
             if (asyncResp->res.resultInt() != 200)
             {
                 asyncResp->res.result(resp.result());
-                asyncResp->res.write(resp.body());
+                asyncResp->res.copyBody(resp);
             }
             return;
         }
@@ -928,8 +928,8 @@ class RedfishAggregator
         if (boost::iequals(contentType, "application/json") ||
             boost::iequals(contentType, "application/json; charset=utf-8"))
         {
-            nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
-                                                           false);
+            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
+                                                           nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
@@ -1051,7 +1051,7 @@ class RedfishAggregator
             if (asyncResp->res.resultInt() != 200)
             {
                 asyncResp->res.result(resp.result());
-                asyncResp->res.write(resp.body());
+                asyncResp->res.copyBody(resp);
             }
             return;
         }
@@ -1063,8 +1063,8 @@ class RedfishAggregator
             boost::iequals(contentType, "application/json; charset=utf-8"))
         {
             bool addedLinks = false;
-            nlohmann::json jsonVal = nlohmann::json::parse(resp.body(), nullptr,
-                                                           false);
+            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
+                                                           nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
