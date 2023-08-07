@@ -19,6 +19,7 @@
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/http/error.hpp>
+#include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/serializer.hpp>
@@ -38,7 +39,7 @@ struct Http2StreamData
 {
     crow::Request req{};
     crow::Response res{};
-    size_t sentSofar = 0;
+    boost::beast::http::message_generator gen;
 };
 
 template <typename Adaptor, typename Handler>
@@ -104,27 +105,26 @@ class HTTP2Connection :
         BMCWEB_LOG_DEBUG("File read callback length: {}", length);
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         Http2StreamData* str = reinterpret_cast<Http2StreamData*>(source->ptr);
-        crow::Response& res = str->res;
 
-        BMCWEB_LOG_DEBUG("total: {} send_sofar: {}", res.body().size(),
-                         str->sentSofar);
+        boost::system::error_code ec;
+        boost::beast::http::message_generator::const_buffers_type buffers =
+            str->gen.prepare(ec);
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("Buffer preparation failed");
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
+        size_t copied =
+            boost::asio::buffer_copy(boost::asio::buffer(buf, length), buffers);
+        str->gen.consume(copied);
+        BMCWEB_LOG_DEBUG("Copyied {} bytes to buf", copied);
 
-        size_t toSend = std::min(res.body().size() - str->sentSofar, length);
-        BMCWEB_LOG_DEBUG("Copying {} bytes to buf", toSend);
-
-        std::string::iterator bodyBegin = res.body().begin();
-        std::advance(bodyBegin, str->sentSofar);
-
-        memcpy(buf, &*bodyBegin, toSend);
-        str->sentSofar += toSend;
-
-        if (str->sentSofar >= res.body().size())
+        if (str->gen.is_done())
         {
             BMCWEB_LOG_DEBUG("Setting OEF flag");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
-            //*dataFlags |= NGHTTP2_DATA_FLAG_NO_COPY;
         }
-        return static_cast<ssize_t>(toSend);
+        return static_cast<ssize_t>(copied);
     }
 
     nghttp2_nv headerFromStringViews(std::string_view name,
@@ -154,8 +154,8 @@ class HTTP2Connection :
         completeResponseFields(thisReq, thisRes);
         thisRes.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
-        boost::beast::http::fields& fields = thisRes.stringResponse.base();
-        std::string code = std::to_string(thisRes.stringResponse.result_int());
+        boost::beast::http::fields& fields = thisRes.fields();
+        std::string code = std::to_string(thisRes.resultInt());
         hdr.emplace_back(headerFromStringViews(":status", code));
         for (const boost::beast::http::fields::value_type& header : fields)
         {
@@ -163,7 +163,8 @@ class HTTP2Connection :
                 headerFromStringViews(header.name_string(), header.value()));
         }
         Http2StreamData* streamPtr = it->second.get();
-        streamPtr->sentSofar = 0;
+
+        streamPtr->gen = thisRes.generator();
 
         nghttp2_data_provider dataPrd{
             .source{
