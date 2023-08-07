@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bab648c_b8090284",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T16:19:13Z",
+      "side": 1,
+      "message": "\u003e auto was needed because it is a generic function that should work for both file and string body.\n\nAs I\u0027ve said other places, please don\u0027t use generic functions unless they make the code cleaner.  With only two types, they definitely don\u0027t make the code cleaner.",
+      "parentUuid": "34d5c129_9bef9f0c",
+      "range": {
+        "startLine": 521,
+        "startChar": 21,
+        "endLine": 521,
+        "endChar": 25
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5dc041c_73a85662",
         "filename": "http/http_connection.hpp",
         "patchSetId": 25
@@ -280,6 +304,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32ce70f7_4c2a3cac",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T16:19:13Z",
+      "side": 1,
+      "message": "\u003e I felt adding \"if else\" chain everywhere to do the same thing for different types reduces the readability and maintainability. \n\nAs the maintainer of this project, I disagree.  Having concrete types helps to review code faster, as you don\u0027t have to hunt for every possible type an lvalue can be.  Please make the change as I\u0027ve requested.",
+      "parentUuid": "682d4fc7_806c3a35",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a301dd8_08a1633f",
         "filename": "http/http_response.hpp",
         "patchSetId": 25
@@ -339,6 +387,30 @@
       "side": 1,
       "message": "\u003e This code does the body migration (string-body to file-body or file-body to string-body).\n\u003e Use Case;\n\u003e 1) current response type is string-body\n\u003e 2) user updates some header fields of the response\n\u003e 3) Then the user tries to open a file\n\u003e 4) The body should be migrated to file-body\n\u003e 5) Before setting the file-body to variant, we need to copy all headers from string-body to the new file-body\n\u003e \n\u003e The same code work for file-body to string-body migration as well.\n\u003e \n\u003e The hold_alternative check prevents migration from file-body to file-body, or string-body to string-body. Similar to how we avoid self-assignment in \"\u003d\" operator overloading.",
       "parentUuid": "07942e55_5d94a946",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 74
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20abf2ff_949dcd8b",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-07T16:19:13Z",
+      "side": 1,
+      "message": "Please make the code simpler to read.",
+      "parentUuid": "138a1750_3d1e0f0d",
       "range": {
         "startLine": 192,
         "startChar": 0,
