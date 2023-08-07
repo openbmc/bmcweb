@@ -237,6 +237,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42a9484d_611ed83c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-07T16:45:24Z",
+      "side": 1,
+      "message": "I don\u0027t understand. Are you saying that prefer handwritten duplicate code over generic functions? Generic functions are invented to avoid such duplicated hand-written code right?",
+      "parentUuid": "0c8fa4ef_f2c22427",
+      "range": {
+        "startLine": 190,
+        "startChar": 9,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71725e1b_9e3bd0a7",
         "filename": "http/http_response.hpp",
         "patchSetId": 35
@@ -296,6 +320,30 @@
       "side": 1,
       "message": "\u003e We should create a new response anyway if the current body is not the desired one. We are using \"move\" to avoid any other temporary response object creation.\n\nThis doesn\u0027t have any bearing on what I said.  I asked you to only make a copy of the things being copied.\n\n\u003e I renamed the parameter names, as it was a bit confusing. What we really creating is a new response that can hold the body.\n\nUnderstood, I would still like to see base() used.",
       "parentUuid": "2976cffc_7b01ed53",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 23
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7613f0fa_cd09e21d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-07T16:45:24Z",
+      "side": 1,
+      "message": "I don\u0027t understand. The new response object creation and the invocation of base assignment operation will happen only if the current response type is not suitable for new body type. We are not doing any extra work here. \nIt seems you wanted to separate body from header. Is it possible to create such a response type in beast? can you point me to an example of it?",
+      "parentUuid": "5fac8e81_80d365f4",
       "range": {
         "startLine": 194,
         "startChar": 12,
@@ -602,6 +650,30 @@
       "writtenOn": "2023-08-06T17:13:46Z",
       "side": 1,
       "message": "Please don\u0027t invent a new Http client type.  We have an http client defined in http_client.hpp.  Please use it.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d9cec8_b3690a8b",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-07T16:45:24Z",
+      "side": 1,
+      "message": "Does it work for simple synchronous connections suitable for automated tests?",
+      "parentUuid": "c78d0d58_35ad8489",
       "range": {
         "startLine": 21,
         "startChar": 7,
