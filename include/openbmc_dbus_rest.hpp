@@ -56,6 +56,7 @@
 #include <limits>
 #include <map>
 #include <memory>
+#include <ranges>
 #include <regex>
 #include <string>
 #include <string_view>
@@ -2443,7 +2444,7 @@ inline void requestRoutes(App& app)
             }
             else
             {
-                std::sort(names.begin(), names.end());
+                std::ranges::sort(names);
                 asyncResp->res.jsonValue["status"] = "ok";
                 auto& objectsSub = asyncResp->res.jsonValue["objects"];
                 for (const auto& name : names)

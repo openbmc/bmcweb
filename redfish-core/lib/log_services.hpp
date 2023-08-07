@@ -50,6 +50,7 @@
 #include <charconv>
 #include <filesystem>
 #include <optional>
+#include <ranges>
 #include <span>
 #include <string_view>
 #include <variant>
@@ -302,7 +303,7 @@ static bool
     // As the log files rotate, they are appended with a ".#" that is higher for
     // the older logs. Since we don't expect more than 10 log files, we
     // can just sort the list to get them in order from newest to oldest
-    std::sort(redfishLogFiles.begin(), redfishLogFiles.end());
+    std::ranges::sort(redfishLogFiles);
 
     return !redfishLogFiles.empty();
 }
@@ -492,14 +493,13 @@ inline void
         asyncResp->res.jsonValue["Description"] = "Collection of " + dumpType +
                                                   " Dump Entries";
 
-        nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-        entriesArray = nlohmann::json::array();
+        nlohmann::json::array_t entriesArray;
         std::string dumpEntryPath =
             "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/";
 
         dbus::utility::ManagedObjectType resp(objects);
-        std::sort(resp.begin(), resp.end(), [](const auto& l, const auto& r) {
+        std::ranges::sort(resp, [](const auto& l, const auto& r) {
             return AlphanumLess<std::string>()(l.first.filename(),
                                                r.first.filename());
         });
@@ -568,6 +568,7 @@ inline void
             entriesArray.emplace_back(std::move(thisEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
+        asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
         });
 }
 
@@ -1588,8 +1589,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-            entriesArray = nlohmann::json::array();
+            nlohmann::json::array_t entriesArray;
             for (const auto& objectPath : resp)
             {
                 const uint32_t* id = nullptr;
@@ -1690,7 +1690,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 {
                     continue;
                 }
-                entriesArray.push_back({});
+                entriesArray.emplace_back({});
                 nlohmann::json& thisEntry = entriesArray.back();
                 thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
                 thisEntry["@odata.id"] = boost::urls::format(
@@ -1724,13 +1724,13 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         std::to_string(*id) + "/attachment";
                 }
             }
-            std::sort(
-                entriesArray.begin(), entriesArray.end(),
-                [](const nlohmann::json& left, const nlohmann::json& right) {
+            std::ranges::sort(entriesArray, [](const nlohmann::json& left,
+                                               const nlohmann::json& right) {
                 return (left["Id"] <= right["Id"]);
-                });
+            });
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
+            asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
             });
         });
 }
