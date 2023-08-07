@@ -32,6 +32,7 @@
 
 #include <chrono>
 #include <memory>
+#include <ranges>
 #include <variant>
 
 namespace redfish
@@ -67,8 +68,8 @@ struct Payload
 
         for (const auto& field : req.fields())
         {
-            if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
-                          field.name()) == headerWhitelist.end())
+            if (std::ranges::find(headerWhitelist, field.name()) ==
+                headerWhitelist.end())
             {
                 continue;
             }
@@ -336,8 +337,8 @@ inline void requestRoutesTaskMonitor(App& app)
         {
             return;
         }
-        auto find = std::find_if(
-            task::tasks.begin(), task::tasks.end(),
+        auto find = std::ranges::find_if(
+            task::tasks,
             [&strParam](const std::shared_ptr<task::TaskData>& task) {
             if (!task)
             {
@@ -377,8 +378,8 @@ inline void requestRoutesTask(App& app)
         {
             return;
         }
-        auto find = std::find_if(
-            task::tasks.begin(), task::tasks.end(),
+        auto find = std::ranges::find_if(
+            task::tasks,
             [&strParam](const std::shared_ptr<task::TaskData>& task) {
             if (!task)
             {

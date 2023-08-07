@@ -8,6 +8,7 @@
 #include <cctype>
 #include <iomanip>
 #include <ostream>
+#include <ranges>
 #include <span>
 #include <string>
 #include <string_view>
@@ -75,10 +76,9 @@ inline ContentType
         {
             return ContentType::ANY;
         }
-        const auto* knownContentType =
-            std::find_if(contentTypes.begin(), contentTypes.end(),
-                         [encoding](const ContentTypePair& pair) {
-            return pair.contentTypeString == encoding;
+        const auto* knownContentType = std::ranges::find_if(
+            contentTypes, [encoding](const ContentTypePair& pair) {
+                return pair.contentTypeString == encoding;
             });
 
         if (knownContentType == contentTypes.end())
@@ -88,8 +88,9 @@ inline ContentType
         }
 
         // Not one of the types requested
-        if (std::find(preferedOrder.begin(), preferedOrder.end(),
-                      knownContentType->contentTypeEnum) == preferedOrder.end())
+        if (std::ranges::find(preferedOrder,
+                              knownContentType->contentTypeEnum) ==
+            preferedOrder.end())
         {
             continue;
         }
