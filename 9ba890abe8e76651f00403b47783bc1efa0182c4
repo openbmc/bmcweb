@@ -34,6 +34,24 @@
       "parentUuid": "958b04ad_00073be8",
       "revId": "9ba890abe8e76651f00403b47783bc1efa0182c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da6c5746_62fb49a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-08-08T03:26:17Z",
+      "side": 1,
+      "message": "Actually this commit solves two problems:\n1. To determine whether the tests function is enabled, most repoes use the logic of `not disabled`, which should be changed to `build_tests.enabled()` or `build_tests.allowed()`\n2. Based on the first question, @Patrick suggested that we should prefer `allowed` instead of `enabled`. Because the allowed method has been supported in meson0.59.0, and from meson1.1.0, it is supported feature.disable_if(), feature.enable_auto_if(), feature.enable_if() and other methods.\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-gpio-monitor/+/65710/2..4/meson.build#b149\nhttps://mesonbuild.com/Reference-manual_returned_feature.html",
+      "parentUuid": "0094e850_3e8f4611",
+      "revId": "9ba890abe8e76651f00403b47783bc1efa0182c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
