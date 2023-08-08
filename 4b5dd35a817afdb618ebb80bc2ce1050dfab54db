@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6c06bb2_02a8c449",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T16:53:32Z",
+      "side": 1,
+      "message": "why no null check here? \nand what is the strategy if both are null?\n\n1)can we assume that at least one is true? will clang-tidy pass ?\n2) can  we create one new string_response ?",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e963fd_e74163be",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T16:53:32Z",
+      "side": 1,
+      "message": "why no null check here?",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "922c5e7e_4cf875f1",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -20,6 +54,57 @@
         "endLine": 106,
         "endChar": 29
       },
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0759f76_662c8902",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T16:53:32Z",
+      "side": 1,
+      "message": "it could be neither, valueless by exception is not possible in boost variant?",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb0d497a_0c121abe",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T16:53:32Z",
+      "side": 1,
+      "message": "why no null check here?",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25348046_29d2901d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T16:53:32Z",
+      "side": 1,
+      "message": "what if null",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
