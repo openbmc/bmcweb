@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db46f23_80ffba4c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T06:16:12Z",
+      "side": 1,
+      "message": "why non-standard type, if one exists in standard? don\u0027t you think it will add to the cognitive burden?",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e50e3a9_3d871a1d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T06:16:12Z",
+      "side": 1,
+      "message": "can\u0027t you move all variable to same place? now we have to scroll up and down to see all memeber variables.",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49140ae2_a23d4cbf",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T06:16:12Z",
+      "side": 1,
+      "message": "how are we going to handle a response that currently holds a filebody in variant?\n\nover-all this code does not make use of re-usablity comes from member object\u0027s move implementation. we could have simply used std::move(stringResponse). I am not sure what is the benefit we get here.",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f526e2f_a896b851",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T06:16:12Z",
+      "side": 1,
+      "message": "it seems you used boost::variant just because of this no-throw visit. If that is the reason we could still go for std::variant and use if-else block as you preferred everywhere else",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4f0b75f_fc4ac0e1",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T06:16:12Z",
+      "side": 1,
+      "message": "why you need this temporary?",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2368c1_41591a3d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-08T06:16:12Z",
+      "side": 1,
+      "message": "why adding another ref variable, while we already have an object in the variant to give access to the data? Don\u0027t you think it as extra burden to manage it to point to the right object? you can modify fields() function to return proper base reference based on active index.",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
