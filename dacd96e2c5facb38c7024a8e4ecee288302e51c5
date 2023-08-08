@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "914c0088_fa81dcab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:11:13Z",
+      "side": 1,
+      "message": "You could mention asciiToLower / asciiIEquals \nOh well.",
+      "revId": "dacd96e2c5facb38c7024a8e4ecee288302e51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90c939ac_505df9f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:11:13Z",
+      "side": 1,
+      "message": "Seems reasonable",
+      "revId": "dacd96e2c5facb38c7024a8e4ecee288302e51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "256ba50b_3fabc912",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:11:13Z",
+      "side": 1,
+      "message": "#include string",
+      "revId": "dacd96e2c5facb38c7024a8e4ecee288302e51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7adf09_7fb9d610",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:11:13Z",
+      "side": 1,
+      "message": "#include \u003cranges\u003e\n#include \u003citerator\u003e",
+      "revId": "dacd96e2c5facb38c7024a8e4ecee288302e51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7221015_b17a3257",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:11:13Z",
+      "side": 1,
+      "message": "#include \u003cranges\u003e\n#include \u003cstring\u003e",
+      "revId": "dacd96e2c5facb38c7024a8e4ecee288302e51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
