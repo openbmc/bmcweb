@@ -26,8 +26,6 @@ inline void handleLogin(const crow::Request& req,
     std::string_view username;
     std::string_view password;
 
-    bool looksLikePhosphorRest = false;
-
     // This object needs to be declared at this scope so the strings
     // within it are not destroyed before we can use them
     nlohmann::json loginCredentials;
@@ -68,34 +66,6 @@ inline void handleLogin(const crow::Request& req,
                 auto dataIt = obj->find("data");
                 if (dataIt != obj->end())
                 {
-                    // Some apis produce an array of value ["username",
-                    // "password"]
-                    const nlohmann::json::array_t* arr =
-                        dataIt->second
-                            .get_ptr<const nlohmann::json::array_t*>();
-                    if (arr != nullptr)
-                    {
-                        if (arr->size() == 2)
-                        {
-                            nlohmann::json::array_t::const_iterator userIt2 =
-                                arr->begin();
-                            nlohmann::json::array_t::const_iterator passIt2 =
-                                arr->begin() + 1;
-                            looksLikePhosphorRest = true;
-                            if (userIt2 != arr->end() && passIt2 != arr->end())
-                            {
-                                const std::string* userStr =
-                                    userIt2->get_ptr<const std::string*>();
-                                const std::string* passStr =
-                                    passIt2->get_ptr<const std::string*>();
-                                if (userStr != nullptr && passStr != nullptr)
-                                {
-                                    username = *userStr;
-                                    password = *passStr;
-                                }
-                            }
-                        }
-                    }
                     const nlohmann::json::object_t* obj2 =
                         dataIt->second
                             .get_ptr<const nlohmann::json::object_t*>();
@@ -125,7 +95,6 @@ inline void handleLogin(const crow::Request& req,
     }
     else if (contentType.starts_with("multipart/form-data"))
     {
-        looksLikePhosphorRest = true;
         ParserError ec = parser.parse(req);
         if (ec != ParserError::PARSER_SUCCESS)
         {
@@ -186,31 +155,8 @@ inline void handleLogin(const crow::Request& req,
                                    persistent_data::PersistenceType::TIMEOUT,
                                    isConfigureSelfOnly);
 
-            if (looksLikePhosphorRest)
-            {
-                // Phosphor-Rest requires a very specific login
-                // structure, and doesn't actually look at the status
-                // code.
-                // TODO(ed).... Fix that upstream
-
-                asyncResp->res.jsonValue["data"] =
-                    "User '" + std::string(username) + "' logged in";
-                asyncResp->res.jsonValue["message"] = "200 OK";
-                asyncResp->res.jsonValue["status"] = "ok";
-
-                asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
-                                         "XSRF-TOKEN=" + session->csrfToken +
-                                             "; SameSite=Strict; Secure");
-                asyncResp->res.addHeader(
-                    boost::beast::http::field::set_cookie,
-                    "SESSION=" + session->sessionToken +
-                        "; SameSite=Strict; Secure; HttpOnly");
-            }
-            else
-            {
-                // if content type is json, assume json token
-                asyncResp->res.jsonValue["token"] = session->sessionToken;
-            }
+            // if content type is json, assume json token
+            asyncResp->res.jsonValue["token"] = session->sessionToken;
         }
     }
     else
