@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fb57ad_834ed27d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:25:33Z",
+      "side": 1,
+      "message": "Looks good after clang-tidy error is fixed",
+      "revId": "984d1f5b79c56f31b136fa498e5b64e648bb87be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d462c8_3b6b164e",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-08T19:25:33Z",
+      "side": 1,
+      "message": "diff --git a/redfish-core/lib/virtual_media.hpp b/redfish-core/lib/virtual_media.hpp\nindex a4f1df78..586feaae 100644\n--- a/redfish-core/lib/virtual_media.hpp\n+++ b/redfish-core/lib/virtual_media.hpp\n@@ -29,8 +29,8 @@\n #include \u003cboost/url/url_view.hpp\u003e\n \n #include \u003carray\u003e\n-#include \u003cstring_view\u003e\n #include \u003cranges\u003e\n+#include \u003cstring_view\u003e",
+      "revId": "984d1f5b79c56f31b136fa498e5b64e648bb87be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
