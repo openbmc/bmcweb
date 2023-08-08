@@ -385,6 +385,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4d59055_e126f4c0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T13:17:15Z",
+      "side": 1,
+      "message": "In https://github.com/openbmc/bios-settings-mgr/blob/master/src/password.cpp line 202, verifyPassword is called which will throw if input is bad.",
+      "parentUuid": "9650263b_03e6401d",
+      "range": {
+        "startLine": 141,
+        "startChar": 51,
+        "endLine": 141,
+        "endChar": 63
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cca61403_06f66b4d",
