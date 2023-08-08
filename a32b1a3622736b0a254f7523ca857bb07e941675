@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf538e85_d7a8548d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:24:27Z",
+      "side": 1,
+      "message": "This has been corrected.  YOu\u0027re right, this had a number of merge conflicts, becuase previously nobody was looking at it.  It has been cleaned up.",
+      "parentUuid": "003a58a5_e70125bb",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "536ea696_ea2c28f4",
