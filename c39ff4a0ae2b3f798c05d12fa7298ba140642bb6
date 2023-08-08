@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "475e2d36_871935ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "It is in `p10bmc` target, and I\u0027ve used the downstream backend-environment to test.",
+      "parentUuid": "14aa3fc3_c272297a",
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8ba1501_d2905cfb",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-08-07T15:49:12Z",
       "side": 1,
       "message": "bind_front and a normal callback here please.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 9
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5598f5b7_99920734",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8ba1501_d2905cfb",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52106b29_7a133d39",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb0e1522_16b761ea",
+      "range": {
+        "startLine": 37,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 28
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3b45303_11cb7b4d",
@@ -81,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c3291c5_61bc99c7",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "The reason to have another file (`port_utils.hpp`) is because the same function is used in 2 different files and they are inter-dependent.\n- `fabric_adapters.upp` - uses \u0027getPortList()\u0027\n- `port.hpp` includes  `fabric_adapters.hpp` and the function \u0027getPortList()\u0027.\n\nDue to those reasons, I used `port_utils.hpp`.\n\nIf we need to remove the file (`port_utils.hpp`), it needs to put into `fabric_adapters.hpp`.\nI felt that the function `getPortList()` seems more relevant to `port` than `fabric_adapters`.\n\nPlease let me know if it is more preferred to put it into `fabric_adapters.hpp`.",
+      "parentUuid": "e3b45303_11cb7b4d",
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5accbcc9_8f8e56ec",
@@ -94,6 +178,30 @@
       "writtenOn": "2023-08-07T15:44:57Z",
       "side": 1,
       "message": "Why does this need to exist?  In case the mapper gives us a bad path?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fb5dbc9_a70dc870",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "Yes, it is the sanity check.\n(Similar check is done in https://github.com/openbmc/bmcweb/blob/1ccf70f116b28a0f78404b914a789ce05f411ddf/redfish-core/lib/fabric_adapters.hpp#L201)\n\nIt is also used to select the target port from the list of portPaths - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61097/44/redfish-core/lib/port.hpp#62",
+      "parentUuid": "5accbcc9_8f8e56ec",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -127,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e4ef8e_7965e3c6",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "This will be used in the successive coming commits which will implement more properties - e.g. LocationCode, etc.",
+      "parentUuid": "228e56c1_665183ab",
+      "range": {
+        "startLine": 35,
+        "startChar": 43,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9256dd21_5bb92fb9",
@@ -140,6 +272,30 @@
       "writtenOn": "2023-08-07T15:44:57Z",
       "side": 1,
       "message": "std::bind_front here please.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 9
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "996bbfb6_3b01ceb6",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9256dd21_5bb92fb9",
       "range": {
         "startLine": 200,
         "startChar": 8,
@@ -173,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22338796_57dc095e",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "This is to filter out the invalid adapter path before handling the port. \nFor example, \n\n```\nhttps://${bmc}/redfish/v1/Systems/system/FabricAdapters/InvalidAdapter/Ports\n```",
+      "parentUuid": "ea927cf9_14ce64ea",
+      "range": {
+        "startLine": 262,
+        "startChar": 4,
+        "endLine": 262,
+        "endChar": 29
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23ae8f7c_228dad7b",
@@ -186,6 +366,30 @@
       "writtenOn": "2023-08-07T15:44:57Z",
       "side": 1,
       "message": "Please give this a different name.  It is dtoo similar to handlePortCollectionGet",
+      "range": {
+        "startLine": 266,
+        "startChar": 8,
+        "endLine": 266,
+        "endChar": 33
+      },
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07155ddf_4c20ec6f",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T02:11:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23ae8f7c_228dad7b",
       "range": {
         "startLine": 266,
         "startChar": 8,
