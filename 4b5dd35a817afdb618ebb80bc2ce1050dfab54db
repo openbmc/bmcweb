@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84437f94_7a2836ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:04:50Z",
+      "side": 1,
+      "message": "Most of the comments seem to be about needing null checks, which, it\u0027s not clear how to add in all cases, because that would introduce a failure path that\u0027s not possible, but would need to be modeled in all the APIs.\n\nWhich pattern do you think is better, pointers, or visit?",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6c06bb2_02a8c449",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -20,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62bc30a1_206c9e25",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:04:50Z",
+      "side": 1,
+      "message": "\u003e why no null check here? \n\nBecause it\u0027s not possible.\n\n\u003e and what is the strategy if both are null?\n\nWhen/how could that happen?\n\n\u003e \n\u003e 1)can we assume that at least one is true? will clang-tidy pass ?\n\nThe build passes, so yes, tidy passes.\n\n\u003e 2) can  we create one new string_response ?\n\nI don\u0027t understand what you\u0027re suggesting.",
+      "parentUuid": "f6c06bb2_02a8c449",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e963fd_e74163be",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -31,6 +66,24 @@
       "writtenOn": "2023-08-08T16:53:32Z",
       "side": 1,
       "message": "why no null check here?",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c34ee1a_8bce3943",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:04:50Z",
+      "side": 1,
+      "message": "Same as above.  Not possible.\n\nThe only alternative would be visit, which we could do, but I wanted to look at the pointer option.",
+      "parentUuid": "18e963fd_e74163be",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -77,6 +130,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e175670_48b9835b",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:04:50Z",
+      "side": 1,
+      "message": "\u003e valueless by exception is not possible in boost variant\n\nCorrect.  This is an important difference in the design of variant2.",
+      "parentUuid": "b0759f76_662c8902",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb0d497a_0c121abe",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -94,6 +165,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad2d3519_84a314ba",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:04:50Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "eb0d497a_0c121abe",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25348046_29d2901d",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -105,6 +194,24 @@
       "writtenOn": "2023-08-08T16:53:32Z",
       "side": 1,
       "message": "what if null",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a102996_da1f0bbe",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T17:04:50Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "25348046_29d2901d",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
