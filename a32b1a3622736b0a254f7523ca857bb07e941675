@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc93467_1749485f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T00:43:00Z",
+      "side": 1,
+      "message": "I believe this is corrected now.",
+      "parentUuid": "9156b627_79e9f185",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad1290ec_d5214e7d",
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dbaa766_64671e5f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T00:43:00Z",
+      "side": 1,
+      "message": "The intent of this was to reset back to the initial state, which is stringBody.",
+      "parentUuid": "ad1290ec_d5214e7d",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52d8a1b0_177735a4",
         "filename": "http/http_response.hpp",
         "patchSetId": 10
@@ -83,6 +119,24 @@
       "writtenOn": "2023-07-19T04:29:21Z",
       "side": 1,
       "message": "overwriting existing headers.",
+      "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3279318_13cdde39",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T00:43:00Z",
+      "side": 1,
+      "message": "Yep, you\u0027re right.  I think this is fixed.",
+      "parentUuid": "52d8a1b0_177735a4",
       "revId": "a32b1a3622736b0a254f7523ca857bb07e941675",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
