@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4f7b2c46_002be1b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T13:22:20Z",
+      "side": 1,
+      "message": "It is just a username. I have made it consistent with bios-settings-mgr.",
+      "parentUuid": "563e6677_4f4e41c9",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45c70982_23ddeb40",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 22
@@ -135,6 +153,24 @@
       "writtenOn": "2023-07-18T07:33:10Z",
       "side": 1,
       "message": "@Gunnar Mills and @Ed I will address comments soon.",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac62c49_4067c9ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T13:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d4e60c_1b9bb40e",
       "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -256,6 +292,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5feebbc7_2ac8e7b9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T13:22:20Z",
+      "side": 1,
+      "message": "I got it. I have addressed.",
+      "parentUuid": "a9989d64_f35669cd",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3cd48dd_92e18410",
@@ -334,6 +394,24 @@
       "side": 1,
       "message": "We will hit the ec, is my understanding.",
       "parentUuid": "46848e81_8627196b",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "971832a9_f6943f81",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T13:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dfeadf8_77f4a7ce",
       "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
