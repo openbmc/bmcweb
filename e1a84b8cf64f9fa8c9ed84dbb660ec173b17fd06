@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2689d684_3b7b503a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T14:43:24Z",
+      "side": 1,
+      "message": "Because the one in the standard has the problem that you found of throwing exceptions.  This is documented in a comment below.",
+      "parentUuid": "6db46f23_80ffba4c",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e50e3a9_3d871a1d",
         "filename": "http/http_response.hpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-08T06:16:12Z",
       "side": 1,
       "message": "can\u0027t you move all variable to same place? now we have to scroll up and down to see all memeber variables.",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c1e4d9_b2d6cbe0",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T14:43:24Z",
+      "side": 1,
+      "message": "At the moment, public variables are at the top, and private variables are at the bottom.  While I agree, keeping them all in one place would likely be better, that would be part of another patch.",
+      "parentUuid": "2e50e3a9_3d871a1d",
       "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c53bc94a_1c6419e6",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T14:43:24Z",
+      "side": 1,
+      "message": "\u003e how are we going to handle a response that currently holds a filebody in variant?\n\nAt the moment it doesn\u0027t.  This line will need to be replaced with a visitor.\n\n\u003e \n\u003e over-all this code does not make use of re-usablity comes from member object\u0027s move implementation. we could have simply used std::move(stringResponse). I am not sure what is the benefit we get here.\n\nYou\u0027re right, we could\u0027ve used std::move.",
+      "parentUuid": "49140ae2_a23d4cbf",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f526e2f_a896b851",
         "filename": "http/http_response.hpp",
         "patchSetId": 12
@@ -65,6 +119,24 @@
       "writtenOn": "2023-08-08T06:16:12Z",
       "side": 1,
       "message": "it seems you used boost::variant just because of this no-throw visit. If that is the reason we could still go for std::variant and use if-else block as you preferred everywhere else",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4c5439_2c68ef87",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T14:43:24Z",
+      "side": 1,
+      "message": "Lets try both options and see which code is more readable.",
+      "parentUuid": "1f526e2f_a896b851",
       "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3e0549e_06b95b8f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T14:43:24Z",
+      "side": 1,
+      "message": "Because you can\u0027t move out of and into the same object at once.\n\nIf there\u0027s a better way to write this code, I\u0027m happy to try, but I\u0027m not sure how.",
+      "parentUuid": "a4f0b75f_fc4ac0e1",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e2368c1_41591a3d",
         "filename": "http/http_response.hpp",
         "patchSetId": 12
@@ -99,6 +189,24 @@
       "writtenOn": "2023-08-08T06:16:12Z",
       "side": 1,
       "message": "why adding another ref variable, while we already have an object in the variant to give access to the data? Don\u0027t you think it as extra burden to manage it to point to the right object? you can modify fields() function to return proper base reference based on active index.",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92720545_e2eeea04",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-08T14:43:24Z",
+      "side": 1,
+      "message": "\u003e why adding another ref variable, while we already have an object in the variant to give access to the data?\n\nBecause visit is more expensive of an operation than one would think, so reducing the number of times we have to call visit seems like a good thing.\n\n\u003e Don\u0027t you think it as extra burden to manage it to point to the right object? you can modify fields() function to return proper base reference based on active index.\n\nLet me try that and see if the code gets worse.  When I first wrote this, I didn\u0027t have a fields() method.",
+      "parentUuid": "5e2368c1_41591a3d",
       "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
