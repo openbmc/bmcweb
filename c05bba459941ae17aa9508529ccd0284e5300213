@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4a49c9_e09e1234",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-08-08T05:54:30Z",
+      "side": 1,
+      "message": "This change is causing some of the events are not exported to redfish event logs.\nAll the logs present /var/log/redfish not exported to redfish event logs.",
+      "revId": "c05bba459941ae17aa9508529ccd0284e5300213",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
