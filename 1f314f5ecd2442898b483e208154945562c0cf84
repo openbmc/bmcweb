@@ -173,6 +173,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e52c70_15915707",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d07298c_bbc73f57",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a9167da_bf9bc7a2",
@@ -186,6 +204,30 @@
       "writtenOn": "2023-07-11T20:37:09Z",
       "side": 1,
       "message": "This should be \"interfaceNames\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9989d64_f35669cd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "I do not understand why it will be interfaceNames.",
+      "parentUuid": "1a9167da_bf9bc7a2",
       "range": {
         "startLine": 47,
         "startChar": 13,
@@ -219,6 +261,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2590343c_3a01c443",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3cd48dd_92e18410",
+      "range": {
+        "startLine": 49,
+        "startChar": 74,
+        "endLine": 51,
+        "endChar": 51
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46848e81_8627196b",
@@ -238,6 +304,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2dfeadf8_77f4a7ce",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "We will hit the ec, is my understanding.",
+      "parentUuid": "46848e81_8627196b",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a1bd43e_4148438c",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 22
@@ -249,6 +333,30 @@
       "writtenOn": "2023-07-11T20:37:09Z",
       "side": 1,
       "message": "in your testing please verify that this rejects bad input properly, because we are not checking it here.",
+      "range": {
+        "startLine": 141,
+        "startChar": 51,
+        "endLine": 141,
+        "endChar": 63
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9650263b_03e6401d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "I will check this and add to tested section.",
+      "parentUuid": "7a1bd43e_4148438c",
       "range": {
         "startLine": 141,
         "startChar": 51,
@@ -282,6 +390,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad8ef2c2_f88e7594",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cca61403_06f66b4d",
+      "range": {
+        "startLine": 147,
+        "startChar": 26,
+        "endLine": 147,
+        "endChar": 51
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15c90a32_ed7d600a",
@@ -295,6 +427,24 @@
       "writtenOn": "2023-07-12T20:44:20Z",
       "side": 1,
       "message": "BMCWEB_LOG_ERROR on internalError \nprobably BMCWEB_LOG_WARNING on a 404\n\nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#logging-levels",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a513cc_6c8e8db7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15c90a32_ed7d600a",
       "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -322,6 +472,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdbff646_ecf1b34d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac2b772f_f8008a4c",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 52
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34d655e0_017e4ee9",
@@ -335,6 +509,30 @@
       "writtenOn": "2023-07-11T20:37:09Z",
       "side": 1,
       "message": "Please don\u0027t hardcode this.  Look it up through the mapper.  It\u0027s unlikely that there will only be one bios configuration manager on all systems.",
+      "range": {
+        "startLine": 156,
+        "startChar": 9,
+        "endLine": 156,
+        "endChar": 46
+      },
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c26dc25b_25e1ba47",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-08-08T04:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d655e0_017e4ee9",
       "range": {
         "startLine": 156,
         "startChar": 9,
