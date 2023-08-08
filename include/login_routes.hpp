@@ -26,8 +26,6 @@ inline void handleLogin(const crow::Request& req,
     std::string_view username;
     std::string_view password;
 
-    bool looksLikePhosphorRest = false;
-
     // This object needs to be declared at this scope so the strings
     // within it are not destroyed before we can use them
     nlohmann::json loginCredentials;
@@ -72,7 +70,6 @@ inline void handleLogin(const crow::Request& req,
                     {
                         nlohmann::json::iterator userIt2 = dataIt->begin();
                         nlohmann::json::iterator passIt2 = dataIt->begin() + 1;
-                        looksLikePhosphorRest = true;
                         if (userIt2 != dataIt->end() &&
                             passIt2 != dataIt->end())
                         {
@@ -110,7 +107,6 @@ inline void handleLogin(const crow::Request& req,
     }
     else if (contentType.starts_with("multipart/form-data"))
     {
-        looksLikePhosphorRest = true;
         ParserError ec = parser.parse(req);
         if (ec != ParserError::PARSER_SUCCESS)
         {
@@ -171,31 +167,15 @@ inline void handleLogin(const crow::Request& req,
                                    persistent_data::PersistenceType::TIMEOUT,
                                    isConfigureSelfOnly);
 
-            if (looksLikePhosphorRest)
-            {
-                // Phosphor-Rest requires a very specific login
-                // structure, and doesn't actually look at the status
-                // code.
-                // TODO(ed).... Fix that upstream
+            asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                     "XSRF-TOKEN=" + session->csrfToken +
+                                         "; SameSite=Strict; Secure");
+            asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                     "SESSION=" + session->sessionToken +
+                                         "; SameSite=Strict; Secure; HttpOnly");
 
-                asyncResp->res.jsonValue["data"] =
-                    "User '" + std::string(username) + "' logged in";
-                asyncResp->res.jsonValue["message"] = "200 OK";
-                asyncResp->res.jsonValue["status"] = "ok";
-
-                asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
-                                         "XSRF-TOKEN=" + session->csrfToken +
-                                             "; SameSite=Strict; Secure");
-                asyncResp->res.addHeader(
-                    boost::beast::http::field::set_cookie,
-                    "SESSION=" + session->sessionToken +
-                        "; SameSite=Strict; Secure; HttpOnly");
-            }
-            else
-            {
-                // if content type is json, assume json token
-                asyncResp->res.jsonValue["token"] = session->sessionToken;
-            }
+            // if content type is json, assume json token
+            asyncResp->res.jsonValue["token"] = session->sessionToken;
         }
     }
     else
