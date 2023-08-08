@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e757738_93480db7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-08T15:38:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dc834fc7_dfda9912",
+      "revId": "c39ff4a0ae2b3f798c05d12fa7298ba140642bb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8ba1501_d2905cfb",
         "filename": "redfish-core/include/utils/port_utils.hpp",
         "patchSetId": 44
