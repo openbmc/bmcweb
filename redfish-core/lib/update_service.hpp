@@ -391,11 +391,18 @@ static void monitorForSoftwareAvailable(
                         redfish::messages::resourceExhaustion(asyncResp->res,
                                                               url);
                     }
-                    else
+                    else if (type->starts_with("xyz.openbmc_project.Software."))
                     {
                         BMCWEB_LOG_ERROR("Unknown Software Image Error type={}",
                                          *type);
                         redfish::messages::internalError(asyncResp->res);
+                    }
+                    else
+                    {
+                        // Unrelated error types. Ignored
+                        BMCWEB_LOG_INFO(
+                            "Non-Software-related Error type={}. Ignored",
+                            *type);
                     }
                 }
             }
