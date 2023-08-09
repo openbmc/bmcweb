@@ -90,6 +90,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "031d6923_0ffd86f0",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "\u003e When/how could that happen?\n\u003e The fundamental problem here is ,technically a variant can hold non of the alternatives.\n\nvariant2 cannot.  it will always hold one of the alteratives.\n\n\u003e A default constructed variant could be  assigned to the string response variable, if we are not careful. \n\u003e \n\nThe variant default constructs to the first item in the list.  This is true of both std::variant and boost::variant2\n\n\u003e You seems to have issue in using a throwing function ,even though we know that it will never throw. But you are happy to ignore the needed null checks if we use get_if.\n\nWe have tidy checks that have issues with throwing functions.  If a function throws, it will crash all of bmcweb.  Considering everything in the Response object is a handlable error, we can\u0027t really throw exceptions.\n\n\u003e In a way the argument is \"i am not okay with a terminate due to exception, but ok with a crash due to null pointer access\".  \n\nThis is not the argument.  The argument here is that this code iterates all the possible values.  If you prefer, I can move it back to variant::visit, which would require neither exceptions nor pointer dereferences.\n\n\u003e If we are not giving a complete solution , then get_if or boost:variant will not do anything better. \n\u003e \n\u003e I added the null check comment everywhere just to put those places in your notice\n\nYou asked for null checks, but you didnt\u0027 suggest what you wanted to do if that pointer is null.  for things returning a reference, would you like us to convert back to string_resposne?  If so, that\u0027s doable.",
+      "parentUuid": "23b71acb_73533066",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "717996e6_e36c8f18",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "In variant2 there\u0027s no possibility for none of the alternatives to be held by the variant.  It is one or the other, there is no valueless_by_exception.",
+      "parentUuid": "fa7f4c99_ae8ed8ce",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e963fd_e74163be",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -172,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf3ebcec_3f2c7994",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "\u003e True that is the reason I invented safemove wrapper. I don\u0027t know how we can avoid it.\n\nI would much rather we rely on variant2, which is documented, than a method we created ourselves.\n\n\u003e The root cause seems to be from file body move. We should wrap this code around try-catch irrespective of what move assignment we use(individual alternatives move  or variant move)\n\nAs-written, this doesn\u0027t throw on a move.  Why would we add a try-catch?",
+      "parentUuid": "cef2952c_60690b5a",
+      "range": {
+        "startLine": 106,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 29
+      },
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0759f76_662c8902",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -225,6 +285,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "456197fd_02d85a20",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "\u003e But how does boost variant handle non of alternatives case?\n\nNon alternatives is not possible.  It will always be one of the template params.\n\n\u003e Is there any compile time check to avoid such scenrio. Like disabling of default constructor?\n\nI\u0027m not sure what you\u0027re asking, but I\u0027m guessing that it\u0027s answered by the variant2 documentation:\nhttps://www.boost.org/doc/libs/1_80_0/libs/variant2/doc/html/variant2.html",
+      "parentUuid": "ac70c1f9_85bb058b",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e878f1b7_5eead450",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -236,6 +314,24 @@
       "writtenOn": "2023-08-09T06:44:18Z",
       "side": 1,
       "message": "Don\u0027t you think that this will increase size of change-set? This is a backward compatibility issue in the usage of body(). Some one might have used the pattern body() +\u003d\"****\" in their code. \nNow we must add another \"if\" check everywhere body() has been used. \nMy Suggestion would be to use the intent of the user here. \nIf he calls body() then he wanted to use string body as response. Then it is better to move to string-body if the current alternative is not that. So create string-body and return the reference to it.",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65e8e80_07e9a668",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "\u003e Don\u0027t you think that this will increase size of change-set?\n\nYes, but there\u0027s not that many calls to body().\n\n\u003e This is a backward compatibility issue in the usage of body().\n\u003e Some one might have used the pattern body() +\u003d\"****\" in their code. \n\nI\u0027m assuming you mean downstream code?  That\u0027s not something we optimize for.  People can write whatever they want, including making this same change.  If we have to optimize for everyones downstream API changes, we can never change any internal method call, which isn\u0027t really doable.\n\n\u003e Now we must add another \"if\" check everywhere body() has been used. \n\nCorrect, because now Response might not be of type string.\n\n\u003e My Suggestion would be to use the intent of the user here. \n\u003e If he calls body() then he wanted to use string body as response. Then it is better to move to string-body if the current alternative is not that. So create string-body and return the reference to it.\n\nThere are cases where that\u0027s not true, but I can give it a shot.",
+      "parentUuid": "e878f1b7_5eead450",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -329,6 +425,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffd68182_ea42fb97",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "\u003e do we really need to do this if the current alternative is filebody response?\n\nin the case where someone calls?\n\nres.openfile();\nres.openfile();\n\nWhy would someone do that?\n\n\u003e \n\u003e technically we can call a single move at the emplace argument itself right?\n\nWe can\u0027t, because you will then be reading values from a moved object.\n\n\u003e I meant that when I said no need for temp object. \n\u003e But not sure if moving just the sliced part(base) of an object like this is a good idea or not.\n\nCan you give me the exact code you think we should use here that you think handles dangling reference problems?  I\u0027m a little confused at your response.",
+      "parentUuid": "a0bcad0f_cf314f55",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13afbc43_5c45beac",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -340,6 +454,24 @@
       "writtenOn": "2023-08-09T06:44:18Z",
       "side": 1,
       "message": "Did you test if the emplace forwarding argument to response constructor properly?\nyou can create a test case where add some header to stringbody resopnse then call\nopenFile then check the headers are still present.",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f53469c_0d741fbc",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T16:17:10Z",
+      "side": 1,
+      "message": "\u003e Did you test if the emplace forwarding argument to response constructor properly?\n\u003e you can create a test case where add some header to stringbody resopnse then call\n\u003e openFile then check the headers are still present.\n\nACK.",
+      "parentUuid": "13afbc43_5c45beac",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
