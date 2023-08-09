@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed2fea03_714afa00",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-09T20:23:32Z",
+      "side": 1,
+      "message": "Based on my further investigation and experiment, it seems not the case with arg0namespace or other filtering like \u0027arg0path\u0027 etc.\n\nThe code is parsing the body of the logging message and check whether it is Software error message or not.\n\n```\n    fwUpdateErrorMatcher \u003d std::make_unique\u003csdbusplus::bus::match_t\u003e(\n        *crow::connections::systemBus,\n        \"interface\u003d\u0027org.freedesktop.DBus.ObjectManager\u0027,type\u003d\u0027signal\u0027,\"\n        \"member\u003d\u0027InterfacesAdded\u0027,\"\n        \"path\u003d\u0027/xyz/openbmc_project/logging\u0027\",\n        [asyncResp, url](sdbusplus::message_t\u0026 m) {\n....\n\n        for (const std::pair\u003cstd::string, dbus::utility::DBusPropertiesMap\u003e\u0026\n                 interface : interfacesProperties)\n        {\n            BMCWEB_LOG_DEBUG \u003c\u003c \"TEST: interface.first \u003d \" \u003c\u003c interface.first;\n            if (interface.first \u003d\u003d \"xyz.openbmc_project.Logging.Entry\")\n            {\n                for (const std::pair\u003cstd::string,\n                                     dbus::utility::DbusVariantType\u003e\u0026 value :\n                     interface.second)\n                     ...\n                     const std::string* type \u003d\n                        std::get_if\u003cstd::string\u003e(\u0026value.second);\n```\n\n\n\nobj path \u003d /xyz/openbmc_project/logging/entry/33\n   interface.first \u003d xyz.openbmc_project.Logging.Entry\n   ...\n   value.first\u003dMessage\n   value.second \u003d \u003cerror-types\u003e  \u003c\u003d\u003d *type\n\nFor example, the valid/expected ones may be\nxyz.openbmc_project.Software.Image.Error.UnTarFailure\nxyz.openbmc_project.Software.Image.Error.ImageFailure\nxyz.openbmc_project.Software.*\n\nHowever, if we see like this, we want to ignore.\n      value.second \u003d xyz.openbmc_project.Host.Error.Event\n      \n      \nThis can happen by PLDM - https://github.com/openbmc/pldm/blob/82257922c1442d3bee1a3d2a42885c7e1d5908e3/oem/ibm/libpldmresponder/file_io_type_pel.cpp#L268\n\n\nHow can we filter out those cases -- handle only the error messages which are related to xyz.openbmc_project.Software.* ?",
+      "parentUuid": "02fd71f2_66096c08",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 46
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26301b5d_a69cd264",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
