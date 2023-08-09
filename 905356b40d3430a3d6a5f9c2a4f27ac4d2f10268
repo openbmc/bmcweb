@@ -682,6 +682,30 @@
       },
       "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a14524a_d01befb1",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T14:53:30Z",
+      "side": 1,
+      "message": "How have you verified that it can never throw?\nStandard says so.\nstd::bad_variant_access is the type of the exception thrown in the following situations:\n\nstd::get(std::variant) called with an index or type that does not match the currently active alternative\nstd::visit called to visit a variant that is valueless_by_exception\n\nWe are making sure that variant has value before calling get.\n\n\nThe case can occur. It is trivial to write code in a handler that does this incorrectly, \nHow? if we make sure that new strigbody will be created and set before returning",
+      "parentUuid": "86bb490b_c28354d3",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -474,6 +474,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6027623e_3cf1f885",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T14:53:30Z",
+      "side": 1,
+      "message": "When I tested the emplace did not work properly. I was not forwarding the args properly. Nedd to investigate further.",
+      "parentUuid": "c70d7276_849a4ea8",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 53
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f8e6f25_edc5ba84",
         "filename": "http/http_response.hpp",
         "patchSetId": 35
@@ -557,6 +581,30 @@
       "side": 1,
       "message": "\u003e I believe the beast owner knows better how prepare_payload work for different response types.\n\nFeel free to go to boost and add no-throw variants of prepare_payload.  Once those exist, I\u0027m happy to use them.",
       "parentUuid": "bd110a53_d5683eab",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 43
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb2364d_42edc376",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T14:53:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e570fd57_9a1f3b7e",
       "range": {
         "startLine": 248,
         "startChar": 0,
