@@ -55,6 +55,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23b71acb_73533066",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T04:18:31Z",
+      "side": 1,
+      "message": "When/how could that happen?\nThe fundamental problem here is ,technically a variant can hold non of the alternatives. A default constructed variant could be  assigned to the string response variable, if we are not careful. \n\nYou seems to have issue in using a throwing function ,even though we know that it will never throw. But you are happy to ignore the needed null checks if we use get_if. \nIn a way the argument is \"i am not okay with a terminate due to exception, but ok with a crash due to null pointer access\".  \nIf we are not giving a complete solution , then get_if or boost:variant will not do anything better. \n\nI added the null check comment everywhere just to put those places in your notice",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa7f4c99_ae8ed8ce",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T04:18:31Z",
+      "side": 1,
+      "message": "I don\u0027t understand what you\u0027re suggesting.\n I was asking if we can create a new string response in case of non of the alternatives are held by variant.",
+      "parentUuid": "62bc30a1_206c9e25",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e963fd_e74163be",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -113,6 +148,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cef2952c_60690b5a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T04:18:31Z",
+      "side": 1,
+      "message": "True that is the reason I invented safemove wrapper. I don\u0027t know how we can avoid it. The root cause seems to be from file body move. We should wrap this code around try-catch irrespective of what move assignment we use(individual alternatives move  or variant move)",
+      "parentUuid": "922c5e7e_4cf875f1",
+      "range": {
+        "startLine": 106,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 29
+      },
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0759f76_662c8902",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -142,6 +201,24 @@
       "side": 1,
       "message": "\u003e valueless by exception is not possible in boost variant\n\nCorrect.  This is an important difference in the design of variant2.",
       "parentUuid": "b0759f76_662c8902",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac70c1f9_85bb058b",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T04:18:31Z",
+      "side": 1,
+      "message": "But how does boost variant handle non of alternatives case? Is there any compile time check to avoid such scenrio. Like disabling of default constructor?",
+      "parentUuid": "4e175670_48b9835b",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
