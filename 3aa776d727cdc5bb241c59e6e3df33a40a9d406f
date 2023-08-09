@@ -34,6 +34,24 @@
       "parentUuid": "d4829c5a_8d3b11bc",
       "revId": "3aa776d727cdc5bb241c59e6e3df33a40a9d406f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a9daaf_b2cd105c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 1864,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-09T15:32:10Z",
+      "side": 1,
+      "message": "Changed the code to use first path in the subTree list without validating the system name.",
+      "parentUuid": "c125707f_b567c464",
+      "revId": "3aa776d727cdc5bb241c59e6e3df33a40a9d406f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
