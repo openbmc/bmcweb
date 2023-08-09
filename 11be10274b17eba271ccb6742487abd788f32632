@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c81b564_5f3b240b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-09T21:34:42Z",
+      "side": 1,
+      "message": "Perhaps, until we have a generic way of filtering out the body of error message, I think we can explicitly handle all known ignorable error types - at this time  \u0027xyz.openbmc_project.Host.Error.Event\u0027 \n\n```\nelse if(*type \u003d \"xyz.openbmc_project.Host.Error.Event\")\n{\n   // ignore\n} \nelse\n{\n   internalError();\n} \n```\n\nAnother approach may be keeping the same behavior (failing CodeUpdate) but giving more detail return message - i.e. Host.Error is happening during CodeUpdate?",
+      "parentUuid": "fceeffb0_836698a0",
+      "range": {
+        "startLine": 394,
+        "startChar": 29,
+        "endLine": 394,
+        "endChar": 79
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06f4f7b1_8c677b08",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
