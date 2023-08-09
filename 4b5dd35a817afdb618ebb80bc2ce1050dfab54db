@@ -225,6 +225,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e878f1b7_5eead450",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T06:44:18Z",
+      "side": 1,
+      "message": "Don\u0027t you think that this will increase size of change-set? This is a backward compatibility issue in the usage of body(). Some one might have used the pattern body() +\u003d\"****\" in their code. \nNow we must add another \"if\" check everywhere body() has been used. \nMy Suggestion would be to use the intent of the user here. \nIf he calls body() then he wanted to use string body as response. Then it is better to move to string-body if the current alternative is not that. So create string-body and return the reference to it.",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb0d497a_0c121abe",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -289,6 +306,40 @@
       "side": 1,
       "message": "Same as above.",
       "parentUuid": "25348046_29d2901d",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0bcad0f_cf314f55",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T06:44:18Z",
+      "side": 1,
+      "message": "do we really need to do this if the current alternative is filebody response?\n\ntechnically we can call a single move at the emplace argument itself right? I meant that when I said no need for temp object. \nBut not sure if moving just the sliced part(base) of an object like this is a good idea or not.",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13afbc43_5c45beac",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-09T06:44:18Z",
+      "side": 1,
+      "message": "Did you test if the emplace forwarding argument to response constructor properly?\nyou can create a test case where add some header to stringbody resopnse then call\nopenFile then check the headers are still present.",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
