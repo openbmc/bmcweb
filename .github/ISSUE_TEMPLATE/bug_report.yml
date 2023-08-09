@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a bug to help us improve bmcweb
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to fill out this bug report!
+    - type: checkboxes
+      id: security-check
+      attributes:
+          label: Is this the right place to submit this?
+          description: |-
+              This is used to report product bugs:
+              To report a security vulnerability, please follow <https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team.md>.
+              Any crashes are potentially security vulnerabilities and should be treated as such.
+              To ask questions about how to use OpenBMC, please visit <https://discord.gg/69Km47zH98>.
+          options:
+              - label: "This is not a security vulnerability or a crashing bug"
+                required: true
+              - label: "This is not a question about how to use OpenBMC"
+                required: true
+              - label:
+                    "This is not a bug in an OpenBMC fork or a bug in code still
+                    under code review."
+              - label: "This is not a request for a new feature."
+                required: true
+    - type: textarea
+      id: bug-description
+      attributes:
+          label: Bug Description
+          description: Tell us what issues you ran into.
+          placeholder:
+              Include information about what you tried, what you expected to
+              happen, and what actually happened. The more details, the better!
+      validations:
+          required: true
+    - type: textarea
+      id: version
+      attributes:
+          label: Version
+          description: Include the version of OpenBMC you used.
+          placeholder: Include the contents of /etc/os-release
+          render: Text
+      validations:
+          required: true
+    - type: textarea
+      id: additional-info
+      attributes:
+          label: Additional Information
+          description: |
+              Please ensure you have collected the relevant debugging information manually and attached below;
+              issue without enough information will not be resolvable.
