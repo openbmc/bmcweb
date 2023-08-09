@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02fd71f2_66096c08",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-09T17:33:06Z",
+      "side": 1,
+      "message": "Thanks.\nI\u0027ll take look.",
+      "parentUuid": "c6334294_db7cee8b",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 46
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26301b5d_a69cd264",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fceeffb0_836698a0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-09T17:33:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26301b5d_a69cd264",
+      "range": {
+        "startLine": 394,
+        "startChar": 29,
+        "endLine": 394,
+        "endChar": 79
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06f4f7b1_8c677b08",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -60,6 +108,24 @@
       "writtenOn": "2023-08-09T17:20:47Z",
       "side": 1,
       "message": "This few lines of code has pushed this lambda longer than any lambda should be.  Please roll it out into a method.",
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9fd63f4_5cd9cba1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-09T17:33:06Z",
+      "side": 1,
+      "message": "I think we may need to refactor this part of the code first and then fix the issue.",
+      "parentUuid": "06f4f7b1_8c677b08",
       "revId": "11be10274b17eba271ccb6742487abd788f32632",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
