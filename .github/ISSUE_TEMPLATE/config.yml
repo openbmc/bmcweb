@@ -1,0 +1,9 @@
+contact_links:
+    - name: "Feature"
+      url: https://github.com/openbmc/openbmc/issues
+      about: "Please file any feature requests to the main openbmc project."
+    - name: "Crash bug"
+      url: https://https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team.md
+      about:
+          "Please file any bug causing a crash to
+          openbmc-security@lists.ozlabs.org."
