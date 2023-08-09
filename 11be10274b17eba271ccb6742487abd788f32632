@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6334294_db7cee8b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T17:20:47Z",
+      "side": 1,
+      "message": "Can we make this matcher more specific?  We\u0027d probably use something like arg0namespace\u003dxyz.openbmc_project.Software.  Ignoring messages in code is an anti pattern.",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 46
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26301b5d_a69cd264",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T17:20:47Z",
+      "side": 1,
+      "message": "common error.  Please don\u0027t use starts_with for this kind of check.",
+      "range": {
+        "startLine": 394,
+        "startChar": 29,
+        "endLine": 394,
+        "endChar": 79
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f4f7b1_8c677b08",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-09T17:20:47Z",
+      "side": 1,
+      "message": "This few lines of code has pushed this lambda longer than any lambda should be.  Please roll it out into a method.",
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
