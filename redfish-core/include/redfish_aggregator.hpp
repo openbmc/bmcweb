@@ -165,7 +165,10 @@ static inline void addPrefixToStringItem(std::string& strValue,
     auto parsed = boost::urls::parse_relative_ref(strValue);
     if (!parsed)
     {
-        BMCWEB_LOG_CRITICAL("Couldn't parse URI from resource {}", strValue);
+        // Note that DMTF URIs such as
+        // https://redfish.dmtf.org/registries/Base.1.15.0.json will fail this
+        // check and that's okay
+        BMCWEB_LOG_DEBUG("Couldn't parse URI from resource {}", strValue);
         return;
     }
 
@@ -244,7 +247,10 @@ static inline void addPrefixToItem(nlohmann::json& item,
     std::string* strValue = item.get_ptr<std::string*>();
     if (strValue == nullptr)
     {
-        BMCWEB_LOG_CRITICAL("Field wasn't a string????");
+        // Values for properties like "InvalidURI" and "ResourceMissingAtURI"
+        // from within the Base Registry are objects instead of strings and will
+        // fall into this check
+        BMCWEB_LOG_DEBUG("Field was not a string");
         return;
     }
     addPrefixToStringItem(*strValue, prefix);

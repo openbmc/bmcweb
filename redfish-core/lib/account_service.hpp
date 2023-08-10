@@ -564,7 +564,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
                              const dbus::utility::MapperGetObject& resp) {
         if (ec || resp.empty())
         {
-            BMCWEB_LOG_ERROR(
+            BMCWEB_LOG_WARNING(
                 "DBUS response error during getting of service name: {}", ec);
             LDAPConfigData empty{};
             callback(false, empty, ldapType);
@@ -581,7 +581,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
             if (ec2)
             {
                 callback(false, confData, ldapType);
-                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec2);
+                BMCWEB_LOG_WARNING("D-Bus responses error: {}", ec2);
                 return;
             }
 
