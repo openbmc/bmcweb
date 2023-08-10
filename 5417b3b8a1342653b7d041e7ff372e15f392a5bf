@@ -112,6 +112,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be2e9e95_23415852",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-08-10T18:19:50Z",
+      "side": 1,
+      "message": "Is the BMCWEB_LOG_DEBUG() necessary or desired here, won\u0027t the internalError() below issue a BMCWEB_LOG_CRITICAL which identifies the location of the error, etc? (Same comment for the ones below.)",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5203303e_639a302f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 51
