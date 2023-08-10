@@ -118,6 +118,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cae0b974_713f3f75",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T20:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8e75bdd_8f3dccb4",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81bcd49d_565302a9",
