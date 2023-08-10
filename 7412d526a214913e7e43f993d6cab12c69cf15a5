@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "862d0b11_9865d6ad",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T18:12:04Z",
+      "side": 1,
+      "message": "We are baby sitting it, but considering that 90% of the bugs we receive ignore these 4 things, I\u0027m not sure what else to do.",
+      "parentUuid": "59a38cf5_699230a4",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "054fca9c_08075c1e",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-08-10T18:07:34Z",
       "side": 1,
       "message": "Could have something like, \"please include step by step to reproduce\" (had that before)",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abbf925a_2115a554",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T18:12:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "054fca9c_08075c1e",
       "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8e75bdd_8f3dccb4",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T18:12:04Z",
+      "side": 1,
+      "message": "I figured the contents of /etc/os-release would have the SHA, but I can add it.",
+      "parentUuid": "e59ca5ee_0de952e2",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81bcd49d_565302a9",
         "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
         "patchSetId": 2
@@ -71,6 +131,24 @@
       "writtenOn": "2023-08-10T18:07:34Z",
       "side": 1,
       "message": "Add something like you had before about the machine?\n\n**Environment** What OpenBMC platform was this found on? If this was tested in\nQEMU, please add ?",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "960171dd_4fec64c6",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T18:12:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "81bcd49d_565302a9",
       "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
