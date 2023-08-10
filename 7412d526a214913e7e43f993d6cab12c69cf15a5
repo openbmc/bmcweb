@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a38cf5_699230a4",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:07:34Z",
+      "side": 1,
+      "message": "I feel we are baby sitting with this, but I guess we are there. :(\nIt makes you check the boxes. Got it.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "054fca9c_08075c1e",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:07:34Z",
+      "side": 1,
+      "message": "Could have something like, \"please include step by step to reproduce\" (had that before)",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e59ca5ee_0de952e2",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:07:34Z",
+      "side": 1,
+      "message": "Do you want to throw a bit of \n\nWhat specific OpenBMC versions (SHA1) did you use? (note, SHA1 should be\nresolvable to \u003chttps://github.com/openbmc/openbmc\u003e)",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81bcd49d_565302a9",
+        "filename": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:07:34Z",
+      "side": 1,
+      "message": "Add something like you had before about the machine?\n\n**Environment** What OpenBMC platform was this found on? If this was tested in\nQEMU, please add ?",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07380870_083464f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:07:34Z",
+      "side": 1,
+      "message": "Seems reasonable",
+      "revId": "7412d526a214913e7e43f993d6cab12c69cf15a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
