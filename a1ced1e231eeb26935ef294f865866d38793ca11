@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3db16e3_56b8285a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:09:41Z",
+      "side": 1,
+      "message": "Maybe a few of these could be warning instead of debug, but this makes sense to me to reduce the severity",
+      "revId": "a1ced1e231eeb26935ef294f865866d38793ca11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b18b279_c14e9c7d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:09:41Z",
+      "side": 1,
+      "message": "Maybe a warning here and below, but I am okay with Debug",
+      "revId": "a1ced1e231eeb26935ef294f865866d38793ca11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce11eb3e_ba65bdfd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:09:41Z",
+      "side": 1,
+      "message": "Maybe a warning, but I am also okay with debug",
+      "revId": "a1ced1e231eeb26935ef294f865866d38793ca11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
