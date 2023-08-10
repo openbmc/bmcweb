@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "67b52e0d_3a393c33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-08-10T05:21:46Z",
+      "side": 1,
+      "message": "We\u0027ve tested only the SET and GET on this property for this commit.\nSince fetching the time etc are in the scope of the time manager \u0026 network we did not test that here",
+      "parentUuid": "05a68ba1_32073bb2",
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1b801c60_6703bdc6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
