@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ba279e8_d1187169",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-10T18:19:51Z",
+      "side": 1,
+      "message": "I went back and forth on this one.  It feels weird to log this as a warning when we have valid responses in our codebase that will always fail this check.  I\u0027ll leave this open to give others a chance to chime in",
+      "parentUuid": "2b18b279_c14e9c7d",
+      "revId": "a1ced1e231eeb26935ef294f865866d38793ca11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce11eb3e_ba65bdfd",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2023-08-10T17:09:41Z",
       "side": 1,
       "message": "Maybe a warning, but I am also okay with debug",
+      "revId": "a1ced1e231eeb26935ef294f865866d38793ca11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac75ead_2c53de9e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-10T18:19:51Z",
+      "side": 1,
+      "message": "I\u0027ll leave this open in case there are other opinions.  I lean debug (or maybe info) since it doesn\u0027t seem like there\u0027s a requirement on the purpose being provided.  I\u0027m not opposed to warning if that\u0027s the preferred severity.",
+      "parentUuid": "ce11eb3e_ba65bdfd",
       "revId": "a1ced1e231eeb26935ef294f865866d38793ca11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
