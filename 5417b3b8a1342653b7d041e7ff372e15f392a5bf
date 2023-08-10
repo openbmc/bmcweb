@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a88cfa3_0cf359d6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "I think we can use `std::find_front()`.\n\n```\n    getLedGroupService(asyncResp, subtreePaths[0],std::bind_front(callback, subtreePaths[0]));\n```",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "727547ff_6d781b2d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "This one can also be done using `std::bind_front()`.\n\n```\n   dbus::utility::getAssociatedSubTreePaths(\n        ledGroupAssociatedPath,\n        sdbusplus::message::object_path(\"/xyz/openbmc_project/led/groups\"), 0,\n        ledGroupInterface,\n        std::bind_front(afterGetLedGroupPath, asyncResp, objPath));\n```",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 286,
+        "endChar": 11
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "944243ba_b2882337",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "Same here to use `std::bind_front()`",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "387ca3cd_9ae4c8e6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "Same here to use `std::bind_front()`",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5929adf4_fe382463",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "Use `std::bind_front()`\n\n```\n    dbus::utility::getSubTree(\n        \"/xyz/openbmc_project/inventory\", 0, interfaces,\n        std::bind_front(afterGetSystemSubTree,asyncResp));\n\n```",
+      "range": {
+        "startLine": 1912,
+        "startChar": 0,
+        "endLine": 1918,
+        "endChar": 11
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ec42f8_4e96fbb9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 3392,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "Same here to use `std::bind_front()`",
+      "range": {
+        "startLine": 3389,
+        "startChar": 0,
+        "endLine": 3392,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35687e61_bf052137",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 3532,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T14:07:21Z",
+      "side": 1,
+      "message": "Same here to use `std::bind_front()`",
+      "range": {
+        "startLine": 3527,
+        "startChar": 0,
+        "endLine": 3532,
+        "endChar": 11
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
