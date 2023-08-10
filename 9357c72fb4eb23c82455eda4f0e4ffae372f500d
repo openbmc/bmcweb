@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f60959cc_cbda858e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 79
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:51:43Z",
+      "side": 1,
+      "message": "Can you talk about the association used here?",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae6959aa_e6807a08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 79
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:51:43Z",
+      "side": 1,
+      "message": "This doesn\u0027t appear to match PDI",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "355ad0e8_c0b25136",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 79
@@ -20,6 +54,23 @@
         "endLine": 92,
         "endChar": 5
       },
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cd22d06_1e09b6e5",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:51:43Z",
+      "side": 1,
+      "message": "This doesn\u0027t look to match https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/64544",
       "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
