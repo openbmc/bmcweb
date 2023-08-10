@@ -326,7 +326,7 @@ inline void
         {
             configRoot["Profile"] = currentProfile;
         }
-        BMCWEB_LOG_ERROR("profile = {} !", currentProfile);
+        BMCWEB_LOG_DEBUG("profile = {} !", currentProfile);
 
         for (const auto& pathPair : managedObj)
         {
