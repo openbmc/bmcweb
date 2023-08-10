@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7b0a064_c1ff6c2d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-10T04:50:20Z",
+      "side": 1,
+      "message": "I am ok with the current change as long as the variant always holds one of the alternatives. I added this comment because you said before \"get api will throw so don\u0027t use it\". I thought you wanted to handle the impossible scenario of returning the null as well.\n\nPersonally, I favour generic visit to the if-else chain. Given the fact that visit no more throws, I like to see single liner visit in the code. You can ignore it if you prefer otherwise",
+      "parentUuid": "031d6923_0ffd86f0",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e963fd_e74163be",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -237,6 +255,30 @@
       "side": 1,
       "message": "\u003e True that is the reason I invented safemove wrapper. I don\u0027t know how we can avoid it.\n\nI would much rather we rely on variant2, which is documented, than a method we created ourselves.\n\n\u003e The root cause seems to be from file body move. We should wrap this code around try-catch irrespective of what move assignment we use(individual alternatives move  or variant move)\n\nAs-written, this doesn\u0027t throw on a move.  Why would we add a try-catch?",
       "parentUuid": "cef2952c_60690b5a",
+      "range": {
+        "startLine": 106,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 29
+      },
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8253857c_d1af01eb",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-10T04:50:20Z",
+      "side": 1,
+      "message": "I miss-read your comment. I thought you were planning to replace the variant move to individual alternatives move. I did not notice that you were commenting about \"why not going with std::variant\"",
+      "parentUuid": "bf3ebcec_3f2c7994",
       "range": {
         "startLine": 106,
         "startChar": 28,
@@ -460,6 +502,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8409559d_936c288a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-10T04:50:20Z",
+      "side": 1,
+      "message": "But you already moved it in line 401\n\nCan you give me the exact code you think...\n\nif (!std::holds_alternative\u003cfile_response\u003e(response))\n{\n   response.emplace\u003cfile_response\u003e(std::move(fields()));\n }\n\n            \nthis is exactly what I did in a generic manner in this patch set \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/65054",
+      "parentUuid": "ffd68182_ea42fb97",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13afbc43_5c45beac",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -489,6 +549,24 @@
       "side": 1,
       "message": "\u003e Did you test if the emplace forwarding argument to response constructor properly?\n\u003e you can create a test case where add some header to stringbody resopnse then call\n\u003e openFile then check the headers are still present.\n\nACK.",
       "parentUuid": "13afbc43_5c45beac",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "728039a0_27bc2b86",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-10T04:50:20Z",
+      "side": 1,
+      "message": "you can see the test case added in this patchset https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65054",
+      "parentUuid": "0f53469c_0d741fbc",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
