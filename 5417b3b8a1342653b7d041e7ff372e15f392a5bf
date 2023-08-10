@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10bc9cd2_7c4f3866",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:12:26Z",
+      "side": 1,
+      "message": "Can you expand this? It looks like you are looking for an Inventory.Item.System object and have some assumptions there",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a88cfa3_0cf359d6",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 51
@@ -88,6 +105,29 @@
         "startChar": 0,
         "endLine": 327,
         "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5203303e_639a302f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T17:12:26Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct?\nMaybe just remove this?",
+      "range": {
+        "startLine": 1900,
+        "startChar": 14,
+        "endLine": 1900,
+        "endChar": 27
       },
       "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
