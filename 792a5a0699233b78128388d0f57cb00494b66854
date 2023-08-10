@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15c7111f_c924cb8c",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T15:54:56Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be like?\n\n```\nbool found \u003d std::find(pcieDevicePaths.begin(),\n                       pcieDevicePaths.end(), \n                       pcieDevicePath) !\u003d pcieDevicePaths.end();\n```",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21adf958_b31c4259",
         "filename": "redfish-core/include/utils/pcie_util.hpp",
         "patchSetId": 24
@@ -84,6 +107,24 @@
       "side": 1,
       "message": "In the error path of getEmptyPCIeSlots (ex: line #99), it returns without updating the count. Also, I left the getPCIeDeviceList as is because we will replace the code with a new getCollectionMembers function in the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64087.",
       "parentUuid": "0c4f63b3_65d214ce",
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dba8f32_f6378d4d",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-10T15:54:56Z",
+      "side": 1,
+      "message": "Perhaps, then, wouldn\u0027t be good enough by setting after `getEmptyPCIeSlots()`?\n\n```\n        getEmptyPCIeSlots(asyncResp, pcieDevicePaths, name);\n \u003e\u003e      asyncResp-\u003eres.jsonValue[name + \"@odata.count\"] \u003d pcieDeviceList.size();\n```",
+      "parentUuid": "f4e198d4_1df99479",
       "revId": "792a5a0699233b78128388d0f57cb00494b66854",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
