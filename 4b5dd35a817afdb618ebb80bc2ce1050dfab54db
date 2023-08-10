@@ -161,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa754c14_d2988ecd",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T16:19:28Z",
+      "side": 1,
+      "message": "\u003e I am ok with the current change as long as the variant always holds one of the alternatives. I added this comment because you said before \"get api will throw so don\u0027t use it\".\n\nstd::get can throw an exception, std::get_if cannot.\n\n\u003e I thought you wanted to handle the impossible scenario of returning the null as well.\n\nI\u0027m fine with handling it, I\u0027m just not sure how in this case.\n\n\u003e \n\u003e Personally, I favour generic visit to the if-else chain. Given the fact that visit no more throws, I like to see single liner visit in the code. You can ignore it if you prefer otherwise\n\nACK.  I can move the code back to the visitor pattern.  Thank you for your input.  It might work now because of variant2 having a double copy implementation, but it\u0027s still undefined behavior.",
+      "parentUuid": "a7b0a064_c1ff6c2d",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e963fd_e74163be",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -279,6 +297,30 @@
       "side": 1,
       "message": "I miss-read your comment. I thought you were planning to replace the variant move to individual alternatives move. I did not notice that you were commenting about \"why not going with std::variant\"",
       "parentUuid": "bf3ebcec_3f2c7994",
+      "range": {
+        "startLine": 106,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 29
+      },
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8612a96d_7e9c1006",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T16:19:28Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "8253857c_d1af01eb",
       "range": {
         "startLine": 106,
         "startChar": 28,
@@ -520,6 +562,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a7e4a22_bba7903c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T16:19:28Z",
+      "side": 1,
+      "message": "\u003e But you already moved it in line 401\n\nRight, but it\u0027s a matter of order.\n\n\u003e \n\u003e Can you give me the exact code you think...\n\u003e \n\u003e if (!std::holds_alternative\u003cfile_response\u003e(response))\n\u003e {\n\u003e    response.emplace\u003cfile_response\u003e(std::move(fields()));\n\u003e  }\n\nThe code above has a dangling reference problem.\nfields() returns a reference to to the response object.\nstd::move turns that into an rvalue reference, still pointing at response.\nresponse.emplace destroys the value, thus invalidating the reference.\nfile_response constructor is now run on a dangling reference, leading to use after free issues.\n\n\u003e \n\u003e             \n\u003e this is exactly what I did in a generic manner in this patch set \n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65054\n\nWhen I tried this in the past, there were use after free errors due to undefined behavior.",
+      "parentUuid": "8409559d_936c288a",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13afbc43_5c45beac",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -567,6 +627,24 @@
       "side": 1,
       "message": "you can see the test case added in this patchset https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65054",
       "parentUuid": "0f53469c_0d741fbc",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2fda58_5fb797dd",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-10T16:19:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "728039a0_27bc2b86",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
