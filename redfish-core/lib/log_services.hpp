@@ -2079,7 +2079,7 @@ inline bool
     std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
     if (ec)
     {
-        BMCWEB_LOG_ERROR("{}", ec.message());
+        BMCWEB_LOG_WARNING("{}", ec.message());
         return false;
     }
     for (const std::filesystem::directory_entry& it : logPath)
@@ -2229,7 +2229,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         std::vector<std::filesystem::path> hostLoggerFiles;
         if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
         {
-            BMCWEB_LOG_ERROR("fail to get host log file path");
+            BMCWEB_LOG_DEBUG("Failed to get host log file path");
             return;
         }
         // If we weren't provided top and skip limits, use the defaults.
@@ -2315,7 +2315,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
         std::vector<std::filesystem::path> hostLoggerFiles;
         if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
         {
-            BMCWEB_LOG_ERROR("fail to get host log file path");
+            BMCWEB_LOG_DEBUG("Failed to get host log file path");
             return;
         }
 
@@ -2470,7 +2470,7 @@ static int
     ret = getJournalMetadata(journal, "SYSLOG_IDENTIFIER", syslogID);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("Failed to read SYSLOG_IDENTIFIER field: {}",
+        BMCWEB_LOG_DEBUG("Failed to read SYSLOG_IDENTIFIER field: {}",
                          strerror(-ret));
     }
     if (!syslogID.empty())
@@ -2492,7 +2492,7 @@ static int
     ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("Failed to read PRIORITY field: {}", strerror(-ret));
+        BMCWEB_LOG_DEBUG("Failed to read PRIORITY field: {}", strerror(-ret));
     }
 
     // Get the Created time from the timestamp

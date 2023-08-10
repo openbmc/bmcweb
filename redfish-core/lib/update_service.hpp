@@ -888,7 +888,7 @@ inline static void
     }
     else
     {
-        BMCWEB_LOG_ERROR("Unknown software purpose {}", purpose);
+        BMCWEB_LOG_DEBUG("Unknown software purpose {}", purpose);
     }
 }
 
