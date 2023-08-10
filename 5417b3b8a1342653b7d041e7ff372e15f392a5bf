@@ -112,6 +112,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18628620_2ca4ec4c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:51:37Z",
+      "side": 1,
+      "message": "Why can\u0027t the Get Location Indicator be here ?\n\ngetLocationIndicatorActive(asyncResp, path);",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be2e9e95_23415852",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 51
@@ -123,6 +140,29 @@
       "writtenOn": "2023-08-10T18:19:50Z",
       "side": 1,
       "message": "Is the BMCWEB_LOG_DEBUG() necessary or desired here, won\u0027t the internalError() below issue a BMCWEB_LOG_CRITICAL which identifies the location of the error, etc? (Same comment for the ones below.)",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4158f34_b18c6ab3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-10T18:51:37Z",
+      "side": 1,
+      "message": "Aren\u0027t you still forcing a Inventory.Item.System on everyone? \nI am okay with on the Set, if you do but on the GET, I don\u0027t think you should force a Inventory.Item.System as talked about in discord",
+      "range": {
+        "startLine": 1862,
+        "startChar": 0,
+        "endLine": 1882,
+        "endChar": 5
+      },
       "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
