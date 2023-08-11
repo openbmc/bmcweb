@@ -1827,7 +1827,7 @@ constexpr std::array registry = {
                      "Indicates that a power supply input power was restored.",
                      "Power supply %1 power restored.",
                      "OK",
-                     0,
+                     1,
                      {"string"},
                      "None.",
                  }},
