@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "71b38516_e5a5311d",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -14,10 +15,10 @@
       "side": 0,
       "message": "I think we used this because it was shown in some comparisons as the \"fast\" way to read data from a large file.  It was assigned to res.body() to try to avoid a copy.  If res.openFile() allows a user to download the file contents, that is all we need.",
       "revId": "802d7c94c17f02daf4fd475bdf20084a5666ea14",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "83bc018f_b0667f72",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -32,8 +33,25 @@
       "message": "coolio.  I was hoping it was something like that.\n\nYes, res.openFile() should be functionally much faster, as it skips the string step entirely, and goes directly from filesystem-\u003esocket.  Also, it\u0027s been optimized by people that understand network IO better than we do, so it should be more efficient.\n\nI\u0027ll get the comment and TODO removed.",
       "parentUuid": "71b38516_e5a5311d",
       "revId": "802d7c94c17f02daf4fd475bdf20084a5666ea14",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5259225f_b475fea8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-11T16:35:55Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "83bc018f_b0667f72",
+      "revId": "802d7c94c17f02daf4fd475bdf20084a5666ea14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
