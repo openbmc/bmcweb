@@ -177,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "792fb717_bd0703bf",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-11T04:03:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "717996e6_e36c8f18",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18e963fd_e74163be",
@@ -402,6 +420,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f88868_054a71c9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-11T04:03:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "456197fd_02d85a20",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e878f1b7_5eead450",
@@ -574,6 +610,24 @@
       "side": 1,
       "message": "\u003e But you already moved it in line 401\n\nRight, but it\u0027s a matter of order.\n\n\u003e \n\u003e Can you give me the exact code you think...\n\u003e \n\u003e if (!std::holds_alternative\u003cfile_response\u003e(response))\n\u003e {\n\u003e    response.emplace\u003cfile_response\u003e(std::move(fields()));\n\u003e  }\n\nThe code above has a dangling reference problem.\nfields() returns a reference to to the response object.\nstd::move turns that into an rvalue reference, still pointing at response.\nresponse.emplace destroys the value, thus invalidating the reference.\nfile_response constructor is now run on a dangling reference, leading to use after free issues.\n\n\u003e \n\u003e             \n\u003e this is exactly what I did in a generic manner in this patch set \n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65054\n\nWhen I tried this in the past, there were use after free errors due to undefined behavior.",
       "parentUuid": "8409559d_936c288a",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643fe264_377c322e",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-11T04:03:59Z",
+      "side": 1,
+      "message": "I was speculating that before destroying the old object new object would have already constructed. \nI am not sure how boost::variant2 ensures thread safety when new object\u0027s constructor throws in this case.\nThis solves the problem I was facing in emplace. Thanks for pointing that out.",
+      "parentUuid": "4a7e4a22_bba7903c",
       "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
