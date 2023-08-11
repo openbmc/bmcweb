@@ -632,6 +632,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "779b600a_6d4a9b94",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-11T16:33:42Z",
+      "side": 1,
+      "message": "\u003e I was speculating that before destroying the old object new object would have already constructed. \n\nBecause the two objects share the same memory, that\u0027s not possible.\n\n\u003e I am not sure how boost::variant2 ensures thread safety when new object\u0027s constructor throws in this case.\n\nbmcweb only has one thread, thread safety doesn\u0027t apply here.\n\n\u003e This solves the problem I was facing in emplace. Thanks for pointing that out.",
+      "parentUuid": "643fe264_377c322e",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13afbc43_5c45beac",
