@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b532e36_0e67b2ad",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-11T16:35:39Z",
+      "side": 1,
+      "message": "Done.  Leaving for another patch.",
+      "parentUuid": "b0c1e4d9_b2d6cbe0",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49140ae2_a23d4cbf",
@@ -142,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4de46d_11d72bf0",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-11T16:35:39Z",
+      "side": 1,
+      "message": "Done.  If you see any that I missed, please point them out.",
+      "parentUuid": "795d21d7_749ce044",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f526e2f_a896b851",
@@ -177,6 +213,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed95ed29_68aeed77",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-11T16:35:39Z",
+      "side": 1,
+      "message": "Done.  variant2 is what we decided on.",
+      "parentUuid": "5d4c5439_2c68ef87",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4f0b75f_fc4ac0e1",
@@ -208,6 +262,24 @@
       "side": 1,
       "message": "Because you can\u0027t move out of and into the same object at once.\n\nIf there\u0027s a better way to write this code, I\u0027m happy to try, but I\u0027m not sure how.",
       "parentUuid": "a4f0b75f_fc4ac0e1",
+      "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f35bd89_6df75180",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-11T16:35:39Z",
+      "side": 1,
+      "message": "Done.  Explained in other comment.",
+      "parentUuid": "c3e0549e_06b95b8f",
       "revId": "e1a84b8cf64f9fa8c9ed84dbb660ec173b17fd06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
