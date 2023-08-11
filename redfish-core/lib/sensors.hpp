@@ -832,7 +832,7 @@ inline void objectPropertiesToJson(
             sensorJson["Name"] = "Chassis Power Control";
             unit = "/PowerConsumedWatts"_json_pointer;
         }
-        else if (boost::ifind_first(sensorName, "input").empty())
+        else if (!(boost::ifind_first(sensorName, "input").empty()))
         {
             unit = "/PowerInputWatts"_json_pointer;
         }
