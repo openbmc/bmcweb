@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0517c470_d1d320b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Huh?  If there are distros that include auditd, why aren\u0027t we doing it at disto level?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6896483_71102106",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please do this ifdef inside audit_events.hpp itself.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 39
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d409c3c3_3e3f6a36",
         "filename": "http/http_connection.hpp",
         "patchSetId": 10
@@ -19,6 +65,29 @@
         "startChar": 0,
         "endLine": 359,
         "endChar": 79
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e009b4_fc28345a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please make this a method inside audit_events.hpp.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 9
       },
       "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -72,6 +141,730 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3da9efe_b1a7172e",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please model this as an RAII class.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 1
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c6d6b7_36ca9614",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "This seems messy in terms of a user-facing API.  Why is the connection failing and can we just make it reliable?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1732ab6e_61f4302c",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please remove.  This only gets used in test code, which would lead me to believe it\u0027s not neccesary.",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2f1793_d759f255",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please don\u0027t duplicate this list, because if a new login mechanism is added in the future, it\u0027s unlikely this will get updated.   Please incorporate this with the existing login methods.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062c966a_589a7da6",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "?  We don\u0027t want to audit login URLs?",
+      "range": {
+        "startLine": 121,
+        "startChar": 13,
+        "endLine": 121,
+        "endChar": 32
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1934c1_35f83abf",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "So strip the passwords as we do in other places?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 49
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacb2cfa_92fa52ed",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "\"not useful\" is something that\u0027s debatable.  Lets start by logging everything, and we can make it more complex as we go on.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 22
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b94ab4b_c0f05c20",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "common error.",
+      "range": {
+        "startLine": 136,
+        "startChar": 25,
+        "endLine": 136,
+        "endChar": 36
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8471940e_a7047979",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please remove.  IBM management console ifdefs shouldn\u0027t show up in this generic module.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 6
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720571df_f267784e",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 43
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfce2766_4b95cdab",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Do we really need a helper function for this?  it seems like it adds more code for a relatively simple operation (check a length, and string append).",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 1
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9b5d9f9_02e049c8",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "nit, please use std::format for this now.",
+      "range": {
+        "startLine": 201,
+        "startChar": 25,
+        "endLine": 202,
+        "endChar": 57
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ba0dbb_5fb8a68d",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "This seems:\n1. Exceptionally small.\n2. A possible way to avoid security audit events.\n\nHow was this chosen?",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 80
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b393627a_19762ef1",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Can this even happen in practice?  methodString has a max size, and target() will have a max size.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 5
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48702b7b_8359b2a2",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "nit, please pick a variable name other than detail.  detail is generally used as a namespace name.",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 22
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b5f2c7_01fe7d31",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "This branch can be simplified and deleted.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 5
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b64d6574_b8d04077",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "I\u0027m guessing you\u0027re missing a {} here",
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37761e50_c87130f9",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please use the overload of audit_encode_nv_string that takes a length.",
+      "range": {
+        "startLine": 236,
+        "startChar": 48,
+        "endLine": 236,
+        "endChar": 64
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a09c341c_78047a23",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Should we exist here?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 76
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc38e5f9_fce0643b",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "This section of code doesn\u0027t do anything.  Just set the unique_ptr to the pointer value, and it will call free internally.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 11
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0ff001_b0a54b58",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please don\u0027t call strlen for this.  userName.size()",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 36
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ea769d3_fd469912",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Why are we both appending the username as an nv_string AND appending it to the data?",
+      "range": {
+        "startLine": 256,
+        "startChar": 52,
+        "endLine": 256,
+        "endChar": 58
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93efcd78_1a35853c",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "common error.  Please use the ec version of this.",
+      "range": {
+        "startLine": 274,
+        "startChar": 36,
+        "endLine": 274,
+        "endChar": 64
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4dd2cb9_c999728b",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please explicitly convert this bool to an int, to make it clear what each represents.",
+      "range": {
+        "startLine": 275,
+        "startChar": 64,
+        "endLine": 275,
+        "endChar": 76
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a93ae5_a4d19f02",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "All errors require reconnection?  That doesn\u0027t seem right.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 16
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3ba403b_75e73d58",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "+ to the above, when can this happen?",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 63
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44a4fb2_ec146ee9",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Put this into the branch above.  As written, if auditReopen fails, this will still log.",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 9
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d1f8448_df2b177b",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Why is /login special here?  Can\u0027t this just use the normal code path?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 6
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ce622c4_5bde0341",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please use if constexpr for these, as we do elsewhere.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 39
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ed284a_b6c2957f",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Please deduplicate so we\u0027re only calling auditEvent once in this code.",
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51bb73e7_fc70d163",
+        "filename": "meson.build",
+        "patchSetId": 10
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Missing meson submodule for this.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 54
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01466826_c66c9a17",
+        "filename": "meson.build",
+        "patchSetId": 10
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "tabs in source code.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 1
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee1a23da_5d3475d0",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 10
@@ -88,6 +881,29 @@
         "startChar": 31,
         "endLine": 234,
         "endChar": 52
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4820bb6_7e74e483",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:36:07Z",
+      "side": 1,
+      "message": "Same comments as in /login.  Why is this code here, and can\u0027t follow the normal audit path?  We disable audit for these three urls, then explicitly add code.",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 6
       },
       "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
