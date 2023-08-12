@@ -704,6 +704,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1bb86a_251b1530",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-12T11:47:10Z",
+      "side": 1,
+      "message": "bmcweb only has one thread, thread safety doesn\u0027t apply here.\n\nsorry for the typo. I meant \"exception safety\" not \"thread safety\"\nI thought boost::variatn will put back old object if new object constructor fails. But here it seems it already destructed the old object before creating new one.\nSince we are letting the process to terminated on oom exception, and that is the only exception that can occur, the safety does not matter much for this code",
+      "parentUuid": "779b600a_6d4a9b94",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13afbc43_5c45beac",
