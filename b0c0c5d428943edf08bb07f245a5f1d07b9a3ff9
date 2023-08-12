@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec409887_b59ed3c4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T16:59:56Z",
+      "side": 1,
+      "message": "error_code by reference please.",
+      "range": {
+        "startLine": 173,
+        "startChar": 48,
+        "endLine": 173,
+        "endChar": 73
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a01692_519315f2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T16:59:56Z",
+      "side": 1,
+      "message": "If this service is producing a correct phosphor-dbus-interface string, similar to \"xyz.openbmc_project.Chassis.Intrusion.Rearm.Authomatic\", this code is almost certainly wrong.  You need a method to convert.  Please take a look at any of the other examples.  Considering you didn\u0027t see failures, I\u0027m assuming whatever service is producing this is incorrect.",
+      "range": {
+        "startLine": 174,
+        "startChar": 42,
+        "endLine": 174,
+        "endChar": 66
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338bfc5f_828e72f5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T16:59:56Z",
+      "side": 1,
+      "message": "I don\u0027t see this as patchable?  Is this property useful if it can\u0027t be patched?",
+      "range": {
+        "startLine": 181,
+        "startChar": 54,
+        "endLine": 181,
+        "endChar": 74
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a04dff5_a785ce84",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T16:59:56Z",
+      "side": 1,
+      "message": "These two methods are pulling multiple properties from the same interface.  Please combine them into a single \"GetAll\" call, as is done elsewhere.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 1
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd04450_c4509b08",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T16:59:56Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in this context.\n\nThis is making a string copy, which you almost certainly didn\u0027t intend.",
+      "range": {
+        "startLine": 738,
+        "startChar": 26,
+        "endLine": 738,
+        "endChar": 31
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
