@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d409c3c3_3e3f6a36",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:13:21Z",
+      "side": 1,
+      "message": "Couldn\u0027t this potentially log hudnreds of thousands of events?",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 79
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82b258e4_bfaeedd4",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:13:21Z",
+      "side": 1,
+      "message": "Please don\u0027t do this in the connection object.  CompleteHeaderFields is probably where you want to do this.",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 42
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e78b8a_c01c40aa",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:13:21Z",
+      "side": 1,
+      "message": "These linter rules are here on purpose.  Please follow the coding standard.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee1a23da_5d3475d0",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-12T17:13:21Z",
+      "side": 1,
+      "message": "Please don\u0027t make string copies.  If the function needs a string copy, do the copy in the auditEvent function.",
+      "range": {
+        "startLine": 234,
+        "startChar": 31,
+        "endLine": 234,
+        "endChar": 52
+      },
+      "revId": "c13d5930b72deda753055b7ad1fceaba9628cbf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
