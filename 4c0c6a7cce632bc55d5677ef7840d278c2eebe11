@@ -452,6 +452,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84dcbc23_e22e7f78",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-08-13T14:10:15Z",
+      "side": 1,
+      "message": "Hi Ed\n\nI was actually facing errors while building this patch with our downstream image,\nseems std::format only went into std in the latest g++, so we are working on getting latest upstream yocto changes into downstream which is taking time.\nif you have done unit-tests with this patch, we can proceed and merge this patch.",
+      "parentUuid": "e452ab17_e9d7acba",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e164b439_a21f87ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
