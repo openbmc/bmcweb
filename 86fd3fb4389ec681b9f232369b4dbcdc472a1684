@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f78248a_89003a00",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-08-14T09:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32e2b56d_6a89bb70",
+      "range": {
+        "startLine": 873,
+        "startChar": 0,
+        "endLine": 873,
+        "endChar": 59
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7187cf04_04b4c23d",
@@ -60,6 +84,30 @@
       "writtenOn": "2023-06-01T18:12:43Z",
       "side": 1,
       "message": "Pretty sure you meant to return here?",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 899,
+        "endChar": 52
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e930cd71_6b3afae9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-08-14T09:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7187cf04_04b4c23d",
       "range": {
         "startLine": 899,
         "startChar": 0,
