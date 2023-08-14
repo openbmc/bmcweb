@@ -477,7 +477,7 @@ constexpr std::array registry = {
                      "Indicates that a system fan has been removed.",
                      "%1 removed.",
                      "OK",
-                     0,
+                     1,
                      {"string"},
                      "None.",
                  }},
