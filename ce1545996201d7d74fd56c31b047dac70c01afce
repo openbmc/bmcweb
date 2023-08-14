@@ -16,6 +16,23 @@
       "message": "Trivially correct fix.",
       "revId": "ce1545996201d7d74fd56c31b047dac70c01afce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "039044a5_b6bb2039",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-14T19:01:25Z",
+      "side": 1,
+      "message": "Ideally we could just generate this at runtime.  something like\n\narg_count \u003d std::ranges::count(s, \u0027%\u0027);\n\nand we could delete these numbers from the table entirely.",
+      "revId": "ce1545996201d7d74fd56c31b047dac70c01afce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
