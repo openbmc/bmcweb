@@ -105,15 +105,10 @@ inline void
 {
     BMCWEB_LOG_DEBUG("Set led groups");
     bool ledOn = false;
-    bool ledBlinkng = false;
 
     if (ledState == "Lit")
     {
         ledOn = true;
-    }
-    else if (ledState == "Blinking")
-    {
-        ledBlinkng = true;
     }
     else if (ledState != "Off")
     {
@@ -124,34 +119,16 @@ inline void
 
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
-        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
-        "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
-        [asyncResp, ledOn,
-         ledBlinkng](const boost::system::error_code& ec) mutable {
-        if (ec)
+        "/xyz/openbmc_project/led/groups/enclosure_identify",
+        "xyz.openbmc_project.Led.Group", "Asserted", ledOn,
+        [asyncResp](const boost::system::error_code& ec2) {
+        if (ec2)
         {
-            // Some systems may not have enclosure_identify_blink object so
-            // Lets set enclosure_identify state to true if Blinking is
-            // true.
-            if (ledBlinkng)
-            {
-                ledOn = true;
-            }
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec2);
+            messages::internalError(asyncResp->res);
+            return;
         }
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus,
-            "xyz.openbmc_project.LED.GroupManager",
-            "/xyz/openbmc_project/led/groups/enclosure_identify",
-            "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
-            [asyncResp](const boost::system::error_code& ec2) {
-            if (ec2)
-            {
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec2);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        messages::success(asyncResp->res);
     });
 }
 
