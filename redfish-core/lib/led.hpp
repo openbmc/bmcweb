@@ -142,7 +142,7 @@ inline void
             *crow::connections::systemBus,
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
-            "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
+            "xyz.openbmc_project.Led.Group", "Asserted", ledOn,
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
