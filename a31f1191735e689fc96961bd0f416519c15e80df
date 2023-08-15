@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d694018a_b386fcbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T18:00:56Z",
+      "side": 1,
+      "message": "Tested? Make DMTF schema validator and redfish service validator are happy is enough for me",
+      "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e52f27d_8946c71b",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 4
@@ -31,6 +48,30 @@
       "writtenOn": "2023-08-15T17:55:01Z",
       "side": 1,
       "message": "These should also be OpenBMCSystem and OpenBMCVirutalMedia respectfully? just making sure I understand the OEM rules correctly",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 51
+      },
+      "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427616d0_5036c748",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T18:00:56Z",
+      "side": 1,
+      "message": "I guess https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60128 answers my question",
+      "parentUuid": "2e52f27d_8946c71b",
       "range": {
         "startLine": 332,
         "startChar": 0,
