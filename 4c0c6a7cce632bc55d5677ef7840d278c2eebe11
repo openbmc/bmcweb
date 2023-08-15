@@ -488,6 +488,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92b78a8c_3e7229be",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-08-15T14:28:31Z",
+      "side": 1,
+      "message": "I have tried with upstream Witherspoon image, but i could not with dhcpv6 setup\nI am trying to build p10bmc image so that can use existing DHCPv6 setup to test.\nsorry for taking time, will try to finish this in couple of days",
+      "parentUuid": "70f6b6fd_cb9e7b76",
+      "revId": "4c0c6a7cce632bc55d5677ef7840d278c2eebe11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e164b439_a21f87ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 23
