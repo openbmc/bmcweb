@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bcf3727_21c4a4af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T17:56:02Z",
+      "side": 1,
+      "message": "Redfish validator pass?",
+      "parentUuid": "638c1450_af9cec9d",
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec409887_b59ed3c4",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
