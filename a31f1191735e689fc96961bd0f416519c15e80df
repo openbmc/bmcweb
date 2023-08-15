@@ -80,6 +80,30 @@
       },
       "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c1ee14e_9880e0c4",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-15T21:21:26Z",
+      "side": 1,
+      "message": "For the later:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60128\n\nTL; DR, yes.",
+      "parentUuid": "427616d0_5036c748",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 51
+      },
+      "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
