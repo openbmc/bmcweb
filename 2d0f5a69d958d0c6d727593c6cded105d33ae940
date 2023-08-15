@@ -16,6 +16,24 @@
       "message": "Need to do more testing here, this ~2 might be flawed",
       "revId": "2d0f5a69d958d0c6d727593c6cded105d33ae940",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "070e6bb6_a3cb19ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T17:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e7b858b_de722dac",
+      "revId": "2d0f5a69d958d0c6d727593c6cded105d33ae940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
