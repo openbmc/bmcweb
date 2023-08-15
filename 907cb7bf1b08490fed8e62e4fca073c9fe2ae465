@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f44f792_487791e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T17:46:44Z",
+      "side": 1,
+      "message": "\u003e You can\u0027t map a sensor to a physical device (like a fan) right?\n\u003e RelatedItem isn\u0027t implemented yet.\n\nsensor has \n                \"RelatedItem\": {\n                    \"description\": \"An array of links to resources or objects that this sensor services.\",\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54236 was a for adding some relatedItem links \n\nI am not sure how the old or new makes a difference in relating a sensor to an item? The old way a fan would be at \n\n(took from a Redfish mockup) \n    \"Fans\": [\n        {\n            \"@odata.id\": \"/redfish/v1/Chassis/1U/Thermal#/Fans/0\",\n            \"MemberId\": \"0\",\n            \"Name\": \"BaseBoard System Fan\",\n            \"PhysicalContext\": \"Backplane\",\n            \"Status\": {\n                \"State\": \"Enabled\",\n                \"Health\": \"OK\"\n            },\n            \"Reading\": 2100,\n            \"ReadingUnits\": \"RPM\",\n            \"LowerThresholdFatal\": 0,\n            \"MinReadingRange\": 0,\n            \"MaxReadingRange\": 5000,\n            \"Redundancy\": [\n                {\n                    \"@odata.id\": \"/redfish/v1/Chassis/1U/Thermal#/Redundancy/0\"\n                }\n            ],\n\nThe new way, that fan sensor should still be at the Fan resource but also found in the sensor collection (again Redfish mockup)\n\n{\n    \"@odata.type\": \"#Fan.v1_5_0.Fan\",\n    \"Id\": \"CPU1\",\n    \"Name\": \"Fan for CPU 1\",\n    \"Status\": {\n        \"State\": \"Enabled\",\n        \"Health\": \"OK\"\n    },\n    \"PhysicalContext\": \"CPU\",\n    \"Model\": \"RKS-440DC\",\n    \"Manufacturer\": \"Contoso Fans\",\n    \"PartNumber\": \"23456-133\",\n    \"SparePartNumber\": \"93284-133\",\n    \"LocationIndicatorActive\": false,\n    \"HotPluggable\": false,\n    \"SpeedPercent\": {\n        \"Reading\": 45,\n        \"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/CPUFan1\"\n    },\n    \"Location\": {\n        \"PartLocation\": {\n            \"ServiceLabel\": \"CPU #1 Fan\",\n            \"LocationType\": \"Bay\",\n            \"LocationOrdinalValue\": 0\n        }\n    },\n\nFinding the fan sensor reading are similar. Finding the Fan sensors are similar. Finding the sensor -\u003e related item is in the spec not implemented. \n\n\u003e Fans aren\u0027t implemented yet?\nFans are in, Fan SpeedPercent isn\u0027t in yet \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57657\n\n\u003e Power supply modeling is now incorrect where it was previously correct?\n\nHow? Power supplies were an array before, now they have been broke out to a collection. Just this and not having to deal with the array to turn on the indicator LED makes more sense to me.\n\nA downside of the new is info like the fan sensors is now in 2 places, e.g. thermalsubsystem and sensor collection.",
+      "parentUuid": "69f55658_f8cf0bb4",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d49299f0_15b9bf72",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-14T19:11:00Z",
       "side": 1,
       "message": "I\u0027m not sure I\u0027m in agreement here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 58
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8114c05_eb2c8d00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T17:46:44Z",
+      "side": 1,
+      "message": "The other choices are \n1) don\u0027t move to the new ones ever. I think this is a bad idea.\n2) enable redfish-new-powersubsystem-thermalsubsystem at the same time you disable redfish-allow-deprecated-power-thermal which is hard on our clients",
+      "parentUuid": "d49299f0_15b9bf72",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-08-14T19:07:44Z",
       "side": 1,
       "message": "Doesn\u0027t this option need to be disabled at the same time?\n\nOtherwise by default we\u0027re going to duplicate a lot of things in the redfish tree, which is fine for testing (and why we have two options), but not really ok for a \"default\"",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 1
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73739c77_f3297a5f",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T17:46:44Z",
+      "side": 1,
+      "message": "This is what Redfish recommended. Have both for some period of time. \nIf we have both, webui-vue and other clients can easily move over to the new, we can add deprecated warning to the old, etc. \nThe downside obviously of having both is duplicating some things in the Redfish Tree but this really only matters if you are walking the whole tree and not looking for specific parts. I find this duplicate info for some time worth the easier transition on our clients.",
+      "parentUuid": "51d757fc_be3ea74b",
       "range": {
         "startLine": 220,
         "startChar": 0,
