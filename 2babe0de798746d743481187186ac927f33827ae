@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8d96284_1c070ff3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-15T03:35:43Z",
+      "side": 1,
+      "message": "I am fine with whichever is easier to integrate with main branch. I think merging https://gerrit.openbmc.org/c/openbmc/bmcweb/+/35992 will be easier. If possible please add unit test cases written in this patch set to 35992. In long run it is easier to add new changes without worrying about regression.",
+      "parentUuid": "1cf1e10f_4b2f11bd",
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86abc758_568469fd",
         "filename": "http/complete_response_fields.hpp",
         "patchSetId": 42
@@ -71,6 +89,30 @@
       "writtenOn": "2023-08-07T17:35:37Z",
       "side": 1,
       "message": "This doesn\u0027t seem right.  Not all files are of type octet stream.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 46
+      },
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea364f49_a5758089",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-15T03:35:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "79e69224_0d0d484e",
       "range": {
         "startLine": 58,
         "startChar": 0,
