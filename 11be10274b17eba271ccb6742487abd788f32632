@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e10fb95e_0cb03a85",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T20:10:01Z",
+      "side": 1,
+      "message": "Okay, so becaus the \"Message\" property is the one with the xyz.openbmc_project.Software.Image.*,  arg0namespace doesn\u0027t work?",
+      "parentUuid": "ed2fea03_714afa00",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 46
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26301b5d_a69cd264",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -150,6 +174,30 @@
       "side": 1,
       "message": "Perhaps, until we have a generic way of filtering out the body of error message, I think we can explicitly handle all known ignorable error types - at this time  \u0027xyz.openbmc_project.Host.Error.Event\u0027 \n\n```\nelse if(*type \u003d \"xyz.openbmc_project.Host.Error.Event\")\n{\n   // ignore\n} \nelse\n{\n   internalError();\n} \n```\n\nAnother approach may be keeping the same behavior (failing CodeUpdate) but giving more detail return message - i.e. Host.Error is happening during CodeUpdate?",
       "parentUuid": "fceeffb0_836698a0",
+      "range": {
+        "startLine": 394,
+        "startChar": 29,
+        "endLine": 394,
+        "endChar": 79
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6b8340_a69311d3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-15T20:10:01Z",
+      "side": 1,
+      "message": "What errors are these?\nWhat if we just made sure to map all the errors https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Version.errors.yaml and https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Version.errors.yaml and ignore the rest ? \n\nThe else would look like: \n\n                    else\n                    {\n                        // Unrelated error types. Ignored\n                        BMCWEB_LOG_INFO(\n                            \"Non-Software-related Error type\u003d{}. Ignored\",\n                            *type);\n                    }",
+      "parentUuid": "8c81b564_5f3b240b",
       "range": {
         "startLine": 394,
         "startChar": 29,
