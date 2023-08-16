@@ -52,6 +52,25 @@ def make_getter(dmtf_name, header_name, type_name):
     return (path, json_file, type_name, url)
 
 
+def openbmc_local_getter():
+    url = ""
+    with open(
+        os.path.join(
+            SCRIPT_DIR,
+            "..",
+            "redfish-core",
+            "include",
+            "registries",
+            "openbmc.json",
+        ),
+        "rb",
+    ) as json_file:
+        json_file = json.load(json_file)
+
+    path = os.path.join(include_path, "openbmc_message_registry.hpp")
+    return (path, json_file, "openbmc", url)
+
+
 def update_registries(files):
     # Remove the old files
     for file, json_dict, namespace, url in files:
@@ -220,7 +239,7 @@ def main():
     parser.add_argument(
         "--registries",
         type=str,
-        default="base,task_event,resource_event,privilege",
+        default="base,task_event,resource_event,privilege,openbmc",
         help="Comma delimited list of registries to update",
     )
 
@@ -251,6 +270,8 @@ def main():
                 "resource_event",
             )
         )
+    if "openbmc" in registries:
+        files.append(openbmc_local_getter())
 
     update_registries(files)
 

@@ -1,0 +1,1671 @@
+{
+    "@Redfish.Copyright": "Copyright 2022 OpenBMC. All rights reserved.",
+    "@odata.type": "#MessageRegistry.v1_4_0.MessageRegistry",
+    "Description": "This registry defines the base messages for OpenBMC.",
+    "Id": "OpenBMC.0.4.0",
+    "Language": "en",
+    "Messages": {
+        "ADDDCCorrectable": {
+            "Description": "Indicates an ADDDC Correctable Error.",
+            "Message": "ADDDC Correctable Error.Socket=%1 Channel=%2 DIMM=%3 Rank=%4.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 4,
+            "ParamTypes": ["number", "string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "AtScaleDebugConnected": {
+            "Description": "Indicates At-Scale Debug connection has been established",
+            "Message": "At-Scale Debug service is now connected %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "AtScaleDebugConnectionFailed": {
+            "Description": "Indicates At-Scale Debug connection aborted/failed",
+            "Message": "At-Scale Debug connection aborted/failed",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "AtScaleDebugDisconnected": {
+            "Description": "Indicates At-Scale Debug connection has ended",
+            "Message": "At-Scale Debug service is now disconnected",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "AtScaleDebugFeatureDisabled": {
+            "Description": "Indicates that At-Scale Debug service is stopped.",
+            "Message": "At-Scale Debug service is stopped.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "AtScaleDebugFeatureDisabledAtHardware": {
+            "Description": "Indicates that At-Scale Debug disable is detected in hardware.",
+            "Message": "At-Scale Debug Feature is disabled in hardware.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "AtScaleDebugFeatureEnabled": {
+            "Description": "Indicates that At-Scale Debug service is started.",
+            "Message": "At-Scale Debug service is started.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "AtScaleDebugFeatureEnabledAtHardware": {
+            "Description": "Indicates that At-Scale Debug enable is detected in hardware.",
+            "Message": "At-Scale Debug Feature is enabled in hardware.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "AtScaleDebugSpecialUserDisabled": {
+            "Description": "Indicates that special user is disabled.",
+            "Message": "At-Scale Debug special user is disabled",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "AtScaleDebugSpecialUserEnabled": {
+            "Description": "Indicates that special user is enabled.",
+            "Message": "At-Scale Debug special user is enabled",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "BIOSAttributesChanged": {
+            "Description": "Indicates that a set of BIOS Attributes has changed.",
+            "Message": "Set of BIOS Attributes changed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "BIOSBoot": {
+            "Description": "Indicates BIOS has transitioned control to the OS Loader.",
+            "Message": "BIOS System Boot.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "BIOSFirmwarePanicReason": {
+            "Description": "Indicates the reason for BIOS firmware panic.",
+            "Message": "BIOS firmware panic occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "BIOSFirmwareRecoveryReason": {
+            "Description": "Indicates the reason for BIOS firmware recovery.",
+            "Message": "BIOS firmware recovery occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "BIOSFirmwareResiliencyError": {
+            "Description": "Indicates BIOS firmware encountered resilience error.",
+            "Message": "BIOS firmware resiliency error. Error reason: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "BIOSPOSTCode": {
+            "Description": "BIOS Power-On Self-Test Code received",
+            "Message": "Boot Count: %1; Time Stamp Offset: %2 seconds; POST Code: %3",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "BIOSPOSTError": {
+            "Description": "Indicates BIOS POST has encountered an error.",
+            "Message": "BIOS POST Error. Error Code=%1",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "BIOSRecoveryComplete": {
+            "Description": "Indicates BIOS Recovery has completed.",
+            "Message": "BIOS Recovery Complete.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "BIOSRecoveryStart": {
+            "Description": "Indicates BIOS Recovery has started.",
+            "Message": "BIOS Recovery Start.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "BMCBootReason": {
+            "Description": "Indicates the reason why BMC firmware booted.",
+            "Message": "BMC firmware version %1 booted due to %2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "BMCFirmwarePanicReason": {
+            "Description": "Indicates the reason for last BMC firmware panic.",
+            "Message": "BMC firmware panic occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "BMCFirmwareRecoveryReason": {
+            "Description": "Indicates the reason for last BMC firmware recovery.",
+            "Message": "BMC firmware recovery occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "BMCFirmwareResiliencyError": {
+            "Description": "Indicates BMC firmware encountered resilience error.",
+            "Message": "BMC firmware resiliency error. Error reason: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "BMCKernelPanic": {
+            "Description": "Indicates that BMC kernel panic occurred.",
+            "Message": "BMC rebooted due to kernel panic.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "CPLDFirmwarePanicReason": {
+            "Description": "Indicates the reason for CPLD firmware panic.",
+            "Message": "CPLD firmware panic occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "CPLDFirmwareRecoveryReason": {
+            "Description": "Indicates the reason for CPLD firmware recovery.",
+            "Message": "CPLD firmware recovery occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "CPLDFirmwareResiliencyError": {
+            "Description": "Indicates CPLD firmware encountered resilience error.",
+            "Message": "CPLD firmware resiliency error. Error reason: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "CPUError": {
+            "Description": "Indicates that a CPU Error occurred of the specified type or cause.",
+            "Message": "CPU Error Occurred: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "CPUMismatch": {
+            "Description": "Indicates that the specified CPU power/current rating is incompatible with the board.",
+            "Message": "CPU %1 Mismatch.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "Install the supported CPU.",
+            "Severity": "Critical"
+        },
+        "CPUThermalTrip": {
+            "Description": "Indicates that the specified CPU thermal trip has been asserted.",
+            "Message": "CPU %1 Thermal Trip.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "ChassisIntrusionDetected": {
+            "Description": "Indicates that a physical security event of the chassis intrusion has occurred.",
+            "Message": "Chassis Intrusion Detected.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "ChassisIntrusionReset": {
+            "Description": "Indicates that chassis intrusion status has recovered.",
+            "Message": "Chassis Intrusion Reset.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "ComponentOverTemperature": {
+            "Description": "Indicates that the specified component is over temperature.",
+            "Message": "%1 over temperature and being throttled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "DCPowerOff": {
+            "Description": "Indicates that the system DC power is off.",
+            "Message": "Host system DC power is off",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DCPowerOn": {
+            "Description": "Indicates that the system DC power is on.",
+            "Message": "Host system DC power is on",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DriveError": {
+            "Description": "Indicates that a Drive Error occurred of the specified type or cause.",
+            "Message": "Drive Error Occurred: %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "EventLogCleared": {
+            "Description": "Indicates that the event log has been cleared.",
+            "Message": "Event Log Cleared.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FanInserted": {
+            "Description": "Indicates that a system fan has been inserted.",
+            "Message": "%1 inserted.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FanRedundancyLost": {
+            "Description": "Indicates that system fan redundancy has been lost.",
+            "Message": "Fan redundancy lost.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "FanRedundancyRegained": {
+            "Description": "Indicates that system fan redundancy has been regained.",
+            "Message": "Fan redundancy regained.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FanRemoved": {
+            "Description": "Indicates that a system fan has been removed.",
+            "Message": "%1 removed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FirmwareActivationCompleted": {
+            "Description": "Indicates a firmware activation has completed successfully.",
+            "Message": "%1 firmware activation completed successfully.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FirmwareActivationFailed": {
+            "Description": "Indicates a firmware activation has failed.",
+            "Message": "%1 firmware activation failed: %2.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "FirmwareActivationStarted": {
+            "Description": "Indicates a firmware activation has started.",
+            "Message": "%1 firmware activation started.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FirmwareResiliencyError": {
+            "Description": "Indicates firmware encountered resilience error.",
+            "Message": "Firmware resiliency error. Error reason: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "FirmwareUpdateCompleted": {
+            "Description": "Indicates a firmware update has completed successfully.",
+            "Message": "%1 firmware update to version %2 completed successfully.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FirmwareUpdateFailed": {
+            "Description": "Indicates a firmware update has failed.",
+            "Message": "%1 firmware update to version %2 failed: %3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "string", "string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "FirmwareUpdateStaged": {
+            "Description": "Indicates a firmware update has staged successfully.",
+            "Message": "%1 firmware update to version %2 staged successfully.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FirmwareUpdateStarted": {
+            "Description": "Indicates a firmware update has started.",
+            "Message": "%1 firmware update to version %2 started.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "GeneralFirmwareSecurityViolation": {
+            "Description": "Indicates a general firmware security violation has occurred.",
+            "Message": "Firmware security violation: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "IPMIWatchdog": {
+            "Description": "Indicates that there is a host watchdog event.",
+            "Message": "Host Watchdog Event: %1",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "IntelUPILinkWidthReducedToHalf": {
+            "Description": "Indicates Intel UPI link width has reduced to half width.",
+            "Message": "Intel UPI link width reduced to half. Node=%1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "IntelUPILinkWidthReducedToQuarter": {
+            "Description": "Indicates Intel UPI link width has reduced to quarter width.",
+            "Message": "Intel UPI link width reduced to quarter. Node=%1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "InvalidLoginAttempted": {
+            "Description": "Indicates that a login was attempted on the specified interface with an invalid username or password.",
+            "Message": "Invalid username or password attempted on %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "InvalidUpload": {
+            "Description": "Indicates that the uploaded file was invalid.",
+            "Message": "Invalid file uploaded to %1: %2.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "InventoryAdded": {
+            "Description": "Indicates that an inventory item with the specified model, type, and serial number was installed.",
+            "Message": "%1 %2 with serial number %3 was installed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "InventoryRemoved": {
+            "Description": "Indicates that an inventory item with the specified model, type, and serial number was removed.",
+            "Message": "%1 %2 with serial number %3 was removed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "LanLost": {
+            "Description": "Indicates that a physical security event of the LAN leash has lost.",
+            "Message": "%1 LAN leash lost.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "LanRegained": {
+            "Description": "Indicates that LAN link status has reconnected.",
+            "Message": "%1 LAN leash regained.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "LegacyPCIPERR": {
+            "Description": "Indicates a Legacy PCI PERR.",
+            "Message": "Legacy PCI PERR. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "LegacyPCISERR": {
+            "Description": "Indicates a Legacy PCI SERR.",
+            "Message": "Legacy PCI SERR. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MEAutoConfigFailed": {
+            "Description": "Indicates that Intel ME power sensor auto-configuration has failed.",
+            "Message": "Intel ME power sensor auto-configuration failed. Power monitoring, limiting and HW protection features might be unavailable. Failure reason: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Ensure that Intel ME configuration for power sources is correct.",
+            "Severity": "Critical"
+        },
+        "MEAutoConfigSuccess": {
+            "Description": "Indicates that Intel ME has performed successful power sensor auto-configuration.",
+            "Message": "Intel ME power sensor auto-configuration succeeded. Determined sources for domain readings are: DC Power: %1 ; Chassis Power: %2 ; PSU Efficiency: %3 ; Unamanaged power: %4",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 4,
+            "ParamTypes": ["string", "string", "string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "MEBootGuardHealthEvent": {
+            "Description": "Indicates that Intel ME has detected error during operations of Intel Boot Guard",
+            "Message": "Intel ME has detected following issue with Intel Boot Guard: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MECpuDebugCapabilityDisabled": {
+            "Description": "Indicates that Intel ME has detected situation in which CPU Debug Capability is disabled.",
+            "Message": "CPU Debug Capability disabled",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "MEDirectFlashUpdateRequested": {
+            "Description": "Indicates that BIOS has requested Direct Flash Update (DFU) of Intel ME",
+            "Message": "Intel ME Firmware switched to recovery mode to perform full update from BIOS.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "This is transient state. Intel ME Firmware should return to operational mode after successful image update performed by the BIOS.",
+            "Severity": "OK"
+        },
+        "MEExceptionDuringShutdown": {
+            "Description": "Indicates that Intel ME could not successfully perform emergency host shutdown.",
+            "Message": "Power Down command triggered by Intel Node Manager policy failure action and Intel ME forced shutdown. BMC probably did not respond correctly to Chassis Control.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "Verify the Intel Node Manager policy configuration.",
+            "Severity": "Warning"
+        },
+        "MEFactoryResetError": {
+            "Description": "Indicates that Intel ME has ben restored to factory preset.",
+            "Message": "Intel ME has performed automatic reset to factory presets due to following reason: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "If error is persistent the Flash device must be replaced.",
+            "Severity": "Critical"
+        },
+        "MEFactoryRestore": {
+            "Description": "Indicates that Intel ME has ben restored to factory preset.",
+            "Message": "Intel ME has performed automatic reset to factory presets due to following reason: %1",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "If error is persistent the Flash device must be replaced.",
+            "Severity": "OK"
+        },
+        "MEFirmwareException": {
+            "Description": "Indicates that Intel ME has encountered firmware exception during execution.",
+            "Message": "Intel ME has encountered firmware exception. Error code = %1",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Restore factory presets using Force ME Recovery IPMI command or by doing AC power cycle with Recovery jumper asserted. If this does not clear the issue, reflash the SPI flash. If the issue persists, provide the content of error code to Intel support team for interpretation. (Error codes are not documented because they only provide clues that must be interpreted individually..",
+            "Severity": "Warning"
+        },
+        "MEFirmwarePanicReason": {
+            "Description": "Indicates the reason for ME firmware panic.",
+            "Message": "ME firmware panic occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "MEFirmwareRecoveryReason": {
+            "Description": "Indicates the reason for ME firmware recovery.",
+            "Message": "ME firmware recovery occurred due to %1.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "MEFirmwareResiliencyError": {
+            "Description": "Indicates ME firmware encountered resilience error.",
+            "Message": "ME firmware resiliency error. Error reason: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MEFlashEraseError": {
+            "Description": "Indicates that Intel ME was unable to finish flash erase procedure.",
+            "Message": "Intel ME has encountered an error during Flash erasure procedure probably due to Flash part corruption.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "The Flash device must be replaced.",
+            "Severity": "Critical"
+        },
+        "MEFlashStateInformation": {
+            "Description": "Indicates that Intel ME has encountered a problem during IO to flash device.",
+            "Message": "Intel ME has encountered problem during IO to flash device. Reason: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "If flash wear-out protection occurred wait until it expires. Otherwise - flash device must be replaced.",
+            "Severity": "Critical"
+        },
+        "MEFlashStateInformationWritingEnabled": {
+            "Description": "Indicates that Intel ME has encountered a problem during IO to flash device.",
+            "Message": "Intel ME has encountered problem during IO to flash device. Reason: %1",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "If flash wear-out protection occurred wait until it expires. Otherwise - flash device must be replaced.",
+            "Severity": "OK"
+        },
+        "MEFlashVerificationError": {
+            "Description": "Indicates that Intel ME encountered invalid flash descriptor region.",
+            "Message": "Intel ME has detected invalid flash descriptor region. Following error is detected: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Flash Descriptor Region must be created correctly.",
+            "Severity": "Critical"
+        },
+        "MEFlashWearOutWarning": {
+            "Description": "Indicates that Intel ME has reached certain threshold of flash write operations.",
+            "Message": "Warning threshold for number of flash operations has been exceeded. Current percentage of write operations capacity: %1",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "No immediate repair action needed.",
+            "Severity": "Warning"
+        },
+        "MEImageExecutionFailed": {
+            "Description": "Indicates that Intel ME could not load primary FW image.",
+            "Message": "Intel ME Recovery Image or backup operational image loaded because operational image is corrupted. This may be either caused by Flash device corruption or failed upgrade procedure.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "Either the Flash device must be replaced (if error is persistent) or the upgrade procedure must be started again.",
+            "Severity": "Critical"
+        },
+        "MEInternalError": {
+            "Description": "Indicates that Intel ME encountered internal error leading to watchdog reset.",
+            "Message": "Error during Intel ME execution. Watchdog timeout has expired.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "Firmware should automatically recover from error state. If error is persistent then operational image shall be updated or hardware board repair is needed.",
+            "Severity": "Critical"
+        },
+        "MEManufacturingError": {
+            "Description": "Indicates that Intel ME is unable to start in operational mode due to wrong configuration.",
+            "Message": "Wrong manufacturing configuration detected by Intel ME Firmware. Unable to start operational mode. Reason: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": " If error is persistent the Flash device must be replaced or FW configuration must be updated. Trace logs might be gathered for detailed information.",
+            "Severity": "Critical"
+        },
+        "MEMctpInterfaceError": {
+            "Description": "Indicates that Intel ME has encountered an error in MCTP protocol.",
+            "Message": "Intel ME has detected MCTP interface failure and it is not functional any more. It may indicate the situation when MCTP was not configured by BIOS or a defect which may need a Host reset to recover from. Details: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Recovery via CPU Host reset or platform reset. If error is persistent, deep-dive platform-level debugging is required.",
+            "Severity": "Critical"
+        },
+        "MEMultiPchModeMisconfig": {
+            "Description": "Indicates that Intel ME has encountered problems in initializing Multi-PCH mode.",
+            "Message": "Intel ME error in Multi-PCH mode: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MEPeciOverDmiError": {
+            "Description": "Indicates that Intel ME is unable to communicate using PECI over DMI.",
+            "Message": "Intel ME has detected  PECI over DMI interface failure and it is not functional any more. It may indicate the situation when PECI over DMI was not configured by BIOS or a defect which may require a CPU Host reset to recover from. Details: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Recovery via CPU Host reset or platform reset. If error is persistent, deep-dive platform-level debugging is required.",
+            "Severity": "Critical"
+        },
+        "MEPttHealthEvent": {
+            "Description": "Indicates that Intel ME has encountered issue with Intel PTT",
+            "Message": "Intel ME has detected following issue with Intel PTT: %1",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "MERecoveryGpioForced": {
+            "Description": "Indicates that Intel ME image is booted in recovery mode due to GPIO assertion.",
+            "Message": "Intel ME Recovery Image loaded due to recovery MGPIO pin asserted. Pin number is configurable in factory presets, Default recovery pin is MGPIO1.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "Deassert recovery GPIO and reset the Intel ME back to operational mode. If Recovery Jumper is in legacy behavior, a ME reset (eg. Cold Reset IPMI cmd) is needed to have ME back in operational mode.",
+            "Severity": "OK"
+        },
+        "MERestrictedMode": {
+            "Description": "Indicates events related to Intel ME restricted mode.",
+            "Message": "Intel ME restricted mode information: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MESmbusLinkFailure": {
+            "Description": "Indicate that Intel ME encountered SMBus link error.",
+            "Message": "Intel ME has detected SMBus link error. Sensor Bus: %1 , MUX Address: %2 ",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "Devices connected to given SMLINK might cause communication corruption. See error code and refer to Intel ME External Interfaces Specification for details.",
+            "Severity": "Critical"
+        },
+        "MEUmaError": {
+            "Description": "Indicates that Intel ME has encountered UMA operation error.",
+            "Message": "Intel ME has encountered UMA operation error. Details: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Platform reset when UMA not configured correctly, or when error occurred during normal operation on correctly configured UMA multiple times leading to Intel ME entering Recovery or restricted operational mode.",
+            "Severity": "Critical"
+        },
+        "MEUnsupportedFeature": {
+            "Description": "Indicates that Intel ME is configuration with feature which is not supported on this platform.",
+            "Message": "Feature not supported in current segment detected by Intel ME Firmware. Details: %1",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "Proper FW configuration must be updated or use the Flash device with proper FW configuration",
+            "Severity": "Critical"
+        },
+        "ManufacturingModeEntered": {
+            "Description": "Indicates that the BMC entered Factory, or Manufacturing mode.",
+            "Message": "Entered Manufacturing Mode.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "ManufacturingModeExited": {
+            "Description": "Indicates that the BMC exited Factory, or Manufacturing mode.",
+            "Message": "Exited Manufacturing Mode.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "MemoryECCCorrectable": {
+            "Description": "Indicates a Correctable Memory ECC error.",
+            "Message": "Memory ECC correctable error. Socket=%1 Channel=%2 DIMM=%3 Rank=%4.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 4,
+            "ParamTypes": ["number", "string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "MemoryECCUncorrectable": {
+            "Description": "Indicates an Uncorrectable Memory ECC error.",
+            "Message": "Memory ECC uncorrectable error. Socket=%1 Channel=%2 DIMM=%3 Rank=%4.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 4,
+            "ParamTypes": ["number", "string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MemoryParityCommandAndAddress": {
+            "Description": "Indicates a Command and Address parity error.",
+            "Message": "Command and Address parity error. Socket=%1 Channel=%2 DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 5,
+            "ParamTypes": ["number", "string", "number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MemoryParityNotKnown": {
+            "Description": "Indicates an unknown parity error.",
+            "Message": "Memory parity error. Socket=%1 Channel=%2 DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 5,
+            "ParamTypes": ["number", "string", "number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MemoryRASConfigurationDisabled": {
+            "Description": "Indicates Memory RAS Disabled Configuration Status.",
+            "Message": "Memory RAS Configuration Disabled. Error=%1 Mode=%2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "MemoryRASConfigurationEnabled": {
+            "Description": "Indicates Memory RAS Enabled Configuration Status.",
+            "Message": "Memory RAS Configuration Enabled. Error=%1 Mode=%2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "MemoryRASModeDisabled": {
+            "Description": "Indicates Memory RAS Disabled Mode Selection.",
+            "Message": "Memory RAS Mode Select Disabled. Prior Mode=%1 Selected Mode=%2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "MemoryRASModeEnabled": {
+            "Description": "Indicates Memory RAS Enabled Mode Selection.",
+            "Message": "Memory RAS Mode Select Enabled. Prior Mode=%1 Selected Mode=%2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "MemoryThermTrip": {
+            "Description": "Indicates that the system memory ThermTrip is asserted by the specified component.",
+            "Message": "Memory ThermTrip asserted: %1.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "MirroringRedundancyDegraded": {
+            "Description": "Indicates the mirroring redundancy state is degraded.",
+            "Message": "Mirroring redundancy state degraded. Socket=%1 Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 5,
+            "ParamTypes": ["number", "string", "number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "MirroringRedundancyFull": {
+            "Description": "Indicates the mirroring redundancy state is fully redundant.",
+            "Message": "Mirroring redundancy state fully redundant. Socket=%1 Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 5,
+            "ParamTypes": ["number", "string", "number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "NMIButtonPressed": {
+            "Description": "Indicates that the NMI button was pressed.",
+            "Message": "NMI Button Pressed.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "NMIDiagnosticInterrupt": {
+            "Description": "Indicates that an NMI Diagnostic Interrupt has been generated.",
+            "Message": "NMI Diagnostic Interrupt.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeCorrectableAdvisoryNonFatal": {
+            "Description": "Indicates a PCIe Correctable Advisory Non-fatal Error.",
+            "Message": "PCIe Correctable Advisory Non-fatal Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableBadDLLP": {
+            "Description": "Indicates a PCIe Correctable Bad DLLP Error.",
+            "Message": "PCIe Correctable Bad DLLP. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableBadTLP": {
+            "Description": "Indicates a PCIe Correctable Bad TLP Error.",
+            "Message": "PCIe Correctable Bad TLP. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableHeaderLogOverflow": {
+            "Description": "Indicates a PCIe Correctable Header Log Overflow Error.",
+            "Message": "PCIe Correctable Header Log Overflow. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableInternal": {
+            "Description": "Indicates a PCIe Correctable Internal Error.",
+            "Message": "PCIe Correctable Internal Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableLinkBWChanged": {
+            "Description": "Indicates a PCIe Correctable Link BW Changed Error.",
+            "Message": "PCIe Correctable Link BW Changed. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableReceiverError": {
+            "Description": "Indicates a PCIe Correctable Receiver Error.",
+            "Message": "PCIe Correctable Receiver Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableReplayNumRollover": {
+            "Description": "Indicates a PCIe Correctable Replay Num Rollover.",
+            "Message": "PCIe Correctable Replay Num Rollover. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableReplayTimerTimeout": {
+            "Description": "Indicates a PCIe Correctable Replay Timer Timeout.",
+            "Message": "PCIe Correctable Replay Timer Timeout. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeCorrectableUnspecifiedAERError": {
+            "Description": "Indicates a PCIe Correctable Unspecified AER Error.",
+            "Message": "PCIe Correctable Unspecified AER Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PCIeFatalACSViolation": {
+            "Description": "Indicates a PCIe ACS Violation Error.",
+            "Message": "PCIe Fatal ACS Violation. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalAtomicEgressBlocked": {
+            "Description": "Indicates a PCIe Atomic Egress Blocked Error.",
+            "Message": "PCIe Fatal Atomic Egress Blocked. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalCompleterAbort": {
+            "Description": "Indicates a PCIe Completer Abort Error.",
+            "Message": "PCIe Fatal Completer Abort. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalCompletionTimeout": {
+            "Description": "Indicates a PCIe Completion Timeout Error.",
+            "Message": "PCIe Fatal Completion Timeout. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalDataLinkLayerProtocol": {
+            "Description": "Indicates a PCIe Data Link Layer Protocol Error.",
+            "Message": "PCIe Fatal Data Link Layer Protocol Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalECRCError": {
+            "Description": "Indicates a PCIe ECRC Error.",
+            "Message": "PCIe Fatal ECRC Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalFlowControlProtocol": {
+            "Description": "Indicates a PCIe Flow Control Protocol Error.",
+            "Message": "PCIe Fatal Flow Control Protocol Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalMCBlockedTLP": {
+            "Description": "Indicates a PCIe MC Blocked TLP Error.",
+            "Message": "PCIe Fatal MC Blocked TLP Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalMalformedTLP": {
+            "Description": "Indicates a PCIe Malformed TLP Error.",
+            "Message": "PCIe Fatal Malformed TLP Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalPoisonedTLP": {
+            "Description": "Indicates a PCIe Poisoned TLP Error.",
+            "Message": "PCIe Fatal Poisoned TLP Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalReceivedErrNonFatalMessage": {
+            "Description": "Indicates a PCIe Received ERR_NONFATAL Message Error.",
+            "Message": "PCIe Fatal Received ERR_NONFATAL Message. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalReceivedFatalMessageFromDownstream": {
+            "Description": "Indicates a PCIe Received Fatal Message From Downstream Error.",
+            "Message": "PCIe Fatal Received Fatal Message From Downstream. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalReceiverBufferOverflow": {
+            "Description": "Indicates a PCIe Receiver Buffer Overflow Error.",
+            "Message": "PCIe Fatal Receiver Buffer Overflow. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalSurpriseLinkDown": {
+            "Description": "Indicates a PCIe Surprise Link Down Error.",
+            "Message": "PCIe Fatal Surprise Link Down Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalTLPPrefixBlocked": {
+            "Description": "Indicates a PCIe TLP Prefix Blocked Error.",
+            "Message": "PCIe Fatal TLP Prefix Blocked Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalUncorrectableInternal": {
+            "Description": "Indicates a PCIe Uncorrectable Internal Error.",
+            "Message": "PCIe Fatal Uncorrectable Internal Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalUnexpectedCompletion": {
+            "Description": "Indicates a PCIe Unexpected Completion Error.",
+            "Message": "PCIe Fatal Unexpected Completion. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalUnspecifiedNonAERFatalError": {
+            "Description": "Indicates a PCIe Unspecified Non-AER Fatal Error.",
+            "Message": "PCIe Fatal Unspecified Non-AER Fatal Error. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PCIeFatalUnsupportedRequest": {
+            "Description": "Indicates a PCIe Unsupported Request Error.",
+            "Message": "PCIe Fatal Unsupported Request. Bus=%1 Device=%2 Function=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["number", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PowerButtonPressed": {
+            "Description": "Indicates that the power button was pressed.",
+            "Message": "Power Button Pressed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerRestorePolicyApplied": {
+            "Description": "Indicates that power was restored and the BMC has applied the restore policy.",
+            "Message": "Power restore policy applied.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyConfigurationError": {
+            "Description": "Indicates an error in power supply configuration.",
+            "Message": "Power supply %1 configuration error.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerSupplyConfigurationErrorRecovered": {
+            "Description": "Indicates that power supply configuration error recovered from a failure.",
+            "Message": "Power supply %1 configuration error recovered.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyFailed": {
+            "Description": "Indicates that a power supply has failed.",
+            "Message": "Power supply %1 failed.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerSupplyFailurePredicted": {
+            "Description": "Indicates that a power supply is predicted to fail.",
+            "Message": "Power supply %1 failure predicted.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerSupplyFanFailed": {
+            "Description": "Indicates that the specified power supply fan has failed.",
+            "Message": "Power supply %1 fan %2 failed.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerSupplyFanRecovered": {
+            "Description": "Indicates that the power supply fan recovered from a failure.",
+            "Message": "Power supply %1 fan %2 recovered.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyInserted": {
+            "Description": "Indicates that a power supply has been inserted.",
+            "Message": "Power supply %1 inserted.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyPowerGoodFailed": {
+            "Description": "Indicates that the power supply power good signal failed to assert within the specified time.",
+            "Message": "Power supply power good failed to assert within %1 milliseconds.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PowerSupplyPowerLost": {
+            "Description": "Indicates that a power supply has lost input power.",
+            "Message": "Power supply %1 power lost.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerSupplyPowerRestored": {
+            "Description": "Indicates that a power supply input power was restored.",
+            "Message": "Power supply %1 power restored.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyPredictedFailureRecovered": {
+            "Description": "Indicates that a power supply recovered from a predicted failure.",
+            "Message": "Power supply %1 predicted failure recovered.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyRecovered": {
+            "Description": "Indicates that a power supply recovered from a failure.",
+            "Message": "Power supply %1 recovered.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "PowerSupplyRemoved": {
+            "Description": "Indicates that a power supply has been removed.",
+            "Message": "Power supply %1 removed.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitDegradedFromNonRedundant": {
+            "Description": "Indicates that power unit is come back to redundant fromnonredundant but is still not in full redundancy mode.",
+            "Message": "Power Unit degraded from nonredundant.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitDegradedFromRedundant": {
+            "Description": "Indicates that power unit is degarded from full redundancy mode.",
+            "Message": "Power Unit degraded from redundant.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitNonRedundantFromInsufficient": {
+            "Description": "Indicates that power unit is not in redundancy mode and getsufficient power to support redundancy from insufficientpower.",
+            "Message": "Power Unit NonRedundant from insufficient to sufficient.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitNonRedundantInsufficient": {
+            "Description": "Indicates that power unit do not have sufficient power to support redundancy.",
+            "Message": "Power Unit NonRedundant and has insufficient resource.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "PowerUnitNonRedundantSufficient": {
+            "Description": "Indicates that power unit is not in redundancy mode but stillhas sufficient power to support redundancy.",
+            "Message": "Power Unit Nonredundant but has sufficient resource.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitRedundancyDegraded": {
+            "Description": "Indicates that power unit redundancy has been degraded.",
+            "Message": "Power Unit Redundancy degraded.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitRedundancyLost": {
+            "Description": "Indicates that power unit redundancy has been lost.",
+            "Message": "Power Unit Redundancy lost.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "PowerUnitRedundancyRegained": {
+            "Description": "Indicates that power unit full redundancy has been regained.",
+            "Message": "Power Unit Redundancy regained.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "ResetButtonPressed": {
+            "Description": "Indicates that the reset button was pressed.",
+            "Message": "Reset Button Pressed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SELEntryAdded": {
+            "Description": "Indicates a SEL entry was added using the Add SEL Entry or Platform Event command.",
+            "Message": "SEL Entry Added: %1",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SecurityBoot2ndFlashEnabled": {
+            "Description": "Indicates that the BMC 2nd boot flash is enabled.",
+            "Message": "BMC 2nd boot flash is enabled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SecurityP2aBridgeEnabled": {
+            "Description": "Indicates that the P2A bridge is enabled.",
+            "Message": "P2A(PCIe to AHB) bridge is enabled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SecurityUartPortDebugEnabled": {
+            "Description": "Indicates that the uart port debug is enabled.",
+            "Message": "Uart port debug is enabled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SecurityUserNonRootUidZeroAssigned": {
+            "Description": "Indicates that non root user assigned with user ID zero.",
+            "Message": "User ID Zero is assigned with non-root user.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SecurityUserNonRootUidZeroRemoved": {
+            "Description": "Indicates that non root user ID is removed",
+            "Message": "Non root user assigned with user ID zero is removed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SecurityUserRootDisabled": {
+            "Description": "Indicates that system root user is disabled.",
+            "Message": "User root is disabled.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SecurityUserRootEnabled": {
+            "Description": "Indicates that system root user is enabled.",
+            "Message": "User root is enabled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SecurityUserStrongHashAlgoRestored": {
+            "Description": "Indicates that password computing hash algorithm changed.",
+            "Message": "Password computing hash algorithm is changed to sha256/sha512.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SecurityUserUnsupportedShellEnabled": {
+            "Description": "Indicates that unsupported shell is enabled.",
+            "Message": "Unsupported shell is enabled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SecurityUserUnsupportedShellRemoved": {
+            "Description": "Indicates that unsupported shell is removed.",
+            "Message": "Unsupported shell is removed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SecurityUserWeakHashAlgoEnabled": {
+            "Description": "Indicates that weak password computing hash algorithm is enabled.",
+            "Message": "Weak password computing hash algorithm is enabled.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SensorThresholdCriticalHighGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a critical high threshold going high.",
+            "Message": "%1 sensor crossed a critical high threshold going high. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "Check the sensor or subsystem for errors.",
+            "Severity": "Critical"
+        },
+        "SensorThresholdCriticalHighGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a critical high threshold going low.",
+            "Message": "%1 sensor crossed a critical high threshold going low. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SensorThresholdCriticalLowGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a critical low threshold going high.",
+            "Message": "%1 sensor crossed a critical low threshold going high. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SensorThresholdCriticalLowGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a critical low threshold going low.",
+            "Message": "%1 sensor crossed a critical low threshold going low. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "Check the sensor or subsystem for errors.",
+            "Severity": "Critical"
+        },
+        "SensorThresholdWarningHighGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a warning high threshold going high.",
+            "Message": "%1 sensor crossed a warning high threshold going high. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "Check the sensor or subsystem for errors.",
+            "Severity": "Warning"
+        },
+        "SensorThresholdWarningHighGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a warning high threshold going low.",
+            "Message": "%1 sensor crossed a warning high threshold going low. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SensorThresholdWarningLowGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a warning low threshold going high.",
+            "Message": "%1 sensor crossed a warning low threshold going high. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SensorThresholdWarningLowGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a warning low threshold going low.",
+            "Message": "%1 sensor crossed a warning low threshold going low. Reading=%2 Threshold=%3.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": ["string", "number", "number"],
+            "Resolution": "Check the sensor or subsystem for errors.",
+            "Severity": "Warning"
+        },
+        "ServiceFailure": {
+            "Description": "Indicates that a service has exited unsuccessfully.",
+            "Message": "Service %1 has exited unsuccessfully.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "ServiceStarted": {
+            "Description": "Indicates that a service has started successfully.",
+            "Message": "Service %1 has started successfully.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SparingRedundancyDegraded": {
+            "Description": "Indicates the sparing redundancy state is degraded.",
+            "Message": "Sparing redundancy state degraded. Socket=%1 Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 5,
+            "ParamTypes": ["number", "string", "number", "string", "number"],
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "SparingRedundancyFull": {
+            "Description": "Indicates the sparing redundancy state is fully redundant.",
+            "Message": "Sparing redundancy state fully redundant. Socket=%1 Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 5,
+            "ParamTypes": ["number", "string", "number", "string", "number"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SsbThermalTrip": {
+            "Description": "Indicates that an SSB Thermal trip has been asserted.",
+            "Message": "SSB Thermal trip.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SystemInterfaceDisabledProvisioned": {
+            "Description": "Indicates that the system interface is in the disabled provisioned state. All commands are blocked to execute through the system interface.",
+            "Message": "The system interface is in the disabled provisioned state.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "SystemInterfaceUnprovisioned": {
+            "Description": "Indicates that the system interface is in the unprovisioned state. All commands are permitted to execute through the system interface.",
+            "Message": "The system interface is in the unprovisioned state.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SystemInterfaceWhitelistProvisioned": {
+            "Description": "Indicates that the system interface is in the whitelist provisioned state. Only whitelisted commands are permitted to execute through the system interface.",
+            "Message": "The system interface is in the whitelist provisioned state.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Warning"
+        },
+        "SystemPowerGoodFailed": {
+            "Description": "Indicates that the system power good signal failed to assert within the specified time (VR failure).",
+            "Message": "System power good failed to assert within %1 milliseconds (VR failure).",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["number"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SystemPowerLost": {
+            "Description": "Indicates that power was lost while the system was powered on.",
+            "Message": "System Power Lost.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SystemPowerOffFailed": {
+            "Description": "Indicates that the system failed to power off.",
+            "Message": "System Power-Off Failed.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "SystemPowerOnFailed": {
+            "Description": "Indicates that the system failed to power on.",
+            "Message": "System Power-On Failed.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
+        "VoltageRegulatorOverheated": {
+            "Description": "Indicates that the specified voltage regulator overheated.",
+            "Message": "%1 Voltage Regulator Overheated.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        }
+    },
+    "Name": "OpenBMC Message Registry",
+    "OwningEntity": "OpenBMC",
+    "RegistryPrefix": "OpenBMC",
+    "RegistryVersion": "0.4.0"
+}
