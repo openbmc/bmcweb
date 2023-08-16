@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85063fd7_74315b03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-16T00:34:44Z",
+      "side": 1,
+      "message": "// Snip from the other thread\n\u003e If we have both, webui-vue and other clients can easily move over to the new, we can add deprecated warning to the old, etc.\n\nThere\u0027s nothing breaking about this.  A proper Redfish implementation doesn\u0027t assume URIs exist, and checks for nonexistence of features, so there\u0027s no reason webui-vue can\u0027t immediately implement the new one.\n\nIMO, Webui-vue patches to move to ThermalSubsystem really need to be at least in review and on track to merging before this can be considered a default.  If we don\u0027t even have our own clients up to date, I would say this feature isn\u0027t well tested enough to be a default.\n\nPS, I didn\u0027t actually look if webui-vue had an implementation.  If it does, the above paragraph is moot.",
+      "parentUuid": "e7348d6a_c53ae685",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d49299f0_15b9bf72",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -143,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9dfc333_45effc48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-16T00:34:44Z",
+      "side": 1,
+      "message": "Also, FWIW, Redfish-Service-Validator isn\u0027t a great performance test.  Dumping the ChassisCollection tree with expand set in a loop would be more indicative of performance.",
+      "parentUuid": "7e057f6d_12f09c28",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 58
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4cd26ac6_36beec3c",
@@ -197,6 +245,30 @@
       "side": 1,
       "message": "This is what Redfish recommended. Have both for some period of time. \nIf we have both, webui-vue and other clients can easily move over to the new, we can add deprecated warning to the old, etc. \nThe downside obviously of having both is duplicating some things in the Redfish Tree but this really only matters if you are walking the whole tree and not looking for specific parts. I find this duplicate info for some time worth the easier transition on our clients.",
       "parentUuid": "51d757fc_be3ea74b",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 1
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e1b753_b2442b02",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-16T00:34:44Z",
+      "side": 1,
+      "message": "I\u0027m closing this comment out, lets continue the discussion in the thread above.",
+      "parentUuid": "73739c77_f3297a5f",
       "range": {
         "startLine": 220,
         "startChar": 0,
