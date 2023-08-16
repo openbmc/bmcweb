@@ -264,6 +264,102 @@ static void
     }
 }
 
+inline void afterAvailbleTimerAsyncWait(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec)
+{
+    cleanUp();
+    if (ec == boost::asio::error::operation_aborted)
+    {
+        // expected, we were canceled before the timer completed.
+        return;
+    }
+    BMCWEB_LOG_ERROR("Timed out waiting for firmware object being created");
+    BMCWEB_LOG_ERROR("FW image may has already been uploaded to server");
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Async_wait failed{}", ec);
+        return;
+    }
+    if (asyncResp)
+    {
+        redfish::messages::internalError(asyncResp->res);
+    }
+}
+
+inline void
+    handleUpdateErrorType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& url, const std::string& type)
+{
+    if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Invalid archive");
+    }
+    else if (type ==
+             "xyz.openbmc_project.Software.Image.Error.ManifestFileFailure")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Invalid manifest");
+    }
+    else if (type == "xyz.openbmc_project.Software.Image.Error.ImageFailure")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Invalid image format");
+    }
+    else if (type == "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Image version already exists");
+
+        redfish::messages::resourceAlreadyExists(
+            asyncResp->res, "UpdateService", "Version", "uploaded version");
+    }
+    else if (type == "xyz.openbmc_project.Software.Image.Error.BusyFailure")
+    {
+        redfish::messages::resourceExhaustion(asyncResp->res, url);
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR("Unknown Software Image Error type={}", type);
+        redfish::messages::internalError(asyncResp->res);
+    }
+}
+
+inline void
+    afterUpdateErrorMatcher(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& url, sdbusplus::message_t& m)
+{
+    dbus::utility::DBusInteracesMap interfacesProperties;
+    sdbusplus::message::object_path objPath;
+    m.read(objPath, interfacesProperties);
+    BMCWEB_LOG_DEBUG("obj path = {}", objPath.str);
+    for (const std::pair<std::string, dbus::utility::DBusPropertiesMap>&
+             interface : interfacesProperties)
+    {
+        if (interface.first == "xyz.openbmc_project.Logging.Entry")
+        {
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+                     value : interface.second)
+            {
+                if (value.first != "Message")
+                {
+                    continue;
+                }
+                const std::string* type =
+                    std::get_if<std::string>(&value.second);
+                if (type == nullptr)
+                {
+                    // if this was our message, timeout will cover it
+                    return;
+                }
+                fwAvailableTimer = nullptr;
+                handleUpdateErrorType(asyncResp, url, *type);
+            }
+        }
+    }
+}
+
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(
@@ -287,25 +383,8 @@ static void monitorForSoftwareAvailable(
     fwAvailableTimer->expires_after(std::chrono::seconds(timeoutTimeSeconds));
 
     fwAvailableTimer->async_wait(
-        [asyncResp](const boost::system::error_code& ec) {
-        cleanUp();
-        if (ec == boost::asio::error::operation_aborted)
-        {
-            // expected, we were canceled before the timer completed.
-            return;
-        }
-        BMCWEB_LOG_ERROR("Timed out waiting for firmware object being created");
-        BMCWEB_LOG_ERROR("FW image may has already been uploaded to server");
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Async_wait failed{}", ec);
-            return;
-        }
-        if (asyncResp)
-        {
-            redfish::messages::internalError(asyncResp->res);
-        }
-    });
+        std::bind_front(afterAvailbleTimerAsyncWait, asyncResp));
+
     task::Payload payload(req);
     auto callback = [asyncResp, payload](sdbusplus::message_t& m) mutable {
         BMCWEB_LOG_DEBUG("Match fired");
@@ -325,82 +404,7 @@ static void monitorForSoftwareAvailable(
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
-        [asyncResp, url](sdbusplus::message_t& m) {
-        std::vector<std::pair<std::string, dbus::utility::DBusPropertiesMap>>
-            interfacesProperties;
-        sdbusplus::message::object_path objPath;
-        m.read(objPath, interfacesProperties);
-        BMCWEB_LOG_DEBUG("obj path = {}", objPath.str);
-        for (const std::pair<std::string, dbus::utility::DBusPropertiesMap>&
-                 interface : interfacesProperties)
-        {
-            if (interface.first == "xyz.openbmc_project.Logging.Entry")
-            {
-                for (const std::pair<std::string,
-                                     dbus::utility::DbusVariantType>& value :
-                     interface.second)
-                {
-                    if (value.first != "Message")
-                    {
-                        continue;
-                    }
-                    const std::string* type =
-                        std::get_if<std::string>(&value.second);
-                    if (type == nullptr)
-                    {
-                        // if this was our message, timeout will cover it
-                        return;
-                    }
-                    fwAvailableTimer = nullptr;
-                    if (*type ==
-                        "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
-                    {
-                        redfish::messages::invalidUpload(asyncResp->res, url,
-                                                         "Invalid archive");
-                    }
-                    else if (*type ==
-                             "xyz.openbmc_project.Software.Image.Error."
-                             "ManifestFileFailure")
-                    {
-                        redfish::messages::invalidUpload(asyncResp->res, url,
-                                                         "Invalid manifest");
-                    }
-                    else if (
-                        *type ==
-                        "xyz.openbmc_project.Software.Image.Error.ImageFailure")
-                    {
-                        redfish::messages::invalidUpload(
-                            asyncResp->res, url, "Invalid image format");
-                    }
-                    else if (
-                        *type ==
-                        "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
-                    {
-                        redfish::messages::invalidUpload(
-                            asyncResp->res, url,
-                            "Image version already exists");
-
-                        redfish::messages::resourceAlreadyExists(
-                            asyncResp->res, "UpdateService", "Version",
-                            "uploaded version");
-                    }
-                    else if (
-                        *type ==
-                        "xyz.openbmc_project.Software.Image.Error.BusyFailure")
-                    {
-                        redfish::messages::resourceExhaustion(asyncResp->res,
-                                                              url);
-                    }
-                    else
-                    {
-                        BMCWEB_LOG_ERROR("Unknown Software Image Error type={}",
-                                         *type);
-                        redfish::messages::internalError(asyncResp->res);
-                    }
-                }
-            }
-        }
-        });
+        std::bind_front(afterUpdateErrorMatcher, asyncResp, url));
 }
 
 /**
