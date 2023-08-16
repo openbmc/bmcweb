@@ -1194,7 +1194,7 @@ inline void requestRoutesEventLogService(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["Name"] = "Event Log Service";
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
         asyncResp->res.jsonValue["Id"] = "EventLog";
@@ -2173,7 +2173,7 @@ inline void requestRoutesSystemHostLogger(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/HostLogger";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["Name"] = "Host Logger Service";
         asyncResp->res.jsonValue["Description"] = "Host Logger Service";
         asyncResp->res.jsonValue["Id"] = "HostLogger";
@@ -2437,7 +2437,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
@@ -3714,7 +3714,7 @@ inline void requestRoutesPostCodesLogService(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes";
         asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_1_0.LogService";
+            "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Id"] = "PostCodes";
