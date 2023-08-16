@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7348d6a_c53ae685",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-16T00:26:59Z",
+      "side": 1,
+      "message": "\u003e The new way, that fan sensor should still be at the Fan resource but also found in the sensor collection (again Redfish mockup)\n\nBut there\u0027s no mapping from the physical fan (fan 1) to the RPM sensors for that fan, and you can\u0027t have dual rotor fans (at least not until the next schema drop).\n\n\n\nBut before we litigate each item (which I AM happy to do), The real key here is that there ARE reasons why the old schemas would still be required over the new.  That\u0027s fine, lets:\n\nA. Document the shortcomings, somewhere near the option flags.\nB. Prioritize review and merge of the patches that would fix those shortcomings so it\u0027s less hard on clients.",
+      "parentUuid": "8f44f792_487791e0",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d49299f0_15b9bf72",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "The other choices are \n1) don\u0027t move to the new ones ever. I think this is a bad idea.\n2) enable redfish-new-powersubsystem-thermalsubsystem at the same time you disable redfish-allow-deprecated-power-thermal which is hard on our clients",
       "parentUuid": "d49299f0_15b9bf72",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 58
+      },
+      "revId": "907cb7bf1b08490fed8e62e4fca073c9fe2ae465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e057f6d_12f09c28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-16T00:26:59Z",
+      "side": 1,
+      "message": "\u003e The other choices are \n\u003e 1) don\u0027t move to the new ones ever. I think this is a bad idea.\n\nAgreed, bad idea #1 out of the way :).\n\n\u003e 2) enable redfish-new-powersubsystem-thermalsubsystem at the same time you disable redfish-allow-deprecated-power-thermal which is hard on our clients\n\nTimelines.  How long will we leave both enabled for?  (don\u0027t answer, please put something written down).  Lets come up with some kind of timeline on how we actually deprecate the old thing.  If that\u0027s mapped out, I can probably get behind this, but I still don\u0027t like the API impacts.  Full-tree walk performance matters to a lot of implementations, I\u0027m not super keen on just making it slower, especially for sensors, where there are implementations out there hosting 1000+ sensor instances, and would see performance degredation well over what you saw (I\u0027m guessing your system has ~150 sensors).",
+      "parentUuid": "b8114c05_eb2c8d00",
       "range": {
         "startLine": 32,
         "startChar": 0,
