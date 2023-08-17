@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13895da4_4da57c36",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-17T21:01:15Z",
+      "side": 1,
+      "message": "does this print the port too?",
+      "range": {
+        "startLine": 181,
+        "startChar": 68,
+        "endLine": 181,
+        "endChar": 72
+      },
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73df99d1_d3fa3736",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-17T21:01:15Z",
+      "side": 1,
+      "message": "before this was (urlView.scheme() \u003d\u003d \"snmp\"), \n(protocol \u003d\u003d \"SNMPv2c\") is effectively the same check ?",
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
