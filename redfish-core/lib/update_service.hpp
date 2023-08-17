@@ -291,6 +291,7 @@ inline void
     handleUpdateErrorType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& url, const std::string& type)
 {
+    bool ignoreErrorType = false;
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
     {
         redfish::messages::invalidUpload(asyncResp->res, url,
@@ -319,10 +320,40 @@ inline void
     {
         redfish::messages::resourceExhaustion(asyncResp->res, url);
     }
+    else if (type == "xyz.openbmc_project.Software.Version.Error.Incompatible")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Incompatible image version");
+    }
+    else if (type ==
+             "xyz.openbmc_project.Software.Version.Error.ExpiredAccessKey")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Update Access Key Expired");
+    }
+    else if (type ==
+             "xyz.openbmc_project.Software.Version.Error.InvalidSignature")
+    {
+        redfish::messages::invalidUpload(asyncResp->res, url,
+                                         "Invalid image signature");
+    }
+    else if (type ==
+                 "xyz.openbmc_project.Software.Image.Error.InternalFailure" ||
+             type == "xyz.openbmc_project.Software.Version.Error.HostFile")
+    {
+        BMCWEB_LOG_ERROR("Software Image Error type={}", type);
+        redfish::messages::internalError(asyncResp->res);
+    }
     else
     {
-        BMCWEB_LOG_ERROR("Unknown Software Image Error type={}", type);
-        redfish::messages::internalError(asyncResp->res);
+        // Unrelated error types. Ignored
+        ignoreErrorType = true;
+        BMCWEB_LOG_INFO("Non-Software-related Error type={}. Ignored", type);
+    }
+
+    if (!ignoreErrorType)
+    {
+        fwAvailableTimer = nullptr;
     }
 }
 
@@ -353,7 +384,6 @@ inline void
                     // if this was our message, timeout will cover it
                     return;
                 }
-                fwAvailableTimer = nullptr;
                 handleUpdateErrorType(asyncResp, url, *type);
             }
         }
