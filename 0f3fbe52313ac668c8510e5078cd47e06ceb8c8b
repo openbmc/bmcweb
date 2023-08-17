@@ -16,6 +16,24 @@
       "message": "This whole block of code is wrong.  If the object doesn\u0027t exist, that\u0027s a problem that needs corrected in xyz.openbmc_project.LED.GroupManager, not in bmcweb code.  Unless this is a regression, I think the fix needs to go into phosphor-led-manager, to make sure that the enclosure_identify always exists, and does the correct thing, rather than bmcweb trying one, then trying the other.",
       "revId": "0f3fbe52313ac668c8510e5078cd47e06ceb8c8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd7c72a5_79133eca",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2023-08-17T16:33:20Z",
+      "side": 0,
+      "message": "Hi Ed, The object \"enclosure_identify\" object is always exist on all systems. Optional object is \"enclosure_identify_blink\" object. Current fix is made for \"enclosure_identify\" object which was wrongly using ledBlinking property value.",
+      "parentUuid": "aaa1b124_1cebe6f3",
+      "revId": "0f3fbe52313ac668c8510e5078cd47e06ceb8c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
