@@ -137,6 +137,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba1eab3_67e0a353",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-17T13:04:26Z",
+      "side": 1,
+      "message": "I\u0027ve checked \u0026 handled all Image \u0026 Software defined errors.",
+      "parentUuid": "1036128f_279d9897",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 46
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26301b5d_a69cd264",
@@ -304,6 +328,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9b3c2d_20984733",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-17T13:04:26Z",
+      "side": 1,
+      "message": "Changed the code so that all Image.Errors \u0026 Version.Errors are handled, but the other non-update-related events are ignored.",
+      "parentUuid": "e20623c1_6e69680e",
+      "range": {
+        "startLine": 394,
+        "startChar": 29,
+        "endLine": 394,
+        "endChar": 79
+      },
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06f4f7b1_8c677b08",
@@ -353,6 +401,24 @@
       "side": 1,
       "message": "Sure, I am fine with doing the refactor first",
       "parentUuid": "b9fd63f4_5cd9cba1",
+      "revId": "11be10274b17eba271ccb6742487abd788f32632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5980c294_5bed3fb7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-17T13:04:26Z",
+      "side": 1,
+      "message": "I\u0027ve done the limited code-refactoring around area via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66086 first.",
+      "parentUuid": "1ef1b5f0_69012924",
       "revId": "11be10274b17eba271ccb6742487abd788f32632",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
