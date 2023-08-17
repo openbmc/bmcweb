@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d30bd1c_12102da6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-17T07:24:36Z",
+      "side": 1,
+      "message": "Its class template says it \"describes an object that can refer to a constant contiguous sequence of CharT...\" so it is itself a const and we can\u0027t modify its content anyway. Moreover, std::string_view does not do any copy so we don\u0027t need a reference here also.",
+      "parentUuid": "64f6d019_4ea7dbc8",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 51
+      },
+      "revId": "3efe586a05b3c702e81d74f59698c32f1059ea9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5486967_438950ea",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-17T06:17:54Z",
       "side": 1,
       "message": "Is it ok to take argument as const reference when argument is going to be modified ?",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 80
+      },
+      "revId": "3efe586a05b3c702e81d74f59698c32f1059ea9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92f6d6d7_9e9684a8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-17T07:24:36Z",
+      "side": 1,
+      "message": "This is taking a const reference of a ptr to a non-const, so modification to the value at the location it points to is fine. Just that we can\u0027t point it to somewhere else.",
+      "parentUuid": "f5486967_438950ea",
       "range": {
         "startLine": 173,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "741a5b78_509a6e32",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-17T07:24:36Z",
+      "side": 1,
+      "message": "Thanks for your review. Ack. I will update.",
+      "parentUuid": "e05034fd_3432a6d0",
+      "range": {
+        "startLine": 191,
+        "startChar": 1,
+        "endLine": 192,
+        "endChar": 9
+      },
+      "revId": "3efe586a05b3c702e81d74f59698c32f1059ea9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54743b39_c61cad08",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-08-17T06:17:54Z",
       "side": 1,
       "message": "As per my understanding/reading of unpackPropertiesNoThrow method. It won\u0027t return true and not set any one of given parameter. If return is true then all parameters must be set. If so then nullptr checks are irrelevant.\nhttps://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/unpack_properties.hpp#L42",
+      "range": {
+        "startLine": 218,
+        "startChar": 1,
+        "endLine": 226,
+        "endChar": 17
+      },
+      "revId": "3efe586a05b3c702e81d74f59698c32f1059ea9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d8019c_debe7187",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-17T07:24:36Z",
+      "side": 1,
+      "message": "Refering other places in the source code is my reason behind this \u003d.\u003d. Looking carefully at the function definition, I don\u0027t know if I conclude too fast, but I think it can still pass by this line https://github.com/openbmc/sdbusplus/blob/757e1ad55c93e1c5a105e795d3bf87538072c238/include/sdbusplus/unpack_properties.hpp#L89 and return true if the *expectedKey* can\u0027t be found and the type of *outValue* is either an optional or a pointer (which is my case). Furthermore, I think checking against null before using a pointer is a good practice. Please correct me if I was wrong somewhere.",
+      "parentUuid": "54743b39_c61cad08",
       "range": {
         "startLine": 218,
         "startChar": 1,
