@@ -34,6 +34,24 @@
       "parentUuid": "1e88e8a9_3c822810",
       "revId": "28f983f9cbd0de35d237b02aab55f330856efdf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b33de91_6fdec85e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-17T18:03:19Z",
+      "side": 1,
+      "message": "I am looking for these links \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Version.errors.yaml\n\nand\n\nhttps://github.com/openbmc/phosphor-bmc-code-mgmt/blob/master/xyz/openbmc_project/Software/Image.errors.yaml",
+      "parentUuid": "a6dddf2c_f6111687",
+      "revId": "28f983f9cbd0de35d237b02aab55f330856efdf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
