@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d778e2cd_deecdf05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30ba5000_15e042c4",
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86abc758_568469fd",
@@ -84,6 +102,30 @@
       "writtenOn": "2023-08-07T17:27:35Z",
       "side": 1,
       "message": "why is this called impl now?",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1440e4d_d10bd005",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86abc758_568469fd",
       "range": {
         "startLine": 21,
         "startChar": 26,
@@ -154,6 +196,30 @@
       "writtenOn": "2023-08-07T17:27:35Z",
       "side": 1,
       "message": "std::bind_front(std::ref(req), std::ref(res))",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "2babe0de798746d743481187186ac927f33827ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "389e43e3_69091786",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12419323_37782648",
       "range": {
         "startLine": 72,
         "startChar": 8,

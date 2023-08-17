@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8284c34a_2da97362",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7339aa3_cfe72342",
+      "range": {
+        "startLine": 54,
+        "startChar": 22,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98fc9b45_b271b214",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4009cdca_0e521f02",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98fc9b45_b271b214",
+      "range": {
+        "startLine": 59,
+        "startChar": 10,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13dbcbe7_298f2780",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-31T18:32:55Z",
       "side": 1,
       "message": "There\u0027s only 4 lines of code in this method now.  Please just make it two methods, with two different types.",
+      "range": {
+        "startLine": 554,
+        "startChar": 21,
+        "endLine": 554,
+        "endChar": 25
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d19e9385_62e3e811",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13dbcbe7_298f2780",
       "range": {
         "startLine": 554,
         "startChar": 21,
@@ -141,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc92b41_e9a89f6b",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f5a51fe_520c160c",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 570,
+        "endChar": 52
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f7fcf3b_e81d7bbb",
@@ -154,6 +250,30 @@
       "writtenOn": "2023-07-31T18:32:55Z",
       "side": 1,
       "message": "*serializer please for consistency.",
+      "range": {
+        "startLine": 575,
+        "startChar": 12,
+        "endLine": 575,
+        "endChar": 22
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf3eb79_9f9e6427",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f7fcf3b_e81d7bbb",
       "range": {
         "startLine": 575,
         "startChar": 12,
@@ -283,6 +403,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be213dc_a3073382",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea7073e8_d74e3557",
+      "range": {
+        "startLine": 190,
+        "startChar": 9,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71725e1b_9e3bd0a7",
@@ -402,6 +546,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a3d98cb_25a2a83c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aba324b8_439d7ade",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 23
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b26679b_52ce1c4f",
@@ -486,6 +654,30 @@
       "side": 1,
       "message": "When I tested the emplace did not work properly. I was not forwarding the args properly. Nedd to investigate further.",
       "parentUuid": "c70d7276_849a4ea8",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 53
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f7a385_b9944196",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6027623e_3cf1f885",
       "range": {
         "startLine": 217,
         "startChar": 0,
@@ -686,6 +878,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ed909f_cda5fb6e",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9f52737a_aa9c5860",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "402cd318_35caac05",
@@ -794,6 +1010,30 @@
       "side": 1,
       "message": "\u003e Does it work for simple synchronous connections suitable for automated tests?\n\nIt\u0027s a general http client.  If it doesn\u0027t work for your use case, modify it to make it work for your use case.  We cannot have N different implementations of an HTTP client in the codebase because everyone decided they didn\u0027t like what was there.",
       "parentUuid": "56d9cec8_b3690a8b",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad1c4cc2_28cfe163",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "it will be a non-trivial change to modify the http_client.hpp. I prefer making such changes in a separate commit. If you want I can remove the test case instead",
+      "parentUuid": "3407e09b_f9612bf8",
       "range": {
         "startLine": 21,
         "startChar": 7,

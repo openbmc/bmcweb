@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc938a2c_3c0a8c29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c17c259_b4785777",
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b99978a6_4a0d726e",
@@ -126,6 +144,30 @@
       "side": 1,
       "message": "\u003e auto was needed because it is a generic function that should work for both file and string body.\n\nAs I\u0027ve said other places, please don\u0027t use generic functions unless they make the code cleaner.  With only two types, they definitely don\u0027t make the code cleaner.",
       "parentUuid": "34d5c129_9bef9f0c",
+      "range": {
+        "startLine": 521,
+        "startChar": 21,
+        "endLine": 521,
+        "endChar": 25
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5de092ae_e870c486",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bab648c_b8090284",
       "range": {
         "startLine": 521,
         "startChar": 21,
@@ -364,6 +406,30 @@
       "side": 1,
       "message": "\u003e I disagree on this.\n\nYour disagreement is noted, and I\u0027m happy to revisit if we get N different implementations of this.  Part of the reason I\u0027m arguing for this is I know that we will likely only have 3 body implementations, and we\u0027ve been through several rounds where people write \"generic\" code, and duplicate quite a bit of code in the binary.  If we get to 3 body implementations, and this use of generics doesn\u0027t duplicate a lot of code, I\u0027m happy to discuss again then.\n\n\u003e To me it is against the spirit of generic programming and \" dont repeat yourself (DRY)\" principle. I think we can agree to disagree here. \n\u003e I will make changes as per the request.\n\nThank you, I appreciate it.",
       "parentUuid": "facad103_1e4d848a",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 2
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94358932_6076b92f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c56d36a_df9b7687",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -698,6 +764,30 @@
       "side": 1,
       "message": "How have you verified that it can never throw?\nStandard says so.\nstd::bad_variant_access is the type of the exception thrown in the following situations:\n\nstd::get(std::variant) called with an index or type that does not match the currently active alternative\nstd::visit called to visit a variant that is valueless_by_exception\n\nWe are making sure that variant has value before calling get.\n\n\nThe case can occur. It is trivial to write code in a handler that does this incorrectly, \nHow? if we make sure that new strigbody will be created and set before returning",
       "parentUuid": "86bb490b_c28354d3",
+      "range": {
+        "startLine": 205,
+        "startChar": 15,
+        "endLine": 205,
+        "endChar": 24
+      },
+      "revId": "905356b40d3430a3d6a5f9c2a4f27ac4d2f10268",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e31744a_726ecd46",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-08-17T23:38:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a14524a_d01befb1",
       "range": {
         "startLine": 205,
         "startChar": 15,
