@@ -46,6 +46,30 @@
       },
       "revId": "72b32cdc6d8348b692183f84187cc51e2b417581",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13fc105_e256e766",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-17T15:53:47Z",
+      "side": 1,
+      "message": "Sorry, I misunderstood your suggestion.\nI\u0027ve redone so that the logic will return if it is unrelated.  The error part to clear the timer is the next statement without using another variable.",
+      "parentUuid": "e386edd9_2228856b",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 31
+      },
+      "revId": "72b32cdc6d8348b692183f84187cc51e2b417581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
