@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b7943f9_11f9228c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-08-17T18:09:22Z",
+      "side": 1,
+      "message": "Is there a registry in the DMTF github for the openbmc registry?\n\n(I see this is the common WARNING message inserted by parse_registries.py. So maybe add to the readme whether the DMTF registry exists for openbmc for clarity.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b08d5dc_9fdbafa5",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-08-17T18:09:22Z",
+      "side": 1,
+      "message": "It would be helpful to new bmcweb developers to include the instructions here on generating the .hpp file when modifying the registry. (Or a pointer to the instructions.)",
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
