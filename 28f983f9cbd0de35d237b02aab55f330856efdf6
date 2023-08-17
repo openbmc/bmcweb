@@ -52,6 +52,24 @@
       "parentUuid": "a6dddf2c_f6111687",
       "revId": "28f983f9cbd0de35d237b02aab55f330856efdf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe23c18_d85fd746",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-17T23:04:38Z",
+      "side": 1,
+      "message": "I added those links as the valid update related errors.",
+      "parentUuid": "8b33de91_6fdec85e",
+      "revId": "28f983f9cbd0de35d237b02aab55f330856efdf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
