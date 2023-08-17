@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e75e0dd_198bd60c",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-08-17T19:37:59Z",
+      "side": 1,
+      "message": "I guess for a company fork the fork would also need to adjust the script to get the different name generated? Or is the idea that a company fork would just continue to directly edit the generated .hpp file rather than build it from the .json file?",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 80
+      },
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b08d5dc_9fdbafa5",
         "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
         "patchSetId": 2
@@ -79,6 +102,24 @@
       "side": 1,
       "message": "Lets treat that as another patch.  This is a direct copy of the words from the existing file.\n\nWith that said, it lists the name of the script to run in the error message.  How much more are you looking for?  The instructions are \"run the script\" end of story.",
       "parentUuid": "9b08d5dc_9fdbafa5",
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90d3123d_312e12ec",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-08-17T19:37:59Z",
+      "side": 1,
+      "message": "Having not updated a registry in bmcweb before I wondered what my CWD should be when running the script. (Looking at the script it seems likely that it is run from the root of my cloned repo. Then I would add the generated .hpp file to my commit. So, yes that does seem straightforward.)\n\nMaybe just reference the script here in the readme would be enough.",
+      "parentUuid": "f200eb80_3f55dc51",
       "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
