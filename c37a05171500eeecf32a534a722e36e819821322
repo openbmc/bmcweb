@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "473a7da2_56269f5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-17T17:37:25Z",
+      "side": 1,
+      "message": "Redfish deprecated IndicatorLED, a few years ago. Eventually, we will want to move off of it.\nhttps://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_1.json \n\n                \"IndicatorLED\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/IndicatorLED\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"deprecated\": \"This property has been deprecated in favor of the LocationIndicatorActive property.\",\n                    \"description\": \"The state of the indicator LED, which identifies the system.\",\n                    \"longDescription\": \"This property shall contain the state of the indicator light, which identifies this system.\",\n                    \"readonly\": false,\n                    \"versionDeprecated\": \"v1_13_0\"\n                },",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b11cfb8_221c9bdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-17T17:37:25Z",
+      "side": 1,
+      "message": "This appears to be, refactoring broke code. \nBe good if the commit msg could include the commit that broke this/explain this is a break.",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "948e9c6c_349989fb",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 1
@@ -37,6 +71,24 @@
         "endLine": 145,
         "endChar": 62
       },
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1264ac0b_15ef3ba4",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-17T17:37:25Z",
+      "side": 1,
+      "message": "Didn\u0027t this break? Looking at \nhttps://github.com/openbmc/bmcweb/blob/62c416fb0d2f62e09d7f60754ff359ac2389e749/redfish-core/lib/led.hpp#L149 this is what was there \n \nhttps://github.com/openbmc/bmcweb/commit/9ae226fabb21700e6a73ef1d0a9d1cdead70fea5#diff-e14292d5fe8efb0930cb2ece745449d7ca5f4e680f087c3ecc6626ec4f1b1117 looks to have broke this, can you add that to the commit msg?",
+      "parentUuid": "948e9c6c_349989fb",
       "revId": "c37a05171500eeecf32a534a722e36e819821322",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
