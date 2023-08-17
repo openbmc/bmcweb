@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12410bbf_e47851fc",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-17T18:47:26Z",
+      "side": 1,
+      "message": "\u003e Is there a registry in the DMTF github for the openbmc registry?\n\u003e \n\u003e (I see this is the common WARNING message inserted by parse_registries.py. So maybe add to the readme whether the DMTF registry exists for openbmc for clarity.)\n\nACK.  This is a good point.",
+      "parentUuid": "6b7943f9_11f9228c",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b08d5dc_9fdbafa5",
         "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
         "patchSetId": 2
@@ -37,6 +61,24 @@
       "writtenOn": "2023-08-17T18:09:22Z",
       "side": 1,
       "message": "It would be helpful to new bmcweb developers to include the instructions here on generating the .hpp file when modifying the registry. (Or a pointer to the instructions.)",
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f200eb80_3f55dc51",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-17T18:47:26Z",
+      "side": 1,
+      "message": "Lets treat that as another patch.  This is a direct copy of the words from the existing file.\n\nWith that said, it lists the name of the script to run in the error message.  How much more are you looking for?  The instructions are \"run the script\" end of story.",
+      "parentUuid": "9b08d5dc_9fdbafa5",
       "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
