@@ -94,11 +94,13 @@ class Connection :
         // don't require auth
         if (preverified)
         {
-            if (!req)
+            boost::asio::ip::address ipAddress;
+            if (getClientIp(ipAddress))
             {
-                return false;
+                return true;
             }
-            mtlsSession = verifyMtlsUser(req->ipAddress, ctx);
+
+            mtlsSession = verifyMtlsUser(ipAddress, ctx);
             if (mtlsSession)
             {
                 BMCWEB_LOG_DEBUG("{} Generating TLS session: {}", logPtr(this),
