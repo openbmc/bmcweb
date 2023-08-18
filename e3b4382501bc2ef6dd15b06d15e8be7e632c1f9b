@@ -16,6 +16,24 @@
       "message": "else userGroups.clear().",
       "revId": "e3b4382501bc2ef6dd15b06d15e8be7e632c1f9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d6d2e9_e71e9253",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-08-18T21:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e496d3a8_b878ddb4",
+      "revId": "e3b4382501bc2ef6dd15b06d15e8be7e632c1f9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
