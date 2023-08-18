@@ -83,11 +83,7 @@ inline bool
 
     if (userGroups != nullptr)
     {
-        // Populate session with user groups.
-        for (const auto& userGroup : *userGroups)
-        {
-            req.session->userGroups.emplace_back(userGroup);
-        }
+        req.session->userGroups = *userGroups;
     }
 
     return true;
