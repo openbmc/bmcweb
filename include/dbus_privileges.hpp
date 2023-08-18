@@ -83,11 +83,12 @@ inline bool
 
     if (userGroups != nullptr)
     {
-        // Populate session with user groups.
-        for (const auto& userGroup : *userGroups)
-        {
-            req.session->userGroups.emplace_back(userGroup);
-        }
+        req.session->userGroups = *userGroups;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG("Missing userGroups in D-Bus reponse");
+        req.session->userGroups.clear();
     }
 
     return true;
