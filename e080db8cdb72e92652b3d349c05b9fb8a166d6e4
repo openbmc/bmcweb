@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89f5a8a3_39a03af8",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T19:32:57Z",
+      "side": 1,
+      "message": "\u003e I guess for a company fork the fork would also need to adjust the script to get the different name generated?\n\nThey just need to edit the openbmc.json, same as the did when they were editing the code.\n\n\u003e Or is the idea that a company fork would just continue to directly edit the generated .hpp file rather than build it from the .json file?\n\nI have no strong opinion on how people arrange and manage their forks.  That\u0027s their business.",
+      "parentUuid": "0e75e0dd_198bd60c",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 80
+      },
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b08d5dc_9fdbafa5",
         "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
         "patchSetId": 2
@@ -138,6 +162,24 @@
       "side": 1,
       "message": "On further thought, I think what would be helpful here is to specify to modify the .json file and build the .hpp file. The .hpp file does point to the script used to build it but the .json file doesn\u0027t.\n\nI\u0027m looking for the links that help a new bmcweb developer figure this out on their own by connecting the dots.",
       "parentUuid": "90d3123d_312e12ec",
+      "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78023238_70d134b9",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T19:32:57Z",
+      "side": 1,
+      "message": "\u003e On further thought, I think what would be helpful here is to specify to modify the .json file and build the .hpp file.\n\u003e The .hpp file does point to the script used to build it but the .json file doesn\u0027t.\n\u003e \n\u003e I\u0027m looking for the links that help a new bmcweb developer figure this out on their own by connecting the dots.\n\nA new bmcweb developer should be sending their code upstream.  This comment is only for people that choose to fork the registry, and only prescribes the things that effect upstream (not having one common source of truth).\n\nI don\u0027t really want to document any more than that, because it goes outside the purview.  if folks want to document their own process in their own docs, that\u0027s their business.",
+      "parentUuid": "c94fcee8_73a6a84d",
       "revId": "e080db8cdb72e92652b3d349c05b9fb8a166d6e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
