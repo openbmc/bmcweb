@@ -1816,7 +1816,7 @@ nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length)
 void arraySizeTooLong(crow::Response& res, std::string_view property,
                       uint64_t length)
 {
-    res.result(boost::beast::http::status::method_not_allowed);
+    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, arraySizeTooLong(property, length));
 }
 
@@ -1849,7 +1849,7 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2)
     nlohmann::json::array_t args;
     args.emplace_back(arg1);
     args.emplace_back(arg2);
-    ret["MessageArgs"] = std::move(args);
+    ret["MessageArgs"] = std::move(args); 
     ret["MessageSeverity"] = "Warning";
     ret["Resolution"] = "None.";
     return ret;
