@@ -256,6 +256,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebe37348_da29d492",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-08-21T13:42:24Z",
+      "side": 1,
+      "message": "Removed ErrorVerification class for now. I am still looking for most efficient way to minimize the call context @ line 864 (where we could pass whole userArgs class to one \u0027verify-all\u0027 function and verify the fields there) BUT to still have it efficient and readable for other calls (for example @ line 1105, where we verify only some of the properties and they are not passed as object members).",
+      "parentUuid": "dea18e08_17a7d1c6",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "a2de6035d6ee93d1f684c9bc3cf95abc5df2feff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f746284_00ced48a",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 19
