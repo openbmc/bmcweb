@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55e48743_2d445a53",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:29:47Z",
+      "side": 1,
+      "message": "yep.  It prints the whole thing.",
+      "parentUuid": "13895da4_4da57c36",
+      "range": {
+        "startLine": 181,
+        "startChar": 68,
+        "endLine": 181,
+        "endChar": 72
+      },
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73df99d1_d3fa3736",
         "filename": "http/utility.hpp",
         "patchSetId": 7
@@ -37,6 +61,24 @@
       "writtenOn": "2023-08-17T21:01:15Z",
       "side": 1,
       "message": "before this was (urlView.scheme() \u003d\u003d \"snmp\"), \n(protocol \u003d\u003d \"SNMPv2c\") is effectively the same check ?",
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92753b16_05397062",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:29:47Z",
+      "side": 1,
+      "message": "The intent here is that if the user omits the protocol, we try to do the right thing.\n\nProtocol: \"SNMPv2c\"\nDestination: 10.0.0.0\n\nShould end up the same as:\nDestination: snmp://10.0.0.0\n\nBecause redfish isn\u0027t super clear on this, so we need to accept any variation to stay compatible.\n\nThe reason for the difference I think is that we\u0027re now relying more on the normalized url than actually returning a value from this method.",
+      "parentUuid": "73df99d1_d3fa3736",
       "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
