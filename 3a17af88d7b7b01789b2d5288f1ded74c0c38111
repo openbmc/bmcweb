@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "576f3c18_fef8a22f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "pass string_views by value.",
+      "range": {
+        "startLine": 50,
+        "startChar": 21,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfd7345b_e7d73f46",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "Each of these verify\u003cx\u003e functions is identical (with an exception or two for mismatched param names.)\n\nCan we just pass in the name of the argument, and have;\n\nVerifyParameter(res, ec, errorMessage, paramName, value;\n\nand deduplicate most of these?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 1
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e99a6c8_f3a6eac1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "Each of these is checking against an error message that doesn\u0027t really follow the phosphor-dbus-interfaces naming convention, which would start with xyz.X.X.  I also don\u0027t see any errors called out here:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Telemetry/ReportManager.interface.yaml\n\nWhat am i missing?",
+      "range": {
+        "startLine": 147,
+        "startChar": 25,
+        "endLine": 147,
+        "endChar": 38
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c8ab185_716b1280",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "Please don\u0027t use starts_with.  this is called out in the coding standard.",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 53
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5367cd48_df1e96b1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "Why do we create an empty array just do dump it?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 67
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcb1e1e7_f649b3dd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "Isn\u0027t this no longer correct if we\u0027re calling verify() in multiple places?",
+      "range": {
+        "startLine": 180,
+        "startChar": 41,
+        "endLine": 180,
+        "endChar": 63
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7fda368_5541bec7",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "nit, please put each of these on their own line with their own branch.",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 881,
+        "endChar": 13
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94304bc1_62dcfbdf",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "Wouldn\u0027t the error here be a normal \"path doesn\u0027t exist\" error?  Rather than one that returns the ID?",
+      "range": {
+        "startLine": 1394,
+        "startChar": 13,
+        "endLine": 1394,
+        "endChar": 74
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

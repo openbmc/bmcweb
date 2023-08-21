@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e0a5fc3_b12a71e7",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T18:20:32Z",
+      "side": 1,
+      "message": "If you look at the flow here, every verifyX() method has this branch \"ec \u003d\u003d boost::system::errc::invalid_argument\"  Which duplicates a lot of code.\n\nWhat if we did something like\n\n\nif (ec \u003d\u003d  boost::system::errc::invalid_argument){\n   std::string_view name \u003d getErrorMessage();\n   if (name \u003d\u003d \"Name\"){\n       messages::propertyValueIncorrect(res, *name, name);\n   } else if (name \u003d\u003d \"ReportingType\"){\n       messages::propertyValueIncorrect(res, *reportingType, name);\n   }\n}\n\nIn a single method.  That would reduce the code quite a bit.",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 62
+      },
+      "revId": "dbd0abca4f56b51ab824660c35595a63678154ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
