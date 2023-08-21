@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed1eb409_25a3701e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-08-21T20:27:37Z",
+      "side": 1,
+      "message": "Title seems to have been missed.",
+      "revId": "30268d15214e5417a4385660feae9f3a885fec4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44e4c4f6_c9db85fd",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2023-08-21T20:27:37Z",
+      "side": 1,
+      "message": "Looks like a space got added by mistake.\nCould you please remove it ?",
+      "range": {
+        "startLine": 1852,
+        "startChar": 41,
+        "endLine": 1852,
+        "endChar": 42
+      },
+      "revId": "30268d15214e5417a4385660feae9f3a885fec4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
