@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfc9032c_f73a4e3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T17:56:57Z",
+      "side": 1,
+      "message": "This is going to conflict heavily with getting: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65640\n\nBack on master.  I\u0027m not sure what the expectation is here.",
+      "revId": "1b421d73cc755e0be033bd1211bc23110e81f958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cac4153_b1c541ca",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-21T17:56:57Z",
+      "side": 1,
+      "message": "Why clear before swap?\n\nAlso, i suspect you\u0027d rather\n\nif (usergroups){\n    req.session-\u003euserGroups \u003d std::move(*userGroups);\n}",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "1b421d73cc755e0be033bd1211bc23110e81f958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
