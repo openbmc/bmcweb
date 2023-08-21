@@ -1816,7 +1816,7 @@ nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length)
 void arraySizeTooLong(crow::Response& res, std::string_view property,
                       uint64_t length)
 {
-    res.result(boost::beast::http::status::method_not_allowed);
+    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, arraySizeTooLong(property, length));
 }
 
