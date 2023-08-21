@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf776073_4c923cba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-21T21:16:49Z",
+      "side": 1,
+      "message": "I am just slightly concerned with this breaking something, but I\u0027ll leave it up to you as the maintainer how much testing vs risk you want here.",
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13895da4_4da57c36",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -48,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a578c31_be437081",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-21T21:16:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "55e48743_2d445a53",
+      "range": {
+        "startLine": 181,
+        "startChar": 68,
+        "endLine": 181,
+        "endChar": 72
+      },
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73df99d1_d3fa3736",
@@ -79,6 +120,24 @@
       "side": 1,
       "message": "The intent here is that if the user omits the protocol, we try to do the right thing.\n\nProtocol: \"SNMPv2c\"\nDestination: 10.0.0.0\n\nShould end up the same as:\nDestination: snmp://10.0.0.0\n\nBecause redfish isn\u0027t super clear on this, so we need to accept any variation to stay compatible.\n\nThe reason for the difference I think is that we\u0027re now relying more on the normalized url than actually returning a value from this method.",
       "parentUuid": "73df99d1_d3fa3736",
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e96c81c_c79d4b01",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-21T21:16:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "92753b16_05397062",
       "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
