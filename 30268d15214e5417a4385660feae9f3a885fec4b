@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7599d6d0_4c72ba91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-21T21:13:17Z",
+      "side": 1,
+      "message": "Yes, please follow https://cbea.ms/git-commit/\n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "parentUuid": "ed1eb409_25a3701e",
+      "revId": "30268d15214e5417a4385660feae9f3a885fec4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44e4c4f6_c9db85fd",
         "filename": "redfish-core/src/error_messages.cpp",
         "patchSetId": 1
