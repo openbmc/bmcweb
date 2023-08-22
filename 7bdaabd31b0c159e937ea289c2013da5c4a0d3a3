@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26a042f4_9a7c940e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T22:04:20Z",
+      "side": 1,
+      "message": "I tested aggregation and that looked good https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65645/comments/b56e14e7_48c132ef",
+      "parentUuid": "5dd38caf_45ef2bb1",
+      "revId": "7bdaabd31b0c159e937ea289c2013da5c4a0d3a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13895da4_4da57c36",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
