@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b56e14e7_48c132ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T21:57:49Z",
+      "side": 1,
+      "message": "I tested aggregation with debug level logging and didn\u0027t encounter any issues.  The 3 types of aggregation queries still worked and so did aggregated $expand.",
+      "revId": "5df0820f7fa5f4232c65ee827d1be06ccb8ea550",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
