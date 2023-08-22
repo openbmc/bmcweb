@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "023c3b3b_14db4ee9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T20:57:22Z",
+      "side": 1,
+      "message": "nit, \"resolve: {}\"",
+      "range": {
+        "startLine": 168,
+        "startChar": 36,
+        "endLine": 168,
+        "endChar": 46
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b790f18b_db884834",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T20:57:22Z",
+      "side": 1,
+      "message": "nit, this needs to be changed to id",
+      "range": {
+        "startLine": 722,
+        "startChar": 52,
+        "endLine": 722,
+        "endChar": 59
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f67d04ad_d2ed5279",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T20:57:22Z",
+      "side": 1,
+      "message": "nit, this needs to be id",
+      "range": {
+        "startLine": 752,
+        "startChar": 29,
+        "endLine": 752,
+        "endChar": 35
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9144b5f7_b45e866c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T20:57:22Z",
+      "side": 1,
+      "message": "nit, this needs to be id",
+      "range": {
+        "startLine": 760,
+        "startChar": 29,
+        "endLine": 760,
+        "endChar": 35
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a260e9_cff0ccca",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-22T20:57:22Z",
+      "side": 1,
+      "message": "This needs query handling like above at line 733",
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
