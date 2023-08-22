@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92ddb63_f6553235",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-22T22:43:55Z",
+      "side": 1,
+      "message": "looks like you need to get added to your companies CLA.",
+      "revId": "20e0fb92826869c35483e07c9d2e8dd2704a0876",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
