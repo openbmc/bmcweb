@@ -118,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1cfa179_8929a5be",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-22T20:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f67d04ad_d2ed5279",
+      "range": {
+        "startLine": 752,
+        "startChar": 29,
+        "endLine": 752,
+        "endChar": 35
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9144b5f7_b45e866c",
@@ -141,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68d7f6f6_565b08d4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-22T20:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9144b5f7_b45e866c",
+      "range": {
+        "startLine": 760,
+        "startChar": 29,
+        "endLine": 760,
+        "endChar": 35
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66a260e9_cff0ccca",
@@ -154,6 +202,24 @@
       "writtenOn": "2023-08-22T20:57:22Z",
       "side": 1,
       "message": "This needs query handling like above at line 733",
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0155a1_e1da2f27",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-22T20:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66a260e9_cff0ccca",
       "revId": "813b939748da9aa319576f648a24b2617fce13d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
