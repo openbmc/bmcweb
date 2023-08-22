@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c497056_c7dfe329",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-08-22T14:54:08Z",
+      "side": 1,
+      "message": "I am not sure if name is necessary, and that\u0027s one extra thing to pass.",
+      "parentUuid": "dfd7345b_e7d73f46",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 1
+      },
+      "revId": "3a17af88d7b7b01789b2d5288f1ded74c0c38111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e99a6c8_f3a6eac1",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 26

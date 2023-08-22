@@ -22,6 +22,30 @@
       },
       "revId": "dbd0abca4f56b51ab824660c35595a63678154ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af1565da_d132508c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001757
+      },
+      "writtenOn": "2023-08-22T14:54:08Z",
+      "side": 1,
+      "message": "Right - I am working on this, the challenge is to make it work also with non-string parameters (appendLimit, reportActions). They all are eventually made string for message function - either we can cast them to string in calling context (but make it even more unreadable) or make verifyParameter agnostic of \u0027parameter\u0027 type  and deduce the type from errorMessage, but not sure about that (I have done this using template, not tested yet).",
+      "parentUuid": "9e0a5fc3_b12a71e7",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 62
+      },
+      "revId": "dbd0abca4f56b51ab824660c35595a63678154ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
