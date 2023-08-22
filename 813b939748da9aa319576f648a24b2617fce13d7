@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bc08d7a_5f187302",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-22T20:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "023c3b3b_14db4ee9",
+      "range": {
+        "startLine": 168,
+        "startChar": 36,
+        "endLine": 168,
+        "endChar": 46
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b790f18b_db884834",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-08-22T20:57:22Z",
       "side": 1,
       "message": "nit, this needs to be changed to id",
+      "range": {
+        "startLine": 722,
+        "startChar": 52,
+        "endLine": 722,
+        "endChar": 59
+      },
+      "revId": "813b939748da9aa319576f648a24b2617fce13d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de97673_c4f43c02",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-22T20:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b790f18b_db884834",
       "range": {
         "startLine": 722,
         "startChar": 52,
