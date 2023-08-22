@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "228c1786_2095c209",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2023-08-22T00:09:22Z",
+      "side": 1,
+      "message": "Yeah, feel free to say no to this commit. It\u0027s definitely a low-priority/subjective refactoring.",
+      "parentUuid": "bfc9032c_f73a4e3d",
+      "revId": "1b421d73cc755e0be033bd1211bc23110e81f958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cac4153_b1c541ca",
