@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7572a43b_6f700f19",
+        "filename": "include/kvm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-23T17:10:00Z",
+      "side": 1,
+      "message": "Looks like you missed this one?",
+      "range": {
+        "startLine": 125,
+        "startChar": 37,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "48907f8833bca724a27f1f4f9a5ba1d0065892b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
