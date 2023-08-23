@@ -14,7 +14,7 @@ namespace obmc_kvm
 
 static constexpr const uint maxSessions = 4;
 
-class KvmSession
+class KvmSession : public std::enable_shared_from_this<KvmSession>
 {
   public:
     explicit KvmSession(crow::websocket::Connection& connIn) :
@@ -71,7 +71,13 @@ class KvmSession
                          bytes);
         hostSocket.async_read_some(
             outputBuffer.prepare(outputBuffer.capacity() - outputBuffer.size()),
-            [this](const boost::system::error_code& ec, std::size_t bytesRead) {
+            [this, weak(weak_from_this())](const boost::system::error_code& ec,
+                                           std::size_t bytesRead) {
+            auto self = weak.lock();
+            if (self == nullptr)
+            {
+                return;
+            }
             BMCWEB_LOG_DEBUG("conn:{}, read done.  Read {} bytes",
                              logPtr(&conn), bytesRead);
             if (ec)
@@ -151,7 +157,7 @@ class KvmSession
 };
 
 using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
-                                              std::unique_ptr<KvmSession>>;
+                                              std::shared_ptr<KvmSession>>;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
@@ -171,7 +177,7 @@ inline void requestRoutes(App& app)
                 return;
             }
 
-            sessions[&conn] = std::make_unique<KvmSession>(conn);
+            sessions[&conn] = std::make_shared<KvmSession>(conn);
         })
         .onclose([](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
