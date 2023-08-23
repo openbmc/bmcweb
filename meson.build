@@ -10,7 +10,7 @@ project(
         'b_ndebug=if-release',
         'buildtype=debugoptimized',
         'cpp_rtti=false',
-        'cpp_std=c++20',
+        'cpp_std=c++23',
         'warning_level=3',
         'werror=true',
     ],
@@ -25,8 +25,8 @@ summary('Issues', project_issues_url, section: 'Report Issues')
 
 # Validate the c++ Standard
 
-if get_option('cpp_std') != 'c++20'
-    error('This project requires c++20 support')
+if get_option('cpp_std') != 'c++23'
+    error('This project requires c++23 support')
 endif
 
 # Get compiler and default build type
