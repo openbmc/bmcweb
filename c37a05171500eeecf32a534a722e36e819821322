@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19b9cb0c_3cb6fa8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-23T20:58:22Z",
+      "side": 1,
+      "message": "opps, I should have said: \nThis appears to be fixing a regression",
+      "parentUuid": "7491bdcc_c42a8c07",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "948e9c6c_349989fb",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 1
