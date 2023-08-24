@@ -197,6 +197,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70f1d2e3_8ea6a086",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T18:19:31Z",
+      "side": 1,
+      "message": "Have you engaged Redfish about making this readwrite? If not, can you please do that \n\n                \"IntrusionSensorReArm\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/IntrusionSensorReArm\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"description\": \"The policy that describes how the physical security state of the chassis returns to a normal state.\",\n                    \"longDescription\": \"This property shall contain the policy that describes how the IntrusionSensor property returns to the `Normal` value.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_1_0\"\n                }\n            },",
+      "parentUuid": "d448d70f_2cf2aca3",
+      "range": {
+        "startLine": 181,
+        "startChar": 54,
+        "endLine": 181,
+        "endChar": 74
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a04dff5_a785ce84",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
