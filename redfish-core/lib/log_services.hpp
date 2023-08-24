@@ -3778,6 +3778,7 @@ inline void requestRoutesPostCodesClear(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
+            messages::success(asyncResp->res);
             },
             "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
