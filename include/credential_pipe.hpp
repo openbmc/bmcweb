@@ -1,0 +1,54 @@
+#pragma once
+
+#include <boost/asio/buffer.hpp>
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/write.hpp>
+#include <boost/process/async_pipe.hpp>
+
+#include <array>
+#include <string>
+
+// Wrapper for boost::async_pipe ensuring proper pipe cleanup
+class CredentialsPipe
+{
+  public:
+    CredentialsPipe(boost::asio::io_context& io) : impl(io) {}
+
+    CredentialsPipe(const CredentialsPipe&) = delete;
+    CredentialsPipe(CredentialsPipe&&) = delete;
+    CredentialsPipe& operator=(const CredentialsPipe&) = delete;
+    CredentialsPipe& operator=(CredentialsPipe&&) = delete;
+
+    ~CredentialsPipe()
+    {
+        explicit_bzero(user.data(), user.capacity());
+        explicit_bzero(pass.data(), pass.capacity());
+    }
+
+    int fd() const
+    {
+        return impl.native_source();
+    }
+
+    template <typename WriteHandler>
+    void asyncWrite(std::string&& username, std::string&& password,
+                    WriteHandler&& handler)
+    {
+        user = std::move(username);
+        pass = std::move(password);
+        explicit_bzero(username.data(), username.capacity());
+        explicit_bzero(password.data(), password.capacity());
+
+        // Add +1 to ensure that the null terminator is included.
+        std::array<boost::asio::const_buffer, 2> buffer{
+            {{user.data(), user.size() + 1}, {pass.data(), pass.size() + 1}}};
+        boost::asio::async_write(impl, buffer,
+                                 std::forward<WriteHandler>(handler));
+    }
+
+    boost::process::async_pipe impl;
+
+  private:
+    std::string user;
+    std::string pass;
+};
