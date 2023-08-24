@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87ab5183_fa515fff",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:33:53Z",
+      "side": 1,
+      "message": "Seems to sill be applicable, but i opened a new comment for that.",
+      "parentUuid": "6c6bb868_68f608aa",
+      "range": {
+        "startLine": 753,
+        "startChar": 4,
+        "endLine": 753,
+        "endChar": 36
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9180dde9_286ebe25",
@@ -289,6 +313,30 @@
       "side": 1,
       "message": "Done and in this file I also changed the other instance of the check after calling lseek().",
       "parentUuid": "f2e228b3_ff67fb7e",
+      "range": {
+        "startLine": 773,
+        "startChar": 8,
+        "endLine": 773,
+        "endChar": 18
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf99a834_4aa41254",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:33:53Z",
+      "side": 1,
+      "message": "sorry, I told you the wrong thing here.  should be \u003c\u003d",
+      "parentUuid": "e58ee267_9c8597ff",
       "range": {
         "startLine": 773,
         "startChar": 8,
