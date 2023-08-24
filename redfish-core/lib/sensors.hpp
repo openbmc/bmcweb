@@ -971,7 +971,7 @@ inline void objectPropertiesToJson(
 inline void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
     const std::string& chassisSubNode,
-    const dbus::utility::DBusInteracesMap& interfacesDict,
+    const dbus::utility::DBusInterfacesMap& interfacesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
     for (const auto& [interface, valuesDict] : interfacesDict)
@@ -1304,7 +1304,7 @@ inline void addInventoryItem(
  */
 inline void storeInventoryItemData(
     InventoryItem& inventoryItem,
-    const dbus::utility::DBusInteracesMap& interfacesDict)
+    const dbus::utility::DBusInterfacesMap& interfacesDict)
 {
     // Get properties from Inventory.Item interface
 

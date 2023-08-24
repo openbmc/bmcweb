@@ -2009,11 +2009,12 @@ inline void
             return;
         }
         const auto userIt = std::ranges::find_if(
-            users, [accountName](
-                       const std::pair<sdbusplus::message::object_path,
-                                       dbus::utility::DBusInteracesMap>& user) {
-                return accountName == user.first.filename();
-            });
+            users,
+            [accountName](
+                const std::pair<sdbusplus::message::object_path,
+                                dbus::utility::DBusInterfacesMap>& user) {
+            return accountName == user.first.filename();
+        });
 
         if (userIt == users.end())
         {

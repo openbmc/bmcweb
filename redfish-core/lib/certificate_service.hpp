@@ -819,7 +819,7 @@ inline void
             return;
         }
 
-        dbus::utility::DBusInteracesMap interfacesProperties;
+        dbus::utility::DBusInterfacesMap interfacesProperties;
 
         sdbusplus::message::object_path csrObjectPath;
         m.read(csrObjectPath, interfacesProperties);

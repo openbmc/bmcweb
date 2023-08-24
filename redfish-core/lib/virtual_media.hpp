@@ -87,7 +87,7 @@ using CheckItemHandler =
     std::function<void(const std::string& service, const std::string& resName,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
                        const std::pair<sdbusplus::message::object_path,
-                                       dbus::utility::DBusInteracesMap>&)>;
+                                       dbus::utility::DBusInterfacesMap>&)>;
 
 inline void
     findAndParseObject(const std::string& service, const std::string& resName,
@@ -150,7 +150,7 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
  * @brief Read all known properties from VM object interfaces
  */
 inline void
-    vmParseInterfaceObject(const dbus::utility::DBusInteracesMap& interfaces,
+    vmParseInterfaceObject(const dbus::utility::DBusInterfacesMap& interfaces,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     for (const auto& [interface, values] : interfaces)
@@ -310,7 +310,7 @@ inline void
                    const std::string& resName,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::pair<sdbusplus::message::object_path,
-                                   dbus::utility::DBusInteracesMap>& item)
+                                   dbus::utility::DBusInterfacesMap>& item)
 {
     VmMode mode = parseObjectPathAndGetMode(item.first, resName);
     if (mode == VmMode::Invalid)
