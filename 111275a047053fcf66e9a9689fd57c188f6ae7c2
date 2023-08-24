@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e9b085_3c9d07e0",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T16:44:43Z",
+      "side": 1,
+      "message": "Documented common error.  you\u0027re recreating functions that already exists in sensor.hpp.  please look at how the existing sensor things determine this, and make yours similar.",
+      "range": {
+        "startLine": 23,
+        "startChar": 23,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88a7da1f_eda53b70",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T16:44:43Z",
+      "side": 1,
+      "message": "nit, handle, not handler",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee4fd1e0_60210f5c",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T16:44:43Z",
+      "side": 1,
+      "message": "Common error.  Non trivial lambda",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0371a87c_62901c7d",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T16:44:43Z",
+      "side": 1,
+      "message": "This should only be looking under the appropriate type in the object path.",
+      "range": {
+        "startLine": 91,
+        "startChar": 41,
+        "endLine": 91,
+        "endChar": 69
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
