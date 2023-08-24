@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a28f3467_384e742b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T19:06:03Z",
+      "side": 1,
+      "message": "Can you add links to the original commit and the revert \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/43027/16\nand \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/65640",
+      "revId": "da7628415c4786b2c860704b2e9838b2530853bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39f98f6_cc9adb0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T19:06:03Z",
+      "side": 1,
+      "message": "I think you at least need changes to config/bmcweb.service.in but that didn\u0027t fix the issue completely when I tested with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65641\n\nWIP until that can be resolved ?",
+      "revId": "da7628415c4786b2c860704b2e9838b2530853bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
