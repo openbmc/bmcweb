@@ -18,6 +18,7 @@
 #include "account_service.hpp"
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "credential_pipe.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/virtual_media.hpp"
 #include "query.hpp"
@@ -442,140 +443,6 @@ struct InsertMediaActionParams
     std::optional<bool> inserted;
 };
 
-template <typename T>
-static void secureCleanup(T& value)
-{
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    auto raw = const_cast<typename T::value_type*>(value.data());
-    explicit_bzero(raw, value.size() * sizeof(*raw));
-}
-
-class Credentials
-{
-  public:
-    Credentials(std::string&& user, std::string&& password) :
-        userBuf(std::move(user)), passBuf(std::move(password))
-    {}
-
-    ~Credentials()
-    {
-        secureCleanup(userBuf);
-        secureCleanup(passBuf);
-    }
-
-    const std::string& user()
-    {
-        return userBuf;
-    }
-
-    const std::string& password()
-    {
-        return passBuf;
-    }
-
-    Credentials() = delete;
-    Credentials(const Credentials&) = delete;
-    Credentials& operator=(const Credentials&) = delete;
-    Credentials(Credentials&&) = delete;
-    Credentials& operator=(Credentials&&) = delete;
-
-  private:
-    std::string userBuf;
-    std::string passBuf;
-};
-
-class CredentialsProvider
-{
-  public:
-    template <typename T>
-    struct Deleter
-    {
-        void operator()(T* buff) const
-        {
-            if (buff)
-            {
-                secureCleanup(*buff);
-                delete buff;
-            }
-        }
-    };
-
-    using Buffer = std::vector<char>;
-    using SecureBuffer = std::unique_ptr<Buffer, Deleter<Buffer>>;
-    // Using explicit definition instead of std::function to avoid implicit
-    // conversions eg. stack copy instead of reference
-    using FormatterFunc = void(const std::string& username,
-                               const std::string& password, Buffer& dest);
-
-    CredentialsProvider(std::string&& user, std::string&& password) :
-        credentials(std::move(user), std::move(password))
-    {}
-
-    const std::string& user()
-    {
-        return credentials.user();
-    }
-
-    const std::string& password()
-    {
-        return credentials.password();
-    }
-
-    SecureBuffer pack(FormatterFunc* formatter)
-    {
-        SecureBuffer packed{new Buffer{}};
-        if (formatter != nullptr)
-        {
-            formatter(credentials.user(), credentials.password(), *packed);
-        }
-
-        return packed;
-    }
-
-  private:
-    Credentials credentials;
-};
-
-// Wrapper for boost::async_pipe ensuring proper pipe cleanup
-class SecurePipe
-{
-  public:
-    using unix_fd = sdbusplus::message::unix_fd;
-
-    SecurePipe(boost::asio::io_context& io,
-               CredentialsProvider::SecureBuffer&& bufferIn) :
-        impl(io),
-        buffer{std::move(bufferIn)}
-    {}
-
-    ~SecurePipe()
-    {
-        // Named pipe needs to be explicitly removed
-        impl.close();
-    }
-
-    SecurePipe(const SecurePipe&) = delete;
-    SecurePipe(SecurePipe&&) = delete;
-    SecurePipe& operator=(const SecurePipe&) = delete;
-    SecurePipe& operator=(SecurePipe&&) = delete;
-
-    unix_fd fd() const
-    {
-        return unix_fd{impl.native_source()};
-    }
-
-    template <typename WriteHandler>
-    void asyncWrite(WriteHandler&& handler)
-    {
-        impl.async_write_some(boost::asio::buffer(*buffer),
-                              std::forward<WriteHandler>(handler));
-    }
-
-    const std::string name;
-    boost::process::async_pipe impl;
-    CredentialsProvider::SecureBuffer buffer;
-};
-
 /**
  * @brief Function transceives data with dbus directly.
  *
@@ -583,54 +450,46 @@ class SecurePipe
  */
 inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& service, const std::string& name,
-                            const std::string& imageUrl, const bool rw,
+                            const std::string& imageUrl, bool rw,
                             std::string&& userName, std::string&& password)
 {
-    constexpr const size_t secretLimit = 1024;
-
-    std::shared_ptr<SecurePipe> secretPipe;
-    dbus::utility::DbusVariantType unixFd = -1;
-
+    int fd = -1;
+    std::shared_ptr<CredentialsPipe> secretPipe;
     if (!userName.empty() || !password.empty())
     {
-        // Encapsulate in safe buffer
-        CredentialsProvider credentials(std::move(userName),
-                                        std::move(password));
-
         // Payload must contain data + NULL delimiters
-        if (credentials.user().size() + credentials.password().size() + 2 >
-            secretLimit)
+        constexpr const size_t secretLimit = 1024;
+        if (userName.size() + password.size() + 2 > secretLimit)
         {
             BMCWEB_LOG_ERROR("Credentials too long to handle");
             messages::unrecognizedRequestBody(asyncResp->res);
             return;
         }
 
-        // Pack secret
-        auto secret = credentials.pack(
-            [](const auto& user, const auto& pass, auto& buff) {
-            std::ranges::copy(user, std::back_inserter(buff));
-            buff.push_back('\0');
-            std::ranges::copy(pass, std::back_inserter(buff));
-            buff.push_back('\0');
-        });
-
         // Open pipe
-        secretPipe = std::make_shared<SecurePipe>(
-            crow::connections::systemBus->get_io_context(), std::move(secret));
-        unixFd = secretPipe->fd();
+        secretPipe = std::make_shared<CredentialsPipe>(
+            crow::connections::systemBus->get_io_context());
+        fd = secretPipe->fd();
 
         // Pass secret over pipe
         secretPipe->asyncWrite(
-            [asyncResp](const boost::system::error_code& ec, std::size_t) {
+            std::move(userName), std::move(password),
+            [asyncResp, secretPipe](const boost::system::error_code& ec,
+                                    std::size_t) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("Failed to pass secret: {}", ec);
                 messages::internalError(asyncResp->res);
             }
-        });
+            });
     }
 
+    dbus::utility::DbusVariantType unixFd(
+        std::in_place_type<sdbusplus::message::unix_fd>, fd);
+
+    sdbusplus::message::object_path path(
+        "/xyz/openbmc_project/VirtualMedia/Legacy");
+    path /= name;
     crow::connections::systemBus->async_method_call(
         [asyncResp, secretPipe](const boost::system::error_code& ec,
                                 bool success) {
@@ -638,16 +497,16 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
             messages::internalError(asyncResp->res);
+            return;
         }
-        else if (!success)
+        if (!success)
         {
             BMCWEB_LOG_ERROR("Service responded with error");
-            messages::generalError(asyncResp->res);
+            messages::internalError(asyncResp->res);
         }
         },
-        service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
-        "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw,
-        unixFd);
+        service, path.str, "xyz.openbmc_project.VirtualMedia.Legacy", "Mount",
+        imageUrl, rw, unixFd);
 }
 
 /**
