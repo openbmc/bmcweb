@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3b39b2d_0f1c2447",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T18:17:48Z",
+      "side": 1,
+      "message": "Can you use a more descriptive name here?",
+      "range": {
+        "startLine": 51,
+        "startChar": 47,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356d57d8_1efdcaab",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T18:17:48Z",
+      "side": 1,
+      "message": "isn\u0027t there a more descriptive name you could use here?",
+      "range": {
+        "startLine": 253,
+        "startChar": 51,
+        "endLine": 253,
+        "endChar": 55
+      },
+      "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
