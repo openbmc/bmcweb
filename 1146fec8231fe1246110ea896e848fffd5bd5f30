@@ -45,6 +45,29 @@
       },
       "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f82b7211_907942da",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T18:45:21Z",
+      "side": 1,
+      "message": "This lambda is huge, which is disallowed in the coding standard.  Please make it a normal method.  If that requires a refactor of the existing code, please do it in a patch before this one.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 13
+      },
+      "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
