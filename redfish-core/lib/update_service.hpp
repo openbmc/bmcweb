@@ -83,7 +83,7 @@ static void
     softwareInterfaceAdded(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            sdbusplus::message_t& m, task::Payload&& payload)
 {
-    dbus::utility::DBusInteracesMap interfacesProperties;
+    dbus::utility::DBusInterfacesMap interfacesProperties;
 
     sdbusplus::message::object_path objPath;
 
@@ -330,7 +330,7 @@ inline void
     afterUpdateErrorMatcher(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& url, sdbusplus::message_t& m)
 {
-    dbus::utility::DBusInteracesMap interfacesProperties;
+    dbus::utility::DBusInterfacesMap interfacesProperties;
     sdbusplus::message::object_path objPath;
     m.read(objPath, interfacesProperties);
     BMCWEB_LOG_DEBUG("obj path = {}", objPath.str);

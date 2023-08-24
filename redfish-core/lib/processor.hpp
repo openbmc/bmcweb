@@ -78,7 +78,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
 inline void getCpuDataByInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const dbus::utility::DBusInteracesMap& cpuInterfacesProperties)
+    const dbus::utility::DBusInterfacesMap& cpuInterfacesProperties)
 {
     BMCWEB_LOG_DEBUG("Get CPU resources by interface.");
 
