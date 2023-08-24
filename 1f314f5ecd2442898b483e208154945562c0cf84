@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b70c8a_5a89d5da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T18:51:33Z",
+      "side": 1,
+      "message": "But, we need to be consistent with Redfish here, not bios-settings-manager.",
+      "parentUuid": "4f7b2c46_002be1b8",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "45c70982_23ddeb40",
@@ -412,6 +430,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "2dfeadf8_77f4a7ce",
+      "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "112b0219_848ca6ad",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T18:51:33Z",
+      "side": 1,
+      "message": "and will return an error.  That doesn\u0027t seem in line with how we manage multiple implementations.",
+      "parentUuid": "971832a9_f6943f81",
       "revId": "1f314f5ecd2442898b483e208154945562c0cf84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
