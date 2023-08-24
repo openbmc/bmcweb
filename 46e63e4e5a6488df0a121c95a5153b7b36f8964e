@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623e9d9f_40a1c70d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "If we use boost::beast::file_posix here, we avoid a lot of calls to close() in all the error cases.  Something to consider.\nhttps://www.boost.org/doc/libs/1_82_0/libs/beast/doc/html/beast/ref/boost__beast__file_posix.html\n\n\nAt some point https://gerrit.openbmc.org/c/openbmc/bmcweb/+/35992 will go in, and that will simplify this code quite a bit.",
+      "range": {
+        "startLine": 708,
+        "startChar": 4,
+        "endLine": 708,
+        "endChar": 7
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da69810_28be2810",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "This doesn\u0027t look used anymore?",
+      "range": {
+        "startLine": 736,
+        "startChar": 22,
+        "endLine": 736,
+        "endChar": 26
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45dccc5a_c9bcf3e1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "\"param\" needs a better name.  EntryID, then change line 772 to \"entryIdEscaped\"?",
+      "range": {
+        "startLine": 763,
+        "startChar": 41,
+        "endLine": 763,
+        "endChar": 46
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "737f70d7_94e38471",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "New code should be using object_path operator /\u003d to escape dbus paths.",
+      "range": {
+        "startLine": 773,
+        "startChar": 0,
+        "endLine": 773,
+        "endChar": 46
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2901ec_2c77a4cd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "Please make a normal method (probably just roll the error handling into downloadDumpEntryCallback).",
+      "range": {
+        "startLine": 777,
+        "startChar": 0,
+        "endLine": 789,
+        "endChar": 53
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd7a6fc0_89197aa1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "See above.  Please use object_path for constructing dbus paths in new code.",
+      "range": {
+        "startLine": 794,
+        "startChar": 8,
+        "endLine": 796,
+        "endChar": 19
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1f88c1_3fadeb40",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "\u003c\u003d\n\nI think?",
+      "range": {
+        "startLine": 2122,
+        "startChar": 21,
+        "endLine": 2122,
+        "endChar": 24
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d27f30_e5a7b43a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T19:31:57Z",
+      "side": 1,
+      "message": "this isn\u0027t a method in the redfish tree.  setupRedfishRoute is inappropriate.",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
