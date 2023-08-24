@@ -64,7 +64,7 @@ inline void
         BMCWEB_LOG_DEBUG("Match fired");
 
         sdbusplus::message::object_path path;
-        dbus::utility::DBusInteracesMap interfaces;
+        dbus::utility::DBusInterfacesMap interfaces;
         m.read(path, interfaces);
 
         if (std::ranges::find_if(interfaces, [](const auto& i) {

@@ -78,9 +78,10 @@ using DbusVariantType = std::variant<
 
 // clang-format on
 using DBusPropertiesMap = std::vector<std::pair<std::string, DbusVariantType>>;
-using DBusInteracesMap = std::vector<std::pair<std::string, DBusPropertiesMap>>;
+using DBusInterfacesMap =
+    std::vector<std::pair<std::string, DBusPropertiesMap>>;
 using ManagedObjectType =
-    std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
+    std::vector<std::pair<sdbusplus::message::object_path, DBusInterfacesMap>>;
 
 // Map of service name to list of interfaces
 using MapperServiceMap =
