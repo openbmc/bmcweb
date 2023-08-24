@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afdc533f_4c2c2124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T18:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19b9cb0c_3cb6fa8f",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "948e9c6c_349989fb",
@@ -143,6 +161,48 @@
       "side": 1,
       "message": "Didn\u0027t this break? Looking at \nhttps://github.com/openbmc/bmcweb/blob/62c416fb0d2f62e09d7f60754ff359ac2389e749/redfish-core/lib/led.hpp#L149 this is what was there \n \nhttps://github.com/openbmc/bmcweb/commit/9ae226fabb21700e6a73ef1d0a9d1cdead70fea5#diff-e14292d5fe8efb0930cb2ece745449d7ca5f4e680f087c3ecc6626ec4f1b1117 looks to have broke this, can you add that to the commit msg?",
       "parentUuid": "948e9c6c_349989fb",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27a9999_34824e8a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T18:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1264ac0b_15ef3ba4",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5246d801_01218b3d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-24T18:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e67408aa_5bf5e745",
+      "range": {
+        "startLine": 145,
+        "startChar": 57,
+        "endLine": 145,
+        "endChar": 62
+      },
       "revId": "c37a05171500eeecf32a534a722e36e819821322",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
