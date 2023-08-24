@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc9046df_9a97acda",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "093a2f48_43f67494",
+      "range": {
+        "startLine": 748,
+        "startChar": 51,
+        "endLine": 748,
+        "endChar": 56
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ceee7114_09a8340a",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-15T17:28:04Z",
       "side": 1,
       "message": "Please use std::filesystem::path::operator\\ for this so that we don\u0027t have problems in the case of unescapable paths.",
+      "range": {
+        "startLine": 753,
+        "startChar": 4,
+        "endLine": 753,
+        "endChar": 36
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c6bb868_68f608aa",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "No longer applicable after removing hardcoded path",
+      "parentUuid": "ceee7114_09a8340a",
       "range": {
         "startLine": 753,
         "startChar": 4,
@@ -105,6 +153,54 @@
         "startChar": 21,
         "endLine": 762,
         "endChar": 22
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91986ae5_dd348157",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "ACK although this is no longer relevant now that this section of code has been removed.",
+      "parentUuid": "9add2e6f_ed589cd6",
+      "range": {
+        "startLine": 762,
+        "startChar": 21,
+        "endLine": 762,
+        "endChar": 22
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56ac5bb_f76eea17",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "getDumpFiles() and Line 758 would\u0027ve already made us bail before this command if dumpFiles ended up being empty().  Double checking here isn\u0027t a bad idea.\n\nHowever, I\u0027ve since replaced all of this logic with opening a file handle provided by dbus so this is no longer relevant.",
+      "parentUuid": "9180dde9_286ebe25",
+      "range": {
+        "startLine": 762,
+        "startChar": 44,
+        "endLine": 762,
+        "endChar": 49
       },
       "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -179,6 +275,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e58ee267_9c8597ff",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "Done and in this file I also changed the other instance of the check after calling lseek().",
+      "parentUuid": "f2e228b3_ff67fb7e",
+      "range": {
+        "startLine": 773,
+        "startChar": 8,
+        "endLine": 773,
+        "endChar": 18
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46f2b2df_97f69714",
@@ -202,6 +322,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ce3844_89fa39f6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "Hmmm tough call.  I do normally prefer not duplicating code.  In this case I have a slight preference for immediately checking rc before doing anything else so I\u0027m going to leave it as is.",
+      "parentUuid": "46f2b2df_97f69714",
+      "range": {
+        "startLine": 808,
+        "startChar": 0,
+        "endLine": 808,
+        "endChar": 14
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d857f491_63376a49",
@@ -215,6 +359,54 @@
       "writtenOn": "2023-05-15T17:28:04Z",
       "side": 1,
       "message": "We\u0027re making several copies here.  Why aren\u0027t we just reading it directly into body?\n\nsomething like:\nres.body().resize(\u0027\\0\u0027, size);\nread(fd, res.body().data(), res.body().size());",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 32
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eafd3af_79c4324a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "Partially for readability and mostly to mirror the flow of https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L2056-L2063.",
+      "parentUuid": "d857f491_63376a49",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 32
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67e722b5_34e521f6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "Mostly I was trying to match the flow of an existing file retrieval endpoint https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1963-L2069.\n\nThe hope was after some refactoring we\u0027d be able to use a single function for retrieving a file from a provided file descriptor.  It\u0027d need to stay that way because the existing code section also needs to base64 encode the data it reads in.\n\nIt\u0027s not setting up as clean as I\u0027d like so I\u0027ve gone ahead and used your suggestion for reading directly into the body.  If you prefer then I\u0027ll do the refactor in this patch so that we don\u0027t end up with two chunks of similar code.",
+      "parentUuid": "d857f491_63376a49",
       "range": {
         "startLine": 810,
         "startChar": 0,
@@ -286,6 +478,30 @@
       "side": 1,
       "message": "\u003e In part I wanted handleLogServicesDumpEntryDownGet() to mirror the format we use for related uptree functions like handleLogServicesDumpEntryGet().\n\nIf we\u0027re duplicating code, there\u0027s no reason for it to be identical.\n\n\u003e \n\u003e We have two existing URIs for downloading attachments:\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1933\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L3993\n\u003e \n\u003e Those handlers have long lambda functions that we\u0027d want to get rid of anyway.  \n\n+ 1 million to shortening our long lambda methods.\n\n\u003e We\u0027re adding a third URI for downloading attachments.  The flows are similar enough that they should be able to reuse some of the same code.  I don\u0027t want to combine refactoring on top of adding new functionality so my thought was to lay some of the groundwork now to make future refactoring easier.\n\nI\u0027m not quite following, let me make sure I understand:\n1. This method is identical to the other method that does the same thing.\n2. At some point in the future, you\u0027ll move over those other two lambdas to use this method, so the arg will be neccesary then.\n\nIf my understanding is correct, then yes, it\u0027s fine.  Thank you for cleaning things up.\n\n\u003e \n\u003e Is that alright?  If not then I can remove this for now to streamline the patch a bit.\n\nNope, don\u0027t worry about it;  Now that I understand the plan, it\u0027s fine.",
       "parentUuid": "ed0b93e7_42381830",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a6ab852_e97d02fc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-24T19:17:37Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not quite following, let me make sure I understand:\n\u003e 1. This method is identical to the other method that does the same thing.\n\u003e 2. At some point in the future, you\u0027ll move over those other two lambdas to use this method, so the arg will be neccesary then.\n\nYeah that\u0027s pretty much it.  The method I\u0027m adding follows the same flow as the existing one that retrieves a file from a file descriptor.  The only real differences are in the log messages, arbitrary max size, and the existing flow needs to base64 encode the file before returning it.\n\nThis actually comes up in another comment thread here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61957/comment/d857f491_63376a49/.  I\u0027ll leave this open until it\u0027s decided whether or not to do refactoring in this patch so that there is only one method for dealing with file descriptors that gets used by two different endpoints",
+      "parentUuid": "c77932fb_2cc3b0ce",
       "range": {
         "startLine": 3040,
         "startChar": 67,
