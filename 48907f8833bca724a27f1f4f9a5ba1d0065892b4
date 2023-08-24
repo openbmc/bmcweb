@@ -46,6 +46,30 @@
       },
       "revId": "48907f8833bca724a27f1f4f9a5ba1d0065892b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6887aed_ce91b85f",
+        "filename": "include/kvm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-24T16:21:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bbfd5c7_115a036b",
+      "range": {
+        "startLine": 125,
+        "startChar": 37,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "48907f8833bca724a27f1f4f9a5ba1d0065892b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
