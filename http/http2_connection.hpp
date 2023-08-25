@@ -90,35 +90,35 @@ class HTTP2Connection :
     }
 
     static ssize_t fileReadCallback(nghttp2_session* /* session */,
-                                    int32_t /* stream_id */, uint8_t* buf,
+                                    int32_t stream_id, uint8_t* buf,
                                     size_t length, uint32_t* dataFlags,
-                                    nghttp2_data_source* source,
-                                    void* /*unused*/)
+                                    nghttp2_data_source* /*source*/,
+                                    void* userPtr)
     {
-        if (source == nullptr || source->ptr == nullptr)
+        auto& self = userPtrToSelf(userPtr);
+
+        auto stream = self.streams.find(stream_id);
+        if (stream == self.streams.end())
         {
-            BMCWEB_LOG_DEBUG("Source was null???");
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
-
+        Http2StreamData& str = stream->second;
         BMCWEB_LOG_DEBUG("File read callback length: {}", length);
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        Http2StreamData* str = reinterpret_cast<Http2StreamData*>(source->ptr);
-        crow::Response& res = str->res;
+        crow::Response& res = str.res;
 
         BMCWEB_LOG_DEBUG("total: {} send_sofar: {}", res.body().size(),
-                         str->sentSofar);
+                         str.sentSofar);
 
-        size_t toSend = std::min(res.body().size() - str->sentSofar, length);
+        size_t toSend = std::min(res.body().size() - str.sentSofar, length);
         BMCWEB_LOG_DEBUG("Copying {} bytes to buf", toSend);
 
         std::string::iterator bodyBegin = res.body().begin();
-        std::advance(bodyBegin, str->sentSofar);
+        std::advance(bodyBegin, str.sentSofar);
 
         memcpy(buf, &*bodyBegin, toSend);
-        str->sentSofar += toSend;
+        str.sentSofar += toSend;
 
-        if (str->sentSofar >= res.body().size())
+        if (str.sentSofar >= res.body().size())
         {
             BMCWEB_LOG_DEBUG("Setting OEF flag");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
@@ -146,9 +146,9 @@ class HTTP2Connection :
             close();
             return -1;
         }
-        Response& thisRes = it->second->res;
+        Response& thisRes = it->second.res;
         thisRes = std::move(completedRes);
-        crow::Request& thisReq = it->second->req;
+        crow::Request& thisReq = it->second.req;
         std::vector<nghttp2_nv> hdr;
 
         completeResponseFields(thisReq, thisRes);
@@ -162,13 +162,10 @@ class HTTP2Connection :
             hdr.emplace_back(
                 headerFromStringViews(header.name_string(), header.value()));
         }
-        Http2StreamData* streamPtr = it->second.get();
-        streamPtr->sentSofar = 0;
+        Http2StreamData& streamPtr = it->second;
+        streamPtr.sentSofar = 0;
 
         nghttp2_data_provider dataPrd{
-            .source{
-                .ptr = streamPtr,
-            },
             .read_callback = fileReadCallback,
         };
 
@@ -210,11 +207,11 @@ class HTTP2Connection :
             return -1;
         }
 
-        crow::Request& thisReq = it->second->req;
+        crow::Request& thisReq = it->second.req;
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
 
-        crow::Response& thisRes = it->second->res;
+        crow::Response& thisRes = it->second.res;
 
         thisRes.setCompleteRequestHandler(
             [this, streamId](Response& completeRes) {
@@ -226,7 +223,7 @@ class HTTP2Connection :
             }
         });
         auto asyncResp =
-            std::make_shared<bmcweb::AsyncResp>(std::move(it->second->res));
+            std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         handler->handle(thisReq, asyncResp);
 
         return 0;
@@ -326,7 +323,7 @@ class HTTP2Connection :
                     return -1;
                 }
 
-                crow::Request& thisReq = thisStream->second->req;
+                crow::Request& thisReq = thisStream->second.req;
 
                 if (nameSv == ":path")
                 {
@@ -394,13 +391,9 @@ class HTTP2Connection :
         {
             BMCWEB_LOG_DEBUG("create stream for id {}", frame.hd.stream_id);
 
-            std::pair<boost::container::flat_map<
-                          int32_t, std::unique_ptr<Http2StreamData>>::iterator,
-                      bool>
-                stream = streams.emplace(frame.hd.stream_id,
-                                         std::make_unique<Http2StreamData>());
+            Http2StreamData& stream = streams[frame.hd.stream_id];
             // http2 is by definition always tls
-            stream.first->second->req.isSecure = true;
+            stream.req.isSecure = true;
         }
         return 0;
     }
@@ -532,8 +525,7 @@ class HTTP2Connection :
     }
 
     // A mapping from http2 stream ID to Stream Data
-    boost::container::flat_map<int32_t, std::unique_ptr<Http2StreamData>>
-        streams;
+    boost::container::flat_map<int32_t, Http2StreamData> streams;
 
     boost::beast::multi_buffer sendBuffer;
     boost::beast::multi_buffer inBuffer;
