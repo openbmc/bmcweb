@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a74d78_fdc6b207",
+        "filename": "redfish-core/include/utils/extern/date.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-25T18:12:50Z",
+      "side": 1,
+      "message": "Does listing where this is from help? They should from the filepath it is external, might help though.\nA comment saying \"We pulled this from https://github.com/HowardHinnant/date/blob/master/include/date/date.h\"",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ecabc17_1c3a64d2",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-25T18:12:50Z",
+      "side": 1,
+      "message": "include memory \ninclude string_view",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c9b50d8_b9c8a2a1",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-25T18:12:50Z",
+      "side": 1,
+      "message": "#include \u003csstream\u003e",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
