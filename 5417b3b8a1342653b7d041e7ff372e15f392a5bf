@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f362c95c_fbacee8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "I added additional details into the testing section. I am uncertain if this addresses your comment.",
+      "parentUuid": "10bc9cd2_7c4f3866",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a88cfa3_0cf359d6",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 51
@@ -31,6 +49,30 @@
       "writtenOn": "2023-08-10T14:07:21Z",
       "side": 1,
       "message": "I think we can use `std::find_front()`.\n\n```\n    getLedGroupService(asyncResp, subtreePaths[0],std::bind_front(callback, subtreePaths[0]));\n```",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1da89c_40db9a09",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "As I mentioned earlier, I prefer not to use bind_front for the callback function to maintain better readability.",
+      "parentUuid": "1a88cfa3_0cf359d6",
       "range": {
         "startLine": 265,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "193d2b3e_052a2de8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "I prefer not to use bind_front for the callback function to maintain better readability.",
+      "parentUuid": "727547ff_6d781b2d",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 286,
+        "endChar": 11
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "944243ba_b2882337",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-08-10T14:07:21Z",
       "side": 1,
       "message": "Same here to use `std::bind_front()`",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57264a4b_3973ddaf",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "944243ba_b2882337",
       "range": {
         "startLine": 302,
         "startChar": 0,
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1376652c_b6fd8d2c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "387ca3cd_9ae4c8e6",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18628620_2ca4ec4c",
@@ -123,6 +237,24 @@
       "writtenOn": "2023-08-10T18:51:37Z",
       "side": 1,
       "message": "Why can\u0027t the Get Location Indicator be here ?\n\ngetLocationIndicatorActive(asyncResp, path);",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "332a6472_865b343b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "good idea, moved the code.",
+      "parentUuid": "18628620_2ca4ec4c",
       "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -144,6 +276,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c8af61_bf89fcea",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "The purpose is to log the ec. This helps debugging, \nE.g. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/63895",
+      "parentUuid": "be2e9e95_23415852",
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4158f34_b18c6ab3",
@@ -157,6 +307,30 @@
       "writtenOn": "2023-08-10T18:51:37Z",
       "side": 1,
       "message": "Aren\u0027t you still forcing a Inventory.Item.System on everyone? \nI am okay with on the Set, if you do but on the GET, I don\u0027t think you should force a Inventory.Item.System as talked about in discord",
+      "range": {
+        "startLine": 1862,
+        "startChar": 0,
+        "endLine": 1882,
+        "endChar": 5
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f2e83d0_139e02b0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "Moved the call to getLocationIndicatorActive. This is only called by set function.",
+      "parentUuid": "d4158f34_b18c6ab3",
       "range": {
         "startLine": 1862,
         "startChar": 0,
@@ -190,6 +364,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff18af1_99e0a3d1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5203303e_639a302f",
+      "range": {
+        "startLine": 1900,
+        "startChar": 14,
+        "endLine": 1900,
+        "endChar": 27
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5929adf4_fe382463",
@@ -203,6 +401,30 @@
       "writtenOn": "2023-08-10T14:07:21Z",
       "side": 1,
       "message": "Use `std::bind_front()`\n\n```\n    dbus::utility::getSubTree(\n        \"/xyz/openbmc_project/inventory\", 0, interfaces,\n        std::bind_front(afterGetSystemSubTree,asyncResp));\n\n```",
+      "range": {
+        "startLine": 1912,
+        "startChar": 0,
+        "endLine": 1918,
+        "endChar": 11
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a265f9_04b67e25",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "std::bind_front may not be the suitable option for callback, the lambda captures the necessary variables and provides a cleaner way for callback.",
+      "parentUuid": "5929adf4_fe382463",
       "range": {
         "startLine": 1912,
         "startChar": 0,
@@ -236,6 +458,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "681a1778_5f50f931",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 3392,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64ec42f8_4e96fbb9",
+      "range": {
+        "startLine": 3389,
+        "startChar": 0,
+        "endLine": 3392,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35687e61_bf052137",
@@ -249,6 +495,30 @@
       "writtenOn": "2023-08-10T14:07:21Z",
       "side": 1,
       "message": "Same here to use `std::bind_front()`",
+      "range": {
+        "startLine": 3527,
+        "startChar": 0,
+        "endLine": 3532,
+        "endChar": 11
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9589203d_55993966",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 3532,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-08-25T00:00:05Z",
+      "side": 1,
+      "message": "We are not passing all the returned arguments, using std::bind_front to partially apply arguments can actually decrease readability.",
+      "parentUuid": "35687e61_bf052137",
       "range": {
         "startLine": 3527,
         "startChar": 0,
