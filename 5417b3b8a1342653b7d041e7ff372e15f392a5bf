@@ -181,6 +181,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cf881a6_5ea69cd5",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-25T16:55:22Z",
+      "side": 1,
+      "message": "Isn\u0027t still contracting to bmcweb coding style guide - https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md?plain\u003d1#L332C34-L332C34?\n\nAll of std::bind_front() usages will be like the same wrapping pattern from lambda expression.  \n\nThe first argument of std::bind(func, ...) is always a function that is being called whether it is written, or passed as a parameter. I don\u0027t see a much difference in code clearness point of view, by separating \u0026 writing in a lambda, or passing it as a bind_front().\n\nAnyway, as it is a coding style point, I think this can be voted/decided by the others and maintainer.",
+      "parentUuid": "cd158dc4_42544aef",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "727547ff_6d781b2d",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 51
