@@ -33,6 +33,24 @@
       "message": "what\u0027s the status here?",
       "revId": "028c9cdf1387a5010460e2aac5f6675ae2b8fe52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "625020c0_8857956d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-08-25T09:22:30Z",
+      "side": 1,
+      "message": "Still waiting for the final approval in the phosphor-user-manager part: https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/65461",
+      "parentUuid": "1ba370e3_e228781c",
+      "revId": "028c9cdf1387a5010460e2aac5f6675ae2b8fe52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
