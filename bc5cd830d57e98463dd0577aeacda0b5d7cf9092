@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc2c75ab_9367aebc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-08-25T15:53:21Z",
+      "side": 1,
+      "message": "Makes sense to only return Internal Error if there was a Software Internal Error logged, instead of an error from other application.",
+      "revId": "bc5cd830d57e98463dd0577aeacda0b5d7cf9092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
