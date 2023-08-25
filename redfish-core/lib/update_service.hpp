@@ -433,6 +433,75 @@ static void monitorForSoftwareAvailable(
         std::bind_front(afterUpdateErrorMatcher, asyncResp, url));
 }
 
+struct TftpUrl
+{
+    std::string fwFile;
+    std::string tftpServer;
+};
+
+inline std::optional<TftpUrl>
+    parseTftpUrl(std::string imageURI,
+                 std::optional<std::string> transferProtocol,
+                 crow::Response& res)
+{
+    if (imageURI.find("://") == std::string::npos)
+    {
+        if (imageURI.starts_with("/"))
+        {
+            messages::actionParameterValueTypeError(
+                res, imageURI, "ImageURI", "UpdateService.SimpleUpdate");
+            return std::nullopt;
+        }
+        if (!transferProtocol)
+        {
+            messages::actionParameterValueTypeError(
+                res, imageURI, "ImageURI", "UpdateService.SimpleUpdate");
+            return std::nullopt;
+        }
+        // OpenBMC currently only supports TFTP
+        if (*transferProtocol != "TFTP")
+        {
+            messages::actionParameterNotSupported(res, "TransferProtocol",
+                                                  *transferProtocol);
+            BMCWEB_LOG_ERROR("Request incorrect protocol parameter: {}",
+                             *transferProtocol);
+            return std::nullopt;
+        }
+        imageURI = "tftp://" + imageURI;
+    }
+
+    boost::system::result<boost::urls::url> url =
+        boost::urls::parse_absolute_uri(imageURI);
+    if (!url)
+    {
+        messages::actionParameterValueTypeError(res, imageURI, "ImageURI",
+                                                "UpdateService.SimpleUpdate");
+
+        return std::nullopt;
+    }
+    url->normalize();
+    if (url->scheme() != "tftp")
+    {
+        messages::propertyValueConflict(res, "TransferProtocol", "ImageURI");
+        return std::nullopt;
+    }
+
+    if (url->scheme() != "tftp")
+    {
+        messages::actionParameterNotSupported(res, "ImageURI", imageURI);
+        return std::nullopt;
+    }
+    std::string path(url->encoded_path());
+    if (path.size() < 2)
+    {
+        messages::actionParameterNotSupported(res, "ImageURI", imageURI);
+        return std::nullopt;
+    }
+    path.erase(0, 1);
+    std::string host(url->encoded_host_and_port());
+    return TftpUrl(path, host);
+}
+
 /**
  * UpdateServiceActionsSimpleUpdate class supports handle POST method for
  * SimpleUpdate action.
@@ -467,60 +536,14 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
             BMCWEB_LOG_DEBUG("Missing TransferProtocol or ImageURI parameter");
             return;
         }
-        if (!transferProtocol)
+        std::optional<TftpUrl> ret = parseTftpUrl(imageURI, transferProtocol,
+                                                  asyncResp->res);
+        if (!ret)
         {
-            // Must be option 2
-            // Verify ImageURI has transfer protocol in it
-            size_t separator = imageURI.find(':');
-            if ((separator == std::string::npos) ||
-                ((separator + 1) > imageURI.size()))
-            {
-                messages::actionParameterValueTypeError(
-                    asyncResp->res, imageURI, "ImageURI",
-                    "UpdateService.SimpleUpdate");
-                BMCWEB_LOG_ERROR("ImageURI missing transfer protocol: {}",
-                                 imageURI);
-                return;
-            }
-            transferProtocol = imageURI.substr(0, separator);
-            // Ensure protocol is upper case for a common comparison path
-            // below
-            boost::to_upper(*transferProtocol);
-            BMCWEB_LOG_DEBUG("Encoded transfer protocol {}", *transferProtocol);
-
-            // Adjust imageURI to not have the protocol on it for parsing
-            // below
-            // ex. tftp://1.1.1.1/myfile.bin -> 1.1.1.1/myfile.bin
-            imageURI = imageURI.substr(separator + 3);
-            BMCWEB_LOG_DEBUG("Adjusted imageUri {}", imageURI);
-        }
-
-        // OpenBMC currently only supports TFTP
-        if (*transferProtocol != "TFTP")
-        {
-            messages::actionParameterNotSupported(asyncResp->res,
-                                                  "TransferProtocol",
-                                                  "UpdateService.SimpleUpdate");
-            BMCWEB_LOG_ERROR("Request incorrect protocol parameter: {}",
-                             *transferProtocol);
             return;
         }
 
-        // Format should be <IP or Hostname>/<file> for imageURI
-        size_t separator = imageURI.find('/');
-        if ((separator == std::string::npos) ||
-            ((separator + 1) > imageURI.size()))
-        {
-            messages::actionParameterValueTypeError(
-                asyncResp->res, imageURI, "ImageURI",
-                "UpdateService.SimpleUpdate");
-            BMCWEB_LOG_ERROR("Invalid ImageURI: {}", imageURI);
-            return;
-        }
-
-        std::string tftpServer = imageURI.substr(0, separator);
-        std::string fwFile = imageURI.substr(separator + 1);
-        BMCWEB_LOG_DEBUG("Server: {}{}", tftpServer + " File: ", fwFile);
+        BMCWEB_LOG_DEBUG("Server: {} File: {}", ret->tftpServer, ret->fwFile);
 
         // Setup callback for when new software detected
         // Give TFTP 10 minutes to complete
@@ -552,7 +575,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         },
             "xyz.openbmc_project.Software.Download",
             "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
-            "DownloadViaTFTP", fwFile, tftpServer);
+            "DownloadViaTFTP", ret->fwFile, ret->tftpServer);
 
         BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
     });
