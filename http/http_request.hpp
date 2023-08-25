@@ -51,8 +51,8 @@ struct Request
     Request(const Request& other) = default;
     Request(Request&& other) = default;
 
-    Request& operator=(const Request&) = delete;
-    Request& operator=(const Request&&) = delete;
+    Request& operator=(const Request&) = default;
+    Request& operator=(Request&&) = default;
     ~Request() = default;
 
     boost::beast::http::verb method() const
