@@ -441,60 +441,49 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
             BMCWEB_LOG_DEBUG("Missing TransferProtocol or ImageURI parameter");
             return;
         }
-        if (!transferProtocol)
-        {
-            // Must be option 2
-            // Verify ImageURI has transfer protocol in it
-            size_t separator = imageURI.find(':');
-            if ((separator == std::string::npos) ||
-                ((separator + 1) > imageURI.size()))
-            {
-                messages::actionParameterValueTypeError(
-                    asyncResp->res, imageURI, "ImageURI",
-                    "UpdateService.SimpleUpdate");
-                BMCWEB_LOG_ERROR("ImageURI missing transfer protocol: {}",
-                                 imageURI);
-                return;
-            }
-            transferProtocol = imageURI.substr(0, separator);
-            // Ensure protocol is upper case for a common comparison path
-            // below
-            boost::to_upper(*transferProtocol);
-            BMCWEB_LOG_DEBUG("Encoded transfer protocol {}", *transferProtocol);
-
-            // Adjust imageURI to not have the protocol on it for parsing
-            // below
-            // ex. tftp://1.1.1.1/myfile.bin -> 1.1.1.1/myfile.bin
-            imageURI = imageURI.substr(separator + 3);
-            BMCWEB_LOG_DEBUG("Adjusted imageUri {}", imageURI);
-        }
-
-        // OpenBMC currently only supports TFTP
-        if (*transferProtocol != "TFTP")
-        {
-            messages::actionParameterNotSupported(asyncResp->res,
-                                                  "TransferProtocol",
-                                                  "UpdateService.SimpleUpdate");
-            BMCWEB_LOG_ERROR("Request incorrect protocol parameter: {}",
-                             *transferProtocol);
-            return;
-        }
-
-        // Format should be <IP or Hostname>/<file> for imageURI
-        size_t separator = imageURI.find('/');
-        if ((separator == std::string::npos) ||
-            ((separator + 1) > imageURI.size()))
+        boost::system::result<boost::urls::url> url =
+            boost::urls::parse_absolute_uri(imageURI);
+        if (!url)
         {
             messages::actionParameterValueTypeError(
                 asyncResp->res, imageURI, "ImageURI",
                 "UpdateService.SimpleUpdate");
-            BMCWEB_LOG_ERROR("Invalid ImageURI: {}", imageURI);
+
+            return;
+        }
+        url->normalize();
+
+        if (transferProtocol)
+        {
+            std::string_view proto = url->scheme();
+            // OpenBMC currently only supports TFTP
+            if (*transferProtocol != "TFTP")
+            {
+                messages::actionParameterNotSupported(
+                    asyncResp->res, "TransferProtocol", proto);
+                BMCWEB_LOG_ERROR("Request incorrect protocol parameter: {}",
+                                 *transferProtocol);
+                return;
+            }
+            if (url->has_scheme() && url->scheme() != "tftp")
+            {
+                messages::propertyValueConflict(asyncResp->res,
+                                                "TransferProtocol", "ImageURI");
+                return;
+            }
+            url->set_scheme("tftp");
+        }
+        if (url->scheme() != "tftp")
+        {
+            messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
+                                                  imageURI);
             return;
         }
 
-        std::string tftpServer = imageURI.substr(0, separator);
-        std::string fwFile = imageURI.substr(separator + 1);
-        BMCWEB_LOG_DEBUG("Server: {}{}", tftpServer + " File: ", fwFile);
+        std::string_view fwFile = url->encoded_path();
+        std::string_view tftpServer = url->encoded_host_and_port();
+
+        BMCWEB_LOG_DEBUG("Server: {} File: {}", tftpServer, fwFile);
 
         // Setup callback for when new software detected
         // Give TFTP 10 minutes to complete
