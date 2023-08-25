@@ -455,6 +455,7 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/sensors_test.cpp',
   'test/redfish-core/lib/log_services_dump_test.cpp',
   'test/redfish-core/lib/log_services_test.cpp',
+  'test/redfish-core/lib/update_service_test.cpp',
   'test/redfish-core/lib/service_root_test.cpp',
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
   'test/redfish-core/lib/power_subsystem_test.cpp',
