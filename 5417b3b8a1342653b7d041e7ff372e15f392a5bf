@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c85d5997_0ba4a2f4",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-08-25T15:42:52Z",
+      "side": 1,
+      "message": "std::bind_front() is a wrapper of a specific form of lambda expression - https://en.cppreference.com/w/cpp/utility/functional/bind_front\n\n`std::bind_front(f, bound_args...)(call_args...)` is equivalent to `std::invoke(f, bound_args..., call_args...)`.\n\nSo, \n\n```\n    getLedGroupService(asyncResp, subtreePaths[0],\n                       [callback, subtreePaths](const std::string\u0026 service) {\n        callback(subtreePaths[0], service);\n    });\n\n```\n\nwill be written as\n\n```\n    getLedGroupService(asyncResp, subtreePaths[0], std::bind_front(callback, subtreePaths[0]));\n    \n```",
+      "parentUuid": "8749713f_72d0caef",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "727547ff_6d781b2d",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 51
