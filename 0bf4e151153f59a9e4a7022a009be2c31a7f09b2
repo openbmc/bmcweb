@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b653d798_6055f16f",
+        "filename": "redfish-core/include/utils/extern/date.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T18:13:54Z",
+      "side": 1,
+      "message": "ACK.  Seems reasonable.",
+      "parentUuid": "b3a74d78_fdc6b207",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ecabc17_1c3a64d2",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 21
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-25T18:12:50Z",
       "side": 1,
       "message": "include memory \ninclude string_view",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e93f221a_01fb43bb",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T18:13:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6ecabc17_1c3a64d2",
       "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2023-08-25T18:12:50Z",
       "side": 1,
       "message": "#include \u003csstream\u003e",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fc806c2_88228d1a",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T18:13:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0c9b50d8_b9c8a2a1",
       "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
