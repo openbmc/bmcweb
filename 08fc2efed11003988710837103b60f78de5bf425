@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f0fe338_dbcf8b54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T16:50:51Z",
+      "side": 1,
+      "message": "what service is publishing this interface for this system?",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 28
+      },
+      "revId": "08fc2efed11003988710837103b60f78de5bf425",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fbf0985_0064b2d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T16:50:51Z",
+      "side": 1,
+      "message": "Sorry i missed this the first time around.  Looks like there\u0027s some coding violations, and some clarifying information i\u0027d like to see.",
+      "revId": "08fc2efed11003988710837103b60f78de5bf425",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50c537b9_0ab8f1ce",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T16:50:51Z",
+      "side": 1,
+      "message": "this doesn\u0027t follow with how we handle dbus abstractions.  If the interface doesn\u0027t exist, we need to return internal error.",
+      "range": {
+        "startLine": 399,
+        "startChar": 20,
+        "endLine": 399,
+        "endChar": 75
+      },
+      "revId": "08fc2efed11003988710837103b60f78de5bf425",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ed7fe1_89a00362",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-25T16:50:51Z",
+      "side": 1,
+      "message": "Non trivial lambda.  Please read the coding standards.",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 21
+      },
+      "revId": "08fc2efed11003988710837103b60f78de5bf425",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
