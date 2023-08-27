@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e7c6bb_b9841055",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-27T15:39:58Z",
+      "side": 1,
+      "message": "minor is what redfish calls this so I vote that unless there is a reason",
+      "range": {
+        "startLine": 26,
+        "startChar": 31,
+        "endLine": 26,
+        "endChar": 40
+      },
+      "revId": "bbe1dfd2e5f244f9b523968e12d6f12eba9e9b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd5fc479_65c94b58",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-27T15:39:58Z",
+      "side": 1,
+      "message": "errata is what redfish calls this, again I vote that unless there is a reason.",
+      "range": {
+        "startLine": 27,
+        "startChar": 31,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "bbe1dfd2e5f244f9b523968e12d6f12eba9e9b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
