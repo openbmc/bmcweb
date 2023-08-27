@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f748daa_356c766d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-08-27T15:54:43Z",
+      "side": 1,
+      "message": "Nitpick: Not sure how this statement helps? There is code all over the openbmc code base that hasn\u0027t been touched in years and could be improved greatly. I think this would be true of most code bases.\n\nhttps://cbea.ms/git-commit/#imperative\n\nI think, sticking to why and leading with \n\n\"As is, static file handling reads the whole file into memory before\nsending it.  While fairly fast for the user, this wastes ram, and makes\nbmcweb less useful on less capable systems.\"\n\nis best. The current static file handling works, I agree it can be improved and this sounds like a great improvement but I\u0027m struggling with \"sadly neglected\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "2e6c04c0e4a17d1ec28eba0d2dd50f06bb2ef312",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
