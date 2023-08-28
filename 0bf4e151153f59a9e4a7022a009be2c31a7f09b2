@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "928d4711_28aafc21",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T04:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "986aba79_cdf5e1ae",
+      "revId": "0bf4e151153f59a9e4a7022a009be2c31a7f09b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c9b50d8_b9c8a2a1",
