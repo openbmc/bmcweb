@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9711f185_8114145f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T22:06:04Z",
+      "side": 1,
+      "message": "My thinking is actually doing a point to point dbus connection over a unix socket, so passwords don\u0027t fly over dbus, but that wasn\u0027t immediately possible (it\u0027ll take some sdbusplus changes to figure out) but that was my thought.\n\nOpen to whatever thoughts you might have.",
+      "parentUuid": "c5582c41_6eec1b8a",
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ecbeaea_4b5f090a",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 6
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ce3013e_217879c6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T22:06:04Z",
+      "side": 1,
+      "message": "I\u0027m sure you mean exactly how we handle this:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/66298\n\nI didn\u0027t mention it in that commit, but that\u0027s why I cleaned that code up;  It\u0027s possible I want to reuse it here.\n\nLet me know if that works for what you were thinking.",
+      "parentUuid": "9ecbeaea_4b5f090a",
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58ca9b0b_83a6717f",
         "filename": "src/pam_main.cpp",
         "patchSetId": 6
@@ -48,6 +84,30 @@
       "writtenOn": "2023-08-28T20:53:47Z",
       "side": 1,
       "message": "It is not that much more effort to pass a file handle an a lot more secure. Write the password to a temporaray file, pass the file handle, read the file. Then The password doesn\u0027t go over D-Bus in plaintext.",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82680052_4393ac1a",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T22:06:04Z",
+      "side": 1,
+      "message": "Agreed.\n\nLike I said, my initial plan was to do this with point to point dbus over a unix socket, but in the worst case, might fall back to the same thing we do for virtual media.  TBD if I can get point to point DBus working.\n\nKeep the good ideas coming.  I do appreciate them.",
+      "parentUuid": "58ca9b0b_83a6717f",
       "range": {
         "startLine": 166,
         "startChar": 36,
