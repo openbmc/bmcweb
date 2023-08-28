@@ -212,6 +212,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f07ffad_035f1605",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T19:19:15Z",
+      "side": 1,
+      "message": "If the file is of zero length, we should be sending an error back to the user, no?\n\nYes, a file of zero length is valid (ie, why lseek returning zero is valid) but a completely empty file for a crashdump isnt valid, right?",
+      "parentUuid": "74c842a2_b423a4ec",
+      "range": {
+        "startLine": 2122,
+        "startChar": 21,
+        "endLine": 2122,
+        "endChar": 24
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6d27f30_e5a7b43a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 14
@@ -247,6 +271,30 @@
       "side": 1,
       "message": "We have this for the other attachment download URIs\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1973-L1976\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L4143-L4146\n\nAlso, if we don\u0027t include this then we won\u0027t be able to retrieve dumps via Redfish aggregation since the aggregation hook is within setUpRedfishRoute().",
       "parentUuid": "f6d27f30_e5a7b43a",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a41195_b68e1207",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T19:19:15Z",
+      "side": 1,
+      "message": "\u003e We have this for the other attachment download URIs\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1973-L1976\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L4143-L4146\n\nThey are also incorrect, likely done as part of the migration, and somehthing we\u0027ll need to fix.\n\n\u003e \n\u003e Also, if we don\u0027t include this then we won\u0027t be able to retrieve dumps via Redfish aggregation since the aggregation hook is within setUpRedfishRoute().\n\nOOOF......  First, lets agree on correct behavior.  For URLs that don\u0027t exist in the redfish tree we should be aggregating them, but NOT applying query params.  Sound correct?\n\nIn that case, I wonder if we need to roll out https://github.com/openbmc/bmcweb/blob/8e73b9064fdd414b9a71806a44f0e0f176b5a88d/redfish-core/include/query.hpp#L150C1-L172C8\n\nThis block of code into a separate \"Call for non Redfish but still want aggregated routes\". WDYT?",
+      "parentUuid": "281a4a72_23409e56",
       "range": {
         "startLine": 2980,
         "startChar": 0,
