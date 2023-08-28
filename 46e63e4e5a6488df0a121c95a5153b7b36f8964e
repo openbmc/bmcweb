@@ -303,6 +303,30 @@
       },
       "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56f0a13b_f9e8146c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T19:20:17Z",
+      "side": 1,
+      "message": "Actually, maybe it\u0027s easier, maybe we call beginAggregation instead of setupRedfishRoute?",
+      "parentUuid": "d2a41195_b68e1207",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
