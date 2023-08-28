@@ -136,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4692c5e9_6ff77abe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T16:26:21Z",
+      "side": 1,
+      "message": "ACK.  I was just referring to the specific section of code.  I didn\u0027t make the connection about also using it for dbus paths.",
+      "parentUuid": "87ab5183_fa515fff",
+      "range": {
+        "startLine": 753,
+        "startChar": 4,
+        "endLine": 753,
+        "endChar": 36
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9180dde9_286ebe25",
@@ -337,6 +361,30 @@
       "side": 1,
       "message": "sorry, I told you the wrong thing here.  should be \u003c\u003d",
       "parentUuid": "e58ee267_9c8597ff",
+      "range": {
+        "startLine": 773,
+        "startChar": 8,
+        "endLine": 773,
+        "endChar": 18
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "624f32ef_690875dd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T16:26:21Z",
+      "side": 1,
+      "message": "I don\u0027t think we want \"\u003c\u003d 0\".  See reply to your other comment on line #2122",
+      "parentUuid": "bf99a834_4aa41254",
       "range": {
         "startLine": 773,
         "startChar": 8,

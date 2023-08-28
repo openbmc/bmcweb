@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6307210_42bc031e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T16:26:21Z",
+      "side": 1,
+      "message": "Responding to some of the comments.  I\u0027m going to take a stab a merging the code with the latter portion of requestRoutesDBusEventLogEntryDownload() since that\u0027s my ultimate goal and some of the requested changes apply to that section of code as well.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L2001-L2068",
+      "revId": "a72a881ad6b960ead4e4fed96d29b5bfb3591271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

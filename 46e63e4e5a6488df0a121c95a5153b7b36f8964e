@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a10af4f_db6321b3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T16:26:21Z",
+      "side": 1,
+      "message": "You\u0027re right, removed",
+      "parentUuid": "1da69810_28be2810",
+      "range": {
+        "startLine": 736,
+        "startChar": 22,
+        "endLine": 736,
+        "endChar": 26
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45dccc5a_c9bcf3e1",
@@ -162,6 +186,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74c842a2_b423a4ec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T16:26:21Z",
+      "side": 1,
+      "message": "The documentation I\u0027ve seen online for lseek says -1 on failure or the offset from the start on success.  \"0\" would be a valid offset for the start of the file.  We have been using \u0027\u003d\u003d -1\u0027, but I\u0027ll change all lseeks to \"\u003c 0\" per your previous comment on line #773.",
+      "parentUuid": "bb1f88c1_3fadeb40",
+      "range": {
+        "startLine": 2122,
+        "startChar": 21,
+        "endLine": 2122,
+        "endChar": 24
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6d27f30_e5a7b43a",
@@ -175,6 +223,30 @@
       "writtenOn": "2023-08-24T19:31:57Z",
       "side": 1,
       "message": "this isn\u0027t a method in the redfish tree.  setupRedfishRoute is inappropriate.",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "281a4a72_23409e56",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T16:26:21Z",
+      "side": 1,
+      "message": "We have this for the other attachment download URIs\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1973-L1976\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L4143-L4146\n\nAlso, if we don\u0027t include this then we won\u0027t be able to retrieve dumps via Redfish aggregation since the aggregation hook is within setUpRedfishRoute().",
+      "parentUuid": "f6d27f30_e5a7b43a",
       "range": {
         "startLine": 2980,
         "startChar": 0,
