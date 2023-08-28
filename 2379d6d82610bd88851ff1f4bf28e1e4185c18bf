@@ -34,6 +34,52 @@
       "parentUuid": "5a65d3fc_97e67282",
       "revId": "2379d6d82610bd88851ff1f4bf28e1e4185c18bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec52f68f_4cc14fc3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T19:15:04Z",
+      "side": 1,
+      "message": "Is this property gauranteed to exist on all chassis?  If not, this is a problem.",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 77
+      },
+      "revId": "2379d6d82610bd88851ff1f4bf28e1e4185c18bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f3d492c_c04c0558",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T19:15:04Z",
+      "side": 1,
+      "message": "Non trivial lambda.  Please make a normal function as the coding standard requests.",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 23
+      },
+      "revId": "2379d6d82610bd88851ff1f4bf28e1e4185c18bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
