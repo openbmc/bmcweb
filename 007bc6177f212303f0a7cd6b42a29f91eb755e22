@@ -228,6 +228,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1864d413_5eabaea1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-28T22:24:56Z",
+      "side": 1,
+      "message": "Gotcha, thanks for the pointer.  I still think this kind of logic needs to go in the backend, not bmcweb.",
+      "parentUuid": "9f32f9b6_09c5fe05",
+      "range": {
+        "startLine": 908,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 29
+      },
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e20c385_d8ce8ab4",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
