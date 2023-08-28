@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6186e6f2_627eff76",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-28T10:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3b39b2d_0f1c2447",
+      "range": {
+        "startLine": 51,
+        "startChar": 47,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "356d57d8_1efdcaab",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e5f179_f4459b8e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-28T10:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "356d57d8_1efdcaab",
+      "range": {
+        "startLine": 253,
+        "startChar": 51,
+        "endLine": 253,
+        "endChar": 55
+      },
+      "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f82b7211_907942da",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-08-24T18:45:21Z",
       "side": 1,
       "message": "This lambda is huge, which is disallowed in the coding standard.  Please make it a normal method.  If that requires a refactor of the existing code, please do it in a patch before this one.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 13
+      },
+      "revId": "1146fec8231fe1246110ea896e848fffd5bd5f30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ea7d78_d3162013",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-28T10:35:21Z",
+      "side": 1,
+      "message": "I have moved them into a function. It doesn\u0027t change much of the existing code so I didn\u0027t create another patch.",
+      "parentUuid": "f82b7211_907942da",
       "range": {
         "startLine": 263,
         "startChar": 0,
