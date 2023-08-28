@@ -236,6 +236,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1144780_30ab0621",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T20:44:11Z",
+      "side": 1,
+      "message": "From that standpoint yeah there probably isn\u0027t a valid usecase where a dump is created that\u0027s just an empty file.  I\u0027ll make it \"\u003c\u003d 0\" and just add some additional error logging to these places to denote if the 500 Internal Error was caused by an empty file or lseek() encountering an error.",
+      "parentUuid": "7f07ffad_035f1605",
+      "range": {
+        "startLine": 2122,
+        "startChar": 21,
+        "endLine": 2122,
+        "endChar": 24
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6d27f30_e5a7b43a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 14
@@ -319,6 +343,30 @@
       "side": 1,
       "message": "Actually, maybe it\u0027s easier, maybe we call beginAggregation instead of setupRedfishRoute?",
       "parentUuid": "d2a41195_b68e1207",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39611fe2_e641ebec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-28T20:44:11Z",
+      "side": 1,
+      "message": "\u003e OOOF...... First, lets agree on correct behavior. For URLs that don\u0027t exist in the redfish tree we should be aggregating them, but NOT applying query params. Sound correct?\n\nYes that sounds right.\n\n\u003e In that case, I wonder if we need to roll out https://github.com/openbmc/bmcweb/blob/8e73b9064fdd414b9a71806a44f0e0f176b5a88d/redfish-core/include/query.hpp#L150C1-L172C8\n\u003e This block of code into a separate \"Call for non Redfish but still want aggregated routes\". WDYT?\n\u003e\n\u003e Actually, maybe it\u0027s easier, maybe we call beginAggregation instead of setupRedfishRoute?\n\nI think we\u0027d want to go with the first option, but in a scenario like this won\u0027t we want to do all 3 of these?\n\n1) Check the header https://github.com/openbmc/bmcweb/blob/8e73b9064fdd414b9a71806a44f0e0f176b5a88d/redfish-core/include/query.hpp#L123-L134\n\n2) Check the credentials https://github.com/openbmc/bmcweb/blob/8e73b9064fdd414b9a71806a44f0e0f176b5a88d/redfish-core/include/query.hpp#L143-L146\n\n3) Check for aggregation (if even enabled)\n\nIt doesn\u0027t look as clean to break those out into a single function since there is this check before the first two items https://github.com/openbmc/bmcweb/blob/8e73b9064fdd414b9a71806a44f0e0f176b5a88d/redfish-core/include/query.hpp#L136-L141.\n\nI can either include that query param check in the broken out function behind a flag or breakout into two separate functions and then wrap them in a third function that would only be called in situations where we don\u0027t want query params.  Do you have a preference or a better idea?",
+      "parentUuid": "56f0a13b_f9e8146c",
       "range": {
         "startLine": 2980,
         "startChar": 0,
