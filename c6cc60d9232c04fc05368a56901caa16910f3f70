@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5582c41_6eec1b8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2023-08-28T20:53:47Z",
+      "side": 1,
+      "message": "Great idea. One step closer to bmcweb as non-root! I don\u0027t know if you have thought about plaintext passwords over D-Bus, but I wrote up my recommendation.",
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ecbeaea_4b5f090a",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2023-08-28T20:53:47Z",
+      "side": 1,
+      "message": "int fd \u003d open(\"/tmp\", O_RDWR|O_EXCL|O_TMPFILE);\nif (fd \u003c 0) { // handle error }\nif (write(fd, password.data(), password.size()) !\u003d password.size())\n{ // handle error }\nsdbusplus::message::unix_fd pwfile{fd};\n\n...\n\nasync_method_call(..., username, pwfile);\nclose(pwfile);",
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58ca9b0b_83a6717f",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2023-08-28T20:53:47Z",
+      "side": 1,
+      "message": "It is not that much more effort to pass a file handle an a lot more secure. Write the password to a temporaray file, pass the file handle, read the file. Then The password doesn\u0027t go over D-Bus in plaintext.",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
