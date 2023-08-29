@@ -293,6 +293,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "730c04c8_8c3ec4f9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-08-29T04:16:44Z",
+      "side": 1,
+      "message": "\u003e Have you engaged Redfish about making this readwrite? If not, can you please do that\n\nOne admin from redfishforum.com replied to my question of whether to set this as read-write:\n\u003e To date, we\u0027ve seen this as something managed by the system vendor and an end user is not able to modify this. If we do make this a writable property, that doesn\u0027t force everyone down this path; vendors can still implement it following their product\u0027s policy. If you really see a need for an end user to modify this, I can raise this to others to discuss if we should open this to be writable.\n\n(https://redfishforum.com/thread/921/intrusionsensorrearm-property-read-clarification)\n\nI personally don\u0027t have a reason to want it to be writable, because my company defines the method as Manual in our spec and doesn\u0027t plan for users to change it. Do you have any suggestion?",
+      "parentUuid": "cffc1583_31e479f3",
+      "range": {
+        "startLine": 181,
+        "startChar": 54,
+        "endLine": 181,
+        "endChar": 74
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a04dff5_a785ce84",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
