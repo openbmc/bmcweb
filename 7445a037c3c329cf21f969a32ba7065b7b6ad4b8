@@ -630,6 +630,30 @@
       },
       "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3516541_ca78601c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-08-29T17:18:06Z",
+      "side": 1,
+      "message": "In aggregation the prefix is only applied to the member of the top level collection so the route would be /redfish/v1/Managers/\u003cagg_id\u003e_bmc/LogServices/Dump/Entries/\u003clog id\u003e/attachment\n\nRight now we hardcode the Manager as bmc so our aggregation handling actually catches this in our 404 handler.  This route will get used for aggregation whenever we start laying the groundwork for not hardcoding Manager.\n\nAt that point it\u0027ll be the same idea as https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1965-L1976 where it\u0027s a file retrieval endpoint and the aggregation hook is within it.",
+      "parentUuid": "6f1dcac3_03b88f6f",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
