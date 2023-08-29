@@ -51,6 +51,23 @@
       "parentUuid": "1ba370e3_e228781c",
       "revId": "028c9cdf1387a5010460e2aac5f6675ae2b8fe52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d6a2a49_cf424636",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2023-08-29T07:32:25Z",
+      "side": 1,
+      "message": "All of the remaining changes are ready. Please approve, so I could submit them altogether and prepare a bump on openbmc repo afterwards.",
+      "revId": "028c9cdf1387a5010460e2aac5f6675ae2b8fe52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
