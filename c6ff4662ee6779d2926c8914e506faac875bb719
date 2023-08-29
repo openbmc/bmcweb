@@ -16,6 +16,23 @@
       "message": "Code seems fine",
       "revId": "c6ff4662ee6779d2926c8914e506faac875bb719",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04bddf8d_d4c69c8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001274
+      },
+      "writtenOn": "2023-08-29T05:47:51Z",
+      "side": 1,
+      "message": "Please review the changes.",
+      "revId": "c6ff4662ee6779d2926c8914e506faac875bb719",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
