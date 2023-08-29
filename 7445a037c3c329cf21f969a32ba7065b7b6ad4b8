@@ -606,6 +606,30 @@
       },
       "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1dcac3_03b88f6f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-29T16:49:09Z",
+      "side": 1,
+      "message": "Wait, why is this route used for aggregation?  Wouldn\u0027t the aggregated route be:\n\n/redfish/v1/Managers/bmc/LogServices/Dump/Entries/\u003cagg id\u003e_\u003clog id\u003e/\u003cagg id\u003e_attachment\n\n?\n\n\"attachment\" isn\u0027t guaranteed to be the end.  Only bmcweb uses that, so if we\u0027re relying on it here, something seems broken.",
+      "parentUuid": "4a6ab852_e97d02fc",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
