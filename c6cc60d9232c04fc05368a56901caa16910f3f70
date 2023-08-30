@@ -140,6 +140,30 @@
       },
       "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aecaa2a0_76f22695",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-30T23:00:38Z",
+      "side": 1,
+      "message": "\u003e The pipe/socket would work too. To make that work for a pipe, all you should have to do is pass the fd over D-Bus to set up the connection. I don\u0027t think you need to make any more changes to sdbusplus.\n\nYep, this is exactly what virtual media does today.\n\n\u003e \n\u003e For a socket, I think you would just need to pass the abstract socket name (which should be unique) and then require the servers side to only accept one connection so you don\u0027t have any snoops.\n\nI was thinking of making it socket activated in systemd, which I THINK avoids snoops from non-root processes?\n\n\u003e \n\u003e With a pipe, you will need to have some sort of protocol, because its a stream, but over the socket, you can be packet based, which is nicer. I don\u0027t have a super strong opinion just as long as it is not in plaintext over D-Bus.\n\nThat\u0027s an interesting thought.  The existing virtual media code endcodes both the username and password as null terminated strings (which I\u0027m not a huge fan of) but does seem to work.  You\u0027re thinking we\u0027d run a UDP/Datagram socket?  That might be a simplification;  I can play with it.  I mostly was thinking the unix socket route because we have code that does it, so either it\u0027s insecure, and needs changed anyway to a better mechanism, or it\u0027s secure enough, and should be good enough for this purpose.  But maybe my thinking is faulty.",
+      "parentUuid": "f4f67e01_b0037d80",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
