@@ -1332,8 +1332,8 @@ inline void updateUserProperties(
                 else if (retval == PAM_AUTHTOK_ERR)
                 {
                     // If password is invalid
-                    messages::propertyValueFormatError(asyncResp->res,
-                                                       *password, "Password");
+                    messages::propertyValueFormatError(asyncResp->res, nullptr,
+                                                       "Password");
                     BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
                 }
                 else if (retval != PAM_SUCCESS)
@@ -1789,7 +1789,7 @@ inline void processAfterCreateUser(
             }
 
             // If password is invalid
-            messages::propertyValueFormatError(asyncResp->res, password,
+            messages::propertyValueFormatError(asyncResp->res, nullptr,
                                                "Password");
             },
             "xyz.openbmc_project.User.Manager", userPath,
