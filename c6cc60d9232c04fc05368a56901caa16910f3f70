@@ -116,6 +116,30 @@
       },
       "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4f67e01_b0037d80",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2023-08-30T20:36:12Z",
+      "side": 1,
+      "message": "The pipe/socket would work too. To make that work for a pipe, all you should have to do is pass the fd over D-Bus to set up the connection. I don\u0027t think you need to make any more changes to sdbusplus.\n\nFor a socket, I think you would just need to pass the abstract socket name (which should be unique) and then require the servers side to only accept one connection so you don\u0027t have any snoops.\n\nWith a pipe, you will need to have some sort of protocol, because its a stream, but over the socket, you can be packet based, which is nicer. I don\u0027t have a super strong opinion just as long as it is not in plaintext over D-Bus.",
+      "parentUuid": "82680052_4393ac1a",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
