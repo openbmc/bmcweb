@@ -446,7 +446,8 @@ inline void
 
     if (memoryDataWidth != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["DataWidthBits"] = *memoryDataWidth;
+        asyncResp->res.jsonValue[jsonPtr]["DataWidthBits"] =
+            mydatatype_t(*memoryDataWidth);
     }
 
     if (memorySizeInKB != nullptr)
@@ -457,17 +458,20 @@ inline void
 
     if (partNumber != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["PartNumber"] = *partNumber;
+        asyncResp->res.jsonValue[jsonPtr]["PartNumber"] =
+            mydatatype_t(*partNumber);
     }
 
     if (serialNumber != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["SerialNumber"] = *serialNumber;
+        asyncResp->res.jsonValue[jsonPtr]["SerialNumber"] =
+            mydatatype_t(*serialNumber);
     }
 
     if (manufacturer != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["Manufacturer"] = *manufacturer;
+        asyncResp->res.jsonValue[jsonPtr]["Manufacturer"] =
+            mydatatype_t(*manufacturer);
     }
 
     if (revisionCode != nullptr)
@@ -483,7 +487,8 @@ inline void
 
     if (memoryTotalWidth != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["BusWidthBits"] = *memoryTotalWidth;
+        asyncResp->res.jsonValue[jsonPtr]["BusWidthBits"] =
+            mydatatype_t(*memoryTotalWidth);
     }
 
     if (ecc != nullptr)
@@ -585,18 +590,20 @@ inline void
 
     if (sparePartNumber != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["SparePartNumber"] = *sparePartNumber;
+        asyncResp->res.jsonValue[jsonPtr]["SparePartNumber"] =
+            mydatatype_t(*sparePartNumber);
     }
 
     if (model != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["Model"] = *model;
+        asyncResp->res.jsonValue[jsonPtr]["Model"] = mydatatype_t(*model);
     }
 
     if (locationCode != nullptr)
     {
-        asyncResp->res.jsonValue[jsonPtr]["Location"]["PartLocation"]
-                                ["ServiceLabel"] = *locationCode;
+        asyncResp->res
+            .jsonValue[jsonPtr]["Location"]["PartLocation"]["ServiceLabel"] =
+            mydatatype_t(*locationCode);
     }
 
     getPersistentMemoryProperties(asyncResp, properties, jsonPtr);
