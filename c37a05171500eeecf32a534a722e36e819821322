@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4cf517c_44ce44a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-08-31T11:32:56Z",
+      "side": 1,
+      "message": "Ack. But for now better to proceed with this change as it is fixing earlier refactor code. Thanks",
+      "parentUuid": "473a7da2_56269f5e",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6b11cfb8_221c9bdb",
