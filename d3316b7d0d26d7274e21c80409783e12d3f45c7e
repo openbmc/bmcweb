@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e334bd_b733e959",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T17:17:10Z",
+      "side": 1,
+      "message": "common error.  Please read and understand COMMON_ERRORS.md\n\nYou probably want to match against objpath.first.parent()",
+      "range": {
+        "startLine": 378,
+        "startChar": 34,
+        "endLine": 378,
+        "endChar": 45
+      },
+      "revId": "d3316b7d0d26d7274e21c80409783e12d3f45c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
