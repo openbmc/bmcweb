@@ -547,6 +547,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80643d74_e89c7347",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T16:41:38Z",
+      "side": 1,
+      "message": "Mandatory null check is required, but I\u0027m open to other options.",
+      "parentUuid": "f350e47f_f300edc3",
+      "revId": "4b5dd35a817afdb618ebb80bc2ce1050dfab54db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb0d497a_0c121abe",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
