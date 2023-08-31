@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "201b4f6f_5b6de62d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T18:43:11Z",
+      "side": 1,
+      "message": "Trivial change in line with what has been discussed in other places.  Leaving in review for a day in case anyone has opinions, but LGTM.",
+      "revId": "b3e86cb08a818a31760ede5abf7b1ba5c13bb8bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
