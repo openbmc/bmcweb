@@ -16,6 +16,121 @@
       "message": "as written, this interface tries to enforce things that aren’t in phosphor dbus interfaces, adds regex (which is a documented anti pattern), reinvents classes that already exist, and ignores several items from the coding standard and dbus usage documentation.\n\nI would start with a patch to DBUS_USAGE.md, that updates the new “rules” that you’re trying to implement across all dbus-\u003eredfish conversions so we can get agreement on that.  THEN we can can discuss what the code looks like.  please also write a commit message.\n\nI’ve ready your mail to the mailing list, and I’m not sure I even understand the problem you’re trying to solve in regards to error handling.  we have error handling today that has been discussed in code review at length.  this patchset appears to completely change it, with no discussion of what existed previously, and ignores the Redfish spec in regards to error handling behavior, and chooses to instead implement something totally different and undocumented (setting null).",
       "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dcfa775_5d681c89",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T17:15:33Z",
+      "side": 1,
+      "message": "This variant already exists.  Please look for DbusVariantType.",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7ed198e_8997a16a",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T17:15:33Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in this context.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10548079_46af20dd",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T17:15:33Z",
+      "side": 1,
+      "message": "std::get is called out by name as banned.  It throws if the value is incorrect.",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 38
+      },
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3614a08_c11b8118",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T17:15:33Z",
+      "side": 1,
+      "message": "Not all interfaces use MAX as their \"unfilled\" value.",
+      "range": {
+        "startLine": 102,
+        "startChar": 30,
+        "endLine": 102,
+        "endChar": 38
+      },
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60455152_8ccd21af",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-08-31T17:15:33Z",
+      "side": 1,
+      "message": "in most cases, NAN is used for \"no value\" which would mean it should be omitted from the json response entirely, not set to null.",
+      "range": {
+        "startLine": 145,
+        "startChar": 22,
+        "endLine": 145,
+        "endChar": 27
+      },
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
