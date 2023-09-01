@@ -17,6 +17,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/_experimental/test/stream.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/error.hpp>
 #include <boost/beast/http/parser.hpp>
@@ -43,6 +44,14 @@ constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL *
 constexpr uint64_t loggedOutPostBodyLimit = 4096;
 
 constexpr uint32_t httpHeaderLimit = 8192;
+
+template <typename>
+struct isTls : std::false_type
+{};
+
+template <typename T>
+struct isTls<boost::beast::ssl_stream<T>> : std::true_type
+{};
 
 template <typename Adaptor, typename Handler>
 class Connection :
@@ -112,31 +121,34 @@ class Connection :
 
     void prepareMutualTls()
     {
-        std::error_code error;
-        std::filesystem::path caPath(ensuressl::trustStorePath);
-        auto caAvailable = !std::filesystem::is_empty(caPath, error);
-        caAvailable = caAvailable && !error;
-        if (caAvailable && persistent_data::SessionStore::getInstance()
-                               .getAuthMethodsConfig()
-                               .tls)
+        if constexpr (isTls<Adaptor>())
         {
-            adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
-            std::string id = "bmcweb";
-
-            const char* cStr = id.c_str();
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
-            int ret = SSL_set_session_id_context(
-                adaptor.native_handle(), idC,
-                static_cast<unsigned int>(id.length()));
-            if (ret == 0)
+            std::error_code error;
+            std::filesystem::path caPath(ensuressl::trustStorePath);
+            auto caAvailable = !std::filesystem::is_empty(caPath, error);
+            caAvailable = caAvailable && !error;
+            if (caAvailable && persistent_data::SessionStore::getInstance()
+                                   .getAuthMethodsConfig()
+                                   .tls)
             {
-                BMCWEB_LOG_ERROR("{} failed to set SSL id", logPtr(this));
-            }
-        }
+                adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
+                std::string id = "bmcweb";
 
-        adaptor.set_verify_callback(
-            std::bind_front(&self_type::tlsVerifyCallback, this));
+                const char* cStr = id.c_str();
+                // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+                const auto* idC = reinterpret_cast<const unsigned char*>(cStr);
+                int ret = SSL_set_session_id_context(
+                    adaptor.native_handle(), idC,
+                    static_cast<unsigned int>(id.length()));
+                if (ret == 0)
+                {
+                    BMCWEB_LOG_ERROR("{} failed to set SSL id", logPtr(this));
+                }
+            }
+
+            adaptor.set_verify_callback(
+                std::bind_front(&self_type::tlsVerifyCallback, this));
+        }
     }
 
     Adaptor& socket()
@@ -157,9 +169,7 @@ class Connection :
 
         // TODO(ed) Abstract this to a more clever class with the idea of an
         // asynchronous "start"
-        if constexpr (std::is_same_v<Adaptor,
-                                     boost::beast::ssl_stream<
-                                         boost::asio::ip::tcp::socket>>)
+        if constexpr (isTls<Adaptor>())
         {
             adaptor.async_handshake(boost::asio::ssl::stream_base::server,
                                     [this, self(shared_from_this())](
@@ -252,20 +262,23 @@ class Connection :
             return;
         }
         keepAlive = thisReq.keepAlive();
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-        if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                 req->method()) &&
-            thisReq.session == nullptr)
+        if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
         {
-            BMCWEB_LOG_WARNING("Authentication failed");
-            forward_unauthorized::sendUnauthorized(
-                req->url().encoded_path(),
-                req->getHeaderValue("X-Requested-With"),
-                req->getHeaderValue("Accept"), res);
-            completeRequest(res);
-            return;
-        }
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
+            if (!crow::authentication::isOnAllowlist(req->url().path(),
+                                                     req->method()) &&
+                thisReq.session == nullptr)
+            {
+                BMCWEB_LOG_WARNING("Authentication failed");
+                forward_unauthorized::sendUnauthorized(
+                    req->url().encoded_path(),
+                    req->getHeaderValue("X-Requested-With"),
+                    req->getHeaderValue("Accept"), res);
+                completeRequest(res);
+                return;
+            }
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
+        }
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG("Setting completion handler");
         asyncResp->res.setCompleteRequestHandler(
@@ -309,11 +322,13 @@ class Connection :
 
     bool isAlive()
     {
-        if constexpr (std::is_same_v<Adaptor,
-                                     boost::beast::ssl_stream<
-                                         boost::asio::ip::tcp::socket>>)
+        if constexpr (isTls<Adaptor>())
         {
             return adaptor.next_layer().is_open();
+        }
+        else if constexpr (std::is_same_v<Adaptor, boost::beast::test::stream>)
+        {
+            return true;
         }
         else
         {
@@ -322,9 +337,7 @@ class Connection :
     }
     void close()
     {
-        if constexpr (std::is_same_v<Adaptor,
-                                     boost::beast::ssl_stream<
-                                         boost::asio::ip::tcp::socket>>)
+        if constexpr (isTls<Adaptor>())
         {
             adaptor.next_layer().close();
             if (mtlsSession != nullptr)
@@ -384,18 +397,22 @@ class Connection :
     {
         boost::system::error_code ec;
         BMCWEB_LOG_DEBUG("Fetch the client IP address");
-        boost::asio::ip::tcp::endpoint endpoint =
-            boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
 
-        if (ec)
+        if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
         {
-            // If remote endpoint fails keep going. "ClientOriginIPAddress"
-            // will be empty.
-            BMCWEB_LOG_ERROR("Failed to get the client's IP Address. ec : {}",
-                             ec);
-            return ec;
+            boost::asio::ip::tcp::endpoint endpoint =
+                boost::beast::get_lowest_layer(adaptor).remote_endpoint(ec);
+
+            if (ec)
+            {
+                // If remote endpoint fails keep going. "ClientOriginIPAddress"
+                // will be empty.
+                BMCWEB_LOG_ERROR(
+                    "Failed to get the client's IP Address. ec : {}", ec);
+                return ec;
+            }
+            ip = endpoint.address();
         }
-        ip = endpoint.address();
         return ec;
     }
 
@@ -457,27 +474,31 @@ class Connection :
             {
                 BMCWEB_LOG_DEBUG("Unable to get client IP");
             }
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-            boost::beast::http::verb method = parser->get().method();
-            userSession = crow::authentication::authenticate(
-                ip, res, method, parser->get().base(), mtlsSession);
-
-            bool loggedIn = userSession != nullptr;
-            if (!loggedIn)
+            if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
             {
-                const boost::optional<uint64_t> contentLength =
-                    parser->content_length();
-                if (contentLength && *contentLength > loggedOutPostBodyLimit)
-                {
-                    BMCWEB_LOG_DEBUG("Content length greater than limit {}",
-                                     *contentLength);
-                    close();
-                    return;
-                }
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
+                boost::beast::http::verb method = parser->get().method();
+                userSession = crow::authentication::authenticate(
+                    ip, res, method, parser->get().base(), mtlsSession);
 
-                BMCWEB_LOG_DEBUG("Starting quick deadline");
-            }
+                bool loggedIn = userSession != nullptr;
+                if (!loggedIn)
+                {
+                    const boost::optional<uint64_t> contentLength =
+                        parser->content_length();
+                    if (contentLength &&
+                        *contentLength > loggedOutPostBodyLimit)
+                    {
+                        BMCWEB_LOG_DEBUG("Content length greater than limit {}",
+                                         *contentLength);
+                        close();
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG("Starting quick deadline");
+                }
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
+            }
 
             if (parser->is_done())
             {
