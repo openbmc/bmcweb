@@ -38,14 +38,14 @@ class Server
         adaptorCtx(std::move(adaptorCtxIn))
     {}
 
-    Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
+    Server(Handler* handlerIn, uint16_t port,
            const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
            const std::shared_ptr<boost::asio::io_context>& io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
                    *io, boost::asio::ip::tcp::endpoint(
-                            boost::asio::ip::make_address(bindaddr), port)),
+                            boost::asio::ip::make_address("0.0.0.0"), port)),
                adaptorCtxIn, io)
     {}
 
