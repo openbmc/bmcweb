@@ -371,8 +371,7 @@ static void getCertificateProperties(
         }
 
         asyncResp->res.addHeader(
-            boost::beast::http::field::location,
-            std::string_view(certURL.data(), certURL.size()));
+            boost::beast::http::field::location, certURL.buffer());
         });
 }
 
