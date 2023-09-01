@@ -38,7 +38,7 @@ class Server
         adaptorCtx(std::move(adaptorCtxIn))
     {}
 
-    Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
+    Server(Handler* handlerIn, std::string_view bindaddr, uint16_t port,
            const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
            const std::shared_ptr<boost::asio::io_context>& io =
                std::make_shared<boost::asio::io_context>()) :
