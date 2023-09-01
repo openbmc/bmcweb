@@ -51,6 +51,24 @@
       "message": "HCL is no longer doing development related to Meta\u0027s OpenBMC system support.  We will revive this work, but probably not for a few months.  It is acceptable to close if you want for the time being, but ideally whoever picks it up will start from this patch set.",
       "revId": "34079a74897f6a31b5d110000fb470d12f95366c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ad432d_7a684e9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-01T05:01:38Z",
+      "side": 1,
+      "message": "Cool.  I\u0027m going to abandon this so it falls off the list.  Feel free to reopen when someone pops up to keep working on this.",
+      "parentUuid": "7cd6d5fa_bad5d8ab",
+      "revId": "34079a74897f6a31b5d110000fb470d12f95366c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
