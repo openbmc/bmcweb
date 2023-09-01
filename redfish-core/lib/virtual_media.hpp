@@ -765,14 +765,9 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
     }
-    if (!paramTransferProtocolType)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
 
     // validation passed, add protocol to URI if needed
-    if (!uriTransferProtocolType)
+    if (!uriTransferProtocolType && paramTransferProtocolType)
     {
         actionParams.imageUrl = getUriWithTransferProtocol(
             *actionParams.imageUrl, *paramTransferProtocolType);
