@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7259ffac_f9576823",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-04T16:05:33Z",
+      "side": 1,
+      "message": "We follow https://cbea.ms/git-commit/ for commit msgs, for next time, please \"Limit the subject line to 50 characters\"",
+      "revId": "f5f8eaa88e5857cb0f01fa9e48e75d40274c91bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b70d9ac3_4fd2699d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-04T16:05:33Z",
+      "side": 1,
+      "message": "Thank you for fixing this and some timing, I started looking at this an hour ago! \n\nThis was causing problems on webui-vue:\n    \nWhen you replace the certificate, webui-vue on chrome and edge browsers displays \"Error replacing certificate\". Looking at the browser development tools, shows the error is \"ERR_INVALID_HTTP_RESPONSE\".\n    \nWhen you enable debug traces to bmcweb, you can see bmcweb actually thinks it is returning a 200:\n\"Response: 0xd817b0 /redfish/v1/AccountService/LDAP/Certificates/1 200\n    keepalive\u003d1\"\n    \nReading more on \"ERR_INVALID_HTTP_RESPONSE\", it is the http response coming back that chrome is rejecting. Looking at the response and headers you can see that the Location header and the odata.id coming back are corrupted (it is the Location header actually causing the problems):\nLocation\n �0¼�����/v1/AccountService/LDAP/Certificates/1",
+      "revId": "f5f8eaa88e5857cb0f01fa9e48e75d40274c91bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0926d79b_110f87a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-04T16:05:33Z",
+      "side": 1,
+      "message": "I tested webui-vue with this and no longer see the \"ERR_INVALID_HTTP_RESPONSE\" mentioned above",
+      "revId": "f5f8eaa88e5857cb0f01fa9e48e75d40274c91bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
