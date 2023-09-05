@@ -513,6 +513,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "904a15b8_d6802ffe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-09-05T18:14:46Z",
+      "side": 1,
+      "message": "Scratch that, I refactored AND I can still read directly into the body.  This requires encoding the body in place for the EventLog route.  This works, but PTAL and reopen if there is a better option for avoiding the copy in all routes.",
+      "parentUuid": "67e722b5_34e521f6",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 32
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc3910e0_ce9fdc86",
@@ -646,6 +670,30 @@
       "side": 1,
       "message": "In aggregation the prefix is only applied to the member of the top level collection so the route would be /redfish/v1/Managers/\u003cagg_id\u003e_bmc/LogServices/Dump/Entries/\u003clog id\u003e/attachment\n\nRight now we hardcode the Manager as bmc so our aggregation handling actually catches this in our 404 handler.  This route will get used for aggregation whenever we start laying the groundwork for not hardcoding Manager.\n\nAt that point it\u0027ll be the same idea as https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1965-L1976 where it\u0027s a file retrieval endpoint and the aggregation hook is within it.",
       "parentUuid": "6f1dcac3_03b88f6f",
+      "range": {
+        "startLine": 3040,
+        "startChar": 67,
+        "endLine": 3040,
+        "endChar": 70
+      },
+      "revId": "7445a037c3c329cf21f969a32ba7065b7b6ad4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f15e76e_5ff4ce6b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3040,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-09-05T18:14:46Z",
+      "side": 1,
+      "message": "The original question about why to include the \"BMC\" arg is much more obvious now that it is required after the refactor.  Technically it could be omitted here and inserted the next level down in handleLogServicesDumpEntryDownloadGet(), but I\u0027d rather leave it here so that the BMCWEB_ROUTE format is the same as the surrounding/associated handlers.\n\nI\u0027m closing this thread since the aggregation question has also come up in the thread https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61957/comment/f6d27f30_e5a7b43a/.",
+      "parentUuid": "d3516541_ca78601c",
       "range": {
         "startLine": 3040,
         "startChar": 67,
