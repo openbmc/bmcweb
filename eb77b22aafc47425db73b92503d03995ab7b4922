@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8fc3519_28de0eda",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-05T20:47:31Z",
+      "side": 1,
+      "message": "I would also point out that std::move was also what the old code did (line 457) so this either works, or we are just as broken as we were before.",
+      "parentUuid": "9e030a09_a31c1f7b",
+      "revId": "eb77b22aafc47425db73b92503d03995ab7b4922",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11d9f795_9dcb952b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 5
