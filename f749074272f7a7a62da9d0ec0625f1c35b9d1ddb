@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56cb68ab_4bb27e06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-06T19:24:37Z",
+      "side": 1,
+      "message": "I don\u0027t see the flip here \nhttps://github.com/openbmc/bmcweb/commit/e01d0c36af115ed46d54b5dbbacfe3ad92226bd3#diff-275215f5290a693394a85916c653f04c7cb99163f4d93fc6b1bf39e348d55620\n\nTo me it looks like https://github.com/openbmc/bmcweb/commit/9c5e585c3faa73941cedcc70cdff680f403c17bc never had it right.. \n\nI don\u0027t understand the history here but this change looks correct",
+      "revId": "f749074272f7a7a62da9d0ec0625f1c35b9d1ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5e186b_8a461c48",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-06T19:24:37Z",
+      "side": 1,
+      "message": "This matches.. So I am good \n\ninline void deleteAndCreateIPAddress(\n    IpVersion version, const std::string\u0026 ifaceId, const std::string\u0026 id,\n    uint8_t prefixLength, const std::string\u0026 address,\n    const std::string\u0026 gateway,\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp)",
+      "revId": "f749074272f7a7a62da9d0ec0625f1c35b9d1ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
