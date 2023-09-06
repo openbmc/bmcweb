@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1e018441_5dc39a6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-06T19:31:59Z",
+      "side": 1,
+      "message": "Ah, fair point.  I literally just looked up the blame for that line and assuemd it was the last one.\n\nUpdated commit message to: 9c5e585c3faa73941cedcc70cdff680f403c17bc",
+      "parentUuid": "56cb68ab_4bb27e06",
+      "revId": "f749074272f7a7a62da9d0ec0625f1c35b9d1ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9f5e186b_8a461c48",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
