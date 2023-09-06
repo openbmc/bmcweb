@@ -1366,8 +1366,8 @@ inline void
             if (nicIpEntry != ipv4Data.cend())
             {
                 deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
-                                         nicIpEntry->id, prefixLength, *gateway,
-                                         *address, asyncResp);
+                                         nicIpEntry->id, prefixLength, *address,
+                                         *gateway, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
             }
@@ -1500,7 +1500,7 @@ inline void handleIPv6StaticAddressesPatch(
             if (nicIpEntry != ipv6Data.end())
             {
                 deleteAndCreateIPAddress(IpVersion::IpV6, ifaceId,
-                                         nicIpEntry->id, prefix, "", *addr,
+                                         nicIpEntry->id, prefix, *addr, "",
                                          asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv6Data.cend());
