@@ -31,19 +31,31 @@ struct FakeHandler
     {
         EXPECT_EQ(req.method(), boost::beast::http::verb::get);
         EXPECT_EQ(req.target(), "/");
+        EXPECT_EQ(req.getHeaderValue(boost::beast::http::field::host),
+                  "openbmc_project.xyz");
+        EXPECT_FALSE(req.keepAlive());
+        EXPECT_EQ(req.version(), 11);
+        EXPECT_EQ(req.body(), "");
+
         called = true;
     }
     bool called = false;
 };
 
-static std::string getDateStr()
+struct ClockFake
 {
-    return "TestTime";
-}
+    bool wascalled = false;
+    std::string getDateStr()
+    {
+        wascalled = true;
+        return "TestTime";
+    }
+};
 
 TEST(http_connection, RequestPropogates)
 {
     boost::asio::io_context io;
+    ClockFake clock;
     boost::beast::test::stream stream(io);
     boost::beast::test::stream out(io);
     stream.connect(out);
@@ -52,7 +64,8 @@ TEST(http_connection, RequestPropogates)
         "GET / HTTP/1.1\r\nHost: openbmc_project.xyz\r\nConnection: close\r\n\r\n"));
     FakeHandler handler;
     boost::asio::steady_timer timer(io);
-    std::function<std::string()> date(&getDateStr);
+    std::function<std::string()> date(
+        std::bind_front(&ClockFake::getDateStr, &clock));
     std::shared_ptr<crow::Connection<boost::beast::test::stream, FakeHandler>>
         conn = std::make_shared<
             crow::Connection<boost::beast::test::stream, FakeHandler>>(
@@ -77,9 +90,10 @@ TEST(http_connection, RequestPropogates)
         "Cross-Origin-Opener-Policy: same-origin\r\n"
         "Cross-Origin-Resource-Policy: same-origin\r\n"
         "Content-Security-Policy: default-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' wss:; form-action 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'\r\n"
-        "Content-Length: 0\r\n"
-        "\r\n";
+        "Date: TestTime\r\n"
+        "Content-Length: 0\r\n\r\n";
     EXPECT_EQ(outStr, expected);
+    EXPECT_TRUE(clock.wascalled);
 }
 
 } // namespace crow

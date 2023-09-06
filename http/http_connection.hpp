@@ -364,7 +364,7 @@ class Connection :
         res.keepAlive(keepAlive);
 
         completeResponseFields(*req, res);
-
+        res.addHeader(boost::beast::http::field::date, getCachedDateStr());
         if (!isAlive())
         {
             res.setCompleteRequestHandler(nullptr);
