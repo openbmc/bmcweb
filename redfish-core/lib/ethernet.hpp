@@ -1366,8 +1366,8 @@ inline void
             if (nicIpEntry != ipv4Data.cend())
             {
                 deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
-                                         nicIpEntry->id, prefixLength, *gateway,
-                                         *address, asyncResp);
+                                         nicIpEntry->id, prefixLength, *address,
+                                         *gateway, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
             }
