@@ -63,7 +63,6 @@ TEST(http_connection, RequestPropogates)
 
     EXPECT_EQ(
         out.str(),
-        std::string_view(
             "HTTP/1.1 200 OK\r\n"
             "Connection: close\r\n"
             "Strict-Transport-Security: max-age=31536000; includeSubdomains\r\n"
@@ -78,7 +77,8 @@ TEST(http_connection, RequestPropogates)
             "Cross-Origin-Opener-Policy: same-origin\r\n"
             "Cross-Origin-Resource-Policy: same-origin\r\n"
             "Content-Security-Policy: default-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' wss:; form-action 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'\r\n"
-            "Content-Length: 0\r\n\r\n"));
+            "Date: TestTime\r\n"
+            "Content-Length: 0\r\n\r\n");
 }
 
 } // namespace crow
