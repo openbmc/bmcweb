@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d2a873f_de34080c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2023-09-07T19:05:32Z",
+      "side": 1,
+      "message": "I don\u0027t have enough experience yet in bmcweb development to vote on whether editing a json file and building a hpp file is a better work flow then the old way of editing the hpp directly.\n\nI am in favor of improving consistency and preventing mistakes. It is not clear to me if the inconsistencies can still occur by the editing of the json file instead.",
+      "revId": "8711b95e21e51e85c6ba3ddc1c49890dd20e0de6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
