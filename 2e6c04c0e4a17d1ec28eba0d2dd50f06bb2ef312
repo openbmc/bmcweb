@@ -16,6 +16,24 @@
       "message": "be careful with white space changes",
       "revId": "2e6c04c0e4a17d1ec28eba0d2dd50f06bb2ef312",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a8216a_f25867e7",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-09-07T03:56:58Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "26b22f7d_ac2722ed",
+      "revId": "2e6c04c0e4a17d1ec28eba0d2dd50f06bb2ef312",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
