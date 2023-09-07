@@ -16,6 +16,24 @@
       "message": "I\u0027ve made the change requested.  Please retest.",
       "revId": "6b4a06939b23290949f0ddf2cf043c012b192308",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1454e83_99f820eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-07T20:50:29Z",
+      "side": 1,
+      "message": "Was this retested? If so, then I am good",
+      "parentUuid": "f43d6d8e_4269fff5",
+      "revId": "6b4a06939b23290949f0ddf2cf043c012b192308",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
