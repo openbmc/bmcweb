@@ -16,6 +16,24 @@
       "message": "latest patchset updates the second place this problem was found.",
       "revId": "77eb0153a21d5b9c6b3e705ecce7b6f9f8bf3075",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0e04bb_e72bd0fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-07T20:57:21Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "3b556043_0c211c64",
+      "revId": "77eb0153a21d5b9c6b3e705ecce7b6f9f8bf3075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
