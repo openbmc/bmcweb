@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "128377f3_ef94de05",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-07T20:55:36Z",
+      "side": 1,
+      "message": "these seem extra / unrelated, oh well",
+      "revId": "f95de9b19ebdd1624b83734e91c351250574c221",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
