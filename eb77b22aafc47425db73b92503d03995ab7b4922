@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d580acaf_87a57752",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-07T20:37:03Z",
+      "side": 1,
+      "message": "Vernon, does this work for you?",
+      "parentUuid": "d8fc3519_28de0eda",
+      "revId": "eb77b22aafc47425db73b92503d03995ab7b4922",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11d9f795_9dcb952b",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 5
