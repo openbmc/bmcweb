@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc2b7bbd_cdeeca71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-07T20:44:55Z",
+      "side": 1,
+      "message": "Please look at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765 if you get time since that is the new property, LocationIndicatorActive",
+      "parentUuid": "d4cf517c_44ce44a4",
+      "revId": "c37a05171500eeecf32a534a722e36e819821322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6b11cfb8_221c9bdb",
