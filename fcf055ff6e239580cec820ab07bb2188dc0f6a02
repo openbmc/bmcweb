@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b496ebb3_9cdd186f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1859,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-07T13:37:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4d540ad_7515be75",
+      "range": {
+        "startLine": 1859,
+        "startChar": 19,
+        "endLine": 1859,
+        "endChar": 24
+      },
+      "revId": "fcf055ff6e239580cec820ab07bb2188dc0f6a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cac44e2_134dcbaf",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-09-07T02:45:05Z",
       "side": 1,
       "message": "Error anytime internalError I vote",
+      "revId": "fcf055ff6e239580cec820ab07bb2188dc0f6a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba64482_84e691fe",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1865,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-07T13:37:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cac44e2_134dcbaf",
       "revId": "fcf055ff6e239580cec820ab07bb2188dc0f6a02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
