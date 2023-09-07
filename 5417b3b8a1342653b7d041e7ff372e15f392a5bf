@@ -205,6 +205,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "599dc035_f5d2746f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-07T02:45:05Z",
+      "side": 1,
+      "message": "We haven\u0027t used find_front else where, I am okay if we don\u0027t.\n\nI guess I am okay with this code as is.",
+      "parentUuid": "1cf881a6_5ea69cd5",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 7
+      },
+      "revId": "5417b3b8a1342653b7d041e7ff372e15f392a5bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "727547ff_6d781b2d",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 51
