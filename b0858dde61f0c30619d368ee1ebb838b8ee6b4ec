@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "423c5a6f_0ed882a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T15:46:24Z",
+      "side": 1,
+      "message": "Need a lot more here. Why do we need this change? What is this solving? Why this direction?",
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "876565a1_72e44314",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -14,6 +31,23 @@
       "writtenOn": "2023-08-31T14:54:52Z",
       "side": 1,
       "message": "as written, this interface tries to enforce things that aren’t in phosphor dbus interfaces, adds regex (which is a documented anti pattern), reinvents classes that already exist, and ignores several items from the coding standard and dbus usage documentation.\n\nI would start with a patch to DBUS_USAGE.md, that updates the new “rules” that you’re trying to implement across all dbus-\u003eredfish conversions so we can get agreement on that.  THEN we can can discuss what the code looks like.  please also write a commit message.\n\nI’ve ready your mail to the mailing list, and I’m not sure I even understand the problem you’re trying to solve in regards to error handling.  we have error handling today that has been discussed in code review at length.  this patchset appears to completely change it, with no discussion of what existed previously, and ignores the Redfish spec in regards to error handling behavior, and chooses to instead implement something totally different and undocumented (setting null).",
+      "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d27e9304_9a619ea8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T15:46:24Z",
+      "side": 1,
+      "message": "Feels like a WIP commit, if so, can you please mark it that way.\nThanks!",
       "revId": "b0858dde61f0c30619d368ee1ebb838b8ee6b4ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
