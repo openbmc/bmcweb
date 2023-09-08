@@ -56,7 +56,7 @@ class Handler : public std::enable_shared_from_this<Handler>
     void connect()
     {
         std::error_code ec;
-        proxy = boost::process::child("/usr/sbin/nbd-proxy", media,
+        proxy = boost::process::child("/usr/bin/nbd-proxy", media,
                                       boost::process::std_out > pipeOut,
                                       boost::process::std_in < pipeIn, ec);
         if (ec)
