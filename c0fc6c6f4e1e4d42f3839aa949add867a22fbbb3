@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6111873f_7f2ccaf7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-08T18:14:15Z",
+      "side": 1,
+      "message": "I see no mention of compatibility impact here with existing clients.  Is there any?\n\nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#compatibility",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
