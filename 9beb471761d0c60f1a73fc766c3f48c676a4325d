@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611393ad_3caf8870",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T16:54:22Z",
+      "side": 1,
+      "message": "These need updated to the new style",
+      "revId": "9beb471761d0c60f1a73fc766c3f48c676a4325d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
