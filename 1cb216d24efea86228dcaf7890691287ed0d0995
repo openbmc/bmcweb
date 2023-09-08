@@ -16,6 +16,29 @@
       "message": "Thermal Metrics includes what? Temperature reading? Why does OpenBMC need it ?",
       "revId": "1cb216d24efea86228dcaf7890691287ed0d0995",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9698b6e2_4487fcd5",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T16:56:10Z",
+      "side": 1,
+      "message": "a space between the chassis Id {} is going to read better in the journal\nhttps://github.com/openbmc/bmcweb/blob/e1bf8bb6a843a2a53d74d74f410b5fe053c2d222/redfish-core/lib/redfish_v1.hpp#L43",
+      "range": {
+        "startLine": 22,
+        "startChar": 40,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "1cb216d24efea86228dcaf7890691287ed0d0995",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
