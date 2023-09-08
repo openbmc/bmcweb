@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f64e20_5601df0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001210
+      },
+      "writtenOn": "2023-09-08T08:34:29Z",
+      "side": 1,
+      "message": "I tested it on my system. The patch works.",
+      "revId": "e1bf8bb6a843a2a53d74d74f410b5fe053c2d222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
