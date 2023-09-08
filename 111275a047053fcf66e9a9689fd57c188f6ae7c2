@@ -49,6 +49,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd39052d_faea4e5b",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T16:59:42Z",
+      "side": 1,
+      "message": "Old style of logging, see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/51587/23/http/http_client.hpp",
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee4fd1e0_60210f5c",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 2
