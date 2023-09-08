@@ -16,6 +16,29 @@
       "message": "I tested it on my system. The patch works.",
       "revId": "e1bf8bb6a843a2a53d74d74f410b5fe053c2d222",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ef2d49_f932e38d",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T15:43:20Z",
+      "side": 1,
+      "message": "Seems like the correct location based on \n\"As such OpenBMC applications should be installed in `/usr/bin`.\"\nhttps://github.com/openbmc/docs/blob/afb213e0829cd2d1218beececcd2422be1c60e19/anti-patterns.md?plain\u003d1#L251C71-L252C56",
+      "range": {
+        "startLine": 59,
+        "startChar": 39,
+        "endLine": 59,
+        "endChar": 57
+      },
+      "revId": "e1bf8bb6a843a2a53d74d74f410b5fe053c2d222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
