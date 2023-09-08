@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb87d630_fa5a6f29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T16:51:07Z",
+      "side": 1,
+      "message": "Does this need to go at the same time as this commit?",
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630759d3_b75f788e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T16:51:07Z",
+      "side": 1,
+      "message": "operator / fix but then looks good to me",
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bf875f7_50125210",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 29
