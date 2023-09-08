@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7aa671b2_35e77fe3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-08T16:58:30Z",
+      "side": 1,
+      "message": "This is the old style of logging, Please look at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/51587/23/http/http_client.hpp",
+      "revId": "08fc2efed11003988710837103b60f78de5bf425",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50c537b9_0ab8f1ce",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 6
