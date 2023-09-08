@@ -16,6 +16,24 @@
       "message": "These need updated to the new style",
       "revId": "9beb471761d0c60f1a73fc766c3f48c676a4325d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2188b6bc_04b5a44d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-08T18:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "611393ad_3caf8870",
+      "revId": "9beb471761d0c60f1a73fc766c3f48c676a4325d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

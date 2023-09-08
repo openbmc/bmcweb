@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "695384d4_646047ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-08T18:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "275e0c15_bb6b81a0",
+      "revId": "b96f8c6c52ef32c64f3ace5384d6e7dc054f2606",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f78e5172_4a9c8b7b",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-09-07T20:41:01Z",
       "side": 1,
       "message": "I would have just left as \"//TODO: Add dual rotor support when Redfish adds\" but oh well. This is fine expect it is dual \"r\"otor..",
+      "range": {
+        "startLine": 445,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 11
+      },
+      "revId": "b96f8c6c52ef32c64f3ace5384d6e7dc054f2606",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf0e4515_62f9c242",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-08T18:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f78e5172_4a9c8b7b",
       "range": {
         "startLine": 445,
         "startChar": 0,
