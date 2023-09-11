@@ -43,13 +43,8 @@ struct Request
         }
     }
 
-    Request(std::string_view bodyIn, std::error_code& ec) : req({}, bodyIn)
-    {
-        if (!setUrlInfo())
-        {
-            ec = std::make_error_code(std::errc::invalid_argument);
-        }
-    }
+    Request(std::string_view bodyIn, std::error_code& /*ec*/) : req({}, bodyIn)
+    {}
 
     Request() = default;
 
