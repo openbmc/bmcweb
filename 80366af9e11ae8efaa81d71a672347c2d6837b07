@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25bed17b_888720fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-12T19:11:12Z",
+      "side": 1,
+      "message": "What system was this tested on?  It uses an incorrect association that I don\u0027t see implemented in entity-manager, which would be the only thing capable of publishing a fan-\u003esensor association.  In addition, it\u0027s posting the wrong parameter to Redfish, which I would\u0027ve really expected someone to see if they had actually tried this code.  I\u0027m not sure how this test could\u0027ve passed with the code as written, unless maybe you were doing a unit test?\n\nHelp me understand please.  This appears as if it hasn\u0027t actually been tested, which I\u0027m sure wasn\u0027t your intent.",
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "186cc44a_fe8b9b32",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-12T19:11:12Z",
+      "side": 1,
+      "message": "Need to handle null cases, similar to the existing sensor code.",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 58
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5879b53_b185bcdb",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-12T19:11:12Z",
+      "side": 1,
+      "message": "Target, is different than SpeedRPM.  SpeedRPM is the current reading, Target is the target.  Surely this would\u0027ve shown in your testing that SpeedRPM showed no noise when you ran your tests?",
+      "range": {
+        "startLine": 391,
+        "startChar": 49,
+        "endLine": 391,
+        "endChar": 55
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be40fa46_1ffb756c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-12T19:11:12Z",
+      "side": 1,
+      "message": "This association doesn\u0027t exist anywhere that I see;  I don\u0027t understand how this code could\u0027ve worked as written.",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
