@@ -76,6 +76,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7a8c02e_30b65d4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-09-12T05:08:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "630759d3_b75f788e",
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bf875f7_50125210",
@@ -107,6 +125,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "0bf875f7_50125210",
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8027721_98ce7fb3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-09-12T05:08:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "171c0b08_4ab88d7d",
       "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
