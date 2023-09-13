@@ -35,6 +35,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a072d1c_d7b934e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-13T18:23:59Z",
+      "side": 1,
+      "message": "A few things:\n\nPlease get added to your companies CLA so CI will run.  There are build failures in your code that leads me to believe you didn\u0027t run it through CI checks before pushing.  This wastes reviewers time to point out things that are easily caught by build configs.\n\nAs commented by others specifically, the code shows a lack of understanding of how multi-threading an application works in practice.  I see no locks, or other synchronization methods that would make the existing code threadsafe, which is likely why it\u0027s hitting problems.  While a lot of the bmcweb code is reentrant, a significant portion is not, and is relying on global state.  In addition, as patrick points out, sdbusplus is not in itself thread safe.  You will notice my patchset that I\u0027ve linked before did WAAAAAAY more than what\u0027s done here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63710 and might be a good starting point for you.\n\nI\u0027d recommend doing some reading on:\nThe available synconization mechanisms in boost asio (including actually enabling them in ifdefs).\nHow to write threadsafe code, including an understanding of shared access patterns and mutex usage.\nThread sanitizer, which can easily catch quite a few of these failures.",
+      "revId": "eef3d5fe5a536db6d318c5cd0b5f7ee52f7fccad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f3319ea_35ec1353",
