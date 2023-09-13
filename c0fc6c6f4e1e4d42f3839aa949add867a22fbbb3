@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77aea197_6fce24c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-13T18:39:40Z",
+      "side": 1,
+      "message": "The question was not about IPMI impact.  That\u0027s not of importance to this review.  What\u0027s important is that if there are users that previously set DHCP, and expected both dhcp v4 and dhcp v6 to be set, because that was the old behavior.  Is there any possibility that a user using redfish could break from this change in behavior?\n\nThat doesn\u0027t meant the patchset can\u0027t go through, I would just like the compatibility issue called out in the commit message, and at least documented so that if users hit a problem, we can point them to something.",
+      "parentUuid": "2a28552e_4cbc9a15",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
