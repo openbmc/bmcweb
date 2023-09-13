@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "826192d4_d5dd0c7b",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-13T13:49:04Z",
+      "side": 1,
+      "message": "The dbus connection cannot be shared across threads. sd-bus has an underlying requirement that a connection is only accessed from a single thread. Even if you use locking you can end up with undefined results.",
+      "revId": "eef3d5fe5a536db6d318c5cd0b5f7ee52f7fccad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
