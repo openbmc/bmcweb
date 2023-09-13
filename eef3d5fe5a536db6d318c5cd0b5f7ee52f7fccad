@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5869f5a_3db9a812",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-13T17:40:52Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/ \n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how\n\nThanks!",
+      "revId": "eef3d5fe5a536db6d318c5cd0b5f7ee52f7fccad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "757116ed_54d2d861",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-13T17:40:52Z",
+      "side": 1,
+      "message": "Please explain more in the commit message body. Why does bmcweb need this change? What does it do? How was it tested?",
+      "revId": "eef3d5fe5a536db6d318c5cd0b5f7ee52f7fccad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f3319ea_35ec1353",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-13T17:40:52Z",
+      "side": 1,
+      "message": "extra spaces",
+      "revId": "eef3d5fe5a536db6d318c5cd0b5f7ee52f7fccad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "826192d4_d5dd0c7b",
         "filename": "src/dbus_singleton.cpp",
         "patchSetId": 3
