@@ -85,6 +85,36 @@ inline void requestRoutesMetricReportCollection(App& app)
         });
 }
 
+inline void
+    getPlatforMetrics(const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& metricId,
+                      const uint64_t& requestTimestamp = 0)
+{
+    boost::asio::post(crow::connections::getNextIoContext(),
+                      [req, asyncResp]() {
+        BMCWEB_LOG_INFO("Populating MRD Response");
+        nlohmann::json& resArray = asyncResp->res.jsonValue["MetricValues"];
+
+        for (int i = 0; i < 5000; i++)
+        {
+            nlohmann::json thisMetric = nlohmann::json::object();
+            thisMetric["MetricValue"] = 0;
+            thisMetric["MetricProperty"] =
+                "/redfish/v1/Fabrics/HGX_NVLinkFabric_0/Switches/NVSwitch_0/Ports/NVLink_0#/Oem/Nvidia/RXWidth";
+            thisMetric["Timestamp"] = "2020-03-27T16:50:58.516+00:00";
+            resArray.push_back(thisMetric);
+        }
+
+        boost::asio::post(*req.ioService, [asyncResp]() {
+            messages::success(asyncResp->res); // Not needed but preventing any optimization 
+            BMCWEB_LOG_INFO("Sending MRD Response");
+        });
+    });
+
+    return;
+}
+
 inline void requestRoutesMetricReport(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
@@ -97,6 +127,14 @@ inline void requestRoutesMetricReport(App& app)
         {
             return;
         }
+
+        // Test code for Multithread model 
+        const uint64_t requestTimestamp = static_cast<uint64_t>(
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::steady_clock::now().time_since_epoch())
+                .count());
+        getPlatforMetrics(req, asyncResp, id, requestTimestamp);
+    
         const std::string reportPath = telemetry::getDbusReportPath(id);
         crow::connections::systemBus->async_method_call(
             [asyncResp, id, reportPath](const boost::system::error_code& ec) {

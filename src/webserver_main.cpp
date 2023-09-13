@@ -62,10 +62,19 @@ inline void setupSocket(crow::App& app)
     }
 }
 
+void runIOService()
+{
+    BMCWEB_LOG_INFO("Starting ASIO worker thread");
+    boost::asio::io_context& io = crow::connections::getNextIoContext();
+    io.run();
+    BMCWEB_LOG_INFO("Exiting ASIO worker thread");
+}
+
 static int run()
 {
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
+    auto work = make_work_guard(crow::connections::getNextIoContext());
 
     sdbusplus::asio::connection systemBus(*io);
     crow::connections::systemBus = &systemBus;
@@ -145,8 +154,23 @@ static int run()
 
     bmcweb::registerUserRemovedSignal();
 
+    // Create a vector of threads
+    std::vector<std::thread> threads;
+    //Create and launch the threads
+    for (unsigned int i = 0; i < 1; ++i)
+    {
+        threads.emplace_back(runIOService);
+    }
+
+    work.reset();
+
     app.run();
     io->run();
+
+    // Wait for all threads to finish
+    for (auto& thread : threads) {
+        thread.join();
+    }
 
     crow::connections::systemBus = nullptr;
 
