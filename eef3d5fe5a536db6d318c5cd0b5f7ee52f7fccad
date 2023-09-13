@@ -77,6 +77,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d6bc3b1_1a05d6b4",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-13T18:27:00Z",
+      "side": 1,
+      "message": "?  The code you\u0027re doing in a loop 5000 times isn\u0027t actually doing anything except constructing a very large json object (which, if that\u0027s your goal, there are more efficient ways to accomplish).\n\nLets focus on getting this code to something whos performance can be tested externally to the process.  Just pushing 5000 values to an array doesn\u0027t really prove the multi-threading capability.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 38
+      },
+      "revId": "eef3d5fe5a536db6d318c5cd0b5f7ee52f7fccad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f3319ea_35ec1353",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 3
