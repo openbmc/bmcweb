@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a28552e_4cbc9a15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-09-13T13:37:06Z",
+      "side": 1,
+      "message": "I had requested @Johnathan for his inputs on the impact on IPMI in the networkd commit, but couldn\u0027t get any.\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63124/comments/06e2b078_7344203d",
+      "parentUuid": "df7384b1_1df9b8c8",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
