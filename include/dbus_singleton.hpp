@@ -10,6 +10,6 @@ namespace connections
 // Please see webserver_main for the example how this variable is initialzed,
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 extern sdbusplus::asio::connection* systemBus;
-
+boost::asio::io_context& getNextIoContext();
 } // namespace connections
 } // namespace crow
