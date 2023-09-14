@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3d9655b_78d1b6e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-14T16:36:41Z",
+      "side": 1,
+      "message": "\u003e  Is there any possibility that a user using redfish could break from this change in behavior?\n\nThis question still isn\u0027t answered.  You\u0027re changing the behavior here when a user sets DHCP.  IF a user was expecting both DHCPv4 and DHCPv6 to be set, what should they do?  Please answer in your commit message.",
+      "parentUuid": "c49bbeec_a8242157",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
