@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3921b289_8d4b80c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-18T16:37:44Z",
+      "side": 1,
+      "message": "Might be good to mention this was tested on Witherspoon in the commit msg. You could also add this link to the associations file. Up to you",
+      "parentUuid": "bdd54da4_e88da29b",
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "186cc44a_fe8b9b32",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 21
@@ -91,6 +109,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "186cc44a_fe8b9b32",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 58
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a95a32_43e4a0b5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-18T16:37:44Z",
+      "side": 1,
+      "message": "@Ed are you talking about https://github.com/openbmc/bmcweb/blob/e1bf8bb6a843a2a53d74d74f410b5fe053c2d222/redfish-core/lib/sensors.hpp#L934 ?\n\n```\n            if (!std::isfinite(*doubleValue))\n            {\n                if (valueName \u003d\u003d \"Value\")\n                {\n                    // Readings are allowed to be NAN for unavailable;  coerce\n                    // them to null in the json response.\n                    sensorJson[key] \u003d nullptr;\n                    continue;\n                }\n```",
+      "parentUuid": "306f231e_2122ad70",
       "range": {
         "startLine": 381,
         "startChar": 0,

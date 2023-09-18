@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd85b2e_dd2d3bb0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-18T16:37:44Z",
+      "side": 1,
+      "message": "Why do you need this check? Oh well.",
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
