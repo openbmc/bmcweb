@@ -16,6 +16,87 @@
       "message": "Why do you need this check? Oh well.",
       "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c029c53_151906d2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-18T17:13:55Z",
+      "side": 1,
+      "message": "This needs to set internal error if the dbus interface is publishing an interface that\u0027s incorrect.",
+      "parentUuid": "7bd85b2e_dd2d3bb0",
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39aa3aa0_35c9fd2e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-18T17:13:55Z",
+      "side": 1,
+      "message": "This runs under the assumption that the sensors are in primary-\u003esecondary order.  Please don\u0027t make that assumption (as it\u0027s not true in a lot of cases).",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 39
+      },
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65488c66_2f7cb30f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-18T17:13:55Z",
+      "side": 1,
+      "message": "Remove and put in its own commit.  More than just this code will need to be adjusted.",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 12
+      },
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58eefc07_125f2e3b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-18T17:13:55Z",
+      "side": 1,
+      "message": "non-trivial lambda.  Please make this a normal function.",
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

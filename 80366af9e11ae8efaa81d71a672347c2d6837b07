@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d124f67_7c520787",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-18T17:13:55Z",
+      "side": 1,
+      "message": "Yep, similar to what gunnar posted.  I see a \u003c 0.0 check, which is not what I asked for.  This comment isn\u0027t done.",
+      "parentUuid": "09a95a32_43e4a0b5",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 58
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5879b53_b185bcdb",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 21
