@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e48da59_05fdf58c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-19T15:46:15Z",
+      "side": 1,
+      "message": "Looks good, maybe a bit more consistency on naming",
+      "revId": "6278f050f0ccf68c5052bbc36fbf4104886e53df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd4d283_cbb85824",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-19T15:46:15Z",
+      "side": 1,
+      "message": "streamIt  would fit more into other bmcweb code e.g. https://github.com/openbmc/bmcweb/blob/e1bf8bb6a843a2a53d74d74f410b5fe053c2d222/include/login_routes.hpp#L45\n\nBelow it is \"it\", but I like streamIt more",
+      "range": {
+        "startLine": 100,
+        "startChar": 13,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "6278f050f0ccf68c5052bbc36fbf4104886e53df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c452c764_bbf47f20",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-19T15:46:15Z",
+      "side": 1,
+      "message": "I think streamData, stream, https2StreamData, streamPtr  would be better names here\n\nBelow it looks like it is\n        Http2StreamData\u0026 streamPtr \u003d it-\u003esecond;",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 105,
+        "endChar": 29
+      },
+      "revId": "6278f050f0ccf68c5052bbc36fbf4104886e53df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
