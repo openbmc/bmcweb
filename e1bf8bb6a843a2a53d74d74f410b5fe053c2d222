@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8378ac8_366a6313",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T17:47:20Z",
+      "side": 0,
+      "message": "string_view in new code please.",
+      "range": {
+        "startLine": 39,
+        "startChar": 31,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "e1bf8bb6a843a2a53d74d74f410b5fe053c2d222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

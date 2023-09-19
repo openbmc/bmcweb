@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bcf0d9b_83087856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T17:47:20Z",
+      "side": 1,
+      "message": "And what else?  The validator will happily pass if a collection is empty or incorrect.  Also missing 404 tests.",
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a66322b8_18eb03e2",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T17:47:20Z",
+      "side": 1,
+      "message": "what is an \"array name\"?  I think you mean \"key name\", which generally we would just pass in a json_pointer object, but maybe we can\u0027t in that case?",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b1d6c12_90a09173",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T17:47:20Z",
+      "side": 1,
+      "message": "Please don\u0027t make default parameters like this.  Roll the parameter out to all the users if it\u0027s now needed.",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 58
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621e9770_9364ad5a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T17:47:20Z",
+      "side": 1,
+      "message": "This lambda doesn\u0027t follow the coding standard.  I\u0027m not going to accept anything new into it until it\u0027s refactored to make it reviewable.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 9
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29eea254_051808f2",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T17:47:20Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
