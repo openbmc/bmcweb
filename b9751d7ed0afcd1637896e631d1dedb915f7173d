@@ -93,6 +93,30 @@
       },
       "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efd9208f_49ee5cb5",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-19T18:25:07Z",
+      "side": 1,
+      "message": "My suggested logic is the same as what you described.\n\nThe main loop is on pcieSlotPaths in both cases, and then check whether there is any device on the slot.\n\nThe difference is how to check the existence of a  pcie device.\ngetAssociatedSubtreePaths() is for the purpose.\n\n\n```\nfor each  pcieSlotPaths\n{\n   // The logic here is to check whether there is a pcieDevice\n}\n```\n\nHow to check whether it is a pcie device or not is done by getAssociatedSubTreePaths() by setting the specific interface \u0027PCIeDevice\u0027\nso that the only PCIeDevice (not others) is checked.",
+      "parentUuid": "bf2961c4_a01e77be",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
