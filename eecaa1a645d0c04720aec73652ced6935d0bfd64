@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "eecaa1a645d0c04720aec73652ced6935d0bfd64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f4c1dc_c16060a9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-19T15:51:03Z",
+      "side": 1,
+      "message": "I would say \n\n if (value \u003c 0.0)\n{\n                BMCWEB_LOG_ERROR(\"Incorrect D-Bus interface for sensor Value\");\n                messages::internalError(asyncResp-\u003eres);\n}\nasyncResp-\u003eres.jsonValue[name][\"SpeedRPM\"] \u003d value;\n\nfits more with other places but oh well",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 13
+      },
+      "revId": "eecaa1a645d0c04720aec73652ced6935d0bfd64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

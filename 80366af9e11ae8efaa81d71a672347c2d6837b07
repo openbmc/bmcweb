@@ -211,6 +211,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85e715cb_60f7d7e5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-19T15:51:03Z",
+      "side": 1,
+      "message": "We just leave it off if it is null? \nThat is different than https://github.com/openbmc/bmcweb/blob/e1bf8bb6a843a2a53d74d74f410b5fe053c2d222/redfish-core/lib/sensors.hpp#L934 but I think that is fine for this commit but can you put that in the commit msg and/or a comment in the code",
+      "parentUuid": "06a5261e_0490d241",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 58
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5879b53_b185bcdb",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 21

@@ -103,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4134452_0169331e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-19T15:51:03Z",
+      "side": 1,
+      "message": "Maybe something for the next commit ? \nDo we need more associations?",
+      "parentUuid": "6a7a12e0_408bf7d4",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 39
+      },
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65488c66_2f7cb30f",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 23
