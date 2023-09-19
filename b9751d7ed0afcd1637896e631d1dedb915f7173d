@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c81189_ebc79ab2",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-19T14:09:31Z",
+      "side": 1,
+      "message": "Since `std::ranges` is used (and preferred) in bmcweb, this can be written as\n```\n    return std::ranges::find(pcieDevicePaths, pcieDevicePath) !\u003d \n                             pcieDevicePaths.end();\n```",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 62
+      },
+      "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "430df036_937423f1",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-19T14:09:31Z",
+      "side": 1,
+      "message": "This part of logic \u0026 its children is to find the empty-slot by doing\n\n```\ngetSubTreePaths() --\u003e pcieDevicePaths\ngetSubTreePaths() -\u003e pcieSlotPaths\n\nfor each  pcieSlotPaths\n{\n   getAssociationEndPoints() -\u003e to check whether there is a pcieDevice\n}\n```\n\nThe logic seems simplified if we start with pcieSlots \u0026 check whether there is a pcieDevice using getAssociatedSubTreePaths()\n\n```\ngetSubTreePaths() -\u003e pcieSlotPaths\nfor each slot : pcieSlotPaths\n{ \n   slotAssocPath \u003d slot + \"/contained_by\";\n   getAssociatedSubTreePaths(slotAssocPath, Item.PCIeDevice interface)\n   if(empty ) {\n       pcieSlot is empty\n   }\n}\n```\n\nThis approach would reduce the first call `getSubTreePaths() --\u003e pcieDevicePaths`, and I think the code would be clearer to read.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
