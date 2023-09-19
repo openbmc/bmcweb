@@ -421,6 +421,54 @@
       },
       "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c96d1f_0d3049ce",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T21:59:57Z",
+      "side": 1,
+      "message": "There are other systems also have similar associations,\nhttps://grok.openbmc.org/xref/openbmc/openbmc/meta-quanta/meta-gbs/recipes-phosphor/inventory/phosphor-inventory-manager/associations.json?r\u003db4ebad6c#286",
+      "parentUuid": "6f72a601_bee2ff9d",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc0f49c7_2386d266",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T21:59:57Z",
+      "side": 1,
+      "message": "There are other systems that have similar associations. \n\nhttps://grok.openbmc.org/xref/openbmc/openbmc/meta-quanta/meta-gbs/recipes-phosphor/inventory/phosphor-inventory-manager/associations.json?r\u003db4ebad6c#286\n\nhttps://grok.openbmc.org/xref/openbmc/openbmc/meta-inspur/meta-fp5280g2/recipes-phosphor/inventory/phosphor-inventory-manager/associations.json?r\u003dc0060a74#108\n\nI will make changes to the code to filter the list of sensors that have \u0027fan_tach\u0027 in the path and pass it to addFanSensorsSpeedPercent. This approach aligns with what we\u0027ve done in the sensor code. Please let me know if it is not necessary in this code if fans will have only sensors in \u0027fan_tach\u0027.\n\nhttps://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/sensors.hpp?r\u003d80f79a40#2581",
+      "parentUuid": "6f72a601_bee2ff9d",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
