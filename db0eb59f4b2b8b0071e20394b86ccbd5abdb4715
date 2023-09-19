@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40217b97_4cfda406",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T18:19:05Z",
+      "side": 1,
+      "message": "There is already another commit in progress that is handling the refactoring, and it is dependent on the mapper change being merged. Should I create a separate commit to push the refactoring changes so that we can proceed with these changes?\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/58628",
+      "parentUuid": "621e9770_9364ad5a",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 9
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29eea254_051808f2",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 15
