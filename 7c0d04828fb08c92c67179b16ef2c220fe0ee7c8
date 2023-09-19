@@ -16,6 +16,24 @@
       "message": "Redfish service validator doesn\u0027t use http/2 ?\nIs this just to verify nothing else broke?",
       "revId": "7c0d04828fb08c92c67179b16ef2c220fe0ee7c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ddbcedf_6ad94ab4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T15:31:36Z",
+      "side": 1,
+      "message": "Basically.  I also tested some point places with curl. I guess I should state that.\n\nDone.",
+      "parentUuid": "dbba78b3_fa8c9a53",
+      "revId": "7c0d04828fb08c92c67179b16ef2c220fe0ee7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
