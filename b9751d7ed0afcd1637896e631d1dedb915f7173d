@@ -117,6 +117,30 @@
       },
       "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2b9a9ec_fa8ba762",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T18:31:57Z",
+      "side": 1,
+      "message": "if we use getAssociatedSubTreePaths, it queries the entire PCIeDevice subtree for each PCIeSlot to check if the endpoint is a PCIeDevice. While this approach may enhance code readability, it could impact performance. I am inclined to prioritize performance. However, I\u0027m open to changing the code to use getAssociatedSubTreePaths if Ed/Gunnar prefers that approach.",
+      "parentUuid": "efd9208f_49ee5cb5",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
