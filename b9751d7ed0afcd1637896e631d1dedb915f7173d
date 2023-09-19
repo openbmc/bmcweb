@@ -141,6 +141,30 @@
       },
       "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a4e3a8_2a0b9ab5",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-19T18:58:16Z",
+      "side": 1,
+      "message": "I don\u0027t think there are much of the performance differences.\nCurrent code: (3 depths getSubTree or getAssoc Calls)\n\n```\ngetPCIeDeviceList()\n   dbus::utility::getSubTreePaths(...[](){\n      getEmptyPCIeSlots() {\n          dbus::utility::getSubTreePaths(...[](){\n             handleGetEmptyPCIeSlots() {\n               dbus::utility::getAssociationEndPoints();\n             }\n         });\n   });\n```\n\nThe new code: (2 depths getSubtree or getAssociatedSubTree)\n\n```\ngetPCIeDeviceList()\n   dbus::utility::getSubTreePaths(...[](){\n         slotAssocPath \u003d slot + \"/contained_by\";\n        getAssociatedSubTreePaths( ..[](){\n             if(ec || empty())\n             {\n             }\n       });\n```\n\nIt would be much more readable.",
+      "parentUuid": "d2b9a9ec_fa8ba762",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
