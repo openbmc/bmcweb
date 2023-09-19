@@ -45,6 +45,30 @@
       },
       "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2961c4_a01e77be",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T15:09:32Z",
+      "side": 1,
+      "message": "We require a list of PCIeDevices. It\u0027s possible to have multiple different objects sharing the same \u0027contained_by\u0027 association path. This association can be used for PCIe Device, Boards or Chassis. In addEmptyPCIeSlot, we iterate through each object and verify if the PCIeSlot contains a PCIe Device.\n\nThis is discord discussion\nhttps://discord.com/channels/775381525260664832/855566794994221117/1115344545815744532",
+      "parentUuid": "430df036_937423f1",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "b9751d7ed0afcd1637896e631d1dedb915f7173d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
