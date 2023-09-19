@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "111c3157_2df45481",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T02:05:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3f3d8954_cc1400fa",
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15c7111f_c924cb8c",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-08-10T15:54:56Z",
       "side": 1,
       "message": "Wouldn\u0027t it be like?\n\n```\nbool found \u003d std::find(pcieDevicePaths.begin(),\n                       pcieDevicePaths.end(), \n                       pcieDevicePath) !\u003d pcieDevicePaths.end();\n```",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdff473d_597c5947",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T02:05:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15c7111f_c924cb8c",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "It doesn\u0027t matter much. Since this function is simple and self-contained, extracting pcieDeviceList inside the function could make it more readable.",
       "parentUuid": "21adf958_b31c4259",
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dea6b5b3_3af1395f",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T02:05:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c022d760_73db615f",
       "revId": "792a5a0699233b78128388d0f57cb00494b66854",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -125,6 +185,24 @@
       "side": 1,
       "message": "Perhaps, then, wouldn\u0027t be good enough by setting after `getEmptyPCIeSlots()`?\n\n```\n        getEmptyPCIeSlots(asyncResp, pcieDevicePaths, name);\n \u003e\u003e      asyncResp-\u003eres.jsonValue[name + \"@odata.count\"] \u003d pcieDeviceList.size();\n```",
       "parentUuid": "f4e198d4_1df99479",
+      "revId": "792a5a0699233b78128388d0f57cb00494b66854",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d973af8a_6c9c78c1",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-19T02:05:38Z",
+      "side": 1,
+      "message": "Ack. I did the refactor of getCollectionMembers before this commit, we don\u0027t need this line.",
+      "parentUuid": "1dba8f32_f6378d4d",
       "revId": "792a5a0699233b78128388d0f57cb00494b66854",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
