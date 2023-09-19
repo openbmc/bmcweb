@@ -127,6 +127,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1702916f_9c34d8ae",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T16:50:15Z",
+      "side": 1,
+      "message": "\u003e Maybe something for the next commit ? \n\nGiven that the association is wrong as written, I don\u0027t think we can do that.  That sets us up for compatibility problems down the road when we eventually have to fix this the right way.\n\n\u003e Do we need more associations?\n\nProbably, especially given that a fan might have many sensors, only one of which is the primary tach, the associations need to be more specific.  Lets discuss in the PDI review adding those associations, rather than here.  Ideally the PDI discussion would\u0027ve happened BEFORE this review was published, or before the associations were accepted into rainier, but oh well.",
+      "parentUuid": "e4134452_0169331e",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 39
+      },
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65488c66_2f7cb30f",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 23

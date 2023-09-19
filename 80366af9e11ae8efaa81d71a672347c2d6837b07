@@ -259,6 +259,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a6ee56a_d8c303f3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T16:50:15Z",
+      "side": 1,
+      "message": "\u003e but I think that is fine for this commit\n\nI don\u0027t, and the more important thing is that this commit completely ignored the existing sensor code that handles this already.  This was discussed with DMTF on how to handle, and what\u0027s in the sensor subsystem is what they said.  I don\u0027t want to lose that, because we already lost it once in the other discussion for sensors.\n\nAlso, it\u0027s a trivial thing to add.  I\u0027m not sure why it\u0027s that difficult to look at the old code.",
+      "parentUuid": "15f2ab49_73f9d501",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 58
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5879b53_b185bcdb",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 21
