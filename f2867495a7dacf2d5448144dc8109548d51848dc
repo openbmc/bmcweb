@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc54e5e8_83582e1b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T16:59:32Z",
+      "side": 1,
+      "message": "non trivial lambda.",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 9
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2e8adfc_a9c5c5ed",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T16:59:32Z",
+      "side": 1,
+      "message": "undefined behavior if sensorPaths.size() is 0.",
+      "range": {
+        "startLine": 436,
+        "startChar": 19,
+        "endLine": 436,
+        "endChar": 22
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ed18de_a55f989b",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T16:59:32Z",
+      "side": 1,
+      "message": "Still has a non trivial lambda.  Please read the coding standards.",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 73
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
