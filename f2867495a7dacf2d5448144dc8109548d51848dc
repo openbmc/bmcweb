@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "836c1bb9_bc7e3a47",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-19T22:47:02Z",
+      "side": 1,
+      "message": "Still not resolved.  I\u0027m not going to argue the merits of doing range checks in a code review.  If you want to change the rules, feel free to show that range checks aren\u0027t needed to the relevant coding standards.",
+      "parentUuid": "477979b2_a024a3fe",
+      "range": {
+        "startLine": 436,
+        "startChar": 19,
+        "endLine": 436,
+        "endChar": 22
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6ed18de_a55f989b",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 29
