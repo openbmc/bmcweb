@@ -317,6 +317,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83610c6b_cdffdd73",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-20T21:15:56Z",
+      "side": 1,
+      "message": "\u003e because my company defines the method as Manual in our spec and doesn\u0027t plan for users to change it. Do you have any suggestion?\n\nI am confused by this commit then, if you don\u0027t need this property PATCHed why is PATCHing added here? Why this code if you don\u0027t plan to use it?\n\n```\n    if (intrusionSensor)\n    {\n        if (*intrusionSensor !\u003d \"Normal\")\n        {\n            BMCWEB_LOG_ERROR(\n                \"IntrusionSensor property only accepts Normal to reset the physical security state\");\n            messages::propertyValueIncorrect(asyncResp-\u003eres, \"IntrusionSensor\",\n                                             *intrusionSensor);\n            return;\n        }\n        constexpr std::array\u003cstd::string_view, 1\u003e interfaces \u003d {\n            \"xyz.openbmc_project.Chassis.Intrusion\"};\n        dbus::utility::getSubTree(\n            \"/xyz/openbmc_project\", 0, interfaces,\n            [asyncResp, intrusionSensor](\n                const boost::system::error_code\u0026 ec,\n                const dbus::utility::MapperGetSubTreeResponse\u0026 subtree) {\n            if (ec)\n            {\n                BMCWEB_LOG_ERROR(\"DBUS error: no matched iface\");\n                messages::internalError(asyncResp-\u003eres);\n                return;\n            }\n            // Process the first subtree response only\n            // assuming there\u0027s only one place implementing this interface\n            const auto\u0026 [objPath, serviceMap] \u003d subtree[0];\n            if (!serviceMap.empty())\n            {\n                const std::string\u0026 service \u003d serviceMap.front().first;\n                setIntrusionSensorByService(\n                    asyncResp, service, objPath,\n                    \"xyz.openbmc_project.Chassis.Intrusion.Status.Normal\");\n            }\n            });\n    }\n```",
+      "parentUuid": "730c04c8_8c3ec4f9",
+      "range": {
+        "startLine": 181,
+        "startChar": 54,
+        "endLine": 181,
+        "endChar": 74
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a04dff5_a785ce84",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
