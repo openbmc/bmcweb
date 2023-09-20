@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95c387c1_7763483e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-09-20T06:53:51Z",
+      "side": 1,
+      "message": "I have a question on that. The redfish request is always expected to have the network type as an argument right? and its either DHCPv6 or DHCPv6. So if the user wants to set both DHCPv4 and DHCPv6, it should be requested separately, right?",
+      "parentUuid": "b3d9655b_78d1b6e9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
@@ -211,6 +235,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "244bf602_2532c186",
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b4836bf_03fd9b36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-09-20T06:53:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e87e437_6420f0f6",
       "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
