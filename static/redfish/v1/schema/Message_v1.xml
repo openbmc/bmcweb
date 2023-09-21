@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Message v1.1.2                                                      -->
+<!--# Redfish Schema:  Message v1.1.3                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -61,7 +61,7 @@
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of message arguments that are substituted for the arguments in the message when looked up in the message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.  If the corresponding ParamType value contains `number`, the service shall convert the number to a string representation of the number."/>
         </Property>
         <Property Name="Severity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -143,6 +143,12 @@
       <ComplexType Name="Message" BaseType="Message.v1_0_9.Message"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_10.Message"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -167,6 +173,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas."/>
       <ComplexType Name="Message" BaseType="Message.v1_1_1.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <ComplexType Name="Message" BaseType="Message.v1_1_2.Message"/>
     </Schema>
 
   </edmx:DataServices>

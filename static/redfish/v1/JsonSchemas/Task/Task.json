@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_7_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_7_2.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -255,7 +255,9 @@
                 },
                 "PercentComplete": {
                     "description": "The completion percentage of this task.",
-                    "longDescription": "This property shall indicate the completion progress of the task, reported in percent of completion.  If the task has not been started, the value shall be zero.",
+                    "longDescription": "This property shall indicate the completion progress of the task, reported in percent of completion, `0` to `100`.  If the task has not been started, the value shall be zero.",
+                    "maximum": 100,
+                    "minimum": 0,
                     "readonly": true,
                     "type": [
                         "integer",
@@ -368,5 +370,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#Task.v1_7_1.Task"
+    "title": "#Task.v1_7_2.Task"
 }

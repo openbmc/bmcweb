@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_4.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -64,7 +64,7 @@
             "enumDescriptions": {
                 "Interval": "The corresponding metric values apply to a time interval.  On the corresponding metric value instances, the Timestamp property value in the metric report specifies the end of the time interval and the CollectionDuration property specifies its duration.",
                 "Point": "The corresponding metric values apply to a point in time.  On the corresponding metric value instances, the Timestamp property value in the metric report specifies the point in time.",
-                "StartupInterval": "The corresponding metric values apply to a time interval that began at the startup of the measured resource.  On the corresponding metric value instances, the Timestamp property value in the metric report shall specifies the end of the time interval.  The CollectionDuration property value specifies the duration between the startup of resource and timestamp."
+                "StartupInterval": "The corresponding metric values apply to a time interval that began at the startup of the measured resource.  On the corresponding metric value instances, the Timestamp property value in the metric report specifies the end of the time interval.  The CollectionDuration property value specifies the duration between the startup of resource and timestamp."
             },
             "enumLongDescriptions": {
                 "Interval": "This value shall indicate the corresponding metric values apply to a time interval.  On the corresponding metric value instances, the Timestamp property value in the metric report shall specify the end of the time interval and the CollectionDuration property shall specify its duration.",
@@ -318,7 +318,7 @@
                     "versionAdded": "v1_2_0"
                 },
                 "Metrics": {
-                    "description": "The list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties.",
+                    "description": "The list of metrics to include in the metric report.  The metrics might include calculations to apply to metric properties.",
                     "items": {
                         "$ref": "#/definitions/Metric"
                     },
@@ -371,7 +371,7 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SuppressRepeatedMetricValue": {
-                    "description": "An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values in the previously generated metric report.",
+                    "description": "An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report.",
                     "longDescription": "This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values in the previously generated metric report.",
                     "readonly": false,
                     "type": [
@@ -534,5 +534,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#MetricReportDefinition.v1_4_3.MetricReportDefinition"
+    "title": "#MetricReportDefinition.v1_4_4.MetricReportDefinition"
 }

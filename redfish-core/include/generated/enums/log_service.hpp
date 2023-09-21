@@ -18,6 +18,7 @@ enum class LogEntryTypes{
     SEL,
     Multiple,
     OEM,
+    CXL,
 };
 
 enum class SyslogSeverity{
@@ -92,6 +93,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogEntryTypes, {
     {LogEntryTypes::SEL, "SEL"},
     {LogEntryTypes::Multiple, "Multiple"},
     {LogEntryTypes::OEM, "OEM"},
+    {LogEntryTypes::CXL, "CXL"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SyslogSeverity, {

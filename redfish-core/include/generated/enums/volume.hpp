@@ -138,6 +138,7 @@ enum class OperationType{
     Compress,
     Sanitize,
     Format,
+    ChangeStripSize,
 };
 
 enum class LBARelativePerformanceType{
@@ -281,6 +282,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperationType, {
     {OperationType::Compress, "Compress"},
     {OperationType::Sanitize, "Sanitize"},
     {OperationType::Format, "Format"},
+    {OperationType::ChangeStripSize, "ChangeStripSize"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {

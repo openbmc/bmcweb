@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.10.0                                           -->
+<!--# Redfish Schema:  EthernetInterface v1.11.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -85,6 +85,9 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/OperatingSystem/Containers/EthernetInterfaces/{EthernetInterfaceId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem/Containers/EthernetInterfaces/{EthernetInterfaceId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem/Containers/EthernetInterfaces/{EthernetInterfaceId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/EthernetInterfaces/{EthernetInterfaceId}</String>
           </Collection>
         </Annotation>
@@ -1077,6 +1080,38 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_0.EthernetInterface">
+        <Property Name="RoutingScope" Type="EthernetInterface.v1_11_0.RoutingScope">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The routing scope for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the routing scope for this interface.  This property shall only be present if this interface belongs to a virtual machine or container."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="RoutingScope">
+        <Member Name="External">
+          <Annotation Term="OData.Description" String="Externally accessible."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this interface is externally accessible as if it were physically on the same network as the hosting system."/>
+        </Member>
+        <Member Name="HostOnly">
+          <Annotation Term="OData.Description" String="Only accessible to a dedicated interface on the host."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this interface is only accessible to a dedicated interface on the hosting system."/>
+        </Member>
+        <Member Name="Internal">
+          <Annotation Term="OData.Description" String="Only accessible to internal networking on the host, such as when virtual machines or containers are allowed to communicate with each other on the same host system as well as a dedicated interface on the hosting system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this interface is only accessible to internal networking on the host, such as when virtual machines or containers are allowed to communicate with each other on the same host system as well as a dedicated interface on the hosting system."/>
+        </Member>
+        <Member Name="Limited">
+          <Annotation Term="OData.Description" String="Accessible through IP translation provided by the hosting system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this interface is accessible through IP translation provided by the hosting system, such as a NAT (network address translation)."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

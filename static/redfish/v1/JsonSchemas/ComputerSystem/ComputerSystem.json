@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_21_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,6 +25,9 @@
             "properties": {
                 "#ComputerSystem.AddResourceBlock": {
                     "$ref": "#/definitions/AddResourceBlock"
+                },
+                "#ComputerSystem.Decommission": {
+                    "$ref": "#/definitions/Decommission"
                 },
                 "#ComputerSystem.RemoveResourceBlock": {
                     "$ref": "#/definitions/RemoveResourceBlock"
@@ -848,6 +851,13 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "OperatingSystem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingSystem.json#/definitions/OperatingSystem",
+                    "description": "The link to the operating system information associated with this system.",
+                    "longDescription": "This property shall contain a link to a resource of type OperatingSystem that contains operating system information for this system.",
+                    "readonly": true,
+                    "versionAdded": "v1_21_0"
+                },
                 "PCIeDevices": {
                     "description": "The link to a collection of PCIe devices that this computer system uses.",
                     "items": {
@@ -1090,6 +1100,97 @@
             ],
             "type": "object"
         },
+        "Decommission": {
+            "additionalProperties": false,
+            "description": "This action decommissions a system.",
+            "longDescription": "This action shall remove all specified data from a system in preparation to decommission the system.",
+            "parameters": {
+                "ComputerSystemETag": {
+                    "description": "The current ETag of the system.",
+                    "longDescription": "This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                },
+                "DecommissionTypes": {
+                    "description": "The types of data to remove from the system.",
+                    "items": {
+                        "$ref": "#/definitions/DecommissionType"
+                    },
+                    "longDescription": "This parameter shall contain a list of the types of data to remove from the system.",
+                    "requiredParameter": true,
+                    "type": "array"
+                },
+                "OEMDecommissionTypes": {
+                    "description": "The OEM-specific types of data to remove from the system.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This parameter shall contain any OEM-specific types of data to remove from the system.",
+                    "type": "array"
+                },
+                "RequireSecureErase": {
+                    "description": "Ensure secure erasure of all devices and fail the request if not possible.",
+                    "longDescription": "This parameter shall indicate if a secure erase is required.  If the parameter contains `true` and a secure erase to the level of NIST 800-88 Clear or Purge for all specified components can not be performed the service shall return the HTTP 501 (Not Implemented) status code.  This failure may occur after the process has already started.  If not provided by the client, the value shall be assumed to be `false`.",
+                    "type": "boolean"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_21_0"
+        },
+        "DecommissionType": {
+            "enum": [
+                "All",
+                "UserData",
+                "ManagerConfig",
+                "BIOSConfig",
+                "NetworkConfig",
+                "StorageConfig",
+                "Logs"
+            ],
+            "enumDescriptions": {
+                "All": "Remove all possible data from the server.",
+                "BIOSConfig": "Reset all BIOS settings to factory defaults.",
+                "Logs": "Clear all logs.",
+                "ManagerConfig": "Reset all manager settings to factory defaults.",
+                "NetworkConfig": "Reset all network settings to factory defaults.",
+                "StorageConfig": "Reset all storage controller settings to factory defaults.  This will leave the user data intact unless that is also specified.",
+                "UserData": "Remove all possible data from block devices and other user or operating system accessible storage attached to the system."
+            },
+            "enumLongDescriptions": {
+                "All": "This value shall indicate the service removes all the data that it can from the system.  This shall include all possible OEM data as well.",
+                "BIOSConfig": "This value shall indicate the service resets all BIOS settings to factory defaults.  This shall be equivalent to performing the ResetBios action on each Bios resource.",
+                "Logs": "This value shall indicate the service clears all logs.  This shall be equivalent to performing the ClearLog action on each LogService resource.",
+                "ManagerConfig": "This value shall indicate the service resets all associated managers to factory defaults.  This shall be equivalent to performing the ResetToDefaults action on each Manager resource with the ResetType parameter of `ResetAll`.",
+                "NetworkConfig": "This value shall indicate the service resets all network settings on all network devices to factory defaults.",
+                "StorageConfig": "This value shall indicate the service resets all storage controller settings to factory defaults.  This shall be equivalent to performing the ResetToDefaults action on each Storage resource with the ResetType parameter of `PreserveVolumes`.",
+                "UserData": "This value shall indicate the service removes all the data from block devices or other operating system accessible storage.  If the RequireSecureErase parameter contains `true`, this shall be equivalent to performing the SecureErase action on each drive."
+            },
+            "type": "string"
+        },
         "GraphicalConnectTypesSupported": {
             "enum": [
                 "KVMIP",
@@ -1309,8 +1410,8 @@
                     "versionAdded": "v1_16_0"
                 },
                 "EnterUtilizationPercent": {
-                    "description": "The percentage of utilization that the computer system shall be lower than to enter idle power save.",
-                    "longDescription": "This property shall contain the percentage of utilization that the computer system shall be lower than to enter idle power save.",
+                    "description": "The percentage of utilization when the computer system enters idle power save.  If the computer system's utilization goes below this value, it enters idle power save.",
+                    "longDescription": "This property shall contain the percentage of utilization, typically `0` to `100`, when the computer system enters idle power save.  If the computer system's utilization goes below this value for the duration specified by EnterDwellTimeSeconds, it shall enter idle power save.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -1333,8 +1434,8 @@
                     "versionAdded": "v1_16_0"
                 },
                 "ExitUtilizationPercent": {
-                    "description": "The percentage of utilization that the computer system shall be higher than to exit idle power save.",
-                    "longDescription": "This property shall contain the percentage of utilization that the computer system shall be higher than to exit idle power save.",
+                    "description": "The percentage of utilization when the computer system exits idle power save.  If the computer system's utilization goes above this value, it exits idle power save.",
+                    "longDescription": "This property shall contain the percentage of utilization, typically `0` to `100`, when the computer system exits idle power save.  If the computer system's utilization goes above this value for the duration specified by ExitDwellTimeSeconds, it shall exit idle power save.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -1616,6 +1717,20 @@
                 "Endpoints@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "HostingComputerSystem": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the system that is hosting this virtual machine.",
+                    "longDescription": "This property shall contain a link to a resource of type ComputerSystem that represents the system that is hosting this virtual machine.  This property shall only be present if SystemType contains `Virtual`.",
+                    "readonly": true,
+                    "versionAdded": "v1_21_0"
+                },
                 "ManagedBy": {
                     "description": "An array of links to the managers responsible for this system.",
                     "items": {
@@ -1695,6 +1810,19 @@
                     "versionAdded": "v1_19_0"
                 },
                 "TrustedComponents@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "VirtualMachines": {
+                    "description": "An array of links to the virtual machines this system is hosting.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
+                    },
+                    "longDescription": "This property shall contain an array of link to resources of type ComputerSystem that represent the virtual machines this system is hosting.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_21_0"
+                },
+                "VirtualMachines@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
@@ -2147,6 +2275,9 @@
                 "Composed",
                 "DPU"
             ],
+            "enumDeprecated": {
+                "OS": "This property has been deprecated in favor of representing operating systems with the OperatingSystem resource."
+            },
             "enumDescriptions": {
                 "Composed": "A computer system constructed by binding resource blocks together.",
                 "DPU": "A computer system that performs the functions of a data processing unit, such as a SmartNIC.",
@@ -2162,12 +2293,15 @@
                 "OS": "A SystemType of OS typically represents an OS or hypervisor view of the system.",
                 "Physical": "A SystemType of Physical typically represents the hardware aspects of a system, such as a management controller.",
                 "PhysicallyPartitioned": "A SystemType of PhysicallyPartitioned typically represents a single system constructed from one or more physical systems through a firmware or hardware-based service.",
-                "Virtual": "A SystemType of Virtual typically represents a system that is actually a virtual machine instance.",
+                "Virtual": "A SystemType of Virtual typically represents a system that is actually a virtual machine instance.  Responses should contain the ProcessorSummary and MemorySummary properties to show the processor and memory resources allocated to the virtual machine.",
                 "VirtuallyPartitioned": "A SystemType of VirtuallyPartitioned typically represents a single system constructed from one or more virtual systems through a software-based service."
             },
             "enumVersionAdded": {
                 "Composed": "v1_4_0",
                 "DPU": "v1_16_0"
+            },
+            "enumVersionDeprecated": {
+                "OS": "v1_21_0"
             },
             "type": "string"
         },
@@ -2424,6 +2558,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#ComputerSystem.v1_20_1.ComputerSystem"
+    "release": "2023.2",
+    "title": "#ComputerSystem.v1_21_0.ComputerSystem"
 }

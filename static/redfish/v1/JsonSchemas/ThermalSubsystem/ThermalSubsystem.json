@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_3_0.json",
     "$ref": "#/definitions/ThermalSubsystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -88,6 +88,15 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "The Actions property shall contain the available actions for this resource."
                 },
+                "CoolantConnectorRedundancy": {
+                    "description": "The redundancy information for the coolant connectors in this subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup"
+                    },
+                    "longDescription": "This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the RedundancyGroup array shall reference resources of type CoolantConnector.",
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
                 "CoolantConnectors": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection.json#/definitions/CoolantConnectorCollection",
                     "description": "A link to the coolant connectors for this equipment.",
@@ -131,6 +140,13 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "LeakDetection": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LeakDetection.json#/definitions/LeakDetection",
+                    "description": "The link to the leak detection system within this chassis.",
+                    "longDescription": "This property shall contain a link to a resource collection of type LeakDetection.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
@@ -139,6 +155,13 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Pumps": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PumpCollection.json#/definitions/PumpCollection",
+                    "description": "A link to the pumps for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PumpCollection that contains details for the pumps included in this equipment.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
@@ -162,6 +185,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#ThermalSubsystem.v1_2_0.ThermalSubsystem"
+    "release": "2023.2",
+    "title": "#ThermalSubsystem.v1_3_0.ThermalSubsystem"
 }
