@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_7_0.json",
     "$ref": "#/definitions/Session",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -28,6 +28,47 @@
                     "description": "The available OEM-specific actions for this resource.",
                     "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "OutboundConnection": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/OutboundConnection.json#/definitions/OutboundConnection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The outbound connection associated with this session.",
+                    "longDescription": "This property shall contain a link to a resource type OutboundConnection that represents the outbound connection for this session.  This property shall be present if SessionType contains `OutboundConnection`.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
                 }
             },
             "type": "object"
@@ -136,6 +177,12 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+                    "versionAdded": "v1_7_0"
+                },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
@@ -164,6 +211,19 @@
                         "null"
                     ],
                     "writeOnly": false
+                },
+                "Roles": {
+                    "description": "The Redfish roles that contain the privileges of this session.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the Redfish roles that contain the privileges of this session.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
                 },
                 "SessionType": {
                     "anyOf": [
@@ -221,22 +281,38 @@
                 "OEM",
                 "Redfish",
                 "VirtualMedia",
-                "WebUI"
+                "WebUI",
+                "OutboundConnection"
             ],
             "enumDescriptions": {
                 "HostConsole": "The host's console, which could be connected through Telnet, SSH, or other protocol.",
                 "IPMI": "Intelligent Platform Management Interface.",
-                "KVMIP": "Keyboard-Video-Mouse over IP Session.",
+                "KVMIP": "A Keyboard-Video-Mouse over IP session.",
                 "ManagerConsole": "The manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.",
                 "OEM": "OEM type.  For OEM session types, see the OemSessionType property.",
+                "OutboundConnection": "A Redfish Specification-defined outbound connection.  See the 'Outbound connections' clause of the Redfish Specification.",
                 "Redfish": "A Redfish session.",
                 "VirtualMedia": "Virtual media.",
                 "WebUI": "A non-Redfish web user interface session, such as a graphical interface or another web-based protocol."
+            },
+            "enumLongDescriptions": {
+                "HostConsole": "This value shall indicate the session is the host's console, which could be connected through Telnet, SSH, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective host console session.",
+                "IPMI": "This value shall indicate the session is an Intelligent Platform Management Interface session.  If this session is terminated or deleted, the service shall close the connection for the respective IPMI session.",
+                "KVMIP": "This value shall indicate the session is a Keyboard-Video-Mouse over IP session.  If this session is terminated or deleted, the service shall close the connection for the respective KVMIP session.",
+                "ManagerConsole": "This value shall indicate the session is the manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective manager console session.",
+                "OEM": "This value shall indicate the session is an OEM-specific session and is further described by the OemSessionType property.",
+                "OutboundConnection": "This value shall indicate the session is an outbound connection defined by the 'Outbound connections' clause of the Redfish Specification.  The `OutboundConnection` property inside the `Links` property shall contain the link to the outbound connection configuration.  If this session is terminated or deleted, the service shall disable the associated `OutboundConnection` resource.",
+                "Redfish": "This value shall indicate the session is a Redfish session defined by the 'Redfish session login authentication' clause of the Redfish Specification.  If this session is terminated or deleted, the service shall invalidate the respective session token.",
+                "VirtualMedia": "This value shall indicate the session is virtual media session.  If this session is terminated or deleted, the service shall close the connection for the respective virtual media session and make the media inaccessible to the host.",
+                "WebUI": "This value shall indicate the session is a non-Redfish web user interface session.  If this session is terminated or deleted, the service shall invalidate the respective session token."
+            },
+            "enumVersionAdded": {
+                "OutboundConnection": "v1_7_0"
             },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#Session.v1_6_0.Session"
+    "release": "2023.2",
+    "title": "#Session.v1_7_0.Session"
 }

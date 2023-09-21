@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalSubsystem v1.2.0                                             -->
+<!--# Redfish Schema:  ThermalSubsystem v1.3.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -39,6 +39,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection_v1.xml">
     <edmx:Include Namespace="CoolantConnectorCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PumpCollection_v1.xml">
+    <edmx:Include Namespace="PumpCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LeakDetection_v1.xml">
+    <edmx:Include Namespace="LeakDetection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -144,6 +150,30 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the coolant connectors for this equipment."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the coolant connectors for this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_2_0.ThermalSubsystem">
+        <Property Name="CoolantConnectorRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
+          <Annotation Term="OData.Description" String="The redundancy information for the coolant connectors in this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the RedundancyGroup array shall reference resources of type CoolantConnector."/>
+        </Property>
+        <NavigationProperty Name="Pumps" Type="PumpCollection.PumpCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the pumps for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PumpCollection that contains details for the pumps included in this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="LeakDetection" Type="LeakDetection.LeakDetection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the leak detection system within this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LeakDetection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>

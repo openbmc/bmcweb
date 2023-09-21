@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.15.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.15.1                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -126,8 +126,8 @@
         </Property>
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The arguments for the message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain message arguments to substitute into the included or looked-up message."/>
+          <Annotation Term="OData.Description" String="An array of message arguments that are substituted for the arguments in the message when looked up in the message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.  If the corresponding ParamType value contains `number`, the service shall convert the number to a string representation of the number."/>
         </Property>
         <Property Name="Links" Type="LogEntry.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -712,6 +712,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_14.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_15.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for EntryType, Message, and MessageId to account for the new `CXL` value for EntryType."/>
@@ -722,6 +728,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_16.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_17.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_0">
@@ -952,6 +964,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_12.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_13.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1043,6 +1061,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_11.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_12.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1123,6 +1147,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_10.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_11.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1180,6 +1210,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_6.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_7.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1228,6 +1264,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity can be overridden by the service."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_5.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_6_6.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_0">
@@ -1324,6 +1366,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_3.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_4.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1333,7 +1381,7 @@
         <Property Name="Resolved" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates if the cause of the log entry has been resolved or repaired."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an indication if the cause of the log entry has been resolved or repaired.  The value `true` shall indicate if the cause of the log entry has been resolved or repaired.  This property shall contain the value `false` if the log entry is still active.  The value `false` shall be the initial state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an indication if the cause of the log entry has been resolved or repaired.  The value `true` shall indicate if the cause of the log entry has been resolved or repaired.  This property shall contain the value `false` if the log entry is still active.  The value `false` shall be the initial state.  Clients should ignore this property if Severity contains `OK`."/>
         </Property>
       </EntityType>
     </Schema>
@@ -1354,6 +1402,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_2.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_3.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_0">
@@ -1399,6 +1453,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_3.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_4.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -1429,6 +1489,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_3.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_4.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_0">
@@ -1479,6 +1545,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_2.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_3.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1513,6 +1585,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_1.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_2.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1536,6 +1614,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for AdditionalDataSizeBytes, AdditionalDataURI, DiagnosticDataType, and OEMDiagnosticDataType to match updates for the new DiagnosticData property.  It was also created to clarify that Severity can be overridden by the service."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_1.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_2.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_0">
@@ -1596,6 +1680,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_0.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_1.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1631,6 +1721,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to clarify the Resolved property should be ignored if Severity contains `OK`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_15_0.LogEntry"/>
     </Schema>
 
   </edmx:DataServices>

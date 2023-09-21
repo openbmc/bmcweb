@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_6_0.json",
     "$ref": "#/definitions/PCIeSlots",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -204,6 +204,7 @@
         },
         "PCIeSlots": {
             "additionalProperties": false,
+            "deprecated": "This schema has been deprecated in favor of the PCIeDevice schema.  Empty PCIe slots should be represented by PCIeDevice resources using the `Absent` value of the State property within Status.",
             "description": "The PCIeSlots schema describes PCIe slot properties.",
             "longDescription": "This Resource shall represent a set of PCIe slot information for a Redfish implementation.",
             "patternProperties": {
@@ -277,7 +278,8 @@
                 "Id",
                 "Name"
             ],
-            "type": "object"
+            "type": "object",
+            "versionDeprecated": "v1_6_0"
         },
         "SlotTypes": {
             "enum": [
@@ -311,6 +313,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.3",
-    "title": "#PCIeSlots.v1_5_0.PCIeSlots"
+    "release": "2023.2",
+    "title": "#PCIeSlots.v1_6_0.PCIeSlots"
 }

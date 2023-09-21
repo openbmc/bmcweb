@@ -12,6 +12,7 @@ enum class MFABypassType{
     GoogleAuthenticator,
     MicrosoftAuthenticator,
     ClientCertificate,
+    OneTimePasscode,
     OEM,
 };
 
@@ -70,6 +71,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MFABypassType, {
     {MFABypassType::GoogleAuthenticator, "GoogleAuthenticator"},
     {MFABypassType::MicrosoftAuthenticator, "MicrosoftAuthenticator"},
     {MFABypassType::ClientCertificate, "ClientCertificate"},
+    {MFABypassType::OneTimePasscode, "OneTimePasscode"},
     {MFABypassType::OEM, "OEM"},
 });
 

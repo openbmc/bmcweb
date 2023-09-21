@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Fan v1.4.0                                                          -->
+<!--# Redfish Schema:  Fan v1.5.0                                                          -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -266,6 +266,19 @@
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="mm"/>
         </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fan.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="Fan" BaseType="Fan.v1_4_0.Fan">
+        <NavigationProperty Name="SecondarySpeedPercent" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Fan"/>
+          <Annotation Term="OData.Description" String="The fan speed (percent) of the second rotor in a multi-rotor fan."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speed, in percent units, for the secondary rotor of this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+        </NavigationProperty>
       </EntityType>
     </Schema>
 

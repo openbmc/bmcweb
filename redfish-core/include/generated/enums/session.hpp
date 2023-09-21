@@ -15,6 +15,7 @@ enum class SessionTypes{
     Redfish,
     VirtualMedia,
     WebUI,
+    OutboundConnection,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
@@ -27,6 +28,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
     {SessionTypes::Redfish, "Redfish"},
     {SessionTypes::VirtualMedia, "VirtualMedia"},
     {SessionTypes::WebUI, "WebUI"},
+    {SessionTypes::OutboundConnection, "OutboundConnection"},
 });
 
 }

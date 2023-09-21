@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Session v1.6.0                                                      -->
+<!--# Redfish Schema:  Session v1.7.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -18,10 +18,14 @@
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/OutboundConnection_v1.xml">
+    <edmx:Include Namespace="OutboundConnection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -54,7 +58,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_0_0">
@@ -197,27 +200,47 @@
       <EnumType Name="SessionTypes">
         <Member Name="HostConsole">
           <Annotation Term="OData.Description" String="The host's console, which could be connected through Telnet, SSH, or other protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is the host's console, which could be connected through Telnet, SSH, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective host console session."/>
         </Member>
         <Member Name="ManagerConsole">
           <Annotation Term="OData.Description" String="The manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is the manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective manager console session."/>
         </Member>
         <Member Name="IPMI">
           <Annotation Term="OData.Description" String="Intelligent Platform Management Interface."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is an Intelligent Platform Management Interface session.  If this session is terminated or deleted, the service shall close the connection for the respective IPMI session."/>
         </Member>
         <Member Name="KVMIP">
-          <Annotation Term="OData.Description" String="Keyboard-Video-Mouse over IP Session."/>
+          <Annotation Term="OData.Description" String="A Keyboard-Video-Mouse over IP session."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is a Keyboard-Video-Mouse over IP session.  If this session is terminated or deleted, the service shall close the connection for the respective KVMIP session."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM type.  For OEM session types, see the OemSessionType property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is an OEM-specific session and is further described by the OemSessionType property."/>
         </Member>
         <Member Name="Redfish">
           <Annotation Term="OData.Description" String="A Redfish session."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is a Redfish session defined by the 'Redfish session login authentication' clause of the Redfish Specification.  If this session is terminated or deleted, the service shall invalidate the respective session token."/>
         </Member>
         <Member Name="VirtualMedia">
           <Annotation Term="OData.Description" String="Virtual media."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is virtual media session.  If this session is terminated or deleted, the service shall close the connection for the respective virtual media session and make the media inaccessible to the host."/>
         </Member>
         <Member Name="WebUI">
           <Annotation Term="OData.Description" String="A non-Redfish web user interface session, such as a graphical interface or another web-based protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is a non-Redfish web user interface session.  If this session is terminated or deleted, the service shall invalidate the respective session token."/>
+        </Member>
+        <Member Name="OutboundConnection">
+          <Annotation Term="OData.Description" String="A Redfish Specification-defined outbound connection.  See the 'Outbound connections' clause of the Redfish Specification."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is an outbound connection defined by the 'Outbound connections' clause of the Redfish Specification.  The `OutboundConnection` property inside the `Links` property shall contain the link to the outbound connection configuration.  If this session is terminated or deleted, the service shall disable the associated `OutboundConnection` resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -238,6 +261,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="Session" BaseType="Session.v1_2_2.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
+      <EntityType Name="Session" BaseType="Session.v1_2_3.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_0">
@@ -265,6 +294,12 @@
       <EntityType Name="Session" BaseType="Session.v1_3_1.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
+      <EntityType Name="Session" BaseType="Session.v1_3_2.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -282,6 +317,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="Session" BaseType="Session.v1_4_0.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
+      <EntityType Name="Session" BaseType="Session.v1_4_1.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_0">
@@ -303,6 +344,12 @@
       <EntityType Name="Session" BaseType="Session.v1_5_0.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
+      <EntityType Name="Session" BaseType="Session.v1_5_1.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -314,6 +361,41 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the multi-factor authentication token for this session.  The value shall be `null` in responses."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
+      <EntityType Name="Session" BaseType="Session.v1_6_0.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `OutboundConnection` value to the SessionTypes."/>
+
+      <EntityType Name="Session" BaseType="Session.v1_6_1.Session">
+        <Property Name="Roles" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Redfish roles that contain the privileges of this session."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Redfish roles that contain the privileges of this session."/>
+        </Property>
+        <Property Name="Links" Type="Session.v1_7_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="OutboundConnection" Type="OutboundConnection.OutboundConnection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The outbound connection associated with this session."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource type OutboundConnection that represents the outbound connection for this session.  This property shall be present if SessionType contains `OutboundConnection`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_5_1.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -141,13 +141,18 @@
                 "Event",
                 "SEL",
                 "Multiple",
-                "OEM"
+                "OEM",
+                "CXL"
             ],
             "enumDescriptions": {
+                "CXL": "The log contains CXL log entries.",
                 "Event": "The log contains Redfish-defined messages.",
                 "Multiple": "The log contains multiple log entry types and, therefore, the log service cannot guarantee a single entry type.",
                 "OEM": "The log contains entries in an OEM-defined format.",
                 "SEL": "The log contains legacy IPMI System Event Log (SEL) entries."
+            },
+            "enumVersionAdded": {
+                "CXL": "v1_5_0"
             },
             "type": "string"
         },
@@ -535,7 +540,7 @@
                 "Emergency": "A panic condition.",
                 "Error": "An Error.",
                 "Informational": "Informational only.",
-                "Notice": "Conditions that are not error conditions, but that may require special handling.",
+                "Notice": "Conditions that are not error conditions, but that might require special handling.",
                 "Warning": "A Warning."
             },
             "longDescription": "This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424.",
@@ -543,6 +548,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#LogService.v1_4_0.LogService"
+    "release": "2023.2",
+    "title": "#LogService.v1_5_1.LogService"
 }

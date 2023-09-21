@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.9.0                                            -->
+<!--# Redfish Schema:  SoftwareInventory v1.10.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -24,6 +24,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
     <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
+    <edmx:Include Namespace="PhysicalContext"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -383,6 +386,39 @@
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="Version follows OEM-defined format."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate that the value of the Version property follows a format and rules as defined by the vendor or manufacturer."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_9_0.SoftwareInventory">
+        <Property Name="ReleaseType" Type="SoftwareInventory.v1_10_0.ReleaseType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of release."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the type of release for the software."/>
+        </Property>
+        <Property Name="AssociatedPhysicalContext" Type="PhysicalContext.PhysicalContext" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The area or device to which the software applies.  Used to distinguish when different parts of a device have different software components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the physical context for the software inventory data."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ReleaseType">
+        <Member Name="Production">
+          <Annotation Term="OData.Description" String="This release is ready for use in production environments."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the software is ready for use in production environments."/>
+        </Member>
+        <Member Name="Prototype">
+          <Annotation Term="OData.Description" String="This release is intended for development or internal use."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the software is designed for the development or internal use."/>
+        </Member>
+        <Member Name="Other">
+          <Annotation Term="OData.Description" String="The Redfish service does not have enough data to make a determination about this release."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the Redfish service cannot determine if this release is validated or prototype."/>
         </Member>
       </EnumType>
     </Schema>

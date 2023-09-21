@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_17_1.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -411,7 +411,8 @@
                 },
                 "PredictedMediaLifeLeftPercent": {
                     "description": "The percentage of reads and writes that are predicted to be available for the media.",
-                    "longDescription": "This property shall contain an indicator of the percentage of life remaining in the drive's media.",
+                    "longDescription": "This property shall contain an indicator of the percentage, typically `0` to `100`, of life remaining in the drive's media.",
+                    "minimum": 0,
                     "readonly": true,
                     "type": [
                         "number",
@@ -881,7 +882,9 @@
                 },
                 "PercentageComplete": {
                     "description": "The percentage of the operation that has been completed.",
-                    "longDescription": "This property shall contain an integer of the percentage of the operation that has been completed.",
+                    "longDescription": "This property shall contain an integer of the percentage, `0` to `100`, of the operation that has been completed.",
+                    "maximum": 100,
+                    "minimum": 0,
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1001,5 +1004,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.1",
-    "title": "#Drive.v1_17_0.Drive"
+    "title": "#Drive.v1_17_1.Drive"
 }

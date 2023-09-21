@@ -45,6 +45,8 @@ enum class Protocol{
     VGA,
     DVI,
     CXL,
+    UPI,
+    QPI,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
@@ -87,6 +89,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::VGA, "VGA"},
     {Protocol::DVI, "DVI"},
     {Protocol::CXL, "CXL"},
+    {Protocol::UPI, "UPI"},
+    {Protocol::QPI, "QPI"},
 });
 
 }
