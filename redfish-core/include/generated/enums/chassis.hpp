@@ -69,6 +69,14 @@ enum class ThermalDirection{
     Sealed,
 };
 
+enum class DoorState{
+    Invalid,
+    Locked,
+    Closed,
+    LockedAndOpen,
+    Open,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ChassisType, {
     {ChassisType::Invalid, "Invalid"},
     {ChassisType::Rack, "Rack"},
@@ -131,6 +139,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThermalDirection, {
     {ThermalDirection::BackToFront, "BackToFront"},
     {ThermalDirection::TopExhaust, "TopExhaust"},
     {ThermalDirection::Sealed, "Sealed"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(DoorState, {
+    {DoorState::Invalid, "Invalid"},
+    {DoorState::Locked, "Locked"},
+    {DoorState::Closed, "Closed"},
+    {DoorState::LockedAndOpen, "LockedAndOpen"},
+    {DoorState::Open, "Open"},
 });
 
 }

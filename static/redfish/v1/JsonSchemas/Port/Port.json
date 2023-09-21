@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_10_0.json",
     "$ref": "#/definitions/Port",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -241,7 +241,9 @@
                 },
                 "EgressModeratePercentage": {
                     "description": "The threshold for moderate egress port congestion as a percentage.",
-                    "longDescription": "This property shall contain the threshold for moderate egress port congestion for the CXL Specification-defined 'Egress Port Congestion' mechanism as a percentage.",
+                    "longDescription": "This property shall contain the threshold for moderate egress port congestion for the CXL Specification-defined 'Egress Port Congestion' mechanism as a percentage, `0` to `100`.",
+                    "maximum": 100,
+                    "minimum": 0,
                     "readonly": false,
                     "type": [
                         "integer",
@@ -252,7 +254,9 @@
                 },
                 "EgressSeverePercentage": {
                     "description": "The threshold for severe egress port congestion as a percentage.",
-                    "longDescription": "This property shall contain the CXL Specification-defined 'Egress Severe Percentage' as a percentage.",
+                    "longDescription": "This property shall contain the CXL Specification-defined 'Egress Severe Percentage' as a percentage, `0` to `100`.",
+                    "maximum": 100,
+                    "minimum": 0,
                     "readonly": false,
                     "type": [
                         "integer",
@@ -581,9 +585,9 @@
             ],
             "enumDescriptions": {
                 "None": "No IEEE 802.3x flow control is enabled on this port.",
-                "RX": "IEEE 802.3x flow control may be initiated by the link partner.",
-                "TX": "IEEE 802.3x flow control may be initiated by this station.",
-                "TX_RX": "IEEE 802.3x flow control may be initiated by this station or the link partner."
+                "RX": "IEEE 802.3x flow control might be initiated by the link partner.",
+                "TX": "IEEE 802.3x flow control might be initiated by this station.",
+                "TX_RX": "IEEE 802.3x flow control might be initiated by this station or the link partner."
             },
             "type": "string"
         },
@@ -608,7 +612,9 @@
             "properties": {
                 "AllocationPercent": {
                     "description": "The maximum bandwidth allocation percentage allocated to the corresponding network device function instance.",
-                    "longDescription": "This property shall contain the maximum bandwidth percentage allocation for the associated network device function.",
+                    "longDescription": "This property shall contain the maximum bandwidth percentage allocation, `0` to `100`, for the associated network device function.",
+                    "maximum": 100,
+                    "minimum": 0,
                     "readonly": false,
                     "type": [
                         "integer",
@@ -648,7 +654,9 @@
             "properties": {
                 "AllocationPercent": {
                     "description": "The minimum bandwidth allocation percentage allocated to the corresponding network device function instance.",
-                    "longDescription": "This property shall contain the minimum bandwidth percentage allocation for the associated network device function.  The sum total of all minimum percentages shall not exceed 100.",
+                    "longDescription": "This property shall contain the minimum bandwidth percentage allocation, `0` to `100`, for the associated network device function.  The sum of all minimum percentages shall not exceed `100`.",
+                    "maximum": 100,
+                    "minimum": 0,
                     "readonly": false,
                     "type": [
                         "integer",
@@ -1237,8 +1245,12 @@
                 "Disabled"
             ],
             "enumDescriptions": {
-                "Disabled": "This link is disabled.",
-                "Enabled": "This link is enabled."
+                "Disabled": "The link is disabled and not operational.",
+                "Enabled": "The link is enabled and operational."
+            },
+            "enumLongDescriptions": {
+                "Disabled": "This value shall indicate the link is disabled and not operational.  The port is not allowed to establish a connection with the remote port.  However, other types of traffic, such as management traffic, may be sent or received by the port.",
+                "Enabled": "This value shall indicate the link is enabled and operational.  The port is allowed to establish a connection with the remote port."
             },
             "type": "string"
         },
@@ -1494,11 +1506,13 @@
                     "readonly": true
                 },
                 "Enabled": {
+                    "deprecated": "This property has been deprecated in favor of InterfaceEnabled.",
                     "description": "An indication of whether this port is enabled.",
                     "longDescription": "The value of this property shall indicate if this port is enabled.  Disabling a port will disconnect any devices only connected to the system through this port.",
                     "readonly": false,
                     "type": "boolean",
-                    "versionAdded": "v1_4_0"
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_10_0"
                 },
                 "EnvironmentMetrics": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
@@ -1575,8 +1589,8 @@
                     "versionAdded": "v1_6_0"
                 },
                 "InterfaceEnabled": {
-                    "description": "An indication of whether the interface is enabled.",
-                    "longDescription": "This property shall indicate whether the interface is enabled.",
+                    "description": "An indication of whether the port is enabled.",
+                    "longDescription": "This property shall indicate whether the port is enabled.  When disabled, no traffic of any type, such as link protocol traffic and management traffic, is sent or received by the port.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -2161,6 +2175,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Port.v1_9_0.Port"
+    "release": "2023.2",
+    "title": "#Port.v1_10_0.Port"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_11_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_12_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -65,6 +65,19 @@
                     "readonly": true,
                     "versionAdded": "v1_11_0"
                 },
+                "DynamicCapacity": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CXLDynamicCapacity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The CXL dynamic capacity device (DCD) information for this CXL device.",
+                    "longDescription": "This property shall contain the CXL dynamic capacity device (DCD) information for this CXL device.",
+                    "versionAdded": "v1_12_0"
+                },
                 "EgressPortCongestionSupport": {
                     "description": "Indicates whether the CXL device supports egress port congestion management.",
                     "longDescription": "This property shall indicate whether the CXL device supports the CXL Specification-defined 'Egress Port Congestion' mechanism.",
@@ -123,6 +136,234 @@
                 "Type3": "This value shall indicate a CXL Specification-defined Type 3 device."
             },
             "type": "string"
+        },
+        "CXLDynamicCapacity": {
+            "additionalProperties": false,
+            "description": "The CXL dynamic capacity device (DCD) information for a CXL device.",
+            "longDescription": "This type shall contain the CXL dynamic capacity device (DCD) information for a CXL device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AddCapacityPoliciesSupported": {
+                    "description": "The set of selection policies supported by the CXL device when dynamic capacity is added.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CXLDynamicCapacityPolicies"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the CXL Specification-defined dynamic capacity policies that are supported by this CXL device when dynamic capacity is added.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "MaxDynamicCapacityRegions": {
+                    "description": "The maximum number of dynamic capacity memory regions available per host from this CXL device.",
+                    "longDescription": "This property shall contain the maximum number of dynamic capacity memory regions available per host from this CXL device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
+                },
+                "MaxHosts": {
+                    "description": "The maximum number of hosts supported by this CXL device.",
+                    "longDescription": "This property shall contain the maximum number of hosts supported by this CXL device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
+                },
+                "MemoryBlockSizesSupported": {
+                    "description": "The set of memory block sizes supported by memory regions in this CXL device.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CXLRegionBlockSizes"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the set of memory block sizes supported by memory regions in this CXL device.",
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "ReleaseCapacityPoliciesSupported": {
+                    "description": "The set of removal policies supported by the CXL device when dynamic capacity is released.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CXLDynamicCapacityPolicies"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the CXL Specification-defined dynamic capacity policies that are supported by this CXL device when dynamic capacity is released.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "SanitizationOnReleaseSupport": {
+                    "description": "An indication of whether the sanitization on capacity release is configurable for the memory regions in this CXL device.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CXLRegionSanitization"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall indicate whether the sanitization on capacity release is configurable for the memory regions in this CXL device.",
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "TotalDynamicCapacityMiB": {
+                    "description": "The total memory media capacity of the CXL device available for dynamic assignment in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the total memory media capacity of the CXL device available for dynamic assignment in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_12_0"
+                }
+            },
+            "type": "object"
+        },
+        "CXLDynamicCapacityPolicies": {
+            "enum": [
+                "Free",
+                "Contiguous",
+                "Prescriptive",
+                "TagBased"
+            ],
+            "enumDescriptions": {
+                "Contiguous": "Contiguous add capacity policy.",
+                "Free": "Free add capacity policy.",
+                "Prescriptive": "Prescriptive add or release policy.",
+                "TagBased": "Tag-based release policy."
+            },
+            "enumLongDescriptions": {
+                "Contiguous": "This value shall indicate the CXL Specification-defined contiguous add capacity policy.",
+                "Free": "This value shall indicate the CXL Specification-defined free add capacity policy.",
+                "Prescriptive": "This value shall indicate the CXL Specification-defined prescriptive add or release policy.",
+                "TagBased": "This value shall indicate the CXL Specification-defined tag-based release policy."
+            },
+            "type": "string"
+        },
+        "CXLRegionBlockSizes": {
+            "additionalProperties": false,
+            "description": "Set of memory block sizes supported by memory region in the CXL device.",
+            "longDescription": "This type shall contain set of memory block sizes supported by memory region in the dynamic capacity device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BlockSizeMiB": {
+                    "description": "Set of memory block sizes supported by this memory region defined in mebibytes (MiB).",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain set of memory block sizes supported by this memory region, with units in MiB.",
+                    "readonly": true,
+                    "type": "array",
+                    "units": "MiBy",
+                    "versionAdded": "v1_12_0"
+                },
+                "RegionNumber": {
+                    "description": "The memory region number.",
+                    "longDescription": "This property shall contain the memory region number.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
+                }
+            },
+            "type": "object"
+        },
+        "CXLRegionSanitization": {
+            "additionalProperties": false,
+            "description": "An indication of whether the sanitization on capacity release is configurable for the memory region.",
+            "longDescription": "This property shall indicate whether the sanitization on capacity release is configurable for the memory region.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "RegionNumber": {
+                    "description": "The memory region number.",
+                    "longDescription": "This property shall contain the memory region number.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
+                },
+                "SanitizationOnReleaseSupported": {
+                    "description": "An indication of whether the sanitization on capacity release is configurable for this memory region.",
+                    "longDescription": "This property shall indicate whether the sanitization on capacity release is configurable for this memory region.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
+                }
+            },
+            "type": "object"
         },
         "DeviceType": {
             "enum": [
@@ -203,6 +444,19 @@
                     "versionDeprecated": "v1_4_0"
                 },
                 "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Processors": {
+                    "description": "An array of links to the processors that are directly connected or directly bridged to this PCIe device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Processor that represent processors that are directly connected or directly bridged to this PCIe device.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "Processors@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Switch": {
@@ -357,6 +611,16 @@
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
                     "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
                 },
                 "Manufacturer": {
                     "description": "The manufacturer of this PCIe device.",
@@ -692,6 +956,16 @@
                 }
             },
             "properties": {
+                "HotPluggable": {
+                    "description": "An indication of whether this PCIe slot supports hotplug.",
+                    "longDescription": "This property shall contain indicating whether this PCIe slot supports hotplug.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
+                },
                 "LaneSplitting": {
                     "anyOf": [
                         {
@@ -781,6 +1055,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#PCIeDevice.v1_11_1.PCIeDevice"
+    "release": "2023.2",
+    "title": "#PCIeDevice.v1_12_0.PCIeDevice"
 }

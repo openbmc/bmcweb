@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_15_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_15_1.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -411,11 +411,11 @@
                     ]
                 },
                 "MessageArgs": {
-                    "description": "The arguments for the message.",
+                    "description": "An array of message arguments that are substituted for the arguments in the message when looked up in the message registry.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain message arguments to substitute into the included or looked-up message.",
+                    "longDescription": "This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.  If the corresponding ParamType value contains `number`, the service shall convert the number to a string representation of the number.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -518,7 +518,7 @@
                 },
                 "Resolved": {
                     "description": "Indicates if the cause of the log entry has been resolved or repaired.",
-                    "longDescription": "This property shall contain an indication if the cause of the log entry has been resolved or repaired.  The value `true` shall indicate if the cause of the log entry has been resolved or repaired.  This property shall contain the value `false` if the log entry is still active.  The value `false` shall be the initial state.",
+                    "longDescription": "This property shall contain an indication if the cause of the log entry has been resolved or repaired.  The value `true` shall indicate if the cause of the log entry has been resolved or repaired.  This property shall contain the value `false` if the log entry is still active.  The value `false` shall be the initial state.  Clients should ignore this property if Severity contains `OK`.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -874,5 +874,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.1",
-    "title": "#LogEntry.v1_15_0.LogEntry"
+    "title": "#LogEntry.v1_15_1.LogEntry"
 }

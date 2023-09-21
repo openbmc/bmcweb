@@ -166,7 +166,9 @@
                 "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates",
                 "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates",
                 "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates",
-                "/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates"
+                "/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates",
+                "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates",
+                "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates"
             ]
         }
     },

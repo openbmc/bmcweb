@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.10.0                                              -->
+<!--# Redfish Schema:  ManagerAccount v1.11.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -70,6 +70,28 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="ChangePassword" IsBound="true">
+        <Annotation Term="OData.Description" String="This action changes the account password."/>
+        <Annotation Term="OData.LongDescription" String="This action shall change the account password while requiring password for the current session.  This action prevents session hijacking."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_11_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Parameter Name="ManagerAccount" Type="ManagerAccount.v1_1_0.Actions"/>
+        <Parameter Name="SessionAccountPassword" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The password of the account tied to the current session."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the password of the current session's account.  A user changing their own password shall provide their current password for this parameter.  An administrator changing the password for a different user shall provide their own password for this parameter.  If the request is performed with HTTP Basic authentication, this parameter shall contain the same password encoded in the `Authorization` header."/>
+        </Parameter>
+        <Parameter Name="NewPassword" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The new account password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the new password."/>
+        </Parameter>
+      </Action>
 
       <EnumType Name="AccountTypes">
         <Annotation Term="Redfish.Revisions">
@@ -826,6 +848,30 @@
         <Property Name="MFABypass" Type="AccountService.MFABypass">
           <Annotation Term="OData.Description" String="The multi-factor authentication bypass settings for this account."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the multi-factor authentication bypass settings for this account."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the ChangePassword action."/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_0.ManagerAccount">
+        <Property Name="EmailAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The email address associated with this account."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the email address associated with this account."/>
+        </Property>
+        <Property Name="PhoneNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The contact phone number associated with this account."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the contact phone number associated with this account."/>
+        </Property>
+        <Property Name="OneTimePasscodeDeliveryAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The address used to receive one-time passcode messages for multi-factor authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the contact address for receiving one-time passcode messages for multi-factor authentication for this account when the Enabled property in the OneTimePasscode property in AccountService resource contains `true`.  This is typically the contact email address associated with the account, but may be a separate, relay email address for delivery via SMS or other contact method."/>
         </Property>
       </EntityType>
     </Schema>

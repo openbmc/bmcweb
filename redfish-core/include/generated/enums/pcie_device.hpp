@@ -49,6 +49,14 @@ enum class CXLDeviceType{
     Type3,
 };
 
+enum class CXLDynamicCapacityPolicies{
+    Invalid,
+    Free,
+    Contiguous,
+    Prescriptive,
+    TagBased,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Invalid, "Invalid"},
     {PCIeTypes::Gen1, "Gen1"},
@@ -91,6 +99,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLDeviceType, {
     {CXLDeviceType::Type1, "Type1"},
     {CXLDeviceType::Type2, "Type2"},
     {CXLDeviceType::Type3, "Type3"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CXLDynamicCapacityPolicies, {
+    {CXLDynamicCapacityPolicies::Invalid, "Invalid"},
+    {CXLDynamicCapacityPolicies::Free, "Free"},
+    {CXLDynamicCapacityPolicies::Contiguous, "Contiguous"},
+    {CXLDynamicCapacityPolicies::Prescriptive, "Prescriptive"},
+    {CXLDynamicCapacityPolicies::TagBased, "TagBased"},
 });
 
 }

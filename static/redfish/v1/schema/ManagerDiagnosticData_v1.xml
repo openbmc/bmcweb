@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerDiagnosticData v1.2.0                                        -->
+<!--# Redfish Schema:  ManagerDiagnosticData v1.2.1                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -22,6 +22,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource.v1_0_0"/>
@@ -156,7 +157,7 @@
         <Property Name="SharedBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The amount of shared memory in bytes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of shared memory in bytes.  This includes things such as memory consumed by temporary filesystems."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of shared memory in bytes.  This includes things such as memory consumed by temporary file systems."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="BuffersAndCacheBytes" Type="Edm.Int64">
@@ -207,14 +208,18 @@
         <Property Name="KernelPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The percentage of CPU time spent in kernel mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of CPU time spent in kernel mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of CPU time, `0` to `100`, spent in kernel mode."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
         <Property Name="UserPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The percentage of CPU time spent in user mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of CPU time spent in user mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of CPU time, `0` to `100`, spent in user mode."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
       </ComplexType>
 
@@ -282,6 +287,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_0_0.ManagerDiagnosticData"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -307,6 +318,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_1_0.ManagerDiagnosticData"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -318,6 +335,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the wall-clock time the service root hosted by this manager has been running in seconds."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_2_0.ManagerDiagnosticData"/>
     </Schema>
 
   </edmx:DataServices>

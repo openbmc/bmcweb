@@ -335,6 +335,15 @@
           <Annotation Term="OData.Description" String="The estimated percent error of measured versus actual values."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the percent error +/- of the measured versus actual values of the Reading property."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of ReadingAccuracy."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="SensingFrequency" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -624,7 +633,7 @@
         </Member>
         <Member Name="Percent">
           <Annotation Term="OData.Description" String="Percent (%)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a percentage measurement, in percent units.  The ReadingUnits property shall contain `%`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a percentage measurement, in percent units.  The Reading value, while typically `0` to `100`, may exceed `100` for rate-of-change or similar readings.  The ReadingUnits property shall contain `%`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -729,9 +738,11 @@
         </Property>
         <Property Name="THDPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total harmonic distortion (THD)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total harmonic distortion of the Reading property in percent units."/>
+          <Annotation Term="OData.Description" String="The total harmonic distortion percent (% THD)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total harmonic distortion of the Reading property in percent units, typically `0` to `100`."/>
           <Annotation Term="Redfish.Excerpt" String="Current,Voltage"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="LifetimeReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1059,6 +1070,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add missing units to THDPercent.  It was also created to deprecate Accuracy."/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_7_0.Sensor">
+        <Property Name="ReadingAccuracy" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Accuracy (+/-) of the reading."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the accuracy of the value of the Reading for this sensor.  The value shall be the absolute value of the maximum deviation of the Reading from its actual value.  The value shall be in units that follow the ReadingUnits for this sensor."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

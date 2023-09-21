@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_3_0.json",
     "$ref": "#/definitions/ThermalMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -280,6 +280,20 @@
                     ],
                     "readonly": true
                 },
+                "EnergykWh": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Energy consumption (kWh) of the thermal management subsystem.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the total energy, in kilowatt-hours, for the thermal subsystem.  The value shall include the total energy consumption of devices involved in thermal management of the chassis, such as fans, pumps, and heaters.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.",
+                    "versionAdded": "v1_3_0"
+                },
                 "HeaterSummary": {
                     "anyOf": [
                         {
@@ -305,6 +319,20 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PowerWatts": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Power consumption (W) of the thermal management subsystem.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, for the thermal subsystem.  The value shall include the total power consumption of devices involved in thermal management of the chassis, such as fans, pumps, and heaters.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.",
+                    "versionAdded": "v1_3_0"
                 },
                 "TemperatureReadingsCelsius": {
                     "description": "The temperatures (Celsius) from all related sensors for this device.",
@@ -341,6 +369,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#ThermalMetrics.v1_2_0.ThermalMetrics"
+    "release": "2023.2",
+    "title": "#ThermalMetrics.v1_3_0.ThermalMetrics"
 }

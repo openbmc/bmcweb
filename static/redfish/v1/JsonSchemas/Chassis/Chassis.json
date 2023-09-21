@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_23_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_24_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -128,6 +128,12 @@
                         }
                     ],
                     "readonly": true
+                },
+                "Doors": {
+                    "$ref": "#/definitions/Doors",
+                    "description": "The doors or access panels of the chassis.",
+                    "longDescription": "This property shall contain information about the doors or access panels of the chassis.",
+                    "versionAdded": "v1_24_0"
                 },
                 "Drives": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/DriveCollection.json#/definitions/DriveCollection",
@@ -357,10 +363,12 @@
                 },
                 "PCIeSlots": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.json#/definitions/PCIeSlots",
+                    "deprecated": "This property has been deprecated in favor of the PCIeDevices property.  The PCIeSlots schema has been deprecated in favor of the PCIeDevice schema.  Empty PCIe slots are represented by PCIeDevice resources using the `Absent` value of the State property within Status.",
                     "description": "The link to the PCIe slot properties for this chassis.",
                     "longDescription": "This property shall contain a link to the resource of type PCIeSlots that represents the PCIe slot information for this chassis.",
                     "readonly": true,
-                    "versionAdded": "v1_8_0"
+                    "versionAdded": "v1_8_0",
+                    "versionDeprecated": "v1_24_0"
                 },
                 "PartNumber": {
                     "description": "The part number of the chassis.",
@@ -636,6 +644,128 @@
                 "StorageEnclosure": "v1_6_0"
             },
             "type": "string"
+        },
+        "Door": {
+            "additionalProperties": false,
+            "description": "A door or access panel on the chassis.",
+            "longDescription": "This type shall describe a door or access panel on the chassis.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DoorState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DoorState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the door.",
+                    "longDescription": "This property shall contain the current state of the door.",
+                    "readonly": true,
+                    "versionAdded": "v1_24_0"
+                },
+                "Locked": {
+                    "description": "Indicates if the door is locked.",
+                    "longDescription": "This property shall indicate if the door is locked.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_24_0"
+                },
+                "UserLabel": {
+                    "description": "A user-assigned label.",
+                    "longDescription": "This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_24_0"
+                }
+            },
+            "type": "object"
+        },
+        "DoorState": {
+            "enum": [
+                "Locked",
+                "Closed",
+                "LockedAndOpen",
+                "Open"
+            ],
+            "enumDescriptions": {
+                "Closed": "Door is closed.",
+                "Locked": "Door is closed and locked.",
+                "LockedAndOpen": "Door is open and locked.",
+                "Open": "Door is open."
+            },
+            "enumLongDescriptions": {
+                "Closed": "This value shall indicate that the door is closed but unlocked.",
+                "Locked": "This value shall indicate that the door is both closed and locked.  In this state, the door cannot be opened unless the value of the Locked property is set to `false`.",
+                "LockedAndOpen": "This value shall indicate that the door is open but the lock has been engaged.  It may be possible to close the door while in this state.",
+                "Open": "This value shall indicate that the door is open."
+            },
+            "type": "string"
+        },
+        "Doors": {
+            "additionalProperties": false,
+            "description": "The doors or access panels of the chassis.",
+            "longDescription": "This type shall describe the doors or access panels of the chassis.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Front": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Door"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The front door of the chassis.",
+                    "longDescription": "This property shall contain information related to the front door, as defined by the manufacturer, of the chassis.",
+                    "versionAdded": "v1_24_0"
+                },
+                "Rear": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Door"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The rear door of the chassis.",
+                    "longDescription": "This property shall contain information related to the rear door, as defined by the manufacturer, of the chassis.",
+                    "versionAdded": "v1_24_0"
+                }
+            },
+            "type": "object"
         },
         "EnvironmentalClass": {
             "enum": [
@@ -1140,6 +1270,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Chassis.v1_23_0.Chassis"
+    "release": "2023.2",
+    "title": "#Chassis.v1_24_0.Chassis"
 }
