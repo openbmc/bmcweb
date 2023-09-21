@@ -612,7 +612,7 @@ class Router
     }
 
     void handle(Request& req,
-                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool bypassAuth = false)
     {
         std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
         if (!verb || static_cast<size_t>(*verb) >= perMethods.size())
@@ -669,7 +669,7 @@ class Router
         BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
                          static_cast<uint32_t>(*verb), rule.getMethods());
 
-        if (req.session == nullptr)
+        if (req.session == nullptr || bypassAuth)
         {
             rule.handle(req, asyncResp, params);
             return;
