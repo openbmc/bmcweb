@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80f5d88d_92a9372c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-21T18:08:11Z",
+      "side": 1,
+      "message": "There\u0027s two compatibility things here:\n1. Compatibility with the Redfish spec.\n2. Compatibility with users that previously coded against OpenBMC behavior.\n\nI\u0027m asking about #2, this commit is going after #1, which is desired, but we still need to call out #2 for users that expect the same old behavior.",
+      "parentUuid": "28cc8bff_59f4620f",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
