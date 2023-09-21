@@ -341,6 +341,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1663f26c_bc463646",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-09-21T03:55:45Z",
+      "side": 1,
+      "message": "What is read-only here is \"IntrusionSensorRearm\" attribute, not \"IntrusionSensor\". So my patching to IntrusionSensor is for the purpose I mentioned in the commit msg about writing \"Normal\" to \"IntrusionSensor\" to manually rearm the sensor.\n\n    Moreover, Redfish Data Model Specification says\n    about IntrusionSensor that \"If the IntrusionSensorReArm property\n    contains Manual, a client may set this property to Normal to reset the\n    physical security state\"\n    \nThis should be:\n\n    Moreover, Redfish Data Model Specification says\n    about the IntrusionSensor property that \"If the IntrusionSensorReArm property\n    contains Manual, a client may set the IntrusionSensor property to Normal to \n    reset the physical security state\".\n    \nI quote the exact words from the spec and unintentionally make it confusing.",
+      "parentUuid": "83610c6b_cdffdd73",
+      "range": {
+        "startLine": 181,
+        "startChar": 54,
+        "endLine": 181,
+        "endChar": 74
+      },
+      "revId": "b0c0c5d428943edf08bb07f245a5f1d07b9a3ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a04dff5_a785ce84",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
