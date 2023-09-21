@@ -493,6 +493,30 @@
       },
       "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e44ab57c_fe7efbd6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-21T14:06:01Z",
+      "side": 1,
+      "message": "\u003e The sensor code relies on an all_sensors association, which I don\u0027t see that you\u0027ve talked about changing, or even documenting the new association.\n\nall_sensors is for the chassis to sensors. \nsensors is for a low level inventory item (like fan) to a sensor \nhttps://github.com/openbmc/docs/blob/717d273cf8bceac3868a278aeb34d19e8d74c1b3/architecture/sensor-architecture.md?plain\u003d1#L66\n\n\u003e and how will you determine the first fan tach from the second for dual rotor fans? Or do you intend to not support dual rotor fans (in which case, the code needs to explicitly handle that case).\n\nDo you need new associations here? \nFor a single rotor, I could see where you only put it out if you have 1 assocation but for dual rotor, how do you know which is primary and which is secondary?\n\nDo you need a primaryRPMsensor and secondaryRPMsenosr?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Fan.interface.yaml#L4",
+      "parentUuid": "bdd8ef40_bcf91e6a",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
