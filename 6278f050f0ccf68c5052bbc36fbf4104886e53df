@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d3fb31_10ac5d30",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-21T15:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd4d283_cbb85824",
+      "range": {
+        "startLine": 100,
+        "startChar": 13,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "6278f050f0ccf68c5052bbc36fbf4104886e53df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c452c764_bbf47f20",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-09-19T15:46:15Z",
       "side": 1,
       "message": "I think streamData, stream, https2StreamData, streamPtr  would be better names here\n\nBelow it looks like it is\n        Http2StreamData\u0026 streamPtr \u003d it-\u003esecond;",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 105,
+        "endChar": 29
+      },
+      "revId": "6278f050f0ccf68c5052bbc36fbf4104886e53df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b64d416_4517ce97",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-21T15:56:17Z",
+      "side": 1,
+      "message": "Called it stream.  streamPtr doesn\u0027t make sense, because it\u0027s not a pointer.",
+      "parentUuid": "c452c764_bbf47f20",
       "range": {
         "startLine": 105,
         "startChar": 25,
