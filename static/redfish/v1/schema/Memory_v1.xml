@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.17.1                                                      -->
+<!--# Redfish Schema:  Memory v1.18.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -63,6 +63,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Battery_v1.xml">
     <edmx:Include Namespace="Battery"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryRegion_v1.xml">
+    <edmx:Include Namespace="MemoryRegion"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -2081,14 +2084,14 @@
         </Property>
         <Property Name="StagedVolatileSizeMiB" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Total device non-volatile capacity in MiB staged for next activation.  This value shall be in multiples of 256 MiB."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the total device non-volatile capacity in Mebibytes staged for next activation.  This value shall be in multiples of 256 Mebibytes."/>
+          <Annotation Term="OData.Description" String="Total device volatile memory capacity in MiB staged for next activation.  This value is in multiples of 256 MiB."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the total device volatile memory capacity in Mebibytes staged for next activation.  This value shall be in multiples of 256 Mebibytes."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="StagedNonVolatileSizeMiB" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Total device non-volatile capacity in MiB.  The value shall be in multiples of 256MiB."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the total device non-volatile capacity in Mebibytes.  The value shall be in multiples of 256 Mebibytes."/>
+          <Annotation Term="OData.Description" String="Total device non-volatile memory capacity in MiB staged for next activation.  The value is in multiples of 256MiB."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the total device non-volatile memory capacity in Mebibytes.  The value shall be in multiples of 256 Mebibytes."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
       </ComplexType>
@@ -2124,8 +2127,10 @@
         <Property Name="PredictedMediaLifeLeftPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The current health of the memory device as a percentage."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current health of the memory device as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current health of the memory device as a percentage, `0` to `100`."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
       </ComplexType>
     </Schema>
@@ -2134,6 +2139,28 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to add the URI segment annotation to Metrics and Log."/>
       <EntityType Name="Memory" BaseType="Memory.v1_17_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_17_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions for StagedVolatileSizeMiB and StagedNonVolatileSizeMiB to correct the usage of volatile and non-volatile.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_17_1.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="Memory" BaseType="Memory.v1_17_2.Memory"/>
+
+      <ComplexType Name="Links" BaseType="Memory.v1_17_0.Links">
+        <NavigationProperty Name="MemoryRegionMediaSources" Type="Collection(MemoryRegion.MemoryRegion)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of memory regions providing media for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryRegion that represent the memory region instances providing media for this memory."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

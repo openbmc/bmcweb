@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo v1.3.0                                                   -->
+<!--# Redfish Schema:  ActionInfo v1.4.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -235,6 +235,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The allowable pattern for this parameter as applied to this action target."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a regular expression that describes the allowable values for this parameter as applied to this action target.  For arrays, this property shall represent the allowable values for each array member.  This property shall only be present for string parameters."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_3_0.ActionInfo"/>
+
+      <ComplexType Name="Parameters" BaseType="ActionInfo.v1_3_0.Parameters">
+        <Property Name="AllowableValueDescriptions" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Descriptions of allowable values for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the descriptions of allowable values for this parameter.  The descriptions shall appear in the same array order as the AllowableValues property.  For arrays, this property shall represent the descriptions of allowable values for each array member."/>
         </Property>
       </ComplexType>
     </Schema>

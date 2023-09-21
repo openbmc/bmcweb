@@ -45,6 +45,14 @@ enum class TeamMode{
     AdaptiveLoadBalancing,
 };
 
+enum class RoutingScope{
+    Invalid,
+    External,
+    HostOnly,
+    Internal,
+    Limited,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(LinkStatus, {
     {LinkStatus::Invalid, "Invalid"},
     {LinkStatus::LinkUp, "LinkUp"},
@@ -83,6 +91,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TeamMode, {
     {TeamMode::IEEE802_3ad, "IEEE802_3ad"},
     {TeamMode::AdaptiveTransmitLoadBalancing, "AdaptiveTransmitLoadBalancing"},
     {TeamMode::AdaptiveLoadBalancing, "AdaptiveLoadBalancing"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(RoutingScope, {
+    {RoutingScope::Invalid, "Invalid"},
+    {RoutingScope::External, "External"},
+    {RoutingScope::HostOnly, "HostOnly"},
+    {RoutingScope::Internal, "Internal"},
+    {RoutingScope::Limited, "Limited"},
 });
 
 }

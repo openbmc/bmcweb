@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_13_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_13_2.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -46,8 +46,8 @@
                 "RetryForeverWithBackoff"
             ],
             "enumDescriptions": {
-                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.",
-                "RetryForeverWithBackoff": "The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries, but issued over time according to a service-defined backoff algorithm.",
+                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events continues regardless of the number of retries.",
+                "RetryForeverWithBackoff": "The subscription is not suspended or terminated, and attempts at delivery of future events continues regardless of the number of retries, but issued over time according to a service-defined backoff algorithm.",
                 "SuspendRetries": "The subscription is suspended after the maximum number of retries is reached.",
                 "TerminateAfterRetries": "The subscription is terminated after the maximum number of retries is reached."
             },
@@ -368,12 +368,12 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property shall contain the status of the subscription.",
-                    "longDescription": "This property shall contain the status of the subscription.",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
                     "versionAdded": "v1_6_0"
                 },
                 "SubordinateResources": {
-                    "description": "An indication of whether the subscription is for events in the OriginResources array and its subordinate resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription shall be for events in the OriginResources array only.  If the OriginResources array is not present, this property shall have no relevance.",
+                    "description": "An indication of whether the subscription is for events in the OriginResources array and its subordinate resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription is for events in the OriginResources array only.  If the OriginResources array is not present, this property has no relevance.",
                     "longDescription": "This property shall indicate whether the subscription is for events in the OriginResources array and its subordinate resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription shall be for events in the OriginResources array only.  If the OriginResources array is not present, this property shall have no relevance.",
                     "readonly": true,
                     "type": [
@@ -927,7 +927,7 @@
                 "Emergency": "A panic condition.",
                 "Error": "An Error.",
                 "Informational": "Informational only.",
-                "Notice": "Conditions that are not error conditions, but that may require special handling.",
+                "Notice": "Conditions that are not error conditions, but that might require special handling.",
                 "Warning": "A Warning."
             },
             "longDescription": "This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424.",
@@ -936,5 +936,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#EventDestination.v1_13_1.EventDestination"
+    "title": "#EventDestination.v1_13_2.EventDestination"
 }

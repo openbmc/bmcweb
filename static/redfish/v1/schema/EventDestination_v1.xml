@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.13.1                                            -->
+<!--# Redfish Schema:  EventDestination v1.13.2                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -662,7 +662,7 @@
         </Property>
         <Property Name="SubordinateResources" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the subscription is for events in the OriginResources array and its subordinate resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription shall be for events in the OriginResources array only.  If the OriginResources array is not present, this property shall have no relevance."/>
+          <Annotation Term="OData.Description" String="An indication of whether the subscription is for events in the OriginResources array and its subordinate resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription is for events in the OriginResources array only.  If the OriginResources array is not present, this property has no relevance."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the subscription is for events in the OriginResources array and its subordinate resources.  If `true` and the OriginResources array is specified, the subscription is for events in the OriginResources array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the OriginResources array is specified, the subscription shall be for events in the OriginResources array only.  If the OriginResources array is not present, this property shall have no relevance."/>
         </Property>
         <Property Name="EventFormatType" Type="EventDestination.EventFormatType">
@@ -709,6 +709,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_5.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_6.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -747,6 +753,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -759,8 +771,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate the subscription delivery retry policy for events where the subscription type is RedfishEvent."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property shall contain the status of the subscription."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the status of the subscription."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <NavigationProperty Name="MetricReportDefinitions" Type="Collection(MetricReportDefinition.MetricReportDefinition)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -779,11 +791,11 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the subscription is suspended after the maximum number of retries is reached, specified by the DeliveryRetryAttempts property in the event service.  The value of the State property within Status shall contain `Disabled` for a suspended subscription."/>
         </Member>
         <Member Name="RetryForever">
-          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries."/>
+          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events continues regardless of the number of retries."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  The interval between retries remains constant and is specified by the DeliveryRetryIntervalSeconds property in the event service."/>
         </Member>
         <Member Name="RetryForeverWithBackoff">
-          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries, but issued over time according to a service-defined backoff algorithm."/>
+          <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events continues regardless of the number of retries, but issued over time according to a service-defined backoff algorithm."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  Retry attempts are issued over time according to a service-defined backoff algorithm.  The backoff algorithm may insert an increasing amount of delay between retry attempts and may reach a maximum."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -831,6 +843,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_5.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_6.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_0">
@@ -997,6 +1015,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_5.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_6.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1045,6 +1069,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_5.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_6.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_0">
@@ -1098,7 +1128,7 @@
           <Annotation Term="OData.Description" String="A Warning."/>
         </Member>
         <Member Name="Notice">
-          <Annotation Term="OData.Description" String="Conditions that are not error conditions, but that may require special handling."/>
+          <Annotation Term="OData.Description" String="Conditions that are not error conditions, but that might require special handling."/>
         </Member>
         <Member Name="Informational">
           <Annotation Term="OData.Description" String="Informational only."/>
@@ -1247,6 +1277,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_6.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_7.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols and to provide better description for the authentication and encryption keys.  It also added `RetryForeverWithBackoff` to DeliveryRetryPolicy and long description details to the DeliveryRetryPolicy values."/>
@@ -1304,6 +1340,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_5.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_6.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1354,6 +1396,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_3.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_4.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1385,6 +1433,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_1.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_2.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1403,6 +1457,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_13_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_13_1.EventDestination"/>
     </Schema>
 
   </edmx:DataServices>

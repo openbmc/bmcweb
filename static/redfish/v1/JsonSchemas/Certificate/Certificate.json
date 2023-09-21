@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_8_0.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -256,15 +256,29 @@
                 "SSH",
                 "Device",
                 "Platform",
-                "BIOS"
+                "BIOS",
+                "IDevID",
+                "LDevID",
+                "IAK",
+                "LAK"
             ],
             "enumDescriptions": {
                 "BIOS": "This certificate is a BIOS certificate like those associated with UEFI.",
                 "Device": "This certificate is a device type certificate like those associated with SPDM and other standards.",
+                "IAK": "This certificate is an IAK certificate like those associated with TCG TPMs.",
+                "IDevID": "This certificate is an IDevID certificate like those associated with TCG TPMs.",
+                "LAK": "This certificate is an LAK certificate like those associated with TCG TPMs.",
+                "LDevID": "This certificate is an LDevID certificate like those associated with TCG TPMs.",
                 "Platform": "This certificate is a platform type certificate like those associated with SPDM and other standards.",
                 "SSH": "This certificate is used for SSH.",
                 "User": "This certificate is a user certificate like those associated with a manager account.",
                 "Web": "This certificate is a web or HTTPS certificate like those used for event destinations."
+            },
+            "enumVersionAdded": {
+                "IAK": "v1_8_0",
+                "IDevID": "v1_8_0",
+                "LAK": "v1_8_0",
+                "LDevID": "v1_8_0"
             },
             "type": "string"
         },
@@ -685,6 +699,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Certificate.v1_7_0.Certificate"
+    "release": "2023.2",
+    "title": "#Certificate.v1_8_0.Certificate"
 }

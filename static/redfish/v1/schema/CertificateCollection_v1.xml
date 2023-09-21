@@ -130,6 +130,8 @@
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates</String>
             <String>/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates</String>
+            <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates</String>
+            <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Certificate.Certificate)">

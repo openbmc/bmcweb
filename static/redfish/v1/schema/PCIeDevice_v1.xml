@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.11.1                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.12.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -16,6 +16,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -45,6 +48,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CXLLogicalDeviceCollection_v1.xml">
     <edmx:Include Namespace="CXLLogicalDeviceCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Processor_v1.xml">
+    <edmx:Include Namespace="Processor"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -784,6 +790,135 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_11_0.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_11_1.PCIeDevice">
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="PCIeDevice.v1_10_0.Links">
+        <NavigationProperty Name="Processors" Type="Collection(Processor.Processor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the processors that are directly connected or directly bridged to this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor that represent processors that are directly connected or directly bridged to this PCIe device."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Slot" BaseType="PCIeDevice.v1_9_0.Slot">
+        <Property Name="HotPluggable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this PCIe slot supports hotplug."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain indicating whether this PCIe slot supports hotplug."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CXLDevice" BaseType="PCIeDevice.v1_11_0.CXLDevice">
+        <Property Name="DynamicCapacity" Type="PCIeDevice.v1_12_0.CXLDynamicCapacity">
+          <Annotation Term="OData.Description" String="The CXL dynamic capacity device (DCD) information for this CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CXL dynamic capacity device (DCD) information for this CXL device."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CXLDynamicCapacity">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The CXL dynamic capacity device (DCD) information for a CXL device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the CXL dynamic capacity device (DCD) information for a CXL device."/>
+        <Property Name="MaxHosts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of hosts supported by this CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of hosts supported by this CXL device."/>
+        </Property>
+        <Property Name="MaxDynamicCapacityRegions" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of dynamic capacity memory regions available per host from this CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of dynamic capacity memory regions available per host from this CXL device."/>
+        </Property>
+        <Property Name="TotalDynamicCapacityMiB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total memory media capacity of the CXL device available for dynamic assignment in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total memory media capacity of the CXL device available for dynamic assignment in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="AddCapacityPoliciesSupported" Type="Collection(PCIeDevice.v1_12_0.CXLDynamicCapacityPolicies)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of selection policies supported by the CXL device when dynamic capacity is added."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined dynamic capacity policies that are supported by this CXL device when dynamic capacity is added."/>
+        </Property>
+        <Property Name="ReleaseCapacityPoliciesSupported" Type="Collection(PCIeDevice.v1_12_0.CXLDynamicCapacityPolicies)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of removal policies supported by the CXL device when dynamic capacity is released."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined dynamic capacity policies that are supported by this CXL device when dynamic capacity is released."/>
+        </Property>
+        <Property Name="MemoryBlockSizesSupported" Type="Collection(PCIeDevice.v1_12_0.CXLRegionBlockSizes)">
+          <Annotation Term="OData.Description" String="The set of memory block sizes supported by memory regions in this CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory block sizes supported by memory regions in this CXL device."/>
+        </Property>
+        <Property Name="SanitizationOnReleaseSupport" Type="Collection(PCIeDevice.v1_12_0.CXLRegionSanitization)">
+          <Annotation Term="OData.Description" String="An indication of whether the sanitization on capacity release is configurable for the memory regions in this CXL device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sanitization on capacity release is configurable for the memory regions in this CXL device."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CXLRegionBlockSizes">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Set of memory block sizes supported by memory region in the CXL device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain set of memory block sizes supported by memory region in the dynamic capacity device."/>
+        <Property Name="RegionNumber" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The memory region number."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region number."/>
+        </Property>
+        <Property Name="BlockSizeMiB" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Set of memory block sizes supported by this memory region defined in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain set of memory block sizes supported by this memory region, with units in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CXLRegionSanitization">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="An indication of whether the sanitization on capacity release is configurable for the memory region."/>
+        <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sanitization on capacity release is configurable for the memory region."/>
+        <Property Name="RegionNumber" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The memory region number."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region number."/>
+        </Property>
+        <Property Name="SanitizationOnReleaseSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the sanitization on capacity release is configurable for this memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sanitization on capacity release is configurable for this memory region."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CXLDynamicCapacityPolicies">
+        <Member Name="Free">
+          <Annotation Term="OData.Description" String="Free add capacity policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined free add capacity policy."/>
+        </Member>
+        <Member Name="Contiguous">
+          <Annotation Term="OData.Description" String="Contiguous add capacity policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined contiguous add capacity policy."/>
+        </Member>
+        <Member Name="Prescriptive">
+          <Annotation Term="OData.Description" String="Prescriptive add or release policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined prescriptive add or release policy."/>
+        </Member>
+        <Member Name="TagBased">
+          <Annotation Term="OData.Description" String="Tag-based release policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined tag-based release policy."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

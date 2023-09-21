@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.6.0                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.6.1                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -143,8 +143,8 @@
         </Property>
         <Property Name="ParamTypes" Type="Collection(MessageRegistry.v1_0_0.ParamType)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The MessageArg types, in order, for the message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an ordered array of argument data types that match the data types of the MessageArgs."/>
+          <Annotation Term="OData.Description" String="The data types of the message arguments, prior to conversion to strings for inclusion in a message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an ordered array of the data types of the values in MessageArgs, prior to their conversion to strings for inclusion in a message."/>
         </Property>
         <Property Name="Resolution" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -163,7 +163,7 @@
           <Annotation Term="OData.Description" String="The argument is a string."/>
         </Member>
         <Member Name="number">
-          <Annotation Term="OData.Description" String="The argument is a number."/>
+          <Annotation Term="OData.Description" String="The argument is a number converted to a string."/>
         </Member>
       </EnumType>
     </Schema>
@@ -220,6 +220,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity and MessageSeverity can be overridden by the service."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_9.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_10.MessageRegistry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_1_0">
@@ -285,6 +291,12 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_5.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_6.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -323,7 +335,7 @@
       <EnumType Name="ClearingType">
         <Annotation Term="OData.Description" String="The conditions when an event is cleared."/>
         <Member Name="SameOriginOfCondition">
-          <Annotation Term="OData.Description" String="This enumeration shall describe when the message for an event is cleared by the other messages in the ClearingLogic property, provided the OriginOfCondition for both events are the same."/>
+          <Annotation Term="OData.Description" String="Indicates the message for an event is cleared by the other messages in the ClearingLogic property, provided the OriginOfCondition for both events are the same."/>
         </Member>
       </EnumType>
     </Schema>
@@ -350,6 +362,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity and MessageSeverity can be overridden by the service."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_2_3.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_2_4.MessageRegistry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_3_0">
@@ -396,6 +414,12 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_3_2.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_3_3.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -423,6 +447,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Severity and MessageSeverity can be overridden by the service."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_4_1.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_4_2.MessageRegistry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_5_0">
@@ -453,6 +483,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_5_0.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -473,6 +509,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate that this message maps to general or less-specific messages that duplicates information about the condition that generated this message.  Services may issue the referenced messages along with this message to provide consistency for clients.  The array shall contain `MessageRegistryPrefix.MessageKey` formatted values that describe the message registry and message key used to identify the messages."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_6_0.MessageRegistry"/>
     </Schema>
 
   </edmx:DataServices>

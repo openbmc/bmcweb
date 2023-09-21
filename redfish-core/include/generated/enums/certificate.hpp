@@ -39,6 +39,10 @@ enum class CertificateUsageType{
     Device,
     Platform,
     BIOS,
+    IDevID,
+    LDevID,
+    IAK,
+    LAK,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CertificateType, {
@@ -75,6 +79,10 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CertificateUsageType, {
     {CertificateUsageType::Device, "Device"},
     {CertificateUsageType::Platform, "Platform"},
     {CertificateUsageType::BIOS, "BIOS"},
+    {CertificateUsageType::IDevID, "IDevID"},
+    {CertificateUsageType::LDevID, "LDevID"},
+    {CertificateUsageType::IAK, "IAK"},
+    {CertificateUsageType::LAK, "LAK"},
 });
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.20.1                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.21.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -115,6 +115,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction_v1.xml">
     <edmx:Include Namespace="NetworkDeviceFunction"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/OperatingSystem_v1.xml">
+    <edmx:Include Namespace="OperatingSystem"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -221,6 +224,36 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="Decommission" IsBound="true">
+        <Annotation Term="OData.Description" String="This action decommissions a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall remove all specified data from a system in preparation to decommission the system."/>
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="DecommissionTypes" Type="Collection(ComputerSystem.v1_21_0.DecommissionType)" Nullable="false">
+          <Annotation Term="OData.Description" String="The types of data to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a list of the types of data to remove from the system."/>
+        </Parameter>
+        <Parameter Name="OEMDecommissionTypes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Description" String="The OEM-specific types of data to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain any OEM-specific types of data to remove from the system."/>
+        </Parameter>
+        <Parameter Name="ComputerSystemETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Parameter Name="RequireSecureErase" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="Ensure secure erasure of all devices and fail the request if not possible."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate if a secure erase is required.  If the parameter contains `true` and a secure erase to the level of NIST 800-88 Clear or Purge for all specified components can not be performed the service shall return the HTTP 501 (Not Implemented) status code.  This failure may occur after the process has already started.  If not provided by the client, the value shall be assumed to be `false`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -494,11 +527,20 @@
         </Member>
         <Member Name="Virtual">
           <Annotation Term="OData.Description" String="A virtual machine instance running on this system."/>
-          <Annotation Term="OData.LongDescription" String="A SystemType of Virtual typically represents a system that is actually a virtual machine instance."/>
+          <Annotation Term="OData.LongDescription" String="A SystemType of Virtual typically represents a system that is actually a virtual machine instance.  Responses should contain the ProcessorSummary and MemorySummary properties to show the processor and memory resources allocated to the virtual machine."/>
         </Member>
         <Member Name="OS">
           <Annotation Term="OData.Description" String="An operating system instance."/>
           <Annotation Term="OData.LongDescription" String="A SystemType of OS typically represents an OS or hypervisor view of the system."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_21_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of representing operating systems with the OperatingSystem resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="PhysicallyPartitioned">
           <Annotation Term="OData.Description" String="A hardware-based partition of a computer system."/>
@@ -2770,8 +2812,8 @@
         </Property>
         <Property Name="EnterUtilizationPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The percentage of utilization that the computer system shall be lower than to enter idle power save."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of utilization that the computer system shall be lower than to enter idle power save."/>
+          <Annotation Term="OData.Description" String="The percentage of utilization when the computer system enters idle power save.  If the computer system's utilization goes below this value, it enters idle power save."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of utilization, typically `0` to `100`, when the computer system enters idle power save.  If the computer system's utilization goes below this value for the duration specified by EnterDwellTimeSeconds, it shall enter idle power save."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
@@ -2784,8 +2826,8 @@
         </Property>
         <Property Name="ExitUtilizationPercent" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The percentage of utilization that the computer system shall be higher than to exit idle power save."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of utilization that the computer system shall be higher than to exit idle power save."/>
+          <Annotation Term="OData.Description" String="The percentage of utilization when the computer system exits idle power save.  If the computer system's utilization goes above this value, it exits idle power save."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of utilization, typically `0` to `100`, when the computer system exits idle power save.  If the computer system's utilization goes above this value for the duration specified by ExitDwellTimeSeconds, it shall exit idle power save."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
@@ -2865,6 +2907,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -2898,6 +2946,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_2.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_3.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -2958,6 +3012,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -2985,6 +3045,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_2.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -3020,6 +3086,73 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the SystemType value `OS` in favor of showing an OperatingSystem resource.  It was also created to add the Decommission action."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_2.ComputerSystem">
+        <NavigationProperty Name="OperatingSystem" Type="OperatingSystem.OperatingSystem" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the operating system information associated with this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type OperatingSystem that contains operating system information for this system."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="ComputerSystem.v1_19_0.Links">
+        <NavigationProperty Name="HostingComputerSystem" Type="ComputerSystem.ComputerSystem">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the system that is hosting this virtual machine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ComputerSystem that represents the system that is hosting this virtual machine.  This property shall only be present if SystemType contains `Virtual`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="VirtualMachines" Type="Collection(ComputerSystem.ComputerSystem)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the virtual machines this system is hosting."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type ComputerSystem that represent the virtual machines this system is hosting."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="DecommissionType">
+        <Member Name="All">
+          <Annotation Term="OData.Description" String="Remove all possible data from the server."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service removes all the data that it can from the system.  This shall include all possible OEM data as well."/>
+        </Member>
+        <Member Name="UserData">
+          <Annotation Term="OData.Description" String="Remove all possible data from block devices and other user or operating system accessible storage attached to the system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service removes all the data from block devices or other operating system accessible storage.  If the RequireSecureErase parameter contains `true`, this shall be equivalent to performing the SecureErase action on each drive."/>
+        </Member>
+        <Member Name="ManagerConfig">
+          <Annotation Term="OData.Description" String="Reset all manager settings to factory defaults."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all associated managers to factory defaults.  This shall be equivalent to performing the ResetToDefaults action on each Manager resource with the ResetType parameter of `ResetAll`."/>
+        </Member>
+        <Member Name="BIOSConfig">
+          <Annotation Term="OData.Description" String="Reset all BIOS settings to factory defaults."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all BIOS settings to factory defaults.  This shall be equivalent to performing the ResetBios action on each Bios resource."/>
+        </Member>
+        <Member Name="NetworkConfig">
+          <Annotation Term="OData.Description" String="Reset all network settings to factory defaults."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all network settings on all network devices to factory defaults."/>
+        </Member>
+        <Member Name="StorageConfig">
+          <Annotation Term="OData.Description" String="Reset all storage controller settings to factory defaults.  This will leave the user data intact unless that is also specified."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all storage controller settings to factory defaults.  This shall be equivalent to performing the ResetToDefaults action on each Storage resource with the ResetType parameter of `PreserveVolumes`."/>
+        </Member>
+        <Member Name="Logs">
+          <Annotation Term="OData.Description" String="Clear all logs."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service clears all logs.  This shall be equivalent to performing the ClearLog action on each LogService resource."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

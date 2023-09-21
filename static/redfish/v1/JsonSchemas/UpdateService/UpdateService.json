@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_11_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_12_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -504,6 +504,13 @@
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
+                "RemoteServerSSHKeys": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/KeyCollection.json#/definitions/KeyCollection",
+                    "description": "The link to a collection of keys that can be used to authenticate the server referenced by the ImageURI property in SimpleUpdate.",
+                    "longDescription": "This property shall contain a link to a resource collection of type KeyCollection that represents the server SSH keys for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerSSHKey is `true`, services shall compare the keys in this collection with the key obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerSSHKey is `false`, the service shall not perform key verification with keys in this collection.",
+                    "readonly": true,
+                    "versionAdded": "v1_12_0"
+                },
                 "ServiceEnabled": {
                     "description": "An indication of whether this service is enabled.",
                     "longDescription": "This property shall indicate whether this service is enabled.",
@@ -533,6 +540,16 @@
                         "null"
                     ],
                     "versionAdded": "v1_9_0"
+                },
+                "VerifyRemoteServerSSHKey": {
+                    "description": "An indication of whether the service will verify the SSH key of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
+                    "longDescription": "This property shall indicate whether the service will verify the SSH key of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request with the keys found in the collection referenced by the RemoteServerSSHKeys property.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_12_0"
                 }
             },
             "required": [
@@ -545,6 +562,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#UpdateService.v1_11_3.UpdateService"
+    "release": "2023.2",
+    "title": "#UpdateService.v1_12_0.UpdateService"
 }

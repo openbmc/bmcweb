@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_6_1.json",
     "$ref": "#/definitions/MessageRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -97,7 +97,7 @@
                 "SameOriginOfCondition"
             ],
             "enumDescriptions": {
-                "SameOriginOfCondition": "This enumeration shall describe when the message for an event is cleared by the other messages in the ClearingLogic property, provided the OriginOfCondition for both events are the same."
+                "SameOriginOfCondition": "Indicates the message for an event is cleared by the other messages in the ClearingLogic property, provided the OriginOfCondition for both events are the same."
             },
             "type": "string"
         },
@@ -225,11 +225,11 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 },
                 "ParamTypes": {
-                    "description": "The MessageArg types, in order, for the message.",
+                    "description": "The data types of the message arguments, prior to conversion to strings for inclusion in a message.",
                     "items": {
                         "$ref": "#/definitions/ParamType"
                     },
-                    "longDescription": "This property shall contain an ordered array of argument data types that match the data types of the MessageArgs.",
+                    "longDescription": "This property shall contain an ordered array of the data types of the values in MessageArgs, prior to their conversion to strings for inclusion in a message.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -437,7 +437,7 @@
                 "number"
             ],
             "enumDescriptions": {
-                "number": "The argument is a number.",
+                "number": "The argument is a number converted to a string.",
                 "string": "The argument is a string."
             },
             "type": "string"
@@ -445,5 +445,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#MessageRegistry.v1_6_0.MessageRegistry"
+    "title": "#MessageRegistry.v1_6_1.MessageRegistry"
 }

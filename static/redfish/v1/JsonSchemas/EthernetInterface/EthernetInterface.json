@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_11_0.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -561,6 +561,20 @@
                     "longDescription": "This property shall contain the permanent MAC address of this interface, or port.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
                     "readonly": true
                 },
+                "RoutingScope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/RoutingScope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The routing scope for this interface.",
+                    "longDescription": "This property shall contain the routing scope for this interface.  This property shall only be present if this interface belongs to a virtual machine or container.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
                 "SpeedMbps": {
                     "description": "The current speed, in Mbit/s, of this interface.",
                     "longDescription": "This property shall contain the link speed of the interface, in Mbit/s.  This property shall be writable only when the AutoNeg property is `false`.",
@@ -859,6 +873,27 @@
             "properties": {},
             "type": "object"
         },
+        "RoutingScope": {
+            "enum": [
+                "External",
+                "HostOnly",
+                "Internal",
+                "Limited"
+            ],
+            "enumDescriptions": {
+                "External": "Externally accessible.",
+                "HostOnly": "Only accessible to a dedicated interface on the host.",
+                "Internal": "Only accessible to internal networking on the host, such as when virtual machines or containers are allowed to communicate with each other on the same host system as well as a dedicated interface on the hosting system.",
+                "Limited": "Accessible through IP translation provided by the hosting system."
+            },
+            "enumLongDescriptions": {
+                "External": "This value shall indicate this interface is externally accessible as if it were physically on the same network as the hosting system.",
+                "HostOnly": "This value shall indicate this interface is only accessible to a dedicated interface on the hosting system.",
+                "Internal": "This value shall indicate this interface is only accessible to internal networking on the host, such as when virtual machines or containers are allowed to communicate with each other on the same host system as well as a dedicated interface on the hosting system.",
+                "Limited": "This value shall indicate this interface is accessible through IP translation provided by the hosting system, such as a NAT (network address translation)."
+            },
+            "type": "string"
+        },
         "StatelessAddressAutoConfiguration": {
             "additionalProperties": false,
             "description": "Stateless address autoconfiguration (SLAAC) parameters for this interface.",
@@ -926,6 +961,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#EthernetInterface.v1_10_0.EthernetInterface"
+    "release": "2023.2",
+    "title": "#EthernetInterface.v1_11_0.EthernetInterface"
 }

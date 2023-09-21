@@ -185,6 +185,17 @@ enum class KMIPCachePolicy{
     AfterFirstUse,
 };
 
+enum class DecommissionType{
+    Invalid,
+    All,
+    UserData,
+    ManagerConfig,
+    BIOSConfig,
+    NetworkConfig,
+    StorageConfig,
+    Logs,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Invalid, "Invalid"},
     {BootSource::None, "None"},
@@ -363,6 +374,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KMIPCachePolicy, {
     {KMIPCachePolicy::Invalid, "Invalid"},
     {KMIPCachePolicy::None, "None"},
     {KMIPCachePolicy::AfterFirstUse, "AfterFirstUse"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(DecommissionType, {
+    {DecommissionType::Invalid, "Invalid"},
+    {DecommissionType::All, "All"},
+    {DecommissionType::UserData, "UserData"},
+    {DecommissionType::ManagerConfig, "ManagerConfig"},
+    {DecommissionType::BIOSConfig, "BIOSConfig"},
+    {DecommissionType::NetworkConfig, "NetworkConfig"},
+    {DecommissionType::StorageConfig, "StorageConfig"},
+    {DecommissionType::Logs, "Logs"},
 });
 
 }

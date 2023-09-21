@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.11.3                                               -->
+<!--# Redfish Schema:  UpdateService v1.12.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -33,6 +33,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/KeyCollection_v1.xml">
+    <edmx:Include Namespace="KeyCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1033,6 +1036,25 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify how the update service behaves based on the resources referenced by the URI in the Targets parameter in the SimpleUpdate action and multipart HTTP push update."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_11_2.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_11_3.UpdateService">
+        <NavigationProperty Name="RemoteServerSSHKeys" Type="KeyCollection.KeyCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of keys that can be used to authenticate the server referenced by the ImageURI property in SimpleUpdate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type KeyCollection that represents the server SSH keys for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerSSHKey is `true`, services shall compare the keys in this collection with the key obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerSSHKey is `false`, the service shall not perform key verification with keys in this collection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="VerifyRemoteServerSSHKey" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service will verify the SSH key of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service will verify the SSH key of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request with the keys found in the collection referenced by the RemoteServerSSHKeys property.  If this property is not supported by the service, it shall be assumed to be `false`.  This property should default to `false` in order to maintain compatibility with older clients."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

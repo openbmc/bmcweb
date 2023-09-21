@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.23.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.24.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -602,7 +602,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_15.Chassis"/>
     </Schema>
 
@@ -757,7 +757,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_15.Chassis"/>
     </Schema>
 
@@ -874,7 +874,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_13.Chassis"/>
     </Schema>
 
@@ -966,7 +966,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_13.Chassis"/>
     </Schema>
 
@@ -1104,7 +1104,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_12.Chassis"/>
     </Schema>
 
@@ -1192,7 +1192,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_11.Chassis"/>
     </Schema>
 
@@ -1267,7 +1267,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_9.Chassis"/>
     </Schema>
 
@@ -1349,7 +1349,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_9.Chassis"/>
     </Schema>
 
@@ -1363,6 +1363,15 @@
           <Annotation Term="OData.Description" String="The link to the PCIe slot properties for this chassis."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type PCIeSlots that represents the PCIe slot information for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_24_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PCIeDevices property.  The PCIeSlots schema has been deprecated in favor of the PCIeDevice schema.  Empty PCIe slots are represented by PCIeDevice resources using the `Absent` value of the State property within Status."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </EntityType>
     </Schema>
@@ -1417,7 +1426,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_8.Chassis"/>
     </Schema>
 
@@ -1514,7 +1523,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_8.Chassis"/>
     </Schema>
 
@@ -1570,7 +1579,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_6.Chassis"/>
     </Schema>
 
@@ -1656,7 +1665,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_6.Chassis"/>
     </Schema>
 
@@ -1713,7 +1722,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_5.Chassis"/>
     </Schema>
 
@@ -1751,7 +1760,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_4.Chassis"/>
     </Schema>
 
@@ -1794,7 +1803,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_3.Chassis"/>
     </Schema>
 
@@ -1864,7 +1873,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_15_3.Chassis"/>
     </Schema>
 
@@ -1896,7 +1905,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_16_2.Chassis"/>
     </Schema>
 
@@ -1937,7 +1946,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_17_2.Chassis"/>
     </Schema>
 
@@ -1983,7 +1992,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_2.Chassis"/>
     </Schema>
 
@@ -2009,7 +2018,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_19_2.Chassis"/>
     </Schema>
 
@@ -2091,7 +2100,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_20_1.Chassis"/>
     </Schema>
 
@@ -2132,7 +2141,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_21_1.Chassis"/>
     </Schema>
 
@@ -2153,7 +2162,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_22_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources may reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_22_0.Chassis"/>
     </Schema>
 
@@ -2177,6 +2186,73 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_24_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate PCIeSlots in favor of PCIeDevices."/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_23_0.Chassis">
+        <Property Name="Doors" Type="Chassis.v1_24_0.Doors" Nullable="false">
+           <Annotation Term="OData.Description" String="The doors or access panels of the chassis."/>
+           <Annotation Term="OData.LongDescription" String="This property shall contain information about the doors or access panels of the chassis."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Doors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The doors or access panels of the chassis."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the doors or access panels of the chassis."/>
+        <Property Name="Front" Type="Chassis.v1_24_0.Door">
+          <Annotation Term="OData.Description" String="The front door of the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information related to the front door, as defined by the manufacturer, of the chassis."/>
+        </Property>
+        <Property Name="Rear" Type="Chassis.v1_24_0.Door">
+          <Annotation Term="OData.Description" String="The rear door of the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information related to the rear door, as defined by the manufacturer, of the chassis."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Door">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A door or access panel on the chassis."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a door or access panel on the chassis."/>
+        <Property Name="DoorState" Type="Chassis.v1_24_0.DoorState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The state of the door."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current state of the door."/>
+        </Property>
+        <Property Name="Locked" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the door is locked."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the door is locked."/>
+        </Property>
+        <Property Name="UserLabel" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A user-assigned label."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="DoorState">
+        <Member Name="Locked">
+          <Annotation Term="OData.Description" String="Door is closed and locked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the door is both closed and locked.  In this state, the door cannot be opened unless the value of the Locked property is set to `false`."/>
+        </Member>
+        <Member Name="Closed">
+          <Annotation Term="OData.Description" String="Door is closed."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the door is closed but unlocked."/>
+        </Member>
+        <Member Name="LockedAndOpen">
+          <Annotation Term="OData.Description" String="Door is open and locked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the door is open but the lock has been engaged.  It may be possible to close the door while in this state."/>
+        </Member>
+        <Member Name="Open">
+          <Annotation Term="OData.Description" String="Door is open."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the door is open."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>
