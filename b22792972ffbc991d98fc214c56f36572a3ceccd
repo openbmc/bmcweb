@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2821392_dd9c47d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-21T15:40:58Z",
+      "side": 1,
+      "message": "+1.  If there\u0027s anywhere a user has POST permission but not GET permission, that seems like we\u0027ve incorrectly written our privileges and should be fixed at the source.\n\nHaving a way to completely bypass the auth checks has a potential to cause more CVEs, so we need the reasons it exists documented clearly.\n\nAlso keep in mind, if the user truly doesn\u0027t have read permission on the resource, ETag is not using a cryptographically safe hash, so it\u0027s possible for an unauthenticated user to reverse it without a lot of effort.",
+      "parentUuid": "6ae6601f_567177ef",
+      "revId": "b22792972ffbc991d98fc214c56f36572a3ceccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb2e20b1_b7094faa",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
