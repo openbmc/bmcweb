@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "728118a2_366cb6be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-21T15:18:35Z",
+      "side": 1,
+      "message": "Isn\u0027t this separate from 54030? \nThis follows what we have been doing. We have been keeping all the same schemas the same version.\n\n54030 is a new direction. \n54030 has merge conflicts and hasn\u0027t been touched since Jan 23, 2023\nThis commit seems reasonable to me, 54030 can supersede it when/if it goes in. \n\nIf 54030 was close to going in I would be okay with waiting on 54030 and just abandoning this but looking at 54030 I don\u0027t see that",
+      "parentUuid": "19e023cf_674cf871",
+      "revId": "ddf6fe559dc4f3d78366fc979753e540cb022f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "afe80471_b74f3940",
