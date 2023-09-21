@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b3c40c_af56439c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-09-21T11:09:57Z",
+      "side": 1,
+      "message": "you are missing the important question.\n\nwhy\n\n\nI wouldn\u0027t have known if I hadn\u0027t arrived from the bug report\n\n\nand I\u0027m concerned that this is broken for configureSelf permission response where we filter the output to own resources vs full response admin role permissions.\n\nI\u0027m not sure this is correct for contexts where we filter the response based on configure self care full permission",
+      "revId": "b22792972ffbc991d98fc214c56f36572a3ceccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb2e20b1_b7094faa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-09-21T11:09:57Z",
+      "side": 1,
+      "message": "the footer can not contain empty lines \n\nResolves: openbmc/bmcweb#262\n\nyou should have a paragraph about what you are trying to avoid.",
+      "revId": "b22792972ffbc991d98fc214c56f36572a3ceccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e615b6eb_1f9156f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-09-21T11:09:57Z",
+      "side": 1,
+      "message": "need to document the motivation even if the concern is not an issue.",
+      "revId": "b22792972ffbc991d98fc214c56f36572a3ceccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
