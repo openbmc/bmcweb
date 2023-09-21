@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -204,7 +204,7 @@
                 "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time, in liters per second units, that flows through a particular junction.  The ReadingUnits property shall contain `L/s`.",
                 "LiquidFlowLPM": "This value shall indicate a measurement of a volume of liquid per unit of time, in liters per minute units, that flows through a particular junction.  The ReadingUnits property shall contain `L/min`.",
                 "LiquidLevel": "This value shall indicate a measurement of fluid height, in centimeter units, relative to a specified vertical datum and the ReadingUnits property shall contain `cm`.",
-                "Percent": "This value shall indicate a percentage measurement, in percent units.  The ReadingUnits property shall contain `%`.",
+                "Percent": "This value shall indicate a percentage measurement, in percent units.  The Reading value, while typically `0` to `100`, may exceed `100` for rate-of-change or similar readings.  The ReadingUnits property shall contain `%`.",
                 "Power": "This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in watt units.  The ReadingUnits property shall contain `W`.",
                 "Pressure": "This value shall indicate a measurement of force, in pascal units, applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits property shall contain `Pa`.",
                 "PressurePa": "This value shall indicate a measurement of pressure, in pascal units, relative to atmospheric pressure.  The ReadingUnits property shall contain `Pa`.",
@@ -328,6 +328,7 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Accuracy": {
+                    "deprecated": "This property has been deprecated in favor of ReadingAccuracy.",
                     "description": "The estimated percent error of measured versus actual values.",
                     "longDescription": "This property shall contain the percent error +/- of the measured versus actual values of the Reading property.",
                     "readonly": true,
@@ -335,7 +336,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "%"
+                    "units": "%",
+                    "versionDeprecated": "v1_8_0"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -684,6 +686,16 @@
                         "null"
                     ]
                 },
+                "ReadingAccuracy": {
+                    "description": "Accuracy (+/-) of the reading.",
+                    "longDescription": "This property shall contain the accuracy of the value of the Reading for this sensor.  The value shall be the absolute value of the maximum deviation of the Reading from its actual value.  The value shall be in units that follow the ReadingUnits for this sensor.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
                 "ReadingBasis": {
                     "anyOf": [
                         {
@@ -819,14 +831,16 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "THDPercent": {
-                    "description": "The total harmonic distortion (THD).",
+                    "description": "The total harmonic distortion percent (% THD).",
                     "excerpt": "SensorCurrent,SensorVoltage",
-                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units.",
+                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units, typically `0` to `100`.",
+                    "minimum": 0,
                     "readonly": true,
                     "type": [
                         "number",
                         "null"
                     ],
+                    "units": "%",
                     "versionAdded": "v1_1_0"
                 },
                 "Thresholds": {
@@ -993,14 +1007,16 @@
                     ]
                 },
                 "THDPercent": {
-                    "description": "The total harmonic distortion (THD).",
+                    "description": "The total harmonic distortion percent (% THD).",
                     "excerpt": "SensorCurrent,SensorVoltage",
-                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units.",
+                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units, typically `0` to `100`.",
+                    "minimum": 0,
                     "readonly": true,
                     "type": [
                         "number",
                         "null"
                     ],
+                    "units": "%",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -1611,14 +1627,16 @@
                     ]
                 },
                 "THDPercent": {
-                    "description": "The total harmonic distortion (THD).",
+                    "description": "The total harmonic distortion percent (% THD).",
                     "excerpt": "SensorCurrent,SensorVoltage",
-                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units.",
+                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units, typically `0` to `100`.",
+                    "minimum": 0,
                     "readonly": true,
                     "type": [
                         "number",
                         "null"
                     ],
+                    "units": "%",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -1801,6 +1819,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Sensor.v1_7_0.Sensor"
+    "release": "2023.2",
+    "title": "#Sensor.v1_8_0.Sensor"
 }

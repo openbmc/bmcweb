@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition v1.4.3                                       -->
+<!--# Redfish Schema:  MetricReportDefinition v1.4.4                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -113,7 +113,7 @@
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Metrics" Type="Collection(MetricReportDefinition.v1_0_0.Metric)" Nullable="false">
-          <Annotation Term="OData.Description" String="The list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties."/>
+          <Annotation Term="OData.Description" String="The list of metrics to include in the metric report.  The metrics might include calculations to apply to metric properties."/>
           <Annotation Term="OData.LongDescription" String="The property shall contain a list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties."/>
         </Property>
         <NavigationProperty Name="MetricReport" Type="MetricReport.MetricReport" Nullable="false">
@@ -266,7 +266,7 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the corresponding metric values apply to a time interval.  On the corresponding metric value instances, the Timestamp property value in the metric report shall specify the end of the time interval and the CollectionDuration property shall specify its duration."/>
         </Member>
         <Member Name="StartupInterval">
-          <Annotation Term="OData.Description" String="The corresponding metric values apply to a time interval that began at the startup of the measured resource.  On the corresponding metric value instances, the Timestamp property value in the metric report shall specifies the end of the time interval.  The CollectionDuration property value specifies the duration between the startup of resource and timestamp."/>
+          <Annotation Term="OData.Description" String="The corresponding metric values apply to a time interval that began at the startup of the measured resource.  On the corresponding metric value instances, the Timestamp property value in the metric report specifies the end of the time interval.  The CollectionDuration property value specifies the duration between the startup of resource and timestamp."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the corresponding metric values apply to a time interval that began at the startup of the measured resource.  On the corresponding metric value instances, the Timestamp property value in the metric report shall specify the end of the time interval.  The CollectionDuration property value shall specify the duration between the startup of resource and timestamp."/>
         </Member>
       </EnumType>
@@ -348,6 +348,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_9.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_10.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_0">
       <Annotation Term="OData.Description" String="This version was created to add the Values property to the Wildcard property."/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -418,6 +424,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_8.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_9.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -425,7 +437,7 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_1.MetricReportDefinition">
         <Property Name="SuppressRepeatedMetricValue" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values in the previously generated metric report."/>
+          <Annotation Term="OData.Description" String="An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values in the previously generated metric report."/>
         </Property>
         <Property Name="MetricReportHeartbeatInterval" Type="Edm.Duration">
@@ -504,6 +516,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_7.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_8.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -559,6 +577,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_6.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_7.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -589,6 +613,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_2.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_3.MetricReportDefinition"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry v1.3.6                                            -->
+<!--# Redfish Schema:  AttributeRegistry v1.3.7                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -196,7 +196,7 @@
         </Property>
         <Property Name="Immutable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether this attribute is immutable.  Immutable attributes shall not be modified and typically reflect a hardware state."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is immutable.  Immutable attributes cannot be modified and typically reflect a hardware state."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is immutable.  Immutable attributes shall not be modified and typically reflect a hardware state."/>
         </Property>
         <Property Name="IsSystemUniqueProperty" Type="Edm.Boolean">
@@ -379,7 +379,7 @@
           <Annotation Term="OData.Description" String="A flag with a `true` or `false` value."/>
         </Member>
         <Member Name="Password">
-          <Annotation Term="OData.Description" String="Password values that do not appear as plain text.  The value shall be null in responses."/>
+          <Annotation Term="OData.Description" String="Password values that do not appear as plain text.  The value is null in responses."/>
         </Member>
       </EnumType>
 
@@ -576,6 +576,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_10.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_11.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -672,6 +678,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_9.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_10.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -752,6 +764,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_7.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_8.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -812,6 +830,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_5.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_6.AttributeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

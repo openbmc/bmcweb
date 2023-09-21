@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_16_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_17_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -267,6 +267,12 @@
                     ],
                     "versionAdded": "v1_16_0"
                 },
+                "PhysicalAddress": {
+                    "$ref": "#/definitions/PhysicalAddress",
+                    "description": "The physical address for a resource.",
+                    "longDescription": "This property shall contain a physical address for a resource.  This property should be present for resources that represent physical objects that can operate without requiring physical containment by another resource.  For example, a server chassis might be contained by a rack, but it might also be deployed individually, while a drive is always contained by a chassis, and therefore is described by the containing resource.",
+                    "versionAdded": "v1_17_0"
+                },
                 "Placement": {
                     "$ref": "#/definitions/Placement",
                     "description": "A place within the addressed location.",
@@ -428,6 +434,100 @@
             },
             "type": "object"
         },
+        "PhysicalAddress": {
+            "additionalProperties": false,
+            "description": "The physical address for a resource.",
+            "longDescription": "This type shall contain a physical address for a resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "City": {
+                    "description": "City, township, or shi (JP).",
+                    "longDescription": "This property shall contain the city, township, or shi (JP) location for this resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                },
+                "Country": {
+                    "description": "The country.",
+                    "longDescription": "This property shall contain the country location for this resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                },
+                "ISOCountryCode": {
+                    "description": "The ISO 3166-1 country code.",
+                    "longDescription": "This property shall contain the ISO 3166-1-defined alpha-2 or alpha-3 country code.",
+                    "pattern": "^([A-Z]{2}|[A-Z]{3})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                },
+                "ISOSubdivisionCode": {
+                    "description": "ISO 3166-2 subdivision code .",
+                    "longDescription": "This property shall contain the ISO 3166-2-defined state, province, or territory subdivision code for this resource.",
+                    "pattern": "^[A-Z0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                },
+                "PostalCode": {
+                    "description": "The postal code.",
+                    "longDescription": "The property shall contain the postal code for this resource.  The value shall conform to the RFC5139-defined requirements of the PC field.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                },
+                "StateOrProvince": {
+                    "description": "State or province.",
+                    "longDescription": "This property shall contain the state, province, or territory location within the country for this resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                },
+                "StreetAddress": {
+                    "description": "The street-level address, including building, room, or other identifiers.",
+                    "longDescription": "This property shall contain the street-level physical address of the resource, including identifiers such as apartment, room, or building to further locate the resource within a given street address.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_17_0"
+                }
+            },
+            "type": "object"
+        },
         "Placement": {
             "additionalProperties": false,
             "description": "The placement within the addressed location.",
@@ -506,6 +606,7 @@
         },
         "PostalAddress": {
             "additionalProperties": false,
+            "deprecated": "This object and its properties have been deprecated in favor of PhysicalAddress.",
             "description": "The postal address for a resource.",
             "longDescription": "Instances shall describe a postal address for a resource.  For more information, see RFC5139.  Depending on use, the instance can represent a past, current, or future location.",
             "patternProperties": {
@@ -858,7 +959,8 @@
                     "versionAdded": "v1_3_0"
                 }
             },
-            "type": "object"
+            "type": "object",
+            "versionDeprecated": "v1_17_0"
         },
         "RackUnits": {
             "description": "The type of rack unit in use.",
@@ -1071,6 +1173,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Resource.v1_16_0"
+    "release": "2023.2",
+    "title": "#Resource.v1_17_0"
 }

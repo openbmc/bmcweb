@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_9_0.json",
     "$ref": "#/definitions/Event",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -323,7 +323,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.",
+                    "longDescription": "This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema.  If the corresponding ParamType value contains `number`, the service shall convert the number to a string representation of the number.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -341,6 +341,16 @@
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
+                "OEMDiagnosticDataType": {
+                    "description": "The OEM-defined type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property.",
+                    "longDescription": "This property shall contain the OEM-defined type of data available in the DiagnosticData property or retrieved from the URI specified by the AdditionalDataURI property.  This property shall be present if DiagnosticDataType is `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -351,6 +361,13 @@
                     "description": "A link to the resource or object that originated the condition that caused the event to be generated.",
                     "longDescription": "This property shall contain a link to the resource or object that originated the condition that caused the event to be generated.  If the event subscription has the IncludeOriginOfCondition property set to `true`, it shall include the entire resource or object referenced by the link.  For events that represent the creation or deletion of a resource, this property should reference the created or deleted resource and not the collection that contains the resource.",
                     "readonly": true
+                },
+                "Resolution": {
+                    "description": "Used to provide suggestions on how to resolve the situation that caused the event.",
+                    "longDescription": "This property shall contain the resolution of the event.  Services should replace the resolution defined in the message registry with a more specific resolution in the event.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
                 },
                 "Severity": {
                     "deprecated": "This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.",
@@ -447,6 +464,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Event.v1_8_0.Event"
+    "release": "2023.2",
+    "title": "#Event.v1_9_0.Event"
 }

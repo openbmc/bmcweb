@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeSlots v1.5.0                                                    -->
+<!--# Redfish Schema:  PCIeSlots v1.6.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -58,6 +58,15 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Chassis/{ChassisId}/PCIeSlots</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="v1_6_0"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of the PCIeDevice schema.  Empty PCIe slots should be represented by PCIeDevice resources using the `Absent` value of the State property within Status."/>
+            </Record>
           </Collection>
         </Annotation>
       </EntityType>
@@ -293,6 +302,14 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeSlots.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the schema."/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="PCIeSlots" BaseType="PCIeSlots.v1_5_0.PCIeSlots"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.9.0                                                         -->
+<!--# Redfish Schema:  Port v1.10.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -388,8 +388,8 @@
         </Property>
         <Property Name="InterfaceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An indication of whether the interface is enabled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface is enabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether the port is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port is enabled.  When disabled, no traffic of any type, such as link protocol traffic and management traffic, is sent or received by the port."/>
         </Property>
         <Property Name="SignalDetected" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -472,10 +472,12 @@
 
       <EnumType Name="LinkState">
         <Member Name="Enabled">
-          <Annotation Term="OData.Description" String="This link is enabled."/>
+          <Annotation Term="OData.Description" String="The link is enabled and operational."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the link is enabled and operational.  The port is allowed to establish a connection with the remote port."/>
         </Member>
         <Member Name="Disabled">
-          <Annotation Term="OData.Description" String="This link is disabled."/>
+          <Annotation Term="OData.Description" String="The link is disabled and not operational."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the link is disabled and not operational.  The port is not allowed to establish a connection with the remote port.  However, other types of traffic, such as management traffic, may be sent or received by the port."/>
         </Member>
       </EnumType>
 
@@ -558,6 +560,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, ConnectedSwitchPorts, and ConnectedPorts properties inside of Links."/>
       <EntityType Name="Port" BaseType="Port.v1_2_5.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties."/>
+      <EntityType Name="Port" BaseType="Port.v1_2_6.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_0">
@@ -789,13 +797,13 @@
           <Annotation Term="OData.Description" String="No IEEE 802.3x flow control is enabled on this port."/>
         </Member>
         <Member Name="TX">
-          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by this station."/>
+          <Annotation Term="OData.Description" String="IEEE 802.3x flow control might be initiated by this station."/>
         </Member>
         <Member Name="RX">
-          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by the link partner."/>
+          <Annotation Term="OData.Description" String="IEEE 802.3x flow control might be initiated by the link partner."/>
         </Member>
         <Member Name="TX_RX">
-          <Annotation Term="OData.Description" String="IEEE 802.3x flow control may be initiated by this station or the link partner."/>
+          <Annotation Term="OData.Description" String="IEEE 802.3x flow control might be initiated by this station or the link partner."/>
         </Member>
       </EnumType>
 
@@ -867,6 +875,12 @@
       <EntityType Name="Port" BaseType="Port.v1_3_3.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="Port" BaseType="Port.v1_3_4.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -904,6 +918,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether this port is enabled."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if this port is enabled.  Disabling a port will disconnect any devices only connected to the system through this port."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of InterfaceEnabled."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </EntityType>
 
@@ -919,8 +942,10 @@
         <Property Name="AllocationPercent" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The minimum bandwidth allocation percentage allocated to the corresponding network device function instance."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum bandwidth percentage allocation for the associated network device function.  The sum total of all minimum percentages shall not exceed 100."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum bandwidth percentage allocation, `0` to `100`, for the associated network device function.  The sum of all minimum percentages shall not exceed `100`."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
       </ComplexType>
 
@@ -936,8 +961,10 @@
         <Property Name="AllocationPercent" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The maximum bandwidth allocation percentage allocated to the corresponding network device function instance."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum bandwidth percentage allocation for the associated network device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum bandwidth percentage allocation, `0` to `100`, for the associated network device function."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
       </ComplexType>
 
@@ -1242,6 +1269,12 @@
       <EntityType Name="Port" BaseType="Port.v1_4_2.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="Port" BaseType="Port.v1_4_3.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1282,6 +1315,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct regular expression patterns for LLDP transmit properties to allow for empty strings and to correct the description for LLDP receive properties to state they should be omitted rather than be empty strings."/>
       <EntityType Name="Port" BaseType="Port.v1_5_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="Port" BaseType="Port.v1_5_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_0">
@@ -1332,6 +1371,12 @@
       <EntityType Name="Port" BaseType="Port.v1_6_1.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="Port" BaseType="Port.v1_6_2.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1346,6 +1391,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="Port" BaseType="Port.v1_7_0.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_0">
@@ -1491,14 +1542,18 @@
         <Property Name="EgressModeratePercentage" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The threshold for moderate egress port congestion as a percentage."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold for moderate egress port congestion for the CXL Specification-defined 'Egress Port Congestion' mechanism as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold for moderate egress port congestion for the CXL Specification-defined 'Egress Port Congestion' mechanism as a percentage, `0` to `100`."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
         <Property Name="EgressSeverePercentage" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The threshold for severe egress port congestion as a percentage."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined 'Egress Severe Percentage' as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined 'Egress Severe Percentage' as a percentage, `0` to `100`."/>
           <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
         <Property Name="BackpressureSampleInterval" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -1615,12 +1670,32 @@
       </EnumType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="Port" BaseType="Port.v1_8_0.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
       <Annotation Term="OData.Description" String="This version was created to add `QSFPDD` and `OSFP` as SFP types."/>
 
       <EntityType Name="Port" BaseType="Port.v1_8_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="Port" BaseType="Port.v1_9_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecated Enabled in favor of InterfaceEnabled."/>
+
+      <EntityType Name="Port" BaseType="Port.v1_9_1.Port"/>
     </Schema>
 
   </edmx:DataServices>

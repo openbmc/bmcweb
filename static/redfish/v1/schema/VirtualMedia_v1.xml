@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VirtualMedia v1.6.1                                                 -->
+<!--# Redfish Schema:  VirtualMedia v1.6.2                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -545,7 +545,7 @@
           <Annotation Term="OData.Description" String="The virtual media ejection occurs during a system power or reset event."/>
         </Member>
         <Member Name="Session">
-          <Annotation Term="OData.Description" String="The virtual media ejection occurs when a session is terminated.  The session may be outside the Redfish service."/>
+          <Annotation Term="OData.Description" String="The virtual media ejection occurs when a session is terminated.  The session might be outside the Redfish service."/>
         </Member>
         <Member Name="Timed">
           <Annotation Term="OData.Description" String="The virtual media ejection occurs when a timer configured by the EjectTimeout property expires."/>
@@ -563,6 +563,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_0.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_1.VirtualMedia"/>
     </Schema>
 
   </edmx:DataServices>

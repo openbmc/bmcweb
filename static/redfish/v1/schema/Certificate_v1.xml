@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.7.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.8.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -129,6 +129,8 @@
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates/{CertificateId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -584,6 +586,50 @@
         <Member Name="BIOS">
           <Annotation Term="OData.Description" String="This certificate is a BIOS certificate like those associated with UEFI."/>
         </Member>
+        <Member Name="IDevID">
+          <Annotation Term="OData.Description" String="This certificate is an IDevID certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LDevID">
+          <Annotation Term="OData.Description" String="This certificate is an LDevID certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="IAK">
+          <Annotation Term="OData.Description" String="This certificate is an IAK certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LAK">
+          <Annotation Term="OData.Description" String="This certificate is an LAK certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -665,6 +711,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the additional host names of the entity, as defined by the RFC5280 'subjectAltName' attribute.  This property shall not be present in the Issuer property."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the values `IDevID`, `LDevID`, `IAK`, and `LAK` to CertificateUsageType to support TCG TPM certificates."/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_7_0.Certificate"/>
     </Schema>
 
   </edmx:DataServices>
