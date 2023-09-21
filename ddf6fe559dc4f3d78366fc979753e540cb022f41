@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e317e43_4486a86c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-21T15:25:32Z",
+      "side": 1,
+      "message": "Because the author has an interest in the topic, and I\u0027d like to see them comment on patches solving similar problems, even if they\u0027re a new direction.  Given that they\u0027re asking me to review their patch, that seems reasonable.\n\n\u003e just abandoning this but looking at 54030 I don\u0027t see that\n\nI never said abandon this one, nor is it what I intended.  I\u0027d just like to see that we get a cross review.  Ideally, if the author of this thinks 54030 is a better way to go, maybe they pick it up and continue push it to completion, then this problem is solved forever.",
+      "parentUuid": "728118a2_366cb6be",
+      "revId": "ddf6fe559dc4f3d78366fc979753e540cb022f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "afe80471_b74f3940",
