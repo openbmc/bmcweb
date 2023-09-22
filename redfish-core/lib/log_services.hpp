@@ -352,6 +352,17 @@ inline void parseDumpEntryFromDbusObject(
                     }
                     dumpStatus = *status;
                 }
+                else if (propertyMap.first == "CompletedTime")
+                {
+                    const auto* completedTimeUs =
+                        std::get_if<uint64_t>(&propertyMap.second);
+                    if (completedTimeUs == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    timestampUs = *completedTimeUs;
+                }
             }
         }
         else if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
@@ -368,24 +379,6 @@ inline void parseDumpEntryFromDbusObject(
                         break;
                     }
                     size = *sizePtr;
-                    break;
-                }
-            }
-        }
-        else if (interfaceMap.first == "xyz.openbmc_project.Time.EpochTime")
-        {
-            for (const auto& propertyMap : interfaceMap.second)
-            {
-                if (propertyMap.first == "Elapsed")
-                {
-                    const uint64_t* usecsTimeStamp =
-                        std::get_if<uint64_t>(&propertyMap.second);
-                    if (usecsTimeStamp == nullptr)
-                    {
-                        messages::internalError(asyncResp->res);
-                        break;
-                    }
-                    timestampUs = *usecsTimeStamp;
                     break;
                 }
             }
