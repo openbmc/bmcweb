@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "63218179_9b2f66d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001911
+      },
+      "writtenOn": "2023-09-22T15:06:34Z",
+      "side": 1,
+      "message": "What I observed is, when If-Match header with the value of etag is supplied as request header for a Patch request, its creating a new req for the same URI with GET method to calculate the current etag for the resource.  .When the new req is created internally for GET method , req.session of the Patch request is assigned to the new request and calls app.handle(). Since the req.session is not nil for the new request, validatePrivilege() in router.hpp which will authenticate the incoming request and assign user privilege will cause the bmcweb to crash in the function populateUserInfo(). \n\nFor the new request internally framed for calculating the etag, is it necessary to have authentication again? Since the incoming Patch request is already authenticated, privilges are checked and same req.session is assigned to new req, its an extra overhead to authenticate it again with the same credentials? An user which has the privilege to Patch a resource should have the privilege to Get it since only then the user can verify whether the Patch values are updated correctly. Also since the intension of this Get request is to compute etag from the hash of the response, if there is any lack of privilege this results\u0027 in an invalid etag and Patch request ends up as precondition failed which is not intended.\nSo I thought to bypass authentication for the new request and when current req is restarted after etag comparison .\n\nI have raised an issue for this https://github.com/openbmc/bmcweb/issues/262 .",
+      "parentUuid": "7319408e_eab7b1a6",
+      "revId": "b22792972ffbc991d98fc214c56f36572a3ceccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e615b6eb_1f9156f0",
