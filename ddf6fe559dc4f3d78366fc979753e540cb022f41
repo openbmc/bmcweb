@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "86537514_e7e09874",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-09-22T19:24:27Z",
+      "side": 1,
+      "message": "I believe Redfish stated this in a meeting, use the lowest version you need and be consistent across the same resource but I didn\u0027t find any documentation in my quick search. \n\nRedfish does state things like (Jeff co-chair Redfish) \" while you may have ComputerSystem v1.10.0, you would have PowerSupply v1.0.0 - because PowerSupply was just released in the latest bundle, while ComputerSystem has been around since the first Redfish release.\", I interrupt this to mean all ComputerSystems and PowerSupplies have that version. \n\n\nThis has been the standing policy of OpenBMC. Maybe we can change this to\n\"Follow what OpenBMC has done in the past and use the same version across all resources of that type.\"",
+      "parentUuid": "06f1bdaf_32c0cb30",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "ddf6fe559dc4f3d78366fc979753e540cb022f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d9cb4a9c_4c5fbf20",
