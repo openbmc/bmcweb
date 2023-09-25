@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78c2551_b939bf91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T19:06:01Z",
+      "side": 1,
+      "message": "\u003e What I observed is, when If-Match header with the value of etag is supplied as request header for a Patch request, its creating a new req for the same URI with GET method to calculate the current etag for the resource.  .When the new req is created internally for GET method , req.session of the Patch request is assigned to the new request and calls app.handle(). Since the req.session is not nil for the new request, validatePrivilege() in router.hpp which will authenticate the incoming request and assign user privilege will cause the bmcweb to crash in the function populateUserInfo(). \n\nOn which line?  Looking at populateUserInfo() I see the appropriate nullptr checks that would prevent a crash like this.\n\n\u003e \n\u003e For the new request internally framed for calculating the etag, is it necessary to have authentication again?\n\nAuthentication, no.  The user is already authenticated.  Authorization, yes, we need to make sure that the user can access the GET for the resource they\u0027re POSTing to.\n\n\u003e Since the incoming Patch request is already authenticated, privilges are checked and same req.session is assigned to new req, its an extra overhead to authenticate it again with the same credentials? An user which has the privilege to Patch a resource should have the privilege to Get it since only then the user can verify whether the Patch values are updated correctly.\n\n\"should\" doesn\u0027t mean \"does\". Unless we have a check to ensure that every user that has GET on a resource also has POST (which, I\u0027m not sure they do in the case of SessionService) we will still need to duplicate the check, otherwise it\u0027s a potential CVE.\n\n\u003e Also since the intension of this Get request is to compute etag from the hash of the response, if there is any lack of privilege this results\u0027 in an invalid etag and Patch request ends up as precondition failed which is not intended.\n\nThis is intended.  If you don\u0027t have access to GET a resource, you shouldn\u0027t be allowed to IF-MATCH on the resource, given that the IF-MATCH header would\u0027ve come from a GET request.\n\n\u003e So I thought to bypass authentication for the new request and when current req is restarted after etag comparison .\n\u003e \n\u003e I have raised an issue for this https://github.com/openbmc/bmcweb/issues/262 .",
+      "parentUuid": "63218179_9b2f66d8",
+      "revId": "b22792972ffbc991d98fc214c56f36572a3ceccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e615b6eb_1f9156f0",
