@@ -242,6 +242,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f9cee97_4ee66dee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T17:49:32Z",
+      "side": 1,
+      "message": "I only see:\n\n```\nWith this change, the Redfish query for updating DHCP parameters\nwill only modify the requested parameter for the specified network\ntype and interface. To set the parameter for both network types and\nall interfaces, the user must make separate requests.\n```\n\nIf you were a user, and had no context on this issue, would this be enough description for you on what to do next?",
+      "parentUuid": "92c61337_34507bb5",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
