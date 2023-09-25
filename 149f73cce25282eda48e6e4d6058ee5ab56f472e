@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e24e8ce0_a811e770",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T16:51:47Z",
+      "side": 1,
+      "message": "\u003e I\u0027m wondering about the handling when a property is either deprecated or added to the required list for a previously supported schema. Does DMTF ever make this type of change?\n\nThey do deprecate properties, but that functionally is just an annotation.  To my knowledge, they\u0027ve never actually completely removed a property, so I don\u0027t think this changes anything functionally, unless Redfish were to actually remove something in the future (unlikely) in which case we\u0027d see it right away.\n\n\u003e \n\u003e If so, it seems like moving up to a new Redfish level (like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66728) would require deeper understanding of the underlying schema changes and then subsequent code changes to handle anything deprecated or newly required. Is that desireable?",
+      "parentUuid": "b344651f_165a0420",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aba2f758_8c607403",
         "filename": "/COMMIT_MSG",
         "patchSetId": 24
@@ -144,6 +168,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42746384_0909c38d",
+        "filename": "redfish-core/include/schema_common.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T16:51:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "30a5a7c3_862a4270",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19167352_6448bc36",
@@ -210,6 +252,24 @@
       "writtenOn": "2023-09-21T21:25:27Z",
       "side": 1,
       "message": "Shouldn\u0027t this also be using the generated schema version? Or will the testcase just need to be updated as part of an update of the Redfish version update?",
+      "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9f40af5_b9d939e1",
+        "filename": "test/redfish-core/lib/service_root_test.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T16:51:47Z",
+      "side": 1,
+      "message": "The later.  If unit tests pull from the same dataset as the code they\u0027re testing, they\u0027re not testing much, aside from that a string can propagate.  Ideally this would probably be a regex.",
+      "parentUuid": "5672b630_afe1d3ed",
       "revId": "149f73cce25282eda48e6e4d6058ee5ab56f472e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
