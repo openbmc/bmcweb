@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4768d938_78615c71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T17:36:44Z",
+      "side": 1,
+      "message": "The key for me is that if this is documented somewhere (even if it\u0027s in meeting notes or forum posts) we could point to it.  Sounds like it was informal advice in a meeting, which is fine.",
+      "parentUuid": "6d8d59e4_a57a016f",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "ddf6fe559dc4f3d78366fc979753e540cb022f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d9cb4a9c_4c5fbf20",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -157,6 +181,24 @@
       "side": 1,
       "message": "I reviewed the 54030 patch and added a few comments.",
       "parentUuid": "8e317e43_4486a86c",
+      "revId": "ddf6fe559dc4f3d78366fc979753e540cb022f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ce48ea_cb9e4ffc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T17:36:44Z",
+      "side": 1,
+      "message": "Thank you, I appreciate it.",
+      "parentUuid": "6e2f3115_ae8c3558",
       "revId": "ddf6fe559dc4f3d78366fc979753e540cb022f41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
