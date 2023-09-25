@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "813de83b_6c183876",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T17:44:50Z",
+      "side": 1,
+      "message": "\u003e Looks like we have tested it by mocking the NTP server due to unavailability of a local NTP server and its behaving as expected\n\nWhat does \"mocking an NTP server\" mean?  Not actually testing with an actual NTP/DHCP server doesn\u0027t seem like enough.  Why do you have confidence that this code is correct if it hasn\u0027t been tried?  Can we get more testing here?",
+      "parentUuid": "d4c76e06_e039cf68",
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1b801c60_6703bdc6",
