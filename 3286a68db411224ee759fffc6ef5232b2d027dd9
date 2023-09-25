@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e87b09_e0c98287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-25T19:07:41Z",
+      "side": 1,
+      "message": "This is the part I don\u0027t understand.  https://github.com/openbmc/bmcweb/blob/f42e859032d9a28752108b327f02340be4de8de2/include/dbus_privileges.hpp#L43C22-L43C22\n\nShows a nullptr check before accessing members, which should make this not possible in the way you described.  Is something else interacting with this?",
+      "range": {
+        "startLine": 9,
+        "startChar": 338,
+        "endLine": 9,
+        "endChar": 371
+      },
+      "revId": "3286a68db411224ee759fffc6ef5232b2d027dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
