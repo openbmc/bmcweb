@@ -309,7 +309,7 @@ inline void handleFabricAdapterCollectionGet(
     collection_util::getCollectionMembers(
         asyncResp,
         boost::urls::url("/redfish/v1/Systems/system/FabricAdapters"),
-        interfaces);
+        interfaces, "/xyz/openbmc_project/inventory");
 }
 
 inline void handleFabricAdapterCollectionHead(

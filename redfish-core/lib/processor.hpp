@@ -1232,7 +1232,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                     boost::urls::format(
                         "/redfish/v1/Systems/system/Processors/{}/OperatingConfigs",
                         cpuName),
-                    interface, object.c_str());
+                    interface, object);
                 return;
             }
             });
@@ -1362,7 +1362,7 @@ inline void requestRoutesProcessorCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url("/redfish/v1/Systems/system/Processors"),
-            processorInterfaces);
+            processorInterfaces, "/xyz/openbmc_project/inventory");
         });
 }
 
