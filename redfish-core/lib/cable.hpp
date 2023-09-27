@@ -210,7 +210,8 @@ inline void requestRoutesCableCollection(App& app)
         constexpr std::array<std::string_view, 1> interfaces{
             "xyz.openbmc_project.Inventory.Item.Cable"};
         collection_util::getCollectionMembers(
-            asyncResp, boost::urls::url("/redfish/v1/Cables"), interfaces);
+            asyncResp, boost::urls::url("/redfish/v1/Cables"), interfaces,
+            "/xyz/openbmc_project/inventory");
         });
 }
 
