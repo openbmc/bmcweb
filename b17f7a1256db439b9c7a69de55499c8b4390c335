@@ -105,6 +105,30 @@
       },
       "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61f0771_48a291ef",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-27T17:22:59Z",
+      "side": 1,
+      "message": "Nothing in this payload is configurable (they\u0027re all built from fixed strings), so I\u0027m not sure how changes in defaults would effect anything.  If we get there, we can always make the test aware of whatever config items we use.",
+      "parentUuid": "15acb0aa_51fb3ebf",
+      "range": {
+        "startLine": 73,
+        "startChar": 48,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
