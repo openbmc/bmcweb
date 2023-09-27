@@ -810,7 +810,7 @@ inline void requestRoutesMemoryCollection(App& app)
             "xyz.openbmc_project.Inventory.Item.Dimm"};
         collection_util::getCollectionMembers(
             asyncResp, boost::urls::url("/redfish/v1/Systems/system/Memory"),
-            interfaces);
+            interfaces, "/xyz/openbmc_project/inventory");
         });
 }
 
