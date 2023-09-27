@@ -81,6 +81,30 @@
       },
       "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15acb0aa_51fb3ebf",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2023-09-27T17:21:39Z",
+      "side": 1,
+      "message": "I was worried about changes in defaults that would cause this to look flaky, but if that is the intent then party on.",
+      "parentUuid": "f9e892c0_028af0a6",
+      "range": {
+        "startLine": 73,
+        "startChar": 48,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
