@@ -69,7 +69,7 @@ inline void handleSystemsStorageCollectionGet(
     };
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::format("/redfish/v1/Systems/system/Storage"),
-        interface);
+        interface, "/xyz/openbmc_project/inventory");
 }
 
 inline void handleStorageCollectionGet(
@@ -88,7 +88,8 @@ inline void handleStorageCollectionGet(
         "xyz.openbmc_project.Inventory.Item.Storage"
     };
     collection_util::getCollectionMembers(
-        asyncResp, boost::urls::format("/redfish/v1/Storage"), interface);
+        asyncResp, boost::urls::format("/redfish/v1/Storage"), interface,
+        "/xyz/openbmc_project/inventory");
 }
 
 inline void requestRoutesStorageCollection(App& app)
