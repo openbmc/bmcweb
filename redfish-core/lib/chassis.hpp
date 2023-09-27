@@ -209,7 +209,8 @@ inline void handleChassisCollectionGet(
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
     collection_util::getCollectionMembers(
-        asyncResp, boost::urls::url("/redfish/v1/Chassis"), interfaces);
+        asyncResp, boost::urls::url("/redfish/v1/Chassis"), interfaces,
+        "/xyz/openbmc_project/inventory");
 }
 
 inline void getChassisContainedBy(
