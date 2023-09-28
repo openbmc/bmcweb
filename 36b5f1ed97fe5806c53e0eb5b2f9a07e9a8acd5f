@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0b07d7_29f804ca",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T20:13:10Z",
+      "side": 1,
+      "message": "string_view would generally be preferred here if we\u0027re changing it, but I see that the underlying call still uses const std::string\u0026, so that\u0027s fine.",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "36b5f1ed97fe5806c53e0eb5b2f9a07e9a8acd5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
