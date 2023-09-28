@@ -333,3 +333,8 @@ CheckOptions:
   - { key: readability-identifier-naming.FunctionIgnoredRegexp,  value: (BMCWEB_LOG_DEBUG|BMCWEB_LOG_INFO|BMCWEB_LOG_WARNING|BMCWEB_LOG_ERROR|BMCWEB_LOG_CRITICAL) }
   - { key: cppcoreguidelines-macro-usage.AllowedRegexp, value: DEBUG*|NLOHMANN_JSON_SERIALIZE_ENUM }
   - { key: performance-unnecessary-value-param.AllowedTypes, value: ((segments_view)|(url_view)) }
+  - { key: readability-function-size.LineThreshold,     value: 300 }
+  - { key: readability-function-size.StatementThreshold,value: 150 }
+  - { key: readability-function-size.NestingThreshold,  value: 7 }
+  - { key: readability-function-size.VariableThreshold, value: 44 }
+  - { key: readability-function-size.ParameterThreshold,value: 9 }
