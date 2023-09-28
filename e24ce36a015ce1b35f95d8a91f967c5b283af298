@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "519f78da_37dc59a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T15:31:39Z",
+      "side": 1,
+      "message": "nit, capital for new sentences.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64513f83_03de3111",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T15:31:39Z",
+      "side": 1,
+      "message": "Have you considered setting reasonable limits, then using NOLINT calls for the functions that don\u0027t meet the criteria?  As-written, this is only going to enforce that the longest function (I\u0027m assuming the one in sensors.hpp) doesn\u0027t get longer, which doesn\u0027t really seem all that helpful.\n\nThat\u0027s how we\u0027ve handled these kinds of ratchets in the past.  Grep for NOLINT and you\u0027ll find several that we\u0027re still working through.",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
