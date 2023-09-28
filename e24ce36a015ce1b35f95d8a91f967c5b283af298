@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d35a204b_803414e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T17:27:51Z",
+      "side": 1,
+      "message": "\u003e This is going to result in many functions being flagged NOLINT in some way.\n\nHow many is many?  Some info as to the scale of the problem would be good.\n\n\u003e \n\u003e Assuming 1 person is trying to refactor the functions down to size, other people would still be able to inflate the functions marked NOLINT, undermining the effort.\n\nThis assumes that maintainers aren\u0027t doing code review.  As maintainers, one of our main jobs is to ensure that peoples work in progress doesn\u0027t get regressed by others.  Having functions that don\u0027t obey the policy marked would help us to enforce that functions need to be refactored before they\u0027re modified to make them longer (which in general, we tend to try to do).\n\n\u003e \n\u003e Having NOLINT annotation also gives precedent for people to annotate their code in this way, claiming that the other code is annotated in the same way. If there are no such annotations in the codebase, that is harder to justify.\n\nThat\u0027s never been a justification for using NOLINT in new code, and you\u0027ll find quite a few review comments where people attempting to add it have been disallowed from merging new patchsets (especially if there\u0027s not a comment as to why the exception needs made).  The only justification we\u0027ve had in the past is if there wasn\u0027t a way to make the code right (given a 3rd party API or something), but given that we have active maintainership, people claiming they followed something else isn\u0027t a situation I\u0027m worried about, so long as we can be clear about the rules.\n\n\u003e \n\u003e Its probably not the most obvious choice what to do here, but i would prefer setting high limits initially and then lowering them over time to some documented sane defaults.\n\nWhere are those documented defaults?\n\nI\u0027d like to at least understand the scale of why doing it the NOLINT way isn\u0027t going to work, because that\u0027s how we\u0027ve ratcheted these things in the past, and it\u0027s a pretty trivial thing to check (just run with the expected defaults and count the failures).  As a maintainer, having a NOLINT flag makes it much more efficient to review code if the \"real\" rules are enforced for everything, with well defined exceptions (ie NOLINT) being present for old code that doesn\u0027t yet meet the standard, or code where we can\u0027t figure out how to implement to the standard (with a comment as to why).",
+      "parentUuid": "20d3ad59_7f22115b",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6af4250e_9e15572c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -114,6 +132,24 @@
       "side": 1,
       "message": "(A)\ndocs $ find . -name \".clang-format\"\n./style/javascript/.clang-format\n./style/cpp/.clang-format\n./style/c/.clang-format\ndocs $ find . -name \".clang-tidy\"\n\nwhere is the base .clang-tidy?\n\nI am open to document the targeted settings, and openbmc can perhaps just copy these from another project that is already using them.\n\n(B)\nThe Motivation is to fix them personally as i often have to read the code when debugging some issue.\n\nMaking it more readable would help me to make changes more quickly and also have a higher chance of getting them accepted.\n\nAs always the patch stands on its own and does not require any further changes in order to be useful for the project, even if further changes are intended.\n\nAs it stands, the intention of this patch is just to put a brake on things from getting much worse in terms of the size of some of the bigger functions.",
       "parentUuid": "6af4250e_9e15572c",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79dd2943_9634486f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T17:27:51Z",
+      "side": 1,
+      "message": "\u003e (A)\n\u003e docs $ find . -name \".clang-format\"\n\u003e ./style/javascript/.clang-format\n\u003e ./style/cpp/.clang-format\n\u003e ./style/c/.clang-format\n\u003e docs $ find . -name \".clang-tidy\"\n\u003e \n\u003e where is the base .clang-tidy?\n\nYou found them all above.  They\u0027re separated by language.\n\n\u003e \n\u003e I am open to document the targeted settings, and openbmc can perhaps just copy these from another project that is already using them.\n\nI\u0027d rather at least some justification from the coding standard than blindly copying from another project.\n\n\u003e \n\u003e (B)\n\u003e The Motivation is to fix them personally as i often have to read the code when debugging some issue.\n\nSweet.  Can\u0027t wait to see what you do.  Thank you for the good work.\n\n\u003e \n\u003e Making it more readable would help me to make changes more quickly and also have a higher chance of getting them accepted.\n\u003e \n\u003e As always the patch stands on its own and does not require any further changes in order to be useful for the project, even if further changes are intended.\n\u003e \n\u003e As it stands, the intention of this patch is just to put a brake on things from getting much worse in terms of the size of some of the bigger functions.\n\nHave things been getting \"much worse\"?  In recent years, we\u0027ve been stopping these things in code review and asking for refactors ahead of code.  Most of the code that\u0027s mediocre was left from many years ago.",
+      "parentUuid": "43d8ba72_7a90444e",
       "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
