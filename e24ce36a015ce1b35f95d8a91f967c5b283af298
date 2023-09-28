@@ -101,6 +101,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f738d1_a91fa0a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-09-28T18:20:45Z",
+      "side": 1,
+      "message": "imo NOLINT would be a big upfront effort to mark all the code which is nonconforming, with these patches providing no benefit on their own.\n\nIt would result in a lot of NOLINT annotations which make the code even less readable.\n\nFor some of the smaller repos this would certainly be doable but would require upfront agreement on what the final rules should be. Maybe the final rules will be different based on the individual repositories?\n\nThe .clang-tidy is already looking different for the various repositories.\n\nAgreed that it would be a little confusing for maintainers if the rules would change over time.\n\nBut isn\u0027t the point of this clang-tidy automation to make these things something maintainers do not need to worry about?",
+      "parentUuid": "d35a204b_803414e8",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6af4250e_9e15572c",
@@ -150,6 +168,24 @@
       "side": 1,
       "message": "\u003e (A)\n\u003e docs $ find . -name \".clang-format\"\n\u003e ./style/javascript/.clang-format\n\u003e ./style/cpp/.clang-format\n\u003e ./style/c/.clang-format\n\u003e docs $ find . -name \".clang-tidy\"\n\u003e \n\u003e where is the base .clang-tidy?\n\nYou found them all above.  They\u0027re separated by language.\n\n\u003e \n\u003e I am open to document the targeted settings, and openbmc can perhaps just copy these from another project that is already using them.\n\nI\u0027d rather at least some justification from the coding standard than blindly copying from another project.\n\n\u003e \n\u003e (B)\n\u003e The Motivation is to fix them personally as i often have to read the code when debugging some issue.\n\nSweet.  Can\u0027t wait to see what you do.  Thank you for the good work.\n\n\u003e \n\u003e Making it more readable would help me to make changes more quickly and also have a higher chance of getting them accepted.\n\u003e \n\u003e As always the patch stands on its own and does not require any further changes in order to be useful for the project, even if further changes are intended.\n\u003e \n\u003e As it stands, the intention of this patch is just to put a brake on things from getting much worse in terms of the size of some of the bigger functions.\n\nHave things been getting \"much worse\"?  In recent years, we\u0027ve been stopping these things in code review and asking for refactors ahead of code.  Most of the code that\u0027s mediocre was left from many years ago.",
       "parentUuid": "43d8ba72_7a90444e",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54c382f2_f5bee1a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-09-28T18:20:45Z",
+      "side": 1,
+      "message": "I did not find a .clang-tidy, just .clang-format files. If there is none i can\nsubmit one. https://gerrit.openbmc.org/c/openbmc/docs/+/66836\n\nWhere should the justification come from? How the code should look is subjective and based on preference. I included mine in the patch.\n\nI don\u0027t know about the long term history of the project since i am relatively new to it. But when there is no check in place, there is certainly always the possibility of things getting worse. As somebody already documented, the intention of most contributions is to fix an immediate issue or implement something, such that refactoring tends to fall by the wayside.",
+      "parentUuid": "79dd2943_9634486f",
       "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

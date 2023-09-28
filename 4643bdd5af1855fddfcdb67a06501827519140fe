@@ -16,6 +16,24 @@
       "message": "Overall, my comments in the review sound negative, but I do fully support refactoring to make code better.  FWIW, I\u0027ve actively turned on these checks before and used them to guide which functions I should personally refactor (which lead to refactorings like removing black_magic);  The only key for me is that:\n\n1. The rules are documented very clearly.  This is one of the few clang-tidy rules that effects ALL code, not just a specific call or pattern, so we need to be crystal clear about what the rules are, and what the expectation is when the limit is hit, or someone needs to make a modification to a function that doesn\u0027t follow the rules.\n2. We have a reasonable way to ensure that the rules are met for new patchsets.\n3. We have people lined up to actually do the refactoring work to get the codebase to compliance.",
       "revId": "4643bdd5af1855fddfcdb67a06501827519140fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d876cff2_8cfc348a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-09-28T18:20:45Z",
+      "side": 1,
+      "message": "agreed.",
+      "parentUuid": "60d6ff19_aa546c58",
+      "revId": "4643bdd5af1855fddfcdb67a06501827519140fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
