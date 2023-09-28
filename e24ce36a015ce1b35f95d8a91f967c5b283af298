@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "776a4c60_e4d2e8d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-09-28T17:02:54Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "519f78da_37dc59a7",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64513f83_03de3111",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d3ad59_7f22115b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-09-28T17:02:54Z",
+      "side": 1,
+      "message": "This is going to result in many functions being flagged NOLINT in some way.\n\nAssuming 1 person is trying to refactor the functions down to size, other people would still be able to inflate the functions marked NOLINT, undermining the effort.\n\nHaving NOLINT annotation also gives precedent for people to annotate their code in this way, claiming that the other code is annotated in the same way. If there are no such annotations in the codebase, that is harder to justify.\n\nIts probably not the most obvious choice what to do here, but i would prefer setting high limits initially and then lowering them over time to some documented sane defaults.",
+      "parentUuid": "64513f83_03de3111",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6af4250e_9e15572c",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-09-28T16:14:37Z",
       "side": 1,
       "message": "Do you have an intention personally fixing these over time through refactoring?  Or are you asking for help in doing this migration?\n\nI see this same patchset was sent to several clang-tidy enabled repos, all with different parameters keyed in.  It would be good to:\n\nA. Get a patchset out to the base clang-tidy in the docs repo with the desired settings for this, and how those desired settings were arrived at.  Settings that  make it no worse is a good start, but where are we trying to get to?  Getting that documented will help a lot.\nB. Get your intentions documented about the long term.  Are you going to refactor these to bring them down in size?  Do you need community help and are there people lined up to do these refactors?",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43d8ba72_7a90444e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2023-09-28T17:02:54Z",
+      "side": 1,
+      "message": "(A)\ndocs $ find . -name \".clang-format\"\n./style/javascript/.clang-format\n./style/cpp/.clang-format\n./style/c/.clang-format\ndocs $ find . -name \".clang-tidy\"\n\nwhere is the base .clang-tidy?\n\nI am open to document the targeted settings, and openbmc can perhaps just copy these from another project that is already using them.\n\n(B)\nThe Motivation is to fix them personally as i often have to read the code when debugging some issue.\n\nMaking it more readable would help me to make changes more quickly and also have a higher chance of getting them accepted.\n\nAs always the patch stands on its own and does not require any further changes in order to be useful for the project, even if further changes are intended.\n\nAs it stands, the intention of this patch is just to put a brake on things from getting much worse in terms of the size of some of the bigger functions.",
+      "parentUuid": "6af4250e_9e15572c",
       "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
