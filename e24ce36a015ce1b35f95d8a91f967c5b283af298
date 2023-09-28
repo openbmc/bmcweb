@@ -139,6 +139,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b274159b_524ab7cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T20:21:02Z",
+      "side": 1,
+      "message": "Another thing to realize is that if there are whole subsystems that don\u0027t meet the requirements, NOLINTBEGIN and NOLINTEND can be used to except out whole modules for low effort versus having to annotate every function.",
+      "parentUuid": "18029459_324ec7e5",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6af4250e_9e15572c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4

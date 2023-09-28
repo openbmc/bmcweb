@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbf58ad7_a49149da",
+        "filename": ".clang-tidy",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T20:21:02Z",
+      "side": 1,
+      "message": "Are we sure we want to set both of these?  I could see a common case where a function is heavily commented with block comments (which would in fact improve the readability), but would still fail the check because we\u0027re enforcing line length, not statement count.  \n\nFWIW, the default that tidy sets for StatementThreshold is 800, and doesn\u0027t enforce line count at all.  Why did we decide to enforce actual line count, and not only rely on statement count?  Why did we set statement count to less than half of the defaults?",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 68
+      },
+      "revId": "4643bdd5af1855fddfcdb67a06501827519140fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de92d387_04921dc1",
+        "filename": ".clang-tidy",
+        "patchSetId": 5
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T20:21:02Z",
+      "side": 1,
+      "message": "Similar ask for the other thresholds.  tidy defaults don\u0027t enable any of these checks, why did we decide they were needed?",
+      "revId": "4643bdd5af1855fddfcdb67a06501827519140fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60d6ff19_aa546c58",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
