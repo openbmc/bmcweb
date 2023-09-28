@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18029459_324ec7e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T18:52:48Z",
+      "side": 1,
+      "message": "\u003e imo NOLINT would be a big upfront effort to mark all the code which is nonconforming, with these patches providing no benefit on their own.\n\nLets not use opinion to make this decision.  Lets use facts and engineering.  If we set tidy to the expected project-wide value, how many NOLINT places would we need to change?  Unless I\u0027m missing something about how hard running that test is, it\u0027s just a matter of changing it to the expected values, and returning the count of failures.  Once you come up with the defaults, I can even run that analysis for you if you\u0027re not able to (I just don\u0027t know what to set the values to yet, because these rules aren\u0027t in the coding standard.). Is just getting that number harder than I\u0027m thinking it is?\n\n\u003e \n\u003e It would result in a lot of NOLINT annotations which make the code even less readable.\n\nExplaining a different way, how much is \"a lot\"?  10?  4000?  If it\u0027s 10, I would think that NOLINT would be worth it (i\u0027m even willing to make the diff for you if it\u0027s too much effort) to get enforcement of all functions. If that number is 4000, obviously that\u0027s a larger problem and you\u0027re right, wouldn\u0027t make sense to do.\n\n\u003e \n\u003e For some of the smaller repos this would certainly be doable but would require upfront agreement on what the final rules should be.\n\nYep, which I suspect you\u0027re going to work on?  Lets focus on two problems:\n1. What standard should we be driving toward?\n2. What can we get refactored automatically, quickly, and on which repos?\n\nRight now your patchset implies that the longest function is too long (which I agree with), has too many statements, too many variables, and too many scopes. but in this patch, that\u0027s implied, so it makes it hard to figure out what your intent is with #1.  Make sense?\n \n\u003e Maybe the final rules will be different based on the individual repositories?\n\nPlease don\u0027t let this be the plan.  Having different documented rules is a historical anti pattern.  In theory all repos are held to the same coding standard, just some are more careful than others, and spend differing amounts on refactoring.  While we might have different enforcement of individual repos based on the amount of effort we can expend refactoring (note, that clang-tidy itself is only supported on a handful of repos), the ideal rules should be the same across the project, unless there\u0027s a good engineering reason to be different.  Make sense?\n\n\u003e \n\u003e The .clang-tidy is already looking different for the various repositories.\n\nYep, and a lot of repos don\u0027t even have tidy yet.  The migration to clang-tidy has generally been to add rules to bmcweb (which I maintain, and can analyze the maintenance and bug cost of) then roll them out to the rest of the repos.  If you\u0027re a maintainer of a repo and want to follow that same pattern, you have my full support.\n\n\u003e \n\u003e Agreed that it would be a little confusing for maintainers if the rules would change over time.\n\u003e \n\u003e But isn\u0027t the point of this clang-tidy automation to make these things something maintainers do not need to worry about?\n\nMaintainers still have to be able to help people when their code fails the checks, as well as make (difficult and error prone) judgement calls on when to accept code that doesn\u0027t follow the rules (via NOLINT).  Just turning on a check in no way means we \"don\u0027t need to worry about\" the rule.  To maintain the rule, I have to be able to say \"Hey, here\u0027s the coding standard rule you violated\" when people ask me why their CI check failed.  If it\u0027s not documented, explaining to N developers what the rules are takes more maintainer time than would be saved by having short functions.\n\nMake sense?",
+      "parentUuid": "a0f738d1_a91fa0a0",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6af4250e_9e15572c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -186,6 +204,24 @@
       "side": 1,
       "message": "I did not find a .clang-tidy, just .clang-format files. If there is none i can\nsubmit one. https://gerrit.openbmc.org/c/openbmc/docs/+/66836\n\nWhere should the justification come from? How the code should look is subjective and based on preference. I included mine in the patch.\n\nI don\u0027t know about the long term history of the project since i am relatively new to it. But when there is no check in place, there is certainly always the possibility of things getting worse. As somebody already documented, the intention of most contributions is to fix an immediate issue or implement something, such that refactoring tends to fall by the wayside.",
       "parentUuid": "79dd2943_9634486f",
+      "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff20de1_dfd79272",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-09-28T18:52:48Z",
+      "side": 1,
+      "message": "\u003e You found them all above. They\u0027re separated by language.\n\nI was mistaken.  I was thinking of the template repo concept that never got made official.  My fault.\n\n\u003e Where should the justification come from?\n\nIdeally the coding standard (cpp core guidelines for cpp code).  Most of the tidy tests are just enforcing rules that already exist in the standard.  Barring that, some sort of study of other projects that have made this same migration to great effect, other coding standards that mandate a required max function length, or experts in the field of coding standards coming up with recommended values.  Really it\u0027s up to you where you want to source this from, but ideally it wouldn\u0027t be a number that we picked out of thin air, or if it is arbitrarily picked, lets get it documented as such.\n\n\u003e such that refactoring tends to fall by the wayside.\n\nYep, which is also a little worried that this will JUST enable the check, and not actually do any refactoring or documenting for said check to ensure that we can actually meet the rules we select and they give a positive result on the code.\n\nAs written, this check only really enforces that the worst function we have doesn\u0027t get worse, or another function doesn\u0027t supersede it.  Is maintaining tests that don\u0027t have any documentation behind them, and only enforce realistically one method worth the cost of the tests?  Debatable, but I think we can do better.\n\n\nPS, if you\u0027d like to stretch this into multiple patchsets, that\u0027s fine.",
+      "parentUuid": "54c382f2_f5bee1a3",
       "revId": "e24ce36a015ce1b35f95d8a91f967c5b283af298",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
