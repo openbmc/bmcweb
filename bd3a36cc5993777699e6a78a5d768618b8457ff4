@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae1aa3ef_fc0eae16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001595
+      },
+      "writtenOn": "2023-09-29T13:39:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f66877_3b71f413",
+      "revId": "bd3a36cc5993777699e6a78a5d768618b8457ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a2537c_d22dec16",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73a28dba_94a30f3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001595
+      },
+      "writtenOn": "2023-09-29T13:39:19Z",
+      "side": 1,
+      "message": "That\u0027s how it\u0027s implemented now in the networkd side. For an update in any DHCP parameter it iterates through the list of interfaces and update the value in all of them.",
+      "parentUuid": "51a2537c_d22dec16",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "bd3a36cc5993777699e6a78a5d768618b8457ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16ed6cab_97171ac2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 35
@@ -54,6 +96,30 @@
       "writtenOn": "2023-09-25T17:44:50Z",
       "side": 1,
       "message": "not enough detail here that\u0027s actionable by a user.  I know what \"separate requests\" means, but only because I\u0027m a maintainer.  Please document something to the effect of \"If previously you were doing X, now you need to do X, Y, and Z\". where the variables are actual pseudocode commands (PATCH /redfish/v1/...).\n\n\nPlease also document why you don\u0027t think this kind of compatibility needs an option flag or deprecation period.  That might be fine, but lets write it down why we think that.",
+      "range": {
+        "startLine": 21,
+        "startChar": 16,
+        "endLine": 21,
+        "endChar": 53
+      },
+      "revId": "bd3a36cc5993777699e6a78a5d768618b8457ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6785516_250a3129",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001595
+      },
+      "writtenOn": "2023-09-29T13:39:19Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message. Please have a look and see if its better now.",
+      "parentUuid": "16ed6cab_97171ac2",
       "range": {
         "startLine": 21,
         "startChar": 16,

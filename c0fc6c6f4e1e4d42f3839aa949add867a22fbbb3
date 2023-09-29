@@ -266,6 +266,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66871297_21177870",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001595
+      },
+      "writtenOn": "2023-09-29T13:39:19Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message. Please have a look and see if its better now.",
+      "parentUuid": "6f9cee97_4ee66dee",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "c0fc6c6f4e1e4d42f3839aa949add867a22fbbb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb87d630_fa5a6f29",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
