@@ -16,6 +16,24 @@
       "message": "Should this block be?\n\nif (rc)\n{\n        if (ec.value() !\u003d EBADR)\n        {\n            BMCWEB_LOG_ERROR \u003c\u003c \"DBUS response error for Location\";\n            messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n       \n        BMCWEB_LOG_ERROR\n               \u003c\u003c \"DBUS response error for Location with EBADR error\"                       return;\n}",
       "revId": "e514d46ef71299cb289a6fe5073cc8640b2fcc02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c327b3_4a32259c",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b9f06c_b82197ab",
+      "revId": "e514d46ef71299cb289a6fe5073cc8640b2fcc02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

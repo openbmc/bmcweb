@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da42cce9_3d260657",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aa7ad1a_2edef992",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "c1ede9e6b826c871ef80f569852af72b32c96c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "709a3b9b_4a021d0d",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb7e63b7_6946ceb7",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "709a3b9b_4a021d0d",
+      "range": {
+        "startLine": 48,
+        "startChar": 34,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "c1ede9e6b826c871ef80f569852af72b32c96c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21e2161f_dac2b8c8",
@@ -60,6 +108,24 @@
       "writtenOn": "2023-08-15T18:08:37Z",
       "side": 1,
       "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "c1ede9e6b826c871ef80f569852af72b32c96c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f25e59_4d800765",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21e2161f_dac2b8c8",
       "revId": "c1ede9e6b826c871ef80f569852af72b32c96c76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
