@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71865825_0c3e6851",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-29T14:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bcf0d9b_83087856",
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a66322b8_18eb03e2",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc2da6ec_91d9bb42",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-29T14:35:23Z",
+      "side": 1,
+      "message": "Updated the function name and description.",
+      "parentUuid": "a66322b8_18eb03e2",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b1d6c12_90a09173",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-09-19T17:47:20Z",
       "side": 1,
       "message": "Please don\u0027t make default parameters like this.  Roll the parameter out to all the users if it\u0027s now needed.",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 58
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78d506d0_90281563",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-29T14:35:23Z",
+      "side": 1,
+      "message": "Done\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/66802",
+      "parentUuid": "4b1d6c12_90a09173",
       "range": {
         "startLine": 41,
         "startChar": 4,
@@ -111,6 +177,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adebd936_b101a23e",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-29T14:35:23Z",
+      "side": 1,
+      "message": "Done\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/66802",
+      "parentUuid": "40217b97_4cfda406",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 9
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29eea254_051808f2",
@@ -124,6 +214,30 @@
       "writtenOn": "2023-09-19T17:47:20Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88ffd8e2_3708f4ae",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-29T14:35:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29eea254_051808f2",
       "range": {
         "startLine": 94,
         "startChar": 37,
