@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2182d7f2_d7529d93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-09-29T21:29:04Z",
+      "side": 1,
+      "message": "I tested the code in Rainier system.\n\nThe power supply device driver abstracts the \u0027pmbus LED\u0027 and represents it as a standard /sys/class/leds/ LED. From the user space code perspective, this power supply LED, which essentially receives i2c/pmbus commands to set its behavior, appears just like any other LED.\n\nPower supply LEDs in Rainier:\nroot@p10bmc:/sys/class/leds# ls cffps*\ncffps2-68:\ncffps2-69:\ncffps2-6a:\ncffps2-6b:\n\n\nConfig files:\nhttps://github.com/openbmc/phosphor-led-manager/tree/master/configs\n\nCode that updates the LED Property:\nhttps://github.com/openbmc/phosphor-led-manager/blob/master/fault-monitor/operational-status-monitor.cpp#L98",
+      "parentUuid": "6d7e3654_ffa991fe",
+      "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "629db9d3_4b280840",
         "filename": "/COMMIT_MSG",
         "patchSetId": 27
