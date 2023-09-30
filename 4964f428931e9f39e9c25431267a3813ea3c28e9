@@ -119,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "164c9e60_705b436e",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-09-30T06:49:54Z",
+      "side": 1,
+      "message": "Okay. Checked.",
+      "parentUuid": "214b56ac_198b4d16",
+      "range": {
+        "startLine": 134,
+        "startChar": 7,
+        "endLine": 134,
+        "endChar": 33
+      },
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "025a4c64_0d00b7e9",
         "filename": "http/websocket.hpp",
         "patchSetId": 14
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "No, it can\u0027t because mobile is moved on line 138 (which functionally happens before this) so if this line is changed to mobile.get() it triggers a use after free error.\n\nEarlier patchsets did what you recommend and did not pass static analysis.",
       "parentUuid": "025a4c64_0d00b7e9",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 28
+      },
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac7171a_46de227c",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-09-30T06:49:54Z",
+      "side": 1,
+      "message": "Got it. Thanks",
+      "parentUuid": "c0fde39e_ecc35c4a",
       "range": {
         "startLine": 136,
         "startChar": 24,
