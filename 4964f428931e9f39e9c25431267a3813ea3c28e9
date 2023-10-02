@@ -87,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4211b0b8_a7192bce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-02T17:36:51Z",
+      "side": 1,
+      "message": "Patch has been rebased.",
+      "parentUuid": "936ad337_1b39373f",
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "900462b7_d94d7a21",
