@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ae178b_f379e34f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-10-02T15:36:32Z",
+      "side": 1,
+      "message": "nit:\n\n\n```\ncurl -k https://$bmc/redfish/v1/Systems/system\n{\n```",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 1
+      },
+      "revId": "868e4e75720a4e2c9ad075334d1fb5b5b6ebde11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
