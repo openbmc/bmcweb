@@ -312,6 +312,7 @@ inline void userErrorMessageHandler(
     }
     else
     {
+        BMCWEB_LOG_ERROR("DBUS response error {}", errorMessage);
         messages::internalError(asyncResp->res);
     }
 }
