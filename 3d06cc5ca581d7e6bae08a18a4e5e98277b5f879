@@ -70,6 +70,30 @@
       },
       "revId": "3d06cc5ca581d7e6bae08a18a4e5e98277b5f879",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78822e28_edee4440",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-03T16:04:19Z",
+      "side": 1,
+      "message": "The empty collection is a result of initializing the Members array before calling getPCIeDeviceList. This initialization might be necessary for systems without PCIeDevices, as otherwise, the Redfish Validator fails.\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/pcie.hpp#L134\n\nAfter the refactor, we may no longer need this initialization. getCollectionMembers is expected to handle the initialization of the Members array if there are no PCIeDevices. I will make these changes and then run the Redfish Validator to confirm the behavior.\"",
+      "parentUuid": "f94a5673_63584fda",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "3d06cc5ca581d7e6bae08a18a4e5e98277b5f879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
