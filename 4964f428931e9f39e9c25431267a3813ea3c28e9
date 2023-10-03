@@ -194,6 +194,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf35016a_a80b0b29",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-03T16:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "164c9e60_705b436e",
+      "range": {
+        "startLine": 134,
+        "startChar": 7,
+        "endLine": 134,
+        "endChar": 33
+      },
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "025a4c64_0d00b7e9",
@@ -255,6 +279,30 @@
       "side": 1,
       "message": "Got it. Thanks",
       "parentUuid": "c0fde39e_ecc35c4a",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 28
+      },
+      "revId": "4964f428931e9f39e9c25431267a3813ea3c28e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97dff3c5_8c638355",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-03T16:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ac7171a_46de227c",
       "range": {
         "startLine": 136,
         "startChar": 24,
