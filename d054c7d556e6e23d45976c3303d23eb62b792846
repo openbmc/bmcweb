@@ -16,6 +16,24 @@
       "message": "This seems to have compilation error. size function in filebody and stringbody returns different types. I think we should change this function as follows\nreturn boost::variant2::visit(\n            [](auto\u0026\u0026 res)-\u003euint64_t { return res.body().size(); }, response);",
       "revId": "d054c7d556e6e23d45976c3303d23eb62b792846",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eb79c73_7a558c62",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-03T17:05:43Z",
+      "side": 1,
+      "message": "\u003e This seems to have compilation error.\n\nWhat do you mean, CI built it just fine?\n\n\n\u003e size function in filebody and stringbody returns different types.\n\nNot according to the docs:\nhttps://www.boost.org/doc/libs/1_82_0/libs/beast/doc/html/beast/ref/boost__beast__http__basic_file_body/size.html\nhttps://www.boost.org/doc/libs/1_82_0/libs/beast/doc/html/beast/ref/boost__beast__http__basic_string_body/size.html\n\nBoth should return uint64_t.  Are you running a different environment?  Or am I missing something?\n\n\u003e I think we should change this function as follows\n\u003e return boost::variant2::visit(\n\u003e             [](auto\u0026\u0026 res)-\u003euint64_t { return res.body().size(); }, response);\n\n\n\nThe difference is the -\u003euint64_t ?  Sure, we can do that.",
+      "parentUuid": "33163525_54c967d3",
+      "revId": "d054c7d556e6e23d45976c3303d23eb62b792846",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
