@@ -216,6 +216,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b2315e_fb20889d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-03T16:54:12Z",
+      "side": 1,
+      "message": "you posted a systemd config which isn\u0027t really helpful.  The test I would expect would be to set an NTP server, and ensure that the BMC gets the correct time.\n\n\u003e Timed out waiting for reply from 10.5.5.30:123 (10.5.5.30).\n\nThis log implies that something isn\u0027t working in the implementation.",
+      "parentUuid": "bba80f96_0e4415f0",
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1b801c60_6703bdc6",
