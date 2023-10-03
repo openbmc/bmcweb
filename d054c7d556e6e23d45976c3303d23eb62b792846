@@ -34,6 +34,24 @@
       "parentUuid": "33163525_54c967d3",
       "revId": "d054c7d556e6e23d45976c3303d23eb62b792846",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd80bda8_5edf1de9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-03T18:17:10Z",
+      "side": 1,
+      "message": "yes,I was trying to build and got this error.\nno matching function for call to ‘visit(crow::Response::size()::\u003clambda(auto:70\u0026\u0026)\u003e, boost::variant2::variant\u003cboost::beast::http::message\u003cfalse, boost::beast::http::basic_string_body\u003cchar, std::char_traits\u003cchar\u003e, std::allocator\u003cchar\u003e \u003e, boost::beast::http::basic_fields\u003cstd::allocator\u003cchar\u003e \u003e \u003e, boost::beast::http::message\u003cfalse, boost::beast::http::basic_file_body\u003cboost::beast::file_posix\u003e, boost::beast::http::basic_fields\u003cstd::allocator\u003cchar\u003e \u003e \u003e \u003e\u0026)’\n\nsize_t  need not be uint64 always. that is what string size returns. But filebody always returns uint64. I got it fixed in my environment with above changes.",
+      "parentUuid": "6eb79c73_7a558c62",
+      "revId": "d054c7d556e6e23d45976c3303d23eb62b792846",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
