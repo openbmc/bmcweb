@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddf7edea_4a07fe04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-10-04T13:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73a28dba_94a30f3c",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "bd3a36cc5993777699e6a78a5d768618b8457ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16ed6cab_97171ac2",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "I\u0027ve updated the commit message. Please have a look and see if its better now.",
       "parentUuid": "16ed6cab_97171ac2",
+      "range": {
+        "startLine": 21,
+        "startChar": 16,
+        "endLine": 21,
+        "endChar": 53
+      },
+      "revId": "bd3a36cc5993777699e6a78a5d768618b8457ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "220d3a32_e8bd13c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2023-10-04T13:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6785516_250a3129",
       "range": {
         "startLine": 21,
         "startChar": 16,
