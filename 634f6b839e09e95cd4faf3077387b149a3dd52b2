@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28409e30_0365da81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-10-04T17:33:15Z",
+      "side": 1,
+      "message": "do we have a dependency on the library declared to meson?   I see https://github.com/openbmc/bmcweb/blob/master/subprojects/packagefiles/boost-url/meson.build was unreferenced from meson.build here (but wasn\u0027t deleted)\n\nhttps://github.com/openbmc/bmcweb/commit/079360ae6e04d3f2245e00d70f83d15c5cad3630\n\nI not seeing a reference to the library objects like the second box in this link https://mesonbuild.com/Dependencies.html#boost",
+      "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
