@@ -595,13 +595,32 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * @brief Returns the Redfish State value for the specified inventory item.
  * @param inventoryItem D-Bus inventory item associated with a sensor.
+ * @param valuesDict Map of all sensor DBus values.
  * @return State value for inventory item.
  */
-inline std::string getState(const InventoryItem* inventoryItem)
+inline std::string
+    getState(const InventoryItem* inventoryItem,
+             const dbus::utility::DBusPropertiesMap* valuesDict = nullptr)
 {
     if ((inventoryItem != nullptr) && !(inventoryItem->isPresent))
     {
         return "Absent";
+    }
+
+    // Check valuesDict for more granular state reporting
+    if (valuesDict != nullptr)
+    {
+        const bool* available = nullptr;
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), *valuesDict, "Available",
+            available);
+        if (success)
+        {
+            if (available != nullptr && !(*available))
+            {
+                return "Disabled";
+            }
+        }
     }
 
     return "Enabled";
@@ -757,7 +776,7 @@ inline void objectPropertiesToJson(
         sensorJson["Name"] = std::move(sensorNameEs);
     }
 
-    sensorJson["Status"]["State"] = getState(inventoryItem);
+    sensorJson["Status"]["State"] = getState(inventoryItem, &propertiesDict);
     sensorJson["Status"]["Health"] = getHealth(sensorJson, propertiesDict,
                                                inventoryItem);
 
