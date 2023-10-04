@@ -353,7 +353,6 @@ srcfiles_bmcweb = files(
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',
   'src/boost_beast.cpp',
-  'src/boost_url.cpp',
   'src/dbus_singleton.cpp',
   'src/json_html_serializer.cpp',
   'src/ossl_random.cpp',
