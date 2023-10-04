@@ -234,6 +234,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "259e1e53_5f0f6eb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-10-04T04:45:12Z",
+      "side": 1,
+      "message": "\u003e The test I would expect would be to set an NTP server and ensure that the BMC gets the correct time.\n\nIs this test required for the changes done at this commit? Per my view, when the NTPEnabled property is enabled, then setting \u0026 getting the NTP server IP on the interface as per the network type mentioned is good enough. Syncing the BMC time with the NTP server is out of this commit scope.",
+      "parentUuid": "71b2315e_fb20889d",
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1b801c60_6703bdc6",
