@@ -318,7 +318,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
             }
         }
 
-        boost::urls::result<boost::urls::url> url =
+        boost::system::result<boost::urls::url> url =
             boost::urls::parse_absolute_uri(destUrl);
         if (!url)
         {

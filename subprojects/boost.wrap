@@ -1,11 +1,9 @@
 [wrap-file]
-directory = boost_1_82_0
+directory = boost-1.83.0
 
-source_url = https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.bz2
-source_hash = a6e1ab9b0860e6a2881dd7b21fe9f737a095e5f33a3a874afc6a345228597ee6
-source_filename = 1_82_0.tar.bz2
-
-patch_directory = boost
+source_url = https://github.com/boostorg/boost/releases/download/boost-1.83.0/boost-1.83.0.tar.gz
+source_hash = 0c6049764e80aa32754acd7d4f179fd5551d8172a83b71532ae093e7384e98da
+source_filename = 1_83_0.tar.gz
 
 [provide]
 boost = boost_dep

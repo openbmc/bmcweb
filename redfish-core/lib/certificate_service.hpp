@@ -505,7 +505,7 @@ inline void handleReplaceCertificateAction(
     }
     BMCWEB_LOG_INFO("Certificate URI to replace: {}", certURI);
 
-    boost::urls::result<boost::urls::url> parsedUrl =
+    boost::system::result<boost::urls::url> parsedUrl =
         boost::urls::parse_relative_ref(certURI);
     if (!parsedUrl)
     {

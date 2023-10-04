@@ -237,6 +237,7 @@ endif
 
 add_project_arguments(
 cxx.get_supported_arguments([
+  '-DBOOST_ASIO_DISABLE_CONCEPTS',
   '-DBOOST_ALL_NO_LIB',
   '-DBOOST_ALLOW_DEPRECATED_HEADERS',
   '-DBOOST_ASIO_DISABLE_THREADS',
@@ -306,12 +307,20 @@ if not nlohmann_json.found()
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.82.0', required : false, include_type: 'system')
-if not boost.found()
-  boost = subproject('boost', required: true).get_variable('boost_dep')
-  boost = boost.as_system('system')
+boost = dependency('boost', modules: ['url'], version : '>=1.83.0', required : false, include_type: 'system')
+if boost.found()
+  bmcweb_dependencies += [boost]
+else
+  cmake = import('cmake')
+  opt = cmake.subproject_options()
+  opt.add_cmake_defines({
+    'BOOST_INCLUDE_LIBRARIES': 'url'
+  })
+  boost = cmake.subproject('boost', required: true, options: opt)
+  boost_url = boost.dependency('boost_url').as_system()
+  boost_headers = boost.dependency('boost_headers').as_system()
+  bmcweb_dependencies += [boost_url, boost_headers]
 endif
-bmcweb_dependencies += boost
 
 if get_option('tests').enabled()
   gtest = dependency('gtest', main: true, disabler: true, required : false)
@@ -353,7 +362,6 @@ srcfiles_bmcweb = files(
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',
   'src/boost_beast.cpp',
-  'src/boost_url.cpp',
   'src/dbus_singleton.cpp',
   'src/json_html_serializer.cpp',
   'src/ossl_random.cpp',

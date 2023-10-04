@@ -1872,7 +1872,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         }
         BMCWEB_LOG_INFO("Parent Interface URI: {}", parentInterfaceUri);
 
-        boost::urls::result<boost::urls::url_view> parsedUri =
+        boost::system::result<boost::urls::url_view> parsedUri =
             boost::urls::parse_relative_ref(parentInterfaceUri);
         if (!parsedUri)
         {

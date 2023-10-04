@@ -83,7 +83,7 @@ TEST(Utility, Base64EncodeDecodeString)
 
 TEST(Utility, readUrlSegments)
 {
-    boost::urls::result<boost::urls::url_view> parsed =
+    boost::system::result<boost::urls::url_view> parsed =
         boost::urls::parse_relative_ref("/redfish/v1/Chassis#/Fans/0/Reading");
 
     EXPECT_TRUE(readUrlSegments(*parsed, "redfish", "v1", "Chassis"));

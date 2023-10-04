@@ -49,7 +49,7 @@ struct UserSubscription
                 {
                     continue;
                 }
-                boost::urls::result<boost::urls::url> url =
+                boost::system::result<boost::urls::url> url =
                     boost::urls::parse_absolute_uri(*value);
                 if (!url)
                 {

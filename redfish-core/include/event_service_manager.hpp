@@ -642,7 +642,7 @@ class EventServiceManager
             std::shared_ptr<persistent_data::UserSubscription> newSub =
                 it.second;
 
-            boost::urls::result<boost::urls::url> url =
+            boost::system::result<boost::urls::url> url =
                 boost::urls::parse_absolute_uri(newSub->destinationUrl);
 
             if (!url)

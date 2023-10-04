@@ -128,7 +128,7 @@ inline void
  */
 inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
-    boost::urls::result<boost::urls::url_view> url =
+    boost::system::result<boost::urls::url_view> url =
         boost::urls::parse_uri(imageUri);
     if (!url)
     {
@@ -553,7 +553,7 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         return;
     }
-    boost::urls::result<boost::urls::url_view> url =
+    boost::system::result<boost::urls::url_view> url =
         boost::urls::parse_uri(*actionParams.imageUrl);
     if (!url)
     {

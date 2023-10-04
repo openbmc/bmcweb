@@ -66,7 +66,7 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
     size_t uriIdx = 0;
     for (const std::string& uri : uris)
     {
-        boost::urls::result<boost::urls::url_view> parsed =
+        boost::system::result<boost::urls::url_view> parsed =
             boost::urls::parse_relative_ref(uri);
 
         if (!parsed)
