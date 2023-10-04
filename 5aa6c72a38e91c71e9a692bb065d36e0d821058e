@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e5dbb90_ac080141",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-04T21:45:44Z",
+      "side": 1,
+      "message": "@ed I have provided the information and pointed you to the relevant code sections. Could you please confirm if this addresses your question, or if you need any information?",
+      "parentUuid": "2182d7f2_d7529d93",
+      "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "629db9d3_4b280840",
         "filename": "/COMMIT_MSG",
         "patchSetId": 27
@@ -85,6 +103,24 @@
       "writtenOn": "2023-06-30T16:06:39Z",
       "side": 1,
       "message": "Could mention this uses the identify association \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58299\noh well, it is on the commit before.",
+      "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d0af4f_d36286fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-04T21:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "629db9d3_4b280840",
       "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
