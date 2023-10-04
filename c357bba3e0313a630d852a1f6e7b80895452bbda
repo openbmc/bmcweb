@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4bcd0b2_9722b2ea",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-04T19:33:42Z",
+      "side": 1,
+      "message": "what about interface type \"xyz.openbmc_project.Inventory.Connector.Port\"?",
+      "revId": "c357bba3e0313a630d852a1f6e7b80895452bbda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9191b1b_6b71a9bb",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-04T19:33:42Z",
+      "side": 1,
+      "message": "pass the ec variable by reference",
+      "range": {
+        "startLine": 59,
+        "startChar": 62,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "c357bba3e0313a630d852a1f6e7b80895452bbda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faf32f58_0cc02437",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-04T19:33:42Z",
+      "side": 1,
+      "message": "Can you log ec.value() in addition to the error message, which will be helpful for debugging purposes.",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "c357bba3e0313a630d852a1f6e7b80895452bbda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
