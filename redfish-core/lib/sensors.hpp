@@ -591,16 +591,24 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * @brief Returns the Redfish State value for the specified inventory item.
  * @param inventoryItem D-Bus inventory item associated with a sensor.
+ * @param sensorAvailable Boolean representing if D-Bus sensor is marked as
+ * available.
  * @return State value for inventory item.
  */
-inline std::string getState(const InventoryItem* inventoryItem)
+inline resource::State getState(const InventoryItem* inventoryItem,
+                            const bool sensorAvailable)
 {
     if ((inventoryItem != nullptr) && !(inventoryItem->isPresent))
     {
-        return "Absent";
+        return resource::State::Absent;
     }
 
-    return "Enabled";
+    if (!sensorAvailable)
+    {
+        return resource::State::UnavailableOffline;
+    }
+
+    return resource::State::Enabled;
 }
 
 /**
@@ -753,7 +761,17 @@ inline void objectPropertiesToJson(
         sensorJson["Name"] = std::move(sensorNameEs);
     }
 
-    sensorJson["Status"]["State"] = getState(inventoryItem);
+    const bool* checkAvailable = nullptr;
+    bool available = true;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
+        checkAvailable);
+    if (success)
+    {
+        available = *checkAvailable;
+    }
+
+    sensorJson["Status"]["State"] = getState(inventoryItem, available);
     sensorJson["Status"]["Health"] = getHealth(sensorJson, propertiesDict,
                                                inventoryItem);
 
@@ -2228,7 +2246,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
             inventoryItem.powerSupplyEfficiencyPercent;
     }
 
-    powerSupply["Status"]["State"] = getState(&inventoryItem);
+    powerSupply["Status"]["State"] = getState(&inventoryItem, true);
     const char* health = inventoryItem.isFunctional ? "OK" : "Critical";
     powerSupply["Status"]["Health"] = health;
 
