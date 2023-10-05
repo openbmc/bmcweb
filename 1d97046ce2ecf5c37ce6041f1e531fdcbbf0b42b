@@ -16,6 +16,24 @@
       "message": "I was testing the change set with large size file. The socket is getting closed after some time before the completion of the filetransfer. Perhaps this deadline timer is the reason. What is the plan for the timers to make large-size file transfer working?",
       "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aec0f61f_cc830cb8",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-05T16:40:14Z",
+      "side": 1,
+      "message": "I have no plan for supporting large files, nor does this patchset support them.  This commit was just about efficiency and avoiding a file copy.  If you have plans, feel free to push code for it.\n\nKeep in mind, the http timers have pretty significant security requirements, so please make sure all the denial of service vectors are addressed by whatever you design.",
+      "parentUuid": "dc88263c_e39e337c",
+      "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
