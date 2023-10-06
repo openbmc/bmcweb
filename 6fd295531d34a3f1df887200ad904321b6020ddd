@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17baec9b_af6f72ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-10-06T20:35:29Z",
+      "side": 1,
+      "message": "I\u0027ll wait for a build test to +1.   This appears to address the issues I identified.",
+      "revId": "6fd295531d34a3f1df887200ad904321b6020ddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

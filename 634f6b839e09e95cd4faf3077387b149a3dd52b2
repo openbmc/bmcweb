@@ -34,6 +34,24 @@
       "parentUuid": "28409e30_0365da81",
       "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cb22325_62356b51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-10-06T20:35:29Z",
+      "side": 1,
+      "message": "Ok I guess the url wrap packagefile was leftover from before url became part of boost?   Ack the cleanup.\n\nThis looks reasonable compared to the documentation.\n\nDoes meson upstream need any update to reflect url is a cmake target (even if we just create an issue or emai? to notify them)?",
+      "parentUuid": "211e610b_49092250",
+      "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
