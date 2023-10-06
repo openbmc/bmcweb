@@ -52,6 +52,24 @@
       "parentUuid": "211e610b_49092250",
       "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf757db_c663a5b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-06T21:50:48Z",
+      "side": 1,
+      "message": "\u003e Ok I guess the url wrap packagefile was leftover from before url became part of boost?   Ack the cleanup.\n\nYep.  We never cleaned it up, although the explicit boost-url has been gone for a while now.\n\n\u003e \n\u003e This looks reasonable compared to the documentation.\n\u003e \n\u003e Does meson upstream need any update to reflect url is a cmake target (even if we just create an issue or emai? to notify them)?\n\nwrapdb doesn\u0027t include boost, so I don\u0027t think so.",
+      "parentUuid": "9cb22325_62356b51",
+      "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
