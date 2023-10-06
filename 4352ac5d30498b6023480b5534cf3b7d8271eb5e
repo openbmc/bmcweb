@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78753d9f_26ed4bc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-06T17:20:22Z",
+      "side": 1,
+      "message": "more detail needed here.  Why is it ok to remove a parameter?  I\u0027m assuming this can be something like \"It was previously hardcoded, so nobody should be making use of it\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e66923_4be24f76",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-06T17:20:22Z",
+      "side": 1,
+      "message": "please don\u0027t make this a variant.  This should return a single enum, not multiple.  As written, this can put unallowed values on Redfish.\n\nWhat I suspect you should do is to create two methods.  One from dbus -\u003e Chassis::IntrusionSensor and one from dbus -\u003e Chassis::IntrustionSensorRearm.\n\nThere is nowhere else in the code that we follow the pattern here of using a variant.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20dfeaf1_c0a87841",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-06T17:20:22Z",
+      "side": 1,
+      "message": "Are these properties optional in the interface?  If not, they should be required (and not be a pointer).  we only use optional properties for when a property is added to an interface later.",
+      "range": {
+        "startLine": 101,
+        "startChar": 57,
+        "endLine": 102,
+        "endChar": 26
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7cb27de_873d493f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-06T17:20:22Z",
+      "side": 1,
+      "message": "This function is called out by name in COMMON_ERRORS.md.  Please read it and understand why it\u0027s disallowed.",
+      "range": {
+        "startLine": 125,
+        "startChar": 20,
+        "endLine": 125,
+        "endChar": 28
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cdc7f31_85a825ae",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-06T17:20:22Z",
+      "side": 1,
+      "message": "Not all paths put a value into this variable.  If line 166 is false, Invalid will be put on redfish.  Please follow the patterns we follow in the rest of the code, and handle errors appropriately.",
+      "range": {
+        "startLine": 128,
+        "startChar": 64,
+        "endLine": 128,
+        "endChar": 79
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
