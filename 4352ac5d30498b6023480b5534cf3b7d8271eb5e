@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a88f0fb0_113d55d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-09T10:37:57Z",
+      "side": 1,
+      "message": "Updated. Please help check. However, I don\u0027t quite understand the explanation of this removal from the spec. I just don\u0027t see its use from the beginning.",
+      "parentUuid": "78753d9f_26ed4bc4",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25e66923_4be24f76",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-06T17:20:22Z",
       "side": 1,
       "message": "please don\u0027t make this a variant.  This should return a single enum, not multiple.  As written, this can put unallowed values on Redfish.\n\nWhat I suspect you should do is to create two methods.  One from dbus -\u003e Chassis::IntrusionSensor and one from dbus -\u003e Chassis::IntrustionSensorRearm.\n\nThere is nowhere else in the code that we follow the pattern here of using a variant.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88372618_2fa43849",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-09T10:37:57Z",
+      "side": 1,
+      "message": "Updated as your suggestion. Thank you.",
+      "parentUuid": "25e66923_4be24f76",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28cf0db_1788a8e1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-09T10:37:57Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "20dfeaf1_c0a87841",
+      "range": {
+        "startLine": 101,
+        "startChar": 57,
+        "endLine": 102,
+        "endChar": 26
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7cb27de_873d493f",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa065898_35164440",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-09T10:37:57Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "f7cb27de_873d493f",
+      "range": {
+        "startLine": 125,
+        "startChar": 20,
+        "endLine": 125,
+        "endChar": 28
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3cdc7f31_85a825ae",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-10-06T17:20:22Z",
       "side": 1,
       "message": "Not all paths put a value into this variable.  If line 166 is false, Invalid will be put on redfish.  Please follow the patterns we follow in the rest of the code, and handle errors appropriately.",
+      "range": {
+        "startLine": 128,
+        "startChar": 64,
+        "endLine": 128,
+        "endChar": 79
+      },
+      "revId": "4352ac5d30498b6023480b5534cf3b7d8271eb5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa12be6_37f06d49",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-09T10:37:57Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "3cdc7f31_85a825ae",
       "range": {
         "startLine": 128,
         "startChar": 64,
