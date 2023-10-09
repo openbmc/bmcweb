@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29765f57_f8f63618",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:13:34Z",
+      "side": 1,
+      "message": "On which interface?",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 34
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40fa2854_6bb4e0eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:13:34Z",
+      "side": 1,
+      "message": "Why would a user use this value?  You list a lot of things for code (like getState), but don\u0027t really relate them to redfish, the behavior, the user-api, or why it needs to exist.  Can you take another attempt at this?  Reading through the patchset, I don\u0027t really understand why we want anything but \"enabled\" supported.",
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6856717d_0be37919",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:13:34Z",
+      "side": 1,
+      "message": "What system/sensor are you testing on?  I suspect this line can be removed.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3afc9fa7_0318ecdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:13:34Z",
+      "side": 1,
+      "message": "Redfish tests?",
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41200000_03724d8c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:13:34Z",
+      "side": 1,
+      "message": "Why does this need to be a default parameter?  Generally this isn\u0027t how we would model this.  We would parse out the interfaces in the dbus scope, then pass down the parsed values.",
+      "range": {
+        "startLine": 603,
+        "startChar": 12,
+        "endLine": 603,
+        "endChar": 73
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5be8f0a3_88c739b3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:13:34Z",
+      "side": 1,
+      "message": "Unpacking needs to be done in the scope above, and avoid passing the direct raw dbus dicts through too many layers.",
+      "range": {
+        "startLine": 614,
+        "startChar": 40,
+        "endLine": 614,
+        "endChar": 63
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
