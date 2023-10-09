@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b43f061_a52e8b3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-09T18:20:15Z",
+      "side": 1,
+      "message": "\u003e That\u0027s how it\u0027s implemented now in the networkd side.\n\nRight, and in Redfish we would enumerate all of the interfaces, so in terms of the user, we could built the redfish interface that was expected.",
+      "parentUuid": "ddf7edea_4a07fe04",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "bd3a36cc5993777699e6a78a5d768618b8457ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16ed6cab_97171ac2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 35
