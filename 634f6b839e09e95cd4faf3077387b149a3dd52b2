@@ -70,6 +70,24 @@
       "parentUuid": "9cb22325_62356b51",
       "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79796d17_a8b19b2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-10-09T01:36:49Z",
+      "side": 1,
+      "message": "I was looking at https://github.com/mesonbuild/meson/blob/master/mesonbuild/dependencies/boost.py\n\nwhere they are looking for abi tagged libraries vs cmake",
+      "parentUuid": "acf757db_c663a5b5",
+      "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
