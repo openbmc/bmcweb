@@ -288,6 +288,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f68569f0_30b80e8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000053
+      },
+      "writtenOn": "2023-10-10T13:21:33Z",
+      "side": 1,
+      "message": "The error is expected as NTP server was unreachable, NTP server detail is sent from DHCP server, BMC is extracting it \u0026 sending time request. Since NTP server is down it is throwing timeout error which is expected.",
+      "parentUuid": "8bb6479b_ba1fb885",
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1b801c60_6703bdc6",
