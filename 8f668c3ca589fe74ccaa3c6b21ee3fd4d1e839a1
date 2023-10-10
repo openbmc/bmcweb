@@ -1090,6 +1090,30 @@
       },
       "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3bfb75c_8a1ab025",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-10T18:46:51Z",
+      "side": 1,
+      "message": "\u003e http_client is already doing several things, SSL/NO-SSL,\n\u003e connection pool and request queue handling etc. What we need\n\u003e in this test is a simple blocking http client. \n\nWhy do we need a blocking http client?\n\n\u003e We cannot add \n\u003e asynchronous client in gtest as it needs blocking ioc run method to complete\n\u003e the http request.\n\nThere are examples of doing async testing in gtest.  Any reason we can\u0027t use those?\n\n\u003e Adding synchronous handling on top of current \n\u003e http_client just for the sake of this testcase looks not correct.\n\nwhat does \"looks not correct\" mean?",
+      "parentUuid": "6a0b1613_42574b56",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
