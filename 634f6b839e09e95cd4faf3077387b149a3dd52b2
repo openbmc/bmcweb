@@ -106,6 +106,24 @@
       "parentUuid": "79796d17_a8b19b2c",
       "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41206de_0c0814ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2023-10-10T14:53:36Z",
+      "side": 1,
+      "message": "Thinking through this, I realize I am mixing build rules and support at multiple levels.\n\nI was looking at the else clause of boost.found(), comparing to meson documentation at [1] and thinking \"this is replacing the boost dependency with a cmake dependency\".  However, looking again today, it is replacing the include only dependency on the downloaded package with the cmake dependency to build the library when the system installed boost doesn\u0027t have the module installed.\n\n[1] https://mesonbuild.com/Dependencies.html#boost\n\nI was inferring when the boost.py file was being used, and thinking about should it automatically invoke cmake from the source.   But after you asking when it is used, I dug a bit deeper and found (1) its invoked from the __init.py__ [2] in the same directory and (2) its purpose is to find and satisfy dependencies for boost that is installed in the system or an alternate system location, and therefore [3] compiling from source is beyond its scope, and the meson build project is not affected.\n\n[2] https://github.com/mesonbuild/meson/blob/3af0632c3d02c552982737580cfac56adb72c8ad/mesonbuild/dependencies/__init__.py#L190\n\nHowever, this does point out we should have some additional yocto integration to build URL as part of our boost packaging.  Without this meson may download the library again and the library would be compiled for each package that needs to use it.\n\nAccording to this stack overflow [3], we have to do this at the meta layer.  Alternately we cand work with yocto to create sub-packages for this library that could be explicitly requested through a standard DEPENDS.\n\n[3] https://stackoverflow.com/questions/69862510/yocto-have-a-dependency-to-a-receipe-and-a-packageconfig\n  \nI\u0027m fine merging this patch as is.  It adds the ability to build the boot URL library standalone from upstream to meet its dependency.  If we don\u0027t encounter any other package needing the URL library, the compile time is shifted and the impact is the extra download.",
+      "parentUuid": "ce1ef9d4_7aef2380",
+      "revId": "634f6b839e09e95cd4faf3077387b149a3dd52b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
