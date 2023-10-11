@@ -1114,6 +1114,30 @@
       },
       "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f584405_31cffe0f",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-11T12:46:17Z",
+      "side": 1,
+      "message": "There are examples of doing async testing in gtest. Any reason we can\u0027t use those?\n\ncan you point me to a test where boost asio has been used in gtest for asyncIo?I tried it but sometimes ioc.run() loop exit before the full http request handling. One solution will be to use io_service::work object to make the loop run forever. But that will make gtest block forever. I felt blocking htpp-client is better than this. \n\nwhat does \"looks not correct\" mean?\nThis patch set is planned for file-body changes. it has nothing to do http_client. So making production code changes to make a test case work will dilute focus and increase the scope of current patch set.\n\nAfter going through the htpp_client.hpp, I have another proposal to implement the same in a flexible manner. But I don\u0027t want to make it in this patchset.",
+      "parentUuid": "a3bfb75c_8a1ab025",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
