@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7033857_8ffaa436",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2023-10-12T22:47:59Z",
+      "side": 1,
+      "message": "Hi Ed,\n\nMy thinking was that we could add some more granular info regarding the sensors.  I didn\u0027t make sense to me that a sensor would be considered \"Enabled\" when it\u0027s reading null because it requires host power.  But if \"Enabled\" is what we want then I can delete this patchset.",
+      "parentUuid": "40fa2854_6bb4e0eb",
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6856717d_0be37919",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
