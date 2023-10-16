@@ -52,6 +52,24 @@
       "parentUuid": "aec0f61f_cc830cb8",
       "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ce4228_4d2d0c45",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-16T18:01:46Z",
+      "side": 1,
+      "message": "Correct.  The only change is that now bmcweb won\u0027t crash if you try to source a file larger than ram.  I\u0027m happy to discuss changing the timers (for the 15th time.... ug) to make that use case more valuable, but in the context of this commit, I don\u0027t think we need to.",
+      "parentUuid": "18f3a471_9bc54778",
+      "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
