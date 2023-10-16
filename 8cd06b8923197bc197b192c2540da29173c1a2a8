@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ad23dbc_cf168da6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-16T17:51:02Z",
+      "side": 1,
+      "message": "\u003e I didn\u0027t make sense to me that a sensor would be considered \"Enabled\" when it\u0027s reading null because it requires host power.\n\nThe above isn\u0027t captured in your commit message.  I wasn\u0027t saying we don\u0027t want this, but \"Redfish Sensors should read unavailable if the reading is null, and that difference is useful to the user.\" is much more clear than what\u0027s in the commit message now.  It references what we\u0027re changing, and why a user cares.\n\nAlso, we should double check with DMTF that the intent is for sensors to go unavailable if the status is null.  I forget what the intent was there.",
+      "parentUuid": "e7033857_8ffaa436",
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6856717d_0be37919",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
