@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38f0a30_d8a297b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-16T02:59:36Z",
+      "side": 1,
+      "message": "Can you explain more what happens if a system object isn\u0027t present? \nIf the led association isn\u0027t present?\nOn PATCH, it would return an error. \nOn GET, it would just leave the property off? Before we were using:\n                \"xyz.openbmc_project.LED.GroupManager\",\n                \"/xyz/openbmc_project/led/groups/enclosure_identify\",\n\n\nNow we are following 58299 and this allows to support other inventory items with future commits?",
+      "revId": "eb8d628aa123428d50ef0a9ac82b5381c082d784",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
