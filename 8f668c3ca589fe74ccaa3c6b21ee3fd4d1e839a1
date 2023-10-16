@@ -1138,6 +1138,30 @@
       },
       "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ccc614_624b7a0c",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-16T18:00:35Z",
+      "side": 1,
+      "message": "\u003e There are examples of doing async testing in gtest. Any reason we can\u0027t use those?\n\u003e \n\u003e can you point me to a test where boost asio has been used in gtest for asyncIo?\n\nHere\u0027s an example of mine from within bmcweb.  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66474\n\n\n\u003e I tried it but sometimes ioc.run() loop exit before the full http request handling.\n\nHave you asked anyone about that?  I\u0027d much rather just fix a bug in code than rewrite an entire module.\n\n\u003e One solution will be to use io_service::work object to make the loop run forever. But that will make gtest block forever. I felt blocking htpp-client is better than this. \n\nYep, using work() isn\u0027t the right way.  Making sure that the io_service always has work to do (in the form of attached sockets) is the way.\n\n\u003e \n\u003e what does \"looks not correct\" mean?\n\u003e This patch set is planned for file-body changes. it has nothing to do http_client. So making production code changes to make a test case work will dilute focus and increase the scope of current patch set.\n\nI disagree with the above.  The goal is to make the codebase clean and consistent, not to make an individual patch undiliuted.  If you\u0027re worried about scope, feel free to break it into multiple patches (which is generally prefered).\n\n\u003e \n\u003e After going through the htpp_client.hpp, I have another proposal to implement the same in a flexible manner. But I don\u0027t want to make it in this patchset.\n\nGreat, please put it in a patchset ahead of this one.  There\u0027s nothing requiring that you put everything in one gerrit review.",
+      "parentUuid": "9f584405_31cffe0f",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
