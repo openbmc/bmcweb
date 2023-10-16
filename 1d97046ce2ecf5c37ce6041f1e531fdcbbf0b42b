@@ -34,6 +34,24 @@
       "parentUuid": "dc88263c_e39e337c",
       "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f3a471_9bc54778",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-16T17:02:12Z",
+      "side": 1,
+      "message": "This is no different than what we had before right? So outside the scope of this commit.",
+      "parentUuid": "aec0f61f_cc830cb8",
+      "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
