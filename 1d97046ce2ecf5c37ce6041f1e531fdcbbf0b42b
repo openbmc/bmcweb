@@ -70,6 +70,24 @@
       "parentUuid": "18f3a471_9bc54778",
       "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1945bf7_38661411",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-16T19:38:55Z",
+      "side": 1,
+      "message": "\u003e  but in the context of this commit, I don\u0027t think we need to.\n\nAgreed.",
+      "parentUuid": "01ce4228_4d2d0c45",
+      "revId": "1d97046ce2ecf5c37ce6041f1e531fdcbbf0b42b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
