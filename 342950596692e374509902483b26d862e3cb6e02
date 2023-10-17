@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a97c435_79099eeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-17T00:57:09Z",
+      "side": 1,
+      "message": "Fixed description.",
+      "parentUuid": "60160495_40304cb2",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 8
+      },
+      "revId": "342950596692e374509902483b26d862e3cb6e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b738cb7_372128a9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-16T17:46:45Z",
       "side": 1,
       "message": "Why is this unused?",
+      "range": {
+        "startLine": 437,
+        "startChar": 45,
+        "endLine": 437,
+        "endChar": 52
+      },
+      "revId": "342950596692e374509902483b26d862e3cb6e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85230646_6abbdf4d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-17T00:57:09Z",
+      "side": 1,
+      "message": "getValidFanPath returns both the fan\u0027s path and service, although this function doesn\u0027t require the service parameter. However, the service parameter is needed in other instances where getValidFanPath is called.\n \nTo set the Fan\u0027s LED, it\u0027s necessary to have the LED\u0027s service, which will be retrieved in the setLocationIndicatorActive function.",
+      "parentUuid": "0b738cb7_372128a9",
       "range": {
         "startLine": 437,
         "startChar": 45,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdd4bb34_6bbbaca0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-17T00:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45d9ca46_3e79e7e1",
+      "range": {
+        "startLine": 439,
+        "startChar": 0,
+        "endLine": 439,
+        "endChar": 32
+      },
+      "revId": "342950596692e374509902483b26d862e3cb6e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95d79a82_f098548e",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-16T17:46:45Z",
       "side": 1,
       "message": "non trivial lambda.",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 480,
+        "endChar": 9
+      },
+      "revId": "342950596692e374509902483b26d862e3cb6e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb87616e_49deafba",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-17T00:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d79a82_f098548e",
       "range": {
         "startLine": 466,
         "startChar": 8,
