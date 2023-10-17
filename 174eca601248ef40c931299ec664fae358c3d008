@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f8336d43_cc472bf5",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -20,10 +21,10 @@
         "endChar": 70
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "11d884a1_ddd6df9b",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -44,10 +45,34 @@
         "endChar": 70
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "88da8ca9_da89bbec",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2023-10-17T06:56:44Z",
+      "side": 1,
+      "message": "backened doesn\u0027t support this . Curently only supports PEM format.",
+      "parentUuid": "f8336d43_cc472bf5",
+      "range": {
+        "startLine": 81,
+        "startChar": 65,
+        "endLine": 81,
+        "endChar": 70
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "bf504453_0c11e80c",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -67,10 +92,10 @@
         "endChar": 36
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f3dcf7e7_3889db7b",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -91,10 +116,10 @@
         "endChar": 36
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "535e68da_a6c9fb87",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -114,10 +139,10 @@
         "endChar": 66
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "da9b8e1f_1f214d1d",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -138,10 +163,10 @@
         "endChar": 66
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e7bc8632_ff49c873",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -161,10 +186,10 @@
         "endChar": 54
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a170c1f5_ce1eec0f",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -185,10 +210,10 @@
         "endChar": 54
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "05e7aba9_9f40be00",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -208,10 +233,10 @@
         "endChar": 51
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0af73e61_6b7f2543",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -232,10 +257,10 @@
         "endChar": 51
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "fee3dceb_fcdd5a0a",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -256,10 +281,10 @@
         "endChar": 51
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "975842f8_3c1ae322",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -279,10 +304,10 @@
         "endChar": 53
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6d9f69d2_e8e82f9d",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -303,10 +328,10 @@
         "endChar": 53
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "14dbc4bd_ae9448d5",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -326,10 +351,10 @@
         "endChar": 12
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e95872d3_ffd4b66a",
         "filename": "redfish-core/lib/certificate_service.hpp",
@@ -350,8 +375,7 @@
         "endChar": 12
       },
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
