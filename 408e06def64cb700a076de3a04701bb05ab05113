@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7e5a5a_db547275",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T16:06:17Z",
+      "side": 1,
+      "message": "To be clear, have there been any functional changes made in this commit, or is it all just rearranging functions?",
+      "revId": "408e06def64cb700a076de3a04701bb05ab05113",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
