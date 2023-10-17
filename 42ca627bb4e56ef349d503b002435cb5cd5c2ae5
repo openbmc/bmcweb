@@ -22,6 +22,30 @@
       },
       "revId": "42ca627bb4e56ef349d503b002435cb5cd5c2ae5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42eb7fe_33f2ed00",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-17T00:47:24Z",
+      "side": 1,
+      "message": "Done, refactored the code.",
+      "parentUuid": "008d5d66_7e23dfbc",
+      "range": {
+        "startLine": 601,
+        "startChar": 31,
+        "endLine": 601,
+        "endChar": 47
+      },
+      "revId": "42ca627bb4e56ef349d503b002435cb5cd5c2ae5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
