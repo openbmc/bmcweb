@@ -46,6 +46,30 @@
       },
       "revId": "f1d605db472887d61e5d368bf495b33e9b98b67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f2da2dd_5502c282",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T16:25:10Z",
+      "side": 1,
+      "message": "Nope, what you described is better than creating a long in-line lambda.",
+      "parentUuid": "39ac7e6b_9164f5c4",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 53
+      },
+      "revId": "f1d605db472887d61e5d368bf495b33e9b98b67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
