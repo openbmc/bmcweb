@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f796bace_b8dcbfd2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T16:27:52Z",
+      "side": 1,
+      "message": "Why are you commenting on a code review from 4 years ago?",
+      "parentUuid": "88da8ca9_da89bbec",
+      "range": {
+        "startLine": 81,
+        "startChar": 65,
+        "endLine": 81,
+        "endChar": 70
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf504453_0c11e80c",
