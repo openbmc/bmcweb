@@ -131,21 +131,8 @@ inline void
 
 inline void
     afterSnmpClientCreate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const boost::system::error_code& ec,
                           const std::string& dbusSNMPid)
 {
-    if (ec)
-    {
-        if (ec.value() != EBADR)
-        {
-            // SNMP not installed
-            messages::propertyValueOutOfRange(asyncResp->res, "SNMPv2c",
-                                              "Protocol");
-            return;
-        }
-        messages::internalError(asyncResp->res);
-        return;
-    }
 
     sdbusplus::message::object_path path(dbusSNMPid);
     const std::string snmpId = path.filename();
@@ -169,8 +156,34 @@ inline void
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg,
                     const std::string& dbusSNMPid) {
-        afterSnmpClientCreate(asyncResp, ec, dbusSNMPid);
+        if (ec)
+        {
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                messages::internalError(resp->res);
+                return;
+            }
+            if (std::string_view(
+                    "xyz.openbmc_project.Common.Error.InvalidArgument") ==
+                dbusError->name)
+            {
+                messages::propertyValueFormatError(asyncResp->res, host,
+                                                   "Destination");
+                return;
+            }
+            if (ec.value() != EBADR)
+            {
+                // SNMP not installed
+                messages::propertyValueOutOfRange(asyncResp->res, "SNMPv2c",
+                                                  "Protocol");
+                return;
+            }
+            messages::internalError(asyncResp->res);
+        }
+        afterSnmpClientCreate(asyncResp, dbusSNMPid);
         },
         "xyz.openbmc_project.Network.SNMP",
         "/xyz/openbmc_project/network/snmp/manager",
