@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e095da0a_b70e5ae7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T20:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4c2b378_d786d344",
+      "revId": "5fa675b191682762f47f17f9d22f236d76b17d70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92760dab_af13e6a8",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Yep.",
       "parentUuid": "92760dab_af13e6a8",
+      "revId": "5fa675b191682762f47f17f9d22f236d76b17d70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b777c5b_04ad047a",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T20:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b211c3b7_e8a37b27",
       "revId": "5fa675b191682762f47f17f9d22f236d76b17d70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
