@@ -70,6 +70,30 @@
       },
       "revId": "f1d605db472887d61e5d368bf495b33e9b98b67e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "889d42da_1f32ce29",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-17T16:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f2da2dd_5502c282",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 53
+      },
+      "revId": "f1d605db472887d61e5d368bf495b33e9b98b67e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
