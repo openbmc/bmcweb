@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "757ce3a8_fc52d0a2",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T17:00:09Z",
+      "side": 0,
+      "message": "This return was deleted.  I\u0027m assuming that\u0027s not intentional?",
+      "revId": "5ebb9d33056cbffd8ec0affc49ac9e439e0c4c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

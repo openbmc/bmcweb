@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd380408_52c337d9",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-17T17:00:09Z",
+      "side": 1,
+      "message": "This branch is identical to line 160.\n\n\nJust make this check\n\nif (dbusError !\u003d nullptr){\n    ...\n    return;\n}\nmessages::internalError(asyncResp-\u003eres);",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 47
+      },
+      "revId": "e950ce0d298c3ae5c948f8f76a4169ec288490a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
