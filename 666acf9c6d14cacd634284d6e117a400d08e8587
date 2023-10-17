@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25681bc2_423c1ec0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "I meant the GET method. Updated.",
+      "parentUuid": "ea5092fd_2e897ba9",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e2f5eb4_c04159a6",
@@ -70,6 +94,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32609b8_a0b2b8cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2088e6_0a1f8de9",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 4
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c66d4a75_0d4b11b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e2f5eb4_c04159a6",
+      "range": {
+        "startLine": 16,
+        "startChar": 10,
+        "endLine": 16,
+        "endChar": 20
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97410e63_b4bc94e4",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-09T17:19:38Z",
       "side": 1,
       "message": "so there are no clients that could be using this, and per COMPATIBILITY.md, this is not a compatibility break.",
+      "range": {
+        "startLine": 19,
+        "startChar": 34,
+        "endLine": 19,
+        "endChar": 69
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa093c44_0df2635e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Done. Thank you.",
+      "parentUuid": "97410e63_b4bc94e4",
       "range": {
         "startLine": 19,
         "startChar": 34,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a99cfd0_f2011934",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Thank you. Updated.",
+      "parentUuid": "d0af7703_5506d12a",
+      "range": {
+        "startLine": 83,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cdfac5c_29b56b3d",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-10-09T17:19:38Z",
       "side": 1,
       "message": "looks like a missing \nif (intrusionSensorReArm) here",
+      "range": {
+        "startLine": 145,
+        "startChar": 9,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3753dd_f3b61d12",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Changed to non-optional variable.",
+      "parentUuid": "7cdfac5c_29b56b3d",
       "range": {
         "startLine": 145,
         "startChar": 9,
@@ -162,6 +306,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14c6c54f_651b0cd1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41361ad3_36c86dcb",
+      "range": {
+        "startLine": 263,
+        "startChar": 12,
+        "endLine": 263,
+        "endChar": 30
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97b29927_e12bb0f6",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-10-09T17:19:38Z",
       "side": 1,
       "message": "You need to handle errors if there are more than one.",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 50
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce744c78_a40c1f30",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97b29927_e12bb0f6",
       "range": {
         "startLine": 267,
         "startChar": 0,
@@ -210,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24445c42_5cb4a4d2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "I have added a commit to clean up some lengthy lambda functions in the file. Please help check. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/67115/1",
+      "parentUuid": "73a0dc8b_c5840795",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 15
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "688d430e_31c398ea",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 20
@@ -233,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b57c8ed_12af4674",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "I added a commit that lets getMainChassisId() function in redifsh_util.hpp only look for the main chassis with the xyz.openbmc_project.Iventory.Item.Chassis interface (instead of both Item.Chassis and Item.Board like before) and uses the function to check if this PATCHING is from the main chassis, please help check https://gerrit.openbmc.org/c/openbmc/bmcweb/+/67116/1",
+      "parentUuid": "688d430e_31c398ea",
+      "range": {
+        "startLine": 808,
+        "startChar": 0,
+        "endLine": 809,
+        "endChar": 50
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebc349fa_e141b360",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 20
@@ -244,6 +484,30 @@
       "writtenOn": "2023-10-09T17:19:38Z",
       "side": 1,
       "message": "Please read and understand the coding standard.  No non-trivial lambda callbacks.",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 15
+      },
+      "revId": "666acf9c6d14cacd634284d6e117a400d08e8587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "960bd15e_492baf76",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-17T09:15:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ebc349fa_e141b360",
       "range": {
         "startLine": 811,
         "startChar": 0,
