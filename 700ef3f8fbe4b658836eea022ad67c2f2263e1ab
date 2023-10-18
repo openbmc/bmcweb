@@ -16,6 +16,24 @@
       "message": "This one fell off the list to review for some reason.  So sorry about that.\n\n\nThere\u0027s some design issues we\u0027ll have to deal with on the attachment aggregation stuff, but functionally this looks no worse than the existing stuff (it\u0027s just one more thing to clean up).\n\n\napologies for being tardy here.  Not a lot of folks are reviewing bmcweb code reviews these days.",
       "revId": "700ef3f8fbe4b658836eea022ad67c2f2263e1ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b6b635_d3c138b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-10-18T01:59:38Z",
+      "side": 1,
+      "message": "No worries, I already had a period of it being dormant for 2 months so it wasn\u0027t too pressing",
+      "parentUuid": "0fc3fd63_64c7537b",
+      "revId": "700ef3f8fbe4b658836eea022ad67c2f2263e1ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

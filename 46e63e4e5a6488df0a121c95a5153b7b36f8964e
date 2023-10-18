@@ -567,6 +567,30 @@
       },
       "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a5633c_5b507023",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-10-18T01:59:38Z",
+      "side": 1,
+      "message": "Thanks, I\u0027m good with fixing it outside the patchset.  It\u0027d be nice if we could keep a singular one size fits all functional call at the start of each endpoint like we have now with setUpRedfishRoute().  If that\u0027s not possible then I suppose it is what it is",
+      "parentUuid": "05b4bac1_e8d5c485",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
