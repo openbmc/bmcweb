@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d405e2bc_ce706e13",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-10-18T01:39:10Z",
+      "side": 1,
+      "message": "No worries, I\u0027ve made that change and don\u0027t mind to tweak it further if needed",
+      "parentUuid": "fa0e8d65_9defb94f",
+      "range": {
+        "startLine": 310,
+        "startChar": 37,
+        "endLine": 310,
+        "endChar": 124
+      },
+      "revId": "fee65f5dfc0edcd33bbcd2d470f70641c19fd824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fe35279_7d5f1a9e",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "I really only want to know so that I don\u0027t break this in the future.  I was testing in the CI docker before boost 1.83 was added, and what I had before seemed to work for me.  Can\u0027t really explain why it\u0027s broken for you and not in the CI docker.",
       "parentUuid": "7fe35279_7d5f1a9e",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 16
+      },
+      "revId": "fee65f5dfc0edcd33bbcd2d470f70641c19fd824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0c9e7b_cd2d1d54",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-10-18T01:39:10Z",
+      "side": 1,
+      "message": "I just kept rebuilding and added each library one at a time until it stopped failing.  It seemed like those libraries I added were pulled into subprojects/ but they weren\u0027t actually getting included.\n\nI don\u0027t understand the meson system well enough to say if this is the proper way to do it or why these are the specific ones that are required.  There also isn\u0027t much of a commonality between the libraries that are added here.\n\nFor all I know the other subprojects could already be pulling in some of the boost libraries.  Or some of subprojects/boost-1.83.0/libs are not getting correctly linked by default so meson doesn\u0027t know to look there for the other boost libraries.  It then ends up passing if 1.83.0 is previously installed because those are already in your path.\n\nFor the CI docker was that configured to have 1.83.0 installed already or is it completely missing so that the libraries will have to be pulled into subprojects/?  I have noticed that compilation works correctly when the libraries already exist and meson doesn\u0027t have to pull them into subprojects/.",
+      "parentUuid": "a35b9a4e_5a161641",
       "range": {
         "startLine": 323,
         "startChar": 2,
