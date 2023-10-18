@@ -117,6 +117,30 @@
       },
       "revId": "fee65f5dfc0edcd33bbcd2d470f70641c19fd824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c0796b_c868ae1c",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-18T06:51:32Z",
+      "side": 1,
+      "message": "Cool.  I was mostly just hoping \n\n\u003e For the CI docker was that configured to have 1.83.0\n\nIt was configured with 1.82, which shouldn\u0027t have passed the checks.  Maybe it was pulling 1.82 for everything else and 1.83 for url?  Idk.\n\nAll good, was just hoping",
+      "parentUuid": "3b0c9e7b_cd2d1d54",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 16
+      },
+      "revId": "fee65f5dfc0edcd33bbcd2d470f70641c19fd824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
