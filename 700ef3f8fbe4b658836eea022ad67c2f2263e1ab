@@ -34,6 +34,24 @@
       "parentUuid": "0fc3fd63_64c7537b",
       "revId": "700ef3f8fbe4b658836eea022ad67c2f2263e1ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb72cc13_e5f9f3e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-18T02:09:26Z",
+      "side": 1,
+      "message": "Hi Ed and Carson\n\ncan we have bmc dump offload implementation based on file_body instead of using this approach. anyways file_Body support commit almost ready for merge as well.\nif we can wait for a week on this commit, we will implement BMC dump offload support using file_body",
+      "parentUuid": "15b6b635_d3c138b3",
+      "revId": "700ef3f8fbe4b658836eea022ad67c2f2263e1ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
