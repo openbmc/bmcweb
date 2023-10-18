@@ -307,19 +307,34 @@ if not nlohmann_json.found()
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost', modules: ['url'], version : '>=1.83.0', required : false, include_type: 'system')
+boost = dependency('boost', modules: ['asio', 'beast', 'callable_traits', 'headers', 'process', 'type_index', 'url', 'uuid'], version : '>=1.83.0', required : false, include_type: 'system')
 if boost.found()
   bmcweb_dependencies += [boost]
 else
   cmake = import('cmake')
   opt = cmake.subproject_options()
   opt.add_cmake_defines({
-    'BOOST_INCLUDE_LIBRARIES': 'url'
+    'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid'
   })
   boost = cmake.subproject('boost', required: true, options: opt)
-  boost_url = boost.dependency('boost_url').as_system()
+  boost_asio = boost.dependency('boost_asio').as_system()
+  boost_beast = boost.dependency('boost_beast').as_system()
+  boost_callable_traits = boost.dependency('boost_callable_traits').as_system()
   boost_headers = boost.dependency('boost_headers').as_system()
-  bmcweb_dependencies += [boost_url, boost_headers]
+  boost_process = boost.dependency('boost_process').as_system()
+  boost_type_index = boost.dependency('boost_type_index').as_system()
+  boost_url = boost.dependency('boost_url').as_system()
+  boost_uuid = boost.dependency('boost_uuid').as_system()
+  bmcweb_dependencies += [
+    boost_asio,
+    boost_beast,
+    boost_callable_traits,
+    boost_headers,
+    boost_process,
+    boost_type_index,
+    boost_url,
+    boost_uuid
+  ]
 endif
 
 if get_option('tests').enabled()
