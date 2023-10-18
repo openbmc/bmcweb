@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa0e8d65_9defb94f",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-18T01:04:01Z",
+      "side": 1,
+      "message": "Overly nitpicky, I appologize, but can we make this a multi-line list, so we don\u0027t get bad merge conflicts every time someone adds something.  Somehting like what you did on line 329 would be good.  You can decide if you want an intermediate variable or not.",
+      "range": {
+        "startLine": 310,
+        "startChar": 37,
+        "endLine": 310,
+        "endChar": 124
+      },
+      "revId": "fee65f5dfc0edcd33bbcd2d470f70641c19fd824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7fe35279_7d5f1a9e",
         "filename": "meson.build",
         "patchSetId": 1
@@ -14,6 +37,30 @@
       "writtenOn": "2023-10-18T01:01:02Z",
       "side": 1,
       "message": "I\u0027m not really opposed to what you did, but this line was supposed to pull in all the header-only libraries (which I guess it didn\u0027t)?. When is pulling in an explicit library required?  Previously it was only when using a shared/static library, but you\u0027ve done this work (presumably not for no reason), so clearly that\u0027s not right.\n\nWhat I\u0027m a little confused about is that this isn\u0027t all the bmcweb boost dependencies, for example, we use boost::system;:error_code in places.\n\nAny idea what the rules are on when things should go in this list, and when they are covered by headers?",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 16
+      },
+      "revId": "fee65f5dfc0edcd33bbcd2d470f70641c19fd824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a35b9a4e_5a161641",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-18T01:04:01Z",
+      "side": 1,
+      "message": "I really only want to know so that I don\u0027t break this in the future.  I was testing in the CI docker before boost 1.83 was added, and what I had before seemed to work for me.  Can\u0027t really explain why it\u0027s broken for you and not in the CI docker.",
+      "parentUuid": "7fe35279_7d5f1a9e",
       "range": {
         "startLine": 323,
         "startChar": 2,
