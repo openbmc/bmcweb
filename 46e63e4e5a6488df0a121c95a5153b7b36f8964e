@@ -543,6 +543,30 @@
       },
       "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b4bac1_e8d5c485",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-18T01:17:07Z",
+      "side": 1,
+      "message": "1. I don\u0027t think we want to check the header.  This isn\u0027t an odata resource, so the odata header itself is irrelevant.\n\n2. What you linked is checking for if-match support, which today we can\u0027t support for non json payloads.\n\n3. I think the former (wrap the two functions in a third).\n\nWith that said, this problem we\u0027ve found needs fixed outside this patchset.  No reason to hold it up.",
+      "parentUuid": "39611fe2_e641ebec",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2983,
+        "endChar": 5
+      },
+      "revId": "46e63e4e5a6488df0a121c95a5153b7b36f8964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
