@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cde30a8_7b908c7e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-19T16:53:57Z",
+      "side": 1,
+      "message": "\u003e Do you think dispatch based on Adapter class(function overloading) suits better?\n\nWhat does this mean?  Can you provide some example code for what this dispatch would look like?\n\nAs a general rule, I tend to not prefer function overloading, because it makes code search harder.  Compared to just looking at this code, it\u0027s pretty clear what it does in all cases.  But I\u0027m open to something if you think there\u0027s a better pattern that\u0027s less code.",
+      "parentUuid": "161c0a67_2f73746b",
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6174628d_56b2c724",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 11
