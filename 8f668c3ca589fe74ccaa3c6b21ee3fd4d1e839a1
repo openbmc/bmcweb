@@ -1162,6 +1162,30 @@
       },
       "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "923eef44_57b99b0f",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-19T05:00:15Z",
+      "side": 1,
+      "message": "Here\u0027s an example of mine from within bmcweb.\n\nIt seems I should take this patch-set before I am able to use test-stream. It has some new changes in the main code for testability.",
+      "parentUuid": "54ccc614_624b7a0c",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
