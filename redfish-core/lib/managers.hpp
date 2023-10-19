@@ -1934,6 +1934,9 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces";
 
+        asyncResp->res.jsonValue["Certificates"]["@odata.id"] =
+            "/redfish/v1/Managers/bmc/Truststore/Certificates";
+
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
         asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/VirtualMedia";
@@ -1946,11 +1949,6 @@ inline void requestRoutesManager(App& app)
         oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
         oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
         oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
-
-        nlohmann::json::object_t certificates;
-        certificates["@odata.id"] =
-            "/redfish/v1/Managers/bmc/Truststore/Certificates";
-        oemOpenbmc["Certificates"] = std::move(certificates);
 
         // Manager.Reset (an action) can be many values, OpenBMC only
         // supports BMC reboot.
