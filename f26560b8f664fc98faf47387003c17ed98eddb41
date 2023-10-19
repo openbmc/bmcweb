@@ -16,6 +16,24 @@
       "message": "Hi Ed Tanous \ncan you please merge this commit",
       "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae3cc05_07e73414",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-19T16:56:33Z",
+      "side": 1,
+      "message": "It\u0027s been open for only a couple days.  I\u0027m giving it time in case someone else wants to review.\n\nIt\u0027s also somewhat similar to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66313 if someone could help review my patch as well, I\u0027d appreciate it.",
+      "parentUuid": "338cdd21_9b13a6ac",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
