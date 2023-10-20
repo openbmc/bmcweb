@@ -85,7 +85,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["Links"]["Storage@odata.count"] =
             storages.size();
         asyncResp->res.jsonValue["Links"]["Storage"] = std::move(storages);
-        });
+    });
 }
 
 /**
@@ -131,7 +131,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
             asyncResp->res.jsonValue["PowerState"] = "Off";
             asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
         }
-        });
+    });
 }
 
 inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
@@ -156,7 +156,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         asyncResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensorNumber"] =
             1;
         asyncResp->res.jsonValue["PhysicalSecurity"]["IntrusionSensor"] = value;
-        });
+    });
 }
 
 /**
@@ -189,7 +189,7 @@ inline void
                 return;
             }
         }
-        });
+    });
 }
 
 inline void handleChassisCollectionGet(
@@ -341,7 +341,7 @@ inline void
 
         asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
-        });
+    });
 }
 
 inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -360,7 +360,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         asyncResp->res.jsonValue["UUID"] = chassisUUID;
-        });
+    });
 }
 
 inline void
@@ -418,7 +418,7 @@ inline void
                         return; // no sensors = no failures
                     }
                     health->inventory = resp;
-                    });
+                });
 
                 health->populate();
             }
@@ -459,7 +459,7 @@ inline void
                 reference["@odata.id"] = boost::urls::format(
                     "/redfish/v1/Chassis/{}/Drives", chassisId);
                 asyncResp->res.jsonValue["Drives"] = std::move(reference);
-                });
+            });
 
             const std::string& connectionName = connectionNames[0].first;
 
@@ -491,7 +491,7 @@ inline void
                             return;
                         }
                         asyncResp->res.jsonValue["AssetTag"] = property;
-                        });
+                    });
                 }
                 else if (interface == replaceableInterface)
                 {
@@ -510,7 +510,7 @@ inline void
                             return;
                         }
                         asyncResp->res.jsonValue["HotPluggable"] = property;
-                        });
+                    });
                 }
             }
 
@@ -620,7 +620,7 @@ inline void
                     std::move(managedBy);
                 getChassisState(asyncResp);
                 getStorageLink(asyncResp, path);
-                });
+            });
 
             for (const auto& interface : interfaces2)
             {
@@ -640,7 +640,7 @@ inline void
 
         // Couldn't find an object with that name.  return an error
         messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-        });
+    });
 
     getPhysicalSecurityData(asyncResp);
 }
@@ -765,7 +765,7 @@ inline void
         }
 
         messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-        });
+    });
 }
 
 /**
@@ -864,8 +864,8 @@ inline void
             }
 
             messages::success(asyncResp->res);
-            });
         });
+    });
 }
 
 inline void handleChassisResetActionInfoPost(

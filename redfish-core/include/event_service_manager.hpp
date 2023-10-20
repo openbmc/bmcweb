@@ -86,8 +86,8 @@ static const Message*
 {
     std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
         registry, [&messageKey](const MessageEntry& messageEntry) {
-            return messageKey == messageEntry.first;
-        });
+        return messageKey == messageEntry.first;
+    });
     if (messageIt != registry.end())
     {
         return &messageIt->second;
@@ -989,7 +989,7 @@ class EventServiceManager
             [](const std::pair<std::string, std::shared_ptr<Subscription>>&
                    entry) {
             return (entry.second->subscriptionType == subscriptionTypeSSE);
-            });
+        });
         return static_cast<size_t>(size);
     }
 

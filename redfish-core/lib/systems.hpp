@@ -238,7 +238,7 @@ inline void
             return;
         }
         getProcessorProperties(asyncResp, properties);
-        });
+    });
 }
 
 /*
@@ -276,7 +276,7 @@ inline void
                     return;
                 }
                 updateDimmProperties(asyncResp, dimmState);
-                });
+            });
         }
         return;
     }
@@ -343,7 +343,7 @@ inline void
             return;
         }
         processMemoryProperties(asyncResp, service, path, properties);
-        });
+    });
 }
 
 /*
@@ -485,7 +485,7 @@ inline void
                                 BMCWEB_LOG_DEBUG("UUID = {}", valueStr);
                                 asyncResp->res.jsonValue["UUID"] = valueStr;
                             }
-                            });
+                        });
                     }
                     else if (interfaceName ==
                              "xyz.openbmc_project.Inventory.Item.System")
@@ -559,7 +559,7 @@ inline void
                             sw_util::populateSoftwareInformation(
                                 asyncResp, sw_util::biosPurpose, "BiosVersion",
                                 false);
-                            });
+                        });
 
                         sdbusplus::asio::getProperty<std::string>(
                             *crow::connections::systemBus, connection.first,
@@ -577,12 +577,12 @@ inline void
                             }
 
                             asyncResp->res.jsonValue["AssetTag"] = value;
-                            });
+                        });
                     }
                 }
             }
         }
-        });
+    });
 }
 
 /**
@@ -652,7 +652,7 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             asyncResp->res.jsonValue["PowerState"] = "Off";
             asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
         }
-        });
+    });
 }
 
 /**
@@ -901,7 +901,7 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
         asyncResp->res.jsonValue["BootProgress"]["LastState"] =
             dbusToRfBootProgress(bootProgressStr);
-        });
+    });
 }
 
 /**
@@ -935,7 +935,7 @@ inline void getBootProgressLastStateTime(
         // Convert to ISO 8601 standard
         asyncResp->res.jsonValue["BootProgress"]["LastStateTime"] =
             redfish::time_utils::getDateTimeUintUs(lastStateTime);
-        });
+    });
 }
 
 /**
@@ -976,7 +976,7 @@ inline void
         }
 
         asyncResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = rfType;
-        });
+    });
 }
 
 /**
@@ -1020,7 +1020,7 @@ inline void
                     rfMode;
             }
         }
-        });
+    });
 }
 
 /**
@@ -1063,7 +1063,7 @@ inline void
         // Get BootMode as BootSourceOverrideTarget is constructed
         // from both BootSource and BootMode
         getBootOverrideMode(asyncResp);
-        });
+    });
 }
 
 /**
@@ -1111,7 +1111,7 @@ inline void processBootOverrideEnable(
             asyncResp->res.jsonValue["Boot"]["BootSourceOverrideEnabled"] =
                 "Continuous";
         }
-        });
+    });
 }
 
 /**
@@ -1143,7 +1143,7 @@ inline void
         }
 
         processBootOverrideEnable(asyncResp, bootOverrideEnable);
-        });
+    });
 }
 
 /**
@@ -1199,7 +1199,7 @@ inline void
         // Convert to ISO 8601 standard
         asyncResp->res.jsonValue["LastResetTime"] =
             redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
-        });
+    });
 }
 
 /**
@@ -1261,7 +1261,7 @@ inline void getAutomaticRebootAttempts(
             asyncResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] =
                 *retryAttempts;
         }
-        });
+    });
 }
 
 /**
@@ -1311,7 +1311,7 @@ inline void
         asyncResp->res
             .jsonValue["Boot"]["AutomaticRetryConfig@Redfish.AllowableValues"] =
             {"Disabled", "RetryAttempts"};
-        });
+    });
 }
 
 /**
@@ -1333,14 +1333,14 @@ inline void setAutomaticRetryAttempts(
         "/xyz/openbmc_project/state/host0",
         "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
         retryAttempts, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error: Set setAutomaticRetryAttempts{}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error: Set setAutomaticRetryAttempts{}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    });
 }
 
 inline computer_system::PowerRestorePolicyTypes
@@ -1399,7 +1399,7 @@ inline void
         }
 
         asyncResp->res.jsonValue["PowerRestorePolicy"] = restore;
-        });
+    });
 }
 
 /**
@@ -1437,7 +1437,7 @@ inline void
         {
             asyncResp->res.jsonValue["Boot"]["StopBootOnFault"] = "Never";
         }
-        });
+    });
 }
 
 /**
@@ -1522,8 +1522,8 @@ inline void getTrustedModuleRequiredToBoot(
                     .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
                     "Disabled";
             }
-            });
         });
+    });
 }
 
 /**
@@ -1604,8 +1604,8 @@ inline void setTrustedModuleRequiredToBoot(
                 return;
             }
             BMCWEB_LOG_DEBUG("Set TrustedModuleRequiredToBoot done.");
-            });
         });
+    });
 }
 
 /**
@@ -1666,7 +1666,7 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         BMCWEB_LOG_DEBUG("Boot type update done.");
-        });
+    });
 }
 
 /**
@@ -1729,7 +1729,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         BMCWEB_LOG_DEBUG("Boot override enable update done.");
-        });
+    });
 
     if (!bootOverrideEnable)
     {
@@ -1753,7 +1753,7 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         BMCWEB_LOG_DEBUG("Boot one_time update done.");
-        });
+    });
 }
 
 /**
@@ -1806,7 +1806,7 @@ inline void
             return;
         }
         BMCWEB_LOG_DEBUG("Boot source update done.");
-        });
+    });
 
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
@@ -1820,7 +1820,7 @@ inline void
             return;
         }
         BMCWEB_LOG_DEBUG("Boot mode update done.");
-        });
+    });
 }
 
 /**
@@ -1906,15 +1906,15 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             *crow::connections::systemBus, service, path,
             "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
             assetTag, [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus response error on AssetTag Set {}",
-                                     ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            if (ec2)
+            {
+                BMCWEB_LOG_ERROR("D-Bus response error on AssetTag Set {}",
+                                 ec2);
+                messages::internalError(asyncResp->res);
+                return;
+            }
         });
+    });
 }
 
 /**
@@ -1971,16 +1971,16 @@ inline void
         "/xyz/openbmc_project/logging/settings",
         "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
         *stopBootEnabled, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
+        if (ec)
+        {
+            if (ec.value() != EBADR)
             {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
-                return;
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+                messages::internalError(asyncResp->res);
             }
-        });
+            return;
+        }
+    });
 }
 
 /**
@@ -2022,13 +2022,13 @@ inline void
         "/xyz/openbmc_project/control/host0/auto_reboot",
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
         autoRebootEnabled, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    });
 }
 
 inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
@@ -2076,13 +2076,13 @@ inline void
         "/xyz/openbmc_project/control/host0/power_restore_policy",
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
         powerRestorePolicy, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    });
 }
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -2150,7 +2150,7 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
         {
             oemPFR["ProvisioningStatus"] = "NotProvisioned";
         }
-        });
+    });
 }
 #endif
 
@@ -2269,8 +2269,8 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
             BMCWEB_LOG_DEBUG("Current power mode: {}", pmode);
             translatePowerMode(asyncResp, pmode);
-            });
         });
+    });
 }
 
 /**
@@ -2389,8 +2389,8 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
-            });
         });
+    });
 }
 
 /**
@@ -2514,7 +2514,7 @@ inline void
             }
             hostWatchdogTimer["TimeoutAction"] = action;
         }
-        });
+    });
 }
 
 /**
@@ -2552,13 +2552,13 @@ inline void
             "/xyz/openbmc_project/watchdog/host0",
             "xyz.openbmc_project.State.Watchdog", "ExpireAction",
             wdtTimeOutActStr, [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
     }
 
     if (wdtEnable)
@@ -2574,7 +2574,7 @@ inline void
                 messages::internalError(asyncResp->res);
                 return;
             }
-            });
+        });
     }
 }
 
@@ -2721,8 +2721,8 @@ inline void
                 messages::internalError(asyncResp->res);
                 return;
             }
-            });
         });
+    });
 
     BMCWEB_LOG_DEBUG("EXIT: Get idle power saver parameters");
 }
@@ -2809,13 +2809,13 @@ inline void
                 *crow::connections::systemBus, service, path,
                 "xyz.openbmc_project.Control.Power.IdlePowerSaver", "Enabled",
                 *ipsEnable, [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
+                if (ec2)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            });
         }
         if (ipsEnterUtil)
         {
@@ -2830,7 +2830,7 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                });
+            });
         }
         if (ipsEnterTime)
         {
@@ -2847,7 +2847,7 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                });
+            });
         }
         if (ipsExitUtil)
         {
@@ -2862,7 +2862,7 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                });
+            });
         }
         if (ipsExitTime)
         {
@@ -2879,9 +2879,9 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                });
+            });
         }
-        });
+    });
 
     BMCWEB_LOG_DEBUG("EXIT: Set idle power saver parameters");
 }
@@ -2956,7 +2956,7 @@ inline void handleComputerSystemCollectionGet(
         nlohmann::json::object_t hypervisor;
         hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
         ifaceArray2.emplace_back(std::move(hypervisor));
-        });
+    });
 }
 
 /**
@@ -2979,7 +2979,7 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             return;
         }
         messages::success(asyncResp->res);
-        },
+    },
         serviceName, objectPath, interfaceName, method);
 }
 
@@ -3113,7 +3113,7 @@ inline void handleComputerSystemResetActionPost(
                 return;
             }
             messages::success(asyncResp->res);
-            });
+        });
     }
     else
     {
@@ -3131,7 +3131,7 @@ inline void handleComputerSystemResetActionPost(
                 return;
             }
             messages::success(asyncResp->res);
-            });
+        });
     }
 }
 
@@ -3307,7 +3307,7 @@ inline void
             }
 
             health->inventory = resp;
-            });
+        });
         health->populate();
     }
 

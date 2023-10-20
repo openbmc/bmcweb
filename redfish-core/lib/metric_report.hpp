@@ -82,7 +82,7 @@ inline void requestRoutesMetricReportCollection(App& app)
             boost::urls::url("/redfish/v1/TelemetryService/MetricReports"),
             interfaces,
             "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
-        });
+    });
 }
 
 inline void requestRoutesMetricReport(App& app)
@@ -126,10 +126,10 @@ inline void requestRoutesMetricReport(App& app)
                 }
 
                 telemetry::fillReport(asyncResp->res.jsonValue, id, ret);
-                });
-            },
+            });
+        },
             telemetry::service, reportPath, telemetry::reportInterface,
             "Update");
-        });
+    });
 }
 } // namespace redfish

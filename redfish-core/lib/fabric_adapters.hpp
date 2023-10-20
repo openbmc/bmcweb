@@ -58,7 +58,7 @@ inline void getFabricAdapterLocation(
 
         asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
-        });
+    });
 }
 
 inline void
@@ -117,7 +117,7 @@ inline void
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
         }
-        });
+    });
 }
 
 inline void
@@ -143,7 +143,7 @@ inline void
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        });
+    });
 }
 
 inline void
@@ -170,7 +170,7 @@ inline void
         {
             asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
         }
-        });
+    });
 }
 
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -242,7 +242,7 @@ inline void getValidFabricAdapterPath(
         }
         BMCWEB_LOG_WARNING("Adapter not found");
         messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
-        });
+    });
 }
 
 inline void
@@ -269,7 +269,7 @@ inline void
                                            const std::string& serviceName) {
         doAdapterGet(asyncResp, systemName, adapterId, fabricAdapterPath,
                      serviceName);
-        });
+    });
 }
 
 inline void handleFabricAdapterCollectionGet(

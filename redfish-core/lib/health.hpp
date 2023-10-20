@@ -206,7 +206,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 return;
             }
             self->globalInventoryPath = resp[0];
-            });
+        });
     }
 
     void getAllStatusAssociations()
@@ -232,7 +232,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 }
                 it = self->statuses.erase(it);
             }
-            });
+        });
     }
 
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;

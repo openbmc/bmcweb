@@ -263,14 +263,14 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
         dbusObjectPath, "xyz.openbmc_project.User.Attributes", "UserGroups",
         updatedUserGroups, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+    });
 }
 
 inline void userErrorMessageHandler(
@@ -383,7 +383,7 @@ inline void handleRoleMapPatch(
                     }
                     asyncResp->res.jsonValue[serverType]["RemoteRoleMapping"]
                                             [index] = nullptr;
-                    },
+                },
                     ldapDbusService, roleMapObjData[index].first,
                     "xyz.openbmc_project.Object.Delete", "Delete");
             }
@@ -453,7 +453,7 @@ inline void handleRoleMapPatch(
                         asyncResp->res
                             .jsonValue[serverType]["RemoteRoleMapping"][index]
                                       ["RemoteGroup"] = *remoteGroup;
-                        });
+                    });
                 }
 
                 // If "LocalRole" info is provided
@@ -487,7 +487,7 @@ inline void handleRoleMapPatch(
                         asyncResp->res
                             .jsonValue[serverType]["RemoteRoleMapping"][index]
                                       ["LocalRole"] = *localRole;
-                        });
+                    });
                 }
             }
             // Create a new RoleMapping Object.
@@ -540,7 +540,7 @@ inline void handleRoleMapPatch(
                     roleMapEntry["LocalRole"] = *localRole;
                     roleMapEntry["RemoteGroup"] = *remoteGroup;
                     remoteRoleJson.emplace_back(std::move(roleMapEntry));
-                    },
+                },
                     ldapDbusService, dbusObjectPath, ldapPrivMapperInterface,
                     "Create", *remoteGroup,
                     getPrivilegeFromRoleId(std::move(*localRole)));
@@ -712,8 +712,8 @@ inline void getLDAPConfigData(const std::string& ldapType,
                 }
             }
             callback(true, confData, ldapType);
-            });
         });
+    });
 }
 
 /**
@@ -829,7 +829,7 @@ inline void handleServiceAddressPatch(
                                             serviceAddressList.front());
         }
         BMCWEB_LOG_DEBUG("Updated the service address");
-        });
+    });
 }
 /**
  * @brief updates the LDAP Bind DN and updates the
@@ -977,7 +977,7 @@ inline void
             serverTypeJson["LDAPService"]["SearchSettings"];
         searchSettingsJson["UsernameAttribute"] = userNameAttribute;
         BMCWEB_LOG_DEBUG("Updated the user name attr.");
-        });
+    });
 }
 /**
  * @brief updates the LDAP group attribute and updates the
@@ -1011,7 +1011,7 @@ inline void handleGroupNameAttrPatch(
             serverTypeJson["LDAPService"]["SearchSettings"];
         searchSettingsJson["GroupsAttribute"] = groupsAttribute;
         BMCWEB_LOG_DEBUG("Updated the groupname attr");
-        });
+    });
 }
 /**
  * @brief updates the LDAP service enable and updates the
@@ -1041,7 +1041,7 @@ inline void handleServiceEnablePatch(
         asyncResp->res.jsonValue[ldapServerElementName]["ServiceEnabled"] =
             serviceEnabled;
         BMCWEB_LOG_DEBUG("Updated Service enable = {}", serviceEnabled);
-        });
+    });
 }
 
 inline void
@@ -1296,7 +1296,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
             handleRoleMapPatch(asyncResp, confData.groupRoleList, serverT,
                                *remoteRoleMapData);
         }
-        });
+    });
 }
 
 inline void updateUserProperties(
@@ -1314,100 +1314,47 @@ inline void updateUserProperties(
         dbusObjectPath, [dbusObjectPath, username, password, roleId, enabled,
                          locked, accountTypes(std::move(accountTypes)),
                          userSelf, asyncResp{std::move(asyncResp)}](int rc) {
-            if (rc <= 0)
+        if (rc <= 0)
+        {
+            messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                       username);
+            return;
+        }
+
+        if (password)
+        {
+            int retval = pamUpdatePassword(username, *password);
+
+            if (retval == PAM_USER_UNKNOWN)
             {
                 messages::resourceNotFound(asyncResp->res, "ManagerAccount",
                                            username);
+            }
+            else if (retval == PAM_AUTHTOK_ERR)
+            {
+                // If password is invalid
+                messages::propertyValueFormatError(asyncResp->res, nullptr,
+                                                   "Password");
+                BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
+            }
+            else if (retval != PAM_SUCCESS)
+            {
+                messages::internalError(asyncResp->res);
                 return;
             }
-
-            if (password)
+            else
             {
-                int retval = pamUpdatePassword(username, *password);
-
-                if (retval == PAM_USER_UNKNOWN)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                               username);
-                }
-                else if (retval == PAM_AUTHTOK_ERR)
-                {
-                    // If password is invalid
-                    messages::propertyValueFormatError(asyncResp->res, nullptr,
-                                                       "Password");
-                    BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
-                }
-                else if (retval != PAM_SUCCESS)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                else
-                {
-                    messages::success(asyncResp->res);
-                }
+                messages::success(asyncResp->res);
             }
+        }
 
-            if (enabled)
-            {
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus,
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                    "xyz.openbmc_project.User.Attributes", "UserEnabled",
-                    *enabled, [asyncResp](const boost::system::error_code& ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        messages::success(asyncResp->res);
-                    });
-            }
-
-            if (roleId)
-            {
-                std::string priv = getPrivilegeFromRoleId(*roleId);
-                if (priv.empty())
-                {
-                    messages::propertyValueNotInList(asyncResp->res, true,
-                                                     "Locked");
-                    return;
-                }
-
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus,
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                    "xyz.openbmc_project.User.Attributes", "UserPrivilege",
-                    priv, [asyncResp](const boost::system::error_code& ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        messages::success(asyncResp->res);
-                    });
-            }
-
-            if (locked)
-            {
-                // admin can unlock the account which is locked by
-                // successive authentication failures but admin should
-                // not be allowed to lock an account.
-                if (*locked)
-                {
-                    messages::propertyValueNotInList(asyncResp->res, "true",
-                                                     "Locked");
-                    return;
-                }
-
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus,
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                    "xyz.openbmc_project.User.Attributes",
-                    "UserLockedForFailedAttempt", *locked,
-                    [asyncResp](const boost::system::error_code& ec) {
+        if (enabled)
+        {
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                "xyz.openbmc_project.User.Attributes", "UserEnabled", *enabled,
+                [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
@@ -1415,15 +1362,68 @@ inline void updateUserProperties(
                     return;
                 }
                 messages::success(asyncResp->res);
-                    });
+            });
+        }
+
+        if (roleId)
+        {
+            std::string priv = getPrivilegeFromRoleId(*roleId);
+            if (priv.empty())
+            {
+                messages::propertyValueNotInList(asyncResp->res, true,
+                                                 "Locked");
+                return;
             }
 
-            if (accountTypes)
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                "xyz.openbmc_project.User.Attributes", "UserPrivilege", priv,
+                [asyncResp](const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            });
+        }
+
+        if (locked)
+        {
+            // admin can unlock the account which is locked by
+            // successive authentication failures but admin should
+            // not be allowed to lock an account.
+            if (*locked)
             {
-                patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
-                                  userSelf);
+                messages::propertyValueNotInList(asyncResp->res, "true",
+                                                 "Locked");
+                return;
             }
-        });
+
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                "xyz.openbmc_project.User.Attributes",
+                "UserLockedForFailedAttempt", *locked,
+                [asyncResp](const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            });
+        }
+
+        if (accountTypes)
+        {
+            patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
+                              userSelf);
+        }
+    });
 }
 
 inline void handleAccountServiceHead(
@@ -1542,7 +1542,7 @@ inline void
             asyncResp->res.jsonValue["AccountLockoutThreshold"] =
                 *maxLoginAttemptBeforeLockout;
         }
-        });
+    });
 
     auto callback = [asyncResp](bool success, const LDAPConfigData& confData,
                                 const std::string& ldapType) {
@@ -1597,7 +1597,7 @@ inline void handleAccountServicePatch(
                 return;
             }
             messages::success(asyncResp->res);
-            });
+        });
     }
 
     if (maxPasswordLength)
@@ -1638,13 +1638,13 @@ inline void handleAccountServicePatch(
             "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.AccountPolicy", "AccountUnlockTimeout",
             *unlockTimeout, [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                messages::success(asyncResp->res);
-            });
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        });
     }
     if (lockoutThreshold)
     {
@@ -1660,7 +1660,7 @@ inline void handleAccountServicePatch(
                 return;
             }
             messages::success(asyncResp->res);
-            });
+        });
     }
 }
 
@@ -1757,7 +1757,7 @@ inline void handleAccountCollectionGet(
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();
-        });
+    });
 }
 
 inline void processAfterCreateUser(
@@ -1792,7 +1792,7 @@ inline void processAfterCreateUser(
             // If password is invalid
             messages::propertyValueFormatError(asyncResp->res, nullptr,
                                                "Password");
-            },
+        },
             "xyz.openbmc_project.User.Manager", userPath,
             "xyz.openbmc_project.Object.Delete", "Delete");
 
@@ -1877,7 +1877,7 @@ inline void processAfterGetAllGroups(
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
         processAfterCreateUser(asyncResp, username, password, ec2, m);
-        },
+    },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "CreateUser", username, userGroups,
         roleId, enabled);
@@ -1938,7 +1938,7 @@ inline void handleAccountCollectionPost(
 
         processAfterGetAllGroups(asyncResp, username, password, roleId, enabled,
                                  accountTypes, allGroupsList);
-        });
+    });
 }
 
 inline void
@@ -2015,7 +2015,7 @@ inline void
                 const std::pair<sdbusplus::message::object_path,
                                 dbus::utility::DBusInterfacesMap>& user) {
             return accountName == user.first.filename();
-            });
+        });
 
         if (userIt == users.end())
         {
@@ -2132,7 +2132,7 @@ inline void
             "/redfish/v1/AccountService/Accounts/{}", accountName);
         asyncResp->res.jsonValue["Id"] = accountName;
         asyncResp->res.jsonValue["UserName"] = accountName;
-        });
+    });
 }
 
 inline void
@@ -2165,7 +2165,7 @@ inline void
         }
 
         messages::accountRemoved(asyncResp->res);
-        },
+    },
         "xyz.openbmc_project.User.Manager", userPath,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
@@ -2258,7 +2258,7 @@ inline void
 
         updateUserProperties(asyncResp, newUser, password, enabled, roleId,
                              locked, accountTypes, userSelf);
-        },
+    },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
         *newUserName);

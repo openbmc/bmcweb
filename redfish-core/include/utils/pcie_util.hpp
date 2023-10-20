@@ -71,7 +71,7 @@ inline void
             pcieDeviceList.emplace_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
-        });
+    });
 }
 
 inline std::optional<pcie_slots::SlotTypes>

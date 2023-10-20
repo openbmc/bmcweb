@@ -181,7 +181,7 @@ void validatePrivilege(Request& req,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
         afterGetUserInfo(req, asyncResp, rule,
                          std::forward<CallbackFn>(callback), ec, userInfoMap);
-        },
+    },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
 }

@@ -75,7 +75,7 @@ inline void
         }
 
         messages::success(asyncResp->res);
-        });
+    });
 }
 
 inline void
@@ -102,7 +102,7 @@ inline void
         }
 
         messages::success(asyncResp->res);
-        });
+    });
 }
 
 /**
@@ -153,7 +153,7 @@ inline void requestRoutesManagerResetAction(App& app)
                                               "ResetType");
 
         return;
-        });
+    });
 }
 
 /**
@@ -219,11 +219,11 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             // Factory Reset doesn't actually happen until a reboot
             // Can't erase what the BMC is running on
             doBMCGracefulRestart(asyncResp);
-            },
+        },
             "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "xyz.openbmc_project.Common.FactoryReset", "Reset");
-        });
+    });
 }
 
 /**
@@ -266,7 +266,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         parameters.emplace_back(std::move(parameter));
 
         asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-        });
+    });
 }
 
 static constexpr const char* objectManagerIface =
@@ -686,7 +686,7 @@ inline void
                 }
             }
         }
-        });
+    });
 }
 
 enum class CreatePIDRet
@@ -806,7 +806,7 @@ inline CreatePIDRet createPidInterface(
                 return;
             }
             messages::success(response->res);
-            },
+        },
             "xyz.openbmc_project.EntityManager", path, iface, "Delete");
         return CreatePIDRet::del;
     }
@@ -1171,7 +1171,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 return;
             }
             self->complete.subtree = subtreeLocal;
-            });
+        });
 
         // at the same time get the selected profile
         constexpr std::array<std::string_view, 1> thermalModeIfaces = {
@@ -1231,8 +1231,8 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 }
                 self->complete.currentProfile = *current;
                 self->complete.supportedProfiles = *supported;
-                });
             });
+        });
     }
 
     static void
@@ -1381,7 +1381,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 }
             }
             self->managedObj = mObj;
-            });
+        });
 
         // at the same time get the profile information
         constexpr std::array<std::string_view, 1> thermalModeIfaces = {
@@ -1439,8 +1439,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 self->supportedProfiles = *supported;
                 self->profileConnection = owner;
                 self->profilePath = path;
-                });
             });
+        });
     }
     void pidSetDone()
     {
@@ -1468,7 +1468,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     BMCWEB_LOG_ERROR("Error patching profile{}", ec);
                     messages::internalError(response->res);
                 }
-                });
+            });
         }
 
         for (auto& containerPair : configuration)
@@ -1492,9 +1492,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 auto pathItr = std::ranges::find_if(
                     managedObj, [&dbusObjName](const auto& obj) {
-                        return boost::algorithm::ends_with(obj.first.str,
-                                                           "/" + dbusObjName);
-                    });
+                    return boost::algorithm::ends_with(obj.first.str,
+                                                       "/" + dbusObjName);
+                });
                 dbus::utility::DBusPropertiesMap output;
 
                 output.reserve(16); // The pid interface length
@@ -1606,7 +1606,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 return;
                             }
                             messages::success(response->res);
-                            });
+                        });
                     }
                 }
                 else
@@ -1647,7 +1647,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             return;
                         }
                         messages::success(response->res);
-                        },
+                    },
                         "xyz.openbmc_project.EntityManager", chassis,
                         "xyz.openbmc_project.AddObject", "AddObject", output);
                 }
@@ -1708,7 +1708,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
-        });
+    });
 }
 // avoid name collision systems.hpp
 inline void
@@ -1735,7 +1735,7 @@ inline void
         // Convert to ISO 8601 standard
         asyncResp->res.jsonValue["LastResetTime"] =
             redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
-        });
+    });
 }
 
 /**
@@ -1843,8 +1843,8 @@ inline void
                 return;
             }
             doBMCGracefulRestart(asyncResp);
-            });
         });
+    });
 }
 
 inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
@@ -1875,7 +1875,7 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
         asyncResp->res.jsonValue["DateTime"] = datetime;
-        });
+    });
 }
 
 inline void
@@ -1898,7 +1898,7 @@ inline void
         }
         asyncResp->res.jsonValue["Status"]["Health"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        });
+    });
 }
 
 inline void requestRoutesManager(App& app)
@@ -2064,7 +2064,7 @@ inline void requestRoutesManager(App& app)
                 return;
             }
             checkForQuiesced(asyncResp);
-            });
+        });
 
         constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Bmc"};
@@ -2165,7 +2165,7 @@ inline void requestRoutesManager(App& app)
                             asyncResp->res.jsonValue["SparePartNumber"] =
                                 *sparePartNumber;
                         }
-                        });
+                    });
                 }
                 else if (interfaceName ==
                          "xyz.openbmc_project.Inventory.Decorator.LocationCode")
@@ -2173,8 +2173,8 @@ inline void requestRoutesManager(App& app)
                     getLocation(asyncResp, connectionName, path);
                 }
             }
-            });
         });
+    });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
         .privileges(redfish::privileges::patchManager)
@@ -2251,7 +2251,7 @@ inline void requestRoutesManager(App& app)
         {
             setDateTime(asyncResp, std::move(*datetime));
         }
-        });
+    });
 }
 
 inline void requestRoutesManagerCollection(App& app)
@@ -2276,6 +2276,6 @@ inline void requestRoutesManagerCollection(App& app)
         nlohmann::json& bmc = members.emplace_back();
         bmc["@odata.id"] = "/redfish/v1/Managers/bmc";
         asyncResp->res.jsonValue["Members"] = std::move(members);
-        });
+    });
 }
 } // namespace redfish

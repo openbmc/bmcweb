@@ -410,7 +410,7 @@ void getObjectsWithConnection(
         BMCWEB_LOG_DEBUG("Found {} connections", connections.size());
         callback(std::move(connections), std::move(objectsWithConnection));
         BMCWEB_LOG_DEBUG("getObjectsWithConnection resp_handler exit");
-        });
+    });
     BMCWEB_LOG_DEBUG("getObjectsWithConnection exit");
 }
 
@@ -587,8 +587,8 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                              &nodeSensorList, culledSensorList);
             BMCWEB_LOG_DEBUG("Finishing with {}", culledSensorList->size());
             callback(culledSensorList);
-            });
         });
+    });
     BMCWEB_LOG_DEBUG("getChassis exit");
 }
 
@@ -1019,9 +1019,9 @@ inline void populateFanRedundancy(
                 }
                 auto found = std::ranges::find_if(
                     endpoints, [sensorsAsyncResp](const std::string& entry) {
-                        return entry.find(sensorsAsyncResp->chassisId) !=
-                               std::string::npos;
-                    });
+                    return entry.find(sensorsAsyncResp->chassisId) !=
+                           std::string::npos;
+                });
 
                 if (found == endpoints.end())
                 {
@@ -1106,8 +1106,8 @@ inline void populateFanRedundancy(
                                      itemName.end(), '_', ' ');*/
                         auto schemaItem = std::ranges::find_if(
                             fanRedfish, [itemName](const nlohmann::json& fan) {
-                                return fan["Name"] == itemName;
-                            });
+                            return fan["Name"] == itemName;
+                        });
                         if (schemaItem != fanRedfish.end())
                         {
                             nlohmann::json::object_t collectionId;
@@ -1149,10 +1149,10 @@ inline void populateFanRedundancy(
                     redundancy["Status"]["State"] = "Enabled";
 
                     jResp.emplace_back(std::move(redundancy));
-                    });
                 });
+            });
         }
-        });
+    });
 }
 
 inline void
@@ -1486,7 +1486,7 @@ static void getInventoryItemsData(
                                   invConnectionsIndex + 1);
 
             BMCWEB_LOG_DEBUG("getInventoryItemsData respHandler exit");
-            });
+        });
     }
 
     BMCWEB_LOG_DEBUG("getInventoryItemsData exit");
@@ -1568,7 +1568,7 @@ static void getInventoryItemsConnections(
 
         callback(invConnections);
         BMCWEB_LOG_DEBUG("getInventoryItemsConnections respHandler exit");
-        });
+    });
     BMCWEB_LOG_DEBUG("getInventoryItemsConnections exit");
 }
 
@@ -1712,7 +1712,7 @@ static void getInventoryItemAssociations(
         }
         callback(inventoryItems);
         BMCWEB_LOG_DEBUG("getInventoryItemAssociations respHandler exit");
-        });
+    });
 
     BMCWEB_LOG_DEBUG("getInventoryItemAssociations exit");
 }
@@ -1902,7 +1902,7 @@ void getInventoryLeds(
         getInventoryLedData(sensorsAsyncResp, inventoryItems, ledConnections,
                             std::move(callback));
         BMCWEB_LOG_DEBUG("getInventoryLeds respHandler exit");
-        });
+    });
     BMCWEB_LOG_DEBUG("getInventoryLeds exit");
 }
 
@@ -1953,10 +1953,10 @@ void getPowerSupplyAttributesData(
     const std::string& psAttributesConnection = (*it).second;
 
     // Response handler for Get DeratingFactor property
-    auto respHandler =
-        [sensorsAsyncResp, inventoryItems,
-         callback{std::forward<Callback>(callback)}](
-            const boost::system::error_code& ec, const uint32_t value) {
+    auto respHandler = [sensorsAsyncResp, inventoryItems,
+                        callback{std::forward<Callback>(callback)}](
+                           const boost::system::error_code& ec,
+                           const uint32_t value) {
         BMCWEB_LOG_DEBUG("getPowerSupplyAttributesData respHandler enter");
         if (ec)
         {
@@ -2086,7 +2086,7 @@ void getPowerSupplyAttributes(
                                      psAttributesConnections,
                                      std::move(callback));
         BMCWEB_LOG_DEBUG("getPowerSupplyAttributes respHandler exit");
-        });
+    });
     BMCWEB_LOG_DEBUG("getPowerSupplyAttributes exit");
 }
 
@@ -2473,7 +2473,7 @@ inline void getSensorData(
                 }
             }
             BMCWEB_LOG_DEBUG("getManagedObjectsCb exit");
-            });
+        });
     }
     BMCWEB_LOG_DEBUG("getSensorData exit");
 }
@@ -2717,7 +2717,7 @@ inline void setSensorsOverride(
                         messages::internalError(
                             sensorAsyncResp->asyncResp->res);
                     }
-                    });
+                });
             }
         };
         // Get object with connection for the given sensor name
@@ -2878,7 +2878,7 @@ inline void
         std::string type = path.filename();
         objectPropertiesToJson(name, type, sensors::node::sensors, valuesDict,
                                asyncResp->res.jsonValue, nullptr);
-        });
+    });
 }
 
 inline void handleSensorGet(App& app, const crow::Request& req,
@@ -2930,7 +2930,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         }
         getSensorFromDbus(asyncResp, sensorPath, subtree);
         BMCWEB_LOG_DEBUG("respHandler1 exit");
-        });
+    });
 }
 
 } // namespace sensors

@@ -151,7 +151,7 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetObject& objectNames) {
         callback(!ec && !objectNames.empty());
-        },
+    },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
@@ -185,7 +185,7 @@ inline void getSubTreePaths(
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
         callback(ec, subtreePaths);
-        },
+    },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", path, depth,
@@ -221,7 +221,7 @@ inline void getAssociatedSubTreePaths(
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
         callback(ec, subtreePaths);
-        },
+    },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetAssociatedSubTreePaths",
@@ -238,7 +238,7 @@ inline void
         [callback{std::move(callback)}](const boost::system::error_code& ec,
                                         const MapperGetObject& object) {
         callback(ec, object);
-        },
+    },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path, interfaces);
@@ -264,7 +264,7 @@ inline void
         [callback{std::move(callback)}](const boost::system::error_code& ec,
                                         const ManagedObjectType& objects) {
         callback(ec, objects);
-        },
+    },
         service, path, "org.freedesktop.DBus.ObjectManager",
         "GetManagedObjects");
 }

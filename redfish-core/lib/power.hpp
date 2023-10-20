@@ -110,8 +110,8 @@ inline void setPowerCapOverride(
                 }
                 sensorsAsyncResp->asyncResp->res.result(
                     boost::beast::http::status::no_content);
-                });
             });
+        });
     };
     redfish::chassis_utils::getValidChassisPath(sensorsAsyncResp->asyncResp,
                                                 sensorsAsyncResp->chassisId,
@@ -300,7 +300,7 @@ inline void requestRoutesPower(App& app)
 
         dbus::utility::getSubTreePaths("/xyz/openbmc_project/inventory", 0,
                                        interfaces, std::move(chassisHandler));
-        });
+    });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
         .privileges(redfish::privileges::patchPower)
@@ -337,7 +337,7 @@ inline void requestRoutesPower(App& app)
             allCollections.emplace("Voltages", *std::move(voltageCollections));
             setSensorsOverride(sensorAsyncResp, allCollections);
         }
-        });
+    });
 }
 
 } // namespace redfish
