@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61a3deaf_00740eda",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-20T05:18:44Z",
+      "side": 1,
+      "message": "General Comment is that, we need not include tcp stream, ssl stream and test stream headers in http_connection. It is to follow \"open for extension and closed for modification\" rule. Right now we are modifying http_connection code for all possible adapters.",
+      "parentUuid": "cc83c1bb_6013400f",
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6174628d_56b2c724",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 11
