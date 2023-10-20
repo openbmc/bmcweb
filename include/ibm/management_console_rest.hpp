@@ -695,7 +695,7 @@ inline void requestRoutes(App& app)
             "/ibm/v1/HMC/LockService";
         asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
             "/ibm/v1/HMC/BroadcastService";
-        });
+    });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -703,7 +703,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         handleConfigFileList(asyncResp);
-        });
+    });
 
     BMCWEB_ROUTE(app,
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
@@ -712,7 +712,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         deleteConfigFiles(asyncResp);
-        });
+    });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -729,7 +729,7 @@ inline void requestRoutes(App& app)
             return;
         }
         handleFileUrl(req, asyncResp, fileName);
-        });
+    });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -737,7 +737,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         getLockServiceData(asyncResp);
-        });
+    });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -753,7 +753,7 @@ inline void requestRoutes(App& app)
             return;
         }
         handleAcquireLockAPI(req, asyncResp, body);
-        });
+    });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
@@ -783,7 +783,7 @@ inline void requestRoutes(App& app)
             redfish::messages::propertyValueNotInList(asyncResp->res, type,
                                                       "Type");
         }
-        });
+    });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
@@ -798,7 +798,7 @@ inline void requestRoutes(App& app)
             return;
         }
         handleGetLockListAPI(asyncResp, listSessionIds);
-        });
+    });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -806,7 +806,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         handleBroadcastService(req, asyncResp);
-        });
+    });
 }
 
 } // namespace ibm_mc

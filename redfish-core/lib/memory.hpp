@@ -627,7 +627,7 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
         assembleDimmProperties(dimmId, asyncResp, properties, ""_json_pointer);
-        });
+    });
 }
 
 inline void assembleDimmPartitionData(
@@ -702,7 +702,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         }
         nlohmann::json::json_pointer regionPtr = "/Regions"_json_pointer;
         assembleDimmPartitionData(asyncResp, properties, regionPtr);
-        }
+    }
 
     );
 }
@@ -768,7 +768,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/system/Memory/{}", dimmId);
         return;
-        });
+    });
 }
 
 inline void requestRoutesMemoryCollection(App& app)
@@ -811,7 +811,7 @@ inline void requestRoutesMemoryCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, boost::urls::url("/redfish/v1/Systems/system/Memory"),
             interfaces, "/xyz/openbmc_project/inventory");
-        });
+    });
 }
 
 inline void requestRoutesMemory(App& app)
@@ -846,7 +846,7 @@ inline void requestRoutesMemory(App& app)
         }
 
         getDimmData(asyncResp, dimmId);
-        });
+    });
 }
 
 } // namespace redfish

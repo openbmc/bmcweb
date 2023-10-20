@@ -78,8 +78,8 @@ inline ContentType
         }
         const auto* knownContentType = std::ranges::find_if(
             contentTypes, [encoding](const ContentTypePair& pair) {
-                return pair.contentTypeString == encoding;
-            });
+            return pair.contentTypeString == encoding;
+        });
 
         if (knownContentType == contentTypes.end())
         {

@@ -116,7 +116,7 @@ class Resolver
             }
             // All the resolved data is filled in the endpointList
             handler(ec, endpointList);
-            },
+        },
             "org.freedesktop.resolve1", "/org/freedesktop/resolve1",
             "org.freedesktop.resolve1.Manager", "ResolveHostname", 0, host,
             AF_UNSPEC, flag);

@@ -748,7 +748,7 @@ class AddReport
             }
 
             messages::created(asyncResp->res);
-            },
+        },
             telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
             "xyz.openbmc_project.Telemetry.ReportManager", "AddReport",
             "TelemetryService/" + args.id, args.name, args.reportingType,
@@ -855,7 +855,7 @@ class UpdateMetrics
             {
                 return;
             }
-            },
+        },
             "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Telemetry.Report", "ReadingParameters",
@@ -900,7 +900,7 @@ inline void
         {
             return;
         }
-        },
+    },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Telemetry.Report", "Enabled",
@@ -917,7 +917,7 @@ inline void setReportTypeAndInterval(
         {
             return;
         }
-        },
+    },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "xyz.openbmc_project.Telemetry.Report", "SetReportingProperties",
         reportingType, recurrenceInterval);
@@ -933,7 +933,7 @@ inline void
         {
             return;
         }
-        },
+    },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Telemetry.Report", "ReportUpdates",
@@ -951,7 +951,7 @@ inline void
         {
             return;
         }
-        },
+    },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Telemetry.Report", "ReportActions",
@@ -1051,9 +1051,9 @@ inline void
                     return;
                 }
                 updateMetricsReq->insert(uriToDbus);
-                });
+            });
         }
-        });
+    });
 }
 
 inline void handleMetricReportDefinitionCollectionHead(
@@ -1218,7 +1218,7 @@ inline void
             return;
         }
         asyncResp->res.result(boost::beast::http::status::no_content);
-        },
+    },
         service, reportPath, "xyz.openbmc_project.Object.Delete", "Delete");
 }
 } // namespace telemetry
@@ -1263,7 +1263,7 @@ inline void handleMetricReportDefinitionsPost(
                 return;
             }
             addReportReq->insert(uriToDbus);
-            });
+        });
     }
 }
 
@@ -1305,7 +1305,7 @@ inline void
         }
 
         telemetry::fillReportDefinition(asyncResp, id, properties);
-        });
+    });
 }
 
 inline void handleMetricReportDelete(
@@ -1341,7 +1341,7 @@ inline void handleMetricReportDelete(
         }
 
         asyncResp->res.result(boost::beast::http::status::no_content);
-        },
+    },
         telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
         "Delete");
 }

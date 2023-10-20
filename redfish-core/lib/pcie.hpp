@@ -67,7 +67,7 @@ static inline void handlePCIeDevicePath(
                 return;
             }
             callback(pcieDevicePath, object.begin()->first);
-            });
+        });
         return;
     }
 
@@ -96,7 +96,7 @@ static inline void getValidPCIeDevicePath(
         handlePCIeDevicePath(pcieDeviceId, asyncResp, pcieDevicePaths,
                              callback);
         return;
-        });
+    });
 }
 
 static inline void handlePCIeDeviceCollectionGet(
@@ -254,7 +254,7 @@ inline void getPCIeDeviceSlotPath(
             return;
         }
         callback(endpoints[0]);
-        });
+    });
 }
 
 inline void
@@ -277,7 +277,7 @@ inline void
             const boost::system::error_code& ec2,
             const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
         addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
-        });
+    });
 }
 
 inline void afterGetPCIeDeviceSlotPath(
@@ -290,7 +290,7 @@ inline void afterGetPCIeDeviceSlotPath(
          pcieDeviceSlot](const boost::system::error_code& ec,
                          const dbus::utility::MapperGetObject& object) {
         afterGetDbusObject(asyncResp, pcieDeviceSlot, ec, object);
-        });
+    });
 }
 
 inline void
@@ -317,7 +317,7 @@ inline void
         {
             asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
         }
-        });
+    });
 }
 
 inline void
@@ -343,7 +343,7 @@ inline void
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        });
+    });
 }
 
 inline void
@@ -408,7 +408,7 @@ inline void
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
         }
-        });
+    });
 }
 
 inline void addPCIeDeviceProperties(
@@ -521,7 +521,7 @@ inline void getPCIeDeviceProperties(
             return;
         }
         callback(pcieDevProperties);
-        });
+    });
 }
 
 inline void addPCIeDeviceCommonProperties(
@@ -669,8 +669,8 @@ inline void handlePCIeFunctionCollectionGet(
                 const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
             addPCIeFunctionList(asyncResp->res, pcieDeviceId,
                                 pcieDevProperties);
-            });
         });
+    });
 }
 
 inline void requestRoutesSystemPCIeFunctionCollection(App& app)
@@ -823,7 +823,7 @@ inline void
                                             pcieFunctionId);
             addPCIeFunctionProperties(asyncResp->res, pcieFunctionId,
                                       pcieDevProperties);
-            });
+        });
     });
 }
 

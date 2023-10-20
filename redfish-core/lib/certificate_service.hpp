@@ -274,7 +274,7 @@ static void
         }
 
         asyncResp->res.jsonValue[countPtr] = links.size();
-        });
+    });
 }
 
 /**
@@ -373,7 +373,7 @@ static void getCertificateProperties(
         asyncResp->res.addHeader(
             boost::beast::http::field::location,
             std::string_view(certURL.data(), certURL.size()));
-        });
+    });
 }
 
 static void
@@ -391,7 +391,7 @@ static void
         }
         BMCWEB_LOG_INFO("Certificate deleted");
         asyncResp->res.result(boost::beast::http::status::no_content);
-        },
+    },
         service, objectPath, certs::objDeleteIntf, "Delete");
 }
 
@@ -572,7 +572,7 @@ inline void handleReplaceCertificateAction(
         getCertificateProperties(asyncResp, objectPath, service, id, url, name);
         BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
                          certFile->getCertFilePath());
-        },
+    },
         service, objectPath, certs::certReplaceIntf, "Replace",
         certFile->getCertFilePath());
 }
@@ -614,7 +614,7 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["CSRString"] = csr;
         asyncResp->res.jsonValue["CertificateCollection"]["@odata.id"] =
             certURI;
-        },
+    },
         service, csrObjPath, "xyz.openbmc_project.Certs.CSR", "CSR");
 }
 
@@ -833,7 +833,7 @@ inline void
                 break;
             }
         }
-        });
+    });
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec, const std::string&) {
         if (ec)
@@ -842,7 +842,7 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        },
+    },
         service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
         "GenerateCSR", *optAlternativeNames, *optChallengePassword, city,
         commonName, *optContactPerson, country, *optEmail, *optGivenName,
@@ -944,7 +944,7 @@ inline void handleHTTPSCertificateCollectionPost(
                                  certId, certURL, "HTTPS Certificate");
         BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
                          certFile->getCertFilePath());
-        },
+    },
         certs::httpsServiceName, certs::httpsObjectPath, certs::certInstallIntf,
         "Install", certFile->getCertFilePath());
 }
@@ -1049,7 +1049,7 @@ inline void handleLDAPCertificateCollectionPost(
                                  certId, certURL, "LDAP Certificate");
         BMCWEB_LOG_DEBUG("LDAP certificate install file={}",
                          certFile->getCertFilePath());
-        },
+    },
         certs::ldapServiceName, certs::ldapObjectPath, certs::certInstallIntf,
         "Install", certFile->getCertFilePath());
 }
@@ -1171,7 +1171,7 @@ inline void handleTrustStoreCertificateCollectionPost(
                                  "TrustStore Certificate");
         BMCWEB_LOG_DEBUG("TrustStore certificate install file={}",
                          certFile->getCertFilePath());
-        },
+    },
         certs::authorityServiceName, certs::authorityObjectPath,
         certs::certInstallIntf, "Install", certFile->getCertFilePath());
 }

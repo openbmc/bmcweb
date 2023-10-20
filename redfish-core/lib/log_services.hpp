@@ -569,7 +569,7 @@ inline void
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
         asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
-        });
+    });
 }
 
 inline void
@@ -669,15 +669,15 @@ inline void
                                        entryID);
             return;
         }
-        });
+    });
 }
 
 inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& entryID,
                             const std::string& dumpType)
 {
-    auto respHandler =
-        [asyncResp, entryID](const boost::system::error_code& ec) {
+    auto respHandler = [asyncResp,
+                        entryID](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG("Dump Entry doDelete callback: Done");
         if (ec)
         {
@@ -868,7 +868,7 @@ inline void createDumpTaskCallback(
                              createdObjPath.str);
             taskData->state = "Completed";
             return task::completed;
-            },
+        },
             "type='signal',interface='org.freedesktop.DBus.Properties',"
             "member='PropertiesChanged',path='" +
                 createdObjPath.str + "'");
@@ -878,7 +878,7 @@ inline void createDumpTaskCallback(
         task->startTimer(std::chrono::minutes(6));
         task->populateResp(asyncResp->res);
         task->payload.emplace(payload);
-        },
+    },
         "xyz.openbmc_project.Dump.Manager", createdObjPath,
         "org.freedesktop.DBus.Introspectable", "Introspect");
 }
@@ -1012,7 +1012,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         BMCWEB_LOG_DEBUG("Dump Created. Path: {}", objPath.str);
         createDumpTaskCallback(std::move(payload), asyncResp, objPath);
-        },
+    },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" +
             std::string(boost::algorithm::to_lower_copy(dumpType)),
@@ -1033,7 +1033,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-        },
+    },
         "xyz.openbmc_project.Dump.Manager",
         "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy,
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
@@ -1169,8 +1169,8 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                     return;
                 }
             }
-            });
         });
+    });
 }
 
 inline void requestRoutesEventLogService(App& app)
@@ -1213,7 +1213,7 @@ inline void requestRoutesEventLogService(App& app)
 
             {"target",
              "/redfish/v1/Systems/system/LogServices/EventLog/Actions/LogService.ClearLog"}};
-        });
+    });
 }
 
 inline void requestRoutesJournalEventLogClear(App& app)
@@ -1258,11 +1258,11 @@ inline void requestRoutesJournalEventLogClear(App& app)
             }
 
             messages::success(asyncResp->res);
-            },
+        },
             "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
             "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
             "replace");
-        });
+    });
 }
 
 enum class LogParseError
@@ -1457,7 +1457,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries?$skip=" +
                 std::to_string(skip + top);
         }
-        });
+    });
 }
 
 inline void requestRoutesJournalEventLogEntry(App& app)
@@ -1535,7 +1535,7 @@ inline void requestRoutesJournalEventLogEntry(App& app)
         }
         // Requested ID was not found
         messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
-        });
+    });
 }
 
 inline void requestRoutesDBusEventLogEntryCollection(App& app)
@@ -1730,8 +1730,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
             asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
-            });
         });
+    });
 }
 
 inline void requestRoutesDBusEventLogEntry(App& app)
@@ -1847,8 +1847,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                     std::to_string(*id) + "/attachment";
             }
-            });
         });
+    });
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
@@ -1894,8 +1894,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            });
         });
+    });
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
@@ -1929,8 +1929,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         dbus::utility::escapePathForDbus(entryID);
 
         // Process response from Logging service.
-        auto respHandler =
-            [asyncResp, entryID](const boost::system::error_code& ec) {
+        auto respHandler = [asyncResp,
+                            entryID](const boost::system::error_code& ec) {
             BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
             if (ec)
             {
@@ -1957,7 +1957,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
-        });
+    });
 }
 
 inline void requestRoutesDBusEventLogEntryDownload(App& app)
@@ -2061,11 +2061,11 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
             asyncResp->res.body() = std::move(output);
-            },
+        },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Logging.Entry", "GetEntry");
-        });
+    });
 }
 
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
@@ -2179,7 +2179,7 @@ inline void requestRoutesSystemHostLogger(App& app)
         asyncResp->res.jsonValue["Id"] = "HostLogger";
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/HostLogger/Entries";
-        });
+    });
 }
 
 inline void requestRoutesSystemHostLoggerCollection(App& app)
@@ -2269,7 +2269,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                     std::to_string(skip + top);
             }
         }
-        });
+    });
 }
 
 inline void requestRoutesSystemHostLoggerLogEntry(App& app)
@@ -2341,7 +2341,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 
         // Requested ID was not found
         messages::resourceNotFound(asyncResp->res, "LogEntry", param);
-        });
+    });
 }
 
 inline void handleBMCLogServicesCollectionGet(
@@ -2413,7 +2413,7 @@ inline void handleBMCLogServicesCollectionGet(
 
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArrayLocal.size();
-        });
+    });
 #endif
 }
 
@@ -2453,7 +2453,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
 
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
-        });
+    });
 }
 
 static int
@@ -2600,7 +2600,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
                 std::to_string(skip + top);
         }
-        });
+    });
 }
 
 inline void requestRoutesBMCJournalLogEntry(App& app)
@@ -2672,7 +2672,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             return;
         }
         asyncResp->res.jsonValue.update(bmcJournalLogEntry);
-        });
+    });
 }
 
 inline void
@@ -2759,7 +2759,7 @@ inline void
                 break;
             }
         }
-        });
+    });
 }
 
 inline void handleLogServicesDumpServiceGet(
@@ -3153,7 +3153,7 @@ inline void requestRoutesCrashdumpService(App& app)
         asyncResp->res.jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
                                 ["target"] =
             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData";
-        });
+    });
 }
 
 void inline requestRoutesCrashdumpClear(App& app)
@@ -3194,9 +3194,9 @@ void inline requestRoutesCrashdumpClear(App& app)
                 return;
             }
             messages::success(asyncResp->res);
-            },
+        },
             crashdumpObject, crashdumpPath, deleteAllInterface, "DeleteAll");
-        });
+    });
 }
 
 static void
@@ -3343,8 +3343,8 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                 logCrashdumpEntry(asyncResp, logID,
                                   asyncResp->res.jsonValue["Members"]);
             }
-            });
         });
+    });
 }
 
 inline void requestRoutesCrashdumpEntry(App& app)
@@ -3380,7 +3380,7 @@ inline void requestRoutesCrashdumpEntry(App& app)
         }
         const std::string& logID = param;
         logCrashdumpEntry(asyncResp, logID, asyncResp->res.jsonValue);
-        });
+    });
 }
 
 inline void requestRoutesCrashdumpFile(App& app)
@@ -3465,7 +3465,7 @@ inline void requestRoutesCrashdumpFile(App& app)
             *crow::connections::systemBus, crashdumpObject,
             crashdumpPath + std::string("/") + logID, crashdumpInterface,
             std::move(getStoredLogCallback));
-        });
+    });
 }
 
 enum class OEMDiagnosticType
@@ -3607,7 +3607,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                     taskData->state = "Completed";
                 }
                 return task::completed;
-                },
+            },
                 taskMatchStr);
 
             task->startTimer(std::chrono::minutes(5));
@@ -3618,7 +3618,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
         crow::connections::systemBus->async_method_call(
             std::move(collectCrashdumpCallback), crashdumpObject, crashdumpPath,
             iface, method);
-        });
+    });
 }
 
 /**
@@ -3679,7 +3679,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
-        });
+    });
 }
 
 /****************************************************
@@ -3731,7 +3731,7 @@ inline void requestRoutesPostCodesLogService(App& app)
         asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
             {"target",
              "/redfish/v1/Systems/system/LogServices/PostCodes/Actions/LogService.ClearLog"}};
-        });
+    });
 }
 
 inline void requestRoutesPostCodesClear(App& app)
@@ -3779,11 +3779,11 @@ inline void requestRoutesPostCodesClear(App& app)
                 return;
             }
             messages::success(asyncResp->res);
-            },
+        },
             "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
-        });
+    });
 }
 
 /**
@@ -3996,7 +3996,7 @@ static void
             messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
             return;
         }
-        },
+    },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesWithTimeStamp",
@@ -4052,7 +4052,7 @@ static void
                 "/redfish/v1/Systems/system/LogServices/PostCodes/Entries?$skip=" +
                 std::to_string(skip + top);
         }
-        },
+    },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesWithTimeStamp",
@@ -4078,7 +4078,7 @@ static void
             return;
         }
         getPostCodeForBoot(asyncResp, 1, bootCount, entryCount, skip, top);
-        });
+    });
 }
 
 inline void requestRoutesPostCodesEntryCollection(App& app)
@@ -4126,7 +4126,7 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         size_t skip = delegatedQuery.skip.value_or(0);
         size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
         getCurrentBootNumber(asyncResp, skip, top);
-        });
+    });
 }
 
 inline void requestRoutesPostCodesEntryAdditionalData(App& app)
@@ -4217,11 +4217,11 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
             asyncResp->res.body() = crow::utility::base64encode(strData);
-            },
+        },
             "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
             "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes", index);
-        });
+    });
 }
 
 inline void requestRoutesPostCodesEntry(App& app)
@@ -4252,7 +4252,7 @@ inline void requestRoutesPostCodesEntry(App& app)
         }
 
         getPostCodeForEntry(asyncResp, targetID);
-        });
+    });
 }
 
 } // namespace redfish

@@ -94,7 +94,7 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         std::string chassisId = subtree[0].first.substr(idPos + 1);
         BMCWEB_LOG_DEBUG("chassisId = {}", chassisId);
         callback(chassisId, asyncResp);
-        });
+    });
 }
 
 template <typename CallbackFunc>
@@ -171,7 +171,7 @@ void getPortStatusAndPath(
                     socketData,
                     [&kv](const std::tuple<std::string, std::string, bool>& i) {
                     return std::get<1>(i) == kv.first;
-                    });
+                });
                 if (find != socketData.end())
                 {
                     // It only takes one enabled systemd service to consider a
@@ -199,7 +199,7 @@ void getPortStatusAndPath(
         }
 
         callback(ec, socketData);
-        },
+    },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ListUnits");
 }
@@ -253,7 +253,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
             BMCWEB_LOG_ERROR("{}", ec3);
         }
         callback(ec, port);
-        });
+    });
 }
 
 } // namespace redfish

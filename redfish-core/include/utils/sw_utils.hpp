@@ -223,10 +223,10 @@ inline void populateSoftwareInformation(
                         asyncResp->res.jsonValue[activeVersionPropName] =
                             *version;
                     }
-                    });
+                });
             }
-            });
         });
+    });
 }
 
 /**
@@ -337,7 +337,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             getRedfishSwState(*swInvActivation);
         asyncResp->res.jsonValue["Status"]["Health"] =
             getRedfishSwHealth(*swInvActivation);
-        });
+    });
 }
 
 /**
@@ -373,7 +373,7 @@ inline void
             asyncResp->res.jsonValue["Updateable"] = true;
             return;
         }
-        });
+    });
 }
 
 } // namespace sw_util

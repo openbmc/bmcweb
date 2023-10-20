@@ -87,7 +87,7 @@ inline void handleTelemetryServiceGet(
 
         asyncResp->res.jsonValue["SupportedCollectionFunctions"] =
             std::move(supportedCollectionFunctions);
-        });
+    });
 }
 
 inline void requestRoutesTelemetryService(App& app)

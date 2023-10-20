@@ -59,7 +59,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
         }
         callback(chassisPath);
-        });
+    });
     BMCWEB_LOG_DEBUG("checkChassisId exit");
 }
 

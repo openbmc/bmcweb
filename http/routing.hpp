@@ -608,7 +608,7 @@ class Router
             [&rule, asyncResp, adaptor(std::forward<Adaptor>(adaptor))](
                 Request& thisReq) mutable {
             rule.handleUpgrade(thisReq, asyncResp, std::move(adaptor));
-            });
+        });
     }
 
     void handle(Request& req,
