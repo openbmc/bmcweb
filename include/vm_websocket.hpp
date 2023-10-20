@@ -111,7 +111,7 @@ class Handler : public std::enable_shared_from_this<Handler>
                 return;
             }
             doWrite();
-            });
+        });
     }
 
     void doRead()
@@ -145,7 +145,7 @@ class Handler : public std::enable_shared_from_this<Handler>
             outputBuffer->consume(bytesRead);
 
             doRead();
-            });
+        });
     }
 
     boost::process::async_pipe pipeOut;
@@ -169,57 +169,57 @@ inline void requestRoutes(App& app)
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
-            BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
+        BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
-            if (session != nullptr)
-            {
-                conn.close("Session already connected");
-                return;
-            }
+        if (session != nullptr)
+        {
+            conn.close("Session already connected");
+            return;
+        }
 
-            if (handler != nullptr)
-            {
-                conn.close("Handler already running");
-                return;
-            }
+        if (handler != nullptr)
+        {
+            conn.close("Handler already running");
+            return;
+        }
 
-            session = &conn;
+        session = &conn;
 
-            // media is the last digit of the endpoint /vm/0/0. A future
-            // enhancement can include supporting different endpoint values.
-            const char* media = "0";
-            handler = std::make_shared<Handler>(media, conn.getIoContext());
-            handler->connect();
-        })
+        // media is the last digit of the endpoint /vm/0/0. A future
+        // enhancement can include supporting different endpoint values.
+        const char* media = "0";
+        handler = std::make_shared<Handler>(media, conn.getIoContext());
+        handler->connect();
+    })
         .onclose([](crow::websocket::Connection& conn,
                     const std::string& /*reason*/) {
-            if (&conn != session)
-            {
-                return;
-            }
+        if (&conn != session)
+        {
+            return;
+        }
 
-            session = nullptr;
-            handler->doClose();
-            handler->inputBuffer->clear();
-            handler->outputBuffer->clear();
-            handler.reset();
-        })
+        session = nullptr;
+        handler->doClose();
+        handler->inputBuffer->clear();
+        handler->outputBuffer->clear();
+        handler.reset();
+    })
         .onmessage([](crow::websocket::Connection& conn,
                       const std::string& data, bool) {
-            if (data.length() >
-                handler->inputBuffer->capacity() - handler->inputBuffer->size())
-            {
-                BMCWEB_LOG_ERROR("Buffer overrun when writing {} bytes",
-                                 data.length());
-                conn.close("Buffer overrun");
-                return;
-            }
+        if (data.length() >
+            handler->inputBuffer->capacity() - handler->inputBuffer->size())
+        {
+            BMCWEB_LOG_ERROR("Buffer overrun when writing {} bytes",
+                             data.length());
+            conn.close("Buffer overrun");
+            return;
+        }
 
-            boost::asio::buffer_copy(handler->inputBuffer->prepare(data.size()),
-                                     boost::asio::buffer(data));
-            handler->inputBuffer->commit(data.size());
-            handler->doWrite();
-        });
+        boost::asio::buffer_copy(handler->inputBuffer->prepare(data.size()),
+                                 boost::asio::buffer(data));
+        handler->inputBuffer->commit(data.size());
+        handler->doWrite();
+    });
 }
 
 } // namespace obmc_vm

@@ -74,7 +74,7 @@ inline static void activateImage(const std::string& objPath,
             BMCWEB_LOG_DEBUG("error_code = {}", ec);
             BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
         }
-        });
+    });
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -248,7 +248,7 @@ static void
                         // unless it is an error
 
                         return !task::completed;
-                            },
+                    },
                             "type='signal',interface='org.freedesktop.DBus.Properties',"
                             "member='PropertiesChanged',path='" +
                                 objPath.str + "'");
@@ -257,7 +257,7 @@ static void
                     task->payload.emplace(std::move(payload));
                 }
                 fwUpdateInProgress = false;
-                });
+            });
 
             break;
         }
@@ -549,13 +549,13 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
             {
                 BMCWEB_LOG_DEBUG("Call to DownloaViaTFTP Success");
             }
-            },
+        },
             "xyz.openbmc_project.Software.Download",
             "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
             "DownloadViaTFTP", fwFile, tftpServer);
 
         BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
-        });
+    });
 }
 
 inline void uploadImageFile(crow::Response& res, std::string_view body)
@@ -607,14 +607,14 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/xyz/openbmc_project/software/apply_time",
         "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
         applyTimeNewVal, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+    });
 }
 
 inline void
@@ -816,8 +816,8 @@ inline void requestRoutesUpdateService(App& app)
                                         ["HttpPushUriApplyTime"]["ApplyTime"] =
                     "OnReset";
             }
-            });
         });
+    });
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::patchUpdateService)
         .methods(boost::beast::http::verb::patch)(
@@ -860,7 +860,7 @@ inline void requestRoutesUpdateService(App& app)
                 }
             }
         }
-        });
+    });
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
         .privileges(redfish::privileges::postUpdateService)
@@ -891,7 +891,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
             asyncResp,
             boost::urls::url("/redfish/v1/UpdateService/FirmwareInventory"),
             iface, "/xyz/openbmc_project/software");
-        });
+    });
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
@@ -991,7 +991,7 @@ inline void
         std::string formatDesc = swInvPurpose->substr(endDesc);
         asyncResp->res.jsonValue["Description"] = formatDesc + " image";
         getRelatedItems(asyncResp, *swInvPurpose);
-        });
+    });
 }
 
 inline void requestRoutesSoftwareInventory(App& app)
@@ -1065,8 +1065,8 @@ inline void requestRoutesSoftwareInventory(App& app)
 
             asyncResp->res.jsonValue["Updateable"] = false;
             sw_util::getSwUpdatableStatus(asyncResp, swId);
-            });
         });
+    });
 }
 
 } // namespace redfish

@@ -16,8 +16,8 @@ const Message* getMessageFromRegistry(const std::string& messageKey,
 {
     std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
         registry, [&messageKey](const MessageEntry& messageEntry) {
-            return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
-        });
+        return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
+    });
     if (messageIt != registry.end())
     {
         return &messageIt->second;

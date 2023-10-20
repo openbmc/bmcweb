@@ -116,7 +116,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
         extractNTPServersAndDomainNamesData(dbusData, ntpServers, domainNames);
 
         callback(true, ntpServers, domainNames);
-        });
+    });
 }
 
 inline void afterNetworkPortRequest(
@@ -257,11 +257,11 @@ inline void handleNTPProtocolEnabled(
         "/xyz/openbmc_project/time/sync_method",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
         timeSyncMethod, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-            }
-        });
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+        }
+    });
 }
 
 inline void
@@ -377,11 +377,11 @@ inline void
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        });
+                    });
                 }
             }
         }
-        });
+    });
 }
 
 inline void
@@ -417,7 +417,7 @@ inline void
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    });
+                });
                 sdbusplus::asio::setProperty(
                     *crow::connections::systemBus, entry.second.begin()->first,
                     entry.first,
@@ -429,10 +429,10 @@ inline void
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    });
+                });
             }
         }
-        });
+    });
 }
 
 inline std::string getHostName()
@@ -471,7 +471,7 @@ inline void
         {
             asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = false;
         }
-        });
+    });
 }
 
 inline std::string encodeServiceObjectPath(std::string_view serviceName)

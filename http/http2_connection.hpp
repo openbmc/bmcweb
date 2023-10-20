@@ -519,7 +519,7 @@ class HTTP2Connection :
             inBuffer.consume(consumed);
 
             doRead();
-            });
+        });
     }
 
     // A mapping from http2 stream ID to Stream Data

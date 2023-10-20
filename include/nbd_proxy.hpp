@@ -164,8 +164,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                     self2->ux2wsBuf.consume(self2->ux2wsBuf.size());
                     self2->doRead();
                 }
-                });
             });
+        });
     }
 
     void doWrite(std::function<void()>&& onDone)
@@ -211,7 +211,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                 return;
             }
             onDone();
-            });
+        });
     }
 
     // Keeps UNIX socket endpoint file path
@@ -332,7 +332,7 @@ inline void onOpen(crow::websocket::Connection& conn)
         [&conn](const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {
         afterGetManagedObjects(conn, ec, objects);
-        });
+    });
 
     // We need to wait for dbus and the websockets to hook up before data is
     // sent/received.  Tell the core to hold off messages until the sockets are

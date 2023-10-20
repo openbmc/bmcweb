@@ -90,7 +90,7 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        });
+    });
 }
 
 /**
@@ -145,7 +145,7 @@ inline void
             "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset";
         reset["@Redfish.ActionInfo"] =
             "/redfish/v1/Systems/hypervisor/ResetActionInfo";
-        });
+    });
 }
 
 inline bool extractHypervisorInterfaceData(
@@ -333,7 +333,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
             BMCWEB_LOG_INFO("Hypervisor Interface not found");
         }
         callback(found, ethData, ipv4Data);
-        });
+    });
 }
 
 /**
@@ -362,7 +362,7 @@ inline void setHypervisorIPv4Address(
             return;
         }
         BMCWEB_LOG_DEBUG("Hypervisor IPaddress is Set");
-        });
+    });
 }
 
 /**
@@ -392,7 +392,7 @@ inline void
             return;
         }
         BMCWEB_LOG_DEBUG("SubnetMask is Set");
-        });
+    });
 }
 
 /**
@@ -416,13 +416,13 @@ inline void setHypervisorIPv4Gateway(
         "/xyz/openbmc_project/network/hypervisor",
         "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
         gateway, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                return;
-            }
-            BMCWEB_LOG_DEBUG("Default Gateway is Set");
-        });
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+            return;
+        }
+        BMCWEB_LOG_DEBUG("Default Gateway is Set");
+    });
 }
 
 /**
@@ -519,7 +519,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
             messages::internalError(asyncResp->res);
             return;
         }
-        });
+    });
 
     // Set the IPv4 address origin to the DHCP / Static as per the new value
     // of the DHCPEnabled property
@@ -547,7 +547,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
             return;
         }
         BMCWEB_LOG_DEBUG("Hypervisor IPaddress Origin is Set");
-        });
+    });
 }
 
 inline void handleHypervisorIPv4StaticPatch(
@@ -674,7 +674,7 @@ inline void handleHypervisorHostnamePatch(
         {
             messages::internalError(asyncResp->res);
         }
-        });
+    });
 }
 
 inline void
@@ -690,7 +690,7 @@ inline void
         {
             messages::internalError(asyncResp->res);
         }
-        });
+    });
 }
 
 inline void handleHypervisorEthernetInterfaceCollectionGet(
@@ -741,7 +741,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
             ifaceArray.emplace_back(std::move(ethIface));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
-        });
+    });
 }
 
 inline void handleHypervisorEthernetInterfaceGet(
@@ -756,20 +756,20 @@ inline void handleHypervisorEthernetInterfaceGet(
         id, [asyncResp, ifaceId{std::string(id)}](
                 bool success, const EthernetInterfaceData& ethData,
                 const std::vector<IPv4AddressData>& ipv4Data) {
-            if (!success)
-            {
-                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
-                                           ifaceId);
-                return;
-            }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#EthernetInterface.v1_9_0.EthernetInterface";
-            asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet Interface";
-            asyncResp->res.jsonValue["Description"] =
-                "Hypervisor's Virtual Management Ethernet Interface";
-            parseInterfaceData(asyncResp->res.jsonValue, ifaceId, ethData,
-                               ipv4Data);
-        });
+        if (!success)
+        {
+            messages::resourceNotFound(asyncResp->res, "EthernetInterface",
+                                       ifaceId);
+            return;
+        }
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#EthernetInterface.v1_9_0.EthernetInterface";
+        asyncResp->res.jsonValue["Name"] = "Hypervisor Ethernet Interface";
+        asyncResp->res.jsonValue["Description"] =
+            "Hypervisor's Virtual Management Ethernet Interface";
+        parseInterfaceData(asyncResp->res.jsonValue, ifaceId, ethData,
+                           ipv4Data);
+    });
 }
 
 inline void handleHypervisorSystemGet(
@@ -806,7 +806,7 @@ inline void handleHypervisorSystemGet(
         getHypervisorState(asyncResp);
         getHypervisorActions(asyncResp);
         // TODO: Add "SystemType" : "hypervisor"
-        });
+    });
 }
 
 inline void handleHypervisorEthernetInterfacePatch(
@@ -848,12 +848,11 @@ inline void handleHypervisorEthernetInterfacePatch(
     }
 
     getHypervisorIfaceData(
-        ifaceId,
-        [asyncResp, ifaceId, hostName = std::move(hostName),
-         ipv4StaticAddresses = std::move(ipv4StaticAddresses), ipv4DHCPEnabled,
-         dhcpv4 = std::move(dhcpv4)](bool success,
-                                     const EthernetInterfaceData& ethData,
-                                     const std::vector<IPv4AddressData>&) {
+        ifaceId, [asyncResp, ifaceId, hostName = std::move(hostName),
+                  ipv4StaticAddresses = std::move(ipv4StaticAddresses),
+                  ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
+                     bool success, const EthernetInterfaceData& ethData,
+                     const std::vector<IPv4AddressData>&) {
         if (!success)
         {
             messages::resourceNotFound(asyncResp->res, "EthernetInterface",
@@ -911,7 +910,7 @@ inline void handleHypervisorEthernetInterfacePatch(
         // to enabled/active by the pldm once the hypervisor
         // consumes the updated settings from the user.
         setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
-        });
+    });
     asyncResp->res.result(boost::beast::http::status::accepted);
 }
 
@@ -970,7 +969,7 @@ inline void handleHypervisorResetActionGet(
         parameter["AllowableValues"] = std::move(allowed);
         parameters.emplace_back(std::move(parameter));
         asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-        });
+    });
 }
 
 inline void handleHypervisorSystemResetPost(
@@ -1030,7 +1029,7 @@ inline void handleHypervisorSystemResetPost(
             return;
         }
         messages::success(asyncResp->res);
-        });
+    });
 }
 
 inline void requestRoutesHypervisorSystems(App& app)

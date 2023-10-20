@@ -848,7 +848,7 @@ class RedfishAggregator
                     "No satellite BMCs detected.  Redfish Aggregation not enabled");
             }
             handler(ec, satelliteInfo);
-            });
+        });
     }
 
     // Processes the response returned by a satellite BMC and loads its

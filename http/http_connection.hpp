@@ -486,7 +486,7 @@ class Connection :
             }
 
             doRead();
-            });
+        });
     }
 
     void doRead()
@@ -529,7 +529,7 @@ class Connection :
 
             cancelDeadlineTimer();
             handle();
-            });
+        });
     }
 
     void doWrite(crow::Response& thisRes)

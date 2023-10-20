@@ -98,7 +98,7 @@ inline void
                         const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& properties) {
                     fillCableProperties(asyncResp->res, ec, properties);
-                    });
+                });
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
@@ -123,7 +123,7 @@ inline void
                     {
                         asyncResp->res.jsonValue["Status"]["State"] = "Absent";
                     }
-                    });
+                });
             }
         }
     }
@@ -184,8 +184,8 @@ inline void requestRoutesCable(App& app)
                 return;
             }
             messages::resourceNotFound(asyncResp->res, "Cable", cableId);
-            });
         });
+    });
 }
 
 /**
@@ -212,7 +212,7 @@ inline void requestRoutesCableCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, boost::urls::url("/redfish/v1/Cables"), interfaces,
             "/xyz/openbmc_project/inventory");
-        });
+    });
 }
 
 } // namespace redfish

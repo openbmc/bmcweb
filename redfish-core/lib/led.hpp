@@ -86,8 +86,8 @@ inline void
             {
                 asyncResp->res.jsonValue["IndicatorLED"] = "Off";
             }
-            });
         });
+    });
 }
 
 /**
@@ -151,8 +151,8 @@ inline void
                 return;
             }
             messages::success(asyncResp->res);
-            });
         });
+    });
 }
 
 /**
@@ -209,8 +209,8 @@ inline void getLocationIndicatorActive(
             }
 
             asyncResp->res.jsonValue["LocationIndicatorActive"] = ledOn;
-            });
         });
+    });
 }
 
 /**
@@ -248,8 +248,8 @@ inline void setLocationIndicatorActive(
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                });
+            });
         }
-        });
+    });
 }
 } // namespace redfish

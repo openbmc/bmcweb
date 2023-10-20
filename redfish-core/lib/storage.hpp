@@ -64,9 +64,8 @@ inline void handleSystemsStorageCollectionGet(
         "/redfish/v1/Systems/system/Storage";
     asyncResp->res.jsonValue["Name"] = "Storage Collection";
 
-    constexpr std::array<std::string_view, 1> interface {
-        "xyz.openbmc_project.Inventory.Item.Storage"
-    };
+    constexpr std::array<std::string_view, 1> interface{
+        "xyz.openbmc_project.Inventory.Item.Storage"};
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::format("/redfish/v1/Systems/system/Storage"),
         interface, "/xyz/openbmc_project/inventory");
@@ -84,9 +83,8 @@ inline void handleStorageCollectionGet(
         "#StorageCollection.StorageCollection";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Storage";
     asyncResp->res.jsonValue["Name"] = "Storage Collection";
-    constexpr std::array<std::string_view, 1> interface {
-        "xyz.openbmc_project.Inventory.Item.Storage"
-    };
+    constexpr std::array<std::string_view, 1> interface{
+        "xyz.openbmc_project.Inventory.Item.Storage"};
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::format("/redfish/v1/Storage"), interface,
         "/xyz/openbmc_project/inventory");
@@ -174,7 +172,7 @@ inline void afterSystemsStorageGetSubtree(
                                      dbus::utility::MapperServiceMap>& object) {
         return sdbusplus::message::object_path(object.first).filename() ==
                storageId;
-        });
+    });
     if (storage == subtree.end())
     {
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
@@ -243,7 +241,7 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                      dbus::utility::MapperServiceMap>& object) {
         return sdbusplus::message::object_path(object.first).filename() ==
                storageId;
-        });
+    });
     if (storage == subtree.end())
     {
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
@@ -352,7 +350,7 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["Model"] = *model;
         }
-        });
+    });
 }
 
 inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -375,7 +373,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        });
+    });
 }
 
 inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -401,7 +399,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Updating";
         }
-        });
+    });
 }
 
 inline std::optional<drive::MediaType> convertDriveType(std::string_view type)
@@ -612,7 +610,7 @@ inline void
         // to the user in unencrypted form."
         asyncResp->res.jsonValue["EncryptionStatus"] =
             drive::EncryptionStatus::Unlocked;
-        });
+    });
 }
 
 static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -659,7 +657,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
                                    dbus::utility::MapperServiceMap>& object) {
         return sdbusplus::message::object_path(object.first).filename() ==
                driveId;
-        });
+    });
 
     if (drive == subtree.end())
     {
@@ -813,9 +811,9 @@ inline void afterChassisDriveCollectionSubtreeGet(
                 // navigation links will be registered in next patch set
             }
             asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
-            }); // end association lambda
+        }); // end association lambda
 
-    }           // end Iterate over all retrieved ObjectPaths
+    }       // end Iterate over all retrieved ObjectPaths
 }
 /**
  * Chassis drives, this URL will show all the DriveCollection
@@ -919,7 +917,7 @@ inline void
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             buildDrive(asyncResp, chassisId, driveName, ec, subtree);
-            });
+        });
     }
 }
 
@@ -974,10 +972,10 @@ inline void
                     return; // no drives = no failures
                 }
                 matchAndFillDrive(asyncResp, chassisId, driveName, resp);
-                });
+            });
             break;
         }
-        });
+    });
 }
 
 /**
@@ -1066,7 +1064,7 @@ inline void populateStorageController(
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        });
+    });
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
@@ -1076,7 +1074,7 @@ inline void populateStorageController(
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
         getStorageControllerAsset(asyncResp, ec, propertiesList);
-        });
+    });
 }
 
 inline void getStorageControllerHandler(
@@ -1183,7 +1181,7 @@ inline void handleSystemsStorageControllerCollectionGet(
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         controllerList) {
         populateStorageControllerCollection(asyncResp, ec, controllerList);
-        });
+    });
 }
 
 inline void handleSystemsStorageControllerGet(
@@ -1211,7 +1209,7 @@ inline void handleSystemsStorageControllerGet(
          controllerId](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
         getStorageControllerHandler(asyncResp, controllerId, ec, subtree);
-        });
+    });
 }
 
 inline void requestRoutesStorageControllerCollection(App& app)

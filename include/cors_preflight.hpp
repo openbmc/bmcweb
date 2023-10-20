@@ -14,6 +14,6 @@ inline void requestRoutes(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>&, const std::string&) {
         // An empty body handler that simply returns the headers bmcweb
         // uses This allows browsers to do their CORS preflight checks
-        });
+    });
 }
 } // namespace cors_preflight

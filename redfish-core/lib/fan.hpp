@@ -76,7 +76,7 @@ inline void getFanPaths(
             return;
         }
         callback(subtreePaths);
-        });
+    });
 }
 
 inline void doFanCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -127,7 +127,7 @@ inline void
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/FanCollection/FanCollection.json>; rel=describedby");
-        });
+    });
 }
 
 inline void
@@ -191,7 +191,7 @@ static inline void handleFanPath(
                 return;
             }
             callback(fanPath, object.begin()->first);
-            });
+        });
 
         return;
     }
@@ -210,7 +210,7 @@ inline void getValidFanPath(
         [fanId, asyncResp, callback](
             const dbus::utility::MapperGetSubTreePathsResponse& fanPaths) {
         handleFanPath(fanId, asyncResp, fanPaths, callback);
-        });
+    });
 }
 
 inline void addFanCommonProperties(crow::Response& resp,
@@ -250,7 +250,7 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
         }
-        });
+    });
 }
 
 inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -275,7 +275,7 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        });
+    });
 }
 
 inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -332,7 +332,7 @@ inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
         }
-        });
+    });
 }
 
 inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -356,7 +356,7 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
-        });
+    });
 }
 
 inline void
@@ -411,7 +411,7 @@ inline void handleFanHead(App& app, const crow::Request& req,
                 boost::beast::http::field::link,
                 "</redfish/v1/JsonSchemas/Fan/Fan.json>; rel=describedby");
         });
-        });
+    });
 }
 
 inline void handleFanGet(App& app, const crow::Request& req,

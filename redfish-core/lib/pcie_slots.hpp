@@ -154,7 +154,7 @@ inline void onMapperAssociationDone(
         [asyncResp](const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
-        });
+    });
 }
 
 inline void
@@ -204,7 +204,7 @@ inline void
                     const dbus::utility::MapperEndPoints& endpoints) {
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
                                         connectionName, ec2, endpoints);
-                });
+            });
         }
     }
 }
@@ -227,7 +227,7 @@ inline void handlePCIeSlotCollectionGet(
          chassisID](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         onMapperSubtreeDone(asyncResp, chassisID, ec, subtree);
-        });
+    });
 }
 
 inline void requestRoutesPCIeSlots(App& app)

@@ -71,7 +71,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
                 return;
             }
             self->doWrite();
-            });
+        });
     }
 
     static void afterSendEx(const std::weak_ptr<ConsoleHandler>& weak)
@@ -107,7 +107,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
             std::string_view payload(outputBuffer.data(), bytesRead);
             self->conn.sendEx(crow::websocket::MessageType::Binary, payload,
                               std::bind_front(afterSendEx, weak_from_this()));
-            });
+        });
     }
 
     bool connect(int fd)
@@ -247,7 +247,7 @@ inline void
         [&conn](const boost::system::error_code& ec1,
                 const sdbusplus::message::unix_fd& unixfd) {
         connectConsoleSocket(conn, ec1, unixfd);
-        },
+    },
         consoleService, consoleObjPath, "xyz.openbmc_project.Console.Access",
         "Connect");
 }
@@ -299,7 +299,7 @@ inline void onOpen(crow::websocket::Connection& conn)
         [&conn, consolePath](const boost::system::error_code& ec,
                              const ::dbus::utility::MapperGetObject& objInfo) {
         processConsoleObject(conn, consolePath, ec, objInfo);
-        });
+    });
 }
 
 inline void onMessage(crow::websocket::Connection& conn,

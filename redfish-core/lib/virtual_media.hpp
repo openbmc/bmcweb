@@ -120,7 +120,7 @@ inline void
 
         BMCWEB_LOG_DEBUG("Parent item not found");
         asyncResp->res.result(boost::beast::http::status::not_found);
-        });
+    });
 }
 
 /**
@@ -303,7 +303,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             members.emplace_back(std::move(item));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = members.size();
-        });
+    });
 }
 
 inline void
@@ -481,7 +481,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 BMCWEB_LOG_ERROR("Failed to pass secret: {}", ec);
                 messages::internalError(asyncResp->res);
             }
-            });
+        });
     }
 
     dbus::utility::DbusVariantType unixFd(
@@ -504,7 +504,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             BMCWEB_LOG_ERROR("Service responded with error");
             messages::internalError(asyncResp->res);
         }
-        },
+    },
         service, path.str, "xyz.openbmc_project.VirtualMedia.Legacy", "Mount",
         imageUrl, rw, unixFd);
 }
@@ -669,7 +669,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
-            },
+        },
             service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
             "xyz.openbmc_project.VirtualMedia.Legacy", "Unmount");
     }
@@ -684,7 +684,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
-            },
+        },
             service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
     }
@@ -765,8 +765,8 @@ inline void handleManagersVirtualMediaActionInsertPost(
             }
             BMCWEB_LOG_DEBUG("Parent item not found");
             messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
-            });
         });
+    });
 }
 
 inline void handleManagersVirtualMediaActionEject(
@@ -828,8 +828,8 @@ inline void handleManagersVirtualMediaActionEject(
             }
             BMCWEB_LOG_DEBUG("Parent item not found");
             messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
-            });
         });
+    });
 }
 
 inline void handleManagersVirtualMediaCollectionGet(
@@ -869,7 +869,7 @@ inline void handleManagersVirtualMediaCollectionGet(
         BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
         getVmResourceList(asyncResp, service, name);
-        });
+    });
 }
 
 inline void
@@ -904,7 +904,7 @@ inline void
         BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
         getVmData(asyncResp, service, name, resName);
-        });
+    });
 }
 
 inline void requestNBDVirtualMediaRoutes(App& app)

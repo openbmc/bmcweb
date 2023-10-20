@@ -97,7 +97,7 @@ inline void requestRoutesRoles(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/AccountService/Roles/{}", roleId);
         asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
-        });
+    });
 }
 
 inline void requestRoutesRoleCollection(App& app)
@@ -145,8 +145,8 @@ inline void requestRoutesRoleCollection(App& app)
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
                 memberArray.size();
-            });
         });
+    });
 }
 
 } // namespace redfish

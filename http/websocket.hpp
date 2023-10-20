@@ -213,7 +213,7 @@ class ConnectionImpl : public Connection
                 BMCWEB_LOG_ERROR("Error closing websocket {}", ec);
                 return;
             }
-            });
+        });
     }
 
     boost::urls::url_view url() override
