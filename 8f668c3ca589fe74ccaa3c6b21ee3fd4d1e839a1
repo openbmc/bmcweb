@@ -1210,6 +1210,30 @@
       },
       "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be5110e5_4ad296c3",
+        "filename": "test/http/simple_client.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-20T04:23:32Z",
+      "side": 1,
+      "message": "Has merge conflicts been resolved with filebody changes?",
+      "parentUuid": "14e1a811_fbf77aac",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "8f668c3ca589fe74ccaa3c6b21ee3fd4d1e839a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
