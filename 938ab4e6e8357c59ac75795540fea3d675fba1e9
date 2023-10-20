@@ -45,6 +45,30 @@
       },
       "revId": "938ab4e6e8357c59ac75795540fea3d675fba1e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17161f9b_c3e824db",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-20T04:19:47Z",
+      "side": 1,
+      "message": "to do the same thing what we did in write function. Since both code looks similar and differ by body type , we could make it a generic function with parameterised body type.",
+      "parentUuid": "d3bf39b6_55e251a4",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 9
+      },
+      "revId": "938ab4e6e8357c59ac75795540fea3d675fba1e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
