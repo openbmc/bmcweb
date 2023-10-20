@@ -105,7 +105,7 @@ class MultipartParser
                             return ParserError::ERROR_BOUNDARY_LF;
                         }
                         index = 0;
-                        mime_fields.push_back({});
+                        mime_fields.emplace_back({});
                         state = State::HEADER_FIELD_START;
                         break;
                     }
@@ -305,7 +305,7 @@ class MultipartParser
                 {
                     // unset the PART_BOUNDARY flag
                     flags = Boundary::NON_BOUNDARY;
-                    mime_fields.push_back({});
+                    mime_fields.emplace_back({});
                     state = State::HEADER_FIELD_START;
                     return ParserError::PARSER_SUCCESS;
                 }
