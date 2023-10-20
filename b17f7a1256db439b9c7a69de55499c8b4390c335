@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "888edec2_8503aa97",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-20T18:22:38Z",
+      "side": 1,
+      "message": "I agree that if there were a clean way to do that, we should, but I think a minimal intrusion into the class compared to just not having tests, i\u0027ll take the former.\n\n\u003e Please see the example for how to handle prepareMutualTls here\n\nWhat you wrote looks like a lot more code, using template overloading (not just function overloading) to do what amounts to basically an if statement.\n\nvoid prepareMutualTls(boost::beast::ssl_stream\u003cT\u003e\u0026 adapter)\n\nlooks like you missed the template paramter T in your implementation here.\n\nI realize this is a judgement call, but I\u0027m going to say that the if constexpr code is less code, and more clear what\u0027s going on.",
+      "parentUuid": "61a3deaf_00740eda",
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6174628d_56b2c724",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 11
