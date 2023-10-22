@@ -52,6 +52,57 @@
       "parentUuid": "aae3cc05_07e73414",
       "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e37494_7e67b833",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-22T12:54:03Z",
+      "side": 1,
+      "message": "Seems reasonable, just have a question about which error to use",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34f3560_dfd1f998",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-22T12:54:03Z",
+      "side": 1,
+      "message": "Why this over propertyValueIncorrect ?\nhttps://github.com/openbmc/bmcweb/blob/168d1b1ac9dac748ea57f7038d0abebfef7462a2/redfish-core/lib/processor.hpp#L1044C19-L1044C41\n\nI feel propertyValueIncorrect  is more generic",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e8de18_089eadf4",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-22T12:54:03Z",
+      "side": 1,
+      "message": "I was going to ask how do you know it is the Destination? But it looks like we only use Domain and Port for D-Bus and they both come in from the Redfish property  \"Destination\"\nhttps://github.com/openbmc/bmcweb/blob/168d1b1ac9dac748ea57f7038d0abebfef7462a2/redfish-core/lib/event_service.hpp#L404",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
