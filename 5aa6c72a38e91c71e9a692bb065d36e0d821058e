@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8098dbe2_57846e01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-10-22T12:58:11Z",
+      "side": 1,
+      "message": "You tested upstream on a p10bmc? Can you put that in the commit msg?",
+      "parentUuid": "8b3ffba0_2988d691",
+      "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "629db9d3_4b280840",
         "filename": "/COMMIT_MSG",
         "patchSetId": 27
