@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ebf93c_f212e5a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-22T16:42:55Z",
+      "side": 1,
+      "message": "Tested this patch?",
+      "revId": "f6d022398e849a2eb68fc2d75b01f1f467b6b196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2573216_4e6ab492",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-22T16:42:55Z",
+      "side": 1,
+      "message": "this may return \"std::length_error\" exception\nhandle exception here?",
+      "revId": "f6d022398e849a2eb68fc2d75b01f1f467b6b196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
