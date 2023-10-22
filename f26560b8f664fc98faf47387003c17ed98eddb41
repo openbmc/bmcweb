@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2b219c9_f795648e",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-22T15:40:29Z",
+      "side": 1,
+      "message": "what\u0027s your suggestion here?",
+      "parentUuid": "c34f3560_dfd1f998",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c7e8de18_089eadf4",
@@ -101,6 +119,24 @@
       "writtenOn": "2023-10-22T12:54:03Z",
       "side": 1,
       "message": "I was going to ask how do you know it is the Destination? But it looks like we only use Domain and Port for D-Bus and they both come in from the Redfish property  \"Destination\"\nhttps://github.com/openbmc/bmcweb/blob/168d1b1ac9dac748ea57f7038d0abebfef7462a2/redfish-core/lib/event_service.hpp#L404",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "261ed615_acdf777e",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-22T15:40:29Z",
+      "side": 1,
+      "message": "yes, Destination is the redfish property with contains both IP and port number.\nHere is example \n\"Destination\": \"snmp://10.6.6.256:162\"\nso we found some incorrect value in destination since Destination property has got incorrect IP address value",
+      "parentUuid": "c7e8de18_089eadf4",
       "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
