@@ -254,8 +254,8 @@ inline bool extractEthernetInterfaceData(
                         }
                         else if (propertyPair.first == "MTU")
                         {
-                            const uint32_t* mtuSize =
-                                std::get_if<uint32_t>(&propertyPair.second);
+                            const size_t* mtuSize =
+                                std::get_if<size_t>(&propertyPair.second);
                             if (mtuSize != nullptr)
                             {
                                 ethData.mtuSize = *mtuSize;
