@@ -34,6 +34,24 @@
       "parentUuid": "0c617169_6d46e2cd",
       "revId": "3daf804c088a98bac6e6e258940367890b5c202d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa209ba6_d5e18b1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-10-24T16:39:05Z",
+      "side": 1,
+      "message": "Apologies I have been offline since last week.  I tested the fix and I\u0027m still able to locally build bmcweb.\n\nI updated the commit message with context and the results of my testing.",
+      "parentUuid": "a8991d9d_d2bef90a",
+      "revId": "3daf804c088a98bac6e6e258940367890b5c202d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
