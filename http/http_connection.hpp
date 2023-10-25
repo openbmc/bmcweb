@@ -166,7 +166,7 @@ class Connection :
 
     void start()
     {
-        if (connectionCount >= 100)
+        if (connectionCount >= 200)
         {
             BMCWEB_LOG_CRITICAL("{}Max connection count exceeded.",
                                 logPtr(this));
