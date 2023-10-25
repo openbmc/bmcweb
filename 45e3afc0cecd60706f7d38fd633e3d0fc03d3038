@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "843d14f1_68bf7228",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-25T16:19:15Z",
+      "side": 1,
+      "message": "There are two methods of \"rearming\" the intrusion sensor: Automatic and Manual. In Auto mode, the sensor is showing the intrusion state real time, which means that closing the chassis cover after an intrusion event will restore the sensor state. However, in Manual mode, it expects a manual rearm \"to the sensor\" to restore its normal state, which means after an intrusion event, the IntrusionSensor will remain HardwareIntrusion (even when we re-attach the cover) until a rearm action is done for it to be restored back to Normal.\n\nIn https://redfish.dmtf.org/schemas/v1/Chassis.v1_24_0.json, longDescription of property IntrusionSensor under Chassis/PhysicalSecurity says: \"This property shall contain the physical security state of the chassis.  If the IntrusionSensorReArm property contains `Manual`, a client may set this property to `Normal` to reset the physical security state\". So this is kind of a rearm by software to the sensor.\n\nTherefore, when I added the Rearm property to chassis intrusion sensor interface in dbus-sensors (https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/58205), we expect the rearm action to be executed via Redfish (by patching Normal to Chassis/chassis/PhysicalSecurity/Intrusionsensor, it writes Normal to the Status property on DBus and restores the sensor).",
+      "parentUuid": "af5839bc_ea8d3155",
+      "range": {
+        "startLine": 791,
+        "startChar": 0,
+        "endLine": 791,
+        "endChar": 75
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1537543_90663838",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 24
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-25T01:12:10Z",
       "side": 1,
       "message": "Do we need to be setting the @AllowedValues to specify this?",
+      "range": {
+        "startLine": 814,
+        "startChar": 12,
+        "endLine": 814,
+        "endChar": 95
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c8cd73d_07bf3500",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-25T16:19:15Z",
+      "side": 1,
+      "message": "Redfish schema does not say we can\u0027t write anything other than Normal to it, it just says \"a client may set this property to Normal to reset the physical security state\". However, in dbus-sensors, we only process Normal value written to the property on DBus (writing others to it causes no effect), so I log the error here.",
+      "parentUuid": "f1537543_90663838",
       "range": {
         "startLine": 814,
         "startChar": 12,
@@ -100,6 +148,30 @@
       "writtenOn": "2023-10-25T01:12:10Z",
       "side": 1,
       "message": "This doesn\u0027t look right.  We need to be getting the Intrusion interface for THIS chassis (based on chassisId) not just getting the main chassis intrusion for all chassis.",
+      "range": {
+        "startLine": 860,
+        "startChar": 8,
+        "endLine": 860,
+        "endChar": 24
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c308ac_3e8690e5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-10-25T16:19:15Z",
+      "side": 1,
+      "message": "In dbus-sensors, for now, it expects to only have one chassis intrusion sensor for one given system and there\u0027s currently no association between the sensor and a chassis intrusion sensor. I think I need to add the association.\n\nIf we add the intrusion sensor to the /all_sensors \u003c-\u003e /chassis association with the chassis whose EntityManager config the sensor is configured in, that chassis will have the PhysicalSecurity attribute. In this case, what should be shown in PhysicalSecurity of other chassis or should it show nothing?",
+      "parentUuid": "db550777_97d45d36",
       "range": {
         "startLine": 860,
         "startChar": 8,
