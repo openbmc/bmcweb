@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b054f1a1_05a3dbc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 56
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-25T23:33:11Z",
+      "side": 1,
+      "message": "@ed you are right, this change breaks the previously working systems.\n\nPreviously, the LED group path (\"/xyz/openbmc_project/led/groups/enclosure_identify_blink\") and LED group service (\"xyz.openbmc_project.LED.GroupManager\") were hard-coded in the code.\n\nIn this commit, the code dynamically retrieves the LED group path and service from the \"identifying\" association. The \"LocationIndicatorActive\" property is newly introduced for power supplies and fans, and for these components, we should retrieve this information from the \"identifying\" association.\n\nTo resolve this issue, one approach is keep the current code as is for systems and chassis, and use the new approach for PowerSupply and Fans.\n@ed, @gunnar, Please share your thoughts and suggestions.",
+      "parentUuid": "fd2b5797_a186139f",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "365353ca_b0de6598",
         "filename": "/COMMIT_MSG",
         "patchSetId": 56
