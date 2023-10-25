@@ -22,6 +22,30 @@
       },
       "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acadcd6a_cee5d8cb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-25T02:46:35Z",
+      "side": 1,
+      "message": "In the getValidPowerSupplyPath call within powerSupplyPatchAfterValidateChassis, it verifies the existence of the PowerSupply interface.\n\nIn setLocationIndicatorActive, it checks if the LED is associated with the PSU via the association.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/56/redfish-core/lib/led.hpp#278",
+      "parentUuid": "0897a797_02bfa7c2",
+      "range": {
+        "startLine": 607,
+        "startChar": 32,
+        "endLine": 607,
+        "endChar": 51
+      },
+      "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
