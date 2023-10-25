@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cd05cf5_6614d4ec",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:45:53Z",
+      "side": 1,
+      "message": "Same as below, missing error handling.",
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbab385f_c9466c77",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:45:53Z",
+      "side": 1,
+      "message": "Looks like this doesn\u0027t handle 404 properly.  All cases where there\u0027s an error should set an error message.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 19
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe5e504_9e855c15",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:45:53Z",
+      "side": 1,
+      "message": "I suspect this lambda can be simplified with bind_front.",
+      "range": {
+        "startLine": 267,
+        "startChar": 23,
+        "endLine": 269,
+        "endChar": 5
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60a040df_649ec1b9",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:45:53Z",
+      "side": 1,
+      "message": "Why is this hardcoded?",
+      "range": {
+        "startLine": 281,
+        "startChar": 41,
+        "endLine": 281,
+        "endChar": 72
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20137ac8_125d9d92",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:45:53Z",
+      "side": 1,
+      "message": "Please do refactors in their own commit.  It\u0027s difficult to review for changes otherwise.",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 1
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32151885_277e31c3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:45:53Z",
+      "side": 1,
+      "message": "Why is this under the item.system branch?  Having an Item.System interface does not mean this has a location indicator interface.",
+      "range": {
+        "startLine": 581,
+        "startChar": 24,
+        "endLine": 581,
+        "endChar": 50
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
