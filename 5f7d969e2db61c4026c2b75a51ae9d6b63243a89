@@ -131,6 +131,29 @@
       },
       "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f76fb156_ab159a96",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:46:50Z",
+      "side": 1,
+      "message": "This lambda will need to be refactored into normal callback methods before any additional code is put in it.",
+      "range": {
+        "startLine": 374,
+        "startChar": 8,
+        "endLine": 584,
+        "endChar": 13
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
