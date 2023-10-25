@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6b6b20c_ff122c8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:02:46Z",
+      "side": 1,
+      "message": "Your tests showed errors.",
+      "parentUuid": "71865825_0c3e6851",
+      "revId": "db0eb59f4b2b8b0071e20394b86ccbd5abdb4715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a66322b8_18eb03e2",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 15
