@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0897a797_02bfa7c2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T00:55:13Z",
+      "side": 1,
+      "message": "This isn\u0027t enough of a test.  This needs to verify that the LED is attached to the PSU, which it needs to be doing via the association, not simply checking if element exists.\n\nAlso, this is checking if a Chassis or Board interface exists, not whether a PowerSupply interface exists.",
+      "range": {
+        "startLine": 607,
+        "startChar": 32,
+        "endLine": 607,
+        "endChar": 51
+      },
+      "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
