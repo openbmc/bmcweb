@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49775860_932b2aa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:12:10Z",
+      "side": 1,
+      "message": "Any documentation updates needed?",
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af5839bc_ea8d3155",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:12:10Z",
+      "side": 1,
+      "message": "I\u0027m a little surprised we\u0027re setting a property here.  I would\u0027ve assumed this would be a \"rearm\" method, given that it likely needs to touch hardware.  Was that discussed somewhere.",
+      "range": {
+        "startLine": 791,
+        "startChar": 0,
+        "endLine": 791,
+        "endChar": 75
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1537543_90663838",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:12:10Z",
+      "side": 1,
+      "message": "Do we need to be setting the @AllowedValues to specify this?",
+      "range": {
+        "startLine": 814,
+        "startChar": 12,
+        "endLine": 814,
+        "endChar": 95
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d56a25b_8f9b4fd2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:12:10Z",
+      "side": 1,
+      "message": "This is going to get ALL intrusion sensors, not just the one we\u0027re looking for.",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 77
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db550777_97d45d36",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:12:10Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  We need to be getting the Intrusion interface for THIS chassis (based on chassisId) not just getting the main chassis intrusion for all chassis.",
+      "range": {
+        "startLine": 860,
+        "startChar": 8,
+        "endLine": 860,
+        "endChar": 24
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8449c24_faec8200",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-25T01:12:10Z",
+      "side": 1,
+      "message": "this is not how to do this lookup.  A chassis makes an intrusion interface available via dbus.  This code shouldn\u0027t care what the \"primary\" chassis is.",
+      "range": {
+        "startLine": 868,
+        "startChar": 21,
+        "endLine": 868,
+        "endChar": 75
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
