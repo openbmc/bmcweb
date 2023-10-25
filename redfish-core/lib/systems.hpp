@@ -346,6 +346,230 @@ inline void
     });
 }
 
+inline void afterGetUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const boost::system::error_code& ec,
+                         const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Got {} UUID properties.", properties.size());
+
+    const std::string* uUID = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "UUID", uUID);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (uUID != nullptr)
+    {
+        std::string valueStr = *uUID;
+        if (valueStr.size() == 32)
+        {
+            valueStr.insert(8, 1, '-');
+            valueStr.insert(13, 1, '-');
+            valueStr.insert(18, 1, '-');
+            valueStr.insert(23, 1, '-');
+        }
+        BMCWEB_LOG_DEBUG("UUID = {}", valueStr);
+        asyncResp->res.jsonValue["UUID"] = valueStr;
+    }
+}
+
+inline void
+    afterGetInventory(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const boost::system::error_code& ec,
+                      const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    if (ec)
+    {
+        // doesn't have to include this
+        // interface
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Got {} properties for system", propertiesList.size());
+
+    const std::string* partNumber = nullptr;
+    const std::string* serialNumber = nullptr;
+    const std::string* manufacturer = nullptr;
+    const std::string* model = nullptr;
+    const std::string* subModel = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
+        partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
+        "Model", model, "SubModel", subModel);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (partNumber != nullptr)
+    {
+        asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+    }
+
+    if (serialNumber != nullptr)
+    {
+        asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+    }
+
+    if (manufacturer != nullptr)
+    {
+        asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+    }
+
+    if (model != nullptr)
+    {
+        asyncResp->res.jsonValue["Model"] = *model;
+    }
+
+    if (subModel != nullptr)
+    {
+        asyncResp->res.jsonValue["SubModel"] = *subModel;
+    }
+
+    // Grab the bios version
+    sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose,
+                                         "BiosVersion", false);
+}
+
+inline void
+    afterGetAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const boost::system::error_code& ec,
+                     const std::string& value)
+{
+    if (ec)
+    {
+        // doesn't have to include this
+        // interface
+        return;
+    }
+
+    asyncResp->res.jsonValue["AssetTag"] = value;
+}
+
+inline void afterSystemGetSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<HealthPopulate>& systemHealth,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Iterate over all retrieved ObjectPaths.
+    for (const std::pair<
+             std::string,
+             std::vector<std::pair<std::string, std::vector<std::string>>>>&
+             object : subtree)
+    {
+        const std::string& path = object.first;
+        BMCWEB_LOG_DEBUG("Got path: {}", path);
+        const std::vector<std::pair<std::string, std::vector<std::string>>>&
+            connectionNames = object.second;
+        if (connectionNames.empty())
+        {
+            continue;
+        }
+
+        std::shared_ptr<HealthPopulate> memoryHealth = nullptr;
+        std::shared_ptr<HealthPopulate> cpuHealth = nullptr;
+
+        if constexpr (bmcwebEnableProcMemStatus)
+        {
+            memoryHealth = std::make_shared<HealthPopulate>(
+                asyncResp, "/MemorySummary/Status"_json_pointer);
+            systemHealth->children.emplace_back(memoryHealth);
+
+            if constexpr (bmcwebEnableHealthPopulate)
+            {
+                cpuHealth = std::make_shared<HealthPopulate>(
+                    asyncResp, "/ProcessorSummary/Status"_json_pointer);
+
+                systemHealth->children.emplace_back(cpuHealth);
+            }
+        }
+
+        // This is not system, so check if it's cpu, dimm, UUID or
+        // BiosVer
+        for (const auto& connection : connectionNames)
+        {
+            for (const auto& interfaceName : connection.second)
+            {
+                if (interfaceName == "xyz.openbmc_project.Inventory.Item.Dimm")
+                {
+                    BMCWEB_LOG_DEBUG("Found Dimm, now get its properties.");
+
+                    getMemorySummary(asyncResp, connection.first, path);
+
+                    if constexpr (bmcwebEnableProcMemStatus)
+                    {
+                        memoryHealth->inventory.emplace_back(path);
+                    }
+                }
+                else if (interfaceName ==
+                         "xyz.openbmc_project.Inventory.Item.Cpu")
+                {
+                    BMCWEB_LOG_DEBUG("Found Cpu, now get its properties.");
+
+                    getProcessorSummary(asyncResp, connection.first, path);
+
+                    if constexpr (bmcwebEnableProcMemStatus)
+                    {
+                        cpuHealth->inventory.emplace_back(path);
+                    }
+                }
+                else if (interfaceName == "xyz.openbmc_project.Common.UUID")
+                {
+                    BMCWEB_LOG_DEBUG("Found UUID, now get its properties.");
+
+                    sdbusplus::asio::getAllProperties(
+                        *crow::connections::systemBus, connection.first, path,
+                        "xyz.openbmc_project.Common.UUID",
+                        [asyncResp](const boost::system::error_code& ec3,
+                                    const dbus::utility::DBusPropertiesMap&
+                                        properties) {
+                        afterGetUUID(asyncResp, ec3, properties);
+                    });
+                }
+                else if (interfaceName ==
+                         "xyz.openbmc_project.Inventory.Item.System")
+                {
+                    sdbusplus::asio::getAllProperties(
+                        *crow::connections::systemBus, connection.first, path,
+                        "xyz.openbmc_project.Inventory.Decorator.Asset",
+                        [asyncResp](const boost::system::error_code& ec3,
+                                    const dbus::utility::DBusPropertiesMap&
+                                        properties) {
+                        afterGetInventory(asyncResp, ec3, properties);
+                    });
+
+                    sdbusplus::asio::getProperty<std::string>(
+                        *crow::connections::systemBus, connection.first, path,
+                        "xyz.openbmc_project.Inventory.Decorator."
+                        "AssetTag",
+                        "AssetTag",
+                        std::bind_front(afterGetAssetTag, asyncResp));
+                }
+            }
+        }
+    }
+}
+
 /*
  * @brief Retrieves computer system properties over dbus
  *
@@ -368,221 +592,7 @@ inline void
     };
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp,
-         systemHealth](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        // Iterate over all retrieved ObjectPaths.
-        for (const std::pair<
-                 std::string,
-                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
-                 object : subtree)
-        {
-            const std::string& path = object.first;
-            BMCWEB_LOG_DEBUG("Got path: {}", path);
-            const std::vector<std::pair<std::string, std::vector<std::string>>>&
-                connectionNames = object.second;
-            if (connectionNames.empty())
-            {
-                continue;
-            }
-
-            std::shared_ptr<HealthPopulate> memoryHealth = nullptr;
-            std::shared_ptr<HealthPopulate> cpuHealth = nullptr;
-
-            if constexpr (bmcwebEnableProcMemStatus)
-            {
-                memoryHealth = std::make_shared<HealthPopulate>(
-                    asyncResp, "/MemorySummary/Status"_json_pointer);
-                systemHealth->children.emplace_back(memoryHealth);
-
-                if constexpr (bmcwebEnableHealthPopulate)
-                {
-                    cpuHealth = std::make_shared<HealthPopulate>(
-                        asyncResp, "/ProcessorSummary/Status"_json_pointer);
-
-                    systemHealth->children.emplace_back(cpuHealth);
-                }
-            }
-
-            // This is not system, so check if it's cpu, dimm, UUID or
-            // BiosVer
-            for (const auto& connection : connectionNames)
-            {
-                for (const auto& interfaceName : connection.second)
-                {
-                    if (interfaceName ==
-                        "xyz.openbmc_project.Inventory.Item.Dimm")
-                    {
-                        BMCWEB_LOG_DEBUG("Found Dimm, now get its properties.");
-
-                        getMemorySummary(asyncResp, connection.first, path);
-
-                        if constexpr (bmcwebEnableProcMemStatus)
-                        {
-                            memoryHealth->inventory.emplace_back(path);
-                        }
-                    }
-                    else if (interfaceName ==
-                             "xyz.openbmc_project.Inventory.Item.Cpu")
-                    {
-                        BMCWEB_LOG_DEBUG("Found Cpu, now get its properties.");
-
-                        getProcessorSummary(asyncResp, connection.first, path);
-
-                        if constexpr (bmcwebEnableProcMemStatus)
-                        {
-                            cpuHealth->inventory.emplace_back(path);
-                        }
-                    }
-                    else if (interfaceName == "xyz.openbmc_project.Common.UUID")
-                    {
-                        BMCWEB_LOG_DEBUG("Found UUID, now get its properties.");
-
-                        sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, connection.first,
-                            path, "xyz.openbmc_project.Common.UUID",
-                            [asyncResp](const boost::system::error_code& ec3,
-                                        const dbus::utility::DBusPropertiesMap&
-                                            properties) {
-                            if (ec3)
-                            {
-                                BMCWEB_LOG_ERROR("DBUS response error {}", ec3);
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            BMCWEB_LOG_DEBUG("Got {} UUID properties.",
-                                             properties.size());
-
-                            const std::string* uUID = nullptr;
-
-                            const bool success =
-                                sdbusplus::unpackPropertiesNoThrow(
-                                    dbus_utils::UnpackErrorPrinter(),
-                                    properties, "UUID", uUID);
-
-                            if (!success)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-
-                            if (uUID != nullptr)
-                            {
-                                std::string valueStr = *uUID;
-                                if (valueStr.size() == 32)
-                                {
-                                    valueStr.insert(8, 1, '-');
-                                    valueStr.insert(13, 1, '-');
-                                    valueStr.insert(18, 1, '-');
-                                    valueStr.insert(23, 1, '-');
-                                }
-                                BMCWEB_LOG_DEBUG("UUID = {}", valueStr);
-                                asyncResp->res.jsonValue["UUID"] = valueStr;
-                            }
-                        });
-                    }
-                    else if (interfaceName ==
-                             "xyz.openbmc_project.Inventory.Item.System")
-                    {
-                        sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, connection.first,
-                            path,
-                            "xyz.openbmc_project.Inventory.Decorator.Asset",
-                            [asyncResp](const boost::system::error_code& ec2,
-                                        const dbus::utility::DBusPropertiesMap&
-                                            propertiesList) {
-                            if (ec2)
-                            {
-                                // doesn't have to include this
-                                // interface
-                                return;
-                            }
-                            BMCWEB_LOG_DEBUG("Got {} properties for system",
-                                             propertiesList.size());
-
-                            const std::string* partNumber = nullptr;
-                            const std::string* serialNumber = nullptr;
-                            const std::string* manufacturer = nullptr;
-                            const std::string* model = nullptr;
-                            const std::string* subModel = nullptr;
-
-                            const bool success =
-                                sdbusplus::unpackPropertiesNoThrow(
-                                    dbus_utils::UnpackErrorPrinter(),
-                                    propertiesList, "PartNumber", partNumber,
-                                    "SerialNumber", serialNumber,
-                                    "Manufacturer", manufacturer, "Model",
-                                    model, "SubModel", subModel);
-
-                            if (!success)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-
-                            if (partNumber != nullptr)
-                            {
-                                asyncResp->res.jsonValue["PartNumber"] =
-                                    *partNumber;
-                            }
-
-                            if (serialNumber != nullptr)
-                            {
-                                asyncResp->res.jsonValue["SerialNumber"] =
-                                    *serialNumber;
-                            }
-
-                            if (manufacturer != nullptr)
-                            {
-                                asyncResp->res.jsonValue["Manufacturer"] =
-                                    *manufacturer;
-                            }
-
-                            if (model != nullptr)
-                            {
-                                asyncResp->res.jsonValue["Model"] = *model;
-                            }
-
-                            if (subModel != nullptr)
-                            {
-                                asyncResp->res.jsonValue["SubModel"] =
-                                    *subModel;
-                            }
-
-                            // Grab the bios version
-                            sw_util::populateSoftwareInformation(
-                                asyncResp, sw_util::biosPurpose, "BiosVersion",
-                                false);
-                        });
-
-                        sdbusplus::asio::getProperty<std::string>(
-                            *crow::connections::systemBus, connection.first,
-                            path,
-                            "xyz.openbmc_project.Inventory.Decorator."
-                            "AssetTag",
-                            "AssetTag",
-                            [asyncResp](const boost::system::error_code& ec2,
-                                        const std::string& value) {
-                            if (ec2)
-                            {
-                                // doesn't have to include this
-                                // interface
-                                return;
-                            }
-
-                            asyncResp->res.jsonValue["AssetTag"] = value;
-                        });
-                    }
-                }
-            }
-        }
-    });
+        std::bind_front(afterSystemGetSubTree, asyncResp, systemHealth));
 }
 
 /**
