@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9843b932_705a5a7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 56
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "As this code change is breaking previously functioning systems, I have reverted back to the original code.",
+      "parentUuid": "b054f1a1_05a3dbc1",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "365353ca_b0de6598",
         "filename": "/COMMIT_MSG",
         "patchSetId": 56
@@ -61,6 +85,30 @@
       "writtenOn": "2023-10-25T00:51:15Z",
       "side": 1,
       "message": "This is the wrong error.  If no interface exists, it should be 404, reousrceNotFound.",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c814598_e0408e16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 56
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "readJsonPatch is failing with \"UnrecognizedRequestBody\" error before calling setLocationIndicatorActive.\nAs this code change is breaking previously functioning systems, I have reverted back to the original code.",
+      "parentUuid": "365353ca_b0de6598",
       "range": {
         "startLine": 22,
         "startChar": 1,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d31b9f0_2d9007b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 56
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56172a31_c639b508",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 6
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cd05cf5_6614d4ec",
@@ -111,6 +183,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5835f87_bdcdb699",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cd05cf5_6614d4ec",
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbab385f_c9466c77",
@@ -124,6 +214,30 @@
       "writtenOn": "2023-10-25T00:45:53Z",
       "side": 1,
       "message": "Looks like this doesn\u0027t handle 404 properly.  All cases where there\u0027s an error should set an error message.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 19
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7535f8aa_9bfcfad6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbab385f_c9466c77",
       "range": {
         "startLine": 205,
         "startChar": 0,
@@ -157,6 +271,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f64d67_f406df14",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfe5e504_9e855c15",
+      "range": {
+        "startLine": 267,
+        "startChar": 23,
+        "endLine": 269,
+        "endChar": 5
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60a040df_649ec1b9",
@@ -170,6 +308,30 @@
       "writtenOn": "2023-10-25T00:45:53Z",
       "side": 1,
       "message": "Why is this hardcoded?",
+      "range": {
+        "startLine": 281,
+        "startChar": 41,
+        "endLine": 281,
+        "endChar": 72
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1947a922_a7d78a11",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60a040df_649ec1b9",
       "range": {
         "startLine": 281,
         "startChar": 41,
@@ -203,6 +365,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b117bed_60b46555",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20137ac8_125d9d92",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 1
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32151885_277e31c3",
@@ -226,6 +412,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c929c4d_a65502c1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "getLocationIndicatorActive\" requires the system path to check if it has a LED Group interface. Since we are already retrieving the system path in this code path, I called \"getLocationIndicatorActive.\"\n\nAs this code change is breaking previously functioning systems, I have reverted back to the original code.",
+      "parentUuid": "32151885_277e31c3",
+      "range": {
+        "startLine": 581,
+        "startChar": 24,
+        "endLine": 581,
+        "endChar": 50
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f76fb156_ab159a96",
@@ -239,6 +449,30 @@
       "writtenOn": "2023-10-25T00:46:50Z",
       "side": 1,
       "message": "This lambda will need to be refactored into normal callback methods before any additional code is put in it.",
+      "range": {
+        "startLine": 374,
+        "startChar": 8,
+        "endLine": 584,
+        "endChar": 13
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5785b2a5_b12fec96",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-26T21:00:24Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/67400",
+      "parentUuid": "f76fb156_ab159a96",
       "range": {
         "startLine": 374,
         "startChar": 8,
