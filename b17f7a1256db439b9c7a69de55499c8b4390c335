@@ -161,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b105dad0_3f2fa6d0",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-10-26T05:32:59Z",
+      "side": 1,
+      "message": "There is not much code actually. It is just one extra-level of redirection. This is technique used in modern C++ libraries (such as range or sender-receiver) to enable customisation points using static polymorphism. \n\nI wrote the code just to give you an overall idea.\n\nPlease see the update example [here](https://godbolt.org/z/noYsTbT48 ) , Removed one unnecessary If const expr check; \nYes, readability is depending on the reader. To me, including tcp, ssl ,and test stream headers in http_connection looks a bit more coupled than necessary. \nWe can agree to disagree here.",
+      "parentUuid": "61a3deaf_00740eda",
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6174628d_56b2c724",
         "filename": "test/http/http_connection_test.cpp",
         "patchSetId": 11
