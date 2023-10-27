@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b88bd44e_49cf6d6f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2023-10-27T07:51:17Z",
+      "side": 1,
+      "message": "I want to know how you plan to rework the timer.\nShould we set a larger time? Or set a dynamic time?\nIf it is a fixed time, the time multiplied by the network speed determines the upper limit of the file size we can download.",
+      "range": {
+        "startLine": 594,
+        "startChar": 8,
+        "endLine": 594,
+        "endChar": 41
+      },
+      "revId": "d9c537c69a917e157bf367d4123e0981a9241d7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
