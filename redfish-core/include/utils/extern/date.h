@@ -1,3 +1,4 @@
+#pragma once
 // NOLINTBEGIN
 // clang-format off
 
@@ -5,9 +6,6 @@
  *  Originally sourced from
  *  https://github.com/HowardHinnant/date/blob/master/include/date/date.h
  */
-
-#ifndef DATE_H
-#define DATE_H
 
 // The MIT License (MIT)
 //
@@ -8250,5 +8248,3 @@ operator<<(std::basic_ostream<CharT, Traits>& os,
 
 // NOLINTEND
 // clang-format off
-
-#endif  // DATE_H
