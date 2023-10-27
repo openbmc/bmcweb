@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "620a581e_4af79e49",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-27T17:19:58Z",
+      "side": 1,
+      "message": "his suggestion was to use propertyValueIncorrect",
+      "parentUuid": "c2b219c9_f795648e",
+      "revId": "f26560b8f664fc98faf47387003c17ed98eddb41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c7e8de18_089eadf4",
