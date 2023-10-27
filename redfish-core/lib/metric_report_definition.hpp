@@ -1223,6 +1223,22 @@ inline void
 }
 } // namespace telemetry
 
+inline void afterRetrieveUriToDbusMap(
+    const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+    const std::shared_ptr<telemetry::AddReport>& addReportReq,
+    const boost::beast::http::status status,
+    const std::map<std::string, std::string>& uriToDbus)
+{
+    if (status != boost::beast::http::status::ok)
+    {
+        BMCWEB_LOG_ERROR(
+            "Failed to retrieve URI to dbus sensors map with err {}",
+            static_cast<unsigned>(status));
+        return;
+    }
+    addReportReq->insert(uriToDbus);
+}
+
 inline void handleMetricReportDefinitionsPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1250,20 +1266,9 @@ inline void handleMetricReportDefinitionsPost(
                                                                asyncResp);
     for (const auto& [chassis, sensorType] : chassisSensors)
     {
-        retrieveUriToDbusMap(
-            chassis, sensorType,
-            [asyncResp, addReportReq](
-                const boost::beast::http::status status,
-                const std::map<std::string, std::string>& uriToDbus) {
-            if (status != boost::beast::http::status::ok)
-            {
-                BMCWEB_LOG_ERROR(
-                    "Failed to retrieve URI to dbus sensors map with err {}",
-                    static_cast<unsigned>(status));
-                return;
-            }
-            addReportReq->insert(uriToDbus);
-        });
+        retrieveUriToDbusMap(chassis, sensorType,
+                             std::bind_front(afterRetrieveUriToDbusMap,
+                                             asyncResp, addReportReq));
     }
 }
 
