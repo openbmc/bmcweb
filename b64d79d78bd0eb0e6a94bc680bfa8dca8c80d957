@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de325005_4748660c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 60
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-30T22:48:49Z",
+      "side": 1,
+      "message": "Please just call out that this is a renaming of an existing function.  No need to retest for a just a rename.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 10
+      },
+      "revId": "b64d79d78bd0eb0e6a94bc680bfa8dca8c80d957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3f43276_37442d39",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-30T22:48:49Z",
+      "side": 1,
+      "message": "Now this commit looks like it\u0027s just a rename?  But that doesn\u0027t match up with the commit message.",
+      "revId": "b64d79d78bd0eb0e6a94bc680bfa8dca8c80d957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

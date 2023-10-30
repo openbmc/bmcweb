@@ -320,6 +320,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68bee5bc_a819d0a8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-30T22:48:49Z",
+      "side": 1,
+      "message": "I see, now this is just a rename, but the commit message wasn\u0027t updated.",
+      "parentUuid": "8e95674f_5351c3de",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 19
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfe5e504_9e855c15",
