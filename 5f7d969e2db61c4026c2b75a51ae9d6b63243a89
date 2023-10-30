@@ -298,6 +298,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e95674f_5351c3de",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-30T18:15:20Z",
+      "side": 1,
+      "message": "This is old code, I reverted back to original code.\n\nLocation of the original comment:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/56..58/redfish-core/lib/led.hpp#362\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/58/redfish-core/lib/led.hpp#404",
+      "parentUuid": "c901f4ba_52b85118",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 19
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cfe5e504_9e855c15",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 56
