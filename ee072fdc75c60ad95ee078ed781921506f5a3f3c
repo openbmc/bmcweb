@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4d5a53_d65b1544",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "There\u0027s lots of CI failures here.  Please take a look and correct them.",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bfb92b4_02780258",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "For new code, please use the if constexpr approach web\u0027ve been doing in bmcweb_config.h\n\nalso, optionally including headers is something we no longer do due to build breakages.  Happy to discuss if you think our approach is wrong or could be improved holistically, just not in the context of new code.",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e56c967_ac826fd5",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "In TLS, is this something we even need to be checking for?  Meta doesn\u0027t use this, but does anyone?  I suspect this can just be removed for all things, or at the very least made a generic option, non meta specific.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acc2bc0c_552a2db8",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "You\u0027re now running BOTH sets of user parsing code, without a check to see if one succeeded.  I suspect we just need to make this flip between one set of logic and another.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 59
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e10a52_49b82f32",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "Please remove the regex, especially for security critical code.  std::regex is not very performant, and can generally be replaced with a simple parser that doesn\u0027t require regex compilation on startup.  There\u0027s a bug that goes through documenting all the removals, and why.",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "434baae4_9fcd2004",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "For example, are you sure that zero or more match is correct here?  An empty username seems like it wouldn\u0027t be valid.\n\nIf this were a simple parser, it\u0027d be a lot easier to explain in a comment whether that\u0027s intentional or not.",
+      "range": {
+        "startLine": 11,
+        "startChar": 20,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93a30455_43ef20af",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "Is this using a standard like spiffe?  I would much rather have generic parsing code that parses out the hostname than code that explicitly looks for facebook.com.  If the cert is signed, it\u0027s up to the signer if they want to sign other hosts.  \"was signed by facebook.com\" isn\u0027t really something the bmc should be enforcing just as a technical simplification, and clear separation of responsibilities.  ie, the BMC trusts any data that\u0027s signed, no need to do further verification, that\u0027s the responsibility of the signer.",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7a5f3ca_6a63a638",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "this implies that the user on the bmc is going to be user_foo, not foo based on returning this.  I\u0027m assuming that\u0027s not what you intend?  Users on the bmc are going to be \"foo\"",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7b48228_fccc878a",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "Lets make this option anem a less company specific enum, because I suspect others are going to have additional options, and I know things like spifee exist that might come up in the future.  something like:\n\ntls-username-parsing-mode: {CommonName, Meta, Spiffe, ....}",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 104
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c08b030_eb5f3ca6",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:16:38Z",
+      "side": 1,
+      "message": "We intentionally run all unit tests with all options enabled.   Unit tests by definition shouldn\u0027t care what the config options are, unless they effect the actual output, in which case they should only be switching between the two behaviors in tests.",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 5
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
