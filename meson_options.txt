@@ -185,6 +185,20 @@ option(
 )
 
 option(
+    'mutual-tls-common-name-parsing',
+    type: 'combo',
+    choices: ['username', 'meta'],
+    value: 'username',
+    description: '''Sets logic to map the Subject Common Name field to a user
+                    in client TLS certificates.
+                    - username: Use the Subject CN field as a BMC username
+                                (default)
+                    - meta:     Parses the Subject CN in the format used by
+                                Meta Inc (see mutual_tls_meta.cpp for details)
+                    '''
+)
+
+option(
     'ibm-management-console',
     type: 'feature',
     value: 'disabled',
