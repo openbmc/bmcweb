@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d2cfedb_a2bfa0eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-10-31T04:18:20Z",
+      "side": 1,
+      "message": "CI fails for other files which are not related to this commit\n/data0/jenkins/workspace/ci-repository/openbmc/bmcweb/redfish-core/lib/metric_report_definition.hpp:1039:48: error: Potential memory leak [clang-analyzer-cplusplus.NewDeleteLeaks,-warnings-as-errors]\n 1039 |         for (const auto\u0026 [chassis, sensorType] : chassisSensors)",
+      "revId": "6a5125530273a47e96bcd5cd0d44f7d2e49ab51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
