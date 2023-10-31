@@ -161,6 +161,7 @@ add_project_arguments(
     '-Wno-used-but-marked-unused',
     '-Wno-weak-vtables',
     '-Wno-switch-enum',
+    '-Wno-unused-macros',
   ]),
   language:'cpp')
 endif
