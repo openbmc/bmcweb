@@ -166,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb4ed4cd_9465261b",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "yeah, that\u0027s a fair point.  ACK",
+      "parentUuid": "0b28514d_91085d5e",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 59
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7e10a52_49b82f32",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
@@ -236,6 +260,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a7b1857_1d7f6d03",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "they\u0027re both complex, one is code we can read and compiles at compile time, one has a runtime overhead 😊\n\nfor non-bmc use cases, regex is generally a perfectly acceptable choice, so i don\u0027t fault you for going that route.",
+      "parentUuid": "2f408b6f_ff69f4a6",
+      "range": {
+        "startLine": 11,
+        "startChar": 20,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93a30455_43ef20af",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
@@ -265,6 +313,24 @@
       "side": 1,
       "message": "\u003e Is this using a standard like spiffe? \n\nNo, AFAICT this is a Meta-specific convention (so unfortunately not very generic). \n\nThe host suffix bit is there more to be able to remove it easily later. We don\u0027t use these to uniquely identify hosts internally and avoids issues with username character count limits.",
       "parentUuid": "93a30455_43ef20af",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb63d75_b6c58c27",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1dee2f9b_9d923510",
       "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -318,6 +384,76 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b5d0f54_a1a9da0b",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "\u003e Internally, we have three basic types of certs (\"user\", \"svc\", and \"host\") and the idea is to map those to BMC users with the \u003ctype\u003e being used as prefix to eliminate  collisions if we have a service and a user and service with the same name, e.g:\n\nright, so the core of the problem here is that on OpenBMC (and linux in general) \"name\" isn\u0027t used to differentiate service vs user.  OpenBMC has no sense of a service login at this point (well, it kinda does, but I\u0027m assuming your service isn\u0027t the same as OpenBMCs definition of service), only the idea of a \"user\" so just collapsing it down to name means that things like IPMI can now break this code, by creating a user called \"foo\" instead of \"user_foo\"\n\nAs far as this patchset goes, this is the thing that I\u0027d like to see ironed out at OpenBMC/dbus level.\n\nas far as a bmc is concerned, what is a \"service\" and is it any different than a user?  In this code, they\u0027re treated essentially the same.\n\n\u003e \n\u003e   \"user:zeus/dev123.facebook.com\" -\u003e \"user_zeus\"\n\u003e   \"svc:zeus\" -\u003e \"svc_zeus\"",
+      "parentUuid": "eced6539_e4f15015",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37928848_a29b747b",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "nit, probably want warning here or error here.  If the intermediate is signing bad requests, something has gone very... very wrong.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9240d565_b902283b",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "Can we avoid using an in-out parameter here?  The input and the output represent different things.  Putting them in one variable is confusing.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7b48228_fccc878a",
         "filename": "meson.build",
         "patchSetId": 3
@@ -353,6 +489,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "a7b48228_fccc878a",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 104
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f77c76f3_7ef03475",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:58:38Z",
+      "side": 1,
+      "message": "s/anem/enum/g",
+      "parentUuid": "e787a389_f6b91114",
       "range": {
         "startLine": 80,
         "startChar": 0,
