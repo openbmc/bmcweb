@@ -12,6 +12,11 @@
 #include <memory>
 #include <span>
 
+#ifdef BMCWEB_ENABLE_META_MUTUAL_TLS_COMMON_NAME_PARSING
+#include "mutual_tls_meta.hpp"
+#endif  // BMCWEB_ENABLE_META_MUTUAL_TLS_COMMON_NAME_PARSING
+
+
 inline std::shared_ptr<persistent_data::UserSession>
     verifyMtlsUser(const boost::asio::ip::address& clientIp,
                    boost::asio::ssl::verify_context& ctx)
@@ -87,6 +92,11 @@ inline std::shared_ptr<persistent_data::UserSession>
     }
     ASN1_BIT_STRING_free(usage);
 
+    #ifdef BMCWEB_ENABLE_META_MUTUAL_TLS_COMMON_NAME_PARSING
+    // Meta certificates don't set this flag
+    isKeyUsageKeyAgreement = true;
+    #endif
+
     if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
     {
         BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
@@ -148,6 +158,12 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
     sslUser.resize(lastChar);
+
+    #ifdef BMCWEB_ENABLE_META_MUTUAL_TLS_COMMON_NAME_PARSING
+    status = mtlsMetaParseSslUser(sslUser);
+    if (status == -1) return nullptr;
+    #endif  // BMCWEB_ENABLE_META_MUTUAL_TLS_COMMON_NAME_PARSING
+
     std::string unsupportedClientId;
     return persistent_data::SessionStore::getInstance().generateUserSession(
         sslUser, clientIp, unsupportedClientId,

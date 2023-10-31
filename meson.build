@@ -77,6 +77,7 @@ feature_map = {
   'insecure-ignore-content-type'                : '-DBMCWEB_INSECURE_IGNORE_CONTENT_TYPE',
   'kvm'                                         : '-DBMCWEB_ENABLE_KVM' ,
   'mutual-tls-auth'                             : '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
+  'meta-mutual-tls-common-name-parsing'         : '-DBMCWEB_ENABLE_META_MUTUAL_TLS_COMMON_NAME_PARSING',
   'redfish-aggregation'                         : '-DBMCWEB_ENABLE_REDFISH_AGGREGATION',
   'redfish-allow-deprecated-power-thermal'      : '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL',
   'redfish-bmc-journal'                         : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
@@ -443,6 +444,10 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
   'test/redfish-core/lib/power_subsystem_test.cpp',
 )
+
+if(get_option('meta-mutual-tls-common-name-parsing').enabled())
+  srcfiles_unittest += files('test/http/mutual_tls_meta.cpp')
+endif
 
 if(get_option('tests').enabled())
     # generate the test executable
