@@ -1,6 +1,7 @@
 #pragma once
 
 #include "logging.hpp"
+#include "mutual_tls_meta.hpp"
 #include "persistent_data.hpp"
 
 #include <openssl/crypto.h>
@@ -88,6 +89,19 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
     sslUser.resize(lastChar);
+
+    // Meta Inc. CommonName parsing
+    if (bmcwebMTLSCommonNameParsingMeta)
+    {
+        std::optional<std::string_view> sslUserMeta =
+            mtlsMetaParseSslUser(sslUser);
+        if (!sslUserMeta)
+        {
+            return nullptr;
+        }
+        sslUser = *sslUserMeta;
+    }
+
     std::string unsupportedClientId;
     return persistent_data::SessionStore::getInstance().generateUserSession(
         sslUser, clientIp, unsupportedClientId,
