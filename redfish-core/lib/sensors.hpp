@@ -2752,7 +2752,8 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     if (pathIt == sensors::paths.cend())
     {
         BMCWEB_LOG_ERROR("Wrong node provided : {}", node);
-        mapComplete(boost::beast::http::status::bad_request, {});
+        std::map<std::string, std::string> noop;
+        mapComplete(boost::beast::http::status::bad_request, noop);
         return;
     }
 
