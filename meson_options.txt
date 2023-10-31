@@ -185,6 +185,13 @@ option(
 )
 
 option(
+    'meta-mutual-tls-common-name-parsing',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable support for Meta's client certificate format'''
+)
+
+option(
     'ibm-management-console',
     type: 'feature',
     value: 'disabled',
