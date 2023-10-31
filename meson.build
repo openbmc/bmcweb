@@ -161,6 +161,7 @@ add_project_arguments(
     '-Wno-used-but-marked-unused',
     '-Wno-weak-vtables',
     '-Wno-switch-enum',
+    '-Wno-unused-macros',
   ]),
   language:'cpp')
 endif
@@ -179,6 +180,7 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
      '-Wdouble-promotion',
      '-Wshadow',
      '-Wno-psabi',
+     '-Bsymbolic',
      ]),
     language:'cpp')
 endif
@@ -199,6 +201,7 @@ if (get_option('buildtype') != 'plain')
     if cxx.has_link_argument('-Wl,--exclude-libs,ALL')
       add_project_link_arguments('-Wl,--exclude-libs,ALL', language: 'cpp')
     endif
+    add_project_link_arguments('-Wl,--gc-sections', language: 'cpp')
   endif
 endif
 
