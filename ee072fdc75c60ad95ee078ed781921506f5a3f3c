@@ -119,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f45f372c_f310e2a2",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-10-31T21:59:47Z",
+      "side": 1,
+      "message": "Also, lets check to see if the Redfish spec specifies this explicitly.",
+      "parentUuid": "38b16cf9_dbad52b7",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acc2bc0c_552a2db8",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
