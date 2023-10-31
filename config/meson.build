@@ -20,6 +20,8 @@ enable_multi_host = get_option('experimental-redfish-multi-computer-system')
 conf_data.set10('BMCWEB_ENABLE_MULTI_HOST', enable_multi_host.allowed())
 enable_http2 = get_option('experimental-http2')
 conf_data.set10('BMCWEB_ENABLE_HTTP2', enable_http2.allowed())
+conf_data.set10('BMCWEB_ENABLE_MTLS_COMMON_NAME_PARSING_META', get_option('mutual-tls-common-name-parsing') == 'meta')
+
 
 # Logging level
 loglvlopt = get_option('bmcweb-logging')
@@ -59,4 +61,3 @@ install_data(
   install_dir: '/etc/pam.d/',
   rename: 'webserver',
 )
-
