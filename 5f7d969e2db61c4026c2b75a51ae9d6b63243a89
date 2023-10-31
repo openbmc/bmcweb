@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b0b536c_1d31e360",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 56
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-31T04:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9843b932_705a5a7e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "365353ca_b0de6598",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "\u003e readJsonPatch is failing with \"UnrecognizedRequestBody\"\n\nThis likely means that your test has bugs in it.  Check your content-type header.",
       "parentUuid": "8c814598_e0408e16",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "5f7d969e2db61c4026c2b75a51ae9d6b63243a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20df2c51_7c2426c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 56
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-10-31T04:43:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "408f0cd6_8190a517",
       "range": {
         "startLine": 22,
         "startChar": 1,
