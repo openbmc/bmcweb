@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "826e41f5_f465e7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T20:49:23Z",
+      "side": 1,
+      "message": "Hey everyone, these are some changes in bmcweb needed to support Meta\u0027s internal TLS client certificates. These are guarded by a meson option and meant to be used in Meta\u0027s internal builds.\n\nThis was discussed in #redfish-and-bmcweb around August, apologies for taking so long to submit changes (still getting used to gerrit). Any feedback is extremely appreciated.",
+      "revId": "cadbbc3929ec9dc682ffc315a00f75e390d27978",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
