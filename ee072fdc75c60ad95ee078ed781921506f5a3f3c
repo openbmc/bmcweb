@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e96e791d_b3925866",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "Will have a go at this, let me check bmcweb_config.h",
+      "parentUuid": "5bfb92b4_02780258",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e56c967_ac826fd5",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
@@ -77,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38b16cf9_dbad52b7",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "Good point, let me try making this a generic option.",
+      "parentUuid": "1e56c967_ac826fd5",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acc2bc0c_552a2db8",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
@@ -88,6 +130,30 @@
       "writtenOn": "2023-10-31T21:16:38Z",
       "side": 1,
       "message": "You\u0027re now running BOTH sets of user parsing code, without a check to see if one succeeded.  I suspect we just need to make this flip between one set of logic and another.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 59
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b28514d_91085d5e",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "My impression is that lines 147:159 are more to sanitise the Subject string returned by `X509_NAME_get_text_by_NID()` (i.e. just to ensure it\u0027s a sane C++ string) (i.e. I\u0027d likely need to redo the same sanitisation logic if we were to split), let me know if this is what you meant by both sets.",
+      "parentUuid": "acc2bc0c_552a2db8",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -146,6 +212,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f408b6f_ff69f4a6",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "The zero match is correct, e.g. `host:/blah.facebook.com` is a valid subject for a host certificates.\n\nI\u0027ve tried a non-regex parser initially and I thought it was a bit too complex, will try my hand at it again.",
+      "parentUuid": "434baae4_9fcd2004",
+      "range": {
+        "startLine": 11,
+        "startChar": 20,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93a30455_43ef20af",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
@@ -157,6 +247,24 @@
       "writtenOn": "2023-10-31T21:16:38Z",
       "side": 1,
       "message": "Is this using a standard like spiffe?  I would much rather have generic parsing code that parses out the hostname than code that explicitly looks for facebook.com.  If the cert is signed, it\u0027s up to the signer if they want to sign other hosts.  \"was signed by facebook.com\" isn\u0027t really something the bmc should be enforcing just as a technical simplification, and clear separation of responsibilities.  ie, the BMC trusts any data that\u0027s signed, no need to do further verification, that\u0027s the responsibility of the signer.",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dee2f9b_9d923510",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "\u003e Is this using a standard like spiffe? \n\nNo, AFAICT this is a Meta-specific convention (so unfortunately not very generic). \n\nThe host suffix bit is there more to be able to remove it easily later. We don\u0027t use these to uniquely identify hosts internally and avoids issues with username character count limits.",
+      "parentUuid": "93a30455_43ef20af",
       "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -186,6 +294,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eced6539_e4f15015",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "Internally, we have three basic types of certs (\"user\", \"svc\", and \"host\") and the idea is to map those to BMC users with the \u003ctype\u003e being used as prefix to eliminate  collisions if we have a service and a user and service with the same name, e.g:\n\n  \"user:zeus/dev123.facebook.com\" -\u003e \"user_zeus\"\n  \"svc:zeus\" -\u003e \"svc_zeus\"",
+      "parentUuid": "b7a5f3ca_6a63a638",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7b48228_fccc878a",
         "filename": "meson.build",
         "patchSetId": 3
@@ -197,6 +329,30 @@
       "writtenOn": "2023-10-31T21:16:38Z",
       "side": 1,
       "message": "Lets make this option anem a less company specific enum, because I suspect others are going to have additional options, and I know things like spifee exist that might come up in the future.  something like:\n\ntls-username-parsing-mode: {CommonName, Meta, Spiffe, ....}",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 104
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e787a389_f6b91114",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-10-31T21:49:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7b48228_fccc878a",
       "range": {
         "startLine": 80,
         "startChar": 0,
