@@ -1,6 +1,7 @@
 #pragma once
 
 #include "logging.hpp"
+#include "mutual_tls_meta.hpp"
 #include "persistent_data.hpp"
 
 #include <openssl/crypto.h>
@@ -87,7 +88,14 @@ inline std::shared_ptr<persistent_data::UserSession>
     }
     ASN1_BIT_STRING_free(usage);
 
-    if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
+    if (bmcwebMTLSEnforceKeyAgreementBit && !isKeyUsageKeyAgreement)
+    {
+        BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
+                         "not have KU_KEY_AGREEMENT set.");
+        return nullptr;
+    }
+
+    if (!isKeyUsageDigitalSignature)
     {
         BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
                          "not allow provided certificate to "
@@ -148,6 +156,18 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
     sslUser.resize(lastChar);
+
+    // Meta Inc. CommonName parsing
+    if (bmcwebMTLSCommonNameParsingMeta)
+    {
+        std::optional<std::string> sslUserMeta = mtlsMetaParseSslUser(sslUser);
+        if (!sslUserMeta)
+        {
+            return nullptr;
+        }
+        sslUser = *sslUserMeta;
+    }
+
     std::string unsupportedClientId;
     return persistent_data::SessionStore::getInstance().generateUserSession(
         sslUser, clientIp, unsupportedClientId,
