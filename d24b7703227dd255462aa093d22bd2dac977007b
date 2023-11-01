@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf698ba_b9e6c0cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-01T21:12:43Z",
+      "side": 1,
+      "message": "What commit Detemplateified this?",
+      "revId": "d24b7703227dd255462aa093d22bd2dac977007b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc785766_7d15b887",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-01T21:12:43Z",
+      "side": 1,
+      "message": "This is to make clang-tidy happy",
+      "revId": "d24b7703227dd255462aa093d22bd2dac977007b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
