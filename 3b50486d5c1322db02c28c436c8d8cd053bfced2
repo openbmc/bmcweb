@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d750a1_4f16dc8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 63
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T18:49:06Z",
+      "side": 1,
+      "message": "No, it hasn\u0027t in this commit.....  This commit is just a rename.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "3b50486d5c1322db02c28c436c8d8cd053bfced2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4268faf_78ae9558",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 63
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T18:49:06Z",
+      "side": 1,
+      "message": "As currently written, this patch does not break systems.",
+      "range": {
+        "startLine": 13,
+        "startChar": 38,
+        "endLine": 14,
+        "endChar": 29
+      },
+      "revId": "3b50486d5c1322db02c28c436c8d8cd053bfced2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
