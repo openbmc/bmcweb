@@ -49,6 +49,12 @@ namespace redfish
 
 namespace json_util
 {
+template <typename Type>
+struct NullOr{
+    using value_type = Type;
+    // optional is filled if type is present, empty if null
+    std::optional<Type> value;
+};
 
 /**
  * @brief Processes request to extract JSON from its body. If it fails, adds
@@ -88,6 +94,14 @@ struct IsStdArray : std::false_type
 
 template <typename Type, std::size_t size>
 struct IsStdArray<std::array<Type, size>> : std::true_type
+{};
+
+template <typename Type>
+struct IsNullOr : std::false_type
+{};
+
+template <typename Type>
+struct IsNullOr<NullOr<Type>> : std::true_type
 {};
 
 enum class UnpackErrorCode
@@ -252,6 +266,16 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
                   ret;
         }
     }
+    else if constexpr (IsNullOr<Type>::value)
+    {
+        if (jsonValue.is_null()){
+            // Null is valid, no change to value type as optional defaults to empty
+        } else {
+            auto& containedValue = value.value.emplace();
+            ret = unpackValue<typename Type::value_type>(jsonValue, key, res,
+                                                         containedValue) && ret;
+        }
+    }
     else
     {
         UnpackErrorCode ec = unpackValueWithErrorCode(jsonValue, key, value);
@@ -341,6 +365,13 @@ using UnpackVariant = std::variant<
     double*,
     std::string*,
     nlohmann::json*,
+    NullOr<std::string>*,
+    NullOr<uint8_t>*,
+    NullOr<int32_t>*,
+    NullOr<uint32_t>*,
+    NullOr<int64_t>*,
+    NullOr<uint64_t>*,
+    NullOr<bool>*,
     std::vector<uint8_t>*,
     std::vector<uint16_t>*,
     std::vector<int16_t>*,
@@ -373,7 +404,14 @@ using UnpackVariant = std::variant<
     //std::optional<std::vector<bool>>*,
     std::optional<std::vector<double>>*,
     std::optional<std::vector<std::string>>*,
-    std::optional<std::vector<nlohmann::json>>*
+    std::optional<std::vector<nlohmann::json>>*,
+    std::optional<NullOr<std::string>>*,
+    std::optional<NullOr<uint8_t>>*,
+    std::optional<NullOr<int32_t>>*,
+    std::optional<NullOr<uint32_t>>*,
+    std::optional<NullOr<int64_t>>*,
+    std::optional<NullOr<uint64_t>>*,
+    std::optional<NullOr<bool>>*
 >;
 // clang-format on
 
