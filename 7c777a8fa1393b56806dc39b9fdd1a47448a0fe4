@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8708ef_11e34499",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-01T20:56:37Z",
+      "side": 1,
+      "message": "Gets rid of \n/var/jenkins-openbmc/workspace/ci-repository/openbmc/bmcweb/http/app.hpp:27:9: error: macro is not used [clang-diagnostic-unused-macros]\n   27 | #define BMCWEB_ROUTE(app, url)    \n?",
+      "revId": "7c777a8fa1393b56806dc39b9fdd1a47448a0fe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
