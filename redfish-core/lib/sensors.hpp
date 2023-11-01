@@ -2742,9 +2742,10 @@ inline void setSensorsOverride(
  * @param node  Node (group) of sensors. See sensors::node for supported values
  * @param mapComplete   Callback to be called with retrieval result
  */
+template <typename Callback>
 inline void retrieveUriToDbusMap(const std::string& chassis,
                                  const std::string& node,
-                                 SensorsAsyncResp::DataCompleteCb&& mapComplete)
+                                 Callback&& mapComplete)
 {
     decltype(sensors::paths)::const_iterator pathIt =
         std::find_if(sensors::paths.cbegin(), sensors::paths.cend(),
@@ -2758,7 +2759,8 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     }
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    auto callback = [asyncResp, mapCompleteCb{std::move(mapComplete)}](
+    auto callback = [asyncResp,
+                     mapCompleteCb{std::forward<Callback>(mapComplete)}](
                         const boost::beast::http::status status,
                         const std::map<std::string, std::string>& uriToDbus) {
         mapCompleteCb(status, uriToDbus);
