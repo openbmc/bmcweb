@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0ca02e_f32c66ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T18:44:23Z",
+      "side": 1,
+      "message": "Abhilash, you\u0027ve overridden my patch again with new content.  Please make an effort to understand how git+gerrit works so that you\u0027re pushing to your own reviews, and not overriding others.",
+      "revId": "3846b45e603f4f0ae97181a67b3399dad39c4f53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
