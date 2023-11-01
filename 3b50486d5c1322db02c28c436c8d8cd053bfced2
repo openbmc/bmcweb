@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "927460eb_648c81ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 63
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-11-01T18:52:34Z",
+      "side": 1,
+      "message": "Looks like my commit message is confusing. Let me remove the details.\n\n\u0027\u0027\u0027\nTo maintain compatibility and prevent disruption, keep the existing\ncode with the LED group path and service hard-coded for\nSystem/Chassis.\nRename getLocationIndicatorActive/setLocationIndicatorActive\nand use the generic names for Powersupplies, fans etc.\n\nImplement the dynamic retrieval of this information in the new\ncommit[2].\n\u0027\u0027\u0027",
+      "parentUuid": "25d750a1_4f16dc8d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "3b50486d5c1322db02c28c436c8d8cd053bfced2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4268faf_78ae9558",
         "filename": "/COMMIT_MSG",
         "patchSetId": 63
