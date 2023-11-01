@@ -16,6 +16,24 @@
       "message": "To fix a clang-tidy error?",
       "revId": "fee74091208594bdad465d9ef5861913a0e85159",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc5da7c4_0590cb87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T21:11:26Z",
+      "side": 1,
+      "message": "This was what I thought the memory problem was, but turns out it wasn\u0027t what tidy was complaining about, but is still wrong (pointing to an rvalue reference).",
+      "parentUuid": "0fd9c232_5950c8be",
+      "revId": "fee74091208594bdad465d9ef5861913a0e85159",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
