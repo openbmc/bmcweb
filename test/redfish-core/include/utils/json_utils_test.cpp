@@ -70,6 +70,33 @@ TEST(ReadJson, ValidObjectElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     EXPECT_THAT(vec, ElementsAre(1, 2, 3));
 }
 
+TEST(ReadJson, VariantValueUnpackedNull)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = {{"nullval", nullptr}};
+
+    std::variant<std::string, std::nullptr_t> str;
+
+    ASSERT_TRUE(readJson(jsonRequest, res, "nullval", str));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+
+    EXPECT_TRUE(std::holds_alternative<std::nullptr_t>(str));
+}
+
+TEST(ReadJson, VariantValueUnpackedValue)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = {{"stringval", "mystring"}};
+
+    std::variant<std::string, std::nullptr_t> str;
+
+    ASSERT_TRUE(readJson(jsonRequest, res, "stringval", str));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+
+    ASSERT_TRUE(std::holds_alternative<std::string>(str));
+    EXPECT_EQ(std::get<std::string>(str), "mystring");
+}
+
 TEST(readJson, ExtraElementsReturnsFalseReponseIsBadRequest)
 {
     crow::Response res;
