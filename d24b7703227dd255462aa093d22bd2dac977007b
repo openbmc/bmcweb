@@ -68,6 +68,24 @@
       "message": "If you want to add a bit more to the commit messages, it might help someone some day, but these look good. Thanks for getting CI going again",
       "revId": "d24b7703227dd255462aa093d22bd2dac977007b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b173f1_9f929d70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T21:16:07Z",
+      "side": 1,
+      "message": "I just wanted to see CI pass.  It\u0027s been broken too long.  If i have spare effort, I\u0027ll go get the commit messages written more reasonably, but this was mostly just a lot of discovery peeling the onion.",
+      "parentUuid": "eae80e44_6114953f",
+      "revId": "d24b7703227dd255462aa093d22bd2dac977007b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
