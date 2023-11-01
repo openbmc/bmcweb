@@ -49,6 +49,13 @@ namespace redfish
 
 namespace json_util
 {
+template <typename Type>
+struct NullOrValue
+{
+    using value_type = Type;
+    // optional is filled if type is present, empty if null
+    std::optional<Type> value;
+};
 
 /**
  * @brief Processes request to extract JSON from its body. If it fails, adds
@@ -88,6 +95,14 @@ struct IsStdArray : std::false_type
 
 template <typename Type, std::size_t size>
 struct IsStdArray<std::array<Type, size>> : std::true_type
+{};
+
+template <typename Type>
+struct IsNullOrValue : std::false_type
+{};
+
+template <typename Type>
+struct IsNullOrValue<NullOrValue<Type>> : std::true_type
 {};
 
 enum class UnpackErrorCode
@@ -252,6 +267,21 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
                   ret;
         }
     }
+    else if constexpr (IsNullOrValue<Type>::value)
+    {
+        if (jsonValue.is_null())
+        {
+            // Null is valid, no change to value type as optional defaults to
+            // empty
+        }
+        else
+        {
+            auto& containedValue = value.value.emplace();
+            ret = unpackValue<typename Type::value_type>(jsonValue, key, res,
+                                                         containedValue) &&
+                  ret;
+        }
+    }
     else
     {
         UnpackErrorCode ec = unpackValueWithErrorCode(jsonValue, key, value);
@@ -342,6 +372,16 @@ using UnpackVariant = std::variant<
     std::string*,
     nlohmann::json*,
     nlohmann::json::object_t*,
+    NullOrValue<std::string>*,
+    NullOrValue<uint8_t>*,
+    NullOrValue<int16_t>*,
+    NullOrValue<uint16_t>*,
+    NullOrValue<int32_t>*,
+    NullOrValue<uint32_t>*,
+    NullOrValue<int64_t>*,
+    NullOrValue<uint64_t>*,
+    NullOrValue<double>*,
+    NullOrValue<bool>*,
     std::vector<uint8_t>*,
     std::vector<uint16_t>*,
     std::vector<int16_t>*,
@@ -377,7 +417,19 @@ using UnpackVariant = std::variant<
     std::optional<std::vector<double>>*,
     std::optional<std::vector<std::string>>*,
     std::optional<std::vector<nlohmann::json>>*,
-    std::optional<std::vector<nlohmann::json::object_t>>*
+    std::optional<std::vector<nlohmann::json::object_t>>*,
+    std::optional<NullOrValue<std::string>>*,
+    std::optional<NullOrValue<uint8_t>>*,
+    std::optional<NullOrValue<int16_t>>*,
+    std::optional<NullOrValue<uint16_t>>*,
+    std::optional<NullOrValue<int32_t>>*,
+    std::optional<NullOrValue<uint32_t>>*,
+    std::optional<NullOrValue<int64_t>>*,
+    std::optional<NullOrValue<uint64_t>>*,
+    std::optional<NullOrValue<double>>*,
+    std::optional<NullOrValue<bool>>*,
+    std::optional<std::vector<NullOrValue<nlohmann::json::object_t>>>*,
+    std::optional<NullOrValue<nlohmann::json::object_t>>*
 >;
 // clang-format on
 
