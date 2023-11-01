@@ -90,6 +90,14 @@ template <typename Type, std::size_t size>
 struct IsStdArray<std::array<Type, size>> : std::true_type
 {};
 
+template <typename Type>
+struct IsVariant : std::false_type
+{};
+
+template <typename... Types>
+struct IsVariant<std::variant<Types...>> : std::true_type
+{};
+
 enum class UnpackErrorCode
 {
     success,
@@ -122,6 +130,29 @@ bool checkRange(const FromType& from, std::string_view key)
     }
 
     return true;
+}
+
+template <typename Type>
+UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
+                                         std::string_view key, Type& value);
+
+template <std::size_t Index = 0, typename... Args>
+UnpackErrorCode unpackValueVariant(nlohmann::json& j, std::string_view key,
+                                   std::variant<Args...>& v)
+{
+    if constexpr (Index < std::variant_size_v<std::variant<Args...>>)
+    {
+        std::variant_alternative_t<Index, std::variant<Args...>> type;
+        UnpackErrorCode unpack = unpackValueWithErrorCode(j, key, type);
+        if (unpack == UnpackErrorCode::success)
+        {
+            v = std::move(type);
+            return unpack;
+        }
+
+        return unpackValueVariant<Index + 1, Args...>(j, key, v);
+    }
+    return UnpackErrorCode::invalidType;
 }
 
 template <typename Type>
@@ -188,6 +219,13 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     {
         value = std::move(jsonValue);
     }
+    else if constexpr (std::is_same_v<std::nullptr_t, Type>)
+    {
+        if (!jsonValue.is_null())
+        {
+            return UnpackErrorCode::invalidType;
+        }
+    }
     else
     {
         using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
@@ -250,6 +288,22 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             ret = unpackValue<typename Type::value_type>(val.value(), key, res,
                                                          value.back()) &&
                   ret;
+        }
+    }
+    else if constexpr (IsVariant<Type>::value)
+    {
+        UnpackErrorCode ec = unpackValueVariant(jsonValue, key, value);
+        if (ec != UnpackErrorCode::success)
+        {
+            if (ec == UnpackErrorCode::invalidType)
+            {
+                messages::propertyValueTypeError(res, jsonValue, key);
+            }
+            else if (ec == UnpackErrorCode::outOfRange)
+            {
+                messages::propertyValueNotInList(res, jsonValue, key);
+            }
+            return false;
         }
     }
     else
@@ -342,6 +396,16 @@ using UnpackVariant = std::variant<
     std::string*,
     nlohmann::json*,
     nlohmann::json::object_t*,
+    std::variant<std::string, std::nullptr_t>*,
+    std::variant<uint8_t, std::nullptr_t>*,
+    std::variant<int16_t, std::nullptr_t>*,
+    std::variant<uint16_t, std::nullptr_t>*,
+    std::variant<int32_t, std::nullptr_t>*,
+    std::variant<uint32_t, std::nullptr_t>*,
+    std::variant<int64_t, std::nullptr_t>*,
+    std::variant<uint64_t, std::nullptr_t>*,
+    std::variant<double, std::nullptr_t>*,
+    std::variant<bool, std::nullptr_t>*,
     std::vector<uint8_t>*,
     std::vector<uint16_t>*,
     std::vector<int16_t>*,
@@ -377,7 +441,19 @@ using UnpackVariant = std::variant<
     std::optional<std::vector<double>>*,
     std::optional<std::vector<std::string>>*,
     std::optional<std::vector<nlohmann::json>>*,
-    std::optional<std::vector<nlohmann::json::object_t>>*
+    std::optional<std::vector<nlohmann::json::object_t>>*,
+    std::optional<std::variant<std::string, std::nullptr_t>>*,
+    std::optional<std::variant<uint8_t, std::nullptr_t>>*,
+    std::optional<std::variant<int16_t, std::nullptr_t>>*,
+    std::optional<std::variant<uint16_t, std::nullptr_t>>*,
+    std::optional<std::variant<int32_t, std::nullptr_t>>*,
+    std::optional<std::variant<uint32_t, std::nullptr_t>>*,
+    std::optional<std::variant<int64_t, std::nullptr_t>>*,
+    std::optional<std::variant<uint64_t, std::nullptr_t>>*,
+    std::optional<std::variant<double, std::nullptr_t>>*,
+    std::optional<std::variant<bool, std::nullptr_t>>*,
+    std::optional<std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>*,
+    std::optional<std::variant<nlohmann::json::object_t, std::nullptr_t>>*
 >;
 // clang-format on
 
